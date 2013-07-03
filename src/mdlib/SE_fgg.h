@@ -1,5 +1,6 @@
-/* SE is written by Dag Lindbo, dag@kth.se
- * General functions are links between SE and GROMACS
+/* SE core is written by Dag Lindbo, dag@kth.se
+ * General functions are links between SE and GROMACS.
+ * Computation of forces is added later to use in GROMACS
  * Davoud Saffar Shamshirgar davoudss@kth.se
  */
 
@@ -15,7 +16,6 @@
 #include <fftw3.h>
 #include "math.h"
 #include <sys/time.h>
-#include "emmintrin.h"
 #include "math.h"
 #include <sys/time.h>
 #include "emmintrin.h"
@@ -28,16 +28,16 @@
 #endif
 
 
-// Consttants and indexing 
+// Constants and indexing 
 #define PI 3.141592653589793
 #define FGG_INF 1.79769e+308
 
-#define __IDX3_CMAJ(II,IJ,IK,N1,N2) ( (II)+(IJ)*(N1)+(IK)*(N1)*(N2) )
+//#define __IDX3_CMAJ(II,IJ,IK,N1,N2) ( (II)+(IJ)*(N1)+(IK)*(N1)*(N2) )
 #define __IDX3_RMAJ(II,IJ,IK,N2,N3) ( (II)*(N2)*(N3)+(IJ)*(N3)+(IK) )
 
 // Select periodicty: must give -D<...> to compiler
 #define __FGG_EXPA fgg_expansion_3p
-#define PER_STR "3P"
+#define __FGG_EXPA_FORCE fgg_expansion_3p_force
 
 // Maximal amount of Gaussian support (defined to help the compiler)
 #define P_MAX 32
@@ -149,7 +149,8 @@ void SE_fg_grid(real*, real*, int, SE_opt, real*);
 
 // integration and interpolation
 void SE_fgg_int(real*, real*, int, SE_opt, real*);
-
+// integration and interpolation and calculate forces
+void SE_fgg_int_force(real*, real *, real*, int, SE_opt, real*);
 // 3d fft using fftw3 real to complex
 void do_fft_r2c_3d(real*, fft_complex*, int, int, int);
 // 3d fft using fftw3 complex to real
@@ -214,6 +215,7 @@ void SE_FGG_expand_all(SE_FGG_work*, const SE_state*, const SE_FGG_params*);
 
 // Grid to particles
 void SE_FGG_int(real*, const SE_FGG_work*, const SE_state*, const SE_FGG_params*);
+void SE_FGG_int_force(real*,const SE_FGG_work*, const SE_state*, const SE_FGG_params*);
 void SE_FGG_int_split_SSE_dispatch(real*, const SE_FGG_work*, const SE_FGG_params*);
 void SE_FGG_int_split(real*, const SE_FGG_work*, const SE_FGG_params*);
 void SE_FGG_int_split_SSE(real*, const SE_FGG_work*, const SE_FGG_params*);

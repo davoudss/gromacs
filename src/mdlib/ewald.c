@@ -22,7 +22,10 @@
 #include "coulomb.h"
 #include <fftw3.h>
 
-#define TOL 2e-5
+//#define __POTENTIAL__
+#define __FORCE__
+
+#define TOL 2e-4
 
 // =====================================================================
 // SE headers
@@ -44,7 +47,7 @@
 inline int is_odd(int p)
 // test if interger is odd or even
 {
-    return p&1;
+  return p&1;
 }
 
 // Return half of gaussian width:
@@ -52,7 +55,7 @@ inline int is_odd(int p)
 //    q =  p/2    if p is even
 inline int half(int p)
 {
-    return (is_odd(p) ? (p-1)/2 : p/2);
+  return (is_odd(p) ? (p-1)/2 : p/2);
 }
 
 
@@ -60,19 +63,19 @@ inline int half(int p)
 // vector index mod, e.g. for real x[6], x[7] --(vmod(7,6))--> x[1] 
 static inline int vmod(int i, int N)
 {
-    if(i>=0)
-	return i%N;
+  if(i>=0)
+    return i%N;
 
-    int k = -i/N;
-    i = i + (k+1)*N;
-    return i % N;
+  int k = -i/N;
+  i = i + (k+1)*N;
+  return i % N;
 }
 
 // -----------------------------------------------------------------------------
 static real randnum(real min, real L)
 {
-    real q = ( (real) rand() )/RAND_MAX;
-    return L*q+min;
+  real q = ( (real) rand() )/RAND_MAX;
+  return L*q+min;
 }
 
 // =============================================================================
@@ -82,171 +85,133 @@ static real randnum(real min, real L)
 // Set array elements to real-precision zero
 void SE_fp_set_zero(real* x, const int N)
 {
-    int i;
-    for(i=0; i<N; i++)
-	x[i] = 0.0;
+  int i;
+  for(i=0; i<N; i++)
+    x[i] = 0.0;
 }
 
 // -----------------------------------------------------------------------------
-int SE_prod3(const int v[3])
+inline int SE_prod3(const int v[3])
 {
-    return v[0]*v[1]*v[2];
+  return v[0]*v[1]*v[2];
 }
 
 // -----------------------------------------------------------------------------
-real SE_gettime(void) 
+inline real SE_gettime(void) 
 {
-    struct timeval tv;
-    gettimeofday(&tv,NULL);
-    return tv.tv_sec + 1e-6*tv.tv_usec;
+  struct timeval tv;
+  gettimeofday(&tv,NULL);
+  return tv.tv_sec + 1e-6*tv.tv_usec;
 }
 
 // -----------------------------------------------------------------------------
-void SE_FGG_pack_params(SE_FGG_params* params, int N, int M0, int M1, int M2, 
-			int P, real c, real h)
+void 
+SE_FGG_pack_params(SE_FGG_params* params, int N, int M0, int M1, int M2, 
+		   int P, real c, real h)
 {
-    params->N = N;
-    params->P = P;
-    params->P_half=half(P);
-    params->c = c;
-    params->d = pow(c/PI,1.5);
-    params->h = h;
-    params->a = -1;
+  params->N = N;
+  params->P = P;
+  params->P_half=half(P);
+  params->c = c;
+  params->d = pow(c/PI,1.5);
+  params->h = h;
+  params->a = -1;
 
-    params->dims[0] = M0;
-    params->dims[1] = M1;
-    params->dims[2] = M2;
+  params->dims[0] = M0;
+  params->dims[1] = M1;
+  params->dims[2] = M2;
 
-    params->npdims[0] = M0+P;
-    params->npdims[1] = M1+P;
-    params->npdims[2] = M2+P;
+  params->npdims[0] = M0+P;
+  params->npdims[1] = M1+P;
+  params->npdims[2] = M2+P;
 }
 
 // -----------------------------------------------------------------------------
 void SE_FGG_allocate_workspace(SE_FGG_work* work, const SE_FGG_params* params, 
 			       int allocate_zs, int allocate_fgg_expa)
 {
-    const int P=params->P;
-    int numel = SE_prod3(params->npdims);
-    work->H = SE_FGG_MALLOC(numel*sizeof(real));
-    SE_fp_set_zero(work->H, numel);
+  const int P=params->P;
+  int numel = SE_prod3(params->npdims);
+  work->H = SE_FGG_MALLOC(numel*sizeof(real));
+  SE_fp_set_zero(work->H, numel);
 
-    if(allocate_zs)
-	work->zs = SE_FGG_MALLOC(P*P*P*sizeof(real));
-    else
-	work->zs = NULL;
+  if(allocate_zs)
+    work->zs = SE_FGG_MALLOC(P*P*P*sizeof(real));
+  else
+    work->zs = NULL;
 
-    work->free_zs=allocate_zs;
+  work->free_zs=allocate_zs;
     
-    if(allocate_fgg_expa)
+  if(allocate_fgg_expa)
     {
-	numel = (params->N)*(params->P);
-	work->zx = (real*) SE_FGG_MALLOC(numel*sizeof(real));
-	work->zy = (real*) SE_FGG_MALLOC(numel*sizeof(real));;
-	work->zz = (real*) SE_FGG_MALLOC(numel*sizeof(real));;
-	work->idx= (int*) SE_FGG_MALLOC(params->N*sizeof(int));
+      numel = (params->N)*(params->P);
+      work->zx = (real*) SE_FGG_MALLOC(numel*sizeof(real));
+      work->zy = (real*) SE_FGG_MALLOC(numel*sizeof(real));;
+      work->zz = (real*) SE_FGG_MALLOC(numel*sizeof(real));;
+      work->idx= (int*) SE_FGG_MALLOC(params->N*sizeof(int));
     }
-    else
+  else
     {
-	work->zx=NULL;
-	work->zy=NULL;
-	work->zz=NULL;
-	work->idx=NULL;
+      work->zx=NULL;
+      work->zy=NULL;
+      work->zz=NULL;
+      work->idx=NULL;
     }
-    work->free_fgg_expa=allocate_fgg_expa;
+  work->free_fgg_expa=allocate_fgg_expa;
 }
 
 // -----------------------------------------------------------------------------
 real* SE_FGG_allocate_grid(const SE_FGG_params* params)
 {
-    int numel = SE_prod3(params->dims);
-    real* H_per = SE_FGG_MALLOC(numel*sizeof(real));
-    SE_fp_set_zero(H_per, numel);
-    return H_per;
+  int numel = SE_prod3(params->dims);
+  real* H_per = SE_FGG_MALLOC(numel*sizeof(real));
+  SE_fp_set_zero(H_per, numel);
+  return H_per;
 }
 
 // -----------------------------------------------------------------------------
 real* SE_FGG_allocate_vec(const int Nm)
 {
-    real* phi = SE_FGG_MALLOC(Nm*sizeof(real));
-    SE_fp_set_zero(phi, Nm);
-    return phi;
+  real* phi = SE_FGG_MALLOC(Nm*sizeof(real));
+  SE_fp_set_zero(phi, Nm);
+  return phi;
 }
 
 
 // -----------------------------------------------------------------------------
 void SE_FGG_free_workspace(SE_FGG_work* work)
 {
-    SE_FGG_FREE(work->H);
+  SE_FGG_FREE(work->H);
 
-    if(work->free_zs)
-	SE_FGG_FREE(work->zs);
+  if(work->free_zs)
+    SE_FGG_FREE(work->zs);
 
-    if(work->free_fgg_expa)
+  if(work->free_fgg_expa)
     {
-	SE_FGG_FREE(work->zx);
-	SE_FGG_FREE(work->zy);
-	SE_FGG_FREE(work->zz);
-	SE_FGG_FREE(work->idx);
+      SE_FGG_FREE(work->zx);
+      SE_FGG_FREE(work->zy);
+      SE_FGG_FREE(work->zz);
+      SE_FGG_FREE(work->idx);
     }
 }
 
-// -----------------------------------------------------------------------------
-void SE_init_unit_system(SE_state* s, const SE_FGG_params* params)
-{
-    const int N=params->N;
-
-    if(N%2!=0)
-	return;
-
-    s->x = SE_FGG_MALLOC(3*N*sizeof(real));
-    s->q = SE_FGG_MALLOC(  N*sizeof(real));
-    
-    FILE *fp;
-    fp = fopen("xf.txt","r");
-    int err=0,i;
-
-    for(i=0; i<N; i++)
-    {
-	if(i<N/2)
-  	   s->q[i] = 1.;
- 	else
-  	   s->q[i] = -1.;
-
-        err = fscanf(fp,"%lf",&(s->x[i    ]));
-        err|= fscanf(fp,"%lf",&(s->x[i+  N]));
-        err|= fscanf(fp,"%lf",&(s->x[i+2*N]));
-    }
-
-    fclose(fp);
-    if(err==EOF)
-	printf("Not successful!!!\n");
-}
 
 // -----------------------------------------------------------------------------
 void SE_init_system(SE_state* s, const SE_FGG_params* params)
 {
-    int i;
-    const int N=params->N;
+  int i;
+  const int N=params->N;
 
-    s->x = SE_FGG_MALLOC(3*N*sizeof(real));
-    s->q = SE_FGG_MALLOC(  N*sizeof(real));
+  s->x = SE_FGG_MALLOC(3*N*sizeof(real));
+  s->q = SE_FGG_MALLOC(  N*sizeof(real));
 
-    for(i=0; i<N; i++)
-    {
-	s->q[i] = randnum(-1,2);
-
-	s->x[i    ] = randnum(0,1);
-	s->x[i+N  ] = randnum(0,1);
-	s->x[i+2*N] = randnum(0,1);
-    }
 }
 
 // -----------------------------------------------------------------------------
 void SE_free_system(SE_state* s)
 {
-    SE_FGG_FREE(s->x);
-    SE_FGG_FREE(s->q);
+  SE_FGG_FREE(s->x);
+  SE_FGG_FREE(s->q);
 }
 
 // -----------------------------------------------------------------------------
@@ -254,27 +219,26 @@ void SE_free_system(SE_state* s)
 void SE_FGG_wrap_fcn(real* H_per, 
 		     const SE_FGG_work* work, const SE_FGG_params* params)
 {
-    int idx ,i,j,k;
-    int widx[3];
-    const int p_half = half(params->P);
+  int idx ,i,j,k;
+  int widx[3];
+  const int p_half = half(params->P);
 
-    // can not openMP here, race to += on H_per beacuse indices wrap around
-    for(i=0; i<params->npdims[0]; i++)
+  // can not openMP here, race to += on H_per beacuse indices wrap around
+  for(i=0; i<params->npdims[0]; i++)
     {
-	for(j=0; j<params->npdims[1]; j++)
+      for(j=0; j<params->npdims[1]; j++)
 	{
-	    for(k=0; k<params->npdims[2]; k++)
+	  for(k=0; k<params->npdims[2]; k++)
 	    {
-		widx[0] = vmod(i-p_half,params->dims[0]);
-		widx[1] = vmod(j-p_half,params->dims[1]);
-		widx[2] = vmod(k-p_half,params->dims[2]);
-//		idx = __IDX3_CMAJ(widx[0], widx[1], widx[2], 
-//				  params->dims[0], params->dims[1]);
-		idx = __IDX3_RMAJ(widx[2], widx[0], widx[1], 
-				  params->dims[1], params->dims[2]);
-		H_per[idx] += work->H[ __IDX3_RMAJ(i,j,k,
-						   params->npdims[1],
-						   params->npdims[2])];
+	      widx[0] = vmod(i-p_half,params->dims[0]);
+	      widx[1] = vmod(j-p_half,params->dims[1]);
+	      widx[2] = vmod(k-p_half,params->dims[2]);
+
+	      idx = __IDX3_RMAJ(widx[2], widx[0], widx[1], 
+				params->dims[1], params->dims[2]);
+	      H_per[idx] += work->H[ __IDX3_RMAJ(i,j,k,
+						 params->npdims[1],
+						 params->npdims[2])];
 
 	    }
 	}
@@ -287,28 +251,27 @@ void SE_FGG_wrap_fcn(real* H_per,
 void SE_FGG_extend_fcn(SE_FGG_work* work, const real* H_per, 
 		       const SE_FGG_params* params)
 {
-    int idx ,i,j,k;
-    int widx[3];
-    const int p_half = params->P_half;
+  int idx ,i,j,k;
+  int widx[3];
+  const int p_half = params->P_half;
 
 #ifdef _OPENMP
 #pragma omp for private(i,j,k)// work-share over OpenMP threads here
 #endif
-    for(i=0; i<params->npdims[0]; i++)
+  for(i=0; i<params->npdims[0]; i++)
     {
-	for(j=0; j<params->npdims[1]; j++)
+      for(j=0; j<params->npdims[1]; j++)
 	{
-	    for(k=0; k<params->npdims[2]; k++)
+	  for(k=0; k<params->npdims[2]; k++)
 	    {
-		widx[0] = vmod(i-p_half,params->dims[0]);
-		widx[1] = vmod(j-p_half,params->dims[1]);
-		widx[2] = vmod(k-p_half,params->dims[2]);
-//		idx = __IDX3_CMAJ(widx[0], widx[1], widx[2], 
-//				  params->dims[0], params->dims[1]);
-		idx = __IDX3_RMAJ(widx[2], widx[0], widx[1], 
-				  params->dims[1], params->dims[2]);
-		work->H[__IDX3_RMAJ(i,j,k,params->npdims[1],params->npdims[2])]
-		    = H_per[idx];
+	      widx[0] = vmod(i-p_half,params->dims[0]);
+	      widx[1] = vmod(j-p_half,params->dims[1]);
+	      widx[2] = vmod(k-p_half,params->dims[2]);
+
+	      idx = __IDX3_RMAJ(widx[2], widx[0], widx[1], 
+				params->dims[1], params->dims[2]);
+	      work->H[__IDX3_RMAJ(i,j,k,params->npdims[1],params->npdims[2])]
+		= H_per[idx];
 	    }
 	}
     }
@@ -322,30 +285,30 @@ void SE_FGG_extend_fcn(SE_FGG_work* work, const real* H_per,
 // -----------------------------------------------------------------------------
 void SE_FGG_base_gaussian(SE_FGG_work* work, const SE_FGG_params* params)
 {
-    int idx ,i,j,k;
+  int idx ,i,j,k;
     
-    // unpack parameters
-    const int p=params->P;
-    const int p_half = half(p);
-    const int p_from = (is_odd(p) ? p_half:p_half-1);
-    const real h=params->h;
-    const real c=params->c;
-    const real d=params->d;
+  // unpack parameters
+  const int p=params->P;
+  const int p_half = half(p);
+  const int p_from = (is_odd(p) ? p_half:p_half-1);
+  const real h=params->h;
+  const real c=params->c;
+  const real d=params->d;
 
 #ifdef _OPENMP
 #pragma omp for private(i,j,k)// work-share over OpenMP threads here
 #endif
-    for(i = -p_from; i<=p_half; i++)
+  for(i = -p_from; i<=p_half; i++)
     {
-	// hoisting this index calculation (more) breaks omp-parallel code
-	idx = __IDX3_RMAJ(i+p_from, 0, 0, p, p);
-	for(j = -p_from; j<=p_half; j++)
-	    for(k = -p_from; k<=p_half; k++)
-	    {
-		work->zs[idx++] = d*exp(-c*((i*h)*(i*h) + 
-					    (j*h)*(j*h) + 
-					    (k*h)*(k*h)));
-	    }
+      // hoisting this index calculation (more) breaks omp-parallel code
+      idx = __IDX3_RMAJ(i+p_from, 0, 0, p, p);
+      for(j = -p_from; j<=p_half; j++)
+	for(k = -p_from; k<=p_half; k++)
+	  {
+	    work->zs[idx++] = d*exp(-c*((i*h)*(i*h) + 
+					(j*h)*(j*h) + 
+					(k*h)*(k*h)));
+	  }
     }
 }
 
@@ -357,15 +320,105 @@ int fgg_expansion_3p(const real x[3], const real q,
 		     real z2_1[P_MAX], 
 		     real z2_2[P_MAX])
 {
+  // unpack params
+  const int p = params->P;
+  const int p_half = params->P_half;
+  const real h = params->h;
+  const real c=params->c;
+    
+  real t0[3];
+  int idx ,i,j;
+  int idx_from[3];
+
+  // compute index range and centering
+  if(is_odd(p))
+    {
+      for(j=0; j<3; j++)
+	{
+	  idx = (int) round(x[j]/h);
+	  idx_from[j] = idx - p_half;
+	  t0[j] = x[j]-h*idx;
+	}
+    }
+  else
+    {
+      for(j=0; j<3; j++)
+	{
+	  idx = (int) floor(x[j]/h);
+	  idx_from[j] = idx - (p_half-1);
+	  t0[j] = x[j]-h*idx;
+	}
+    }
+
+  // compute third factor 
+  real z3 = exp(-c*(t0[0]*t0[0] + t0[1]*t0[1] + t0[2]*t0[2]) )*q;
+
+  // compute second factor by induction
+  real z_base0 = exp(2*c*h*t0[0]);
+  real z_base1 = exp(2*c*h*t0[1]);
+  real z_base2 = exp(2*c*h*t0[2]);
+
+  real z0, z1, z2;
+  if(is_odd(p))
+    {
+      z0 = pow(z_base0,-p_half);
+      z1 = pow(z_base1,-p_half);
+      z2 = pow(z_base2,-p_half);
+    }	
+  else
+    {
+      z0 = pow(z_base0,-p_half+1);
+      z1 = pow(z_base1,-p_half+1);
+      z2 = pow(z_base2,-p_half+1);
+    }
+
+  z2_0[0] = z0;
+  z2_1[0] = z1;
+  z2_2[0] = z2;
+  for(i=1; i<p; i++)
+    {
+      z0 *=z_base0;
+      z1 *=z_base1;
+      z2 *=z_base2;
+
+      z2_0[i] = z0;
+      z2_1[i] = z1;
+      z2_2[i] = z2;
+    }
+
+  // save some flops by multiplying one vector with z3 factor
+  for(i=0; i<p; i++)
+    {
+      z2_0[i] *= z3;
+    }
+
+  return __IDX3_RMAJ(idx_from[0]+p_half, 
+		     idx_from[1]+p_half, 
+		     idx_from[2]+p_half, 
+		     params->npdims[1], params->npdims[2]);
+}
+
+
+// -----------------------------------------------------------------------------
+static 
+int fgg_expansion_3p_force(const real x[3], const real q,
+			   const SE_FGG_params* params,
+			   real z2_0[P_MAX], 
+			   real z2_1[P_MAX], 
+			   real z2_2[P_MAX],
+			   real zf_0[P_MAX],
+			   real zf_1[P_MAX],
+			   real zf_2[P_MAX])
+{
     // unpack params
-    const int p = params->P;
-    const int p_half = params->P_half;
-    const real h = params->h;
-    const real c=params->c;
+    const int  p      = params->P;
+    const int  p_half = params->P_half;
+    const real h      = params->h;
+    const real c      = params->c;
     
     real t0[3];
-    int idx ,i,j;
-    int idx_from[3];
+    int i,j,idx;
+    int idx_from[3], p_from;
 
     // compute index range and centering
     if(is_odd(p))
@@ -396,22 +449,30 @@ int fgg_expansion_3p(const real x[3], const real q,
     real z_base2 = exp(2*c*h*t0[2]);
 
     real z0, z1, z2;
-    if(is_odd(p))
+    if(is_odd(p)) 
     {
 	z0 = pow(z_base0,-p_half);
 	z1 = pow(z_base1,-p_half);
 	z2 = pow(z_base2,-p_half);
+	p_from = -p_half;
     }	
     else
     {
     	z0 = pow(z_base0,-p_half+1);
     	z1 = pow(z_base1,-p_half+1);
     	z2 = pow(z_base2,-p_half+1);
+	p_from = -p_half+1;
     }
 
     z2_0[0] = z0;
     z2_1[0] = z1;
     z2_2[0] = z2;
+    
+    // extra terms multiplied to calculate forces
+    zf_0[0] = -c*(t0[0]-p_from*h);
+    zf_1[0] = -c*(t0[1]-p_from*h);
+    zf_2[0] = -c*(t0[2]-p_from*h);
+
     for(i=1; i<p; i++)
     {
 	z0 *=z_base0;
@@ -421,8 +482,12 @@ int fgg_expansion_3p(const real x[3], const real q,
 	z2_0[i] = z0;
 	z2_1[i] = z1;
 	z2_2[i] = z2;
-    }
 
+	zf_0[i] = -c*(t0[0]-(p_from+i)*h);
+	zf_1[i] = -c*(t0[1]-(p_from+i)*h);
+	zf_2[i] = -c*(t0[2]-(p_from+i)*h);
+    }
+ 
     // save some flops by multiplying one vector with z3 factor
     for(i=0; i<p; i++)
     {
@@ -442,20 +507,20 @@ void SE_FGG_expand_all(SE_FGG_work* work,
 		       const SE_state* st, 
 		       const SE_FGG_params* params)
 {
-    int n;
-    real xn[3] __attribute__((aligned(16)));
-    const int N = params->N;
-    const int P = params->P;
+  int n;
+  real xn[3] __attribute__((aligned(16)));
+  const int N = params->N;
+  const int P = params->P;
 
-    for(n=0; n<N; n++)
+  for(n=0; n<N; n++)
     {
-	// compute index and expansion vectors
-	xn[0] = st->x[n]; xn[1] = st->x[n+N]; xn[2] = st->x[n+2*N];
+      // compute index and expansion vectors
+      xn[0] = st->x[n]; xn[1] = st->x[n+N]; xn[2] = st->x[n+2*N];
 	
-	*(work->idx+n) = __FGG_EXPA(xn,1,params, 
-				    work->zx+n*P, 
-				    work->zy+n*P, 
-				    work->zz+n*P);
+      *(work->idx+n) = __FGG_EXPA(xn,1,params, 
+				  work->zx+n*P, 
+				  work->zy+n*P, 
+				  work->zz+n*P);
     }
 }
 
@@ -466,21 +531,81 @@ void SE_FGG_int(real* phi,
 		const SE_state* st, 
 		const SE_FGG_params* params)
 {
+  real z2_0[P_MAX] __attribute__((aligned(16)));
+  real z2_1[P_MAX] __attribute__((aligned(16)));
+  real z2_2[P_MAX] __attribute__((aligned(16)));
+
+  // unpack params
+  const real* H = work->H;
+  const real* zs = work->zs;
+  const int p = params->P;
+  const int N = params->N;
+  const real h=params->h;
+
+  real xm[3];
+  int i,j,k,m,idx, zidx;
+  real phi_m, cij;
+
+  const int incrj = params->npdims[2]-p;
+  const int incri = params->npdims[2]*(params->npdims[1]-p);
+
+#ifdef _OPENMP
+#pragma omp for private(m)// work-share over OpenMP threads here
+#endif
+  for(m=0; m<N; m++)
+    {
+      xm[0] = st->x[m]; xm[1] = st->x[m+N]; xm[2] = st->x[m+2*N];
+
+      idx = __FGG_EXPA(xm, 1, params, z2_0, z2_1, z2_2);
+	
+      phi_m = 0;
+      zidx = 0;
+
+      for(i = 0; i<p; i++)
+	{
+	  for(j = 0; j<p; j++)
+	    {
+	      cij = z2_0[i]*z2_1[j];
+	      for(k = 0; k<p; k++)
+		{
+		  phi_m += H[idx]*zs[zidx]*z2_2[k]*cij;
+		  idx++; zidx++;
+		}
+	      idx += incrj;
+	    }
+	  idx += incri;
+	}
+      phi[m] = (h*h*h)*phi_m;
+    }
+}
+
+// -----------------------------------------------------------------------------
+// vanilla grid gather to calculate forces
+void SE_FGG_int_force(real* force,  
+		      const SE_FGG_work* work, 
+		      const SE_state* st, 
+		      const SE_FGG_params* params)
+{
     real z2_0[P_MAX] __attribute__((aligned(16)));
     real z2_1[P_MAX] __attribute__((aligned(16)));
     real z2_2[P_MAX] __attribute__((aligned(16)));
 
+    // to alculate forces
+    real zf_0[P_MAX] __attribute__((aligned(16)));
+    real zf_1[P_MAX] __attribute__((aligned(16)));
+    real zf_2[P_MAX] __attribute__((aligned(16)));
+
     // unpack params
-    const real* H = work->H;
+    const real* H  = work->H;
     const real* zs = work->zs;
-    const int p = params->P;
-    const int N = params->N;
-    const real h=params->h;
+    const int   p  = params->P;
+    const int   N  = params->N;
+    const real  h  = params->h;
 
-    real xm[3];
-    int i,j,k,m,idx, zidx;
-    real phi_m, cij;
-
+    real xm[3], qm;
+    int i,j,k,idx, zidx,m;
+    real force_m[3], cij;
+    
     const int incrj = params->npdims[2]-p;
     const int incri = params->npdims[2]*(params->npdims[1]-p);
 
@@ -489,101 +614,108 @@ void SE_FGG_int(real* phi,
 #endif
     for(m=0; m<N; m++)
     {
-	xm[0] = st->x[m]; xm[1] = st->x[m+N]; xm[2] = st->x[m+2*N];
+      xm[0] = st->x[m]; xm[1] = st->x[m+N]; xm[2] = st->x[m+2*N]; 
+      qm = st->q[m];
 
-	idx = __FGG_EXPA(xm, 1, params, z2_0, z2_1, z2_2);
-	
-	phi_m = 0;
-	zidx = 0;
-
-	for(i = 0; i<p; i++)
+      idx = __FGG_EXPA_FORCE(xm, qm, params, z2_0, z2_1, z2_2,zf_0,zf_1,zf_2);
+      
+      force_m[0] = 0; force_m[1] = 0; force_m[2] = 0;
+      zidx = 0;
+      
+      for(i = 0; i<p; i++)
 	{
-	    for(j = 0; j<p; j++)
+	  for(j = 0; j<p; j++)
 	    {
-		cij = z2_0[i]*z2_1[j];
-		for(k = 0; k<p; k++)
+	      cij = z2_0[i]*z2_1[j];
+	      for(k = 0; k<p; k++)
 		{
-		    phi_m += H[idx]*zs[zidx]*z2_2[k]*cij;
-		    idx++; zidx++;
+		  force_m[0] += H[idx]*zs[zidx]*z2_2[k]*cij*zf_0[i];
+		  force_m[1] += H[idx]*zs[zidx]*z2_2[k]*cij*zf_1[j];
+		  force_m[2] += H[idx]*zs[zidx]*z2_2[k]*cij*zf_2[k];
+		  
+		  idx++; zidx++;
 		}
-		idx += incrj;
+	      idx += incrj;
 	    }
-	    idx += incri;
+	  idx += incri;
 	}
-	phi[m] = (h*h*h)*phi_m;
+      force[m    ] = (h*h*h)*force_m[0];
+      force[m+  N] = (h*h*h)*force_m[1];
+      force[m+2*N] = (h*h*h)*force_m[2];
     }
 }
+
 
 // -----------------------------------------------------------------------------
 void SE_FGG_int_split_SSE_dispatch(real*  phi,  
 				   const SE_FGG_work* work, 
 				   const SE_FGG_params* params)
 {
-    const int p = params->P;
-    const int incrj = params->dims[2]; // middle increment
-    const int incri = params->npdims[2]*(params->dims[1]);// outer increment
+  const int p = params->P;
+  const int incrj = params->dims[2]; // middle increment
+  const int incri = params->npdims[2]*(params->dims[1]);// outer increment
 
 #if 0
-    // THIS BYPASSES THE FAST SSE KERNELS.
-    // 
-    // THEY ARE PLATFORM DEPENDENT, AND THUS MAY NOT WORK OUT OF THE BOX.
-    // REMOVE THIS BLOCK ONLY IF YOU ARE FAMILIAR WITH BASIC DEBUGGING, 
-    // THE BASICS OF SSE INTRINSICS, AND ARE WILLING TO UNDERSTAND WHERE
-    // THE (DATA ALIGNMENT) PRECONDITIONS OF SSE INSTRUCTIONS MAY BREAK
-    // IN THE SSE CODE BELOW.
-    __DISPATCHER_MSG("[FGG INT SSE] SSE Disabled\n");
-    SE_FGG_int_split(phi, work, params);
-    return;
+  // THIS BYPASSES THE FAST SSE KERNELS.
+  // 
+  // THEY ARE PLATFORM DEPENDENT, AND THUS MAY NOT WORK OUT OF THE BOX.
+  // REMOVE THIS BLOCK ONLY IF YOU ARE FAMILIAR WITH BASIC DEBUGGING, 
+  // THE BASICS OF SSE INTRINSICS, AND ARE WILLING TO UNDERSTAND WHERE
+  // THE (DATA ALIGNMENT) PRECONDITIONS OF SSE INSTRUCTIONS MAY BREAK
+  // IN THE SSE CODE BELOW.
+  __DISPATCHER_MSG("[FGG INT SSE] SSE Disabled\n");
+  SE_FGG_int_split(phi, work, params);
+  return;
 #endif
 
-    // if P is odd, or if either increment is odd, fall back on vanilla
-    if( is_odd(p) || is_odd(incri) || is_odd(incrj) )
+  // if P is odd, or if either increment is odd, fall back on vanilla
+  if( is_odd(p) || is_odd(incri) || is_odd(incrj) )
     {
-	__DISPATCHER_MSG("[FGG INT SSE] SSE Abort (PARAMS)\n");
-	SE_FGG_int_split(phi, work, params);
-	return;
+      __DISPATCHER_MSG("[FGG INT SSE] SSE Abort (PARAMS)\n");
+      SE_FGG_int_split(phi, work, params);
+      return;
     }
 
 #if 0
-    // If the work arrays zs or zX are misaligned, fall back on vanilla.
-    // These arrays are dynamically allocated, so getting this alignment
-    // is really the compilers job! Once you trust it, remove this 
-    // check, because the long integer modulus operation is not fast.
-    if( ( (unsigned long) work->zs)%16 != 0 || 
-	( (unsigned long) work->zx)%16 != 0 || 
-	( (unsigned long) work->zy)%16 != 0 ||
-	( (unsigned long) work->zz)%16 != 0 )
+  // If the work arrays zs or zX are misaligned, fall back on vanilla.
+  // These arrays are dynamically allocated, so getting this alignment
+  // is really the compilers job! Once you trust it, remove this 
+  // check, because the long integer modulus operation is not fast.
+  if( ( (unsigned long) work->zs)%16 != 0 || 
+      ( (unsigned long) work->zx)%16 != 0 || 
+      ( (unsigned long) work->zy)%16 != 0 ||
+      ( (unsigned long) work->zz)%16 != 0 )
     {
-	__DISPATCHER_MSG("[FGG INT SSE] SSE Abort (DATA)\n");
-	SE_FGG_int_split(phi, work, params);
-	return;
+      __DISPATCHER_MSG("[FGG INT SSE] SSE Abort (DATA)\n");
+      SE_FGG_int_split(phi, work, params);
+      return;
     }
 #endif
 
-    // otherwise the preconditions for SSE codes are satisfied. 
-    if(p==8)
+  // otherwise the preconditions for SSE codes are satisfied. 
+  if(p==8)
     {
-	// specific for p=8
-	__DISPATCHER_MSG("[FGG INT SSE] P=8\n");
-	SE_FGG_int_split_SSE_P8(phi, work, params);
+      // specific for p=8
+      __DISPATCHER_MSG("[FGG INT SSE] P=8\n");
+      SE_FGG_int_split_SSE_P8(phi, work, params);
     } 
-    else if(p==16)
+  else if(p==16)
     {
-	// specific for p=16
-	__DISPATCHER_MSG("[FGG INT SSE] P=16\n");
-	SE_FGG_int_split_SSE_P16(phi, work, params); 
+      // specific for p=16
+      __DISPATCHER_MSG("[FGG INT SSE] P=16\n");
+      SE_FGG_int_split_SSE_P16(phi, work, params); 
     }
-    else if(p%8==0)
+  else if(p%8==0)
     {
-	// for p divisible by 8
-	__DISPATCHER_MSG("[FGG INT SSE] P unroll 8\n");
-	SE_FGG_int_split_SSE_u8(phi, work, params); 
+      // for p divisible by 8
+      __DISPATCHER_MSG("[FGG INT SSE] P unroll 8\n");
+      SE_FGG_int_split_SSE_u8(phi, work, params); 
     }
-    else
+  else
     {
-	// vanilla SSE code (any even p)
-	__DISPATCHER_MSG("[FGG INT SSE] Vanilla\n");
-	SE_FGG_int_split_SSE(phi, work, params);
+      // vanilla SSE code (any even p)
+      __DISPATCHER_MSG("[FGG INT SSE] Vanilla\n");
+      SE_FGG_int_split_SSE(phi, work, params);
     }
 }
 
@@ -592,48 +724,48 @@ void SE_FGG_int_split(real* phi,
 		      const SE_FGG_work* work, 
 		      const SE_FGG_params* params)
 {
-    // unpack params
-    const real* H = work->H;
-    const real* zs = work->zs;
-    const real* zx = work->zx;
-    const real* zy = work->zy;
-    const real* zz = work->zz;
+  // unpack params
+  const real* H = work->H;
+  const real* zs = work->zs;
+  const real* zx = work->zx;
+  const real* zy = work->zy;
+  const real* zz = work->zz;
 
-    const int p = params->P;
-    const int N = params->N;
-    const real h=params->h;
+  const int p = params->P;
+  const int N = params->N;
+  const real h=params->h;
 
-    int i,j,k,m,idx,idx_zs,idx_zz;
-    real phi_m, cij;
+  int i,j,k,m,idx,idx_zs,idx_zz;
+  real phi_m, cij;
 
-    const int incrj = params->npdims[2]-p;
-    const int incri = params->npdims[2]*(params->npdims[1]-p);
+  const int incrj = params->npdims[2]-p;
+  const int incri = params->npdims[2]*(params->npdims[1]-p);
 
 #ifdef _OPENMP
 #pragma omp for private(m)// work-share over OpenMP threads here
 #endif
-    for(m=0; m<N; m++)
+  for(m=0; m<N; m++)
     {
-	idx = work->idx[m];	
-	phi_m = 0;
-	idx_zs = 0;
+      idx = work->idx[m];	
+      phi_m = 0;
+      idx_zs = 0;
 
-	for(i = 0; i<p; i++)
+      for(i = 0; i<p; i++)
 	{
-	    for(j = 0; j<p; j++)
+	  for(j = 0; j<p; j++)
 	    {
-		cij = zx[m*p+i]*zy[m*p+j];
-		idx_zz=m*p;
-		for(k = 0; k<p; k++)
+	      cij = zx[m*p+i]*zy[m*p+j];
+	      idx_zz=m*p;
+	      for(k = 0; k<p; k++)
 		{
-		    phi_m += H[idx]*zs[idx_zs]*zz[idx_zz]*cij;
-		    idx++; idx_zs++; idx_zz++;
+		  phi_m += H[idx]*zs[idx_zs]*zz[idx_zz]*cij;
+		  idx++; idx_zs++; idx_zz++;
 		}
-		idx += incrj;
+	      idx += incrj;
 	    }
-	    idx += incri;
+	  idx += incri;
 	}
-	phi[m] = (h*h*h)*phi_m;
+      phi[m] = (h*h*h)*phi_m;
     }
 }
 
@@ -642,82 +774,82 @@ void SE_FGG_int_split_SSE(real* phi,
 			  const SE_FGG_work* work, 
 			  const SE_FGG_params* params)
 {
-    // unpack params
-    const real* H = work->H;
-    const real* zs = work->zs;
-    const real* zx = work->zx;
-    const real* zy = work->zy;
-    const real* zz = work->zz;
+  // unpack params
+  const real* H = work->H;
+  const real* zs = work->zs;
+  const real* zx = work->zx;
+  const real* zy = work->zy;
+  const real* zz = work->zz;
 
-    const int p = params->P;
-    const int N = params->N;
-    const real h=params->h;
+  const int p = params->P;
+  const int N = params->N;
+  const real h=params->h;
 
-    int i,j,k,m,idx,idx_zs,idx_zz;
-    real s[2] __attribute__((aligned(16)));
+  int i,j,k,m,idx,idx_zs,idx_zz;
+  real s[2] __attribute__((aligned(16)));
 
-    __m128d rH0, rZZ0, rZS0, rC, rP;
+  __m128d rH0, rZZ0, rZS0, rC, rP;
 
-    const int incrj = params->npdims[2]-p;
-    const int incri = params->npdims[2]*(params->npdims[1]-p);
+  const int incrj = params->npdims[2]-p;
+  const int incri = params->npdims[2]*(params->npdims[1]-p);
 
-    for(m=0; m<N; m++)
+  for(m=0; m<N; m++)
     {
-	idx = work->idx[m];	
-	idx_zs = 0;
-	rP=_mm_setzero_pd();
+      idx = work->idx[m];	
+      idx_zs = 0;
+      rP=_mm_setzero_pd();
 
-	if(idx%2==0) // H[idx] is 16-aligned so vectorization simple
+      if(idx%2==0) // H[idx] is 16-aligned so vectorization simple
 	{
-	    for(i = 0; i<p; i++)
+	  for(i = 0; i<p; i++)
 	    {
-		for(j = 0; j<p; j++)
+	      for(j = 0; j<p; j++)
 		{
-		    rC = _mm_set1_pd( zx[m*p+i]*zy[m*p+j]);
-		    idx_zz=m*p;
-		    for(k = 0; k<p; k+=2)
+		  rC = _mm_set1_pd( zx[m*p+i]*zy[m*p+j]);
+		  idx_zz=m*p;
+		  for(k = 0; k<p; k+=2)
 		    {
-			rH0  = _mm_load_pd( H+idx );
-			rZZ0 = _mm_load_pd( zz + idx_zz);
-			rZS0 = _mm_load_pd( zs + idx_zs);
-			rP = _mm_add_pd(rP,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ0,rC),rZS0)));
+		      rH0  = _mm_load_pd( H+idx );
+		      rZZ0 = _mm_load_pd( zz + idx_zz);
+		      rZS0 = _mm_load_pd( zs + idx_zs);
+		      rP = _mm_add_pd(rP,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ0,rC),rZS0)));
 			
-			idx+=2; 
-			idx_zs+=2; 
-			idx_zz+=2;
+		      idx+=2; 
+		      idx_zs+=2; 
+		      idx_zz+=2;
 		    }
-		    idx += incrj;
+		  idx += incrj;
 		}
-		idx += incri;
+	      idx += incri;
 	    }
 	}
-	else // H[idx] not 16-aligned, so use non-aligned loads
+      else // H[idx] not 16-aligned, so use non-aligned loads
 	{
-	    for(i = 0; i<p; i++)
+	  for(i = 0; i<p; i++)
 	    {
-		for(j = 0; j<p; j++)
+	      for(j = 0; j<p; j++)
 		{
-		    rC = _mm_set1_pd( zx[m*p+i]*zy[m*p+j]);
-		    idx_zz=m*p;
-		    for(k = 0; k<p; k+=2)
+		  rC = _mm_set1_pd( zx[m*p+i]*zy[m*p+j]);
+		  idx_zz=m*p;
+		  for(k = 0; k<p; k+=2)
 		    {
-			rH0  = _mm_loadu_pd( H+idx );
-			rZZ0 = _mm_load_pd( zz + idx_zz);
-			rZS0 = _mm_load_pd( zs + idx_zs);
-			rP = _mm_add_pd(rP,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ0,rC),rZS0)));
+		      rH0  = _mm_loadu_pd( H+idx );
+		      rZZ0 = _mm_load_pd( zz + idx_zz);
+		      rZS0 = _mm_load_pd( zs + idx_zs);
+		      rP = _mm_add_pd(rP,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ0,rC),rZS0)));
 			
-			idx+=2; 
-			idx_zs+=2; 
-			idx_zz+=2;
+		      idx+=2; 
+		      idx_zs+=2; 
+		      idx_zz+=2;
 		    }
-		    idx += incrj;
+		  idx += incrj;
 		}
-		idx += incri;
+	      idx += incri;
 	    }
 
 	}
-	_mm_store_pd(s,rP);
-	phi[m] = (h*h*h)*(s[0]+s[1]);
+      _mm_store_pd(s,rP);
+      phi[m] = (h*h*h)*(s[0]+s[1]);
     }
 }
 
@@ -726,101 +858,101 @@ void SE_FGG_int_split_SSE_P8(real*   phi,
 			     const SE_FGG_work* work, 
 			     const SE_FGG_params* params)
 {
-    // unpack params
-    const real*   H = work->H;
-    const real*   zs = work->zs;
-    const real*   zx = work->zx;
-    const real*   zy = work->zy;
-    const real*   zz = work->zz;
+  // unpack params
+  const real*   H = work->H;
+  const real*   zs = work->zs;
+  const real*   zx = work->zx;
+  const real*   zy = work->zy;
+  const real*   zz = work->zz;
+  
+  /* ASSUME P=8 const int p = params->P; */
+  const int N = params->N;
+  const real h=params->h;
+  
+  int i,j,m,idx,idx_zs;
+  real s[2] __attribute__((aligned(16)));
+  
+  // hold entire zz vector
+  __m128d rZZ0, rZZ1, rZZ2, rZZ3; 
+  __m128d rC, rP;
+  __m128d rH0, rH1, rH2, rH3; 
+  __m128d rZS0, rZS1, rZS2, rZS3;
+  
+  const int incrj = params->npdims[2]-8;
+  const int incri = params->npdims[2]*(params->npdims[1]-8);
 
-    /* ASSUME P=8 const int p = params->P; */
-    const int N = params->N;
-    const real h=params->h;
-
-    int i,j,m,idx,idx_zs;
-    real s[2] __attribute__((aligned(16)));
-
-    // hold entire zz vector
-    __m128d rZZ0, rZZ1, rZZ2, rZZ3; 
-    __m128d rC, rP;
-    __m128d rH0, rH1, rH2, rH3; 
-    __m128d rZS0, rZS1, rZS2, rZS3;
-
-    const int incrj = params->npdims[2]-8;
-    const int incri = params->npdims[2]*(params->npdims[1]-8);
-
-    for(m=0; m<N; m++)
+  for(m=0; m<N; m++)
     {
-	idx = work->idx[m];
-	idx_zs = 0;
-	rP=_mm_setzero_pd();
-
-	/* hoist load of ZZ vector */
-	rZZ0 = _mm_load_pd(zz + m*8     );
-	rZZ1 = _mm_load_pd(zz + m*8 + 2 );
-	rZZ2 = _mm_load_pd(zz + m*8 + 4 );
-	rZZ3 = _mm_load_pd(zz + m*8 + 6 );
-
-	if(idx%2==0) // H[idx] is 16-aligned so vectorization simple
+      idx = work->idx[m];
+      idx_zs = 0;
+      rP=_mm_setzero_pd();
+      
+      /* hoist load of ZZ vector */
+      rZZ0 = _mm_load_pd(zz + m*8     );
+      rZZ1 = _mm_load_pd(zz + m*8 + 2 );
+      rZZ2 = _mm_load_pd(zz + m*8 + 4 );
+      rZZ3 = _mm_load_pd(zz + m*8 + 6 );
+      
+      if(idx%2==0) // H[idx] is 16-aligned so vectorization simple
 	{
-	    for(i = 0; i<8; i++)
+	  for(i = 0; i<8; i++)
 	    {
-		for(j = 0; j<8; j++)
+	      for(j = 0; j<8; j++)
 		{
-		    rC = _mm_set1_pd( zx[m*8+i]*zy[m*8+j]);
-
-		    rH0  = _mm_load_pd( H+idx    );
-		    rH1  = _mm_load_pd( H+idx + 2);
-		    rH2  = _mm_load_pd( H+idx + 4);
-		    rH3  = _mm_load_pd( H+idx + 6);
-
-		    rZS0 = _mm_load_pd( zs + idx_zs    );
-		    rZS1 = _mm_load_pd( zs + idx_zs + 2);
-		    rZS2 = _mm_load_pd( zs + idx_zs + 4);
-		    rZS3 = _mm_load_pd( zs + idx_zs + 6);
-		    
-		    rP = _mm_add_pd(rP,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ0,rC),rZS0)));
-		    rP = _mm_add_pd(rP,_mm_mul_pd(rH1,_mm_mul_pd(_mm_mul_pd(rZZ1,rC),rZS1)));
-		    rP = _mm_add_pd(rP,_mm_mul_pd(rH2,_mm_mul_pd(_mm_mul_pd(rZZ2,rC),rZS2)));
-		    rP = _mm_add_pd(rP,_mm_mul_pd(rH3,_mm_mul_pd(_mm_mul_pd(rZZ3,rC),rZS3)));
-
-		    idx_zs +=8;
-		    idx += incrj + 8;
+		  rC = _mm_set1_pd( zx[m*8+i]*zy[m*8+j]);
+		  
+		  rH0  = _mm_load_pd( H+idx    );
+		  rH1  = _mm_load_pd( H+idx + 2);
+		  rH2  = _mm_load_pd( H+idx + 4);
+		  rH3  = _mm_load_pd( H+idx + 6);
+		  
+		  rZS0 = _mm_load_pd( zs + idx_zs    );
+		  rZS1 = _mm_load_pd( zs + idx_zs + 2);
+		  rZS2 = _mm_load_pd( zs + idx_zs + 4);
+		  rZS3 = _mm_load_pd( zs + idx_zs + 6);
+		  
+		  rP = _mm_add_pd(rP,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ0,rC),rZS0)));
+		  rP = _mm_add_pd(rP,_mm_mul_pd(rH1,_mm_mul_pd(_mm_mul_pd(rZZ1,rC),rZS1)));
+		  rP = _mm_add_pd(rP,_mm_mul_pd(rH2,_mm_mul_pd(_mm_mul_pd(rZZ2,rC),rZS2)));
+		  rP = _mm_add_pd(rP,_mm_mul_pd(rH3,_mm_mul_pd(_mm_mul_pd(rZZ3,rC),rZS3)));
+		  
+		  idx_zs +=8;
+		  idx += incrj + 8;
 		}
-		idx += incri;
+	      idx += incri;
 	    }
 	}
-	else // H[idx] not 16-aligned, so use non-aligned loads
+      else // H[idx] not 16-aligned, so use non-aligned loads
 	{
-	    for(i = 0; i<8; i++)
+	  for(i = 0; i<8; i++)
 	    {
-		for(j = 0; j<8; j++)
+	      for(j = 0; j<8; j++)
 		{
-		    rC = _mm_set1_pd( zx[m*8+i]*zy[m*8+j]);
+		  rC = _mm_set1_pd( zx[m*8+i]*zy[m*8+j]);
 
-		    rH0  = _mm_loadu_pd( H+idx    );
-		    rH1  = _mm_loadu_pd( H+idx + 2);
-		    rH2  = _mm_loadu_pd( H+idx + 4);
-		    rH3  = _mm_loadu_pd( H+idx + 6);
+		  rH0  = _mm_loadu_pd( H+idx    );
+		  rH1  = _mm_loadu_pd( H+idx + 2);
+		  rH2  = _mm_loadu_pd( H+idx + 4);
+		  rH3  = _mm_loadu_pd( H+idx + 6);
 
-		    rZS0 = _mm_load_pd( zs + idx_zs    );
-		    rZS1 = _mm_load_pd( zs + idx_zs + 2);
-		    rZS2 = _mm_load_pd( zs + idx_zs + 4);
-		    rZS3 = _mm_load_pd( zs + idx_zs + 6);
+		  rZS0 = _mm_load_pd( zs + idx_zs    );
+		  rZS1 = _mm_load_pd( zs + idx_zs + 2);
+		  rZS2 = _mm_load_pd( zs + idx_zs + 4);
+		  rZS3 = _mm_load_pd( zs + idx_zs + 6);
 		    
-		    rP = _mm_add_pd(rP,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ0,rC),rZS0)));
-		    rP = _mm_add_pd(rP,_mm_mul_pd(rH1,_mm_mul_pd(_mm_mul_pd(rZZ1,rC),rZS1)));
-		    rP = _mm_add_pd(rP,_mm_mul_pd(rH2,_mm_mul_pd(_mm_mul_pd(rZZ2,rC),rZS2)));
-		    rP = _mm_add_pd(rP,_mm_mul_pd(rH3,_mm_mul_pd(_mm_mul_pd(rZZ3,rC),rZS3)));
+		  rP = _mm_add_pd(rP,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ0,rC),rZS0)));
+		  rP = _mm_add_pd(rP,_mm_mul_pd(rH1,_mm_mul_pd(_mm_mul_pd(rZZ1,rC),rZS1)));
+		  rP = _mm_add_pd(rP,_mm_mul_pd(rH2,_mm_mul_pd(_mm_mul_pd(rZZ2,rC),rZS2)));
+		  rP = _mm_add_pd(rP,_mm_mul_pd(rH3,_mm_mul_pd(_mm_mul_pd(rZZ3,rC),rZS3)));
 
-		    idx_zs +=8;
-		    idx += incrj + 8;
+		  idx_zs +=8;
+		  idx += incrj + 8;
 		}
-		idx += incri;
+	      idx += incri;
 	    }
 	}
-	_mm_store_pd(s,rP);
-	phi[m] = (h*h*h)*(s[0]+s[1]);
+      _mm_store_pd(s,rP);
+      phi[m] = (h*h*h)*(s[0]+s[1]);
     }
 }
 
@@ -829,158 +961,158 @@ void SE_FGG_int_split_SSE_P16(real*   phi,
 			      const SE_FGG_work* work, 
 			      const SE_FGG_params* params)
 {
-    // unpack params
-    const real*   H = work->H;
-    const real*   zs = work->zs;
-    const real*   zx = work->zx;
-    const real*   zy = work->zy;
-    const real*   zz = work->zz;
+  // unpack params
+  const real*   H = work->H;
+  const real*   zs = work->zs;
+  const real*   zx = work->zx;
+  const real*   zy = work->zy;
+  const real*   zz = work->zz;
 
-    /* ASSUME P=16 const int p = params->P; */
-    const int N = params->N;
-    const real h=params->h;
+  /* ASSUME P=16 const int p = params->P; */
+  const int N = params->N;
+  const real h=params->h;
 
-    int i,j,m,idx,idx_zs;
-    real s[2] __attribute__((aligned(16)));
+  int i,j,m,idx,idx_zs;
+  real s[2] __attribute__((aligned(16)));
 
-    // hold entire zz vector
-    __m128d rZZ0, rZZ1, rZZ2, rZZ3, rZZ4, rZZ5, rZZ6, rZZ7; 
-    __m128d rC, rP;
-    __m128d rH0, rZS0;
+  // hold entire zz vector
+  __m128d rZZ0, rZZ1, rZZ2, rZZ3, rZZ4, rZZ5, rZZ6, rZZ7; 
+  __m128d rC, rP;
+  __m128d rH0, rZS0;
 
-    const int incrj = params->npdims[2]-16;
-    const int incri = params->npdims[2]*(params->npdims[1]-16);
+  const int incrj = params->npdims[2]-16;
+  const int incri = params->npdims[2]*(params->npdims[1]-16);
 
-    for(m=0; m<N; m++)
+  for(m=0; m<N; m++)
     {
-	idx = work->idx[m];
-	_mm_prefetch( (void*) (H+idx), _MM_HINT_T0);
+      idx = work->idx[m];
+      _mm_prefetch( (void*) (H+idx), _MM_HINT_T0);
 
-	idx_zs = 0;
-	_mm_prefetch( (void*) zs, _MM_HINT_T0);
+      idx_zs = 0;
+      _mm_prefetch( (void*) zs, _MM_HINT_T0);
 
-	rP=_mm_setzero_pd();
+      rP=_mm_setzero_pd();
 
-	/* hoist load of ZZ vector */
-	rZZ0 = _mm_load_pd(zz + m*16     );
-	rZZ1 = _mm_load_pd(zz + m*16 + 2 );
-	rZZ2 = _mm_load_pd(zz + m*16 + 4 );
-	rZZ3 = _mm_load_pd(zz + m*16 + 6 );
-	rZZ4 = _mm_load_pd(zz + m*16 + 8 );
-	rZZ5 = _mm_load_pd(zz + m*16 + 10);
-	rZZ6 = _mm_load_pd(zz + m*16 + 12);
-	rZZ7 = _mm_load_pd(zz + m*16 + 14);
-
-	if(idx%2==0) // H[idx] is 16-aligned so vectorization simple
+      /* hoist load of ZZ vector */
+      rZZ0 = _mm_load_pd(zz + m*16     );
+      rZZ1 = _mm_load_pd(zz + m*16 + 2 );
+      rZZ2 = _mm_load_pd(zz + m*16 + 4 );
+      rZZ3 = _mm_load_pd(zz + m*16 + 6 );
+      rZZ4 = _mm_load_pd(zz + m*16 + 8 );
+      rZZ5 = _mm_load_pd(zz + m*16 + 10);
+      rZZ6 = _mm_load_pd(zz + m*16 + 12);
+      rZZ7 = _mm_load_pd(zz + m*16 + 14);
+      
+      if(idx%2==0) // H[idx] is 16-aligned so vectorization simple
 	{
-	    for(i = 0; i<16; i++)
+	  for(i = 0; i<16; i++)
 	    {
-		for(j = 0; j<16; j++)
+	      for(j = 0; j<16; j++)
 		{
-		    rC = _mm_set1_pd( zx[m*16+i]*zy[m*16+j]);
+		  rC = _mm_set1_pd( zx[m*16+i]*zy[m*16+j]);
+		  
+		  /* 0 */ 
+		  rH0  = _mm_load_pd( H+idx );
+		  rZS0 = _mm_load_pd( zs + idx_zs);		    
+		  rP = _mm_add_pd(rP,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ0,rC),rZS0)));
 
-		    /* 0 */ 
-		    rH0  = _mm_load_pd( H+idx );
-		    rZS0 = _mm_load_pd( zs + idx_zs);		    
-		    rP = _mm_add_pd(rP,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ0,rC),rZS0)));
+		  /* 1 */ 
+		  rH0  = _mm_load_pd( H+idx + 2);
+		  rZS0 = _mm_load_pd( zs + idx_zs + 2);		    
+		  rP = _mm_add_pd(rP,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ1,rC),rZS0)));
 
-		    /* 1 */ 
-		    rH0  = _mm_load_pd( H+idx + 2);
-		    rZS0 = _mm_load_pd( zs + idx_zs + 2);		    
-		    rP = _mm_add_pd(rP,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ1,rC),rZS0)));
+		  /* 2 */ 
+		  rH0  = _mm_load_pd( H+idx + 4);
+		  rZS0 = _mm_load_pd( zs + idx_zs + 4);		    
+		  rP = _mm_add_pd(rP,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ2,rC),rZS0)));
 
-		    /* 2 */ 
-		    rH0  = _mm_load_pd( H+idx + 4);
-		    rZS0 = _mm_load_pd( zs + idx_zs + 4);		    
-		    rP = _mm_add_pd(rP,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ2,rC),rZS0)));
+		  /* 3 */ 
+		  rH0  = _mm_load_pd( H+idx + 6);
+		  rZS0 = _mm_load_pd( zs + idx_zs + 6);		    
+		  rP = _mm_add_pd(rP,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ3,rC),rZS0)));
 
-		    /* 3 */ 
-		    rH0  = _mm_load_pd( H+idx + 6);
-		    rZS0 = _mm_load_pd( zs + idx_zs + 6);		    
-		    rP = _mm_add_pd(rP,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ3,rC),rZS0)));
+		  /* 4 */ 
+		  rH0  = _mm_load_pd( H+idx + 8);
+		  rZS0 = _mm_load_pd( zs + idx_zs + 8);		    
+		  rP = _mm_add_pd(rP,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ4,rC),rZS0)));
 
-		    /* 4 */ 
-		    rH0  = _mm_load_pd( H+idx + 8);
-		    rZS0 = _mm_load_pd( zs + idx_zs + 8);		    
-		    rP = _mm_add_pd(rP,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ4,rC),rZS0)));
+		  /* 5 */ 
+		  rH0  = _mm_load_pd( H+idx + 10);
+		  rZS0 = _mm_load_pd( zs + idx_zs + 10);		    
+		  rP = _mm_add_pd(rP,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ5,rC),rZS0)));
 
-		    /* 5 */ 
-		    rH0  = _mm_load_pd( H+idx + 10);
-		    rZS0 = _mm_load_pd( zs + idx_zs + 10);		    
-		    rP = _mm_add_pd(rP,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ5,rC),rZS0)));
+		  /* 6 */ 
+		  rH0  = _mm_load_pd( H+idx + 12);
+		  rZS0 = _mm_load_pd( zs + idx_zs + 12);		    
+		  rP = _mm_add_pd(rP,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ6,rC),rZS0)));
 
-		    /* 6 */ 
-		    rH0  = _mm_load_pd( H+idx + 12);
-		    rZS0 = _mm_load_pd( zs + idx_zs + 12);		    
-		    rP = _mm_add_pd(rP,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ6,rC),rZS0)));
+		  /* 7 */ 
+		  rH0  = _mm_load_pd( H+idx + 14);
+		  rZS0 = _mm_load_pd( zs + idx_zs + 14);		    
+		  rP = _mm_add_pd(rP,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ7,rC),rZS0)));
 
-		    /* 7 */ 
-		    rH0  = _mm_load_pd( H+idx + 14);
-		    rZS0 = _mm_load_pd( zs + idx_zs + 14);		    
-		    rP = _mm_add_pd(rP,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ7,rC),rZS0)));
-
-		    idx_zs +=16;
-		    idx += incrj + 16;
+		  idx_zs +=16;
+		  idx += incrj + 16;
 		}
-		idx += incri;
+	      idx += incri;
 	    }
 	}
-	else // H[idx] not 16-aligned, so use non-aligned loads
+      else // H[idx] not 16-aligned, so use non-aligned loads
 	{
-	    for(i = 0; i<16; i++)
+	  for(i = 0; i<16; i++)
 	    {
-		for(j = 0; j<16; j++)
+	      for(j = 0; j<16; j++)
 		{
-		    rC = _mm_set1_pd( zx[m*16+i]*zy[m*16+j]);
+		  rC = _mm_set1_pd( zx[m*16+i]*zy[m*16+j]);
 
-		    /* 0 */ 
-		    rH0  = _mm_loadu_pd( H+idx );
-		    rZS0 = _mm_load_pd( zs + idx_zs);		    
-		    rP = _mm_add_pd(rP,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ0,rC),rZS0)));
+		  /* 0 */ 
+		  rH0  = _mm_loadu_pd( H+idx );
+		  rZS0 = _mm_load_pd( zs + idx_zs);		    
+		  rP = _mm_add_pd(rP,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ0,rC),rZS0)));
 
-		    /* 1 */ 
-		    rH0  = _mm_loadu_pd( H+idx + 2);
-		    rZS0 = _mm_load_pd( zs + idx_zs + 2);		    
-		    rP = _mm_add_pd(rP,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ1,rC),rZS0)));
+		  /* 1 */ 
+		  rH0  = _mm_loadu_pd( H+idx + 2);
+		  rZS0 = _mm_load_pd( zs + idx_zs + 2);		    
+		  rP = _mm_add_pd(rP,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ1,rC),rZS0)));
 
-		    /* 2 */ 
-		    rH0  = _mm_loadu_pd( H+idx + 4);
-		    rZS0 = _mm_load_pd( zs + idx_zs + 4);		    
-		    rP = _mm_add_pd(rP,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ2,rC),rZS0)));
+		  /* 2 */ 
+		  rH0  = _mm_loadu_pd( H+idx + 4);
+		  rZS0 = _mm_load_pd( zs + idx_zs + 4);		    
+		  rP = _mm_add_pd(rP,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ2,rC),rZS0)));
 
-		    /* 3 */ 
-		    rH0  = _mm_loadu_pd( H+idx + 6);
-		    rZS0 = _mm_load_pd( zs + idx_zs + 6);		    
-		    rP = _mm_add_pd(rP,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ3,rC),rZS0)));
+		  /* 3 */ 
+		  rH0  = _mm_loadu_pd( H+idx + 6);
+		  rZS0 = _mm_load_pd( zs + idx_zs + 6);		    
+		  rP = _mm_add_pd(rP,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ3,rC),rZS0)));
 
-		    /* 4 */ 
-		    rH0  = _mm_loadu_pd( H+idx + 8);
-		    rZS0 = _mm_load_pd( zs + idx_zs + 8);		    
-		    rP = _mm_add_pd(rP,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ4,rC),rZS0)));
+		  /* 4 */ 
+		  rH0  = _mm_loadu_pd( H+idx + 8);
+		  rZS0 = _mm_load_pd( zs + idx_zs + 8);		    
+		  rP = _mm_add_pd(rP,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ4,rC),rZS0)));
 
-		    /* 5 */ 
-		    rH0  = _mm_loadu_pd( H+idx + 10);
-		    rZS0 = _mm_load_pd( zs + idx_zs + 10);		    
-		    rP = _mm_add_pd(rP,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ5,rC),rZS0)));
+		  /* 5 */ 
+		  rH0  = _mm_loadu_pd( H+idx + 10);
+		  rZS0 = _mm_load_pd( zs + idx_zs + 10);		    
+		  rP = _mm_add_pd(rP,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ5,rC),rZS0)));
 
-		    /* 6 */ 
-		    rH0  = _mm_loadu_pd( H+idx + 12);
-		    rZS0 = _mm_load_pd( zs + idx_zs + 12);		    
-		    rP = _mm_add_pd(rP,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ6,rC),rZS0)));
+		  /* 6 */ 
+		  rH0  = _mm_loadu_pd( H+idx + 12);
+		  rZS0 = _mm_load_pd( zs + idx_zs + 12);		    
+		  rP = _mm_add_pd(rP,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ6,rC),rZS0)));
 
-		    /* 7 */ 
-		    rH0  = _mm_loadu_pd( H+idx + 14);
-		    rZS0 = _mm_load_pd( zs + idx_zs + 14);		    
-		    rP = _mm_add_pd(rP,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ7,rC),rZS0)));
+		  /* 7 */ 
+		  rH0  = _mm_loadu_pd( H+idx + 14);
+		  rZS0 = _mm_load_pd( zs + idx_zs + 14);		    
+		  rP = _mm_add_pd(rP,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ7,rC),rZS0)));
 
-		    idx_zs +=16;
-		    idx += incrj + 16;
+		  idx_zs +=16;
+		  idx += incrj + 16;
 		}
-		idx += incri;
+	      idx += incri;
 	    }
 	}
-	_mm_store_pd(s,rP);
-	phi[m] = (h*h*h)*(s[0]+s[1]);
+      _mm_store_pd(s,rP);
+      phi[m] = (h*h*h)*(s[0]+s[1]);
     }
 }
 
@@ -989,122 +1121,122 @@ void SE_FGG_int_split_SSE_u8(real*   phi,
 			     const SE_FGG_work* work, 
 			     const SE_FGG_params* params)
 {
-    // unpack params
-    const real*   H = work->H;
-    const real*   zs = work->zs;
-    const real*   zx = work->zx;
-    const real*   zy = work->zy;
-    const real*   zz = work->zz;
+  // unpack params
+  const real*   H = work->H;
+  const real*   zs = work->zs;
+  const real*   zx = work->zx;
+  const real*   zy = work->zy;
+  const real*   zz = work->zz;
 
-    const int p = params->P;
-    const int N = params->N;
-    const real h=params->h;
+  const int p = params->P;
+  const int N = params->N;
+  const real h=params->h;
 
-    int i,j,k,m,idx,idx_zs,idx_zz;
-    real s[2] __attribute__((aligned(16)));
+  int i,j,k,m,idx,idx_zs,idx_zz;
+  real s[2] __attribute__((aligned(16)));
 
-    __m128d rH0, rZZ0, rZS0, rC, rP;
-    __m128d rH1, rZZ1, rZS1;
-    __m128d rH2, rZZ2, rZS2;
-    __m128d rH3, rZZ3, rZS3;
+  __m128d rH0, rZZ0, rZS0, rC, rP;
+  __m128d rH1, rZZ1, rZS1;
+  __m128d rH2, rZZ2, rZS2;
+  __m128d rH3, rZZ3, rZS3;
 
-    const int incrj = params->npdims[2]-p;
-    const int incri = params->npdims[2]*(params->npdims[1]-p);
+  const int incrj = params->npdims[2]-p;
+  const int incri = params->npdims[2]*(params->npdims[1]-p);
 
-    for(m=0; m<N; m++)
+  for(m=0; m<N; m++)
     {
-	idx = work->idx[m];
-	_mm_prefetch( (void*) (H+idx), _MM_HINT_T0);
+      idx = work->idx[m];
+      _mm_prefetch( (void*) (H+idx), _MM_HINT_T0);
 	
-	idx_zs = 0;
-	_mm_prefetch( (void*) zs, _MM_HINT_T0);
+      idx_zs = 0;
+      _mm_prefetch( (void*) zs, _MM_HINT_T0);
 
-	rP=_mm_setzero_pd();
+      rP=_mm_setzero_pd();
 
-	if(idx%2==0) // H[idx] is 16-aligned so vectorization simple
+      if(idx%2==0) // H[idx] is 16-aligned so vectorization simple
 	{
-	    for(i = 0; i<p; i++)
+	  for(i = 0; i<p; i++)
 	    {
-		for(j = 0; j<p; j++)
+	      for(j = 0; j<p; j++)
 		{
-		    rC = _mm_set1_pd( zx[m*p+i]*zy[m*p+j] );
-		    idx_zz=m*p;
+		  rC = _mm_set1_pd( zx[m*p+i]*zy[m*p+j] );
+		  idx_zz=m*p;
 
-		    for(k = 0; k<p; k+=8)
+		  for(k = 0; k<p; k+=8)
 		    {
-			rH0  = _mm_load_pd( H+idx    );
-			rH1  = _mm_load_pd( H+idx + 2);
-			rH2  = _mm_load_pd( H+idx + 4);
-			rH3  = _mm_load_pd( H+idx + 6);
+		      rH0  = _mm_load_pd( H+idx    );
+		      rH1  = _mm_load_pd( H+idx + 2);
+		      rH2  = _mm_load_pd( H+idx + 4);
+		      rH3  = _mm_load_pd( H+idx + 6);
 
-			rZZ0 = _mm_load_pd( zz + idx_zz    );
-			rZZ1 = _mm_load_pd( zz + idx_zz + 2);
-			rZZ2 = _mm_load_pd( zz + idx_zz + 4);
-			rZZ3 = _mm_load_pd( zz + idx_zz + 6);
+		      rZZ0 = _mm_load_pd( zz + idx_zz    );
+		      rZZ1 = _mm_load_pd( zz + idx_zz + 2);
+		      rZZ2 = _mm_load_pd( zz + idx_zz + 4);
+		      rZZ3 = _mm_load_pd( zz + idx_zz + 6);
 
-			rZS0 = _mm_load_pd( zs + idx_zs    );
-			rZS1 = _mm_load_pd( zs + idx_zs + 2);
-			rZS2 = _mm_load_pd( zs + idx_zs + 4);
-			rZS3 = _mm_load_pd( zs + idx_zs + 6);
+		      rZS0 = _mm_load_pd( zs + idx_zs    );
+		      rZS1 = _mm_load_pd( zs + idx_zs + 2);
+		      rZS2 = _mm_load_pd( zs + idx_zs + 4);
+		      rZS3 = _mm_load_pd( zs + idx_zs + 6);
 
-			rP = _mm_add_pd(rP,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ0,rC),rZS0)));
-			rP = _mm_add_pd(rP,_mm_mul_pd(rH1,_mm_mul_pd(_mm_mul_pd(rZZ1,rC),rZS1)));
-			rP = _mm_add_pd(rP,_mm_mul_pd(rH2,_mm_mul_pd(_mm_mul_pd(rZZ2,rC),rZS2)));
-			rP = _mm_add_pd(rP,_mm_mul_pd(rH3,_mm_mul_pd(_mm_mul_pd(rZZ3,rC),rZS3)));
+		      rP = _mm_add_pd(rP,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ0,rC),rZS0)));
+		      rP = _mm_add_pd(rP,_mm_mul_pd(rH1,_mm_mul_pd(_mm_mul_pd(rZZ1,rC),rZS1)));
+		      rP = _mm_add_pd(rP,_mm_mul_pd(rH2,_mm_mul_pd(_mm_mul_pd(rZZ2,rC),rZS2)));
+		      rP = _mm_add_pd(rP,_mm_mul_pd(rH3,_mm_mul_pd(_mm_mul_pd(rZZ3,rC),rZS3)));
 			
-			idx+=8; 
-			idx_zs+=8; 
-			idx_zz+=8;
+		      idx+=8; 
+		      idx_zs+=8; 
+		      idx_zz+=8;
 		    }
-		    idx += incrj;
+		  idx += incrj;
 		}
-		idx += incri;
+	      idx += incri;
 	    }
 	}
-	else // H[idx] not 16-aligned, so use non-aligned load from H
+      else // H[idx] not 16-aligned, so use non-aligned load from H
 	{
-	    for(i = 0; i<p; i++)
+	  for(i = 0; i<p; i++)
 	    {
-		for(j = 0; j<p; j++)
+	      for(j = 0; j<p; j++)
 		{
-		    rC = _mm_set1_pd( zx[m*p+i]*zy[m*p+j] );
-		    idx_zz=m*p;
+		  rC = _mm_set1_pd( zx[m*p+i]*zy[m*p+j] );
+		  idx_zz=m*p;
 
-		    for(k = 0; k<p; k+=8)
+		  for(k = 0; k<p; k+=8)
 		    {
-			rH0  = _mm_loadu_pd( H+idx    );
-			rH1  = _mm_loadu_pd( H+idx + 2);
-			rH2  = _mm_loadu_pd( H+idx + 4);
-			rH3  = _mm_loadu_pd( H+idx + 6);
+		      rH0  = _mm_loadu_pd( H+idx    );
+		      rH1  = _mm_loadu_pd( H+idx + 2);
+		      rH2  = _mm_loadu_pd( H+idx + 4);
+		      rH3  = _mm_loadu_pd( H+idx + 6);
 
-			rZZ0 = _mm_load_pd( zz + idx_zz    );
-			rZZ1 = _mm_load_pd( zz + idx_zz + 2);
-			rZZ2 = _mm_load_pd( zz + idx_zz + 4);
-			rZZ3 = _mm_load_pd( zz + idx_zz + 6);
+		      rZZ0 = _mm_load_pd( zz + idx_zz    );
+		      rZZ1 = _mm_load_pd( zz + idx_zz + 2);
+		      rZZ2 = _mm_load_pd( zz + idx_zz + 4);
+		      rZZ3 = _mm_load_pd( zz + idx_zz + 6);
 
-			rZS0 = _mm_load_pd( zs + idx_zs    );
-			rZS1 = _mm_load_pd( zs + idx_zs + 2);
-			rZS2 = _mm_load_pd( zs + idx_zs + 4);
-			rZS3 = _mm_load_pd( zs + idx_zs + 6);
+		      rZS0 = _mm_load_pd( zs + idx_zs    );
+		      rZS1 = _mm_load_pd( zs + idx_zs + 2);
+		      rZS2 = _mm_load_pd( zs + idx_zs + 4);
+		      rZS3 = _mm_load_pd( zs + idx_zs + 6);
 
-			rP = _mm_add_pd(rP,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ0,rC),rZS0)));
-			rP = _mm_add_pd(rP,_mm_mul_pd(rH1,_mm_mul_pd(_mm_mul_pd(rZZ1,rC),rZS1)));
-			rP = _mm_add_pd(rP,_mm_mul_pd(rH2,_mm_mul_pd(_mm_mul_pd(rZZ2,rC),rZS2)));
-			rP = _mm_add_pd(rP,_mm_mul_pd(rH3,_mm_mul_pd(_mm_mul_pd(rZZ3,rC),rZS3)));
+		      rP = _mm_add_pd(rP,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ0,rC),rZS0)));
+		      rP = _mm_add_pd(rP,_mm_mul_pd(rH1,_mm_mul_pd(_mm_mul_pd(rZZ1,rC),rZS1)));
+		      rP = _mm_add_pd(rP,_mm_mul_pd(rH2,_mm_mul_pd(_mm_mul_pd(rZZ2,rC),rZS2)));
+		      rP = _mm_add_pd(rP,_mm_mul_pd(rH3,_mm_mul_pd(_mm_mul_pd(rZZ3,rC),rZS3)));
 			
-			idx+=8; 
-			idx_zs+=8; 
-			idx_zz+=8;
+		      idx+=8; 
+		      idx_zs+=8; 
+		      idx_zz+=8;
 		    }
-		    idx += incrj;
+		  idx += incrj;
 		}
-		idx += incri;
+	      idx += incri;
 	    }
 	}
 
-	// done accumulating
-	_mm_store_pd(s,rP);
-	phi[m] = (h*h*h)*(s[0]+s[1]);
+      // done accumulating
+      _mm_store_pd(s,rP);
+      phi[m] = (h*h*h)*(s[0]+s[1]);
     }
 }
 
@@ -1112,48 +1244,48 @@ void SE_FGG_int_split_SSE_u8(real*   phi,
 void SE_FGG_grid(SE_FGG_work* work, const SE_state* st, 
 		 const SE_FGG_params* params)
 {
-    // vectors for FGG expansions
-    real zx0[P_MAX] __attribute__((aligned(16)));
-    real zy0[P_MAX] __attribute__((aligned(16)));
-    real zz0[P_MAX] __attribute__((aligned(16)));
+  // vectors for FGG expansions
+  real zx0[P_MAX] __attribute__((aligned(16)));
+  real zy0[P_MAX] __attribute__((aligned(16)));
+  real zz0[P_MAX] __attribute__((aligned(16)));
 
-    // unpack parameters
-    const int N=params->N;
-    real*   H = work->H; // pointer to grid does NOT alias
-    const real*   zs = work->zs;
-    const int p = params->P;
+  // unpack parameters
+  const int N=params->N;
+  real*   H = work->H; // pointer to grid does NOT alias
+  const real*   zs = work->zs;
+  const int p = params->P;
     
-    real cij0;
-    real xn[3];
-    real qn;
-    int idx0, zidx, i,j,k,n;
-    const int incrj = params->npdims[2]-p; // middle increment
-    const int incri = params->npdims[2]*(params->npdims[1]-p);// outer increment
+  real cij0;
+  real xn[3];
+  real qn;
+  int idx0, zidx, i,j,k,n;
+  const int incrj = params->npdims[2]-p; // middle increment
+  const int incri = params->npdims[2]*(params->npdims[1]-p);// outer increment
 
 #ifdef _OPENMP
 #pragma omp for private(n)// work-share over OpenMP threads here
 #endif
-    for(n=0; n<N; n++)
+  for(n=0; n<N; n++)
     {
-	// compute index and expansion vectors
-	xn[0] = st->x[n]; xn[1] = st->x[n+N]; xn[2] = st->x[n+2*N];
-	qn = st->q[n];
-	idx0 = __FGG_EXPA(xn, qn, params, zx0, zy0, zz0);
-	zidx = 0;
-	for(i = 0; i<p; i++)
+      // compute index and expansion vectors
+      xn[0] = st->x[n]; xn[1] = st->x[n+N]; xn[2] = st->x[n+2*N];
+      qn = st->q[n];
+      idx0 = __FGG_EXPA(xn, qn, params, zx0, zy0, zz0);
+      zidx = 0;
+      for(i = 0; i<p; i++)
 	{
-	    for(j = 0; j<p; j++)
+	  for(j = 0; j<p; j++)
 	    {
-		cij0 = zx0[i]*zy0[j];
-		for(k = 0; k<p; k++)
+	      cij0 = zx0[i]*zy0[j];
+	      for(k = 0; k<p; k++)
 		{
-		    H[idx0] += zs[zidx]*zz0[k]*cij0;
-		    idx0++; 
-		    zidx++;
+		  H[idx0] += zs[zidx]*zz0[k]*cij0;
+		  idx0++; 
+		  zidx++;
 		}
-		idx0 += incrj; 
+	      idx0 += incrj; 
 	    }
-	    idx0 += incri; 
+	  idx0 += incri; 
 	}
     }
 }
@@ -1162,65 +1294,65 @@ void SE_FGG_grid(SE_FGG_work* work, const SE_state* st,
 void SE_FGG_grid_split_SSE_dispatch(SE_FGG_work* work, const SE_state* st, 
 				    const SE_FGG_params* params)
 {
-    const int p = params->P;
-    const int incrj = params->dims[2]; // middle increment
-    const int incri = params->npdims[2]*(params->dims[1]);// outer increment
+  const int p = params->P;
+  const int incrj = params->dims[2]; // middle increment
+  const int incri = params->npdims[2]*(params->dims[1]);// outer increment
 
 #if 0
-    // THIS BYPASSES THE FAST SSE KERNELS.
-    // 
-    // THEY ARE PLATFORM DEPENDENT, AND THUS MAY NOT WORK OUT OF THE BOX.
-    // REMOVE THIS BLOCK ONLY IF YOU ARE FAMILIAR WITH BASIC DEBUGGING, 
-    // THE BASICS OF SSE INTRINSICS, AND ARE WILLING TO UNDERSTAND WHERE
-    // THE (DATA ALIGNMENT) PRECONDITIONS OF SSE INSTRUCTIONS MAY BREAK
-    // IN THE SSE CODE BELOW.
-    __DISPATCHER_MSG("[FGG GRID SSE] SSE Disabled\n");
-    SE_FGG_grid_split(work, st, params);
-    return;
+  // THIS BYPASSES THE FAST SSE KERNELS.
+  // 
+  // THEY ARE PLATFORM DEPENDENT, AND THUS MAY NOT WORK OUT OF THE BOX.
+  // REMOVE THIS BLOCK ONLY IF YOU ARE FAMILIAR WITH BASIC DEBUGGING, 
+  // THE BASICS OF SSE INTRINSICS, AND ARE WILLING TO UNDERSTAND WHERE
+  // THE (DATA ALIGNMENT) PRECONDITIONS OF SSE INSTRUCTIONS MAY BREAK
+  // IN THE SSE CODE BELOW.
+  __DISPATCHER_MSG("[FGG GRID SSE] SSE Disabled\n");
+  SE_FGG_grid_split(work, st, params);
+  return;
 #endif
 
-    // if P is odd, or if either increment is odd, fall back on vanilla
-    if( is_odd(p) || is_odd(incri) || is_odd(incrj) )
+  // if P is odd, or if either increment is odd, fall back on vanilla
+  if( is_odd(p) || is_odd(incri) || is_odd(incrj) )
     {
-	__DISPATCHER_MSG("[FGG GRID SSE] SSE Abort (PARAMS)\n");
-	SE_FGG_grid_split(work, st, params);
-	return;
+      __DISPATCHER_MSG("[FGG GRID SSE] SSE Abort (PARAMS)\n");
+      SE_FGG_grid_split(work, st, params);
+      return;
     }
 
 #if 0
-    // If the work arrays zs or zX are misaligned, fall back on vanilla.
-    // These arrays are dynamically allocated, so getting this alignment
-    // is really the compilers job! Once you trust it, remove this 
-    // check, because the long integer modulus operation is not fast.
-    if( ( (unsigned long) work->zs)%16 != 0 || 
-	( (unsigned long) work->zx)%16 != 0 || 
-	( (unsigned long) work->zy)%16 != 0 ||
-	( (unsigned long) work->zz)%16 != 0 )
+  // If the work arrays zs or zX are misaligned, fall back on vanilla.
+  // These arrays are dynamically allocated, so getting this alignment
+  // is really the compilers job! Once you trust it, remove this 
+  // check, because the long integer modulus operation is not fast.
+  if( ( (unsigned long) work->zs)%16 != 0 || 
+      ( (unsigned long) work->zx)%16 != 0 || 
+      ( (unsigned long) work->zy)%16 != 0 ||
+      ( (unsigned long) work->zz)%16 != 0 )
     {
-	__DISPATCHER_MSG("[FGG GRID SSE] SSE Abort (DATA)\n");
-	SE_FGG_grid_split(work, st, params);
-	return;
+      __DISPATCHER_MSG("[FGG GRID SSE] SSE Abort (DATA)\n");
+      SE_FGG_grid_split(work, st, params);
+      return;
     }
 #endif
 
-    // otherwise the preconditions for SSE codes are satisfied. 
-    if(p==16)
+  // otherwise the preconditions for SSE codes are satisfied. 
+  if(p==16)
     {
-	// specific for p=16
-	__DISPATCHER_MSG("[FGG GRID SSE] P=16\n");
-	SE_FGG_grid_split_SSE_P16(work, st, params); 
+      // specific for p=16
+      __DISPATCHER_MSG("[FGG GRID SSE] P=16\n");
+      SE_FGG_grid_split_SSE_P16(work, st, params); 
     }
-    else if(p%8==0)
+  else if(p%8==0)
     {
-	// specific for p divisible by 8
-	__DISPATCHER_MSG("[FGG GRID SSE] P unroll 8\n");
-	SE_FGG_grid_split_SSE_u8(work, st, params); 
+      // specific for p divisible by 8
+      __DISPATCHER_MSG("[FGG GRID SSE] P unroll 8\n");
+      SE_FGG_grid_split_SSE_u8(work, st, params); 
     }
-    else
+  else
     {
-	// vanilla SSE code (any even p)
-	__DISPATCHER_MSG("[FGG GRID SSE] Vanilla\n");
-	SE_FGG_grid_split_SSE(work, st, params);
+      // vanilla SSE code (any even p)
+      __DISPATCHER_MSG("[FGG GRID SSE] Vanilla\n");
+      SE_FGG_grid_split_SSE(work, st, params);
     }
 }
 
@@ -1228,46 +1360,46 @@ void SE_FGG_grid_split_SSE_dispatch(SE_FGG_work* work, const SE_state* st,
 void SE_FGG_grid_split(SE_FGG_work* work, const SE_state* st, 
 		       const SE_FGG_params* params)
 {
-    // unpack parameters
-    const int N=params->N;
-    real*   H = work->H; // pointer to grid does NOT alias
-    const real*   zs = work->zs;
-    const real*   zx = work->zx;
-    const real*   zy = work->zy;
-    const real*   zz = work->zz;
+  // unpack parameters
+  const int N=params->N;
+  real*   H = work->H; // pointer to grid does NOT alias
+  const real*   zs = work->zs;
+  const real*   zx = work->zx;
+  const real*   zy = work->zy;
+  const real*   zz = work->zz;
     
-    const int p = params->P;
+  const int p = params->P;
 
-    real cij0;
-    real qn;
-    int idx0, zidx, idxzz, i, j, k,n;
-    const int incrj = params->npdims[2]-p; // middle increment
-    const int incri = params->npdims[2]*(params->npdims[1]-p);// outer increment
+  real cij0;
+  real qn;
+  int idx0, zidx, idxzz, i, j, k,n;
+  const int incrj = params->npdims[2]-p; // middle increment
+  const int incri = params->npdims[2]*(params->npdims[1]-p);// outer increment
 
 #ifdef _OPENMP
 #pragma omp for private(n)// work-share over OpenMP threads here
 #endif
-    for(n=0; n<N; n++)
+  for(n=0; n<N; n++)
     {
-	qn = st->q[n];
-	idx0 = work->idx[n];
+      qn = st->q[n];
+      idx0 = work->idx[n];
 
-	// inline vanilla loop
-	zidx = 0;
-	for(i = 0; i<p; i++)
+      // inline vanilla loop
+      zidx = 0;
+      for(i = 0; i<p; i++)
 	{
-	    for(j = 0; j<p; j++)
+	  for(j = 0; j<p; j++)
 	    {
-		cij0 = qn*zx[p*n+i]*zy[p*n+j];
-		idxzz=p*n;
-		for(k = 0; k<p; k++)
+	      cij0 = qn*zx[p*n+i]*zy[p*n+j];
+	      idxzz=p*n;
+	      for(k = 0; k<p; k++)
 		{
-		    H[idx0] += zs[zidx]*zz[idxzz]*cij0;
-		    idx0++; zidx++; idxzz++;
+		  H[idx0] += zs[zidx]*zz[idxzz]*cij0;
+		  idx0++; zidx++; idxzz++;
 		}
-		idx0 += incrj; 
+	      idx0 += incrj; 
 	    }
-	    idx0 += incri; 
+	  idx0 += incri; 
 	}
     }
 }
@@ -1276,162 +1408,162 @@ void SE_FGG_grid_split(SE_FGG_work* work, const SE_state* st,
 void SE_FGG_grid_split_SSE_P16(SE_FGG_work* work, const SE_state* st, 
 			       const SE_FGG_params* params)
 {
-    // unpack parameters
-    const int N=params->N;
-    real*   H = work->H; // pointer to grid does NOT alias
-    const real*   zs = work->zs;
-    const real*   zx = work->zx;
-    const real*   zy = work->zy;
-    const real*   zz = work->zz;
+  // unpack parameters
+  const int N=params->N;
+  real*   H = work->H; // pointer to grid does NOT alias
+  const real*   zs = work->zs;
+  const real*   zx = work->zx;
+  const real*   zy = work->zy;
+  const real*   zz = work->zz;
 
-    real qn;
-    int idx, idx_zs, i,j,n;
-    const int incrj = params->npdims[2]-16; // middle increment
-    const int incri = params->npdims[2]*(params->npdims[1]-16);// outer increment
+  real qn;
+  int idx, idx_zs, i,j,n;
+  const int incrj = params->npdims[2]-16; // middle increment
+  const int incri = params->npdims[2]*(params->npdims[1]-16);// outer increment
 
-    __m128d rZZ0, rZZ1, rZZ2, rZZ3, rZZ4, rZZ5, rZZ6, rZZ7; 
-    __m128d rH0, rH1, rH2, rH3;
-    __m128d rC, rZS0;
+  __m128d rZZ0, rZZ1, rZZ2, rZZ3, rZZ4, rZZ5, rZZ6, rZZ7; 
+  __m128d rH0, rH1, rH2, rH3;
+  __m128d rC, rZS0;
 
-    for(n=0; n<N; n++)
+  for(n=0; n<N; n++)
     {
-	qn = st->q[n];
+      qn = st->q[n];
 
-	idx = work->idx[n];
-	_mm_prefetch( (void*) (H+idx), _MM_HINT_T0);
+      idx = work->idx[n];
+      _mm_prefetch( (void*) (H+idx), _MM_HINT_T0);
 
-	idx_zs = 0;
-	_mm_prefetch( (void*) zs, _MM_HINT_T0);
+      idx_zs = 0;
+      _mm_prefetch( (void*) zs, _MM_HINT_T0);
 
-        rZZ0 = _mm_load_pd(zz + n*16     );
-        rZZ1 = _mm_load_pd(zz + n*16 + 2 );
-        rZZ2 = _mm_load_pd(zz + n*16 + 4 );
-        rZZ3 = _mm_load_pd(zz + n*16 + 6 );
-        rZZ4 = _mm_load_pd(zz + n*16 + 8 );
-        rZZ5 = _mm_load_pd(zz + n*16 + 10);
-        rZZ6 = _mm_load_pd(zz + n*16 + 12);
-        rZZ7 = _mm_load_pd(zz + n*16 + 14);
+      rZZ0 = _mm_load_pd(zz + n*16     );
+      rZZ1 = _mm_load_pd(zz + n*16 + 2 );
+      rZZ2 = _mm_load_pd(zz + n*16 + 4 );
+      rZZ3 = _mm_load_pd(zz + n*16 + 6 );
+      rZZ4 = _mm_load_pd(zz + n*16 + 8 );
+      rZZ5 = _mm_load_pd(zz + n*16 + 10);
+      rZZ6 = _mm_load_pd(zz + n*16 + 12);
+      rZZ7 = _mm_load_pd(zz + n*16 + 14);
 
-	if(idx%2 == 0) // H[idx0] is 16-aligned
+      if(idx%2 == 0) // H[idx0] is 16-aligned
 	{
-	    for(i = 0; i<16; i++)
+	  for(i = 0; i<16; i++)
 	    {
-		for(j = 0; j<16; j++)
+	      for(j = 0; j<16; j++)
 		{
-		    rC = _mm_set1_pd( qn*zx[16*n+i]*zy[16*n+j] );
+		  rC = _mm_set1_pd( qn*zx[16*n+i]*zy[16*n+j] );
 
-                    /* 0 - 3 */ 
-                    rH0  = _mm_load_pd( H+idx    );
-                    rH1  = _mm_load_pd( H+idx + 2);
-                    rH2  = _mm_load_pd( H+idx + 4);
-                    rH3  = _mm_load_pd( H+idx + 6);
+		  /* 0 - 3 */ 
+		  rH0  = _mm_load_pd( H+idx    );
+		  rH1  = _mm_load_pd( H+idx + 2);
+		  rH2  = _mm_load_pd( H+idx + 4);
+		  rH3  = _mm_load_pd( H+idx + 6);
 
-                    rZS0 = _mm_load_pd( zs + idx_zs);
-		    rH0 = _mm_add_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ0,rC),rZS0));
+		  rZS0 = _mm_load_pd( zs + idx_zs);
+		  rH0 = _mm_add_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ0,rC),rZS0));
 
-                    rZS0 = _mm_load_pd( zs + idx_zs + 2);                   
-		    rH1 = _mm_add_pd(rH1,_mm_mul_pd(_mm_mul_pd(rZZ1,rC),rZS0));
+		  rZS0 = _mm_load_pd( zs + idx_zs + 2);                   
+		  rH1 = _mm_add_pd(rH1,_mm_mul_pd(_mm_mul_pd(rZZ1,rC),rZS0));
 
-                    rZS0 = _mm_load_pd( zs + idx_zs + 4);                   
-		    rH2 = _mm_add_pd(rH2,_mm_mul_pd(_mm_mul_pd(rZZ2,rC),rZS0));
+		  rZS0 = _mm_load_pd( zs + idx_zs + 4);                   
+		  rH2 = _mm_add_pd(rH2,_mm_mul_pd(_mm_mul_pd(rZZ2,rC),rZS0));
 
-                    rZS0 = _mm_load_pd( zs + idx_zs + 6);                   
-		    rH3 = _mm_add_pd(rH3,_mm_mul_pd(_mm_mul_pd(rZZ3,rC),rZS0));
+		  rZS0 = _mm_load_pd( zs + idx_zs + 6);                   
+		  rH3 = _mm_add_pd(rH3,_mm_mul_pd(_mm_mul_pd(rZZ3,rC),rZS0));
 
-		    _mm_store_pd(H + idx, rH0);
-		    _mm_store_pd(H + idx + 2, rH1);
-		    _mm_store_pd(H + idx + 4, rH2);
-		    _mm_store_pd(H + idx + 6, rH3);
+		  _mm_store_pd(H + idx, rH0);
+		  _mm_store_pd(H + idx + 2, rH1);
+		  _mm_store_pd(H + idx + 4, rH2);
+		  _mm_store_pd(H + idx + 6, rH3);
 
-                    /* 4 - 7*/ 
-		    rH0  = _mm_load_pd( H+idx + 8 );
-                    rH1  = _mm_load_pd( H+idx + 10);
-                    rH2  = _mm_load_pd( H+idx + 12);
-                    rH3  = _mm_load_pd( H+idx + 14);
+		  /* 4 - 7*/ 
+		  rH0  = _mm_load_pd( H+idx + 8 );
+		  rH1  = _mm_load_pd( H+idx + 10);
+		  rH2  = _mm_load_pd( H+idx + 12);
+		  rH3  = _mm_load_pd( H+idx + 14);
 
-                    rZS0 = _mm_load_pd( zs + idx_zs + 8);
-		    rH0 = _mm_add_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ4,rC),rZS0));
+		  rZS0 = _mm_load_pd( zs + idx_zs + 8);
+		  rH0 = _mm_add_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ4,rC),rZS0));
 
-                    rZS0 = _mm_load_pd( zs + idx_zs + 10);                   
-		    rH1 = _mm_add_pd(rH1,_mm_mul_pd(_mm_mul_pd(rZZ5,rC),rZS0));
+		  rZS0 = _mm_load_pd( zs + idx_zs + 10);                   
+		  rH1 = _mm_add_pd(rH1,_mm_mul_pd(_mm_mul_pd(rZZ5,rC),rZS0));
 
-                    rZS0 = _mm_load_pd( zs + idx_zs + 12);                   
-		    rH2 = _mm_add_pd(rH2,_mm_mul_pd(_mm_mul_pd(rZZ6,rC),rZS0));
+		  rZS0 = _mm_load_pd( zs + idx_zs + 12);                   
+		  rH2 = _mm_add_pd(rH2,_mm_mul_pd(_mm_mul_pd(rZZ6,rC),rZS0));
 
-                    rZS0 = _mm_load_pd( zs + idx_zs + 14);                   
-		    rH3 = _mm_add_pd(rH3,_mm_mul_pd(_mm_mul_pd(rZZ7,rC),rZS0));
+		  rZS0 = _mm_load_pd( zs + idx_zs + 14);                   
+		  rH3 = _mm_add_pd(rH3,_mm_mul_pd(_mm_mul_pd(rZZ7,rC),rZS0));
 
-		    _mm_store_pd(H + idx + 8 , rH0);
-		    _mm_store_pd(H + idx + 10, rH1);
-		    _mm_store_pd(H + idx + 12, rH2);
-		    _mm_store_pd(H + idx + 14, rH3);
+		  _mm_store_pd(H + idx + 8 , rH0);
+		  _mm_store_pd(H + idx + 10, rH1);
+		  _mm_store_pd(H + idx + 12, rH2);
+		  _mm_store_pd(H + idx + 14, rH3);
 
-		    idx += incrj + 16;
-		    idx_zs += 16;
+		  idx += incrj + 16;
+		  idx_zs += 16;
 		}
-		idx += incri;
+	      idx += incri;
 	    }
 	}
-	else // H[idx0] is 8-aligned, preventing nice vectorization
+      else // H[idx0] is 8-aligned, preventing nice vectorization
 	{
-	    for(i = 0; i<16; i++)
+	  for(i = 0; i<16; i++)
 	    {
-		for(j = 0; j<16; j++)
+	      for(j = 0; j<16; j++)
 		{
-		    rC = _mm_set1_pd( qn*zx[16*n+i]*zy[16*n+j] );
+		  rC = _mm_set1_pd( qn*zx[16*n+i]*zy[16*n+j] );
 
-                    /* 0 - 3 */ 
-                    rH0  = _mm_loadu_pd( H+idx    );
-                    rH1  = _mm_loadu_pd( H+idx + 2);
-                    rH2  = _mm_loadu_pd( H+idx + 4);
-                    rH3  = _mm_loadu_pd( H+idx + 6);
+		  /* 0 - 3 */ 
+		  rH0  = _mm_loadu_pd( H+idx    );
+		  rH1  = _mm_loadu_pd( H+idx + 2);
+		  rH2  = _mm_loadu_pd( H+idx + 4);
+		  rH3  = _mm_loadu_pd( H+idx + 6);
 
-		    // if zs does not have 16-byte alignment, this will core.
-		    // PLATFORM AND COMPILER DEPENDENT (FIXME)
-                    rZS0 = _mm_load_pd( zs + idx_zs);
-		    rH0 = _mm_add_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ0,rC),rZS0));
+		  // if zs does not have 16-byte alignment, this will core.
+		  // PLATFORM AND COMPILER DEPENDENT (FIXME)
+		  rZS0 = _mm_load_pd( zs + idx_zs);
+		  rH0 = _mm_add_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ0,rC),rZS0));
 
-                    rZS0 = _mm_load_pd( zs + idx_zs + 2);                   
-		    rH1 = _mm_add_pd(rH1,_mm_mul_pd(_mm_mul_pd(rZZ1,rC),rZS0));
+		  rZS0 = _mm_load_pd( zs + idx_zs + 2);                   
+		  rH1 = _mm_add_pd(rH1,_mm_mul_pd(_mm_mul_pd(rZZ1,rC),rZS0));
 
-                    rZS0 = _mm_load_pd( zs + idx_zs + 4);                   
-		    rH2 = _mm_add_pd(rH2,_mm_mul_pd(_mm_mul_pd(rZZ2,rC),rZS0));
+		  rZS0 = _mm_load_pd( zs + idx_zs + 4);                   
+		  rH2 = _mm_add_pd(rH2,_mm_mul_pd(_mm_mul_pd(rZZ2,rC),rZS0));
 
-                    rZS0 = _mm_load_pd( zs + idx_zs + 6);                   
-		    rH3 = _mm_add_pd(rH3,_mm_mul_pd(_mm_mul_pd(rZZ3,rC),rZS0));
+		  rZS0 = _mm_load_pd( zs + idx_zs + 6);                   
+		  rH3 = _mm_add_pd(rH3,_mm_mul_pd(_mm_mul_pd(rZZ3,rC),rZS0));
 
-		    _mm_storeu_pd(H + idx, rH0);
-		    _mm_storeu_pd(H + idx + 2, rH1);
-		    _mm_storeu_pd(H + idx + 4, rH2);
-		    _mm_storeu_pd(H + idx + 6, rH3);
+		  _mm_storeu_pd(H + idx, rH0);
+		  _mm_storeu_pd(H + idx + 2, rH1);
+		  _mm_storeu_pd(H + idx + 4, rH2);
+		  _mm_storeu_pd(H + idx + 6, rH3);
 
-                    /* 4 - 7*/ 
-		    rH0  = _mm_loadu_pd( H+idx + 8 );
-                    rH1  = _mm_loadu_pd( H+idx + 10);
-                    rH2  = _mm_loadu_pd( H+idx + 12);
-                    rH3  = _mm_loadu_pd( H+idx + 14);
+		  /* 4 - 7*/ 
+		  rH0  = _mm_loadu_pd( H+idx + 8 );
+		  rH1  = _mm_loadu_pd( H+idx + 10);
+		  rH2  = _mm_loadu_pd( H+idx + 12);
+		  rH3  = _mm_loadu_pd( H+idx + 14);
 
-                    rZS0 = _mm_load_pd( zs + idx_zs + 8);
-		    rH0 = _mm_add_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ4,rC),rZS0));
+		  rZS0 = _mm_load_pd( zs + idx_zs + 8);
+		  rH0 = _mm_add_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ4,rC),rZS0));
 
-                    rZS0 = _mm_load_pd( zs + idx_zs + 10);                   
-		    rH1 = _mm_add_pd(rH1,_mm_mul_pd(_mm_mul_pd(rZZ5,rC),rZS0));
+		  rZS0 = _mm_load_pd( zs + idx_zs + 10);                   
+		  rH1 = _mm_add_pd(rH1,_mm_mul_pd(_mm_mul_pd(rZZ5,rC),rZS0));
 
-                    rZS0 = _mm_load_pd( zs + idx_zs + 12);                   
-		    rH2 = _mm_add_pd(rH2,_mm_mul_pd(_mm_mul_pd(rZZ6,rC),rZS0));
+		  rZS0 = _mm_load_pd( zs + idx_zs + 12);                   
+		  rH2 = _mm_add_pd(rH2,_mm_mul_pd(_mm_mul_pd(rZZ6,rC),rZS0));
 
-                    rZS0 = _mm_load_pd( zs + idx_zs + 14);                   
-		    rH3 = _mm_add_pd(rH3,_mm_mul_pd(_mm_mul_pd(rZZ7,rC),rZS0));
+		  rZS0 = _mm_load_pd( zs + idx_zs + 14);                   
+		  rH3 = _mm_add_pd(rH3,_mm_mul_pd(_mm_mul_pd(rZZ7,rC),rZS0));
 
-		    _mm_storeu_pd(H + idx + 8 , rH0);
-		    _mm_storeu_pd(H + idx + 10, rH1);
-		    _mm_storeu_pd(H + idx + 12, rH2);
-		    _mm_storeu_pd(H + idx + 14, rH3);
+		  _mm_storeu_pd(H + idx + 8 , rH0);
+		  _mm_storeu_pd(H + idx + 10, rH1);
+		  _mm_storeu_pd(H + idx + 12, rH2);
+		  _mm_storeu_pd(H + idx + 14, rH3);
 
-		    idx += incrj + 16;
-		    idx_zs += 16;
+		  idx += incrj + 16;
+		  idx_zs += 16;
 		}
-		idx += incri;
+	      idx += incri;
 	    }
 	}
     }
@@ -1441,124 +1573,124 @@ void SE_FGG_grid_split_SSE_P16(SE_FGG_work* work, const SE_state* st,
 void SE_FGG_grid_split_SSE_u8(SE_FGG_work* work, const SE_state* st, 
 			      const SE_FGG_params* params)
 {
-    // unpack parameters
-    const int N=params->N;
-    real*   H = work->H; // pointer to grid does NOT alias
-    const real*   zs = work->zs;
-    const real*   zx = work->zx;
-    const real*   zy = work->zy;
-    const real*   zz = work->zz;
+  // unpack parameters
+  const int N=params->N;
+  real*   H = work->H; // pointer to grid does NOT alias
+  const real*   zs = work->zs;
+  const real*   zx = work->zx;
+  const real*   zy = work->zy;
+  const real*   zz = work->zz;
     
-    const int p = params->P;
+  const int p = params->P;
 
-    real qn;
-    int idx0, idx_zs, idx_zz, i,j,k,n;
-    const int incrj = params->npdims[2]-p; // middle increment
-    const int incri = params->npdims[2]*(params->npdims[1]-p);// outer increment
+  real qn;
+  int idx0, idx_zs, idx_zz, i,j,k,n;
+  const int incrj = params->npdims[2]-p; // middle increment
+  const int incri = params->npdims[2]*(params->npdims[1]-p);// outer increment
 
-    __m128d rH0, rZZ0, rZS0, rC;
-    __m128d rH1, rZZ1, rZS1;
-    __m128d rH2, rZZ2, rZS2;
-    __m128d rH3, rZZ3, rZS3;
+  __m128d rH0, rZZ0, rZS0, rC;
+  __m128d rH1, rZZ1, rZS1;
+  __m128d rH2, rZZ2, rZS2;
+  __m128d rH3, rZZ3, rZS3;
 
-    for(n=0; n<N; n++)
+  for(n=0; n<N; n++)
     {
-	qn = st->q[n];
+      qn = st->q[n];
 
-	idx0 = work->idx[n];
-	_mm_prefetch( (void*) (H+idx0), _MM_HINT_T0);
+      idx0 = work->idx[n];
+      _mm_prefetch( (void*) (H+idx0), _MM_HINT_T0);
 
-	idx_zs = 0;
-	_mm_prefetch( (void*) zs, _MM_HINT_T0);
+      idx_zs = 0;
+      _mm_prefetch( (void*) zs, _MM_HINT_T0);
 
-	if(idx0%2 == 0) // H[idx0] is 16-aligned
+      if(idx0%2 == 0) // H[idx0] is 16-aligned
 	{
-	    for(i = 0; i<p; i++)
+	  for(i = 0; i<p; i++)
 	    {
-		for(j = 0; j<p; j++)
+	      for(j = 0; j<p; j++)
 		{
-		    rC = _mm_set1_pd( qn*zx[p*n+i]*zy[p*n+j] );
-		    idx_zz=p*n;
+		  rC = _mm_set1_pd( qn*zx[p*n+i]*zy[p*n+j] );
+		  idx_zz=p*n;
 
-		    for(k = 0; k<p; k+=8)
+		  for(k = 0; k<p; k+=8)
 		    {
-			rH0  = _mm_load_pd( H+idx0     );
-			rH1  = _mm_load_pd( H+idx0 + 2 );
-			rH2  = _mm_load_pd( H+idx0 + 4 );
-			rH3  = _mm_load_pd( H+idx0 + 6 );
+		      rH0  = _mm_load_pd( H+idx0     );
+		      rH1  = _mm_load_pd( H+idx0 + 2 );
+		      rH2  = _mm_load_pd( H+idx0 + 4 );
+		      rH3  = _mm_load_pd( H+idx0 + 6 );
 
-			rZZ0 = _mm_load_pd( zz + idx_zz     );
-			rZZ1 = _mm_load_pd( zz + idx_zz + 2 );
-			rZZ2 = _mm_load_pd( zz + idx_zz + 4 );
-			rZZ3 = _mm_load_pd( zz + idx_zz + 6 );
+		      rZZ0 = _mm_load_pd( zz + idx_zz     );
+		      rZZ1 = _mm_load_pd( zz + idx_zz + 2 );
+		      rZZ2 = _mm_load_pd( zz + idx_zz + 4 );
+		      rZZ3 = _mm_load_pd( zz + idx_zz + 6 );
 
-			rZS0 = _mm_load_pd( zs + idx_zs    );
-			rZS1 = _mm_load_pd( zs + idx_zs + 2);
-			rZS2 = _mm_load_pd( zs + idx_zs + 4);
-			rZS3 = _mm_load_pd( zs + idx_zs + 6);
+		      rZS0 = _mm_load_pd( zs + idx_zs    );
+		      rZS1 = _mm_load_pd( zs + idx_zs + 2);
+		      rZS2 = _mm_load_pd( zs + idx_zs + 4);
+		      rZS3 = _mm_load_pd( zs + idx_zs + 6);
 
-			rH0 = _mm_add_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ0,rC),rZS0));
-			rH1 = _mm_add_pd(rH1,_mm_mul_pd(_mm_mul_pd(rZZ1,rC),rZS1));
-			rH2 = _mm_add_pd(rH2,_mm_mul_pd(_mm_mul_pd(rZZ2,rC),rZS2));
-			rH3 = _mm_add_pd(rH3,_mm_mul_pd(_mm_mul_pd(rZZ3,rC),rZS3));
+		      rH0 = _mm_add_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ0,rC),rZS0));
+		      rH1 = _mm_add_pd(rH1,_mm_mul_pd(_mm_mul_pd(rZZ1,rC),rZS1));
+		      rH2 = _mm_add_pd(rH2,_mm_mul_pd(_mm_mul_pd(rZZ2,rC),rZS2));
+		      rH3 = _mm_add_pd(rH3,_mm_mul_pd(_mm_mul_pd(rZZ3,rC),rZS3));
 			
-			_mm_store_pd( H+idx0    , rH0 );
-			_mm_store_pd( H+idx0 + 2, rH1 );
-			_mm_store_pd( H+idx0 + 4, rH2 );
-			_mm_store_pd( H+idx0 + 6, rH3 );
+		      _mm_store_pd( H+idx0    , rH0 );
+		      _mm_store_pd( H+idx0 + 2, rH1 );
+		      _mm_store_pd( H+idx0 + 4, rH2 );
+		      _mm_store_pd( H+idx0 + 6, rH3 );
 
-			idx0  +=8;
-			idx_zs+=8; 
-			idx_zz+=8;
+		      idx0  +=8;
+		      idx_zs+=8; 
+		      idx_zz+=8;
 		    }
-		    idx0 += incrj;
+		  idx0 += incrj;
 		}
-		idx0 += incri;
+	      idx0 += incri;
 	    }
 	}
-	else // H[idx0] is 8-aligned, preventing nice vectorization
+      else // H[idx0] is 8-aligned, preventing nice vectorization
 	{
-	    for(i = 0; i<p; i++)
+	  for(i = 0; i<p; i++)
 	    {
-	    	for(j = 0; j<p; j++)
+	      for(j = 0; j<p; j++)
 	    	{
-	    	    rC = _mm_set1_pd( qn*zx[p*n+i]*zy[p*n+j] );
-	    	    idx_zz=p*n;
+		  rC = _mm_set1_pd( qn*zx[p*n+i]*zy[p*n+j] );
+		  idx_zz=p*n;
 		    
-	    	    for(k = 0; k<p; k+=8)
+		  for(k = 0; k<p; k+=8)
 	    	    {
-	    		rH0  = _mm_loadu_pd( H+idx0     );
-	    		rH1  = _mm_loadu_pd( H+idx0 + 2 );
-	    		rH2  = _mm_loadu_pd( H+idx0 + 4 );
-	    		rH3  = _mm_loadu_pd( H+idx0 + 6 );
+		      rH0  = _mm_loadu_pd( H+idx0     );
+		      rH1  = _mm_loadu_pd( H+idx0 + 2 );
+		      rH2  = _mm_loadu_pd( H+idx0 + 4 );
+		      rH3  = _mm_loadu_pd( H+idx0 + 6 );
 
-	    		rZZ0 = _mm_load_pd( zz + idx_zz     );
-	    		rZZ1 = _mm_load_pd( zz + idx_zz + 2 );
-	    		rZZ2 = _mm_load_pd( zz + idx_zz + 4 );
-	    		rZZ3 = _mm_load_pd( zz + idx_zz + 6 );
+		      rZZ0 = _mm_load_pd( zz + idx_zz     );
+		      rZZ1 = _mm_load_pd( zz + idx_zz + 2 );
+		      rZZ2 = _mm_load_pd( zz + idx_zz + 4 );
+		      rZZ3 = _mm_load_pd( zz + idx_zz + 6 );
 
-	    		rZS0 = _mm_load_pd( zs + idx_zs    );
-	    		rZS1 = _mm_load_pd( zs + idx_zs + 2);
-	    		rZS2 = _mm_load_pd( zs + idx_zs + 4);
-	    		rZS3 = _mm_load_pd( zs + idx_zs + 6);
+		      rZS0 = _mm_load_pd( zs + idx_zs    );
+		      rZS1 = _mm_load_pd( zs + idx_zs + 2);
+		      rZS2 = _mm_load_pd( zs + idx_zs + 4);
+		      rZS3 = _mm_load_pd( zs + idx_zs + 6);
 
-			rH0 = _mm_add_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ0,rC),rZS0));
-			rH1 = _mm_add_pd(rH1,_mm_mul_pd(_mm_mul_pd(rZZ1,rC),rZS1));
-			rH2 = _mm_add_pd(rH2,_mm_mul_pd(_mm_mul_pd(rZZ2,rC),rZS2));
-			rH3 = _mm_add_pd(rH3,_mm_mul_pd(_mm_mul_pd(rZZ3,rC),rZS3));
+		      rH0 = _mm_add_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ0,rC),rZS0));
+		      rH1 = _mm_add_pd(rH1,_mm_mul_pd(_mm_mul_pd(rZZ1,rC),rZS1));
+		      rH2 = _mm_add_pd(rH2,_mm_mul_pd(_mm_mul_pd(rZZ2,rC),rZS2));
+		      rH3 = _mm_add_pd(rH3,_mm_mul_pd(_mm_mul_pd(rZZ3,rC),rZS3));
 
-	    		_mm_storeu_pd( H+idx0    , rH0 );
-	    		_mm_storeu_pd( H+idx0 + 2, rH1 );
-	    		_mm_storeu_pd( H+idx0 + 4, rH2 );
-	    		_mm_storeu_pd( H+idx0 + 6, rH3 );
+		      _mm_storeu_pd( H+idx0    , rH0 );
+		      _mm_storeu_pd( H+idx0 + 2, rH1 );
+		      _mm_storeu_pd( H+idx0 + 4, rH2 );
+		      _mm_storeu_pd( H+idx0 + 6, rH3 );
 
-	    		idx0  +=8;
-	    		idx_zs+=8;
-	    		idx_zz+=8;
+		      idx0  +=8;
+		      idx_zs+=8;
+		      idx_zz+=8;
 	    	    }
-	    	    idx0 += incrj;
+		  idx0 += incrj;
 	    	}
-	    	idx0 += incri;
+	      idx0 += incri;
 	    }
 	}
     }
@@ -1568,83 +1700,83 @@ void SE_FGG_grid_split_SSE_u8(SE_FGG_work* work, const SE_state* st,
 void SE_FGG_grid_split_SSE(SE_FGG_work* work, const SE_state* st, 
 			   const SE_FGG_params* params)
 {
-    // unpack parameters
-    const int N=params->N;
-    real*   H = work->H; // pointer to grid does NOT alias
-    const real*   zs = work->zs;
-    const real*   zx = work->zx;
-    const real*   zy = work->zy;
-    const real*   zz = work->zz;
+  // unpack parameters
+  const int N=params->N;
+  real*   H = work->H; // pointer to grid does NOT alias
+  const real*   zs = work->zs;
+  const real*   zx = work->zx;
+  const real*   zy = work->zy;
+  const real*   zz = work->zz;
     
-    const int p = params->P;
+  const int p = params->P;
 
-    real qn;
-    int idx0, idx_zs, idx_zz, i,j,k,n;
-    const int incrj = params->npdims[2]-p; // middle increment
-    const int incri = params->npdims[2]*(params->npdims[1]-p);// outer increment
+  real qn;
+  int idx0, idx_zs, idx_zz, i,j,k,n;
+  const int incrj = params->npdims[2]-p; // middle increment
+  const int incri = params->npdims[2]*(params->npdims[1]-p);// outer increment
 
-    __m128d rH0, rZZ0, rZS0, rC;
+  __m128d rH0, rZZ0, rZS0, rC;
 
-    for(n=0; n<N; n++)
+  for(n=0; n<N; n++)
     {
-	qn = st->q[n];
-	idx0 = work->idx[n];
-	idx_zs = 0;
+      qn = st->q[n];
+      idx0 = work->idx[n];
+      idx_zs = 0;
 
-	if(idx0%2 == 0) // H[idx0] is 16-aligned
+      if(idx0%2 == 0) // H[idx0] is 16-aligned
 	{
-	    for(i = 0; i<p; i++)
+	  for(i = 0; i<p; i++)
 	    {
-		for(j = 0; j<p; j++)
+	      for(j = 0; j<p; j++)
 		{
-		    rC = _mm_set1_pd( qn*zx[p*n+i]*zy[p*n+j] );
-		    idx_zz=p*n;
-		    for(k = 0; k<p; k+=2)
+		  rC = _mm_set1_pd( qn*zx[p*n+i]*zy[p*n+j] );
+		  idx_zz=p*n;
+		  for(k = 0; k<p; k+=2)
 		    {
-			rH0  = _mm_load_pd( H+idx0     );
-			rZZ0 = _mm_load_pd( zz + idx_zz     );
-			rZS0 = _mm_load_pd( zs + idx_zs    );
+		      rH0  = _mm_load_pd( H+idx0     );
+		      rZZ0 = _mm_load_pd( zz + idx_zz     );
+		      rZS0 = _mm_load_pd( zs + idx_zs    );
 
-			rZZ0 = _mm_mul_pd(rZZ0,rC);
-			rZZ0 = _mm_mul_pd(rZZ0,rZS0);
-			rH0  = _mm_add_pd(rH0,rZZ0);
+		      rZZ0 = _mm_mul_pd(rZZ0,rC);
+		      rZZ0 = _mm_mul_pd(rZZ0,rZS0);
+		      rH0  = _mm_add_pd(rH0,rZZ0);
 
-			_mm_store_pd( H+idx0    , rH0 );
+		      _mm_store_pd( H+idx0    , rH0 );
 
-			idx0  +=2;
-			idx_zs+=2; 
-			idx_zz+=2;
+		      idx0  +=2;
+		      idx_zs+=2; 
+		      idx_zz+=2;
 		    }
-		    idx0 += incrj; 
+		  idx0 += incrj; 
 		}
-		idx0 += incri; 
+	      idx0 += incri; 
 	    }
 	}
-	else // H[idx0] is 8-aligned, preventing nice vectorization
+      else // H[idx0] is 8-aligned, preventing nice vectorization
 	{
-	    for(i = 0; i<p; i++)
+	  for(i = 0; i<p; i++)
 	    {
-	    	for(j = 0; j<p; j++)
+	      for(j = 0; j<p; j++)
 	    	{
-	    	    rC = _mm_set1_pd( qn*zx[p*n+i]*zy[p*n+j] );
-	    	    idx_zz=p*n;
-	    	    for(k = 0; k<p; k+=2)
+		  rC = _mm_set1_pd( qn*zx[p*n+i]*zy[p*n+j] );
+		  idx_zz=p*n;
+		  for(k = 0; k<p; k+=2)
 	    	    {
-	    		rH0  = _mm_loadu_pd( H+idx0 );
-	    		rZZ0 = _mm_load_pd( zz + idx_zz );
-	    		rZS0 = _mm_load_pd( zs + idx_zs );
-	    		rZZ0 = _mm_mul_pd(rZZ0,rC);
-	    		rZZ0 = _mm_mul_pd(rZZ0,rZS0);
-	    		rH0  = _mm_add_pd(rH0,rZZ0);
-	    		_mm_storeu_pd( H+idx0, rH0 );
+		      rH0  = _mm_loadu_pd( H+idx0 );
+		      rZZ0 = _mm_load_pd( zz + idx_zz );
+		      rZS0 = _mm_load_pd( zs + idx_zs );
+		      rZZ0 = _mm_mul_pd(rZZ0,rC);
+		      rZZ0 = _mm_mul_pd(rZZ0,rZS0);
+		      rH0  = _mm_add_pd(rH0,rZZ0);
+		      _mm_storeu_pd( H+idx0, rH0 );
 
-	    		idx0  +=2;
-	    		idx_zs+=2;
-	    		idx_zz+=2;
+		      idx0  +=2;
+		      idx_zs+=2;
+		      idx_zz+=2;
 	    	    }
-	    	    idx0 += incrj;
+		  idx0 += incrj;
 	    	}
-	    	idx0 += incri;
+	      idx0 += incri;
 	    }
 	}
     }
@@ -1657,30 +1789,30 @@ void SE_FGG_grid_split_SSE(SE_FGG_work* work, const SE_state* st,
 static
 int compare_idx_pair(const void* a, const void* b)
 {
-    int temp = ( * ((idx_reorder_t*) a) ).idx_on_grid - 
-	( * ((idx_reorder_t*) b) ).idx_on_grid;
-    if (temp > 0)
-	return 1;
-    else if (temp < 0)
-	return -1;
-    else
-	return 0;
+  int temp = ( * ((idx_reorder_t*) a) ).idx_on_grid - 
+    ( * ((idx_reorder_t*) b) ).idx_on_grid;
+  if (temp > 0)
+    return 1;
+  else if (temp < 0)
+    return -1;
+  else
+    return 0;
 }
 
 // -----------------------------------------------------------------------------
 static
 SE_state* SE_clone_state(const SE_state* s, const SE_FGG_params* params)
 {
-    const int N = params->N;
+  const int N = params->N;
 
-    SE_state* t = (SE_state*) SE_FGG_MALLOC( sizeof(SE_state) );
-    t->x = (real*) SE_FGG_MALLOC(3*N*sizeof(real));
-    t->q = (real*) SE_FGG_MALLOC(  N*sizeof(real));
+  SE_state* t = (SE_state*) SE_FGG_MALLOC( sizeof(SE_state) );
+  t->x = (real*) SE_FGG_MALLOC(3*N*sizeof(real));
+  t->q = (real*) SE_FGG_MALLOC(  N*sizeof(real));
     
-    memcpy(t->x, s->x, 3*N*sizeof(real));
-    memcpy(t->q, s->q,   N*sizeof(real));
+  memcpy(t->x, s->x, 3*N*sizeof(real));
+  memcpy(t->q, s->q,   N*sizeof(real));
 
-    return t;
+  return t;
 }
 
 // -----------------------------------------------------------------------------
@@ -1688,41 +1820,41 @@ void SE_FGG_reorder_system(SE_state* s,
 			   const SE_FGG_work* work, 
 			   const SE_FGG_params* params)
 {
-    int i;
-    const int N = params->N;
+  int i;
+  const int N = params->N;
 
-    /* pairing of grid-index and index in array */
-    idx_reorder_t* order = (idx_reorder_t*) SE_FGG_MALLOC(N*sizeof(idx_reorder_t));
+  /* pairing of grid-index and index in array */
+  idx_reorder_t* order = (idx_reorder_t*) SE_FGG_MALLOC(N*sizeof(idx_reorder_t));
     
-    /* fill index pairing */
-    for(i=0;i<N;i++)
+  /* fill index pairing */
+  for(i=0;i<N;i++)
     {
-	order[i].idx_on_grid=work->idx[i];
-	order[i].idx_in_array=i;
+      order[i].idx_on_grid=work->idx[i];
+      order[i].idx_in_array=i;
     }
 
-    /* sort the temporary */
-    qsort(order, N, sizeof(idx_reorder_t), compare_idx_pair);
+  /* sort the temporary */
+  qsort(order, N, sizeof(idx_reorder_t), compare_idx_pair);
 
-    /* copy system */
-    SE_state* s_copy = SE_clone_state(s, params);
+  /* copy system */
+  SE_state* s_copy = SE_clone_state(s, params);
 
-    /* permute system */ 
-    int j;
-    for(i=0; i<N; i++)
+  /* permute system */ 
+  int j;
+  for(i=0; i<N; i++)
     {
-	j = order[i].idx_in_array;
+      j = order[i].idx_in_array;
 
-    	s->x[i]     = s_copy->x[j  ];
-    	s->x[i+N]   = s_copy->x[j+N];
-    	s->x[i+2*N] = s_copy->x[j+2*N];
-    	s->q[i]     = s_copy->q[j];
+      s->x[i]     = s_copy->x[j  ];
+      s->x[i+N]   = s_copy->x[j+N];
+      s->x[i+2*N] = s_copy->x[j+2*N];
+      s->q[i]     = s_copy->q[j];
     }
 
-    /* deallocations */
-    SE_FGG_FREE(order);
-    SE_free_system(s_copy); // free contents of s_copy
-    SE_FGG_FREE(s_copy);           // s_copy itself is malloc'd
+  /* deallocations */
+  SE_FGG_FREE(order);
+  SE_free_system(s_copy); // free contents of s_copy
+  SE_FGG_FREE(s_copy);           // s_copy itself is malloc'd
 }
 
 
@@ -1737,9 +1869,9 @@ void SE_FGG_reorder_system(SE_state* s,
 void 
 parse_params(SE_opt* opt, real xi)
 {
-//  int      k_inf = 28; // It follows a formula that can be used
-//  int         M0 = 2*k_inf+1;
-//  real      m0 = 0.9*sqrt(PI*(real)(opt->P));  // try also 1.71
+  //  int      k_inf = 28; // It follows a formula that can be used
+  //  int         M0 = 2*k_inf+1;
+  //  real      m0 = 0.9*sqrt(PI*(real)(opt->P));  // try also 1.71
   real      h0 = opt->box[0]/ (real) opt->M;
   real      w0 = (real) opt->P*h0/2.;
   real    eta0 = (2.0*w0*xi/opt->m)*(2.0*w0*xi/opt->m);
@@ -1814,17 +1946,17 @@ k_vec(int M, real* box,real *k1,real *k2, real *k3)
 // FIXME: Check if the order of result vector is correct
 void
 k_square(real *k1, real* k2, real* k3, // input vectors
-	real* K2, 			    // output vector
-	int n1, int n2, int n3)		    // dimension
+	 real* K2, 			    // output vector
+	 int n1, int n2, int n3)		    // dimension
 {
-	int i,j,k;
+  int i,j,k;
 #ifdef _OPENMP
 #pragma omp parallel for private(i,j,k)
 #endif	
-    for(i=0;i<n1;i++)
-  	  for(j=0;j<n2;j++)
-		for(k=0;k<n3;k++)
-		    K2[i*n3*n2+j*n2+k] = k1[i]*k1[i]+k2[j]*k2[j]+k3[k]*k3[k];
+  for(i=0;i<n1;i++)
+    for(j=0;j<n2;j++)
+      for(k=0;k<n3;k++)
+	K2[i*n3*n2+j*n2+k] = k1[i]*k1[i]+k2[j]*k2[j]+k3[k]*k3[k];
 
 }
 
@@ -1833,16 +1965,14 @@ k_square(real *k1, real* k2, real* k3, // input vectors
 void scaling(real *K2, real scalar, real *Z,
 	     int n1, int n2, int n3)
 {
-   int i,j,k;
+  int i,j,k;
 #ifdef _OPENMP
 #pragma omp parallel for private(i,j,k)
 #endif	
-    for(i=0;i<n1;i++)
-  	  for(j=0;j<n2;j++)
-		for(k=0;k<n3;k++)
-			Z[i*n3*n2+j*n2+k] = exp(scalar*K2[i*n3*n2+j*n2+k])/K2[i*n3*n2+j*n2+k];
-
-
+  for(i=0;i<n1;i++)
+    for(j=0;j<n2;j++)
+      for(k=0;k<n3;k++)
+	Z[i*n3*n2+j*n2+k] = exp(scalar*K2[i*n3*n2+j*n2+k])/K2[i*n3*n2+j*n2+k];
 
 }
 
@@ -1852,21 +1982,21 @@ void
 SE_FGG_FCN_params(SE_FGG_params* params, const SE_opt* opt, int N)
 {
 
-    params->N = N;
-    params->P = (int) opt->P;
-    params->P_half=half( opt->P );
-    params->c = opt->c;
-    params->d = pow(params->c/PI,1.5);
-    params->h = opt->box[0]/opt->M;
-    params->a = -FGG_INF;
+  params->N = N;
+  params->P = (int) opt->P;
+  params->P_half=half( opt->P );
+  params->c = opt->c;
+  params->d = pow(params->c/PI,1.5);
+  params->h = opt->box[0]/opt->M;
+  params->a = -FGG_INF;
 
-    params->dims[0] = opt->M;
-    params->dims[1] = opt->M;
-    params->dims[2] = opt->M;
+  params->dims[0] = opt->M;
+  params->dims[1] = opt->M;
+  params->dims[2] = opt->M;
 
-    params->npdims[0] = params->dims[0]+params->P;
-    params->npdims[1] = params->dims[1]+params->P;
-    params->npdims[2] = params->dims[2]+params->P;
+  params->npdims[0] = params->dims[0]+params->P;
+  params->npdims[1] = params->dims[1]+params->P;
+  params->npdims[2] = params->dims[2]+params->P;
 
 }
 
@@ -1890,16 +2020,16 @@ SE_fg_grid(real* x, real* q, int N, SE_opt opt, real* H_out)
   const SE_state st = {.x = x, .q = q};
  
   if(VERBOSE)
-	printf("[SE FG(G)] N=%d, P=%d\n",N,params.P);
+    printf("[SE FG(G)] N=%d, P=%d\n",N,params.P);
 
-   // now do the work
-   SE_FGG_base_gaussian(&work, &params);
-   SE_FGG_grid(&work, &st, &params);
+  // now do the work
+  SE_FGG_base_gaussian(&work, &params);
+  SE_FGG_grid(&work, &st, &params);
 
-   SE_FGG_wrap_fcn(H_out, &work, &params);
+  SE_FGG_wrap_fcn(H_out, &work, &params);
 
-   // done  
-   SE_FGG_free_workspace(&work);
+  // done  
+  SE_FGG_free_workspace(&work);
 }
 
 
@@ -1920,38 +2050,70 @@ SE_fgg_int(real* x, real* H, int N, SE_opt opt, real* phi_out)
   const SE_state st = {.x = x, .q = NULL};
  
   if(VERBOSE)
+    printf("[SE FG(G)] N=%d, P=%d\n",N,params.P);
+
+  // now do the work
+  SE_FGG_base_gaussian(&work, &params);
+  SE_FGG_extend_fcn(&work, H, &params);
+
+  // Integration
+  SE_FGG_int(phi_out, &work, &st, &params);
+
+  // done  
+  SE_FGG_free_workspace(&work);
+}
+
+// -----------------------------------------------------------------------------
+// interopolation and integrationto calculate forces
+void
+SE_fgg_int_force(real* x, real *q, real* H, int N, SE_opt opt, real* force_out)
+{
+  // pack parameters
+  SE_FGG_params params;
+  SE_FGG_FCN_params(&params, &opt, N);
+
+  // scratch arrays
+  SE_FGG_work work;
+  SE_FGG_allocate_workspace(&work, &params,true,false);
+
+  // coordinates and charges
+  const SE_state st = {.x = x, .q = q};
+ 
+  if(VERBOSE)
 	printf("[SE FG(G)] N=%d, P=%d\n",N,params.P);
 
    // now do the work
    SE_FGG_base_gaussian(&work, &params);
    SE_FGG_extend_fcn(&work, H, &params);
-
+   
    // Integration
-   SE_FGG_int(phi_out, &work, &st, &params);
-
+   SE_FGG_int_force(force_out, &work, &st, &params);
+   
    // done  
    SE_FGG_free_workspace(&work);
 }
+
+
 
 /*
 // -----------------------------------------------------------------------------
 // 3Dfft using fftw3 real to complex 
 void do_fft_r2c_3d(real* in, fft_complex* out, int n1, int n2, int n3)
 {
-  fftw_plan p;
-  p = fftw_plan_dft_r2c_3d(n1, n2, n3, in, out, FFTW_ESTIMATE);
-  fftw_execute(p);
-  fftw_destroy_plan(p);
+fftw_plan p;
+p = fftw_plan_dft_r2c_3d(n1, n2, n3, in, out, FFTW_ESTIMATE);
+fftw_execute(p);
+fftw_destroy_plan(p);
 }
 
 // -----------------------------------------------------------------------------
 // 3Dfft using fftw3 complex to real
 void do_fft_c2r_3d(fft_complex* in, real* out ,int n1, int n2, int n3)
 {
-  fftw_plan p;
-  p = fftw_plan_dft_c2r_3d(n1, n2, n3, in, out, FFTW_ESTIMATE);
-  fftw_execute(p);
-  fftw_destroy_plan(p);
+fftw_plan p;
+p = fftw_plan_dft_c2r_3d(n1, n2, n3, in, out, FFTW_ESTIMATE);
+fftw_execute(p);
+fftw_destroy_plan(p);
 }
 */
 
@@ -1964,7 +2126,7 @@ void do_fft_c2c_forward_3d(fft_complex* in, fft_complex* out ,int n1, int n2, in
     p = fftw_plan_dft_3d(n1, n2, n3, in, out, FFTW_FORWARD, FFTW_ESTIMATE);
     fftw_execute_dft(p,in,out);
     fftw_destroy_plan(p);
-   }
+  }
   else{
     fftwf_plan p;
     p = fftwf_plan_dft_3d(n1, n2, n3, in, out, FFTW_FORWARD, FFTW_ESTIMATE);
@@ -1983,7 +2145,7 @@ void do_fft_c2c_backward_3d(fft_complex* in, fft_complex* out ,int n1, int n2, i
     p = fftw_plan_dft_3d(n1, n2, n3, in, out, FFTW_BACKWARD, FFTW_ESTIMATE);
     fftw_execute_dft(p,in,out);
     fftw_destroy_plan(p);
-   }
+  }
   else{
     fftwf_plan p;
     p = fftwf_plan_dft_3d(n1, n2, n3, in, out, FFTW_BACKWARD, FFTW_ESTIMATE);
@@ -1998,61 +2160,30 @@ void do_fft_c2c_backward_3d(fft_complex* in, fft_complex* out ,int n1, int n2, i
 void
 product_sr(real* a, real scalar, real *c, int n1, int n2, int n3,int flag)
 {
- int i;
+  int i;
 
-switch (flag)
-  {
-   case 1:
+  switch (flag)
+    {
+    case 1:
 
 #ifdef _OPENMP
 #pragma omp parallel for private(i) shared(c)
 #endif
-	 for(i=0;i<n1*n2*n3;i++){
-		c[i] = a[i]*scalar;
-	 }
-	 break;
-   case -1:
+      for(i=0;i<n1*n2*n3;i++){
+	c[i] = a[i]*scalar;
+      }
+      break;
+    case -1:
 #ifdef _OPENMP
 #pragma omp parallel for private(i) shared(c)
 #endif
-	 for(i=0;i<n1*n2*n3;i++){
-		c[i] = a[i]/scalar;
-	 }
-   }
+      for(i=0;i<n1*n2*n3;i++){
+	c[i] = a[i]/scalar;
+      }
+    }
 
 }
 
-// -----------------------------------------------------------------------------
-// product rr (real to real) equivalent to .* in MATLAB. 
-// flag = 1 gives a.*b and flag = -1 gives a./b
-void
-product_rr(real* a, real* b, real *c, int n1, int n2, int n3,int flag)
-{
- int i;
-
-switch (flag)
-  {
-   case 1:
-
-#ifdef _OPENMP
-#pragma omp parallel for private(i)
-#endif
-	 for(i=0;i<n1*n2*n3;i++){
-		c[i] = a[i]*b[i];
-		c[i] = a[i]*b[i];
-	 }
-         break;
-   case -1:
-#ifdef _OPENMP
-#pragma omp parallel for private(i)
-#endif
-	 for(i=0;i<n1*n2*n3;i++){
-		c[i] = a[i]/b[i];
-		c[i] = a[i]/b[i];
-	 }
-   }
-
-}
 
 // -----------------------------------------------------------------------------
 // products rc (real to complex) equivalent to .* in MATLAB. 
@@ -2060,28 +2191,28 @@ switch (flag)
 void
 product_rc(fft_complex* a, real* b, fft_complex *c, int n1,int n2, int n3,int flag)
 {
- int i;
+  int i;
 
-switch (flag)
-  {
-   case 1: 
+  switch (flag)
+    {
+    case 1: 
 #ifdef _OPENMP
 #pragma omp parallel for private(i) shared(c)
 #endif
-	 for(i=0;i<n1*n2*n3;i++){
-		c[i][0] = a[i][0]*b[i];
-		c[i][1] = a[i][1]*b[i];
-	 }
-         break;
-   case -1:
+      for(i=0;i<n1*n2*n3;i++){
+	c[i][0] = a[i][0]*b[i];
+	c[i][1] = a[i][1]*b[i];
+      }
+      break;
+    case -1:
 #ifdef _OPENMP
 #pragma omp parallel for private(i) shared(c)
 #endif
-	 for(i=0;i<n1*n2*n3;i++){
-		c[i][0] = a[i][0]/b[i];
-		c[i][1] = a[i][1]/b[i];
-	 }
-   }
+      for(i=0;i<n1*n2*n3;i++){
+	c[i][0] = a[i][0]/b[i];
+	c[i][1] = a[i][1]/b[i];
+      }
+    }
 
 }
 
@@ -2090,11 +2221,11 @@ switch (flag)
 void print_rvec(char* str, rvec a[], int n,real c,int verb)
 {
   if(verb==0)
-	return;
+    return;
   printf("%s:\n",str);
   int i;
   for (i=0;i<n;i++)
-	printf("(%.4f,%.4f,%.4f)\n",a[i][0]*c,a[i][1]*c,a[i][2]*c);
+    printf("(%.4f,%.4f,%.4f)\n",a[i][0]*c,a[i][1]*c,a[i][2]*c);
   printf("\n");
 
 }
@@ -2105,11 +2236,11 @@ void print_rvec(char* str, rvec a[], int n,real c,int verb)
 void print_real(char* str, real a[], int n,real c,int verb)
 {
   if(verb==0)
-	return;
+    return;
   printf("%s:\n",str);
   int i;
   for (i=0;i<n;i++)
-	printf("%.4f\n",a[i]*c);
+    printf("%.4f\n",a[i]*c);
   printf("\n");
 
 }
@@ -2120,11 +2251,11 @@ void print_real(char* str, real a[], int n,real c,int verb)
 void print_r1d(char* str, real *a, int n, real c,int verb)
 {
   if(verb == 0)
-	return;
+    return;
   printf("%s:\n",str);
   int i;
   for (i=0;i<n;i++)
-	printf("%.4f\n",a[i]*c);
+    printf("%.4f\n",a[i]*c);
   printf("\n");
 }
 
@@ -2133,11 +2264,11 @@ void print_r1d(char* str, real *a, int n, real c,int verb)
 void print_c1d(char* str, fft_complex *a, int n, real c,int verb)
 {
   if (verb == 0)
- 	return;
+    return;
   printf("%s:\n",str);
   int i;
   for (i=0;i<n;i++)
-	printf("(%.4f,%.4f)\t",a[i][0]*c,a[i][1]*c);
+    printf("(%.4f,%.4f)\t",a[i][0]*c,a[i][1]*c);
   printf("\n");
 }
 
@@ -2146,7 +2277,7 @@ void print_c1d(char* str, fft_complex *a, int n, real c,int verb)
 void print_r3d(char* str, real *a, int n, real c,int verb)
 {
   if(verb == 0)
-	return;
+    return;
   printf("%s:\n",str);
   int i;
   for (i=0;i<n;i++)
@@ -2159,18 +2290,18 @@ void print_r3d(char* str, real *a, int n, real c,int verb)
 void print_c3d(char* str, fft_complex *a, int n1, int n2, int n3, real c,int verb)
 {
   if (verb == 0)
- 	return;
+    return;
   printf("%s:\n",str);
   int i,j,k;
   for (i=0;i<n1;i++){
-	for(j=0;j<n2;j++){
-		for(k=0;k<n3;k++)
-			printf("(%3.4f,%3.4f)\t",a[i*n3*n2+j*n2+k][0]*c,a[i*n3*n2+j*n2+k][1]*c);
-		printf("\n");
-	}
-	printf("\n");
-   }
-   printf("\n");
+    for(j=0;j<n2;j++){
+      for(k=0;k<n3;k++)
+	printf("(%3.4f,%3.4f)\t",a[i*n3*n2+j*n2+k][0]*c,a[i*n3*n2+j*n2+k][1]*c);
+      printf("\n");
+    }
+    printf("\n");
+  }
+  printf("\n");
 }
 
 // -----------------------------------------------------------------------------
@@ -2222,9 +2353,9 @@ max3(int a, int b, int c )
 
    Returned value W(z) satisfies W(z)*exp(W(z))=z
    test data...
-      W(1)= 0.5671432904097838730
-      W(2)= 0.8526055020137254914
-      W(20)=2.2050032780240599705
+   W(1)= 0.5671432904097838730
+   W(2)= 0.8526055020137254914
+   W(20)=2.2050032780240599705
    To solve (a+b*R)*exp(-c*R)-d=0 for R, use
    R=-(b*W(-exp(-a*c/b)/b*d*c)+a*c)/b/c
 */
@@ -2241,15 +2372,15 @@ LambertW(const double z) {
   if (z<-em1+1e-4) { // series near -em1 in sqrt(q)
     double q=z+em1,r=sqrt(q),q2=q*q,q3=q2*q;
     return 
-     -1.0
-     +2.331643981597124203363536062168*r
-     -1.812187885639363490240191647568*q
-     +1.936631114492359755363277457668*r*q
-     -2.353551201881614516821543561516*q2
-     +3.066858901050631912893148922704*r*q2
-     -4.175335600258177138854984177460*q3
-     +5.858023729874774148815053846119*r*q3
-     -8.401032217523977370984161688514*q3*q;  // error approx 1e-16
+      -1.0
+      +2.331643981597124203363536062168*r
+      -1.812187885639363490240191647568*q
+      +1.936631114492359755363277457668*r*q
+      -2.353551201881614516821543561516*q2
+      +3.066858901050631912893148922704*r*q2
+      -4.175335600258177138854984177460*q3
+      +5.858023729874774148815053846119*r*q3
+      -8.401032217523977370984161688514*q3*q;  // error approx 1e-16
   }
   /* initial approx for iteration... */
   if (z<1.0) { /* series near 0 */
@@ -2286,23 +2417,23 @@ SE_init_params(int* M,int* P,real* m, real eps, real L,
 
   // based on Lindbo & Tornberg error estimate
   for (iP=3;iP<P_MAX;iP++){
-        m_l   = c*sqrt(PI*iP);
-        App = exp(-iP*iP*PI*PI/(2.*m_l*m_l))+4.*erfc(m_l/sqrt(2.));
-        if(App<eps_half){
-          P_l = iP;
-          break;
-        }
+    m_l   = c*sqrt(PI*iP);
+    App = exp(-iP*iP*PI*PI/(2.*m_l*m_l))+4.*erfc(m_l/sqrt(2.));
+    if(App<eps_half){
+      P_l = iP;
+      break;
+    }
   }
 
   for (i=0;i<N;i++)
-	Q += q[i]*q[i];
+    Q += q[i]*q[i];
 
- // Based on Kolafa & Perram error estimate
- double w = 4./((double) 3.*L*L)*((double) Q/pow(PI*xi*eps_half*eps_half,2./3.));
- double lw = LambertW(w);
- double k_inf = sqrt(3.)*xi*L/(2*PI)*sqrt(lw);
+  // Based on Kolafa & Perram error estimate
+  double w = 4./((double) 3.*L*L)*((double) Q/pow(PI*xi*eps_half*eps_half,2./3.));
+  double lw = LambertW(w);
+  double k_inf = sqrt(3.)*xi*L/(2*PI)*sqrt(lw);
 
- M_l = max3(ceil(2.*k_inf+1),P_l,ceil(sqrt((double) P_l/PI)*xi*L/c));
+  M_l = max3(ceil(2.*k_inf+1),P_l,ceil(sqrt((double) P_l/PI)*xi*L/c));
 
   *m = m_l;
   *M = M_l;
@@ -2340,54 +2471,51 @@ spectral_ewald(real *x, real *q, SE_opt opt,
   real *H_in = malloc(sizeof(real)*M*M*M);
   fft_complex *H_in_comp = malloc(sizeof(fft_complex)*M*M*M); // to copy real to comp for fft
 
-  // to grid function
+  // TO GRID FUNCTION
   SE_fg_grid(x,q,N,opt,H_in);
-  // transform and shift
+
+  // TRANSFORM AND SHIFT
   copy_r2c(H_in,H_in_comp,M*M*M);
   fft_complex *H_out = malloc(sizeof(fft_complex)*M*M*M);
   do_fft_c2c_forward_3d(H_in_comp,H_out,M,M,M);
   
+  // SCALING
   // k-vectors
   real *k1 = malloc(sizeof(real)*M);
   real *k2 = malloc(sizeof(real)*M);
   real *k3 = malloc(sizeof(real)*M);
   k_vec(M,opt.box,k1,k2,k3); 
- 
   // scale
   real *K2 = malloc(sizeof(real)*M*M*M);
   k_square(k1,k2,k3,K2,M,M,M);
-
   real scalar = -(1.-eta)/(4.*xi*xi);
   real *Z = malloc(sizeof(real)*M*M*M);
   scaling(K2,scalar,Z,M,M,M);
   Z(0,0,0) = 0.;
-
   int flag = 1;  // to multiply. flag = -1 for division!
   product_rc(H_out,Z,H_out,M,M,M,flag);
 
-  // inverse shift and inverse transform
+  // INVERSE SHIFT AND INVERSE TRANSFORM
   // remeber that fftw does not multiply by 1/numel, so we do it
   // in the last step.
   do_fft_c2c_backward_3d(H_out,H_in_comp,M,M,M);
   copy_c2r(H_in_comp,H_in,M*M*M);
-//  product_sr(H_in,1./(real)(M*M*M),H_in,M*M*M,1,1,flag);
 
-  // spread and integrate
+  // SPREAD AND INTEGRATE
   SE_fgg_int(x,H_in,N,opt,phi);
 
-  scalar = 4.*PI/(real) (M*M*M);  // to compensate fftn in matlab
+  // 1/M^3 to compensate fftn in fftw which does not have it
+  scalar = 4.*PI/(real) (M*M*M);
   product_sr(phi,scalar,phi,N,1,1,flag);
+ 
+  __FREE(H_in);
+  __FREE(H_in_comp);
+  __FREE(H_out);
+  __FREE(k1);__FREE(k2);__FREE(k3);__FREE(K2);__FREE(Z);
 
   return 0;
 
 }
-
-
-
-
-
-
-
 
 
 
@@ -2398,30 +2526,29 @@ spectral_ewald(real *x, real *q, SE_opt opt,
 
 struct ewald_tab
 {
-    int        nx, ny, nz, kmax;
-    cvec     **eir;
-    fft_complex *tab_xy, *tab_qxyz;
+  int        nx, ny, nz, kmax;
+  cvec     **eir;
+  fft_complex *tab_xy, *tab_qxyz;
 };
-
 
 
 void init_ewald_tab(ewald_tab_t *et, const t_commrec *cr, const t_inputrec *ir, FILE *fp)
 {
-    int n;
+  int n;
 
-    snew(*et, 1);
-    if (fp)
+  snew(*et, 1);
+  if (fp)
     {
-        fprintf(fp, "Will do ordinary reciprocal space Ewald sum.\n");
+      fprintf(fp, "Will do ordinary reciprocal space Ewald sum.\n");
     }
 
-    (*et)->nx       = ir->nkx+1;
-    (*et)->ny       = ir->nky+1;
-    (*et)->nz       = ir->nkz+1;
-    (*et)->kmax     = max((*et)->nx, max((*et)->ny, (*et)->nz));
-    (*et)->eir      = NULL;
-    (*et)->tab_xy   = NULL;
-    (*et)->tab_qxyz = NULL;
+  (*et)->nx       = ir->nkx+1;
+  (*et)->ny       = ir->nky+1;
+  (*et)->nz       = ir->nkz+1;
+  (*et)->kmax     = max((*et)->nx, max((*et)->ny, (*et)->nz));
+  (*et)->eir      = NULL;
+  (*et)->tab_xy   = NULL;
+  (*et)->tab_qxyz = NULL;
 }
 
 
@@ -2436,24 +2563,7 @@ real do_ewald(FILE *log,       gmx_bool bVerbose,
               real lambda,     real *dvdlambda,
               ewald_tab_t et)
 {
-	/*
-	real *in;
-	fft_complex *out;
-	int i,j,N=8;
-
-	in = malloc(sizeof(real)*N);
-	out = malloc(sizeof(fft_complex)*N);
-
-	for (i=0;i<N;i++){
-		in[i] = i*1.+2.5;
-		out[i][0] = 0.;
-		out[i][1] = 0.;
-	}
-	
-	print_real("davoud",chargeA,natoms,1.,1);
-
-*/
-
+  
   const int N = natoms;
   const real eps = TOL;
  
@@ -2474,13 +2584,16 @@ real do_ewald(FILE *log,       gmx_bool bVerbose,
     st.x[i+  N] = x[i][1];
     st.x[i+2*N] = x[i][2];
   }
-  //  print_r1d("davoud chargeA",chargeA,N,1.,1);
-  //  print_r1d("davoud st.q",st.q,N,1.,1);
+  print_r1d("davoud chargeA",chargeA,N,1.,0);
+  print_r1d("davoud st.q",st.q,N,1.,0);
  
   // Initialize parameters for SE
   real Q = SE_init_params(&M,&P,&m,eps,L,xi,st.q,N);
 
   SE_opt opt = {.m = m, .box = {L, L, L}, .P = P, .M = M, .N=N};
+
+
+#ifdef __POTENTIAL__
 
   // allocate space for potential (output)
   real *phi = malloc(sizeof(real)*N);
@@ -2498,10 +2611,12 @@ real do_ewald(FILE *log,       gmx_bool bVerbose,
   }
   
   print_rvec("force",f,N,1.,0);
-
+  
   real energy=0.;
   for (i=0;i<N;i++)
     energy += chargeA[i]*phi[i];
+  energy = energy/2.;
+
   //  double sum = 0.;
   //for (i=0;i<N;i++)
   //	sum+=(phi[i])*(phi[i]);
@@ -2509,10 +2624,50 @@ real do_ewald(FILE *log,       gmx_bool bVerbose,
   
   SE_free_system(&st);
 
-  if(sizeof(double)==sizeof(real))
-	printf("\nDouble Precision\n");
-  else
-	printf("\nSingle Precision\n");
+  if(VERBOSE){
+    if(sizeof(double)==sizeof(real))
+      printf("\nDouble Precision new 1\n");
+    else
+      printf("\nSingle Precision new 1\n");
+  }
+  
+  __FREE(phi);
 
   return energy;
+
+#endif
+
+#ifdef __FORCE__
+  // Allocate space for the force
+  real *force = malloc(sizeof(real)*3*N);
+  
+  // Initialize the vector
+  SE_fp_set_zero(force,3*N);
+
+  spectral_ewald(st.x,st.q,opt,xi,force);
+  
+  if(VERBOSE)
+    for(i=0;i<N;i++)
+      printf("(%f,%f,%f)\n",force[i],force[i+N],force[i+2*N]);
+  
+    for (i=0;i<N;i++){
+      f[i][XX] = force[i];
+      f[i][YY] = force[i+N];
+      f[i][ZZ] = force[i+2*N];
+    }
+    
+    SE_free_system(&st);
+    
+    if(VERBOSE){
+      if(sizeof(double)==sizeof(real))
+	printf("\nDouble Precision new force\n");
+      else
+	printf("\nSingle Precision new force\n");
+    }
+    
+    __FREE(force);
+    
+    return 0;
+#endif
+
 }
