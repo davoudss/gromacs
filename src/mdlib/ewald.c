@@ -22,8 +22,9 @@
 #include "coulomb.h"
 #include <fftw3.h>
 
-#define __FFT
-//#undef __FFT
+//#define __FFT
+#define __FFTW
+
 
 //#ifdef __FFT
 #ifdef GMX_LIB_MPI
@@ -2084,7 +2085,7 @@ SE_fg_grid(real* x, real* q, int N, SE_opt opt, real* H_out)
 // -----------------------------------------------------------------------------
 // interopolation and integration
 static void
-SE_fgg_int(real* x, real* H, int N, SE_opt opt, real* phi_out)
+SE_fgg_int(real* x, real* q, real* H, int N, SE_opt opt, real* phi_force_out)
 {
   // pack parameters
   SE_FGG_params params;
@@ -2095,7 +2096,13 @@ SE_fgg_int(real* x, real* H, int N, SE_opt opt, real* phi_out)
   SE_FGG_allocate_workspace(&work, &params,true,false);
 
   // coordinates and charges
+#ifdef __POTENTIAL__
   const SE_state st = {.x = x, .q = NULL};
+#endif
+
+#ifdef __FORCE__
+  const SE_state st = {.x = x, .q = q};
+#endif
  
   if(VERBOSE)
     printf("[SE FG(G)] N=%d, P=%d\n",N,params.P);
@@ -2105,65 +2112,18 @@ SE_fgg_int(real* x, real* H, int N, SE_opt opt, real* phi_out)
   SE_FGG_extend_fcn(&work, H, &params);
 
   // Integration
-  SE_FGG_int(phi_out, &work, &st, &params);
+#ifdef __POTENTIAL__
+  SE_FGG_int(phi_force_out, &work, &st, &params);
+#endif
+
+#ifdef __FORCE__
+  SE_FGG_int_force(phi_force_out, &work, &st, &params);
+#endif
 
   // done  
   SE_FGG_free_workspace(&work);
 }
 
-// -----------------------------------------------------------------------------
-// interopolation and integrationto calculate forces
-static void
-SE_fgg_int_force(real* x, real *q, real* H, int N, SE_opt opt, real* force_out)
-{
-  // pack parameters
-  SE_FGG_params params;
-  SE_FGG_FCN_params(&params, &opt, N);
-
-  // scratch arrays
-  SE_FGG_work work;
-  SE_FGG_allocate_workspace(&work, &params,true,false);
-
-  // coordinates and charges
-  const SE_state st = {.x = x, .q = q};
- 
-  if(VERBOSE)
-	printf("[SE FG(G)] N=%d, P=%d\n",N,params.P);
-
-   // now do the work
-   SE_FGG_base_gaussian(&work, &params);
-   SE_FGG_extend_fcn(&work, H, &params);
-   
-   // Integration
-   SE_FGG_int_force(force_out, &work, &st, &params);
-   
-   // done  
-   SE_FGG_free_workspace(&work);
-}
-
-
-
-/*
-// -----------------------------------------------------------------------------
-// 3Dfft using fftw3 real to complex 
-void do_fft_r2c_3d(real* in, fft_complex* out, int n1, int n2, int n3)
-{
-fftw_plan p;
-p = fftw_plan_dft_r2c_3d(n1, n2, n3, in, out, FFTW_ESTIMATE);
-fftw_execute(p);
-fftw_destroy_plan(p);
-}
-
-// -----------------------------------------------------------------------------
-// 3Dfft using fftw3 complex to real
-void do_fft_c2r_3d(fft_complex* in, real* out ,int n1, int n2, int n3)
-{
-fftw_plan p;
-p = fftw_plan_dft_c2r_3d(n1, n2, n3, in, out, FFTW_ESTIMATE);
-fftw_execute(p);
-fftw_destroy_plan(p);
-}
-*/
 
 // -----------------------------------------------------------------------------
 // 3Dfft using fftw3 complex to complex
@@ -2173,14 +2133,16 @@ do_fft_c2c_forward_3d(fft_complex* in, fft_complex* out ,
 {
   if(sizeof(fft_complex)==2*sizeof(double)){
     fftw_plan p;
-    p = fftw_plan_dft_3d(n1, n2, n3, in, out, FFTW_FORWARD, FFTW_ESTIMATE);
-    fftw_execute_dft(p,in,out);
+    typedef double comp[2];
+    p = fftw_plan_dft_3d(n1, n2, n3, (comp*) in,(comp*) out, FFTW_FORWARD, FFTW_ESTIMATE);
+    fftw_execute_dft(p,(comp*) in,(comp*) out);
     fftw_destroy_plan(p);
   }
   else{
     fftwf_plan p;
-    p = fftwf_plan_dft_3d(n1, n2, n3, in, out, FFTW_FORWARD, FFTW_ESTIMATE);
-    fftwf_execute_dft(p,in,out);
+    typedef float comp[2];
+    p = fftwf_plan_dft_3d(n1, n2, n3, (comp*) in, (comp*) out, FFTW_FORWARD, FFTW_ESTIMATE);
+    fftwf_execute_dft(p,(comp*) in,(comp*) out);
     fftwf_destroy_plan(p);
   }
 }
@@ -2194,14 +2156,16 @@ do_fft_c2c_backward_3d(fft_complex* in, fft_complex* out ,
 {
   if(sizeof(fft_complex)==2*sizeof(double)){
     fftw_plan p;
-    p = fftw_plan_dft_3d(n1, n2, n3, in, out, FFTW_BACKWARD, FFTW_ESTIMATE);
-    fftw_execute_dft(p,in,out);
+    typedef double comp[2];
+    p = fftw_plan_dft_3d(n1, n2, n3, (comp*) in, (comp*) out, FFTW_BACKWARD, FFTW_ESTIMATE);
+    fftw_execute_dft(p,(comp*) in,(comp*) out);
     fftw_destroy_plan(p);
   }
   else{
     fftwf_plan p;
-    p = fftwf_plan_dft_3d(n1, n2, n3, in, out, FFTW_BACKWARD, FFTW_ESTIMATE);
-    fftwf_execute_dft(p,in,out);
+    typedef float comp[2];
+    p = fftwf_plan_dft_3d(n1, n2, n3,(comp*) in, (comp*) out, FFTW_BACKWARD, FFTW_ESTIMATE);
+    fftwf_execute_dft(p,(comp*) in,(comp*) out);
     fftwf_destroy_plan(p);
   }
 }
@@ -2263,6 +2227,37 @@ product_rc(fft_complex* a, real* b, fft_complex *c, int n1,int n2, int n3,int fl
       for(i=0;i<n1*n2*n3;i++){
 	c[i][0] = a[i][0]/b[i];
 	c[i][1] = a[i][1]/b[i];
+      }
+    }
+
+}
+
+// -----------------------------------------------------------------------------
+// products rc (real to complex) equivalent to .* in MATLAB. 
+// flag = 1 gives a.*b and flag = -1 gives a./b
+void
+se_product_rc(t_complex* a, real* b, t_complex *c, int n1,int n2, int n3,int flag)
+{
+  int i;
+
+  switch (flag)
+    {
+    case 1: 
+#ifdef _OPENMP
+#pragma omp parallel for private(i) shared(c)
+#endif
+      for(i=0;i<n1*n2*n3;i++){
+	c[i].re = a[i].re*b[i];
+	c[i].im = a[i].im*b[i];
+      }
+      break;
+    case -1:
+#ifdef _OPENMP
+#pragma omp parallel for private(i) shared(c)
+#endif
+      for(i=0;i<n1*n2*n3;i++){
+	c[i].re = a[i].re/b[i];
+	c[i].im = a[i].im/b[i];
       }
     }
 
@@ -2494,81 +2489,6 @@ SE_init_params(int* M,int* P,real* m, real eps, real L,
 }
 
 
-// =====================================================================
-// SE main call routine
-// ======================================================================
-#define Z(i,j,k) Z[M*(i*M+j)+k]
-
-int
-spectral_ewald(real *x, real *q, SE_opt opt,
-	       real xi, real* phi)
-{
-
-  // parameters and constants
-  int M,N,P;
-  real m,w,eta,c;
-
-  // creating and set new parameters
-  parse_params(&opt,xi);
-
-  // setting parameters for use
-  m = opt.m; w = opt.w; eta = opt.eta; c = opt.c; 
-  M = opt.M; N = opt.N; P = opt.P;
-
-  if(VERBOSE){
-    printf("[ SE ] Grid: [%d %d %d]\tGaussian: {P = %d, w=%.2f, m=%f}\n", M, M, M, P, w, m);
-    printf("[ SE ] {eta=%.4f, c=%.2f}\n", eta, c);
-  }
-
-  real *H_in = malloc(sizeof(real)*M*M*M);
-  fft_complex *H_in_comp = malloc(sizeof(fft_complex)*M*M*M); // to copy real to comp for fft
-
-  // TO GRID FUNCTION
-  SE_fg_grid(x,q,N,opt,H_in);
-
-  // TRANSFORM AND SHIFT
-  copy_r2c(H_in,H_in_comp,M*M*M);
-  fft_complex *H_out = malloc(sizeof(fft_complex)*M*M*M);
-  do_fft_c2c_forward_3d(H_in_comp,H_out,M,M,M);
-  
-  // SCALING
-  // k-vectors
-  real *k1 = malloc(sizeof(real)*M);
-  real *k2 = malloc(sizeof(real)*M);
-  real *k3 = malloc(sizeof(real)*M);
-  k_vec(M,opt.box,k1,k2,k3); 
-  // scale
-  real *K2 = malloc(sizeof(real)*M*M*M);
-  k_square(k1,k2,k3,K2,M,M,M);
-  real scalar = -(1.-eta)/(4.*xi*xi);
-  real *Z = malloc(sizeof(real)*M*M*M);
-  scaling(K2,scalar,Z,M,M,M);
-  Z(0,0,0) = 0.;
-  int flag = 1;  // to multiply. flag = -1 for division!
-  product_rc(H_out,Z,H_out,M,M,M,flag);
-
-  // INVERSE SHIFT AND INVERSE TRANSFORM
-  // remeber that fftw does not multiply by 1/numel, so we do it
-  // in the last step.
-  do_fft_c2c_backward_3d(H_out,H_in_comp,M,M,M);
-  copy_c2r(H_in_comp,H_in,M*M*M);
-
-  // SPREAD AND INTEGRATE
-  SE_fgg_int(x,H_in,N,opt,phi);
-
-  // 1/M^3 to compensate fftn in fftw which does not have it
-  scalar = 4.*PI/(real) (M*M*M);
-  product_sr(phi,scalar,phi,N,1,1,flag);
- 
-  __FREE(H_in);
-  __FREE(H_in_comp);
-  __FREE(H_out);
-  __FREE(k1);__FREE(k2);__FREE(k3);__FREE(K2);__FREE(Z);
-
-  return 0;
-
-}
-
 
 // copu se grids to fftgrids to perform fft
 static void
@@ -2584,7 +2504,6 @@ copy_segrid_to_fftgrid(gmx_parallel_3dfft_t pfft_setup,
 				 local_fft_ndata,
 				 local_fft_offset,
 				 local_fft_size);
-
   local_se_size[0] = nx;
   local_se_size[1] = ny;
   local_se_size[2] = nz;
@@ -2598,7 +2517,6 @@ copy_segrid_to_fftgrid(gmx_parallel_3dfft_t pfft_setup,
       }
     }
   }
-  
 }
 
 static void
@@ -2642,6 +2560,138 @@ copy_fftgrid_to_segrid(gmx_parallel_3dfft_t pfft_setup,
 
 
 // =====================================================================
+// SE main call routine
+// ======================================================================
+#define Z(i,j,k) Z[M*(i*M+j)+k]
+
+int
+spectral_ewald(real *x, real *q, SE_opt opt,
+	       real xi, real* phi_force)
+{
+
+  // parameters and constants
+  int M,N,P;
+  real m,w,eta,c;
+
+#ifdef __FFT
+  // variables to run fft
+  gmx_parallel_3dfft_t pfft_setup;
+  real                *fftgrid   = NULL;
+  t_complex           *cfftgrid  = NULL;
+  int                  bReproducible = 1;
+  int                  nthreads = 1;
+  MPI_Comm             comm[2];
+  int                 *minor = NULL, *major = NULL;
+  ivec                 ndata;
+  gmx_wallcycle_t      wcycle = NULL;
+#endif
+
+  // creating and set new parameters
+  parse_params(&opt,xi);
+
+  // setting parameters for use
+  m = opt.m; w = opt.w; eta = opt.eta; c = opt.c; 
+  M = opt.M; N = opt.N; P = opt.P;
+
+  real *H_in = malloc(sizeof(real)*M*M*M);
+#ifdef __FFTW
+  fft_complex *H_in_comp = malloc(sizeof(fft_complex)*M*M*M); // to copy real to comp for fft
+#endif
+
+  // TO GRID FUNCTION
+  SE_fg_grid(x,q,N,opt,H_in);
+
+  // TRANSFORM AND SHIFT
+#ifdef __FFTW
+  copy_r2c(H_in,H_in_comp,M*M*M);
+  fft_complex *H_out = malloc(sizeof(fft_complex)*M*M*M);
+  do_fft_c2c_forward_3d(H_in_comp,H_out,M,M,M); 
+#endif
+
+#ifdef __FFT
+  ndata[0] = M;
+  ndata[1] = M;
+  ndata[2] = M;
+  gmx_parallel_3dfft_init(&pfft_setup,ndata,&fftgrid,&cfftgrid,
+			  comm,major,minor,bReproducible,nthreads);
+
+  copy_segrid_to_fftgrid(pfft_setup,H_in,fftgrid,M,M,M);
+ 
+  gmx_parallel_3dfft_execute(pfft_setup,GMX_FFT_REAL_TO_COMPLEX,
+			     fftgrid,cfftgrid,0,wcycle);
+#endif
+
+  //  printf("********** line %d in %s *********** \n",__LINE__,__FILE__);
+
+
+  // SCALING
+  // k-vectors
+  real *k1 = malloc(sizeof(real)*M);
+  real *k2 = malloc(sizeof(real)*M);
+  real *k3 = malloc(sizeof(real)*M);
+  k_vec(M,opt.box,k1,k2,k3); 
+  // scale
+  real *K2 = malloc(sizeof(real)*M*M*M);
+  k_square(k1,k2,k3,K2,M,M,M);
+  real scalar = -(1.-eta)/(4.*xi*xi);
+  real *Z = malloc(sizeof(real)*M*M*M);
+  scaling(K2,scalar,Z,M,M,M);
+  Z(0,0,0) = 0.;
+  int  flag = 1;
+#ifdef __FFTW
+  product_rc(H_out,Z,H_out,M,M,M,flag);
+#endif
+
+#ifdef __FFT
+  se_product_rc(cfftgrid,Z,cfftgrid,M,M,M,flag);
+#endif
+
+  // INVERSE SHIFT AND INVERSE TRANSFORM
+#ifdef __FFTW
+  do_fft_c2c_backward_3d(H_out,H_in_comp,M,M,M);
+  copy_c2r(H_in_comp,H_in,M*M*M);
+#endif
+
+#ifdef __FFT
+  gmx_parallel_3dfft_execute(pfft_setup,GMX_FFT_COMPLEX_TO_REAL,
+			     cfftgrid,fftgrid,0,wcycle);
+
+  copy_fftgrid_to_segrid(pfft_setup,fftgrid,H_in,1,0,M,M,M);
+#endif
+
+  // SPREAD AND INTEGRATE
+  SE_fgg_int(x,q,H_in,N,opt,phi_force);
+
+#ifdef __POTENTIAL__ 
+  scalar = 4.*PI/(real) (M*M*M);
+  product_sr(phi_force,scalar,phi_force,N,1,1,flag);
+#endif
+
+#ifdef __FORCE__
+  scalar = 4.*PI/(real) (M*M*M);
+  product_sr(phi_force,scalar,phi_force,3*N,1,1,flag);
+#endif
+
+  __FREE(H_in);
+  __FREE(k1); __FREE(k2); __FREE(k3); __FREE(K2); 
+  __FREE(Z);
+
+#ifdef __FFTW
+  __FREE(H_in_comp);  
+  __FREE(H_out);
+#endif
+
+  //printf("********** line %d in %s *********** \n",__LINE__,__FILE__);
+#ifdef __FFT
+  gmx_parallel_3dfft_destroy(pfft_setup); 
+  free(fftgrid); free(cfftgrid);
+#endif
+
+  return 0;
+
+}
+
+// =====================================================================
 // GROMACS routines
 // ======================================================================
 
@@ -2672,74 +2722,6 @@ void init_ewald_tab(ewald_tab_t *et, const t_commrec *cr, const t_inputrec *ir, 
   (*et)->tab_qxyz = NULL;
 }
 
-real ***mk_rgrid(int nx,int ny,int nz)
-{
-  real *ptr1;
-  real **ptr2;
-  real ***ptr3;
-  int  i,j,n2,n3;
-
-  //snew1(ptr1,nx*ny*nz);
-  ptr1 = (real*) malloc(nx*ny*nz*sizeof(real));
-//  snew2(ptr2,nx*ny);
-  ptr2 = (real**) malloc(nx*ny*sizeof(real*));
-  //snew3(ptr3,nx);
-  ptr3 = (real***) malloc(nx*sizeof(real**));
-
-  n2=n3=0;
-  for(i=0; (i<nx); i++) {
-    ptr3[i]=&(ptr2[n2]);
-    for(j=0; (j<ny); j++,n2++) {
-      ptr2[n2] = &(ptr1[n3]);
-      n3 += nz;
-    }
-  }
-  return ptr3;
-}
-
-void clear_rgrid(int nx,int ny,int nz,real ***grid)
-{
-  int i,j,k;
-  
-  for(i=0; (i<nx); i++)
-    for(j=0; (j<ny); j++)
-      for(k=0; (k<nz); k++)
-	grid[i][j][k] = 0;
-}
-
-t_complex ***mk_cgrid(int nx,int ny,int nz)
-{
-  t_complex *ptr1;
-  t_complex **ptr2;
-  t_complex ***ptr3;
-  int  i,j,n2,n3;
-
-  ptr1 = (t_complex*) malloc(nx*ny*nz*sizeof(t_complex));
-  ptr2 = (t_complex**) malloc(nx*ny*sizeof(t_complex*));
-  ptr3 = (t_complex***) malloc(nx*sizeof(t_complex**));
-
-  n2=n3=0;
-  for(i=0; (i<nx); i++) {
-    ptr3[i]=&(ptr2[n2]);
-    for(j=0; (j<ny); j++,n2++) {
-      ptr2[n2] = &(ptr1[n3]);
-      n3 += nz;
-    }
-  }
-  return ptr3;
-}
-
-void clear_cgrid(int nx,int ny,int nz,t_complex ***grid)
-{
-  int i,j,k;
-  
-  for(i=0; (i<nx); i++)
-    for(j=0; (j<ny); j++)
-      for(k=0; (k<nz); k++){
-	grid[i][j][k].re = 0;
-	grid[i][j][k].im = 0;
-      }
-}
 
 
 real do_ewald(FILE *log,       gmx_bool bVerbose,
@@ -2772,8 +2754,6 @@ real do_ewald(FILE *log,       gmx_bool bVerbose,
     st.x[i+  N] = x[i][1];
     st.x[i+2*N] = x[i][2];
   }
-  print_r1d("davoud chargeA",chargeA,N,1.,0);
-  print_r1d("davoud st.q",st.q,N,1.,0);
  
   // Initialize parameters for SE
   real Q = SE_init_params(&M,&P,&m,eps,L,xi,st.q,N);
@@ -2805,11 +2785,6 @@ real do_ewald(FILE *log,       gmx_bool bVerbose,
     energy += chargeA[i]*phi[i];
   energy = energy/2.;
 
-  //  double sum = 0.;
-  //for (i=0;i<N;i++)
-  //	sum+=(phi[i])*(phi[i]);
-  //  printf("relative error= %g\n",sqrt(sum/(double) N)/(sqrt((double) xi*L*Q)/(double)L));
-  
   SE_free_system(&st);
 
   if(VERBOSE){
@@ -2855,130 +2830,8 @@ real do_ewald(FILE *log,       gmx_bool bVerbose,
     
     __FREE(force);
 
-
-
-    // try to compute fft parallel gmx
-#ifdef __FFT
-    gmx_parallel_3dfft_t pfft_setup;
-    ivec                 ndata;
-    real                *segrid_in = NULL;
-    real                *segrid_out= NULL;
-    real                *fftgrid   = NULL;
-    t_complex           *cfftgrid  = NULL;
-    MPI_Comm             comm[2]   = {0,0};
-    int                  nx,ny,nz;
-    //    int                  flags;
-    //    t_complex           *buf1,*buf2;
-    //    fft5d_plan           p1,p2;
-    int                 *major=0,*minor=0;
-    int                  ii,jj,kk;
-    //    gmx_se_t             SE        = NULL;
-    gmx_wallcycle_t      wcycle;
-    
-
-    //init fft
-    nx = ny = nz = 2;
-    ndata[0] = nx;
-    ndata[1] = ny;
-    ndata[2] = nz;
-    
-    segrid_in  = malloc(nx*ny*nz*sizeof(real));
-    segrid_out = malloc(nx*ny*nz*sizeof(real));
-
-    fft_complex * test_comp = malloc(nx*ny*nz*sizeof(fft_complex));
-    fft_complex * test_out  = malloc(nx*ny*nz*sizeof(fft_complex));
-
-    for (ii=0;ii<nx*ny*nz;ii++)
-      //      for(jj=0;jj<ny;jj++)
-      //	for(kk=0;kk<nz;kk++)
-      segrid_in[ii] = ii;//*ny*nz+jj*nz+kk;    
-
-    for (ii=0;ii<nx;ii++){
-      for(jj=0;jj<ny;jj++){
-      	for(kk=0;kk<nz;kk++)
-	  printf("%f\t",segrid_in[ii*ny*nz+jj*nz+kk]);
-	printf("\n");
-      }
-      printf("\n");
-    }
-
-    copy_r2c( segrid_in, test_comp,nx*ny*nz);
-    do_fft_c2c_forward_3d(test_comp,test_out,nx,ny,nz);
-
-
-    printf("\n*************%d %s*****************\n ",__LINE__,__FILE__);
-    gmx_parallel_3dfft_init(&pfft_setup,ndata,&fftgrid,&cfftgrid,comm,major,minor,0,1);
-    
-    copy_segrid_to_fftgrid(pfft_setup,segrid_in,fftgrid,nx,ny,nz);
-
-    gmx_parallel_3dfft_execute(pfft_setup,GMX_FFT_REAL_TO_COMPLEX,
-			       fftgrid,cfftgrid,0,wcycle);
-    int idx;
-    printf("cfftgrid\n");
-    for (ii=0;ii<nx;ii++){
-      for(jj=0;jj<ny;jj++){
-      	for(kk=0;kk<nz;kk++){
-	  idx = ii*ny*nz+jj*nz+kk;
-	  printf("(%f,%f)\t",cfftgrid[idx].re,cfftgrid[idx].im);
-	}
-	printf("\n");
-      }
-      printf("\n");
-    }    
-    
-    printf("test_out\n");
-    for (ii=0;ii<nx;ii++){
-      for(jj=0;jj<ny;jj++){
-      	for(kk=0;kk<nz;kk++){
-	  idx = ii*ny*nz+jj*nz+kk;
-	  printf("(%f,%f)\t",test_out[idx][0],test_out[idx][1]);
-	}
-	printf("\n");
-      }
-      printf("\n");
-    }    
-
-    gmx_parallel_3dfft_execute(pfft_setup,GMX_FFT_COMPLEX_TO_REAL,
-			       cfftgrid,fftgrid,0,wcycle);
-
-    copy_fftgrid_to_segrid(pfft_setup,fftgrid,segrid_out,1,0,nx,ny,nz);
-
-    for (ii=0;ii<nx;ii++){
-      for(jj=0;jj<ny;jj++){
-      	for(kk=0;kk<nz;kk++)
-	  printf("%f\t",segrid_out[ii*ny*nz+jj*nz+kk]/(nx*ny*nz));
-	printf("\n");
-      }
-      printf("\n");
-    }
-    
-    free(segrid_in); free(segrid_out);
-    free(fftgrid);   free(cfftgrid);
-    gmx_parallel_3dfft_destroy(pfft_setup);
-    free(test_comp); free(test_out);
    
-
-#endif
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
     return 0;
 #endif
-
-
-
-
 
 }

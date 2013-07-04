@@ -121,16 +121,16 @@ typedef struct
 // =============================================================
 
 // Unpacking params
-void parse_params(SE_opt*, real);
+inline static void parse_params(SE_opt*, real);
 
 // create k_space evctors
-void k_vec(int, real*, real*, real*, real*);
+inline static void k_vec(int, real*, real*, real*, real*);
 
 // creating k square
-void k_square(real*, real*, real*,real*, int, int, int);
+inline static void k_square(real*, real*, real*,real*, int, int, int);
 
 // do the scaling
-void scaling(real *, real , real *, int , int, int);
+static void scaling(real *, real , real *, int , int, int);
 
 
 // products sr(scalar to real) rr (real to real) rc (real to complex)
@@ -138,27 +138,27 @@ void scaling(real *, real , real *, int , int, int);
 void product_sr(real*, real, real*, int, int, int, int);
 void product_rr(real*, real*, real*, int, int, int, int);
 void product_rc(fft_complex*, real*, fft_complex*, int, int, int, int);
-
+void se_product_rc(t_complex*, real*, t_complex*, int, int, int, int);
 
 // Packing SE parameters
-void
+inline static void
 SE_FGG_FCN_params(SE_FGG_params*, const SE_opt*, int);
 
 // calling gridding
-void SE_fg_grid(real*, real*, int, SE_opt, real*);
+static void SE_fg_grid(real*, real*, int, SE_opt, real*);
 
 // integration and interpolation
-void SE_fgg_int(real*, real*, int, SE_opt, real*);
+static void SE_fgg_int(real*, real*, real*, int, SE_opt, real*);
 // integration and interpolation and calculate forces
-void SE_fgg_int_force(real*, real *, real*, int, SE_opt, real*);
+static void SE_fgg_int_force(real*, real *, real*, int, SE_opt, real*);
 // 3d fft using fftw3 real to complex
-void do_fft_r2c_3d(real*, fft_complex*, int, int, int);
+//void do_fft_r2c_3d(real*, fft_complex*, int, int, int);
 // 3d fft using fftw3 complex to real
-void do_fft_c2r_3d(fft_complex*, real*, int, int, int);
+//void do_fft_c2r_3d(fft_complex*, real*, int, int, int);
 // 3d forward fft using fftw3 complex to complex
-void do_fft_c2c_forward_3d(fft_complex*, fft_complex*, int, int, int);
+static void do_fft_c2c_forward_3d(fft_complex*, fft_complex*, int, int, int);
 // 3d backward fft using fftw3 complex to complex
-void do_fft_c2c_backward_3d(fft_complex*, fft_complex*, int, int, int);
+static void do_fft_c2c_backward_3d(fft_complex*, fft_complex*, int, int, int);
 
 
 
@@ -173,13 +173,13 @@ void print_c3d(char*, fft_complex*, int, int, int, real,int);
 void copy_r2c(real*, fft_complex*, int);
 void copy_c2r(fft_complex*, real*, int);
 
-real
+static real
 SE_init_params(int*, int*, real*, real, real,
                real, real*, int);
 
 inline int max3(int,int,int);
 // lambertW function similar to MATLAB
-real lambertW(const real);
+inline static real lambertW(const real);
 
 
 
@@ -189,21 +189,19 @@ real lambertW(const real);
 // =============================================================
 
 // Fill parameter struct
-void SE_FGG_pack_params(SE_FGG_params*, int, int, int, int, int, 
+static void SE_FGG_pack_params(SE_FGG_params*, int, int, int, int, int, 
 			real, real);
-void SE2P_FGG_pack_params(SE_FGG_params*, int, int, int, int, int, 
-			  real, real, real);
 
 // Allocate workspace (malloc)
-void SE_FGG_allocate_workspace(SE_FGG_work*, const SE_FGG_params*, int, int);
-real* SE_FGG_allocate_grid(const SE_FGG_params*);
-real* SE_FGG_allocate_vec(int);
+static void SE_FGG_allocate_workspace(SE_FGG_work*, const SE_FGG_params*, int, int);
+static real* SE_FGG_allocate_grid(const SE_FGG_params*);
+static real* SE_FGG_allocate_vec(int);
 
 // Free workspace (free)
-void SE_FGG_free_workspace(SE_FGG_work*);
+static void SE_FGG_free_workspace(SE_FGG_work*);
 
 // Particles to grid
-void SE_FGG_grid(SE_FGG_work*, const SE_state*, const SE_FGG_params*);
+static void SE_FGG_grid(SE_FGG_work*, const SE_state*, const SE_FGG_params*);
 void SE_FGG_grid_split_SSE_dispatch(SE_FGG_work*, const SE_state*, const SE_FGG_params*);
 void SE_FGG_grid_split(SE_FGG_work*, const SE_state*, const SE_FGG_params*);
 void SE_FGG_grid_split_SSE(SE_FGG_work*, const SE_state*, const SE_FGG_params*);
@@ -211,11 +209,13 @@ void SE_FGG_grid_split_SSE_u8(SE_FGG_work*, const SE_state*, const SE_FGG_params
 void SE_FGG_grid_split_SSE_P16(SE_FGG_work*, const SE_state*, const SE_FGG_params*);
 
 // Compute all FGG expansion vectors
-void SE_FGG_expand_all(SE_FGG_work*, const SE_state*, const SE_FGG_params*);
+static void SE_FGG_expand_all(SE_FGG_work*, const SE_state*, const SE_FGG_params*);
 
 // Grid to particles
-void SE_FGG_int(real*, const SE_FGG_work*, const SE_state*, const SE_FGG_params*);
-void SE_FGG_int_force(real*,const SE_FGG_work*, const SE_state*, const SE_FGG_params*);
+static void 
+SE_FGG_int(real*, const SE_FGG_work*, const SE_state*, const SE_FGG_params*);
+static void 
+SE_FGG_int_force(real*,const SE_FGG_work*, const SE_state*, const SE_FGG_params*);
 void SE_FGG_int_split_SSE_dispatch(real*, const SE_FGG_work*, const SE_FGG_params*);
 void SE_FGG_int_split(real*, const SE_FGG_work*, const SE_FGG_params*);
 void SE_FGG_int_split_SSE(real*, const SE_FGG_work*, const SE_FGG_params*);
@@ -224,32 +224,29 @@ void SE_FGG_int_split_SSE_P8(real*, const SE_FGG_work*, const SE_FGG_params*);
 void SE_FGG_int_split_SSE_P16(real*, const SE_FGG_work*, const SE_FGG_params*);
 
 // Static Gaussian on P^3-grid
-void SE_FGG_base_gaussian(SE_FGG_work*, const SE_FGG_params*);
+static void SE_FGG_base_gaussian(SE_FGG_work*, const SE_FGG_params*);
 
 // Wrap function to produce periodicity
-void SE_FGG_wrap_fcn(real*, const SE_FGG_work*, const SE_FGG_params*);
-void SE2P_FGG_wrap_fcn(real*, const SE_FGG_work*, const SE_FGG_params*);
+static void SE_FGG_wrap_fcn(real*, const SE_FGG_work*, const SE_FGG_params*);
 
 // Extend periodic function
-void SE_FGG_extend_fcn(SE_FGG_work*, const real*, const SE_FGG_params*);
-void SE2P_FGG_extend_fcn(SE_FGG_work*, const real*, const SE_FGG_params*);
+static void SE_FGG_extend_fcn(SE_FGG_work*, const real*, const SE_FGG_params*);
 
 // Randomize positions and charges (malloc)
-void SE_init_system(SE_state*, const SE_FGG_params*);
-void SE_init_unit_system(SE_state*, const SE_FGG_params*);
+static void SE_init_system(SE_state*, const SE_FGG_params*);
 
 // Free particles and charges (free)
-void SE_free_system(SE_state*);
+static void SE_free_system(SE_state*);
 
 // Retrun time in seconds
 real SE_gettime(void);
 
 // Return product of elements in integer triplet
-int SE_prod3(const int[3]);
+static int SE_prod3(const int[3]);
 
 // Set first N elements of array to floating-point zero
-void SE_fp_set_zero(real*, int);
+static void SE_fp_set_zero(real*, int);
 
 // Reorder particles according to closest grid point
-void SE_FGG_reorder_system(SE_state*, const SE_FGG_work*, const SE_FGG_params*);
+static void SE_FGG_reorder_system(SE_state*, const SE_FGG_work*, const SE_FGG_params*);
 
