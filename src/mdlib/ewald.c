@@ -22,6 +22,40 @@
 #include "coulomb.h"
 #include <fftw3.h>
 
+#define __FFT
+//#undef __FFT
+
+//#ifdef __FFT
+#ifdef GMX_LIB_MPI
+#include <mpi.h>
+#endif
+#ifdef GMX_THREAD_MPI
+#include "tmpi.h"
+#endif
+
+#include "smalloc.h"
+#include "gmx_parallel_3dfft.h"
+#include "gmx_fft.h"
+#include "gmxcomplex.h"
+#include "gmx_fatal.h"
+#include "fft5d.h"
+
+typedef struct gmx_se {
+  MPI_Comm     mpi_comm;
+  int          nthread;
+  real        *fftgridA; 
+  int          fftgrid_nx, fftgrid_ny, fftgrid_nz;
+  t_complex   *cfftgridA;
+  int          cfftgrid_nx, cfftgrid_ny, cfftgrid_nz;
+  int          segrid_nx,segrid_ny,segrid_nz;
+  
+  gmx_parallel_3dfft_t  pfft_setupA;
+} t_gmx_se;
+
+typedef t_gmx_se *gmx_se_t;
+
+//#endif
+
 //#define __POTENTIAL__
 #define __FORCE__
 
@@ -83,7 +117,8 @@ static real randnum(real min, real L)
 
 // -----------------------------------------------------------------------------
 // Set array elements to real-precision zero
-void SE_fp_set_zero(real* x, const int N)
+static void 
+SE_fp_set_zero(real* x, const int N)
 {
   int i;
   for(i=0; i<N; i++)
@@ -91,7 +126,7 @@ void SE_fp_set_zero(real* x, const int N)
 }
 
 // -----------------------------------------------------------------------------
-inline int SE_prod3(const int v[3])
+static inline int SE_prod3(const int v[3])
 {
   return v[0]*v[1]*v[2];
 }
@@ -105,7 +140,7 @@ inline real SE_gettime(void)
 }
 
 // -----------------------------------------------------------------------------
-void 
+static void 
 SE_FGG_pack_params(SE_FGG_params* params, int N, int M0, int M1, int M2, 
 		   int P, real c, real h)
 {
@@ -127,8 +162,9 @@ SE_FGG_pack_params(SE_FGG_params* params, int N, int M0, int M1, int M2,
 }
 
 // -----------------------------------------------------------------------------
-void SE_FGG_allocate_workspace(SE_FGG_work* work, const SE_FGG_params* params, 
-			       int allocate_zs, int allocate_fgg_expa)
+static void 
+SE_FGG_allocate_workspace(SE_FGG_work* work, const SE_FGG_params* params, 
+			  int allocate_zs, int allocate_fgg_expa)
 {
   const int P=params->P;
   int numel = SE_prod3(params->npdims);
@@ -161,7 +197,8 @@ void SE_FGG_allocate_workspace(SE_FGG_work* work, const SE_FGG_params* params,
 }
 
 // -----------------------------------------------------------------------------
-real* SE_FGG_allocate_grid(const SE_FGG_params* params)
+static real* 
+SE_FGG_allocate_grid(const SE_FGG_params* params)
 {
   int numel = SE_prod3(params->dims);
   real* H_per = SE_FGG_MALLOC(numel*sizeof(real));
@@ -170,7 +207,8 @@ real* SE_FGG_allocate_grid(const SE_FGG_params* params)
 }
 
 // -----------------------------------------------------------------------------
-real* SE_FGG_allocate_vec(const int Nm)
+static real* 
+SE_FGG_allocate_vec(const int Nm)
 {
   real* phi = SE_FGG_MALLOC(Nm*sizeof(real));
   SE_fp_set_zero(phi, Nm);
@@ -179,7 +217,8 @@ real* SE_FGG_allocate_vec(const int Nm)
 
 
 // -----------------------------------------------------------------------------
-void SE_FGG_free_workspace(SE_FGG_work* work)
+static void 
+SE_FGG_free_workspace(SE_FGG_work* work)
 {
   SE_FGG_FREE(work->H);
 
@@ -197,7 +236,8 @@ void SE_FGG_free_workspace(SE_FGG_work* work)
 
 
 // -----------------------------------------------------------------------------
-void SE_init_system(SE_state* s, const SE_FGG_params* params)
+static void 
+SE_init_system(SE_state* s, const SE_FGG_params* params)
 {
   int i;
   const int N=params->N;
@@ -208,7 +248,8 @@ void SE_init_system(SE_state* s, const SE_FGG_params* params)
 }
 
 // -----------------------------------------------------------------------------
-void SE_free_system(SE_state* s)
+static void 
+SE_free_system(SE_state* s)
 {
   SE_FGG_FREE(s->x);
   SE_FGG_FREE(s->q);
@@ -216,8 +257,9 @@ void SE_free_system(SE_state* s)
 
 // -----------------------------------------------------------------------------
 // Wrap H to produce periodicity
-void SE_FGG_wrap_fcn(real* H_per, 
-		     const SE_FGG_work* work, const SE_FGG_params* params)
+static void 
+SE_FGG_wrap_fcn(real* H_per, 
+		const SE_FGG_work* work, const SE_FGG_params* params)
 {
   int idx ,i,j,k;
   int widx[3];
@@ -248,8 +290,9 @@ void SE_FGG_wrap_fcn(real* H_per,
 // -----------------------------------------------------------------------------
 // Extend periodic function larger box
 // INPUT IN FORTRAN/MATLAB-STYLE COLUMN MAJOR LAYOUT!
-void SE_FGG_extend_fcn(SE_FGG_work* work, const real* H_per, 
-		       const SE_FGG_params* params)
+static void 
+SE_FGG_extend_fcn(SE_FGG_work* work, const real* H_per, 
+		  const SE_FGG_params* params)
 {
   int idx ,i,j,k;
   int widx[3];
@@ -283,7 +326,8 @@ void SE_FGG_extend_fcn(SE_FGG_work* work, const real* H_per,
 // Core SE FGG routines ========================================================
 
 // -----------------------------------------------------------------------------
-void SE_FGG_base_gaussian(SE_FGG_work* work, const SE_FGG_params* params)
+static void
+SE_FGG_base_gaussian(SE_FGG_work* work, const SE_FGG_params* params)
 {
   int idx ,i,j,k;
     
@@ -313,12 +357,12 @@ void SE_FGG_base_gaussian(SE_FGG_work* work, const SE_FGG_params* params)
 }
 
 // -----------------------------------------------------------------------------
-static 
-int fgg_expansion_3p(const real x[3], const real q,
-		     const SE_FGG_params* params,
-		     real z2_0[P_MAX], 
-		     real z2_1[P_MAX], 
-		     real z2_2[P_MAX])
+static int 
+fgg_expansion_3p(const real x[3], const real q,
+		 const SE_FGG_params* params,
+		 real z2_0[P_MAX], 
+		 real z2_1[P_MAX], 
+		 real z2_2[P_MAX])
 {
   // unpack params
   const int p = params->P;
@@ -400,15 +444,15 @@ int fgg_expansion_3p(const real x[3], const real q,
 
 
 // -----------------------------------------------------------------------------
-static 
-int fgg_expansion_3p_force(const real x[3], const real q,
-			   const SE_FGG_params* params,
-			   real z2_0[P_MAX], 
-			   real z2_1[P_MAX], 
-			   real z2_2[P_MAX],
-			   real zf_0[P_MAX],
-			   real zf_1[P_MAX],
-			   real zf_2[P_MAX])
+static int 
+fgg_expansion_3p_force(const real x[3], const real q,
+		       const SE_FGG_params* params,
+		       real z2_0[P_MAX], 
+		       real z2_1[P_MAX], 
+		       real z2_2[P_MAX],
+		       real zf_0[P_MAX],
+		       real zf_1[P_MAX],
+		       real zf_2[P_MAX])
 {
     // unpack params
     const int  p      = params->P;
@@ -503,9 +547,10 @@ int fgg_expansion_3p_force(const real x[3], const real q,
 
 
 // -----------------------------------------------------------------------------
-void SE_FGG_expand_all(SE_FGG_work* work, 
-		       const SE_state* st, 
-		       const SE_FGG_params* params)
+static void 
+SE_FGG_expand_all(SE_FGG_work* work, 
+		  const SE_state* st, 
+		  const SE_FGG_params* params)
 {
   int n;
   real xn[3] __attribute__((aligned(16)));
@@ -526,10 +571,11 @@ void SE_FGG_expand_all(SE_FGG_work* work,
 
 // -----------------------------------------------------------------------------
 // vanilla grid gather
-void SE_FGG_int(real* phi,  
-		const SE_FGG_work* work, 
-		const SE_state* st, 
-		const SE_FGG_params* params)
+static void 
+SE_FGG_int(real* phi,  
+	   const SE_FGG_work* work, 
+	   const SE_state* st, 
+	   const SE_FGG_params* params)
 {
   real z2_0[P_MAX] __attribute__((aligned(16)));
   real z2_1[P_MAX] __attribute__((aligned(16)));
@@ -581,10 +627,11 @@ void SE_FGG_int(real* phi,
 
 // -----------------------------------------------------------------------------
 // vanilla grid gather to calculate forces
-void SE_FGG_int_force(real* force,  
-		      const SE_FGG_work* work, 
-		      const SE_state* st, 
-		      const SE_FGG_params* params)
+static void 
+SE_FGG_int_force(real* force,  
+		 const SE_FGG_work* work, 
+		 const SE_state* st, 
+		 const SE_FGG_params* params)
 {
     real z2_0[P_MAX] __attribute__((aligned(16)));
     real z2_1[P_MAX] __attribute__((aligned(16)));
@@ -1241,8 +1288,9 @@ void SE_FGG_int_split_SSE_u8(real*   phi,
 }
 
 // -----------------------------------------------------------------------------
-void SE_FGG_grid(SE_FGG_work* work, const SE_state* st, 
-		 const SE_FGG_params* params)
+static void 
+SE_FGG_grid(SE_FGG_work* work, const SE_state* st, 
+	    const SE_FGG_params* params)
 {
   // vectors for FGG expansions
   real zx0[P_MAX] __attribute__((aligned(16)));
@@ -1816,9 +1864,10 @@ SE_state* SE_clone_state(const SE_state* s, const SE_FGG_params* params)
 }
 
 // -----------------------------------------------------------------------------
-void SE_FGG_reorder_system(SE_state* s, 
-			   const SE_FGG_work* work, 
-			   const SE_FGG_params* params)
+static void 
+SE_FGG_reorder_system(SE_state* s, 
+		      const SE_FGG_work* work, 
+		      const SE_FGG_params* params)
 {
   int i;
   const int N = params->N;
@@ -1866,7 +1915,7 @@ void SE_FGG_reorder_system(SE_state* s,
 
 // -----------------------------------------------------------------------------
 // unpacking params
-void 
+inline static void 
 parse_params(SE_opt* opt, real xi)
 {
   //  int      k_inf = 28; // It follows a formula that can be used
@@ -1887,7 +1936,7 @@ parse_params(SE_opt* opt, real xi)
 
 // -----------------------------------------------------------------------------
 // create k_space evctors
-void
+inline static void
 k_vec(int M, real* box,real *k1,real *k2, real *k3)
 {
   int i,MM;
@@ -1943,11 +1992,10 @@ k_vec(int M, real* box,real *k1,real *k2, real *k3)
 
 // -----------------------------------------------------------------------------
 // creating k square
-// FIXME: Check if the order of result vector is correct
-void
+inline static void
 k_square(real *k1, real* k2, real* k3, // input vectors
-	 real* K2, 			    // output vector
-	 int n1, int n2, int n3)		    // dimension
+	 real* K2, 		       // output vector
+	 int n1, int n2, int n3)       // dimension
 {
   int i,j,k;
 #ifdef _OPENMP
@@ -1962,7 +2010,7 @@ k_square(real *k1, real* k2, real* k3, // input vectors
 
 // -----------------------------------------------------------------------------
 // packing SE parameters
-void scaling(real *K2, real scalar, real *Z,
+static void scaling(real *K2, real scalar, real *Z,
 	     int n1, int n2, int n3)
 {
   int i,j,k;
@@ -1978,7 +2026,7 @@ void scaling(real *K2, real scalar, real *Z,
 
 // -----------------------------------------------------------------------------
 // packing SE parameters
-void
+inline static void
 SE_FGG_FCN_params(SE_FGG_params* params, const SE_opt* opt, int N)
 {
 
@@ -2002,7 +2050,7 @@ SE_FGG_FCN_params(SE_FGG_params* params, const SE_opt* opt, int N)
 
 // -----------------------------------------------------------------------------
 // calling gridding
-void
+static void
 SE_fg_grid(real* x, real* q, int N, SE_opt opt, real* H_out)
 {
   // pack parameters
@@ -2035,7 +2083,7 @@ SE_fg_grid(real* x, real* q, int N, SE_opt opt, real* H_out)
 
 // -----------------------------------------------------------------------------
 // interopolation and integration
-void
+static void
 SE_fgg_int(real* x, real* H, int N, SE_opt opt, real* phi_out)
 {
   // pack parameters
@@ -2065,7 +2113,7 @@ SE_fgg_int(real* x, real* H, int N, SE_opt opt, real* phi_out)
 
 // -----------------------------------------------------------------------------
 // interopolation and integrationto calculate forces
-void
+static void
 SE_fgg_int_force(real* x, real *q, real* H, int N, SE_opt opt, real* force_out)
 {
   // pack parameters
@@ -2119,7 +2167,9 @@ fftw_destroy_plan(p);
 
 // -----------------------------------------------------------------------------
 // 3Dfft using fftw3 complex to complex
-void do_fft_c2c_forward_3d(fft_complex* in, fft_complex* out ,int n1, int n2, int n3)
+static void 
+do_fft_c2c_forward_3d(fft_complex* in, fft_complex* out ,
+		      int n1, int n2, int n3)
 {
   if(sizeof(fft_complex)==2*sizeof(double)){
     fftw_plan p;
@@ -2138,7 +2188,9 @@ void do_fft_c2c_forward_3d(fft_complex* in, fft_complex* out ,int n1, int n2, in
 
 // -----------------------------------------------------------------------------
 // 3Dfft using fftw3 complex to complex
-void do_fft_c2c_backward_3d(fft_complex* in, fft_complex* out ,int n1, int n2, int n3)
+static void 
+do_fft_c2c_backward_3d(fft_complex* in, fft_complex* out ,
+		       int n1, int n2, int n3)
 {
   if(sizeof(fft_complex)==2*sizeof(double)){
     fftw_plan p;
@@ -2360,7 +2412,7 @@ max3(int a, int b, int c )
    R=-(b*W(-exp(-a*c/b)/b*d*c)+a*c)/b/c
 */
 
-real 
+inline static real
 LambertW(const double z) {
   int i; 
   const double eps=4.0e-16, em1=0.3678794411714423215955237701614608; 
@@ -2406,7 +2458,7 @@ LambertW(const double z) {
 // -----------------------------------------------------------------------------
 // set M, P, m based on the inputs eps, L, N, xi for starting SE
 
-real
+static real
 SE_init_params(int* M,int* P,real* m, real eps, real L,
                real xi, real* q, int N)
 {
@@ -2518,6 +2570,75 @@ spectral_ewald(real *x, real *q, SE_opt opt,
 }
 
 
+// copu se grids to fftgrids to perform fft
+static void
+copy_segrid_to_fftgrid(gmx_parallel_3dfft_t pfft_setup, 
+		       real* segrid, real* fftgrid,
+		       int nx, int ny, int nz)
+{
+  ivec local_fft_ndata,local_fft_offset,local_fft_size;
+  ivec local_se_size;
+  int  seidx,ix,iy,iz,fftidx;
+  
+  gmx_parallel_3dfft_real_limits(pfft_setup,
+				 local_fft_ndata,
+				 local_fft_offset,
+				 local_fft_size);
+
+  local_se_size[0] = nx;
+  local_se_size[1] = ny;
+  local_se_size[2] = nz;
+  
+  for (ix = 0; ix < local_fft_ndata[XX]; ix++){
+    for (iy = 0; iy < local_fft_ndata[YY]; iy++){
+      for (iz = 0; iz < local_fft_ndata[ZZ]; iz++){
+	seidx  = ix*(local_se_size[YY]*local_se_size[ZZ])+iy*(local_se_size[ZZ])+iz;
+	fftidx = ix*(local_fft_size[YY]*local_fft_size[ZZ])+iy*(local_fft_size[ZZ])+iz;
+	fftgrid[fftidx] = segrid[seidx];
+      }
+    }
+  }
+  
+}
+
+static void
+copy_fftgrid_to_segrid(gmx_parallel_3dfft_t pfft_setup, 
+		       const real *fftgrid, real *segrid,
+		       int nthread, int thread,
+		       int nx, int ny, int nz)
+{
+    ivec          local_fft_ndata, local_fft_offset, local_fft_size;
+    ivec          local_se_size;
+    int           ixy0, ixy1, ixy, ix, iy, iz;
+    int           seidx, fftidx;
+
+    /* Dimensions should be identical for A/B grid, so we just use A here */
+    gmx_parallel_3dfft_real_limits(pfft_setup,
+                                   local_fft_ndata,
+                                   local_fft_offset,
+                                   local_fft_size);
+
+    local_se_size[0] = nx;
+    local_se_size[1] = ny;
+    local_se_size[2] = nz;
+    
+    ixy0 = ((thread  )*local_fft_ndata[XX]*local_fft_ndata[YY])/nthread;
+    ixy1 = ((thread+1)*local_fft_ndata[XX]*local_fft_ndata[YY])/nthread;
+
+    for (ixy = ixy0; ixy < ixy1; ixy++)
+    {
+        ix = ixy/local_fft_ndata[YY];
+        iy = ixy - ix*local_fft_ndata[YY];
+
+        seidx = (ix*local_se_size[YY] + iy)*local_se_size[ZZ];
+        fftidx = (ix*local_fft_size[YY] + iy)*local_fft_size[ZZ];
+        for (iz = 0; iz < local_fft_ndata[ZZ]; iz++)
+        {
+            segrid[seidx+iz] = fftgrid[fftidx+iz];
+        }
+    }
+    
+}
 
 
 // =====================================================================
@@ -2551,6 +2672,74 @@ void init_ewald_tab(ewald_tab_t *et, const t_commrec *cr, const t_inputrec *ir, 
   (*et)->tab_qxyz = NULL;
 }
 
+real ***mk_rgrid(int nx,int ny,int nz)
+{
+  real *ptr1;
+  real **ptr2;
+  real ***ptr3;
+  int  i,j,n2,n3;
+
+  //snew1(ptr1,nx*ny*nz);
+  ptr1 = (real*) malloc(nx*ny*nz*sizeof(real));
+//  snew2(ptr2,nx*ny);
+  ptr2 = (real**) malloc(nx*ny*sizeof(real*));
+  //snew3(ptr3,nx);
+  ptr3 = (real***) malloc(nx*sizeof(real**));
+
+  n2=n3=0;
+  for(i=0; (i<nx); i++) {
+    ptr3[i]=&(ptr2[n2]);
+    for(j=0; (j<ny); j++,n2++) {
+      ptr2[n2] = &(ptr1[n3]);
+      n3 += nz;
+    }
+  }
+  return ptr3;
+}
+
+void clear_rgrid(int nx,int ny,int nz,real ***grid)
+{
+  int i,j,k;
+  
+  for(i=0; (i<nx); i++)
+    for(j=0; (j<ny); j++)
+      for(k=0; (k<nz); k++)
+	grid[i][j][k] = 0;
+}
+
+t_complex ***mk_cgrid(int nx,int ny,int nz)
+{
+  t_complex *ptr1;
+  t_complex **ptr2;
+  t_complex ***ptr3;
+  int  i,j,n2,n3;
+
+  ptr1 = (t_complex*) malloc(nx*ny*nz*sizeof(t_complex));
+  ptr2 = (t_complex**) malloc(nx*ny*sizeof(t_complex*));
+  ptr3 = (t_complex***) malloc(nx*sizeof(t_complex**));
+
+  n2=n3=0;
+  for(i=0; (i<nx); i++) {
+    ptr3[i]=&(ptr2[n2]);
+    for(j=0; (j<ny); j++,n2++) {
+      ptr2[n2] = &(ptr1[n3]);
+      n3 += nz;
+    }
+  }
+  return ptr3;
+}
+
+void clear_cgrid(int nx,int ny,int nz,t_complex ***grid)
+{
+  int i,j,k;
+  
+  for(i=0; (i<nx); i++)
+    for(j=0; (j<ny); j++)
+      for(k=0; (k<nz); k++){
+	grid[i][j][k].re = 0;
+	grid[i][j][k].im = 0;
+      }
+}
 
 
 real do_ewald(FILE *log,       gmx_bool bVerbose,
@@ -2568,8 +2757,7 @@ real do_ewald(FILE *log,       gmx_bool bVerbose,
   const real eps = TOL;
  
   int i,M,P;
-  real m =.95*sqrt(PI*P);
-  real L=box[0], xi=ewaldcoeff;
+  real m,L=box[0], xi=ewaldcoeff;
  
   SE_FGG_params params = {.N = N};
   SE_state st;
@@ -2666,8 +2854,131 @@ real do_ewald(FILE *log,       gmx_bool bVerbose,
     }
     
     __FREE(force);
+
+
+
+    // try to compute fft parallel gmx
+#ifdef __FFT
+    gmx_parallel_3dfft_t pfft_setup;
+    ivec                 ndata;
+    real                *segrid_in = NULL;
+    real                *segrid_out= NULL;
+    real                *fftgrid   = NULL;
+    t_complex           *cfftgrid  = NULL;
+    MPI_Comm             comm[2]   = {0,0};
+    int                  nx,ny,nz;
+    //    int                  flags;
+    //    t_complex           *buf1,*buf2;
+    //    fft5d_plan           p1,p2;
+    int                 *major=0,*minor=0;
+    int                  ii,jj,kk;
+    //    gmx_se_t             SE        = NULL;
+    gmx_wallcycle_t      wcycle;
+    
+
+    //init fft
+    nx = ny = nz = 2;
+    ndata[0] = nx;
+    ndata[1] = ny;
+    ndata[2] = nz;
+    
+    segrid_in  = malloc(nx*ny*nz*sizeof(real));
+    segrid_out = malloc(nx*ny*nz*sizeof(real));
+
+    fft_complex * test_comp = malloc(nx*ny*nz*sizeof(fft_complex));
+    fft_complex * test_out  = malloc(nx*ny*nz*sizeof(fft_complex));
+
+    for (ii=0;ii<nx*ny*nz;ii++)
+      //      for(jj=0;jj<ny;jj++)
+      //	for(kk=0;kk<nz;kk++)
+      segrid_in[ii] = ii;//*ny*nz+jj*nz+kk;    
+
+    for (ii=0;ii<nx;ii++){
+      for(jj=0;jj<ny;jj++){
+      	for(kk=0;kk<nz;kk++)
+	  printf("%f\t",segrid_in[ii*ny*nz+jj*nz+kk]);
+	printf("\n");
+      }
+      printf("\n");
+    }
+
+    copy_r2c( segrid_in, test_comp,nx*ny*nz);
+    do_fft_c2c_forward_3d(test_comp,test_out,nx,ny,nz);
+
+
+    printf("\n*************%d %s*****************\n ",__LINE__,__FILE__);
+    gmx_parallel_3dfft_init(&pfft_setup,ndata,&fftgrid,&cfftgrid,comm,major,minor,0,1);
+    
+    copy_segrid_to_fftgrid(pfft_setup,segrid_in,fftgrid,nx,ny,nz);
+
+    gmx_parallel_3dfft_execute(pfft_setup,GMX_FFT_REAL_TO_COMPLEX,
+			       fftgrid,cfftgrid,0,wcycle);
+    int idx;
+    printf("cfftgrid\n");
+    for (ii=0;ii<nx;ii++){
+      for(jj=0;jj<ny;jj++){
+      	for(kk=0;kk<nz;kk++){
+	  idx = ii*ny*nz+jj*nz+kk;
+	  printf("(%f,%f)\t",cfftgrid[idx].re,cfftgrid[idx].im);
+	}
+	printf("\n");
+      }
+      printf("\n");
+    }    
+    
+    printf("test_out\n");
+    for (ii=0;ii<nx;ii++){
+      for(jj=0;jj<ny;jj++){
+      	for(kk=0;kk<nz;kk++){
+	  idx = ii*ny*nz+jj*nz+kk;
+	  printf("(%f,%f)\t",test_out[idx][0],test_out[idx][1]);
+	}
+	printf("\n");
+      }
+      printf("\n");
+    }    
+
+    gmx_parallel_3dfft_execute(pfft_setup,GMX_FFT_COMPLEX_TO_REAL,
+			       cfftgrid,fftgrid,0,wcycle);
+
+    copy_fftgrid_to_segrid(pfft_setup,fftgrid,segrid_out,1,0,nx,ny,nz);
+
+    for (ii=0;ii<nx;ii++){
+      for(jj=0;jj<ny;jj++){
+      	for(kk=0;kk<nz;kk++)
+	  printf("%f\t",segrid_out[ii*ny*nz+jj*nz+kk]/(nx*ny*nz));
+	printf("\n");
+      }
+      printf("\n");
+    }
+    
+    free(segrid_in); free(segrid_out);
+    free(fftgrid);   free(cfftgrid);
+    gmx_parallel_3dfft_destroy(pfft_setup);
+    free(test_comp); free(test_out);
+   
+
+#endif
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     
     return 0;
 #endif
+
+
+
+
 
 }
