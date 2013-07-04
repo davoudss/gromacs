@@ -22,8 +22,8 @@
 #include "coulomb.h"
 #include <fftw3.h>
 
-//#define __FFT
-#define __FFTW
+#define __FFT
+//#define __FFTW
 
 
 //#ifdef __FFT
@@ -300,7 +300,7 @@ SE_FGG_extend_fcn(SE_FGG_work* work, const real* H_per,
   const int p_half = params->P_half;
 
 #ifdef _OPENMP
-#pragma omp for private(i,j,k)// work-share over OpenMP threads here
+#pragma omp for private(i,j,k) schedule(static)// work-share over OpenMP threads here
 #endif
   for(i=0; i<params->npdims[0]; i++)
     {
@@ -341,7 +341,7 @@ SE_FGG_base_gaussian(SE_FGG_work* work, const SE_FGG_params* params)
   const real d=params->d;
 
 #ifdef _OPENMP
-#pragma omp for private(i,j,k)// work-share over OpenMP threads here
+#pragma omp for private(i,j,k) schedule(static)// work-share over OpenMP threads here
 #endif
   for(i = -p_from; i<=p_half; i++)
     {
@@ -597,7 +597,7 @@ SE_FGG_int(real* phi,
   const int incri = params->npdims[2]*(params->npdims[1]-p);
 
 #ifdef _OPENMP
-#pragma omp for private(m)// work-share over OpenMP threads here
+#pragma omp for private(m) schedule(static)// work-share over OpenMP threads here
 #endif
   for(m=0; m<N; m++)
     {
@@ -658,7 +658,7 @@ SE_FGG_int_force(real* force,
     const int incri = params->npdims[2]*(params->npdims[1]-p);
 
 #ifdef _OPENMP
-#pragma omp for private(m)// work-share over OpenMP threads here
+#pragma omp for private(m) schedule(static)// work-share over OpenMP threads here
 #endif
     for(m=0; m<N; m++)
     {
@@ -2016,7 +2016,7 @@ static void scaling(real *K2, real scalar, real *Z,
 {
   int i,j,k;
 #ifdef _OPENMP
-#pragma omp parallel for private(i,j,k)
+#pragma omp parallel for private(i,j,k) schedule(static)
 #endif	
   for(i=0;i<n1;i++)
     for(j=0;j<n2;j++)
@@ -2771,14 +2771,6 @@ real do_ewald(FILE *log,       gmx_bool bVerbose,
   spectral_ewald(st.x,st.q,opt,xi,phi);
   
   print_r1d("phi",phi,N,1.,0);
- 
-  for (i=0;i<N;i++){
-    f[i][0] = phi[i];
-    f[i][1] = -phi[i];
-    f[i][2] = -phi[i];
-  }
-  
-  print_rvec("force",f,N,1.,0);
   
   real energy=0.;
   for (i=0;i<N;i++)
