@@ -126,11 +126,9 @@ inline static void parse_params(SE_opt*, real);
 // create k_space evctors
 inline static void k_vec(int, real*, real*, real*, real*);
 
-// creating k square
-inline static void k_square(real*, real*, real*,real*, int, int, int);
-
 // do the scaling
-static void scaling(real *, real , real *, int , int, int);
+//static void scaling(real *, real , real *, int , int, int);
+static void scaling(real *, real *, real *, real , real *, int , int, int);
 
 
 // products sr(scalar to real) rr (real to real) rc (real to complex)
@@ -179,7 +177,7 @@ SE_init_params(int*, int*, real*, real, real,
 
 inline int max3(int,int,int);
 // lambertW function similar to MATLAB
-inline static real lambertW(const real);
+static real lambertW(const real);
 
 
 

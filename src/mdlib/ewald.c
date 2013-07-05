@@ -22,14 +22,12 @@
 #include "coulomb.h"
 #include <fftw3.h>
 
-#define __FFT
-//#define __FFTW
+//#define __FFT
+#define __FFTW
+
 
 
 //#ifdef __FFT
-#ifdef GMX_LIB_MPI
-#include <mpi.h>
-#endif
 #ifdef GMX_THREAD_MPI
 #include "tmpi.h"
 #endif
@@ -40,6 +38,7 @@
 #include "gmxcomplex.h"
 #include "gmx_fatal.h"
 #include "fft5d.h"
+#include "gmx_omp.h"
 
 typedef struct gmx_se {
   MPI_Comm     mpi_comm;
@@ -1990,38 +1989,22 @@ k_vec(int M, real* box,real *k1,real *k2, real *k3)
 }
 
 
-
-// -----------------------------------------------------------------------------
-// creating k square
-inline static void
-k_square(real *k1, real* k2, real* k3, // input vectors
-	 real* K2, 		       // output vector
-	 int n1, int n2, int n3)       // dimension
-{
-  int i,j,k;
-#ifdef _OPENMP
-#pragma omp parallel for private(i,j,k)
-#endif	
-  for(i=0;i<n1;i++)
-    for(j=0;j<n2;j++)
-      for(k=0;k<n3;k++)
-	K2[i*n3*n2+j*n2+k] = k1[i]*k1[i]+k2[j]*k2[j]+k3[k]*k3[k];
-
-}
-
 // -----------------------------------------------------------------------------
 // packing SE parameters
-static void scaling(real *K2, real scalar, real *Z,
+static void scaling(real *k1, real *k2, real *k3, real scalar, real *Z,
 	     int n1, int n2, int n3)
 {
   int i,j,k;
+  double K2;
 #ifdef _OPENMP
-#pragma omp parallel for private(i,j,k) schedule(static)
+#pragma omp parallel for private(i,j,k,K2) schedule(static)
 #endif	
   for(i=0;i<n1;i++)
     for(j=0;j<n2;j++)
-      for(k=0;k<n3;k++)
-	Z[i*n3*n2+j*n2+k] = exp(scalar*K2[i*n3*n2+j*n2+k])/K2[i*n3*n2+j*n2+k];
+      for(k=0;k<n3;k++){
+	K2 = k1[i]*k1[i]+k2[j]*k2[j]+k3[k]*k3[k];
+	Z[i*n3*n2+j*n2+k] = exp(scalar*K2)/K2;
+      }
 
 }
 
@@ -2407,7 +2390,7 @@ max3(int a, int b, int c )
    R=-(b*W(-exp(-a*c/b)/b*d*c)+a*c)/b/c
 */
 
-inline static real
+static real
 LambertW(const double z) {
   int i; 
   const double eps=4.0e-16, em1=0.3678794411714423215955237701614608; 
@@ -2565,26 +2548,25 @@ copy_fftgrid_to_segrid(gmx_parallel_3dfft_t pfft_setup,
 #define Z(i,j,k) Z[M*(i*M+j)+k]
 
 int
-spectral_ewald(real *x, real *q, SE_opt opt,
-	       real xi, real* phi_force)
+spectral_ewald_gmxfft(real *x, real *q, SE_opt opt,
+		      real xi, real* phi_force)
 {
 
   // parameters and constants
   int M,N,P;
   real m,w,eta,c;
 
-#ifdef __FFT
   // variables to run fft
   gmx_parallel_3dfft_t pfft_setup;
   real                *fftgrid   = NULL;
   t_complex           *cfftgrid  = NULL;
   int                  bReproducible = 1;
-  int                  nthreads = 1;
+  int                  nthread = 2;
+  int                  thread;
   MPI_Comm             comm[2];
   int                 *minor = NULL, *major = NULL;
   ivec                 ndata;
   gmx_wallcycle_t      wcycle = NULL;
-#endif
 
   // creating and set new parameters
   parse_params(&opt,xi);
@@ -2592,34 +2574,28 @@ spectral_ewald(real *x, real *q, SE_opt opt,
   // setting parameters for use
   m = opt.m; w = opt.w; eta = opt.eta; c = opt.c; 
   M = opt.M; N = opt.N; P = opt.P;
+  int M3 = M*M*M;
 
-  real *H_in = malloc(sizeof(real)*M*M*M);
-#ifdef __FFTW
-  fft_complex *H_in_comp = malloc(sizeof(fft_complex)*M*M*M); // to copy real to comp for fft
-#endif
+  real *H_in = malloc(sizeof(real)*M3);
 
   // TO GRID FUNCTION
   SE_fg_grid(x,q,N,opt,H_in);
 
   // TRANSFORM AND SHIFT
-#ifdef __FFTW
-  copy_r2c(H_in,H_in_comp,M*M*M);
-  fft_complex *H_out = malloc(sizeof(fft_complex)*M*M*M);
-  do_fft_c2c_forward_3d(H_in_comp,H_out,M,M,M); 
-#endif
-
-#ifdef __FFT
   ndata[0] = M;
   ndata[1] = M;
   ndata[2] = M;
   gmx_parallel_3dfft_init(&pfft_setup,ndata,&fftgrid,&cfftgrid,
-			  comm,major,minor,bReproducible,nthreads);
+			  comm,major,minor,bReproducible,nthread);
 
   copy_segrid_to_fftgrid(pfft_setup,H_in,fftgrid,M,M,M);
  
-  gmx_parallel_3dfft_execute(pfft_setup,GMX_FFT_REAL_TO_COMPLEX,
-			     fftgrid,cfftgrid,0,wcycle);
-#endif
+#pragma omp parallel num_threads(nthread) private(thread)
+  {
+    thread = gmx_omp_get_thread_num();
+    gmx_parallel_3dfft_execute(pfft_setup,GMX_FFT_REAL_TO_COMPLEX,
+			       fftgrid,cfftgrid,thread,wcycle);
+  }
 
   //  printf("********** line %d in %s *********** \n",__LINE__,__FILE__);
 
@@ -2631,62 +2607,121 @@ spectral_ewald(real *x, real *q, SE_opt opt,
   real *k3 = malloc(sizeof(real)*M);
   k_vec(M,opt.box,k1,k2,k3); 
   // scale
-  real *K2 = malloc(sizeof(real)*M*M*M);
-  k_square(k1,k2,k3,K2,M,M,M);
   real scalar = -(1.-eta)/(4.*xi*xi);
-  real *Z = malloc(sizeof(real)*M*M*M);
-  scaling(K2,scalar,Z,M,M,M);
+  real *Z = malloc(sizeof(real)*M3);
+  scaling(k1,k2,k3,scalar,Z,M,M,M);
   Z(0,0,0) = 0.;
   int  flag = 1;
-#ifdef __FFTW
-  product_rc(H_out,Z,H_out,M,M,M,flag);
-#endif
 
-#ifdef __FFT
   se_product_rc(cfftgrid,Z,cfftgrid,M,M,M,flag);
-#endif
 
   // INVERSE SHIFT AND INVERSE TRANSFORM
-#ifdef __FFTW
-  do_fft_c2c_backward_3d(H_out,H_in_comp,M,M,M);
-  copy_c2r(H_in_comp,H_in,M*M*M);
-#endif
-
-#ifdef __FFT
-  gmx_parallel_3dfft_execute(pfft_setup,GMX_FFT_COMPLEX_TO_REAL,
-			     cfftgrid,fftgrid,0,wcycle);
-
-  copy_fftgrid_to_segrid(pfft_setup,fftgrid,H_in,1,0,M,M,M);
-#endif
+#pragma omp parallel num_threads(nthread) private(thread)
+  {
+    thread = gmx_omp_get_thread_num();
+    gmx_parallel_3dfft_execute(pfft_setup,GMX_FFT_COMPLEX_TO_REAL,
+			       cfftgrid,fftgrid,thread,wcycle);
+    
+    copy_fftgrid_to_segrid(pfft_setup,fftgrid,H_in,nthread,thread,M,M,M);
+  }
 
   // SPREAD AND INTEGRATE
   SE_fgg_int(x,q,H_in,N,opt,phi_force);
 
 #ifdef __POTENTIAL__ 
-  scalar = 4.*PI/(real) (M*M*M);
+  scalar = 4.*PI/(real) (M3);
   product_sr(phi_force,scalar,phi_force,N,1,1,flag);
 #endif
 
 #ifdef __FORCE__
-  scalar = 4.*PI/(real) (M*M*M);
+  scalar = 4.*PI/(real) (M3);
+  product_sr(phi_force,scalar,phi_force,3*N,1,1,flag);
+#endif
+
+  //  __FREE(H_in);
+  //  __FREE(k1); __FREE(k2); __FREE(k3);
+  //  __FREE(Z);
+
+  //  printf("********** line %d in %s *********** \n",__LINE__,__FILE__);
+  //  gmx_parallel_3dfft_destroy(pfft_setup); 
+  //  free(fftgrid); free(cfftgrid);
+  //  __FREE(H_out);
+  return 0;
+
+}
+
+
+
+int
+spectral_ewald_fftw(real *x, real *q, SE_opt opt,
+		    real xi, real* phi_force)
+{
+
+  // parameters and constants
+  int M,N,P;
+  real m,w,eta,c;
+
+  // creating and set new parameters
+  parse_params(&opt,xi);
+
+  // setting parameters for use
+  m = opt.m; w = opt.w; eta = opt.eta; c = opt.c; 
+  M = opt.M; N = opt.N; P = opt.P;
+  int M3 = M*M*M;
+
+  real *H_in = malloc(sizeof(real)*M3);
+  fft_complex *H_out = malloc(sizeof(fft_complex)*M3); // to copy real to comp for fft
+
+  // TO GRID FUNCTION
+  SE_fg_grid(x,q,N,opt,H_in);
+
+  // TRANSFORM AND SHIFT
+  copy_r2c(H_in,H_out,M3);
+  do_fft_c2c_forward_3d(H_out,H_out,M,M,M); 
+
+  //  printf("********** line %d in %s *********** \n",__LINE__,__FILE__);
+
+
+  // SCALING
+  // k-vectors
+  real *k1 = malloc(sizeof(real)*M);
+  real *k2 = malloc(sizeof(real)*M);
+  real *k3 = malloc(sizeof(real)*M);
+  k_vec(M,opt.box,k1,k2,k3); 
+  // scale
+  real scalar = -(1.-eta)/(4.*xi*xi);
+  real *Z = malloc(sizeof(real)*M3);
+  scaling(k1,k2,k3,scalar,Z,M,M,M);
+  Z(0,0,0) = 0.;
+  int  flag = 1;
+  product_rc(H_out,Z,H_out,M,M,M,flag);
+
+  // INVERSE SHIFT AND INVERSE TRANSFORM
+  do_fft_c2c_backward_3d(H_out,H_out,M,M,M);
+  copy_c2r(H_out,H_in,M3);
+
+  // SPREAD AND INTEGRATE
+  SE_fgg_int(x,q,H_in,N,opt,phi_force);
+
+#ifdef __POTENTIAL__ 
+  scalar = 4.*PI/(real) (M3);
+  product_sr(phi_force,scalar,phi_force,N,1,1,flag);
+#endif
+
+#ifdef __FORCE__
+  scalar = 4.*PI/(real) (M3);
   product_sr(phi_force,scalar,phi_force,3*N,1,1,flag);
 #endif
 
   __FREE(H_in);
-  __FREE(k1); __FREE(k2); __FREE(k3); __FREE(K2); 
+  __FREE(k1); __FREE(k2); __FREE(k3);
   __FREE(Z);
 
-#ifdef __FFTW
-  __FREE(H_in_comp);  
-  __FREE(H_out);
-#endif
+  //  __FREE(H_in_comp);  
+  //  __FREE(H_out);
 
-  //printf("********** line %d in %s *********** \n",__LINE__,__FILE__);
-#ifdef __FFT
-  gmx_parallel_3dfft_destroy(pfft_setup); 
-  free(fftgrid); free(cfftgrid);
-#endif
-
+  //  printf("********** line %d in %s *********** \n",__LINE__,__FILE__);
+  //  __FREE(H_out);
   return 0;
 
 }
@@ -2768,8 +2803,13 @@ real do_ewald(FILE *log,       gmx_bool bVerbose,
   // set it to zero
   SE_fp_set_zero(phi,N);
 
-  spectral_ewald(st.x,st.q,opt,xi,phi);
-  
+#ifdef __FFTW
+  spectral_ewald_fftw(st.x,st.q,opt,xi,phi);
+#endif
+#ifdef __FFT
+  spectral_ewald_gmxfft(st.x,st.q,opt,xi,phi);
+#endif
+
   print_r1d("phi",phi,N,1.,0);
   
   real energy=0.;
@@ -2799,7 +2839,12 @@ real do_ewald(FILE *log,       gmx_bool bVerbose,
   // Initialize the vector
   SE_fp_set_zero(force,3*N);
 
-  spectral_ewald(st.x,st.q,opt,xi,force);
+#ifdef __FFT
+  spectral_ewald_gmxfft(st.x,st.q,opt,xi,force);
+#endif
+#ifdef __FFTW
+  spectral_ewald_fftw(st.x,st.q,opt,xi,force);
+#endif
   
   if(VERBOSE)
     for(i=0;i<N;i++)
