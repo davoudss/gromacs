@@ -5,7 +5,9 @@
  */
 
 #define __SE_FGG_H
+#define FGG_SPLIT 0
 
+#define VERBOSE 0
 #ifndef VERBOSE
 #define VERBOSE 0
 #endif
@@ -32,18 +34,16 @@
 #define PI 3.141592653589793
 #define FGG_INF 1.79769e+308
 
-//#define __IDX3_CMAJ(II,IJ,IK,N1,N2) ( (II)+(IJ)*(N1)+(IK)*(N1)*(N2) )
 #define __IDX3_RMAJ(II,IJ,IK,N2,N3) ( (II)*(N2)*(N3)+(IJ)*(N3)+(IK) )
 
 // Select periodicty: must give -D<...> to compiler
-#define __FGG_EXPA fgg_expansion_3p
-#define __FGG_EXPA_FORCE fgg_expansion_3p_force
+#define __FGG_EXPA fgg_expansion
+#define __FGG_EXPA_ALL fgg_expansion_all
 
 // Maximal amount of Gaussian support (defined to help the compiler)
 #define P_MAX 32
 
 // Specific includes and defines for MEX-file compilation
-
 #define __MALLOC malloc
 #define __PRINTF printf
 #define __FREE free
@@ -52,7 +52,8 @@
 
 // display debug messages in the SSE dispatcher
 #ifdef VERBOSE
-#define __DISPATCHER_MSG(s) __PRINTF(s)
+//#define __DISPATCHER_MSG(s) __PRINTF(s)
+#define __DISPATCHER_MSG(s) {}
 #else
 #define __DISPATCHER_MSG(s) {}
 #endif
@@ -73,17 +74,22 @@ typedef struct
 
 typedef struct
 {
-    real* H;
-    real* zs;
-
-    real* zx;
-    real* zy;
-    real* zz;
-    int* idx;
-
-    int free_zs;
-    int free_fgg_expa;
-
+  real* H;
+  real* zs;
+  
+  real* zx;
+  real* zy;
+  real* zz;
+  int* idx;
+  
+  // extra space to compute the force
+  real* zfx;
+  real* zfy;
+  real* zfz;
+  
+  int free_zs;
+  int free_fgg_expa;
+  
 } SE_FGG_work;
 
 // FGG parameters
@@ -149,10 +155,7 @@ static void SE_fg_grid(real*, real*, int, SE_opt, real*);
 static void SE_fgg_int(real*, real*, real*, int, SE_opt, real*);
 // integration and interpolation and calculate forces
 static void SE_fgg_int_force(real*, real *, real*, int, SE_opt, real*);
-// 3d fft using fftw3 real to complex
-//void do_fft_r2c_3d(real*, fft_complex*, int, int, int);
-// 3d fft using fftw3 complex to real
-//void do_fft_c2r_3d(fft_complex*, real*, int, int, int);
+
 // 3d forward fft using fftw3 complex to complex
 static void do_fft_c2c_forward_3d(fft_complex*, fft_complex*, int, int, int);
 // 3d backward fft using fftw3 complex to complex
@@ -168,16 +171,16 @@ void print_c1d(char*, fft_complex*, int, real,int);
 void print_r3d(char*, real*, int, real,int);
 void print_c3d(char*, fft_complex*, int, int, int, real,int);
 
-void copy_r2c(real*, fft_complex*, int);
-void copy_c2r(fft_complex*, real*, int);
+void copy_segrid_to_fftwgrid(real*, fft_complex*, int);
+void copy_fftwgrid_to_segrid(fft_complex*, real*, int);
 
 static real
-SE_init_params(int*, int*, real*, real, real,
+SE_init_params(int*, int*, real*, double, real,
                real, real*, int);
 
 inline int max3(int,int,int);
 // lambertW function similar to MATLAB
-static real lambertW(const real);
+static double lambertW(const double);
 
 
 
@@ -188,7 +191,7 @@ static real lambertW(const real);
 
 // Fill parameter struct
 static void SE_FGG_pack_params(SE_FGG_params*, int, int, int, int, int, 
-			real, real);
+			       real, real);
 
 // Allocate workspace (malloc)
 static void SE_FGG_allocate_workspace(SE_FGG_work*, const SE_FGG_params*, int, int);
@@ -200,11 +203,17 @@ static void SE_FGG_free_workspace(SE_FGG_work*);
 
 // Particles to grid
 static void SE_FGG_grid(SE_FGG_work*, const SE_state*, const SE_FGG_params*);
-void SE_FGG_grid_split_SSE_dispatch(SE_FGG_work*, const SE_state*, const SE_FGG_params*);
-void SE_FGG_grid_split(SE_FGG_work*, const SE_state*, const SE_FGG_params*);
-void SE_FGG_grid_split_SSE(SE_FGG_work*, const SE_state*, const SE_FGG_params*);
-void SE_FGG_grid_split_SSE_u8(SE_FGG_work*, const SE_state*, const SE_FGG_params*);
-void SE_FGG_grid_split_SSE_P16(SE_FGG_work*, const SE_state*, const SE_FGG_params*);
+void SE_FGG_grid_split_SSE_dispatch(SE_FGG_work*, const SE_FGG_params*);
+void SE_FGG_grid_split(SE_FGG_work*, const SE_FGG_params*);
+void SE_FGG_grid_split_SSE(SE_FGG_work*, const SE_FGG_params*);
+void SE_FGG_grid_split_SSE_P8(SE_FGG_work*, const SE_FGG_params*);
+
+// Particles to grid double precision
+void SE_FGG_grid_split_SSE_dispatch_d(SE_FGG_work*, const SE_FGG_params*);
+void SE_FGG_grid_split_d(SE_FGG_work*, const SE_FGG_params*);
+void SE_FGG_grid_split_SSE_d(SE_FGG_work*, const SE_FGG_params*);
+void SE_FGG_grid_split_SSE_u8_d(SE_FGG_work*, const SE_FGG_params*);
+void SE_FGG_grid_split_SSE_P16_d(SE_FGG_work*, const SE_FGG_params*);
 
 // Compute all FGG expansion vectors
 static void SE_FGG_expand_all(SE_FGG_work*, const SE_state*, const SE_FGG_params*);
@@ -212,14 +221,18 @@ static void SE_FGG_expand_all(SE_FGG_work*, const SE_state*, const SE_FGG_params
 // Grid to particles
 static void 
 SE_FGG_int(real*, const SE_FGG_work*, const SE_state*, const SE_FGG_params*);
-static void 
-SE_FGG_int_force(real*,const SE_FGG_work*, const SE_state*, const SE_FGG_params*);
 void SE_FGG_int_split_SSE_dispatch(real*, const SE_FGG_work*, const SE_FGG_params*);
 void SE_FGG_int_split(real*, const SE_FGG_work*, const SE_FGG_params*);
 void SE_FGG_int_split_SSE(real*, const SE_FGG_work*, const SE_FGG_params*);
-void SE_FGG_int_split_SSE_u8(real*, const SE_FGG_work*, const SE_FGG_params*);
 void SE_FGG_int_split_SSE_P8(real*, const SE_FGG_work*, const SE_FGG_params*);
-void SE_FGG_int_split_SSE_P16(real*, const SE_FGG_work*, const SE_FGG_params*);
+
+// Grid to particles double precision
+void SE_FGG_int_split_SSE_dispatch_d(real*, const SE_FGG_work*, const SE_FGG_params*);
+void SE_FGG_int_split_d(real*, const SE_FGG_work*, const SE_FGG_params*);
+void SE_FGG_int_split_SSE_d(real*, const SE_FGG_work*, const SE_FGG_params*);
+void SE_FGG_int_split_SSE_u8_d(real*, const SE_FGG_work*, const SE_FGG_params*);
+void SE_FGG_int_split_SSE_P8_d(real*, const SE_FGG_work*, const SE_FGG_params*);
+void SE_FGG_int_split_SSE_P16_d(real*, const SE_FGG_work*, const SE_FGG_params*);
 
 // Static Gaussian on P^3-grid
 static void SE_FGG_base_gaussian(SE_FGG_work*, const SE_FGG_params*);
@@ -237,7 +250,7 @@ static void SE_init_system(SE_state*, const SE_FGG_params*);
 static void SE_free_system(SE_state*);
 
 // Retrun time in seconds
-real SE_gettime(void);
+double SE_gettime(void);
 
 // Return product of elements in integer triplet
 static int SE_prod3(const int[3]);
