@@ -1,0 +1,1542 @@
+\hypertarget{indexutil_8c}{\section{src/gmxlib/trajana/indexutil.c \-File \-Reference}
+\label{indexutil_8c}\index{src/gmxlib/trajana/indexutil.\-c@{src/gmxlib/trajana/indexutil.\-c}}
+}
+{\ttfamily \#include $<$index.\-h$>$}\*
+{\ttfamily \#include $<$smalloc.\-h$>$}\*
+{\ttfamily \#include $<$string2.\-h$>$}\*
+{\ttfamily \#include $<$typedefs.\-h$>$}\*
+{\ttfamily \#include $<$gmx\-\_\-fatal.\-h$>$}\*
+{\ttfamily \#include $<$indexutil.\-h$>$}\*
+\-Include dependency graph for indexutil.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{indexutil_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structgmx__ana__indexgrps__t}{gmx\-\_\-ana\-\_\-indexgrps\-\_\-t}
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{indexutil_8c_a2669813c437dae1e18f1018417392313}{gmx\-\_\-ana\-\_\-indexgrps\-\_\-alloc} (\hyperlink{structgmx__ana__indexgrps__t}{gmx\-\_\-ana\-\_\-indexgrps\-\_\-t} $\ast$$\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g}, int ngrps)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{indexutil_8c_ad2501e149248bff28482742894ccefd1}{gmx\-\_\-ana\-\_\-indexgrps\-\_\-set} (\hyperlink{structgmx__ana__indexgrps__t}{gmx\-\_\-ana\-\_\-indexgrps\-\_\-t} $\ast$$\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g}, int ngrps, int $\ast$isize, \hyperlink{include_2types_2simple_8h_ad3f47cdb48677e516e2049719612c737}{atom\-\_\-id} $\ast$$\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a49fd977001162d7256c8fcd293f9d12a}{index}, char $\ast$$\ast$name, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Free)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{indexutil_8c_a182c460485a17faf48b28b807ef46b18}{gmx\-\_\-ana\-\_\-indexgrps\-\_\-init} (\hyperlink{structgmx__ana__indexgrps__t}{gmx\-\_\-ana\-\_\-indexgrps\-\_\-t} $\ast$$\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g}, \hyperlink{structt__topology}{t\-\_\-topology} $\ast$\hyperlink{gmx__disre_8c_a1b538a2ce75aba6c346bc03980ffeb28}{top}, const char $\ast$fnm)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{indexutil_8c_a992b8a7ef0d1a4029f9e6071188b303a}{gmx\-\_\-ana\-\_\-indexgrps\-\_\-get} (\hyperlink{structgmx__ana__indexgrps__t}{gmx\-\_\-ana\-\_\-indexgrps\-\_\-t} $\ast$$\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g}, \hyperlink{structt__topology}{t\-\_\-topology} $\ast$\hyperlink{gmx__disre_8c_a1b538a2ce75aba6c346bc03980ffeb28}{top}, const char $\ast$fnm, int ngrps)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{indexutil_8c_a7019ffae8d82fa65623ea60486d0fd22}{gmx\-\_\-ana\-\_\-indexgrps\-\_\-rd} (\hyperlink{structgmx__ana__indexgrps__t}{gmx\-\_\-ana\-\_\-indexgrps\-\_\-t} $\ast$$\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g}, const char $\ast$fnm, int ngrps)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{indexutil_8c_a7c52fc07ccfa2796785a9ca0463a28e9}{gmx\-\_\-ana\-\_\-indexgrps\-\_\-free} (\hyperlink{structgmx__ana__indexgrps__t}{gmx\-\_\-ana\-\_\-indexgrps\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{indexutil_8c_a5e70d1579a03c16c371f179f249a3898}{gmx\-\_\-ana\-\_\-indexgrps\-\_\-clone} (\hyperlink{structgmx__ana__indexgrps__t}{gmx\-\_\-ana\-\_\-indexgrps\-\_\-t} $\ast$$\ast$dest, \hyperlink{structgmx__ana__indexgrps__t}{gmx\-\_\-ana\-\_\-indexgrps\-\_\-t} $\ast$src)
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{indexutil_8c_a0641819c615c6d1513a9c46e1b98286f}{gmx\-\_\-ana\-\_\-indexgrps\-\_\-is\-\_\-empty} (\hyperlink{structgmx__ana__indexgrps__t}{gmx\-\_\-ana\-\_\-indexgrps\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g})
+\item 
+\hyperlink{structgmx__ana__index__t}{gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$ \hyperlink{indexutil_8c_a0789934fa881d09faa55e4c280c77d68}{gmx\-\_\-ana\-\_\-indexgrps\-\_\-get\-\_\-grp} (\hyperlink{structgmx__ana__indexgrps__t}{gmx\-\_\-ana\-\_\-indexgrps\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g}, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n})
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{indexutil_8c_a94a43a9893e92252d29a12828998ecc7}{gmx\-\_\-ana\-\_\-indexgrps\-\_\-extract} (\hyperlink{structgmx__ana__index__t}{gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$dest, \hyperlink{structgmx__ana__indexgrps__t}{gmx\-\_\-ana\-\_\-indexgrps\-\_\-t} $\ast$src, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n})
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{indexutil_8c_a9111d5b869aab02adbcb692d250e48fe}{gmx\-\_\-ana\-\_\-indexgrps\-\_\-find} (\hyperlink{structgmx__ana__index__t}{gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$dest, \hyperlink{structgmx__ana__indexgrps__t}{gmx\-\_\-ana\-\_\-indexgrps\-\_\-t} $\ast$src, char $\ast$name)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{indexutil_8c_a6590569fd7598dfa0d16ff9eb5e651c4}{gmx\-\_\-ana\-\_\-indexgrps\-\_\-print} (\hyperlink{structgmx__ana__indexgrps__t}{gmx\-\_\-ana\-\_\-indexgrps\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g}, int maxn)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{indexutil_8c_a084e5e78e92e2035a834bf7958a45b20}{gmx\-\_\-ana\-\_\-index\-\_\-reserve} (\hyperlink{structgmx__ana__index__t}{gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g}, int isize)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{indexutil_8c_af45d8a0b1b4bacf126a01d04e8357f49}{gmx\-\_\-ana\-\_\-index\-\_\-squeeze} (\hyperlink{structgmx__ana__index__t}{gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{indexutil_8c_af4f90612207c7c5094501521b8a92689}{gmx\-\_\-ana\-\_\-index\-\_\-clear} (\hyperlink{structgmx__ana__index__t}{gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{indexutil_8c_a161b22f7c5807cce0ce7422a701b6595}{gmx\-\_\-ana\-\_\-index\-\_\-set} (\hyperlink{structgmx__ana__index__t}{gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g}, int isize, \hyperlink{include_2types_2simple_8h_ad3f47cdb48677e516e2049719612c737}{atom\-\_\-id} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a49fd977001162d7256c8fcd293f9d12a}{index}, char $\ast$name, int nalloc)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{indexutil_8c_aa368381c752a8b04480a6611155174d7}{gmx\-\_\-ana\-\_\-index\-\_\-init\-\_\-simple} (\hyperlink{structgmx__ana__index__t}{gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g}, int natoms, char $\ast$name)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{indexutil_8c_ad0f6aafce1b2234d9bd09686352dca71}{gmx\-\_\-ana\-\_\-index\-\_\-deinit} (\hyperlink{structgmx__ana__index__t}{gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{indexutil_8c_aac654966d3b036ab3ff262535dad8177}{gmx\-\_\-ana\-\_\-index\-\_\-copy} (\hyperlink{structgmx__ana__index__t}{gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$dest, \hyperlink{structgmx__ana__index__t}{gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$src, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Alloc)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{indexutil_8c_a4a8dccae57ef0d579c04aca9417f0e31}{gmx\-\_\-ana\-\_\-index\-\_\-dump} (\hyperlink{structgmx__ana__index__t}{gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g}, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a3c7542401c1cb8bd37ef5e7d9eb0f5a8}{i}, int maxn)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{indexutil_8c_af2c5c279d8424c84bbd5940e27519dd7}{gmx\-\_\-ana\-\_\-index\-\_\-check} (\hyperlink{structgmx__ana__index__t}{gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g}, int natoms)
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{indexutil_8c_ad6decdbe54bd850a2df357898216590f}{gmx\-\_\-ana\-\_\-index\-\_\-check\-\_\-sorted} (\hyperlink{structgmx__ana__index__t}{gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g})
+\item 
+static int \hyperlink{indexutil_8c_a63a36ddce0ba45ceba1e1a85ff6a36aa}{cmp\-\_\-atomid} (const \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a0880879736d1ab747a972d1942421886}{a}, const \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afb462a5dea72ae7992f073bfd756fb5f}{b})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{indexutil_8c_a8872aa14b9b23e545bd6a6c8c49238cf}{gmx\-\_\-ana\-\_\-index\-\_\-sort} (\hyperlink{structgmx__ana__index__t}{gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g})
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{indexutil_8c_a152b951fdfef6de247d19289644d4434}{gmx\-\_\-ana\-\_\-index\-\_\-equals} (\hyperlink{structgmx__ana__index__t}{gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a0880879736d1ab747a972d1942421886}{a}, \hyperlink{structgmx__ana__index__t}{gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afb462a5dea72ae7992f073bfd756fb5f}{b})
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{indexutil_8c_a055cd6307607aeee74e492da9acb34ff}{gmx\-\_\-ana\-\_\-index\-\_\-contains} (\hyperlink{structgmx__ana__index__t}{gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a0880879736d1ab747a972d1942421886}{a}, \hyperlink{structgmx__ana__index__t}{gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afb462a5dea72ae7992f073bfd756fb5f}{b})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{indexutil_8c_ac217ad643cf1347e01cff4cca583a0db}{gmx\-\_\-ana\-\_\-index\-\_\-intersection} (\hyperlink{structgmx__ana__index__t}{gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$dest, \hyperlink{structgmx__ana__index__t}{gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a0880879736d1ab747a972d1942421886}{a}, \hyperlink{structgmx__ana__index__t}{gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afb462a5dea72ae7992f073bfd756fb5f}{b})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{indexutil_8c_a36418762a1d83eed47840281d779e312}{gmx\-\_\-ana\-\_\-index\-\_\-difference} (\hyperlink{structgmx__ana__index__t}{gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$dest, \hyperlink{structgmx__ana__index__t}{gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a0880879736d1ab747a972d1942421886}{a}, \hyperlink{structgmx__ana__index__t}{gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afb462a5dea72ae7992f073bfd756fb5f}{b})
+\item 
+int \hyperlink{indexutil_8c_a1674b8960e0058dd3a6ab7f7f0a69841}{gmx\-\_\-ana\-\_\-index\-\_\-difference\-\_\-size} (\hyperlink{structgmx__ana__index__t}{gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a0880879736d1ab747a972d1942421886}{a}, \hyperlink{structgmx__ana__index__t}{gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afb462a5dea72ae7992f073bfd756fb5f}{b})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{indexutil_8c_a1a1be16095557d63b0c3a1bf7f9f29b2}{gmx\-\_\-ana\-\_\-index\-\_\-partition} (\hyperlink{structgmx__ana__index__t}{gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$dest1, \hyperlink{structgmx__ana__index__t}{gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$dest2, \hyperlink{structgmx__ana__index__t}{gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$src, \hyperlink{structgmx__ana__index__t}{gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{indexutil_8c_a42425ece80cdd7b293308fb39edf6e18}{gmx\-\_\-ana\-\_\-index\-\_\-union} (\hyperlink{structgmx__ana__index__t}{gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$dest, \hyperlink{structgmx__ana__index__t}{gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a0880879736d1ab747a972d1942421886}{a}, \hyperlink{structgmx__ana__index__t}{gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afb462a5dea72ae7992f073bfd756fb5f}{b})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{indexutil_8c_a9a83282e2ab6166b970ab221b60e6df1}{gmx\-\_\-ana\-\_\-index\-\_\-merge} (\hyperlink{structgmx__ana__index__t}{gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$dest, \hyperlink{structgmx__ana__index__t}{gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a0880879736d1ab747a972d1942421886}{a}, \hyperlink{structgmx__ana__index__t}{gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afb462a5dea72ae7992f073bfd756fb5f}{b})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{indexutil_8c_a0f7097635da3a909ecb5bc23f9c086a4}{gmx\-\_\-ana\-\_\-index\-\_\-make\-\_\-block} (\hyperlink{structt__blocka}{t\-\_\-blocka} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a2b515c84b1293071f7584da32ca336c0}{t}, \hyperlink{structt__topology}{t\-\_\-topology} $\ast$\hyperlink{gmx__disre_8c_a1b538a2ce75aba6c346bc03980ffeb28}{top}, \hyperlink{structgmx__ana__index__t}{gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g}, \hyperlink{include_2indexutil_8h_ad7330829cb93245b9de7ed268cf6ba67}{e\-\_\-index\-\_\-t} \hyperlink{fgrid_8c_a7f3986ef06a5ebd031c536fbcdce3c49}{type}, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Complete)
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{indexutil_8c_ae2134b46357403b3f78fba28c45a8027}{gmx\-\_\-ana\-\_\-index\-\_\-has\-\_\-full\-\_\-blocks} (\hyperlink{structgmx__ana__index__t}{gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g}, \hyperlink{structt__block}{t\-\_\-block} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afb462a5dea72ae7992f073bfd756fb5f}{b})
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{indexutil_8c_ac1797d58f751cd7c3771418ecc3fe28f}{gmx\-\_\-ana\-\_\-index\-\_\-has\-\_\-full\-\_\-ablocks} (\hyperlink{structgmx__ana__index__t}{gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g}, \hyperlink{structt__blocka}{t\-\_\-blocka} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afb462a5dea72ae7992f073bfd756fb5f}{b})
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{indexutil_8c_a13eecb2555fbec878b8def9a2f01060a}{gmx\-\_\-ana\-\_\-index\-\_\-has\-\_\-complete\-\_\-elems} (\hyperlink{structgmx__ana__index__t}{gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g}, \hyperlink{include_2indexutil_8h_ad7330829cb93245b9de7ed268cf6ba67}{e\-\_\-index\-\_\-t} \hyperlink{fgrid_8c_a7f3986ef06a5ebd031c536fbcdce3c49}{type}, \hyperlink{structt__topology}{t\-\_\-topology} $\ast$\hyperlink{gmx__disre_8c_a1b538a2ce75aba6c346bc03980ffeb28}{top})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{indexutil_8c_a521bc0c5c619c566925ba515c6501a50}{gmx\-\_\-ana\-\_\-indexmap\-\_\-clear} (\hyperlink{structgmx__ana__indexmap__t}{gmx\-\_\-ana\-\_\-indexmap\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_aa30cfa61c7e675800f65322a90f8ac96}{m})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{indexutil_8c_ae81020f97f9da8509f85166d293d8575}{gmx\-\_\-ana\-\_\-indexmap\-\_\-reserve} (\hyperlink{structgmx__ana__indexmap__t}{gmx\-\_\-ana\-\_\-indexmap\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_aa30cfa61c7e675800f65322a90f8ac96}{m}, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a560e4062098f77c2d7e5fe83bf09c394}{nr}, int isize)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{indexutil_8c_a2e5d3992948d98b2911d3946a81252fc}{gmx\-\_\-ana\-\_\-indexmap\-\_\-init} (\hyperlink{structgmx__ana__indexmap__t}{gmx\-\_\-ana\-\_\-indexmap\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_aa30cfa61c7e675800f65322a90f8ac96}{m}, \hyperlink{structgmx__ana__index__t}{gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g}, \hyperlink{structt__topology}{t\-\_\-topology} $\ast$\hyperlink{gmx__disre_8c_a1b538a2ce75aba6c346bc03980ffeb28}{top}, \hyperlink{include_2indexutil_8h_ad7330829cb93245b9de7ed268cf6ba67}{e\-\_\-index\-\_\-t} \hyperlink{fgrid_8c_a7f3986ef06a5ebd031c536fbcdce3c49}{type})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{indexutil_8c_a343d136c6f9999de805f7b0197707d0f}{gmx\-\_\-ana\-\_\-indexmap\-\_\-set\-\_\-static} (\hyperlink{structgmx__ana__indexmap__t}{gmx\-\_\-ana\-\_\-indexmap\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_aa30cfa61c7e675800f65322a90f8ac96}{m}, \hyperlink{structt__blocka}{t\-\_\-blocka} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afb462a5dea72ae7992f073bfd756fb5f}{b})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{indexutil_8c_ad5fbe4b1aed2b133d4daf7fffd0365f1}{gmx\-\_\-ana\-\_\-indexmap\-\_\-copy} (\hyperlink{structgmx__ana__indexmap__t}{gmx\-\_\-ana\-\_\-indexmap\-\_\-t} $\ast$dest, \hyperlink{structgmx__ana__indexmap__t}{gmx\-\_\-ana\-\_\-indexmap\-\_\-t} $\ast$src, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-First)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{indexutil_8c_a2e067c9963b6392b5dc6dfd954bbfb9d}{gmx\-\_\-ana\-\_\-indexmap\-\_\-update} (\hyperlink{structgmx__ana__indexmap__t}{gmx\-\_\-ana\-\_\-indexmap\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_aa30cfa61c7e675800f65322a90f8ac96}{m}, \hyperlink{structgmx__ana__index__t}{gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g}, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Mask\-Only)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{indexutil_8c_a03b58612d9db3c295423c4ad9fb73160}{gmx\-\_\-ana\-\_\-indexmap\-\_\-deinit} (\hyperlink{structgmx__ana__indexmap__t}{gmx\-\_\-ana\-\_\-indexmap\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_aa30cfa61c7e675800f65322a90f8ac96}{m})
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{indexutil_8c_a63a36ddce0ba45ceba1e1a85ff6a36aa}{\index{indexutil.\-c@{indexutil.\-c}!cmp\-\_\-atomid@{cmp\-\_\-atomid}}
+\index{cmp\-\_\-atomid@{cmp\-\_\-atomid}!indexutil.c@{indexutil.\-c}}
+\subsubsection[{cmp\-\_\-atomid}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf cmp\-\_\-atomid} (
+\begin{DoxyParamCaption}
+\item[{const {\bf void} $\ast$}]{a, }
+\item[{const {\bf void} $\ast$}]{b}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{indexutil_8c_a63a36ddce0ba45ceba1e1a85ff6a36aa}
+\-Helper function for \hyperlink{include_2indexutil_8h_a8872aa14b9b23e545bd6a6c8c49238cf}{gmx\-\_\-ana\-\_\-index\-\_\-sort()}. 
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{indexutil_8c_a63a36ddce0ba45ceba1e1a85ff6a36aa_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{indexutil_8c_af2c5c279d8424c84bbd5940e27519dd7}{\index{indexutil.\-c@{indexutil.\-c}!gmx\-\_\-ana\-\_\-index\-\_\-check@{gmx\-\_\-ana\-\_\-index\-\_\-check}}
+\index{gmx\-\_\-ana\-\_\-index\-\_\-check@{gmx\-\_\-ana\-\_\-index\-\_\-check}!indexutil.c@{indexutil.\-c}}
+\subsubsection[{gmx\-\_\-ana\-\_\-index\-\_\-check}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-ana\-\_\-index\-\_\-check} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$}]{g, }
+\item[{int}]{natoms}
+\end{DoxyParamCaption}
+)}}\label{indexutil_8c_af2c5c279d8424c84bbd5940e27519dd7}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em g} & \-Input index group. \\
+\hline
+\mbox{\tt in}  & {\em natoms} & \-Number of atoms to check against.\\
+\hline
+\end{DoxyParams}
+\-If any atom index in the index group is less than zero or $>$= {\ttfamily natoms}, \hyperlink{include_2gmx__fatal_8h_a423e6cc9e3e1e76b51c0208d81ce968e}{gmx\-\_\-fatal()} is called. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=292pt]{indexutil_8c_af2c5c279d8424c84bbd5940e27519dd7_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{indexutil_8c_af2c5c279d8424c84bbd5940e27519dd7_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{indexutil_8c_ad6decdbe54bd850a2df357898216590f}{\index{indexutil.\-c@{indexutil.\-c}!gmx\-\_\-ana\-\_\-index\-\_\-check\-\_\-sorted@{gmx\-\_\-ana\-\_\-index\-\_\-check\-\_\-sorted}}
+\index{gmx\-\_\-ana\-\_\-index\-\_\-check\-\_\-sorted@{gmx\-\_\-ana\-\_\-index\-\_\-check\-\_\-sorted}!indexutil.c@{indexutil.\-c}}
+\subsubsection[{gmx\-\_\-ana\-\_\-index\-\_\-check\-\_\-sorted}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-ana\-\_\-index\-\_\-check\-\_\-sorted} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$}]{g}
+\end{DoxyParamCaption}
+)}}\label{indexutil_8c_ad6decdbe54bd850a2df357898216590f}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em g} & \-Index group to check. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-T\-R\-U\-E if the index group is sorted and has no duplicates, \-F\-A\-L\-S\-E otherwise. 
+\end{DoxyReturn}
+\hypertarget{indexutil_8c_af4f90612207c7c5094501521b8a92689}{\index{indexutil.\-c@{indexutil.\-c}!gmx\-\_\-ana\-\_\-index\-\_\-clear@{gmx\-\_\-ana\-\_\-index\-\_\-clear}}
+\index{gmx\-\_\-ana\-\_\-index\-\_\-clear@{gmx\-\_\-ana\-\_\-index\-\_\-clear}!indexutil.c@{indexutil.\-c}}
+\subsubsection[{gmx\-\_\-ana\-\_\-index\-\_\-clear}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-ana\-\_\-index\-\_\-clear} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$}]{g}
+\end{DoxyParamCaption}
+)}}\label{indexutil_8c_af4f90612207c7c5094501521b8a92689}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt out}  & {\em g} & \-Output structure.\\
+\hline
+\end{DoxyParams}
+\-Any contents of {\ttfamily g} are discarded without freeing. 
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{indexutil_8c_af4f90612207c7c5094501521b8a92689_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{indexutil_8c_a055cd6307607aeee74e492da9acb34ff}{\index{indexutil.\-c@{indexutil.\-c}!gmx\-\_\-ana\-\_\-index\-\_\-contains@{gmx\-\_\-ana\-\_\-index\-\_\-contains}}
+\index{gmx\-\_\-ana\-\_\-index\-\_\-contains@{gmx\-\_\-ana\-\_\-index\-\_\-contains}!indexutil.c@{indexutil.\-c}}
+\subsubsection[{gmx\-\_\-ana\-\_\-index\-\_\-contains}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-ana\-\_\-index\-\_\-contains} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$}]{a, }
+\item[{{\bf gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$}]{b}
+\end{DoxyParamCaption}
+)}}\label{indexutil_8c_a055cd6307607aeee74e492da9acb34ff}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em a} & \-Index group to check against. \\
+\hline
+\mbox{\tt in}  & {\em b} & \-Index group to check. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-T\-R\-U\-E if {\ttfamily b} is contained in {\ttfamily a}, \-F\-A\-L\-S\-E otherwise.
+\end{DoxyReturn}
+\-If the elements are not in the same order in both groups, the function fails. \-However, the groups do not need to be sorted. \hypertarget{indexutil_8c_aac654966d3b036ab3ff262535dad8177}{\index{indexutil.\-c@{indexutil.\-c}!gmx\-\_\-ana\-\_\-index\-\_\-copy@{gmx\-\_\-ana\-\_\-index\-\_\-copy}}
+\index{gmx\-\_\-ana\-\_\-index\-\_\-copy@{gmx\-\_\-ana\-\_\-index\-\_\-copy}!indexutil.c@{indexutil.\-c}}
+\subsubsection[{gmx\-\_\-ana\-\_\-index\-\_\-copy}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-ana\-\_\-index\-\_\-copy} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$}]{dest, }
+\item[{{\bf gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$}]{src, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Alloc}
+\end{DoxyParamCaption}
+)}}\label{indexutil_8c_aac654966d3b036ab3ff262535dad8177}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt out}  & {\em dest} & \-Destination index group. \\
+\hline
+\mbox{\tt in}  & {\em src} & \-Source index group. \\
+\hline
+\mbox{\tt in}  & {\em b\-Alloc} & \-If \-T\-R\-U\-E, memory is allocated at {\ttfamily dest}; otherwise, it is assumed that enough memory has been allocated for index.\\
+\hline
+\end{DoxyParams}
+\-A deep copy of the name is only made if {\ttfamily b\-Alloc} is \-T\-R\-U\-E. 
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{indexutil_8c_aac654966d3b036ab3ff262535dad8177_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{indexutil_8c_ad0f6aafce1b2234d9bd09686352dca71}{\index{indexutil.\-c@{indexutil.\-c}!gmx\-\_\-ana\-\_\-index\-\_\-deinit@{gmx\-\_\-ana\-\_\-index\-\_\-deinit}}
+\index{gmx\-\_\-ana\-\_\-index\-\_\-deinit@{gmx\-\_\-ana\-\_\-index\-\_\-deinit}!indexutil.c@{indexutil.\-c}}
+\subsubsection[{gmx\-\_\-ana\-\_\-index\-\_\-deinit}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-ana\-\_\-index\-\_\-deinit} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$}]{g}
+\end{DoxyParamCaption}
+)}}\label{indexutil_8c_ad0f6aafce1b2234d9bd09686352dca71}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em g} & \-Index group structure.\\
+\hline
+\end{DoxyParams}
+\-The pointer {\ttfamily g} is not freed. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=342pt]{indexutil_8c_ad0f6aafce1b2234d9bd09686352dca71_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{indexutil_8c_ad0f6aafce1b2234d9bd09686352dca71_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{indexutil_8c_a36418762a1d83eed47840281d779e312}{\index{indexutil.\-c@{indexutil.\-c}!gmx\-\_\-ana\-\_\-index\-\_\-difference@{gmx\-\_\-ana\-\_\-index\-\_\-difference}}
+\index{gmx\-\_\-ana\-\_\-index\-\_\-difference@{gmx\-\_\-ana\-\_\-index\-\_\-difference}!indexutil.c@{indexutil.\-c}}
+\subsubsection[{gmx\-\_\-ana\-\_\-index\-\_\-difference}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-ana\-\_\-index\-\_\-difference} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$}]{dest, }
+\item[{{\bf gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$}]{a, }
+\item[{{\bf gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$}]{b}
+\end{DoxyParamCaption}
+)}}\label{indexutil_8c_a36418762a1d83eed47840281d779e312}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt out}  & {\em dest} & \-Output index group (the difference {\ttfamily a} -\/ {\ttfamily b}). \\
+\hline
+\mbox{\tt in}  & {\em a} & \-First index group. \\
+\hline
+\mbox{\tt in}  & {\em b} & \-Second index group.\\
+\hline
+\end{DoxyParams}
+{\ttfamily dest} can equal {\ttfamily a}, but not {\ttfamily b}. 
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{indexutil_8c_a36418762a1d83eed47840281d779e312_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{indexutil_8c_a1674b8960e0058dd3a6ab7f7f0a69841}{\index{indexutil.\-c@{indexutil.\-c}!gmx\-\_\-ana\-\_\-index\-\_\-difference\-\_\-size@{gmx\-\_\-ana\-\_\-index\-\_\-difference\-\_\-size}}
+\index{gmx\-\_\-ana\-\_\-index\-\_\-difference\-\_\-size@{gmx\-\_\-ana\-\_\-index\-\_\-difference\-\_\-size}!indexutil.c@{indexutil.\-c}}
+\subsubsection[{gmx\-\_\-ana\-\_\-index\-\_\-difference\-\_\-size}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-ana\-\_\-index\-\_\-difference\-\_\-size} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$}]{a, }
+\item[{{\bf gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$}]{b}
+\end{DoxyParamCaption}
+)}}\label{indexutil_8c_a1674b8960e0058dd3a6ab7f7f0a69841}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em a} & \-First index group. \\
+\hline
+\mbox{\tt in}  & {\em b} & \-Second index group. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-Size of the difference {\ttfamily a} -\/ {\ttfamily b}. 
+\end{DoxyReturn}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{indexutil_8c_a1674b8960e0058dd3a6ab7f7f0a69841_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{indexutil_8c_a4a8dccae57ef0d579c04aca9417f0e31}{\index{indexutil.\-c@{indexutil.\-c}!gmx\-\_\-ana\-\_\-index\-\_\-dump@{gmx\-\_\-ana\-\_\-index\-\_\-dump}}
+\index{gmx\-\_\-ana\-\_\-index\-\_\-dump@{gmx\-\_\-ana\-\_\-index\-\_\-dump}!indexutil.c@{indexutil.\-c}}
+\subsubsection[{gmx\-\_\-ana\-\_\-index\-\_\-dump}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-ana\-\_\-index\-\_\-dump} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$}]{g, }
+\item[{int}]{i, }
+\item[{int}]{maxn}
+\end{DoxyParamCaption}
+)}}\label{indexutil_8c_a4a8dccae57ef0d579c04aca9417f0e31}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em g} & \-Index group to print. \\
+\hline
+\mbox{\tt in}  & {\em i} & \-Group number to use if the name is \-N\-U\-L\-L. \\
+\hline
+\mbox{\tt in}  & {\em maxn} & \-Maximum number of indices to print (-\/1 = print all). \\
+\hline
+\end{DoxyParams}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{indexutil_8c_a4a8dccae57ef0d579c04aca9417f0e31_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{indexutil_8c_a152b951fdfef6de247d19289644d4434}{\index{indexutil.\-c@{indexutil.\-c}!gmx\-\_\-ana\-\_\-index\-\_\-equals@{gmx\-\_\-ana\-\_\-index\-\_\-equals}}
+\index{gmx\-\_\-ana\-\_\-index\-\_\-equals@{gmx\-\_\-ana\-\_\-index\-\_\-equals}!indexutil.c@{indexutil.\-c}}
+\subsubsection[{gmx\-\_\-ana\-\_\-index\-\_\-equals}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-ana\-\_\-index\-\_\-equals} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$}]{a, }
+\item[{{\bf gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$}]{b}
+\end{DoxyParamCaption}
+)}}\label{indexutil_8c_a152b951fdfef6de247d19289644d4434}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em a} & \-Index group to check. \\
+\hline
+\mbox{\tt in}  & {\em b} & \-Index group to check. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-T\-R\-U\-E if {\ttfamily a} and {\ttfamily b} are equal, \-F\-A\-L\-S\-E otherwise. 
+\end{DoxyReturn}
+\hypertarget{indexutil_8c_a13eecb2555fbec878b8def9a2f01060a}{\index{indexutil.\-c@{indexutil.\-c}!gmx\-\_\-ana\-\_\-index\-\_\-has\-\_\-complete\-\_\-elems@{gmx\-\_\-ana\-\_\-index\-\_\-has\-\_\-complete\-\_\-elems}}
+\index{gmx\-\_\-ana\-\_\-index\-\_\-has\-\_\-complete\-\_\-elems@{gmx\-\_\-ana\-\_\-index\-\_\-has\-\_\-complete\-\_\-elems}!indexutil.c@{indexutil.\-c}}
+\subsubsection[{gmx\-\_\-ana\-\_\-index\-\_\-has\-\_\-complete\-\_\-elems}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-ana\-\_\-index\-\_\-has\-\_\-complete\-\_\-elems} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$}]{g, }
+\item[{{\bf e\-\_\-index\-\_\-t}}]{type, }
+\item[{{\bf t\-\_\-topology} $\ast$}]{top}
+\end{DoxyParamCaption}
+)}}\label{indexutil_8c_a13eecb2555fbec878b8def9a2f01060a}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em g} & \-Index group to check. \\
+\hline
+\mbox{\tt in}  & {\em type} & \-Block data to check against. \\
+\hline
+\mbox{\tt in}  & {\em top} & \-Topology data. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-T\-R\-U\-E if {\ttfamily g} consists of one or more complete elements of type {\ttfamily type}, \-F\-A\-L\-S\-E otherwise.
+\end{DoxyReturn}
+\-If {\ttfamily type} is \hyperlink{share_2template_2gromacs_2indexutil_8h_ad7330829cb93245b9de7ed268cf6ba67a8270d36cd367d434ccd9fe0dc1b886d8}{\-I\-N\-D\-E\-X\-\_\-\-A\-T\-O\-M}, the return value is always \-T\-R\-U\-E. \-If {\ttfamily type} is \hyperlink{share_2template_2gromacs_2indexutil_8h_ad7330829cb93245b9de7ed268cf6ba67a5befa01b9a863bdccbfd308d0c611601}{\-I\-N\-D\-E\-X\-\_\-\-U\-N\-K\-N\-O\-W\-N} or \hyperlink{share_2template_2gromacs_2indexutil_8h_ad7330829cb93245b9de7ed268cf6ba67a070d857fdc650a9cc8550e231ae91578}{\-I\-N\-D\-E\-X\-\_\-\-A\-L\-L}, the return value is always \-F\-A\-L\-S\-E. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{indexutil_8c_a13eecb2555fbec878b8def9a2f01060a_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{indexutil_8c_a13eecb2555fbec878b8def9a2f01060a_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{indexutil_8c_ac1797d58f751cd7c3771418ecc3fe28f}{\index{indexutil.\-c@{indexutil.\-c}!gmx\-\_\-ana\-\_\-index\-\_\-has\-\_\-full\-\_\-ablocks@{gmx\-\_\-ana\-\_\-index\-\_\-has\-\_\-full\-\_\-ablocks}}
+\index{gmx\-\_\-ana\-\_\-index\-\_\-has\-\_\-full\-\_\-ablocks@{gmx\-\_\-ana\-\_\-index\-\_\-has\-\_\-full\-\_\-ablocks}!indexutil.c@{indexutil.\-c}}
+\subsubsection[{gmx\-\_\-ana\-\_\-index\-\_\-has\-\_\-full\-\_\-ablocks}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-ana\-\_\-index\-\_\-has\-\_\-full\-\_\-ablocks} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$}]{g, }
+\item[{{\bf t\-\_\-blocka} $\ast$}]{b}
+\end{DoxyParamCaption}
+)}}\label{indexutil_8c_ac1797d58f751cd7c3771418ecc3fe28f}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em g} & \-Index group to check. \\
+\hline
+\mbox{\tt in}  & {\em b} & \-Block data to check against. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-T\-R\-U\-E if {\ttfamily g} consists of one or more complete blocks from {\ttfamily b}, \-F\-A\-L\-S\-E otherwise.
+\end{DoxyReturn}
+\-The atoms in {\ttfamily g} and {\ttfamily b-\/$>$a} are assumed to be in the same order. 
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{indexutil_8c_ac1797d58f751cd7c3771418ecc3fe28f_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{indexutil_8c_ae2134b46357403b3f78fba28c45a8027}{\index{indexutil.\-c@{indexutil.\-c}!gmx\-\_\-ana\-\_\-index\-\_\-has\-\_\-full\-\_\-blocks@{gmx\-\_\-ana\-\_\-index\-\_\-has\-\_\-full\-\_\-blocks}}
+\index{gmx\-\_\-ana\-\_\-index\-\_\-has\-\_\-full\-\_\-blocks@{gmx\-\_\-ana\-\_\-index\-\_\-has\-\_\-full\-\_\-blocks}!indexutil.c@{indexutil.\-c}}
+\subsubsection[{gmx\-\_\-ana\-\_\-index\-\_\-has\-\_\-full\-\_\-blocks}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-ana\-\_\-index\-\_\-has\-\_\-full\-\_\-blocks} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$}]{g, }
+\item[{{\bf t\-\_\-block} $\ast$}]{b}
+\end{DoxyParamCaption}
+)}}\label{indexutil_8c_ae2134b46357403b3f78fba28c45a8027}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em g} & \-Index group to check. \\
+\hline
+\mbox{\tt in}  & {\em b} & \-Block data to check against. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-T\-R\-U\-E if {\ttfamily g} consists of one or more complete blocks from {\ttfamily b}, \-F\-A\-L\-S\-E otherwise.
+\end{DoxyReturn}
+\-The atoms in {\ttfamily g} are assumed to be sorted. 
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{indexutil_8c_ae2134b46357403b3f78fba28c45a8027_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{indexutil_8c_aa368381c752a8b04480a6611155174d7}{\index{indexutil.\-c@{indexutil.\-c}!gmx\-\_\-ana\-\_\-index\-\_\-init\-\_\-simple@{gmx\-\_\-ana\-\_\-index\-\_\-init\-\_\-simple}}
+\index{gmx\-\_\-ana\-\_\-index\-\_\-init\-\_\-simple@{gmx\-\_\-ana\-\_\-index\-\_\-init\-\_\-simple}!indexutil.c@{indexutil.\-c}}
+\subsubsection[{gmx\-\_\-ana\-\_\-index\-\_\-init\-\_\-simple}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-ana\-\_\-index\-\_\-init\-\_\-simple} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$}]{g, }
+\item[{int}]{natoms, }
+\item[{char $\ast$}]{name}
+\end{DoxyParamCaption}
+)}}\label{indexutil_8c_aa368381c752a8b04480a6611155174d7}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt out}  & {\em g} & \-Output structure. \\
+\hline
+\mbox{\tt in}  & {\em natoms} & \-Number of atoms. \\
+\hline
+\mbox{\tt in}  & {\em name} & \-Name for the new group (can be \-N\-U\-L\-L). \\
+\hline
+\end{DoxyParams}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{indexutil_8c_aa368381c752a8b04480a6611155174d7_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{indexutil_8c_ac217ad643cf1347e01cff4cca583a0db}{\index{indexutil.\-c@{indexutil.\-c}!gmx\-\_\-ana\-\_\-index\-\_\-intersection@{gmx\-\_\-ana\-\_\-index\-\_\-intersection}}
+\index{gmx\-\_\-ana\-\_\-index\-\_\-intersection@{gmx\-\_\-ana\-\_\-index\-\_\-intersection}!indexutil.c@{indexutil.\-c}}
+\subsubsection[{gmx\-\_\-ana\-\_\-index\-\_\-intersection}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-ana\-\_\-index\-\_\-intersection} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$}]{dest, }
+\item[{{\bf gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$}]{a, }
+\item[{{\bf gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$}]{b}
+\end{DoxyParamCaption}
+)}}\label{indexutil_8c_ac217ad643cf1347e01cff4cca583a0db}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt out}  & {\em dest} & \-Output index group (the intersection of {\ttfamily a} and {\ttfamily b}). \\
+\hline
+\mbox{\tt in}  & {\em a} & \-First index group. \\
+\hline
+\mbox{\tt in}  & {\em b} & \-Second index group.\\
+\hline
+\end{DoxyParams}
+{\ttfamily dest} can be the same as {\ttfamily a} or {\ttfamily b}. 
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{indexutil_8c_ac217ad643cf1347e01cff4cca583a0db_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{indexutil_8c_a0f7097635da3a909ecb5bc23f9c086a4}{\index{indexutil.\-c@{indexutil.\-c}!gmx\-\_\-ana\-\_\-index\-\_\-make\-\_\-block@{gmx\-\_\-ana\-\_\-index\-\_\-make\-\_\-block}}
+\index{gmx\-\_\-ana\-\_\-index\-\_\-make\-\_\-block@{gmx\-\_\-ana\-\_\-index\-\_\-make\-\_\-block}!indexutil.c@{indexutil.\-c}}
+\subsubsection[{gmx\-\_\-ana\-\_\-index\-\_\-make\-\_\-block}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-ana\-\_\-index\-\_\-make\-\_\-block} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-blocka} $\ast$}]{t, }
+\item[{{\bf t\-\_\-topology} $\ast$}]{top, }
+\item[{{\bf gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$}]{g, }
+\item[{{\bf e\-\_\-index\-\_\-t}}]{type, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Complete}
+\end{DoxyParamCaption}
+)}}\label{indexutil_8c_a0f7097635da3a909ecb5bc23f9c086a4}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in,out}  & {\em t} & \-Output block. \\
+\hline
+\mbox{\tt in}  & {\em top} & \-Topology structure (only used if {\ttfamily type} is \hyperlink{share_2template_2gromacs_2indexutil_8h_ad7330829cb93245b9de7ed268cf6ba67a744bebc713caa98b8bf8b837af07834d}{\-I\-N\-D\-E\-X\-\_\-\-R\-E\-S} or \hyperlink{share_2template_2gromacs_2indexutil_8h_ad7330829cb93245b9de7ed268cf6ba67ae082401c42a6fac46f6701a68f822c86}{\-I\-N\-D\-E\-X\-\_\-\-M\-O\-L}, can be \-N\-U\-L\-L otherwise). \\
+\hline
+\mbox{\tt in}  & {\em g} & \-Index group (can be \-N\-U\-L\-L if {\ttfamily type} is \hyperlink{share_2template_2gromacs_2indexutil_8h_ad7330829cb93245b9de7ed268cf6ba67a5befa01b9a863bdccbfd308d0c611601}{\-I\-N\-D\-E\-X\-\_\-\-U\-N\-K\-N\-O\-W\-N}). \\
+\hline
+\mbox{\tt in}  & {\em type} & \-Type of partitioning to make. \\
+\hline
+\mbox{\tt in}  & {\em b\-Complete} & \-If \-T\-R\-U\-E, the index group is expanded to include any residue/molecule (depending on {\ttfamily type}) that is partially contained in the group. \-If {\ttfamily type} is not \-I\-N\-D\-E\-X\-\_\-\-R\-E\-S or \-I\-N\-D\-E\-X\-\_\-\-M\-O\-L, this has no effect.\\
+\hline
+\end{DoxyParams}
+{\ttfamily m} should have been initialized somehow (calloc() is enough) unless {\ttfamily type} is \-I\-N\-D\-E\-X\-\_\-\-U\-N\-K\-N\-O\-W\-N. {\ttfamily g} should be sorted. 
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{indexutil_8c_a0f7097635da3a909ecb5bc23f9c086a4_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{indexutil_8c_a9a83282e2ab6166b970ab221b60e6df1}{\index{indexutil.\-c@{indexutil.\-c}!gmx\-\_\-ana\-\_\-index\-\_\-merge@{gmx\-\_\-ana\-\_\-index\-\_\-merge}}
+\index{gmx\-\_\-ana\-\_\-index\-\_\-merge@{gmx\-\_\-ana\-\_\-index\-\_\-merge}!indexutil.c@{indexutil.\-c}}
+\subsubsection[{gmx\-\_\-ana\-\_\-index\-\_\-merge}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-ana\-\_\-index\-\_\-merge} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$}]{dest, }
+\item[{{\bf gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$}]{a, }
+\item[{{\bf gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$}]{b}
+\end{DoxyParamCaption}
+)}}\label{indexutil_8c_a9a83282e2ab6166b970ab221b60e6df1}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt out}  & {\em dest} & \-Output index group (the union of {\ttfamily a} and {\ttfamily b}). \\
+\hline
+\mbox{\tt in}  & {\em a} & \-First index group. \\
+\hline
+\mbox{\tt in}  & {\em b} & \-Second index group.\\
+\hline
+\end{DoxyParams}
+{\ttfamily a} and {\ttfamily b} should not have common items. {\ttfamily dest} can equal {\ttfamily a} or {\ttfamily b}.
+
+\begin{DoxySeeAlso}{\-See also}
+\hyperlink{include_2indexutil_8h_a42425ece80cdd7b293308fb39edf6e18}{gmx\-\_\-ana\-\_\-index\-\_\-union()} 
+\end{DoxySeeAlso}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{indexutil_8c_a9a83282e2ab6166b970ab221b60e6df1_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{indexutil_8c_a1a1be16095557d63b0c3a1bf7f9f29b2}{\index{indexutil.\-c@{indexutil.\-c}!gmx\-\_\-ana\-\_\-index\-\_\-partition@{gmx\-\_\-ana\-\_\-index\-\_\-partition}}
+\index{gmx\-\_\-ana\-\_\-index\-\_\-partition@{gmx\-\_\-ana\-\_\-index\-\_\-partition}!indexutil.c@{indexutil.\-c}}
+\subsubsection[{gmx\-\_\-ana\-\_\-index\-\_\-partition}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-ana\-\_\-index\-\_\-partition} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$}]{dest1, }
+\item[{{\bf gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$}]{dest2, }
+\item[{{\bf gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$}]{src, }
+\item[{{\bf gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$}]{g}
+\end{DoxyParamCaption}
+)}}\label{indexutil_8c_a1a1be16095557d63b0c3a1bf7f9f29b2}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt out}  & {\em dest1} & \-Output group 1 (will equal {\ttfamily g}). \\
+\hline
+\mbox{\tt out}  & {\em dest2} & \-Output group 2 (will equal {\ttfamily src} -\/ {\ttfamily g}). \\
+\hline
+\mbox{\tt in}  & {\em src} & \-Group to be partitioned. \\
+\hline
+\mbox{\tt in}  & {\em g} & \-One partition.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyPrecond}{\-Precondition}
+{\ttfamily g} is a subset of {\ttfamily src} and both sets are sorted 
+
+{\ttfamily dest1} has allocated storage to store {\ttfamily src} 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{\-Postcondition}
+{\ttfamily dest1} == {\ttfamily g} 
+
+{\ttfamily dest2} == {\ttfamily src} -\/ {\ttfamily g} 
+\end{DoxyPostcond}
+\-No storage should be allocated for {\ttfamily dest2}; after the call, {\ttfamily dest2-\/$>$index} points to the memory allocated for {\ttfamily dest1} (to a part that is not used by {\ttfamily dest1}).
+
+\-The calculation can be performed in-\/place by setting {\ttfamily dest1} equal to {\ttfamily src}. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{indexutil_8c_a1a1be16095557d63b0c3a1bf7f9f29b2_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{indexutil_8c_a1a1be16095557d63b0c3a1bf7f9f29b2_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{indexutil_8c_a084e5e78e92e2035a834bf7958a45b20}{\index{indexutil.\-c@{indexutil.\-c}!gmx\-\_\-ana\-\_\-index\-\_\-reserve@{gmx\-\_\-ana\-\_\-index\-\_\-reserve}}
+\index{gmx\-\_\-ana\-\_\-index\-\_\-reserve@{gmx\-\_\-ana\-\_\-index\-\_\-reserve}!indexutil.c@{indexutil.\-c}}
+\subsubsection[{gmx\-\_\-ana\-\_\-index\-\_\-reserve}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-ana\-\_\-index\-\_\-reserve} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$}]{g, }
+\item[{int}]{isize}
+\end{DoxyParamCaption}
+)}}\label{indexutil_8c_a084e5e78e92e2035a834bf7958a45b20}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in,out}  & {\em g} & \-Index group structure. \\
+\hline
+\mbox{\tt in}  & {\em isize} & \-Maximum number of atoms to reserve space for. \\
+\hline
+\end{DoxyParams}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{indexutil_8c_a084e5e78e92e2035a834bf7958a45b20_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{indexutil_8c_a161b22f7c5807cce0ce7422a701b6595}{\index{indexutil.\-c@{indexutil.\-c}!gmx\-\_\-ana\-\_\-index\-\_\-set@{gmx\-\_\-ana\-\_\-index\-\_\-set}}
+\index{gmx\-\_\-ana\-\_\-index\-\_\-set@{gmx\-\_\-ana\-\_\-index\-\_\-set}!indexutil.c@{indexutil.\-c}}
+\subsubsection[{gmx\-\_\-ana\-\_\-index\-\_\-set}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-ana\-\_\-index\-\_\-set} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$}]{g, }
+\item[{int}]{isize, }
+\item[{{\bf atom\-\_\-id} $\ast$}]{index, }
+\item[{char $\ast$}]{name, }
+\item[{int}]{nalloc}
+\end{DoxyParamCaption}
+)}}\label{indexutil_8c_a161b22f7c5807cce0ce7422a701b6595}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt out}  & {\em g} & \-Output structure. \\
+\hline
+\mbox{\tt in}  & {\em isize} & \-Number of atoms in the new group. \\
+\hline
+\mbox{\tt in}  & {\em index} & \-Array of {\ttfamily isize} atoms (can be \-N\-U\-L\-L if {\ttfamily isize} is 0). \\
+\hline
+\mbox{\tt in}  & {\em name} & \-Name for the new group (can be \-N\-U\-L\-L). \\
+\hline
+\mbox{\tt in}  & {\em nalloc} & \-Number of elements allocated for {\ttfamily index} (if 0, {\ttfamily index} is not freed in \hyperlink{include_2indexutil_8h_ad0f6aafce1b2234d9bd09686352dca71}{gmx\-\_\-ana\-\_\-index\-\_\-deinit()})\\
+\hline
+\end{DoxyParams}
+\-No copy if {\ttfamily index} is made. 
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{indexutil_8c_a161b22f7c5807cce0ce7422a701b6595_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{indexutil_8c_a8872aa14b9b23e545bd6a6c8c49238cf}{\index{indexutil.\-c@{indexutil.\-c}!gmx\-\_\-ana\-\_\-index\-\_\-sort@{gmx\-\_\-ana\-\_\-index\-\_\-sort}}
+\index{gmx\-\_\-ana\-\_\-index\-\_\-sort@{gmx\-\_\-ana\-\_\-index\-\_\-sort}!indexutil.c@{indexutil.\-c}}
+\subsubsection[{gmx\-\_\-ana\-\_\-index\-\_\-sort}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-ana\-\_\-index\-\_\-sort} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$}]{g}
+\end{DoxyParamCaption}
+)}}\label{indexutil_8c_a8872aa14b9b23e545bd6a6c8c49238cf}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in,out}  & {\em g} & \-Index group to be sorted. \\
+\hline
+\end{DoxyParams}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=294pt]{indexutil_8c_a8872aa14b9b23e545bd6a6c8c49238cf_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{indexutil_8c_a8872aa14b9b23e545bd6a6c8c49238cf_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{indexutil_8c_af45d8a0b1b4bacf126a01d04e8357f49}{\index{indexutil.\-c@{indexutil.\-c}!gmx\-\_\-ana\-\_\-index\-\_\-squeeze@{gmx\-\_\-ana\-\_\-index\-\_\-squeeze}}
+\index{gmx\-\_\-ana\-\_\-index\-\_\-squeeze@{gmx\-\_\-ana\-\_\-index\-\_\-squeeze}!indexutil.c@{indexutil.\-c}}
+\subsubsection[{gmx\-\_\-ana\-\_\-index\-\_\-squeeze}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-ana\-\_\-index\-\_\-squeeze} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$}]{g}
+\end{DoxyParamCaption}
+)}}\label{indexutil_8c_af45d8a0b1b4bacf126a01d04e8357f49}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in,out}  & {\em g} & \-Index group structure.\\
+\hline
+\end{DoxyParams}
+\-Resizes the memory allocated for holding the indices such that the current contents fit. 
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{indexutil_8c_af45d8a0b1b4bacf126a01d04e8357f49_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{indexutil_8c_a42425ece80cdd7b293308fb39edf6e18}{\index{indexutil.\-c@{indexutil.\-c}!gmx\-\_\-ana\-\_\-index\-\_\-union@{gmx\-\_\-ana\-\_\-index\-\_\-union}}
+\index{gmx\-\_\-ana\-\_\-index\-\_\-union@{gmx\-\_\-ana\-\_\-index\-\_\-union}!indexutil.c@{indexutil.\-c}}
+\subsubsection[{gmx\-\_\-ana\-\_\-index\-\_\-union}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-ana\-\_\-index\-\_\-union} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$}]{dest, }
+\item[{{\bf gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$}]{a, }
+\item[{{\bf gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$}]{b}
+\end{DoxyParamCaption}
+)}}\label{indexutil_8c_a42425ece80cdd7b293308fb39edf6e18}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt out}  & {\em dest} & \-Output index group (the union of {\ttfamily a} and {\ttfamily b}). \\
+\hline
+\mbox{\tt in}  & {\em a} & \-First index group. \\
+\hline
+\mbox{\tt in}  & {\em b} & \-Second index group.\\
+\hline
+\end{DoxyParams}
+{\ttfamily a} and {\ttfamily b} can have common items. {\ttfamily dest} can equal {\ttfamily a} or {\ttfamily b}.
+
+\begin{DoxySeeAlso}{\-See also}
+\hyperlink{include_2indexutil_8h_a9a83282e2ab6166b970ab221b60e6df1}{gmx\-\_\-ana\-\_\-index\-\_\-merge()} 
+\end{DoxySeeAlso}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{indexutil_8c_a42425ece80cdd7b293308fb39edf6e18_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{indexutil_8c_a42425ece80cdd7b293308fb39edf6e18_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{indexutil_8c_a2669813c437dae1e18f1018417392313}{\index{indexutil.\-c@{indexutil.\-c}!gmx\-\_\-ana\-\_\-indexgrps\-\_\-alloc@{gmx\-\_\-ana\-\_\-indexgrps\-\_\-alloc}}
+\index{gmx\-\_\-ana\-\_\-indexgrps\-\_\-alloc@{gmx\-\_\-ana\-\_\-indexgrps\-\_\-alloc}!indexutil.c@{indexutil.\-c}}
+\subsubsection[{gmx\-\_\-ana\-\_\-indexgrps\-\_\-alloc}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-ana\-\_\-indexgrps\-\_\-alloc} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-indexgrps\-\_\-t} $\ast$$\ast$}]{g, }
+\item[{int}]{ngrps}
+\end{DoxyParamCaption}
+)}}\label{indexutil_8c_a2669813c437dae1e18f1018417392313}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt out}  & {\em g} & \-Index group structure. \\
+\hline
+\mbox{\tt in}  & {\em ngrps} & \-Number of groups for which memory is allocated. \\
+\hline
+\end{DoxyParams}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{indexutil_8c_a2669813c437dae1e18f1018417392313_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{indexutil_8c_a5e70d1579a03c16c371f179f249a3898}{\index{indexutil.\-c@{indexutil.\-c}!gmx\-\_\-ana\-\_\-indexgrps\-\_\-clone@{gmx\-\_\-ana\-\_\-indexgrps\-\_\-clone}}
+\index{gmx\-\_\-ana\-\_\-indexgrps\-\_\-clone@{gmx\-\_\-ana\-\_\-indexgrps\-\_\-clone}!indexutil.c@{indexutil.\-c}}
+\subsubsection[{gmx\-\_\-ana\-\_\-indexgrps\-\_\-clone}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-ana\-\_\-indexgrps\-\_\-clone} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-indexgrps\-\_\-t} $\ast$$\ast$}]{dest, }
+\item[{{\bf gmx\-\_\-ana\-\_\-indexgrps\-\_\-t} $\ast$}]{src}
+\end{DoxyParamCaption}
+)}}\label{indexutil_8c_a5e70d1579a03c16c371f179f249a3898}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt out}  & {\em dest} & \-Destination index groups. \\
+\hline
+\mbox{\tt in}  & {\em src} & \-Source index groups.\\
+\hline
+\end{DoxyParams}
+\-A deep copy is made for all fields, including the group names. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{indexutil_8c_a5e70d1579a03c16c371f179f249a3898_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{indexutil_8c_a94a43a9893e92252d29a12828998ecc7}{\index{indexutil.\-c@{indexutil.\-c}!gmx\-\_\-ana\-\_\-indexgrps\-\_\-extract@{gmx\-\_\-ana\-\_\-indexgrps\-\_\-extract}}
+\index{gmx\-\_\-ana\-\_\-indexgrps\-\_\-extract@{gmx\-\_\-ana\-\_\-indexgrps\-\_\-extract}!indexutil.c@{indexutil.\-c}}
+\subsubsection[{gmx\-\_\-ana\-\_\-indexgrps\-\_\-extract}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-ana\-\_\-indexgrps\-\_\-extract} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$}]{dest, }
+\item[{{\bf gmx\-\_\-ana\-\_\-indexgrps\-\_\-t} $\ast$}]{src, }
+\item[{int}]{n}
+\end{DoxyParamCaption}
+)}}\label{indexutil_8c_a94a43a9893e92252d29a12828998ecc7}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt out}  & {\em dest} & \-Output structure. \\
+\hline
+\mbox{\tt in}  & {\em src} & \-Input index groups. \\
+\hline
+\mbox{\tt in}  & {\em n} & \-Number of the group to extract. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-T\-R\-U\-E if {\ttfamily n} is a valid group in {\ttfamily src}, \-F\-A\-L\-S\-E otherwise. 
+\end{DoxyReturn}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{indexutil_8c_a94a43a9893e92252d29a12828998ecc7_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{indexutil_8c_a94a43a9893e92252d29a12828998ecc7_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{indexutil_8c_a9111d5b869aab02adbcb692d250e48fe}{\index{indexutil.\-c@{indexutil.\-c}!gmx\-\_\-ana\-\_\-indexgrps\-\_\-find@{gmx\-\_\-ana\-\_\-indexgrps\-\_\-find}}
+\index{gmx\-\_\-ana\-\_\-indexgrps\-\_\-find@{gmx\-\_\-ana\-\_\-indexgrps\-\_\-find}!indexutil.c@{indexutil.\-c}}
+\subsubsection[{gmx\-\_\-ana\-\_\-indexgrps\-\_\-find}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-ana\-\_\-indexgrps\-\_\-find} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$}]{dest, }
+\item[{{\bf gmx\-\_\-ana\-\_\-indexgrps\-\_\-t} $\ast$}]{src, }
+\item[{char $\ast$}]{name}
+\end{DoxyParamCaption}
+)}}\label{indexutil_8c_a9111d5b869aab02adbcb692d250e48fe}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt out}  & {\em dest} & \-Output structure. \\
+\hline
+\mbox{\tt in}  & {\em src} & \-Input index groups. \\
+\hline
+\mbox{\tt in}  & {\em name} & \-Name (or part of the name) of the group to extract. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-T\-R\-U\-E if {\ttfamily name} is a valid group in {\ttfamily src}, \-F\-A\-L\-S\-E otherwise.
+\end{DoxyReturn}
+\-Uses the \-Gromacs routine \hyperlink{include_2index_8h_a49548d9bc1647b122f05021d3e484844}{find\-\_\-group()} to find the actual group; the comparison is case-\/insensitive. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{indexutil_8c_a9111d5b869aab02adbcb692d250e48fe_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{indexutil_8c_a9111d5b869aab02adbcb692d250e48fe_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{indexutil_8c_a7c52fc07ccfa2796785a9ca0463a28e9}{\index{indexutil.\-c@{indexutil.\-c}!gmx\-\_\-ana\-\_\-indexgrps\-\_\-free@{gmx\-\_\-ana\-\_\-indexgrps\-\_\-free}}
+\index{gmx\-\_\-ana\-\_\-indexgrps\-\_\-free@{gmx\-\_\-ana\-\_\-indexgrps\-\_\-free}!indexutil.c@{indexutil.\-c}}
+\subsubsection[{gmx\-\_\-ana\-\_\-indexgrps\-\_\-free}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-ana\-\_\-indexgrps\-\_\-free} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-indexgrps\-\_\-t} $\ast$}]{g}
+\end{DoxyParamCaption}
+)}}\label{indexutil_8c_a7c52fc07ccfa2796785a9ca0463a28e9}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em g} & \-Index groups structure.\\
+\hline
+\end{DoxyParams}
+\-The pointer {\ttfamily g} is invalid after the call. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{indexutil_8c_a7c52fc07ccfa2796785a9ca0463a28e9_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{indexutil_8c_a7c52fc07ccfa2796785a9ca0463a28e9_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{indexutil_8c_a992b8a7ef0d1a4029f9e6071188b303a}{\index{indexutil.\-c@{indexutil.\-c}!gmx\-\_\-ana\-\_\-indexgrps\-\_\-get@{gmx\-\_\-ana\-\_\-indexgrps\-\_\-get}}
+\index{gmx\-\_\-ana\-\_\-indexgrps\-\_\-get@{gmx\-\_\-ana\-\_\-indexgrps\-\_\-get}!indexutil.c@{indexutil.\-c}}
+\subsubsection[{gmx\-\_\-ana\-\_\-indexgrps\-\_\-get}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-ana\-\_\-indexgrps\-\_\-get} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-indexgrps\-\_\-t} $\ast$$\ast$}]{g, }
+\item[{{\bf t\-\_\-topology} $\ast$}]{top, }
+\item[{const char $\ast$}]{fnm, }
+\item[{int}]{ngrps}
+\end{DoxyParamCaption}
+)}}\label{indexutil_8c_a992b8a7ef0d1a4029f9e6071188b303a}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt out}  & {\em g} & \-Index group structure. \\
+\hline
+\mbox{\tt in}  & {\em top} & \-Topology structure. \\
+\hline
+\mbox{\tt in}  & {\em fnm} & \-File name for the index file. \\
+\hline
+\mbox{\tt in}  & {\em ngrps} & \-Number of required groups. \-Memory is automatically allocated.\\
+\hline
+\end{DoxyParams}
+\-One of {\ttfamily top} or {\ttfamily fnm} can be \-N\-U\-L\-L, but not both. \-If {\ttfamily top} is \-N\-U\-L\-L, an index file is required and the groups are read from the file (uses \-Gromacs routine \hyperlink{include_2index_8h_a7640b4d471b64dca5643c06c40e1063f}{rd\-\_\-index()}). \-If {\ttfamily fnm} is \-N\-U\-L\-L, default groups are constructed based on the topology (uses \-Gromacs routine \hyperlink{include_2index_8h_aadcb11691509a74c5c6c07edce2c0a57}{get\-\_\-index()}). 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{indexutil_8c_a992b8a7ef0d1a4029f9e6071188b303a_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{indexutil_8c_a992b8a7ef0d1a4029f9e6071188b303a_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{indexutil_8c_a0789934fa881d09faa55e4c280c77d68}{\index{indexutil.\-c@{indexutil.\-c}!gmx\-\_\-ana\-\_\-indexgrps\-\_\-get\-\_\-grp@{gmx\-\_\-ana\-\_\-indexgrps\-\_\-get\-\_\-grp}}
+\index{gmx\-\_\-ana\-\_\-indexgrps\-\_\-get\-\_\-grp@{gmx\-\_\-ana\-\_\-indexgrps\-\_\-get\-\_\-grp}!indexutil.c@{indexutil.\-c}}
+\subsubsection[{gmx\-\_\-ana\-\_\-indexgrps\-\_\-get\-\_\-grp}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-ana\-\_\-index\-\_\-t}$\ast$ {\bf gmx\-\_\-ana\-\_\-indexgrps\-\_\-get\-\_\-grp} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-indexgrps\-\_\-t} $\ast$}]{g, }
+\item[{int}]{n}
+\end{DoxyParamCaption}
+)}}\label{indexutil_8c_a0789934fa881d09faa55e4c280c77d68}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em g} & \-Index groups structure. \\
+\hline
+\mbox{\tt in}  & {\em n} & \-Index group number to get. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-Pointer to the {\ttfamily n'th} index group in {\ttfamily g}.
+\end{DoxyReturn}
+\-The returned pointer should not be freed. 
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{indexutil_8c_a0789934fa881d09faa55e4c280c77d68_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{indexutil_8c_a182c460485a17faf48b28b807ef46b18}{\index{indexutil.\-c@{indexutil.\-c}!gmx\-\_\-ana\-\_\-indexgrps\-\_\-init@{gmx\-\_\-ana\-\_\-indexgrps\-\_\-init}}
+\index{gmx\-\_\-ana\-\_\-indexgrps\-\_\-init@{gmx\-\_\-ana\-\_\-indexgrps\-\_\-init}!indexutil.c@{indexutil.\-c}}
+\subsubsection[{gmx\-\_\-ana\-\_\-indexgrps\-\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-ana\-\_\-indexgrps\-\_\-init} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-indexgrps\-\_\-t} $\ast$$\ast$}]{g, }
+\item[{{\bf t\-\_\-topology} $\ast$}]{top, }
+\item[{const char $\ast$}]{fnm}
+\end{DoxyParamCaption}
+)}}\label{indexutil_8c_a182c460485a17faf48b28b807ef46b18}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt out}  & {\em g} & \-Index group structure. \\
+\hline
+\mbox{\tt in}  & {\em top} & \-Topology structure. \\
+\hline
+\mbox{\tt in}  & {\em fnm} & \-File name for the index file. \-Memory is automatically allocated.\\
+\hline
+\end{DoxyParams}
+\-One or both of {\ttfamily top} or {\ttfamily fnm} can be \-N\-U\-L\-L. \-If {\ttfamily top} is \-N\-U\-L\-L, an index file is required and the groups are read from the file (uses \-Gromacs routine \hyperlink{include_2index_8h_af4cd88d6e922767c86aa315b1b322933}{init\-\_\-index()}). \-If {\ttfamily fnm} is \-N\-U\-L\-L, default groups are constructed based on the topology (uses \-Gromacs routine \hyperlink{include_2index_8h_a1d2cb2a4891f3e881866ceba10e1d778}{analyse()}). \-If both are null, the index group structure is initialized empty. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{indexutil_8c_a182c460485a17faf48b28b807ef46b18_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{indexutil_8c_a182c460485a17faf48b28b807ef46b18_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{indexutil_8c_a0641819c615c6d1513a9c46e1b98286f}{\index{indexutil.\-c@{indexutil.\-c}!gmx\-\_\-ana\-\_\-indexgrps\-\_\-is\-\_\-empty@{gmx\-\_\-ana\-\_\-indexgrps\-\_\-is\-\_\-empty}}
+\index{gmx\-\_\-ana\-\_\-indexgrps\-\_\-is\-\_\-empty@{gmx\-\_\-ana\-\_\-indexgrps\-\_\-is\-\_\-empty}!indexutil.c@{indexutil.\-c}}
+\subsubsection[{gmx\-\_\-ana\-\_\-indexgrps\-\_\-is\-\_\-empty}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-ana\-\_\-indexgrps\-\_\-is\-\_\-empty} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-indexgrps\-\_\-t} $\ast$}]{g}
+\end{DoxyParamCaption}
+)}}\label{indexutil_8c_a0641819c615c6d1513a9c46e1b98286f}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt out}  & {\em g} & \-Index group structure. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-T\-R\-U\-E if {\ttfamily g} is empty, i.\-e., has 0 index groups. 
+\end{DoxyReturn}
+\hypertarget{indexutil_8c_a6590569fd7598dfa0d16ff9eb5e651c4}{\index{indexutil.\-c@{indexutil.\-c}!gmx\-\_\-ana\-\_\-indexgrps\-\_\-print@{gmx\-\_\-ana\-\_\-indexgrps\-\_\-print}}
+\index{gmx\-\_\-ana\-\_\-indexgrps\-\_\-print@{gmx\-\_\-ana\-\_\-indexgrps\-\_\-print}!indexutil.c@{indexutil.\-c}}
+\subsubsection[{gmx\-\_\-ana\-\_\-indexgrps\-\_\-print}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-ana\-\_\-indexgrps\-\_\-print} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-indexgrps\-\_\-t} $\ast$}]{g, }
+\item[{int}]{maxn}
+\end{DoxyParamCaption}
+)}}\label{indexutil_8c_a6590569fd7598dfa0d16ff9eb5e651c4}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em g} & \-Index groups to print. \\
+\hline
+\mbox{\tt in}  & {\em maxn} & \-Maximum number of indices to print (-\/1 = print all, 0 = print only names). \\
+\hline
+\end{DoxyParams}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{indexutil_8c_a6590569fd7598dfa0d16ff9eb5e651c4_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{indexutil_8c_a6590569fd7598dfa0d16ff9eb5e651c4_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{indexutil_8c_a7019ffae8d82fa65623ea60486d0fd22}{\index{indexutil.\-c@{indexutil.\-c}!gmx\-\_\-ana\-\_\-indexgrps\-\_\-rd@{gmx\-\_\-ana\-\_\-indexgrps\-\_\-rd}}
+\index{gmx\-\_\-ana\-\_\-indexgrps\-\_\-rd@{gmx\-\_\-ana\-\_\-indexgrps\-\_\-rd}!indexutil.c@{indexutil.\-c}}
+\subsubsection[{gmx\-\_\-ana\-\_\-indexgrps\-\_\-rd}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-ana\-\_\-indexgrps\-\_\-rd} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-indexgrps\-\_\-t} $\ast$$\ast$}]{g, }
+\item[{const char $\ast$}]{fnm, }
+\item[{int}]{ngrps}
+\end{DoxyParamCaption}
+)}}\label{indexutil_8c_a7019ffae8d82fa65623ea60486d0fd22}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt out}  & {\em g} & \-Index group structure. \\
+\hline
+\mbox{\tt in}  & {\em fnm} & \-File name for the index file. \\
+\hline
+\mbox{\tt in}  & {\em ngrps} & \-Number of required groups. \-Memory is automatically allocated.\\
+\hline
+\end{DoxyParams}
+\-This is a convenience function for calling the \-Gromacs routine \hyperlink{include_2index_8h_a7640b4d471b64dca5643c06c40e1063f}{rd\-\_\-index()}. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{indexutil_8c_a7019ffae8d82fa65623ea60486d0fd22_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{indexutil_8c_ad2501e149248bff28482742894ccefd1}{\index{indexutil.\-c@{indexutil.\-c}!gmx\-\_\-ana\-\_\-indexgrps\-\_\-set@{gmx\-\_\-ana\-\_\-indexgrps\-\_\-set}}
+\index{gmx\-\_\-ana\-\_\-indexgrps\-\_\-set@{gmx\-\_\-ana\-\_\-indexgrps\-\_\-set}!indexutil.c@{indexutil.\-c}}
+\subsubsection[{gmx\-\_\-ana\-\_\-indexgrps\-\_\-set}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-ana\-\_\-indexgrps\-\_\-set} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-indexgrps\-\_\-t} $\ast$$\ast$}]{g, }
+\item[{int}]{ngrps, }
+\item[{int $\ast$}]{isize, }
+\item[{{\bf atom\-\_\-id} $\ast$$\ast$}]{index, }
+\item[{char $\ast$$\ast$}]{name, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Free}
+\end{DoxyParamCaption}
+)}}\label{indexutil_8c_ad2501e149248bff28482742894ccefd1}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt out}  & {\em g} & \-Index group structure. \\
+\hline
+\mbox{\tt in}  & {\em ngrps} & \-Number of index groups. \\
+\hline
+\mbox{\tt in}  & {\em isize} & \-Array of index group sizes. \\
+\hline
+\mbox{\tt in}  & {\em index} & \-Array of pointers to indices of each group. \\
+\hline
+\mbox{\tt in}  & {\em name} & \-Array of names of the groups. \\
+\hline
+\mbox{\tt in}  & {\em b\-Free} & \-If \-T\-R\-U\-E, the {\ttfamily isize}, {\ttfamily index} and {\ttfamily name} arrays are freed after they have been copied. \\
+\hline
+\end{DoxyParams}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{indexutil_8c_ad2501e149248bff28482742894ccefd1_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{indexutil_8c_ad2501e149248bff28482742894ccefd1_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{indexutil_8c_a521bc0c5c619c566925ba515c6501a50}{\index{indexutil.\-c@{indexutil.\-c}!gmx\-\_\-ana\-\_\-indexmap\-\_\-clear@{gmx\-\_\-ana\-\_\-indexmap\-\_\-clear}}
+\index{gmx\-\_\-ana\-\_\-indexmap\-\_\-clear@{gmx\-\_\-ana\-\_\-indexmap\-\_\-clear}!indexutil.c@{indexutil.\-c}}
+\subsubsection[{gmx\-\_\-ana\-\_\-indexmap\-\_\-clear}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-ana\-\_\-indexmap\-\_\-clear} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-indexmap\-\_\-t} $\ast$}]{m}
+\end{DoxyParamCaption}
+)}}\label{indexutil_8c_a521bc0c5c619c566925ba515c6501a50}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt out}  & {\em m} & \-Output structure.\\
+\hline
+\end{DoxyParams}
+\-Any contents of {\ttfamily m} are discarded without freeing. 
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{indexutil_8c_a521bc0c5c619c566925ba515c6501a50_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{indexutil_8c_ad5fbe4b1aed2b133d4daf7fffd0365f1}{\index{indexutil.\-c@{indexutil.\-c}!gmx\-\_\-ana\-\_\-indexmap\-\_\-copy@{gmx\-\_\-ana\-\_\-indexmap\-\_\-copy}}
+\index{gmx\-\_\-ana\-\_\-indexmap\-\_\-copy@{gmx\-\_\-ana\-\_\-indexmap\-\_\-copy}!indexutil.c@{indexutil.\-c}}
+\subsubsection[{gmx\-\_\-ana\-\_\-indexmap\-\_\-copy}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-ana\-\_\-indexmap\-\_\-copy} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-indexmap\-\_\-t} $\ast$}]{dest, }
+\item[{{\bf gmx\-\_\-ana\-\_\-indexmap\-\_\-t} $\ast$}]{src, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-First}
+\end{DoxyParamCaption}
+)}}\label{indexutil_8c_ad5fbe4b1aed2b133d4daf7fffd0365f1}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in,out}  & {\em dest} & \-Destination data structure. \\
+\hline
+\mbox{\tt in}  & {\em src} & \-Source mapping. \\
+\hline
+\mbox{\tt in}  & {\em b\-First} & \-If \-T\-R\-U\-E, memory is allocated for {\ttfamily dest} and a full copy is made; otherwise, only variable parts are copied, and no memory is allocated.\\
+\hline
+\end{DoxyParams}
+{\ttfamily dest} should have been initialized somehow (calloc() is enough). 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{indexutil_8c_ad5fbe4b1aed2b133d4daf7fffd0365f1_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{indexutil_8c_ad5fbe4b1aed2b133d4daf7fffd0365f1_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{indexutil_8c_a03b58612d9db3c295423c4ad9fb73160}{\index{indexutil.\-c@{indexutil.\-c}!gmx\-\_\-ana\-\_\-indexmap\-\_\-deinit@{gmx\-\_\-ana\-\_\-indexmap\-\_\-deinit}}
+\index{gmx\-\_\-ana\-\_\-indexmap\-\_\-deinit@{gmx\-\_\-ana\-\_\-indexmap\-\_\-deinit}!indexutil.c@{indexutil.\-c}}
+\subsubsection[{gmx\-\_\-ana\-\_\-indexmap\-\_\-deinit}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-ana\-\_\-indexmap\-\_\-deinit} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-indexmap\-\_\-t} $\ast$}]{m}
+\end{DoxyParamCaption}
+)}}\label{indexutil_8c_a03b58612d9db3c295423c4ad9fb73160}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in,out}  & {\em m} & \-Mapping structure to free.\\
+\hline
+\end{DoxyParams}
+\-All the memory allocated for the mapping structure is freed, and the pointers set to \-N\-U\-L\-L. \-The pointer {\ttfamily m} is not freed. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{indexutil_8c_a03b58612d9db3c295423c4ad9fb73160_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{indexutil_8c_a03b58612d9db3c295423c4ad9fb73160_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{indexutil_8c_a2e5d3992948d98b2911d3946a81252fc}{\index{indexutil.\-c@{indexutil.\-c}!gmx\-\_\-ana\-\_\-indexmap\-\_\-init@{gmx\-\_\-ana\-\_\-indexmap\-\_\-init}}
+\index{gmx\-\_\-ana\-\_\-indexmap\-\_\-init@{gmx\-\_\-ana\-\_\-indexmap\-\_\-init}!indexutil.c@{indexutil.\-c}}
+\subsubsection[{gmx\-\_\-ana\-\_\-indexmap\-\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-ana\-\_\-indexmap\-\_\-init} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-indexmap\-\_\-t} $\ast$}]{m, }
+\item[{{\bf gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$}]{g, }
+\item[{{\bf t\-\_\-topology} $\ast$}]{top, }
+\item[{{\bf e\-\_\-index\-\_\-t}}]{type}
+\end{DoxyParamCaption}
+)}}\label{indexutil_8c_a2e5d3992948d98b2911d3946a81252fc}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in,out}  & {\em m} & \-Mapping structure to initialize. \\
+\hline
+\mbox{\tt in}  & {\em g} & \-Index group to map (can be \-N\-U\-L\-L if {\ttfamily type} is \hyperlink{share_2template_2gromacs_2indexutil_8h_ad7330829cb93245b9de7ed268cf6ba67a5befa01b9a863bdccbfd308d0c611601}{\-I\-N\-D\-E\-X\-\_\-\-U\-N\-K\-N\-O\-W\-N}). \\
+\hline
+\mbox{\tt in}  & {\em top} & \-Topology structure (can be \-N\-U\-L\-L if {\ttfamily type} is not \hyperlink{share_2template_2gromacs_2indexutil_8h_ad7330829cb93245b9de7ed268cf6ba67a744bebc713caa98b8bf8b837af07834d}{\-I\-N\-D\-E\-X\-\_\-\-R\-E\-S} or \hyperlink{share_2template_2gromacs_2indexutil_8h_ad7330829cb93245b9de7ed268cf6ba67ae082401c42a6fac46f6701a68f822c86}{\-I\-N\-D\-E\-X\-\_\-\-M\-O\-L}). \\
+\hline
+\mbox{\tt in}  & {\em type} & \-Type of mapping to construct.\\
+\hline
+\end{DoxyParams}
+\-Initializes a new index group mapping. \-The index group provided to \hyperlink{include_2indexutil_8h_aeca832c56e9b3f19a049d65aff18cd69}{gmx\-\_\-ana\-\_\-indexmap\-\_\-update()} should always be a subset of the {\ttfamily g} given here.
+
+{\ttfamily m} should have been initialized somehow (calloc() is enough). 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{indexutil_8c_a2e5d3992948d98b2911d3946a81252fc_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{indexutil_8c_a2e5d3992948d98b2911d3946a81252fc_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{indexutil_8c_ae81020f97f9da8509f85166d293d8575}{\index{indexutil.\-c@{indexutil.\-c}!gmx\-\_\-ana\-\_\-indexmap\-\_\-reserve@{gmx\-\_\-ana\-\_\-indexmap\-\_\-reserve}}
+\index{gmx\-\_\-ana\-\_\-indexmap\-\_\-reserve@{gmx\-\_\-ana\-\_\-indexmap\-\_\-reserve}!indexutil.c@{indexutil.\-c}}
+\subsubsection[{gmx\-\_\-ana\-\_\-indexmap\-\_\-reserve}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-ana\-\_\-indexmap\-\_\-reserve} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-indexmap\-\_\-t} $\ast$}]{m, }
+\item[{int}]{nr, }
+\item[{int}]{isize}
+\end{DoxyParamCaption}
+)}}\label{indexutil_8c_ae81020f97f9da8509f85166d293d8575}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in,out}  & {\em m} & \-Mapping structure. \\
+\hline
+\mbox{\tt in}  & {\em nr} & \-Maximum number of blocks to reserve space for. \\
+\hline
+\mbox{\tt in}  & {\em isize} & \-Maximum number of atoms to reserve space for. \\
+\hline
+\end{DoxyParams}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{indexutil_8c_ae81020f97f9da8509f85166d293d8575_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{indexutil_8c_a343d136c6f9999de805f7b0197707d0f}{\index{indexutil.\-c@{indexutil.\-c}!gmx\-\_\-ana\-\_\-indexmap\-\_\-set\-\_\-static@{gmx\-\_\-ana\-\_\-indexmap\-\_\-set\-\_\-static}}
+\index{gmx\-\_\-ana\-\_\-indexmap\-\_\-set\-\_\-static@{gmx\-\_\-ana\-\_\-indexmap\-\_\-set\-\_\-static}!indexutil.c@{indexutil.\-c}}
+\subsubsection[{gmx\-\_\-ana\-\_\-indexmap\-\_\-set\-\_\-static}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-ana\-\_\-indexmap\-\_\-set\-\_\-static} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-indexmap\-\_\-t} $\ast$}]{m, }
+\item[{{\bf t\-\_\-blocka} $\ast$}]{b}
+\end{DoxyParamCaption}
+)}}\label{indexutil_8c_a343d136c6f9999de805f7b0197707d0f}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in,out}  & {\em m} & \-Mapping structure to initialize. \\
+\hline
+\mbox{\tt in}  & {\em b} & \-Block information to use for data.\\
+\hline
+\end{DoxyParams}
+\-Frees some memory that is not necessary for static index group mappings. \-Internal pointers are set to point to data in {\ttfamily b}; it is the responsibility of the caller to ensure that the block information matches the contents of the mapping. \-After this function has been called, the index group provided to \hyperlink{include_2indexutil_8h_aeca832c56e9b3f19a049d65aff18cd69}{gmx\-\_\-ana\-\_\-indexmap\-\_\-update()} should always be the same as {\ttfamily g} given here.
+
+\-This function breaks modularity of the index group mapping interface in an ugly way, but allows reducing memory usage of static selections by a significant amount. 
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{indexutil_8c_a343d136c6f9999de805f7b0197707d0f_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{indexutil_8c_a2e067c9963b6392b5dc6dfd954bbfb9d}{\index{indexutil.\-c@{indexutil.\-c}!gmx\-\_\-ana\-\_\-indexmap\-\_\-update@{gmx\-\_\-ana\-\_\-indexmap\-\_\-update}}
+\index{gmx\-\_\-ana\-\_\-indexmap\-\_\-update@{gmx\-\_\-ana\-\_\-indexmap\-\_\-update}!indexutil.c@{indexutil.\-c}}
+\subsubsection[{gmx\-\_\-ana\-\_\-indexmap\-\_\-update}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-ana\-\_\-indexmap\-\_\-update} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-indexmap\-\_\-t} $\ast$}]{m, }
+\item[{{\bf gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$}]{g, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Mask\-Only}
+\end{DoxyParamCaption}
+)}}\label{indexutil_8c_a2e067c9963b6392b5dc6dfd954bbfb9d}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in,out}  & {\em m} & \-Mapping structure. \\
+\hline
+\mbox{\tt in}  & {\em g} & \-Current index group. \\
+\hline
+\mbox{\tt in}  & {\em b\-Mask\-Only} & \-T\-R\-U\-E if the unused blocks should be masked with -\/1 instead of removing them.\\
+\hline
+\end{DoxyParams}
+\-Updates the index group mapping with the new index group {\ttfamily g}.
+
+\begin{DoxySeeAlso}{\-See also}
+\hyperlink{structgmx__ana__indexmap__t}{gmx\-\_\-ana\-\_\-indexmap\-\_\-t} 
+\end{DoxySeeAlso}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{indexutil_8c_a2e067c9963b6392b5dc6dfd954bbfb9d_icgraph}
+\end{center}
+\end{figure}
+
+

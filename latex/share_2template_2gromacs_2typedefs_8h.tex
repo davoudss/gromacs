@@ -1,0 +1,622 @@
+\hypertarget{share_2template_2gromacs_2typedefs_8h}{\section{share/template/gromacs/typedefs.h \-File \-Reference}
+\label{share_2template_2gromacs_2typedefs_8h}\index{share/template/gromacs/typedefs.\-h@{share/template/gromacs/typedefs.\-h}}
+}
+{\ttfamily \#include $<$sys/types.\-h$>$}\*
+{\ttfamily \#include \char`\"{}visibility.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}sysstuff.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}types/simple.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}types/enums.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}types/block.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}types/symtab.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}types/idef.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}types/atoms.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}types/trx.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}types/topology.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}types/energy.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}types/inputrec.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}types/ishift.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}types/graph.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}types/nrnb.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}types/nblist.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}types/nbnxn\-\_\-pairlist.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}types/nsgrid.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}types/forcerec.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}types/fcdata.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}types/mdatom.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}types/pbc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}types/ifunc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}types/filenm.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}types/group.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}types/state.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}types/shellfc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}types/constr.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}types/matrix.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}types/oenv.\-h\char`\"{}}\*
+\-Include dependency graph for typedefs.\-h\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{share_2template_2gromacs_2typedefs_8h__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{share_2template_2gromacs_2typedefs_8h_a6aced9f67195bd1d09e9f043430d4edf}{\-N\-O\-T\-S\-E\-T}~-\/12345
+\item 
+\#define \hyperlink{share_2template_2gromacs_2typedefs_8h_aa53ceb6b38a4499f6698b3e02005075c}{\-O\-V\-E\-R\-\_\-\-A\-L\-L\-O\-C\-\_\-\-F\-A\-C}~1.\-19
+\item 
+\#define \hyperlink{share_2template_2gromacs_2typedefs_8h_a2fc73ec3a4b633f7483b99167c25ca01}{over\-\_\-alloc\-\_\-small}(\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n})~(\hyperlink{share_2template_2gromacs_2typedefs_8h_aa53ceb6b38a4499f6698b3e02005075c}{\-O\-V\-E\-R\-\_\-\-A\-L\-L\-O\-C\-\_\-\-F\-A\-C}$\ast$(\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}) + 8000)
+\item 
+\#define \hyperlink{share_2template_2gromacs_2typedefs_8h_aa651045991ec92103783ba4ebaf20bca}{over\-\_\-alloc\-\_\-large}(\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n})~(\hyperlink{share_2template_2gromacs_2typedefs_8h_aa53ceb6b38a4499f6698b3e02005075c}{\-O\-V\-E\-R\-\_\-\-A\-L\-L\-O\-C\-\_\-\-F\-A\-C}$\ast$(\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}) + 1000)
+\item 
+\#define \hyperlink{share_2template_2gromacs_2typedefs_8h_a7a96d5cf3819b5488f13881771adbb60}{\-S\-T\-E\-P\-S\-T\-R\-S\-I\-Z\-E}~22
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_af6d678ccc5288db95c70b9d9003f11e2}{\-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{share_2template_2gromacs_2typedefs_8h_ac762d655ff627575f1cef35c06a7a77f}{set\-\_\-over\-\_\-alloc\-\_\-dd} (\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} set)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_af6d678ccc5288db95c70b9d9003f11e2}{\-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} int \hyperlink{share_2template_2gromacs_2typedefs_8h_ab18fdd7de6fc645126f004d17a8b7811}{over\-\_\-alloc\-\_\-dd} (int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n})
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_af6d678ccc5288db95c70b9d9003f11e2}{\-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} int \hyperlink{share_2template_2gromacs_2typedefs_8h_a1eb858a589a904747d851be3f321a9d4}{gmx\-\_\-large\-\_\-int\-\_\-to\-\_\-int} (gmx\-\_\-large\-\_\-int\-\_\-t step, const char $\ast$warn)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_af6d678ccc5288db95c70b9d9003f11e2}{\-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} char $\ast$ \hyperlink{share_2template_2gromacs_2typedefs_8h_aa7ae7519059d54f7bc39105569b22f6b}{gmx\-\_\-step\-\_\-str} (gmx\-\_\-large\-\_\-int\-\_\-t \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a3c7542401c1cb8bd37ef5e7d9eb0f5a8}{i}, char $\ast$buf)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_af6d678ccc5288db95c70b9d9003f11e2}{\-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{share_2template_2gromacs_2typedefs_8h_adeb3dcc2fa7cdd055c5c858e6bf93009}{init\-\_\-block} (\hyperlink{structt__block}{t\-\_\-block} $\ast$block)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_af6d678ccc5288db95c70b9d9003f11e2}{\-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{share_2template_2gromacs_2typedefs_8h_a3b46b16afad5f09fa6e7b44079897d91}{init\-\_\-blocka} (\hyperlink{structt__blocka}{t\-\_\-blocka} $\ast$block)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_af6d678ccc5288db95c70b9d9003f11e2}{\-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{share_2template_2gromacs_2typedefs_8h_af500f19ac4b0692a8eb2806e56309208}{init\-\_\-atom} (\hyperlink{structt__atoms}{t\-\_\-atoms} $\ast$at)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_af6d678ccc5288db95c70b9d9003f11e2}{\-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{share_2template_2gromacs_2typedefs_8h_a95609d7f349ce57b4c531f2fab0d7567}{init\-\_\-mtop} (\hyperlink{structgmx__mtop__t}{gmx\-\_\-mtop\-\_\-t} $\ast$mtop)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_af6d678ccc5288db95c70b9d9003f11e2}{\-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{share_2template_2gromacs_2typedefs_8h_adf90414536d63c858bd99416b88a5e81}{init\-\_\-top} (\hyperlink{structt__topology}{t\-\_\-topology} $\ast$\hyperlink{gmx__disre_8c_a1b538a2ce75aba6c346bc03980ffeb28}{top})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{share_2template_2gromacs_2typedefs_8h_a4f0be9e2b9c947507c62d3e81c0931c7}{init\-\_\-inputrec} (\hyperlink{structt__inputrec}{t\-\_\-inputrec} $\ast$ir)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_af6d678ccc5288db95c70b9d9003f11e2}{\-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{share_2template_2gromacs_2typedefs_8h_ac21be765a333f92f7168255c2a69860f}{init\-\_\-energyhistory} (\hyperlink{structenergyhistory__t}{energyhistory\-\_\-t} $\ast$enerhist)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_af6d678ccc5288db95c70b9d9003f11e2}{\-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{share_2template_2gromacs_2typedefs_8h_a124a96d90db4ca6cfc26878ff8e58b0f}{done\-\_\-energyhistory} (\hyperlink{structenergyhistory__t}{energyhistory\-\_\-t} $\ast$enerhist)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_af6d678ccc5288db95c70b9d9003f11e2}{\-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{share_2template_2gromacs_2typedefs_8h_a5b771b38af16eb9d2a6ff6c2a30263fb}{init\-\_\-gtc\-\_\-state} (\hyperlink{structt__state}{t\-\_\-state} $\ast$state, int ngtc, int nnhpres, int nhchainlength)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_af6d678ccc5288db95c70b9d9003f11e2}{\-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{share_2template_2gromacs_2typedefs_8h_a47222ce9a2a2eadae1a48817cb149fcf}{init\-\_\-state} (\hyperlink{structt__state}{t\-\_\-state} $\ast$state, int natoms, int ngtc, int nnhpres, int nhchainlength, int nlambda)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_af6d678ccc5288db95c70b9d9003f11e2}{\-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{share_2template_2gromacs_2typedefs_8h_acee6083b74beca54c16488cbfcf3cfa5}{init\-\_\-df\-\_\-history} (\hyperlink{structdf__history__t}{df\-\_\-history\-\_\-t} $\ast$dfhist, int nlambda, real wl\-\_\-delta)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_af6d678ccc5288db95c70b9d9003f11e2}{\-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{share_2template_2gromacs_2typedefs_8h_a099af9c2eb2b7f419878d7c557e67d39}{copy\-\_\-df\-\_\-history} (\hyperlink{structdf__history__t}{df\-\_\-history\-\_\-t} $\ast$df\-\_\-dest, \hyperlink{structdf__history__t}{df\-\_\-history\-\_\-t} $\ast$df\-\_\-source)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_af6d678ccc5288db95c70b9d9003f11e2}{\-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{share_2template_2gromacs_2typedefs_8h_a6a124782a19f29477dc2cf63272af126}{copy\-\_\-blocka} (const \hyperlink{structt__blocka}{t\-\_\-blocka} $\ast$src, \hyperlink{structt__blocka}{t\-\_\-blocka} $\ast$dest)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_af6d678ccc5288db95c70b9d9003f11e2}{\-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{share_2template_2gromacs_2typedefs_8h_adab946850949ad30242634fd0453febc}{done\-\_\-block} (\hyperlink{structt__block}{t\-\_\-block} $\ast$block)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_af6d678ccc5288db95c70b9d9003f11e2}{\-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{share_2template_2gromacs_2typedefs_8h_a684d067ff9b61ff1141d6891ad99cc07}{done\-\_\-blocka} (\hyperlink{structt__blocka}{t\-\_\-blocka} $\ast$block)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_af6d678ccc5288db95c70b9d9003f11e2}{\-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{share_2template_2gromacs_2typedefs_8h_a9ef3e33cff9dbb1d3ebee1e522da2d1f}{done\-\_\-atom} (\hyperlink{structt__atoms}{t\-\_\-atoms} $\ast$at)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{share_2template_2gromacs_2typedefs_8h_a74522e5e92024e3a79ece6fa6f58792a}{done\-\_\-moltype} (\hyperlink{structgmx__moltype__t}{gmx\-\_\-moltype\-\_\-t} $\ast$molt)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{share_2template_2gromacs_2typedefs_8h_a6a6df76c8c569c64d696cd32af46ff1f}{done\-\_\-molblock} (\hyperlink{structgmx__molblock__t}{gmx\-\_\-molblock\-\_\-t} $\ast$molb)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{share_2template_2gromacs_2typedefs_8h_aa2658faa9f90411cad53c6deb502d728}{done\-\_\-mtop} (\hyperlink{structgmx__mtop__t}{gmx\-\_\-mtop\-\_\-t} $\ast$mtop, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Done\-Symtab)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{share_2template_2gromacs_2typedefs_8h_ae26dd1070c477a892720b35c45b40019}{done\-\_\-top} (\hyperlink{structt__topology}{t\-\_\-topology} $\ast$\hyperlink{gmx__disre_8c_a1b538a2ce75aba6c346bc03980ffeb28}{top})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{share_2template_2gromacs_2typedefs_8h_adcd7f8444216d7805c2c906e08afe527}{done\-\_\-inputrec} (\hyperlink{structt__inputrec}{t\-\_\-inputrec} $\ast$ir)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_af6d678ccc5288db95c70b9d9003f11e2}{\-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{share_2template_2gromacs_2typedefs_8h_a8ed23a23385b46ff28a3f0bf1c038e64}{done\-\_\-state} (\hyperlink{structt__state}{t\-\_\-state} $\ast$state)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_af6d678ccc5288db95c70b9d9003f11e2}{\-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{share_2template_2gromacs_2typedefs_8h_a762bb6d9c23559b0cdb9f9ba7e3a5328}{set\-\_\-box\-\_\-rel} (\hyperlink{structt__inputrec}{t\-\_\-inputrec} $\ast$ir, \hyperlink{structt__state}{t\-\_\-state} $\ast$state)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_af6d678ccc5288db95c70b9d9003f11e2}{\-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{share_2template_2gromacs_2typedefs_8h_a0dffde7393ca415e9d3ca9a0c5111318}{preserve\-\_\-box\-\_\-shape} (\hyperlink{structt__inputrec}{t\-\_\-inputrec} $\ast$ir, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box\-\_\-rel, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afb462a5dea72ae7992f073bfd756fb5f}{b})
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_af6d678ccc5288db95c70b9d9003f11e2}{\-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{share_2template_2gromacs_2typedefs_8h_aeef1f4bff49fdd04f7b0549bd43919ee}{stupid\-\_\-fill\-\_\-block} (\hyperlink{structt__block}{t\-\_\-block} $\ast$grp, int natom, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-One\-Index\-Group)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_af6d678ccc5288db95c70b9d9003f11e2}{\-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{share_2template_2gromacs_2typedefs_8h_a6bd14537a4af10696a7beb397d67ed71}{stupid\-\_\-fill\-\_\-blocka} (\hyperlink{structt__blocka}{t\-\_\-blocka} $\ast$grp, int natom)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_af6d678ccc5288db95c70b9d9003f11e2}{\-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{share_2template_2gromacs_2typedefs_8h_afc74b127eb714b11d0554d0ee1f316c0}{init\-\_\-t\-\_\-atoms} (\hyperlink{structt__atoms}{t\-\_\-atoms} $\ast$atoms, int natoms, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Pdbinfo)
+\item 
+\hyperlink{structt__atoms}{t\-\_\-atoms} $\ast$ \hyperlink{share_2template_2gromacs_2typedefs_8h_a6b41894e82cf87010caa43113dfacd8b}{copy\-\_\-t\-\_\-atoms} (\hyperlink{structt__atoms}{t\-\_\-atoms} $\ast$src)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{share_2template_2gromacs_2typedefs_8h_a04e594b2f8f9b5172468b5a8ec4e1651}{add\-\_\-t\-\_\-atoms} (\hyperlink{structt__atoms}{t\-\_\-atoms} $\ast$atoms, int natom\-\_\-extra, int nres\-\_\-extra)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_af6d678ccc5288db95c70b9d9003f11e2}{\-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{share_2template_2gromacs_2typedefs_8h_a6d7dda884a0782c589d1f1e4a2e0e69f}{t\-\_\-atoms\-\_\-set\-\_\-resinfo} (\hyperlink{structt__atoms}{t\-\_\-atoms} $\ast$atoms, int atom\-\_\-ind, \hyperlink{structt__symtab}{t\-\_\-symtab} $\ast$symtab, const char $\ast$resname, int resnr, unsigned char \hyperlink{share_2template_2gromacs_2nbnxn__cuda__data__mgmt_8h_a34557b939b10b264adf47e54fc7e7f6c}{ic}, int chainnum, char chainid)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_af6d678ccc5288db95c70b9d9003f11e2}{\-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{share_2template_2gromacs_2typedefs_8h_ad8ddd31f61eb65f71941c83327929273}{free\-\_\-t\-\_\-atoms} (\hyperlink{structt__atoms}{t\-\_\-atoms} $\ast$atoms, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Free\-Names)
+\item 
+\hyperlink{structt__atoms}{t\-\_\-atoms} $\ast$ \hyperlink{share_2template_2gromacs_2typedefs_8h_a3279de474b0be6d6904d0ab82c290a79}{mtop2atoms} (\hyperlink{structgmx__mtop__t}{gmx\-\_\-mtop\-\_\-t} $\ast$mtop)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_af6d678ccc5288db95c70b9d9003f11e2}{\-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} real \hyperlink{share_2template_2gromacs_2typedefs_8h_a096d174c594ef54bd74132143d0b19d6}{max\-\_\-cutoff} (real cutoff1, real cutoff2)
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Define \-Documentation}
+\hypertarget{share_2template_2gromacs_2typedefs_8h_a6aced9f67195bd1d09e9f043430d4edf}{\index{share/template/gromacs/typedefs.\-h@{share/template/gromacs/typedefs.\-h}!\-N\-O\-T\-S\-E\-T@{\-N\-O\-T\-S\-E\-T}}
+\index{\-N\-O\-T\-S\-E\-T@{\-N\-O\-T\-S\-E\-T}!share/template/gromacs/typedefs.h@{share/template/gromacs/typedefs.\-h}}
+\subsubsection[{\-N\-O\-T\-S\-E\-T}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-N\-O\-T\-S\-E\-T}~-\/12345}}\label{share_2template_2gromacs_2typedefs_8h_a6aced9f67195bd1d09e9f043430d4edf}
+\hypertarget{share_2template_2gromacs_2typedefs_8h_aa53ceb6b38a4499f6698b3e02005075c}{\index{share/template/gromacs/typedefs.\-h@{share/template/gromacs/typedefs.\-h}!\-O\-V\-E\-R\-\_\-\-A\-L\-L\-O\-C\-\_\-\-F\-A\-C@{\-O\-V\-E\-R\-\_\-\-A\-L\-L\-O\-C\-\_\-\-F\-A\-C}}
+\index{\-O\-V\-E\-R\-\_\-\-A\-L\-L\-O\-C\-\_\-\-F\-A\-C@{\-O\-V\-E\-R\-\_\-\-A\-L\-L\-O\-C\-\_\-\-F\-A\-C}!share/template/gromacs/typedefs.h@{share/template/gromacs/typedefs.\-h}}
+\subsubsection[{\-O\-V\-E\-R\-\_\-\-A\-L\-L\-O\-C\-\_\-\-F\-A\-C}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-O\-V\-E\-R\-\_\-\-A\-L\-L\-O\-C\-\_\-\-F\-A\-C}~1.\-19}}\label{share_2template_2gromacs_2typedefs_8h_aa53ceb6b38a4499f6698b3e02005075c}
+\hypertarget{share_2template_2gromacs_2typedefs_8h_aa651045991ec92103783ba4ebaf20bca}{\index{share/template/gromacs/typedefs.\-h@{share/template/gromacs/typedefs.\-h}!over\-\_\-alloc\-\_\-large@{over\-\_\-alloc\-\_\-large}}
+\index{over\-\_\-alloc\-\_\-large@{over\-\_\-alloc\-\_\-large}!share/template/gromacs/typedefs.h@{share/template/gromacs/typedefs.\-h}}
+\subsubsection[{over\-\_\-alloc\-\_\-large}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf over\-\_\-alloc\-\_\-large}(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf n}}
+\end{DoxyParamCaption}
+)~({\bf \-O\-V\-E\-R\-\_\-\-A\-L\-L\-O\-C\-\_\-\-F\-A\-C}$\ast$({\bf n}) + 1000)}}\label{share_2template_2gromacs_2typedefs_8h_aa651045991ec92103783ba4ebaf20bca}
+\hypertarget{share_2template_2gromacs_2typedefs_8h_a2fc73ec3a4b633f7483b99167c25ca01}{\index{share/template/gromacs/typedefs.\-h@{share/template/gromacs/typedefs.\-h}!over\-\_\-alloc\-\_\-small@{over\-\_\-alloc\-\_\-small}}
+\index{over\-\_\-alloc\-\_\-small@{over\-\_\-alloc\-\_\-small}!share/template/gromacs/typedefs.h@{share/template/gromacs/typedefs.\-h}}
+\subsubsection[{over\-\_\-alloc\-\_\-small}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf over\-\_\-alloc\-\_\-small}(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf n}}
+\end{DoxyParamCaption}
+)~({\bf \-O\-V\-E\-R\-\_\-\-A\-L\-L\-O\-C\-\_\-\-F\-A\-C}$\ast$({\bf n}) + 8000)}}\label{share_2template_2gromacs_2typedefs_8h_a2fc73ec3a4b633f7483b99167c25ca01}
+\hypertarget{share_2template_2gromacs_2typedefs_8h_a7a96d5cf3819b5488f13881771adbb60}{\index{share/template/gromacs/typedefs.\-h@{share/template/gromacs/typedefs.\-h}!\-S\-T\-E\-P\-S\-T\-R\-S\-I\-Z\-E@{\-S\-T\-E\-P\-S\-T\-R\-S\-I\-Z\-E}}
+\index{\-S\-T\-E\-P\-S\-T\-R\-S\-I\-Z\-E@{\-S\-T\-E\-P\-S\-T\-R\-S\-I\-Z\-E}!share/template/gromacs/typedefs.h@{share/template/gromacs/typedefs.\-h}}
+\subsubsection[{\-S\-T\-E\-P\-S\-T\-R\-S\-I\-Z\-E}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-S\-T\-E\-P\-S\-T\-R\-S\-I\-Z\-E}~22}}\label{share_2template_2gromacs_2typedefs_8h_a7a96d5cf3819b5488f13881771adbb60}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{share_2template_2gromacs_2typedefs_8h_a04e594b2f8f9b5172468b5a8ec4e1651}{\index{share/template/gromacs/typedefs.\-h@{share/template/gromacs/typedefs.\-h}!add\-\_\-t\-\_\-atoms@{add\-\_\-t\-\_\-atoms}}
+\index{add\-\_\-t\-\_\-atoms@{add\-\_\-t\-\_\-atoms}!share/template/gromacs/typedefs.h@{share/template/gromacs/typedefs.\-h}}
+\subsubsection[{add\-\_\-t\-\_\-atoms}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf add\-\_\-t\-\_\-atoms} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-atoms} $\ast$}]{atoms, }
+\item[{int}]{natom\-\_\-extra, }
+\item[{int}]{nres\-\_\-extra}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2typedefs_8h_a04e594b2f8f9b5172468b5a8ec4e1651}
+\hypertarget{share_2template_2gromacs_2typedefs_8h_a6a124782a19f29477dc2cf63272af126}{\index{share/template/gromacs/typedefs.\-h@{share/template/gromacs/typedefs.\-h}!copy\-\_\-blocka@{copy\-\_\-blocka}}
+\index{copy\-\_\-blocka@{copy\-\_\-blocka}!share/template/gromacs/typedefs.h@{share/template/gromacs/typedefs.\-h}}
+\subsubsection[{copy\-\_\-blocka}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} {\bf void} {\bf copy\-\_\-blocka} (
+\begin{DoxyParamCaption}
+\item[{const {\bf t\-\_\-blocka} $\ast$}]{src, }
+\item[{{\bf t\-\_\-blocka} $\ast$}]{dest}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2typedefs_8h_a6a124782a19f29477dc2cf63272af126}
+\hypertarget{share_2template_2gromacs_2typedefs_8h_a099af9c2eb2b7f419878d7c557e67d39}{\index{share/template/gromacs/typedefs.\-h@{share/template/gromacs/typedefs.\-h}!copy\-\_\-df\-\_\-history@{copy\-\_\-df\-\_\-history}}
+\index{copy\-\_\-df\-\_\-history@{copy\-\_\-df\-\_\-history}!share/template/gromacs/typedefs.h@{share/template/gromacs/typedefs.\-h}}
+\subsubsection[{copy\-\_\-df\-\_\-history}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} {\bf void} {\bf copy\-\_\-df\-\_\-history} (
+\begin{DoxyParamCaption}
+\item[{{\bf df\-\_\-history\-\_\-t} $\ast$}]{df\-\_\-dest, }
+\item[{{\bf df\-\_\-history\-\_\-t} $\ast$}]{df\-\_\-source}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2typedefs_8h_a099af9c2eb2b7f419878d7c557e67d39}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=280pt]{share_2template_2gromacs_2typedefs_8h_a099af9c2eb2b7f419878d7c557e67d39_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{share_2template_2gromacs_2typedefs_8h_a6b41894e82cf87010caa43113dfacd8b}{\index{share/template/gromacs/typedefs.\-h@{share/template/gromacs/typedefs.\-h}!copy\-\_\-t\-\_\-atoms@{copy\-\_\-t\-\_\-atoms}}
+\index{copy\-\_\-t\-\_\-atoms@{copy\-\_\-t\-\_\-atoms}!share/template/gromacs/typedefs.h@{share/template/gromacs/typedefs.\-h}}
+\subsubsection[{copy\-\_\-t\-\_\-atoms}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\-\_\-atoms}$\ast$ {\bf copy\-\_\-t\-\_\-atoms} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-atoms} $\ast$}]{src}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2typedefs_8h_a6b41894e82cf87010caa43113dfacd8b}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=264pt]{share_2template_2gromacs_2typedefs_8h_a6b41894e82cf87010caa43113dfacd8b_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{share_2template_2gromacs_2typedefs_8h_a9ef3e33cff9dbb1d3ebee1e522da2d1f}{\index{share/template/gromacs/typedefs.\-h@{share/template/gromacs/typedefs.\-h}!done\-\_\-atom@{done\-\_\-atom}}
+\index{done\-\_\-atom@{done\-\_\-atom}!share/template/gromacs/typedefs.h@{share/template/gromacs/typedefs.\-h}}
+\subsubsection[{done\-\_\-atom}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} {\bf void} {\bf done\-\_\-atom} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-atoms} $\ast$}]{at}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2typedefs_8h_a9ef3e33cff9dbb1d3ebee1e522da2d1f}
+\hypertarget{share_2template_2gromacs_2typedefs_8h_adab946850949ad30242634fd0453febc}{\index{share/template/gromacs/typedefs.\-h@{share/template/gromacs/typedefs.\-h}!done\-\_\-block@{done\-\_\-block}}
+\index{done\-\_\-block@{done\-\_\-block}!share/template/gromacs/typedefs.h@{share/template/gromacs/typedefs.\-h}}
+\subsubsection[{done\-\_\-block}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} {\bf void} {\bf done\-\_\-block} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-block} $\ast$}]{block}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2typedefs_8h_adab946850949ad30242634fd0453febc}
+\hypertarget{share_2template_2gromacs_2typedefs_8h_a684d067ff9b61ff1141d6891ad99cc07}{\index{share/template/gromacs/typedefs.\-h@{share/template/gromacs/typedefs.\-h}!done\-\_\-blocka@{done\-\_\-blocka}}
+\index{done\-\_\-blocka@{done\-\_\-blocka}!share/template/gromacs/typedefs.h@{share/template/gromacs/typedefs.\-h}}
+\subsubsection[{done\-\_\-blocka}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} {\bf void} {\bf done\-\_\-blocka} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-blocka} $\ast$}]{block}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2typedefs_8h_a684d067ff9b61ff1141d6891ad99cc07}
+\hypertarget{share_2template_2gromacs_2typedefs_8h_a124a96d90db4ca6cfc26878ff8e58b0f}{\index{share/template/gromacs/typedefs.\-h@{share/template/gromacs/typedefs.\-h}!done\-\_\-energyhistory@{done\-\_\-energyhistory}}
+\index{done\-\_\-energyhistory@{done\-\_\-energyhistory}!share/template/gromacs/typedefs.h@{share/template/gromacs/typedefs.\-h}}
+\subsubsection[{done\-\_\-energyhistory}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} {\bf void} {\bf done\-\_\-energyhistory} (
+\begin{DoxyParamCaption}
+\item[{{\bf energyhistory\-\_\-t} $\ast$}]{enerhist}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2typedefs_8h_a124a96d90db4ca6cfc26878ff8e58b0f}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=328pt]{share_2template_2gromacs_2typedefs_8h_a124a96d90db4ca6cfc26878ff8e58b0f_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{share_2template_2gromacs_2typedefs_8h_adcd7f8444216d7805c2c906e08afe527}{\index{share/template/gromacs/typedefs.\-h@{share/template/gromacs/typedefs.\-h}!done\-\_\-inputrec@{done\-\_\-inputrec}}
+\index{done\-\_\-inputrec@{done\-\_\-inputrec}!share/template/gromacs/typedefs.h@{share/template/gromacs/typedefs.\-h}}
+\subsubsection[{done\-\_\-inputrec}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf done\-\_\-inputrec} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-inputrec} $\ast$}]{ir}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2typedefs_8h_adcd7f8444216d7805c2c906e08afe527}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{share_2template_2gromacs_2typedefs_8h_adcd7f8444216d7805c2c906e08afe527_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{share_2template_2gromacs_2typedefs_8h_a6a6df76c8c569c64d696cd32af46ff1f}{\index{share/template/gromacs/typedefs.\-h@{share/template/gromacs/typedefs.\-h}!done\-\_\-molblock@{done\-\_\-molblock}}
+\index{done\-\_\-molblock@{done\-\_\-molblock}!share/template/gromacs/typedefs.h@{share/template/gromacs/typedefs.\-h}}
+\subsubsection[{done\-\_\-molblock}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf done\-\_\-molblock} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-molblock\-\_\-t} $\ast$}]{molb}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2typedefs_8h_a6a6df76c8c569c64d696cd32af46ff1f}
+\hypertarget{share_2template_2gromacs_2typedefs_8h_a74522e5e92024e3a79ece6fa6f58792a}{\index{share/template/gromacs/typedefs.\-h@{share/template/gromacs/typedefs.\-h}!done\-\_\-moltype@{done\-\_\-moltype}}
+\index{done\-\_\-moltype@{done\-\_\-moltype}!share/template/gromacs/typedefs.h@{share/template/gromacs/typedefs.\-h}}
+\subsubsection[{done\-\_\-moltype}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf done\-\_\-moltype} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-moltype\-\_\-t} $\ast$}]{molt}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2typedefs_8h_a74522e5e92024e3a79ece6fa6f58792a}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=266pt]{share_2template_2gromacs_2typedefs_8h_a74522e5e92024e3a79ece6fa6f58792a_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{share_2template_2gromacs_2typedefs_8h_aa2658faa9f90411cad53c6deb502d728}{\index{share/template/gromacs/typedefs.\-h@{share/template/gromacs/typedefs.\-h}!done\-\_\-mtop@{done\-\_\-mtop}}
+\index{done\-\_\-mtop@{done\-\_\-mtop}!share/template/gromacs/typedefs.h@{share/template/gromacs/typedefs.\-h}}
+\subsubsection[{done\-\_\-mtop}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf done\-\_\-mtop} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-mtop\-\_\-t} $\ast$}]{mtop, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Done\-Symtab}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2typedefs_8h_aa2658faa9f90411cad53c6deb502d728}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=264pt]{share_2template_2gromacs_2typedefs_8h_aa2658faa9f90411cad53c6deb502d728_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{share_2template_2gromacs_2typedefs_8h_a8ed23a23385b46ff28a3f0bf1c038e64}{\index{share/template/gromacs/typedefs.\-h@{share/template/gromacs/typedefs.\-h}!done\-\_\-state@{done\-\_\-state}}
+\index{done\-\_\-state@{done\-\_\-state}!share/template/gromacs/typedefs.h@{share/template/gromacs/typedefs.\-h}}
+\subsubsection[{done\-\_\-state}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} {\bf void} {\bf done\-\_\-state} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-state} $\ast$}]{state}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2typedefs_8h_a8ed23a23385b46ff28a3f0bf1c038e64}
+\hypertarget{share_2template_2gromacs_2typedefs_8h_ae26dd1070c477a892720b35c45b40019}{\index{share/template/gromacs/typedefs.\-h@{share/template/gromacs/typedefs.\-h}!done\-\_\-top@{done\-\_\-top}}
+\index{done\-\_\-top@{done\-\_\-top}!share/template/gromacs/typedefs.h@{share/template/gromacs/typedefs.\-h}}
+\subsubsection[{done\-\_\-top}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf done\-\_\-top} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-topology} $\ast$}]{top}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2typedefs_8h_ae26dd1070c477a892720b35c45b40019}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=262pt]{share_2template_2gromacs_2typedefs_8h_ae26dd1070c477a892720b35c45b40019_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{share_2template_2gromacs_2typedefs_8h_ad8ddd31f61eb65f71941c83327929273}{\index{share/template/gromacs/typedefs.\-h@{share/template/gromacs/typedefs.\-h}!free\-\_\-t\-\_\-atoms@{free\-\_\-t\-\_\-atoms}}
+\index{free\-\_\-t\-\_\-atoms@{free\-\_\-t\-\_\-atoms}!share/template/gromacs/typedefs.h@{share/template/gromacs/typedefs.\-h}}
+\subsubsection[{free\-\_\-t\-\_\-atoms}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} {\bf void} {\bf free\-\_\-t\-\_\-atoms} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-atoms} $\ast$}]{atoms, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Free\-Names}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2typedefs_8h_ad8ddd31f61eb65f71941c83327929273}
+\hypertarget{share_2template_2gromacs_2typedefs_8h_a1eb858a589a904747d851be3f321a9d4}{\index{share/template/gromacs/typedefs.\-h@{share/template/gromacs/typedefs.\-h}!gmx\-\_\-large\-\_\-int\-\_\-to\-\_\-int@{gmx\-\_\-large\-\_\-int\-\_\-to\-\_\-int}}
+\index{gmx\-\_\-large\-\_\-int\-\_\-to\-\_\-int@{gmx\-\_\-large\-\_\-int\-\_\-to\-\_\-int}!share/template/gromacs/typedefs.h@{share/template/gromacs/typedefs.\-h}}
+\subsubsection[{gmx\-\_\-large\-\_\-int\-\_\-to\-\_\-int}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} int {\bf gmx\-\_\-large\-\_\-int\-\_\-to\-\_\-int} (
+\begin{DoxyParamCaption}
+\item[{gmx\-\_\-large\-\_\-int\-\_\-t}]{step, }
+\item[{const char $\ast$}]{warn}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2typedefs_8h_a1eb858a589a904747d851be3f321a9d4}
+\hypertarget{share_2template_2gromacs_2typedefs_8h_aa7ae7519059d54f7bc39105569b22f6b}{\index{share/template/gromacs/typedefs.\-h@{share/template/gromacs/typedefs.\-h}!gmx\-\_\-step\-\_\-str@{gmx\-\_\-step\-\_\-str}}
+\index{gmx\-\_\-step\-\_\-str@{gmx\-\_\-step\-\_\-str}!share/template/gromacs/typedefs.h@{share/template/gromacs/typedefs.\-h}}
+\subsubsection[{gmx\-\_\-step\-\_\-str}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} char$\ast$ {\bf gmx\-\_\-step\-\_\-str} (
+\begin{DoxyParamCaption}
+\item[{gmx\-\_\-large\-\_\-int\-\_\-t}]{i, }
+\item[{char $\ast$}]{buf}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2typedefs_8h_aa7ae7519059d54f7bc39105569b22f6b}
+\hypertarget{share_2template_2gromacs_2typedefs_8h_af500f19ac4b0692a8eb2806e56309208}{\index{share/template/gromacs/typedefs.\-h@{share/template/gromacs/typedefs.\-h}!init\-\_\-atom@{init\-\_\-atom}}
+\index{init\-\_\-atom@{init\-\_\-atom}!share/template/gromacs/typedefs.h@{share/template/gromacs/typedefs.\-h}}
+\subsubsection[{init\-\_\-atom}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} {\bf void} {\bf init\-\_\-atom} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-atoms} $\ast$}]{at}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2typedefs_8h_af500f19ac4b0692a8eb2806e56309208}
+\hypertarget{share_2template_2gromacs_2typedefs_8h_adeb3dcc2fa7cdd055c5c858e6bf93009}{\index{share/template/gromacs/typedefs.\-h@{share/template/gromacs/typedefs.\-h}!init\-\_\-block@{init\-\_\-block}}
+\index{init\-\_\-block@{init\-\_\-block}!share/template/gromacs/typedefs.h@{share/template/gromacs/typedefs.\-h}}
+\subsubsection[{init\-\_\-block}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} {\bf void} {\bf init\-\_\-block} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-block} $\ast$}]{block}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2typedefs_8h_adeb3dcc2fa7cdd055c5c858e6bf93009}
+\hypertarget{share_2template_2gromacs_2typedefs_8h_a3b46b16afad5f09fa6e7b44079897d91}{\index{share/template/gromacs/typedefs.\-h@{share/template/gromacs/typedefs.\-h}!init\-\_\-blocka@{init\-\_\-blocka}}
+\index{init\-\_\-blocka@{init\-\_\-blocka}!share/template/gromacs/typedefs.h@{share/template/gromacs/typedefs.\-h}}
+\subsubsection[{init\-\_\-blocka}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} {\bf void} {\bf init\-\_\-blocka} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-blocka} $\ast$}]{block}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2typedefs_8h_a3b46b16afad5f09fa6e7b44079897d91}
+\hypertarget{share_2template_2gromacs_2typedefs_8h_acee6083b74beca54c16488cbfcf3cfa5}{\index{share/template/gromacs/typedefs.\-h@{share/template/gromacs/typedefs.\-h}!init\-\_\-df\-\_\-history@{init\-\_\-df\-\_\-history}}
+\index{init\-\_\-df\-\_\-history@{init\-\_\-df\-\_\-history}!share/template/gromacs/typedefs.h@{share/template/gromacs/typedefs.\-h}}
+\subsubsection[{init\-\_\-df\-\_\-history}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} {\bf void} {\bf init\-\_\-df\-\_\-history} (
+\begin{DoxyParamCaption}
+\item[{{\bf df\-\_\-history\-\_\-t} $\ast$}]{dfhist, }
+\item[{int}]{nlambda, }
+\item[{real}]{wl\-\_\-delta}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2typedefs_8h_acee6083b74beca54c16488cbfcf3cfa5}
+\hypertarget{share_2template_2gromacs_2typedefs_8h_ac21be765a333f92f7168255c2a69860f}{\index{share/template/gromacs/typedefs.\-h@{share/template/gromacs/typedefs.\-h}!init\-\_\-energyhistory@{init\-\_\-energyhistory}}
+\index{init\-\_\-energyhistory@{init\-\_\-energyhistory}!share/template/gromacs/typedefs.h@{share/template/gromacs/typedefs.\-h}}
+\subsubsection[{init\-\_\-energyhistory}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} {\bf void} {\bf init\-\_\-energyhistory} (
+\begin{DoxyParamCaption}
+\item[{{\bf energyhistory\-\_\-t} $\ast$}]{enerhist}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2typedefs_8h_ac21be765a333f92f7168255c2a69860f}
+\hypertarget{share_2template_2gromacs_2typedefs_8h_a5b771b38af16eb9d2a6ff6c2a30263fb}{\index{share/template/gromacs/typedefs.\-h@{share/template/gromacs/typedefs.\-h}!init\-\_\-gtc\-\_\-state@{init\-\_\-gtc\-\_\-state}}
+\index{init\-\_\-gtc\-\_\-state@{init\-\_\-gtc\-\_\-state}!share/template/gromacs/typedefs.h@{share/template/gromacs/typedefs.\-h}}
+\subsubsection[{init\-\_\-gtc\-\_\-state}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} {\bf void} {\bf init\-\_\-gtc\-\_\-state} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-state} $\ast$}]{state, }
+\item[{int}]{ngtc, }
+\item[{int}]{nnhpres, }
+\item[{int}]{nhchainlength}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2typedefs_8h_a5b771b38af16eb9d2a6ff6c2a30263fb}
+\hypertarget{share_2template_2gromacs_2typedefs_8h_a4f0be9e2b9c947507c62d3e81c0931c7}{\index{share/template/gromacs/typedefs.\-h@{share/template/gromacs/typedefs.\-h}!init\-\_\-inputrec@{init\-\_\-inputrec}}
+\index{init\-\_\-inputrec@{init\-\_\-inputrec}!share/template/gromacs/typedefs.h@{share/template/gromacs/typedefs.\-h}}
+\subsubsection[{init\-\_\-inputrec}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf init\-\_\-inputrec} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-inputrec} $\ast$}]{ir}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2typedefs_8h_a4f0be9e2b9c947507c62d3e81c0931c7}
+\hypertarget{share_2template_2gromacs_2typedefs_8h_a95609d7f349ce57b4c531f2fab0d7567}{\index{share/template/gromacs/typedefs.\-h@{share/template/gromacs/typedefs.\-h}!init\-\_\-mtop@{init\-\_\-mtop}}
+\index{init\-\_\-mtop@{init\-\_\-mtop}!share/template/gromacs/typedefs.h@{share/template/gromacs/typedefs.\-h}}
+\subsubsection[{init\-\_\-mtop}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} {\bf void} {\bf init\-\_\-mtop} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-mtop\-\_\-t} $\ast$}]{mtop}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2typedefs_8h_a95609d7f349ce57b4c531f2fab0d7567}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=248pt]{share_2template_2gromacs_2typedefs_8h_a95609d7f349ce57b4c531f2fab0d7567_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{share_2template_2gromacs_2typedefs_8h_a47222ce9a2a2eadae1a48817cb149fcf}{\index{share/template/gromacs/typedefs.\-h@{share/template/gromacs/typedefs.\-h}!init\-\_\-state@{init\-\_\-state}}
+\index{init\-\_\-state@{init\-\_\-state}!share/template/gromacs/typedefs.h@{share/template/gromacs/typedefs.\-h}}
+\subsubsection[{init\-\_\-state}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} {\bf void} {\bf init\-\_\-state} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-state} $\ast$}]{state, }
+\item[{int}]{natoms, }
+\item[{int}]{ngtc, }
+\item[{int}]{nnhpres, }
+\item[{int}]{nhchainlength, }
+\item[{int}]{nlambda}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2typedefs_8h_a47222ce9a2a2eadae1a48817cb149fcf}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=266pt]{share_2template_2gromacs_2typedefs_8h_a47222ce9a2a2eadae1a48817cb149fcf_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{share_2template_2gromacs_2typedefs_8h_afc74b127eb714b11d0554d0ee1f316c0}{\index{share/template/gromacs/typedefs.\-h@{share/template/gromacs/typedefs.\-h}!init\-\_\-t\-\_\-atoms@{init\-\_\-t\-\_\-atoms}}
+\index{init\-\_\-t\-\_\-atoms@{init\-\_\-t\-\_\-atoms}!share/template/gromacs/typedefs.h@{share/template/gromacs/typedefs.\-h}}
+\subsubsection[{init\-\_\-t\-\_\-atoms}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} {\bf void} {\bf init\-\_\-t\-\_\-atoms} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-atoms} $\ast$}]{atoms, }
+\item[{int}]{natoms, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Pdbinfo}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2typedefs_8h_afc74b127eb714b11d0554d0ee1f316c0}
+\hypertarget{share_2template_2gromacs_2typedefs_8h_adf90414536d63c858bd99416b88a5e81}{\index{share/template/gromacs/typedefs.\-h@{share/template/gromacs/typedefs.\-h}!init\-\_\-top@{init\-\_\-top}}
+\index{init\-\_\-top@{init\-\_\-top}!share/template/gromacs/typedefs.h@{share/template/gromacs/typedefs.\-h}}
+\subsubsection[{init\-\_\-top}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} {\bf void} {\bf init\-\_\-top} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-topology} $\ast$}]{top}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2typedefs_8h_adf90414536d63c858bd99416b88a5e81}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=244pt]{share_2template_2gromacs_2typedefs_8h_adf90414536d63c858bd99416b88a5e81_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{share_2template_2gromacs_2typedefs_8h_a096d174c594ef54bd74132143d0b19d6}{\index{share/template/gromacs/typedefs.\-h@{share/template/gromacs/typedefs.\-h}!max\-\_\-cutoff@{max\-\_\-cutoff}}
+\index{max\-\_\-cutoff@{max\-\_\-cutoff}!share/template/gromacs/typedefs.h@{share/template/gromacs/typedefs.\-h}}
+\subsubsection[{max\-\_\-cutoff}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} real {\bf max\-\_\-cutoff} (
+\begin{DoxyParamCaption}
+\item[{real}]{cutoff1, }
+\item[{real}]{cutoff2}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2typedefs_8h_a096d174c594ef54bd74132143d0b19d6}
+\hypertarget{share_2template_2gromacs_2typedefs_8h_a3279de474b0be6d6904d0ab82c290a79}{\index{share/template/gromacs/typedefs.\-h@{share/template/gromacs/typedefs.\-h}!mtop2atoms@{mtop2atoms}}
+\index{mtop2atoms@{mtop2atoms}!share/template/gromacs/typedefs.h@{share/template/gromacs/typedefs.\-h}}
+\subsubsection[{mtop2atoms}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\-\_\-atoms}$\ast$ {\bf mtop2atoms} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-mtop\-\_\-t} $\ast$}]{mtop}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2typedefs_8h_a3279de474b0be6d6904d0ab82c290a79}
+\hypertarget{share_2template_2gromacs_2typedefs_8h_ab18fdd7de6fc645126f004d17a8b7811}{\index{share/template/gromacs/typedefs.\-h@{share/template/gromacs/typedefs.\-h}!over\-\_\-alloc\-\_\-dd@{over\-\_\-alloc\-\_\-dd}}
+\index{over\-\_\-alloc\-\_\-dd@{over\-\_\-alloc\-\_\-dd}!share/template/gromacs/typedefs.h@{share/template/gromacs/typedefs.\-h}}
+\subsubsection[{over\-\_\-alloc\-\_\-dd}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} int {\bf over\-\_\-alloc\-\_\-dd} (
+\begin{DoxyParamCaption}
+\item[{int}]{n}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2typedefs_8h_ab18fdd7de6fc645126f004d17a8b7811}
+\hypertarget{share_2template_2gromacs_2typedefs_8h_a0dffde7393ca415e9d3ca9a0c5111318}{\index{share/template/gromacs/typedefs.\-h@{share/template/gromacs/typedefs.\-h}!preserve\-\_\-box\-\_\-shape@{preserve\-\_\-box\-\_\-shape}}
+\index{preserve\-\_\-box\-\_\-shape@{preserve\-\_\-box\-\_\-shape}!share/template/gromacs/typedefs.h@{share/template/gromacs/typedefs.\-h}}
+\subsubsection[{preserve\-\_\-box\-\_\-shape}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} {\bf void} {\bf preserve\-\_\-box\-\_\-shape} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-inputrec} $\ast$}]{ir, }
+\item[{{\bf matrix}}]{box\-\_\-rel, }
+\item[{{\bf matrix}}]{b}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2typedefs_8h_a0dffde7393ca415e9d3ca9a0c5111318}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=288pt]{share_2template_2gromacs_2typedefs_8h_a0dffde7393ca415e9d3ca9a0c5111318_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{share_2template_2gromacs_2typedefs_8h_a762bb6d9c23559b0cdb9f9ba7e3a5328}{\index{share/template/gromacs/typedefs.\-h@{share/template/gromacs/typedefs.\-h}!set\-\_\-box\-\_\-rel@{set\-\_\-box\-\_\-rel}}
+\index{set\-\_\-box\-\_\-rel@{set\-\_\-box\-\_\-rel}!share/template/gromacs/typedefs.h@{share/template/gromacs/typedefs.\-h}}
+\subsubsection[{set\-\_\-box\-\_\-rel}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} {\bf void} {\bf set\-\_\-box\-\_\-rel} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-inputrec} $\ast$}]{ir, }
+\item[{{\bf t\-\_\-state} $\ast$}]{state}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2typedefs_8h_a762bb6d9c23559b0cdb9f9ba7e3a5328}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=252pt]{share_2template_2gromacs_2typedefs_8h_a762bb6d9c23559b0cdb9f9ba7e3a5328_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{share_2template_2gromacs_2typedefs_8h_ac762d655ff627575f1cef35c06a7a77f}{\index{share/template/gromacs/typedefs.\-h@{share/template/gromacs/typedefs.\-h}!set\-\_\-over\-\_\-alloc\-\_\-dd@{set\-\_\-over\-\_\-alloc\-\_\-dd}}
+\index{set\-\_\-over\-\_\-alloc\-\_\-dd@{set\-\_\-over\-\_\-alloc\-\_\-dd}!share/template/gromacs/typedefs.h@{share/template/gromacs/typedefs.\-h}}
+\subsubsection[{set\-\_\-over\-\_\-alloc\-\_\-dd}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} {\bf void} {\bf set\-\_\-over\-\_\-alloc\-\_\-dd} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-bool}}]{set}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2typedefs_8h_ac762d655ff627575f1cef35c06a7a77f}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{share_2template_2gromacs_2typedefs_8h_ac762d655ff627575f1cef35c06a7a77f_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{share_2template_2gromacs_2typedefs_8h_aeef1f4bff49fdd04f7b0549bd43919ee}{\index{share/template/gromacs/typedefs.\-h@{share/template/gromacs/typedefs.\-h}!stupid\-\_\-fill\-\_\-block@{stupid\-\_\-fill\-\_\-block}}
+\index{stupid\-\_\-fill\-\_\-block@{stupid\-\_\-fill\-\_\-block}!share/template/gromacs/typedefs.h@{share/template/gromacs/typedefs.\-h}}
+\subsubsection[{stupid\-\_\-fill\-\_\-block}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} {\bf void} {\bf stupid\-\_\-fill\-\_\-block} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-block} $\ast$}]{grp, }
+\item[{int}]{natom, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-One\-Index\-Group}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2typedefs_8h_aeef1f4bff49fdd04f7b0549bd43919ee}
+\hypertarget{share_2template_2gromacs_2typedefs_8h_a6bd14537a4af10696a7beb397d67ed71}{\index{share/template/gromacs/typedefs.\-h@{share/template/gromacs/typedefs.\-h}!stupid\-\_\-fill\-\_\-blocka@{stupid\-\_\-fill\-\_\-blocka}}
+\index{stupid\-\_\-fill\-\_\-blocka@{stupid\-\_\-fill\-\_\-blocka}!share/template/gromacs/typedefs.h@{share/template/gromacs/typedefs.\-h}}
+\subsubsection[{stupid\-\_\-fill\-\_\-blocka}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} {\bf void} {\bf stupid\-\_\-fill\-\_\-blocka} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-blocka} $\ast$}]{grp, }
+\item[{int}]{natom}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2typedefs_8h_a6bd14537a4af10696a7beb397d67ed71}
+\hypertarget{share_2template_2gromacs_2typedefs_8h_a6d7dda884a0782c589d1f1e4a2e0e69f}{\index{share/template/gromacs/typedefs.\-h@{share/template/gromacs/typedefs.\-h}!t\-\_\-atoms\-\_\-set\-\_\-resinfo@{t\-\_\-atoms\-\_\-set\-\_\-resinfo}}
+\index{t\-\_\-atoms\-\_\-set\-\_\-resinfo@{t\-\_\-atoms\-\_\-set\-\_\-resinfo}!share/template/gromacs/typedefs.h@{share/template/gromacs/typedefs.\-h}}
+\subsubsection[{t\-\_\-atoms\-\_\-set\-\_\-resinfo}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} {\bf void} {\bf t\-\_\-atoms\-\_\-set\-\_\-resinfo} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-atoms} $\ast$}]{atoms, }
+\item[{int}]{atom\-\_\-ind, }
+\item[{{\bf t\-\_\-symtab} $\ast$}]{symtab, }
+\item[{const char $\ast$}]{resname, }
+\item[{int}]{resnr, }
+\item[{unsigned char}]{ic, }
+\item[{int}]{chainnum, }
+\item[{char}]{chainid}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2typedefs_8h_a6d7dda884a0782c589d1f1e4a2e0e69f}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=290pt]{share_2template_2gromacs_2typedefs_8h_a6d7dda884a0782c589d1f1e4a2e0e69f_cgraph}
+\end{center}
+\end{figure}
+
+

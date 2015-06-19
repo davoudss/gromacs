@@ -1,0 +1,200 @@
+\hypertarget{calch_8c}{\section{src/gmxlib/calch.c \-File \-Reference}
+\label{calch_8c}\index{src/gmxlib/calch.\-c@{src/gmxlib/calch.\-c}}
+}
+{\ttfamily \#include \char`\"{}macros.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}calch.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}maths.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}vec.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}physics.\-h\char`\"{}}\*
+\-Include dependency graph for calch.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{calch_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{calch_8c_a5f51c71d6687ee519a1451f473685da5}{x\-A\-I}~xa\mbox{[}0\mbox{]}
+\item 
+\#define \hyperlink{calch_8c_a9cddbe1bc86b02ad8bdf32352f223e60}{x\-A\-J}~xa\mbox{[}1\mbox{]}
+\item 
+\#define \hyperlink{calch_8c_a6ad767bd9a8c2bd558abbb3ccfcf2577}{x\-A\-K}~xa\mbox{[}2\mbox{]}
+\item 
+\#define \hyperlink{calch_8c_aa20d941524b5157913cfc1848d47254f}{x\-A\-L}~xa\mbox{[}3\mbox{]}
+\item 
+\#define \hyperlink{calch_8c_a9a09d40cac9940d023219bcee9677d3b}{x\-H1}~xh\mbox{[}0\mbox{]}
+\item 
+\#define \hyperlink{calch_8c_a35d48f72fc14ae354cf34a446e4e9317}{x\-H2}~xh\mbox{[}1\mbox{]}
+\item 
+\#define \hyperlink{calch_8c_ae7f3a4f982c168e319e590f640cb1ef0}{x\-H3}~xh\mbox{[}2\mbox{]}
+\item 
+\#define \hyperlink{calch_8c_aa1aef86c8e7ba8e00c9a7eac192321bd}{x\-H4}~xh\mbox{[}3\mbox{]}
+\item 
+\#define \hyperlink{calch_8c_abdd3d71e494e2115f67ee5e8879f9017}{\-A\-A}~0.\-081649
+\item 
+\#define \hyperlink{calch_8c_ad91fa5bb7926a489c6e63eb6f6ca4a19}{\-B\-B}~0.\-0
+\item 
+\#define \hyperlink{calch_8c_a78d126676907aa89a0adbfbef8282585}{\-C\-C}~0.\-0577350
+\item 
+\#define \hyperlink{calch_8c_a214df694389c94a8b06a0cde338f9ed1}{alfa\-H}~(acos(-\/1/3.\-0)) /$\ast$ 109.\-47 degrees $\ast$/
+\item 
+\#define \hyperlink{calch_8c_aa7792d1f24d57f140412ba88c649cc32}{alfa\-Hpl}~(2$\ast$\hyperlink{share_2template_2gromacs_2physics_8h_ae71449b1cc6e6250b91f539153a7a0d3}{\-M\-\_\-\-P\-I}/3)     /$\ast$ 120 degrees $\ast$/
+\item 
+\#define \hyperlink{calch_8c_a719e1bc1f9eb8e893649f4e978c385bd}{dist\-H}~0.\-1
+\item 
+\#define \hyperlink{calch_8c_ac97a6de56c84e3dabd5a9fd4479df680}{alfa\-C\-O\-M}~(\hyperlink{share_2template_2gromacs_2physics_8h_af7e8592d0a634bd3642e9fd508ea8022}{\-D\-E\-G2\-R\-A\-D}$\ast$117)
+\item 
+\#define \hyperlink{calch_8c_a23c9d5ec413da4c85b5237ad6ba38259}{alfa\-C\-O}~(\hyperlink{share_2template_2gromacs_2physics_8h_af7e8592d0a634bd3642e9fd508ea8022}{\-D\-E\-G2\-R\-A\-D}$\ast$121)
+\item 
+\#define \hyperlink{calch_8c_a2b8f1484c091044464bc9fe2af9d3a13}{alfa\-C\-O\-A}~(\hyperlink{share_2template_2gromacs_2physics_8h_af7e8592d0a634bd3642e9fd508ea8022}{\-D\-E\-G2\-R\-A\-D}$\ast$115)
+\item 
+\#define \hyperlink{calch_8c_a9816c400caf99fdee5afa5ebba2a149b}{dist\-O}~0.\-123
+\item 
+\#define \hyperlink{calch_8c_aee175ceffb81ef9b6eb0fea9e5e1fc49}{dist\-O\-A}~0.\-125
+\item 
+\#define \hyperlink{calch_8c_aa14c19062f343bc60981ec4c80b753c1}{dist\-O\-M}~0.\-136
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{calch_8c_a5a65e4be601e8532ee8677d6d38f65ac}{gen\-\_\-waterhydrogen} (int nh, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} xa\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} xh\mbox{[}$\,$\mbox{]}, int $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ad11474c4e247eb270a3cdb925be506ee}{l})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{calch_8c_af7da6aba1d3f97934ed464fbfa85cca0}{calc\-\_\-h\-\_\-pos} (int nht, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} xa\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} xh\mbox{[}$\,$\mbox{]}, int $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ad11474c4e247eb270a3cdb925be506ee}{l})
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Define \-Documentation}
+\hypertarget{calch_8c_abdd3d71e494e2115f67ee5e8879f9017}{\index{calch.\-c@{calch.\-c}!\-A\-A@{\-A\-A}}
+\index{\-A\-A@{\-A\-A}!calch.c@{calch.\-c}}
+\subsubsection[{\-A\-A}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-A\-A}~0.\-081649}}\label{calch_8c_abdd3d71e494e2115f67ee5e8879f9017}
+\hypertarget{calch_8c_a23c9d5ec413da4c85b5237ad6ba38259}{\index{calch.\-c@{calch.\-c}!alfa\-C\-O@{alfa\-C\-O}}
+\index{alfa\-C\-O@{alfa\-C\-O}!calch.c@{calch.\-c}}
+\subsubsection[{alfa\-C\-O}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf alfa\-C\-O}~({\bf \-D\-E\-G2\-R\-A\-D}$\ast$121)}}\label{calch_8c_a23c9d5ec413da4c85b5237ad6ba38259}
+\hypertarget{calch_8c_a2b8f1484c091044464bc9fe2af9d3a13}{\index{calch.\-c@{calch.\-c}!alfa\-C\-O\-A@{alfa\-C\-O\-A}}
+\index{alfa\-C\-O\-A@{alfa\-C\-O\-A}!calch.c@{calch.\-c}}
+\subsubsection[{alfa\-C\-O\-A}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf alfa\-C\-O\-A}~({\bf \-D\-E\-G2\-R\-A\-D}$\ast$115)}}\label{calch_8c_a2b8f1484c091044464bc9fe2af9d3a13}
+\hypertarget{calch_8c_ac97a6de56c84e3dabd5a9fd4479df680}{\index{calch.\-c@{calch.\-c}!alfa\-C\-O\-M@{alfa\-C\-O\-M}}
+\index{alfa\-C\-O\-M@{alfa\-C\-O\-M}!calch.c@{calch.\-c}}
+\subsubsection[{alfa\-C\-O\-M}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf alfa\-C\-O\-M}~({\bf \-D\-E\-G2\-R\-A\-D}$\ast$117)}}\label{calch_8c_ac97a6de56c84e3dabd5a9fd4479df680}
+\hypertarget{calch_8c_a214df694389c94a8b06a0cde338f9ed1}{\index{calch.\-c@{calch.\-c}!alfa\-H@{alfa\-H}}
+\index{alfa\-H@{alfa\-H}!calch.c@{calch.\-c}}
+\subsubsection[{alfa\-H}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf alfa\-H}~(acos(-\/1/3.\-0)) /$\ast$ 109.\-47 degrees $\ast$/}}\label{calch_8c_a214df694389c94a8b06a0cde338f9ed1}
+\hypertarget{calch_8c_aa7792d1f24d57f140412ba88c649cc32}{\index{calch.\-c@{calch.\-c}!alfa\-Hpl@{alfa\-Hpl}}
+\index{alfa\-Hpl@{alfa\-Hpl}!calch.c@{calch.\-c}}
+\subsubsection[{alfa\-Hpl}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf alfa\-Hpl}~(2$\ast${\bf \-M\-\_\-\-P\-I}/3)     /$\ast$ 120 degrees $\ast$/}}\label{calch_8c_aa7792d1f24d57f140412ba88c649cc32}
+\hypertarget{calch_8c_ad91fa5bb7926a489c6e63eb6f6ca4a19}{\index{calch.\-c@{calch.\-c}!\-B\-B@{\-B\-B}}
+\index{\-B\-B@{\-B\-B}!calch.c@{calch.\-c}}
+\subsubsection[{\-B\-B}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-B\-B}~0.\-0}}\label{calch_8c_ad91fa5bb7926a489c6e63eb6f6ca4a19}
+\hypertarget{calch_8c_a78d126676907aa89a0adbfbef8282585}{\index{calch.\-c@{calch.\-c}!\-C\-C@{\-C\-C}}
+\index{\-C\-C@{\-C\-C}!calch.c@{calch.\-c}}
+\subsubsection[{\-C\-C}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-C\-C}~0.\-0577350}}\label{calch_8c_a78d126676907aa89a0adbfbef8282585}
+\hypertarget{calch_8c_a719e1bc1f9eb8e893649f4e978c385bd}{\index{calch.\-c@{calch.\-c}!dist\-H@{dist\-H}}
+\index{dist\-H@{dist\-H}!calch.c@{calch.\-c}}
+\subsubsection[{dist\-H}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf dist\-H}~0.\-1}}\label{calch_8c_a719e1bc1f9eb8e893649f4e978c385bd}
+\hypertarget{calch_8c_a9816c400caf99fdee5afa5ebba2a149b}{\index{calch.\-c@{calch.\-c}!dist\-O@{dist\-O}}
+\index{dist\-O@{dist\-O}!calch.c@{calch.\-c}}
+\subsubsection[{dist\-O}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf dist\-O}~0.\-123}}\label{calch_8c_a9816c400caf99fdee5afa5ebba2a149b}
+\hypertarget{calch_8c_aee175ceffb81ef9b6eb0fea9e5e1fc49}{\index{calch.\-c@{calch.\-c}!dist\-O\-A@{dist\-O\-A}}
+\index{dist\-O\-A@{dist\-O\-A}!calch.c@{calch.\-c}}
+\subsubsection[{dist\-O\-A}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf dist\-O\-A}~0.\-125}}\label{calch_8c_aee175ceffb81ef9b6eb0fea9e5e1fc49}
+\hypertarget{calch_8c_aa14c19062f343bc60981ec4c80b753c1}{\index{calch.\-c@{calch.\-c}!dist\-O\-M@{dist\-O\-M}}
+\index{dist\-O\-M@{dist\-O\-M}!calch.c@{calch.\-c}}
+\subsubsection[{dist\-O\-M}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf dist\-O\-M}~0.\-136}}\label{calch_8c_aa14c19062f343bc60981ec4c80b753c1}
+\hypertarget{calch_8c_a5f51c71d6687ee519a1451f473685da5}{\index{calch.\-c@{calch.\-c}!x\-A\-I@{x\-A\-I}}
+\index{x\-A\-I@{x\-A\-I}!calch.c@{calch.\-c}}
+\subsubsection[{x\-A\-I}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf x\-A\-I}~xa\mbox{[}0\mbox{]}}}\label{calch_8c_a5f51c71d6687ee519a1451f473685da5}
+\hypertarget{calch_8c_a9cddbe1bc86b02ad8bdf32352f223e60}{\index{calch.\-c@{calch.\-c}!x\-A\-J@{x\-A\-J}}
+\index{x\-A\-J@{x\-A\-J}!calch.c@{calch.\-c}}
+\subsubsection[{x\-A\-J}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf x\-A\-J}~xa\mbox{[}1\mbox{]}}}\label{calch_8c_a9cddbe1bc86b02ad8bdf32352f223e60}
+\hypertarget{calch_8c_a6ad767bd9a8c2bd558abbb3ccfcf2577}{\index{calch.\-c@{calch.\-c}!x\-A\-K@{x\-A\-K}}
+\index{x\-A\-K@{x\-A\-K}!calch.c@{calch.\-c}}
+\subsubsection[{x\-A\-K}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf x\-A\-K}~xa\mbox{[}2\mbox{]}}}\label{calch_8c_a6ad767bd9a8c2bd558abbb3ccfcf2577}
+\hypertarget{calch_8c_aa20d941524b5157913cfc1848d47254f}{\index{calch.\-c@{calch.\-c}!x\-A\-L@{x\-A\-L}}
+\index{x\-A\-L@{x\-A\-L}!calch.c@{calch.\-c}}
+\subsubsection[{x\-A\-L}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf x\-A\-L}~xa\mbox{[}3\mbox{]}}}\label{calch_8c_aa20d941524b5157913cfc1848d47254f}
+\hypertarget{calch_8c_a9a09d40cac9940d023219bcee9677d3b}{\index{calch.\-c@{calch.\-c}!x\-H1@{x\-H1}}
+\index{x\-H1@{x\-H1}!calch.c@{calch.\-c}}
+\subsubsection[{x\-H1}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf x\-H1}~xh\mbox{[}0\mbox{]}}}\label{calch_8c_a9a09d40cac9940d023219bcee9677d3b}
+\hypertarget{calch_8c_a35d48f72fc14ae354cf34a446e4e9317}{\index{calch.\-c@{calch.\-c}!x\-H2@{x\-H2}}
+\index{x\-H2@{x\-H2}!calch.c@{calch.\-c}}
+\subsubsection[{x\-H2}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf x\-H2}~xh\mbox{[}1\mbox{]}}}\label{calch_8c_a35d48f72fc14ae354cf34a446e4e9317}
+\hypertarget{calch_8c_ae7f3a4f982c168e319e590f640cb1ef0}{\index{calch.\-c@{calch.\-c}!x\-H3@{x\-H3}}
+\index{x\-H3@{x\-H3}!calch.c@{calch.\-c}}
+\subsubsection[{x\-H3}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf x\-H3}~xh\mbox{[}2\mbox{]}}}\label{calch_8c_ae7f3a4f982c168e319e590f640cb1ef0}
+\hypertarget{calch_8c_aa1aef86c8e7ba8e00c9a7eac192321bd}{\index{calch.\-c@{calch.\-c}!x\-H4@{x\-H4}}
+\index{x\-H4@{x\-H4}!calch.c@{calch.\-c}}
+\subsubsection[{x\-H4}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf x\-H4}~xh\mbox{[}3\mbox{]}}}\label{calch_8c_aa1aef86c8e7ba8e00c9a7eac192321bd}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{calch_8c_af7da6aba1d3f97934ed464fbfa85cca0}{\index{calch.\-c@{calch.\-c}!calc\-\_\-h\-\_\-pos@{calc\-\_\-h\-\_\-pos}}
+\index{calc\-\_\-h\-\_\-pos@{calc\-\_\-h\-\_\-pos}!calch.c@{calch.\-c}}
+\subsubsection[{calc\-\_\-h\-\_\-pos}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf calc\-\_\-h\-\_\-pos} (
+\begin{DoxyParamCaption}
+\item[{int}]{nht, }
+\item[{{\bf rvec}}]{xa\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{xh\mbox{[}$\,$\mbox{]}, }
+\item[{int $\ast$}]{l}
+\end{DoxyParamCaption}
+)}}\label{calch_8c_af7da6aba1d3f97934ed464fbfa85cca0}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{calch_8c_af7da6aba1d3f97934ed464fbfa85cca0_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{calch_8c_af7da6aba1d3f97934ed464fbfa85cca0_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{calch_8c_a5a65e4be601e8532ee8677d6d38f65ac}{\index{calch.\-c@{calch.\-c}!gen\-\_\-waterhydrogen@{gen\-\_\-waterhydrogen}}
+\index{gen\-\_\-waterhydrogen@{gen\-\_\-waterhydrogen}!calch.c@{calch.\-c}}
+\subsubsection[{gen\-\_\-waterhydrogen}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf gen\-\_\-waterhydrogen} (
+\begin{DoxyParamCaption}
+\item[{int}]{nh, }
+\item[{{\bf rvec}}]{xa\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{xh\mbox{[}$\,$\mbox{]}, }
+\item[{int $\ast$}]{l}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{calch_8c_a5a65e4be601e8532ee8677d6d38f65ac}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{calch_8c_a5a65e4be601e8532ee8677d6d38f65ac_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{calch_8c_a5a65e4be601e8532ee8677d6d38f65ac_icgraph}
+\end{center}
+\end{figure}
+
+

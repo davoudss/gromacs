@@ -1,0 +1,989 @@
+\hypertarget{gmx__cluster_8c}{\section{src/tools/gmx\-\_\-cluster.c \-File \-Reference}
+\label{gmx__cluster_8c}\index{src/tools/gmx\-\_\-cluster.\-c@{src/tools/gmx\-\_\-cluster.\-c}}
+}
+{\ttfamily \#include $<$math.\-h$>$}\*
+{\ttfamily \#include $<$string.\-h$>$}\*
+{\ttfamily \#include $<$ctype.\-h$>$}\*
+{\ttfamily \#include \char`\"{}macros.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}smalloc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}typedefs.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}copyrite.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}statutil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}tpxio.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}string2.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}vec.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}index.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}random.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}pbc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}rmpbc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}xvgr.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}futil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}matio.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}eigensolver.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}cmat.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}do\-\_\-fit.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}trnio.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}viewit.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-ana.\-h\char`\"{}}\*
+\-Include dependency graph for gmx\-\_\-cluster.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__cluster_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structt__clusters}{t\-\_\-clusters}
+\item 
+struct \hyperlink{structt__nnb}{t\-\_\-nnb}
+\end{DoxyCompactItemize}
+\subsection*{\-Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{gmx__cluster_8c_a2f905a9c4868f5f248b12d584a78dfbd}{next}~(1-\/cur)
+\item 
+\#define \hyperlink{gmx__cluster_8c_a8485f4e81de2537e6a0935626167a775}{\-N\-F\-I\-L\-E}~\hyperlink{share_2template_2gromacs_2macros_8h_a0883345a58f8f63aefa249a4f127f707}{asize}(fnm)
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__cluster_8c_ab1ebaceed7153838a68b0577434e8718}{lo\-\_\-ffprintf} (\-F\-I\-L\-E $\ast$fp1, \-F\-I\-L\-E $\ast$fp2, const char $\ast$buf)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__cluster_8c_a6bae1e9c233ee040729d6a0c46f588a5}{ffprintf} (\-F\-I\-L\-E $\ast$fp1, \-F\-I\-L\-E $\ast$fp2, const char $\ast$buf)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__cluster_8c_ab63f86b70bf9d06c9c8a067599bccbe9}{ffprintf\-\_\-d} (\-F\-I\-L\-E $\ast$fp1, \-F\-I\-L\-E $\ast$fp2, char $\ast$buf, const char $\ast$fmt, int arg)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__cluster_8c_a0ee213e2ff2a065dc681084505bfe85c}{ffprintf\-\_\-g} (\-F\-I\-L\-E $\ast$fp1, \-F\-I\-L\-E $\ast$fp2, char $\ast$buf, const char $\ast$fmt, real arg)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__cluster_8c_a3e82beddc8066ff3e83a73e4f9e7a209}{ffprintf\-\_\-s} (\-F\-I\-L\-E $\ast$fp1, \-F\-I\-L\-E $\ast$fp2, char $\ast$buf, const char $\ast$fmt, const char $\ast$arg)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__cluster_8c_a6ed5a71370a8bc73122152615da09425}{ffprintf\-\_\-dd} (\-F\-I\-L\-E $\ast$fp1, \-F\-I\-L\-E $\ast$fp2, char $\ast$buf, const char $\ast$fmt, int arg1, int arg2)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__cluster_8c_aa19f522fcc79924cd6a22bd4b7fa2076}{ffprintf\-\_\-gg} (\-F\-I\-L\-E $\ast$fp1, \-F\-I\-L\-E $\ast$fp2, char $\ast$buf, const char $\ast$fmt, real arg1, real arg2)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__cluster_8c_a02783b5928324e55a637548823bc48ae}{ffprintf\-\_\-ss} (\-F\-I\-L\-E $\ast$fp1, \-F\-I\-L\-E $\ast$fp2, char $\ast$buf, const char $\ast$fmt, const char $\ast$arg1, const char $\ast$arg2)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__cluster_8c_a99d69add1dc0555df2a11dce1ca0cf2e}{pr\-\_\-energy} (\-F\-I\-L\-E $\ast$fp, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a89f48d1344f16f082b0bcdb5fe459693}{e})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__cluster_8c_a70ba262001a490f3c3f0a1169eb33d81}{cp\-\_\-index} (int nn, int from\mbox{[}$\,$\mbox{]}, int to\mbox{[}$\,$\mbox{]})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__cluster_8c_a15842cb6f08843241a9923cf0d6dcf81}{mc\-\_\-optimize} (\-F\-I\-L\-E $\ast$log, \hyperlink{structt__mat}{t\-\_\-mat} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_aa30cfa61c7e675800f65322a90f8ac96}{m}, int maxiter, int $\ast$seed, real k\-T)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__cluster_8c_a297ed9a8a0789a08ce47b8f48c4b96ee}{calc\-\_\-dist} (int nind, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, real $\ast$$\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae624f265c646670d373e9de0306f184b}{d})
+\item 
+static real \hyperlink{gmx__cluster_8c_a1a925093132c958a6cd165e58f18d3f6}{rms\-\_\-dist} (int isize, real $\ast$$\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae624f265c646670d373e9de0306f184b}{d}, real $\ast$$\ast$d\-\_\-r)
+\item 
+static int \hyperlink{gmx__cluster_8c_a3417f9fc175d09be3b2317ae2b148048}{rms\-\_\-dist\-\_\-comp} (const \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a0880879736d1ab747a972d1942421886}{a}, const \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afb462a5dea72ae7992f073bfd756fb5f}{b})
+\item 
+static int \hyperlink{gmx__cluster_8c_af87b6aae19dc22eda5beff8a5557e428}{clust\-\_\-id\-\_\-comp} (const \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a0880879736d1ab747a972d1942421886}{a}, const \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afb462a5dea72ae7992f073bfd756fb5f}{b})
+\item 
+static int \hyperlink{gmx__cluster_8c_a26e682438a8b916dc1c4bb6a5a7a47da}{nrnb\-\_\-comp} (const \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a0880879736d1ab747a972d1942421886}{a}, const \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afb462a5dea72ae7992f073bfd756fb5f}{b})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__cluster_8c_a759066fbb490427dca5c7c18308bf5dd}{gather} (\hyperlink{structt__mat}{t\-\_\-mat} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_aa30cfa61c7e675800f65322a90f8ac96}{m}, real cutoff, \hyperlink{structt__clusters}{t\-\_\-clusters} $\ast$clust)
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{gmx__cluster_8c_a35f410f2b87eeb6f9a2ca27509f8aeeb}{jp\-\_\-same} (int $\ast$$\ast$nnb, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a3c7542401c1cb8bd37ef5e7d9eb0f5a8}{i}, int j, int \-P)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__cluster_8c_abcb142358c8101a84b28e46a6d4536e6}{jarvis\-\_\-patrick} (int n1, real $\ast$$\ast$mat, int \-M, int \-P, real rmsdcut, \hyperlink{structt__clusters}{t\-\_\-clusters} $\ast$clust)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__cluster_8c_ac6d41d6ec9252cd36ba42b096ebc83d3}{dump\-\_\-nnb} (\-F\-I\-L\-E $\ast$fp, const char $\ast$title, int n1, \hyperlink{structt__nnb}{t\-\_\-nnb} $\ast$nnb)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__cluster_8c_a382b4c26412fcfc07c516158ad04b240}{gromos} (int n1, real $\ast$$\ast$mat, real rmsdcut, \hyperlink{structt__clusters}{t\-\_\-clusters} $\ast$clust)
+\item 
+\hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$$\ast$ \hyperlink{gmx__cluster_8c_a29a04a17b99d405411b260964cc783ad}{read\-\_\-whole\-\_\-trj} (const char $\ast$fn, int isize, \hyperlink{include_2types_2simple_8h_ad3f47cdb48677e516e2049719612c737}{atom\-\_\-id} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a49fd977001162d7256c8fcd293f9d12a}{index}\mbox{[}$\,$\mbox{]}, int skip, int $\ast$nframe, real $\ast$$\ast$time, const \hyperlink{include_2types_2oenv_8h_a6a48d77d95132d7318780544821da6a5}{output\-\_\-env\-\_\-t} oenv, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-P\-B\-C, \hyperlink{include_2rmpbc_8h_a6d249f79eb2b78bf7e5ae69ffedddc84}{gmx\-\_\-rmpbc\-\_\-t} gpbc)
+\item 
+static int \hyperlink{gmx__cluster_8c_a1c4f8366fff00b45498c750d0526c74d}{plot\-\_\-clusters} (int nf, real $\ast$$\ast$mat, \hyperlink{structt__clusters}{t\-\_\-clusters} $\ast$clust, int nlevels, int minstruct)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__cluster_8c_a30d7368d6db7f5d7f6c17ed79468e953}{mark\-\_\-clusters} (int nf, real $\ast$$\ast$mat, real val, \hyperlink{structt__clusters}{t\-\_\-clusters} $\ast$clust)
+\item 
+static char $\ast$ \hyperlink{gmx__cluster_8c_ab4db353fa2c1b01f896184ce7553d09f}{parse\-\_\-filename} (const char $\ast$fn, int maxnr)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__cluster_8c_a8c578bb14d578f805d1ec8ff1829f6ee}{ana\-\_\-trans} (\hyperlink{structt__clusters}{t\-\_\-clusters} $\ast$clust, int nf, const char $\ast$transfn, const char $\ast$ntransfn, \-F\-I\-L\-E $\ast$log, \hyperlink{structt__rgb}{t\-\_\-rgb} rlo, \hyperlink{structt__rgb}{t\-\_\-rgb} rhi, const \hyperlink{include_2types_2oenv_8h_a6a48d77d95132d7318780544821da6a5}{output\-\_\-env\-\_\-t} oenv)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__cluster_8c_ac859aa94bf00b13dbe9522a5050ab43f}{analyze\-\_\-clusters} (int nf, \hyperlink{structt__clusters}{t\-\_\-clusters} $\ast$clust, real $\ast$$\ast$rmsd, int natom, \hyperlink{structt__atoms}{t\-\_\-atoms} $\ast$atoms, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$xtps, real $\ast$mass, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$$\ast$xx, real $\ast$time, int ifsize, \hyperlink{include_2types_2simple_8h_ad3f47cdb48677e516e2049719612c737}{atom\-\_\-id} $\ast$fitidx, int iosize, \hyperlink{include_2types_2simple_8h_ad3f47cdb48677e516e2049719612c737}{atom\-\_\-id} $\ast$outidx, const char $\ast$trxfn, const char $\ast$sizefn, const char $\ast$transfn, const char $\ast$ntransfn, const char $\ast$clustidfn, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Average, int write\-\_\-ncl, int write\-\_\-nst, real rmsmin, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Fit, \-F\-I\-L\-E $\ast$log, \hyperlink{structt__rgb}{t\-\_\-rgb} rlo, \hyperlink{structt__rgb}{t\-\_\-rgb} rhi, const \hyperlink{include_2types_2oenv_8h_a6a48d77d95132d7318780544821da6a5}{output\-\_\-env\-\_\-t} oenv)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__cluster_8c_a82fc61e52ff1bf703eb1ffe5d6f9ee5c}{convert\-\_\-mat} (\hyperlink{structt__matrix}{t\-\_\-matrix} $\ast$mat, \hyperlink{structt__mat}{t\-\_\-mat} $\ast$rms)
+\item 
+int \hyperlink{gmx__cluster_8c_a5e93d53bbd65ad9994912b65e34c259f}{gmx\-\_\-cluster} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Define \-Documentation}
+\hypertarget{gmx__cluster_8c_a2f905a9c4868f5f248b12d584a78dfbd}{\index{gmx\-\_\-cluster.\-c@{gmx\-\_\-cluster.\-c}!next@{next}}
+\index{next@{next}!gmx_cluster.c@{gmx\-\_\-cluster.\-c}}
+\subsubsection[{next}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf next}~(1-\/cur)}}\label{gmx__cluster_8c_a2f905a9c4868f5f248b12d584a78dfbd}
+\hypertarget{gmx__cluster_8c_a8485f4e81de2537e6a0935626167a775}{\index{gmx\-\_\-cluster.\-c@{gmx\-\_\-cluster.\-c}!\-N\-F\-I\-L\-E@{\-N\-F\-I\-L\-E}}
+\index{\-N\-F\-I\-L\-E@{\-N\-F\-I\-L\-E}!gmx_cluster.c@{gmx\-\_\-cluster.\-c}}
+\subsubsection[{\-N\-F\-I\-L\-E}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-N\-F\-I\-L\-E}~{\bf asize}(fnm)}}\label{gmx__cluster_8c_a8485f4e81de2537e6a0935626167a775}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{gmx__cluster_8c_a8c578bb14d578f805d1ec8ff1829f6ee}{\index{gmx\-\_\-cluster.\-c@{gmx\-\_\-cluster.\-c}!ana\-\_\-trans@{ana\-\_\-trans}}
+\index{ana\-\_\-trans@{ana\-\_\-trans}!gmx_cluster.c@{gmx\-\_\-cluster.\-c}}
+\subsubsection[{ana\-\_\-trans}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf ana\-\_\-trans} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-clusters} $\ast$}]{clust, }
+\item[{int}]{nf, }
+\item[{const char $\ast$}]{transfn, }
+\item[{const char $\ast$}]{ntransfn, }
+\item[{\-F\-I\-L\-E $\ast$}]{log, }
+\item[{{\bf t\-\_\-rgb}}]{rlo, }
+\item[{{\bf t\-\_\-rgb}}]{rhi, }
+\item[{const {\bf output\-\_\-env\-\_\-t}}]{oenv}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__cluster_8c_a8c578bb14d578f805d1ec8ff1829f6ee}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=332pt]{gmx__cluster_8c_a8c578bb14d578f805d1ec8ff1829f6ee_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__cluster_8c_a8c578bb14d578f805d1ec8ff1829f6ee_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__cluster_8c_ac859aa94bf00b13dbe9522a5050ab43f}{\index{gmx\-\_\-cluster.\-c@{gmx\-\_\-cluster.\-c}!analyze\-\_\-clusters@{analyze\-\_\-clusters}}
+\index{analyze\-\_\-clusters@{analyze\-\_\-clusters}!gmx_cluster.c@{gmx\-\_\-cluster.\-c}}
+\subsubsection[{analyze\-\_\-clusters}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf analyze\-\_\-clusters} (
+\begin{DoxyParamCaption}
+\item[{int}]{nf, }
+\item[{{\bf t\-\_\-clusters} $\ast$}]{clust, }
+\item[{real $\ast$$\ast$}]{rmsd, }
+\item[{int}]{natom, }
+\item[{{\bf t\-\_\-atoms} $\ast$}]{atoms, }
+\item[{{\bf rvec} $\ast$}]{xtps, }
+\item[{real $\ast$}]{mass, }
+\item[{{\bf rvec} $\ast$$\ast$}]{xx, }
+\item[{real $\ast$}]{time, }
+\item[{int}]{ifsize, }
+\item[{{\bf atom\-\_\-id} $\ast$}]{fitidx, }
+\item[{int}]{iosize, }
+\item[{{\bf atom\-\_\-id} $\ast$}]{outidx, }
+\item[{const char $\ast$}]{trxfn, }
+\item[{const char $\ast$}]{sizefn, }
+\item[{const char $\ast$}]{transfn, }
+\item[{const char $\ast$}]{ntransfn, }
+\item[{const char $\ast$}]{clustidfn, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Average, }
+\item[{int}]{write\-\_\-ncl, }
+\item[{int}]{write\-\_\-nst, }
+\item[{real}]{rmsmin, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Fit, }
+\item[{\-F\-I\-L\-E $\ast$}]{log, }
+\item[{{\bf t\-\_\-rgb}}]{rlo, }
+\item[{{\bf t\-\_\-rgb}}]{rhi, }
+\item[{const {\bf output\-\_\-env\-\_\-t}}]{oenv}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__cluster_8c_ac859aa94bf00b13dbe9522a5050ab43f}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__cluster_8c_ac859aa94bf00b13dbe9522a5050ab43f_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__cluster_8c_ac859aa94bf00b13dbe9522a5050ab43f_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__cluster_8c_a297ed9a8a0789a08ce47b8f48c4b96ee}{\index{gmx\-\_\-cluster.\-c@{gmx\-\_\-cluster.\-c}!calc\-\_\-dist@{calc\-\_\-dist}}
+\index{calc\-\_\-dist@{calc\-\_\-dist}!gmx_cluster.c@{gmx\-\_\-cluster.\-c}}
+\subsubsection[{calc\-\_\-dist}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf calc\-\_\-dist} (
+\begin{DoxyParamCaption}
+\item[{int}]{nind, }
+\item[{{\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{real $\ast$$\ast$}]{d}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__cluster_8c_a297ed9a8a0789a08ce47b8f48c4b96ee}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__cluster_8c_a297ed9a8a0789a08ce47b8f48c4b96ee_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=316pt]{gmx__cluster_8c_a297ed9a8a0789a08ce47b8f48c4b96ee_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__cluster_8c_af87b6aae19dc22eda5beff8a5557e428}{\index{gmx\-\_\-cluster.\-c@{gmx\-\_\-cluster.\-c}!clust\-\_\-id\-\_\-comp@{clust\-\_\-id\-\_\-comp}}
+\index{clust\-\_\-id\-\_\-comp@{clust\-\_\-id\-\_\-comp}!gmx_cluster.c@{gmx\-\_\-cluster.\-c}}
+\subsubsection[{clust\-\_\-id\-\_\-comp}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf clust\-\_\-id\-\_\-comp} (
+\begin{DoxyParamCaption}
+\item[{const {\bf void} $\ast$}]{a, }
+\item[{const {\bf void} $\ast$}]{b}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__cluster_8c_af87b6aae19dc22eda5beff8a5557e428}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__cluster_8c_af87b6aae19dc22eda5beff8a5557e428_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__cluster_8c_a82fc61e52ff1bf703eb1ffe5d6f9ee5c}{\index{gmx\-\_\-cluster.\-c@{gmx\-\_\-cluster.\-c}!convert\-\_\-mat@{convert\-\_\-mat}}
+\index{convert\-\_\-mat@{convert\-\_\-mat}!gmx_cluster.c@{gmx\-\_\-cluster.\-c}}
+\subsubsection[{convert\-\_\-mat}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf convert\-\_\-mat} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-matrix} $\ast$}]{mat, }
+\item[{{\bf t\-\_\-mat} $\ast$}]{rms}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__cluster_8c_a82fc61e52ff1bf703eb1ffe5d6f9ee5c}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=254pt]{gmx__cluster_8c_a82fc61e52ff1bf703eb1ffe5d6f9ee5c_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=332pt]{gmx__cluster_8c_a82fc61e52ff1bf703eb1ffe5d6f9ee5c_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__cluster_8c_a70ba262001a490f3c3f0a1169eb33d81}{\index{gmx\-\_\-cluster.\-c@{gmx\-\_\-cluster.\-c}!cp\-\_\-index@{cp\-\_\-index}}
+\index{cp\-\_\-index@{cp\-\_\-index}!gmx_cluster.c@{gmx\-\_\-cluster.\-c}}
+\subsubsection[{cp\-\_\-index}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf cp\-\_\-index} (
+\begin{DoxyParamCaption}
+\item[{int}]{nn, }
+\item[{int}]{from\mbox{[}$\,$\mbox{]}, }
+\item[{int}]{to\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{gmx__cluster_8c_a70ba262001a490f3c3f0a1169eb33d81}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__cluster_8c_a70ba262001a490f3c3f0a1169eb33d81_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__cluster_8c_ac6d41d6ec9252cd36ba42b096ebc83d3}{\index{gmx\-\_\-cluster.\-c@{gmx\-\_\-cluster.\-c}!dump\-\_\-nnb@{dump\-\_\-nnb}}
+\index{dump\-\_\-nnb@{dump\-\_\-nnb}!gmx_cluster.c@{gmx\-\_\-cluster.\-c}}
+\subsubsection[{dump\-\_\-nnb}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf dump\-\_\-nnb} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{const char $\ast$}]{title, }
+\item[{int}]{n1, }
+\item[{{\bf t\-\_\-nnb} $\ast$}]{nnb}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__cluster_8c_ac6d41d6ec9252cd36ba42b096ebc83d3}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__cluster_8c_ac6d41d6ec9252cd36ba42b096ebc83d3_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__cluster_8c_a6bae1e9c233ee040729d6a0c46f588a5}{\index{gmx\-\_\-cluster.\-c@{gmx\-\_\-cluster.\-c}!ffprintf@{ffprintf}}
+\index{ffprintf@{ffprintf}!gmx_cluster.c@{gmx\-\_\-cluster.\-c}}
+\subsubsection[{ffprintf}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf ffprintf} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp1, }
+\item[{\-F\-I\-L\-E $\ast$}]{fp2, }
+\item[{const char $\ast$}]{buf}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, static\mbox{]}}}}\label{gmx__cluster_8c_a6bae1e9c233ee040729d6a0c46f588a5}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=218pt]{gmx__cluster_8c_a6bae1e9c233ee040729d6a0c46f588a5_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__cluster_8c_a6bae1e9c233ee040729d6a0c46f588a5_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__cluster_8c_ab63f86b70bf9d06c9c8a067599bccbe9}{\index{gmx\-\_\-cluster.\-c@{gmx\-\_\-cluster.\-c}!ffprintf\-\_\-d@{ffprintf\-\_\-d}}
+\index{ffprintf\-\_\-d@{ffprintf\-\_\-d}!gmx_cluster.c@{gmx\-\_\-cluster.\-c}}
+\subsubsection[{ffprintf\-\_\-d}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf ffprintf\-\_\-d} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp1, }
+\item[{\-F\-I\-L\-E $\ast$}]{fp2, }
+\item[{char $\ast$}]{buf, }
+\item[{const char $\ast$}]{fmt, }
+\item[{int}]{arg}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, static\mbox{]}}}}\label{gmx__cluster_8c_ab63f86b70bf9d06c9c8a067599bccbe9}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=230pt]{gmx__cluster_8c_ab63f86b70bf9d06c9c8a067599bccbe9_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__cluster_8c_ab63f86b70bf9d06c9c8a067599bccbe9_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__cluster_8c_a6ed5a71370a8bc73122152615da09425}{\index{gmx\-\_\-cluster.\-c@{gmx\-\_\-cluster.\-c}!ffprintf\-\_\-dd@{ffprintf\-\_\-dd}}
+\index{ffprintf\-\_\-dd@{ffprintf\-\_\-dd}!gmx_cluster.c@{gmx\-\_\-cluster.\-c}}
+\subsubsection[{ffprintf\-\_\-dd}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf ffprintf\-\_\-dd} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp1, }
+\item[{\-F\-I\-L\-E $\ast$}]{fp2, }
+\item[{char $\ast$}]{buf, }
+\item[{const char $\ast$}]{fmt, }
+\item[{int}]{arg1, }
+\item[{int}]{arg2}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, static\mbox{]}}}}\label{gmx__cluster_8c_a6ed5a71370a8bc73122152615da09425}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=234pt]{gmx__cluster_8c_a6ed5a71370a8bc73122152615da09425_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__cluster_8c_a6ed5a71370a8bc73122152615da09425_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__cluster_8c_a0ee213e2ff2a065dc681084505bfe85c}{\index{gmx\-\_\-cluster.\-c@{gmx\-\_\-cluster.\-c}!ffprintf\-\_\-g@{ffprintf\-\_\-g}}
+\index{ffprintf\-\_\-g@{ffprintf\-\_\-g}!gmx_cluster.c@{gmx\-\_\-cluster.\-c}}
+\subsubsection[{ffprintf\-\_\-g}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf ffprintf\-\_\-g} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp1, }
+\item[{\-F\-I\-L\-E $\ast$}]{fp2, }
+\item[{char $\ast$}]{buf, }
+\item[{const char $\ast$}]{fmt, }
+\item[{real}]{arg}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, static\mbox{]}}}}\label{gmx__cluster_8c_a0ee213e2ff2a065dc681084505bfe85c}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=230pt]{gmx__cluster_8c_a0ee213e2ff2a065dc681084505bfe85c_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=316pt]{gmx__cluster_8c_a0ee213e2ff2a065dc681084505bfe85c_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__cluster_8c_aa19f522fcc79924cd6a22bd4b7fa2076}{\index{gmx\-\_\-cluster.\-c@{gmx\-\_\-cluster.\-c}!ffprintf\-\_\-gg@{ffprintf\-\_\-gg}}
+\index{ffprintf\-\_\-gg@{ffprintf\-\_\-gg}!gmx_cluster.c@{gmx\-\_\-cluster.\-c}}
+\subsubsection[{ffprintf\-\_\-gg}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf ffprintf\-\_\-gg} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp1, }
+\item[{\-F\-I\-L\-E $\ast$}]{fp2, }
+\item[{char $\ast$}]{buf, }
+\item[{const char $\ast$}]{fmt, }
+\item[{real}]{arg1, }
+\item[{real}]{arg2}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, static\mbox{]}}}}\label{gmx__cluster_8c_aa19f522fcc79924cd6a22bd4b7fa2076}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=234pt]{gmx__cluster_8c_aa19f522fcc79924cd6a22bd4b7fa2076_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=320pt]{gmx__cluster_8c_aa19f522fcc79924cd6a22bd4b7fa2076_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__cluster_8c_a3e82beddc8066ff3e83a73e4f9e7a209}{\index{gmx\-\_\-cluster.\-c@{gmx\-\_\-cluster.\-c}!ffprintf\-\_\-s@{ffprintf\-\_\-s}}
+\index{ffprintf\-\_\-s@{ffprintf\-\_\-s}!gmx_cluster.c@{gmx\-\_\-cluster.\-c}}
+\subsubsection[{ffprintf\-\_\-s}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf ffprintf\-\_\-s} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp1, }
+\item[{\-F\-I\-L\-E $\ast$}]{fp2, }
+\item[{char $\ast$}]{buf, }
+\item[{const char $\ast$}]{fmt, }
+\item[{const char $\ast$}]{arg}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, static\mbox{]}}}}\label{gmx__cluster_8c_a3e82beddc8066ff3e83a73e4f9e7a209}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=230pt]{gmx__cluster_8c_a3e82beddc8066ff3e83a73e4f9e7a209_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=316pt]{gmx__cluster_8c_a3e82beddc8066ff3e83a73e4f9e7a209_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__cluster_8c_a02783b5928324e55a637548823bc48ae}{\index{gmx\-\_\-cluster.\-c@{gmx\-\_\-cluster.\-c}!ffprintf\-\_\-ss@{ffprintf\-\_\-ss}}
+\index{ffprintf\-\_\-ss@{ffprintf\-\_\-ss}!gmx_cluster.c@{gmx\-\_\-cluster.\-c}}
+\subsubsection[{ffprintf\-\_\-ss}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf ffprintf\-\_\-ss} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp1, }
+\item[{\-F\-I\-L\-E $\ast$}]{fp2, }
+\item[{char $\ast$}]{buf, }
+\item[{const char $\ast$}]{fmt, }
+\item[{const char $\ast$}]{arg1, }
+\item[{const char $\ast$}]{arg2}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, static\mbox{]}}}}\label{gmx__cluster_8c_a02783b5928324e55a637548823bc48ae}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=234pt]{gmx__cluster_8c_a02783b5928324e55a637548823bc48ae_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__cluster_8c_a02783b5928324e55a637548823bc48ae_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__cluster_8c_a759066fbb490427dca5c7c18308bf5dd}{\index{gmx\-\_\-cluster.\-c@{gmx\-\_\-cluster.\-c}!gather@{gather}}
+\index{gather@{gather}!gmx_cluster.c@{gmx\-\_\-cluster.\-c}}
+\subsubsection[{gather}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gather} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-mat} $\ast$}]{m, }
+\item[{real}]{cutoff, }
+\item[{{\bf t\-\_\-clusters} $\ast$}]{clust}
+\end{DoxyParamCaption}
+)}}\label{gmx__cluster_8c_a759066fbb490427dca5c7c18308bf5dd}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=244pt]{gmx__cluster_8c_a759066fbb490427dca5c7c18308bf5dd_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=304pt]{gmx__cluster_8c_a759066fbb490427dca5c7c18308bf5dd_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__cluster_8c_a5e93d53bbd65ad9994912b65e34c259f}{\index{gmx\-\_\-cluster.\-c@{gmx\-\_\-cluster.\-c}!gmx\-\_\-cluster@{gmx\-\_\-cluster}}
+\index{gmx\-\_\-cluster@{gmx\-\_\-cluster}!gmx_cluster.c@{gmx\-\_\-cluster.\-c}}
+\subsubsection[{gmx\-\_\-cluster}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-cluster} (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{gmx__cluster_8c_a5e93d53bbd65ad9994912b65e34c259f}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=224pt]{gmx__cluster_8c_a5e93d53bbd65ad9994912b65e34c259f_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__cluster_8c_a382b4c26412fcfc07c516158ad04b240}{\index{gmx\-\_\-cluster.\-c@{gmx\-\_\-cluster.\-c}!gromos@{gromos}}
+\index{gromos@{gromos}!gmx_cluster.c@{gmx\-\_\-cluster.\-c}}
+\subsubsection[{gromos}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf gromos} (
+\begin{DoxyParamCaption}
+\item[{int}]{n1, }
+\item[{real $\ast$$\ast$}]{mat, }
+\item[{real}]{rmsdcut, }
+\item[{{\bf t\-\_\-clusters} $\ast$}]{clust}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__cluster_8c_a382b4c26412fcfc07c516158ad04b240}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=232pt]{gmx__cluster_8c_a382b4c26412fcfc07c516158ad04b240_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=310pt]{gmx__cluster_8c_a382b4c26412fcfc07c516158ad04b240_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__cluster_8c_abcb142358c8101a84b28e46a6d4536e6}{\index{gmx\-\_\-cluster.\-c@{gmx\-\_\-cluster.\-c}!jarvis\-\_\-patrick@{jarvis\-\_\-patrick}}
+\index{jarvis\-\_\-patrick@{jarvis\-\_\-patrick}!gmx_cluster.c@{gmx\-\_\-cluster.\-c}}
+\subsubsection[{jarvis\-\_\-patrick}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf jarvis\-\_\-patrick} (
+\begin{DoxyParamCaption}
+\item[{int}]{n1, }
+\item[{real $\ast$$\ast$}]{mat, }
+\item[{int}]{\-M, }
+\item[{int}]{\-P, }
+\item[{real}]{rmsdcut, }
+\item[{{\bf t\-\_\-clusters} $\ast$}]{clust}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__cluster_8c_abcb142358c8101a84b28e46a6d4536e6}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=274pt]{gmx__cluster_8c_abcb142358c8101a84b28e46a6d4536e6_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=334pt]{gmx__cluster_8c_abcb142358c8101a84b28e46a6d4536e6_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__cluster_8c_a35f410f2b87eeb6f9a2ca27509f8aeeb}{\index{gmx\-\_\-cluster.\-c@{gmx\-\_\-cluster.\-c}!jp\-\_\-same@{jp\-\_\-same}}
+\index{jp\-\_\-same@{jp\-\_\-same}!gmx_cluster.c@{gmx\-\_\-cluster.\-c}}
+\subsubsection[{jp\-\_\-same}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf jp\-\_\-same} (
+\begin{DoxyParamCaption}
+\item[{int $\ast$$\ast$}]{nnb, }
+\item[{int}]{i, }
+\item[{int}]{j, }
+\item[{int}]{\-P}
+\end{DoxyParamCaption}
+)}}\label{gmx__cluster_8c_a35f410f2b87eeb6f9a2ca27509f8aeeb}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__cluster_8c_a35f410f2b87eeb6f9a2ca27509f8aeeb_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__cluster_8c_ab1ebaceed7153838a68b0577434e8718}{\index{gmx\-\_\-cluster.\-c@{gmx\-\_\-cluster.\-c}!lo\-\_\-ffprintf@{lo\-\_\-ffprintf}}
+\index{lo\-\_\-ffprintf@{lo\-\_\-ffprintf}!gmx_cluster.c@{gmx\-\_\-cluster.\-c}}
+\subsubsection[{lo\-\_\-ffprintf}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf lo\-\_\-ffprintf} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp1, }
+\item[{\-F\-I\-L\-E $\ast$}]{fp2, }
+\item[{const char $\ast$}]{buf}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, static\mbox{]}}}}\label{gmx__cluster_8c_ab1ebaceed7153838a68b0577434e8718}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__cluster_8c_ab1ebaceed7153838a68b0577434e8718_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__cluster_8c_a30d7368d6db7f5d7f6c17ed79468e953}{\index{gmx\-\_\-cluster.\-c@{gmx\-\_\-cluster.\-c}!mark\-\_\-clusters@{mark\-\_\-clusters}}
+\index{mark\-\_\-clusters@{mark\-\_\-clusters}!gmx_cluster.c@{gmx\-\_\-cluster.\-c}}
+\subsubsection[{mark\-\_\-clusters}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf mark\-\_\-clusters} (
+\begin{DoxyParamCaption}
+\item[{int}]{nf, }
+\item[{real $\ast$$\ast$}]{mat, }
+\item[{real}]{val, }
+\item[{{\bf t\-\_\-clusters} $\ast$}]{clust}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__cluster_8c_a30d7368d6db7f5d7f6c17ed79468e953}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=338pt]{gmx__cluster_8c_a30d7368d6db7f5d7f6c17ed79468e953_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__cluster_8c_a15842cb6f08843241a9923cf0d6dcf81}{\index{gmx\-\_\-cluster.\-c@{gmx\-\_\-cluster.\-c}!mc\-\_\-optimize@{mc\-\_\-optimize}}
+\index{mc\-\_\-optimize@{mc\-\_\-optimize}!gmx_cluster.c@{gmx\-\_\-cluster.\-c}}
+\subsubsection[{mc\-\_\-optimize}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf mc\-\_\-optimize} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{log, }
+\item[{{\bf t\-\_\-mat} $\ast$}]{m, }
+\item[{int}]{maxiter, }
+\item[{int $\ast$}]{seed, }
+\item[{real}]{k\-T}
+\end{DoxyParamCaption}
+)}}\label{gmx__cluster_8c_a15842cb6f08843241a9923cf0d6dcf81}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__cluster_8c_a15842cb6f08843241a9923cf0d6dcf81_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=332pt]{gmx__cluster_8c_a15842cb6f08843241a9923cf0d6dcf81_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__cluster_8c_a26e682438a8b916dc1c4bb6a5a7a47da}{\index{gmx\-\_\-cluster.\-c@{gmx\-\_\-cluster.\-c}!nrnb\-\_\-comp@{nrnb\-\_\-comp}}
+\index{nrnb\-\_\-comp@{nrnb\-\_\-comp}!gmx_cluster.c@{gmx\-\_\-cluster.\-c}}
+\subsubsection[{nrnb\-\_\-comp}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf nrnb\-\_\-comp} (
+\begin{DoxyParamCaption}
+\item[{const {\bf void} $\ast$}]{a, }
+\item[{const {\bf void} $\ast$}]{b}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__cluster_8c_a26e682438a8b916dc1c4bb6a5a7a47da}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__cluster_8c_a26e682438a8b916dc1c4bb6a5a7a47da_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__cluster_8c_ab4db353fa2c1b01f896184ce7553d09f}{\index{gmx\-\_\-cluster.\-c@{gmx\-\_\-cluster.\-c}!parse\-\_\-filename@{parse\-\_\-filename}}
+\index{parse\-\_\-filename@{parse\-\_\-filename}!gmx_cluster.c@{gmx\-\_\-cluster.\-c}}
+\subsubsection[{parse\-\_\-filename}]{\setlength{\rightskip}{0pt plus 5cm}static char$\ast$ {\bf parse\-\_\-filename} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{fn, }
+\item[{int}]{maxnr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__cluster_8c_ab4db353fa2c1b01f896184ce7553d09f}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=260pt]{gmx__cluster_8c_ab4db353fa2c1b01f896184ce7553d09f_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__cluster_8c_ab4db353fa2c1b01f896184ce7553d09f_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__cluster_8c_a1c4f8366fff00b45498c750d0526c74d}{\index{gmx\-\_\-cluster.\-c@{gmx\-\_\-cluster.\-c}!plot\-\_\-clusters@{plot\-\_\-clusters}}
+\index{plot\-\_\-clusters@{plot\-\_\-clusters}!gmx_cluster.c@{gmx\-\_\-cluster.\-c}}
+\subsubsection[{plot\-\_\-clusters}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf plot\-\_\-clusters} (
+\begin{DoxyParamCaption}
+\item[{int}]{nf, }
+\item[{real $\ast$$\ast$}]{mat, }
+\item[{{\bf t\-\_\-clusters} $\ast$}]{clust, }
+\item[{int}]{nlevels, }
+\item[{int}]{minstruct}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__cluster_8c_a1c4f8366fff00b45498c750d0526c74d}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=332pt]{gmx__cluster_8c_a1c4f8366fff00b45498c750d0526c74d_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__cluster_8c_a99d69add1dc0555df2a11dce1ca0cf2e}{\index{gmx\-\_\-cluster.\-c@{gmx\-\_\-cluster.\-c}!pr\-\_\-energy@{pr\-\_\-energy}}
+\index{pr\-\_\-energy@{pr\-\_\-energy}!gmx_cluster.c@{gmx\-\_\-cluster.\-c}}
+\subsubsection[{pr\-\_\-energy}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf pr\-\_\-energy} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{real}]{e}
+\end{DoxyParamCaption}
+)}}\label{gmx__cluster_8c_a99d69add1dc0555df2a11dce1ca0cf2e}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__cluster_8c_a99d69add1dc0555df2a11dce1ca0cf2e_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__cluster_8c_a29a04a17b99d405411b260964cc783ad}{\index{gmx\-\_\-cluster.\-c@{gmx\-\_\-cluster.\-c}!read\-\_\-whole\-\_\-trj@{read\-\_\-whole\-\_\-trj}}
+\index{read\-\_\-whole\-\_\-trj@{read\-\_\-whole\-\_\-trj}!gmx_cluster.c@{gmx\-\_\-cluster.\-c}}
+\subsubsection[{read\-\_\-whole\-\_\-trj}]{\setlength{\rightskip}{0pt plus 5cm}{\bf rvec}$\ast$$\ast$ {\bf read\-\_\-whole\-\_\-trj} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{fn, }
+\item[{int}]{isize, }
+\item[{{\bf atom\-\_\-id}}]{index\mbox{[}$\,$\mbox{]}, }
+\item[{int}]{skip, }
+\item[{int $\ast$}]{nframe, }
+\item[{real $\ast$$\ast$}]{time, }
+\item[{const {\bf output\-\_\-env\-\_\-t}}]{oenv, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-P\-B\-C, }
+\item[{{\bf gmx\-\_\-rmpbc\-\_\-t}}]{gpbc}
+\end{DoxyParamCaption}
+)}}\label{gmx__cluster_8c_a29a04a17b99d405411b260964cc783ad}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=266pt]{gmx__cluster_8c_a29a04a17b99d405411b260964cc783ad_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=340pt]{gmx__cluster_8c_a29a04a17b99d405411b260964cc783ad_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__cluster_8c_a1a925093132c958a6cd165e58f18d3f6}{\index{gmx\-\_\-cluster.\-c@{gmx\-\_\-cluster.\-c}!rms\-\_\-dist@{rms\-\_\-dist}}
+\index{rms\-\_\-dist@{rms\-\_\-dist}!gmx_cluster.c@{gmx\-\_\-cluster.\-c}}
+\subsubsection[{rms\-\_\-dist}]{\setlength{\rightskip}{0pt plus 5cm}static real {\bf rms\-\_\-dist} (
+\begin{DoxyParamCaption}
+\item[{int}]{isize, }
+\item[{real $\ast$$\ast$}]{d, }
+\item[{real $\ast$$\ast$}]{d\-\_\-r}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__cluster_8c_a1a925093132c958a6cd165e58f18d3f6}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=314pt]{gmx__cluster_8c_a1a925093132c958a6cd165e58f18d3f6_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__cluster_8c_a3417f9fc175d09be3b2317ae2b148048}{\index{gmx\-\_\-cluster.\-c@{gmx\-\_\-cluster.\-c}!rms\-\_\-dist\-\_\-comp@{rms\-\_\-dist\-\_\-comp}}
+\index{rms\-\_\-dist\-\_\-comp@{rms\-\_\-dist\-\_\-comp}!gmx_cluster.c@{gmx\-\_\-cluster.\-c}}
+\subsubsection[{rms\-\_\-dist\-\_\-comp}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf rms\-\_\-dist\-\_\-comp} (
+\begin{DoxyParamCaption}
+\item[{const {\bf void} $\ast$}]{a, }
+\item[{const {\bf void} $\ast$}]{b}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__cluster_8c_a3417f9fc175d09be3b2317ae2b148048}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__cluster_8c_a3417f9fc175d09be3b2317ae2b148048_icgraph}
+\end{center}
+\end{figure}
+
+

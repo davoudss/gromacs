@@ -1,0 +1,232 @@
+\hypertarget{src_2gmxlib_2thread__mpi_2collective_8h}{\section{src/gmxlib/thread\-\_\-mpi/collective.h \-File \-Reference}
+\label{src_2gmxlib_2thread__mpi_2collective_8h}\index{src/gmxlib/thread\-\_\-mpi/collective.\-h@{src/gmxlib/thread\-\_\-mpi/collective.\-h}}
+}
+\-This graph shows which files directly or indirectly include this file\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{src_2gmxlib_2thread__mpi_2collective_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structcoll__env}{coll\-\_\-env} $\ast$ \hyperlink{src_2gmxlib_2thread__mpi_2collective_8h_a49493ea523c2102f78524fe377646643}{t\-M\-P\-I\-\_\-\-Get\-\_\-cev} (\hyperlink{include_2thread__mpi_2tmpi_8h_ab76dc275b882a1d00a54353fb8dd4cb3}{t\-M\-P\-I\-\_\-\-Comm} comm, int myrank, int $\ast$synct)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{src_2gmxlib_2thread__mpi_2collective_8h_a9fe8b45d8a1ea7a3b9f2f7471ab93c87}{t\-M\-P\-I\-\_\-\-Post\-\_\-multi} (struct \hyperlink{structcoll__env}{coll\-\_\-env} $\ast$cev, int myrank, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a49fd977001162d7256c8fcd293f9d12a}{index}, int tag, \hyperlink{include_2thread__mpi_2tmpi_8h_a5dfe10378be22fca9362e52f6abdf503}{t\-M\-P\-I\-\_\-\-Datatype} datatype, size\-\_\-t bufsize, \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$buf, int n\-\_\-remaining, int synct, int dest)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{src_2gmxlib_2thread__mpi_2collective_8h_a0f70b02dd9f9ba785a42194bb920e63a}{t\-M\-P\-I\-\_\-\-Mult\-\_\-recv} (\hyperlink{include_2thread__mpi_2tmpi_8h_ab76dc275b882a1d00a54353fb8dd4cb3}{t\-M\-P\-I\-\_\-\-Comm} comm, struct \hyperlink{structcoll__env}{coll\-\_\-env} $\ast$cev, int rank, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a49fd977001162d7256c8fcd293f9d12a}{index}, int expected\-\_\-tag, \hyperlink{include_2thread__mpi_2tmpi_8h_a5dfe10378be22fca9362e52f6abdf503}{t\-M\-P\-I\-\_\-\-Datatype} recvtype, size\-\_\-t recvsize, \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$recvbuf, int $\ast$ret)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{src_2gmxlib_2thread__mpi_2collective_8h_a2e432ee95842f1df6cf57d7452048af7}{t\-M\-P\-I\-\_\-\-Coll\-\_\-root\-\_\-xfer} (\hyperlink{include_2thread__mpi_2tmpi_8h_ab76dc275b882a1d00a54353fb8dd4cb3}{t\-M\-P\-I\-\_\-\-Comm} comm, \hyperlink{include_2thread__mpi_2tmpi_8h_a5dfe10378be22fca9362e52f6abdf503}{t\-M\-P\-I\-\_\-\-Datatype} sendtype, \hyperlink{include_2thread__mpi_2tmpi_8h_a5dfe10378be22fca9362e52f6abdf503}{t\-M\-P\-I\-\_\-\-Datatype} recvtype, size\-\_\-t sendsize, size\-\_\-t recvsize, \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$sendbuf, \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$recvbuf, int $\ast$ret)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{src_2gmxlib_2thread__mpi_2collective_8h_a562fd6cd8ec2bd6b02521dfe08c67245}{t\-M\-P\-I\-\_\-\-Wait\-\_\-for\-\_\-others} (struct \hyperlink{structcoll__env}{coll\-\_\-env} $\ast$cev, int myrank)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{src_2gmxlib_2thread__mpi_2collective_8h_a75b71cd10b566028479e22b954729f4c}{t\-M\-P\-I\-\_\-\-Wait\-\_\-for\-\_\-data} (struct \hyperlink{structtmpi__thread}{tmpi\-\_\-thread} $\ast$cur, struct \hyperlink{structcoll__env}{coll\-\_\-env} $\ast$cev, int myrank)
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{src_2gmxlib_2thread__mpi_2collective_8h_a2e432ee95842f1df6cf57d7452048af7}{\index{src/gmxlib/thread\-\_\-mpi/collective.\-h@{src/gmxlib/thread\-\_\-mpi/collective.\-h}!t\-M\-P\-I\-\_\-\-Coll\-\_\-root\-\_\-xfer@{t\-M\-P\-I\-\_\-\-Coll\-\_\-root\-\_\-xfer}}
+\index{t\-M\-P\-I\-\_\-\-Coll\-\_\-root\-\_\-xfer@{t\-M\-P\-I\-\_\-\-Coll\-\_\-root\-\_\-xfer}!src/gmxlib/thread_mpi/collective.h@{src/gmxlib/thread\-\_\-mpi/collective.\-h}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Coll\-\_\-root\-\_\-xfer}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf t\-M\-P\-I\-\_\-\-Coll\-\_\-root\-\_\-xfer} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-M\-P\-I\-\_\-\-Comm}}]{comm, }
+\item[{{\bf t\-M\-P\-I\-\_\-\-Datatype}}]{sendtype, }
+\item[{{\bf t\-M\-P\-I\-\_\-\-Datatype}}]{recvtype, }
+\item[{size\-\_\-t}]{sendsize, }
+\item[{size\-\_\-t}]{recvsize, }
+\item[{{\bf void} $\ast$}]{sendbuf, }
+\item[{{\bf void} $\ast$}]{recvbuf, }
+\item[{int $\ast$}]{ret}
+\end{DoxyParamCaption}
+)}}\label{src_2gmxlib_2thread__mpi_2collective_8h_a2e432ee95842f1df6cf57d7452048af7}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{src_2gmxlib_2thread__mpi_2collective_8h_a2e432ee95842f1df6cf57d7452048af7_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=300pt]{src_2gmxlib_2thread__mpi_2collective_8h_a2e432ee95842f1df6cf57d7452048af7_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{src_2gmxlib_2thread__mpi_2collective_8h_a49493ea523c2102f78524fe377646643}{\index{src/gmxlib/thread\-\_\-mpi/collective.\-h@{src/gmxlib/thread\-\_\-mpi/collective.\-h}!t\-M\-P\-I\-\_\-\-Get\-\_\-cev@{t\-M\-P\-I\-\_\-\-Get\-\_\-cev}}
+\index{t\-M\-P\-I\-\_\-\-Get\-\_\-cev@{t\-M\-P\-I\-\_\-\-Get\-\_\-cev}!src/gmxlib/thread_mpi/collective.h@{src/gmxlib/thread\-\_\-mpi/collective.\-h}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Get\-\_\-cev}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf coll\-\_\-env}$\ast$ {\bf t\-M\-P\-I\-\_\-\-Get\-\_\-cev} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-M\-P\-I\-\_\-\-Comm}}]{comm, }
+\item[{int}]{myrank, }
+\item[{int $\ast$}]{synct}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}read\mbox{]}}}}\label{src_2gmxlib_2thread__mpi_2collective_8h_a49493ea523c2102f78524fe377646643}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=288pt]{src_2gmxlib_2thread__mpi_2collective_8h_a49493ea523c2102f78524fe377646643_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=276pt]{src_2gmxlib_2thread__mpi_2collective_8h_a49493ea523c2102f78524fe377646643_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{src_2gmxlib_2thread__mpi_2collective_8h_a0f70b02dd9f9ba785a42194bb920e63a}{\index{src/gmxlib/thread\-\_\-mpi/collective.\-h@{src/gmxlib/thread\-\_\-mpi/collective.\-h}!t\-M\-P\-I\-\_\-\-Mult\-\_\-recv@{t\-M\-P\-I\-\_\-\-Mult\-\_\-recv}}
+\index{t\-M\-P\-I\-\_\-\-Mult\-\_\-recv@{t\-M\-P\-I\-\_\-\-Mult\-\_\-recv}!src/gmxlib/thread_mpi/collective.h@{src/gmxlib/thread\-\_\-mpi/collective.\-h}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Mult\-\_\-recv}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf t\-M\-P\-I\-\_\-\-Mult\-\_\-recv} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-M\-P\-I\-\_\-\-Comm}}]{comm, }
+\item[{struct {\bf coll\-\_\-env} $\ast$}]{cev, }
+\item[{int}]{rank, }
+\item[{int}]{index, }
+\item[{int}]{expected\-\_\-tag, }
+\item[{{\bf t\-M\-P\-I\-\_\-\-Datatype}}]{recvtype, }
+\item[{size\-\_\-t}]{recvsize, }
+\item[{{\bf void} $\ast$}]{recvbuf, }
+\item[{int $\ast$}]{ret}
+\end{DoxyParamCaption}
+)}}\label{src_2gmxlib_2thread__mpi_2collective_8h_a0f70b02dd9f9ba785a42194bb920e63a}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{src_2gmxlib_2thread__mpi_2collective_8h_a0f70b02dd9f9ba785a42194bb920e63a_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=282pt]{src_2gmxlib_2thread__mpi_2collective_8h_a0f70b02dd9f9ba785a42194bb920e63a_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{src_2gmxlib_2thread__mpi_2collective_8h_a9fe8b45d8a1ea7a3b9f2f7471ab93c87}{\index{src/gmxlib/thread\-\_\-mpi/collective.\-h@{src/gmxlib/thread\-\_\-mpi/collective.\-h}!t\-M\-P\-I\-\_\-\-Post\-\_\-multi@{t\-M\-P\-I\-\_\-\-Post\-\_\-multi}}
+\index{t\-M\-P\-I\-\_\-\-Post\-\_\-multi@{t\-M\-P\-I\-\_\-\-Post\-\_\-multi}!src/gmxlib/thread_mpi/collective.h@{src/gmxlib/thread\-\_\-mpi/collective.\-h}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Post\-\_\-multi}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf t\-M\-P\-I\-\_\-\-Post\-\_\-multi} (
+\begin{DoxyParamCaption}
+\item[{struct {\bf coll\-\_\-env} $\ast$}]{cev, }
+\item[{int}]{myrank, }
+\item[{int}]{index, }
+\item[{int}]{tag, }
+\item[{{\bf t\-M\-P\-I\-\_\-\-Datatype}}]{datatype, }
+\item[{size\-\_\-t}]{bufsize, }
+\item[{{\bf void} $\ast$}]{buf, }
+\item[{int}]{n\-\_\-remaining, }
+\item[{int}]{synct, }
+\item[{int}]{dest}
+\end{DoxyParamCaption}
+)}}\label{src_2gmxlib_2thread__mpi_2collective_8h_a9fe8b45d8a1ea7a3b9f2f7471ab93c87}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=284pt]{src_2gmxlib_2thread__mpi_2collective_8h_a9fe8b45d8a1ea7a3b9f2f7471ab93c87_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{src_2gmxlib_2thread__mpi_2collective_8h_a75b71cd10b566028479e22b954729f4c}{\index{src/gmxlib/thread\-\_\-mpi/collective.\-h@{src/gmxlib/thread\-\_\-mpi/collective.\-h}!t\-M\-P\-I\-\_\-\-Wait\-\_\-for\-\_\-data@{t\-M\-P\-I\-\_\-\-Wait\-\_\-for\-\_\-data}}
+\index{t\-M\-P\-I\-\_\-\-Wait\-\_\-for\-\_\-data@{t\-M\-P\-I\-\_\-\-Wait\-\_\-for\-\_\-data}!src/gmxlib/thread_mpi/collective.h@{src/gmxlib/thread\-\_\-mpi/collective.\-h}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Wait\-\_\-for\-\_\-data}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf t\-M\-P\-I\-\_\-\-Wait\-\_\-for\-\_\-data} (
+\begin{DoxyParamCaption}
+\item[{struct {\bf tmpi\-\_\-thread} $\ast$}]{cur, }
+\item[{struct {\bf coll\-\_\-env} $\ast$}]{cev, }
+\item[{int}]{myrank}
+\end{DoxyParamCaption}
+)}}\label{src_2gmxlib_2thread__mpi_2collective_8h_a75b71cd10b566028479e22b954729f4c}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=312pt]{src_2gmxlib_2thread__mpi_2collective_8h_a75b71cd10b566028479e22b954729f4c_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=300pt]{src_2gmxlib_2thread__mpi_2collective_8h_a75b71cd10b566028479e22b954729f4c_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{src_2gmxlib_2thread__mpi_2collective_8h_a562fd6cd8ec2bd6b02521dfe08c67245}{\index{src/gmxlib/thread\-\_\-mpi/collective.\-h@{src/gmxlib/thread\-\_\-mpi/collective.\-h}!t\-M\-P\-I\-\_\-\-Wait\-\_\-for\-\_\-others@{t\-M\-P\-I\-\_\-\-Wait\-\_\-for\-\_\-others}}
+\index{t\-M\-P\-I\-\_\-\-Wait\-\_\-for\-\_\-others@{t\-M\-P\-I\-\_\-\-Wait\-\_\-for\-\_\-others}!src/gmxlib/thread_mpi/collective.h@{src/gmxlib/thread\-\_\-mpi/collective.\-h}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Wait\-\_\-for\-\_\-others}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf t\-M\-P\-I\-\_\-\-Wait\-\_\-for\-\_\-others} (
+\begin{DoxyParamCaption}
+\item[{struct {\bf coll\-\_\-env} $\ast$}]{cev, }
+\item[{int}]{myrank}
+\end{DoxyParamCaption}
+)}}\label{src_2gmxlib_2thread__mpi_2collective_8h_a562fd6cd8ec2bd6b02521dfe08c67245}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=320pt]{src_2gmxlib_2thread__mpi_2collective_8h_a562fd6cd8ec2bd6b02521dfe08c67245_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=308pt]{src_2gmxlib_2thread__mpi_2collective_8h_a562fd6cd8ec2bd6b02521dfe08c67245_icgraph}
+\end{center}
+\end{figure}
+
+

@@ -1,0 +1,558 @@
+\hypertarget{hxprops_8c}{\section{src/tools/hxprops.c \-File \-Reference}
+\label{hxprops_8c}\index{src/tools/hxprops.\-c@{src/tools/hxprops.\-c}}
+}
+{\ttfamily \#include $<$math.\-h$>$}\*
+{\ttfamily \#include $<$string.\-h$>$}\*
+{\ttfamily \#include \char`\"{}typedefs.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}macros.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}physics.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}vec.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}index.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}hxprops.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}smalloc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}bondf.\-h\char`\"{}}\*
+\-Include dependency graph for hxprops.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{hxprops_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{hxprops_8c_a282a2dced9d4a14d60c5b289cb85ea0f}{\-N\-P\-P\-W}~\hyperlink{share_2template_2gromacs_2macros_8h_a0883345a58f8f63aefa249a4f127f707}{asize}(ppw)
+\item 
+\#define \hyperlink{hxprops_8c_a498a2c2b57c15e562e939cccf28db094}{\-N\-B\-B}~\hyperlink{share_2template_2gromacs_2macros_8h_a0883345a58f8f63aefa249a4f127f707}{asize}(bb\-\_\-nm)
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+real \hyperlink{hxprops_8c_aaae0495772e5494a837bf0fa5de83c32}{ellipticity} (int nres, \hyperlink{structt__bb}{t\-\_\-bb} bb\mbox{[}$\,$\mbox{]})
+\item 
+real \hyperlink{hxprops_8c_aa0cd4f60f1835424bec62dbf78912dff}{ahx\-\_\-len} (int gnx, \hyperlink{include_2types_2simple_8h_ad3f47cdb48677e516e2049719612c737}{atom\-\_\-id} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a49fd977001162d7256c8fcd293f9d12a}{index}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box)
+\item 
+real \hyperlink{hxprops_8c_a8c51b1b7a99a2b72ddb860dce59df577}{radius} (\-F\-I\-L\-E $\ast$fp, int nca, \hyperlink{include_2types_2simple_8h_ad3f47cdb48677e516e2049719612c737}{atom\-\_\-id} ca\-\_\-index\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]})
+\item 
+static real \hyperlink{hxprops_8c_adb6a00314ae684ae974fcce76dea126f}{rot} (\hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} x1, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} x2)
+\item 
+real \hyperlink{hxprops_8c_a159d515ac027cdf06345bf0952ac964a}{twist} (\-F\-I\-L\-E $\ast$fp, int nca, \hyperlink{include_2types_2simple_8h_ad3f47cdb48677e516e2049719612c737}{atom\-\_\-id} caindex\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]})
+\item 
+real \hyperlink{hxprops_8c_a573c1e4666412e780930193df1826b63}{ca\-\_\-phi} (int gnx, \hyperlink{include_2types_2simple_8h_ad3f47cdb48677e516e2049719612c737}{atom\-\_\-id} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a49fd977001162d7256c8fcd293f9d12a}{index}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box)
+\item 
+real \hyperlink{hxprops_8c_adc239af3ff081b121997a58b261aa47b}{dip} (int nbb, \hyperlink{include_2types_2simple_8h_ad3f47cdb48677e516e2049719612c737}{atom\-\_\-id} bbind\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{structt__atom}{t\-\_\-atom} atom\mbox{[}$\,$\mbox{]})
+\item 
+real \hyperlink{hxprops_8c_a76ecfbbb573e346ec8f02bfb3ccc9d57}{rise} (int gnx, \hyperlink{include_2types_2simple_8h_ad3f47cdb48677e516e2049719612c737}{atom\-\_\-id} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a49fd977001162d7256c8fcd293f9d12a}{index}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{hxprops_8c_a4a56ffa9833c438d3fba49193ddabd6a}{av\-\_\-hblen} (\-F\-I\-L\-E $\ast$fp3, \-F\-I\-L\-E $\ast$fp3a, \-F\-I\-L\-E $\ast$fp4, \-F\-I\-L\-E $\ast$fp4a, \-F\-I\-L\-E $\ast$fp5, \-F\-I\-L\-E $\ast$fp5a, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a2b515c84b1293071f7584da32ca336c0}{t}, int nres, \hyperlink{structt__bb}{t\-\_\-bb} bb\mbox{[}$\,$\mbox{]})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{hxprops_8c_a1519459b77bacceca95ef695a3519f9a}{av\-\_\-phipsi} (\-F\-I\-L\-E $\ast$fphi, \-F\-I\-L\-E $\ast$fpsi, \-F\-I\-L\-E $\ast$fphi2, \-F\-I\-L\-E $\ast$fpsi2, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a2b515c84b1293071f7584da32ca336c0}{t}, int nres, \hyperlink{structt__bb}{t\-\_\-bb} bb\mbox{[}$\,$\mbox{]})
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{hxprops_8c_a333b3cb0aa6e0fa702ff16fcf321fdfd}{set\-\_\-ahcity} (int nbb, \hyperlink{structt__bb}{t\-\_\-bb} bb\mbox{[}$\,$\mbox{]})
+\item 
+\hyperlink{structt__bb}{t\-\_\-bb} $\ast$ \hyperlink{hxprops_8c_a486a9c7d1b31ed0b6b600b41ea97f55e}{mkbbind} (const char $\ast$fn, int $\ast$nres, int $\ast$nbb, int res0, int $\ast$nall, \hyperlink{include_2types_2simple_8h_ad3f47cdb48677e516e2049719612c737}{atom\-\_\-id} $\ast$$\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a49fd977001162d7256c8fcd293f9d12a}{index}, char $\ast$$\ast$$\ast$atomname, \hyperlink{structt__atom}{t\-\_\-atom} atom\mbox{[}$\,$\mbox{]}, \hyperlink{structt__resinfo}{t\-\_\-resinfo} $\ast$resinfo)
+\item 
+real \hyperlink{hxprops_8c_a54954113f33bf848cb246aeda1b5ae01}{pprms} (\-F\-I\-L\-E $\ast$fp, int nbb, \hyperlink{structt__bb}{t\-\_\-bb} bb\mbox{[}$\,$\mbox{]})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{hxprops_8c_ae061b69981b200212dfae697b0327233}{calc\-\_\-hxprops} (int nres, \hyperlink{structt__bb}{t\-\_\-bb} bb\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{hxprops_8c_a12548a6339c64b6bf7dba9f679886b7b}{check\-\_\-ahx} (int nres, \hyperlink{structt__bb}{t\-\_\-bb} bb\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, int $\ast$hstart, int $\ast$hend)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{hxprops_8c_aaf355f59099c156a434393ce6fe3a7bd}{do\-\_\-start\-\_\-end} (int nres, \hyperlink{structt__bb}{t\-\_\-bb} bb\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, int $\ast$nbb, \hyperlink{include_2types_2simple_8h_ad3f47cdb48677e516e2049719612c737}{atom\-\_\-id} bbindex\mbox{[}$\,$\mbox{]}, int $\ast$nca, \hyperlink{include_2types_2simple_8h_ad3f47cdb48677e516e2049719612c737}{atom\-\_\-id} caindex\mbox{[}$\,$\mbox{]}, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Range, int r\-Start, int r\-End)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{hxprops_8c_a18cdab89055da05ab761cbb3504f0e59}{pr\-\_\-bb} (\-F\-I\-L\-E $\ast$fp, int nres, \hyperlink{structt__bb}{t\-\_\-bb} bb\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Define \-Documentation}
+\hypertarget{hxprops_8c_a498a2c2b57c15e562e939cccf28db094}{\index{hxprops.\-c@{hxprops.\-c}!\-N\-B\-B@{\-N\-B\-B}}
+\index{\-N\-B\-B@{\-N\-B\-B}!hxprops.c@{hxprops.\-c}}
+\subsubsection[{\-N\-B\-B}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-N\-B\-B}~{\bf asize}(bb\-\_\-nm)}}\label{hxprops_8c_a498a2c2b57c15e562e939cccf28db094}
+\hypertarget{hxprops_8c_a282a2dced9d4a14d60c5b289cb85ea0f}{\index{hxprops.\-c@{hxprops.\-c}!\-N\-P\-P\-W@{\-N\-P\-P\-W}}
+\index{\-N\-P\-P\-W@{\-N\-P\-P\-W}!hxprops.c@{hxprops.\-c}}
+\subsubsection[{\-N\-P\-P\-W}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-N\-P\-P\-W}~{\bf asize}(ppw)}}\label{hxprops_8c_a282a2dced9d4a14d60c5b289cb85ea0f}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{hxprops_8c_aa0cd4f60f1835424bec62dbf78912dff}{\index{hxprops.\-c@{hxprops.\-c}!ahx\-\_\-len@{ahx\-\_\-len}}
+\index{ahx\-\_\-len@{ahx\-\_\-len}!hxprops.c@{hxprops.\-c}}
+\subsubsection[{ahx\-\_\-len}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf ahx\-\_\-len} (
+\begin{DoxyParamCaption}
+\item[{int}]{gnx, }
+\item[{{\bf atom\-\_\-id}}]{index\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf matrix}}]{box}
+\end{DoxyParamCaption}
+)}}\label{hxprops_8c_aa0cd4f60f1835424bec62dbf78912dff}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{hxprops_8c_aa0cd4f60f1835424bec62dbf78912dff_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=302pt]{hxprops_8c_aa0cd4f60f1835424bec62dbf78912dff_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{hxprops_8c_a4a56ffa9833c438d3fba49193ddabd6a}{\index{hxprops.\-c@{hxprops.\-c}!av\-\_\-hblen@{av\-\_\-hblen}}
+\index{av\-\_\-hblen@{av\-\_\-hblen}!hxprops.c@{hxprops.\-c}}
+\subsubsection[{av\-\_\-hblen}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf av\-\_\-hblen} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp3, }
+\item[{\-F\-I\-L\-E $\ast$}]{fp3a, }
+\item[{\-F\-I\-L\-E $\ast$}]{fp4, }
+\item[{\-F\-I\-L\-E $\ast$}]{fp4a, }
+\item[{\-F\-I\-L\-E $\ast$}]{fp5, }
+\item[{\-F\-I\-L\-E $\ast$}]{fp5a, }
+\item[{real}]{t, }
+\item[{int}]{nres, }
+\item[{{\bf t\-\_\-bb}}]{bb\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{hxprops_8c_a4a56ffa9833c438d3fba49193ddabd6a}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=308pt]{hxprops_8c_a4a56ffa9833c438d3fba49193ddabd6a_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{hxprops_8c_a1519459b77bacceca95ef695a3519f9a}{\index{hxprops.\-c@{hxprops.\-c}!av\-\_\-phipsi@{av\-\_\-phipsi}}
+\index{av\-\_\-phipsi@{av\-\_\-phipsi}!hxprops.c@{hxprops.\-c}}
+\subsubsection[{av\-\_\-phipsi}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf av\-\_\-phipsi} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fphi, }
+\item[{\-F\-I\-L\-E $\ast$}]{fpsi, }
+\item[{\-F\-I\-L\-E $\ast$}]{fphi2, }
+\item[{\-F\-I\-L\-E $\ast$}]{fpsi2, }
+\item[{real}]{t, }
+\item[{int}]{nres, }
+\item[{{\bf t\-\_\-bb}}]{bb\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{hxprops_8c_a1519459b77bacceca95ef695a3519f9a}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=310pt]{hxprops_8c_a1519459b77bacceca95ef695a3519f9a_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{hxprops_8c_a573c1e4666412e780930193df1826b63}{\index{hxprops.\-c@{hxprops.\-c}!ca\-\_\-phi@{ca\-\_\-phi}}
+\index{ca\-\_\-phi@{ca\-\_\-phi}!hxprops.c@{hxprops.\-c}}
+\subsubsection[{ca\-\_\-phi}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf ca\-\_\-phi} (
+\begin{DoxyParamCaption}
+\item[{int}]{gnx, }
+\item[{{\bf atom\-\_\-id}}]{index\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf matrix}}]{box}
+\end{DoxyParamCaption}
+)}}\label{hxprops_8c_a573c1e4666412e780930193df1826b63}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=220pt]{hxprops_8c_a573c1e4666412e780930193df1826b63_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=298pt]{hxprops_8c_a573c1e4666412e780930193df1826b63_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{hxprops_8c_ae061b69981b200212dfae697b0327233}{\index{hxprops.\-c@{hxprops.\-c}!calc\-\_\-hxprops@{calc\-\_\-hxprops}}
+\index{calc\-\_\-hxprops@{calc\-\_\-hxprops}!hxprops.c@{hxprops.\-c}}
+\subsubsection[{calc\-\_\-hxprops}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf calc\-\_\-hxprops} (
+\begin{DoxyParamCaption}
+\item[{int}]{nres, }
+\item[{{\bf t\-\_\-bb}}]{bb\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf matrix}}]{box}
+\end{DoxyParamCaption}
+)}}\label{hxprops_8c_ae061b69981b200212dfae697b0327233}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{hxprops_8c_ae061b69981b200212dfae697b0327233_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=326pt]{hxprops_8c_ae061b69981b200212dfae697b0327233_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{hxprops_8c_a12548a6339c64b6bf7dba9f679886b7b}{\index{hxprops.\-c@{hxprops.\-c}!check\-\_\-ahx@{check\-\_\-ahx}}
+\index{check\-\_\-ahx@{check\-\_\-ahx}!hxprops.c@{hxprops.\-c}}
+\subsubsection[{check\-\_\-ahx}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf check\-\_\-ahx} (
+\begin{DoxyParamCaption}
+\item[{int}]{nres, }
+\item[{{\bf t\-\_\-bb}}]{bb\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{int $\ast$}]{hstart, }
+\item[{int $\ast$}]{hend}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{hxprops_8c_a12548a6339c64b6bf7dba9f679886b7b}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=242pt]{hxprops_8c_a12548a6339c64b6bf7dba9f679886b7b_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{hxprops_8c_a12548a6339c64b6bf7dba9f679886b7b_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{hxprops_8c_adc239af3ff081b121997a58b261aa47b}{\index{hxprops.\-c@{hxprops.\-c}!dip@{dip}}
+\index{dip@{dip}!hxprops.c@{hxprops.\-c}}
+\subsubsection[{dip}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf dip} (
+\begin{DoxyParamCaption}
+\item[{int}]{nbb, }
+\item[{{\bf atom\-\_\-id}}]{bbind\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf t\-\_\-atom}}]{atom\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{hxprops_8c_adc239af3ff081b121997a58b261aa47b}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{hxprops_8c_adc239af3ff081b121997a58b261aa47b_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{hxprops_8c_adc239af3ff081b121997a58b261aa47b_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{hxprops_8c_aaf355f59099c156a434393ce6fe3a7bd}{\index{hxprops.\-c@{hxprops.\-c}!do\-\_\-start\-\_\-end@{do\-\_\-start\-\_\-end}}
+\index{do\-\_\-start\-\_\-end@{do\-\_\-start\-\_\-end}!hxprops.c@{hxprops.\-c}}
+\subsubsection[{do\-\_\-start\-\_\-end}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf do\-\_\-start\-\_\-end} (
+\begin{DoxyParamCaption}
+\item[{int}]{nres, }
+\item[{{\bf t\-\_\-bb}}]{bb\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{int $\ast$}]{nbb, }
+\item[{{\bf atom\-\_\-id}}]{bbindex\mbox{[}$\,$\mbox{]}, }
+\item[{int $\ast$}]{nca, }
+\item[{{\bf atom\-\_\-id}}]{caindex\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Range, }
+\item[{int}]{r\-Start, }
+\item[{int}]{r\-End}
+\end{DoxyParamCaption}
+)}}\label{hxprops_8c_aaf355f59099c156a434393ce6fe3a7bd}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{hxprops_8c_aaf355f59099c156a434393ce6fe3a7bd_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=326pt]{hxprops_8c_aaf355f59099c156a434393ce6fe3a7bd_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{hxprops_8c_aaae0495772e5494a837bf0fa5de83c32}{\index{hxprops.\-c@{hxprops.\-c}!ellipticity@{ellipticity}}
+\index{ellipticity@{ellipticity}!hxprops.c@{hxprops.\-c}}
+\subsubsection[{ellipticity}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf ellipticity} (
+\begin{DoxyParamCaption}
+\item[{int}]{nres, }
+\item[{{\bf t\-\_\-bb}}]{bb\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{hxprops_8c_aaae0495772e5494a837bf0fa5de83c32}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=308pt]{hxprops_8c_aaae0495772e5494a837bf0fa5de83c32_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{hxprops_8c_a486a9c7d1b31ed0b6b600b41ea97f55e}{\index{hxprops.\-c@{hxprops.\-c}!mkbbind@{mkbbind}}
+\index{mkbbind@{mkbbind}!hxprops.c@{hxprops.\-c}}
+\subsubsection[{mkbbind}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\-\_\-bb}$\ast$ {\bf mkbbind} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{fn, }
+\item[{int $\ast$}]{nres, }
+\item[{int $\ast$}]{nbb, }
+\item[{int}]{res0, }
+\item[{int $\ast$}]{nall, }
+\item[{{\bf atom\-\_\-id} $\ast$$\ast$}]{index, }
+\item[{char $\ast$$\ast$$\ast$}]{atomname, }
+\item[{{\bf t\-\_\-atom}}]{atom\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf t\-\_\-resinfo} $\ast$}]{resinfo}
+\end{DoxyParamCaption}
+)}}\label{hxprops_8c_a486a9c7d1b31ed0b6b600b41ea97f55e}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=230pt]{hxprops_8c_a486a9c7d1b31ed0b6b600b41ea97f55e_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=306pt]{hxprops_8c_a486a9c7d1b31ed0b6b600b41ea97f55e_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{hxprops_8c_a54954113f33bf848cb246aeda1b5ae01}{\index{hxprops.\-c@{hxprops.\-c}!pprms@{pprms}}
+\index{pprms@{pprms}!hxprops.c@{hxprops.\-c}}
+\subsubsection[{pprms}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf pprms} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{int}]{nbb, }
+\item[{{\bf t\-\_\-bb}}]{bb\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{hxprops_8c_a54954113f33bf848cb246aeda1b5ae01}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=296pt]{hxprops_8c_a54954113f33bf848cb246aeda1b5ae01_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{hxprops_8c_a18cdab89055da05ab761cbb3504f0e59}{\index{hxprops.\-c@{hxprops.\-c}!pr\-\_\-bb@{pr\-\_\-bb}}
+\index{pr\-\_\-bb@{pr\-\_\-bb}!hxprops.c@{hxprops.\-c}}
+\subsubsection[{pr\-\_\-bb}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf pr\-\_\-bb} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{int}]{nres, }
+\item[{{\bf t\-\_\-bb}}]{bb\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{hxprops_8c_a18cdab89055da05ab761cbb3504f0e59}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=294pt]{hxprops_8c_a18cdab89055da05ab761cbb3504f0e59_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{hxprops_8c_a8c51b1b7a99a2b72ddb860dce59df577}{\index{hxprops.\-c@{hxprops.\-c}!radius@{radius}}
+\index{radius@{radius}!hxprops.c@{hxprops.\-c}}
+\subsubsection[{radius}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf radius} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{int}]{nca, }
+\item[{{\bf atom\-\_\-id}}]{ca\-\_\-index\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{x\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{hxprops_8c_a8c51b1b7a99a2b72ddb860dce59df577}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{hxprops_8c_a8c51b1b7a99a2b72ddb860dce59df577_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{hxprops_8c_a76ecfbbb573e346ec8f02bfb3ccc9d57}{\index{hxprops.\-c@{hxprops.\-c}!rise@{rise}}
+\index{rise@{rise}!hxprops.c@{hxprops.\-c}}
+\subsubsection[{rise}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf rise} (
+\begin{DoxyParamCaption}
+\item[{int}]{gnx, }
+\item[{{\bf atom\-\_\-id}}]{index\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{x\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{hxprops_8c_a76ecfbbb573e346ec8f02bfb3ccc9d57}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=308pt]{hxprops_8c_a76ecfbbb573e346ec8f02bfb3ccc9d57_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{hxprops_8c_adb6a00314ae684ae974fcce76dea126f}{\index{hxprops.\-c@{hxprops.\-c}!rot@{rot}}
+\index{rot@{rot}!hxprops.c@{hxprops.\-c}}
+\subsubsection[{rot}]{\setlength{\rightskip}{0pt plus 5cm}static real {\bf rot} (
+\begin{DoxyParamCaption}
+\item[{{\bf rvec}}]{x1, }
+\item[{{\bf rvec}}]{x2}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{hxprops_8c_adb6a00314ae684ae974fcce76dea126f}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{hxprops_8c_adb6a00314ae684ae974fcce76dea126f_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{hxprops_8c_a333b3cb0aa6e0fa702ff16fcf321fdfd}{\index{hxprops.\-c@{hxprops.\-c}!set\-\_\-ahcity@{set\-\_\-ahcity}}
+\index{set\-\_\-ahcity@{set\-\_\-ahcity}!hxprops.c@{hxprops.\-c}}
+\subsubsection[{set\-\_\-ahcity}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf set\-\_\-ahcity} (
+\begin{DoxyParamCaption}
+\item[{int}]{nbb, }
+\item[{{\bf t\-\_\-bb}}]{bb\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{hxprops_8c_a333b3cb0aa6e0fa702ff16fcf321fdfd}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{hxprops_8c_a333b3cb0aa6e0fa702ff16fcf321fdfd_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{hxprops_8c_a159d515ac027cdf06345bf0952ac964a}{\index{hxprops.\-c@{hxprops.\-c}!twist@{twist}}
+\index{twist@{twist}!hxprops.c@{hxprops.\-c}}
+\subsubsection[{twist}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf twist} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{int}]{nca, }
+\item[{{\bf atom\-\_\-id}}]{caindex\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{x\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{hxprops_8c_a159d515ac027cdf06345bf0952ac964a}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=184pt]{hxprops_8c_a159d515ac027cdf06345bf0952ac964a_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=314pt]{hxprops_8c_a159d515ac027cdf06345bf0952ac964a_icgraph}
+\end{center}
+\end{figure}
+
+

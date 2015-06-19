@@ -1,0 +1,475 @@
+\hypertarget{g__x2top_8c}{\section{src/kernel/g\-\_\-x2top.c \-File \-Reference}
+\label{g__x2top_8c}\index{src/kernel/g\-\_\-x2top.\-c@{src/kernel/g\-\_\-x2top.\-c}}
+}
+{\ttfamily \#include \char`\"{}maths.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}macros.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}copyrite.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}bondf.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmxfio.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}string2.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}smalloc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}strdb.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}sysstuff.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}confio.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}physics.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}statutil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}vec.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}random.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}3dview.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}txtdump.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}readinp.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}names.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}toppush.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}pdb2top.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gen\-\_\-ad.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gpp\-\_\-nextnb.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}g\-\_\-x2top.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}atomprop.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}hackblock.\-h\char`\"{}}\*
+\-Include dependency graph for g\-\_\-x2top.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{g__x2top_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{g__x2top_8c_a6e07a59f99b8666c4081149c3f6d361f}{\-N\-A\-T\-P}~(\hyperlink{share_2template_2gromacs_2macros_8h_a0883345a58f8f63aefa249a4f127f707}{asize}(\hyperlink{g__x2top_8c_a9e010107ee9f7cd2c3479c975f27e4c4}{atp})-\/1)
+\item 
+\#define \hyperlink{g__x2top_8c_a2d1e11ba39b79044d448b975925d9a8a}{\-M\-A\-R\-G\-I\-N\-\_\-\-F\-A\-C}~1.\-1
+\item 
+\#define \hyperlink{g__x2top_8c_a8485f4e81de2537e6a0935626167a775}{\-N\-F\-I\-L\-E}~\hyperlink{share_2template_2gromacs_2macros_8h_a0883345a58f8f63aefa249a4f127f707}{asize}(fnm)
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{g__x2top_8c_a18be12a9d173b6597ac6b1ea075afe94}{is\-\_\-bond} (int nnm, \hyperlink{structt__nm2type}{t\-\_\-nm2type} nmt\mbox{[}$\,$\mbox{]}, char $\ast$ai, char $\ast$aj, real \hyperlink{g__x2top_8c_a5fea87fb253f0fb8b50e73392492bdbc}{blen})
+\item 
+static int \hyperlink{g__x2top_8c_af496524f8939e7c9da854d958884f908}{get\-\_\-atype} (char $\ast$\hyperlink{anaf_8c_a0e2c9d6b8df27abcaabfa694136eab55}{nm})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{g__x2top_8c_a0367d7aa4b78a3480a5674757c3bbb8f}{mk\-\_\-bonds} (int nnm, \hyperlink{structt__nm2type}{t\-\_\-nm2type} nmt\mbox{[}$\,$\mbox{]}, \hyperlink{structt__atoms}{t\-\_\-atoms} $\ast$atoms, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{structt__params}{t\-\_\-params} $\ast$bond, int nbond\mbox{[}$\,$\mbox{]}, char $\ast$\hyperlink{xutils_8c_a535bdffef2ec705f343bfb4e7f2ea4fb}{ff}, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-P\-B\-C, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box, \hyperlink{include_2atomprop_8h_ae4925697fb23634b190713e46ad3f1a3}{gmx\-\_\-atomprop\-\_\-t} aps)
+\item 
+int $\ast$ \hyperlink{g__x2top_8c_a2af1db6e5806dab2ee55ab92d467bec1}{set\-\_\-cgnr} (\hyperlink{structt__atoms}{t\-\_\-atoms} $\ast$atoms, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Use\-P\-D\-Bcharge, real $\ast$qtot, real $\ast$mtot)
+\item 
+\hyperlink{include_2gpp__atomtype_8h_a140a52ba2b384d9a6483fe65c780f110}{gpp\-\_\-atomtype\-\_\-t} \hyperlink{g__x2top_8c_ab9985443bea711b721dd11af10ed875b}{set\-\_\-atom\-\_\-type} (\hyperlink{structt__symtab}{t\-\_\-symtab} $\ast$tab, \hyperlink{structt__atoms}{t\-\_\-atoms} $\ast$atoms, \hyperlink{structt__params}{t\-\_\-params} $\ast$\hyperlink{bondfree_8c_a575fd72d984d738fc87692870c0807d0}{bonds}, int $\ast$nbonds, int nnm, \hyperlink{structt__nm2type}{t\-\_\-nm2type} nm2t\mbox{[}$\,$\mbox{]})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{g__x2top_8c_a4d243e1cbaeb4a65b0f05097dff43b6a}{lo\-\_\-set\-\_\-force\-\_\-const} (\hyperlink{structt__params}{t\-\_\-params} $\ast$plist, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae4f482ada992ba1e6b96026c14729ffe}{c}\mbox{[}$\,$\mbox{]}, int nrfp, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Round, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Dih, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Param)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{g__x2top_8c_a6fc00a2621649797a4db23c0046761c1}{set\-\_\-force\-\_\-const} (\hyperlink{structt__params}{t\-\_\-params} plist\mbox{[}$\,$\mbox{]}, real kb, real kt, real kp, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Round, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Param)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{g__x2top_8c_a7d6939beacc6e15bd4ad534372da9ef1}{calc\-\_\-angles\-\_\-dihs} (\hyperlink{structt__params}{t\-\_\-params} $\ast$ang, \hyperlink{structt__params}{t\-\_\-params} $\ast$dih, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-P\-B\-C, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{g__x2top_8c_a2877077b07b5b3a3541f3ae984488365}{dump\-\_\-hybridization} (\-F\-I\-L\-E $\ast$fp, \hyperlink{structt__atoms}{t\-\_\-atoms} $\ast$atoms, int nbonds\mbox{[}$\,$\mbox{]})
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{g__x2top_8c_aecc6c57a297adf97f06a7aea9607f098}{print\-\_\-pl} (\-F\-I\-L\-E $\ast$fp, \hyperlink{structt__params}{t\-\_\-params} plist\mbox{[}$\,$\mbox{]}, int ftp, const char $\ast$name, char $\ast$$\ast$$\ast$atomname)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{g__x2top_8c_acfad0abe8d14f74b3428bd0f2480a0b5}{print\-\_\-rtp} (const char $\ast$filenm, const char $\ast$title, \hyperlink{structt__atoms}{t\-\_\-atoms} $\ast$atoms, \hyperlink{structt__params}{t\-\_\-params} plist\mbox{[}$\,$\mbox{]}, \hyperlink{include_2gpp__atomtype_8h_a140a52ba2b384d9a6483fe65c780f110}{gpp\-\_\-atomtype\-\_\-t} atype, int cgnr\mbox{[}$\,$\mbox{]}, int nbts, int bts\mbox{[}$\,$\mbox{]})
+\item 
+int \hyperlink{g__x2top_8c_a5ff88ecd762eab611b378cdf452cb8bb}{cmain} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+\subsection*{\-Variables}
+\begin{DoxyCompactItemize}
+\item 
+char \hyperlink{g__x2top_8c_a9e010107ee9f7cd2c3479c975f27e4c4}{atp} \mbox{[}7\mbox{]} = \char`\"{}\-H\-C\-N\-O\-S\-X\char`\"{}
+\item 
+real \hyperlink{g__x2top_8c_a5fea87fb253f0fb8b50e73392492bdbc}{blen} \mbox{[}\hyperlink{g__x2top_8c_a6e07a59f99b8666c4081149c3f6d361f}{\-N\-A\-T\-P}\mbox{]}\mbox{[}\hyperlink{g__x2top_8c_a6e07a59f99b8666c4081149c3f6d361f}{\-N\-A\-T\-P}\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Define \-Documentation}
+\hypertarget{g__x2top_8c_a2d1e11ba39b79044d448b975925d9a8a}{\index{g\-\_\-x2top.\-c@{g\-\_\-x2top.\-c}!\-M\-A\-R\-G\-I\-N\-\_\-\-F\-A\-C@{\-M\-A\-R\-G\-I\-N\-\_\-\-F\-A\-C}}
+\index{\-M\-A\-R\-G\-I\-N\-\_\-\-F\-A\-C@{\-M\-A\-R\-G\-I\-N\-\_\-\-F\-A\-C}!g_x2top.c@{g\-\_\-x2top.\-c}}
+\subsubsection[{\-M\-A\-R\-G\-I\-N\-\_\-\-F\-A\-C}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-M\-A\-R\-G\-I\-N\-\_\-\-F\-A\-C}~1.\-1}}\label{g__x2top_8c_a2d1e11ba39b79044d448b975925d9a8a}
+\hypertarget{g__x2top_8c_a6e07a59f99b8666c4081149c3f6d361f}{\index{g\-\_\-x2top.\-c@{g\-\_\-x2top.\-c}!\-N\-A\-T\-P@{\-N\-A\-T\-P}}
+\index{\-N\-A\-T\-P@{\-N\-A\-T\-P}!g_x2top.c@{g\-\_\-x2top.\-c}}
+\subsubsection[{\-N\-A\-T\-P}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-N\-A\-T\-P}~({\bf asize}({\bf atp})-\/1)}}\label{g__x2top_8c_a6e07a59f99b8666c4081149c3f6d361f}
+\hypertarget{g__x2top_8c_a8485f4e81de2537e6a0935626167a775}{\index{g\-\_\-x2top.\-c@{g\-\_\-x2top.\-c}!\-N\-F\-I\-L\-E@{\-N\-F\-I\-L\-E}}
+\index{\-N\-F\-I\-L\-E@{\-N\-F\-I\-L\-E}!g_x2top.c@{g\-\_\-x2top.\-c}}
+\subsubsection[{\-N\-F\-I\-L\-E}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-N\-F\-I\-L\-E}~{\bf asize}(fnm)}}\label{g__x2top_8c_a8485f4e81de2537e6a0935626167a775}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{g__x2top_8c_a7d6939beacc6e15bd4ad534372da9ef1}{\index{g\-\_\-x2top.\-c@{g\-\_\-x2top.\-c}!calc\-\_\-angles\-\_\-dihs@{calc\-\_\-angles\-\_\-dihs}}
+\index{calc\-\_\-angles\-\_\-dihs@{calc\-\_\-angles\-\_\-dihs}!g_x2top.c@{g\-\_\-x2top.\-c}}
+\subsubsection[{calc\-\_\-angles\-\_\-dihs}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf calc\-\_\-angles\-\_\-dihs} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-params} $\ast$}]{ang, }
+\item[{{\bf t\-\_\-params} $\ast$}]{dih, }
+\item[{{\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-P\-B\-C, }
+\item[{{\bf matrix}}]{box}
+\end{DoxyParamCaption}
+)}}\label{g__x2top_8c_a7d6939beacc6e15bd4ad534372da9ef1}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{g__x2top_8c_a7d6939beacc6e15bd4ad534372da9ef1_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=252pt]{g__x2top_8c_a7d6939beacc6e15bd4ad534372da9ef1_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{g__x2top_8c_a5ff88ecd762eab611b378cdf452cb8bb}{\index{g\-\_\-x2top.\-c@{g\-\_\-x2top.\-c}!cmain@{cmain}}
+\index{cmain@{cmain}!g_x2top.c@{g\-\_\-x2top.\-c}}
+\subsubsection[{cmain}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf cmain} (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{g__x2top_8c_a5ff88ecd762eab611b378cdf452cb8bb}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{g__x2top_8c_a5ff88ecd762eab611b378cdf452cb8bb_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{g__x2top_8c_a2877077b07b5b3a3541f3ae984488365}{\index{g\-\_\-x2top.\-c@{g\-\_\-x2top.\-c}!dump\-\_\-hybridization@{dump\-\_\-hybridization}}
+\index{dump\-\_\-hybridization@{dump\-\_\-hybridization}!g_x2top.c@{g\-\_\-x2top.\-c}}
+\subsubsection[{dump\-\_\-hybridization}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf dump\-\_\-hybridization} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{{\bf t\-\_\-atoms} $\ast$}]{atoms, }
+\item[{int}]{nbonds\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{g__x2top_8c_a2877077b07b5b3a3541f3ae984488365}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=262pt]{g__x2top_8c_a2877077b07b5b3a3541f3ae984488365_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{g__x2top_8c_af496524f8939e7c9da854d958884f908}{\index{g\-\_\-x2top.\-c@{g\-\_\-x2top.\-c}!get\-\_\-atype@{get\-\_\-atype}}
+\index{get\-\_\-atype@{get\-\_\-atype}!g_x2top.c@{g\-\_\-x2top.\-c}}
+\subsubsection[{get\-\_\-atype}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf get\-\_\-atype} (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{nm}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{g__x2top_8c_af496524f8939e7c9da854d958884f908}
+\hypertarget{g__x2top_8c_a18be12a9d173b6597ac6b1ea075afe94}{\index{g\-\_\-x2top.\-c@{g\-\_\-x2top.\-c}!is\-\_\-bond@{is\-\_\-bond}}
+\index{is\-\_\-bond@{is\-\_\-bond}!g_x2top.c@{g\-\_\-x2top.\-c}}
+\subsubsection[{is\-\_\-bond}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gmx\-\_\-bool} {\bf is\-\_\-bond} (
+\begin{DoxyParamCaption}
+\item[{int}]{nnm, }
+\item[{{\bf t\-\_\-nm2type}}]{nmt\mbox{[}$\,$\mbox{]}, }
+\item[{char $\ast$}]{ai, }
+\item[{char $\ast$}]{aj, }
+\item[{real}]{blen}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{g__x2top_8c_a18be12a9d173b6597ac6b1ea075afe94}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=264pt]{g__x2top_8c_a18be12a9d173b6597ac6b1ea075afe94_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=308pt]{g__x2top_8c_a18be12a9d173b6597ac6b1ea075afe94_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{g__x2top_8c_a4d243e1cbaeb4a65b0f05097dff43b6a}{\index{g\-\_\-x2top.\-c@{g\-\_\-x2top.\-c}!lo\-\_\-set\-\_\-force\-\_\-const@{lo\-\_\-set\-\_\-force\-\_\-const}}
+\index{lo\-\_\-set\-\_\-force\-\_\-const@{lo\-\_\-set\-\_\-force\-\_\-const}!g_x2top.c@{g\-\_\-x2top.\-c}}
+\subsubsection[{lo\-\_\-set\-\_\-force\-\_\-const}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf lo\-\_\-set\-\_\-force\-\_\-const} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-params} $\ast$}]{plist, }
+\item[{real}]{c\mbox{[}$\,$\mbox{]}, }
+\item[{int}]{nrfp, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Round, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Dih, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Param}
+\end{DoxyParamCaption}
+)}}\label{g__x2top_8c_a4d243e1cbaeb4a65b0f05097dff43b6a}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=286pt]{g__x2top_8c_a4d243e1cbaeb4a65b0f05097dff43b6a_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{g__x2top_8c_a4d243e1cbaeb4a65b0f05097dff43b6a_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{g__x2top_8c_a0367d7aa4b78a3480a5674757c3bbb8f}{\index{g\-\_\-x2top.\-c@{g\-\_\-x2top.\-c}!mk\-\_\-bonds@{mk\-\_\-bonds}}
+\index{mk\-\_\-bonds@{mk\-\_\-bonds}!g_x2top.c@{g\-\_\-x2top.\-c}}
+\subsubsection[{mk\-\_\-bonds}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf mk\-\_\-bonds} (
+\begin{DoxyParamCaption}
+\item[{int}]{nnm, }
+\item[{{\bf t\-\_\-nm2type}}]{nmt\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf t\-\_\-atoms} $\ast$}]{atoms, }
+\item[{{\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf t\-\_\-params} $\ast$}]{bond, }
+\item[{int}]{nbond\mbox{[}$\,$\mbox{]}, }
+\item[{char $\ast$}]{ff, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-P\-B\-C, }
+\item[{{\bf matrix}}]{box, }
+\item[{{\bf gmx\-\_\-atomprop\-\_\-t}}]{aps}
+\end{DoxyParamCaption}
+)}}\label{g__x2top_8c_a0367d7aa4b78a3480a5674757c3bbb8f}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{g__x2top_8c_a0367d7aa4b78a3480a5674757c3bbb8f_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=222pt]{g__x2top_8c_a0367d7aa4b78a3480a5674757c3bbb8f_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{g__x2top_8c_aecc6c57a297adf97f06a7aea9607f098}{\index{g\-\_\-x2top.\-c@{g\-\_\-x2top.\-c}!print\-\_\-pl@{print\-\_\-pl}}
+\index{print\-\_\-pl@{print\-\_\-pl}!g_x2top.c@{g\-\_\-x2top.\-c}}
+\subsubsection[{print\-\_\-pl}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf print\-\_\-pl} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{{\bf t\-\_\-params}}]{plist\mbox{[}$\,$\mbox{]}, }
+\item[{int}]{ftp, }
+\item[{const char $\ast$}]{name, }
+\item[{char $\ast$$\ast$$\ast$}]{atomname}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{g__x2top_8c_aecc6c57a297adf97f06a7aea9607f098}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=296pt]{g__x2top_8c_aecc6c57a297adf97f06a7aea9607f098_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{g__x2top_8c_acfad0abe8d14f74b3428bd0f2480a0b5}{\index{g\-\_\-x2top.\-c@{g\-\_\-x2top.\-c}!print\-\_\-rtp@{print\-\_\-rtp}}
+\index{print\-\_\-rtp@{print\-\_\-rtp}!g_x2top.c@{g\-\_\-x2top.\-c}}
+\subsubsection[{print\-\_\-rtp}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf print\-\_\-rtp} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{filenm, }
+\item[{const char $\ast$}]{title, }
+\item[{{\bf t\-\_\-atoms} $\ast$}]{atoms, }
+\item[{{\bf t\-\_\-params}}]{plist\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf gpp\-\_\-atomtype\-\_\-t}}]{atype, }
+\item[{int}]{cgnr\mbox{[}$\,$\mbox{]}, }
+\item[{int}]{nbts, }
+\item[{int}]{bts\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{g__x2top_8c_acfad0abe8d14f74b3428bd0f2480a0b5}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=274pt]{g__x2top_8c_acfad0abe8d14f74b3428bd0f2480a0b5_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=212pt]{g__x2top_8c_acfad0abe8d14f74b3428bd0f2480a0b5_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{g__x2top_8c_ab9985443bea711b721dd11af10ed875b}{\index{g\-\_\-x2top.\-c@{g\-\_\-x2top.\-c}!set\-\_\-atom\-\_\-type@{set\-\_\-atom\-\_\-type}}
+\index{set\-\_\-atom\-\_\-type@{set\-\_\-atom\-\_\-type}!g_x2top.c@{g\-\_\-x2top.\-c}}
+\subsubsection[{set\-\_\-atom\-\_\-type}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gpp\-\_\-atomtype\-\_\-t} {\bf set\-\_\-atom\-\_\-type} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-symtab} $\ast$}]{tab, }
+\item[{{\bf t\-\_\-atoms} $\ast$}]{atoms, }
+\item[{{\bf t\-\_\-params} $\ast$}]{bonds, }
+\item[{int $\ast$}]{nbonds, }
+\item[{int}]{nnm, }
+\item[{{\bf t\-\_\-nm2type}}]{nm2t\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{g__x2top_8c_ab9985443bea711b721dd11af10ed875b}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{g__x2top_8c_ab9985443bea711b721dd11af10ed875b_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=242pt]{g__x2top_8c_ab9985443bea711b721dd11af10ed875b_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{g__x2top_8c_a2af1db6e5806dab2ee55ab92d467bec1}{\index{g\-\_\-x2top.\-c@{g\-\_\-x2top.\-c}!set\-\_\-cgnr@{set\-\_\-cgnr}}
+\index{set\-\_\-cgnr@{set\-\_\-cgnr}!g_x2top.c@{g\-\_\-x2top.\-c}}
+\subsubsection[{set\-\_\-cgnr}]{\setlength{\rightskip}{0pt plus 5cm}int$\ast$ {\bf set\-\_\-cgnr} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-atoms} $\ast$}]{atoms, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Use\-P\-D\-Bcharge, }
+\item[{real $\ast$}]{qtot, }
+\item[{real $\ast$}]{mtot}
+\end{DoxyParamCaption}
+)}}\label{g__x2top_8c_a2af1db6e5806dab2ee55ab92d467bec1}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=210pt]{g__x2top_8c_a2af1db6e5806dab2ee55ab92d467bec1_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=214pt]{g__x2top_8c_a2af1db6e5806dab2ee55ab92d467bec1_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{g__x2top_8c_a6fc00a2621649797a4db23c0046761c1}{\index{g\-\_\-x2top.\-c@{g\-\_\-x2top.\-c}!set\-\_\-force\-\_\-const@{set\-\_\-force\-\_\-const}}
+\index{set\-\_\-force\-\_\-const@{set\-\_\-force\-\_\-const}!g_x2top.c@{g\-\_\-x2top.\-c}}
+\subsubsection[{set\-\_\-force\-\_\-const}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf set\-\_\-force\-\_\-const} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-params}}]{plist\mbox{[}$\,$\mbox{]}, }
+\item[{real}]{kb, }
+\item[{real}]{kt, }
+\item[{real}]{kp, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Round, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Param}
+\end{DoxyParamCaption}
+)}}\label{g__x2top_8c_a6fc00a2621649797a4db23c0046761c1}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{g__x2top_8c_a6fc00a2621649797a4db23c0046761c1_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=246pt]{g__x2top_8c_a6fc00a2621649797a4db23c0046761c1_icgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{\-Variable \-Documentation}
+\hypertarget{g__x2top_8c_a9e010107ee9f7cd2c3479c975f27e4c4}{\index{g\-\_\-x2top.\-c@{g\-\_\-x2top.\-c}!atp@{atp}}
+\index{atp@{atp}!g_x2top.c@{g\-\_\-x2top.\-c}}
+\subsubsection[{atp}]{\setlength{\rightskip}{0pt plus 5cm}char {\bf atp}\mbox{[}7\mbox{]} = \char`\"{}\-H\-C\-N\-O\-S\-X\char`\"{}}}\label{g__x2top_8c_a9e010107ee9f7cd2c3479c975f27e4c4}
+\hypertarget{g__x2top_8c_a5fea87fb253f0fb8b50e73392492bdbc}{\index{g\-\_\-x2top.\-c@{g\-\_\-x2top.\-c}!blen@{blen}}
+\index{blen@{blen}!g_x2top.c@{g\-\_\-x2top.\-c}}
+\subsubsection[{blen}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf blen}\mbox{[}{\bf \-N\-A\-T\-P}\mbox{]}\mbox{[}{\bf \-N\-A\-T\-P}\mbox{]}}}\label{g__x2top_8c_a5fea87fb253f0fb8b50e73392492bdbc}
+{\bfseries \-Initial value\-:}
+\begin{DoxyCode}
+ {
+    {  0.00,  0.108, 0.105, 0.10, 0.10, 0.10 },
+    {  0.108, 0.15,  0.14,  0.14, 0.16, 0.14 },
+    {  0.105, 0.14,  0.14,  0.14, 0.16, 0.14 },
+    {  0.10,  0.14,  0.14,  0.14, 0.17, 0.14 },
+    {  0.10,  0.16,  0.16,  0.17, 0.20, 0.17 },
+    {  0.10,  0.14,  0.14,  0.14, 0.17, 0.17 }
+}
+\end{DoxyCode}

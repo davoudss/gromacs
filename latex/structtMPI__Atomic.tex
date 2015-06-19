@@ -1,0 +1,128 @@
+\hypertarget{structtMPI__Atomic}{\section{t\-M\-P\-I\-\_\-\-Atomic \-Struct \-Reference}
+\label{structtMPI__Atomic}\index{t\-M\-P\-I\-\_\-\-Atomic@{t\-M\-P\-I\-\_\-\-Atomic}}
+}
+
+
+{\ttfamily \#include $<$gcc.\-h$>$}
+
+\subsection*{\-Public \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+volatile int \hyperlink{structtMPI__Atomic_a251089827c7a504b91e5a0f390c2c5e6}{value} \hyperlink{structtMPI__Atomic_a74e263d7499907bc4a25b84af60c63cc}{\-\_\-\-\_\-attribute\-\_\-\-\_\-} ((aligned(64)))
+\item 
+volatile int \hyperlink{structtMPI__Atomic_a251089827c7a504b91e5a0f390c2c5e6}{value} \hyperlink{structtMPI__Atomic_a74e263d7499907bc4a25b84af60c63cc}{\-\_\-\-\_\-attribute\-\_\-\-\_\-} ((aligned(64)))
+\end{DoxyCompactItemize}
+\subsection*{\-Public \-Attributes}
+\begin{DoxyCompactItemize}
+\item 
+volatile int \hyperlink{structtMPI__Atomic_a251089827c7a504b91e5a0f390c2c5e6}{value}
+\item 
+int \hyperlink{structtMPI__Atomic_a251089827c7a504b91e5a0f390c2c5e6}{value}
+\item 
+char \hyperlink{structtMPI__Atomic_a0bc95c8497ce76b08ed964d06fe5142d}{padding} \mbox{[}\hyperlink{share_2template_2gromacs_2thread__mpi_2atomic_2gcc__x86_8h_aecf8996b3f8284831e7b2b0dca7e681d}{\-T\-M\-P\-I\-\_\-\-S\-I\-Z\-E\-O\-F\-\_\-\-X86\-\_\-\-C\-A\-C\-H\-E\-\_\-\-L\-I\-N\-E}-\/sizeof(int)\mbox{]}
+\item 
+\-L\-O\-N\-G volatile \hyperlink{structtMPI__Atomic_a0d0d30f68431ff5be90b7913cca5c662}{value}
+\item 
+volatile uint\-\_\-t \hyperlink{structtMPI__Atomic_a98e7b83d2063a810b3fa8eb7c848e915}{value}
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Detailed \-Description}
+\-Atomic operations datatype
+
+\-Portable synchronization primitives like mutexes are effective for many purposes, but usually not very high performance. \-One of the problem is that you have the overhead of a function call, and another is that \-Mutexes often have extra overhead to make the scheduling fair. \-Finally, if performance is important we don't want to suspend the thread if we cannot lock a mutex, but spin-\/lock at 100\% \-C\-P\-U usage until the resources is available (e.\-g. increment a counter).
+
+\-These things can often be implemented with inline-\/assembly or other system-\/dependent functions, and we provide such functionality for the most common platforms. \-For portability we also have a fallback implementation using a mutex for locking.
+
+\-Performance-\/wise, the fastest solution is always to avoid locking completely (obvious, but remember it!). \-If you cannot do that, the next best thing is to use atomic operations that e.\-g. increment a counter without explicit locking. \-Spinlocks are useful to lock an entire region, but leads to more overhead and can be difficult to debug -\/ it is up to you to make sure that only the thread owning the lock unlocks it!
+
+\-You should normally \-N\-O\-T use atomic operations for things like \-I/\-O threads. \-These should yield to other threads while waiting for the disk instead of spinning at 100\% \-C\-P\-U usage.
+
+\-It is imperative that you use the provided routines for reading and writing, since some implementations require memory barriers before the \-C\-P\-U or memory sees an updated result. \-The structure contents is only visible here so it can be inlined for performance -\/ it might change without further notice.
+
+\begin{DoxyNote}{\-Note}
+\-No initialization is required for atomic variables.
+\end{DoxyNote}
+\-Currently, we have (real) atomic operations for\-:
+
+
+\begin{DoxyItemize}
+\item gcc version 4.\-1 and later (all platforms)
+\item x86 or x86\-\_\-64, using \-G\-N\-U compilers
+\item x86 or x86\-\_\-64, using \-Intel compilers
+\item x86 or x86\-\_\-64, using \-Pathscale compilers
+\item \-Itanium, using \-G\-N\-U compilers
+\item \-Itanium, using \-Intel compilers
+\item \-Itanium, using \-H\-P compilers
+\item \-Power\-P\-C, using \-G\-N\-U compilers
+\item \-Power\-P\-C, using \-I\-B\-M \-A\-I\-X compilers
+\item \-Power\-P\-C, using \-I\-B\-M compilers $>$=7.\-0 under \-Linux or \-Mac \-O\-S \-X.
+\end{DoxyItemize}
+
+\begin{DoxySeeAlso}{\-See also}
+
+\begin{DoxyItemize}
+\item \hyperlink{share_2template_2gromacs_2thread__mpi_2atomic_8h_ad046655ee56cc30c2a8719f3d1091b8e}{t\-M\-P\-I\-\_\-\-Atomic\-\_\-get}
+\item \hyperlink{share_2template_2gromacs_2thread__mpi_2atomic_8h_a656620d5b78214f23f4b7214ff7a6f94}{t\-M\-P\-I\-\_\-\-Atomic\-\_\-set}
+\item \hyperlink{share_2template_2gromacs_2thread__mpi_2atomic_8h_a1ee85ed30df14b0ceec8a545aef21949}{t\-M\-P\-I\-\_\-\-Atomic\-\_\-cas}
+\item \hyperlink{share_2template_2gromacs_2thread__mpi_2atomic_8h_aca56ce0d6bb80e99248d9372f2caf0f9}{t\-M\-P\-I\-\_\-\-Atomic\-\_\-add\-\_\-return}
+\item \hyperlink{share_2template_2gromacs_2thread__mpi_2atomic_8h_acaa08636b69ebeb6b4db98dc98a43a05}{t\-M\-P\-I\-\_\-\-Atomic\-\_\-fetch\-\_\-add} 
+\end{DoxyItemize}
+\end{DoxySeeAlso}
+
+
+\subsection{\-Member \-Function \-Documentation}
+\hypertarget{structtMPI__Atomic_a74e263d7499907bc4a25b84af60c63cc}{\index{t\-M\-P\-I\-\_\-\-Atomic@{t\-M\-P\-I\-\_\-\-Atomic}!\-\_\-\-\_\-attribute\-\_\-\-\_\-@{\-\_\-\-\_\-attribute\-\_\-\-\_\-}}
+\index{\-\_\-\-\_\-attribute\-\_\-\-\_\-@{\-\_\-\-\_\-attribute\-\_\-\-\_\-}!tMPI_Atomic@{t\-M\-P\-I\-\_\-\-Atomic}}
+\subsubsection[{\-\_\-\-\_\-attribute\-\_\-\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}volatile int {\bf value} {\bf t\-M\-P\-I\-\_\-\-Atomic\-::\-\_\-\-\_\-attribute\-\_\-\-\_\-} (
+\begin{DoxyParamCaption}
+\item[{(aligned(64))}]{}
+\end{DoxyParamCaption}
+)}}\label{structtMPI__Atomic_a74e263d7499907bc4a25b84af60c63cc}
+\hypertarget{structtMPI__Atomic_a74e263d7499907bc4a25b84af60c63cc}{\index{t\-M\-P\-I\-\_\-\-Atomic@{t\-M\-P\-I\-\_\-\-Atomic}!\-\_\-\-\_\-attribute\-\_\-\-\_\-@{\-\_\-\-\_\-attribute\-\_\-\-\_\-}}
+\index{\-\_\-\-\_\-attribute\-\_\-\-\_\-@{\-\_\-\-\_\-attribute\-\_\-\-\_\-}!tMPI_Atomic@{t\-M\-P\-I\-\_\-\-Atomic}}
+\subsubsection[{\-\_\-\-\_\-attribute\-\_\-\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}volatile int {\bf value} {\bf t\-M\-P\-I\-\_\-\-Atomic\-::\-\_\-\-\_\-attribute\-\_\-\-\_\-} (
+\begin{DoxyParamCaption}
+\item[{(aligned(64))}]{}
+\end{DoxyParamCaption}
+)}}\label{structtMPI__Atomic_a74e263d7499907bc4a25b84af60c63cc}
+
+
+\subsection{\-Member \-Data \-Documentation}
+\hypertarget{structtMPI__Atomic_a0bc95c8497ce76b08ed964d06fe5142d}{\index{t\-M\-P\-I\-\_\-\-Atomic@{t\-M\-P\-I\-\_\-\-Atomic}!padding@{padding}}
+\index{padding@{padding}!tMPI_Atomic@{t\-M\-P\-I\-\_\-\-Atomic}}
+\subsubsection[{padding}]{\setlength{\rightskip}{0pt plus 5cm}char {\bf t\-M\-P\-I\-\_\-\-Atomic\-::padding}}}\label{structtMPI__Atomic_a0bc95c8497ce76b08ed964d06fe5142d}
+\hypertarget{structtMPI__Atomic_a251089827c7a504b91e5a0f390c2c5e6}{\index{t\-M\-P\-I\-\_\-\-Atomic@{t\-M\-P\-I\-\_\-\-Atomic}!value@{value}}
+\index{value@{value}!tMPI_Atomic@{t\-M\-P\-I\-\_\-\-Atomic}}
+\subsubsection[{value}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf t\-M\-P\-I\-\_\-\-Atomic\-::value}}}\label{structtMPI__Atomic_a251089827c7a504b91e5a0f390c2c5e6}
+\-Volatile, to avoid compiler aliasing
+
+\-The atomic value. \hypertarget{structtMPI__Atomic_a98e7b83d2063a810b3fa8eb7c848e915}{\index{t\-M\-P\-I\-\_\-\-Atomic@{t\-M\-P\-I\-\_\-\-Atomic}!value@{value}}
+\index{value@{value}!tMPI_Atomic@{t\-M\-P\-I\-\_\-\-Atomic}}
+\subsubsection[{value}]{\setlength{\rightskip}{0pt plus 5cm}volatile uint\-\_\-t {\bf t\-M\-P\-I\-\_\-\-Atomic\-::value}}}\label{structtMPI__Atomic_a98e7b83d2063a810b3fa8eb7c848e915}
+\hypertarget{structtMPI__Atomic_a0d0d30f68431ff5be90b7913cca5c662}{\index{t\-M\-P\-I\-\_\-\-Atomic@{t\-M\-P\-I\-\_\-\-Atomic}!value@{value}}
+\index{value@{value}!tMPI_Atomic@{t\-M\-P\-I\-\_\-\-Atomic}}
+\subsubsection[{value}]{\setlength{\rightskip}{0pt plus 5cm}\-L\-O\-N\-G volatile {\bf t\-M\-P\-I\-\_\-\-Atomic\-::value}}}\label{structtMPI__Atomic_a0d0d30f68431ff5be90b7913cca5c662}
+\-Volatile, to avoid compiler aliasing \hypertarget{structtMPI__Atomic_a251089827c7a504b91e5a0f390c2c5e6}{\index{t\-M\-P\-I\-\_\-\-Atomic@{t\-M\-P\-I\-\_\-\-Atomic}!value@{value}}
+\index{value@{value}!tMPI_Atomic@{t\-M\-P\-I\-\_\-\-Atomic}}
+\subsubsection[{value}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf t\-M\-P\-I\-\_\-\-Atomic\-::value}}}\label{structtMPI__Atomic_a251089827c7a504b91e5a0f390c2c5e6}
+\-The atomic value. 
+
+\-The documentation for this struct was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+include/thread\-\_\-mpi/atomic/\hyperlink{include_2thread__mpi_2atomic_2gcc_8h}{gcc.\-h}\item 
+include/thread\-\_\-mpi/atomic/\hyperlink{include_2thread__mpi_2atomic_2gcc__ia64_8h}{gcc\-\_\-ia64.\-h}\item 
+include/thread\-\_\-mpi/atomic/\hyperlink{include_2thread__mpi_2atomic_2gcc__ppc_8h}{gcc\-\_\-ppc.\-h}\item 
+include/thread\-\_\-mpi/atomic/\hyperlink{include_2thread__mpi_2atomic_2gcc__x86_8h}{gcc\-\_\-x86.\-h}\item 
+include/thread\-\_\-mpi/atomic/\hyperlink{include_2thread__mpi_2atomic_2msvc_8h}{msvc.\-h}\item 
+include/thread\-\_\-mpi/atomic/\hyperlink{include_2thread__mpi_2atomic_2suncc-sparc_8h}{suncc-\/sparc.\-h}\item 
+include/thread\-\_\-mpi/\hyperlink{include_2thread__mpi_2atomic_8h}{atomic.\-h}\item 
+share/template/gromacs/thread\-\_\-mpi/atomic/\hyperlink{share_2template_2gromacs_2thread__mpi_2atomic_2gcc_8h}{gcc.\-h}\item 
+share/template/gromacs/thread\-\_\-mpi/atomic/\hyperlink{share_2template_2gromacs_2thread__mpi_2atomic_2gcc__ia64_8h}{gcc\-\_\-ia64.\-h}\item 
+share/template/gromacs/thread\-\_\-mpi/atomic/\hyperlink{share_2template_2gromacs_2thread__mpi_2atomic_2gcc__ppc_8h}{gcc\-\_\-ppc.\-h}\item 
+share/template/gromacs/thread\-\_\-mpi/atomic/\hyperlink{share_2template_2gromacs_2thread__mpi_2atomic_2gcc__x86_8h}{gcc\-\_\-x86.\-h}\item 
+share/template/gromacs/thread\-\_\-mpi/atomic/\hyperlink{share_2template_2gromacs_2thread__mpi_2atomic_2msvc_8h}{msvc.\-h}\item 
+share/template/gromacs/thread\-\_\-mpi/atomic/\hyperlink{share_2template_2gromacs_2thread__mpi_2atomic_2suncc-sparc_8h}{suncc-\/sparc.\-h}\item 
+share/template/gromacs/thread\-\_\-mpi/\hyperlink{share_2template_2gromacs_2thread__mpi_2atomic_8h}{atomic.\-h}\item 
+include/thread\-\_\-mpi/atomic/\hyperlink{include_2thread__mpi_2atomic_2xlc__ppc_8h}{xlc\-\_\-ppc.\-h}\item 
+share/template/gromacs/thread\-\_\-mpi/atomic/\hyperlink{share_2template_2gromacs_2thread__mpi_2atomic_2xlc__ppc_8h}{xlc\-\_\-ppc.\-h}\end{DoxyCompactItemize}

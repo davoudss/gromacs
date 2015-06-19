@@ -1,0 +1,189 @@
+\hypertarget{include_2gmx__omp__nthreads_8h}{\section{include/gmx\-\_\-omp\-\_\-nthreads.h \-File \-Reference}
+\label{include_2gmx__omp__nthreads_8h}\index{include/gmx\-\_\-omp\-\_\-nthreads.\-h@{include/gmx\-\_\-omp\-\_\-nthreads.\-h}}
+}
+{\ttfamily \#include \char`\"{}visibility.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}types/commrec.\-h\char`\"{}}\*
+\-Include dependency graph for gmx\-\_\-omp\-\_\-nthreads.\-h\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=250pt]{include_2gmx__omp__nthreads_8h__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef enum \hyperlink{include_2gmx__omp__nthreads_8h_a979a21ff2aa8f71045dbd8e43a339fa6}{module\-\_\-nth} \hyperlink{include_2gmx__omp__nthreads_8h_a95e39c4167d6d368d3e1c2086021e434}{module\-\_\-nth\-\_\-t}
+\end{DoxyCompactItemize}
+\subsection*{\-Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{include_2gmx__omp__nthreads_8h_a979a21ff2aa8f71045dbd8e43a339fa6}{module\-\_\-nth} \{ \*
+\hyperlink{include_2gmx__omp__nthreads_8h_a979a21ff2aa8f71045dbd8e43a339fa6a4abba2120b0c0d41bd70fcece288ce15}{emnt\-Default}, 
+\hyperlink{include_2gmx__omp__nthreads_8h_a979a21ff2aa8f71045dbd8e43a339fa6a133b9af9452f84d00f1ddaf6a372e529}{emnt\-Domdec}, 
+\hyperlink{include_2gmx__omp__nthreads_8h_a979a21ff2aa8f71045dbd8e43a339fa6ae65110cd7a8ef39cdce5ddc497a06dfc}{emnt\-Pairsearch}, 
+\hyperlink{include_2gmx__omp__nthreads_8h_a979a21ff2aa8f71045dbd8e43a339fa6aee4a9faa7829b37d885293a4ca9797d7}{emnt\-Nonbonded}, 
+\*
+\hyperlink{include_2gmx__omp__nthreads_8h_a979a21ff2aa8f71045dbd8e43a339fa6a638e29d05df90ed90ab305a735aa2709}{emnt\-Bonded}, 
+\hyperlink{include_2gmx__omp__nthreads_8h_a979a21ff2aa8f71045dbd8e43a339fa6af0b702d5f8b621fe4da323840a1c7c5d}{emnt\-P\-M\-E}, 
+\hyperlink{include_2gmx__omp__nthreads_8h_a979a21ff2aa8f71045dbd8e43a339fa6aa4bfb10becd60159b362f110e576cb85}{emnt\-Update}, 
+\hyperlink{include_2gmx__omp__nthreads_8h_a979a21ff2aa8f71045dbd8e43a339fa6a1f8c774145c4a94938a0b69c7a2cfc79}{emnt\-V\-S\-I\-T\-E}, 
+\*
+\hyperlink{include_2gmx__omp__nthreads_8h_a979a21ff2aa8f71045dbd8e43a339fa6a632bf2c9eb85a6f70c2aba8f75a094a3}{emnt\-L\-I\-N\-C\-S}, 
+\hyperlink{include_2gmx__omp__nthreads_8h_a979a21ff2aa8f71045dbd8e43a339fa6a8d73a2ee4a538d61f22853a2ad2760ee}{emnt\-S\-E\-T\-T\-L\-E}, 
+\hyperlink{include_2gmx__omp__nthreads_8h_a979a21ff2aa8f71045dbd8e43a339fa6af2d5bb3ba055fe12ede8f63937fd4a34}{emnt\-N\-R}, 
+\hyperlink{share_2template_2gromacs_2gmx__omp__nthreads_8h_a979a21ff2aa8f71045dbd8e43a339fa6a4abba2120b0c0d41bd70fcece288ce15}{emnt\-Default}, 
+\*
+\hyperlink{share_2template_2gromacs_2gmx__omp__nthreads_8h_a979a21ff2aa8f71045dbd8e43a339fa6a133b9af9452f84d00f1ddaf6a372e529}{emnt\-Domdec}, 
+\hyperlink{share_2template_2gromacs_2gmx__omp__nthreads_8h_a979a21ff2aa8f71045dbd8e43a339fa6ae65110cd7a8ef39cdce5ddc497a06dfc}{emnt\-Pairsearch}, 
+\hyperlink{share_2template_2gromacs_2gmx__omp__nthreads_8h_a979a21ff2aa8f71045dbd8e43a339fa6aee4a9faa7829b37d885293a4ca9797d7}{emnt\-Nonbonded}, 
+\hyperlink{share_2template_2gromacs_2gmx__omp__nthreads_8h_a979a21ff2aa8f71045dbd8e43a339fa6a638e29d05df90ed90ab305a735aa2709}{emnt\-Bonded}, 
+\*
+\hyperlink{share_2template_2gromacs_2gmx__omp__nthreads_8h_a979a21ff2aa8f71045dbd8e43a339fa6af0b702d5f8b621fe4da323840a1c7c5d}{emnt\-P\-M\-E}, 
+\hyperlink{share_2template_2gromacs_2gmx__omp__nthreads_8h_a979a21ff2aa8f71045dbd8e43a339fa6aa4bfb10becd60159b362f110e576cb85}{emnt\-Update}, 
+\hyperlink{share_2template_2gromacs_2gmx__omp__nthreads_8h_a979a21ff2aa8f71045dbd8e43a339fa6a1f8c774145c4a94938a0b69c7a2cfc79}{emnt\-V\-S\-I\-T\-E}, 
+\hyperlink{share_2template_2gromacs_2gmx__omp__nthreads_8h_a979a21ff2aa8f71045dbd8e43a339fa6a632bf2c9eb85a6f70c2aba8f75a094a3}{emnt\-L\-I\-N\-C\-S}, 
+\*
+\hyperlink{share_2template_2gromacs_2gmx__omp__nthreads_8h_a979a21ff2aa8f71045dbd8e43a339fa6a8d73a2ee4a538d61f22853a2ad2760ee}{emnt\-S\-E\-T\-T\-L\-E}, 
+\hyperlink{share_2template_2gromacs_2gmx__omp__nthreads_8h_a979a21ff2aa8f71045dbd8e43a339fa6af2d5bb3ba055fe12ede8f63937fd4a34}{emnt\-N\-R}
+ \}
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_af6d678ccc5288db95c70b9d9003f11e2}{\-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{include_2gmx__omp__nthreads_8h_a5d8971137befda62214ceeb0bf467809}{gmx\-\_\-omp\-\_\-nthreads\-\_\-init} (\-F\-I\-L\-E $\ast$fplog, \hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr, int nthreads\-\_\-hw\-\_\-avail, int omp\-\_\-nthreads\-\_\-req, int omp\-\_\-nthreads\-\_\-pme\-\_\-req, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Curr\-Node\-P\-M\-E\-Only, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Full\-Omp\-Support)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_af6d678ccc5288db95c70b9d9003f11e2}{\-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} int \hyperlink{include_2gmx__omp__nthreads_8h_af8731b9432f8448eac5c195a846a866a}{gmx\-\_\-omp\-\_\-nthreads\-\_\-get} (int \hyperlink{share_2template_2gromacs_2vec_8h_a8effeb3246f2f663f5c53b0a997b4374}{mod})
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_af6d678ccc5288db95c70b9d9003f11e2}{\-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{include_2gmx__omp__nthreads_8h_ab9c981dea0f23d6a2d458621e5534e12}{gmx\-\_\-omp\-\_\-nthreads\-\_\-read\-\_\-env} (int $\ast$nthreads\-\_\-omp, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Is\-Sim\-Master)
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Typedef \-Documentation}
+\hypertarget{include_2gmx__omp__nthreads_8h_a95e39c4167d6d368d3e1c2086021e434}{\index{include/gmx\-\_\-omp\-\_\-nthreads.\-h@{include/gmx\-\_\-omp\-\_\-nthreads.\-h}!module\-\_\-nth\-\_\-t@{module\-\_\-nth\-\_\-t}}
+\index{module\-\_\-nth\-\_\-t@{module\-\_\-nth\-\_\-t}!include/gmx_omp_nthreads.h@{include/gmx\-\_\-omp\-\_\-nthreads.\-h}}
+\subsubsection[{module\-\_\-nth\-\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}typedef enum {\bf module\-\_\-nth}  {\bf module\-\_\-nth\-\_\-t}}}\label{include_2gmx__omp__nthreads_8h_a95e39c4167d6d368d3e1c2086021e434}
+\-Enum values corresponding to multithreaded algorithmic modules. 
+
+\subsection{\-Enumeration \-Type \-Documentation}
+\hypertarget{include_2gmx__omp__nthreads_8h_a979a21ff2aa8f71045dbd8e43a339fa6}{\index{include/gmx\-\_\-omp\-\_\-nthreads.\-h@{include/gmx\-\_\-omp\-\_\-nthreads.\-h}!module\-\_\-nth@{module\-\_\-nth}}
+\index{module\-\_\-nth@{module\-\_\-nth}!include/gmx_omp_nthreads.h@{include/gmx\-\_\-omp\-\_\-nthreads.\-h}}
+\subsubsection[{module\-\_\-nth}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf module\-\_\-nth}}}\label{include_2gmx__omp__nthreads_8h_a979a21ff2aa8f71045dbd8e43a339fa6}
+\-Enum values corresponding to multithreaded algorithmic modules. \begin{Desc}
+\item[\-Enumerator\-: ]\par
+\begin{description}
+\index{emnt\-Default@{emnt\-Default}!include/gmx\-\_\-omp\-\_\-nthreads.\-h@{include/gmx\-\_\-omp\-\_\-nthreads.\-h}}\index{include/gmx\-\_\-omp\-\_\-nthreads.\-h@{include/gmx\-\_\-omp\-\_\-nthreads.\-h}!emnt\-Default@{emnt\-Default}}\item[{\em 
+\hypertarget{include_2gmx__omp__nthreads_8h_a979a21ff2aa8f71045dbd8e43a339fa6a4abba2120b0c0d41bd70fcece288ce15}{emnt\-Default}\label{include_2gmx__omp__nthreads_8h_a979a21ff2aa8f71045dbd8e43a339fa6a4abba2120b0c0d41bd70fcece288ce15}
+}]\index{emnt\-Domdec@{emnt\-Domdec}!include/gmx\-\_\-omp\-\_\-nthreads.\-h@{include/gmx\-\_\-omp\-\_\-nthreads.\-h}}\index{include/gmx\-\_\-omp\-\_\-nthreads.\-h@{include/gmx\-\_\-omp\-\_\-nthreads.\-h}!emnt\-Domdec@{emnt\-Domdec}}\item[{\em 
+\hypertarget{include_2gmx__omp__nthreads_8h_a979a21ff2aa8f71045dbd8e43a339fa6a133b9af9452f84d00f1ddaf6a372e529}{emnt\-Domdec}\label{include_2gmx__omp__nthreads_8h_a979a21ff2aa8f71045dbd8e43a339fa6a133b9af9452f84d00f1ddaf6a372e529}
+}]\index{emnt\-Pairsearch@{emnt\-Pairsearch}!include/gmx\-\_\-omp\-\_\-nthreads.\-h@{include/gmx\-\_\-omp\-\_\-nthreads.\-h}}\index{include/gmx\-\_\-omp\-\_\-nthreads.\-h@{include/gmx\-\_\-omp\-\_\-nthreads.\-h}!emnt\-Pairsearch@{emnt\-Pairsearch}}\item[{\em 
+\hypertarget{include_2gmx__omp__nthreads_8h_a979a21ff2aa8f71045dbd8e43a339fa6ae65110cd7a8ef39cdce5ddc497a06dfc}{emnt\-Pairsearch}\label{include_2gmx__omp__nthreads_8h_a979a21ff2aa8f71045dbd8e43a339fa6ae65110cd7a8ef39cdce5ddc497a06dfc}
+}]\index{emnt\-Nonbonded@{emnt\-Nonbonded}!include/gmx\-\_\-omp\-\_\-nthreads.\-h@{include/gmx\-\_\-omp\-\_\-nthreads.\-h}}\index{include/gmx\-\_\-omp\-\_\-nthreads.\-h@{include/gmx\-\_\-omp\-\_\-nthreads.\-h}!emnt\-Nonbonded@{emnt\-Nonbonded}}\item[{\em 
+\hypertarget{include_2gmx__omp__nthreads_8h_a979a21ff2aa8f71045dbd8e43a339fa6aee4a9faa7829b37d885293a4ca9797d7}{emnt\-Nonbonded}\label{include_2gmx__omp__nthreads_8h_a979a21ff2aa8f71045dbd8e43a339fa6aee4a9faa7829b37d885293a4ca9797d7}
+}]\index{emnt\-Bonded@{emnt\-Bonded}!include/gmx\-\_\-omp\-\_\-nthreads.\-h@{include/gmx\-\_\-omp\-\_\-nthreads.\-h}}\index{include/gmx\-\_\-omp\-\_\-nthreads.\-h@{include/gmx\-\_\-omp\-\_\-nthreads.\-h}!emnt\-Bonded@{emnt\-Bonded}}\item[{\em 
+\hypertarget{include_2gmx__omp__nthreads_8h_a979a21ff2aa8f71045dbd8e43a339fa6a638e29d05df90ed90ab305a735aa2709}{emnt\-Bonded}\label{include_2gmx__omp__nthreads_8h_a979a21ff2aa8f71045dbd8e43a339fa6a638e29d05df90ed90ab305a735aa2709}
+}]\index{emnt\-P\-M\-E@{emnt\-P\-M\-E}!include/gmx\-\_\-omp\-\_\-nthreads.\-h@{include/gmx\-\_\-omp\-\_\-nthreads.\-h}}\index{include/gmx\-\_\-omp\-\_\-nthreads.\-h@{include/gmx\-\_\-omp\-\_\-nthreads.\-h}!emnt\-P\-M\-E@{emnt\-P\-M\-E}}\item[{\em 
+\hypertarget{include_2gmx__omp__nthreads_8h_a979a21ff2aa8f71045dbd8e43a339fa6af0b702d5f8b621fe4da323840a1c7c5d}{emnt\-P\-M\-E}\label{include_2gmx__omp__nthreads_8h_a979a21ff2aa8f71045dbd8e43a339fa6af0b702d5f8b621fe4da323840a1c7c5d}
+}]\index{emnt\-Update@{emnt\-Update}!include/gmx\-\_\-omp\-\_\-nthreads.\-h@{include/gmx\-\_\-omp\-\_\-nthreads.\-h}}\index{include/gmx\-\_\-omp\-\_\-nthreads.\-h@{include/gmx\-\_\-omp\-\_\-nthreads.\-h}!emnt\-Update@{emnt\-Update}}\item[{\em 
+\hypertarget{include_2gmx__omp__nthreads_8h_a979a21ff2aa8f71045dbd8e43a339fa6aa4bfb10becd60159b362f110e576cb85}{emnt\-Update}\label{include_2gmx__omp__nthreads_8h_a979a21ff2aa8f71045dbd8e43a339fa6aa4bfb10becd60159b362f110e576cb85}
+}]\index{emnt\-V\-S\-I\-T\-E@{emnt\-V\-S\-I\-T\-E}!include/gmx\-\_\-omp\-\_\-nthreads.\-h@{include/gmx\-\_\-omp\-\_\-nthreads.\-h}}\index{include/gmx\-\_\-omp\-\_\-nthreads.\-h@{include/gmx\-\_\-omp\-\_\-nthreads.\-h}!emnt\-V\-S\-I\-T\-E@{emnt\-V\-S\-I\-T\-E}}\item[{\em 
+\hypertarget{include_2gmx__omp__nthreads_8h_a979a21ff2aa8f71045dbd8e43a339fa6a1f8c774145c4a94938a0b69c7a2cfc79}{emnt\-V\-S\-I\-T\-E}\label{include_2gmx__omp__nthreads_8h_a979a21ff2aa8f71045dbd8e43a339fa6a1f8c774145c4a94938a0b69c7a2cfc79}
+}]\index{emnt\-L\-I\-N\-C\-S@{emnt\-L\-I\-N\-C\-S}!include/gmx\-\_\-omp\-\_\-nthreads.\-h@{include/gmx\-\_\-omp\-\_\-nthreads.\-h}}\index{include/gmx\-\_\-omp\-\_\-nthreads.\-h@{include/gmx\-\_\-omp\-\_\-nthreads.\-h}!emnt\-L\-I\-N\-C\-S@{emnt\-L\-I\-N\-C\-S}}\item[{\em 
+\hypertarget{include_2gmx__omp__nthreads_8h_a979a21ff2aa8f71045dbd8e43a339fa6a632bf2c9eb85a6f70c2aba8f75a094a3}{emnt\-L\-I\-N\-C\-S}\label{include_2gmx__omp__nthreads_8h_a979a21ff2aa8f71045dbd8e43a339fa6a632bf2c9eb85a6f70c2aba8f75a094a3}
+}]\index{emnt\-S\-E\-T\-T\-L\-E@{emnt\-S\-E\-T\-T\-L\-E}!include/gmx\-\_\-omp\-\_\-nthreads.\-h@{include/gmx\-\_\-omp\-\_\-nthreads.\-h}}\index{include/gmx\-\_\-omp\-\_\-nthreads.\-h@{include/gmx\-\_\-omp\-\_\-nthreads.\-h}!emnt\-S\-E\-T\-T\-L\-E@{emnt\-S\-E\-T\-T\-L\-E}}\item[{\em 
+\hypertarget{include_2gmx__omp__nthreads_8h_a979a21ff2aa8f71045dbd8e43a339fa6a8d73a2ee4a538d61f22853a2ad2760ee}{emnt\-S\-E\-T\-T\-L\-E}\label{include_2gmx__omp__nthreads_8h_a979a21ff2aa8f71045dbd8e43a339fa6a8d73a2ee4a538d61f22853a2ad2760ee}
+}]\index{emnt\-N\-R@{emnt\-N\-R}!include/gmx\-\_\-omp\-\_\-nthreads.\-h@{include/gmx\-\_\-omp\-\_\-nthreads.\-h}}\index{include/gmx\-\_\-omp\-\_\-nthreads.\-h@{include/gmx\-\_\-omp\-\_\-nthreads.\-h}!emnt\-N\-R@{emnt\-N\-R}}\item[{\em 
+\hypertarget{include_2gmx__omp__nthreads_8h_a979a21ff2aa8f71045dbd8e43a339fa6af2d5bb3ba055fe12ede8f63937fd4a34}{emnt\-N\-R}\label{include_2gmx__omp__nthreads_8h_a979a21ff2aa8f71045dbd8e43a339fa6af2d5bb3ba055fe12ede8f63937fd4a34}
+}]\index{emnt\-Default@{emnt\-Default}!include/gmx\-\_\-omp\-\_\-nthreads.\-h@{include/gmx\-\_\-omp\-\_\-nthreads.\-h}}\index{include/gmx\-\_\-omp\-\_\-nthreads.\-h@{include/gmx\-\_\-omp\-\_\-nthreads.\-h}!emnt\-Default@{emnt\-Default}}\item[{\em 
+\hypertarget{include_2gmx__omp__nthreads_8h_a979a21ff2aa8f71045dbd8e43a339fa6a4abba2120b0c0d41bd70fcece288ce15}{emnt\-Default}\label{include_2gmx__omp__nthreads_8h_a979a21ff2aa8f71045dbd8e43a339fa6a4abba2120b0c0d41bd70fcece288ce15}
+}]\index{emnt\-Domdec@{emnt\-Domdec}!include/gmx\-\_\-omp\-\_\-nthreads.\-h@{include/gmx\-\_\-omp\-\_\-nthreads.\-h}}\index{include/gmx\-\_\-omp\-\_\-nthreads.\-h@{include/gmx\-\_\-omp\-\_\-nthreads.\-h}!emnt\-Domdec@{emnt\-Domdec}}\item[{\em 
+\hypertarget{include_2gmx__omp__nthreads_8h_a979a21ff2aa8f71045dbd8e43a339fa6a133b9af9452f84d00f1ddaf6a372e529}{emnt\-Domdec}\label{include_2gmx__omp__nthreads_8h_a979a21ff2aa8f71045dbd8e43a339fa6a133b9af9452f84d00f1ddaf6a372e529}
+}]\index{emnt\-Pairsearch@{emnt\-Pairsearch}!include/gmx\-\_\-omp\-\_\-nthreads.\-h@{include/gmx\-\_\-omp\-\_\-nthreads.\-h}}\index{include/gmx\-\_\-omp\-\_\-nthreads.\-h@{include/gmx\-\_\-omp\-\_\-nthreads.\-h}!emnt\-Pairsearch@{emnt\-Pairsearch}}\item[{\em 
+\hypertarget{include_2gmx__omp__nthreads_8h_a979a21ff2aa8f71045dbd8e43a339fa6ae65110cd7a8ef39cdce5ddc497a06dfc}{emnt\-Pairsearch}\label{include_2gmx__omp__nthreads_8h_a979a21ff2aa8f71045dbd8e43a339fa6ae65110cd7a8ef39cdce5ddc497a06dfc}
+}]\index{emnt\-Nonbonded@{emnt\-Nonbonded}!include/gmx\-\_\-omp\-\_\-nthreads.\-h@{include/gmx\-\_\-omp\-\_\-nthreads.\-h}}\index{include/gmx\-\_\-omp\-\_\-nthreads.\-h@{include/gmx\-\_\-omp\-\_\-nthreads.\-h}!emnt\-Nonbonded@{emnt\-Nonbonded}}\item[{\em 
+\hypertarget{include_2gmx__omp__nthreads_8h_a979a21ff2aa8f71045dbd8e43a339fa6aee4a9faa7829b37d885293a4ca9797d7}{emnt\-Nonbonded}\label{include_2gmx__omp__nthreads_8h_a979a21ff2aa8f71045dbd8e43a339fa6aee4a9faa7829b37d885293a4ca9797d7}
+}]\index{emnt\-Bonded@{emnt\-Bonded}!include/gmx\-\_\-omp\-\_\-nthreads.\-h@{include/gmx\-\_\-omp\-\_\-nthreads.\-h}}\index{include/gmx\-\_\-omp\-\_\-nthreads.\-h@{include/gmx\-\_\-omp\-\_\-nthreads.\-h}!emnt\-Bonded@{emnt\-Bonded}}\item[{\em 
+\hypertarget{include_2gmx__omp__nthreads_8h_a979a21ff2aa8f71045dbd8e43a339fa6a638e29d05df90ed90ab305a735aa2709}{emnt\-Bonded}\label{include_2gmx__omp__nthreads_8h_a979a21ff2aa8f71045dbd8e43a339fa6a638e29d05df90ed90ab305a735aa2709}
+}]\index{emnt\-P\-M\-E@{emnt\-P\-M\-E}!include/gmx\-\_\-omp\-\_\-nthreads.\-h@{include/gmx\-\_\-omp\-\_\-nthreads.\-h}}\index{include/gmx\-\_\-omp\-\_\-nthreads.\-h@{include/gmx\-\_\-omp\-\_\-nthreads.\-h}!emnt\-P\-M\-E@{emnt\-P\-M\-E}}\item[{\em 
+\hypertarget{include_2gmx__omp__nthreads_8h_a979a21ff2aa8f71045dbd8e43a339fa6af0b702d5f8b621fe4da323840a1c7c5d}{emnt\-P\-M\-E}\label{include_2gmx__omp__nthreads_8h_a979a21ff2aa8f71045dbd8e43a339fa6af0b702d5f8b621fe4da323840a1c7c5d}
+}]\index{emnt\-Update@{emnt\-Update}!include/gmx\-\_\-omp\-\_\-nthreads.\-h@{include/gmx\-\_\-omp\-\_\-nthreads.\-h}}\index{include/gmx\-\_\-omp\-\_\-nthreads.\-h@{include/gmx\-\_\-omp\-\_\-nthreads.\-h}!emnt\-Update@{emnt\-Update}}\item[{\em 
+\hypertarget{include_2gmx__omp__nthreads_8h_a979a21ff2aa8f71045dbd8e43a339fa6aa4bfb10becd60159b362f110e576cb85}{emnt\-Update}\label{include_2gmx__omp__nthreads_8h_a979a21ff2aa8f71045dbd8e43a339fa6aa4bfb10becd60159b362f110e576cb85}
+}]\index{emnt\-V\-S\-I\-T\-E@{emnt\-V\-S\-I\-T\-E}!include/gmx\-\_\-omp\-\_\-nthreads.\-h@{include/gmx\-\_\-omp\-\_\-nthreads.\-h}}\index{include/gmx\-\_\-omp\-\_\-nthreads.\-h@{include/gmx\-\_\-omp\-\_\-nthreads.\-h}!emnt\-V\-S\-I\-T\-E@{emnt\-V\-S\-I\-T\-E}}\item[{\em 
+\hypertarget{include_2gmx__omp__nthreads_8h_a979a21ff2aa8f71045dbd8e43a339fa6a1f8c774145c4a94938a0b69c7a2cfc79}{emnt\-V\-S\-I\-T\-E}\label{include_2gmx__omp__nthreads_8h_a979a21ff2aa8f71045dbd8e43a339fa6a1f8c774145c4a94938a0b69c7a2cfc79}
+}]\index{emnt\-L\-I\-N\-C\-S@{emnt\-L\-I\-N\-C\-S}!include/gmx\-\_\-omp\-\_\-nthreads.\-h@{include/gmx\-\_\-omp\-\_\-nthreads.\-h}}\index{include/gmx\-\_\-omp\-\_\-nthreads.\-h@{include/gmx\-\_\-omp\-\_\-nthreads.\-h}!emnt\-L\-I\-N\-C\-S@{emnt\-L\-I\-N\-C\-S}}\item[{\em 
+\hypertarget{include_2gmx__omp__nthreads_8h_a979a21ff2aa8f71045dbd8e43a339fa6a632bf2c9eb85a6f70c2aba8f75a094a3}{emnt\-L\-I\-N\-C\-S}\label{include_2gmx__omp__nthreads_8h_a979a21ff2aa8f71045dbd8e43a339fa6a632bf2c9eb85a6f70c2aba8f75a094a3}
+}]\index{emnt\-S\-E\-T\-T\-L\-E@{emnt\-S\-E\-T\-T\-L\-E}!include/gmx\-\_\-omp\-\_\-nthreads.\-h@{include/gmx\-\_\-omp\-\_\-nthreads.\-h}}\index{include/gmx\-\_\-omp\-\_\-nthreads.\-h@{include/gmx\-\_\-omp\-\_\-nthreads.\-h}!emnt\-S\-E\-T\-T\-L\-E@{emnt\-S\-E\-T\-T\-L\-E}}\item[{\em 
+\hypertarget{include_2gmx__omp__nthreads_8h_a979a21ff2aa8f71045dbd8e43a339fa6a8d73a2ee4a538d61f22853a2ad2760ee}{emnt\-S\-E\-T\-T\-L\-E}\label{include_2gmx__omp__nthreads_8h_a979a21ff2aa8f71045dbd8e43a339fa6a8d73a2ee4a538d61f22853a2ad2760ee}
+}]\index{emnt\-N\-R@{emnt\-N\-R}!include/gmx\-\_\-omp\-\_\-nthreads.\-h@{include/gmx\-\_\-omp\-\_\-nthreads.\-h}}\index{include/gmx\-\_\-omp\-\_\-nthreads.\-h@{include/gmx\-\_\-omp\-\_\-nthreads.\-h}!emnt\-N\-R@{emnt\-N\-R}}\item[{\em 
+\hypertarget{include_2gmx__omp__nthreads_8h_a979a21ff2aa8f71045dbd8e43a339fa6af2d5bb3ba055fe12ede8f63937fd4a34}{emnt\-N\-R}\label{include_2gmx__omp__nthreads_8h_a979a21ff2aa8f71045dbd8e43a339fa6af2d5bb3ba055fe12ede8f63937fd4a34}
+}]\end{description}
+\end{Desc}
+
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{include_2gmx__omp__nthreads_8h_af8731b9432f8448eac5c195a846a866a}{\index{include/gmx\-\_\-omp\-\_\-nthreads.\-h@{include/gmx\-\_\-omp\-\_\-nthreads.\-h}!gmx\-\_\-omp\-\_\-nthreads\-\_\-get@{gmx\-\_\-omp\-\_\-nthreads\-\_\-get}}
+\index{gmx\-\_\-omp\-\_\-nthreads\-\_\-get@{gmx\-\_\-omp\-\_\-nthreads\-\_\-get}!include/gmx_omp_nthreads.h@{include/gmx\-\_\-omp\-\_\-nthreads.\-h}}
+\subsubsection[{gmx\-\_\-omp\-\_\-nthreads\-\_\-get}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} int {\bf gmx\-\_\-omp\-\_\-nthreads\-\_\-get} (
+\begin{DoxyParamCaption}
+\item[{int}]{mod}
+\end{DoxyParamCaption}
+)}}\label{include_2gmx__omp__nthreads_8h_af8731b9432f8448eac5c195a846a866a}
+\-Returns the number of threads to be used in the given module m. 
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{include_2gmx__omp__nthreads_8h_af8731b9432f8448eac5c195a846a866a_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{include_2gmx__omp__nthreads_8h_a5d8971137befda62214ceeb0bf467809}{\index{include/gmx\-\_\-omp\-\_\-nthreads.\-h@{include/gmx\-\_\-omp\-\_\-nthreads.\-h}!gmx\-\_\-omp\-\_\-nthreads\-\_\-init@{gmx\-\_\-omp\-\_\-nthreads\-\_\-init}}
+\index{gmx\-\_\-omp\-\_\-nthreads\-\_\-init@{gmx\-\_\-omp\-\_\-nthreads\-\_\-init}!include/gmx_omp_nthreads.h@{include/gmx\-\_\-omp\-\_\-nthreads.\-h}}
+\subsubsection[{gmx\-\_\-omp\-\_\-nthreads\-\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} {\bf void} {\bf gmx\-\_\-omp\-\_\-nthreads\-\_\-init} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fplog, }
+\item[{{\bf t\-\_\-commrec} $\ast$}]{cr, }
+\item[{int}]{nthreads\-\_\-hw\-\_\-avail, }
+\item[{int}]{omp\-\_\-nthreads\-\_\-req, }
+\item[{int}]{omp\-\_\-nthreads\-\_\-pme\-\_\-req, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Curr\-Node\-P\-M\-E\-Only, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Full\-Omp\-Support}
+\end{DoxyParamCaption}
+)}}\label{include_2gmx__omp__nthreads_8h_a5d8971137befda62214ceeb0bf467809}
+\-Initializes the per-\/module thread count. \-It is compatible with t\-M\-P\-I, thread-\/safety is ensured (for the features available with t\-M\-P\-I). \-This function should caled only once during the initialization of mdrun. 
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=294pt]{include_2gmx__omp__nthreads_8h_a5d8971137befda62214ceeb0bf467809_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{include_2gmx__omp__nthreads_8h_ab9c981dea0f23d6a2d458621e5534e12}{\index{include/gmx\-\_\-omp\-\_\-nthreads.\-h@{include/gmx\-\_\-omp\-\_\-nthreads.\-h}!gmx\-\_\-omp\-\_\-nthreads\-\_\-read\-\_\-env@{gmx\-\_\-omp\-\_\-nthreads\-\_\-read\-\_\-env}}
+\index{gmx\-\_\-omp\-\_\-nthreads\-\_\-read\-\_\-env@{gmx\-\_\-omp\-\_\-nthreads\-\_\-read\-\_\-env}!include/gmx_omp_nthreads.h@{include/gmx\-\_\-omp\-\_\-nthreads.\-h}}
+\subsubsection[{gmx\-\_\-omp\-\_\-nthreads\-\_\-read\-\_\-env}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} {\bf void} {\bf gmx\-\_\-omp\-\_\-nthreads\-\_\-read\-\_\-env} (
+\begin{DoxyParamCaption}
+\item[{int $\ast$}]{nthreads\-\_\-omp, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Is\-Sim\-Master}
+\end{DoxyParamCaption}
+)}}\label{include_2gmx__omp__nthreads_8h_ab9c981dea0f23d6a2d458621e5534e12}
+\-Read the \-O\-M\-P\-\_\-\-N\-U\-M\-\_\-\-T\-H\-R\-E\-A\-D\-S env. var. and check against the value set on the command line. 
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{include_2gmx__omp__nthreads_8h_ab9c981dea0f23d6a2d458621e5534e12_icgraph}
+\end{center}
+\end{figure}
+
+

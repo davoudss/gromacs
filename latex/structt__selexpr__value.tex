@@ -1,0 +1,90 @@
+\hypertarget{structt__selexpr__value}{\section{t\-\_\-selexpr\-\_\-value \-Struct \-Reference}
+\label{structt__selexpr__value}\index{t\-\_\-selexpr\-\_\-value@{t\-\_\-selexpr\-\_\-value}}
+}
+
+
+{\ttfamily \#include $<$parsetree.\-h$>$}
+
+
+
+\-Collaboration diagram for t\-\_\-selexpr\-\_\-value\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{structt__selexpr__value__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{\-Public \-Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{include_2selvalue_8h_a70b42b87d434580bf1493591857b8bec}{e\-\_\-selvalue\-\_\-t} \hyperlink{structt__selexpr__value_a04bb5634ea528c40b60aabdf39548897}{type}
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{structt__selexpr__value_a9633665bd1927339d3fdf2dc119759d2}{b\-Expr}
+\item 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+union \{\\
+\>struct \{\\
+\>\>int \hyperlink{structt__selexpr__value_a9baf2eb4536a8ef57cc2de45acf1a490}{i1}\\
+\>\>int \hyperlink{structt__selexpr__value_a90da0c62d5939089dfe14843e6703984}{i2}\\
+\>\} \hyperlink{structt__selexpr__value_ac0a533beb7e085f510541083ec1ae8a7}{i}\\
+\>struct \{\\
+\>\>real \hyperlink{structt__selexpr__value_a48dc48f55a3c75e908d139dd49ae8b79}{r1}\\
+\>\>real \hyperlink{structt__selexpr__value_a5db043b60415102189c3f4aa9881e634}{r2}\\
+\>\} \hyperlink{structt__selexpr__value_a67746561a9938d082658967c371e3950}{r}\\
+\>char $\ast$ \hyperlink{structt__selexpr__value_a4b5ef242753f905c05472be5cd80f2a9}{s}\\
+\>\hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{structt__selexpr__value_a029f7f0c2e6e293387f6b287716a0c81}{x}\\
+\>struct \hyperlink{structt__selelem}{t\_selelem} $\ast$ \hyperlink{structt__selexpr__value_a52e17a378d26bfc77f850aa9e233b396}{expr}\\
+\} \hyperlink{structt__selexpr__value_ab67366fc205b4c84266d134a8189ca91}{u}\\
+
+\end{tabbing}\item 
+struct \hyperlink{structt__selexpr__value}{t\-\_\-selexpr\-\_\-value} $\ast$ \hyperlink{structt__selexpr__value_a6820b1e7fbf4c73d156bfdda0c713f8a}{next}
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Member \-Data \-Documentation}
+\hypertarget{structt__selexpr__value_a9633665bd1927339d3fdf2dc119759d2}{\index{t\-\_\-selexpr\-\_\-value@{t\-\_\-selexpr\-\_\-value}!b\-Expr@{b\-Expr}}
+\index{b\-Expr@{b\-Expr}!t_selexpr_value@{t\-\_\-selexpr\-\_\-value}}
+\subsubsection[{b\-Expr}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf t\-\_\-selexpr\-\_\-value\-::b\-Expr}}}\label{structt__selexpr__value_a9633665bd1927339d3fdf2dc119759d2}
+\-T\-R\-U\-E if the value is the result of an expression. \hypertarget{structt__selexpr__value_a52e17a378d26bfc77f850aa9e233b396}{\index{t\-\_\-selexpr\-\_\-value@{t\-\_\-selexpr\-\_\-value}!expr@{expr}}
+\index{expr@{expr}!t_selexpr_value@{t\-\_\-selexpr\-\_\-value}}
+\subsubsection[{expr}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf t\-\_\-selelem}$\ast$ {\bf t\-\_\-selexpr\-\_\-value\-::expr}}}\label{structt__selexpr__value_a52e17a378d26bfc77f850aa9e233b396}
+\-The expression if {\ttfamily b\-Expr} is \-T\-R\-U\-E. \hypertarget{structt__selexpr__value_ac0a533beb7e085f510541083ec1ae8a7}{\index{t\-\_\-selexpr\-\_\-value@{t\-\_\-selexpr\-\_\-value}!i@{i}}
+\index{i@{i}!t_selexpr_value@{t\-\_\-selexpr\-\_\-value}}
+\subsubsection[{i}]{\setlength{\rightskip}{0pt plus 5cm}struct \{ ... \}                     {\bf t\-\_\-selexpr\-\_\-value\-::i}}}\label{structt__selexpr__value_ac0a533beb7e085f510541083ec1ae8a7}
+\-The integer value/range ({\ttfamily type} \-I\-N\-T\-\_\-\-V\-A\-L\-U\-E); \hypertarget{structt__selexpr__value_a9baf2eb4536a8ef57cc2de45acf1a490}{\index{t\-\_\-selexpr\-\_\-value@{t\-\_\-selexpr\-\_\-value}!i1@{i1}}
+\index{i1@{i1}!t_selexpr_value@{t\-\_\-selexpr\-\_\-value}}
+\subsubsection[{i1}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf t\-\_\-selexpr\-\_\-value\-::i1}}}\label{structt__selexpr__value_a9baf2eb4536a8ef57cc2de45acf1a490}
+\-Beginning of the range. \hypertarget{structt__selexpr__value_a90da0c62d5939089dfe14843e6703984}{\index{t\-\_\-selexpr\-\_\-value@{t\-\_\-selexpr\-\_\-value}!i2@{i2}}
+\index{i2@{i2}!t_selexpr_value@{t\-\_\-selexpr\-\_\-value}}
+\subsubsection[{i2}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf t\-\_\-selexpr\-\_\-value\-::i2}}}\label{structt__selexpr__value_a90da0c62d5939089dfe14843e6703984}
+\-End of the range; equals {\ttfamily i1} for a single integer. \hypertarget{structt__selexpr__value_a6820b1e7fbf4c73d156bfdda0c713f8a}{\index{t\-\_\-selexpr\-\_\-value@{t\-\_\-selexpr\-\_\-value}!next@{next}}
+\index{next@{next}!t_selexpr_value@{t\-\_\-selexpr\-\_\-value}}
+\subsubsection[{next}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf t\-\_\-selexpr\-\_\-value}$\ast$ {\bf t\-\_\-selexpr\-\_\-value\-::next}}}\label{structt__selexpr__value_a6820b1e7fbf4c73d156bfdda0c713f8a}
+\-Pointer to the next value. \hypertarget{structt__selexpr__value_a67746561a9938d082658967c371e3950}{\index{t\-\_\-selexpr\-\_\-value@{t\-\_\-selexpr\-\_\-value}!r@{r}}
+\index{r@{r}!t_selexpr_value@{t\-\_\-selexpr\-\_\-value}}
+\subsubsection[{r}]{\setlength{\rightskip}{0pt plus 5cm}struct \{ ... \}                     {\bf t\-\_\-selexpr\-\_\-value\-::r}}}\label{structt__selexpr__value_a67746561a9938d082658967c371e3950}
+\-The real value/range ({\ttfamily type} \-R\-E\-A\-L\-\_\-\-V\-A\-L\-U\-E); \hypertarget{structt__selexpr__value_a48dc48f55a3c75e908d139dd49ae8b79}{\index{t\-\_\-selexpr\-\_\-value@{t\-\_\-selexpr\-\_\-value}!r1@{r1}}
+\index{r1@{r1}!t_selexpr_value@{t\-\_\-selexpr\-\_\-value}}
+\subsubsection[{r1}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf t\-\_\-selexpr\-\_\-value\-::r1}}}\label{structt__selexpr__value_a48dc48f55a3c75e908d139dd49ae8b79}
+\-Beginning of the range. \hypertarget{structt__selexpr__value_a5db043b60415102189c3f4aa9881e634}{\index{t\-\_\-selexpr\-\_\-value@{t\-\_\-selexpr\-\_\-value}!r2@{r2}}
+\index{r2@{r2}!t_selexpr_value@{t\-\_\-selexpr\-\_\-value}}
+\subsubsection[{r2}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf t\-\_\-selexpr\-\_\-value\-::r2}}}\label{structt__selexpr__value_a5db043b60415102189c3f4aa9881e634}
+\-End of the range; equals {\ttfamily r1} for a single number. \hypertarget{structt__selexpr__value_a4b5ef242753f905c05472be5cd80f2a9}{\index{t\-\_\-selexpr\-\_\-value@{t\-\_\-selexpr\-\_\-value}!s@{s}}
+\index{s@{s}!t_selexpr_value@{t\-\_\-selexpr\-\_\-value}}
+\subsubsection[{s}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ {\bf t\-\_\-selexpr\-\_\-value\-::s}}}\label{structt__selexpr__value_a4b5ef242753f905c05472be5cd80f2a9}
+\-The string value ({\ttfamily type} \-S\-T\-R\-\_\-\-V\-A\-L\-U\-E); \hypertarget{structt__selexpr__value_a04bb5634ea528c40b60aabdf39548897}{\index{t\-\_\-selexpr\-\_\-value@{t\-\_\-selexpr\-\_\-value}!type@{type}}
+\index{type@{type}!t_selexpr_value@{t\-\_\-selexpr\-\_\-value}}
+\subsubsection[{type}]{\setlength{\rightskip}{0pt plus 5cm}{\bf e\-\_\-selvalue\-\_\-t} {\bf t\-\_\-selexpr\-\_\-value\-::type}}}\label{structt__selexpr__value_a04bb5634ea528c40b60aabdf39548897}
+\-Type of the value. \hypertarget{structt__selexpr__value_ab67366fc205b4c84266d134a8189ca91}{\index{t\-\_\-selexpr\-\_\-value@{t\-\_\-selexpr\-\_\-value}!u@{u}}
+\index{u@{u}!t_selexpr_value@{t\-\_\-selexpr\-\_\-value}}
+\subsubsection[{u}]{\setlength{\rightskip}{0pt plus 5cm}union \{ ... \}                         {\bf t\-\_\-selexpr\-\_\-value\-::u}}}\label{structt__selexpr__value_ab67366fc205b4c84266d134a8189ca91}
+\hypertarget{structt__selexpr__value_a029f7f0c2e6e293387f6b287716a0c81}{\index{t\-\_\-selexpr\-\_\-value@{t\-\_\-selexpr\-\_\-value}!x@{x}}
+\index{x@{x}!t_selexpr_value@{t\-\_\-selexpr\-\_\-value}}
+\subsubsection[{x}]{\setlength{\rightskip}{0pt plus 5cm}{\bf rvec} {\bf t\-\_\-selexpr\-\_\-value\-::x}}}\label{structt__selexpr__value_a029f7f0c2e6e293387f6b287716a0c81}
+\-The position value ({\ttfamily type} \-P\-O\-S\-\_\-\-V\-A\-L\-U\-E); 
+
+\-The documentation for this struct was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+src/gmxlib/selection/\hyperlink{parsetree_8h}{parsetree.\-h}\end{DoxyCompactItemize}

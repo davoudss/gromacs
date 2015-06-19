@@ -1,0 +1,146 @@
+\hypertarget{xlate_8c}{\section{src/kernel/xlate.c \-File \-Reference}
+\label{xlate_8c}\index{src/kernel/xlate.\-c@{src/kernel/xlate.\-c}}
+}
+{\ttfamily \#include $<$ctype.\-h$>$}\*
+{\ttfamily \#include $<$string.\-h$>$}\*
+{\ttfamily \#include \char`\"{}typedefs.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}strdb.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}string2.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}smalloc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}symtab.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}index.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}futil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}fflibutil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}hackblock.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-fatal.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}xlate.\-h\char`\"{}}\*
+\-Include dependency graph for xlate.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{xlate_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structt__xlate__atom}{t\-\_\-xlate\-\_\-atom}
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{xlate_8c_adea0dd2f67b1adf21afdf9b7acc93890}{get\-\_\-xlatoms} (const char $\ast$fn, \-F\-I\-L\-E $\ast$fp, int $\ast$nptr, \hyperlink{structt__xlate__atom}{t\-\_\-xlate\-\_\-atom} $\ast$$\ast$xlptr)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{xlate_8c_ad3ff7a62f29700c01427fb54cca52cbf}{done\-\_\-xlatom} (int nxlate, \hyperlink{structt__xlate__atom}{t\-\_\-xlate\-\_\-atom} $\ast$xlatom)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{xlate_8c_a1552ce859df86ea9f6922072c25ef61a}{rename\-\_\-atoms} (const char $\ast$xlfile, const char $\ast$ffdir, \hyperlink{structt__atoms}{t\-\_\-atoms} $\ast$atoms, \hyperlink{structt__symtab}{t\-\_\-symtab} $\ast$symtab, const \hyperlink{structt__restp}{t\-\_\-restp} $\ast$restp, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Resname, \hyperlink{include_2index_8h_af0ab0a62e166db9905eac3aa7e1203f3}{gmx\-\_\-residuetype\-\_\-t} rt, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Reorder\-Num, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Verbose)
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{xlate_8c_ad3ff7a62f29700c01427fb54cca52cbf}{\index{xlate.\-c@{xlate.\-c}!done\-\_\-xlatom@{done\-\_\-xlatom}}
+\index{done\-\_\-xlatom@{done\-\_\-xlatom}!xlate.c@{xlate.\-c}}
+\subsubsection[{done\-\_\-xlatom}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf done\-\_\-xlatom} (
+\begin{DoxyParamCaption}
+\item[{int}]{nxlate, }
+\item[{{\bf t\-\_\-xlate\-\_\-atom} $\ast$}]{xlatom}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{xlate_8c_ad3ff7a62f29700c01427fb54cca52cbf}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=340pt]{xlate_8c_ad3ff7a62f29700c01427fb54cca52cbf_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{xlate_8c_ad3ff7a62f29700c01427fb54cca52cbf_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{xlate_8c_adea0dd2f67b1adf21afdf9b7acc93890}{\index{xlate.\-c@{xlate.\-c}!get\-\_\-xlatoms@{get\-\_\-xlatoms}}
+\index{get\-\_\-xlatoms@{get\-\_\-xlatoms}!xlate.c@{xlate.\-c}}
+\subsubsection[{get\-\_\-xlatoms}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf get\-\_\-xlatoms} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{fn, }
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{int $\ast$}]{nptr, }
+\item[{{\bf t\-\_\-xlate\-\_\-atom} $\ast$$\ast$}]{xlptr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{xlate_8c_adea0dd2f67b1adf21afdf9b7acc93890}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{xlate_8c_adea0dd2f67b1adf21afdf9b7acc93890_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{xlate_8c_adea0dd2f67b1adf21afdf9b7acc93890_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{xlate_8c_a1552ce859df86ea9f6922072c25ef61a}{\index{xlate.\-c@{xlate.\-c}!rename\-\_\-atoms@{rename\-\_\-atoms}}
+\index{rename\-\_\-atoms@{rename\-\_\-atoms}!xlate.c@{xlate.\-c}}
+\subsubsection[{rename\-\_\-atoms}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf rename\-\_\-atoms} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{xlfile, }
+\item[{const char $\ast$}]{ffdir, }
+\item[{{\bf t\-\_\-atoms} $\ast$}]{atoms, }
+\item[{{\bf t\-\_\-symtab} $\ast$}]{symtab, }
+\item[{const {\bf t\-\_\-restp} $\ast$}]{restp, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Resname, }
+\item[{{\bf gmx\-\_\-residuetype\-\_\-t}}]{rt, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Reorder\-Num, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Verbose}
+\end{DoxyParamCaption}
+)}}\label{xlate_8c_a1552ce859df86ea9f6922072c25ef61a}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{xlate_8c_a1552ce859df86ea9f6922072c25ef61a_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=344pt]{xlate_8c_a1552ce859df86ea9f6922072c25ef61a_icgraph}
+\end{center}
+\end{figure}
+
+

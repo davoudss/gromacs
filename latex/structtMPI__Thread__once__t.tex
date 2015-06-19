@@ -1,0 +1,46 @@
+\hypertarget{structtMPI__Thread__once__t}{\section{t\-M\-P\-I\-\_\-\-Thread\-\_\-once\-\_\-t \-Struct \-Reference}
+\label{structtMPI__Thread__once__t}\index{t\-M\-P\-I\-\_\-\-Thread\-\_\-once\-\_\-t@{t\-M\-P\-I\-\_\-\-Thread\-\_\-once\-\_\-t}}
+}
+
+
+\-One-\/time initialization data for thread.  
+
+
+
+
+{\ttfamily \#include $<$threads.\-h$>$}
+
+
+
+\-Collaboration diagram for t\-M\-P\-I\-\_\-\-Thread\-\_\-once\-\_\-t\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=186pt]{structtMPI__Thread__once__t__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{\-Public \-Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{include_2thread__mpi_2atomic_2gcc_8h_a2c33794dc540e3b07cffc1f81a3fe4b4}{t\-M\-P\-I\-\_\-\-Atomic\-\_\-t} \hyperlink{structtMPI__Thread__once__t_a8c9cbb7ead68bb5ed0212941ad975f0b}{once}
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Detailed \-Description}
+\-One-\/time initialization data for thread. 
+
+\-This is an opaque datatype which is necessary for \hyperlink{include_2thread__mpi_2threads_8h_ac6508a9a3f1279f48b8ab0211038955c}{t\-M\-P\-I\-\_\-\-Thread\-\_\-once()}, but since it needs to be initialized statically it must be defined in the header. \-You will be sorry if you touch the contents. \-Variables of this type should always be initialized statically to \-T\-M\-P\-I\-\_\-\-T\-H\-R\-E\-A\-D\-\_\-\-O\-N\-C\-E\-\_\-\-I\-N\-I\-T.
+
+\-This type is used as control data for single-\/time initialization. \-The most common example is a mutex at file scope used when calling a non-\/threadsafe function, e.\-g. the \-F\-F\-T\-W initialization routines. 
+
+\subsection{\-Member \-Data \-Documentation}
+\hypertarget{structtMPI__Thread__once__t_a8c9cbb7ead68bb5ed0212941ad975f0b}{\index{t\-M\-P\-I\-\_\-\-Thread\-\_\-once\-\_\-t@{t\-M\-P\-I\-\_\-\-Thread\-\_\-once\-\_\-t}!once@{once}}
+\index{once@{once}!tMPI_Thread_once_t@{t\-M\-P\-I\-\_\-\-Thread\-\_\-once\-\_\-t}}
+\subsubsection[{once}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\-M\-P\-I\-\_\-\-Atomic\-\_\-t} {\bf t\-M\-P\-I\-\_\-\-Thread\-\_\-once\-\_\-t\-::once}}}\label{structtMPI__Thread__once__t_a8c9cbb7ead68bb5ed0212941ad975f0b}
+\-Whether the operation has been performed. 
+
+\-The documentation for this struct was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+include/thread\-\_\-mpi/\hyperlink{include_2thread__mpi_2threads_8h}{threads.\-h}\item 
+share/template/gromacs/thread\-\_\-mpi/\hyperlink{share_2template_2gromacs_2thread__mpi_2threads_8h}{threads.\-h}\end{DoxyCompactItemize}

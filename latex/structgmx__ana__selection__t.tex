@@ -1,0 +1,111 @@
+\hypertarget{structgmx__ana__selection__t}{\section{gmx\-\_\-ana\-\_\-selection\-\_\-t \-Struct \-Reference}
+\label{structgmx__ana__selection__t}\index{gmx\-\_\-ana\-\_\-selection\-\_\-t@{gmx\-\_\-ana\-\_\-selection\-\_\-t}}
+}
+
+
+\-Describes a single selection.  
+
+
+
+
+{\ttfamily \#include $<$selection.\-h$>$}
+
+
+
+\-Collaboration diagram for gmx\-\_\-ana\-\_\-selection\-\_\-t\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structgmx__ana__selection__t__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{\-Public \-Attributes}
+\begin{DoxyCompactItemize}
+\item 
+char $\ast$ \hyperlink{structgmx__ana__selection__t_ad91f87c41782ba9ab6bfba8fca6b302b}{name}
+\item 
+char $\ast$ \hyperlink{structgmx__ana__selection__t_a32be3edd9d2953ce5991391a5a5b6f67}{selstr}
+\item 
+\hyperlink{structgmx__ana__pos__t}{gmx\-\_\-ana\-\_\-pos\-\_\-t} \hyperlink{structgmx__ana__selection__t_a47df2484de4409ea55854a73596fd473}{p}
+\item 
+real $\ast$ \hyperlink{structgmx__ana__selection__t_adc77a2a849982e2494cbc3fa395ea75c}{m}
+\item 
+real $\ast$ \hyperlink{structgmx__ana__selection__t_a064c4869a30cd4a765c4a9e070649997}{q}
+\item 
+struct \hyperlink{structgmx__ana__index__t}{gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$ \hyperlink{structgmx__ana__selection__t_a20390f0b950e6be7bc2cde12d128f8f1}{g}
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{structgmx__ana__selection__t_a47ef4b94fe3d429e271b9adcbe57f08f}{b\-Dynamic}
+\item 
+\hyperlink{include_2selection_8h_a3586467b9eaf1c08160c5fef7377e622}{e\-\_\-coverfrac\-\_\-t} \hyperlink{structgmx__ana__selection__t_acef74bfc8e4ad3d45f9ed1607acb5837}{cfractype}
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{structgmx__ana__selection__t_aa247904e9b522f1effaaf11e7a95f0c8}{b\-C\-Frac\-Dyn}
+\item 
+real \hyperlink{structgmx__ana__selection__t_a84b162a293c1e7b32636e972bc7e4a95}{cfrac}
+\item 
+real \hyperlink{structgmx__ana__selection__t_a4145e1e222e45997d9e5d2e6c451e606}{avecfrac}
+\item 
+struct \hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$ \hyperlink{structgmx__ana__selection__t_a267fe62fbf8482460cd1797972fdd5f2}{selelem}
+\begin{DoxyCompactList}\small\item\em \-Pointer to the root of the selection element tree (internal use only). \end{DoxyCompactList}\item 
+real $\ast$ \hyperlink{structgmx__ana__selection__t_a16054b99f1ace8cc67e7edb83f4fe9d2}{orgm}
+\item 
+real $\ast$ \hyperlink{structgmx__ana__selection__t_aaa176888e5c42159df882ef4653c0bea}{orgq}
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Detailed \-Description}
+\-Describes a single selection. 
+
+\subsection{\-Member \-Data \-Documentation}
+\hypertarget{structgmx__ana__selection__t_a4145e1e222e45997d9e5d2e6c451e606}{\index{gmx\-\_\-ana\-\_\-selection\-\_\-t@{gmx\-\_\-ana\-\_\-selection\-\_\-t}!avecfrac@{avecfrac}}
+\index{avecfrac@{avecfrac}!gmx_ana_selection_t@{gmx\-\_\-ana\-\_\-selection\-\_\-t}}
+\subsubsection[{avecfrac}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf gmx\-\_\-ana\-\_\-selection\-\_\-t\-::avecfrac}}}\label{structgmx__ana__selection__t_a4145e1e222e45997d9e5d2e6c451e606}
+\-The average covered fraction (over the trajectory). \hypertarget{structgmx__ana__selection__t_aa247904e9b522f1effaaf11e7a95f0c8}{\index{gmx\-\_\-ana\-\_\-selection\-\_\-t@{gmx\-\_\-ana\-\_\-selection\-\_\-t}!b\-C\-Frac\-Dyn@{b\-C\-Frac\-Dyn}}
+\index{b\-C\-Frac\-Dyn@{b\-C\-Frac\-Dyn}!gmx_ana_selection_t@{gmx\-\_\-ana\-\_\-selection\-\_\-t}}
+\subsubsection[{b\-C\-Frac\-Dyn}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-ana\-\_\-selection\-\_\-t\-::b\-C\-Frac\-Dyn}}}\label{structgmx__ana__selection__t_aa247904e9b522f1effaaf11e7a95f0c8}
+\-T\-R\-U\-E if the covered fraction depends on the frame. \hypertarget{structgmx__ana__selection__t_a47ef4b94fe3d429e271b9adcbe57f08f}{\index{gmx\-\_\-ana\-\_\-selection\-\_\-t@{gmx\-\_\-ana\-\_\-selection\-\_\-t}!b\-Dynamic@{b\-Dynamic}}
+\index{b\-Dynamic@{b\-Dynamic}!gmx_ana_selection_t@{gmx\-\_\-ana\-\_\-selection\-\_\-t}}
+\subsubsection[{b\-Dynamic}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-ana\-\_\-selection\-\_\-t\-::b\-Dynamic}}}\label{structgmx__ana__selection__t_a47ef4b94fe3d429e271b9adcbe57f08f}
+\-T\-R\-U\-E if the value can change as a function of time. \hypertarget{structgmx__ana__selection__t_a84b162a293c1e7b32636e972bc7e4a95}{\index{gmx\-\_\-ana\-\_\-selection\-\_\-t@{gmx\-\_\-ana\-\_\-selection\-\_\-t}!cfrac@{cfrac}}
+\index{cfrac@{cfrac}!gmx_ana_selection_t@{gmx\-\_\-ana\-\_\-selection\-\_\-t}}
+\subsubsection[{cfrac}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf gmx\-\_\-ana\-\_\-selection\-\_\-t\-::cfrac}}}\label{structgmx__ana__selection__t_a84b162a293c1e7b32636e972bc7e4a95}
+\-Covered fraction of the selection for the current frame. \hypertarget{structgmx__ana__selection__t_acef74bfc8e4ad3d45f9ed1607acb5837}{\index{gmx\-\_\-ana\-\_\-selection\-\_\-t@{gmx\-\_\-ana\-\_\-selection\-\_\-t}!cfractype@{cfractype}}
+\index{cfractype@{cfractype}!gmx_ana_selection_t@{gmx\-\_\-ana\-\_\-selection\-\_\-t}}
+\subsubsection[{cfractype}]{\setlength{\rightskip}{0pt plus 5cm}{\bf e\-\_\-coverfrac\-\_\-t} {\bf gmx\-\_\-ana\-\_\-selection\-\_\-t\-::cfractype}}}\label{structgmx__ana__selection__t_acef74bfc8e4ad3d45f9ed1607acb5837}
+\-Type of the covered fraction. \hypertarget{structgmx__ana__selection__t_a20390f0b950e6be7bc2cde12d128f8f1}{\index{gmx\-\_\-ana\-\_\-selection\-\_\-t@{gmx\-\_\-ana\-\_\-selection\-\_\-t}!g@{g}}
+\index{g@{g}!gmx_ana_selection_t@{gmx\-\_\-ana\-\_\-selection\-\_\-t}}
+\subsubsection[{g}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$ {\bf gmx\-\_\-ana\-\_\-selection\-\_\-t\-::g}}}\label{structgmx__ana__selection__t_a20390f0b950e6be7bc2cde12d128f8f1}
+\-Pointer to the index group that holds the selected atoms. \hypertarget{structgmx__ana__selection__t_adc77a2a849982e2494cbc3fa395ea75c}{\index{gmx\-\_\-ana\-\_\-selection\-\_\-t@{gmx\-\_\-ana\-\_\-selection\-\_\-t}!m@{m}}
+\index{m@{m}!gmx_ana_selection_t@{gmx\-\_\-ana\-\_\-selection\-\_\-t}}
+\subsubsection[{m}]{\setlength{\rightskip}{0pt plus 5cm}real $\ast$ {\bf gmx\-\_\-ana\-\_\-selection\-\_\-t\-::m}}}\label{structgmx__ana__selection__t_adc77a2a849982e2494cbc3fa395ea75c}
+\-Masses associated with the positions. \hypertarget{structgmx__ana__selection__t_ad91f87c41782ba9ab6bfba8fca6b302b}{\index{gmx\-\_\-ana\-\_\-selection\-\_\-t@{gmx\-\_\-ana\-\_\-selection\-\_\-t}!name@{name}}
+\index{name@{name}!gmx_ana_selection_t@{gmx\-\_\-ana\-\_\-selection\-\_\-t}}
+\subsubsection[{name}]{\setlength{\rightskip}{0pt plus 5cm}char $\ast$ {\bf gmx\-\_\-ana\-\_\-selection\-\_\-t\-::name}}}\label{structgmx__ana__selection__t_ad91f87c41782ba9ab6bfba8fca6b302b}
+\-Name of the selection. \hypertarget{structgmx__ana__selection__t_a16054b99f1ace8cc67e7edb83f4fe9d2}{\index{gmx\-\_\-ana\-\_\-selection\-\_\-t@{gmx\-\_\-ana\-\_\-selection\-\_\-t}!orgm@{orgm}}
+\index{orgm@{orgm}!gmx_ana_selection_t@{gmx\-\_\-ana\-\_\-selection\-\_\-t}}
+\subsubsection[{orgm}]{\setlength{\rightskip}{0pt plus 5cm}real $\ast$ {\bf gmx\-\_\-ana\-\_\-selection\-\_\-t\-::orgm}}}\label{structgmx__ana__selection__t_a16054b99f1ace8cc67e7edb83f4fe9d2}
+\-Original masses of all possible positions (internal use only). \hypertarget{structgmx__ana__selection__t_aaa176888e5c42159df882ef4653c0bea}{\index{gmx\-\_\-ana\-\_\-selection\-\_\-t@{gmx\-\_\-ana\-\_\-selection\-\_\-t}!orgq@{orgq}}
+\index{orgq@{orgq}!gmx_ana_selection_t@{gmx\-\_\-ana\-\_\-selection\-\_\-t}}
+\subsubsection[{orgq}]{\setlength{\rightskip}{0pt plus 5cm}real $\ast$ {\bf gmx\-\_\-ana\-\_\-selection\-\_\-t\-::orgq}}}\label{structgmx__ana__selection__t_aaa176888e5c42159df882ef4653c0bea}
+\-Original charges of all possible positions (internal use only). \hypertarget{structgmx__ana__selection__t_a47df2484de4409ea55854a73596fd473}{\index{gmx\-\_\-ana\-\_\-selection\-\_\-t@{gmx\-\_\-ana\-\_\-selection\-\_\-t}!p@{p}}
+\index{p@{p}!gmx_ana_selection_t@{gmx\-\_\-ana\-\_\-selection\-\_\-t}}
+\subsubsection[{p}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-ana\-\_\-pos\-\_\-t} {\bf gmx\-\_\-ana\-\_\-selection\-\_\-t\-::p}}}\label{structgmx__ana__selection__t_a47df2484de4409ea55854a73596fd473}
+\-Selected positions. \hypertarget{structgmx__ana__selection__t_a064c4869a30cd4a765c4a9e070649997}{\index{gmx\-\_\-ana\-\_\-selection\-\_\-t@{gmx\-\_\-ana\-\_\-selection\-\_\-t}!q@{q}}
+\index{q@{q}!gmx_ana_selection_t@{gmx\-\_\-ana\-\_\-selection\-\_\-t}}
+\subsubsection[{q}]{\setlength{\rightskip}{0pt plus 5cm}real $\ast$ {\bf gmx\-\_\-ana\-\_\-selection\-\_\-t\-::q}}}\label{structgmx__ana__selection__t_a064c4869a30cd4a765c4a9e070649997}
+\-Charges associated with the positions. \hypertarget{structgmx__ana__selection__t_a267fe62fbf8482460cd1797972fdd5f2}{\index{gmx\-\_\-ana\-\_\-selection\-\_\-t@{gmx\-\_\-ana\-\_\-selection\-\_\-t}!selelem@{selelem}}
+\index{selelem@{selelem}!gmx_ana_selection_t@{gmx\-\_\-ana\-\_\-selection\-\_\-t}}
+\subsubsection[{selelem}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf t\-\_\-selelem} $\ast$ {\bf gmx\-\_\-ana\-\_\-selection\-\_\-t\-::selelem}}}\label{structgmx__ana__selection__t_a267fe62fbf8482460cd1797972fdd5f2}
+
+
+\-Pointer to the root of the selection element tree (internal use only). 
+
+\hypertarget{structgmx__ana__selection__t_a32be3edd9d2953ce5991391a5a5b6f67}{\index{gmx\-\_\-ana\-\_\-selection\-\_\-t@{gmx\-\_\-ana\-\_\-selection\-\_\-t}!selstr@{selstr}}
+\index{selstr@{selstr}!gmx_ana_selection_t@{gmx\-\_\-ana\-\_\-selection\-\_\-t}}
+\subsubsection[{selstr}]{\setlength{\rightskip}{0pt plus 5cm}char $\ast$ {\bf gmx\-\_\-ana\-\_\-selection\-\_\-t\-::selstr}}}\label{structgmx__ana__selection__t_a32be3edd9d2953ce5991391a5a5b6f67}
+\-The actual selection string. 
+
+\-The documentation for this struct was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+include/\hyperlink{include_2selection_8h}{selection.\-h}\item 
+share/template/gromacs/\hyperlink{share_2template_2gromacs_2selection_8h}{selection.\-h}\end{DoxyCompactItemize}

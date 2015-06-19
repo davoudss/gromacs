@@ -1,0 +1,2120 @@
+\hypertarget{bondfree_8c}{\section{src/gmxlib/bondfree.c \-File \-Reference}
+\label{bondfree_8c}\index{src/gmxlib/bondfree.\-c@{src/gmxlib/bondfree.\-c}}
+}
+{\ttfamily \#include $<$math.\-h$>$}\*
+{\ttfamily \#include \char`\"{}physics.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}vec.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}maths.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}txtdump.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}bondf.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}smalloc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}pbc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}ns.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}macros.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}names.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-fatal.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}mshift.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}main.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}disre.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}orires.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}force.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}nonbonded.\-h\char`\"{}}\*
+\-Include dependency graph for bondfree.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{bondfree_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{bondfree_8c_a24fc52988644379d3ed32e5c74b46043}{\-M\-A\-X\-\_\-\-B\-L\-O\-C\-K\-\_\-\-B\-I\-T\-S}~32
+\item 
+\#define \hyperlink{bondfree_8c_a5cf0b676b2f30f86d45c174c8816afca}{\-M\-A\-X\-\_\-\-B\-O\-N\-D\-E\-D\-\_\-\-T\-H\-R\-E\-A\-D\-S}~256
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{bondfree_8c_a714a4fe0595f722b73df399ab797a6dd}{glatnr} (int $\ast$global\-\_\-atom\-\_\-index, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a3c7542401c1cb8bd37ef5e7d9eb0f5a8}{i})
+\item 
+static int \hyperlink{bondfree_8c_a0b5b07882ef47de8bab88e30660c593b}{pbc\-\_\-rvec\-\_\-sub} (const \hyperlink{structt__pbc}{t\-\_\-pbc} $\ast$pbc, const \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} xi, const \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} xj, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__blas_8h_ad5c6c54e1a03f3517ff918d2f18f5f68}{dx})
+\item 
+real \hyperlink{bondfree_8c_a1bd093bed09e109fc37e1b04d79413c0}{morse\-\_\-bonds} (int nbonds, const \hyperlink{include_2types_2idef_8h_abb1c069d34f868f1fa980a4c131ba249}{t\-\_\-iatom} forceatoms\mbox{[}$\,$\mbox{]}, const \hyperlink{uniont__iparams}{t\-\_\-iparams} forceparams\mbox{[}$\,$\mbox{]}, const \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{copyrite_8c_a0757cfb6fe645a02867727255faa4f8b}{f}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} fshift\mbox{[}$\,$\mbox{]}, const \hyperlink{structt__pbc}{t\-\_\-pbc} $\ast$pbc, const \hyperlink{structt__graph}{t\-\_\-graph} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g}, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_aec47b6dda9c386285e755f058a846af8}{lambda}, real $\ast$dvdlambda, const \hyperlink{structt__mdatoms}{t\-\_\-mdatoms} $\ast$md, \hyperlink{structt__fcdata}{t\-\_\-fcdata} $\ast$fcd, int $\ast$global\-\_\-atom\-\_\-index)
+\item 
+real \hyperlink{bondfree_8c_a2228233a415aa5516b2a2273fed2f7d8}{cubic\-\_\-bonds} (int nbonds, const \hyperlink{include_2types_2idef_8h_abb1c069d34f868f1fa980a4c131ba249}{t\-\_\-iatom} forceatoms\mbox{[}$\,$\mbox{]}, const \hyperlink{uniont__iparams}{t\-\_\-iparams} forceparams\mbox{[}$\,$\mbox{]}, const \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{copyrite_8c_a0757cfb6fe645a02867727255faa4f8b}{f}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} fshift\mbox{[}$\,$\mbox{]}, const \hyperlink{structt__pbc}{t\-\_\-pbc} $\ast$pbc, const \hyperlink{structt__graph}{t\-\_\-graph} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g}, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_aec47b6dda9c386285e755f058a846af8}{lambda}, real $\ast$dvdlambda, const \hyperlink{structt__mdatoms}{t\-\_\-mdatoms} $\ast$md, \hyperlink{structt__fcdata}{t\-\_\-fcdata} $\ast$fcd, int $\ast$global\-\_\-atom\-\_\-index)
+\item 
+real \hyperlink{bondfree_8c_a761442569384ae04ccd9f20926e64245}{\-F\-E\-N\-E\-\_\-bonds} (int nbonds, const \hyperlink{include_2types_2idef_8h_abb1c069d34f868f1fa980a4c131ba249}{t\-\_\-iatom} forceatoms\mbox{[}$\,$\mbox{]}, const \hyperlink{uniont__iparams}{t\-\_\-iparams} forceparams\mbox{[}$\,$\mbox{]}, const \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{copyrite_8c_a0757cfb6fe645a02867727255faa4f8b}{f}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} fshift\mbox{[}$\,$\mbox{]}, const \hyperlink{structt__pbc}{t\-\_\-pbc} $\ast$pbc, const \hyperlink{structt__graph}{t\-\_\-graph} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g}, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_aec47b6dda9c386285e755f058a846af8}{lambda}, real $\ast$dvdlambda, const \hyperlink{structt__mdatoms}{t\-\_\-mdatoms} $\ast$md, \hyperlink{structt__fcdata}{t\-\_\-fcdata} $\ast$fcd, int $\ast$global\-\_\-atom\-\_\-index)
+\item 
+real \hyperlink{bondfree_8c_a1ad970569990ab06df4194e335bbbb28}{harmonic} (real k\-A, real k\-B, real x\-A, real x\-B, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_aec47b6dda9c386285e755f058a846af8}{lambda}, real $\ast$\-V, real $\ast$\hyperlink{md5_8c_a96d73bbd7af15cb1fc38c3f4a3bd82e9}{\-F})
+\item 
+real \hyperlink{bondfree_8c_a575fd72d984d738fc87692870c0807d0}{bonds} (int nbonds, const \hyperlink{include_2types_2idef_8h_abb1c069d34f868f1fa980a4c131ba249}{t\-\_\-iatom} forceatoms\mbox{[}$\,$\mbox{]}, const \hyperlink{uniont__iparams}{t\-\_\-iparams} forceparams\mbox{[}$\,$\mbox{]}, const \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{copyrite_8c_a0757cfb6fe645a02867727255faa4f8b}{f}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} fshift\mbox{[}$\,$\mbox{]}, const \hyperlink{structt__pbc}{t\-\_\-pbc} $\ast$pbc, const \hyperlink{structt__graph}{t\-\_\-graph} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g}, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_aec47b6dda9c386285e755f058a846af8}{lambda}, real $\ast$dvdlambda, const \hyperlink{structt__mdatoms}{t\-\_\-mdatoms} $\ast$md, \hyperlink{structt__fcdata}{t\-\_\-fcdata} $\ast$fcd, int $\ast$global\-\_\-atom\-\_\-index)
+\item 
+real \hyperlink{bondfree_8c_a5a148b8e984ebf07802597e99d0f9755}{restraint\-\_\-bonds} (int nbonds, const \hyperlink{include_2types_2idef_8h_abb1c069d34f868f1fa980a4c131ba249}{t\-\_\-iatom} forceatoms\mbox{[}$\,$\mbox{]}, const \hyperlink{uniont__iparams}{t\-\_\-iparams} forceparams\mbox{[}$\,$\mbox{]}, const \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{copyrite_8c_a0757cfb6fe645a02867727255faa4f8b}{f}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} fshift\mbox{[}$\,$\mbox{]}, const \hyperlink{structt__pbc}{t\-\_\-pbc} $\ast$pbc, const \hyperlink{structt__graph}{t\-\_\-graph} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g}, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_aec47b6dda9c386285e755f058a846af8}{lambda}, real $\ast$dvdlambda, const \hyperlink{structt__mdatoms}{t\-\_\-mdatoms} $\ast$md, \hyperlink{structt__fcdata}{t\-\_\-fcdata} $\ast$fcd, int $\ast$global\-\_\-atom\-\_\-index)
+\item 
+real \hyperlink{bondfree_8c_a3b6fa5da0bb385dd51c73ae5dcc9ddb8}{polarize} (int nbonds, const \hyperlink{include_2types_2idef_8h_abb1c069d34f868f1fa980a4c131ba249}{t\-\_\-iatom} forceatoms\mbox{[}$\,$\mbox{]}, const \hyperlink{uniont__iparams}{t\-\_\-iparams} forceparams\mbox{[}$\,$\mbox{]}, const \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{copyrite_8c_a0757cfb6fe645a02867727255faa4f8b}{f}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} fshift\mbox{[}$\,$\mbox{]}, const \hyperlink{structt__pbc}{t\-\_\-pbc} $\ast$pbc, const \hyperlink{structt__graph}{t\-\_\-graph} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g}, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_aec47b6dda9c386285e755f058a846af8}{lambda}, real $\ast$dvdlambda, const \hyperlink{structt__mdatoms}{t\-\_\-mdatoms} $\ast$md, \hyperlink{structt__fcdata}{t\-\_\-fcdata} $\ast$fcd, int $\ast$global\-\_\-atom\-\_\-index)
+\item 
+real \hyperlink{bondfree_8c_a0ad3d9a5e74e668b0c9f86731b261720}{anharm\-\_\-polarize} (int nbonds, const \hyperlink{include_2types_2idef_8h_abb1c069d34f868f1fa980a4c131ba249}{t\-\_\-iatom} forceatoms\mbox{[}$\,$\mbox{]}, const \hyperlink{uniont__iparams}{t\-\_\-iparams} forceparams\mbox{[}$\,$\mbox{]}, const \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{copyrite_8c_a0757cfb6fe645a02867727255faa4f8b}{f}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} fshift\mbox{[}$\,$\mbox{]}, const \hyperlink{structt__pbc}{t\-\_\-pbc} $\ast$pbc, const \hyperlink{structt__graph}{t\-\_\-graph} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g}, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_aec47b6dda9c386285e755f058a846af8}{lambda}, real $\ast$dvdlambda, const \hyperlink{structt__mdatoms}{t\-\_\-mdatoms} $\ast$md, \hyperlink{structt__fcdata}{t\-\_\-fcdata} $\ast$fcd, int $\ast$global\-\_\-atom\-\_\-index)
+\item 
+real \hyperlink{bondfree_8c_afd0ed556e211287a8804a2edbc7604fd}{water\-\_\-pol} (int nbonds, const \hyperlink{include_2types_2idef_8h_abb1c069d34f868f1fa980a4c131ba249}{t\-\_\-iatom} forceatoms\mbox{[}$\,$\mbox{]}, const \hyperlink{uniont__iparams}{t\-\_\-iparams} forceparams\mbox{[}$\,$\mbox{]}, const \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{copyrite_8c_a0757cfb6fe645a02867727255faa4f8b}{f}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} fshift\mbox{[}$\,$\mbox{]}, const \hyperlink{structt__pbc}{t\-\_\-pbc} $\ast$pbc, const \hyperlink{structt__graph}{t\-\_\-graph} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g}, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_aec47b6dda9c386285e755f058a846af8}{lambda}, real $\ast$dvdlambda, const \hyperlink{structt__mdatoms}{t\-\_\-mdatoms} $\ast$md, \hyperlink{structt__fcdata}{t\-\_\-fcdata} $\ast$fcd, int $\ast$global\-\_\-atom\-\_\-index)
+\item 
+static real \hyperlink{bondfree_8c_a7d23f39eedee44890791ad9fa1646f07}{do\-\_\-1\-\_\-thole} (const \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} xi, const \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} xj, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} fi, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} fj, const \hyperlink{structt__pbc}{t\-\_\-pbc} $\ast$pbc, real qq, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} fshift\mbox{[}$\,$\mbox{]}, real afac)
+\item 
+real \hyperlink{bondfree_8c_a8725449844adfd8e2550881a2a559d21}{thole\-\_\-pol} (int nbonds, const \hyperlink{include_2types_2idef_8h_abb1c069d34f868f1fa980a4c131ba249}{t\-\_\-iatom} forceatoms\mbox{[}$\,$\mbox{]}, const \hyperlink{uniont__iparams}{t\-\_\-iparams} forceparams\mbox{[}$\,$\mbox{]}, const \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{copyrite_8c_a0757cfb6fe645a02867727255faa4f8b}{f}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} fshift\mbox{[}$\,$\mbox{]}, const \hyperlink{structt__pbc}{t\-\_\-pbc} $\ast$pbc, const \hyperlink{structt__graph}{t\-\_\-graph} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g}, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_aec47b6dda9c386285e755f058a846af8}{lambda}, real $\ast$dvdlambda, const \hyperlink{structt__mdatoms}{t\-\_\-mdatoms} $\ast$md, \hyperlink{structt__fcdata}{t\-\_\-fcdata} $\ast$fcd, int $\ast$global\-\_\-atom\-\_\-index)
+\item 
+real \hyperlink{bondfree_8c_aceeb00cee49ccc56c76a96b4b52bf561}{bond\-\_\-angle} (const \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} xi, const \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} xj, const \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} xk, const \hyperlink{structt__pbc}{t\-\_\-pbc} $\ast$pbc, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} r\-\_\-ij, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} r\-\_\-kj, real $\ast$costh, int $\ast$t1, int $\ast$t2)
+\item 
+real \hyperlink{bondfree_8c_af80699f69fb5e367d4a781b515c87c69}{angles} (int nbonds, const \hyperlink{include_2types_2idef_8h_abb1c069d34f868f1fa980a4c131ba249}{t\-\_\-iatom} forceatoms\mbox{[}$\,$\mbox{]}, const \hyperlink{uniont__iparams}{t\-\_\-iparams} forceparams\mbox{[}$\,$\mbox{]}, const \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{copyrite_8c_a0757cfb6fe645a02867727255faa4f8b}{f}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} fshift\mbox{[}$\,$\mbox{]}, const \hyperlink{structt__pbc}{t\-\_\-pbc} $\ast$pbc, const \hyperlink{structt__graph}{t\-\_\-graph} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g}, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_aec47b6dda9c386285e755f058a846af8}{lambda}, real $\ast$dvdlambda, const \hyperlink{structt__mdatoms}{t\-\_\-mdatoms} $\ast$md, \hyperlink{structt__fcdata}{t\-\_\-fcdata} $\ast$fcd, int $\ast$global\-\_\-atom\-\_\-index)
+\item 
+real \hyperlink{bondfree_8c_a244ee5a6d606957234be8d6e06fd629b}{linear\-\_\-angles} (int nbonds, const \hyperlink{include_2types_2idef_8h_abb1c069d34f868f1fa980a4c131ba249}{t\-\_\-iatom} forceatoms\mbox{[}$\,$\mbox{]}, const \hyperlink{uniont__iparams}{t\-\_\-iparams} forceparams\mbox{[}$\,$\mbox{]}, const \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{copyrite_8c_a0757cfb6fe645a02867727255faa4f8b}{f}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} fshift\mbox{[}$\,$\mbox{]}, const \hyperlink{structt__pbc}{t\-\_\-pbc} $\ast$pbc, const \hyperlink{structt__graph}{t\-\_\-graph} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g}, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_aec47b6dda9c386285e755f058a846af8}{lambda}, real $\ast$dvdlambda, const \hyperlink{structt__mdatoms}{t\-\_\-mdatoms} $\ast$md, \hyperlink{structt__fcdata}{t\-\_\-fcdata} $\ast$fcd, int $\ast$global\-\_\-atom\-\_\-index)
+\item 
+real \hyperlink{bondfree_8c_a399e0c6cec9b089bf3355c2fe812c65a}{urey\-\_\-bradley} (int nbonds, const \hyperlink{include_2types_2idef_8h_abb1c069d34f868f1fa980a4c131ba249}{t\-\_\-iatom} forceatoms\mbox{[}$\,$\mbox{]}, const \hyperlink{uniont__iparams}{t\-\_\-iparams} forceparams\mbox{[}$\,$\mbox{]}, const \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{copyrite_8c_a0757cfb6fe645a02867727255faa4f8b}{f}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} fshift\mbox{[}$\,$\mbox{]}, const \hyperlink{structt__pbc}{t\-\_\-pbc} $\ast$pbc, const \hyperlink{structt__graph}{t\-\_\-graph} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g}, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_aec47b6dda9c386285e755f058a846af8}{lambda}, real $\ast$dvdlambda, const \hyperlink{structt__mdatoms}{t\-\_\-mdatoms} $\ast$md, \hyperlink{structt__fcdata}{t\-\_\-fcdata} $\ast$fcd, int $\ast$global\-\_\-atom\-\_\-index)
+\item 
+real \hyperlink{bondfree_8c_aa980bcabbac095b42cf4e27735996df8}{quartic\-\_\-angles} (int nbonds, const \hyperlink{include_2types_2idef_8h_abb1c069d34f868f1fa980a4c131ba249}{t\-\_\-iatom} forceatoms\mbox{[}$\,$\mbox{]}, const \hyperlink{uniont__iparams}{t\-\_\-iparams} forceparams\mbox{[}$\,$\mbox{]}, const \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{copyrite_8c_a0757cfb6fe645a02867727255faa4f8b}{f}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} fshift\mbox{[}$\,$\mbox{]}, const \hyperlink{structt__pbc}{t\-\_\-pbc} $\ast$pbc, const \hyperlink{structt__graph}{t\-\_\-graph} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g}, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_aec47b6dda9c386285e755f058a846af8}{lambda}, real $\ast$dvdlambda, const \hyperlink{structt__mdatoms}{t\-\_\-mdatoms} $\ast$md, \hyperlink{structt__fcdata}{t\-\_\-fcdata} $\ast$fcd, int $\ast$global\-\_\-atom\-\_\-index)
+\item 
+real \hyperlink{bondfree_8c_aa328350fa8b4b60bd06c55e6bb16412a}{dih\-\_\-angle} (const \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} xi, const \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} xj, const \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} xk, const \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} xl, const \hyperlink{structt__pbc}{t\-\_\-pbc} $\ast$pbc, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} r\-\_\-ij, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} r\-\_\-kj, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} r\-\_\-kl, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_aa30cfa61c7e675800f65322a90f8ac96}{m}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, real $\ast$\hyperlink{maths_8c_a0e774219bb032f7b38a0b74e153b715d}{sign}, int $\ast$t1, int $\ast$t2, int $\ast$t3)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{bondfree_8c_a2d290635c1afabd014c83692e723f055}{do\-\_\-dih\-\_\-fup} (int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a3c7542401c1cb8bd37ef5e7d9eb0f5a8}{i}, int j, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a4eeb1184d7ad1866078cacb709c768d6}{k}, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ad11474c4e247eb270a3cdb925be506ee}{l}, real ddphi, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} r\-\_\-ij, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} r\-\_\-kj, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} r\-\_\-kl, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_aa30cfa61c7e675800f65322a90f8ac96}{m}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{copyrite_8c_a0757cfb6fe645a02867727255faa4f8b}{f}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} fshift\mbox{[}$\,$\mbox{]}, const \hyperlink{structt__pbc}{t\-\_\-pbc} $\ast$pbc, const \hyperlink{structt__graph}{t\-\_\-graph} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g}, const \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, int t1, int t2, int t3)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{bondfree_8c_ab7541e3b1fc0f68032ec682ca39e26a2}{do\-\_\-dih\-\_\-fup\-\_\-noshiftf} (int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a3c7542401c1cb8bd37ef5e7d9eb0f5a8}{i}, int j, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a4eeb1184d7ad1866078cacb709c768d6}{k}, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ad11474c4e247eb270a3cdb925be506ee}{l}, real ddphi, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} r\-\_\-ij, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} r\-\_\-kj, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} r\-\_\-kl, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_aa30cfa61c7e675800f65322a90f8ac96}{m}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{copyrite_8c_a0757cfb6fe645a02867727255faa4f8b}{f}\mbox{[}$\,$\mbox{]})
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{bondfree_8c_a2e11837439e8007d5302a456bca09085}{do\-\_\-dih\-\_\-fup\-\_\-noshiftf\-\_\-precalc} (int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a3c7542401c1cb8bd37ef5e7d9eb0f5a8}{i}, int j, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a4eeb1184d7ad1866078cacb709c768d6}{k}, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ad11474c4e247eb270a3cdb925be506ee}{l}, real ddphi, real nrkj\-\_\-m2, real nrkj\-\_\-n2, real p, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_abbda725bda8d9be8c9fc2fdb63ea38e2}{q}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_aa30cfa61c7e675800f65322a90f8ac96}{m}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{copyrite_8c_a0757cfb6fe645a02867727255faa4f8b}{f}\mbox{[}$\,$\mbox{]})
+\item 
+real \hyperlink{bondfree_8c_a9bb9c7ecbc815f4a4724f0fc82bc0225}{dopdihs} (real cp\-A, real cp\-B, real phi\-A, real phi\-B, int mult, real phi, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_aec47b6dda9c386285e755f058a846af8}{lambda}, real $\ast$\-V, real $\ast$\hyperlink{md5_8c_a96d73bbd7af15cb1fc38c3f4a3bd82e9}{\-F})
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{bondfree_8c_a2da8d9e54d740aa1f7c457840e593022}{dopdihs\-\_\-noener} (real cp\-A, real cp\-B, real phi\-A, real phi\-B, int mult, real phi, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_aec47b6dda9c386285e755f058a846af8}{lambda}, real $\ast$\hyperlink{md5_8c_a96d73bbd7af15cb1fc38c3f4a3bd82e9}{\-F})
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{bondfree_8c_a644bd84f12dd7231a936c3594719b168}{dopdihs\-\_\-mdphi} (real cp\-A, real cp\-B, real phi\-A, real phi\-B, int mult, real phi, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_aec47b6dda9c386285e755f058a846af8}{lambda}, real $\ast$cp, real $\ast$mdphi)
+\item 
+static real \hyperlink{bondfree_8c_ad89cd660c61ffc33a77ee30ba5f46b18}{dopdihs\-\_\-min} (real cp\-A, real cp\-B, real phi\-A, real phi\-B, int mult, real phi, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_aec47b6dda9c386285e755f058a846af8}{lambda}, real $\ast$\-V, real $\ast$\hyperlink{md5_8c_a96d73bbd7af15cb1fc38c3f4a3bd82e9}{\-F})
+\item 
+real \hyperlink{bondfree_8c_a5418bdb80b1d0ea64015d915effee4c8}{pdihs} (int nbonds, const \hyperlink{include_2types_2idef_8h_abb1c069d34f868f1fa980a4c131ba249}{t\-\_\-iatom} forceatoms\mbox{[}$\,$\mbox{]}, const \hyperlink{uniont__iparams}{t\-\_\-iparams} forceparams\mbox{[}$\,$\mbox{]}, const \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{copyrite_8c_a0757cfb6fe645a02867727255faa4f8b}{f}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} fshift\mbox{[}$\,$\mbox{]}, const \hyperlink{structt__pbc}{t\-\_\-pbc} $\ast$pbc, const \hyperlink{structt__graph}{t\-\_\-graph} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g}, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_aec47b6dda9c386285e755f058a846af8}{lambda}, real $\ast$dvdlambda, const \hyperlink{structt__mdatoms}{t\-\_\-mdatoms} $\ast$md, \hyperlink{structt__fcdata}{t\-\_\-fcdata} $\ast$fcd, int $\ast$global\-\_\-atom\-\_\-index)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{bondfree_8c_a93a7bac0fa6d22f4e41d995fe34fff9c}{make\-\_\-dp\-\_\-periodic} (real $\ast$dp)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{bondfree_8c_a6e9be979e9a5b5509390790fa3d36037}{pdihs\-\_\-noener} (int nbonds, const \hyperlink{include_2types_2idef_8h_abb1c069d34f868f1fa980a4c131ba249}{t\-\_\-iatom} forceatoms\mbox{[}$\,$\mbox{]}, const \hyperlink{uniont__iparams}{t\-\_\-iparams} forceparams\mbox{[}$\,$\mbox{]}, const \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{copyrite_8c_a0757cfb6fe645a02867727255faa4f8b}{f}\mbox{[}$\,$\mbox{]}, const \hyperlink{structt__pbc}{t\-\_\-pbc} $\ast$pbc, const \hyperlink{structt__graph}{t\-\_\-graph} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g}, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_aec47b6dda9c386285e755f058a846af8}{lambda}, const \hyperlink{structt__mdatoms}{t\-\_\-mdatoms} $\ast$md, \hyperlink{structt__fcdata}{t\-\_\-fcdata} $\ast$fcd, int $\ast$global\-\_\-atom\-\_\-index)
+\item 
+real \hyperlink{bondfree_8c_a12810351d3b41f885b095feff432c870}{idihs} (int nbonds, const \hyperlink{include_2types_2idef_8h_abb1c069d34f868f1fa980a4c131ba249}{t\-\_\-iatom} forceatoms\mbox{[}$\,$\mbox{]}, const \hyperlink{uniont__iparams}{t\-\_\-iparams} forceparams\mbox{[}$\,$\mbox{]}, const \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{copyrite_8c_a0757cfb6fe645a02867727255faa4f8b}{f}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} fshift\mbox{[}$\,$\mbox{]}, const \hyperlink{structt__pbc}{t\-\_\-pbc} $\ast$pbc, const \hyperlink{structt__graph}{t\-\_\-graph} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g}, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_aec47b6dda9c386285e755f058a846af8}{lambda}, real $\ast$dvdlambda, const \hyperlink{structt__mdatoms}{t\-\_\-mdatoms} $\ast$md, \hyperlink{structt__fcdata}{t\-\_\-fcdata} $\ast$fcd, int $\ast$global\-\_\-atom\-\_\-index)
+\item 
+real \hyperlink{bondfree_8c_a5d0e8784c819c6e47a317522a7cce643}{posres} (int nbonds, const \hyperlink{include_2types_2idef_8h_abb1c069d34f868f1fa980a4c131ba249}{t\-\_\-iatom} forceatoms\mbox{[}$\,$\mbox{]}, const \hyperlink{uniont__iparams}{t\-\_\-iparams} forceparams\mbox{[}$\,$\mbox{]}, const \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{copyrite_8c_a0757cfb6fe645a02867727255faa4f8b}{f}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} vir\-\_\-diag, \hyperlink{structt__pbc}{t\-\_\-pbc} $\ast$pbc, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_aec47b6dda9c386285e755f058a846af8}{lambda}, real $\ast$dvdlambda, int refcoord\-\_\-scaling, int e\-P\-B\-C, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} com\-A, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} com\-B)
+\item 
+static real \hyperlink{bondfree_8c_aefd316072ef0fcd0bbc5fef29b81455a}{low\-\_\-angres} (int nbonds, const \hyperlink{include_2types_2idef_8h_abb1c069d34f868f1fa980a4c131ba249}{t\-\_\-iatom} forceatoms\mbox{[}$\,$\mbox{]}, const \hyperlink{uniont__iparams}{t\-\_\-iparams} forceparams\mbox{[}$\,$\mbox{]}, const \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{copyrite_8c_a0757cfb6fe645a02867727255faa4f8b}{f}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} fshift\mbox{[}$\,$\mbox{]}, const \hyperlink{structt__pbc}{t\-\_\-pbc} $\ast$pbc, const \hyperlink{structt__graph}{t\-\_\-graph} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g}, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_aec47b6dda9c386285e755f058a846af8}{lambda}, real $\ast$dvdlambda, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Z\-Axis)
+\item 
+real \hyperlink{bondfree_8c_a0d382bf89b0b5e784f17fbf0bb6b3000}{angres} (int nbonds, const \hyperlink{include_2types_2idef_8h_abb1c069d34f868f1fa980a4c131ba249}{t\-\_\-iatom} forceatoms\mbox{[}$\,$\mbox{]}, const \hyperlink{uniont__iparams}{t\-\_\-iparams} forceparams\mbox{[}$\,$\mbox{]}, const \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{copyrite_8c_a0757cfb6fe645a02867727255faa4f8b}{f}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} fshift\mbox{[}$\,$\mbox{]}, const \hyperlink{structt__pbc}{t\-\_\-pbc} $\ast$pbc, const \hyperlink{structt__graph}{t\-\_\-graph} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g}, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_aec47b6dda9c386285e755f058a846af8}{lambda}, real $\ast$dvdlambda, const \hyperlink{structt__mdatoms}{t\-\_\-mdatoms} $\ast$md, \hyperlink{structt__fcdata}{t\-\_\-fcdata} $\ast$fcd, int $\ast$global\-\_\-atom\-\_\-index)
+\item 
+real \hyperlink{bondfree_8c_ae5d25315e15252177dbdac0ea9c96d34}{angresz} (int nbonds, const \hyperlink{include_2types_2idef_8h_abb1c069d34f868f1fa980a4c131ba249}{t\-\_\-iatom} forceatoms\mbox{[}$\,$\mbox{]}, const \hyperlink{uniont__iparams}{t\-\_\-iparams} forceparams\mbox{[}$\,$\mbox{]}, const \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{copyrite_8c_a0757cfb6fe645a02867727255faa4f8b}{f}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} fshift\mbox{[}$\,$\mbox{]}, const \hyperlink{structt__pbc}{t\-\_\-pbc} $\ast$pbc, const \hyperlink{structt__graph}{t\-\_\-graph} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g}, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_aec47b6dda9c386285e755f058a846af8}{lambda}, real $\ast$dvdlambda, const \hyperlink{structt__mdatoms}{t\-\_\-mdatoms} $\ast$md, \hyperlink{structt__fcdata}{t\-\_\-fcdata} $\ast$fcd, int $\ast$global\-\_\-atom\-\_\-index)
+\item 
+real \hyperlink{bondfree_8c_a83fed0dce34228cf3a4d95c950191929}{dihres} (int nbonds, const \hyperlink{include_2types_2idef_8h_abb1c069d34f868f1fa980a4c131ba249}{t\-\_\-iatom} forceatoms\mbox{[}$\,$\mbox{]}, const \hyperlink{uniont__iparams}{t\-\_\-iparams} forceparams\mbox{[}$\,$\mbox{]}, const \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{copyrite_8c_a0757cfb6fe645a02867727255faa4f8b}{f}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} fshift\mbox{[}$\,$\mbox{]}, const \hyperlink{structt__pbc}{t\-\_\-pbc} $\ast$pbc, const \hyperlink{structt__graph}{t\-\_\-graph} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g}, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_aec47b6dda9c386285e755f058a846af8}{lambda}, real $\ast$dvdlambda, const \hyperlink{structt__mdatoms}{t\-\_\-mdatoms} $\ast$md, \hyperlink{structt__fcdata}{t\-\_\-fcdata} $\ast$fcd, int $\ast$global\-\_\-atom\-\_\-index)
+\item 
+real \hyperlink{bondfree_8c_a3a5d201f2c340d73d3e0d050a2859042}{unimplemented} (int nbonds, const \hyperlink{include_2types_2idef_8h_abb1c069d34f868f1fa980a4c131ba249}{t\-\_\-iatom} forceatoms\mbox{[}$\,$\mbox{]}, const \hyperlink{uniont__iparams}{t\-\_\-iparams} forceparams\mbox{[}$\,$\mbox{]}, const \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{copyrite_8c_a0757cfb6fe645a02867727255faa4f8b}{f}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} fshift\mbox{[}$\,$\mbox{]}, const \hyperlink{structt__pbc}{t\-\_\-pbc} $\ast$pbc, const \hyperlink{structt__graph}{t\-\_\-graph} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g}, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_aec47b6dda9c386285e755f058a846af8}{lambda}, real $\ast$dvdlambda, const \hyperlink{structt__mdatoms}{t\-\_\-mdatoms} $\ast$md, \hyperlink{structt__fcdata}{t\-\_\-fcdata} $\ast$fcd, int $\ast$global\-\_\-atom\-\_\-index)
+\item 
+real \hyperlink{bondfree_8c_a4a557e645568f02580cf3d23d759cc13}{rbdihs} (int nbonds, const \hyperlink{include_2types_2idef_8h_abb1c069d34f868f1fa980a4c131ba249}{t\-\_\-iatom} forceatoms\mbox{[}$\,$\mbox{]}, const \hyperlink{uniont__iparams}{t\-\_\-iparams} forceparams\mbox{[}$\,$\mbox{]}, const \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{copyrite_8c_a0757cfb6fe645a02867727255faa4f8b}{f}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} fshift\mbox{[}$\,$\mbox{]}, const \hyperlink{structt__pbc}{t\-\_\-pbc} $\ast$pbc, const \hyperlink{structt__graph}{t\-\_\-graph} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g}, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_aec47b6dda9c386285e755f058a846af8}{lambda}, real $\ast$dvdlambda, const \hyperlink{structt__mdatoms}{t\-\_\-mdatoms} $\ast$md, \hyperlink{structt__fcdata}{t\-\_\-fcdata} $\ast$fcd, int $\ast$global\-\_\-atom\-\_\-index)
+\item 
+int \hyperlink{bondfree_8c_a961f97a1aad16b7a2c9f39769b44803b}{cmap\-\_\-setup\-\_\-grid\-\_\-index} (int ip, int grid\-\_\-spacing, int $\ast$ipm1, int $\ast$ipp1, int $\ast$ipp2)
+\item 
+real \hyperlink{bondfree_8c_a5062a49d42e3370da0513d4ff887d2c7}{cmap\-\_\-dihs} (int nbonds, const \hyperlink{include_2types_2idef_8h_abb1c069d34f868f1fa980a4c131ba249}{t\-\_\-iatom} forceatoms\mbox{[}$\,$\mbox{]}, const \hyperlink{uniont__iparams}{t\-\_\-iparams} forceparams\mbox{[}$\,$\mbox{]}, const \hyperlink{structgmx__cmap__t}{gmx\-\_\-cmap\-\_\-t} $\ast$cmap\-\_\-grid, const \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{copyrite_8c_a0757cfb6fe645a02867727255faa4f8b}{f}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} fshift\mbox{[}$\,$\mbox{]}, const \hyperlink{structt__pbc}{t\-\_\-pbc} $\ast$pbc, const \hyperlink{structt__graph}{t\-\_\-graph} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g}, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_aec47b6dda9c386285e755f058a846af8}{lambda}, real $\ast$dvdlambda, const \hyperlink{structt__mdatoms}{t\-\_\-mdatoms} $\ast$md, \hyperlink{structt__fcdata}{t\-\_\-fcdata} $\ast$fcd, int $\ast$global\-\_\-atom\-\_\-index)
+\item 
+real \hyperlink{bondfree_8c_abce974a3003e97d68ca554c6a50e9fbe}{g96harmonic} (real k\-A, real k\-B, real x\-A, real x\-B, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_aec47b6dda9c386285e755f058a846af8}{lambda}, real $\ast$\-V, real $\ast$\hyperlink{md5_8c_a96d73bbd7af15cb1fc38c3f4a3bd82e9}{\-F})
+\item 
+real \hyperlink{bondfree_8c_ae2eb02e0751019d8461d1c2e827514bf}{g96bonds} (int nbonds, const \hyperlink{include_2types_2idef_8h_abb1c069d34f868f1fa980a4c131ba249}{t\-\_\-iatom} forceatoms\mbox{[}$\,$\mbox{]}, const \hyperlink{uniont__iparams}{t\-\_\-iparams} forceparams\mbox{[}$\,$\mbox{]}, const \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{copyrite_8c_a0757cfb6fe645a02867727255faa4f8b}{f}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} fshift\mbox{[}$\,$\mbox{]}, const \hyperlink{structt__pbc}{t\-\_\-pbc} $\ast$pbc, const \hyperlink{structt__graph}{t\-\_\-graph} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g}, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_aec47b6dda9c386285e755f058a846af8}{lambda}, real $\ast$dvdlambda, const \hyperlink{structt__mdatoms}{t\-\_\-mdatoms} $\ast$md, \hyperlink{structt__fcdata}{t\-\_\-fcdata} $\ast$fcd, int $\ast$global\-\_\-atom\-\_\-index)
+\item 
+real \hyperlink{bondfree_8c_af440eb45cfecdd751c20a3d200c20797}{g96bond\-\_\-angle} (const \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} xi, const \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} xj, const \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} xk, const \hyperlink{structt__pbc}{t\-\_\-pbc} $\ast$pbc, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} r\-\_\-ij, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} r\-\_\-kj, int $\ast$t1, int $\ast$t2)
+\item 
+real \hyperlink{bondfree_8c_a8b5c1f6c1f8396c79ddedf1558bad928}{g96angles} (int nbonds, const \hyperlink{include_2types_2idef_8h_abb1c069d34f868f1fa980a4c131ba249}{t\-\_\-iatom} forceatoms\mbox{[}$\,$\mbox{]}, const \hyperlink{uniont__iparams}{t\-\_\-iparams} forceparams\mbox{[}$\,$\mbox{]}, const \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{copyrite_8c_a0757cfb6fe645a02867727255faa4f8b}{f}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} fshift\mbox{[}$\,$\mbox{]}, const \hyperlink{structt__pbc}{t\-\_\-pbc} $\ast$pbc, const \hyperlink{structt__graph}{t\-\_\-graph} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g}, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_aec47b6dda9c386285e755f058a846af8}{lambda}, real $\ast$dvdlambda, const \hyperlink{structt__mdatoms}{t\-\_\-mdatoms} $\ast$md, \hyperlink{structt__fcdata}{t\-\_\-fcdata} $\ast$fcd, int $\ast$global\-\_\-atom\-\_\-index)
+\item 
+real \hyperlink{bondfree_8c_a887b4c8b43aae00659cee8e121e9cfdc}{cross\-\_\-bond\-\_\-bond} (int nbonds, const \hyperlink{include_2types_2idef_8h_abb1c069d34f868f1fa980a4c131ba249}{t\-\_\-iatom} forceatoms\mbox{[}$\,$\mbox{]}, const \hyperlink{uniont__iparams}{t\-\_\-iparams} forceparams\mbox{[}$\,$\mbox{]}, const \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{copyrite_8c_a0757cfb6fe645a02867727255faa4f8b}{f}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} fshift\mbox{[}$\,$\mbox{]}, const \hyperlink{structt__pbc}{t\-\_\-pbc} $\ast$pbc, const \hyperlink{structt__graph}{t\-\_\-graph} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g}, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_aec47b6dda9c386285e755f058a846af8}{lambda}, real $\ast$dvdlambda, const \hyperlink{structt__mdatoms}{t\-\_\-mdatoms} $\ast$md, \hyperlink{structt__fcdata}{t\-\_\-fcdata} $\ast$fcd, int $\ast$global\-\_\-atom\-\_\-index)
+\item 
+real \hyperlink{bondfree_8c_ac8eb939d2d5dc0b7fbdfac4645ff5570}{cross\-\_\-bond\-\_\-angle} (int nbonds, const \hyperlink{include_2types_2idef_8h_abb1c069d34f868f1fa980a4c131ba249}{t\-\_\-iatom} forceatoms\mbox{[}$\,$\mbox{]}, const \hyperlink{uniont__iparams}{t\-\_\-iparams} forceparams\mbox{[}$\,$\mbox{]}, const \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{copyrite_8c_a0757cfb6fe645a02867727255faa4f8b}{f}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} fshift\mbox{[}$\,$\mbox{]}, const \hyperlink{structt__pbc}{t\-\_\-pbc} $\ast$pbc, const \hyperlink{structt__graph}{t\-\_\-graph} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g}, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_aec47b6dda9c386285e755f058a846af8}{lambda}, real $\ast$dvdlambda, const \hyperlink{structt__mdatoms}{t\-\_\-mdatoms} $\ast$md, \hyperlink{structt__fcdata}{t\-\_\-fcdata} $\ast$fcd, int $\ast$global\-\_\-atom\-\_\-index)
+\item 
+static real \hyperlink{bondfree_8c_a403f7ea0dc920475f5bbb29a89d1de9c}{bonded\-\_\-tab} (const char $\ast$\hyperlink{fgrid_8c_a7f3986ef06a5ebd031c536fbcdce3c49}{type}, int table\-\_\-nr, const \hyperlink{structbondedtable__t}{bondedtable\-\_\-t} $\ast$table, real k\-A, real k\-B, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae039a6f39df62bd858e5e3f5ec77b24b}{r}, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_aec47b6dda9c386285e755f058a846af8}{lambda}, real $\ast$\-V, real $\ast$\hyperlink{md5_8c_a96d73bbd7af15cb1fc38c3f4a3bd82e9}{\-F})
+\item 
+real \hyperlink{bondfree_8c_ab3379ef26dfd577629c43bff6a90050b}{tab\-\_\-bonds} (int nbonds, const \hyperlink{include_2types_2idef_8h_abb1c069d34f868f1fa980a4c131ba249}{t\-\_\-iatom} forceatoms\mbox{[}$\,$\mbox{]}, const \hyperlink{uniont__iparams}{t\-\_\-iparams} forceparams\mbox{[}$\,$\mbox{]}, const \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{copyrite_8c_a0757cfb6fe645a02867727255faa4f8b}{f}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} fshift\mbox{[}$\,$\mbox{]}, const \hyperlink{structt__pbc}{t\-\_\-pbc} $\ast$pbc, const \hyperlink{structt__graph}{t\-\_\-graph} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g}, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_aec47b6dda9c386285e755f058a846af8}{lambda}, real $\ast$dvdlambda, const \hyperlink{structt__mdatoms}{t\-\_\-mdatoms} $\ast$md, \hyperlink{structt__fcdata}{t\-\_\-fcdata} $\ast$fcd, int $\ast$global\-\_\-atom\-\_\-index)
+\item 
+real \hyperlink{bondfree_8c_abd97a138bdacf5e43a7462ff94525bd5}{tab\-\_\-angles} (int nbonds, const \hyperlink{include_2types_2idef_8h_abb1c069d34f868f1fa980a4c131ba249}{t\-\_\-iatom} forceatoms\mbox{[}$\,$\mbox{]}, const \hyperlink{uniont__iparams}{t\-\_\-iparams} forceparams\mbox{[}$\,$\mbox{]}, const \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{copyrite_8c_a0757cfb6fe645a02867727255faa4f8b}{f}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} fshift\mbox{[}$\,$\mbox{]}, const \hyperlink{structt__pbc}{t\-\_\-pbc} $\ast$pbc, const \hyperlink{structt__graph}{t\-\_\-graph} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g}, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_aec47b6dda9c386285e755f058a846af8}{lambda}, real $\ast$dvdlambda, const \hyperlink{structt__mdatoms}{t\-\_\-mdatoms} $\ast$md, \hyperlink{structt__fcdata}{t\-\_\-fcdata} $\ast$fcd, int $\ast$global\-\_\-atom\-\_\-index)
+\item 
+real \hyperlink{bondfree_8c_a2e9510cdbdd26b5adda73c990a46bba7}{tab\-\_\-dihs} (int nbonds, const \hyperlink{include_2types_2idef_8h_abb1c069d34f868f1fa980a4c131ba249}{t\-\_\-iatom} forceatoms\mbox{[}$\,$\mbox{]}, const \hyperlink{uniont__iparams}{t\-\_\-iparams} forceparams\mbox{[}$\,$\mbox{]}, const \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{copyrite_8c_a0757cfb6fe645a02867727255faa4f8b}{f}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} fshift\mbox{[}$\,$\mbox{]}, const \hyperlink{structt__pbc}{t\-\_\-pbc} $\ast$pbc, const \hyperlink{structt__graph}{t\-\_\-graph} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g}, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_aec47b6dda9c386285e755f058a846af8}{lambda}, real $\ast$dvdlambda, const \hyperlink{structt__mdatoms}{t\-\_\-mdatoms} $\ast$md, \hyperlink{structt__fcdata}{t\-\_\-fcdata} $\ast$fcd, int $\ast$global\-\_\-atom\-\_\-index)
+\item 
+static unsigned \hyperlink{bondfree_8c_a01de88b110277bb5aab6e36676997584}{calc\-\_\-bonded\-\_\-reduction\-\_\-mask} (const \hyperlink{structt__idef}{t\-\_\-idef} $\ast$idef, int shift, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a2b515c84b1293071f7584da32ca336c0}{t}, int nt)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{bondfree_8c_ac247ab2e4de0d53b72770e683c161b08}{init\-\_\-bonded\-\_\-thread\-\_\-force\-\_\-reduction} (\hyperlink{structt__forcerec}{t\-\_\-forcerec} $\ast$\hyperlink{addconf_8c_ae8414314f87c5e49503ac0117eb511ad}{fr}, const \hyperlink{structt__idef}{t\-\_\-idef} $\ast$idef)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{bondfree_8c_a194ca811a25b46c67212bc15d5a55bc7}{zero\-\_\-thread\-\_\-forces} (\hyperlink{structf__thread__t}{f\-\_\-thread\-\_\-t} $\ast$f\-\_\-t, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, int nblock, int blocksize)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{bondfree_8c_a7693fe3e12b49e89b2cf19a3bacb2c4a}{reduce\-\_\-thread\-\_\-force\-\_\-buffer} (int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$\hyperlink{copyrite_8c_a0757cfb6fe645a02867727255faa4f8b}{f}, int nthreads, \hyperlink{structf__thread__t}{f\-\_\-thread\-\_\-t} $\ast$f\-\_\-t, int nblock, int block\-\_\-size)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{bondfree_8c_ae43e4fd5b78be13d41034762f4fe2e4b}{reduce\-\_\-thread\-\_\-forces} (int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$\hyperlink{copyrite_8c_a0757cfb6fe645a02867727255faa4f8b}{f}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$fshift, real $\ast$\hyperlink{optwat_8c_a0af9a624abbf535eeb74358ffc1634b2}{ener}, \hyperlink{structgmx__grppairener__t}{gmx\-\_\-grppairener\-\_\-t} $\ast$grpp, real $\ast$dvdl, int nthreads, \hyperlink{structf__thread__t}{f\-\_\-thread\-\_\-t} $\ast$f\-\_\-t, int nblock, int block\-\_\-size, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Calc\-Ener\-Vir, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-D\-H\-D\-L)
+\item 
+static real \hyperlink{bondfree_8c_a05edc2d77112c154e24d40b1ac61f9a6}{calc\-\_\-one\-\_\-bond} (\-F\-I\-L\-E $\ast$fplog, int thread, int ftype, const \hyperlink{structt__idef}{t\-\_\-idef} $\ast$idef, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{copyrite_8c_a0757cfb6fe645a02867727255faa4f8b}{f}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} fshift\mbox{[}$\,$\mbox{]}, \hyperlink{structt__forcerec}{t\-\_\-forcerec} $\ast$\hyperlink{addconf_8c_ae8414314f87c5e49503ac0117eb511ad}{fr}, const \hyperlink{structt__pbc}{t\-\_\-pbc} $\ast$pbc, const \hyperlink{structt__graph}{t\-\_\-graph} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g}, \hyperlink{structgmx__enerdata__t}{gmx\-\_\-enerdata\-\_\-t} $\ast$enerd, \hyperlink{structgmx__grppairener__t}{gmx\-\_\-grppairener\-\_\-t} $\ast$grpp, \hyperlink{structt__nrnb}{t\-\_\-nrnb} $\ast$nrnb, real $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_aec47b6dda9c386285e755f058a846af8}{lambda}, real $\ast$dvdl, const \hyperlink{structt__mdatoms}{t\-\_\-mdatoms} $\ast$md, \hyperlink{structt__fcdata}{t\-\_\-fcdata} $\ast$fcd, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Calc\-Ener\-Vir, int $\ast$global\-\_\-atom\-\_\-index, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Print\-Sep\-Pot)
+\item 
+static real \hyperlink{bondfree_8c_ae418a40ee2ec9989ab16772485c8935c}{calc\-\_\-one\-\_\-bond\-\_\-foreign} (\-F\-I\-L\-E $\ast$fplog, int ftype, const \hyperlink{structt__idef}{t\-\_\-idef} $\ast$idef, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{copyrite_8c_a0757cfb6fe645a02867727255faa4f8b}{f}\mbox{[}$\,$\mbox{]}, \hyperlink{structt__forcerec}{t\-\_\-forcerec} $\ast$\hyperlink{addconf_8c_ae8414314f87c5e49503ac0117eb511ad}{fr}, const \hyperlink{structt__pbc}{t\-\_\-pbc} $\ast$pbc, const \hyperlink{structt__graph}{t\-\_\-graph} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g}, \hyperlink{structgmx__grppairener__t}{gmx\-\_\-grppairener\-\_\-t} $\ast$grpp, \hyperlink{structt__nrnb}{t\-\_\-nrnb} $\ast$nrnb, real $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_aec47b6dda9c386285e755f058a846af8}{lambda}, real $\ast$dvdl, const \hyperlink{structt__mdatoms}{t\-\_\-mdatoms} $\ast$md, \hyperlink{structt__fcdata}{t\-\_\-fcdata} $\ast$fcd, int $\ast$global\-\_\-atom\-\_\-index, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Print\-Sep\-Pot)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{bondfree_8c_a2bec9619d90dafe390ae9ceeb2898297}{calc\-\_\-bonds} (\-F\-I\-L\-E $\ast$fplog, const \hyperlink{structgmx__multisim__t}{gmx\-\_\-multisim\-\_\-t} $\ast$ms, const \hyperlink{structt__idef}{t\-\_\-idef} $\ast$idef, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{structhistory__t}{history\-\_\-t} $\ast$hist, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{copyrite_8c_a0757cfb6fe645a02867727255faa4f8b}{f}\mbox{[}$\,$\mbox{]}, \hyperlink{structt__forcerec}{t\-\_\-forcerec} $\ast$\hyperlink{addconf_8c_ae8414314f87c5e49503ac0117eb511ad}{fr}, const \hyperlink{structt__pbc}{t\-\_\-pbc} $\ast$pbc, const \hyperlink{structt__graph}{t\-\_\-graph} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g}, \hyperlink{structgmx__enerdata__t}{gmx\-\_\-enerdata\-\_\-t} $\ast$enerd, \hyperlink{structt__nrnb}{t\-\_\-nrnb} $\ast$nrnb, real $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_aec47b6dda9c386285e755f058a846af8}{lambda}, const \hyperlink{structt__mdatoms}{t\-\_\-mdatoms} $\ast$md, \hyperlink{structt__fcdata}{t\-\_\-fcdata} $\ast$fcd, int $\ast$global\-\_\-atom\-\_\-index, \hyperlink{structt__atomtypes}{t\-\_\-atomtypes} $\ast$atype, \hyperlink{structgmx__genborn__t}{gmx\-\_\-genborn\-\_\-t} $\ast$born, int force\-\_\-flags, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Print\-Sep\-Pot, gmx\-\_\-large\-\_\-int\-\_\-t step)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{bondfree_8c_aa2e5a58de7e090904c75fe8453adb5a3}{calc\-\_\-bonds\-\_\-lambda} (\-F\-I\-L\-E $\ast$fplog, const \hyperlink{structt__idef}{t\-\_\-idef} $\ast$idef, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{structt__forcerec}{t\-\_\-forcerec} $\ast$\hyperlink{addconf_8c_ae8414314f87c5e49503ac0117eb511ad}{fr}, const \hyperlink{structt__pbc}{t\-\_\-pbc} $\ast$pbc, const \hyperlink{structt__graph}{t\-\_\-graph} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g}, \hyperlink{structgmx__grppairener__t}{gmx\-\_\-grppairener\-\_\-t} $\ast$grpp, real $\ast$epot, \hyperlink{structt__nrnb}{t\-\_\-nrnb} $\ast$nrnb, real $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_aec47b6dda9c386285e755f058a846af8}{lambda}, const \hyperlink{structt__mdatoms}{t\-\_\-mdatoms} $\ast$md, \hyperlink{structt__fcdata}{t\-\_\-fcdata} $\ast$fcd, int $\ast$global\-\_\-atom\-\_\-index)
+\end{DoxyCompactItemize}
+\subsection*{\-Variables}
+\begin{DoxyCompactItemize}
+\item 
+const int \hyperlink{bondfree_8c_ad8e1ea08233c16b88f1077b78e42e3fe}{cmap\-\_\-coeff\-\_\-matrix} \mbox{[}$\,$\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Define \-Documentation}
+\hypertarget{bondfree_8c_a24fc52988644379d3ed32e5c74b46043}{\index{bondfree.\-c@{bondfree.\-c}!\-M\-A\-X\-\_\-\-B\-L\-O\-C\-K\-\_\-\-B\-I\-T\-S@{\-M\-A\-X\-\_\-\-B\-L\-O\-C\-K\-\_\-\-B\-I\-T\-S}}
+\index{\-M\-A\-X\-\_\-\-B\-L\-O\-C\-K\-\_\-\-B\-I\-T\-S@{\-M\-A\-X\-\_\-\-B\-L\-O\-C\-K\-\_\-\-B\-I\-T\-S}!bondfree.c@{bondfree.\-c}}
+\subsubsection[{\-M\-A\-X\-\_\-\-B\-L\-O\-C\-K\-\_\-\-B\-I\-T\-S}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-M\-A\-X\-\_\-\-B\-L\-O\-C\-K\-\_\-\-B\-I\-T\-S}~32}}\label{bondfree_8c_a24fc52988644379d3ed32e5c74b46043}
+\hypertarget{bondfree_8c_a5cf0b676b2f30f86d45c174c8816afca}{\index{bondfree.\-c@{bondfree.\-c}!\-M\-A\-X\-\_\-\-B\-O\-N\-D\-E\-D\-\_\-\-T\-H\-R\-E\-A\-D\-S@{\-M\-A\-X\-\_\-\-B\-O\-N\-D\-E\-D\-\_\-\-T\-H\-R\-E\-A\-D\-S}}
+\index{\-M\-A\-X\-\_\-\-B\-O\-N\-D\-E\-D\-\_\-\-T\-H\-R\-E\-A\-D\-S@{\-M\-A\-X\-\_\-\-B\-O\-N\-D\-E\-D\-\_\-\-T\-H\-R\-E\-A\-D\-S}!bondfree.c@{bondfree.\-c}}
+\subsubsection[{\-M\-A\-X\-\_\-\-B\-O\-N\-D\-E\-D\-\_\-\-T\-H\-R\-E\-A\-D\-S}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-M\-A\-X\-\_\-\-B\-O\-N\-D\-E\-D\-\_\-\-T\-H\-R\-E\-A\-D\-S}~256}}\label{bondfree_8c_a5cf0b676b2f30f86d45c174c8816afca}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{bondfree_8c_af80699f69fb5e367d4a781b515c87c69}{\index{bondfree.\-c@{bondfree.\-c}!angles@{angles}}
+\index{angles@{angles}!bondfree.c@{bondfree.\-c}}
+\subsubsection[{angles}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf angles} (
+\begin{DoxyParamCaption}
+\item[{int}]{nbonds, }
+\item[{const {\bf t\-\_\-iatom}}]{forceatoms\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf t\-\_\-iparams}}]{forceparams\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{f\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{fshift\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf t\-\_\-pbc} $\ast$}]{pbc, }
+\item[{const {\bf t\-\_\-graph} $\ast$}]{g, }
+\item[{real}]{lambda, }
+\item[{real $\ast$}]{dvdlambda, }
+\item[{const {\bf t\-\_\-mdatoms} $\ast$}]{md, }
+\item[{{\bf t\-\_\-fcdata} $\ast$}]{fcd, }
+\item[{int $\ast$}]{global\-\_\-atom\-\_\-index}
+\end{DoxyParamCaption}
+)}}\label{bondfree_8c_af80699f69fb5e367d4a781b515c87c69}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=294pt]{bondfree_8c_af80699f69fb5e367d4a781b515c87c69_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{bondfree_8c_a0d382bf89b0b5e784f17fbf0bb6b3000}{\index{bondfree.\-c@{bondfree.\-c}!angres@{angres}}
+\index{angres@{angres}!bondfree.c@{bondfree.\-c}}
+\subsubsection[{angres}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf angres} (
+\begin{DoxyParamCaption}
+\item[{int}]{nbonds, }
+\item[{const {\bf t\-\_\-iatom}}]{forceatoms\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf t\-\_\-iparams}}]{forceparams\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{f\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{fshift\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf t\-\_\-pbc} $\ast$}]{pbc, }
+\item[{const {\bf t\-\_\-graph} $\ast$}]{g, }
+\item[{real}]{lambda, }
+\item[{real $\ast$}]{dvdlambda, }
+\item[{const {\bf t\-\_\-mdatoms} $\ast$}]{md, }
+\item[{{\bf t\-\_\-fcdata} $\ast$}]{fcd, }
+\item[{int $\ast$}]{global\-\_\-atom\-\_\-index}
+\end{DoxyParamCaption}
+)}}\label{bondfree_8c_a0d382bf89b0b5e784f17fbf0bb6b3000}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{bondfree_8c_a0d382bf89b0b5e784f17fbf0bb6b3000_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{bondfree_8c_ae5d25315e15252177dbdac0ea9c96d34}{\index{bondfree.\-c@{bondfree.\-c}!angresz@{angresz}}
+\index{angresz@{angresz}!bondfree.c@{bondfree.\-c}}
+\subsubsection[{angresz}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf angresz} (
+\begin{DoxyParamCaption}
+\item[{int}]{nbonds, }
+\item[{const {\bf t\-\_\-iatom}}]{forceatoms\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf t\-\_\-iparams}}]{forceparams\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{f\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{fshift\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf t\-\_\-pbc} $\ast$}]{pbc, }
+\item[{const {\bf t\-\_\-graph} $\ast$}]{g, }
+\item[{real}]{lambda, }
+\item[{real $\ast$}]{dvdlambda, }
+\item[{const {\bf t\-\_\-mdatoms} $\ast$}]{md, }
+\item[{{\bf t\-\_\-fcdata} $\ast$}]{fcd, }
+\item[{int $\ast$}]{global\-\_\-atom\-\_\-index}
+\end{DoxyParamCaption}
+)}}\label{bondfree_8c_ae5d25315e15252177dbdac0ea9c96d34}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{bondfree_8c_ae5d25315e15252177dbdac0ea9c96d34_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{bondfree_8c_a0ad3d9a5e74e668b0c9f86731b261720}{\index{bondfree.\-c@{bondfree.\-c}!anharm\-\_\-polarize@{anharm\-\_\-polarize}}
+\index{anharm\-\_\-polarize@{anharm\-\_\-polarize}!bondfree.c@{bondfree.\-c}}
+\subsubsection[{anharm\-\_\-polarize}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf anharm\-\_\-polarize} (
+\begin{DoxyParamCaption}
+\item[{int}]{nbonds, }
+\item[{const {\bf t\-\_\-iatom}}]{forceatoms\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf t\-\_\-iparams}}]{forceparams\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{f\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{fshift\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf t\-\_\-pbc} $\ast$}]{pbc, }
+\item[{const {\bf t\-\_\-graph} $\ast$}]{g, }
+\item[{real}]{lambda, }
+\item[{real $\ast$}]{dvdlambda, }
+\item[{const {\bf t\-\_\-mdatoms} $\ast$}]{md, }
+\item[{{\bf t\-\_\-fcdata} $\ast$}]{fcd, }
+\item[{int $\ast$}]{global\-\_\-atom\-\_\-index}
+\end{DoxyParamCaption}
+)}}\label{bondfree_8c_a0ad3d9a5e74e668b0c9f86731b261720}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{bondfree_8c_a0ad3d9a5e74e668b0c9f86731b261720_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{bondfree_8c_aceeb00cee49ccc56c76a96b4b52bf561}{\index{bondfree.\-c@{bondfree.\-c}!bond\-\_\-angle@{bond\-\_\-angle}}
+\index{bond\-\_\-angle@{bond\-\_\-angle}!bondfree.c@{bondfree.\-c}}
+\subsubsection[{bond\-\_\-angle}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf bond\-\_\-angle} (
+\begin{DoxyParamCaption}
+\item[{const {\bf rvec}}]{xi, }
+\item[{const {\bf rvec}}]{xj, }
+\item[{const {\bf rvec}}]{xk, }
+\item[{const {\bf t\-\_\-pbc} $\ast$}]{pbc, }
+\item[{{\bf rvec}}]{r\-\_\-ij, }
+\item[{{\bf rvec}}]{r\-\_\-kj, }
+\item[{real $\ast$}]{costh, }
+\item[{int $\ast$}]{t1, }
+\item[{int $\ast$}]{t2}
+\end{DoxyParamCaption}
+)}}\label{bondfree_8c_aceeb00cee49ccc56c76a96b4b52bf561}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{bondfree_8c_aceeb00cee49ccc56c76a96b4b52bf561_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{bondfree_8c_aceeb00cee49ccc56c76a96b4b52bf561_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{bondfree_8c_a403f7ea0dc920475f5bbb29a89d1de9c}{\index{bondfree.\-c@{bondfree.\-c}!bonded\-\_\-tab@{bonded\-\_\-tab}}
+\index{bonded\-\_\-tab@{bonded\-\_\-tab}!bondfree.c@{bondfree.\-c}}
+\subsubsection[{bonded\-\_\-tab}]{\setlength{\rightskip}{0pt plus 5cm}static real {\bf bonded\-\_\-tab} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{type, }
+\item[{int}]{table\-\_\-nr, }
+\item[{const {\bf bondedtable\-\_\-t} $\ast$}]{table, }
+\item[{real}]{k\-A, }
+\item[{real}]{k\-B, }
+\item[{real}]{r, }
+\item[{real}]{lambda, }
+\item[{real $\ast$}]{\-V, }
+\item[{real $\ast$}]{\-F}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{bondfree_8c_a403f7ea0dc920475f5bbb29a89d1de9c}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=244pt]{bondfree_8c_a403f7ea0dc920475f5bbb29a89d1de9c_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=248pt]{bondfree_8c_a403f7ea0dc920475f5bbb29a89d1de9c_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{bondfree_8c_a575fd72d984d738fc87692870c0807d0}{\index{bondfree.\-c@{bondfree.\-c}!bonds@{bonds}}
+\index{bonds@{bonds}!bondfree.c@{bondfree.\-c}}
+\subsubsection[{bonds}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf bonds} (
+\begin{DoxyParamCaption}
+\item[{int}]{nbonds, }
+\item[{const {\bf t\-\_\-iatom}}]{forceatoms\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf t\-\_\-iparams}}]{forceparams\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{f\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{fshift\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf t\-\_\-pbc} $\ast$}]{pbc, }
+\item[{const {\bf t\-\_\-graph} $\ast$}]{g, }
+\item[{real}]{lambda, }
+\item[{real $\ast$}]{dvdlambda, }
+\item[{const {\bf t\-\_\-mdatoms} $\ast$}]{md, }
+\item[{{\bf t\-\_\-fcdata} $\ast$}]{fcd, }
+\item[{int $\ast$}]{global\-\_\-atom\-\_\-index}
+\end{DoxyParamCaption}
+)}}\label{bondfree_8c_a575fd72d984d738fc87692870c0807d0}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=346pt]{bondfree_8c_a575fd72d984d738fc87692870c0807d0_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{bondfree_8c_a01de88b110277bb5aab6e36676997584}{\index{bondfree.\-c@{bondfree.\-c}!calc\-\_\-bonded\-\_\-reduction\-\_\-mask@{calc\-\_\-bonded\-\_\-reduction\-\_\-mask}}
+\index{calc\-\_\-bonded\-\_\-reduction\-\_\-mask@{calc\-\_\-bonded\-\_\-reduction\-\_\-mask}!bondfree.c@{bondfree.\-c}}
+\subsubsection[{calc\-\_\-bonded\-\_\-reduction\-\_\-mask}]{\setlength{\rightskip}{0pt plus 5cm}static unsigned {\bf calc\-\_\-bonded\-\_\-reduction\-\_\-mask} (
+\begin{DoxyParamCaption}
+\item[{const {\bf t\-\_\-idef} $\ast$}]{idef, }
+\item[{int}]{shift, }
+\item[{int}]{t, }
+\item[{int}]{nt}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{bondfree_8c_a01de88b110277bb5aab6e36676997584}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{bondfree_8c_a01de88b110277bb5aab6e36676997584_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{bondfree_8c_a2bec9619d90dafe390ae9ceeb2898297}{\index{bondfree.\-c@{bondfree.\-c}!calc\-\_\-bonds@{calc\-\_\-bonds}}
+\index{calc\-\_\-bonds@{calc\-\_\-bonds}!bondfree.c@{bondfree.\-c}}
+\subsubsection[{calc\-\_\-bonds}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf calc\-\_\-bonds} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fplog, }
+\item[{const {\bf gmx\-\_\-multisim\-\_\-t} $\ast$}]{ms, }
+\item[{const {\bf t\-\_\-idef} $\ast$}]{idef, }
+\item[{{\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf history\-\_\-t} $\ast$}]{hist, }
+\item[{{\bf rvec}}]{f\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf t\-\_\-forcerec} $\ast$}]{fr, }
+\item[{const {\bf t\-\_\-pbc} $\ast$}]{pbc, }
+\item[{const {\bf t\-\_\-graph} $\ast$}]{g, }
+\item[{{\bf gmx\-\_\-enerdata\-\_\-t} $\ast$}]{enerd, }
+\item[{{\bf t\-\_\-nrnb} $\ast$}]{nrnb, }
+\item[{real $\ast$}]{lambda, }
+\item[{const {\bf t\-\_\-mdatoms} $\ast$}]{md, }
+\item[{{\bf t\-\_\-fcdata} $\ast$}]{fcd, }
+\item[{int $\ast$}]{global\-\_\-atom\-\_\-index, }
+\item[{{\bf t\-\_\-atomtypes} $\ast$}]{atype, }
+\item[{{\bf gmx\-\_\-genborn\-\_\-t} $\ast$}]{born, }
+\item[{int}]{force\-\_\-flags, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Print\-Sep\-Pot, }
+\item[{gmx\-\_\-large\-\_\-int\-\_\-t}]{step}
+\end{DoxyParamCaption}
+)}}\label{bondfree_8c_a2bec9619d90dafe390ae9ceeb2898297}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{bondfree_8c_a2bec9619d90dafe390ae9ceeb2898297_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=278pt]{bondfree_8c_a2bec9619d90dafe390ae9ceeb2898297_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{bondfree_8c_aa2e5a58de7e090904c75fe8453adb5a3}{\index{bondfree.\-c@{bondfree.\-c}!calc\-\_\-bonds\-\_\-lambda@{calc\-\_\-bonds\-\_\-lambda}}
+\index{calc\-\_\-bonds\-\_\-lambda@{calc\-\_\-bonds\-\_\-lambda}!bondfree.c@{bondfree.\-c}}
+\subsubsection[{calc\-\_\-bonds\-\_\-lambda}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf calc\-\_\-bonds\-\_\-lambda} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fplog, }
+\item[{const {\bf t\-\_\-idef} $\ast$}]{idef, }
+\item[{{\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf t\-\_\-forcerec} $\ast$}]{fr, }
+\item[{const {\bf t\-\_\-pbc} $\ast$}]{pbc, }
+\item[{const {\bf t\-\_\-graph} $\ast$}]{g, }
+\item[{{\bf gmx\-\_\-grppairener\-\_\-t} $\ast$}]{grpp, }
+\item[{real $\ast$}]{epot, }
+\item[{{\bf t\-\_\-nrnb} $\ast$}]{nrnb, }
+\item[{real $\ast$}]{lambda, }
+\item[{const {\bf t\-\_\-mdatoms} $\ast$}]{md, }
+\item[{{\bf t\-\_\-fcdata} $\ast$}]{fcd, }
+\item[{int $\ast$}]{global\-\_\-atom\-\_\-index}
+\end{DoxyParamCaption}
+)}}\label{bondfree_8c_aa2e5a58de7e090904c75fe8453adb5a3}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{bondfree_8c_aa2e5a58de7e090904c75fe8453adb5a3_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=316pt]{bondfree_8c_aa2e5a58de7e090904c75fe8453adb5a3_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{bondfree_8c_a05edc2d77112c154e24d40b1ac61f9a6}{\index{bondfree.\-c@{bondfree.\-c}!calc\-\_\-one\-\_\-bond@{calc\-\_\-one\-\_\-bond}}
+\index{calc\-\_\-one\-\_\-bond@{calc\-\_\-one\-\_\-bond}!bondfree.c@{bondfree.\-c}}
+\subsubsection[{calc\-\_\-one\-\_\-bond}]{\setlength{\rightskip}{0pt plus 5cm}static real {\bf calc\-\_\-one\-\_\-bond} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fplog, }
+\item[{int}]{thread, }
+\item[{int}]{ftype, }
+\item[{const {\bf t\-\_\-idef} $\ast$}]{idef, }
+\item[{{\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{f\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{fshift\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf t\-\_\-forcerec} $\ast$}]{fr, }
+\item[{const {\bf t\-\_\-pbc} $\ast$}]{pbc, }
+\item[{const {\bf t\-\_\-graph} $\ast$}]{g, }
+\item[{{\bf gmx\-\_\-enerdata\-\_\-t} $\ast$}]{enerd, }
+\item[{{\bf gmx\-\_\-grppairener\-\_\-t} $\ast$}]{grpp, }
+\item[{{\bf t\-\_\-nrnb} $\ast$}]{nrnb, }
+\item[{real $\ast$}]{lambda, }
+\item[{real $\ast$}]{dvdl, }
+\item[{const {\bf t\-\_\-mdatoms} $\ast$}]{md, }
+\item[{{\bf t\-\_\-fcdata} $\ast$}]{fcd, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Calc\-Ener\-Vir, }
+\item[{int $\ast$}]{global\-\_\-atom\-\_\-index, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Print\-Sep\-Pot}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{bondfree_8c_a05edc2d77112c154e24d40b1ac61f9a6}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{bondfree_8c_a05edc2d77112c154e24d40b1ac61f9a6_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{bondfree_8c_a05edc2d77112c154e24d40b1ac61f9a6_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{bondfree_8c_ae418a40ee2ec9989ab16772485c8935c}{\index{bondfree.\-c@{bondfree.\-c}!calc\-\_\-one\-\_\-bond\-\_\-foreign@{calc\-\_\-one\-\_\-bond\-\_\-foreign}}
+\index{calc\-\_\-one\-\_\-bond\-\_\-foreign@{calc\-\_\-one\-\_\-bond\-\_\-foreign}!bondfree.c@{bondfree.\-c}}
+\subsubsection[{calc\-\_\-one\-\_\-bond\-\_\-foreign}]{\setlength{\rightskip}{0pt plus 5cm}static real {\bf calc\-\_\-one\-\_\-bond\-\_\-foreign} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fplog, }
+\item[{int}]{ftype, }
+\item[{const {\bf t\-\_\-idef} $\ast$}]{idef, }
+\item[{{\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{f\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf t\-\_\-forcerec} $\ast$}]{fr, }
+\item[{const {\bf t\-\_\-pbc} $\ast$}]{pbc, }
+\item[{const {\bf t\-\_\-graph} $\ast$}]{g, }
+\item[{{\bf gmx\-\_\-grppairener\-\_\-t} $\ast$}]{grpp, }
+\item[{{\bf t\-\_\-nrnb} $\ast$}]{nrnb, }
+\item[{real $\ast$}]{lambda, }
+\item[{real $\ast$}]{dvdl, }
+\item[{const {\bf t\-\_\-mdatoms} $\ast$}]{md, }
+\item[{{\bf t\-\_\-fcdata} $\ast$}]{fcd, }
+\item[{int $\ast$}]{global\-\_\-atom\-\_\-index, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Print\-Sep\-Pot}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{bondfree_8c_ae418a40ee2ec9989ab16772485c8935c}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{bondfree_8c_ae418a40ee2ec9989ab16772485c8935c_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{bondfree_8c_ae418a40ee2ec9989ab16772485c8935c_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{bondfree_8c_a5062a49d42e3370da0513d4ff887d2c7}{\index{bondfree.\-c@{bondfree.\-c}!cmap\-\_\-dihs@{cmap\-\_\-dihs}}
+\index{cmap\-\_\-dihs@{cmap\-\_\-dihs}!bondfree.c@{bondfree.\-c}}
+\subsubsection[{cmap\-\_\-dihs}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf cmap\-\_\-dihs} (
+\begin{DoxyParamCaption}
+\item[{int}]{nbonds, }
+\item[{const {\bf t\-\_\-iatom}}]{forceatoms\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf t\-\_\-iparams}}]{forceparams\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf gmx\-\_\-cmap\-\_\-t} $\ast$}]{cmap\-\_\-grid, }
+\item[{const {\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{f\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{fshift\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf t\-\_\-pbc} $\ast$}]{pbc, }
+\item[{const {\bf t\-\_\-graph} $\ast$}]{g, }
+\item[{real}]{lambda, }
+\item[{real $\ast$}]{dvdlambda, }
+\item[{const {\bf t\-\_\-mdatoms} $\ast$}]{md, }
+\item[{{\bf t\-\_\-fcdata} $\ast$}]{fcd, }
+\item[{int $\ast$}]{global\-\_\-atom\-\_\-index}
+\end{DoxyParamCaption}
+)}}\label{bondfree_8c_a5062a49d42e3370da0513d4ff887d2c7}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{bondfree_8c_a5062a49d42e3370da0513d4ff887d2c7_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{bondfree_8c_a5062a49d42e3370da0513d4ff887d2c7_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{bondfree_8c_a961f97a1aad16b7a2c9f39769b44803b}{\index{bondfree.\-c@{bondfree.\-c}!cmap\-\_\-setup\-\_\-grid\-\_\-index@{cmap\-\_\-setup\-\_\-grid\-\_\-index}}
+\index{cmap\-\_\-setup\-\_\-grid\-\_\-index@{cmap\-\_\-setup\-\_\-grid\-\_\-index}!bondfree.c@{bondfree.\-c}}
+\subsubsection[{cmap\-\_\-setup\-\_\-grid\-\_\-index}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf cmap\-\_\-setup\-\_\-grid\-\_\-index} (
+\begin{DoxyParamCaption}
+\item[{int}]{ip, }
+\item[{int}]{grid\-\_\-spacing, }
+\item[{int $\ast$}]{ipm1, }
+\item[{int $\ast$}]{ipp1, }
+\item[{int $\ast$}]{ipp2}
+\end{DoxyParamCaption}
+)}}\label{bondfree_8c_a961f97a1aad16b7a2c9f39769b44803b}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{bondfree_8c_a961f97a1aad16b7a2c9f39769b44803b_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{bondfree_8c_ac8eb939d2d5dc0b7fbdfac4645ff5570}{\index{bondfree.\-c@{bondfree.\-c}!cross\-\_\-bond\-\_\-angle@{cross\-\_\-bond\-\_\-angle}}
+\index{cross\-\_\-bond\-\_\-angle@{cross\-\_\-bond\-\_\-angle}!bondfree.c@{bondfree.\-c}}
+\subsubsection[{cross\-\_\-bond\-\_\-angle}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf cross\-\_\-bond\-\_\-angle} (
+\begin{DoxyParamCaption}
+\item[{int}]{nbonds, }
+\item[{const {\bf t\-\_\-iatom}}]{forceatoms\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf t\-\_\-iparams}}]{forceparams\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{f\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{fshift\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf t\-\_\-pbc} $\ast$}]{pbc, }
+\item[{const {\bf t\-\_\-graph} $\ast$}]{g, }
+\item[{real}]{lambda, }
+\item[{real $\ast$}]{dvdlambda, }
+\item[{const {\bf t\-\_\-mdatoms} $\ast$}]{md, }
+\item[{{\bf t\-\_\-fcdata} $\ast$}]{fcd, }
+\item[{int $\ast$}]{global\-\_\-atom\-\_\-index}
+\end{DoxyParamCaption}
+)}}\label{bondfree_8c_ac8eb939d2d5dc0b7fbdfac4645ff5570}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{bondfree_8c_ac8eb939d2d5dc0b7fbdfac4645ff5570_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{bondfree_8c_a887b4c8b43aae00659cee8e121e9cfdc}{\index{bondfree.\-c@{bondfree.\-c}!cross\-\_\-bond\-\_\-bond@{cross\-\_\-bond\-\_\-bond}}
+\index{cross\-\_\-bond\-\_\-bond@{cross\-\_\-bond\-\_\-bond}!bondfree.c@{bondfree.\-c}}
+\subsubsection[{cross\-\_\-bond\-\_\-bond}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf cross\-\_\-bond\-\_\-bond} (
+\begin{DoxyParamCaption}
+\item[{int}]{nbonds, }
+\item[{const {\bf t\-\_\-iatom}}]{forceatoms\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf t\-\_\-iparams}}]{forceparams\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{f\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{fshift\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf t\-\_\-pbc} $\ast$}]{pbc, }
+\item[{const {\bf t\-\_\-graph} $\ast$}]{g, }
+\item[{real}]{lambda, }
+\item[{real $\ast$}]{dvdlambda, }
+\item[{const {\bf t\-\_\-mdatoms} $\ast$}]{md, }
+\item[{{\bf t\-\_\-fcdata} $\ast$}]{fcd, }
+\item[{int $\ast$}]{global\-\_\-atom\-\_\-index}
+\end{DoxyParamCaption}
+)}}\label{bondfree_8c_a887b4c8b43aae00659cee8e121e9cfdc}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{bondfree_8c_a887b4c8b43aae00659cee8e121e9cfdc_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{bondfree_8c_a2228233a415aa5516b2a2273fed2f7d8}{\index{bondfree.\-c@{bondfree.\-c}!cubic\-\_\-bonds@{cubic\-\_\-bonds}}
+\index{cubic\-\_\-bonds@{cubic\-\_\-bonds}!bondfree.c@{bondfree.\-c}}
+\subsubsection[{cubic\-\_\-bonds}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf cubic\-\_\-bonds} (
+\begin{DoxyParamCaption}
+\item[{int}]{nbonds, }
+\item[{const {\bf t\-\_\-iatom}}]{forceatoms\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf t\-\_\-iparams}}]{forceparams\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{f\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{fshift\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf t\-\_\-pbc} $\ast$}]{pbc, }
+\item[{const {\bf t\-\_\-graph} $\ast$}]{g, }
+\item[{real}]{lambda, }
+\item[{real $\ast$}]{dvdlambda, }
+\item[{const {\bf t\-\_\-mdatoms} $\ast$}]{md, }
+\item[{{\bf t\-\_\-fcdata} $\ast$}]{fcd, }
+\item[{int $\ast$}]{global\-\_\-atom\-\_\-index}
+\end{DoxyParamCaption}
+)}}\label{bondfree_8c_a2228233a415aa5516b2a2273fed2f7d8}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{bondfree_8c_a2228233a415aa5516b2a2273fed2f7d8_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{bondfree_8c_aa328350fa8b4b60bd06c55e6bb16412a}{\index{bondfree.\-c@{bondfree.\-c}!dih\-\_\-angle@{dih\-\_\-angle}}
+\index{dih\-\_\-angle@{dih\-\_\-angle}!bondfree.c@{bondfree.\-c}}
+\subsubsection[{dih\-\_\-angle}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf dih\-\_\-angle} (
+\begin{DoxyParamCaption}
+\item[{const {\bf rvec}}]{xi, }
+\item[{const {\bf rvec}}]{xj, }
+\item[{const {\bf rvec}}]{xk, }
+\item[{const {\bf rvec}}]{xl, }
+\item[{const {\bf t\-\_\-pbc} $\ast$}]{pbc, }
+\item[{{\bf rvec}}]{r\-\_\-ij, }
+\item[{{\bf rvec}}]{r\-\_\-kj, }
+\item[{{\bf rvec}}]{r\-\_\-kl, }
+\item[{{\bf rvec}}]{m, }
+\item[{{\bf rvec}}]{n, }
+\item[{real $\ast$}]{sign, }
+\item[{int $\ast$}]{t1, }
+\item[{int $\ast$}]{t2, }
+\item[{int $\ast$}]{t3}
+\end{DoxyParamCaption}
+)}}\label{bondfree_8c_aa328350fa8b4b60bd06c55e6bb16412a}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{bondfree_8c_aa328350fa8b4b60bd06c55e6bb16412a_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{bondfree_8c_aa328350fa8b4b60bd06c55e6bb16412a_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{bondfree_8c_a83fed0dce34228cf3a4d95c950191929}{\index{bondfree.\-c@{bondfree.\-c}!dihres@{dihres}}
+\index{dihres@{dihres}!bondfree.c@{bondfree.\-c}}
+\subsubsection[{dihres}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf dihres} (
+\begin{DoxyParamCaption}
+\item[{int}]{nbonds, }
+\item[{const {\bf t\-\_\-iatom}}]{forceatoms\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf t\-\_\-iparams}}]{forceparams\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{f\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{fshift\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf t\-\_\-pbc} $\ast$}]{pbc, }
+\item[{const {\bf t\-\_\-graph} $\ast$}]{g, }
+\item[{real}]{lambda, }
+\item[{real $\ast$}]{dvdlambda, }
+\item[{const {\bf t\-\_\-mdatoms} $\ast$}]{md, }
+\item[{{\bf t\-\_\-fcdata} $\ast$}]{fcd, }
+\item[{int $\ast$}]{global\-\_\-atom\-\_\-index}
+\end{DoxyParamCaption}
+)}}\label{bondfree_8c_a83fed0dce34228cf3a4d95c950191929}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=256pt]{bondfree_8c_a83fed0dce34228cf3a4d95c950191929_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{bondfree_8c_a7d23f39eedee44890791ad9fa1646f07}{\index{bondfree.\-c@{bondfree.\-c}!do\-\_\-1\-\_\-thole@{do\-\_\-1\-\_\-thole}}
+\index{do\-\_\-1\-\_\-thole@{do\-\_\-1\-\_\-thole}!bondfree.c@{bondfree.\-c}}
+\subsubsection[{do\-\_\-1\-\_\-thole}]{\setlength{\rightskip}{0pt plus 5cm}static real {\bf do\-\_\-1\-\_\-thole} (
+\begin{DoxyParamCaption}
+\item[{const {\bf rvec}}]{xi, }
+\item[{const {\bf rvec}}]{xj, }
+\item[{{\bf rvec}}]{fi, }
+\item[{{\bf rvec}}]{fj, }
+\item[{const {\bf t\-\_\-pbc} $\ast$}]{pbc, }
+\item[{real}]{qq, }
+\item[{{\bf rvec}}]{fshift\mbox{[}$\,$\mbox{]}, }
+\item[{real}]{afac}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{bondfree_8c_a7d23f39eedee44890791ad9fa1646f07}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{bondfree_8c_a7d23f39eedee44890791ad9fa1646f07_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=236pt]{bondfree_8c_a7d23f39eedee44890791ad9fa1646f07_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{bondfree_8c_a2d290635c1afabd014c83692e723f055}{\index{bondfree.\-c@{bondfree.\-c}!do\-\_\-dih\-\_\-fup@{do\-\_\-dih\-\_\-fup}}
+\index{do\-\_\-dih\-\_\-fup@{do\-\_\-dih\-\_\-fup}!bondfree.c@{bondfree.\-c}}
+\subsubsection[{do\-\_\-dih\-\_\-fup}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf do\-\_\-dih\-\_\-fup} (
+\begin{DoxyParamCaption}
+\item[{int}]{i, }
+\item[{int}]{j, }
+\item[{int}]{k, }
+\item[{int}]{l, }
+\item[{real}]{ddphi, }
+\item[{{\bf rvec}}]{r\-\_\-ij, }
+\item[{{\bf rvec}}]{r\-\_\-kj, }
+\item[{{\bf rvec}}]{r\-\_\-kl, }
+\item[{{\bf rvec}}]{m, }
+\item[{{\bf rvec}}]{n, }
+\item[{{\bf rvec}}]{f\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{fshift\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf t\-\_\-pbc} $\ast$}]{pbc, }
+\item[{const {\bf t\-\_\-graph} $\ast$}]{g, }
+\item[{const {\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{int}]{t1, }
+\item[{int}]{t2, }
+\item[{int}]{t3}
+\end{DoxyParamCaption}
+)}}\label{bondfree_8c_a2d290635c1afabd014c83692e723f055}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{bondfree_8c_a2d290635c1afabd014c83692e723f055_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{bondfree_8c_ab7541e3b1fc0f68032ec682ca39e26a2}{\index{bondfree.\-c@{bondfree.\-c}!do\-\_\-dih\-\_\-fup\-\_\-noshiftf@{do\-\_\-dih\-\_\-fup\-\_\-noshiftf}}
+\index{do\-\_\-dih\-\_\-fup\-\_\-noshiftf@{do\-\_\-dih\-\_\-fup\-\_\-noshiftf}!bondfree.c@{bondfree.\-c}}
+\subsubsection[{do\-\_\-dih\-\_\-fup\-\_\-noshiftf}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf do\-\_\-dih\-\_\-fup\-\_\-noshiftf} (
+\begin{DoxyParamCaption}
+\item[{int}]{i, }
+\item[{int}]{j, }
+\item[{int}]{k, }
+\item[{int}]{l, }
+\item[{real}]{ddphi, }
+\item[{{\bf rvec}}]{r\-\_\-ij, }
+\item[{{\bf rvec}}]{r\-\_\-kj, }
+\item[{{\bf rvec}}]{r\-\_\-kl, }
+\item[{{\bf rvec}}]{m, }
+\item[{{\bf rvec}}]{n, }
+\item[{{\bf rvec}}]{f\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{bondfree_8c_ab7541e3b1fc0f68032ec682ca39e26a2}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=274pt]{bondfree_8c_ab7541e3b1fc0f68032ec682ca39e26a2_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{bondfree_8c_ab7541e3b1fc0f68032ec682ca39e26a2_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{bondfree_8c_a2e11837439e8007d5302a456bca09085}{\index{bondfree.\-c@{bondfree.\-c}!do\-\_\-dih\-\_\-fup\-\_\-noshiftf\-\_\-precalc@{do\-\_\-dih\-\_\-fup\-\_\-noshiftf\-\_\-precalc}}
+\index{do\-\_\-dih\-\_\-fup\-\_\-noshiftf\-\_\-precalc@{do\-\_\-dih\-\_\-fup\-\_\-noshiftf\-\_\-precalc}!bondfree.c@{bondfree.\-c}}
+\subsubsection[{do\-\_\-dih\-\_\-fup\-\_\-noshiftf\-\_\-precalc}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf do\-\_\-dih\-\_\-fup\-\_\-noshiftf\-\_\-precalc} (
+\begin{DoxyParamCaption}
+\item[{int}]{i, }
+\item[{int}]{j, }
+\item[{int}]{k, }
+\item[{int}]{l, }
+\item[{real}]{ddphi, }
+\item[{real}]{nrkj\-\_\-m2, }
+\item[{real}]{nrkj\-\_\-n2, }
+\item[{real}]{p, }
+\item[{real}]{q, }
+\item[{{\bf rvec}}]{m, }
+\item[{{\bf rvec}}]{n, }
+\item[{{\bf rvec}}]{f\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{bondfree_8c_a2e11837439e8007d5302a456bca09085}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=310pt]{bondfree_8c_a2e11837439e8007d5302a456bca09085_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{bondfree_8c_a9bb9c7ecbc815f4a4724f0fc82bc0225}{\index{bondfree.\-c@{bondfree.\-c}!dopdihs@{dopdihs}}
+\index{dopdihs@{dopdihs}!bondfree.c@{bondfree.\-c}}
+\subsubsection[{dopdihs}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf dopdihs} (
+\begin{DoxyParamCaption}
+\item[{real}]{cp\-A, }
+\item[{real}]{cp\-B, }
+\item[{real}]{phi\-A, }
+\item[{real}]{phi\-B, }
+\item[{int}]{mult, }
+\item[{real}]{phi, }
+\item[{real}]{lambda, }
+\item[{real $\ast$}]{\-V, }
+\item[{real $\ast$}]{\-F}
+\end{DoxyParamCaption}
+)}}\label{bondfree_8c_a9bb9c7ecbc815f4a4724f0fc82bc0225}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=206pt]{bondfree_8c_a9bb9c7ecbc815f4a4724f0fc82bc0225_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{bondfree_8c_a644bd84f12dd7231a936c3594719b168}{\index{bondfree.\-c@{bondfree.\-c}!dopdihs\-\_\-mdphi@{dopdihs\-\_\-mdphi}}
+\index{dopdihs\-\_\-mdphi@{dopdihs\-\_\-mdphi}!bondfree.c@{bondfree.\-c}}
+\subsubsection[{dopdihs\-\_\-mdphi}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf dopdihs\-\_\-mdphi} (
+\begin{DoxyParamCaption}
+\item[{real}]{cp\-A, }
+\item[{real}]{cp\-B, }
+\item[{real}]{phi\-A, }
+\item[{real}]{phi\-B, }
+\item[{int}]{mult, }
+\item[{real}]{phi, }
+\item[{real}]{lambda, }
+\item[{real $\ast$}]{cp, }
+\item[{real $\ast$}]{mdphi}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{bondfree_8c_a644bd84f12dd7231a936c3594719b168}
+\hypertarget{bondfree_8c_ad89cd660c61ffc33a77ee30ba5f46b18}{\index{bondfree.\-c@{bondfree.\-c}!dopdihs\-\_\-min@{dopdihs\-\_\-min}}
+\index{dopdihs\-\_\-min@{dopdihs\-\_\-min}!bondfree.c@{bondfree.\-c}}
+\subsubsection[{dopdihs\-\_\-min}]{\setlength{\rightskip}{0pt plus 5cm}static real {\bf dopdihs\-\_\-min} (
+\begin{DoxyParamCaption}
+\item[{real}]{cp\-A, }
+\item[{real}]{cp\-B, }
+\item[{real}]{phi\-A, }
+\item[{real}]{phi\-B, }
+\item[{int}]{mult, }
+\item[{real}]{phi, }
+\item[{real}]{lambda, }
+\item[{real $\ast$}]{\-V, }
+\item[{real $\ast$}]{\-F}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{bondfree_8c_ad89cd660c61ffc33a77ee30ba5f46b18}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=342pt]{bondfree_8c_ad89cd660c61ffc33a77ee30ba5f46b18_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{bondfree_8c_a2da8d9e54d740aa1f7c457840e593022}{\index{bondfree.\-c@{bondfree.\-c}!dopdihs\-\_\-noener@{dopdihs\-\_\-noener}}
+\index{dopdihs\-\_\-noener@{dopdihs\-\_\-noener}!bondfree.c@{bondfree.\-c}}
+\subsubsection[{dopdihs\-\_\-noener}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf dopdihs\-\_\-noener} (
+\begin{DoxyParamCaption}
+\item[{real}]{cp\-A, }
+\item[{real}]{cp\-B, }
+\item[{real}]{phi\-A, }
+\item[{real}]{phi\-B, }
+\item[{int}]{mult, }
+\item[{real}]{phi, }
+\item[{real}]{lambda, }
+\item[{real $\ast$}]{\-F}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{bondfree_8c_a2da8d9e54d740aa1f7c457840e593022}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{bondfree_8c_a2da8d9e54d740aa1f7c457840e593022_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{bondfree_8c_a761442569384ae04ccd9f20926e64245}{\index{bondfree.\-c@{bondfree.\-c}!\-F\-E\-N\-E\-\_\-bonds@{\-F\-E\-N\-E\-\_\-bonds}}
+\index{\-F\-E\-N\-E\-\_\-bonds@{\-F\-E\-N\-E\-\_\-bonds}!bondfree.c@{bondfree.\-c}}
+\subsubsection[{\-F\-E\-N\-E\-\_\-bonds}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf \-F\-E\-N\-E\-\_\-bonds} (
+\begin{DoxyParamCaption}
+\item[{int}]{nbonds, }
+\item[{const {\bf t\-\_\-iatom}}]{forceatoms\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf t\-\_\-iparams}}]{forceparams\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{f\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{fshift\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf t\-\_\-pbc} $\ast$}]{pbc, }
+\item[{const {\bf t\-\_\-graph} $\ast$}]{g, }
+\item[{real}]{lambda, }
+\item[{real $\ast$}]{dvdlambda, }
+\item[{const {\bf t\-\_\-mdatoms} $\ast$}]{md, }
+\item[{{\bf t\-\_\-fcdata} $\ast$}]{fcd, }
+\item[{int $\ast$}]{global\-\_\-atom\-\_\-index}
+\end{DoxyParamCaption}
+)}}\label{bondfree_8c_a761442569384ae04ccd9f20926e64245}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{bondfree_8c_a761442569384ae04ccd9f20926e64245_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{bondfree_8c_a8b5c1f6c1f8396c79ddedf1558bad928}{\index{bondfree.\-c@{bondfree.\-c}!g96angles@{g96angles}}
+\index{g96angles@{g96angles}!bondfree.c@{bondfree.\-c}}
+\subsubsection[{g96angles}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf g96angles} (
+\begin{DoxyParamCaption}
+\item[{int}]{nbonds, }
+\item[{const {\bf t\-\_\-iatom}}]{forceatoms\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf t\-\_\-iparams}}]{forceparams\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{f\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{fshift\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf t\-\_\-pbc} $\ast$}]{pbc, }
+\item[{const {\bf t\-\_\-graph} $\ast$}]{g, }
+\item[{real}]{lambda, }
+\item[{real $\ast$}]{dvdlambda, }
+\item[{const {\bf t\-\_\-mdatoms} $\ast$}]{md, }
+\item[{{\bf t\-\_\-fcdata} $\ast$}]{fcd, }
+\item[{int $\ast$}]{global\-\_\-atom\-\_\-index}
+\end{DoxyParamCaption}
+)}}\label{bondfree_8c_a8b5c1f6c1f8396c79ddedf1558bad928}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{bondfree_8c_a8b5c1f6c1f8396c79ddedf1558bad928_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{bondfree_8c_af440eb45cfecdd751c20a3d200c20797}{\index{bondfree.\-c@{bondfree.\-c}!g96bond\-\_\-angle@{g96bond\-\_\-angle}}
+\index{g96bond\-\_\-angle@{g96bond\-\_\-angle}!bondfree.c@{bondfree.\-c}}
+\subsubsection[{g96bond\-\_\-angle}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf g96bond\-\_\-angle} (
+\begin{DoxyParamCaption}
+\item[{const {\bf rvec}}]{xi, }
+\item[{const {\bf rvec}}]{xj, }
+\item[{const {\bf rvec}}]{xk, }
+\item[{const {\bf t\-\_\-pbc} $\ast$}]{pbc, }
+\item[{{\bf rvec}}]{r\-\_\-ij, }
+\item[{{\bf rvec}}]{r\-\_\-kj, }
+\item[{int $\ast$}]{t1, }
+\item[{int $\ast$}]{t2}
+\end{DoxyParamCaption}
+)}}\label{bondfree_8c_af440eb45cfecdd751c20a3d200c20797}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{bondfree_8c_af440eb45cfecdd751c20a3d200c20797_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=260pt]{bondfree_8c_af440eb45cfecdd751c20a3d200c20797_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{bondfree_8c_ae2eb02e0751019d8461d1c2e827514bf}{\index{bondfree.\-c@{bondfree.\-c}!g96bonds@{g96bonds}}
+\index{g96bonds@{g96bonds}!bondfree.c@{bondfree.\-c}}
+\subsubsection[{g96bonds}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf g96bonds} (
+\begin{DoxyParamCaption}
+\item[{int}]{nbonds, }
+\item[{const {\bf t\-\_\-iatom}}]{forceatoms\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf t\-\_\-iparams}}]{forceparams\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{f\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{fshift\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf t\-\_\-pbc} $\ast$}]{pbc, }
+\item[{const {\bf t\-\_\-graph} $\ast$}]{g, }
+\item[{real}]{lambda, }
+\item[{real $\ast$}]{dvdlambda, }
+\item[{const {\bf t\-\_\-mdatoms} $\ast$}]{md, }
+\item[{{\bf t\-\_\-fcdata} $\ast$}]{fcd, }
+\item[{int $\ast$}]{global\-\_\-atom\-\_\-index}
+\end{DoxyParamCaption}
+)}}\label{bondfree_8c_ae2eb02e0751019d8461d1c2e827514bf}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{bondfree_8c_ae2eb02e0751019d8461d1c2e827514bf_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{bondfree_8c_abce974a3003e97d68ca554c6a50e9fbe}{\index{bondfree.\-c@{bondfree.\-c}!g96harmonic@{g96harmonic}}
+\index{g96harmonic@{g96harmonic}!bondfree.c@{bondfree.\-c}}
+\subsubsection[{g96harmonic}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf g96harmonic} (
+\begin{DoxyParamCaption}
+\item[{real}]{k\-A, }
+\item[{real}]{k\-B, }
+\item[{real}]{x\-A, }
+\item[{real}]{x\-B, }
+\item[{real}]{x, }
+\item[{real}]{lambda, }
+\item[{real $\ast$}]{\-V, }
+\item[{real $\ast$}]{\-F}
+\end{DoxyParamCaption}
+)}}\label{bondfree_8c_abce974a3003e97d68ca554c6a50e9fbe}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=218pt]{bondfree_8c_abce974a3003e97d68ca554c6a50e9fbe_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=250pt]{bondfree_8c_abce974a3003e97d68ca554c6a50e9fbe_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{bondfree_8c_a714a4fe0595f722b73df399ab797a6dd}{\index{bondfree.\-c@{bondfree.\-c}!glatnr@{glatnr}}
+\index{glatnr@{glatnr}!bondfree.c@{bondfree.\-c}}
+\subsubsection[{glatnr}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf glatnr} (
+\begin{DoxyParamCaption}
+\item[{int $\ast$}]{global\-\_\-atom\-\_\-index, }
+\item[{int}]{i}
+\end{DoxyParamCaption}
+)}}\label{bondfree_8c_a714a4fe0595f722b73df399ab797a6dd}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{bondfree_8c_a714a4fe0595f722b73df399ab797a6dd_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{bondfree_8c_a1ad970569990ab06df4194e335bbbb28}{\index{bondfree.\-c@{bondfree.\-c}!harmonic@{harmonic}}
+\index{harmonic@{harmonic}!bondfree.c@{bondfree.\-c}}
+\subsubsection[{harmonic}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf harmonic} (
+\begin{DoxyParamCaption}
+\item[{real}]{k\-A, }
+\item[{real}]{k\-B, }
+\item[{real}]{x\-A, }
+\item[{real}]{x\-B, }
+\item[{real}]{x, }
+\item[{real}]{lambda, }
+\item[{real $\ast$}]{\-V, }
+\item[{real $\ast$}]{\-F}
+\end{DoxyParamCaption}
+)}}\label{bondfree_8c_a1ad970569990ab06df4194e335bbbb28}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=202pt]{bondfree_8c_a1ad970569990ab06df4194e335bbbb28_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=260pt]{bondfree_8c_a1ad970569990ab06df4194e335bbbb28_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{bondfree_8c_a12810351d3b41f885b095feff432c870}{\index{bondfree.\-c@{bondfree.\-c}!idihs@{idihs}}
+\index{idihs@{idihs}!bondfree.c@{bondfree.\-c}}
+\subsubsection[{idihs}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf idihs} (
+\begin{DoxyParamCaption}
+\item[{int}]{nbonds, }
+\item[{const {\bf t\-\_\-iatom}}]{forceatoms\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf t\-\_\-iparams}}]{forceparams\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{f\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{fshift\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf t\-\_\-pbc} $\ast$}]{pbc, }
+\item[{const {\bf t\-\_\-graph} $\ast$}]{g, }
+\item[{real}]{lambda, }
+\item[{real $\ast$}]{dvdlambda, }
+\item[{const {\bf t\-\_\-mdatoms} $\ast$}]{md, }
+\item[{{\bf t\-\_\-fcdata} $\ast$}]{fcd, }
+\item[{int $\ast$}]{global\-\_\-atom\-\_\-index}
+\end{DoxyParamCaption}
+)}}\label{bondfree_8c_a12810351d3b41f885b095feff432c870}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=250pt]{bondfree_8c_a12810351d3b41f885b095feff432c870_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{bondfree_8c_ac247ab2e4de0d53b72770e683c161b08}{\index{bondfree.\-c@{bondfree.\-c}!init\-\_\-bonded\-\_\-thread\-\_\-force\-\_\-reduction@{init\-\_\-bonded\-\_\-thread\-\_\-force\-\_\-reduction}}
+\index{init\-\_\-bonded\-\_\-thread\-\_\-force\-\_\-reduction@{init\-\_\-bonded\-\_\-thread\-\_\-force\-\_\-reduction}!bondfree.c@{bondfree.\-c}}
+\subsubsection[{init\-\_\-bonded\-\_\-thread\-\_\-force\-\_\-reduction}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf init\-\_\-bonded\-\_\-thread\-\_\-force\-\_\-reduction} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-forcerec} $\ast$}]{fr, }
+\item[{const {\bf t\-\_\-idef} $\ast$}]{idef}
+\end{DoxyParamCaption}
+)}}\label{bondfree_8c_ac247ab2e4de0d53b72770e683c161b08}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{bondfree_8c_ac247ab2e4de0d53b72770e683c161b08_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{bondfree_8c_ac247ab2e4de0d53b72770e683c161b08_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{bondfree_8c_a244ee5a6d606957234be8d6e06fd629b}{\index{bondfree.\-c@{bondfree.\-c}!linear\-\_\-angles@{linear\-\_\-angles}}
+\index{linear\-\_\-angles@{linear\-\_\-angles}!bondfree.c@{bondfree.\-c}}
+\subsubsection[{linear\-\_\-angles}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf linear\-\_\-angles} (
+\begin{DoxyParamCaption}
+\item[{int}]{nbonds, }
+\item[{const {\bf t\-\_\-iatom}}]{forceatoms\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf t\-\_\-iparams}}]{forceparams\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{f\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{fshift\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf t\-\_\-pbc} $\ast$}]{pbc, }
+\item[{const {\bf t\-\_\-graph} $\ast$}]{g, }
+\item[{real}]{lambda, }
+\item[{real $\ast$}]{dvdlambda, }
+\item[{const {\bf t\-\_\-mdatoms} $\ast$}]{md, }
+\item[{{\bf t\-\_\-fcdata} $\ast$}]{fcd, }
+\item[{int $\ast$}]{global\-\_\-atom\-\_\-index}
+\end{DoxyParamCaption}
+)}}\label{bondfree_8c_a244ee5a6d606957234be8d6e06fd629b}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{bondfree_8c_a244ee5a6d606957234be8d6e06fd629b_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{bondfree_8c_aefd316072ef0fcd0bbc5fef29b81455a}{\index{bondfree.\-c@{bondfree.\-c}!low\-\_\-angres@{low\-\_\-angres}}
+\index{low\-\_\-angres@{low\-\_\-angres}!bondfree.c@{bondfree.\-c}}
+\subsubsection[{low\-\_\-angres}]{\setlength{\rightskip}{0pt plus 5cm}static real {\bf low\-\_\-angres} (
+\begin{DoxyParamCaption}
+\item[{int}]{nbonds, }
+\item[{const {\bf t\-\_\-iatom}}]{forceatoms\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf t\-\_\-iparams}}]{forceparams\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{f\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{fshift\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf t\-\_\-pbc} $\ast$}]{pbc, }
+\item[{const {\bf t\-\_\-graph} $\ast$}]{g, }
+\item[{real}]{lambda, }
+\item[{real $\ast$}]{dvdlambda, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Z\-Axis}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{bondfree_8c_aefd316072ef0fcd0bbc5fef29b81455a}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{bondfree_8c_aefd316072ef0fcd0bbc5fef29b81455a_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=234pt]{bondfree_8c_aefd316072ef0fcd0bbc5fef29b81455a_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{bondfree_8c_a93a7bac0fa6d22f4e41d995fe34fff9c}{\index{bondfree.\-c@{bondfree.\-c}!make\-\_\-dp\-\_\-periodic@{make\-\_\-dp\-\_\-periodic}}
+\index{make\-\_\-dp\-\_\-periodic@{make\-\_\-dp\-\_\-periodic}!bondfree.c@{bondfree.\-c}}
+\subsubsection[{make\-\_\-dp\-\_\-periodic}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf make\-\_\-dp\-\_\-periodic} (
+\begin{DoxyParamCaption}
+\item[{real $\ast$}]{dp}
+\end{DoxyParamCaption}
+)}}\label{bondfree_8c_a93a7bac0fa6d22f4e41d995fe34fff9c}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=256pt]{bondfree_8c_a93a7bac0fa6d22f4e41d995fe34fff9c_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{bondfree_8c_a1bd093bed09e109fc37e1b04d79413c0}{\index{bondfree.\-c@{bondfree.\-c}!morse\-\_\-bonds@{morse\-\_\-bonds}}
+\index{morse\-\_\-bonds@{morse\-\_\-bonds}!bondfree.c@{bondfree.\-c}}
+\subsubsection[{morse\-\_\-bonds}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf morse\-\_\-bonds} (
+\begin{DoxyParamCaption}
+\item[{int}]{nbonds, }
+\item[{const {\bf t\-\_\-iatom}}]{forceatoms\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf t\-\_\-iparams}}]{forceparams\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{f\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{fshift\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf t\-\_\-pbc} $\ast$}]{pbc, }
+\item[{const {\bf t\-\_\-graph} $\ast$}]{g, }
+\item[{real}]{lambda, }
+\item[{real $\ast$}]{dvdlambda, }
+\item[{const {\bf t\-\_\-mdatoms} $\ast$}]{md, }
+\item[{{\bf t\-\_\-fcdata} $\ast$}]{fcd, }
+\item[{int $\ast$}]{global\-\_\-atom\-\_\-index}
+\end{DoxyParamCaption}
+)}}\label{bondfree_8c_a1bd093bed09e109fc37e1b04d79413c0}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{bondfree_8c_a1bd093bed09e109fc37e1b04d79413c0_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{bondfree_8c_a0b5b07882ef47de8bab88e30660c593b}{\index{bondfree.\-c@{bondfree.\-c}!pbc\-\_\-rvec\-\_\-sub@{pbc\-\_\-rvec\-\_\-sub}}
+\index{pbc\-\_\-rvec\-\_\-sub@{pbc\-\_\-rvec\-\_\-sub}!bondfree.c@{bondfree.\-c}}
+\subsubsection[{pbc\-\_\-rvec\-\_\-sub}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf pbc\-\_\-rvec\-\_\-sub} (
+\begin{DoxyParamCaption}
+\item[{const {\bf t\-\_\-pbc} $\ast$}]{pbc, }
+\item[{const {\bf rvec}}]{xi, }
+\item[{const {\bf rvec}}]{xj, }
+\item[{{\bf rvec}}]{dx}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{bondfree_8c_a0b5b07882ef47de8bab88e30660c593b}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=266pt]{bondfree_8c_a0b5b07882ef47de8bab88e30660c593b_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{bondfree_8c_a0b5b07882ef47de8bab88e30660c593b_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{bondfree_8c_a5418bdb80b1d0ea64015d915effee4c8}{\index{bondfree.\-c@{bondfree.\-c}!pdihs@{pdihs}}
+\index{pdihs@{pdihs}!bondfree.c@{bondfree.\-c}}
+\subsubsection[{pdihs}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf pdihs} (
+\begin{DoxyParamCaption}
+\item[{int}]{nbonds, }
+\item[{const {\bf t\-\_\-iatom}}]{forceatoms\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf t\-\_\-iparams}}]{forceparams\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{f\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{fshift\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf t\-\_\-pbc} $\ast$}]{pbc, }
+\item[{const {\bf t\-\_\-graph} $\ast$}]{g, }
+\item[{real}]{lambda, }
+\item[{real $\ast$}]{dvdlambda, }
+\item[{const {\bf t\-\_\-mdatoms} $\ast$}]{md, }
+\item[{{\bf t\-\_\-fcdata} $\ast$}]{fcd, }
+\item[{int $\ast$}]{global\-\_\-atom\-\_\-index}
+\end{DoxyParamCaption}
+)}}\label{bondfree_8c_a5418bdb80b1d0ea64015d915effee4c8}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=220pt]{bondfree_8c_a5418bdb80b1d0ea64015d915effee4c8_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{bondfree_8c_a6e9be979e9a5b5509390790fa3d36037}{\index{bondfree.\-c@{bondfree.\-c}!pdihs\-\_\-noener@{pdihs\-\_\-noener}}
+\index{pdihs\-\_\-noener@{pdihs\-\_\-noener}!bondfree.c@{bondfree.\-c}}
+\subsubsection[{pdihs\-\_\-noener}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf pdihs\-\_\-noener} (
+\begin{DoxyParamCaption}
+\item[{int}]{nbonds, }
+\item[{const {\bf t\-\_\-iatom}}]{forceatoms\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf t\-\_\-iparams}}]{forceparams\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{f\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf t\-\_\-pbc} $\ast$}]{pbc, }
+\item[{const {\bf t\-\_\-graph} $\ast$}]{g, }
+\item[{real}]{lambda, }
+\item[{const {\bf t\-\_\-mdatoms} $\ast$}]{md, }
+\item[{{\bf t\-\_\-fcdata} $\ast$}]{fcd, }
+\item[{int $\ast$}]{global\-\_\-atom\-\_\-index}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{bondfree_8c_a6e9be979e9a5b5509390790fa3d36037}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{bondfree_8c_a6e9be979e9a5b5509390790fa3d36037_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{bondfree_8c_a6e9be979e9a5b5509390790fa3d36037_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{bondfree_8c_a3b6fa5da0bb385dd51c73ae5dcc9ddb8}{\index{bondfree.\-c@{bondfree.\-c}!polarize@{polarize}}
+\index{polarize@{polarize}!bondfree.c@{bondfree.\-c}}
+\subsubsection[{polarize}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf polarize} (
+\begin{DoxyParamCaption}
+\item[{int}]{nbonds, }
+\item[{const {\bf t\-\_\-iatom}}]{forceatoms\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf t\-\_\-iparams}}]{forceparams\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{f\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{fshift\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf t\-\_\-pbc} $\ast$}]{pbc, }
+\item[{const {\bf t\-\_\-graph} $\ast$}]{g, }
+\item[{real}]{lambda, }
+\item[{real $\ast$}]{dvdlambda, }
+\item[{const {\bf t\-\_\-mdatoms} $\ast$}]{md, }
+\item[{{\bf t\-\_\-fcdata} $\ast$}]{fcd, }
+\item[{int $\ast$}]{global\-\_\-atom\-\_\-index}
+\end{DoxyParamCaption}
+)}}\label{bondfree_8c_a3b6fa5da0bb385dd51c73ae5dcc9ddb8}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{bondfree_8c_a3b6fa5da0bb385dd51c73ae5dcc9ddb8_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{bondfree_8c_a5d0e8784c819c6e47a317522a7cce643}{\index{bondfree.\-c@{bondfree.\-c}!posres@{posres}}
+\index{posres@{posres}!bondfree.c@{bondfree.\-c}}
+\subsubsection[{posres}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf posres} (
+\begin{DoxyParamCaption}
+\item[{int}]{nbonds, }
+\item[{const {\bf t\-\_\-iatom}}]{forceatoms\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf t\-\_\-iparams}}]{forceparams\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{f\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{vir\-\_\-diag, }
+\item[{{\bf t\-\_\-pbc} $\ast$}]{pbc, }
+\item[{real}]{lambda, }
+\item[{real $\ast$}]{dvdlambda, }
+\item[{int}]{refcoord\-\_\-scaling, }
+\item[{int}]{e\-P\-B\-C, }
+\item[{{\bf rvec}}]{com\-A, }
+\item[{{\bf rvec}}]{com\-B}
+\end{DoxyParamCaption}
+)}}\label{bondfree_8c_a5d0e8784c819c6e47a317522a7cce643}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=248pt]{bondfree_8c_a5d0e8784c819c6e47a317522a7cce643_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{bondfree_8c_a5d0e8784c819c6e47a317522a7cce643_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{bondfree_8c_aa980bcabbac095b42cf4e27735996df8}{\index{bondfree.\-c@{bondfree.\-c}!quartic\-\_\-angles@{quartic\-\_\-angles}}
+\index{quartic\-\_\-angles@{quartic\-\_\-angles}!bondfree.c@{bondfree.\-c}}
+\subsubsection[{quartic\-\_\-angles}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf quartic\-\_\-angles} (
+\begin{DoxyParamCaption}
+\item[{int}]{nbonds, }
+\item[{const {\bf t\-\_\-iatom}}]{forceatoms\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf t\-\_\-iparams}}]{forceparams\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{f\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{fshift\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf t\-\_\-pbc} $\ast$}]{pbc, }
+\item[{const {\bf t\-\_\-graph} $\ast$}]{g, }
+\item[{real}]{lambda, }
+\item[{real $\ast$}]{dvdlambda, }
+\item[{const {\bf t\-\_\-mdatoms} $\ast$}]{md, }
+\item[{{\bf t\-\_\-fcdata} $\ast$}]{fcd, }
+\item[{int $\ast$}]{global\-\_\-atom\-\_\-index}
+\end{DoxyParamCaption}
+)}}\label{bondfree_8c_aa980bcabbac095b42cf4e27735996df8}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=262pt]{bondfree_8c_aa980bcabbac095b42cf4e27735996df8_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{bondfree_8c_a4a557e645568f02580cf3d23d759cc13}{\index{bondfree.\-c@{bondfree.\-c}!rbdihs@{rbdihs}}
+\index{rbdihs@{rbdihs}!bondfree.c@{bondfree.\-c}}
+\subsubsection[{rbdihs}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf rbdihs} (
+\begin{DoxyParamCaption}
+\item[{int}]{nbonds, }
+\item[{const {\bf t\-\_\-iatom}}]{forceatoms\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf t\-\_\-iparams}}]{forceparams\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{f\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{fshift\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf t\-\_\-pbc} $\ast$}]{pbc, }
+\item[{const {\bf t\-\_\-graph} $\ast$}]{g, }
+\item[{real}]{lambda, }
+\item[{real $\ast$}]{dvdlambda, }
+\item[{const {\bf t\-\_\-mdatoms} $\ast$}]{md, }
+\item[{{\bf t\-\_\-fcdata} $\ast$}]{fcd, }
+\item[{int $\ast$}]{global\-\_\-atom\-\_\-index}
+\end{DoxyParamCaption}
+)}}\label{bondfree_8c_a4a557e645568f02580cf3d23d759cc13}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=224pt]{bondfree_8c_a4a557e645568f02580cf3d23d759cc13_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{bondfree_8c_a7693fe3e12b49e89b2cf19a3bacb2c4a}{\index{bondfree.\-c@{bondfree.\-c}!reduce\-\_\-thread\-\_\-force\-\_\-buffer@{reduce\-\_\-thread\-\_\-force\-\_\-buffer}}
+\index{reduce\-\_\-thread\-\_\-force\-\_\-buffer@{reduce\-\_\-thread\-\_\-force\-\_\-buffer}!bondfree.c@{bondfree.\-c}}
+\subsubsection[{reduce\-\_\-thread\-\_\-force\-\_\-buffer}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf reduce\-\_\-thread\-\_\-force\-\_\-buffer} (
+\begin{DoxyParamCaption}
+\item[{int}]{n, }
+\item[{{\bf rvec} $\ast$}]{f, }
+\item[{int}]{nthreads, }
+\item[{{\bf f\-\_\-thread\-\_\-t} $\ast$}]{f\-\_\-t, }
+\item[{int}]{nblock, }
+\item[{int}]{block\-\_\-size}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{bondfree_8c_a7693fe3e12b49e89b2cf19a3bacb2c4a}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=312pt]{bondfree_8c_a7693fe3e12b49e89b2cf19a3bacb2c4a_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{bondfree_8c_a7693fe3e12b49e89b2cf19a3bacb2c4a_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{bondfree_8c_ae43e4fd5b78be13d41034762f4fe2e4b}{\index{bondfree.\-c@{bondfree.\-c}!reduce\-\_\-thread\-\_\-forces@{reduce\-\_\-thread\-\_\-forces}}
+\index{reduce\-\_\-thread\-\_\-forces@{reduce\-\_\-thread\-\_\-forces}!bondfree.c@{bondfree.\-c}}
+\subsubsection[{reduce\-\_\-thread\-\_\-forces}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf reduce\-\_\-thread\-\_\-forces} (
+\begin{DoxyParamCaption}
+\item[{int}]{n, }
+\item[{{\bf rvec} $\ast$}]{f, }
+\item[{{\bf rvec} $\ast$}]{fshift, }
+\item[{real $\ast$}]{ener, }
+\item[{{\bf gmx\-\_\-grppairener\-\_\-t} $\ast$}]{grpp, }
+\item[{real $\ast$}]{dvdl, }
+\item[{int}]{nthreads, }
+\item[{{\bf f\-\_\-thread\-\_\-t} $\ast$}]{f\-\_\-t, }
+\item[{int}]{nblock, }
+\item[{int}]{block\-\_\-size, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Calc\-Ener\-Vir, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-D\-H\-D\-L}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{bondfree_8c_ae43e4fd5b78be13d41034762f4fe2e4b}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{bondfree_8c_ae43e4fd5b78be13d41034762f4fe2e4b_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{bondfree_8c_ae43e4fd5b78be13d41034762f4fe2e4b_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{bondfree_8c_a5a148b8e984ebf07802597e99d0f9755}{\index{bondfree.\-c@{bondfree.\-c}!restraint\-\_\-bonds@{restraint\-\_\-bonds}}
+\index{restraint\-\_\-bonds@{restraint\-\_\-bonds}!bondfree.c@{bondfree.\-c}}
+\subsubsection[{restraint\-\_\-bonds}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf restraint\-\_\-bonds} (
+\begin{DoxyParamCaption}
+\item[{int}]{nbonds, }
+\item[{const {\bf t\-\_\-iatom}}]{forceatoms\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf t\-\_\-iparams}}]{forceparams\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{f\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{fshift\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf t\-\_\-pbc} $\ast$}]{pbc, }
+\item[{const {\bf t\-\_\-graph} $\ast$}]{g, }
+\item[{real}]{lambda, }
+\item[{real $\ast$}]{dvdlambda, }
+\item[{const {\bf t\-\_\-mdatoms} $\ast$}]{md, }
+\item[{{\bf t\-\_\-fcdata} $\ast$}]{fcd, }
+\item[{int $\ast$}]{global\-\_\-atom\-\_\-index}
+\end{DoxyParamCaption}
+)}}\label{bondfree_8c_a5a148b8e984ebf07802597e99d0f9755}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{bondfree_8c_a5a148b8e984ebf07802597e99d0f9755_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{bondfree_8c_abd97a138bdacf5e43a7462ff94525bd5}{\index{bondfree.\-c@{bondfree.\-c}!tab\-\_\-angles@{tab\-\_\-angles}}
+\index{tab\-\_\-angles@{tab\-\_\-angles}!bondfree.c@{bondfree.\-c}}
+\subsubsection[{tab\-\_\-angles}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf tab\-\_\-angles} (
+\begin{DoxyParamCaption}
+\item[{int}]{nbonds, }
+\item[{const {\bf t\-\_\-iatom}}]{forceatoms\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf t\-\_\-iparams}}]{forceparams\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{f\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{fshift\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf t\-\_\-pbc} $\ast$}]{pbc, }
+\item[{const {\bf t\-\_\-graph} $\ast$}]{g, }
+\item[{real}]{lambda, }
+\item[{real $\ast$}]{dvdlambda, }
+\item[{const {\bf t\-\_\-mdatoms} $\ast$}]{md, }
+\item[{{\bf t\-\_\-fcdata} $\ast$}]{fcd, }
+\item[{int $\ast$}]{global\-\_\-atom\-\_\-index}
+\end{DoxyParamCaption}
+)}}\label{bondfree_8c_abd97a138bdacf5e43a7462ff94525bd5}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=344pt]{bondfree_8c_abd97a138bdacf5e43a7462ff94525bd5_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{bondfree_8c_ab3379ef26dfd577629c43bff6a90050b}{\index{bondfree.\-c@{bondfree.\-c}!tab\-\_\-bonds@{tab\-\_\-bonds}}
+\index{tab\-\_\-bonds@{tab\-\_\-bonds}!bondfree.c@{bondfree.\-c}}
+\subsubsection[{tab\-\_\-bonds}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf tab\-\_\-bonds} (
+\begin{DoxyParamCaption}
+\item[{int}]{nbonds, }
+\item[{const {\bf t\-\_\-iatom}}]{forceatoms\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf t\-\_\-iparams}}]{forceparams\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{f\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{fshift\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf t\-\_\-pbc} $\ast$}]{pbc, }
+\item[{const {\bf t\-\_\-graph} $\ast$}]{g, }
+\item[{real}]{lambda, }
+\item[{real $\ast$}]{dvdlambda, }
+\item[{const {\bf t\-\_\-mdatoms} $\ast$}]{md, }
+\item[{{\bf t\-\_\-fcdata} $\ast$}]{fcd, }
+\item[{int $\ast$}]{global\-\_\-atom\-\_\-index}
+\end{DoxyParamCaption}
+)}}\label{bondfree_8c_ab3379ef26dfd577629c43bff6a90050b}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{bondfree_8c_ab3379ef26dfd577629c43bff6a90050b_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{bondfree_8c_a2e9510cdbdd26b5adda73c990a46bba7}{\index{bondfree.\-c@{bondfree.\-c}!tab\-\_\-dihs@{tab\-\_\-dihs}}
+\index{tab\-\_\-dihs@{tab\-\_\-dihs}!bondfree.c@{bondfree.\-c}}
+\subsubsection[{tab\-\_\-dihs}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf tab\-\_\-dihs} (
+\begin{DoxyParamCaption}
+\item[{int}]{nbonds, }
+\item[{const {\bf t\-\_\-iatom}}]{forceatoms\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf t\-\_\-iparams}}]{forceparams\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{f\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{fshift\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf t\-\_\-pbc} $\ast$}]{pbc, }
+\item[{const {\bf t\-\_\-graph} $\ast$}]{g, }
+\item[{real}]{lambda, }
+\item[{real $\ast$}]{dvdlambda, }
+\item[{const {\bf t\-\_\-mdatoms} $\ast$}]{md, }
+\item[{{\bf t\-\_\-fcdata} $\ast$}]{fcd, }
+\item[{int $\ast$}]{global\-\_\-atom\-\_\-index}
+\end{DoxyParamCaption}
+)}}\label{bondfree_8c_a2e9510cdbdd26b5adda73c990a46bba7}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=334pt]{bondfree_8c_a2e9510cdbdd26b5adda73c990a46bba7_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{bondfree_8c_a8725449844adfd8e2550881a2a559d21}{\index{bondfree.\-c@{bondfree.\-c}!thole\-\_\-pol@{thole\-\_\-pol}}
+\index{thole\-\_\-pol@{thole\-\_\-pol}!bondfree.c@{bondfree.\-c}}
+\subsubsection[{thole\-\_\-pol}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf thole\-\_\-pol} (
+\begin{DoxyParamCaption}
+\item[{int}]{nbonds, }
+\item[{const {\bf t\-\_\-iatom}}]{forceatoms\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf t\-\_\-iparams}}]{forceparams\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{f\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{fshift\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf t\-\_\-pbc} $\ast$}]{pbc, }
+\item[{const {\bf t\-\_\-graph} $\ast$}]{g, }
+\item[{real}]{lambda, }
+\item[{real $\ast$}]{dvdlambda, }
+\item[{const {\bf t\-\_\-mdatoms} $\ast$}]{md, }
+\item[{{\bf t\-\_\-fcdata} $\ast$}]{fcd, }
+\item[{int $\ast$}]{global\-\_\-atom\-\_\-index}
+\end{DoxyParamCaption}
+)}}\label{bondfree_8c_a8725449844adfd8e2550881a2a559d21}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{bondfree_8c_a8725449844adfd8e2550881a2a559d21_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{bondfree_8c_a3a5d201f2c340d73d3e0d050a2859042}{\index{bondfree.\-c@{bondfree.\-c}!unimplemented@{unimplemented}}
+\index{unimplemented@{unimplemented}!bondfree.c@{bondfree.\-c}}
+\subsubsection[{unimplemented}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf unimplemented} (
+\begin{DoxyParamCaption}
+\item[{int}]{nbonds, }
+\item[{const {\bf t\-\_\-iatom}}]{forceatoms\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf t\-\_\-iparams}}]{forceparams\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{f\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{fshift\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf t\-\_\-pbc} $\ast$}]{pbc, }
+\item[{const {\bf t\-\_\-graph} $\ast$}]{g, }
+\item[{real}]{lambda, }
+\item[{real $\ast$}]{dvdlambda, }
+\item[{const {\bf t\-\_\-mdatoms} $\ast$}]{md, }
+\item[{{\bf t\-\_\-fcdata} $\ast$}]{fcd, }
+\item[{int $\ast$}]{global\-\_\-atom\-\_\-index}
+\end{DoxyParamCaption}
+)}}\label{bondfree_8c_a3a5d201f2c340d73d3e0d050a2859042}
+\hypertarget{bondfree_8c_a399e0c6cec9b089bf3355c2fe812c65a}{\index{bondfree.\-c@{bondfree.\-c}!urey\-\_\-bradley@{urey\-\_\-bradley}}
+\index{urey\-\_\-bradley@{urey\-\_\-bradley}!bondfree.c@{bondfree.\-c}}
+\subsubsection[{urey\-\_\-bradley}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf urey\-\_\-bradley} (
+\begin{DoxyParamCaption}
+\item[{int}]{nbonds, }
+\item[{const {\bf t\-\_\-iatom}}]{forceatoms\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf t\-\_\-iparams}}]{forceparams\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{f\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{fshift\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf t\-\_\-pbc} $\ast$}]{pbc, }
+\item[{const {\bf t\-\_\-graph} $\ast$}]{g, }
+\item[{real}]{lambda, }
+\item[{real $\ast$}]{dvdlambda, }
+\item[{const {\bf t\-\_\-mdatoms} $\ast$}]{md, }
+\item[{{\bf t\-\_\-fcdata} $\ast$}]{fcd, }
+\item[{int $\ast$}]{global\-\_\-atom\-\_\-index}
+\end{DoxyParamCaption}
+)}}\label{bondfree_8c_a399e0c6cec9b089bf3355c2fe812c65a}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{bondfree_8c_a399e0c6cec9b089bf3355c2fe812c65a_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{bondfree_8c_afd0ed556e211287a8804a2edbc7604fd}{\index{bondfree.\-c@{bondfree.\-c}!water\-\_\-pol@{water\-\_\-pol}}
+\index{water\-\_\-pol@{water\-\_\-pol}!bondfree.c@{bondfree.\-c}}
+\subsubsection[{water\-\_\-pol}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf water\-\_\-pol} (
+\begin{DoxyParamCaption}
+\item[{int}]{nbonds, }
+\item[{const {\bf t\-\_\-iatom}}]{forceatoms\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf t\-\_\-iparams}}]{forceparams\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{f\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{fshift\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf t\-\_\-pbc} $\ast$}]{pbc, }
+\item[{const {\bf t\-\_\-graph} $\ast$}]{g, }
+\item[{real}]{lambda, }
+\item[{real $\ast$}]{dvdlambda, }
+\item[{const {\bf t\-\_\-mdatoms} $\ast$}]{md, }
+\item[{{\bf t\-\_\-fcdata} $\ast$}]{fcd, }
+\item[{int $\ast$}]{global\-\_\-atom\-\_\-index}
+\end{DoxyParamCaption}
+)}}\label{bondfree_8c_afd0ed556e211287a8804a2edbc7604fd}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=236pt]{bondfree_8c_afd0ed556e211287a8804a2edbc7604fd_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{bondfree_8c_a194ca811a25b46c67212bc15d5a55bc7}{\index{bondfree.\-c@{bondfree.\-c}!zero\-\_\-thread\-\_\-forces@{zero\-\_\-thread\-\_\-forces}}
+\index{zero\-\_\-thread\-\_\-forces@{zero\-\_\-thread\-\_\-forces}!bondfree.c@{bondfree.\-c}}
+\subsubsection[{zero\-\_\-thread\-\_\-forces}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf zero\-\_\-thread\-\_\-forces} (
+\begin{DoxyParamCaption}
+\item[{{\bf f\-\_\-thread\-\_\-t} $\ast$}]{f\-\_\-t, }
+\item[{int}]{n, }
+\item[{int}]{nblock, }
+\item[{int}]{blocksize}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{bondfree_8c_a194ca811a25b46c67212bc15d5a55bc7}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=278pt]{bondfree_8c_a194ca811a25b46c67212bc15d5a55bc7_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{bondfree_8c_a194ca811a25b46c67212bc15d5a55bc7_icgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{\-Variable \-Documentation}
+\hypertarget{bondfree_8c_ad8e1ea08233c16b88f1077b78e42e3fe}{\index{bondfree.\-c@{bondfree.\-c}!cmap\-\_\-coeff\-\_\-matrix@{cmap\-\_\-coeff\-\_\-matrix}}
+\index{cmap\-\_\-coeff\-\_\-matrix@{cmap\-\_\-coeff\-\_\-matrix}!bondfree.c@{bondfree.\-c}}
+\subsubsection[{cmap\-\_\-coeff\-\_\-matrix}]{\setlength{\rightskip}{0pt plus 5cm}const int {\bf cmap\-\_\-coeff\-\_\-matrix}\mbox{[}$\,$\mbox{]}}}\label{bondfree_8c_ad8e1ea08233c16b88f1077b78e42e3fe}
+{\bfseries \-Initial value\-:}
+\begin{DoxyCode}
+ {
+    1, 0, -3,  2, 0, 0,  0,  0, -3,  0,  9, -6,  2,  0, -6,  4,
+    0, 0,  0,  0, 0, 0,  0,  0,  3,  0, -9,  6, -2,  0,  6, -4,
+    0, 0,  0,  0, 0, 0,  0,  0,  0,  0,  9, -6,  0,  0, -6,  4,
+    0, 0,  3, -2, 0, 0,  0,  0,  0,  0, -9,  6,  0,  0,  6, -4,
+    0, 0,  0,  0, 1, 0, -3,  2, -2,  0,  6, -4,  1,  0, -3,  2,
+    0, 0,  0,  0, 0, 0,  0,  0, -1,  0,  3, -2,  1,  0, -3,  2,
+    0, 0,  0,  0, 0, 0,  0,  0,  0,  0, -3,  2,  0,  0,  3, -2,
+    0, 0,  0,  0, 0, 0,  3, -2,  0,  0, -6,  4,  0,  0,  3, -2,
+    0, 1, -2,  1, 0, 0,  0,  0,  0, -3,  6, -3,  0,  2, -4,  2,
+    0, 0,  0,  0, 0, 0,  0,  0,  0,  3, -6,  3,  0, -2,  4, -2,
+    0, 0,  0,  0, 0, 0,  0,  0,  0,  0, -3,  3,  0,  0,  2, -2,
+    0, 0, -1,  1, 0, 0,  0,  0,  0,  0,  3, -3,  0,  0, -2,  2,
+    0, 0,  0,  0, 0, 1, -2,  1,  0, -2,  4, -2,  0,  1, -2,  1,
+    0, 0,  0,  0, 0, 0,  0,  0,  0, -1,  2, -1,  0,  1, -2,  1,
+    0, 0,  0,  0, 0, 0,  0,  0,  0,  0,  1, -1,  0,  0, -1,  1,
+    0, 0,  0,  0, 0, 0, -1,  1,  0,  0,  2, -2,  0,  0, -1,  1
+}
+\end{DoxyCode}

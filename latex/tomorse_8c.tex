@@ -1,0 +1,160 @@
+\hypertarget{tomorse_8c}{\section{src/kernel/tomorse.c \-File \-Reference}
+\label{tomorse_8c}\index{src/kernel/tomorse.\-c@{src/kernel/tomorse.\-c}}
+}
+{\ttfamily \#include $<$stdlib.\-h$>$}\*
+{\ttfamily \#include $<$math.\-h$>$}\*
+{\ttfamily \#include $<$ctype.\-h$>$}\*
+{\ttfamily \#include \char`\"{}typedefs.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}string2.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}grompp.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}futil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}smalloc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}toputil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-fatal.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gpp\-\_\-atomtype.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gpp\-\_\-tomorse.\-h\char`\"{}}\*
+\-Include dependency graph for tomorse.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tomorse_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structt__2morse}{t\-\_\-2morse}
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{structt__2morse}{t\-\_\-2morse} $\ast$ \hyperlink{tomorse_8c_a43792d742a6c3b7d21b3684ba1c40303}{read\-\_\-dissociation\-\_\-energies} (int $\ast$n2morse)
+\item 
+static int \hyperlink{tomorse_8c_a03add599dff5e86c1b6684264660560b}{nequal} (char $\ast$a1, char $\ast$a2)
+\item 
+static real \hyperlink{tomorse_8c_a03302f5bbe17ed2c469fbb503b7fb690}{search\-\_\-e\-\_\-diss} (int n2m, \hyperlink{structt__2morse}{t\-\_\-2morse} t2m\mbox{[}$\,$\mbox{]}, char $\ast$ai, char $\ast$aj)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{tomorse_8c_a87b36f473165043387816910b37368f6}{convert\-\_\-harmonics} (int nrmols, \hyperlink{structt__molinfo}{t\-\_\-molinfo} mols\mbox{[}$\,$\mbox{]}, \hyperlink{include_2gpp__atomtype_8h_a140a52ba2b384d9a6483fe65c780f110}{gpp\-\_\-atomtype\-\_\-t} atype)
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{tomorse_8c_a87b36f473165043387816910b37368f6}{\index{tomorse.\-c@{tomorse.\-c}!convert\-\_\-harmonics@{convert\-\_\-harmonics}}
+\index{convert\-\_\-harmonics@{convert\-\_\-harmonics}!tomorse.c@{tomorse.\-c}}
+\subsubsection[{convert\-\_\-harmonics}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf convert\-\_\-harmonics} (
+\begin{DoxyParamCaption}
+\item[{int}]{nrmols, }
+\item[{{\bf t\-\_\-molinfo}}]{mols\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf gpp\-\_\-atomtype\-\_\-t}}]{atype}
+\end{DoxyParamCaption}
+)}}\label{tomorse_8c_a87b36f473165043387816910b37368f6}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tomorse_8c_a87b36f473165043387816910b37368f6_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tomorse_8c_a87b36f473165043387816910b37368f6_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{tomorse_8c_a03add599dff5e86c1b6684264660560b}{\index{tomorse.\-c@{tomorse.\-c}!nequal@{nequal}}
+\index{nequal@{nequal}!tomorse.c@{tomorse.\-c}}
+\subsubsection[{nequal}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf nequal} (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{a1, }
+\item[{char $\ast$}]{a2}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{tomorse_8c_a03add599dff5e86c1b6684264660560b}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tomorse_8c_a03add599dff5e86c1b6684264660560b_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{tomorse_8c_a43792d742a6c3b7d21b3684ba1c40303}{\index{tomorse.\-c@{tomorse.\-c}!read\-\_\-dissociation\-\_\-energies@{read\-\_\-dissociation\-\_\-energies}}
+\index{read\-\_\-dissociation\-\_\-energies@{read\-\_\-dissociation\-\_\-energies}!tomorse.c@{tomorse.\-c}}
+\subsubsection[{read\-\_\-dissociation\-\_\-energies}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf t\-\_\-2morse}$\ast$ {\bf read\-\_\-dissociation\-\_\-energies} (
+\begin{DoxyParamCaption}
+\item[{int $\ast$}]{n2morse}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{tomorse_8c_a43792d742a6c3b7d21b3684ba1c40303}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=298pt]{tomorse_8c_a43792d742a6c3b7d21b3684ba1c40303_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tomorse_8c_a43792d742a6c3b7d21b3684ba1c40303_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{tomorse_8c_a03302f5bbe17ed2c469fbb503b7fb690}{\index{tomorse.\-c@{tomorse.\-c}!search\-\_\-e\-\_\-diss@{search\-\_\-e\-\_\-diss}}
+\index{search\-\_\-e\-\_\-diss@{search\-\_\-e\-\_\-diss}!tomorse.c@{tomorse.\-c}}
+\subsubsection[{search\-\_\-e\-\_\-diss}]{\setlength{\rightskip}{0pt plus 5cm}static real {\bf search\-\_\-e\-\_\-diss} (
+\begin{DoxyParamCaption}
+\item[{int}]{n2m, }
+\item[{{\bf t\-\_\-2morse}}]{t2m\mbox{[}$\,$\mbox{]}, }
+\item[{char $\ast$}]{ai, }
+\item[{char $\ast$}]{aj}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{tomorse_8c_a03302f5bbe17ed2c469fbb503b7fb690}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=288pt]{tomorse_8c_a03302f5bbe17ed2c469fbb503b7fb690_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tomorse_8c_a03302f5bbe17ed2c469fbb503b7fb690_icgraph}
+\end{center}
+\end{figure}
+
+

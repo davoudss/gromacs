@@ -1,0 +1,895 @@
+\hypertarget{geminate_8c}{\section{src/tools/geminate.c \-File \-Reference}
+\label{geminate_8c}\index{src/tools/geminate.\-c@{src/tools/geminate.\-c}}
+}
+{\ttfamily \#include $<$math.\-h$>$}\*
+{\ttfamily \#include \char`\"{}typedefs.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}smalloc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}vec.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}geminate.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-omp.\-h\char`\"{}}\*
+\-Include dependency graph for geminate.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{geminate_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{structgem__complex}{gem\-\_\-complex} \hyperlink{geminate_8c_ad024d1d3007fe619cddc2ae2214f4afd}{gem\-\_\-cmplx} (double \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae039a6f39df62bd858e5e3f5ec77b24b}{r}, double \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a3c7542401c1cb8bd37ef5e7d9eb0f5a8}{i})
+\item 
+static \hyperlink{structgem__complex}{gem\-\_\-complex} \hyperlink{geminate_8c_a7e4860b762bbe071979d84c144d19fd0}{gem\-\_\-c} (double \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x})
+\item 
+static double \hyperlink{geminate_8c_a029af4eb0418888014646000943e46cc}{gem\-\_\-cx\-\_\-abs} (\hyperlink{structgem__complex}{gem\-\_\-complex} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_abf930f675551f29a5e46efa4cb496828}{z})
+\item 
+static \hyperlink{structgem__complex}{gem\-\_\-complex} \hyperlink{geminate_8c_af30a6c1774db0e16b49f5f701936b014}{gem\-\_\-cxadd} (\hyperlink{structgem__complex}{gem\-\_\-complex} z1, \hyperlink{structgem__complex}{gem\-\_\-complex} z2)
+\item 
+static \hyperlink{structgem__complex}{gem\-\_\-complex} \hyperlink{geminate_8c_a7e5e27fee8b17a52064c762736ea94e1}{gem\-\_\-cxradd} (\hyperlink{structgem__complex}{gem\-\_\-complex} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_abf930f675551f29a5e46efa4cb496828}{z}, double \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae039a6f39df62bd858e5e3f5ec77b24b}{r})
+\item 
+static \hyperlink{structgem__complex}{gem\-\_\-complex} \hyperlink{geminate_8c_a98c2e844c14dc24e264a7d392cfe0d61}{gem\-\_\-cxsub} (\hyperlink{structgem__complex}{gem\-\_\-complex} z1, \hyperlink{structgem__complex}{gem\-\_\-complex} z2)
+\item 
+static \hyperlink{structgem__complex}{gem\-\_\-complex} \hyperlink{geminate_8c_a7d8e5516f67bb98e7682f14e2531850d}{gem\-\_\-cxmul} (\hyperlink{structgem__complex}{gem\-\_\-complex} z1, \hyperlink{structgem__complex}{gem\-\_\-complex} z2)
+\item 
+static \hyperlink{structgem__complex}{gem\-\_\-complex} \hyperlink{geminate_8c_a1a468f9aab95d1dc6bb333a7ef106f18}{gem\-\_\-cxsq} (\hyperlink{structgem__complex}{gem\-\_\-complex} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_abf930f675551f29a5e46efa4cb496828}{z})
+\item 
+static \hyperlink{structgem__complex}{gem\-\_\-complex} \hyperlink{geminate_8c_a2cba07d75587a4e25765576b0fd7dc65}{gem\-\_\-cxrmul} (\hyperlink{structgem__complex}{gem\-\_\-complex} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_abf930f675551f29a5e46efa4cb496828}{z}, double \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae039a6f39df62bd858e5e3f5ec77b24b}{r})
+\item 
+static \hyperlink{structgem__complex}{gem\-\_\-complex} \hyperlink{geminate_8c_ac857b300e9f2f67661ae8a17b3b757a6}{gem\-\_\-cxdiv} (\hyperlink{structgem__complex}{gem\-\_\-complex} z1, \hyperlink{structgem__complex}{gem\-\_\-complex} z2)
+\item 
+static \hyperlink{structgem__complex}{gem\-\_\-complex} \hyperlink{geminate_8c_ab84d4194d2ee811578c70e2caca3267c}{gem\-\_\-cxrdiv} (\hyperlink{structgem__complex}{gem\-\_\-complex} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_abf930f675551f29a5e46efa4cb496828}{z}, double \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae039a6f39df62bd858e5e3f5ec77b24b}{r})
+\item 
+static \hyperlink{structgem__complex}{gem\-\_\-complex} \hyperlink{geminate_8c_a5ce0c7e1e586d79ceffc204dea4e6727}{gem\-\_\-rxcdiv} (double \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae039a6f39df62bd858e5e3f5ec77b24b}{r}, \hyperlink{structgem__complex}{gem\-\_\-complex} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_abf930f675551f29a5e46efa4cb496828}{z})
+\item 
+static \hyperlink{structgem__complex}{gem\-\_\-complex} \hyperlink{geminate_8c_ac4f8e3e8e3c812d48969549d3fce31e8}{gem\-\_\-cxdexp} (\hyperlink{structgem__complex}{gem\-\_\-complex} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_abf930f675551f29a5e46efa4cb496828}{z})
+\item 
+static \hyperlink{structgem__complex}{gem\-\_\-complex} \hyperlink{geminate_8c_a3ffcab9942c092acde056c5faff4e634}{gem\-\_\-cxlog} (\hyperlink{structgem__complex}{gem\-\_\-complex} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_abf930f675551f29a5e46efa4cb496828}{z})
+\item 
+static \hyperlink{structgem__complex}{gem\-\_\-complex} \hyperlink{geminate_8c_a755a7d033c3f7f090914c47ecb140590}{gem\-\_\-cxdsqrt} (\hyperlink{structgem__complex}{gem\-\_\-complex} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_abf930f675551f29a5e46efa4cb496828}{z})
+\item 
+static \hyperlink{structgem__complex}{gem\-\_\-complex} \hyperlink{geminate_8c_ae0c70981e1cfcda1060963d0cb0447c9}{gem\-\_\-cxdpow} (\hyperlink{structgem__complex}{gem\-\_\-complex} z1, \hyperlink{structgem__complex}{gem\-\_\-complex} z2)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{geminate_8c_af33eb2455048b72dc803a54bcabbf0a6}{gem\-\_\-solve} (\hyperlink{structgem__complex}{gem\-\_\-complex} $\ast$al, \hyperlink{structgem__complex}{gem\-\_\-complex} $\ast$be, \hyperlink{structgem__complex}{gem\-\_\-complex} $\ast$gam, double \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a0880879736d1ab747a972d1942421886}{a}, double \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afb462a5dea72ae7992f073bfd756fb5f}{b}, double \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae4f482ada992ba1e6b96026c14729ffe}{c})
+\item 
+static double \hyperlink{geminate_8c_af5e65949eeb13e11facd5e80608157a5}{gem\-\_\-erf} (double \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x})
+\item 
+static double \hyperlink{geminate_8c_a78292f0060bdef23180e548a14a496f5}{gem\-\_\-erfc} (double \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x})
+\item 
+static double \hyperlink{geminate_8c_a9879bd51603bd8b820e98a45d05a78f6}{gem\-\_\-omega} (double \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x})
+\item 
+static \hyperlink{structgem__complex}{gem\-\_\-complex} \hyperlink{geminate_8c_ac7d5b753702e34ffa2a82911a2d29b0b}{gem\-\_\-comega} (\hyperlink{structgem__complex}{gem\-\_\-complex} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_abf930f675551f29a5e46efa4cb496828}{z})
+\item 
+static double \hyperlink{geminate_8c_ac50786a19b7be7a96200ac3027da3b8b}{sqcm\-\_\-per\-\_\-s\-\_\-to\-\_\-sq\-A\-\_\-per\-\_\-ps} (real \-D)
+\item 
+static double \hyperlink{geminate_8c_a4f83ff02084da389905f7dd1f0c1df3c}{eq10v2} (double theory\-Ct\mbox{[}$\,$\mbox{]}, double time\mbox{[}$\,$\mbox{]}, int manytimes, double ka, double kd, \hyperlink{structt__gemParams}{t\-\_\-gem\-Params} $\ast$params)
+\item 
+static double \hyperlink{geminate_8c_a52ed4f7c4b2eb9075068fc41357991b9}{get\-Log\-Index} (const int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a3c7542401c1cb8bd37ef5e7d9eb0f5a8}{i}, const \hyperlink{structt__gemParams}{t\-\_\-gem\-Params} $\ast$params)
+\item 
+\hyperlink{structt__gemParams}{t\-\_\-gem\-Params} $\ast$ \hyperlink{geminate_8c_aac60460d583562f529db3f7bffd0c565}{init\-\_\-gem\-Params} (const double \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_acc578499ab59fa3eb9f98198027d5624}{sigma}, const double \-D, const real $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a2b515c84b1293071f7584da32ca336c0}{t}, const int len, const int n\-Fit\-Points, const real beg\-Fit, const real end\-Fit, const real ballistic, const int n\-Bal\-Exp, const \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Dt)
+\item 
+static real $\ast$ \hyperlink{geminate_8c_a122647f25848edf22e4fad4a9a40b3e2}{d2r} (const double $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae624f265c646670d373e9de0306f184b}{d}, const int nn)
+\item 
+real \hyperlink{geminate_8c_acd9443b3407104efe03fee478b8bbdfe}{fit\-Gem\-Recomb} (double $\ast$ct, double $\ast$time, double $\ast$$\ast$ct\-Fit, const int n\-Data, \hyperlink{structt__gemParams}{t\-\_\-gem\-Params} $\ast$params)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{geminate_8c_af9c4b82ff2c72f65afaf2abc4f39a353}{take\-Away\-Ballistic} (double $\ast$ct, double $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a2b515c84b1293071f7584da32ca336c0}{t}, int len, real t\-Max, int nexp, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Derivative)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{geminate_8c_a9b99289b85747d35eb57de025d5c53d8}{dump\-N} (const real $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a89f48d1344f16f082b0bcdb5fe459693}{e}, const int nn, char $\ast$fn)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{geminate_8c_abe6f60d3f7b5f3838904582005d9bec4}{\-\_\-patch\-Bad} (double $\ast$ct, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, double \hyperlink{share_2template_2gromacs_2gmx__blas_8h_ab22d39b99f8eaf91354f167b9e204e58}{dy})
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{geminate_8c_adee3da5c20ce0c296aa9338e6304025f}{patch\-Bad\-Part} (double $\ast$ct, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n})
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{geminate_8c_a6e4764102266d6299dfbeb87a673b360}{patch\-Bad\-Tail} (double $\ast$ct, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{geminate_8c_a8ad541108682a316a50fc570a1ae6737}{fix\-Gem\-A\-C\-F} (double $\ast$ct, int len)
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{geminate_8c_abe6f60d3f7b5f3838904582005d9bec4}{\index{geminate.\-c@{geminate.\-c}!\-\_\-patch\-Bad@{\-\_\-patch\-Bad}}
+\index{\-\_\-patch\-Bad@{\-\_\-patch\-Bad}!geminate.c@{geminate.\-c}}
+\subsubsection[{\-\_\-patch\-Bad}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf \-\_\-patch\-Bad} (
+\begin{DoxyParamCaption}
+\item[{double $\ast$}]{ct, }
+\item[{int}]{n, }
+\item[{double}]{dy}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{geminate_8c_abe6f60d3f7b5f3838904582005d9bec4}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{geminate_8c_abe6f60d3f7b5f3838904582005d9bec4_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{geminate_8c_a122647f25848edf22e4fad4a9a40b3e2}{\index{geminate.\-c@{geminate.\-c}!d2r@{d2r}}
+\index{d2r@{d2r}!geminate.c@{geminate.\-c}}
+\subsubsection[{d2r}]{\setlength{\rightskip}{0pt plus 5cm}static real $\ast$ {\bf d2r} (
+\begin{DoxyParamCaption}
+\item[{const double $\ast$}]{d, }
+\item[{const int}]{nn}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{geminate_8c_a122647f25848edf22e4fad4a9a40b3e2}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=190pt]{geminate_8c_a122647f25848edf22e4fad4a9a40b3e2_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{geminate_8c_a9b99289b85747d35eb57de025d5c53d8}{\index{geminate.\-c@{geminate.\-c}!dump\-N@{dump\-N}}
+\index{dump\-N@{dump\-N}!geminate.c@{geminate.\-c}}
+\subsubsection[{dump\-N}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf dump\-N} (
+\begin{DoxyParamCaption}
+\item[{const real $\ast$}]{e, }
+\item[{const int}]{nn, }
+\item[{char $\ast$}]{fn}
+\end{DoxyParamCaption}
+)}}\label{geminate_8c_a9b99289b85747d35eb57de025d5c53d8}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=194pt]{geminate_8c_a9b99289b85747d35eb57de025d5c53d8_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{geminate_8c_a9b99289b85747d35eb57de025d5c53d8_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{geminate_8c_a4f83ff02084da389905f7dd1f0c1df3c}{\index{geminate.\-c@{geminate.\-c}!eq10v2@{eq10v2}}
+\index{eq10v2@{eq10v2}!geminate.c@{geminate.\-c}}
+\subsubsection[{eq10v2}]{\setlength{\rightskip}{0pt plus 5cm}static double {\bf eq10v2} (
+\begin{DoxyParamCaption}
+\item[{double}]{theory\-Ct\mbox{[}$\,$\mbox{]}, }
+\item[{double}]{time\mbox{[}$\,$\mbox{]}, }
+\item[{int}]{manytimes, }
+\item[{double}]{ka, }
+\item[{double}]{kd, }
+\item[{{\bf t\-\_\-gem\-Params} $\ast$}]{params}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{geminate_8c_a4f83ff02084da389905f7dd1f0c1df3c}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{geminate_8c_a4f83ff02084da389905f7dd1f0c1df3c_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{geminate_8c_a4f83ff02084da389905f7dd1f0c1df3c_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{geminate_8c_acd9443b3407104efe03fee478b8bbdfe}{\index{geminate.\-c@{geminate.\-c}!fit\-Gem\-Recomb@{fit\-Gem\-Recomb}}
+\index{fit\-Gem\-Recomb@{fit\-Gem\-Recomb}!geminate.c@{geminate.\-c}}
+\subsubsection[{fit\-Gem\-Recomb}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf fit\-Gem\-Recomb} (
+\begin{DoxyParamCaption}
+\item[{double $\ast$}]{ct, }
+\item[{double $\ast$}]{time, }
+\item[{double $\ast$$\ast$}]{ct\-Fit, }
+\item[{const int}]{n\-Data, }
+\item[{{\bf t\-\_\-gem\-Params} $\ast$}]{params}
+\end{DoxyParamCaption}
+)}}\label{geminate_8c_acd9443b3407104efe03fee478b8bbdfe}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{geminate_8c_acd9443b3407104efe03fee478b8bbdfe_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=272pt]{geminate_8c_acd9443b3407104efe03fee478b8bbdfe_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{geminate_8c_a8ad541108682a316a50fc570a1ae6737}{\index{geminate.\-c@{geminate.\-c}!fix\-Gem\-A\-C\-F@{fix\-Gem\-A\-C\-F}}
+\index{fix\-Gem\-A\-C\-F@{fix\-Gem\-A\-C\-F}!geminate.c@{geminate.\-c}}
+\subsubsection[{fix\-Gem\-A\-C\-F}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf fix\-Gem\-A\-C\-F} (
+\begin{DoxyParamCaption}
+\item[{double $\ast$}]{ct, }
+\item[{int}]{len}
+\end{DoxyParamCaption}
+)}}\label{geminate_8c_a8ad541108682a316a50fc570a1ae6737}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{geminate_8c_a8ad541108682a316a50fc570a1ae6737_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{geminate_8c_a7e4860b762bbe071979d84c144d19fd0}{\index{geminate.\-c@{geminate.\-c}!gem\-\_\-c@{gem\-\_\-c}}
+\index{gem\-\_\-c@{gem\-\_\-c}!geminate.c@{geminate.\-c}}
+\subsubsection[{gem\-\_\-c}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gem\-\_\-complex} {\bf gem\-\_\-c} (
+\begin{DoxyParamCaption}
+\item[{double}]{x}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{geminate_8c_a7e4860b762bbe071979d84c144d19fd0}
+\hypertarget{geminate_8c_ad024d1d3007fe619cddc2ae2214f4afd}{\index{geminate.\-c@{geminate.\-c}!gem\-\_\-cmplx@{gem\-\_\-cmplx}}
+\index{gem\-\_\-cmplx@{gem\-\_\-cmplx}!geminate.c@{geminate.\-c}}
+\subsubsection[{gem\-\_\-cmplx}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gem\-\_\-complex} {\bf gem\-\_\-cmplx} (
+\begin{DoxyParamCaption}
+\item[{double}]{r, }
+\item[{double}]{i}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{geminate_8c_ad024d1d3007fe619cddc2ae2214f4afd}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{geminate_8c_ad024d1d3007fe619cddc2ae2214f4afd_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{geminate_8c_ac7d5b753702e34ffa2a82911a2d29b0b}{\index{geminate.\-c@{geminate.\-c}!gem\-\_\-comega@{gem\-\_\-comega}}
+\index{gem\-\_\-comega@{gem\-\_\-comega}!geminate.c@{geminate.\-c}}
+\subsubsection[{gem\-\_\-comega}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gem\-\_\-complex} {\bf gem\-\_\-comega} (
+\begin{DoxyParamCaption}
+\item[{{\bf gem\-\_\-complex}}]{z}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{geminate_8c_ac7d5b753702e34ffa2a82911a2d29b0b}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{geminate_8c_ac7d5b753702e34ffa2a82911a2d29b0b_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{geminate_8c_ac7d5b753702e34ffa2a82911a2d29b0b_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{geminate_8c_a029af4eb0418888014646000943e46cc}{\index{geminate.\-c@{geminate.\-c}!gem\-\_\-cx\-\_\-abs@{gem\-\_\-cx\-\_\-abs}}
+\index{gem\-\_\-cx\-\_\-abs@{gem\-\_\-cx\-\_\-abs}!geminate.c@{geminate.\-c}}
+\subsubsection[{gem\-\_\-cx\-\_\-abs}]{\setlength{\rightskip}{0pt plus 5cm}static double {\bf gem\-\_\-cx\-\_\-abs} (
+\begin{DoxyParamCaption}
+\item[{{\bf gem\-\_\-complex}}]{z}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{geminate_8c_a029af4eb0418888014646000943e46cc}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{geminate_8c_a029af4eb0418888014646000943e46cc_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{geminate_8c_af30a6c1774db0e16b49f5f701936b014}{\index{geminate.\-c@{geminate.\-c}!gem\-\_\-cxadd@{gem\-\_\-cxadd}}
+\index{gem\-\_\-cxadd@{gem\-\_\-cxadd}!geminate.c@{geminate.\-c}}
+\subsubsection[{gem\-\_\-cxadd}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gem\-\_\-complex} {\bf gem\-\_\-cxadd} (
+\begin{DoxyParamCaption}
+\item[{{\bf gem\-\_\-complex}}]{z1, }
+\item[{{\bf gem\-\_\-complex}}]{z2}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{geminate_8c_af30a6c1774db0e16b49f5f701936b014}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{geminate_8c_af30a6c1774db0e16b49f5f701936b014_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{geminate_8c_ac4f8e3e8e3c812d48969549d3fce31e8}{\index{geminate.\-c@{geminate.\-c}!gem\-\_\-cxdexp@{gem\-\_\-cxdexp}}
+\index{gem\-\_\-cxdexp@{gem\-\_\-cxdexp}!geminate.c@{geminate.\-c}}
+\subsubsection[{gem\-\_\-cxdexp}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gem\-\_\-complex} {\bf gem\-\_\-cxdexp} (
+\begin{DoxyParamCaption}
+\item[{{\bf gem\-\_\-complex}}]{z}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{geminate_8c_ac4f8e3e8e3c812d48969549d3fce31e8}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{geminate_8c_ac4f8e3e8e3c812d48969549d3fce31e8_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{geminate_8c_ac857b300e9f2f67661ae8a17b3b757a6}{\index{geminate.\-c@{geminate.\-c}!gem\-\_\-cxdiv@{gem\-\_\-cxdiv}}
+\index{gem\-\_\-cxdiv@{gem\-\_\-cxdiv}!geminate.c@{geminate.\-c}}
+\subsubsection[{gem\-\_\-cxdiv}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gem\-\_\-complex} {\bf gem\-\_\-cxdiv} (
+\begin{DoxyParamCaption}
+\item[{{\bf gem\-\_\-complex}}]{z1, }
+\item[{{\bf gem\-\_\-complex}}]{z2}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{geminate_8c_ac857b300e9f2f67661ae8a17b3b757a6}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{geminate_8c_ac857b300e9f2f67661ae8a17b3b757a6_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{geminate_8c_ae0c70981e1cfcda1060963d0cb0447c9}{\index{geminate.\-c@{geminate.\-c}!gem\-\_\-cxdpow@{gem\-\_\-cxdpow}}
+\index{gem\-\_\-cxdpow@{gem\-\_\-cxdpow}!geminate.c@{geminate.\-c}}
+\subsubsection[{gem\-\_\-cxdpow}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gem\-\_\-complex} {\bf gem\-\_\-cxdpow} (
+\begin{DoxyParamCaption}
+\item[{{\bf gem\-\_\-complex}}]{z1, }
+\item[{{\bf gem\-\_\-complex}}]{z2}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{geminate_8c_ae0c70981e1cfcda1060963d0cb0447c9}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=262pt]{geminate_8c_ae0c70981e1cfcda1060963d0cb0447c9_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{geminate_8c_ae0c70981e1cfcda1060963d0cb0447c9_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{geminate_8c_a755a7d033c3f7f090914c47ecb140590}{\index{geminate.\-c@{geminate.\-c}!gem\-\_\-cxdsqrt@{gem\-\_\-cxdsqrt}}
+\index{gem\-\_\-cxdsqrt@{gem\-\_\-cxdsqrt}!geminate.c@{geminate.\-c}}
+\subsubsection[{gem\-\_\-cxdsqrt}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gem\-\_\-complex} {\bf gem\-\_\-cxdsqrt} (
+\begin{DoxyParamCaption}
+\item[{{\bf gem\-\_\-complex}}]{z}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{geminate_8c_a755a7d033c3f7f090914c47ecb140590}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=262pt]{geminate_8c_a755a7d033c3f7f090914c47ecb140590_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{geminate_8c_a755a7d033c3f7f090914c47ecb140590_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{geminate_8c_a3ffcab9942c092acde056c5faff4e634}{\index{geminate.\-c@{geminate.\-c}!gem\-\_\-cxlog@{gem\-\_\-cxlog}}
+\index{gem\-\_\-cxlog@{gem\-\_\-cxlog}!geminate.c@{geminate.\-c}}
+\subsubsection[{gem\-\_\-cxlog}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gem\-\_\-complex} {\bf gem\-\_\-cxlog} (
+\begin{DoxyParamCaption}
+\item[{{\bf gem\-\_\-complex}}]{z}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{geminate_8c_a3ffcab9942c092acde056c5faff4e634}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{geminate_8c_a3ffcab9942c092acde056c5faff4e634_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{geminate_8c_a7d8e5516f67bb98e7682f14e2531850d}{\index{geminate.\-c@{geminate.\-c}!gem\-\_\-cxmul@{gem\-\_\-cxmul}}
+\index{gem\-\_\-cxmul@{gem\-\_\-cxmul}!geminate.c@{geminate.\-c}}
+\subsubsection[{gem\-\_\-cxmul}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gem\-\_\-complex} {\bf gem\-\_\-cxmul} (
+\begin{DoxyParamCaption}
+\item[{{\bf gem\-\_\-complex}}]{z1, }
+\item[{{\bf gem\-\_\-complex}}]{z2}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{geminate_8c_a7d8e5516f67bb98e7682f14e2531850d}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{geminate_8c_a7d8e5516f67bb98e7682f14e2531850d_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{geminate_8c_a7e5e27fee8b17a52064c762736ea94e1}{\index{geminate.\-c@{geminate.\-c}!gem\-\_\-cxradd@{gem\-\_\-cxradd}}
+\index{gem\-\_\-cxradd@{gem\-\_\-cxradd}!geminate.c@{geminate.\-c}}
+\subsubsection[{gem\-\_\-cxradd}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gem\-\_\-complex} {\bf gem\-\_\-cxradd} (
+\begin{DoxyParamCaption}
+\item[{{\bf gem\-\_\-complex}}]{z, }
+\item[{double}]{r}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{geminate_8c_a7e5e27fee8b17a52064c762736ea94e1}
+\hypertarget{geminate_8c_ab84d4194d2ee811578c70e2caca3267c}{\index{geminate.\-c@{geminate.\-c}!gem\-\_\-cxrdiv@{gem\-\_\-cxrdiv}}
+\index{gem\-\_\-cxrdiv@{gem\-\_\-cxrdiv}!geminate.c@{geminate.\-c}}
+\subsubsection[{gem\-\_\-cxrdiv}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gem\-\_\-complex} {\bf gem\-\_\-cxrdiv} (
+\begin{DoxyParamCaption}
+\item[{{\bf gem\-\_\-complex}}]{z, }
+\item[{double}]{r}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{geminate_8c_ab84d4194d2ee811578c70e2caca3267c}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{geminate_8c_ab84d4194d2ee811578c70e2caca3267c_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{geminate_8c_a2cba07d75587a4e25765576b0fd7dc65}{\index{geminate.\-c@{geminate.\-c}!gem\-\_\-cxrmul@{gem\-\_\-cxrmul}}
+\index{gem\-\_\-cxrmul@{gem\-\_\-cxrmul}!geminate.c@{geminate.\-c}}
+\subsubsection[{gem\-\_\-cxrmul}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gem\-\_\-complex} {\bf gem\-\_\-cxrmul} (
+\begin{DoxyParamCaption}
+\item[{{\bf gem\-\_\-complex}}]{z, }
+\item[{double}]{r}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{geminate_8c_a2cba07d75587a4e25765576b0fd7dc65}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{geminate_8c_a2cba07d75587a4e25765576b0fd7dc65_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{geminate_8c_a1a468f9aab95d1dc6bb333a7ef106f18}{\index{geminate.\-c@{geminate.\-c}!gem\-\_\-cxsq@{gem\-\_\-cxsq}}
+\index{gem\-\_\-cxsq@{gem\-\_\-cxsq}!geminate.c@{geminate.\-c}}
+\subsubsection[{gem\-\_\-cxsq}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gem\-\_\-complex} {\bf gem\-\_\-cxsq} (
+\begin{DoxyParamCaption}
+\item[{{\bf gem\-\_\-complex}}]{z}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{geminate_8c_a1a468f9aab95d1dc6bb333a7ef106f18}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{geminate_8c_a1a468f9aab95d1dc6bb333a7ef106f18_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{geminate_8c_a98c2e844c14dc24e264a7d392cfe0d61}{\index{geminate.\-c@{geminate.\-c}!gem\-\_\-cxsub@{gem\-\_\-cxsub}}
+\index{gem\-\_\-cxsub@{gem\-\_\-cxsub}!geminate.c@{geminate.\-c}}
+\subsubsection[{gem\-\_\-cxsub}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gem\-\_\-complex} {\bf gem\-\_\-cxsub} (
+\begin{DoxyParamCaption}
+\item[{{\bf gem\-\_\-complex}}]{z1, }
+\item[{{\bf gem\-\_\-complex}}]{z2}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{geminate_8c_a98c2e844c14dc24e264a7d392cfe0d61}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{geminate_8c_a98c2e844c14dc24e264a7d392cfe0d61_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{geminate_8c_af5e65949eeb13e11facd5e80608157a5}{\index{geminate.\-c@{geminate.\-c}!gem\-\_\-erf@{gem\-\_\-erf}}
+\index{gem\-\_\-erf@{gem\-\_\-erf}!geminate.c@{geminate.\-c}}
+\subsubsection[{gem\-\_\-erf}]{\setlength{\rightskip}{0pt plus 5cm}static double {\bf gem\-\_\-erf} (
+\begin{DoxyParamCaption}
+\item[{double}]{x}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{geminate_8c_af5e65949eeb13e11facd5e80608157a5}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=286pt]{geminate_8c_af5e65949eeb13e11facd5e80608157a5_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{geminate_8c_a78292f0060bdef23180e548a14a496f5}{\index{geminate.\-c@{geminate.\-c}!gem\-\_\-erfc@{gem\-\_\-erfc}}
+\index{gem\-\_\-erfc@{gem\-\_\-erfc}!geminate.c@{geminate.\-c}}
+\subsubsection[{gem\-\_\-erfc}]{\setlength{\rightskip}{0pt plus 5cm}static double {\bf gem\-\_\-erfc} (
+\begin{DoxyParamCaption}
+\item[{double}]{x}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{geminate_8c_a78292f0060bdef23180e548a14a496f5}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{geminate_8c_a78292f0060bdef23180e548a14a496f5_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{geminate_8c_a9879bd51603bd8b820e98a45d05a78f6}{\index{geminate.\-c@{geminate.\-c}!gem\-\_\-omega@{gem\-\_\-omega}}
+\index{gem\-\_\-omega@{gem\-\_\-omega}!geminate.c@{geminate.\-c}}
+\subsubsection[{gem\-\_\-omega}]{\setlength{\rightskip}{0pt plus 5cm}static double {\bf gem\-\_\-omega} (
+\begin{DoxyParamCaption}
+\item[{double}]{x}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{geminate_8c_a9879bd51603bd8b820e98a45d05a78f6}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=244pt]{geminate_8c_a9879bd51603bd8b820e98a45d05a78f6_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{geminate_8c_a9879bd51603bd8b820e98a45d05a78f6_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{geminate_8c_a5ce0c7e1e586d79ceffc204dea4e6727}{\index{geminate.\-c@{geminate.\-c}!gem\-\_\-rxcdiv@{gem\-\_\-rxcdiv}}
+\index{gem\-\_\-rxcdiv@{gem\-\_\-rxcdiv}!geminate.c@{geminate.\-c}}
+\subsubsection[{gem\-\_\-rxcdiv}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gem\-\_\-complex} {\bf gem\-\_\-rxcdiv} (
+\begin{DoxyParamCaption}
+\item[{double}]{r, }
+\item[{{\bf gem\-\_\-complex}}]{z}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{geminate_8c_a5ce0c7e1e586d79ceffc204dea4e6727}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=214pt]{geminate_8c_a5ce0c7e1e586d79ceffc204dea4e6727_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{geminate_8c_a5ce0c7e1e586d79ceffc204dea4e6727_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{geminate_8c_af33eb2455048b72dc803a54bcabbf0a6}{\index{geminate.\-c@{geminate.\-c}!gem\-\_\-solve@{gem\-\_\-solve}}
+\index{gem\-\_\-solve@{gem\-\_\-solve}!geminate.c@{geminate.\-c}}
+\subsubsection[{gem\-\_\-solve}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf gem\-\_\-solve} (
+\begin{DoxyParamCaption}
+\item[{{\bf gem\-\_\-complex} $\ast$}]{al, }
+\item[{{\bf gem\-\_\-complex} $\ast$}]{be, }
+\item[{{\bf gem\-\_\-complex} $\ast$}]{gam, }
+\item[{double}]{a, }
+\item[{double}]{b, }
+\item[{double}]{c}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{geminate_8c_af33eb2455048b72dc803a54bcabbf0a6}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{geminate_8c_af33eb2455048b72dc803a54bcabbf0a6_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{geminate_8c_af33eb2455048b72dc803a54bcabbf0a6_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{geminate_8c_a52ed4f7c4b2eb9075068fc41357991b9}{\index{geminate.\-c@{geminate.\-c}!get\-Log\-Index@{get\-Log\-Index}}
+\index{get\-Log\-Index@{get\-Log\-Index}!geminate.c@{geminate.\-c}}
+\subsubsection[{get\-Log\-Index}]{\setlength{\rightskip}{0pt plus 5cm}static double {\bf get\-Log\-Index} (
+\begin{DoxyParamCaption}
+\item[{const int}]{i, }
+\item[{const {\bf t\-\_\-gem\-Params} $\ast$}]{params}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{geminate_8c_a52ed4f7c4b2eb9075068fc41357991b9}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{geminate_8c_a52ed4f7c4b2eb9075068fc41357991b9_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{geminate_8c_aac60460d583562f529db3f7bffd0c565}{\index{geminate.\-c@{geminate.\-c}!init\-\_\-gem\-Params@{init\-\_\-gem\-Params}}
+\index{init\-\_\-gem\-Params@{init\-\_\-gem\-Params}!geminate.c@{geminate.\-c}}
+\subsubsection[{init\-\_\-gem\-Params}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\-\_\-gem\-Params}$\ast$ {\bf init\-\_\-gem\-Params} (
+\begin{DoxyParamCaption}
+\item[{const double}]{sigma, }
+\item[{const double}]{\-D, }
+\item[{const real $\ast$}]{t, }
+\item[{const int}]{len, }
+\item[{const int}]{n\-Fit\-Points, }
+\item[{const real}]{beg\-Fit, }
+\item[{const real}]{end\-Fit, }
+\item[{const real}]{ballistic, }
+\item[{const int}]{n\-Bal\-Exp, }
+\item[{const {\bf gmx\-\_\-bool}}]{b\-Dt}
+\end{DoxyParamCaption}
+)}}\label{geminate_8c_aac60460d583562f529db3f7bffd0c565}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=344pt]{geminate_8c_aac60460d583562f529db3f7bffd0c565_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{geminate_8c_aac60460d583562f529db3f7bffd0c565_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{geminate_8c_adee3da5c20ce0c296aa9338e6304025f}{\index{geminate.\-c@{geminate.\-c}!patch\-Bad\-Part@{patch\-Bad\-Part}}
+\index{patch\-Bad\-Part@{patch\-Bad\-Part}!geminate.c@{geminate.\-c}}
+\subsubsection[{patch\-Bad\-Part}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf patch\-Bad\-Part} (
+\begin{DoxyParamCaption}
+\item[{double $\ast$}]{ct, }
+\item[{int}]{n}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{geminate_8c_adee3da5c20ce0c296aa9338e6304025f}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=256pt]{geminate_8c_adee3da5c20ce0c296aa9338e6304025f_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=260pt]{geminate_8c_adee3da5c20ce0c296aa9338e6304025f_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{geminate_8c_a6e4764102266d6299dfbeb87a673b360}{\index{geminate.\-c@{geminate.\-c}!patch\-Bad\-Tail@{patch\-Bad\-Tail}}
+\index{patch\-Bad\-Tail@{patch\-Bad\-Tail}!geminate.c@{geminate.\-c}}
+\subsubsection[{patch\-Bad\-Tail}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf patch\-Bad\-Tail} (
+\begin{DoxyParamCaption}
+\item[{double $\ast$}]{ct, }
+\item[{int}]{n}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{geminate_8c_a6e4764102266d6299dfbeb87a673b360}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=254pt]{geminate_8c_a6e4764102266d6299dfbeb87a673b360_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=258pt]{geminate_8c_a6e4764102266d6299dfbeb87a673b360_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{geminate_8c_ac50786a19b7be7a96200ac3027da3b8b}{\index{geminate.\-c@{geminate.\-c}!sqcm\-\_\-per\-\_\-s\-\_\-to\-\_\-sq\-A\-\_\-per\-\_\-ps@{sqcm\-\_\-per\-\_\-s\-\_\-to\-\_\-sq\-A\-\_\-per\-\_\-ps}}
+\index{sqcm\-\_\-per\-\_\-s\-\_\-to\-\_\-sq\-A\-\_\-per\-\_\-ps@{sqcm\-\_\-per\-\_\-s\-\_\-to\-\_\-sq\-A\-\_\-per\-\_\-ps}!geminate.c@{geminate.\-c}}
+\subsubsection[{sqcm\-\_\-per\-\_\-s\-\_\-to\-\_\-sq\-A\-\_\-per\-\_\-ps}]{\setlength{\rightskip}{0pt plus 5cm}static double {\bf sqcm\-\_\-per\-\_\-s\-\_\-to\-\_\-sq\-A\-\_\-per\-\_\-ps} (
+\begin{DoxyParamCaption}
+\item[{real}]{\-D}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{geminate_8c_ac50786a19b7be7a96200ac3027da3b8b}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{geminate_8c_ac50786a19b7be7a96200ac3027da3b8b_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{geminate_8c_af9c4b82ff2c72f65afaf2abc4f39a353}{\index{geminate.\-c@{geminate.\-c}!take\-Away\-Ballistic@{take\-Away\-Ballistic}}
+\index{take\-Away\-Ballistic@{take\-Away\-Ballistic}!geminate.c@{geminate.\-c}}
+\subsubsection[{take\-Away\-Ballistic}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf take\-Away\-Ballistic} (
+\begin{DoxyParamCaption}
+\item[{double $\ast$}]{ct, }
+\item[{double $\ast$}]{t, }
+\item[{int}]{len, }
+\item[{real}]{t\-Max, }
+\item[{int}]{nexp, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Derivative}
+\end{DoxyParamCaption}
+)}}\label{geminate_8c_af9c4b82ff2c72f65afaf2abc4f39a353}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=272pt]{geminate_8c_af9c4b82ff2c72f65afaf2abc4f39a353_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{geminate_8c_af9c4b82ff2c72f65afaf2abc4f39a353_icgraph}
+\end{center}
+\end{figure}
+
+

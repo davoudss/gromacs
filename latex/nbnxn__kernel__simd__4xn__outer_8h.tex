@@ -1,0 +1,140 @@
+\hypertarget{nbnxn__kernel__simd__4xn__outer_8h}{\section{src/mdlib/nbnxn\-\_\-kernels/nbnxn\-\_\-kernel\-\_\-simd\-\_\-4xn\-\_\-outer.h \-File \-Reference}
+\label{nbnxn__kernel__simd__4xn__outer_8h}\index{src/mdlib/nbnxn\-\_\-kernels/nbnxn\-\_\-kernel\-\_\-simd\-\_\-4xn\-\_\-outer.\-h@{src/mdlib/nbnxn\-\_\-kernels/nbnxn\-\_\-kernel\-\_\-simd\-\_\-4xn\-\_\-outer.\-h}}
+}
+{\ttfamily \#include \char`\"{}gmx\-\_\-simd\-\_\-macros.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}nbnxn\-\_\-kernel\-\_\-simd\-\_\-utils.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}nbnxn\-\_\-kernel\-\_\-simd\-\_\-4xn\-\_\-inner.\-h\char`\"{}}\*
+\-Include dependency graph for nbnxn\-\_\-kernel\-\_\-simd\-\_\-4xn\-\_\-outer.\-h\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nbnxn__kernel__simd__4xn__outer_8h__incl}
+\end{center}
+\end{figure}
+\-This graph shows which files directly or indirectly include this file\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nbnxn__kernel__simd__4xn__outer_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a310194645f9396483cc27eb978090e5f}{\-S\-U\-M\-\_\-\-S\-I\-M\-D4}(\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x})~(\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}0\mbox{]}+\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}1\mbox{]}+\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}2\mbox{]}+\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}3\mbox{]})
+\item 
+\#define \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a4a7a2ca548e28c5e0e8fa14a3724a4dc}{\-U\-N\-R\-O\-L\-L\-I}~\hyperlink{nbnxn__consts_8h_adb782472695387e8f1d090a0304ea89b}{\-N\-B\-N\-X\-N\-\_\-\-C\-P\-U\-\_\-\-C\-L\-U\-S\-T\-E\-R\-\_\-\-I\-\_\-\-S\-I\-Z\-E}
+\item 
+\#define \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_aff64973b6a6eac1eebe4128edf6a47d3}{\-U\-N\-R\-O\-L\-L\-J}~\-G\-M\-X\-\_\-\-S\-I\-M\-D\-\_\-\-W\-I\-D\-T\-H\-\_\-\-H\-E\-R\-E
+\item 
+\#define \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_abe609caff905298182c9e69e0cd7be82}{\-S\-I\-M\-D\-\_\-\-M\-A\-S\-K\-\_\-\-A\-L\-L}~0xffffffff
+\item 
+\#define \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a3e8fe6230ef97d18e1541a049635fb50}{\-C\-A\-L\-C\-\_\-\-S\-H\-I\-F\-T\-F\-O\-R\-C\-E\-S}
+\item 
+\#define \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a29e9a53540251a87599cc9293c3b3354}{\-N\-B\-K\-\_\-\-F\-U\-N\-C\-\_\-\-N\-A\-M\-E\-\_\-\-C\-\_\-\-L\-J\-C}(base, coul, ljc, ene)~base \#\# \-\_\- \#\# coul \#\# \-\_\-comb\-\_\- \#\# ljc \#\# \-\_\- \#\# ene
+\item 
+\#define \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a68d0fc6c19637bac0ca757e073424fe7}{\-N\-B\-K\-\_\-\-F\-U\-N\-C\-\_\-\-N\-A\-M\-E\-\_\-\-C}(base, coul, ene)~\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a29e9a53540251a87599cc9293c3b3354}{\-N\-B\-K\-\_\-\-F\-U\-N\-C\-\_\-\-N\-A\-M\-E\-\_\-\-C\-\_\-\-L\-J\-C}(base, coul, none, ene)
+\item 
+\#define \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_acdaaa134e98f1d2e2b48ba16878ee9dd}{\-N\-B\-F\-P\-\_\-\-S\-T\-R\-I\-D\-E}~4
+\item 
+\#define \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8bb314b0f99792c67d35f7c7aaf43fe6}{\-C\-A\-L\-C\-\_\-\-L\-J}
+\item 
+\#define \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a88382b125e151f696af445f59baa452a}{\-C\-A\-L\-C\-\_\-\-C\-O\-U\-L\-O\-M\-B}
+\item 
+\#define \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_af091a9411604f986037a2696528c6038}{\-H\-A\-L\-F\-\_\-\-L\-J}
+\item 
+\#define \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a2f6cc5b8fe975bb295a81dd0323c107e}{\-C\-H\-E\-C\-K\-\_\-\-E\-X\-C\-L\-S}
+\item 
+\#define \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a88382b125e151f696af445f59baa452a}{\-C\-A\-L\-C\-\_\-\-C\-O\-U\-L\-O\-M\-B}
+\item 
+\#define \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a2f6cc5b8fe975bb295a81dd0323c107e}{\-C\-H\-E\-C\-K\-\_\-\-E\-X\-C\-L\-S}
+\item 
+\#define \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a2f6cc5b8fe975bb295a81dd0323c107e}{\-C\-H\-E\-C\-K\-\_\-\-E\-X\-C\-L\-S}
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} (const \hyperlink{structnbnxn__pairlist__t}{nbnxn\-\_\-pairlist\-\_\-t} $\ast$nbl, const \hyperlink{structnbnxn__atomdata__t}{nbnxn\-\_\-atomdata\-\_\-t} $\ast$nbat, const \hyperlink{structinteraction__const__t}{interaction\-\_\-const\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2nbnxn__cuda__data__mgmt_8h_a34557b939b10b264adf47e54fc7e7f6c}{ic}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$shift\-\_\-vec, real $\ast$\hyperlink{copyrite_8c_a0757cfb6fe645a02867727255faa4f8b}{f}, real $\ast$fshift)
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Define \-Documentation}
+\hypertarget{nbnxn__kernel__simd__4xn__outer_8h_a88382b125e151f696af445f59baa452a}{\index{nbnxn\-\_\-kernel\-\_\-simd\-\_\-4xn\-\_\-outer.\-h@{nbnxn\-\_\-kernel\-\_\-simd\-\_\-4xn\-\_\-outer.\-h}!\-C\-A\-L\-C\-\_\-\-C\-O\-U\-L\-O\-M\-B@{\-C\-A\-L\-C\-\_\-\-C\-O\-U\-L\-O\-M\-B}}
+\index{\-C\-A\-L\-C\-\_\-\-C\-O\-U\-L\-O\-M\-B@{\-C\-A\-L\-C\-\_\-\-C\-O\-U\-L\-O\-M\-B}!nbnxn_kernel_simd_4xn_outer.h@{nbnxn\-\_\-kernel\-\_\-simd\-\_\-4xn\-\_\-outer.\-h}}
+\subsubsection[{\-C\-A\-L\-C\-\_\-\-C\-O\-U\-L\-O\-M\-B}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-C\-A\-L\-C\-\_\-\-C\-O\-U\-L\-O\-M\-B}}}\label{nbnxn__kernel__simd__4xn__outer_8h_a88382b125e151f696af445f59baa452a}
+\hypertarget{nbnxn__kernel__simd__4xn__outer_8h_a88382b125e151f696af445f59baa452a}{\index{nbnxn\-\_\-kernel\-\_\-simd\-\_\-4xn\-\_\-outer.\-h@{nbnxn\-\_\-kernel\-\_\-simd\-\_\-4xn\-\_\-outer.\-h}!\-C\-A\-L\-C\-\_\-\-C\-O\-U\-L\-O\-M\-B@{\-C\-A\-L\-C\-\_\-\-C\-O\-U\-L\-O\-M\-B}}
+\index{\-C\-A\-L\-C\-\_\-\-C\-O\-U\-L\-O\-M\-B@{\-C\-A\-L\-C\-\_\-\-C\-O\-U\-L\-O\-M\-B}!nbnxn_kernel_simd_4xn_outer.h@{nbnxn\-\_\-kernel\-\_\-simd\-\_\-4xn\-\_\-outer.\-h}}
+\subsubsection[{\-C\-A\-L\-C\-\_\-\-C\-O\-U\-L\-O\-M\-B}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-C\-A\-L\-C\-\_\-\-C\-O\-U\-L\-O\-M\-B}}}\label{nbnxn__kernel__simd__4xn__outer_8h_a88382b125e151f696af445f59baa452a}
+\hypertarget{nbnxn__kernel__simd__4xn__outer_8h_a8bb314b0f99792c67d35f7c7aaf43fe6}{\index{nbnxn\-\_\-kernel\-\_\-simd\-\_\-4xn\-\_\-outer.\-h@{nbnxn\-\_\-kernel\-\_\-simd\-\_\-4xn\-\_\-outer.\-h}!\-C\-A\-L\-C\-\_\-\-L\-J@{\-C\-A\-L\-C\-\_\-\-L\-J}}
+\index{\-C\-A\-L\-C\-\_\-\-L\-J@{\-C\-A\-L\-C\-\_\-\-L\-J}!nbnxn_kernel_simd_4xn_outer.h@{nbnxn\-\_\-kernel\-\_\-simd\-\_\-4xn\-\_\-outer.\-h}}
+\subsubsection[{\-C\-A\-L\-C\-\_\-\-L\-J}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-C\-A\-L\-C\-\_\-\-L\-J}}}\label{nbnxn__kernel__simd__4xn__outer_8h_a8bb314b0f99792c67d35f7c7aaf43fe6}
+\hypertarget{nbnxn__kernel__simd__4xn__outer_8h_a3e8fe6230ef97d18e1541a049635fb50}{\index{nbnxn\-\_\-kernel\-\_\-simd\-\_\-4xn\-\_\-outer.\-h@{nbnxn\-\_\-kernel\-\_\-simd\-\_\-4xn\-\_\-outer.\-h}!\-C\-A\-L\-C\-\_\-\-S\-H\-I\-F\-T\-F\-O\-R\-C\-E\-S@{\-C\-A\-L\-C\-\_\-\-S\-H\-I\-F\-T\-F\-O\-R\-C\-E\-S}}
+\index{\-C\-A\-L\-C\-\_\-\-S\-H\-I\-F\-T\-F\-O\-R\-C\-E\-S@{\-C\-A\-L\-C\-\_\-\-S\-H\-I\-F\-T\-F\-O\-R\-C\-E\-S}!nbnxn_kernel_simd_4xn_outer.h@{nbnxn\-\_\-kernel\-\_\-simd\-\_\-4xn\-\_\-outer.\-h}}
+\subsubsection[{\-C\-A\-L\-C\-\_\-\-S\-H\-I\-F\-T\-F\-O\-R\-C\-E\-S}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-C\-A\-L\-C\-\_\-\-S\-H\-I\-F\-T\-F\-O\-R\-C\-E\-S}}}\label{nbnxn__kernel__simd__4xn__outer_8h_a3e8fe6230ef97d18e1541a049635fb50}
+\hypertarget{nbnxn__kernel__simd__4xn__outer_8h_a2f6cc5b8fe975bb295a81dd0323c107e}{\index{nbnxn\-\_\-kernel\-\_\-simd\-\_\-4xn\-\_\-outer.\-h@{nbnxn\-\_\-kernel\-\_\-simd\-\_\-4xn\-\_\-outer.\-h}!\-C\-H\-E\-C\-K\-\_\-\-E\-X\-C\-L\-S@{\-C\-H\-E\-C\-K\-\_\-\-E\-X\-C\-L\-S}}
+\index{\-C\-H\-E\-C\-K\-\_\-\-E\-X\-C\-L\-S@{\-C\-H\-E\-C\-K\-\_\-\-E\-X\-C\-L\-S}!nbnxn_kernel_simd_4xn_outer.h@{nbnxn\-\_\-kernel\-\_\-simd\-\_\-4xn\-\_\-outer.\-h}}
+\subsubsection[{\-C\-H\-E\-C\-K\-\_\-\-E\-X\-C\-L\-S}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-C\-H\-E\-C\-K\-\_\-\-E\-X\-C\-L\-S}}}\label{nbnxn__kernel__simd__4xn__outer_8h_a2f6cc5b8fe975bb295a81dd0323c107e}
+\hypertarget{nbnxn__kernel__simd__4xn__outer_8h_a2f6cc5b8fe975bb295a81dd0323c107e}{\index{nbnxn\-\_\-kernel\-\_\-simd\-\_\-4xn\-\_\-outer.\-h@{nbnxn\-\_\-kernel\-\_\-simd\-\_\-4xn\-\_\-outer.\-h}!\-C\-H\-E\-C\-K\-\_\-\-E\-X\-C\-L\-S@{\-C\-H\-E\-C\-K\-\_\-\-E\-X\-C\-L\-S}}
+\index{\-C\-H\-E\-C\-K\-\_\-\-E\-X\-C\-L\-S@{\-C\-H\-E\-C\-K\-\_\-\-E\-X\-C\-L\-S}!nbnxn_kernel_simd_4xn_outer.h@{nbnxn\-\_\-kernel\-\_\-simd\-\_\-4xn\-\_\-outer.\-h}}
+\subsubsection[{\-C\-H\-E\-C\-K\-\_\-\-E\-X\-C\-L\-S}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-C\-H\-E\-C\-K\-\_\-\-E\-X\-C\-L\-S}}}\label{nbnxn__kernel__simd__4xn__outer_8h_a2f6cc5b8fe975bb295a81dd0323c107e}
+\hypertarget{nbnxn__kernel__simd__4xn__outer_8h_a2f6cc5b8fe975bb295a81dd0323c107e}{\index{nbnxn\-\_\-kernel\-\_\-simd\-\_\-4xn\-\_\-outer.\-h@{nbnxn\-\_\-kernel\-\_\-simd\-\_\-4xn\-\_\-outer.\-h}!\-C\-H\-E\-C\-K\-\_\-\-E\-X\-C\-L\-S@{\-C\-H\-E\-C\-K\-\_\-\-E\-X\-C\-L\-S}}
+\index{\-C\-H\-E\-C\-K\-\_\-\-E\-X\-C\-L\-S@{\-C\-H\-E\-C\-K\-\_\-\-E\-X\-C\-L\-S}!nbnxn_kernel_simd_4xn_outer.h@{nbnxn\-\_\-kernel\-\_\-simd\-\_\-4xn\-\_\-outer.\-h}}
+\subsubsection[{\-C\-H\-E\-C\-K\-\_\-\-E\-X\-C\-L\-S}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-C\-H\-E\-C\-K\-\_\-\-E\-X\-C\-L\-S}}}\label{nbnxn__kernel__simd__4xn__outer_8h_a2f6cc5b8fe975bb295a81dd0323c107e}
+\hypertarget{nbnxn__kernel__simd__4xn__outer_8h_af091a9411604f986037a2696528c6038}{\index{nbnxn\-\_\-kernel\-\_\-simd\-\_\-4xn\-\_\-outer.\-h@{nbnxn\-\_\-kernel\-\_\-simd\-\_\-4xn\-\_\-outer.\-h}!\-H\-A\-L\-F\-\_\-\-L\-J@{\-H\-A\-L\-F\-\_\-\-L\-J}}
+\index{\-H\-A\-L\-F\-\_\-\-L\-J@{\-H\-A\-L\-F\-\_\-\-L\-J}!nbnxn_kernel_simd_4xn_outer.h@{nbnxn\-\_\-kernel\-\_\-simd\-\_\-4xn\-\_\-outer.\-h}}
+\subsubsection[{\-H\-A\-L\-F\-\_\-\-L\-J}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-H\-A\-L\-F\-\_\-\-L\-J}}}\label{nbnxn__kernel__simd__4xn__outer_8h_af091a9411604f986037a2696528c6038}
+\hypertarget{nbnxn__kernel__simd__4xn__outer_8h_acdaaa134e98f1d2e2b48ba16878ee9dd}{\index{nbnxn\-\_\-kernel\-\_\-simd\-\_\-4xn\-\_\-outer.\-h@{nbnxn\-\_\-kernel\-\_\-simd\-\_\-4xn\-\_\-outer.\-h}!\-N\-B\-F\-P\-\_\-\-S\-T\-R\-I\-D\-E@{\-N\-B\-F\-P\-\_\-\-S\-T\-R\-I\-D\-E}}
+\index{\-N\-B\-F\-P\-\_\-\-S\-T\-R\-I\-D\-E@{\-N\-B\-F\-P\-\_\-\-S\-T\-R\-I\-D\-E}!nbnxn_kernel_simd_4xn_outer.h@{nbnxn\-\_\-kernel\-\_\-simd\-\_\-4xn\-\_\-outer.\-h}}
+\subsubsection[{\-N\-B\-F\-P\-\_\-\-S\-T\-R\-I\-D\-E}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-N\-B\-F\-P\-\_\-\-S\-T\-R\-I\-D\-E}~4}}\label{nbnxn__kernel__simd__4xn__outer_8h_acdaaa134e98f1d2e2b48ba16878ee9dd}
+\hypertarget{nbnxn__kernel__simd__4xn__outer_8h_a68d0fc6c19637bac0ca757e073424fe7}{\index{nbnxn\-\_\-kernel\-\_\-simd\-\_\-4xn\-\_\-outer.\-h@{nbnxn\-\_\-kernel\-\_\-simd\-\_\-4xn\-\_\-outer.\-h}!\-N\-B\-K\-\_\-\-F\-U\-N\-C\-\_\-\-N\-A\-M\-E\-\_\-\-C@{\-N\-B\-K\-\_\-\-F\-U\-N\-C\-\_\-\-N\-A\-M\-E\-\_\-\-C}}
+\index{\-N\-B\-K\-\_\-\-F\-U\-N\-C\-\_\-\-N\-A\-M\-E\-\_\-\-C@{\-N\-B\-K\-\_\-\-F\-U\-N\-C\-\_\-\-N\-A\-M\-E\-\_\-\-C}!nbnxn_kernel_simd_4xn_outer.h@{nbnxn\-\_\-kernel\-\_\-simd\-\_\-4xn\-\_\-outer.\-h}}
+\subsubsection[{\-N\-B\-K\-\_\-\-F\-U\-N\-C\-\_\-\-N\-A\-M\-E\-\_\-\-C}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-N\-B\-K\-\_\-\-F\-U\-N\-C\-\_\-\-N\-A\-M\-E\-\_\-\-C}(
+\begin{DoxyParamCaption}
+\item[{}]{base, }
+\item[{}]{coul, }
+\item[{}]{ene}
+\end{DoxyParamCaption}
+)~{\bf \-N\-B\-K\-\_\-\-F\-U\-N\-C\-\_\-\-N\-A\-M\-E\-\_\-\-C\-\_\-\-L\-J\-C}(base, coul, none, ene)}}\label{nbnxn__kernel__simd__4xn__outer_8h_a68d0fc6c19637bac0ca757e073424fe7}
+\hypertarget{nbnxn__kernel__simd__4xn__outer_8h_a29e9a53540251a87599cc9293c3b3354}{\index{nbnxn\-\_\-kernel\-\_\-simd\-\_\-4xn\-\_\-outer.\-h@{nbnxn\-\_\-kernel\-\_\-simd\-\_\-4xn\-\_\-outer.\-h}!\-N\-B\-K\-\_\-\-F\-U\-N\-C\-\_\-\-N\-A\-M\-E\-\_\-\-C\-\_\-\-L\-J\-C@{\-N\-B\-K\-\_\-\-F\-U\-N\-C\-\_\-\-N\-A\-M\-E\-\_\-\-C\-\_\-\-L\-J\-C}}
+\index{\-N\-B\-K\-\_\-\-F\-U\-N\-C\-\_\-\-N\-A\-M\-E\-\_\-\-C\-\_\-\-L\-J\-C@{\-N\-B\-K\-\_\-\-F\-U\-N\-C\-\_\-\-N\-A\-M\-E\-\_\-\-C\-\_\-\-L\-J\-C}!nbnxn_kernel_simd_4xn_outer.h@{nbnxn\-\_\-kernel\-\_\-simd\-\_\-4xn\-\_\-outer.\-h}}
+\subsubsection[{\-N\-B\-K\-\_\-\-F\-U\-N\-C\-\_\-\-N\-A\-M\-E\-\_\-\-C\-\_\-\-L\-J\-C}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-N\-B\-K\-\_\-\-F\-U\-N\-C\-\_\-\-N\-A\-M\-E\-\_\-\-C\-\_\-\-L\-J\-C}(
+\begin{DoxyParamCaption}
+\item[{}]{base, }
+\item[{}]{coul, }
+\item[{}]{ljc, }
+\item[{}]{ene}
+\end{DoxyParamCaption}
+)~base \#\# \-\_\- \#\# coul \#\# \-\_\-comb\-\_\- \#\# ljc \#\# \-\_\- \#\# ene}}\label{nbnxn__kernel__simd__4xn__outer_8h_a29e9a53540251a87599cc9293c3b3354}
+\hypertarget{nbnxn__kernel__simd__4xn__outer_8h_abe609caff905298182c9e69e0cd7be82}{\index{nbnxn\-\_\-kernel\-\_\-simd\-\_\-4xn\-\_\-outer.\-h@{nbnxn\-\_\-kernel\-\_\-simd\-\_\-4xn\-\_\-outer.\-h}!\-S\-I\-M\-D\-\_\-\-M\-A\-S\-K\-\_\-\-A\-L\-L@{\-S\-I\-M\-D\-\_\-\-M\-A\-S\-K\-\_\-\-A\-L\-L}}
+\index{\-S\-I\-M\-D\-\_\-\-M\-A\-S\-K\-\_\-\-A\-L\-L@{\-S\-I\-M\-D\-\_\-\-M\-A\-S\-K\-\_\-\-A\-L\-L}!nbnxn_kernel_simd_4xn_outer.h@{nbnxn\-\_\-kernel\-\_\-simd\-\_\-4xn\-\_\-outer.\-h}}
+\subsubsection[{\-S\-I\-M\-D\-\_\-\-M\-A\-S\-K\-\_\-\-A\-L\-L}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-S\-I\-M\-D\-\_\-\-M\-A\-S\-K\-\_\-\-A\-L\-L}~0xffffffff}}\label{nbnxn__kernel__simd__4xn__outer_8h_abe609caff905298182c9e69e0cd7be82}
+\hypertarget{nbnxn__kernel__simd__4xn__outer_8h_a310194645f9396483cc27eb978090e5f}{\index{nbnxn\-\_\-kernel\-\_\-simd\-\_\-4xn\-\_\-outer.\-h@{nbnxn\-\_\-kernel\-\_\-simd\-\_\-4xn\-\_\-outer.\-h}!\-S\-U\-M\-\_\-\-S\-I\-M\-D4@{\-S\-U\-M\-\_\-\-S\-I\-M\-D4}}
+\index{\-S\-U\-M\-\_\-\-S\-I\-M\-D4@{\-S\-U\-M\-\_\-\-S\-I\-M\-D4}!nbnxn_kernel_simd_4xn_outer.h@{nbnxn\-\_\-kernel\-\_\-simd\-\_\-4xn\-\_\-outer.\-h}}
+\subsubsection[{\-S\-U\-M\-\_\-\-S\-I\-M\-D4}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-S\-U\-M\-\_\-\-S\-I\-M\-D4}(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf x}}
+\end{DoxyParamCaption}
+)~({\bf x}\mbox{[}0\mbox{]}+{\bf x}\mbox{[}1\mbox{]}+{\bf x}\mbox{[}2\mbox{]}+{\bf x}\mbox{[}3\mbox{]})}}\label{nbnxn__kernel__simd__4xn__outer_8h_a310194645f9396483cc27eb978090e5f}
+\hypertarget{nbnxn__kernel__simd__4xn__outer_8h_a4a7a2ca548e28c5e0e8fa14a3724a4dc}{\index{nbnxn\-\_\-kernel\-\_\-simd\-\_\-4xn\-\_\-outer.\-h@{nbnxn\-\_\-kernel\-\_\-simd\-\_\-4xn\-\_\-outer.\-h}!\-U\-N\-R\-O\-L\-L\-I@{\-U\-N\-R\-O\-L\-L\-I}}
+\index{\-U\-N\-R\-O\-L\-L\-I@{\-U\-N\-R\-O\-L\-L\-I}!nbnxn_kernel_simd_4xn_outer.h@{nbnxn\-\_\-kernel\-\_\-simd\-\_\-4xn\-\_\-outer.\-h}}
+\subsubsection[{\-U\-N\-R\-O\-L\-L\-I}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-U\-N\-R\-O\-L\-L\-I}~{\bf \-N\-B\-N\-X\-N\-\_\-\-C\-P\-U\-\_\-\-C\-L\-U\-S\-T\-E\-R\-\_\-\-I\-\_\-\-S\-I\-Z\-E}}}\label{nbnxn__kernel__simd__4xn__outer_8h_a4a7a2ca548e28c5e0e8fa14a3724a4dc}
+\hypertarget{nbnxn__kernel__simd__4xn__outer_8h_aff64973b6a6eac1eebe4128edf6a47d3}{\index{nbnxn\-\_\-kernel\-\_\-simd\-\_\-4xn\-\_\-outer.\-h@{nbnxn\-\_\-kernel\-\_\-simd\-\_\-4xn\-\_\-outer.\-h}!\-U\-N\-R\-O\-L\-L\-J@{\-U\-N\-R\-O\-L\-L\-J}}
+\index{\-U\-N\-R\-O\-L\-L\-J@{\-U\-N\-R\-O\-L\-L\-J}!nbnxn_kernel_simd_4xn_outer.h@{nbnxn\-\_\-kernel\-\_\-simd\-\_\-4xn\-\_\-outer.\-h}}
+\subsubsection[{\-U\-N\-R\-O\-L\-L\-J}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-U\-N\-R\-O\-L\-L\-J}~\-G\-M\-X\-\_\-\-S\-I\-M\-D\-\_\-\-W\-I\-D\-T\-H\-\_\-\-H\-E\-R\-E}}\label{nbnxn__kernel__simd__4xn__outer_8h_aff64973b6a6eac1eebe4128edf6a47d3}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{\index{nbnxn\-\_\-kernel\-\_\-simd\-\_\-4xn\-\_\-outer.\-h@{nbnxn\-\_\-kernel\-\_\-simd\-\_\-4xn\-\_\-outer.\-h}!void@{void}}
+\index{void@{void}!nbnxn_kernel_simd_4xn_outer.h@{nbnxn\-\_\-kernel\-\_\-simd\-\_\-4xn\-\_\-outer.\-h}}
+\subsubsection[{void}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} (
+\begin{DoxyParamCaption}
+\item[{const {\bf nbnxn\-\_\-pairlist\-\_\-t} $\ast$}]{nbl, }
+\item[{const {\bf nbnxn\-\_\-atomdata\-\_\-t} $\ast$}]{nbat, }
+\item[{const {\bf interaction\-\_\-const\-\_\-t} $\ast$}]{ic, }
+\item[{{\bf rvec} $\ast$}]{shift\-\_\-vec, }
+\item[{real $\ast$}]{f, }
+\item[{real $\ast$}]{fshift}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}

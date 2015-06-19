@@ -1,0 +1,142 @@
+\hypertarget{wall_8c}{\section{src/mdlib/wall.c \-File \-Reference}
+\label{wall_8c}\index{src/mdlib/wall.\-c@{src/mdlib/wall.\-c}}
+}
+{\ttfamily \#include $<$math.\-h$>$}\*
+{\ttfamily \#include $<$string.\-h$>$}\*
+{\ttfamily \#include \char`\"{}maths.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}sysstuff.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}typedefs.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}macros.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}smalloc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}force.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}filenm.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}nrnb.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}vec.\-h\char`\"{}}\*
+\-Include dependency graph for wall.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{wall_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{wall_8c_aa46e2a95460d80714c5f73aadfe71c95}{make\-\_\-wall\-\_\-tables} (\-F\-I\-L\-E $\ast$fplog, const \hyperlink{include_2types_2oenv_8h_a6a48d77d95132d7318780544821da6a5}{output\-\_\-env\-\_\-t} oenv, const \hyperlink{structt__inputrec}{t\-\_\-inputrec} $\ast$ir, const char $\ast$tabfn, const \hyperlink{structgmx__groups__t}{gmx\-\_\-groups\-\_\-t} $\ast$groups, \hyperlink{structt__forcerec}{t\-\_\-forcerec} $\ast$\hyperlink{addconf_8c_ae8414314f87c5e49503ac0117eb511ad}{fr})
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{wall_8c_a679479c3f28930a2e5e467c5cea86640}{wall\-\_\-error} (int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a0880879736d1ab747a972d1942421886}{a}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae039a6f39df62bd858e5e3f5ec77b24b}{r})
+\item 
+real \hyperlink{wall_8c_a3bbc46a3902b6d8c7c02039b2cdc03f5}{do\-\_\-walls} (\hyperlink{structt__inputrec}{t\-\_\-inputrec} $\ast$ir, \hyperlink{structt__forcerec}{t\-\_\-forcerec} $\ast$\hyperlink{addconf_8c_ae8414314f87c5e49503ac0117eb511ad}{fr}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box, \hyperlink{structt__mdatoms}{t\-\_\-mdatoms} $\ast$md, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{copyrite_8c_a0757cfb6fe645a02867727255faa4f8b}{f}\mbox{[}$\,$\mbox{]}, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_aec47b6dda9c386285e755f058a846af8}{lambda}, real \-Vlj\mbox{[}$\,$\mbox{]}, \hyperlink{structt__nrnb}{t\-\_\-nrnb} $\ast$nrnb)
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{wall_8c_a3bbc46a3902b6d8c7c02039b2cdc03f5}{\index{wall.\-c@{wall.\-c}!do\-\_\-walls@{do\-\_\-walls}}
+\index{do\-\_\-walls@{do\-\_\-walls}!wall.c@{wall.\-c}}
+\subsubsection[{do\-\_\-walls}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf do\-\_\-walls} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-inputrec} $\ast$}]{ir, }
+\item[{{\bf t\-\_\-forcerec} $\ast$}]{fr, }
+\item[{{\bf matrix}}]{box, }
+\item[{{\bf t\-\_\-mdatoms} $\ast$}]{md, }
+\item[{{\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{f\mbox{[}$\,$\mbox{]}, }
+\item[{real}]{lambda, }
+\item[{real}]{\-Vlj\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf t\-\_\-nrnb} $\ast$}]{nrnb}
+\end{DoxyParamCaption}
+)}}\label{wall_8c_a3bbc46a3902b6d8c7c02039b2cdc03f5}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=332pt]{wall_8c_a3bbc46a3902b6d8c7c02039b2cdc03f5_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=268pt]{wall_8c_a3bbc46a3902b6d8c7c02039b2cdc03f5_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{wall_8c_aa46e2a95460d80714c5f73aadfe71c95}{\index{wall.\-c@{wall.\-c}!make\-\_\-wall\-\_\-tables@{make\-\_\-wall\-\_\-tables}}
+\index{make\-\_\-wall\-\_\-tables@{make\-\_\-wall\-\_\-tables}!wall.c@{wall.\-c}}
+\subsubsection[{make\-\_\-wall\-\_\-tables}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf make\-\_\-wall\-\_\-tables} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fplog, }
+\item[{const {\bf output\-\_\-env\-\_\-t}}]{oenv, }
+\item[{const {\bf t\-\_\-inputrec} $\ast$}]{ir, }
+\item[{const char $\ast$}]{tabfn, }
+\item[{const {\bf gmx\-\_\-groups\-\_\-t} $\ast$}]{groups, }
+\item[{{\bf t\-\_\-forcerec} $\ast$}]{fr}
+\end{DoxyParamCaption}
+)}}\label{wall_8c_aa46e2a95460d80714c5f73aadfe71c95}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=284pt]{wall_8c_aa46e2a95460d80714c5f73aadfe71c95_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{wall_8c_aa46e2a95460d80714c5f73aadfe71c95_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{wall_8c_a679479c3f28930a2e5e467c5cea86640}{\index{wall.\-c@{wall.\-c}!wall\-\_\-error@{wall\-\_\-error}}
+\index{wall\-\_\-error@{wall\-\_\-error}!wall.c@{wall.\-c}}
+\subsubsection[{wall\-\_\-error}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf wall\-\_\-error} (
+\begin{DoxyParamCaption}
+\item[{int}]{a, }
+\item[{{\bf rvec} $\ast$}]{x, }
+\item[{real}]{r}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{wall_8c_a679479c3f28930a2e5e467c5cea86640}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=236pt]{wall_8c_a679479c3f28930a2e5e467c5cea86640_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{wall_8c_a679479c3f28930a2e5e467c5cea86640_icgraph}
+\end{center}
+\end{figure}
+
+

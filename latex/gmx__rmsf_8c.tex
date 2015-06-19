@@ -1,0 +1,203 @@
+\hypertarget{gmx__rmsf_8c}{\section{src/tools/gmx\-\_\-rmsf.c \-File \-Reference}
+\label{gmx__rmsf_8c}\index{src/tools/gmx\-\_\-rmsf.\-c@{src/tools/gmx\-\_\-rmsf.\-c}}
+}
+{\ttfamily \#include \char`\"{}smalloc.\-h\char`\"{}}\*
+{\ttfamily \#include $<$math.\-h$>$}\*
+{\ttfamily \#include \char`\"{}macros.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}typedefs.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}xvgr.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}copyrite.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}statutil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}string2.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}vec.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}index.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}pdbio.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}tpxio.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}pbc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-fatal.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}futil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}do\-\_\-fit.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}princ.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}rmpbc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}confio.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}eigensolver.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-ana.\-h\char`\"{}}\*
+\-Include dependency graph for gmx\-\_\-rmsf.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__rmsf_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{gmx__rmsf_8c_a8485f4e81de2537e6a0935626167a775}{\-N\-F\-I\-L\-E}~\hyperlink{share_2template_2gromacs_2macros_8h_a0883345a58f8f63aefa249a4f127f707}{asize}(fnm)
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+static real \hyperlink{gmx__rmsf_8c_abdc005a2c5845e6c3a067bf665e20a1e}{find\-\_\-pdb\-\_\-bfac} (\hyperlink{structt__atoms}{t\-\_\-atoms} $\ast$atoms, \hyperlink{structt__resinfo}{t\-\_\-resinfo} $\ast$ri, char $\ast$atomnm)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__rmsf_8c_a325e9a99a75a3a107cf88a0e39c922a0}{correlate\-\_\-aniso} (const char $\ast$fn, \hyperlink{structt__atoms}{t\-\_\-atoms} $\ast$\hyperlink{fftpack_8c_a57dec261ae8d707837a32a7f92476a21}{ref}, \hyperlink{structt__atoms}{t\-\_\-atoms} $\ast$calc, const \hyperlink{include_2types_2oenv_8h_a6a48d77d95132d7318780544821da6a5}{output\-\_\-env\-\_\-t} oenv)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__rmsf_8c_ae615d26a67c9388b22c474a811b23c2e}{average\-\_\-residues} (double \hyperlink{copyrite_8c_a0757cfb6fe645a02867727255faa4f8b}{f}\mbox{[}$\,$\mbox{]}, double $\ast$$\ast$\-U, int uind, int isize, \hyperlink{include_2types_2simple_8h_ad3f47cdb48677e516e2049719612c737}{atom\-\_\-id} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a49fd977001162d7256c8fcd293f9d12a}{index}\mbox{[}$\,$\mbox{]}, real w\-\_\-rls\mbox{[}$\,$\mbox{]}, \hyperlink{structt__atoms}{t\-\_\-atoms} $\ast$atoms)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__rmsf_8c_a76e56d03e5a991bcf99dd798ad2283e5}{print\-\_\-dir} (\-F\-I\-L\-E $\ast$fp, real $\ast$\-Uaver)
+\item 
+int \hyperlink{gmx__rmsf_8c_ac524012ddd09fa95b1fa1e56e20062f8}{gmx\-\_\-rmsf} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Define \-Documentation}
+\hypertarget{gmx__rmsf_8c_a8485f4e81de2537e6a0935626167a775}{\index{gmx\-\_\-rmsf.\-c@{gmx\-\_\-rmsf.\-c}!\-N\-F\-I\-L\-E@{\-N\-F\-I\-L\-E}}
+\index{\-N\-F\-I\-L\-E@{\-N\-F\-I\-L\-E}!gmx_rmsf.c@{gmx\-\_\-rmsf.\-c}}
+\subsubsection[{\-N\-F\-I\-L\-E}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-N\-F\-I\-L\-E}~{\bf asize}(fnm)}}\label{gmx__rmsf_8c_a8485f4e81de2537e6a0935626167a775}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{gmx__rmsf_8c_ae615d26a67c9388b22c474a811b23c2e}{\index{gmx\-\_\-rmsf.\-c@{gmx\-\_\-rmsf.\-c}!average\-\_\-residues@{average\-\_\-residues}}
+\index{average\-\_\-residues@{average\-\_\-residues}!gmx_rmsf.c@{gmx\-\_\-rmsf.\-c}}
+\subsubsection[{average\-\_\-residues}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf average\-\_\-residues} (
+\begin{DoxyParamCaption}
+\item[{double}]{f\mbox{[}$\,$\mbox{]}, }
+\item[{double $\ast$$\ast$}]{\-U, }
+\item[{int}]{uind, }
+\item[{int}]{isize, }
+\item[{{\bf atom\-\_\-id}}]{index\mbox{[}$\,$\mbox{]}, }
+\item[{real}]{w\-\_\-rls\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf t\-\_\-atoms} $\ast$}]{atoms}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__rmsf_8c_ae615d26a67c9388b22c474a811b23c2e}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=344pt]{gmx__rmsf_8c_ae615d26a67c9388b22c474a811b23c2e_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__rmsf_8c_a325e9a99a75a3a107cf88a0e39c922a0}{\index{gmx\-\_\-rmsf.\-c@{gmx\-\_\-rmsf.\-c}!correlate\-\_\-aniso@{correlate\-\_\-aniso}}
+\index{correlate\-\_\-aniso@{correlate\-\_\-aniso}!gmx_rmsf.c@{gmx\-\_\-rmsf.\-c}}
+\subsubsection[{correlate\-\_\-aniso}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf correlate\-\_\-aniso} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{fn, }
+\item[{{\bf t\-\_\-atoms} $\ast$}]{ref, }
+\item[{{\bf t\-\_\-atoms} $\ast$}]{calc, }
+\item[{const {\bf output\-\_\-env\-\_\-t}}]{oenv}
+\end{DoxyParamCaption}
+)}}\label{gmx__rmsf_8c_a325e9a99a75a3a107cf88a0e39c922a0}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=256pt]{gmx__rmsf_8c_a325e9a99a75a3a107cf88a0e39c922a0_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=334pt]{gmx__rmsf_8c_a325e9a99a75a3a107cf88a0e39c922a0_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__rmsf_8c_abdc005a2c5845e6c3a067bf665e20a1e}{\index{gmx\-\_\-rmsf.\-c@{gmx\-\_\-rmsf.\-c}!find\-\_\-pdb\-\_\-bfac@{find\-\_\-pdb\-\_\-bfac}}
+\index{find\-\_\-pdb\-\_\-bfac@{find\-\_\-pdb\-\_\-bfac}!gmx_rmsf.c@{gmx\-\_\-rmsf.\-c}}
+\subsubsection[{find\-\_\-pdb\-\_\-bfac}]{\setlength{\rightskip}{0pt plus 5cm}static real {\bf find\-\_\-pdb\-\_\-bfac} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-atoms} $\ast$}]{atoms, }
+\item[{{\bf t\-\_\-resinfo} $\ast$}]{ri, }
+\item[{char $\ast$}]{atomnm}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__rmsf_8c_abdc005a2c5845e6c3a067bf665e20a1e}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=328pt]{gmx__rmsf_8c_abdc005a2c5845e6c3a067bf665e20a1e_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__rmsf_8c_ac524012ddd09fa95b1fa1e56e20062f8}{\index{gmx\-\_\-rmsf.\-c@{gmx\-\_\-rmsf.\-c}!gmx\-\_\-rmsf@{gmx\-\_\-rmsf}}
+\index{gmx\-\_\-rmsf@{gmx\-\_\-rmsf}!gmx_rmsf.c@{gmx\-\_\-rmsf.\-c}}
+\subsubsection[{gmx\-\_\-rmsf}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-rmsf} (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{gmx__rmsf_8c_ac524012ddd09fa95b1fa1e56e20062f8}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{gmx__rmsf_8c_ac524012ddd09fa95b1fa1e56e20062f8_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=214pt]{gmx__rmsf_8c_ac524012ddd09fa95b1fa1e56e20062f8_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__rmsf_8c_a76e56d03e5a991bcf99dd798ad2283e5}{\index{gmx\-\_\-rmsf.\-c@{gmx\-\_\-rmsf.\-c}!print\-\_\-dir@{print\-\_\-dir}}
+\index{print\-\_\-dir@{print\-\_\-dir}!gmx_rmsf.c@{gmx\-\_\-rmsf.\-c}}
+\subsubsection[{print\-\_\-dir}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf print\-\_\-dir} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{real $\ast$}]{\-Uaver}
+\end{DoxyParamCaption}
+)}}\label{gmx__rmsf_8c_a76e56d03e5a991bcf99dd798ad2283e5}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=330pt]{gmx__rmsf_8c_a76e56d03e5a991bcf99dd798ad2283e5_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=302pt]{gmx__rmsf_8c_a76e56d03e5a991bcf99dd798ad2283e5_icgraph}
+\end{center}
+\end{figure}
+
+

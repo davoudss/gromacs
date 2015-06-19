@@ -1,0 +1,254 @@
+\hypertarget{perf__est_8c}{\section{src/mdlib/perf\-\_\-est.c \-File \-Reference}
+\label{perf__est_8c}\index{src/mdlib/perf\-\_\-est.\-c@{src/mdlib/perf\-\_\-est.\-c}}
+}
+{\ttfamily \#include $<$math.\-h$>$}\*
+{\ttfamily \#include \char`\"{}perf\-\_\-est.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}physics.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}vec.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}mtop\-\_\-util.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}types/commrec.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}nbnxn\-\_\-search.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}nbnxn\-\_\-consts.\-h\char`\"{}}\*
+\-Include dependency graph for perf\-\_\-est.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{perf__est_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{perf__est_8c_a85c3ad4c8f563939f56aa4f83ca6ecdc}{\-C\-\_\-\-G\-R\-\_\-\-F\-Q}~1.\-5
+\item 
+\#define \hyperlink{perf__est_8c_a3961467fc7e8c601624bc9d62ce8731b}{\-C\-\_\-\-G\-R\-\_\-\-Q\-L\-J\-\_\-\-C\-U\-T}~1.\-5
+\item 
+\#define \hyperlink{perf__est_8c_ac7cd8e596352a4a412036c17f6a4ad03}{\-C\-\_\-\-G\-R\-\_\-\-Q\-L\-J\-\_\-\-T\-A\-B}~2.\-0
+\item 
+\#define \hyperlink{perf__est_8c_ace68dfd45380248a550b2ddc920ffcf5}{\-C\-\_\-\-G\-R\-\_\-\-L\-J\-\_\-\-C\-U\-T}~1.\-0
+\item 
+\#define \hyperlink{perf__est_8c_a37f35e6f0a5dcfcc0ff4a6d62c2ee0ba}{\-C\-\_\-\-G\-R\-\_\-\-L\-J\-\_\-\-T\-A\-B}~1.\-75
+\item 
+\#define \hyperlink{perf__est_8c_aa8f923f16ca3b2eec86f325a56598806}{\-C\-\_\-\-G\-R\-\_\-\-Q\-L\-J\-W\-\_\-\-C\-U\-T}~2.\-0
+\item 
+\#define \hyperlink{perf__est_8c_a5c202b96162c1b544132c0b7234c59ed}{\-C\-\_\-\-G\-R\-\_\-\-Q\-L\-J\-W\-\_\-\-T\-A\-B}~2.\-25
+\item 
+\#define \hyperlink{perf__est_8c_a920ac3660ecc5fdb4e5153688beed3ab}{\-C\-\_\-\-G\-R\-\_\-\-Q\-W}~1.\-75
+\item 
+\#define \hyperlink{perf__est_8c_a6f8aee238a2f6bc9ae6f5ebd36ad0e69}{\-C\-\_\-\-V\-T\-\_\-\-L\-J}~0.\-30
+\item 
+\#define \hyperlink{perf__est_8c_a42293ecc9fadaec7c3a630746523df8d}{\-C\-\_\-\-V\-T\-\_\-\-Q\-L\-J\-\_\-\-R\-F}~0.\-40
+\item 
+\#define \hyperlink{perf__est_8c_a6a5caf6a2dcf456b9aba3d5782c6afb5}{\-C\-\_\-\-V\-T\-\_\-\-Q\-\_\-\-R\-F}~0.\-30
+\item 
+\#define \hyperlink{perf__est_8c_a4e9d6951ebbd0210c8ea8abdaab9b7ea}{\-C\-\_\-\-V\-T\-\_\-\-Q\-L\-J\-\_\-\-T\-A\-B}~0.\-55
+\item 
+\#define \hyperlink{perf__est_8c_abd3896943191d1817e10cc14ad9636b1}{\-C\-\_\-\-V\-T\-\_\-\-Q\-\_\-\-T\-A\-B}~0.\-50
+\item 
+\#define \hyperlink{perf__est_8c_ac4c3101506b7e27c2120a4b5571f954b}{\-C\-\_\-\-P\-M\-E\-\_\-\-R\-E\-D\-I\-S\-T}~12.\-0
+\item 
+\#define \hyperlink{perf__est_8c_ae763ac5a5a85196b69b2fca83e1507ae}{\-C\-\_\-\-P\-M\-E\-\_\-\-S\-P\-R\-E\-A\-D}~0.\-30
+\item 
+\#define \hyperlink{perf__est_8c_a9422d519623e3a7fb52aa7d51380c88b}{\-C\-\_\-\-P\-M\-E\-\_\-\-F\-F\-T}~0.\-20
+\item 
+\#define \hyperlink{perf__est_8c_a731ec5201901e278ab9f0eb700d4de9a}{\-C\-\_\-\-P\-M\-E\-\_\-\-S\-O\-L\-V\-E}~0.\-50
+\item 
+\#define \hyperlink{perf__est_8c_a876e5e681d2031b56f65fd059c6ff542}{\-C\-\_\-\-B\-O\-N\-D}~5.\-0
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{perf__est_8c_a90eb8d5fc5b00362a878f3ff254910b4}{n\-\_\-bonded\-\_\-dx} (\hyperlink{structgmx__mtop__t}{gmx\-\_\-mtop\-\_\-t} $\ast$mtop, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Excl)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{perf__est_8c_a5e35f1af1be6bac4d7fd502ebe0704a7}{pp\-\_\-group\-\_\-load} (\hyperlink{structgmx__mtop__t}{gmx\-\_\-mtop\-\_\-t} $\ast$mtop, \hyperlink{structt__inputrec}{t\-\_\-inputrec} $\ast$ir, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box, int $\ast$nq\-\_\-tot, double $\ast$cost\-\_\-pp, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} $\ast$b\-Charge\-Perturbed)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{perf__est_8c_acbd21511f35c629b8c74c5dc3722ddcb}{pp\-\_\-verlet\-\_\-load} (\hyperlink{structgmx__mtop__t}{gmx\-\_\-mtop\-\_\-t} $\ast$mtop, \hyperlink{structt__inputrec}{t\-\_\-inputrec} $\ast$ir, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box, int $\ast$nq\-\_\-tot, double $\ast$cost\-\_\-pp, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} $\ast$b\-Charge\-Perturbed)
+\item 
+float \hyperlink{perf__est_8c_a8c35ed9d3c8496c164028bd3f02d6bba}{pme\-\_\-load\-\_\-estimate} (\hyperlink{structgmx__mtop__t}{gmx\-\_\-mtop\-\_\-t} $\ast$mtop, \hyperlink{structt__inputrec}{t\-\_\-inputrec} $\ast$ir, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box)
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Define \-Documentation}
+\hypertarget{perf__est_8c_a876e5e681d2031b56f65fd059c6ff542}{\index{perf\-\_\-est.\-c@{perf\-\_\-est.\-c}!\-C\-\_\-\-B\-O\-N\-D@{\-C\-\_\-\-B\-O\-N\-D}}
+\index{\-C\-\_\-\-B\-O\-N\-D@{\-C\-\_\-\-B\-O\-N\-D}!perf_est.c@{perf\-\_\-est.\-c}}
+\subsubsection[{\-C\-\_\-\-B\-O\-N\-D}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-C\-\_\-\-B\-O\-N\-D}~5.\-0}}\label{perf__est_8c_a876e5e681d2031b56f65fd059c6ff542}
+\hypertarget{perf__est_8c_a85c3ad4c8f563939f56aa4f83ca6ecdc}{\index{perf\-\_\-est.\-c@{perf\-\_\-est.\-c}!\-C\-\_\-\-G\-R\-\_\-\-F\-Q@{\-C\-\_\-\-G\-R\-\_\-\-F\-Q}}
+\index{\-C\-\_\-\-G\-R\-\_\-\-F\-Q@{\-C\-\_\-\-G\-R\-\_\-\-F\-Q}!perf_est.c@{perf\-\_\-est.\-c}}
+\subsubsection[{\-C\-\_\-\-G\-R\-\_\-\-F\-Q}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-C\-\_\-\-G\-R\-\_\-\-F\-Q}~1.\-5}}\label{perf__est_8c_a85c3ad4c8f563939f56aa4f83ca6ecdc}
+\hypertarget{perf__est_8c_ace68dfd45380248a550b2ddc920ffcf5}{\index{perf\-\_\-est.\-c@{perf\-\_\-est.\-c}!\-C\-\_\-\-G\-R\-\_\-\-L\-J\-\_\-\-C\-U\-T@{\-C\-\_\-\-G\-R\-\_\-\-L\-J\-\_\-\-C\-U\-T}}
+\index{\-C\-\_\-\-G\-R\-\_\-\-L\-J\-\_\-\-C\-U\-T@{\-C\-\_\-\-G\-R\-\_\-\-L\-J\-\_\-\-C\-U\-T}!perf_est.c@{perf\-\_\-est.\-c}}
+\subsubsection[{\-C\-\_\-\-G\-R\-\_\-\-L\-J\-\_\-\-C\-U\-T}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-C\-\_\-\-G\-R\-\_\-\-L\-J\-\_\-\-C\-U\-T}~1.\-0}}\label{perf__est_8c_ace68dfd45380248a550b2ddc920ffcf5}
+\hypertarget{perf__est_8c_a37f35e6f0a5dcfcc0ff4a6d62c2ee0ba}{\index{perf\-\_\-est.\-c@{perf\-\_\-est.\-c}!\-C\-\_\-\-G\-R\-\_\-\-L\-J\-\_\-\-T\-A\-B@{\-C\-\_\-\-G\-R\-\_\-\-L\-J\-\_\-\-T\-A\-B}}
+\index{\-C\-\_\-\-G\-R\-\_\-\-L\-J\-\_\-\-T\-A\-B@{\-C\-\_\-\-G\-R\-\_\-\-L\-J\-\_\-\-T\-A\-B}!perf_est.c@{perf\-\_\-est.\-c}}
+\subsubsection[{\-C\-\_\-\-G\-R\-\_\-\-L\-J\-\_\-\-T\-A\-B}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-C\-\_\-\-G\-R\-\_\-\-L\-J\-\_\-\-T\-A\-B}~1.\-75}}\label{perf__est_8c_a37f35e6f0a5dcfcc0ff4a6d62c2ee0ba}
+\hypertarget{perf__est_8c_a3961467fc7e8c601624bc9d62ce8731b}{\index{perf\-\_\-est.\-c@{perf\-\_\-est.\-c}!\-C\-\_\-\-G\-R\-\_\-\-Q\-L\-J\-\_\-\-C\-U\-T@{\-C\-\_\-\-G\-R\-\_\-\-Q\-L\-J\-\_\-\-C\-U\-T}}
+\index{\-C\-\_\-\-G\-R\-\_\-\-Q\-L\-J\-\_\-\-C\-U\-T@{\-C\-\_\-\-G\-R\-\_\-\-Q\-L\-J\-\_\-\-C\-U\-T}!perf_est.c@{perf\-\_\-est.\-c}}
+\subsubsection[{\-C\-\_\-\-G\-R\-\_\-\-Q\-L\-J\-\_\-\-C\-U\-T}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-C\-\_\-\-G\-R\-\_\-\-Q\-L\-J\-\_\-\-C\-U\-T}~1.\-5}}\label{perf__est_8c_a3961467fc7e8c601624bc9d62ce8731b}
+\hypertarget{perf__est_8c_ac7cd8e596352a4a412036c17f6a4ad03}{\index{perf\-\_\-est.\-c@{perf\-\_\-est.\-c}!\-C\-\_\-\-G\-R\-\_\-\-Q\-L\-J\-\_\-\-T\-A\-B@{\-C\-\_\-\-G\-R\-\_\-\-Q\-L\-J\-\_\-\-T\-A\-B}}
+\index{\-C\-\_\-\-G\-R\-\_\-\-Q\-L\-J\-\_\-\-T\-A\-B@{\-C\-\_\-\-G\-R\-\_\-\-Q\-L\-J\-\_\-\-T\-A\-B}!perf_est.c@{perf\-\_\-est.\-c}}
+\subsubsection[{\-C\-\_\-\-G\-R\-\_\-\-Q\-L\-J\-\_\-\-T\-A\-B}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-C\-\_\-\-G\-R\-\_\-\-Q\-L\-J\-\_\-\-T\-A\-B}~2.\-0}}\label{perf__est_8c_ac7cd8e596352a4a412036c17f6a4ad03}
+\hypertarget{perf__est_8c_aa8f923f16ca3b2eec86f325a56598806}{\index{perf\-\_\-est.\-c@{perf\-\_\-est.\-c}!\-C\-\_\-\-G\-R\-\_\-\-Q\-L\-J\-W\-\_\-\-C\-U\-T@{\-C\-\_\-\-G\-R\-\_\-\-Q\-L\-J\-W\-\_\-\-C\-U\-T}}
+\index{\-C\-\_\-\-G\-R\-\_\-\-Q\-L\-J\-W\-\_\-\-C\-U\-T@{\-C\-\_\-\-G\-R\-\_\-\-Q\-L\-J\-W\-\_\-\-C\-U\-T}!perf_est.c@{perf\-\_\-est.\-c}}
+\subsubsection[{\-C\-\_\-\-G\-R\-\_\-\-Q\-L\-J\-W\-\_\-\-C\-U\-T}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-C\-\_\-\-G\-R\-\_\-\-Q\-L\-J\-W\-\_\-\-C\-U\-T}~2.\-0}}\label{perf__est_8c_aa8f923f16ca3b2eec86f325a56598806}
+\hypertarget{perf__est_8c_a5c202b96162c1b544132c0b7234c59ed}{\index{perf\-\_\-est.\-c@{perf\-\_\-est.\-c}!\-C\-\_\-\-G\-R\-\_\-\-Q\-L\-J\-W\-\_\-\-T\-A\-B@{\-C\-\_\-\-G\-R\-\_\-\-Q\-L\-J\-W\-\_\-\-T\-A\-B}}
+\index{\-C\-\_\-\-G\-R\-\_\-\-Q\-L\-J\-W\-\_\-\-T\-A\-B@{\-C\-\_\-\-G\-R\-\_\-\-Q\-L\-J\-W\-\_\-\-T\-A\-B}!perf_est.c@{perf\-\_\-est.\-c}}
+\subsubsection[{\-C\-\_\-\-G\-R\-\_\-\-Q\-L\-J\-W\-\_\-\-T\-A\-B}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-C\-\_\-\-G\-R\-\_\-\-Q\-L\-J\-W\-\_\-\-T\-A\-B}~2.\-25}}\label{perf__est_8c_a5c202b96162c1b544132c0b7234c59ed}
+\hypertarget{perf__est_8c_a920ac3660ecc5fdb4e5153688beed3ab}{\index{perf\-\_\-est.\-c@{perf\-\_\-est.\-c}!\-C\-\_\-\-G\-R\-\_\-\-Q\-W@{\-C\-\_\-\-G\-R\-\_\-\-Q\-W}}
+\index{\-C\-\_\-\-G\-R\-\_\-\-Q\-W@{\-C\-\_\-\-G\-R\-\_\-\-Q\-W}!perf_est.c@{perf\-\_\-est.\-c}}
+\subsubsection[{\-C\-\_\-\-G\-R\-\_\-\-Q\-W}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-C\-\_\-\-G\-R\-\_\-\-Q\-W}~1.\-75}}\label{perf__est_8c_a920ac3660ecc5fdb4e5153688beed3ab}
+\hypertarget{perf__est_8c_a9422d519623e3a7fb52aa7d51380c88b}{\index{perf\-\_\-est.\-c@{perf\-\_\-est.\-c}!\-C\-\_\-\-P\-M\-E\-\_\-\-F\-F\-T@{\-C\-\_\-\-P\-M\-E\-\_\-\-F\-F\-T}}
+\index{\-C\-\_\-\-P\-M\-E\-\_\-\-F\-F\-T@{\-C\-\_\-\-P\-M\-E\-\_\-\-F\-F\-T}!perf_est.c@{perf\-\_\-est.\-c}}
+\subsubsection[{\-C\-\_\-\-P\-M\-E\-\_\-\-F\-F\-T}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-C\-\_\-\-P\-M\-E\-\_\-\-F\-F\-T}~0.\-20}}\label{perf__est_8c_a9422d519623e3a7fb52aa7d51380c88b}
+\hypertarget{perf__est_8c_ac4c3101506b7e27c2120a4b5571f954b}{\index{perf\-\_\-est.\-c@{perf\-\_\-est.\-c}!\-C\-\_\-\-P\-M\-E\-\_\-\-R\-E\-D\-I\-S\-T@{\-C\-\_\-\-P\-M\-E\-\_\-\-R\-E\-D\-I\-S\-T}}
+\index{\-C\-\_\-\-P\-M\-E\-\_\-\-R\-E\-D\-I\-S\-T@{\-C\-\_\-\-P\-M\-E\-\_\-\-R\-E\-D\-I\-S\-T}!perf_est.c@{perf\-\_\-est.\-c}}
+\subsubsection[{\-C\-\_\-\-P\-M\-E\-\_\-\-R\-E\-D\-I\-S\-T}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-C\-\_\-\-P\-M\-E\-\_\-\-R\-E\-D\-I\-S\-T}~12.\-0}}\label{perf__est_8c_ac4c3101506b7e27c2120a4b5571f954b}
+\hypertarget{perf__est_8c_a731ec5201901e278ab9f0eb700d4de9a}{\index{perf\-\_\-est.\-c@{perf\-\_\-est.\-c}!\-C\-\_\-\-P\-M\-E\-\_\-\-S\-O\-L\-V\-E@{\-C\-\_\-\-P\-M\-E\-\_\-\-S\-O\-L\-V\-E}}
+\index{\-C\-\_\-\-P\-M\-E\-\_\-\-S\-O\-L\-V\-E@{\-C\-\_\-\-P\-M\-E\-\_\-\-S\-O\-L\-V\-E}!perf_est.c@{perf\-\_\-est.\-c}}
+\subsubsection[{\-C\-\_\-\-P\-M\-E\-\_\-\-S\-O\-L\-V\-E}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-C\-\_\-\-P\-M\-E\-\_\-\-S\-O\-L\-V\-E}~0.\-50}}\label{perf__est_8c_a731ec5201901e278ab9f0eb700d4de9a}
+\hypertarget{perf__est_8c_ae763ac5a5a85196b69b2fca83e1507ae}{\index{perf\-\_\-est.\-c@{perf\-\_\-est.\-c}!\-C\-\_\-\-P\-M\-E\-\_\-\-S\-P\-R\-E\-A\-D@{\-C\-\_\-\-P\-M\-E\-\_\-\-S\-P\-R\-E\-A\-D}}
+\index{\-C\-\_\-\-P\-M\-E\-\_\-\-S\-P\-R\-E\-A\-D@{\-C\-\_\-\-P\-M\-E\-\_\-\-S\-P\-R\-E\-A\-D}!perf_est.c@{perf\-\_\-est.\-c}}
+\subsubsection[{\-C\-\_\-\-P\-M\-E\-\_\-\-S\-P\-R\-E\-A\-D}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-C\-\_\-\-P\-M\-E\-\_\-\-S\-P\-R\-E\-A\-D}~0.\-30}}\label{perf__est_8c_ae763ac5a5a85196b69b2fca83e1507ae}
+\hypertarget{perf__est_8c_a6f8aee238a2f6bc9ae6f5ebd36ad0e69}{\index{perf\-\_\-est.\-c@{perf\-\_\-est.\-c}!\-C\-\_\-\-V\-T\-\_\-\-L\-J@{\-C\-\_\-\-V\-T\-\_\-\-L\-J}}
+\index{\-C\-\_\-\-V\-T\-\_\-\-L\-J@{\-C\-\_\-\-V\-T\-\_\-\-L\-J}!perf_est.c@{perf\-\_\-est.\-c}}
+\subsubsection[{\-C\-\_\-\-V\-T\-\_\-\-L\-J}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-C\-\_\-\-V\-T\-\_\-\-L\-J}~0.\-30}}\label{perf__est_8c_a6f8aee238a2f6bc9ae6f5ebd36ad0e69}
+\hypertarget{perf__est_8c_a6a5caf6a2dcf456b9aba3d5782c6afb5}{\index{perf\-\_\-est.\-c@{perf\-\_\-est.\-c}!\-C\-\_\-\-V\-T\-\_\-\-Q\-\_\-\-R\-F@{\-C\-\_\-\-V\-T\-\_\-\-Q\-\_\-\-R\-F}}
+\index{\-C\-\_\-\-V\-T\-\_\-\-Q\-\_\-\-R\-F@{\-C\-\_\-\-V\-T\-\_\-\-Q\-\_\-\-R\-F}!perf_est.c@{perf\-\_\-est.\-c}}
+\subsubsection[{\-C\-\_\-\-V\-T\-\_\-\-Q\-\_\-\-R\-F}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-C\-\_\-\-V\-T\-\_\-\-Q\-\_\-\-R\-F}~0.\-30}}\label{perf__est_8c_a6a5caf6a2dcf456b9aba3d5782c6afb5}
+\hypertarget{perf__est_8c_abd3896943191d1817e10cc14ad9636b1}{\index{perf\-\_\-est.\-c@{perf\-\_\-est.\-c}!\-C\-\_\-\-V\-T\-\_\-\-Q\-\_\-\-T\-A\-B@{\-C\-\_\-\-V\-T\-\_\-\-Q\-\_\-\-T\-A\-B}}
+\index{\-C\-\_\-\-V\-T\-\_\-\-Q\-\_\-\-T\-A\-B@{\-C\-\_\-\-V\-T\-\_\-\-Q\-\_\-\-T\-A\-B}!perf_est.c@{perf\-\_\-est.\-c}}
+\subsubsection[{\-C\-\_\-\-V\-T\-\_\-\-Q\-\_\-\-T\-A\-B}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-C\-\_\-\-V\-T\-\_\-\-Q\-\_\-\-T\-A\-B}~0.\-50}}\label{perf__est_8c_abd3896943191d1817e10cc14ad9636b1}
+\hypertarget{perf__est_8c_a42293ecc9fadaec7c3a630746523df8d}{\index{perf\-\_\-est.\-c@{perf\-\_\-est.\-c}!\-C\-\_\-\-V\-T\-\_\-\-Q\-L\-J\-\_\-\-R\-F@{\-C\-\_\-\-V\-T\-\_\-\-Q\-L\-J\-\_\-\-R\-F}}
+\index{\-C\-\_\-\-V\-T\-\_\-\-Q\-L\-J\-\_\-\-R\-F@{\-C\-\_\-\-V\-T\-\_\-\-Q\-L\-J\-\_\-\-R\-F}!perf_est.c@{perf\-\_\-est.\-c}}
+\subsubsection[{\-C\-\_\-\-V\-T\-\_\-\-Q\-L\-J\-\_\-\-R\-F}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-C\-\_\-\-V\-T\-\_\-\-Q\-L\-J\-\_\-\-R\-F}~0.\-40}}\label{perf__est_8c_a42293ecc9fadaec7c3a630746523df8d}
+\hypertarget{perf__est_8c_a4e9d6951ebbd0210c8ea8abdaab9b7ea}{\index{perf\-\_\-est.\-c@{perf\-\_\-est.\-c}!\-C\-\_\-\-V\-T\-\_\-\-Q\-L\-J\-\_\-\-T\-A\-B@{\-C\-\_\-\-V\-T\-\_\-\-Q\-L\-J\-\_\-\-T\-A\-B}}
+\index{\-C\-\_\-\-V\-T\-\_\-\-Q\-L\-J\-\_\-\-T\-A\-B@{\-C\-\_\-\-V\-T\-\_\-\-Q\-L\-J\-\_\-\-T\-A\-B}!perf_est.c@{perf\-\_\-est.\-c}}
+\subsubsection[{\-C\-\_\-\-V\-T\-\_\-\-Q\-L\-J\-\_\-\-T\-A\-B}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-C\-\_\-\-V\-T\-\_\-\-Q\-L\-J\-\_\-\-T\-A\-B}~0.\-55}}\label{perf__est_8c_a4e9d6951ebbd0210c8ea8abdaab9b7ea}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{perf__est_8c_a90eb8d5fc5b00362a878f3ff254910b4}{\index{perf\-\_\-est.\-c@{perf\-\_\-est.\-c}!n\-\_\-bonded\-\_\-dx@{n\-\_\-bonded\-\_\-dx}}
+\index{n\-\_\-bonded\-\_\-dx@{n\-\_\-bonded\-\_\-dx}!perf_est.c@{perf\-\_\-est.\-c}}
+\subsubsection[{n\-\_\-bonded\-\_\-dx}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf n\-\_\-bonded\-\_\-dx} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-mtop\-\_\-t} $\ast$}]{mtop, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Excl}
+\end{DoxyParamCaption}
+)}}\label{perf__est_8c_a90eb8d5fc5b00362a878f3ff254910b4}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{perf__est_8c_a90eb8d5fc5b00362a878f3ff254910b4_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{perf__est_8c_a8c35ed9d3c8496c164028bd3f02d6bba}{\index{perf\-\_\-est.\-c@{perf\-\_\-est.\-c}!pme\-\_\-load\-\_\-estimate@{pme\-\_\-load\-\_\-estimate}}
+\index{pme\-\_\-load\-\_\-estimate@{pme\-\_\-load\-\_\-estimate}!perf_est.c@{perf\-\_\-est.\-c}}
+\subsubsection[{pme\-\_\-load\-\_\-estimate}]{\setlength{\rightskip}{0pt plus 5cm}float {\bf pme\-\_\-load\-\_\-estimate} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-mtop\-\_\-t} $\ast$}]{mtop, }
+\item[{{\bf t\-\_\-inputrec} $\ast$}]{ir, }
+\item[{{\bf matrix}}]{box}
+\end{DoxyParamCaption}
+)}}\label{perf__est_8c_a8c35ed9d3c8496c164028bd3f02d6bba}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{perf__est_8c_a8c35ed9d3c8496c164028bd3f02d6bba_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{perf__est_8c_a8c35ed9d3c8496c164028bd3f02d6bba_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{perf__est_8c_a5e35f1af1be6bac4d7fd502ebe0704a7}{\index{perf\-\_\-est.\-c@{perf\-\_\-est.\-c}!pp\-\_\-group\-\_\-load@{pp\-\_\-group\-\_\-load}}
+\index{pp\-\_\-group\-\_\-load@{pp\-\_\-group\-\_\-load}!perf_est.c@{perf\-\_\-est.\-c}}
+\subsubsection[{pp\-\_\-group\-\_\-load}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf pp\-\_\-group\-\_\-load} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-mtop\-\_\-t} $\ast$}]{mtop, }
+\item[{{\bf t\-\_\-inputrec} $\ast$}]{ir, }
+\item[{{\bf matrix}}]{box, }
+\item[{int $\ast$}]{nq\-\_\-tot, }
+\item[{double $\ast$}]{cost\-\_\-pp, }
+\item[{{\bf gmx\-\_\-bool} $\ast$}]{b\-Charge\-Perturbed}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{perf__est_8c_a5e35f1af1be6bac4d7fd502ebe0704a7}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=226pt]{perf__est_8c_a5e35f1af1be6bac4d7fd502ebe0704a7_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{perf__est_8c_a5e35f1af1be6bac4d7fd502ebe0704a7_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{perf__est_8c_acbd21511f35c629b8c74c5dc3722ddcb}{\index{perf\-\_\-est.\-c@{perf\-\_\-est.\-c}!pp\-\_\-verlet\-\_\-load@{pp\-\_\-verlet\-\_\-load}}
+\index{pp\-\_\-verlet\-\_\-load@{pp\-\_\-verlet\-\_\-load}!perf_est.c@{perf\-\_\-est.\-c}}
+\subsubsection[{pp\-\_\-verlet\-\_\-load}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf pp\-\_\-verlet\-\_\-load} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-mtop\-\_\-t} $\ast$}]{mtop, }
+\item[{{\bf t\-\_\-inputrec} $\ast$}]{ir, }
+\item[{{\bf matrix}}]{box, }
+\item[{int $\ast$}]{nq\-\_\-tot, }
+\item[{double $\ast$}]{cost\-\_\-pp, }
+\item[{{\bf gmx\-\_\-bool} $\ast$}]{b\-Charge\-Perturbed}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{perf__est_8c_acbd21511f35c629b8c74c5dc3722ddcb}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=340pt]{perf__est_8c_acbd21511f35c629b8c74c5dc3722ddcb_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{perf__est_8c_acbd21511f35c629b8c74c5dc3722ddcb_icgraph}
+\end{center}
+\end{figure}
+
+

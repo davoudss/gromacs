@@ -1,0 +1,297 @@
+\hypertarget{smalloc_8c}{\section{src/gmxlib/smalloc.c \-File \-Reference}
+\label{smalloc_8c}\index{src/gmxlib/smalloc.\-c@{src/gmxlib/smalloc.\-c}}
+}
+{\ttfamily \#include $<$stdio.\-h$>$}\*
+{\ttfamily \#include $<$stdlib.\-h$>$}\*
+{\ttfamily \#include $<$string.\-h$>$}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-fatal.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}smalloc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}main.\-h\char`\"{}}\*
+\-Include dependency graph for smalloc.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{smalloc_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{smalloc_8c_a760c755d093cdbe1e2c30b1f1d111236}{\-G\-M\-X\-\_\-\-O\-W\-N\-\_\-\-M\-E\-M\-A\-L\-I\-G\-N}
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+static char $\ast$ \hyperlink{smalloc_8c_ad2778cf7bc6e491e9541d0e4657cbeaf}{gmx\-\_\-large\-\_\-int\-\_\-str} (gmx\-\_\-large\-\_\-int\-\_\-t \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a3c7542401c1cb8bd37ef5e7d9eb0f5a8}{i}, char $\ast$buf)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$ \hyperlink{smalloc_8c_a6e678051bdba16b4a5db399c8cc0c128}{save\-\_\-malloc} (const char $\ast$name, const char $\ast$file, int \hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line}, size\-\_\-t size)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$ \hyperlink{smalloc_8c_a6e6d52179c08b1acafb1e2dcb3aadd23}{save\-\_\-calloc} (const char $\ast$name, const char $\ast$file, int \hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line}, size\-\_\-t nelem, size\-\_\-t elsize)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$ \hyperlink{smalloc_8c_a50f9a1ae3317f66f3bb40f25fe9bd6ac}{save\-\_\-realloc} (const char $\ast$name, const char $\ast$file, int \hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line}, \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$ptr, size\-\_\-t nelem, size\-\_\-t elsize)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{smalloc_8c_a1a8ebd96b293ca1f67b3dd41ff1eb43a}{save\-\_\-free} (const char $\ast$name, const char $\ast$file, int \hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line}, \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$ptr)
+\item 
+size\-\_\-t \hyperlink{smalloc_8c_a584fb1a7f9adc214966fc8a806c3071e}{maxavail} (\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void})
+\item 
+size\-\_\-t \hyperlink{smalloc_8c_a3289355f33a20326268eb6d0e3ec02c1}{memavail} (\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$ \hyperlink{smalloc_8c_abda1e04618602a122da1adf10f07f831}{save\-\_\-malloc\-\_\-aligned} (const char $\ast$name, const char $\ast$file, int \hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line}, unsigned nelem, size\-\_\-t elsize, size\-\_\-t alignment)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$ \hyperlink{smalloc_8c_a75ae5086eddf93379fddff11203023eb}{save\-\_\-calloc\-\_\-aligned} (const char $\ast$name, const char $\ast$file, int \hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line}, unsigned nelem, size\-\_\-t elsize, size\-\_\-t alignment)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{smalloc_8c_ae35d52a2d595ae960055674b4a0d566a}{save\-\_\-free\-\_\-aligned} (const char $\ast$name, const char $\ast$file, int \hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line}, \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$ptr)
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Define \-Documentation}
+\hypertarget{smalloc_8c_a760c755d093cdbe1e2c30b1f1d111236}{\index{smalloc.\-c@{smalloc.\-c}!\-G\-M\-X\-\_\-\-O\-W\-N\-\_\-\-M\-E\-M\-A\-L\-I\-G\-N@{\-G\-M\-X\-\_\-\-O\-W\-N\-\_\-\-M\-E\-M\-A\-L\-I\-G\-N}}
+\index{\-G\-M\-X\-\_\-\-O\-W\-N\-\_\-\-M\-E\-M\-A\-L\-I\-G\-N@{\-G\-M\-X\-\_\-\-O\-W\-N\-\_\-\-M\-E\-M\-A\-L\-I\-G\-N}!smalloc.c@{smalloc.\-c}}
+\subsubsection[{\-G\-M\-X\-\_\-\-O\-W\-N\-\_\-\-M\-E\-M\-A\-L\-I\-G\-N}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-G\-M\-X\-\_\-\-O\-W\-N\-\_\-\-M\-E\-M\-A\-L\-I\-G\-N}}}\label{smalloc_8c_a760c755d093cdbe1e2c30b1f1d111236}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{smalloc_8c_ad2778cf7bc6e491e9541d0e4657cbeaf}{\index{smalloc.\-c@{smalloc.\-c}!gmx\-\_\-large\-\_\-int\-\_\-str@{gmx\-\_\-large\-\_\-int\-\_\-str}}
+\index{gmx\-\_\-large\-\_\-int\-\_\-str@{gmx\-\_\-large\-\_\-int\-\_\-str}!smalloc.c@{smalloc.\-c}}
+\subsubsection[{gmx\-\_\-large\-\_\-int\-\_\-str}]{\setlength{\rightskip}{0pt plus 5cm}static char$\ast$ {\bf gmx\-\_\-large\-\_\-int\-\_\-str} (
+\begin{DoxyParamCaption}
+\item[{gmx\-\_\-large\-\_\-int\-\_\-t}]{i, }
+\item[{char $\ast$}]{buf}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{smalloc_8c_ad2778cf7bc6e491e9541d0e4657cbeaf}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=282pt]{smalloc_8c_ad2778cf7bc6e491e9541d0e4657cbeaf_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{smalloc_8c_a584fb1a7f9adc214966fc8a806c3071e}{\index{smalloc.\-c@{smalloc.\-c}!maxavail@{maxavail}}
+\index{maxavail@{maxavail}!smalloc.c@{smalloc.\-c}}
+\subsubsection[{maxavail}]{\setlength{\rightskip}{0pt plus 5cm}size\-\_\-t {\bf maxavail} (
+\begin{DoxyParamCaption}
+\item[{{\bf void}}]{}
+\end{DoxyParamCaption}
+)}}\label{smalloc_8c_a584fb1a7f9adc214966fc8a806c3071e}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=232pt]{smalloc_8c_a584fb1a7f9adc214966fc8a806c3071e_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{smalloc_8c_a3289355f33a20326268eb6d0e3ec02c1}{\index{smalloc.\-c@{smalloc.\-c}!memavail@{memavail}}
+\index{memavail@{memavail}!smalloc.c@{smalloc.\-c}}
+\subsubsection[{memavail}]{\setlength{\rightskip}{0pt plus 5cm}size\-\_\-t {\bf memavail} (
+\begin{DoxyParamCaption}
+\item[{{\bf void}}]{}
+\end{DoxyParamCaption}
+)}}\label{smalloc_8c_a3289355f33a20326268eb6d0e3ec02c1}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=236pt]{smalloc_8c_a3289355f33a20326268eb6d0e3ec02c1_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=140pt]{smalloc_8c_a3289355f33a20326268eb6d0e3ec02c1_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{smalloc_8c_a6e6d52179c08b1acafb1e2dcb3aadd23}{\index{smalloc.\-c@{smalloc.\-c}!save\-\_\-calloc@{save\-\_\-calloc}}
+\index{save\-\_\-calloc@{save\-\_\-calloc}!smalloc.c@{smalloc.\-c}}
+\subsubsection[{save\-\_\-calloc}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void}$\ast$ {\bf save\-\_\-calloc} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{name, }
+\item[{const char $\ast$}]{file, }
+\item[{int}]{line, }
+\item[{size\-\_\-t}]{nelem, }
+\item[{size\-\_\-t}]{elsize}
+\end{DoxyParamCaption}
+)}}\label{smalloc_8c_a6e6d52179c08b1acafb1e2dcb3aadd23}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=244pt]{smalloc_8c_a6e6d52179c08b1acafb1e2dcb3aadd23_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{smalloc_8c_a75ae5086eddf93379fddff11203023eb}{\index{smalloc.\-c@{smalloc.\-c}!save\-\_\-calloc\-\_\-aligned@{save\-\_\-calloc\-\_\-aligned}}
+\index{save\-\_\-calloc\-\_\-aligned@{save\-\_\-calloc\-\_\-aligned}!smalloc.c@{smalloc.\-c}}
+\subsubsection[{save\-\_\-calloc\-\_\-aligned}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void}$\ast$ {\bf save\-\_\-calloc\-\_\-aligned} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{name, }
+\item[{const char $\ast$}]{file, }
+\item[{int}]{line, }
+\item[{unsigned}]{nelem, }
+\item[{size\-\_\-t}]{elsize, }
+\item[{size\-\_\-t}]{alignment}
+\end{DoxyParamCaption}
+)}}\label{smalloc_8c_a75ae5086eddf93379fddff11203023eb}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=328pt]{smalloc_8c_a75ae5086eddf93379fddff11203023eb_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{smalloc_8c_a1a8ebd96b293ca1f67b3dd41ff1eb43a}{\index{smalloc.\-c@{smalloc.\-c}!save\-\_\-free@{save\-\_\-free}}
+\index{save\-\_\-free@{save\-\_\-free}!smalloc.c@{smalloc.\-c}}
+\subsubsection[{save\-\_\-free}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf save\-\_\-free} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{name, }
+\item[{const char $\ast$}]{file, }
+\item[{int}]{line, }
+\item[{{\bf void} $\ast$}]{ptr}
+\end{DoxyParamCaption}
+)}}\label{smalloc_8c_a1a8ebd96b293ca1f67b3dd41ff1eb43a}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=272pt]{smalloc_8c_a1a8ebd96b293ca1f67b3dd41ff1eb43a_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{smalloc_8c_ae35d52a2d595ae960055674b4a0d566a}{\index{smalloc.\-c@{smalloc.\-c}!save\-\_\-free\-\_\-aligned@{save\-\_\-free\-\_\-aligned}}
+\index{save\-\_\-free\-\_\-aligned@{save\-\_\-free\-\_\-aligned}!smalloc.c@{smalloc.\-c}}
+\subsubsection[{save\-\_\-free\-\_\-aligned}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf save\-\_\-free\-\_\-aligned} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{name, }
+\item[{const char $\ast$}]{file, }
+\item[{int}]{line, }
+\item[{{\bf void} $\ast$}]{ptr}
+\end{DoxyParamCaption}
+)}}\label{smalloc_8c_ae35d52a2d595ae960055674b4a0d566a}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=272pt]{smalloc_8c_ae35d52a2d595ae960055674b4a0d566a_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{smalloc_8c_a6e678051bdba16b4a5db399c8cc0c128}{\index{smalloc.\-c@{smalloc.\-c}!save\-\_\-malloc@{save\-\_\-malloc}}
+\index{save\-\_\-malloc@{save\-\_\-malloc}!smalloc.c@{smalloc.\-c}}
+\subsubsection[{save\-\_\-malloc}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void}$\ast$ {\bf save\-\_\-malloc} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{name, }
+\item[{const char $\ast$}]{file, }
+\item[{int}]{line, }
+\item[{size\-\_\-t}]{size}
+\end{DoxyParamCaption}
+)}}\label{smalloc_8c_a6e678051bdba16b4a5db399c8cc0c128}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=282pt]{smalloc_8c_a6e678051bdba16b4a5db399c8cc0c128_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{smalloc_8c_abda1e04618602a122da1adf10f07f831}{\index{smalloc.\-c@{smalloc.\-c}!save\-\_\-malloc\-\_\-aligned@{save\-\_\-malloc\-\_\-aligned}}
+\index{save\-\_\-malloc\-\_\-aligned@{save\-\_\-malloc\-\_\-aligned}!smalloc.c@{smalloc.\-c}}
+\subsubsection[{save\-\_\-malloc\-\_\-aligned}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void}$\ast$ {\bf save\-\_\-malloc\-\_\-aligned} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{name, }
+\item[{const char $\ast$}]{file, }
+\item[{int}]{line, }
+\item[{unsigned}]{nelem, }
+\item[{size\-\_\-t}]{elsize, }
+\item[{size\-\_\-t}]{alignment}
+\end{DoxyParamCaption}
+)}}\label{smalloc_8c_abda1e04618602a122da1adf10f07f831}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=284pt]{smalloc_8c_abda1e04618602a122da1adf10f07f831_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{smalloc_8c_abda1e04618602a122da1adf10f07f831_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{smalloc_8c_a50f9a1ae3317f66f3bb40f25fe9bd6ac}{\index{smalloc.\-c@{smalloc.\-c}!save\-\_\-realloc@{save\-\_\-realloc}}
+\index{save\-\_\-realloc@{save\-\_\-realloc}!smalloc.c@{smalloc.\-c}}
+\subsubsection[{save\-\_\-realloc}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void}$\ast$ {\bf save\-\_\-realloc} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{name, }
+\item[{const char $\ast$}]{file, }
+\item[{int}]{line, }
+\item[{{\bf void} $\ast$}]{ptr, }
+\item[{size\-\_\-t}]{nelem, }
+\item[{size\-\_\-t}]{elsize}
+\end{DoxyParamCaption}
+)}}\label{smalloc_8c_a50f9a1ae3317f66f3bb40f25fe9bd6ac}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=282pt]{smalloc_8c_a50f9a1ae3317f66f3bb40f25fe9bd6ac_cgraph}
+\end{center}
+\end{figure}
+
+

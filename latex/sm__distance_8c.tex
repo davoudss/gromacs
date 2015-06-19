@@ -1,0 +1,359 @@
+\hypertarget{sm__distance_8c}{\section{src/gmxlib/selection/sm\-\_\-distance.c \-File \-Reference}
+\label{sm__distance_8c}\index{src/gmxlib/selection/sm\-\_\-distance.\-c@{src/gmxlib/selection/sm\-\_\-distance.\-c}}
+}
+{\ttfamily \#include $<$macros.\-h$>$}\*
+{\ttfamily \#include $<$pbc.\-h$>$}\*
+{\ttfamily \#include $<$smalloc.\-h$>$}\*
+{\ttfamily \#include $<$vec.\-h$>$}\*
+{\ttfamily \#include $<$nbsearch.\-h$>$}\*
+{\ttfamily \#include $<$position.\-h$>$}\*
+{\ttfamily \#include $<$selmethod.\-h$>$}\*
+\-Include dependency graph for sm\-\_\-distance.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{sm__distance_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structt__methoddata__distance}{t\-\_\-methoddata\-\_\-distance}
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$ \hyperlink{sm__distance_8c_a408dacf5873753734be52de7b06dd141}{init\-\_\-data\-\_\-common} (int npar, \hyperlink{structgmx__ana__selparam__t}{gmx\-\_\-ana\-\_\-selparam\-\_\-t} $\ast$param)
+\item 
+static int \hyperlink{sm__distance_8c_a025437c4220e942ea80cd04a209926d7}{init\-\_\-common} (\hyperlink{structt__topology}{t\-\_\-topology} $\ast$\hyperlink{gmx__disre_8c_a1b538a2ce75aba6c346bc03980ffeb28}{top}, int npar, \hyperlink{structgmx__ana__selparam__t}{gmx\-\_\-ana\-\_\-selparam\-\_\-t} $\ast$param, \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$data)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{sm__distance_8c_ace636d704508fe0bbce861590a57cd22}{free\-\_\-data\-\_\-common} (\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$data)
+\item 
+static int \hyperlink{sm__distance_8c_ab6bd4a503fa2e95239916f424c9d26bf}{init\-\_\-frame\-\_\-common} (\hyperlink{structt__topology}{t\-\_\-topology} $\ast$\hyperlink{gmx__disre_8c_a1b538a2ce75aba6c346bc03980ffeb28}{top}, \hyperlink{include_2types_2trx_8h_a206f77137d72a5db1097a457a7144ad5}{t\-\_\-trxframe} $\ast$\hyperlink{addconf_8c_ae8414314f87c5e49503ac0117eb511ad}{fr}, \hyperlink{structt__pbc}{t\-\_\-pbc} $\ast$pbc, \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$data)
+\item 
+static int \hyperlink{sm__distance_8c_a417644ffe6d048a9daf372a04980b058}{evaluate\-\_\-distance} (\hyperlink{structt__topology}{t\-\_\-topology} $\ast$\hyperlink{gmx__disre_8c_a1b538a2ce75aba6c346bc03980ffeb28}{top}, \hyperlink{include_2types_2trx_8h_a206f77137d72a5db1097a457a7144ad5}{t\-\_\-trxframe} $\ast$\hyperlink{addconf_8c_ae8414314f87c5e49503ac0117eb511ad}{fr}, \hyperlink{structt__pbc}{t\-\_\-pbc} $\ast$pbc, \hyperlink{structgmx__ana__pos__t}{gmx\-\_\-ana\-\_\-pos\-\_\-t} $\ast$pos, \hyperlink{structgmx__ana__selvalue__t}{gmx\-\_\-ana\-\_\-selvalue\-\_\-t} $\ast$out, \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$data)
+\item 
+static int \hyperlink{sm__distance_8c_a2c492b6a9a8aab1d45c06c17a8ec3f17}{evaluate\-\_\-within} (\hyperlink{structt__topology}{t\-\_\-topology} $\ast$\hyperlink{gmx__disre_8c_a1b538a2ce75aba6c346bc03980ffeb28}{top}, \hyperlink{include_2types_2trx_8h_a206f77137d72a5db1097a457a7144ad5}{t\-\_\-trxframe} $\ast$\hyperlink{addconf_8c_ae8414314f87c5e49503ac0117eb511ad}{fr}, \hyperlink{structt__pbc}{t\-\_\-pbc} $\ast$pbc, \hyperlink{structgmx__ana__pos__t}{gmx\-\_\-ana\-\_\-pos\-\_\-t} $\ast$pos, \hyperlink{structgmx__ana__selvalue__t}{gmx\-\_\-ana\-\_\-selvalue\-\_\-t} $\ast$out, \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$data)
+\end{DoxyCompactItemize}
+\subsection*{\-Variables}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{structgmx__ana__selparam__t}{gmx\-\_\-ana\-\_\-selparam\-\_\-t} \hyperlink{sm__distance_8c_ad58f96044e4b9508457f213b11a975a6}{smparams\-\_\-distance} \mbox{[}$\,$\mbox{]}
+\item 
+static \hyperlink{structgmx__ana__selparam__t}{gmx\-\_\-ana\-\_\-selparam\-\_\-t} \hyperlink{sm__distance_8c_aeeffd77fee5c7ce3435df32d95a4bb23}{smparams\-\_\-mindistance} \mbox{[}$\,$\mbox{]}
+\item 
+static \hyperlink{structgmx__ana__selparam__t}{gmx\-\_\-ana\-\_\-selparam\-\_\-t} \hyperlink{sm__distance_8c_aeb51245a71af64906718c2eeb076862c}{smparams\-\_\-within} \mbox{[}$\,$\mbox{]}
+\item 
+static const char $\ast$ \hyperlink{sm__distance_8c_ad861eee6f225e5eebe05ebd515d26e10}{help\-\_\-distance} \mbox{[}$\,$\mbox{]}
+\item 
+\hyperlink{structgmx__ana__selmethod__t}{gmx\-\_\-ana\-\_\-selmethod\-\_\-t} \hyperlink{sm__distance_8c_a8764fb39a637f6ab7a2e58fbfbd0a859}{sm\-\_\-distance}
+\item 
+\hyperlink{structgmx__ana__selmethod__t}{gmx\-\_\-ana\-\_\-selmethod\-\_\-t} \hyperlink{sm__distance_8c_a6402bbb0106b249b25cb8466e9dc5c67}{sm\-\_\-mindistance}
+\item 
+\hyperlink{structgmx__ana__selmethod__t}{gmx\-\_\-ana\-\_\-selmethod\-\_\-t} \hyperlink{sm__distance_8c_a2a5d8bcd8f682845103bc733edafbacf}{sm\-\_\-within}
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{sm__distance_8c_a417644ffe6d048a9daf372a04980b058}{\index{sm\-\_\-distance.\-c@{sm\-\_\-distance.\-c}!evaluate\-\_\-distance@{evaluate\-\_\-distance}}
+\index{evaluate\-\_\-distance@{evaluate\-\_\-distance}!sm_distance.c@{sm\-\_\-distance.\-c}}
+\subsubsection[{evaluate\-\_\-distance}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf evaluate\-\_\-distance} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-topology} $\ast$}]{top, }
+\item[{{\bf t\-\_\-trxframe} $\ast$}]{fr, }
+\item[{{\bf t\-\_\-pbc} $\ast$}]{pbc, }
+\item[{{\bf gmx\-\_\-ana\-\_\-pos\-\_\-t} $\ast$}]{pos, }
+\item[{{\bf gmx\-\_\-ana\-\_\-selvalue\-\_\-t} $\ast$}]{out, }
+\item[{{\bf void} $\ast$}]{data}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{sm__distance_8c_a417644ffe6d048a9daf372a04980b058}
+\-Evaluates the {\ttfamily distance} selection method.
+
+\-See \hyperlink{include_2selmethod_8h_a47bfb381e8df48bddd7ca78abff224bf}{sel\-\_\-updatefunc\-\_\-pos()} for description of the parameters. {\ttfamily data} should point to a {\ttfamily \hyperlink{structt__methoddata__distance}{t\-\_\-methoddata\-\_\-distance}}.
+
+\-Calculates the distance of each position from {\ttfamily \hyperlink{structt__methoddata__distance_a4e60cc193bb2b70b0a199f573006cc2f}{t\-\_\-methoddata\-\_\-distance\-::p}} and puts them in {\ttfamily out-\/$>$u.\-r}. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{sm__distance_8c_a417644ffe6d048a9daf372a04980b058_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{sm__distance_8c_a2c492b6a9a8aab1d45c06c17a8ec3f17}{\index{sm\-\_\-distance.\-c@{sm\-\_\-distance.\-c}!evaluate\-\_\-within@{evaluate\-\_\-within}}
+\index{evaluate\-\_\-within@{evaluate\-\_\-within}!sm_distance.c@{sm\-\_\-distance.\-c}}
+\subsubsection[{evaluate\-\_\-within}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf evaluate\-\_\-within} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-topology} $\ast$}]{top, }
+\item[{{\bf t\-\_\-trxframe} $\ast$}]{fr, }
+\item[{{\bf t\-\_\-pbc} $\ast$}]{pbc, }
+\item[{{\bf gmx\-\_\-ana\-\_\-pos\-\_\-t} $\ast$}]{pos, }
+\item[{{\bf gmx\-\_\-ana\-\_\-selvalue\-\_\-t} $\ast$}]{out, }
+\item[{{\bf void} $\ast$}]{data}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{sm__distance_8c_a2c492b6a9a8aab1d45c06c17a8ec3f17}
+\-Evaluates the {\ttfamily within} selection method.
+
+\-See \hyperlink{include_2selmethod_8h_a8492a3e2b034f195b558030d2bcecb18}{sel\-\_\-updatefunc()} for description of the parameters. {\ttfamily data} should point to a {\ttfamily \hyperlink{structt__methoddata__distance}{t\-\_\-methoddata\-\_\-distance}}.
+
+\-Finds the atoms that are closer than the defined cutoff to {\ttfamily t\-\_\-methoddata\-\_\-distance\-::xref} and puts them in {\ttfamily out.\-g}. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{sm__distance_8c_a2c492b6a9a8aab1d45c06c17a8ec3f17_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{sm__distance_8c_ace636d704508fe0bbce861590a57cd22}{\index{sm\-\_\-distance.\-c@{sm\-\_\-distance.\-c}!free\-\_\-data\-\_\-common@{free\-\_\-data\-\_\-common}}
+\index{free\-\_\-data\-\_\-common@{free\-\_\-data\-\_\-common}!sm_distance.c@{sm\-\_\-distance.\-c}}
+\subsubsection[{free\-\_\-data\-\_\-common}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf free\-\_\-data\-\_\-common} (
+\begin{DoxyParamCaption}
+\item[{{\bf void} $\ast$}]{data}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{sm__distance_8c_ace636d704508fe0bbce861590a57cd22}
+\-Frees the data allocated for a distance-\/based selection method.
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em data} & \-Data to free (should point to a {\ttfamily \hyperlink{structt__methoddata__distance}{t\-\_\-methoddata\-\_\-distance}}).\\
+\hline
+\end{DoxyParams}
+\-Frees the memory allocated for {\ttfamily t\-\_\-methoddata\-\_\-distance\-::xref} and {\ttfamily \hyperlink{structt__methoddata__distance_a868ce93403a03e7463300e50cfa3bd51}{t\-\_\-methoddata\-\_\-distance\-::nb}}. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=340pt]{sm__distance_8c_ace636d704508fe0bbce861590a57cd22_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{sm__distance_8c_a025437c4220e942ea80cd04a209926d7}{\index{sm\-\_\-distance.\-c@{sm\-\_\-distance.\-c}!init\-\_\-common@{init\-\_\-common}}
+\index{init\-\_\-common@{init\-\_\-common}!sm_distance.c@{sm\-\_\-distance.\-c}}
+\subsubsection[{init\-\_\-common}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf init\-\_\-common} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-topology} $\ast$}]{top, }
+\item[{int}]{npar, }
+\item[{{\bf gmx\-\_\-ana\-\_\-selparam\-\_\-t} $\ast$}]{param, }
+\item[{{\bf void} $\ast$}]{data}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{sm__distance_8c_a025437c4220e942ea80cd04a209926d7}
+\-Initializes a distance-\/based selection method.
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em top} & \-Not used. \\
+\hline
+{\em npar} & \-Not used (should be 2). \\
+\hline
+{\em param} & \-Method parameters (should point to one of the distance parameter arrays). \\
+\hline
+{\em data} & \-Pointer to {\ttfamily \hyperlink{structt__methoddata__distance}{t\-\_\-methoddata\-\_\-distance}} to initialize. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+0 on success, a non-\/zero error code on failure.
+\end{DoxyReturn}
+\-Initializes the neighborhood search data structure ({\ttfamily \hyperlink{structt__methoddata__distance_a868ce93403a03e7463300e50cfa3bd51}{t\-\_\-methoddata\-\_\-distance\-::nb}}). \-Also checks that the cutoff is valid. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=322pt]{sm__distance_8c_a025437c4220e942ea80cd04a209926d7_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{sm__distance_8c_a408dacf5873753734be52de7b06dd141}{\index{sm\-\_\-distance.\-c@{sm\-\_\-distance.\-c}!init\-\_\-data\-\_\-common@{init\-\_\-data\-\_\-common}}
+\index{init\-\_\-data\-\_\-common@{init\-\_\-data\-\_\-common}!sm_distance.c@{sm\-\_\-distance.\-c}}
+\subsubsection[{init\-\_\-data\-\_\-common}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} $\ast$ {\bf init\-\_\-data\-\_\-common} (
+\begin{DoxyParamCaption}
+\item[{int}]{npar, }
+\item[{{\bf gmx\-\_\-ana\-\_\-selparam\-\_\-t} $\ast$}]{param}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{sm__distance_8c_a408dacf5873753734be52de7b06dd141}
+\-Allocates data for distance-\/based selection methods.
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em npar} & \-Not used (should be 2). \\
+\hline
+\mbox{\tt in,out}  & {\em param} & \-Method parameters (should point to one of the distance parameter arrays). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-Pointer to the allocated data ({\ttfamily \hyperlink{structt__methoddata__distance}{t\-\_\-methoddata\-\_\-distance}}).
+\end{DoxyReturn}
+\-Allocates memory for a {\ttfamily \hyperlink{structt__methoddata__distance}{t\-\_\-methoddata\-\_\-distance}} structure and initializes the parameter as follows\-:
+\begin{DoxyItemize}
+\item the first parameter defines the value for {\ttfamily \hyperlink{structt__methoddata__distance_aab6198756baae9955564ed6c1bef8f35}{t\-\_\-methoddata\-\_\-distance\-::cutoff}}.
+\item the second parameter defines the reference positions and the value is stored in {\ttfamily \hyperlink{structt__methoddata__distance_a4e60cc193bb2b70b0a199f573006cc2f}{t\-\_\-methoddata\-\_\-distance\-::p}}. 
+\end{DoxyItemize}\hypertarget{sm__distance_8c_ab6bd4a503fa2e95239916f424c9d26bf}{\index{sm\-\_\-distance.\-c@{sm\-\_\-distance.\-c}!init\-\_\-frame\-\_\-common@{init\-\_\-frame\-\_\-common}}
+\index{init\-\_\-frame\-\_\-common@{init\-\_\-frame\-\_\-common}!sm_distance.c@{sm\-\_\-distance.\-c}}
+\subsubsection[{init\-\_\-frame\-\_\-common}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf init\-\_\-frame\-\_\-common} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-topology} $\ast$}]{top, }
+\item[{{\bf t\-\_\-trxframe} $\ast$}]{fr, }
+\item[{{\bf t\-\_\-pbc} $\ast$}]{pbc, }
+\item[{{\bf void} $\ast$}]{data}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{sm__distance_8c_ab6bd4a503fa2e95239916f424c9d26bf}
+\-Initializes the evaluation of a distance-\/based within selection method for a frame.
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em top} & \-Not used. \\
+\hline
+\mbox{\tt in}  & {\em fr} & \-Current frame. \\
+\hline
+\mbox{\tt in}  & {\em pbc} & \-P\-B\-C structure. \\
+\hline
+ & {\em data} & \-Should point to a {\ttfamily \hyperlink{structt__methoddata__distance}{t\-\_\-methoddata\-\_\-distance}}. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+0 on success, a non-\/zero error code on error.
+\end{DoxyReturn}
+\-Initializes the neighborhood search for the current frame. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{sm__distance_8c_ab6bd4a503fa2e95239916f424c9d26bf_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{\-Variable \-Documentation}
+\hypertarget{sm__distance_8c_ad861eee6f225e5eebe05ebd515d26e10}{\index{sm\-\_\-distance.\-c@{sm\-\_\-distance.\-c}!help\-\_\-distance@{help\-\_\-distance}}
+\index{help\-\_\-distance@{help\-\_\-distance}!sm_distance.c@{sm\-\_\-distance.\-c}}
+\subsubsection[{help\-\_\-distance}]{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ {\bf help\-\_\-distance}\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{sm__distance_8c_ad861eee6f225e5eebe05ebd515d26e10}
+{\bfseries \-Initial value\-:}
+\begin{DoxyCode}
+ {
+    "DISTANCE-BASED SELECTION KEYWORDS[PAR]",
+
+    "[TT]distance from POS [cutoff REAL][tt][BR]",
+    "[TT]mindistance from POS_EXPR [cutoff REAL][tt][BR]",
+    "[TT]within REAL of POS_EXPR[tt][PAR]",
+
+    "[TT]distance[tt] and [TT]mindistance[tt] calculate the distance from the",
+    "given position(s), the only difference being in that [TT]distance[tt]",
+    "only accepts a single position, while any number of positions can be",
+    "given for [TT]mindistance[tt], which then calculates the distance to the",
+    "closest position.",
+    "[TT]within[tt] directly selects atoms that are within [TT]REAL[tt] of",
+    "[TT]POS_EXPR[tt].[PAR]",
+
+    "For the first two keywords, it is possible to specify a cutoff to speed",
+    "up the evaluation: all distances above the specified cutoff are",
+    "returned as equal to the cutoff.",
+    "Currently, this does nothing, but in the future, it allows the use of",
+    "grid-based neighborhood search techniques.",
+}
+\end{DoxyCode}
+\-Help text for the distance selection methods. \hypertarget{sm__distance_8c_a8764fb39a637f6ab7a2e58fbfbd0a859}{\index{sm\-\_\-distance.\-c@{sm\-\_\-distance.\-c}!sm\-\_\-distance@{sm\-\_\-distance}}
+\index{sm\-\_\-distance@{sm\-\_\-distance}!sm_distance.c@{sm\-\_\-distance.\-c}}
+\subsubsection[{sm\-\_\-distance}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-ana\-\_\-selmethod\-\_\-t} {\bf sm\-\_\-distance}}}\label{sm__distance_8c_a8764fb39a637f6ab7a2e58fbfbd0a859}
+{\bfseries \-Initial value\-:}
+\begin{DoxyCode}
+ {
+    "distance", REAL_VALUE, SMETH_DYNAMIC,
+    asize(smparams_distance), smparams_distance,
+    &init_data_common,
+    NULL,
+    &init_common,
+    NULL,
+    &free_data_common,
+    &init_frame_common,
+    NULL,
+    &evaluate_distance,
+    {"distance from POS [cutoff REAL]", asize(help_distance), help_distance},
+}
+\end{DoxyCode}
+\hypertarget{sm__distance_8c_a6402bbb0106b249b25cb8466e9dc5c67}{\index{sm\-\_\-distance.\-c@{sm\-\_\-distance.\-c}!sm\-\_\-mindistance@{sm\-\_\-mindistance}}
+\index{sm\-\_\-mindistance@{sm\-\_\-mindistance}!sm_distance.c@{sm\-\_\-distance.\-c}}
+\subsubsection[{sm\-\_\-mindistance}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-ana\-\_\-selmethod\-\_\-t} {\bf sm\-\_\-mindistance}}}\label{sm__distance_8c_a6402bbb0106b249b25cb8466e9dc5c67}
+{\bfseries \-Initial value\-:}
+\begin{DoxyCode}
+ {
+    "mindistance", REAL_VALUE, SMETH_DYNAMIC,
+    asize(smparams_mindistance), smparams_mindistance,
+    &init_data_common,
+    NULL,
+    &init_common,
+    NULL,
+    &free_data_common,
+    &init_frame_common,
+    NULL,
+    &evaluate_distance,
+    {"mindistance from POS_EXPR [cutoff REAL]", asize(help_distance), 
+      help_distance},
+}
+\end{DoxyCode}
+\hypertarget{sm__distance_8c_a2a5d8bcd8f682845103bc733edafbacf}{\index{sm\-\_\-distance.\-c@{sm\-\_\-distance.\-c}!sm\-\_\-within@{sm\-\_\-within}}
+\index{sm\-\_\-within@{sm\-\_\-within}!sm_distance.c@{sm\-\_\-distance.\-c}}
+\subsubsection[{sm\-\_\-within}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-ana\-\_\-selmethod\-\_\-t} {\bf sm\-\_\-within}}}\label{sm__distance_8c_a2a5d8bcd8f682845103bc733edafbacf}
+{\bfseries \-Initial value\-:}
+\begin{DoxyCode}
+ {
+    "within", GROUP_VALUE, SMETH_DYNAMIC,
+    asize(smparams_within), smparams_within,
+    &init_data_common,
+    NULL,
+    &init_common,
+    NULL,
+    &free_data_common,
+    &init_frame_common,
+    NULL,
+    &evaluate_within,
+    {"within REAL of POS_EXPR", asize(help_distance), help_distance},
+}
+\end{DoxyCode}
+\hypertarget{sm__distance_8c_ad58f96044e4b9508457f213b11a975a6}{\index{sm\-\_\-distance.\-c@{sm\-\_\-distance.\-c}!smparams\-\_\-distance@{smparams\-\_\-distance}}
+\index{smparams\-\_\-distance@{smparams\-\_\-distance}!sm_distance.c@{sm\-\_\-distance.\-c}}
+\subsubsection[{smparams\-\_\-distance}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-ana\-\_\-selparam\-\_\-t} {\bf smparams\-\_\-distance}\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{sm__distance_8c_ad58f96044e4b9508457f213b11a975a6}
+{\bfseries \-Initial value\-:}
+\begin{DoxyCode}
+ {
+    {"cutoff", {REAL_VALUE, 1, {NULL}}, NULL, SPAR_OPTIONAL},
+    {"from",   {POS_VALUE,  1, {NULL}}, NULL, SPAR_DYNAMIC},
+}
+\end{DoxyCode}
+\-Parameters for the {\ttfamily distance} selection method. \hypertarget{sm__distance_8c_aeeffd77fee5c7ce3435df32d95a4bb23}{\index{sm\-\_\-distance.\-c@{sm\-\_\-distance.\-c}!smparams\-\_\-mindistance@{smparams\-\_\-mindistance}}
+\index{smparams\-\_\-mindistance@{smparams\-\_\-mindistance}!sm_distance.c@{sm\-\_\-distance.\-c}}
+\subsubsection[{smparams\-\_\-mindistance}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-ana\-\_\-selparam\-\_\-t} {\bf smparams\-\_\-mindistance}\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{sm__distance_8c_aeeffd77fee5c7ce3435df32d95a4bb23}
+{\bfseries \-Initial value\-:}
+\begin{DoxyCode}
+ {
+    {"cutoff", {REAL_VALUE, 1, {NULL}}, NULL, SPAR_OPTIONAL},
+    {"from",   {POS_VALUE, -1, {NULL}}, NULL, SPAR_DYNAMIC | SPAR_VARNUM},
+}
+\end{DoxyCode}
+\-Parameters for the {\ttfamily mindistance} selection method. \hypertarget{sm__distance_8c_aeb51245a71af64906718c2eeb076862c}{\index{sm\-\_\-distance.\-c@{sm\-\_\-distance.\-c}!smparams\-\_\-within@{smparams\-\_\-within}}
+\index{smparams\-\_\-within@{smparams\-\_\-within}!sm_distance.c@{sm\-\_\-distance.\-c}}
+\subsubsection[{smparams\-\_\-within}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-ana\-\_\-selparam\-\_\-t} {\bf smparams\-\_\-within}\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{sm__distance_8c_aeb51245a71af64906718c2eeb076862c}
+{\bfseries \-Initial value\-:}
+\begin{DoxyCode}
+ {
+    {NULL, {REAL_VALUE,  1, {NULL}}, NULL, 0},
+    {"of", {POS_VALUE,  -1, {NULL}}, NULL, SPAR_DYNAMIC | SPAR_VARNUM},
+}
+\end{DoxyCode}
+\-Parameters for the {\ttfamily within} selection method. 

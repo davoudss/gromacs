@@ -1,0 +1,244 @@
+\hypertarget{csettle_8c}{\section{src/mdlib/csettle.c \-File \-Reference}
+\label{csettle_8c}\index{src/mdlib/csettle.\-c@{src/mdlib/csettle.\-c}}
+}
+{\ttfamily \#include $<$math.\-h$>$}\*
+{\ttfamily \#include $<$stdio.\-h$>$}\*
+{\ttfamily \#include \char`\"{}vec.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}constr.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-fatal.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}smalloc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}pbc.\-h\char`\"{}}\*
+\-Include dependency graph for csettle.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{csettle_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structsettleparam__t}{settleparam\-\_\-t}
+\item 
+struct \hyperlink{structgmx__settledata}{gmx\-\_\-settledata}
+\end{DoxyCompactItemize}
+\subsection*{\-Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \hyperlink{structgmx__settledata}{gmx\-\_\-settledata} \hyperlink{csettle_8c_ae299706587024894ae3b28d50887fc5d}{t\-\_\-gmx\-\_\-settledata}
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{csettle_8c_a3d76ae25caebcc4d6f2d042cea64e009}{init\-\_\-proj\-\_\-matrix} (\hyperlink{structsettleparam__t}{settleparam\-\_\-t} $\ast$p, real invm\-O, real invm\-H, real d\-O\-H, real d\-H\-H)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{csettle_8c_a1c5468932830dbacf3c6db9ca10d1476}{settleparam\-\_\-init} (\hyperlink{structsettleparam__t}{settleparam\-\_\-t} $\ast$p, real m\-O, real m\-H, real invm\-O, real invm\-H, real d\-O\-H, real d\-H\-H)
+\item 
+\hyperlink{include_2types_2constr_8h_a4a1ed00dd48cf2bdee86a5d069f2eea4}{gmx\-\_\-settledata\-\_\-t} \hyperlink{csettle_8c_a7b51a2fdc40a1487a7530615d0e74561}{settle\-\_\-init} (real m\-O, real m\-H, real invm\-O, real invm\-H, real d\-O\-H, real d\-H\-H)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{csettle_8c_a188bb78d8c7f5da9ba25a1878299c086}{settle\-\_\-proj} (\-F\-I\-L\-E $\ast$fp, \hyperlink{include_2types_2constr_8h_a4a1ed00dd48cf2bdee86a5d069f2eea4}{gmx\-\_\-settledata\-\_\-t} settled, int econq, int nsettle, \hyperlink{include_2types_2idef_8h_abb1c069d34f868f1fa980a4c131ba249}{t\-\_\-iatom} iatoms\mbox{[}$\,$\mbox{]}, const \hyperlink{structt__pbc}{t\-\_\-pbc} $\ast$pbc, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$der, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$derp, int calcvir\-\_\-atom\-\_\-end, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aef0bf341f56ce75f09dbb64350488a61}{tensor} vir\-\_\-r\-\_\-m\-\_\-dder, \hyperlink{structt__vetavars}{t\-\_\-vetavars} $\ast$vetavar)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{csettle_8c_ae956737181f394366e3821aa0aa32a51}{csettle} (\hyperlink{include_2types_2constr_8h_a4a1ed00dd48cf2bdee86a5d069f2eea4}{gmx\-\_\-settledata\-\_\-t} settled, int nsettle, \hyperlink{include_2types_2idef_8h_abb1c069d34f868f1fa980a4c131ba249}{t\-\_\-iatom} iatoms\mbox{[}$\,$\mbox{]}, const \hyperlink{structt__pbc}{t\-\_\-pbc} $\ast$pbc, real b4\mbox{[}$\,$\mbox{]}, real after\mbox{[}$\,$\mbox{]}, real invdt, real $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a339df93739a405c3e4b0506624fa27a5}{v}, int \-Calc\-Vir\-Atom\-End, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aef0bf341f56ce75f09dbb64350488a61}{tensor} vir\-\_\-r\-\_\-m\-\_\-dr, int $\ast$\hyperlink{nsc_8c_ac33c8a42a58a6379397850b60be22028}{error}, \hyperlink{structt__vetavars}{t\-\_\-vetavars} $\ast$vetavar)
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Typedef \-Documentation}
+\hypertarget{csettle_8c_ae299706587024894ae3b28d50887fc5d}{\index{csettle.\-c@{csettle.\-c}!t\-\_\-gmx\-\_\-settledata@{t\-\_\-gmx\-\_\-settledata}}
+\index{t\-\_\-gmx\-\_\-settledata@{t\-\_\-gmx\-\_\-settledata}!csettle.c@{csettle.\-c}}
+\subsubsection[{t\-\_\-gmx\-\_\-settledata}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf gmx\-\_\-settledata}  {\bf t\-\_\-gmx\-\_\-settledata}}}\label{csettle_8c_ae299706587024894ae3b28d50887fc5d}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{csettle_8c_ae956737181f394366e3821aa0aa32a51}{\index{csettle.\-c@{csettle.\-c}!csettle@{csettle}}
+\index{csettle@{csettle}!csettle.c@{csettle.\-c}}
+\subsubsection[{csettle}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf csettle} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-settledata\-\_\-t}}]{settled, }
+\item[{int}]{nsettle, }
+\item[{{\bf t\-\_\-iatom}}]{iatoms\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf t\-\_\-pbc} $\ast$}]{pbc, }
+\item[{real}]{b4\mbox{[}$\,$\mbox{]}, }
+\item[{real}]{after\mbox{[}$\,$\mbox{]}, }
+\item[{real}]{invdt, }
+\item[{real $\ast$}]{v, }
+\item[{int}]{\-Calc\-Vir\-Atom\-End, }
+\item[{{\bf tensor}}]{vir\-\_\-r\-\_\-m\-\_\-dr, }
+\item[{int $\ast$}]{error, }
+\item[{{\bf t\-\_\-vetavars} $\ast$}]{vetavar}
+\end{DoxyParamCaption}
+)}}\label{csettle_8c_ae956737181f394366e3821aa0aa32a51}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{csettle_8c_ae956737181f394366e3821aa0aa32a51_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=218pt]{csettle_8c_ae956737181f394366e3821aa0aa32a51_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{csettle_8c_a3d76ae25caebcc4d6f2d042cea64e009}{\index{csettle.\-c@{csettle.\-c}!init\-\_\-proj\-\_\-matrix@{init\-\_\-proj\-\_\-matrix}}
+\index{init\-\_\-proj\-\_\-matrix@{init\-\_\-proj\-\_\-matrix}!csettle.c@{csettle.\-c}}
+\subsubsection[{init\-\_\-proj\-\_\-matrix}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf init\-\_\-proj\-\_\-matrix} (
+\begin{DoxyParamCaption}
+\item[{{\bf settleparam\-\_\-t} $\ast$}]{p, }
+\item[{real}]{invm\-O, }
+\item[{real}]{invm\-H, }
+\item[{real}]{d\-O\-H, }
+\item[{real}]{d\-H\-H}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{csettle_8c_a3d76ae25caebcc4d6f2d042cea64e009}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=342pt]{csettle_8c_a3d76ae25caebcc4d6f2d042cea64e009_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{csettle_8c_a3d76ae25caebcc4d6f2d042cea64e009_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{csettle_8c_a7b51a2fdc40a1487a7530615d0e74561}{\index{csettle.\-c@{csettle.\-c}!settle\-\_\-init@{settle\-\_\-init}}
+\index{settle\-\_\-init@{settle\-\_\-init}!csettle.c@{csettle.\-c}}
+\subsubsection[{settle\-\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-settledata\-\_\-t} {\bf settle\-\_\-init} (
+\begin{DoxyParamCaption}
+\item[{real}]{m\-O, }
+\item[{real}]{m\-H, }
+\item[{real}]{invm\-O, }
+\item[{real}]{invm\-H, }
+\item[{real}]{d\-O\-H, }
+\item[{real}]{d\-H\-H}
+\end{DoxyParamCaption}
+)}}\label{csettle_8c_a7b51a2fdc40a1487a7530615d0e74561}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{csettle_8c_a7b51a2fdc40a1487a7530615d0e74561_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=260pt]{csettle_8c_a7b51a2fdc40a1487a7530615d0e74561_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{csettle_8c_a188bb78d8c7f5da9ba25a1878299c086}{\index{csettle.\-c@{csettle.\-c}!settle\-\_\-proj@{settle\-\_\-proj}}
+\index{settle\-\_\-proj@{settle\-\_\-proj}!csettle.c@{csettle.\-c}}
+\subsubsection[{settle\-\_\-proj}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf settle\-\_\-proj} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{{\bf gmx\-\_\-settledata\-\_\-t}}]{settled, }
+\item[{int}]{econq, }
+\item[{int}]{nsettle, }
+\item[{{\bf t\-\_\-iatom}}]{iatoms\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf t\-\_\-pbc} $\ast$}]{pbc, }
+\item[{{\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec} $\ast$}]{der, }
+\item[{{\bf rvec} $\ast$}]{derp, }
+\item[{int}]{calcvir\-\_\-atom\-\_\-end, }
+\item[{{\bf tensor}}]{vir\-\_\-r\-\_\-m\-\_\-dder, }
+\item[{{\bf t\-\_\-vetavars} $\ast$}]{vetavar}
+\end{DoxyParamCaption}
+)}}\label{csettle_8c_a188bb78d8c7f5da9ba25a1878299c086}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=348pt]{csettle_8c_a188bb78d8c7f5da9ba25a1878299c086_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=234pt]{csettle_8c_a188bb78d8c7f5da9ba25a1878299c086_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{csettle_8c_a1c5468932830dbacf3c6db9ca10d1476}{\index{csettle.\-c@{csettle.\-c}!settleparam\-\_\-init@{settleparam\-\_\-init}}
+\index{settleparam\-\_\-init@{settleparam\-\_\-init}!csettle.c@{csettle.\-c}}
+\subsubsection[{settleparam\-\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf settleparam\-\_\-init} (
+\begin{DoxyParamCaption}
+\item[{{\bf settleparam\-\_\-t} $\ast$}]{p, }
+\item[{real}]{m\-O, }
+\item[{real}]{m\-H, }
+\item[{real}]{invm\-O, }
+\item[{real}]{invm\-H, }
+\item[{real}]{d\-O\-H, }
+\item[{real}]{d\-H\-H}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{csettle_8c_a1c5468932830dbacf3c6db9ca10d1476}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{csettle_8c_a1c5468932830dbacf3c6db9ca10d1476_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{csettle_8c_a1c5468932830dbacf3c6db9ca10d1476_icgraph}
+\end{center}
+\end{figure}
+
+

@@ -1,0 +1,778 @@
+\hypertarget{manager_8c}{\section{src/ngmx/manager.c \-File \-Reference}
+\label{manager_8c}\index{src/ngmx/manager.\-c@{src/ngmx/manager.\-c}}
+}
+{\ttfamily \#include $<$sysstuff.\-h$>$}\*
+{\ttfamily \#include $<$string.\-h$>$}\*
+{\ttfamily \#include $<$smalloc.\-h$>$}\*
+{\ttfamily \#include $<$ctype.\-h$>$}\*
+{\ttfamily \#include $<$typedefs.\-h$>$}\*
+{\ttfamily \#include $<$tpxio.\-h$>$}\*
+{\ttfamily \#include $<$macros.\-h$>$}\*
+{\ttfamily \#include $<$maths.\-h$>$}\*
+{\ttfamily \#include $<$atomprop.\-h$>$}\*
+{\ttfamily \#include $<$names.\-h$>$}\*
+{\ttfamily \#include \char`\"{}manager.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}futil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}pbc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}nmol.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}copyrite.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gstat.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}vec.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}statutil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}string2.\-h\char`\"{}}\*
+\-Include dependency graph for manager.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{manager_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{manager_8c_a3fd2b1bcd7ddcf506237987ad780f495}{\-D\-E\-L\-T\-A}~5
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{manager_8c_afdfb62097be97c53f6973945465ab4e8}{add\-\_\-object} (\hyperlink{structt__manager}{t\-\_\-manager} $\ast$man, \hyperlink{manager_8h_ad239e8ca5e4743e02612a9edf05a6cc7}{e\-Object} e\-O, \hyperlink{include_2types_2simple_8h_ad3f47cdb48677e516e2049719612c737}{atom\-\_\-id} ai, \hyperlink{include_2types_2simple_8h_ad3f47cdb48677e516e2049719612c737}{atom\-\_\-id} aj)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{manager_8c_a6ee870279f2e08786271af6a40842476}{add\-\_\-bonds} (\hyperlink{structt__manager}{t\-\_\-manager} $\ast$man, \hyperlink{include_2types_2idef_8h_a8150aed9cb62c0b3826244d7caeb0a57}{t\-\_\-functype} func\mbox{[}$\,$\mbox{]}, \hyperlink{structt__ilist}{t\-\_\-ilist} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afb462a5dea72ae7992f073bfd756fb5f}{b}, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-B\mbox{[}$\,$\mbox{]})
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{manager_8c_a5d2e0ac0f5d0b49de5a9f40686af8ef6}{add\-\_\-bpl} (\hyperlink{structt__manager}{t\-\_\-manager} $\ast$man, \hyperlink{structt__idef}{t\-\_\-idef} $\ast$idef, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-B\mbox{[}$\,$\mbox{]})
+\item 
+static \hyperlink{include_2types_2simple_8h_ad3f47cdb48677e516e2049719612c737}{atom\-\_\-id} \hyperlink{manager_8c_a50758020086052e3da9ddc984f4fb06b}{which\-\_\-atom} (\hyperlink{structt__manager}{t\-\_\-manager} $\ast$man, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ad992d70ec70c927046cfc2ab1c79b188}{y})
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{manager_8c_a90e1f8c480c1b3ed1f142399c068f084}{do\-\_\-label} (\hyperlink{structt__x11}{t\-\_\-x11} $\ast$x11, \hyperlink{structt__manager}{t\-\_\-manager} $\ast$man, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ad992d70ec70c927046cfc2ab1c79b188}{y}, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Set)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{manager_8c_ab6fcc48321b0a2d61a72cc4d9138e0c2}{show\-\_\-label} (\hyperlink{structt__x11}{t\-\_\-x11} $\ast$x11, \hyperlink{structt__manager}{t\-\_\-manager} $\ast$man, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ad992d70ec70c927046cfc2ab1c79b188}{y})
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{manager_8c_acb3407c11145429786e6c68e520a0e6c}{hide\-\_\-label} (\hyperlink{structt__x11}{t\-\_\-x11} $\ast$x11, \hyperlink{structt__manager}{t\-\_\-manager} $\ast$man, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ad992d70ec70c927046cfc2ab1c79b188}{y})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{manager_8c_ab6a20afbc1fc741b812e2a2f45be22d2}{set\-\_\-file} (\hyperlink{structt__x11}{t\-\_\-x11} $\ast$x11, \hyperlink{structt__manager}{t\-\_\-manager} $\ast$man, const char $\ast$trajectory, const char $\ast$status)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{manager_8c_a472337a19cbce57f65d7fd02b630fa5e}{step\-\_\-message} (\hyperlink{structt__x11}{t\-\_\-x11} $\ast$x11, \hyperlink{structt__manager}{t\-\_\-manager} $\ast$man)
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{manager_8c_a3baa4e1ad46676e026fad0471329b13b}{\-Read\-Monfile} (char $\ast$fn, int $\ast$nbars, int $\ast$bars)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{manager_8c_a999bd66a89775eee69da029493662b37}{reset\-\_\-mols} (\hyperlink{structt__block}{t\-\_\-block} $\ast$mols, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]})
+\item 
+static \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{manager_8c_a680cd5bc2a74817debec73f69d34c699}{step\-\_\-man} (\hyperlink{structt__manager}{t\-\_\-manager} $\ast$man, int $\ast$nat)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{manager_8c_ab4216cb397626149bcd5c428918dda93}{\-Handle\-Client} (\hyperlink{structt__x11}{t\-\_\-x11} $\ast$x11, \hyperlink{structt__manager}{t\-\_\-manager} $\ast$man, long data\mbox{[}$\,$\mbox{]})
+\item 
+static \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{manager_8c_a6c11e6ab06d2d5135d4ff42e18fa0243}{\-Title\-Call\-Back} (\hyperlink{structt__x11}{t\-\_\-x11} $\ast$x11, \-X\-Event $\ast$event, \-Window \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_adf78cb898ff892dd3fa9c4a1da899392}{w}, \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$data)
+\item 
+static \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{manager_8c_aa3ed86ab62083b44e5dc2ad2f07feec2}{\-Man\-Call\-Back} (\hyperlink{structt__x11}{t\-\_\-x11} $\ast$x11, \-X\-Event $\ast$event, \-Window \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_adf78cb898ff892dd3fa9c4a1da899392}{w}, \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$data)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{manager_8c_a8d485830fabb12762272c66593e1bdbe}{no\-\_\-labels} (\hyperlink{structt__x11}{t\-\_\-x11} $\ast$x11, \hyperlink{structt__manager}{t\-\_\-manager} $\ast$man)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{manager_8c_aec1c67ef763de7fcbd34ba2b9a98c21a}{move\-\_\-man} (\hyperlink{structt__x11}{t\-\_\-x11} $\ast$x11, \hyperlink{structt__manager}{t\-\_\-manager} $\ast$man, int width, int height)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{manager_8c_a4e578d96f3dd14390e136c14e63ed9fc}{map\-\_\-man} (\hyperlink{structt__x11}{t\-\_\-x11} $\ast$x11, \hyperlink{structt__manager}{t\-\_\-manager} $\ast$man)
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{manager_8c_a4579208db7fa5347c881d84765f0c45d}{toggle\-\_\-animate} (\hyperlink{structt__x11}{t\-\_\-x11} $\ast$x11, \hyperlink{structt__manager}{t\-\_\-manager} $\ast$man)
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{manager_8c_a5f8c18f0c29f10e7fd5a06621c02e2e0}{toggle\-\_\-pbc} (\hyperlink{structt__manager}{t\-\_\-manager} $\ast$man)
+\item 
+\hyperlink{structt__manager}{t\-\_\-manager} $\ast$ \hyperlink{manager_8c_ad74be83b172e0c669b1038f75ee10e95}{init\-\_\-man} (\hyperlink{structt__x11}{t\-\_\-x11} $\ast$x11, \-Window \-Parent, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ad992d70ec70c927046cfc2ab1c79b188}{y}, int width, int height, unsigned long fg, unsigned long bg, int e\-P\-B\-C, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box, const \hyperlink{include_2types_2oenv_8h_a6a48d77d95132d7318780544821da6a5}{output\-\_\-env\-\_\-t} oenv)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{manager_8c_a30ea647af4023bf88406ac89606b4b43}{done\-\_\-man} (\hyperlink{structt__x11}{t\-\_\-x11} $\ast$x11, \hyperlink{structt__manager}{t\-\_\-manager} $\ast$man)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{manager_8c_abfbc15c1674054a7e8a1c6a1fa27dcaa}{do\-\_\-filter} (\hyperlink{structt__x11}{t\-\_\-x11} $\ast$x11, \hyperlink{structt__manager}{t\-\_\-manager} $\ast$man, \hyperlink{structt__filter}{t\-\_\-filter} $\ast$\hyperlink{gmx__analyze_8c_ae15554e763144d13e60b4f8df6a052da}{filter})
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Define \-Documentation}
+\hypertarget{manager_8c_a3fd2b1bcd7ddcf506237987ad780f495}{\index{manager.\-c@{manager.\-c}!\-D\-E\-L\-T\-A@{\-D\-E\-L\-T\-A}}
+\index{\-D\-E\-L\-T\-A@{\-D\-E\-L\-T\-A}!manager.c@{manager.\-c}}
+\subsubsection[{\-D\-E\-L\-T\-A}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-D\-E\-L\-T\-A}~5}}\label{manager_8c_a3fd2b1bcd7ddcf506237987ad780f495}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{manager_8c_a6ee870279f2e08786271af6a40842476}{\index{manager.\-c@{manager.\-c}!add\-\_\-bonds@{add\-\_\-bonds}}
+\index{add\-\_\-bonds@{add\-\_\-bonds}!manager.c@{manager.\-c}}
+\subsubsection[{add\-\_\-bonds}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf add\-\_\-bonds} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-manager} $\ast$}]{man, }
+\item[{{\bf t\-\_\-functype}}]{func\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf t\-\_\-ilist} $\ast$}]{b, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-B\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{manager_8c_a6ee870279f2e08786271af6a40842476}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=244pt]{manager_8c_a6ee870279f2e08786271af6a40842476_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{manager_8c_a6ee870279f2e08786271af6a40842476_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{manager_8c_a5d2e0ac0f5d0b49de5a9f40686af8ef6}{\index{manager.\-c@{manager.\-c}!add\-\_\-bpl@{add\-\_\-bpl}}
+\index{add\-\_\-bpl@{add\-\_\-bpl}!manager.c@{manager.\-c}}
+\subsubsection[{add\-\_\-bpl}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf add\-\_\-bpl} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-manager} $\ast$}]{man, }
+\item[{{\bf t\-\_\-idef} $\ast$}]{idef, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-B\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{manager_8c_a5d2e0ac0f5d0b49de5a9f40686af8ef6}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=330pt]{manager_8c_a5d2e0ac0f5d0b49de5a9f40686af8ef6_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{manager_8c_a5d2e0ac0f5d0b49de5a9f40686af8ef6_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{manager_8c_afdfb62097be97c53f6973945465ab4e8}{\index{manager.\-c@{manager.\-c}!add\-\_\-object@{add\-\_\-object}}
+\index{add\-\_\-object@{add\-\_\-object}!manager.c@{manager.\-c}}
+\subsubsection[{add\-\_\-object}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf add\-\_\-object} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-manager} $\ast$}]{man, }
+\item[{{\bf e\-Object}}]{e\-O, }
+\item[{{\bf atom\-\_\-id}}]{ai, }
+\item[{{\bf atom\-\_\-id}}]{aj}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{manager_8c_afdfb62097be97c53f6973945465ab4e8}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{manager_8c_afdfb62097be97c53f6973945465ab4e8_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{manager_8c_abfbc15c1674054a7e8a1c6a1fa27dcaa}{\index{manager.\-c@{manager.\-c}!do\-\_\-filter@{do\-\_\-filter}}
+\index{do\-\_\-filter@{do\-\_\-filter}!manager.c@{manager.\-c}}
+\subsubsection[{do\-\_\-filter}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf do\-\_\-filter} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-x11} $\ast$}]{x11, }
+\item[{{\bf t\-\_\-manager} $\ast$}]{man, }
+\item[{{\bf t\-\_\-filter} $\ast$}]{filter}
+\end{DoxyParamCaption}
+)}}\label{manager_8c_abfbc15c1674054a7e8a1c6a1fa27dcaa}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=236pt]{manager_8c_abfbc15c1674054a7e8a1c6a1fa27dcaa_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{manager_8c_abfbc15c1674054a7e8a1c6a1fa27dcaa_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{manager_8c_a90e1f8c480c1b3ed1f142399c068f084}{\index{manager.\-c@{manager.\-c}!do\-\_\-label@{do\-\_\-label}}
+\index{do\-\_\-label@{do\-\_\-label}!manager.c@{manager.\-c}}
+\subsubsection[{do\-\_\-label}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf do\-\_\-label} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-x11} $\ast$}]{x11, }
+\item[{{\bf t\-\_\-manager} $\ast$}]{man, }
+\item[{int}]{x, }
+\item[{int}]{y, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Set}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{manager_8c_a90e1f8c480c1b3ed1f142399c068f084}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=240pt]{manager_8c_a90e1f8c480c1b3ed1f142399c068f084_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{manager_8c_a90e1f8c480c1b3ed1f142399c068f084_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{manager_8c_a30ea647af4023bf88406ac89606b4b43}{\index{manager.\-c@{manager.\-c}!done\-\_\-man@{done\-\_\-man}}
+\index{done\-\_\-man@{done\-\_\-man}!manager.c@{manager.\-c}}
+\subsubsection[{done\-\_\-man}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf done\-\_\-man} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-x11} $\ast$}]{x11, }
+\item[{{\bf t\-\_\-manager} $\ast$}]{man}
+\end{DoxyParamCaption}
+)}}\label{manager_8c_a30ea647af4023bf88406ac89606b4b43}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=242pt]{manager_8c_a30ea647af4023bf88406ac89606b4b43_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{manager_8c_a30ea647af4023bf88406ac89606b4b43_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{manager_8c_ab4216cb397626149bcd5c428918dda93}{\index{manager.\-c@{manager.\-c}!\-Handle\-Client@{\-Handle\-Client}}
+\index{\-Handle\-Client@{\-Handle\-Client}!manager.c@{manager.\-c}}
+\subsubsection[{\-Handle\-Client}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf \-Handle\-Client} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-x11} $\ast$}]{x11, }
+\item[{{\bf t\-\_\-manager} $\ast$}]{man, }
+\item[{long}]{data\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{manager_8c_ab4216cb397626149bcd5c428918dda93}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{manager_8c_ab4216cb397626149bcd5c428918dda93_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{manager_8c_ab4216cb397626149bcd5c428918dda93_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{manager_8c_acb3407c11145429786e6c68e520a0e6c}{\index{manager.\-c@{manager.\-c}!hide\-\_\-label@{hide\-\_\-label}}
+\index{hide\-\_\-label@{hide\-\_\-label}!manager.c@{manager.\-c}}
+\subsubsection[{hide\-\_\-label}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf hide\-\_\-label} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-x11} $\ast$}]{x11, }
+\item[{{\bf t\-\_\-manager} $\ast$}]{man, }
+\item[{int}]{x, }
+\item[{int}]{y}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{manager_8c_acb3407c11145429786e6c68e520a0e6c}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=336pt]{manager_8c_acb3407c11145429786e6c68e520a0e6c_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{manager_8c_acb3407c11145429786e6c68e520a0e6c_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{manager_8c_ad74be83b172e0c669b1038f75ee10e95}{\index{manager.\-c@{manager.\-c}!init\-\_\-man@{init\-\_\-man}}
+\index{init\-\_\-man@{init\-\_\-man}!manager.c@{manager.\-c}}
+\subsubsection[{init\-\_\-man}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\-\_\-manager}$\ast$ {\bf init\-\_\-man} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-x11} $\ast$}]{x11, }
+\item[{\-Window}]{\-Parent, }
+\item[{int}]{x, }
+\item[{int}]{y, }
+\item[{int}]{width, }
+\item[{int}]{height, }
+\item[{unsigned long}]{fg, }
+\item[{unsigned long}]{bg, }
+\item[{int}]{e\-P\-B\-C, }
+\item[{{\bf matrix}}]{box, }
+\item[{const {\bf output\-\_\-env\-\_\-t}}]{oenv}
+\end{DoxyParamCaption}
+)}}\label{manager_8c_ad74be83b172e0c669b1038f75ee10e95}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{manager_8c_ad74be83b172e0c669b1038f75ee10e95_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=298pt]{manager_8c_ad74be83b172e0c669b1038f75ee10e95_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{manager_8c_aa3ed86ab62083b44e5dc2ad2f07feec2}{\index{manager.\-c@{manager.\-c}!\-Man\-Call\-Back@{\-Man\-Call\-Back}}
+\index{\-Man\-Call\-Back@{\-Man\-Call\-Back}!manager.c@{manager.\-c}}
+\subsubsection[{\-Man\-Call\-Back}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gmx\-\_\-bool} {\bf \-Man\-Call\-Back} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-x11} $\ast$}]{x11, }
+\item[{\-X\-Event $\ast$}]{event, }
+\item[{\-Window}]{w, }
+\item[{{\bf void} $\ast$}]{data}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{manager_8c_aa3ed86ab62083b44e5dc2ad2f07feec2}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{manager_8c_aa3ed86ab62083b44e5dc2ad2f07feec2_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{manager_8c_aa3ed86ab62083b44e5dc2ad2f07feec2_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{manager_8c_a4e578d96f3dd14390e136c14e63ed9fc}{\index{manager.\-c@{manager.\-c}!map\-\_\-man@{map\-\_\-man}}
+\index{map\-\_\-man@{map\-\_\-man}!manager.c@{manager.\-c}}
+\subsubsection[{map\-\_\-man}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf map\-\_\-man} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-x11} $\ast$}]{x11, }
+\item[{{\bf t\-\_\-manager} $\ast$}]{man}
+\end{DoxyParamCaption}
+)}}\label{manager_8c_a4e578d96f3dd14390e136c14e63ed9fc}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=238pt]{manager_8c_a4e578d96f3dd14390e136c14e63ed9fc_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=304pt]{manager_8c_a4e578d96f3dd14390e136c14e63ed9fc_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{manager_8c_aec1c67ef763de7fcbd34ba2b9a98c21a}{\index{manager.\-c@{manager.\-c}!move\-\_\-man@{move\-\_\-man}}
+\index{move\-\_\-man@{move\-\_\-man}!manager.c@{manager.\-c}}
+\subsubsection[{move\-\_\-man}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf move\-\_\-man} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-x11} $\ast$}]{x11, }
+\item[{{\bf t\-\_\-manager} $\ast$}]{man, }
+\item[{int}]{width, }
+\item[{int}]{height}
+\end{DoxyParamCaption}
+)}}\label{manager_8c_aec1c67ef763de7fcbd34ba2b9a98c21a}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{manager_8c_aec1c67ef763de7fcbd34ba2b9a98c21a_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{manager_8c_a8d485830fabb12762272c66593e1bdbe}{\index{manager.\-c@{manager.\-c}!no\-\_\-labels@{no\-\_\-labels}}
+\index{no\-\_\-labels@{no\-\_\-labels}!manager.c@{manager.\-c}}
+\subsubsection[{no\-\_\-labels}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf no\-\_\-labels} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-x11} $\ast$}]{x11, }
+\item[{{\bf t\-\_\-manager} $\ast$}]{man}
+\end{DoxyParamCaption}
+)}}\label{manager_8c_a8d485830fabb12762272c66593e1bdbe}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{manager_8c_a8d485830fabb12762272c66593e1bdbe_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{manager_8c_a8d485830fabb12762272c66593e1bdbe_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{manager_8c_a3baa4e1ad46676e026fad0471329b13b}{\index{manager.\-c@{manager.\-c}!\-Read\-Monfile@{\-Read\-Monfile}}
+\index{\-Read\-Monfile@{\-Read\-Monfile}!manager.c@{manager.\-c}}
+\subsubsection[{\-Read\-Monfile}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf \-Read\-Monfile} (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{fn, }
+\item[{int $\ast$}]{nbars, }
+\item[{int $\ast$}]{bars}
+\end{DoxyParamCaption}
+)}}\label{manager_8c_a3baa4e1ad46676e026fad0471329b13b}
+\hypertarget{manager_8c_a999bd66a89775eee69da029493662b37}{\index{manager.\-c@{manager.\-c}!reset\-\_\-mols@{reset\-\_\-mols}}
+\index{reset\-\_\-mols@{reset\-\_\-mols}!manager.c@{manager.\-c}}
+\subsubsection[{reset\-\_\-mols}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf reset\-\_\-mols} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-block} $\ast$}]{mols, }
+\item[{{\bf matrix}}]{box, }
+\item[{{\bf rvec}}]{x\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{manager_8c_a999bd66a89775eee69da029493662b37}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=244pt]{manager_8c_a999bd66a89775eee69da029493662b37_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{manager_8c_a999bd66a89775eee69da029493662b37_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{manager_8c_ab6a20afbc1fc741b812e2a2f45be22d2}{\index{manager.\-c@{manager.\-c}!set\-\_\-file@{set\-\_\-file}}
+\index{set\-\_\-file@{set\-\_\-file}!manager.c@{manager.\-c}}
+\subsubsection[{set\-\_\-file}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf set\-\_\-file} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-x11} $\ast$}]{x11, }
+\item[{{\bf t\-\_\-manager} $\ast$}]{man, }
+\item[{const char $\ast$}]{trajectory, }
+\item[{const char $\ast$}]{status}
+\end{DoxyParamCaption}
+)}}\label{manager_8c_ab6a20afbc1fc741b812e2a2f45be22d2}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{manager_8c_ab6a20afbc1fc741b812e2a2f45be22d2_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=292pt]{manager_8c_ab6a20afbc1fc741b812e2a2f45be22d2_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{manager_8c_ab6fcc48321b0a2d61a72cc4d9138e0c2}{\index{manager.\-c@{manager.\-c}!show\-\_\-label@{show\-\_\-label}}
+\index{show\-\_\-label@{show\-\_\-label}!manager.c@{manager.\-c}}
+\subsubsection[{show\-\_\-label}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf show\-\_\-label} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-x11} $\ast$}]{x11, }
+\item[{{\bf t\-\_\-manager} $\ast$}]{man, }
+\item[{int}]{x, }
+\item[{int}]{y}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{manager_8c_ab6fcc48321b0a2d61a72cc4d9138e0c2}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=342pt]{manager_8c_ab6fcc48321b0a2d61a72cc4d9138e0c2_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{manager_8c_ab6fcc48321b0a2d61a72cc4d9138e0c2_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{manager_8c_a680cd5bc2a74817debec73f69d34c699}{\index{manager.\-c@{manager.\-c}!step\-\_\-man@{step\-\_\-man}}
+\index{step\-\_\-man@{step\-\_\-man}!manager.c@{manager.\-c}}
+\subsubsection[{step\-\_\-man}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gmx\-\_\-bool} {\bf step\-\_\-man} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-manager} $\ast$}]{man, }
+\item[{int $\ast$}]{nat}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{manager_8c_a680cd5bc2a74817debec73f69d34c699}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{manager_8c_a680cd5bc2a74817debec73f69d34c699_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{manager_8c_a680cd5bc2a74817debec73f69d34c699_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{manager_8c_a472337a19cbce57f65d7fd02b630fa5e}{\index{manager.\-c@{manager.\-c}!step\-\_\-message@{step\-\_\-message}}
+\index{step\-\_\-message@{step\-\_\-message}!manager.c@{manager.\-c}}
+\subsubsection[{step\-\_\-message}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf step\-\_\-message} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-x11} $\ast$}]{x11, }
+\item[{{\bf t\-\_\-manager} $\ast$}]{man}
+\end{DoxyParamCaption}
+)}}\label{manager_8c_a472337a19cbce57f65d7fd02b630fa5e}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{manager_8c_a472337a19cbce57f65d7fd02b630fa5e_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{manager_8c_a6c11e6ab06d2d5135d4ff42e18fa0243}{\index{manager.\-c@{manager.\-c}!\-Title\-Call\-Back@{\-Title\-Call\-Back}}
+\index{\-Title\-Call\-Back@{\-Title\-Call\-Back}!manager.c@{manager.\-c}}
+\subsubsection[{\-Title\-Call\-Back}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gmx\-\_\-bool} {\bf \-Title\-Call\-Back} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-x11} $\ast$}]{x11, }
+\item[{\-X\-Event $\ast$}]{event, }
+\item[{\-Window}]{w, }
+\item[{{\bf void} $\ast$}]{data}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{manager_8c_a6c11e6ab06d2d5135d4ff42e18fa0243}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{manager_8c_a6c11e6ab06d2d5135d4ff42e18fa0243_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{manager_8c_a6c11e6ab06d2d5135d4ff42e18fa0243_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{manager_8c_a4579208db7fa5347c881d84765f0c45d}{\index{manager.\-c@{manager.\-c}!toggle\-\_\-animate@{toggle\-\_\-animate}}
+\index{toggle\-\_\-animate@{toggle\-\_\-animate}!manager.c@{manager.\-c}}
+\subsubsection[{toggle\-\_\-animate}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf toggle\-\_\-animate} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-x11} $\ast$}]{x11, }
+\item[{{\bf t\-\_\-manager} $\ast$}]{man}
+\end{DoxyParamCaption}
+)}}\label{manager_8c_a4579208db7fa5347c881d84765f0c45d}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=260pt]{manager_8c_a4579208db7fa5347c881d84765f0c45d_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{manager_8c_a4579208db7fa5347c881d84765f0c45d_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{manager_8c_a5f8c18f0c29f10e7fd5a06621c02e2e0}{\index{manager.\-c@{manager.\-c}!toggle\-\_\-pbc@{toggle\-\_\-pbc}}
+\index{toggle\-\_\-pbc@{toggle\-\_\-pbc}!manager.c@{manager.\-c}}
+\subsubsection[{toggle\-\_\-pbc}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf toggle\-\_\-pbc} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-manager} $\ast$}]{man}
+\end{DoxyParamCaption}
+)}}\label{manager_8c_a5f8c18f0c29f10e7fd5a06621c02e2e0}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{manager_8c_a5f8c18f0c29f10e7fd5a06621c02e2e0_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{manager_8c_a50758020086052e3da9ddc984f4fb06b}{\index{manager.\-c@{manager.\-c}!which\-\_\-atom@{which\-\_\-atom}}
+\index{which\-\_\-atom@{which\-\_\-atom}!manager.c@{manager.\-c}}
+\subsubsection[{which\-\_\-atom}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf atom\-\_\-id} {\bf which\-\_\-atom} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-manager} $\ast$}]{man, }
+\item[{int}]{x, }
+\item[{int}]{y}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{manager_8c_a50758020086052e3da9ddc984f4fb06b}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{manager_8c_a50758020086052e3da9ddc984f4fb06b_icgraph}
+\end{center}
+\end{figure}
+
+

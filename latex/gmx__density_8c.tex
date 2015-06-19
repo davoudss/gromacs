@@ -1,0 +1,309 @@
+\hypertarget{gmx__density_8c}{\section{src/tools/gmx\-\_\-density.c \-File \-Reference}
+\label{gmx__density_8c}\index{src/tools/gmx\-\_\-density.\-c@{src/tools/gmx\-\_\-density.\-c}}
+}
+{\ttfamily \#include $<$math.\-h$>$}\*
+{\ttfamily \#include $<$ctype.\-h$>$}\*
+{\ttfamily \#include \char`\"{}sysstuff.\-h\char`\"{}}\*
+{\ttfamily \#include $<$string.\-h$>$}\*
+{\ttfamily \#include \char`\"{}string2.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}typedefs.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}smalloc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}macros.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gstat.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}vec.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}xvgr.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}pbc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}copyrite.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}futil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}statutil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}index.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}tpxio.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}physics.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-ana.\-h\char`\"{}}\*
+\-Include dependency graph for gmx\-\_\-density.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__density_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structt__electron}{t\-\_\-electron}
+\end{DoxyCompactItemize}
+\subsection*{\-Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{gmx__density_8c_a8485f4e81de2537e6a0935626167a775}{\-N\-F\-I\-L\-E}~\hyperlink{share_2template_2gromacs_2macros_8h_a0883345a58f8f63aefa249a4f127f707}{asize}(fnm)
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{gmx__density_8c_a3caf8bb9fb0df40e9f37f535d2d946a6}{compare} (\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a0880879736d1ab747a972d1942421886}{a}, \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afb462a5dea72ae7992f073bfd756fb5f}{b})
+\item 
+int \hyperlink{gmx__density_8c_a8f6885b2d506ed27fe555298d0e47c42}{get\-\_\-electrons} (\hyperlink{structt__electron}{t\-\_\-electron} $\ast$$\ast$eltab, const char $\ast$fn)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__density_8c_aed59259170854309e9da3c767239e24b}{center\-\_\-coords} (\hyperlink{structt__atoms}{t\-\_\-atoms} $\ast$atoms, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} x0\mbox{[}$\,$\mbox{]}, int axis)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__density_8c_abe1655c4004e2a91e49d2df904981379}{calc\-\_\-electron\-\_\-density} (const char $\ast$fn, \hyperlink{include_2types_2simple_8h_ad3f47cdb48677e516e2049719612c737}{atom\-\_\-id} $\ast$$\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a49fd977001162d7256c8fcd293f9d12a}{index}, int gnx\mbox{[}$\,$\mbox{]}, double $\ast$$\ast$$\ast$sl\-Density, int $\ast$nslices, \hyperlink{structt__topology}{t\-\_\-topology} $\ast$\hyperlink{gmx__disre_8c_a1b538a2ce75aba6c346bc03980ffeb28}{top}, int e\-P\-B\-C, int axis, int nr\-\_\-grps, real $\ast$sl\-Width, \hyperlink{structt__electron}{t\-\_\-electron} eltab\mbox{[}$\,$\mbox{]}, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a560e4062098f77c2d7e5fe83bf09c394}{nr}, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Center, const \hyperlink{include_2types_2oenv_8h_a6a48d77d95132d7318780544821da6a5}{output\-\_\-env\-\_\-t} oenv)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__density_8c_a3df5a23b282b0285b6993f1b9012d275}{calc\-\_\-density} (const char $\ast$fn, \hyperlink{include_2types_2simple_8h_ad3f47cdb48677e516e2049719612c737}{atom\-\_\-id} $\ast$$\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a49fd977001162d7256c8fcd293f9d12a}{index}, int gnx\mbox{[}$\,$\mbox{]}, double $\ast$$\ast$$\ast$sl\-Density, int $\ast$nslices, \hyperlink{structt__topology}{t\-\_\-topology} $\ast$\hyperlink{gmx__disre_8c_a1b538a2ce75aba6c346bc03980ffeb28}{top}, int e\-P\-B\-C, int axis, int nr\-\_\-grps, real $\ast$sl\-Width, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Center, const \hyperlink{include_2types_2oenv_8h_a6a48d77d95132d7318780544821da6a5}{output\-\_\-env\-\_\-t} oenv)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__density_8c_a964bbf443ab117eebde11c78fdf01ee7}{plot\-\_\-density} (double $\ast$sl\-Density\mbox{[}$\,$\mbox{]}, const char $\ast$afile, int nslices, int nr\-\_\-grps, char $\ast$grpname\mbox{[}$\,$\mbox{]}, real sl\-Width, const char $\ast$$\ast$dens\-\_\-opt, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Symmetrize, const \hyperlink{include_2types_2oenv_8h_a6a48d77d95132d7318780544821da6a5}{output\-\_\-env\-\_\-t} oenv)
+\item 
+int \hyperlink{gmx__density_8c_ad170f121ee759afd0c49345e8e26802b}{gmx\-\_\-density} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Define \-Documentation}
+\hypertarget{gmx__density_8c_a8485f4e81de2537e6a0935626167a775}{\index{gmx\-\_\-density.\-c@{gmx\-\_\-density.\-c}!\-N\-F\-I\-L\-E@{\-N\-F\-I\-L\-E}}
+\index{\-N\-F\-I\-L\-E@{\-N\-F\-I\-L\-E}!gmx_density.c@{gmx\-\_\-density.\-c}}
+\subsubsection[{\-N\-F\-I\-L\-E}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-N\-F\-I\-L\-E}~{\bf asize}(fnm)}}\label{gmx__density_8c_a8485f4e81de2537e6a0935626167a775}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{gmx__density_8c_a3df5a23b282b0285b6993f1b9012d275}{\index{gmx\-\_\-density.\-c@{gmx\-\_\-density.\-c}!calc\-\_\-density@{calc\-\_\-density}}
+\index{calc\-\_\-density@{calc\-\_\-density}!gmx_density.c@{gmx\-\_\-density.\-c}}
+\subsubsection[{calc\-\_\-density}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf calc\-\_\-density} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{fn, }
+\item[{{\bf atom\-\_\-id} $\ast$$\ast$}]{index, }
+\item[{int}]{gnx\mbox{[}$\,$\mbox{]}, }
+\item[{double $\ast$$\ast$$\ast$}]{sl\-Density, }
+\item[{int $\ast$}]{nslices, }
+\item[{{\bf t\-\_\-topology} $\ast$}]{top, }
+\item[{int}]{e\-P\-B\-C, }
+\item[{int}]{axis, }
+\item[{int}]{nr\-\_\-grps, }
+\item[{real $\ast$}]{sl\-Width, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Center, }
+\item[{const {\bf output\-\_\-env\-\_\-t}}]{oenv}
+\end{DoxyParamCaption}
+)}}\label{gmx__density_8c_a3df5a23b282b0285b6993f1b9012d275}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__density_8c_a3df5a23b282b0285b6993f1b9012d275_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=334pt]{gmx__density_8c_a3df5a23b282b0285b6993f1b9012d275_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__density_8c_abe1655c4004e2a91e49d2df904981379}{\index{gmx\-\_\-density.\-c@{gmx\-\_\-density.\-c}!calc\-\_\-electron\-\_\-density@{calc\-\_\-electron\-\_\-density}}
+\index{calc\-\_\-electron\-\_\-density@{calc\-\_\-electron\-\_\-density}!gmx_density.c@{gmx\-\_\-density.\-c}}
+\subsubsection[{calc\-\_\-electron\-\_\-density}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf calc\-\_\-electron\-\_\-density} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{fn, }
+\item[{{\bf atom\-\_\-id} $\ast$$\ast$}]{index, }
+\item[{int}]{gnx\mbox{[}$\,$\mbox{]}, }
+\item[{double $\ast$$\ast$$\ast$}]{sl\-Density, }
+\item[{int $\ast$}]{nslices, }
+\item[{{\bf t\-\_\-topology} $\ast$}]{top, }
+\item[{int}]{e\-P\-B\-C, }
+\item[{int}]{axis, }
+\item[{int}]{nr\-\_\-grps, }
+\item[{real $\ast$}]{sl\-Width, }
+\item[{{\bf t\-\_\-electron}}]{eltab\mbox{[}$\,$\mbox{]}, }
+\item[{int}]{nr, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Center, }
+\item[{const {\bf output\-\_\-env\-\_\-t}}]{oenv}
+\end{DoxyParamCaption}
+)}}\label{gmx__density_8c_abe1655c4004e2a91e49d2df904981379}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__density_8c_abe1655c4004e2a91e49d2df904981379_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__density_8c_abe1655c4004e2a91e49d2df904981379_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__density_8c_aed59259170854309e9da3c767239e24b}{\index{gmx\-\_\-density.\-c@{gmx\-\_\-density.\-c}!center\-\_\-coords@{center\-\_\-coords}}
+\index{center\-\_\-coords@{center\-\_\-coords}!gmx_density.c@{gmx\-\_\-density.\-c}}
+\subsubsection[{center\-\_\-coords}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf center\-\_\-coords} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-atoms} $\ast$}]{atoms, }
+\item[{{\bf matrix}}]{box, }
+\item[{{\bf rvec}}]{x0\mbox{[}$\,$\mbox{]}, }
+\item[{int}]{axis}
+\end{DoxyParamCaption}
+)}}\label{gmx__density_8c_aed59259170854309e9da3c767239e24b}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=282pt]{gmx__density_8c_aed59259170854309e9da3c767239e24b_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__density_8c_aed59259170854309e9da3c767239e24b_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__density_8c_a3caf8bb9fb0df40e9f37f535d2d946a6}{\index{gmx\-\_\-density.\-c@{gmx\-\_\-density.\-c}!compare@{compare}}
+\index{compare@{compare}!gmx_density.c@{gmx\-\_\-density.\-c}}
+\subsubsection[{compare}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf compare} (
+\begin{DoxyParamCaption}
+\item[{{\bf void} $\ast$}]{a, }
+\item[{{\bf void} $\ast$}]{b}
+\end{DoxyParamCaption}
+)}}\label{gmx__density_8c_a3caf8bb9fb0df40e9f37f535d2d946a6}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__density_8c_a3caf8bb9fb0df40e9f37f535d2d946a6_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__density_8c_a8f6885b2d506ed27fe555298d0e47c42}{\index{gmx\-\_\-density.\-c@{gmx\-\_\-density.\-c}!get\-\_\-electrons@{get\-\_\-electrons}}
+\index{get\-\_\-electrons@{get\-\_\-electrons}!gmx_density.c@{gmx\-\_\-density.\-c}}
+\subsubsection[{get\-\_\-electrons}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf get\-\_\-electrons} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-electron} $\ast$$\ast$}]{eltab, }
+\item[{const char $\ast$}]{fn}
+\end{DoxyParamCaption}
+)}}\label{gmx__density_8c_a8f6885b2d506ed27fe555298d0e47c42}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=252pt]{gmx__density_8c_a8f6885b2d506ed27fe555298d0e47c42_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=338pt]{gmx__density_8c_a8f6885b2d506ed27fe555298d0e47c42_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__density_8c_ad170f121ee759afd0c49345e8e26802b}{\index{gmx\-\_\-density.\-c@{gmx\-\_\-density.\-c}!gmx\-\_\-density@{gmx\-\_\-density}}
+\index{gmx\-\_\-density@{gmx\-\_\-density}!gmx_density.c@{gmx\-\_\-density.\-c}}
+\subsubsection[{gmx\-\_\-density}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-density} (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{gmx__density_8c_ad170f121ee759afd0c49345e8e26802b}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__density_8c_ad170f121ee759afd0c49345e8e26802b_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=226pt]{gmx__density_8c_ad170f121ee759afd0c49345e8e26802b_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__density_8c_a964bbf443ab117eebde11c78fdf01ee7}{\index{gmx\-\_\-density.\-c@{gmx\-\_\-density.\-c}!plot\-\_\-density@{plot\-\_\-density}}
+\index{plot\-\_\-density@{plot\-\_\-density}!gmx_density.c@{gmx\-\_\-density.\-c}}
+\subsubsection[{plot\-\_\-density}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf plot\-\_\-density} (
+\begin{DoxyParamCaption}
+\item[{double $\ast$}]{sl\-Density\mbox{[}$\,$\mbox{]}, }
+\item[{const char $\ast$}]{afile, }
+\item[{int}]{nslices, }
+\item[{int}]{nr\-\_\-grps, }
+\item[{char $\ast$}]{grpname\mbox{[}$\,$\mbox{]}, }
+\item[{real}]{sl\-Width, }
+\item[{const char $\ast$$\ast$}]{dens\-\_\-opt, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Symmetrize, }
+\item[{const {\bf output\-\_\-env\-\_\-t}}]{oenv}
+\end{DoxyParamCaption}
+)}}\label{gmx__density_8c_a964bbf443ab117eebde11c78fdf01ee7}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=256pt]{gmx__density_8c_a964bbf443ab117eebde11c78fdf01ee7_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=332pt]{gmx__density_8c_a964bbf443ab117eebde11c78fdf01ee7_icgraph}
+\end{center}
+\end{figure}
+
+

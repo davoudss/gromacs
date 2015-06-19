@@ -1,0 +1,53 @@
+\hypertarget{structtMPI__Spinlock__t}{\section{t\-M\-P\-I\-\_\-\-Spinlock\-\_\-t \-Struct \-Reference}
+\label{structtMPI__Spinlock__t}\index{t\-M\-P\-I\-\_\-\-Spinlock\-\_\-t@{t\-M\-P\-I\-\_\-\-Spinlock\-\_\-t}}
+}
+
+
+{\ttfamily \#include $<$atomic.\-h$>$}
+
+
+
+\-Collaboration diagram for t\-M\-P\-I\-\_\-\-Spinlock\-\_\-t\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=256pt]{structtMPI__Spinlock__t__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{\-Public \-Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structtMPI__Thread__mutex__t}{t\-M\-P\-I\-\_\-\-Thread\-\_\-mutex\-\_\-t} \hyperlink{structtMPI__Spinlock__t_aab4bfe38103faeceb8aecb300d53629e}{lock}
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Detailed \-Description}
+\-Spinlock
+
+\-Spinlocks provide a faster synchronization than mutexes, although they consume \-C\-P\-U-\/cycles while waiting. \-They are implemented with atomic operations and inline assembly whenever possible, and otherwise we use a fallback implementation where a spinlock is identical to a mutex (this is one of the reasons why you have to initialize them).
+
+\-There are no guarantees whatsoever about fair scheduling or debugging if you make a mistake and unlock a variable somebody else has locked -\/ performance is the primary goal of spinlocks.
+
+\begin{DoxySeeAlso}{\-See also}
+
+\begin{DoxyItemize}
+\item \hyperlink{share_2template_2gromacs_2thread__mpi_2atomic_2xlc__ppc_8h_a43bcfcb921d49a8a459787430b948727}{t\-M\-P\-I\-\_\-\-Spinlock\-\_\-init}
+\item \hyperlink{share_2template_2gromacs_2thread__mpi_2atomic_2xlc__ppc_8h_ae1329dd787dd2280bef3e4f931acd78d}{t\-M\-P\-I\-\_\-\-Spinlock\-\_\-lock}
+\item \hyperlink{share_2template_2gromacs_2thread__mpi_2atomic_2xlc__ppc_8h_a0058b8c076a24c3a769a4e452a83b62b}{t\-M\-P\-I\-\_\-\-Spinlock\-\_\-unlock}
+\item \hyperlink{share_2template_2gromacs_2thread__mpi_2atomic_2xlc__ppc_8h_a1181c0c3e26cb0ce21564d48c44c5f8b}{t\-M\-P\-I\-\_\-\-Spinlock\-\_\-trylock}
+\item \hyperlink{share_2template_2gromacs_2thread__mpi_2atomic_8h_abe9d8b9affd3d12fae787f6a8ce11a15}{t\-M\-P\-I\-\_\-\-Spinlock\-\_\-wait} 
+\end{DoxyItemize}
+\end{DoxySeeAlso}
+
+
+\subsection{\-Member \-Data \-Documentation}
+\hypertarget{structtMPI__Spinlock__t_aab4bfe38103faeceb8aecb300d53629e}{\index{t\-M\-P\-I\-\_\-\-Spinlock\-\_\-t@{t\-M\-P\-I\-\_\-\-Spinlock\-\_\-t}!lock@{lock}}
+\index{lock@{lock}!tMPI_Spinlock_t@{t\-M\-P\-I\-\_\-\-Spinlock\-\_\-t}}
+\subsubsection[{lock}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\-M\-P\-I\-\_\-\-Thread\-\_\-mutex\-\_\-t} {\bf t\-M\-P\-I\-\_\-\-Spinlock\-\_\-t\-::lock}}}\label{structtMPI__Spinlock__t_aab4bfe38103faeceb8aecb300d53629e}
+
+
+\-The documentation for this struct was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+include/thread\-\_\-mpi/\hyperlink{include_2thread__mpi_2atomic_8h}{atomic.\-h}\item 
+share/template/gromacs/thread\-\_\-mpi/\hyperlink{share_2template_2gromacs_2thread__mpi_2atomic_8h}{atomic.\-h}\end{DoxyCompactItemize}

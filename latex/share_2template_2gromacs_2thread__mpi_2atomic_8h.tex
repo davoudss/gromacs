@@ -1,0 +1,668 @@
+\hypertarget{share_2template_2gromacs_2thread__mpi_2atomic_8h}{\section{share/template/gromacs/thread\-\_\-mpi/atomic.h \-File \-Reference}
+\label{share_2template_2gromacs_2thread__mpi_2atomic_8h}\index{share/template/gromacs/thread\-\_\-mpi/atomic.\-h@{share/template/gromacs/thread\-\_\-mpi/atomic.\-h}}
+}
+{\ttfamily \#include $<$stdio.\-h$>$}\*
+{\ttfamily \#include \char`\"{}visibility.\-h\char`\"{}}\*
+\-Include dependency graph for atomic.\-h\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=292pt]{share_2template_2gromacs_2thread__mpi_2atomic_8h__incl}
+\end{center}
+\end{figure}
+\-This graph shows which files directly or indirectly include this file\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{share_2template_2gromacs_2thread__mpi_2atomic_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structtMPI__Atomic}{t\-M\-P\-I\-\_\-\-Atomic}
+\item 
+struct \hyperlink{structtMPI__Atomic__ptr}{t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr}
+\item 
+struct \hyperlink{structtMPI__Spinlock__t}{t\-M\-P\-I\-\_\-\-Spinlock\-\_\-t}
+\end{DoxyCompactItemize}
+\subsection*{\-Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{share_2template_2gromacs_2thread__mpi_2atomic_8h_aebbcb661ffeffb8ab6cbe25bcdcb058e}{\-T\-M\-P\-I\-\_\-\-N\-O\-\_\-\-A\-T\-O\-M\-I\-C\-S}
+\item 
+\#define \hyperlink{share_2template_2gromacs_2thread__mpi_2atomic_8h_a5d2ee17509e3123d1c71d00b02888daa}{t\-M\-P\-I\-\_\-\-Atomic\-\_\-memory\-\_\-barrier}()
+\item 
+\#define \hyperlink{share_2template_2gromacs_2thread__mpi_2atomic_8h_af1d9b20785b884a3d87a575a1f226ed0}{t\-M\-P\-I\-\_\-\-Atomic\-\_\-memory\-\_\-barrier\-\_\-acq}()
+\item 
+\#define \hyperlink{share_2template_2gromacs_2thread__mpi_2atomic_8h_afa737e392a24516296c8505ac6ff1458}{t\-M\-P\-I\-\_\-\-Atomic\-\_\-memory\-\_\-barrier\-\_\-rel}()
+\item 
+\#define \hyperlink{share_2template_2gromacs_2thread__mpi_2atomic_8h_a1e5bbd6483e8792893f3a5e8e2bbe510}{\-T\-M\-P\-I\-\_\-\-S\-P\-I\-N\-L\-O\-C\-K\-\_\-\-I\-N\-I\-T\-I\-A\-L\-I\-Z\-E\-R}~\{ \hyperlink{share_2template_2gromacs_2thread__mpi_2threads_8h_a94b533e44508703553567bd41dfc5b2b}{\-T\-M\-P\-I\-\_\-\-T\-H\-R\-E\-A\-D\-\_\-\-M\-U\-T\-E\-X\-\_\-\-I\-N\-I\-T\-I\-A\-L\-I\-Z\-E\-R} \}
+\begin{DoxyCompactList}\small\item\em \-Spinlock static initializer. \end{DoxyCompactList}\item 
+\#define \hyperlink{share_2template_2gromacs_2thread__mpi_2atomic_8h_ad046655ee56cc30c2a8719f3d1091b8e}{t\-M\-P\-I\-\_\-\-Atomic\-\_\-get}(\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a0880879736d1ab747a972d1942421886}{a})~((\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a0880879736d1ab747a972d1942421886}{a})-\/$>$value)
+\item 
+\#define \hyperlink{share_2template_2gromacs_2thread__mpi_2atomic_8h_a0769c59b89bb5ff489110f9de52658cf}{t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-get}(\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a0880879736d1ab747a972d1942421886}{a})~((\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a0880879736d1ab747a972d1942421886}{a})-\/$>$value)
+\item 
+\#define \hyperlink{share_2template_2gromacs_2thread__mpi_2atomic_8h_a3659bcc9f4e4e85a744ca0261a06b863}{t\-M\-P\-I\-\_\-\-Spinlock\-\_\-init}(\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x})~\hyperlink{share_2template_2gromacs_2thread__mpi_2threads_8h_acbd87bb346dba07abbd0adb00ad12221}{t\-M\-P\-I\-\_\-\-Thread\-\_\-mutex\-\_\-init}((\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x})-\/$>$lock)
+\item 
+\#define \hyperlink{share_2template_2gromacs_2thread__mpi_2atomic_8h_a2803cb18c476e44a4d3a830d0bbf9ba8}{t\-M\-P\-I\-\_\-\-Spinlock\-\_\-lock}(\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x})~\hyperlink{share_2template_2gromacs_2thread__mpi_2threads_8h_acae0fb1517edd9f21951ac4c4d9c782c}{t\-M\-P\-I\-\_\-\-Thread\-\_\-mutex\-\_\-lock}((\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x})-\/$>$lock)
+\item 
+\#define \hyperlink{share_2template_2gromacs_2thread__mpi_2atomic_8h_a9b3ce3dc46a8e6a118f61dec7acf8e30}{t\-M\-P\-I\-\_\-\-Spinlock\-\_\-trylock}(\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x})~\hyperlink{share_2template_2gromacs_2thread__mpi_2threads_8h_ab996a7c928cbb10e639cfac345c67755}{t\-M\-P\-I\-\_\-\-Thread\-\_\-mutex\-\_\-trylock}((\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x})-\/$>$lock)
+\item 
+\#define \hyperlink{share_2template_2gromacs_2thread__mpi_2atomic_8h_a5c95f5615cb4db717971ffd7840e9205}{t\-M\-P\-I\-\_\-\-Spinlock\-\_\-unlock}(\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x})~\hyperlink{share_2template_2gromacs_2thread__mpi_2threads_8h_ac4518a42e32f81ea1518f90542191fcc}{t\-M\-P\-I\-\_\-\-Thread\-\_\-mutex\-\_\-unlock}((\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x})-\/$>$lock)
+\item 
+\#define \hyperlink{share_2template_2gromacs_2thread__mpi_2atomic_8h_a19af2d47b251f907baa8d2758da5c130}{t\-M\-P\-I\-\_\-\-Atomic\-\_\-memory\-\_\-barrier\-\_\-acq}~\hyperlink{share_2template_2gromacs_2thread__mpi_2atomic_8h_a5d2ee17509e3123d1c71d00b02888daa}{t\-M\-P\-I\-\_\-\-Atomic\-\_\-memory\-\_\-barrier}
+\item 
+\#define \hyperlink{share_2template_2gromacs_2thread__mpi_2atomic_8h_a54eec8d5cf2512beb260cd4536db1e69}{t\-M\-P\-I\-\_\-\-Atomic\-\_\-memory\-\_\-barrier\-\_\-rel}~\hyperlink{share_2template_2gromacs_2thread__mpi_2atomic_8h_a5d2ee17509e3123d1c71d00b02888daa}{t\-M\-P\-I\-\_\-\-Atomic\-\_\-memory\-\_\-barrier}
+\end{DoxyCompactItemize}
+\subsection*{\-Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \hyperlink{structtMPI__Atomic}{t\-M\-P\-I\-\_\-\-Atomic} \hyperlink{share_2template_2gromacs_2thread__mpi_2atomic_8h_a2c33794dc540e3b07cffc1f81a3fe4b4}{t\-M\-P\-I\-\_\-\-Atomic\-\_\-t}
+\item 
+typedef struct \hyperlink{structtMPI__Atomic__ptr}{t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr} \hyperlink{share_2template_2gromacs_2thread__mpi_2atomic_8h_a4c91c0105f1c0a5f23bc4239274291eb}{t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-t}
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{share_2template_2gromacs_2thread__mpi_2visibility_8h_a1b2991140928309c56dcbe825bffb97e}{\-T\-M\-P\-I\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{share_2template_2gromacs_2thread__mpi_2atomic_8h_a656620d5b78214f23f4b7214ff7a6f94}{t\-M\-P\-I\-\_\-\-Atomic\-\_\-set} (\hyperlink{include_2thread__mpi_2atomic_2gcc_8h_a2c33794dc540e3b07cffc1f81a3fe4b4}{t\-M\-P\-I\-\_\-\-Atomic\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a0880879736d1ab747a972d1942421886}{a}, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a3c7542401c1cb8bd37ef5e7d9eb0f5a8}{i})
+\item 
+static \hyperlink{share_2template_2gromacs_2thread__mpi_2visibility_8h_a1b2991140928309c56dcbe825bffb97e}{\-T\-M\-P\-I\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{share_2template_2gromacs_2thread__mpi_2atomic_8h_a4a33bfcb81731d031d1b24e8d781f1eb}{t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-set} (\hyperlink{include_2thread__mpi_2atomic_2gcc_8h_a2c33794dc540e3b07cffc1f81a3fe4b4}{t\-M\-P\-I\-\_\-\-Atomic\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a0880879736d1ab747a972d1942421886}{a}, \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$p)
+\item 
+static \hyperlink{share_2template_2gromacs_2thread__mpi_2visibility_8h_a1b2991140928309c56dcbe825bffb97e}{\-T\-M\-P\-I\-\_\-\-E\-X\-P\-O\-R\-T} int \hyperlink{share_2template_2gromacs_2thread__mpi_2atomic_8h_aca56ce0d6bb80e99248d9372f2caf0f9}{t\-M\-P\-I\-\_\-\-Atomic\-\_\-add\-\_\-return} (\hyperlink{include_2thread__mpi_2atomic_2gcc_8h_a2c33794dc540e3b07cffc1f81a3fe4b4}{t\-M\-P\-I\-\_\-\-Atomic\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a0880879736d1ab747a972d1942421886}{a}, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a3c7542401c1cb8bd37ef5e7d9eb0f5a8}{i})
+\item 
+static \hyperlink{share_2template_2gromacs_2thread__mpi_2visibility_8h_a1b2991140928309c56dcbe825bffb97e}{\-T\-M\-P\-I\-\_\-\-E\-X\-P\-O\-R\-T} int \hyperlink{share_2template_2gromacs_2thread__mpi_2atomic_8h_acaa08636b69ebeb6b4db98dc98a43a05}{t\-M\-P\-I\-\_\-\-Atomic\-\_\-fetch\-\_\-add} (\hyperlink{include_2thread__mpi_2atomic_2gcc_8h_a2c33794dc540e3b07cffc1f81a3fe4b4}{t\-M\-P\-I\-\_\-\-Atomic\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a0880879736d1ab747a972d1942421886}{a}, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a3c7542401c1cb8bd37ef5e7d9eb0f5a8}{i})
+\item 
+static \hyperlink{share_2template_2gromacs_2thread__mpi_2visibility_8h_a1b2991140928309c56dcbe825bffb97e}{\-T\-M\-P\-I\-\_\-\-E\-X\-P\-O\-R\-T} int \hyperlink{share_2template_2gromacs_2thread__mpi_2atomic_8h_a1ee85ed30df14b0ceec8a545aef21949}{t\-M\-P\-I\-\_\-\-Atomic\-\_\-cas} (\hyperlink{include_2thread__mpi_2atomic_2gcc_8h_a2c33794dc540e3b07cffc1f81a3fe4b4}{t\-M\-P\-I\-\_\-\-Atomic\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a0880879736d1ab747a972d1942421886}{a}, int old\-\_\-val, int new\-\_\-val)
+\item 
+static \hyperlink{share_2template_2gromacs_2thread__mpi_2visibility_8h_a1b2991140928309c56dcbe825bffb97e}{\-T\-M\-P\-I\-\_\-\-E\-X\-P\-O\-R\-T} int \hyperlink{share_2template_2gromacs_2thread__mpi_2atomic_8h_ae551c907723789ef6916cc1e9c574849}{t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-cas} (\hyperlink{include_2thread__mpi_2atomic_2gcc_8h_a4c91c0105f1c0a5f23bc4239274291eb}{t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a0880879736d1ab747a972d1942421886}{a}, \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$old\-\_\-val, \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$new\-\_\-val)
+\item 
+static \hyperlink{share_2template_2gromacs_2thread__mpi_2visibility_8h_a1b2991140928309c56dcbe825bffb97e}{\-T\-M\-P\-I\-\_\-\-E\-X\-P\-O\-R\-T} int \hyperlink{share_2template_2gromacs_2thread__mpi_2atomic_8h_a1b731ce7966268885553ac950ff334d7}{t\-M\-P\-I\-\_\-\-Spinlock\-\_\-islocked} (const \hyperlink{structtMPI__Spinlock__t}{t\-M\-P\-I\-\_\-\-Spinlock\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x})
+\item 
+static \hyperlink{share_2template_2gromacs_2thread__mpi_2visibility_8h_a1b2991140928309c56dcbe825bffb97e}{\-T\-M\-P\-I\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{share_2template_2gromacs_2thread__mpi_2atomic_8h_abe9d8b9affd3d12fae787f6a8ce11a15}{t\-M\-P\-I\-\_\-\-Spinlock\-\_\-wait} (\hyperlink{structtMPI__Spinlock__t}{t\-M\-P\-I\-\_\-\-Spinlock\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x})
+\item 
+static \hyperlink{share_2template_2gromacs_2thread__mpi_2visibility_8h_a1b2991140928309c56dcbe825bffb97e}{\-T\-M\-P\-I\-\_\-\-E\-X\-P\-O\-R\-T} int \hyperlink{share_2template_2gromacs_2thread__mpi_2atomic_8h_a074d179d707dbb58a2bc6721911f7925}{t\-M\-P\-I\-\_\-\-Atomic\-\_\-swap} (\hyperlink{include_2thread__mpi_2atomic_2gcc_8h_a2c33794dc540e3b07cffc1f81a3fe4b4}{t\-M\-P\-I\-\_\-\-Atomic\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a0880879736d1ab747a972d1942421886}{a}, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afb462a5dea72ae7992f073bfd756fb5f}{b})
+\item 
+static \hyperlink{share_2template_2gromacs_2thread__mpi_2visibility_8h_a1b2991140928309c56dcbe825bffb97e}{\-T\-M\-P\-I\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$ \hyperlink{share_2template_2gromacs_2thread__mpi_2atomic_8h_a1959878474634cb56195f17c3f2590dd}{t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-swap} (\hyperlink{include_2thread__mpi_2atomic_2gcc_8h_a4c91c0105f1c0a5f23bc4239274291eb}{t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a0880879736d1ab747a972d1942421886}{a}, \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afb462a5dea72ae7992f073bfd756fb5f}{b})
+\end{DoxyCompactItemize}
+\subsection*{\-Variables}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{structtMPI__Thread__mutex__t}{t\-M\-P\-I\-\_\-\-Thread\-\_\-mutex\-\_\-t} \hyperlink{share_2template_2gromacs_2thread__mpi_2atomic_8h_a739e0f735aed0e9b11581264cd658f46}{t\-M\-P\-I\-\_\-\-Atomic\-\_\-mutex} = \hyperlink{share_2template_2gromacs_2thread__mpi_2threads_8h_a94b533e44508703553567bd41dfc5b2b}{\-T\-M\-P\-I\-\_\-\-T\-H\-R\-E\-A\-D\-\_\-\-M\-U\-T\-E\-X\-\_\-\-I\-N\-I\-T\-I\-A\-L\-I\-Z\-E\-R}
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Define \-Documentation}
+\hypertarget{share_2template_2gromacs_2thread__mpi_2atomic_8h_ad046655ee56cc30c2a8719f3d1091b8e}{\index{share/template/gromacs/thread\-\_\-mpi/atomic.\-h@{share/template/gromacs/thread\-\_\-mpi/atomic.\-h}!t\-M\-P\-I\-\_\-\-Atomic\-\_\-get@{t\-M\-P\-I\-\_\-\-Atomic\-\_\-get}}
+\index{t\-M\-P\-I\-\_\-\-Atomic\-\_\-get@{t\-M\-P\-I\-\_\-\-Atomic\-\_\-get}!share/template/gromacs/thread_mpi/atomic.h@{share/template/gromacs/thread\-\_\-mpi/atomic.\-h}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Atomic\-\_\-get}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf t\-M\-P\-I\-\_\-\-Atomic\-\_\-get}(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf a}}
+\end{DoxyParamCaption}
+)~(({\bf a})-\/$>$value)}}\label{share_2template_2gromacs_2thread__mpi_2atomic_8h_ad046655ee56cc30c2a8719f3d1091b8e}
+\-Return value of an atomic integer
+
+\-Also implements proper memory barriers when necessary. \-The actual implementation is system-\/dependent.
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em a} & \-Atomic variable to read \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-Integer value of the atomic variable 
+\end{DoxyReturn}
+\hypertarget{share_2template_2gromacs_2thread__mpi_2atomic_8h_a5d2ee17509e3123d1c71d00b02888daa}{\index{share/template/gromacs/thread\-\_\-mpi/atomic.\-h@{share/template/gromacs/thread\-\_\-mpi/atomic.\-h}!t\-M\-P\-I\-\_\-\-Atomic\-\_\-memory\-\_\-barrier@{t\-M\-P\-I\-\_\-\-Atomic\-\_\-memory\-\_\-barrier}}
+\index{t\-M\-P\-I\-\_\-\-Atomic\-\_\-memory\-\_\-barrier@{t\-M\-P\-I\-\_\-\-Atomic\-\_\-memory\-\_\-barrier}!share/template/gromacs/thread_mpi/atomic.h@{share/template/gromacs/thread\-\_\-mpi/atomic.\-h}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Atomic\-\_\-memory\-\_\-barrier}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf t\-M\-P\-I\-\_\-\-Atomic\-\_\-memory\-\_\-barrier}(
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2thread__mpi_2atomic_8h_a5d2ee17509e3123d1c71d00b02888daa}
+\-Memory barrier operation
+
+\-Modern \-C\-P\-Us rely heavily on out-\/of-\/order execution, and one common feature is that load/stores might be reordered. \-Also, when using inline assembly the compiler might already have loaded the variable we are changing into a register, so any update to memory won't be visible.
+
+\-This command creates a memory barrier, i.\-e. all memory results before it in the code should be visible to all memory operations after it -\/ the \-C\-P\-U cannot propagate load/stores across it.
+
+\-This barrier is a full barrier\-: all load and store operations of instructions before it are completed, while all load and store operations that are in instructions after it won't be done before this barrier. \hypertarget{share_2template_2gromacs_2thread__mpi_2atomic_8h_af1d9b20785b884a3d87a575a1f226ed0}{\index{share/template/gromacs/thread\-\_\-mpi/atomic.\-h@{share/template/gromacs/thread\-\_\-mpi/atomic.\-h}!t\-M\-P\-I\-\_\-\-Atomic\-\_\-memory\-\_\-barrier\-\_\-acq@{t\-M\-P\-I\-\_\-\-Atomic\-\_\-memory\-\_\-barrier\-\_\-acq}}
+\index{t\-M\-P\-I\-\_\-\-Atomic\-\_\-memory\-\_\-barrier\-\_\-acq@{t\-M\-P\-I\-\_\-\-Atomic\-\_\-memory\-\_\-barrier\-\_\-acq}!share/template/gromacs/thread_mpi/atomic.h@{share/template/gromacs/thread\-\_\-mpi/atomic.\-h}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Atomic\-\_\-memory\-\_\-barrier\-\_\-acq}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf t\-M\-P\-I\-\_\-\-Atomic\-\_\-memory\-\_\-barrier\-\_\-acq}(
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2thread__mpi_2atomic_8h_af1d9b20785b884a3d87a575a1f226ed0}
+\-Memory barrier operation with acquire semantics
+
+\-This barrier is a barrier with acquire semantics\-: the terminology comes from its common use after acquiring a lock\-: all load/store instructions after this barrier may not be re-\/ordered to happen before this barrier. \hypertarget{share_2template_2gromacs_2thread__mpi_2atomic_8h_a19af2d47b251f907baa8d2758da5c130}{\index{share/template/gromacs/thread\-\_\-mpi/atomic.\-h@{share/template/gromacs/thread\-\_\-mpi/atomic.\-h}!t\-M\-P\-I\-\_\-\-Atomic\-\_\-memory\-\_\-barrier\-\_\-acq@{t\-M\-P\-I\-\_\-\-Atomic\-\_\-memory\-\_\-barrier\-\_\-acq}}
+\index{t\-M\-P\-I\-\_\-\-Atomic\-\_\-memory\-\_\-barrier\-\_\-acq@{t\-M\-P\-I\-\_\-\-Atomic\-\_\-memory\-\_\-barrier\-\_\-acq}!share/template/gromacs/thread_mpi/atomic.h@{share/template/gromacs/thread\-\_\-mpi/atomic.\-h}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Atomic\-\_\-memory\-\_\-barrier\-\_\-acq}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf t\-M\-P\-I\-\_\-\-Atomic\-\_\-memory\-\_\-barrier\-\_\-acq}~{\bf t\-M\-P\-I\-\_\-\-Atomic\-\_\-memory\-\_\-barrier}}}\label{share_2template_2gromacs_2thread__mpi_2atomic_8h_a19af2d47b251f907baa8d2758da5c130}
+\-Memory barrier operation with acquire semantics
+
+\-This barrier is a barrier with acquire semantics\-: the terminology comes from its common use after acquiring a lock\-: all load/store instructions after this barrier may not be re-\/ordered to happen before this barrier. \hypertarget{share_2template_2gromacs_2thread__mpi_2atomic_8h_afa737e392a24516296c8505ac6ff1458}{\index{share/template/gromacs/thread\-\_\-mpi/atomic.\-h@{share/template/gromacs/thread\-\_\-mpi/atomic.\-h}!t\-M\-P\-I\-\_\-\-Atomic\-\_\-memory\-\_\-barrier\-\_\-rel@{t\-M\-P\-I\-\_\-\-Atomic\-\_\-memory\-\_\-barrier\-\_\-rel}}
+\index{t\-M\-P\-I\-\_\-\-Atomic\-\_\-memory\-\_\-barrier\-\_\-rel@{t\-M\-P\-I\-\_\-\-Atomic\-\_\-memory\-\_\-barrier\-\_\-rel}!share/template/gromacs/thread_mpi/atomic.h@{share/template/gromacs/thread\-\_\-mpi/atomic.\-h}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Atomic\-\_\-memory\-\_\-barrier\-\_\-rel}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf t\-M\-P\-I\-\_\-\-Atomic\-\_\-memory\-\_\-barrier\-\_\-rel}(
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2thread__mpi_2atomic_8h_afa737e392a24516296c8505ac6ff1458}
+\-Memory barrier operation with release semantics
+
+\-This barrier is a barrier with release semantics\-: the terminology comes from its common use before releasing a lock\-: all load/store instructions before this barrier may not be re-\/ordered to happen after this barrier. \hypertarget{share_2template_2gromacs_2thread__mpi_2atomic_8h_a54eec8d5cf2512beb260cd4536db1e69}{\index{share/template/gromacs/thread\-\_\-mpi/atomic.\-h@{share/template/gromacs/thread\-\_\-mpi/atomic.\-h}!t\-M\-P\-I\-\_\-\-Atomic\-\_\-memory\-\_\-barrier\-\_\-rel@{t\-M\-P\-I\-\_\-\-Atomic\-\_\-memory\-\_\-barrier\-\_\-rel}}
+\index{t\-M\-P\-I\-\_\-\-Atomic\-\_\-memory\-\_\-barrier\-\_\-rel@{t\-M\-P\-I\-\_\-\-Atomic\-\_\-memory\-\_\-barrier\-\_\-rel}!share/template/gromacs/thread_mpi/atomic.h@{share/template/gromacs/thread\-\_\-mpi/atomic.\-h}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Atomic\-\_\-memory\-\_\-barrier\-\_\-rel}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf t\-M\-P\-I\-\_\-\-Atomic\-\_\-memory\-\_\-barrier\-\_\-rel}~{\bf t\-M\-P\-I\-\_\-\-Atomic\-\_\-memory\-\_\-barrier}}}\label{share_2template_2gromacs_2thread__mpi_2atomic_8h_a54eec8d5cf2512beb260cd4536db1e69}
+\-Memory barrier operation with release semantics
+
+\-This barrier is a barrier with release semantics\-: the terminology comes from its common use before releasing a lock\-: all load/store instructions before this barrier may not be re-\/ordered to happen after this barrier. \hypertarget{share_2template_2gromacs_2thread__mpi_2atomic_8h_a0769c59b89bb5ff489110f9de52658cf}{\index{share/template/gromacs/thread\-\_\-mpi/atomic.\-h@{share/template/gromacs/thread\-\_\-mpi/atomic.\-h}!t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-get@{t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-get}}
+\index{t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-get@{t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-get}!share/template/gromacs/thread_mpi/atomic.h@{share/template/gromacs/thread\-\_\-mpi/atomic.\-h}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-get}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-get}(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf a}}
+\end{DoxyParamCaption}
+)~(({\bf a})-\/$>$value)}}\label{share_2template_2gromacs_2thread__mpi_2atomic_8h_a0769c59b89bb5ff489110f9de52658cf}
+\-Return value of an atomic pointer
+
+\-Also implements proper memory barriers when necessary. \-The actual implementation is system-\/dependent.
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em a} & \-Atomic variable to read \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-Pointer value of the atomic variable 
+\end{DoxyReturn}
+\hypertarget{share_2template_2gromacs_2thread__mpi_2atomic_8h_aebbcb661ffeffb8ab6cbe25bcdcb058e}{\index{share/template/gromacs/thread\-\_\-mpi/atomic.\-h@{share/template/gromacs/thread\-\_\-mpi/atomic.\-h}!\-T\-M\-P\-I\-\_\-\-N\-O\-\_\-\-A\-T\-O\-M\-I\-C\-S@{\-T\-M\-P\-I\-\_\-\-N\-O\-\_\-\-A\-T\-O\-M\-I\-C\-S}}
+\index{\-T\-M\-P\-I\-\_\-\-N\-O\-\_\-\-A\-T\-O\-M\-I\-C\-S@{\-T\-M\-P\-I\-\_\-\-N\-O\-\_\-\-A\-T\-O\-M\-I\-C\-S}!share/template/gromacs/thread_mpi/atomic.h@{share/template/gromacs/thread\-\_\-mpi/atomic.\-h}}
+\subsubsection[{\-T\-M\-P\-I\-\_\-\-N\-O\-\_\-\-A\-T\-O\-M\-I\-C\-S}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-T\-M\-P\-I\-\_\-\-N\-O\-\_\-\-A\-T\-O\-M\-I\-C\-S}}}\label{share_2template_2gromacs_2thread__mpi_2atomic_8h_aebbcb661ffeffb8ab6cbe25bcdcb058e}
+\-Indicates that no support for atomic operations is present. \hypertarget{share_2template_2gromacs_2thread__mpi_2atomic_8h_a3659bcc9f4e4e85a744ca0261a06b863}{\index{share/template/gromacs/thread\-\_\-mpi/atomic.\-h@{share/template/gromacs/thread\-\_\-mpi/atomic.\-h}!t\-M\-P\-I\-\_\-\-Spinlock\-\_\-init@{t\-M\-P\-I\-\_\-\-Spinlock\-\_\-init}}
+\index{t\-M\-P\-I\-\_\-\-Spinlock\-\_\-init@{t\-M\-P\-I\-\_\-\-Spinlock\-\_\-init}!share/template/gromacs/thread_mpi/atomic.h@{share/template/gromacs/thread\-\_\-mpi/atomic.\-h}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Spinlock\-\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf t\-M\-P\-I\-\_\-\-Spinlock\-\_\-init}(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf x}}
+\end{DoxyParamCaption}
+)~{\bf t\-M\-P\-I\-\_\-\-Thread\-\_\-mutex\-\_\-init}(({\bf x})-\/$>$lock)}}\label{share_2template_2gromacs_2thread__mpi_2atomic_8h_a3659bcc9f4e4e85a744ca0261a06b863}
+\-Initialize spinlock
+
+\-In theory you can call this from multiple threads, but remember that we don't check for errors. \-If the first thread proceeded to lock the spinlock after initialization, the second will happily overwrite the contents and unlock it without warning you.
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em x} & \-Spinlock pointer. \\
+\hline
+\end{DoxyParams}
+\hypertarget{share_2template_2gromacs_2thread__mpi_2atomic_8h_a1e5bbd6483e8792893f3a5e8e2bbe510}{\index{share/template/gromacs/thread\-\_\-mpi/atomic.\-h@{share/template/gromacs/thread\-\_\-mpi/atomic.\-h}!\-T\-M\-P\-I\-\_\-\-S\-P\-I\-N\-L\-O\-C\-K\-\_\-\-I\-N\-I\-T\-I\-A\-L\-I\-Z\-E\-R@{\-T\-M\-P\-I\-\_\-\-S\-P\-I\-N\-L\-O\-C\-K\-\_\-\-I\-N\-I\-T\-I\-A\-L\-I\-Z\-E\-R}}
+\index{\-T\-M\-P\-I\-\_\-\-S\-P\-I\-N\-L\-O\-C\-K\-\_\-\-I\-N\-I\-T\-I\-A\-L\-I\-Z\-E\-R@{\-T\-M\-P\-I\-\_\-\-S\-P\-I\-N\-L\-O\-C\-K\-\_\-\-I\-N\-I\-T\-I\-A\-L\-I\-Z\-E\-R}!share/template/gromacs/thread_mpi/atomic.h@{share/template/gromacs/thread\-\_\-mpi/atomic.\-h}}
+\subsubsection[{\-T\-M\-P\-I\-\_\-\-S\-P\-I\-N\-L\-O\-C\-K\-\_\-\-I\-N\-I\-T\-I\-A\-L\-I\-Z\-E\-R}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-T\-M\-P\-I\-\_\-\-S\-P\-I\-N\-L\-O\-C\-K\-\_\-\-I\-N\-I\-T\-I\-A\-L\-I\-Z\-E\-R}~\{ {\bf \-T\-M\-P\-I\-\_\-\-T\-H\-R\-E\-A\-D\-\_\-\-M\-U\-T\-E\-X\-\_\-\-I\-N\-I\-T\-I\-A\-L\-I\-Z\-E\-R} \}}}\label{share_2template_2gromacs_2thread__mpi_2atomic_8h_a1e5bbd6483e8792893f3a5e8e2bbe510}
+
+
+\-Spinlock static initializer. 
+
+\-This is used for static spinlock initialization, and has the same properties as \-T\-M\-P\-I\-\_\-\-T\-H\-R\-E\-A\-D\-\_\-\-M\-U\-T\-E\-X\-\_\-\-I\-N\-I\-T\-I\-A\-L\-I\-Z\-E\-R has for mutexes. \-This is only for inlining in the t\-M\-P\-I\-\_\-\-Thread.\-h header file. \-Whether it is 0, 1, or something else when unlocked depends on the platform. \-Don't assume anything about it. \-It might even be a mutex when using the fallback implementation! \hypertarget{share_2template_2gromacs_2thread__mpi_2atomic_8h_a2803cb18c476e44a4d3a830d0bbf9ba8}{\index{share/template/gromacs/thread\-\_\-mpi/atomic.\-h@{share/template/gromacs/thread\-\_\-mpi/atomic.\-h}!t\-M\-P\-I\-\_\-\-Spinlock\-\_\-lock@{t\-M\-P\-I\-\_\-\-Spinlock\-\_\-lock}}
+\index{t\-M\-P\-I\-\_\-\-Spinlock\-\_\-lock@{t\-M\-P\-I\-\_\-\-Spinlock\-\_\-lock}!share/template/gromacs/thread_mpi/atomic.h@{share/template/gromacs/thread\-\_\-mpi/atomic.\-h}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Spinlock\-\_\-lock}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf t\-M\-P\-I\-\_\-\-Spinlock\-\_\-lock}(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf x}}
+\end{DoxyParamCaption}
+)~{\bf t\-M\-P\-I\-\_\-\-Thread\-\_\-mutex\-\_\-lock}(({\bf x})-\/$>$lock)}}\label{share_2template_2gromacs_2thread__mpi_2atomic_8h_a2803cb18c476e44a4d3a830d0bbf9ba8}
+\-Acquire spinlock
+
+\-This routine blocks until the spinlock is available, and the locks it again before returning.
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em x} & \-Spinlock pointer \\
+\hline
+\end{DoxyParams}
+\hypertarget{share_2template_2gromacs_2thread__mpi_2atomic_8h_a9b3ce3dc46a8e6a118f61dec7acf8e30}{\index{share/template/gromacs/thread\-\_\-mpi/atomic.\-h@{share/template/gromacs/thread\-\_\-mpi/atomic.\-h}!t\-M\-P\-I\-\_\-\-Spinlock\-\_\-trylock@{t\-M\-P\-I\-\_\-\-Spinlock\-\_\-trylock}}
+\index{t\-M\-P\-I\-\_\-\-Spinlock\-\_\-trylock@{t\-M\-P\-I\-\_\-\-Spinlock\-\_\-trylock}!share/template/gromacs/thread_mpi/atomic.h@{share/template/gromacs/thread\-\_\-mpi/atomic.\-h}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Spinlock\-\_\-trylock}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf t\-M\-P\-I\-\_\-\-Spinlock\-\_\-trylock}(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf x}}
+\end{DoxyParamCaption}
+)~{\bf t\-M\-P\-I\-\_\-\-Thread\-\_\-mutex\-\_\-trylock}(({\bf x})-\/$>$lock)}}\label{share_2template_2gromacs_2thread__mpi_2atomic_8h_a9b3ce3dc46a8e6a118f61dec7acf8e30}
+\-Attempt to acquire spinlock
+
+\-This routine acquires the spinlock if possible, but if already locked it return an error code immediately.
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em x} & \-Spinlock pointer\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+0 if the mutex was available so we could lock it, otherwise a non-\/zero integer (1) if the lock is busy. 
+\end{DoxyReturn}
+\hypertarget{share_2template_2gromacs_2thread__mpi_2atomic_8h_a5c95f5615cb4db717971ffd7840e9205}{\index{share/template/gromacs/thread\-\_\-mpi/atomic.\-h@{share/template/gromacs/thread\-\_\-mpi/atomic.\-h}!t\-M\-P\-I\-\_\-\-Spinlock\-\_\-unlock@{t\-M\-P\-I\-\_\-\-Spinlock\-\_\-unlock}}
+\index{t\-M\-P\-I\-\_\-\-Spinlock\-\_\-unlock@{t\-M\-P\-I\-\_\-\-Spinlock\-\_\-unlock}!share/template/gromacs/thread_mpi/atomic.h@{share/template/gromacs/thread\-\_\-mpi/atomic.\-h}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Spinlock\-\_\-unlock}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf t\-M\-P\-I\-\_\-\-Spinlock\-\_\-unlock}(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf x}}
+\end{DoxyParamCaption}
+)~{\bf t\-M\-P\-I\-\_\-\-Thread\-\_\-mutex\-\_\-unlock}(({\bf x})-\/$>$lock)}}\label{share_2template_2gromacs_2thread__mpi_2atomic_8h_a5c95f5615cb4db717971ffd7840e9205}
+\-Release spinlock
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em x} & \-Spinlock pointer\\
+\hline
+\end{DoxyParams}
+\-Unlocks the spinlock, regardless if which thread locked it. 
+
+\subsection{\-Typedef \-Documentation}
+\hypertarget{share_2template_2gromacs_2thread__mpi_2atomic_8h_a4c91c0105f1c0a5f23bc4239274291eb}{\index{share/template/gromacs/thread\-\_\-mpi/atomic.\-h@{share/template/gromacs/thread\-\_\-mpi/atomic.\-h}!t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-t@{t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-t}}
+\index{t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-t@{t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-t}!share/template/gromacs/thread_mpi/atomic.h@{share/template/gromacs/thread\-\_\-mpi/atomic.\-h}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr}
+ {\bf t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-t}}}\label{share_2template_2gromacs_2thread__mpi_2atomic_8h_a4c91c0105f1c0a5f23bc4239274291eb}
+\-Atomic pointer type equivalent to t\-M\-P\-I\-\_\-\-Atomic\-\_\-t
+
+\-Useful for lock-\/free and wait-\/free data structures. \-The only operations available for this type are\-: \begin{DoxySeeAlso}{\-See also}
+
+\begin{DoxyItemize}
+\item \hyperlink{share_2template_2gromacs_2thread__mpi_2atomic_8h_a0769c59b89bb5ff489110f9de52658cf}{t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-get}
+\item \hyperlink{share_2template_2gromacs_2thread__mpi_2atomic_8h_a4a33bfcb81731d031d1b24e8d781f1eb}{t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-set}
+\item \hyperlink{share_2template_2gromacs_2thread__mpi_2atomic_8h_ae551c907723789ef6916cc1e9c574849}{t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-cas} 
+\end{DoxyItemize}
+\end{DoxySeeAlso}
+\hypertarget{share_2template_2gromacs_2thread__mpi_2atomic_8h_a2c33794dc540e3b07cffc1f81a3fe4b4}{\index{share/template/gromacs/thread\-\_\-mpi/atomic.\-h@{share/template/gromacs/thread\-\_\-mpi/atomic.\-h}!t\-M\-P\-I\-\_\-\-Atomic\-\_\-t@{t\-M\-P\-I\-\_\-\-Atomic\-\_\-t}}
+\index{t\-M\-P\-I\-\_\-\-Atomic\-\_\-t@{t\-M\-P\-I\-\_\-\-Atomic\-\_\-t}!share/template/gromacs/thread_mpi/atomic.h@{share/template/gromacs/thread\-\_\-mpi/atomic.\-h}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Atomic\-\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf t\-M\-P\-I\-\_\-\-Atomic}
+ {\bf t\-M\-P\-I\-\_\-\-Atomic\-\_\-t}}}\label{share_2template_2gromacs_2thread__mpi_2atomic_8h_a2c33794dc540e3b07cffc1f81a3fe4b4}
+\-Atomic operations datatype
+
+\-Portable synchronization primitives like mutexes are effective for many purposes, but usually not very high performance. \-One of the problem is that you have the overhead of a function call, and another is that \-Mutexes often have extra overhead to make the scheduling fair. \-Finally, if performance is important we don't want to suspend the thread if we cannot lock a mutex, but spin-\/lock at 100\% \-C\-P\-U usage until the resources is available (e.\-g. increment a counter).
+
+\-These things can often be implemented with inline-\/assembly or other system-\/dependent functions, and we provide such functionality for the most common platforms. \-For portability we also have a fallback implementation using a mutex for locking.
+
+\-Performance-\/wise, the fastest solution is always to avoid locking completely (obvious, but remember it!). \-If you cannot do that, the next best thing is to use atomic operations that e.\-g. increment a counter without explicit locking. \-Spinlocks are useful to lock an entire region, but leads to more overhead and can be difficult to debug -\/ it is up to you to make sure that only the thread owning the lock unlocks it!
+
+\-You should normally \-N\-O\-T use atomic operations for things like \-I/\-O threads. \-These should yield to other threads while waiting for the disk instead of spinning at 100\% \-C\-P\-U usage.
+
+\-It is imperative that you use the provided routines for reading and writing, since some implementations require memory barriers before the \-C\-P\-U or memory sees an updated result. \-The structure contents is only visible here so it can be inlined for performance -\/ it might change without further notice.
+
+\begin{DoxyNote}{\-Note}
+\-No initialization is required for atomic variables.
+\end{DoxyNote}
+\-Currently, we have (real) atomic operations for\-:
+
+
+\begin{DoxyItemize}
+\item gcc version 4.\-1 and later (all platforms)
+\item x86 or x86\-\_\-64, using \-G\-N\-U compilers
+\item x86 or x86\-\_\-64, using \-Intel compilers
+\item x86 or x86\-\_\-64, using \-Pathscale compilers
+\item \-Itanium, using \-G\-N\-U compilers
+\item \-Itanium, using \-Intel compilers
+\item \-Itanium, using \-H\-P compilers
+\item \-Power\-P\-C, using \-G\-N\-U compilers
+\item \-Power\-P\-C, using \-I\-B\-M \-A\-I\-X compilers
+\item \-Power\-P\-C, using \-I\-B\-M compilers $>$=7.\-0 under \-Linux or \-Mac \-O\-S \-X.
+\end{DoxyItemize}
+
+\begin{DoxySeeAlso}{\-See also}
+
+\begin{DoxyItemize}
+\item \hyperlink{share_2template_2gromacs_2thread__mpi_2atomic_8h_ad046655ee56cc30c2a8719f3d1091b8e}{t\-M\-P\-I\-\_\-\-Atomic\-\_\-get}
+\item \hyperlink{share_2template_2gromacs_2thread__mpi_2atomic_8h_a656620d5b78214f23f4b7214ff7a6f94}{t\-M\-P\-I\-\_\-\-Atomic\-\_\-set}
+\item \hyperlink{share_2template_2gromacs_2thread__mpi_2atomic_8h_a1ee85ed30df14b0ceec8a545aef21949}{t\-M\-P\-I\-\_\-\-Atomic\-\_\-cas}
+\item \hyperlink{share_2template_2gromacs_2thread__mpi_2atomic_8h_aca56ce0d6bb80e99248d9372f2caf0f9}{t\-M\-P\-I\-\_\-\-Atomic\-\_\-add\-\_\-return}
+\item \hyperlink{share_2template_2gromacs_2thread__mpi_2atomic_8h_acaa08636b69ebeb6b4db98dc98a43a05}{t\-M\-P\-I\-\_\-\-Atomic\-\_\-fetch\-\_\-add} 
+\end{DoxyItemize}
+\end{DoxySeeAlso}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{share_2template_2gromacs_2thread__mpi_2atomic_8h_aca56ce0d6bb80e99248d9372f2caf0f9}{\index{share/template/gromacs/thread\-\_\-mpi/atomic.\-h@{share/template/gromacs/thread\-\_\-mpi/atomic.\-h}!t\-M\-P\-I\-\_\-\-Atomic\-\_\-add\-\_\-return@{t\-M\-P\-I\-\_\-\-Atomic\-\_\-add\-\_\-return}}
+\index{t\-M\-P\-I\-\_\-\-Atomic\-\_\-add\-\_\-return@{t\-M\-P\-I\-\_\-\-Atomic\-\_\-add\-\_\-return}!share/template/gromacs/thread_mpi/atomic.h@{share/template/gromacs/thread\-\_\-mpi/atomic.\-h}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Atomic\-\_\-add\-\_\-return}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf \-T\-M\-P\-I\-\_\-\-E\-X\-P\-O\-R\-T} int {\bf t\-M\-P\-I\-\_\-\-Atomic\-\_\-add\-\_\-return} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-M\-P\-I\-\_\-\-Atomic\-\_\-t} $\ast$}]{a, }
+\item[{int}]{i}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, static\mbox{]}}}}\label{share_2template_2gromacs_2thread__mpi_2atomic_8h_aca56ce0d6bb80e99248d9372f2caf0f9}
+\-Add integer to atomic variable
+
+\-Also implements proper memory barriers when necessary. \-The actual implementation is system-\/dependent.
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em a} & atomic datatype to modify \\
+\hline
+{\em i} & integer to increment with. \-Use i$<$0 to subtract atomically.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-The new value (after summation). 
+\end{DoxyReturn}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{share_2template_2gromacs_2thread__mpi_2atomic_8h_aca56ce0d6bb80e99248d9372f2caf0f9_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{share_2template_2gromacs_2thread__mpi_2atomic_8h_a1ee85ed30df14b0ceec8a545aef21949}{\index{share/template/gromacs/thread\-\_\-mpi/atomic.\-h@{share/template/gromacs/thread\-\_\-mpi/atomic.\-h}!t\-M\-P\-I\-\_\-\-Atomic\-\_\-cas@{t\-M\-P\-I\-\_\-\-Atomic\-\_\-cas}}
+\index{t\-M\-P\-I\-\_\-\-Atomic\-\_\-cas@{t\-M\-P\-I\-\_\-\-Atomic\-\_\-cas}!share/template/gromacs/thread_mpi/atomic.h@{share/template/gromacs/thread\-\_\-mpi/atomic.\-h}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Atomic\-\_\-cas}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf \-T\-M\-P\-I\-\_\-\-E\-X\-P\-O\-R\-T} int {\bf t\-M\-P\-I\-\_\-\-Atomic\-\_\-cas} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-M\-P\-I\-\_\-\-Atomic\-\_\-t} $\ast$}]{a, }
+\item[{int}]{old\-\_\-val, }
+\item[{int}]{new\-\_\-val}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, static\mbox{]}}}}\label{share_2template_2gromacs_2thread__mpi_2atomic_8h_a1ee85ed30df14b0ceec8a545aef21949}
+\-Atomic compare-\/and-\/swap operation
+
+\-The {\itshape old\/} value is compared with the memory value in the atomic datatype. \-If the are identical, the atomic type is swapped with the new value, and otherwise left unchanged.
+
+\-This is $\ast$the$\ast$ synchronization primitive\-: it has a consensus number of infinity, and is available in some form on all modern \-C\-P\-U architectures. \-In the words of \-Herlihy\&\-Shavit (\-The art of multiprocessor programming), it is the 'king of all wild things'.
+
+\-In practice, use it as follows\-: \-You can start by reading a value (without locking anything), perform some calculations, and then atomically try to update it in memory unless it has changed. \-If it has changed you will get an error return code -\/ reread the new value an repeat the calculations in that case.
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em a} & \-Atomic datatype ('memory' value) \\
+\hline
+{\em old\-\_\-val} & \-Integer value read from the atomic type at an earlier point \\
+\hline
+{\em new\-\_\-val} & \-New value to write to the atomic type if it currently is identical to the old value.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-True (1) if the swap occurred\-: i.\-e. if the value in a was equal to old\-\_\-val. \-False (0) if the swap didn't occur and the value was not equal to old\-\_\-val.
+\end{DoxyReturn}
+\begin{DoxyNote}{\-Note}
+\-The exchange occured if the return value is identical to {\itshape old\/}. 
+\end{DoxyNote}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{share_2template_2gromacs_2thread__mpi_2atomic_8h_a1ee85ed30df14b0ceec8a545aef21949_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=314pt]{share_2template_2gromacs_2thread__mpi_2atomic_8h_a1ee85ed30df14b0ceec8a545aef21949_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{share_2template_2gromacs_2thread__mpi_2atomic_8h_acaa08636b69ebeb6b4db98dc98a43a05}{\index{share/template/gromacs/thread\-\_\-mpi/atomic.\-h@{share/template/gromacs/thread\-\_\-mpi/atomic.\-h}!t\-M\-P\-I\-\_\-\-Atomic\-\_\-fetch\-\_\-add@{t\-M\-P\-I\-\_\-\-Atomic\-\_\-fetch\-\_\-add}}
+\index{t\-M\-P\-I\-\_\-\-Atomic\-\_\-fetch\-\_\-add@{t\-M\-P\-I\-\_\-\-Atomic\-\_\-fetch\-\_\-add}!share/template/gromacs/thread_mpi/atomic.h@{share/template/gromacs/thread\-\_\-mpi/atomic.\-h}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Atomic\-\_\-fetch\-\_\-add}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf \-T\-M\-P\-I\-\_\-\-E\-X\-P\-O\-R\-T} int {\bf t\-M\-P\-I\-\_\-\-Atomic\-\_\-fetch\-\_\-add} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-M\-P\-I\-\_\-\-Atomic\-\_\-t} $\ast$}]{a, }
+\item[{int}]{i}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, static\mbox{]}}}}\label{share_2template_2gromacs_2thread__mpi_2atomic_8h_acaa08636b69ebeb6b4db98dc98a43a05}
+\-Add to variable, return the old value.
+
+\-This operation is quite useful for synchronization counters. \-By performing a fetchadd with \-N, a thread can e.\-g. reserve a chunk with the next \-N iterations, and the return value is the index of the first element to treat.
+
+\-Also implements proper memory barriers when necessary. \-The actual implementation is system-\/dependent.
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em a} & atomic datatype to modify \\
+\hline
+{\em i} & integer to increment with. \-Use i$<$0 to subtract atomically.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-The value of the atomic variable before addition. 
+\end{DoxyReturn}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{share_2template_2gromacs_2thread__mpi_2atomic_8h_acaa08636b69ebeb6b4db98dc98a43a05_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{share_2template_2gromacs_2thread__mpi_2atomic_8h_ae551c907723789ef6916cc1e9c574849}{\index{share/template/gromacs/thread\-\_\-mpi/atomic.\-h@{share/template/gromacs/thread\-\_\-mpi/atomic.\-h}!t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-cas@{t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-cas}}
+\index{t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-cas@{t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-cas}!share/template/gromacs/thread_mpi/atomic.h@{share/template/gromacs/thread\-\_\-mpi/atomic.\-h}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-cas}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf \-T\-M\-P\-I\-\_\-\-E\-X\-P\-O\-R\-T} int {\bf t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-cas} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-t} $\ast$}]{a, }
+\item[{{\bf void} $\ast$}]{old\-\_\-val, }
+\item[{{\bf void} $\ast$}]{new\-\_\-val}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, static\mbox{]}}}}\label{share_2template_2gromacs_2thread__mpi_2atomic_8h_ae551c907723789ef6916cc1e9c574849}
+\-Atomic pointer compare-\/and-\/swap operation
+
+\-The {\itshape old\/} value is compared with the memory value in the atomic datatype. \-If the are identical, the atomic type is swapped with the new value, and otherwise left unchanged.
+
+\-This is essential for implementing wait-\/free lists and other data structures. \-See '\hyperlink{share_2template_2gromacs_2thread__mpi_2atomic_8h_a1ee85ed30df14b0ceec8a545aef21949}{t\-M\-P\-I\-\_\-\-Atomic\-\_\-cas()}'.
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em a} & \-Atomic datatype ('memory' value) \\
+\hline
+{\em old\-\_\-val} & \-Pointer value read from the atomic type at an earlier point \\
+\hline
+{\em new\-\_\-val} & \-New value to write to the atomic type if it currently is identical to the old value.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-True (1) if the swap occurred\-: i.\-e. if the value in a was equal to old\-\_\-val. \-False (0) if the swap didn't occur and the value was not equal to old\-\_\-val.
+\end{DoxyReturn}
+\begin{DoxyNote}{\-Note}
+\-The exchange occured if the return value is identical to {\itshape old\/}. 
+\end{DoxyNote}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{share_2template_2gromacs_2thread__mpi_2atomic_8h_ae551c907723789ef6916cc1e9c574849_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=348pt]{share_2template_2gromacs_2thread__mpi_2atomic_8h_ae551c907723789ef6916cc1e9c574849_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{share_2template_2gromacs_2thread__mpi_2atomic_8h_a4a33bfcb81731d031d1b24e8d781f1eb}{\index{share/template/gromacs/thread\-\_\-mpi/atomic.\-h@{share/template/gromacs/thread\-\_\-mpi/atomic.\-h}!t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-set@{t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-set}}
+\index{t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-set@{t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-set}!share/template/gromacs/thread_mpi/atomic.h@{share/template/gromacs/thread\-\_\-mpi/atomic.\-h}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-set}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf \-T\-M\-P\-I\-\_\-\-E\-X\-P\-O\-R\-T} {\bf void} {\bf t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-set} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-M\-P\-I\-\_\-\-Atomic\-\_\-t} $\ast$}]{a, }
+\item[{{\bf void} $\ast$}]{p}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, static\mbox{]}}}}\label{share_2template_2gromacs_2thread__mpi_2atomic_8h_a4a33bfcb81731d031d1b24e8d781f1eb}
+\-Write value to an atomic pointer
+
+\-Also implements proper memory barriers when necessary. \-The actual implementation is system-\/dependent.
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em a} & \-Atomic variable \\
+\hline
+{\em p} & \-Pointer value to set the atomic variable to. \\
+\hline
+\end{DoxyParams}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{share_2template_2gromacs_2thread__mpi_2atomic_8h_a4a33bfcb81731d031d1b24e8d781f1eb_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{share_2template_2gromacs_2thread__mpi_2atomic_8h_a1959878474634cb56195f17c3f2590dd}{\index{share/template/gromacs/thread\-\_\-mpi/atomic.\-h@{share/template/gromacs/thread\-\_\-mpi/atomic.\-h}!t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-swap@{t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-swap}}
+\index{t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-swap@{t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-swap}!share/template/gromacs/thread_mpi/atomic.h@{share/template/gromacs/thread\-\_\-mpi/atomic.\-h}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-swap}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf \-T\-M\-P\-I\-\_\-\-E\-X\-P\-O\-R\-T} {\bf void}$\ast$ {\bf t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-swap} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-t} $\ast$}]{a, }
+\item[{{\bf void} $\ast$}]{b}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, static\mbox{]}}}}\label{share_2template_2gromacs_2thread__mpi_2atomic_8h_a1959878474634cb56195f17c3f2590dd}
+\-Atomic swap pointer operation.
+
+\-Atomically swaps the pointer in the t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-t operand with the value of b. \-N\-O\-T\-E\-: \-D\-O\-N'\-T \-U\-S\-E \-Y\-E\-T! (\-This has no good asm counterparts on many architectures).
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em a} & \-Pointer to atomic type \\
+\hline
+{\em b} & \-Value to swap \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+the original value of a 
+\end{DoxyReturn}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{share_2template_2gromacs_2thread__mpi_2atomic_8h_a1959878474634cb56195f17c3f2590dd_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{share_2template_2gromacs_2thread__mpi_2atomic_8h_a656620d5b78214f23f4b7214ff7a6f94}{\index{share/template/gromacs/thread\-\_\-mpi/atomic.\-h@{share/template/gromacs/thread\-\_\-mpi/atomic.\-h}!t\-M\-P\-I\-\_\-\-Atomic\-\_\-set@{t\-M\-P\-I\-\_\-\-Atomic\-\_\-set}}
+\index{t\-M\-P\-I\-\_\-\-Atomic\-\_\-set@{t\-M\-P\-I\-\_\-\-Atomic\-\_\-set}!share/template/gromacs/thread_mpi/atomic.h@{share/template/gromacs/thread\-\_\-mpi/atomic.\-h}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Atomic\-\_\-set}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf \-T\-M\-P\-I\-\_\-\-E\-X\-P\-O\-R\-T} {\bf void} {\bf t\-M\-P\-I\-\_\-\-Atomic\-\_\-set} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-M\-P\-I\-\_\-\-Atomic\-\_\-t} $\ast$}]{a, }
+\item[{int}]{i}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, static\mbox{]}}}}\label{share_2template_2gromacs_2thread__mpi_2atomic_8h_a656620d5b78214f23f4b7214ff7a6f94}
+\-Write value to an atomic integer
+
+\-Also implements proper memory barriers when necessary. \-The actual implementation is system-\/dependent.
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em a} & \-Atomic variable \\
+\hline
+{\em i} & \-Integer to set the atomic variable to. \\
+\hline
+\end{DoxyParams}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=348pt]{share_2template_2gromacs_2thread__mpi_2atomic_8h_a656620d5b78214f23f4b7214ff7a6f94_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{share_2template_2gromacs_2thread__mpi_2atomic_8h_a074d179d707dbb58a2bc6721911f7925}{\index{share/template/gromacs/thread\-\_\-mpi/atomic.\-h@{share/template/gromacs/thread\-\_\-mpi/atomic.\-h}!t\-M\-P\-I\-\_\-\-Atomic\-\_\-swap@{t\-M\-P\-I\-\_\-\-Atomic\-\_\-swap}}
+\index{t\-M\-P\-I\-\_\-\-Atomic\-\_\-swap@{t\-M\-P\-I\-\_\-\-Atomic\-\_\-swap}!share/template/gromacs/thread_mpi/atomic.h@{share/template/gromacs/thread\-\_\-mpi/atomic.\-h}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Atomic\-\_\-swap}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf \-T\-M\-P\-I\-\_\-\-E\-X\-P\-O\-R\-T} int {\bf t\-M\-P\-I\-\_\-\-Atomic\-\_\-swap} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-M\-P\-I\-\_\-\-Atomic\-\_\-t} $\ast$}]{a, }
+\item[{int}]{b}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, static\mbox{]}}}}\label{share_2template_2gromacs_2thread__mpi_2atomic_8h_a074d179d707dbb58a2bc6721911f7925}
+\-Atomic swap operation.
+
+\-Atomically swaps the data in the t\-M\-P\-I\-\_\-\-Atomic\-\_\-t operand with the value of b. \-N\-O\-T\-E\-: \-D\-O\-N'\-T \-U\-S\-E \-Y\-E\-T! (\-This has no good asm counterparts on many architectures).
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em a} & \-Pointer to atomic type \\
+\hline
+{\em b} & \-Value to swap \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+the original value of a 
+\end{DoxyReturn}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{share_2template_2gromacs_2thread__mpi_2atomic_8h_a074d179d707dbb58a2bc6721911f7925_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{share_2template_2gromacs_2thread__mpi_2atomic_8h_a1b731ce7966268885553ac950ff334d7}{\index{share/template/gromacs/thread\-\_\-mpi/atomic.\-h@{share/template/gromacs/thread\-\_\-mpi/atomic.\-h}!t\-M\-P\-I\-\_\-\-Spinlock\-\_\-islocked@{t\-M\-P\-I\-\_\-\-Spinlock\-\_\-islocked}}
+\index{t\-M\-P\-I\-\_\-\-Spinlock\-\_\-islocked@{t\-M\-P\-I\-\_\-\-Spinlock\-\_\-islocked}!share/template/gromacs/thread_mpi/atomic.h@{share/template/gromacs/thread\-\_\-mpi/atomic.\-h}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Spinlock\-\_\-islocked}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf \-T\-M\-P\-I\-\_\-\-E\-X\-P\-O\-R\-T} int {\bf t\-M\-P\-I\-\_\-\-Spinlock\-\_\-islocked} (
+\begin{DoxyParamCaption}
+\item[{const {\bf t\-M\-P\-I\-\_\-\-Spinlock\-\_\-t} $\ast$}]{x}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, static\mbox{]}}}}\label{share_2template_2gromacs_2thread__mpi_2atomic_8h_a1b731ce7966268885553ac950ff334d7}
+\-Check if spinlock is locked
+
+\-This routine returns immediately with the lock status.
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em x} & \-Spinlock pointer\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+1 if the spinlock is locked, 0 otherwise. 
+\end{DoxyReturn}
+\hypertarget{share_2template_2gromacs_2thread__mpi_2atomic_8h_abe9d8b9affd3d12fae787f6a8ce11a15}{\index{share/template/gromacs/thread\-\_\-mpi/atomic.\-h@{share/template/gromacs/thread\-\_\-mpi/atomic.\-h}!t\-M\-P\-I\-\_\-\-Spinlock\-\_\-wait@{t\-M\-P\-I\-\_\-\-Spinlock\-\_\-wait}}
+\index{t\-M\-P\-I\-\_\-\-Spinlock\-\_\-wait@{t\-M\-P\-I\-\_\-\-Spinlock\-\_\-wait}!share/template/gromacs/thread_mpi/atomic.h@{share/template/gromacs/thread\-\_\-mpi/atomic.\-h}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Spinlock\-\_\-wait}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf \-T\-M\-P\-I\-\_\-\-E\-X\-P\-O\-R\-T} {\bf void} {\bf t\-M\-P\-I\-\_\-\-Spinlock\-\_\-wait} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-M\-P\-I\-\_\-\-Spinlock\-\_\-t} $\ast$}]{x}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, static\mbox{]}}}}\label{share_2template_2gromacs_2thread__mpi_2atomic_8h_abe9d8b9affd3d12fae787f6a8ce11a15}
+\-Wait for a spinlock to become available
+
+\-This routine blocks until the spinlock is unlocked, but in contrast to \hyperlink{share_2template_2gromacs_2thread__mpi_2atomic_8h_a2803cb18c476e44a4d3a830d0bbf9ba8}{t\-M\-P\-I\-\_\-\-Spinlock\-\_\-lock()} it returns without trying to lock the spinlock.
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em x} & \-Spinlock pointer \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{\-Variable \-Documentation}
+\hypertarget{share_2template_2gromacs_2thread__mpi_2atomic_8h_a739e0f735aed0e9b11581264cd658f46}{\index{share/template/gromacs/thread\-\_\-mpi/atomic.\-h@{share/template/gromacs/thread\-\_\-mpi/atomic.\-h}!t\-M\-P\-I\-\_\-\-Atomic\-\_\-mutex@{t\-M\-P\-I\-\_\-\-Atomic\-\_\-mutex}}
+\index{t\-M\-P\-I\-\_\-\-Atomic\-\_\-mutex@{t\-M\-P\-I\-\_\-\-Atomic\-\_\-mutex}!share/template/gromacs/thread_mpi/atomic.h@{share/template/gromacs/thread\-\_\-mpi/atomic.\-h}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Atomic\-\_\-mutex}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\-M\-P\-I\-\_\-\-Thread\-\_\-mutex\-\_\-t} {\bf t\-M\-P\-I\-\_\-\-Atomic\-\_\-mutex} = {\bf \-T\-M\-P\-I\-\_\-\-T\-H\-R\-E\-A\-D\-\_\-\-M\-U\-T\-E\-X\-\_\-\-I\-N\-I\-T\-I\-A\-L\-I\-Z\-E\-R}\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{share_2template_2gromacs_2thread__mpi_2atomic_8h_a739e0f735aed0e9b11581264cd658f46}
+\-System mutex used for locking to guarantee atomicity 

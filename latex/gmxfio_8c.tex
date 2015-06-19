@@ -1,0 +1,1517 @@
+\hypertarget{gmxfio_8c}{\section{src/gmxlib/gmxfio.c \-File \-Reference}
+\label{gmxfio_8c}\index{src/gmxlib/gmxfio.\-c@{src/gmxlib/gmxfio.\-c}}
+}
+{\ttfamily \#include $<$ctype.\-h$>$}\*
+{\ttfamily \#include $<$stdio.\-h$>$}\*
+{\ttfamily \#include $<$errno.\-h$>$}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-fatal.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}macros.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}smalloc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}futil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}filenm.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}string2.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmxfio.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}md5.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmxfio\-\_\-int.\-h\char`\"{}}\*
+\-Include dependency graph for gmxfio.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmxfio_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{gmxfio_8c_ac0cbdd746ffa6a363b18524b7b8efa1d}{\-C\-P\-T\-\_\-\-C\-H\-K\-\_\-\-L\-E\-N}~1048576
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+static int \hyperlink{gmxfio_8c_aeba7c84f1c32b37c65fabba82cd2db1b}{gmx\-\_\-fio\-\_\-int\-\_\-flush} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio)
+\item 
+static \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{gmxfio_8c_a96c47a5a6c3a2dbbe9a6732790f1c90b}{in\-\_\-ftpset} (int ftp, int nset, const int set\mbox{[}$\,$\mbox{]})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmxfio_8c_ab6186791846a4fcb2713c58abdb65ea2}{gmx\-\_\-fio\-\_\-set\-\_\-comment} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, const char $\ast$comment)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmxfio_8c_a97c3bb94f708d44a92834fea40c3451c}{gmx\-\_\-fio\-\_\-unset\-\_\-comment} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio)
+\item 
+const char $\ast$ \hyperlink{gmxfio_8c_ae28ece7d9b2d3cf24ba6a9dc65fbb791}{gmx\-\_\-fio\-\_\-dbgstr} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, const char $\ast$desc, char $\ast$buf)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmxfio_8c_a88836b9b52b1318404a80d4db461f0ab}{gmx\-\_\-fio\-\_\-check\-\_\-nitem} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, int eio, int nitem, const char $\ast$file, int \hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmxfio_8c_a4e161e4e3aeae8884373dc059c90b63e}{gmx\-\_\-fio\-\_\-fe} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, int eio, const char $\ast$desc, const char $\ast$srcfile, int \hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line})
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmxfio_8c_a483a63246b486f9f03f79178b6f1991e}{gmx\-\_\-fio\-\_\-set\-\_\-iotype} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmxfio_8c_a6b64e194a9f690f2ae27aa5495d01998}{gmx\-\_\-fio\-\_\-lock} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmxfio_8c_af9a825270c1e4deeb55fca0b1146e927}{gmx\-\_\-fio\-\_\-unlock} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmxfio_8c_a5163d45ef818a36c42432ad3f0c89c6c}{gmx\-\_\-fio\-\_\-make\-\_\-dummy} (\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void})
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmxfio_8c_a26db87a60a824a95ba987cbf3658cf2d}{gmx\-\_\-fio\-\_\-insert} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmxfio_8c_a8e6bbe6b59cbd1cf159adaa80313667c}{gmx\-\_\-fio\-\_\-remove} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio)
+\item 
+static \hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$ \hyperlink{gmxfio_8c_a1d95c4bd3c12fd476406cdb310c9c777}{gmx\-\_\-fio\-\_\-get\-\_\-first} (\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void})
+\item 
+static \hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$ \hyperlink{gmxfio_8c_a5b697432ed4fc7b43271edd69542cfd8}{gmx\-\_\-fio\-\_\-get\-\_\-next} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmxfio_8c_afb92265165c6266a7343c518e18a4ef5}{gmx\-\_\-fio\-\_\-stop\-\_\-getting\-\_\-next} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio)
+\item 
+\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$ \hyperlink{gmxfio_8c_a3d6f5bd4e86ec17ed43c055fa9d76cc0}{gmx\-\_\-fio\-\_\-open} (const char $\ast$fn, const char $\ast$mode)
+\item 
+static int \hyperlink{gmxfio_8c_a81431167ab86ced4af3c77d3ec5ba501}{gmx\-\_\-fio\-\_\-close\-\_\-locked} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio)
+\item 
+int \hyperlink{gmxfio_8c_abc6bfdf4cdd3bf88675b78ff82051102}{gmx\-\_\-fio\-\_\-close} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio)
+\item 
+int \hyperlink{gmxfio_8c_a2aea88b791c737294bb63c40b15d2cb4}{gmx\-\_\-fio\-\_\-fp\-\_\-close} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio)
+\item 
+\-F\-I\-L\-E $\ast$ \hyperlink{gmxfio_8c_a5b4c13181b841c040d4b22a952c977ff}{gmx\-\_\-fio\-\_\-fopen} (const char $\ast$fn, const char $\ast$mode)
+\item 
+int \hyperlink{gmxfio_8c_a0dbd6bfed83abb64d1cf7d1025c0707e}{gmx\-\_\-fio\-\_\-fclose} (\-F\-I\-L\-E $\ast$fp)
+\item 
+static int \hyperlink{gmxfio_8c_a976f663d86e051f6df1143a50f1db3c8}{gmx\-\_\-fio\-\_\-int\-\_\-get\-\_\-file\-\_\-md5} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, \hyperlink{include_2futil_8h_a62ca72cb29d851d8f5bcbe6809d3786d}{gmx\-\_\-off\-\_\-t} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_acad7bd957065e1f895ebb1017eba166d}{offset}, unsigned char digest\mbox{[}$\,$\mbox{]})
+\item 
+int \hyperlink{gmxfio_8c_a1f94d3805ea429c5ba274fd980208248}{gmx\-\_\-fio\-\_\-get\-\_\-file\-\_\-md5} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, \hyperlink{include_2futil_8h_a62ca72cb29d851d8f5bcbe6809d3786d}{gmx\-\_\-off\-\_\-t} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_acad7bd957065e1f895ebb1017eba166d}{offset}, unsigned char digest\mbox{[}$\,$\mbox{]})
+\item 
+static int \hyperlink{gmxfio_8c_a369bbc410c1e3be4030f828c520ebd7c}{gmx\-\_\-fio\-\_\-int\-\_\-get\-\_\-file\-\_\-position} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, \hyperlink{include_2futil_8h_a62ca72cb29d851d8f5bcbe6809d3786d}{gmx\-\_\-off\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_acad7bd957065e1f895ebb1017eba166d}{offset})
+\item 
+int \hyperlink{gmxfio_8c_a6733e209e172456d8ee3fbf1c5dca3d2}{gmx\-\_\-fio\-\_\-check\-\_\-file\-\_\-position} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio)
+\item 
+int \hyperlink{gmxfio_8c_a05f711d05038962b399ba07d46eaee4a}{gmx\-\_\-fio\-\_\-get\-\_\-output\-\_\-file\-\_\-positions} (\hyperlink{structgmx__file__position__t}{gmx\-\_\-file\-\_\-position\-\_\-t} $\ast$$\ast$p\-\_\-outputfiles, int $\ast$p\-\_\-nfiles)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmxfio_8c_afc804525beb8376e0b961b0792178c7d}{gmx\-\_\-fio\-\_\-checktype} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmxfio_8c_a941cfbebd1a14859fa3a649940481916}{gmx\-\_\-fio\-\_\-setprecision} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Double)
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{gmxfio_8c_a34918cbc5b24eb00cf693a3eac5c41a6}{gmx\-\_\-fio\-\_\-getdebug} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmxfio_8c_a778746065a7a40d7904e089fa598a4ba}{gmx\-\_\-fio\-\_\-setdebug} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{gmx__hbond_8c_a2874e80b491bf0a7e261feaa8baaf701}{b\-Debug})
+\item 
+char $\ast$ \hyperlink{gmxfio_8c_ada79f779c70a3d456615e5396b6edf76}{gmx\-\_\-fio\-\_\-getname} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio)
+\item 
+int \hyperlink{gmxfio_8c_ab5b64b1d5303ed0dbf32f1cb05ebe3c6}{gmx\-\_\-fio\-\_\-getftp} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmxfio_8c_ad08c704fdf20a26d1f5b2a2e3f506a62}{gmx\-\_\-fio\-\_\-rewind} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio)
+\item 
+int \hyperlink{gmxfio_8c_ae4ef0f2798a947851420ef53507e5254}{gmx\-\_\-fio\-\_\-flush} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio)
+\item 
+static int \hyperlink{gmxfio_8c_abc207e92ea3c66f9c6b477485058b2ac}{gmx\-\_\-fio\-\_\-int\-\_\-fsync} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio)
+\item 
+int \hyperlink{gmxfio_8c_a241a621f9891dae1d28d19618baf5ad3}{gmx\-\_\-fio\-\_\-fsync} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio)
+\item 
+\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$ \hyperlink{gmxfio_8c_a544cf588e47716cbb8ab6f4c312b10e3}{gmx\-\_\-fio\-\_\-all\-\_\-output\-\_\-fsync} (\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void})
+\item 
+\hyperlink{include_2futil_8h_a62ca72cb29d851d8f5bcbe6809d3786d}{gmx\-\_\-off\-\_\-t} \hyperlink{gmxfio_8c_a09e5729e0ed3cc26b5f85f9572bc74c5}{gmx\-\_\-fio\-\_\-ftell} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio)
+\item 
+int \hyperlink{gmxfio_8c_a29ec98971f4b9810bebc2fc48caa40ad}{gmx\-\_\-fio\-\_\-seek} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, \hyperlink{include_2futil_8h_a62ca72cb29d851d8f5bcbe6809d3786d}{gmx\-\_\-off\-\_\-t} fpos)
+\item 
+\-F\-I\-L\-E $\ast$ \hyperlink{gmxfio_8c_adddaa3e3d1448e70bbd6262c2fdd7d2e}{gmx\-\_\-fio\-\_\-getfp} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio)
+\item 
+\hyperlink{structXDR}{\-X\-D\-R} $\ast$ \hyperlink{gmxfio_8c_af87646f20400b8502d14e6c1b66f4d73}{gmx\-\_\-fio\-\_\-getxdr} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio)
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{gmxfio_8c_a07c491f426eadf7ba2209af89f337c73}{gmx\-\_\-fio\-\_\-getread} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio)
+\item 
+int \hyperlink{gmxfio_8c_ac08e6ac0d03e023c8e3b52ca288691c1}{xtc\-\_\-seek\-\_\-frame} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, int frame, int natoms)
+\item 
+int \hyperlink{gmxfio_8c_a80518450088f004804525d22367fcb46}{xtc\-\_\-seek\-\_\-time} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, real time, int natoms, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Seek\-Forward\-Only)
+\end{DoxyCompactItemize}
+\subsection*{\-Variables}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$ \hyperlink{gmxfio_8c_a472135ec77411e033d41594805b028c5}{open\-\_\-files} = \-N\-U\-L\-L
+\item 
+static const int \hyperlink{gmxfio_8c_a55a0181bdf64bcbeb4fb6c36fd853538}{ftp\-X\-D\-R} \mbox{[}$\,$\mbox{]}
+\item 
+static const int \hyperlink{gmxfio_8c_a2eb4159ed2583b6da439a41458c24621}{ftp\-A\-S\-C} \mbox{[}$\,$\mbox{]}
+\item 
+static const int \hyperlink{gmxfio_8c_afeed90dd654872d8bab96d334ccab425}{ftp\-B\-I\-N} \mbox{[}$\,$\mbox{]}
+\item 
+const char $\ast$ \hyperlink{gmxfio_8c_a9747a1e7497ca8483a36869091b9ecb0}{itemstr} \mbox{[}\hyperlink{share_2template_2gromacs_2gmxfio_8h_ac6bfa7273251ec8fc11ef21ca645ad90a32696a6ab8aa09bb4209abb48aea6724}{eitem\-N\-R}\mbox{]}
+\item 
+const char $\ast$ \hyperlink{gmxfio_8c_a388bc2e1259e401d5a3de5c883697ab9}{eio\-Names} \mbox{[}\hyperlink{share_2template_2gromacs_2gmxfio_8h_a63cbfa53a16c7eeb228a37be887ccf54a82030b7bffcfe70e52efcf41467805fb}{eio\-N\-R}\mbox{]}
+\item 
+const char $\ast$ \hyperlink{gmxfio_8c_af921e81673488d0b68fc9f0d3d314057}{comment\-\_\-str} \mbox{[}\hyperlink{share_2template_2gromacs_2gmxfio_8h_ac6bfa7273251ec8fc11ef21ca645ad90a32696a6ab8aa09bb4209abb48aea6724}{eitem\-N\-R}\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Define \-Documentation}
+\hypertarget{gmxfio_8c_ac0cbdd746ffa6a363b18524b7b8efa1d}{\index{gmxfio.\-c@{gmxfio.\-c}!\-C\-P\-T\-\_\-\-C\-H\-K\-\_\-\-L\-E\-N@{\-C\-P\-T\-\_\-\-C\-H\-K\-\_\-\-L\-E\-N}}
+\index{\-C\-P\-T\-\_\-\-C\-H\-K\-\_\-\-L\-E\-N@{\-C\-P\-T\-\_\-\-C\-H\-K\-\_\-\-L\-E\-N}!gmxfio.c@{gmxfio.\-c}}
+\subsubsection[{\-C\-P\-T\-\_\-\-C\-H\-K\-\_\-\-L\-E\-N}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-C\-P\-T\-\_\-\-C\-H\-K\-\_\-\-L\-E\-N}~1048576}}\label{gmxfio_8c_ac0cbdd746ffa6a363b18524b7b8efa1d}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{gmxfio_8c_a544cf588e47716cbb8ab6f4c312b10e3}{\index{gmxfio.\-c@{gmxfio.\-c}!gmx\-\_\-fio\-\_\-all\-\_\-output\-\_\-fsync@{gmx\-\_\-fio\-\_\-all\-\_\-output\-\_\-fsync}}
+\index{gmx\-\_\-fio\-\_\-all\-\_\-output\-\_\-fsync@{gmx\-\_\-fio\-\_\-all\-\_\-output\-\_\-fsync}!gmxfio.c@{gmxfio.\-c}}
+\subsubsection[{gmx\-\_\-fio\-\_\-all\-\_\-output\-\_\-fsync}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\-\_\-fileio}$\ast$ {\bf gmx\-\_\-fio\-\_\-all\-\_\-output\-\_\-fsync} (
+\begin{DoxyParamCaption}
+\item[{{\bf void}}]{}
+\end{DoxyParamCaption}
+)}}\label{gmxfio_8c_a544cf588e47716cbb8ab6f4c312b10e3}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmxfio_8c_a544cf588e47716cbb8ab6f4c312b10e3_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmxfio_8c_a544cf588e47716cbb8ab6f4c312b10e3_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmxfio_8c_a6733e209e172456d8ee3fbf1c5dca3d2}{\index{gmxfio.\-c@{gmxfio.\-c}!gmx\-\_\-fio\-\_\-check\-\_\-file\-\_\-position@{gmx\-\_\-fio\-\_\-check\-\_\-file\-\_\-position}}
+\index{gmx\-\_\-fio\-\_\-check\-\_\-file\-\_\-position@{gmx\-\_\-fio\-\_\-check\-\_\-file\-\_\-position}!gmxfio.c@{gmxfio.\-c}}
+\subsubsection[{gmx\-\_\-fio\-\_\-check\-\_\-file\-\_\-position}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-fio\-\_\-check\-\_\-file\-\_\-position} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio}
+\end{DoxyParamCaption}
+)}}\label{gmxfio_8c_a6733e209e172456d8ee3fbf1c5dca3d2}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmxfio_8c_a6733e209e172456d8ee3fbf1c5dca3d2_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmxfio_8c_a6733e209e172456d8ee3fbf1c5dca3d2_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmxfio_8c_a88836b9b52b1318404a80d4db461f0ab}{\index{gmxfio.\-c@{gmxfio.\-c}!gmx\-\_\-fio\-\_\-check\-\_\-nitem@{gmx\-\_\-fio\-\_\-check\-\_\-nitem}}
+\index{gmx\-\_\-fio\-\_\-check\-\_\-nitem@{gmx\-\_\-fio\-\_\-check\-\_\-nitem}!gmxfio.c@{gmxfio.\-c}}
+\subsubsection[{gmx\-\_\-fio\-\_\-check\-\_\-nitem}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-fio\-\_\-check\-\_\-nitem} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{int}]{eio, }
+\item[{int}]{nitem, }
+\item[{const char $\ast$}]{file, }
+\item[{int}]{line}
+\end{DoxyParamCaption}
+)}}\label{gmxfio_8c_a88836b9b52b1318404a80d4db461f0ab}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=288pt]{gmxfio_8c_a88836b9b52b1318404a80d4db461f0ab_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmxfio_8c_a88836b9b52b1318404a80d4db461f0ab_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmxfio_8c_afc804525beb8376e0b961b0792178c7d}{\index{gmxfio.\-c@{gmxfio.\-c}!gmx\-\_\-fio\-\_\-checktype@{gmx\-\_\-fio\-\_\-checktype}}
+\index{gmx\-\_\-fio\-\_\-checktype@{gmx\-\_\-fio\-\_\-checktype}!gmxfio.c@{gmxfio.\-c}}
+\subsubsection[{gmx\-\_\-fio\-\_\-checktype}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-fio\-\_\-checktype} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio}
+\end{DoxyParamCaption}
+)}}\label{gmxfio_8c_afc804525beb8376e0b961b0792178c7d}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=278pt]{gmxfio_8c_afc804525beb8376e0b961b0792178c7d_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmxfio_8c_afc804525beb8376e0b961b0792178c7d_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmxfio_8c_abc6bfdf4cdd3bf88675b78ff82051102}{\index{gmxfio.\-c@{gmxfio.\-c}!gmx\-\_\-fio\-\_\-close@{gmx\-\_\-fio\-\_\-close}}
+\index{gmx\-\_\-fio\-\_\-close@{gmx\-\_\-fio\-\_\-close}!gmxfio.c@{gmxfio.\-c}}
+\subsubsection[{gmx\-\_\-fio\-\_\-close}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-fio\-\_\-close} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio}
+\end{DoxyParamCaption}
+)}}\label{gmxfio_8c_abc6bfdf4cdd3bf88675b78ff82051102}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmxfio_8c_abc6bfdf4cdd3bf88675b78ff82051102_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{gmxfio_8c_abc6bfdf4cdd3bf88675b78ff82051102_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmxfio_8c_a81431167ab86ced4af3c77d3ec5ba501}{\index{gmxfio.\-c@{gmxfio.\-c}!gmx\-\_\-fio\-\_\-close\-\_\-locked@{gmx\-\_\-fio\-\_\-close\-\_\-locked}}
+\index{gmx\-\_\-fio\-\_\-close\-\_\-locked@{gmx\-\_\-fio\-\_\-close\-\_\-locked}!gmxfio.c@{gmxfio.\-c}}
+\subsubsection[{gmx\-\_\-fio\-\_\-close\-\_\-locked}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf gmx\-\_\-fio\-\_\-close\-\_\-locked} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmxfio_8c_a81431167ab86ced4af3c77d3ec5ba501}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=290pt]{gmxfio_8c_a81431167ab86ced4af3c77d3ec5ba501_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{gmxfio_8c_a81431167ab86ced4af3c77d3ec5ba501_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmxfio_8c_ae28ece7d9b2d3cf24ba6a9dc65fbb791}{\index{gmxfio.\-c@{gmxfio.\-c}!gmx\-\_\-fio\-\_\-dbgstr@{gmx\-\_\-fio\-\_\-dbgstr}}
+\index{gmx\-\_\-fio\-\_\-dbgstr@{gmx\-\_\-fio\-\_\-dbgstr}!gmxfio.c@{gmxfio.\-c}}
+\subsubsection[{gmx\-\_\-fio\-\_\-dbgstr}]{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ {\bf gmx\-\_\-fio\-\_\-dbgstr} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{const char $\ast$}]{desc, }
+\item[{char $\ast$}]{buf}
+\end{DoxyParamCaption}
+)}}\label{gmxfio_8c_ae28ece7d9b2d3cf24ba6a9dc65fbb791}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=270pt]{gmxfio_8c_ae28ece7d9b2d3cf24ba6a9dc65fbb791_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmxfio_8c_a0dbd6bfed83abb64d1cf7d1025c0707e}{\index{gmxfio.\-c@{gmxfio.\-c}!gmx\-\_\-fio\-\_\-fclose@{gmx\-\_\-fio\-\_\-fclose}}
+\index{gmx\-\_\-fio\-\_\-fclose@{gmx\-\_\-fio\-\_\-fclose}!gmxfio.c@{gmxfio.\-c}}
+\subsubsection[{gmx\-\_\-fio\-\_\-fclose}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-fio\-\_\-fclose} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp}
+\end{DoxyParamCaption}
+)}}\label{gmxfio_8c_a0dbd6bfed83abb64d1cf7d1025c0707e}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmxfio_8c_a0dbd6bfed83abb64d1cf7d1025c0707e_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmxfio_8c_a4e161e4e3aeae8884373dc059c90b63e}{\index{gmxfio.\-c@{gmxfio.\-c}!gmx\-\_\-fio\-\_\-fe@{gmx\-\_\-fio\-\_\-fe}}
+\index{gmx\-\_\-fio\-\_\-fe@{gmx\-\_\-fio\-\_\-fe}!gmxfio.c@{gmxfio.\-c}}
+\subsubsection[{gmx\-\_\-fio\-\_\-fe}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-fio\-\_\-fe} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{int}]{eio, }
+\item[{const char $\ast$}]{desc, }
+\item[{const char $\ast$}]{srcfile, }
+\item[{int}]{line}
+\end{DoxyParamCaption}
+)}}\label{gmxfio_8c_a4e161e4e3aeae8884373dc059c90b63e}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=242pt]{gmxfio_8c_a4e161e4e3aeae8884373dc059c90b63e_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmxfio_8c_a4e161e4e3aeae8884373dc059c90b63e_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmxfio_8c_ae4ef0f2798a947851420ef53507e5254}{\index{gmxfio.\-c@{gmxfio.\-c}!gmx\-\_\-fio\-\_\-flush@{gmx\-\_\-fio\-\_\-flush}}
+\index{gmx\-\_\-fio\-\_\-flush@{gmx\-\_\-fio\-\_\-flush}!gmxfio.c@{gmxfio.\-c}}
+\subsubsection[{gmx\-\_\-fio\-\_\-flush}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-fio\-\_\-flush} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio}
+\end{DoxyParamCaption}
+)}}\label{gmxfio_8c_ae4ef0f2798a947851420ef53507e5254}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmxfio_8c_ae4ef0f2798a947851420ef53507e5254_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{gmxfio_8c_ae4ef0f2798a947851420ef53507e5254_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmxfio_8c_a5b4c13181b841c040d4b22a952c977ff}{\index{gmxfio.\-c@{gmxfio.\-c}!gmx\-\_\-fio\-\_\-fopen@{gmx\-\_\-fio\-\_\-fopen}}
+\index{gmx\-\_\-fio\-\_\-fopen@{gmx\-\_\-fio\-\_\-fopen}!gmxfio.c@{gmxfio.\-c}}
+\subsubsection[{gmx\-\_\-fio\-\_\-fopen}]{\setlength{\rightskip}{0pt plus 5cm}\-F\-I\-L\-E$\ast$ {\bf gmx\-\_\-fio\-\_\-fopen} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{fn, }
+\item[{const char $\ast$}]{mode}
+\end{DoxyParamCaption}
+)}}\label{gmxfio_8c_a5b4c13181b841c040d4b22a952c977ff}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmxfio_8c_a5b4c13181b841c040d4b22a952c977ff_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmxfio_8c_a2aea88b791c737294bb63c40b15d2cb4}{\index{gmxfio.\-c@{gmxfio.\-c}!gmx\-\_\-fio\-\_\-fp\-\_\-close@{gmx\-\_\-fio\-\_\-fp\-\_\-close}}
+\index{gmx\-\_\-fio\-\_\-fp\-\_\-close@{gmx\-\_\-fio\-\_\-fp\-\_\-close}!gmxfio.c@{gmxfio.\-c}}
+\subsubsection[{gmx\-\_\-fio\-\_\-fp\-\_\-close}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-fio\-\_\-fp\-\_\-close} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio}
+\end{DoxyParamCaption}
+)}}\label{gmxfio_8c_a2aea88b791c737294bb63c40b15d2cb4}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmxfio_8c_a2aea88b791c737294bb63c40b15d2cb4_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{gmxfio_8c_a2aea88b791c737294bb63c40b15d2cb4_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmxfio_8c_a241a621f9891dae1d28d19618baf5ad3}{\index{gmxfio.\-c@{gmxfio.\-c}!gmx\-\_\-fio\-\_\-fsync@{gmx\-\_\-fio\-\_\-fsync}}
+\index{gmx\-\_\-fio\-\_\-fsync@{gmx\-\_\-fio\-\_\-fsync}!gmxfio.c@{gmxfio.\-c}}
+\subsubsection[{gmx\-\_\-fio\-\_\-fsync}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-fio\-\_\-fsync} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio}
+\end{DoxyParamCaption}
+)}}\label{gmxfio_8c_a241a621f9891dae1d28d19618baf5ad3}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmxfio_8c_a241a621f9891dae1d28d19618baf5ad3_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmxfio_8c_a09e5729e0ed3cc26b5f85f9572bc74c5}{\index{gmxfio.\-c@{gmxfio.\-c}!gmx\-\_\-fio\-\_\-ftell@{gmx\-\_\-fio\-\_\-ftell}}
+\index{gmx\-\_\-fio\-\_\-ftell@{gmx\-\_\-fio\-\_\-ftell}!gmxfio.c@{gmxfio.\-c}}
+\subsubsection[{gmx\-\_\-fio\-\_\-ftell}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-off\-\_\-t} {\bf gmx\-\_\-fio\-\_\-ftell} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio}
+\end{DoxyParamCaption}
+)}}\label{gmxfio_8c_a09e5729e0ed3cc26b5f85f9572bc74c5}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmxfio_8c_a09e5729e0ed3cc26b5f85f9572bc74c5_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmxfio_8c_a09e5729e0ed3cc26b5f85f9572bc74c5_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmxfio_8c_a1f94d3805ea429c5ba274fd980208248}{\index{gmxfio.\-c@{gmxfio.\-c}!gmx\-\_\-fio\-\_\-get\-\_\-file\-\_\-md5@{gmx\-\_\-fio\-\_\-get\-\_\-file\-\_\-md5}}
+\index{gmx\-\_\-fio\-\_\-get\-\_\-file\-\_\-md5@{gmx\-\_\-fio\-\_\-get\-\_\-file\-\_\-md5}!gmxfio.c@{gmxfio.\-c}}
+\subsubsection[{gmx\-\_\-fio\-\_\-get\-\_\-file\-\_\-md5}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-fio\-\_\-get\-\_\-file\-\_\-md5} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{{\bf gmx\-\_\-off\-\_\-t}}]{offset, }
+\item[{unsigned char}]{digest\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{gmxfio_8c_a1f94d3805ea429c5ba274fd980208248}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmxfio_8c_a1f94d3805ea429c5ba274fd980208248_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmxfio_8c_a1f94d3805ea429c5ba274fd980208248_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmxfio_8c_a1d95c4bd3c12fd476406cdb310c9c777}{\index{gmxfio.\-c@{gmxfio.\-c}!gmx\-\_\-fio\-\_\-get\-\_\-first@{gmx\-\_\-fio\-\_\-get\-\_\-first}}
+\index{gmx\-\_\-fio\-\_\-get\-\_\-first@{gmx\-\_\-fio\-\_\-get\-\_\-first}!gmxfio.c@{gmxfio.\-c}}
+\subsubsection[{gmx\-\_\-fio\-\_\-get\-\_\-first}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf t\-\_\-fileio}$\ast$ {\bf gmx\-\_\-fio\-\_\-get\-\_\-first} (
+\begin{DoxyParamCaption}
+\item[{{\bf void}}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmxfio_8c_a1d95c4bd3c12fd476406cdb310c9c777}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmxfio_8c_a1d95c4bd3c12fd476406cdb310c9c777_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{gmxfio_8c_a1d95c4bd3c12fd476406cdb310c9c777_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmxfio_8c_a5b697432ed4fc7b43271edd69542cfd8}{\index{gmxfio.\-c@{gmxfio.\-c}!gmx\-\_\-fio\-\_\-get\-\_\-next@{gmx\-\_\-fio\-\_\-get\-\_\-next}}
+\index{gmx\-\_\-fio\-\_\-get\-\_\-next@{gmx\-\_\-fio\-\_\-get\-\_\-next}!gmxfio.c@{gmxfio.\-c}}
+\subsubsection[{gmx\-\_\-fio\-\_\-get\-\_\-next}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf t\-\_\-fileio}$\ast$ {\bf gmx\-\_\-fio\-\_\-get\-\_\-next} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmxfio_8c_a5b697432ed4fc7b43271edd69542cfd8}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmxfio_8c_a5b697432ed4fc7b43271edd69542cfd8_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{gmxfio_8c_a5b697432ed4fc7b43271edd69542cfd8_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmxfio_8c_a05f711d05038962b399ba07d46eaee4a}{\index{gmxfio.\-c@{gmxfio.\-c}!gmx\-\_\-fio\-\_\-get\-\_\-output\-\_\-file\-\_\-positions@{gmx\-\_\-fio\-\_\-get\-\_\-output\-\_\-file\-\_\-positions}}
+\index{gmx\-\_\-fio\-\_\-get\-\_\-output\-\_\-file\-\_\-positions@{gmx\-\_\-fio\-\_\-get\-\_\-output\-\_\-file\-\_\-positions}!gmxfio.c@{gmxfio.\-c}}
+\subsubsection[{gmx\-\_\-fio\-\_\-get\-\_\-output\-\_\-file\-\_\-positions}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-fio\-\_\-get\-\_\-output\-\_\-file\-\_\-positions} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-file\-\_\-position\-\_\-t} $\ast$$\ast$}]{p\-\_\-outputfiles, }
+\item[{int $\ast$}]{p\-\_\-nfiles}
+\end{DoxyParamCaption}
+)}}\label{gmxfio_8c_a05f711d05038962b399ba07d46eaee4a}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmxfio_8c_a05f711d05038962b399ba07d46eaee4a_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmxfio_8c_a05f711d05038962b399ba07d46eaee4a_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmxfio_8c_a34918cbc5b24eb00cf693a3eac5c41a6}{\index{gmxfio.\-c@{gmxfio.\-c}!gmx\-\_\-fio\-\_\-getdebug@{gmx\-\_\-fio\-\_\-getdebug}}
+\index{gmx\-\_\-fio\-\_\-getdebug@{gmx\-\_\-fio\-\_\-getdebug}!gmxfio.c@{gmxfio.\-c}}
+\subsubsection[{gmx\-\_\-fio\-\_\-getdebug}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-fio\-\_\-getdebug} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio}
+\end{DoxyParamCaption}
+)}}\label{gmxfio_8c_a34918cbc5b24eb00cf693a3eac5c41a6}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmxfio_8c_a34918cbc5b24eb00cf693a3eac5c41a6_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=282pt]{gmxfio_8c_a34918cbc5b24eb00cf693a3eac5c41a6_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmxfio_8c_adddaa3e3d1448e70bbd6262c2fdd7d2e}{\index{gmxfio.\-c@{gmxfio.\-c}!gmx\-\_\-fio\-\_\-getfp@{gmx\-\_\-fio\-\_\-getfp}}
+\index{gmx\-\_\-fio\-\_\-getfp@{gmx\-\_\-fio\-\_\-getfp}!gmxfio.c@{gmxfio.\-c}}
+\subsubsection[{gmx\-\_\-fio\-\_\-getfp}]{\setlength{\rightskip}{0pt plus 5cm}\-F\-I\-L\-E$\ast$ {\bf gmx\-\_\-fio\-\_\-getfp} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio}
+\end{DoxyParamCaption}
+)}}\label{gmxfio_8c_adddaa3e3d1448e70bbd6262c2fdd7d2e}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmxfio_8c_adddaa3e3d1448e70bbd6262c2fdd7d2e_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{gmxfio_8c_adddaa3e3d1448e70bbd6262c2fdd7d2e_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmxfio_8c_ab5b64b1d5303ed0dbf32f1cb05ebe3c6}{\index{gmxfio.\-c@{gmxfio.\-c}!gmx\-\_\-fio\-\_\-getftp@{gmx\-\_\-fio\-\_\-getftp}}
+\index{gmx\-\_\-fio\-\_\-getftp@{gmx\-\_\-fio\-\_\-getftp}!gmxfio.c@{gmxfio.\-c}}
+\subsubsection[{gmx\-\_\-fio\-\_\-getftp}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-fio\-\_\-getftp} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio}
+\end{DoxyParamCaption}
+)}}\label{gmxfio_8c_ab5b64b1d5303ed0dbf32f1cb05ebe3c6}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmxfio_8c_ab5b64b1d5303ed0dbf32f1cb05ebe3c6_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{gmxfio_8c_ab5b64b1d5303ed0dbf32f1cb05ebe3c6_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmxfio_8c_ada79f779c70a3d456615e5396b6edf76}{\index{gmxfio.\-c@{gmxfio.\-c}!gmx\-\_\-fio\-\_\-getname@{gmx\-\_\-fio\-\_\-getname}}
+\index{gmx\-\_\-fio\-\_\-getname@{gmx\-\_\-fio\-\_\-getname}!gmxfio.c@{gmxfio.\-c}}
+\subsubsection[{gmx\-\_\-fio\-\_\-getname}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ {\bf gmx\-\_\-fio\-\_\-getname} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio}
+\end{DoxyParamCaption}
+)}}\label{gmxfio_8c_ada79f779c70a3d456615e5396b6edf76}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmxfio_8c_ada79f779c70a3d456615e5396b6edf76_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{gmxfio_8c_ada79f779c70a3d456615e5396b6edf76_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmxfio_8c_a07c491f426eadf7ba2209af89f337c73}{\index{gmxfio.\-c@{gmxfio.\-c}!gmx\-\_\-fio\-\_\-getread@{gmx\-\_\-fio\-\_\-getread}}
+\index{gmx\-\_\-fio\-\_\-getread@{gmx\-\_\-fio\-\_\-getread}!gmxfio.c@{gmxfio.\-c}}
+\subsubsection[{gmx\-\_\-fio\-\_\-getread}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-fio\-\_\-getread} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio}
+\end{DoxyParamCaption}
+)}}\label{gmxfio_8c_a07c491f426eadf7ba2209af89f337c73}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmxfio_8c_a07c491f426eadf7ba2209af89f337c73_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmxfio_8c_a07c491f426eadf7ba2209af89f337c73_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmxfio_8c_af87646f20400b8502d14e6c1b66f4d73}{\index{gmxfio.\-c@{gmxfio.\-c}!gmx\-\_\-fio\-\_\-getxdr@{gmx\-\_\-fio\-\_\-getxdr}}
+\index{gmx\-\_\-fio\-\_\-getxdr@{gmx\-\_\-fio\-\_\-getxdr}!gmxfio.c@{gmxfio.\-c}}
+\subsubsection[{gmx\-\_\-fio\-\_\-getxdr}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-X\-D\-R}$\ast$ {\bf gmx\-\_\-fio\-\_\-getxdr} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio}
+\end{DoxyParamCaption}
+)}}\label{gmxfio_8c_af87646f20400b8502d14e6c1b66f4d73}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmxfio_8c_af87646f20400b8502d14e6c1b66f4d73_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{gmxfio_8c_af87646f20400b8502d14e6c1b66f4d73_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmxfio_8c_a26db87a60a824a95ba987cbf3658cf2d}{\index{gmxfio.\-c@{gmxfio.\-c}!gmx\-\_\-fio\-\_\-insert@{gmx\-\_\-fio\-\_\-insert}}
+\index{gmx\-\_\-fio\-\_\-insert@{gmx\-\_\-fio\-\_\-insert}!gmxfio.c@{gmxfio.\-c}}
+\subsubsection[{gmx\-\_\-fio\-\_\-insert}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf gmx\-\_\-fio\-\_\-insert} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmxfio_8c_a26db87a60a824a95ba987cbf3658cf2d}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmxfio_8c_a26db87a60a824a95ba987cbf3658cf2d_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{gmxfio_8c_a26db87a60a824a95ba987cbf3658cf2d_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmxfio_8c_aeba7c84f1c32b37c65fabba82cd2db1b}{\index{gmxfio.\-c@{gmxfio.\-c}!gmx\-\_\-fio\-\_\-int\-\_\-flush@{gmx\-\_\-fio\-\_\-int\-\_\-flush}}
+\index{gmx\-\_\-fio\-\_\-int\-\_\-flush@{gmx\-\_\-fio\-\_\-int\-\_\-flush}!gmxfio.c@{gmxfio.\-c}}
+\subsubsection[{gmx\-\_\-fio\-\_\-int\-\_\-flush}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf gmx\-\_\-fio\-\_\-int\-\_\-flush} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmxfio_8c_aeba7c84f1c32b37c65fabba82cd2db1b}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmxfio_8c_aeba7c84f1c32b37c65fabba82cd2db1b_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmxfio_8c_abc207e92ea3c66f9c6b477485058b2ac}{\index{gmxfio.\-c@{gmxfio.\-c}!gmx\-\_\-fio\-\_\-int\-\_\-fsync@{gmx\-\_\-fio\-\_\-int\-\_\-fsync}}
+\index{gmx\-\_\-fio\-\_\-int\-\_\-fsync@{gmx\-\_\-fio\-\_\-int\-\_\-fsync}!gmxfio.c@{gmxfio.\-c}}
+\subsubsection[{gmx\-\_\-fio\-\_\-int\-\_\-fsync}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf gmx\-\_\-fio\-\_\-int\-\_\-fsync} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmxfio_8c_abc207e92ea3c66f9c6b477485058b2ac}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=278pt]{gmxfio_8c_abc207e92ea3c66f9c6b477485058b2ac_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmxfio_8c_abc207e92ea3c66f9c6b477485058b2ac_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmxfio_8c_a976f663d86e051f6df1143a50f1db3c8}{\index{gmxfio.\-c@{gmxfio.\-c}!gmx\-\_\-fio\-\_\-int\-\_\-get\-\_\-file\-\_\-md5@{gmx\-\_\-fio\-\_\-int\-\_\-get\-\_\-file\-\_\-md5}}
+\index{gmx\-\_\-fio\-\_\-int\-\_\-get\-\_\-file\-\_\-md5@{gmx\-\_\-fio\-\_\-int\-\_\-get\-\_\-file\-\_\-md5}!gmxfio.c@{gmxfio.\-c}}
+\subsubsection[{gmx\-\_\-fio\-\_\-int\-\_\-get\-\_\-file\-\_\-md5}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf gmx\-\_\-fio\-\_\-int\-\_\-get\-\_\-file\-\_\-md5} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{{\bf gmx\-\_\-off\-\_\-t}}]{offset, }
+\item[{unsigned char}]{digest\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmxfio_8c_a976f663d86e051f6df1143a50f1db3c8}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=316pt]{gmxfio_8c_a976f663d86e051f6df1143a50f1db3c8_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmxfio_8c_a976f663d86e051f6df1143a50f1db3c8_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmxfio_8c_a369bbc410c1e3be4030f828c520ebd7c}{\index{gmxfio.\-c@{gmxfio.\-c}!gmx\-\_\-fio\-\_\-int\-\_\-get\-\_\-file\-\_\-position@{gmx\-\_\-fio\-\_\-int\-\_\-get\-\_\-file\-\_\-position}}
+\index{gmx\-\_\-fio\-\_\-int\-\_\-get\-\_\-file\-\_\-position@{gmx\-\_\-fio\-\_\-int\-\_\-get\-\_\-file\-\_\-position}!gmxfio.c@{gmxfio.\-c}}
+\subsubsection[{gmx\-\_\-fio\-\_\-int\-\_\-get\-\_\-file\-\_\-position}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf gmx\-\_\-fio\-\_\-int\-\_\-get\-\_\-file\-\_\-position} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{{\bf gmx\-\_\-off\-\_\-t} $\ast$}]{offset}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmxfio_8c_a369bbc410c1e3be4030f828c520ebd7c}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmxfio_8c_a369bbc410c1e3be4030f828c520ebd7c_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmxfio_8c_a369bbc410c1e3be4030f828c520ebd7c_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmxfio_8c_a6b64e194a9f690f2ae27aa5495d01998}{\index{gmxfio.\-c@{gmxfio.\-c}!gmx\-\_\-fio\-\_\-lock@{gmx\-\_\-fio\-\_\-lock}}
+\index{gmx\-\_\-fio\-\_\-lock@{gmx\-\_\-fio\-\_\-lock}!gmxfio.c@{gmxfio.\-c}}
+\subsubsection[{gmx\-\_\-fio\-\_\-lock}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-fio\-\_\-lock} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio}
+\end{DoxyParamCaption}
+)}}\label{gmxfio_8c_a6b64e194a9f690f2ae27aa5495d01998}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=278pt]{gmxfio_8c_a6b64e194a9f690f2ae27aa5495d01998_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmxfio_8c_a5163d45ef818a36c42432ad3f0c89c6c}{\index{gmxfio.\-c@{gmxfio.\-c}!gmx\-\_\-fio\-\_\-make\-\_\-dummy@{gmx\-\_\-fio\-\_\-make\-\_\-dummy}}
+\index{gmx\-\_\-fio\-\_\-make\-\_\-dummy@{gmx\-\_\-fio\-\_\-make\-\_\-dummy}!gmxfio.c@{gmxfio.\-c}}
+\subsubsection[{gmx\-\_\-fio\-\_\-make\-\_\-dummy}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf gmx\-\_\-fio\-\_\-make\-\_\-dummy} (
+\begin{DoxyParamCaption}
+\item[{{\bf void}}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmxfio_8c_a5163d45ef818a36c42432ad3f0c89c6c}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=316pt]{gmxfio_8c_a5163d45ef818a36c42432ad3f0c89c6c_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmxfio_8c_a5163d45ef818a36c42432ad3f0c89c6c_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmxfio_8c_a3d6f5bd4e86ec17ed43c055fa9d76cc0}{\index{gmxfio.\-c@{gmxfio.\-c}!gmx\-\_\-fio\-\_\-open@{gmx\-\_\-fio\-\_\-open}}
+\index{gmx\-\_\-fio\-\_\-open@{gmx\-\_\-fio\-\_\-open}!gmxfio.c@{gmxfio.\-c}}
+\subsubsection[{gmx\-\_\-fio\-\_\-open}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\-\_\-fileio}$\ast$ {\bf gmx\-\_\-fio\-\_\-open} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{fn, }
+\item[{const char $\ast$}]{mode}
+\end{DoxyParamCaption}
+)}}\label{gmxfio_8c_a3d6f5bd4e86ec17ed43c055fa9d76cc0}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmxfio_8c_a3d6f5bd4e86ec17ed43c055fa9d76cc0_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{gmxfio_8c_a3d6f5bd4e86ec17ed43c055fa9d76cc0_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmxfio_8c_a8e6bbe6b59cbd1cf159adaa80313667c}{\index{gmxfio.\-c@{gmxfio.\-c}!gmx\-\_\-fio\-\_\-remove@{gmx\-\_\-fio\-\_\-remove}}
+\index{gmx\-\_\-fio\-\_\-remove@{gmx\-\_\-fio\-\_\-remove}!gmxfio.c@{gmxfio.\-c}}
+\subsubsection[{gmx\-\_\-fio\-\_\-remove}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf gmx\-\_\-fio\-\_\-remove} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmxfio_8c_a8e6bbe6b59cbd1cf159adaa80313667c}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmxfio_8c_a8e6bbe6b59cbd1cf159adaa80313667c_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{gmxfio_8c_a8e6bbe6b59cbd1cf159adaa80313667c_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmxfio_8c_ad08c704fdf20a26d1f5b2a2e3f506a62}{\index{gmxfio.\-c@{gmxfio.\-c}!gmx\-\_\-fio\-\_\-rewind@{gmx\-\_\-fio\-\_\-rewind}}
+\index{gmx\-\_\-fio\-\_\-rewind@{gmx\-\_\-fio\-\_\-rewind}!gmxfio.c@{gmxfio.\-c}}
+\subsubsection[{gmx\-\_\-fio\-\_\-rewind}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-fio\-\_\-rewind} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio}
+\end{DoxyParamCaption}
+)}}\label{gmxfio_8c_ad08c704fdf20a26d1f5b2a2e3f506a62}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmxfio_8c_ad08c704fdf20a26d1f5b2a2e3f506a62_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmxfio_8c_ad08c704fdf20a26d1f5b2a2e3f506a62_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmxfio_8c_a29ec98971f4b9810bebc2fc48caa40ad}{\index{gmxfio.\-c@{gmxfio.\-c}!gmx\-\_\-fio\-\_\-seek@{gmx\-\_\-fio\-\_\-seek}}
+\index{gmx\-\_\-fio\-\_\-seek@{gmx\-\_\-fio\-\_\-seek}!gmxfio.c@{gmxfio.\-c}}
+\subsubsection[{gmx\-\_\-fio\-\_\-seek}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-fio\-\_\-seek} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{{\bf gmx\-\_\-off\-\_\-t}}]{fpos}
+\end{DoxyParamCaption}
+)}}\label{gmxfio_8c_a29ec98971f4b9810bebc2fc48caa40ad}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmxfio_8c_a29ec98971f4b9810bebc2fc48caa40ad_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmxfio_8c_a29ec98971f4b9810bebc2fc48caa40ad_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmxfio_8c_ab6186791846a4fcb2713c58abdb65ea2}{\index{gmxfio.\-c@{gmxfio.\-c}!gmx\-\_\-fio\-\_\-set\-\_\-comment@{gmx\-\_\-fio\-\_\-set\-\_\-comment}}
+\index{gmx\-\_\-fio\-\_\-set\-\_\-comment@{gmx\-\_\-fio\-\_\-set\-\_\-comment}!gmxfio.c@{gmxfio.\-c}}
+\subsubsection[{gmx\-\_\-fio\-\_\-set\-\_\-comment}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-fio\-\_\-set\-\_\-comment} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{const char $\ast$}]{comment}
+\end{DoxyParamCaption}
+)}}\label{gmxfio_8c_ab6186791846a4fcb2713c58abdb65ea2}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmxfio_8c_ab6186791846a4fcb2713c58abdb65ea2_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmxfio_8c_a483a63246b486f9f03f79178b6f1991e}{\index{gmxfio.\-c@{gmxfio.\-c}!gmx\-\_\-fio\-\_\-set\-\_\-iotype@{gmx\-\_\-fio\-\_\-set\-\_\-iotype}}
+\index{gmx\-\_\-fio\-\_\-set\-\_\-iotype@{gmx\-\_\-fio\-\_\-set\-\_\-iotype}!gmxfio.c@{gmxfio.\-c}}
+\subsubsection[{gmx\-\_\-fio\-\_\-set\-\_\-iotype}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf gmx\-\_\-fio\-\_\-set\-\_\-iotype} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmxfio_8c_a483a63246b486f9f03f79178b6f1991e}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=278pt]{gmxfio_8c_a483a63246b486f9f03f79178b6f1991e_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{gmxfio_8c_a483a63246b486f9f03f79178b6f1991e_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmxfio_8c_a778746065a7a40d7904e089fa598a4ba}{\index{gmxfio.\-c@{gmxfio.\-c}!gmx\-\_\-fio\-\_\-setdebug@{gmx\-\_\-fio\-\_\-setdebug}}
+\index{gmx\-\_\-fio\-\_\-setdebug@{gmx\-\_\-fio\-\_\-setdebug}!gmxfio.c@{gmxfio.\-c}}
+\subsubsection[{gmx\-\_\-fio\-\_\-setdebug}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-fio\-\_\-setdebug} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Debug}
+\end{DoxyParamCaption}
+)}}\label{gmxfio_8c_a778746065a7a40d7904e089fa598a4ba}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmxfio_8c_a778746065a7a40d7904e089fa598a4ba_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmxfio_8c_a778746065a7a40d7904e089fa598a4ba_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmxfio_8c_a941cfbebd1a14859fa3a649940481916}{\index{gmxfio.\-c@{gmxfio.\-c}!gmx\-\_\-fio\-\_\-setprecision@{gmx\-\_\-fio\-\_\-setprecision}}
+\index{gmx\-\_\-fio\-\_\-setprecision@{gmx\-\_\-fio\-\_\-setprecision}!gmxfio.c@{gmxfio.\-c}}
+\subsubsection[{gmx\-\_\-fio\-\_\-setprecision}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-fio\-\_\-setprecision} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Double}
+\end{DoxyParamCaption}
+)}}\label{gmxfio_8c_a941cfbebd1a14859fa3a649940481916}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmxfio_8c_a941cfbebd1a14859fa3a649940481916_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmxfio_8c_a941cfbebd1a14859fa3a649940481916_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmxfio_8c_afb92265165c6266a7343c518e18a4ef5}{\index{gmxfio.\-c@{gmxfio.\-c}!gmx\-\_\-fio\-\_\-stop\-\_\-getting\-\_\-next@{gmx\-\_\-fio\-\_\-stop\-\_\-getting\-\_\-next}}
+\index{gmx\-\_\-fio\-\_\-stop\-\_\-getting\-\_\-next@{gmx\-\_\-fio\-\_\-stop\-\_\-getting\-\_\-next}!gmxfio.c@{gmxfio.\-c}}
+\subsubsection[{gmx\-\_\-fio\-\_\-stop\-\_\-getting\-\_\-next}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf gmx\-\_\-fio\-\_\-stop\-\_\-getting\-\_\-next} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmxfio_8c_afb92265165c6266a7343c518e18a4ef5}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmxfio_8c_afb92265165c6266a7343c518e18a4ef5_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{gmxfio_8c_afb92265165c6266a7343c518e18a4ef5_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmxfio_8c_af9a825270c1e4deeb55fca0b1146e927}{\index{gmxfio.\-c@{gmxfio.\-c}!gmx\-\_\-fio\-\_\-unlock@{gmx\-\_\-fio\-\_\-unlock}}
+\index{gmx\-\_\-fio\-\_\-unlock@{gmx\-\_\-fio\-\_\-unlock}!gmxfio.c@{gmxfio.\-c}}
+\subsubsection[{gmx\-\_\-fio\-\_\-unlock}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-fio\-\_\-unlock} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio}
+\end{DoxyParamCaption}
+)}}\label{gmxfio_8c_af9a825270c1e4deeb55fca0b1146e927}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=300pt]{gmxfio_8c_af9a825270c1e4deeb55fca0b1146e927_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmxfio_8c_a97c3bb94f708d44a92834fea40c3451c}{\index{gmxfio.\-c@{gmxfio.\-c}!gmx\-\_\-fio\-\_\-unset\-\_\-comment@{gmx\-\_\-fio\-\_\-unset\-\_\-comment}}
+\index{gmx\-\_\-fio\-\_\-unset\-\_\-comment@{gmx\-\_\-fio\-\_\-unset\-\_\-comment}!gmxfio.c@{gmxfio.\-c}}
+\subsubsection[{gmx\-\_\-fio\-\_\-unset\-\_\-comment}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-fio\-\_\-unset\-\_\-comment} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio}
+\end{DoxyParamCaption}
+)}}\label{gmxfio_8c_a97c3bb94f708d44a92834fea40c3451c}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmxfio_8c_a97c3bb94f708d44a92834fea40c3451c_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmxfio_8c_a96c47a5a6c3a2dbbe9a6732790f1c90b}{\index{gmxfio.\-c@{gmxfio.\-c}!in\-\_\-ftpset@{in\-\_\-ftpset}}
+\index{in\-\_\-ftpset@{in\-\_\-ftpset}!gmxfio.c@{gmxfio.\-c}}
+\subsubsection[{in\-\_\-ftpset}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gmx\-\_\-bool} {\bf in\-\_\-ftpset} (
+\begin{DoxyParamCaption}
+\item[{int}]{ftp, }
+\item[{int}]{nset, }
+\item[{const int}]{set\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmxfio_8c_a96c47a5a6c3a2dbbe9a6732790f1c90b}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{gmxfio_8c_a96c47a5a6c3a2dbbe9a6732790f1c90b_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmxfio_8c_ac08e6ac0d03e023c8e3b52ca288691c1}{\index{gmxfio.\-c@{gmxfio.\-c}!xtc\-\_\-seek\-\_\-frame@{xtc\-\_\-seek\-\_\-frame}}
+\index{xtc\-\_\-seek\-\_\-frame@{xtc\-\_\-seek\-\_\-frame}!gmxfio.c@{gmxfio.\-c}}
+\subsubsection[{xtc\-\_\-seek\-\_\-frame}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf xtc\-\_\-seek\-\_\-frame} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{int}]{frame, }
+\item[{int}]{natoms}
+\end{DoxyParamCaption}
+)}}\label{gmxfio_8c_ac08e6ac0d03e023c8e3b52ca288691c1}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmxfio_8c_ac08e6ac0d03e023c8e3b52ca288691c1_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmxfio_8c_a80518450088f004804525d22367fcb46}{\index{gmxfio.\-c@{gmxfio.\-c}!xtc\-\_\-seek\-\_\-time@{xtc\-\_\-seek\-\_\-time}}
+\index{xtc\-\_\-seek\-\_\-time@{xtc\-\_\-seek\-\_\-time}!gmxfio.c@{gmxfio.\-c}}
+\subsubsection[{xtc\-\_\-seek\-\_\-time}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf xtc\-\_\-seek\-\_\-time} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{real}]{time, }
+\item[{int}]{natoms, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Seek\-Forward\-Only}
+\end{DoxyParamCaption}
+)}}\label{gmxfio_8c_a80518450088f004804525d22367fcb46}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmxfio_8c_a80518450088f004804525d22367fcb46_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmxfio_8c_a80518450088f004804525d22367fcb46_icgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{\-Variable \-Documentation}
+\hypertarget{gmxfio_8c_af921e81673488d0b68fc9f0d3d314057}{\index{gmxfio.\-c@{gmxfio.\-c}!comment\-\_\-str@{comment\-\_\-str}}
+\index{comment\-\_\-str@{comment\-\_\-str}!gmxfio.c@{gmxfio.\-c}}
+\subsubsection[{comment\-\_\-str}]{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ {\bf comment\-\_\-str}\mbox{[}{\bf eitem\-N\-R}\mbox{]}}}\label{gmxfio_8c_af921e81673488d0b68fc9f0d3d314057}
+{\bfseries \-Initial value\-:}
+\begin{DoxyCode}
+ {
+    "; The header holds information on the number of atoms etc. and on whether
+      \n"
+    "; certain items are present in the file or not.\n"
+    "; \n"
+    ";                             WARNING\n"
+    ";                   DO NOT EDIT THIS FILE BY HAND\n"
+    "; The GROMACS preprocessor performs a lot of checks on your input that\n"
+    "; you ignore when editing this. Your simulation may crash because of this
+      \n",
+    "; The inputrec holds the parameters for MD such as the number of steps,\n"
+    "; the timestep and the cut-offs.\n",
+    "; The simulation box in nm.\n",
+    "; The topology section describes the topology of the molecules\n"
+    "; i.e. bonds, angles and dihedrals etc. and also holds the force field\n"
+    "; parameters.\n",
+    "; The atomic coordinates in nm\n",
+    "; The atomic velocities in nm/ps\n",
+    "; The forces on the atoms in nm/ps^2\n"
+}
+\end{DoxyCode}
+\hypertarget{gmxfio_8c_a388bc2e1259e401d5a3de5c883697ab9}{\index{gmxfio.\-c@{gmxfio.\-c}!eio\-Names@{eio\-Names}}
+\index{eio\-Names@{eio\-Names}!gmxfio.c@{gmxfio.\-c}}
+\subsubsection[{eio\-Names}]{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ {\bf eio\-Names}\mbox{[}{\bf eio\-N\-R}\mbox{]}}}\label{gmxfio_8c_a388bc2e1259e401d5a3de5c883697ab9}
+{\bfseries \-Initial value\-:}
+\begin{DoxyCode}
+
+{
+    "REAL", "INT", "GMX_STE_T", "UCHAR", "NUCHAR", "USHORT", "RVEC", "NRVEC",
+    "IVEC", "STRING"
+}
+\end{DoxyCode}
+\hypertarget{gmxfio_8c_a2eb4159ed2583b6da439a41458c24621}{\index{gmxfio.\-c@{gmxfio.\-c}!ftp\-A\-S\-C@{ftp\-A\-S\-C}}
+\index{ftp\-A\-S\-C@{ftp\-A\-S\-C}!gmxfio.c@{gmxfio.\-c}}
+\subsubsection[{ftp\-A\-S\-C}]{\setlength{\rightskip}{0pt plus 5cm}const int {\bf ftp\-A\-S\-C}\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmxfio_8c_a2eb4159ed2583b6da439a41458c24621}
+{\bfseries \-Initial value\-:}
+\begin{DoxyCode}
+
+{ efTPA, efGRO, efPDB }
+\end{DoxyCode}
+\hypertarget{gmxfio_8c_afeed90dd654872d8bab96d334ccab425}{\index{gmxfio.\-c@{gmxfio.\-c}!ftp\-B\-I\-N@{ftp\-B\-I\-N}}
+\index{ftp\-B\-I\-N@{ftp\-B\-I\-N}!gmxfio.c@{gmxfio.\-c}}
+\subsubsection[{ftp\-B\-I\-N}]{\setlength{\rightskip}{0pt plus 5cm}const int {\bf ftp\-B\-I\-N}\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmxfio_8c_afeed90dd654872d8bab96d334ccab425}
+{\bfseries \-Initial value\-:}
+\begin{DoxyCode}
+
+{ efTPB, efTRJ }
+\end{DoxyCode}
+\hypertarget{gmxfio_8c_a55a0181bdf64bcbeb4fb6c36fd853538}{\index{gmxfio.\-c@{gmxfio.\-c}!ftp\-X\-D\-R@{ftp\-X\-D\-R}}
+\index{ftp\-X\-D\-R@{ftp\-X\-D\-R}!gmxfio.c@{gmxfio.\-c}}
+\subsubsection[{ftp\-X\-D\-R}]{\setlength{\rightskip}{0pt plus 5cm}const int {\bf ftp\-X\-D\-R}\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmxfio_8c_a55a0181bdf64bcbeb4fb6c36fd853538}
+{\bfseries \-Initial value\-:}
+\begin{DoxyCode}
+
+{ efTPR, efTRR, efEDR, efXTC, efMTX, efCPT }
+\end{DoxyCode}
+\hypertarget{gmxfio_8c_a9747a1e7497ca8483a36869091b9ecb0}{\index{gmxfio.\-c@{gmxfio.\-c}!itemstr@{itemstr}}
+\index{itemstr@{itemstr}!gmxfio.c@{gmxfio.\-c}}
+\subsubsection[{itemstr}]{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ {\bf itemstr}\mbox{[}{\bf eitem\-N\-R}\mbox{]}}}\label{gmxfio_8c_a9747a1e7497ca8483a36869091b9ecb0}
+{\bfseries \-Initial value\-:}
+\begin{DoxyCode}
+
+{
+    "[header]", "[inputrec]", "[box]", "[topology]", "[coordinates]",
+    "[velocities]", "[forces]"
+}
+\end{DoxyCode}
+\hypertarget{gmxfio_8c_a472135ec77411e033d41594805b028c5}{\index{gmxfio.\-c@{gmxfio.\-c}!open\-\_\-files@{open\-\_\-files}}
+\index{open\-\_\-files@{open\-\_\-files}!gmxfio.c@{gmxfio.\-c}}
+\subsubsection[{open\-\_\-files}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\-\_\-fileio}$\ast$ {\bf open\-\_\-files} = \-N\-U\-L\-L\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmxfio_8c_a472135ec77411e033d41594805b028c5}

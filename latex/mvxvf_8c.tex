@@ -1,0 +1,328 @@
+\hypertarget{mvxvf_8c}{\section{src/mdlib/mvxvf.c \-File \-Reference}
+\label{mvxvf_8c}\index{src/mdlib/mvxvf.\-c@{src/mdlib/mvxvf.\-c}}
+}
+{\ttfamily \#include $<$sysstuff.\-h$>$}\*
+{\ttfamily \#include $<$string.\-h$>$}\*
+{\ttfamily \#include \char`\"{}typedefs.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}main.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}mvdata.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}network.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}smalloc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-fatal.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}symtab.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}vec.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}tgroup.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}nrnb.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}partdec.\-h\char`\"{}}\*
+\-Include dependency graph for mvxvf.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mvxvf_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{mvxvf_8c_a2f905a9c4868f5f248b12d584a78dfbd}{next}~((cur + 1) \% cr-\/$>$nnodes)
+\item 
+\#define \hyperlink{mvxvf_8c_a6b07e4871725dde4c716eb22b99d2231}{prev}~((cur -\/ 1 + cr-\/$>$nnodes) \% cr-\/$>$nnodes)
+\item 
+\#define \hyperlink{mvxvf_8c_a64ec2d4271737a1b2b0a29ab2fb8de90}{\-H\-O\-M\-E\-N\-R\-I}(ind, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a3c7542401c1cb8bd37ef5e7d9eb0f5a8}{i})~((ind)\mbox{[}(\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a3c7542401c1cb8bd37ef5e7d9eb0f5a8}{i})+1\mbox{]} -\/ (ind)\mbox{[}(\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a3c7542401c1cb8bd37ef5e7d9eb0f5a8}{i})\mbox{]})
+\item 
+\#define \hyperlink{mvxvf_8c_a2f905a9c4868f5f248b12d584a78dfbd}{next}~((cur + 1) \% cr-\/$>$nnodes)
+\item 
+\#define \hyperlink{mvxvf_8c_a6b07e4871725dde4c716eb22b99d2231}{prev}~((cur -\/ 1 + cr-\/$>$nnodes) \% cr-\/$>$nnodes)
+\item 
+\#define \hyperlink{mvxvf_8c_a64ec2d4271737a1b2b0a29ab2fb8de90}{\-H\-O\-M\-E\-N\-R\-I}(ind, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a3c7542401c1cb8bd37ef5e7d9eb0f5a8}{i})~((ind)\mbox{[}(\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a3c7542401c1cb8bd37ef5e7d9eb0f5a8}{i})+1\mbox{]} -\/ (ind)\mbox{[}(\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a3c7542401c1cb8bd37ef5e7d9eb0f5a8}{i})\mbox{]})
+\item 
+\#define \hyperlink{mvxvf_8c_a2f905a9c4868f5f248b12d584a78dfbd}{next}~((cur+1) \% cr-\/$>$nnodes)
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{mvxvf_8c_a8d2cc85d234b08d529f61c6e210a0a17}{move\-\_\-rvecs} (const \hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Forward, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Sum, int left, int right, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} vecs\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} buf\mbox{[}$\,$\mbox{]}, int shift, \hyperlink{structt__nrnb}{t\-\_\-nrnb} $\ast$nrnb)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{mvxvf_8c_a81fc066e65a8e09d59f08baa18fde91d}{move\-\_\-reals} (const \hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Forward, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Sum, int left, int right, real reals\mbox{[}$\,$\mbox{]}, real buf\mbox{[}$\,$\mbox{]}, int shift, \hyperlink{structt__nrnb}{t\-\_\-nrnb} $\ast$nrnb)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{mvxvf_8c_a47915cbdcb343b191fc5b581dcc1c49b}{move\-\_\-x} (\-F\-I\-L\-E $\ast$log, const \hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr, int left, int right, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{structt__nrnb}{t\-\_\-nrnb} $\ast$nrnb)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{mvxvf_8c_a0b488ba00ce331c259b9e8ad5f52333f}{move\-\_\-rborn} (\-F\-I\-L\-E $\ast$log, const \hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr, int left, int right, real rborn\mbox{[}$\,$\mbox{]}, \hyperlink{structt__nrnb}{t\-\_\-nrnb} $\ast$nrnb)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{mvxvf_8c_a7e779ebf3b65095b8ba270994192783a}{move\-\_\-f} (\-F\-I\-L\-E $\ast$log, const \hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr, int left, int right, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{copyrite_8c_a0757cfb6fe645a02867727255faa4f8b}{f}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} fadd\mbox{[}$\,$\mbox{]}, \hyperlink{structt__nrnb}{t\-\_\-nrnb} $\ast$nrnb)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{mvxvf_8c_a2a65105fe5fba307f3da142129085cd6}{move\-\_\-gpol} (\-F\-I\-L\-E $\ast$log, const \hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr, int left, int right, real gpol\mbox{[}$\,$\mbox{]}, real gpol\-\_\-add\mbox{[}$\,$\mbox{]}, \hyperlink{structt__nrnb}{t\-\_\-nrnb} $\ast$nrnb)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{mvxvf_8c_a6dbad66803bd7e5da2c64c0c94cdb397}{move\-\_\-cgcm} (\-F\-I\-L\-E $\ast$log, const \hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} cg\-\_\-cm\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Define \-Documentation}
+\hypertarget{mvxvf_8c_a64ec2d4271737a1b2b0a29ab2fb8de90}{\index{mvxvf.\-c@{mvxvf.\-c}!\-H\-O\-M\-E\-N\-R\-I@{\-H\-O\-M\-E\-N\-R\-I}}
+\index{\-H\-O\-M\-E\-N\-R\-I@{\-H\-O\-M\-E\-N\-R\-I}!mvxvf.c@{mvxvf.\-c}}
+\subsubsection[{\-H\-O\-M\-E\-N\-R\-I}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-H\-O\-M\-E\-N\-R\-I}(
+\begin{DoxyParamCaption}
+\item[{}]{ind, }
+\item[{}]{{\bf i}}
+\end{DoxyParamCaption}
+)~((ind)\mbox{[}({\bf i})+1\mbox{]} -\/ (ind)\mbox{[}({\bf i})\mbox{]})}}\label{mvxvf_8c_a64ec2d4271737a1b2b0a29ab2fb8de90}
+\hypertarget{mvxvf_8c_a64ec2d4271737a1b2b0a29ab2fb8de90}{\index{mvxvf.\-c@{mvxvf.\-c}!\-H\-O\-M\-E\-N\-R\-I@{\-H\-O\-M\-E\-N\-R\-I}}
+\index{\-H\-O\-M\-E\-N\-R\-I@{\-H\-O\-M\-E\-N\-R\-I}!mvxvf.c@{mvxvf.\-c}}
+\subsubsection[{\-H\-O\-M\-E\-N\-R\-I}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-H\-O\-M\-E\-N\-R\-I}(
+\begin{DoxyParamCaption}
+\item[{}]{ind, }
+\item[{}]{{\bf i}}
+\end{DoxyParamCaption}
+)~((ind)\mbox{[}({\bf i})+1\mbox{]} -\/ (ind)\mbox{[}({\bf i})\mbox{]})}}\label{mvxvf_8c_a64ec2d4271737a1b2b0a29ab2fb8de90}
+\hypertarget{mvxvf_8c_a2f905a9c4868f5f248b12d584a78dfbd}{\index{mvxvf.\-c@{mvxvf.\-c}!next@{next}}
+\index{next@{next}!mvxvf.c@{mvxvf.\-c}}
+\subsubsection[{next}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf next}~((cur + 1) \% cr-\/$>$nnodes)}}\label{mvxvf_8c_a2f905a9c4868f5f248b12d584a78dfbd}
+\hypertarget{mvxvf_8c_a2f905a9c4868f5f248b12d584a78dfbd}{\index{mvxvf.\-c@{mvxvf.\-c}!next@{next}}
+\index{next@{next}!mvxvf.c@{mvxvf.\-c}}
+\subsubsection[{next}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf next}~((cur + 1) \% cr-\/$>$nnodes)}}\label{mvxvf_8c_a2f905a9c4868f5f248b12d584a78dfbd}
+\hypertarget{mvxvf_8c_a2f905a9c4868f5f248b12d584a78dfbd}{\index{mvxvf.\-c@{mvxvf.\-c}!next@{next}}
+\index{next@{next}!mvxvf.c@{mvxvf.\-c}}
+\subsubsection[{next}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf next}~((cur+1) \% cr-\/$>$nnodes)}}\label{mvxvf_8c_a2f905a9c4868f5f248b12d584a78dfbd}
+\hypertarget{mvxvf_8c_a6b07e4871725dde4c716eb22b99d2231}{\index{mvxvf.\-c@{mvxvf.\-c}!prev@{prev}}
+\index{prev@{prev}!mvxvf.c@{mvxvf.\-c}}
+\subsubsection[{prev}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf prev}~((cur -\/ 1 + cr-\/$>$nnodes) \% cr-\/$>$nnodes)}}\label{mvxvf_8c_a6b07e4871725dde4c716eb22b99d2231}
+\hypertarget{mvxvf_8c_a6b07e4871725dde4c716eb22b99d2231}{\index{mvxvf.\-c@{mvxvf.\-c}!prev@{prev}}
+\index{prev@{prev}!mvxvf.c@{mvxvf.\-c}}
+\subsubsection[{prev}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf prev}~((cur -\/ 1 + cr-\/$>$nnodes) \% cr-\/$>$nnodes)}}\label{mvxvf_8c_a6b07e4871725dde4c716eb22b99d2231}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{mvxvf_8c_a6dbad66803bd7e5da2c64c0c94cdb397}{\index{mvxvf.\-c@{mvxvf.\-c}!move\-\_\-cgcm@{move\-\_\-cgcm}}
+\index{move\-\_\-cgcm@{move\-\_\-cgcm}!mvxvf.c@{mvxvf.\-c}}
+\subsubsection[{move\-\_\-cgcm}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf move\-\_\-cgcm} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{log, }
+\item[{const {\bf t\-\_\-commrec} $\ast$}]{cr, }
+\item[{{\bf rvec}}]{cg\-\_\-cm\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{mvxvf_8c_a6dbad66803bd7e5da2c64c0c94cdb397}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=258pt]{mvxvf_8c_a6dbad66803bd7e5da2c64c0c94cdb397_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mvxvf_8c_a6dbad66803bd7e5da2c64c0c94cdb397_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{mvxvf_8c_a7e779ebf3b65095b8ba270994192783a}{\index{mvxvf.\-c@{mvxvf.\-c}!move\-\_\-f@{move\-\_\-f}}
+\index{move\-\_\-f@{move\-\_\-f}!mvxvf.c@{mvxvf.\-c}}
+\subsubsection[{move\-\_\-f}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf move\-\_\-f} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{log, }
+\item[{const {\bf t\-\_\-commrec} $\ast$}]{cr, }
+\item[{int}]{left, }
+\item[{int}]{right, }
+\item[{{\bf rvec}}]{f\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{fadd\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf t\-\_\-nrnb} $\ast$}]{nrnb}
+\end{DoxyParamCaption}
+)}}\label{mvxvf_8c_a7e779ebf3b65095b8ba270994192783a}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=236pt]{mvxvf_8c_a7e779ebf3b65095b8ba270994192783a_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mvxvf_8c_a7e779ebf3b65095b8ba270994192783a_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{mvxvf_8c_a2a65105fe5fba307f3da142129085cd6}{\index{mvxvf.\-c@{mvxvf.\-c}!move\-\_\-gpol@{move\-\_\-gpol}}
+\index{move\-\_\-gpol@{move\-\_\-gpol}!mvxvf.c@{mvxvf.\-c}}
+\subsubsection[{move\-\_\-gpol}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf move\-\_\-gpol} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{log, }
+\item[{const {\bf t\-\_\-commrec} $\ast$}]{cr, }
+\item[{int}]{left, }
+\item[{int}]{right, }
+\item[{real}]{gpol\mbox{[}$\,$\mbox{]}, }
+\item[{real}]{gpol\-\_\-add\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf t\-\_\-nrnb} $\ast$}]{nrnb}
+\end{DoxyParamCaption}
+)}}\label{mvxvf_8c_a2a65105fe5fba307f3da142129085cd6}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=248pt]{mvxvf_8c_a2a65105fe5fba307f3da142129085cd6_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{mvxvf_8c_a0b488ba00ce331c259b9e8ad5f52333f}{\index{mvxvf.\-c@{mvxvf.\-c}!move\-\_\-rborn@{move\-\_\-rborn}}
+\index{move\-\_\-rborn@{move\-\_\-rborn}!mvxvf.c@{mvxvf.\-c}}
+\subsubsection[{move\-\_\-rborn}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf move\-\_\-rborn} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{log, }
+\item[{const {\bf t\-\_\-commrec} $\ast$}]{cr, }
+\item[{int}]{left, }
+\item[{int}]{right, }
+\item[{real}]{rborn\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf t\-\_\-nrnb} $\ast$}]{nrnb}
+\end{DoxyParamCaption}
+)}}\label{mvxvf_8c_a0b488ba00ce331c259b9e8ad5f52333f}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=252pt]{mvxvf_8c_a0b488ba00ce331c259b9e8ad5f52333f_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{mvxvf_8c_a81fc066e65a8e09d59f08baa18fde91d}{\index{mvxvf.\-c@{mvxvf.\-c}!move\-\_\-reals@{move\-\_\-reals}}
+\index{move\-\_\-reals@{move\-\_\-reals}!mvxvf.c@{mvxvf.\-c}}
+\subsubsection[{move\-\_\-reals}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf move\-\_\-reals} (
+\begin{DoxyParamCaption}
+\item[{const {\bf t\-\_\-commrec} $\ast$}]{cr, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Forward, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Sum, }
+\item[{int}]{left, }
+\item[{int}]{right, }
+\item[{real}]{reals\mbox{[}$\,$\mbox{]}, }
+\item[{real}]{buf\mbox{[}$\,$\mbox{]}, }
+\item[{int}]{shift, }
+\item[{{\bf t\-\_\-nrnb} $\ast$}]{nrnb}
+\end{DoxyParamCaption}
+)}}\label{mvxvf_8c_a81fc066e65a8e09d59f08baa18fde91d}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=268pt]{mvxvf_8c_a81fc066e65a8e09d59f08baa18fde91d_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=252pt]{mvxvf_8c_a81fc066e65a8e09d59f08baa18fde91d_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{mvxvf_8c_a8d2cc85d234b08d529f61c6e210a0a17}{\index{mvxvf.\-c@{mvxvf.\-c}!move\-\_\-rvecs@{move\-\_\-rvecs}}
+\index{move\-\_\-rvecs@{move\-\_\-rvecs}!mvxvf.c@{mvxvf.\-c}}
+\subsubsection[{move\-\_\-rvecs}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf move\-\_\-rvecs} (
+\begin{DoxyParamCaption}
+\item[{const {\bf t\-\_\-commrec} $\ast$}]{cr, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Forward, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Sum, }
+\item[{int}]{left, }
+\item[{int}]{right, }
+\item[{{\bf rvec}}]{vecs\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{buf\mbox{[}$\,$\mbox{]}, }
+\item[{int}]{shift, }
+\item[{{\bf t\-\_\-nrnb} $\ast$}]{nrnb}
+\end{DoxyParamCaption}
+)}}\label{mvxvf_8c_a8d2cc85d234b08d529f61c6e210a0a17}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=270pt]{mvxvf_8c_a8d2cc85d234b08d529f61c6e210a0a17_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mvxvf_8c_a8d2cc85d234b08d529f61c6e210a0a17_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{mvxvf_8c_a47915cbdcb343b191fc5b581dcc1c49b}{\index{mvxvf.\-c@{mvxvf.\-c}!move\-\_\-x@{move\-\_\-x}}
+\index{move\-\_\-x@{move\-\_\-x}!mvxvf.c@{mvxvf.\-c}}
+\subsubsection[{move\-\_\-x}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf move\-\_\-x} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{log, }
+\item[{const {\bf t\-\_\-commrec} $\ast$}]{cr, }
+\item[{int}]{left, }
+\item[{int}]{right, }
+\item[{{\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf t\-\_\-nrnb} $\ast$}]{nrnb}
+\end{DoxyParamCaption}
+)}}\label{mvxvf_8c_a47915cbdcb343b191fc5b581dcc1c49b}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=238pt]{mvxvf_8c_a47915cbdcb343b191fc5b581dcc1c49b_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mvxvf_8c_a47915cbdcb343b191fc5b581dcc1c49b_icgraph}
+\end{center}
+\end{figure}
+
+

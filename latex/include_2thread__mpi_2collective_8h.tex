@@ -1,0 +1,146 @@
+\hypertarget{include_2thread__mpi_2collective_8h}{\section{include/thread\-\_\-mpi/collective.h \-File \-Reference}
+\label{include_2thread__mpi_2collective_8h}\index{include/thread\-\_\-mpi/collective.\-h@{include/thread\-\_\-mpi/collective.\-h}}
+}
+
+
+\-Collective functions.  
+
+
+{\ttfamily \#include \char`\"{}visibility.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}atomic.\-h\char`\"{}}\*
+\-Include dependency graph for collective.\-h\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=230pt]{include_2thread__mpi_2collective_8h__incl}
+\end{center}
+\end{figure}
+\-This graph shows which files directly or indirectly include this file\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=280pt]{include_2thread__mpi_2collective_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structtMPI__Reduce__req}{t\-M\-P\-I\-\_\-\-Reduce\-\_\-req}
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{share_2template_2gromacs_2thread__mpi_2visibility_8h_a1b2991140928309c56dcbe825bffb97e}{\-T\-M\-P\-I\-\_\-\-E\-X\-P\-O\-R\-T} int \hyperlink{include_2thread__mpi_2collective_8h_af798c3ec2b848612ef907f8174fafc96}{t\-M\-P\-I\-\_\-\-Once} (\hyperlink{include_2thread__mpi_2tmpi_8h_ab76dc275b882a1d00a54353fb8dd4cb3}{t\-M\-P\-I\-\_\-\-Comm} comm, \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void}($\ast$function)(\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$), \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$param, int $\ast$was\-\_\-first)
+\item 
+\hyperlink{share_2template_2gromacs_2thread__mpi_2visibility_8h_a1b2991140928309c56dcbe825bffb97e}{\-T\-M\-P\-I\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$ \hyperlink{include_2thread__mpi_2collective_8h_a7b0da84751703588bf42a7abe5cbee64}{t\-M\-P\-I\-\_\-\-Once\-\_\-wait} (\hyperlink{include_2thread__mpi_2tmpi_8h_ab76dc275b882a1d00a54353fb8dd4cb3}{t\-M\-P\-I\-\_\-\-Comm} comm, \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$($\ast$function)(\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$), \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$param, int $\ast$was\-\_\-first)
+\item 
+\hyperlink{share_2template_2gromacs_2thread__mpi_2visibility_8h_a1b2991140928309c56dcbe825bffb97e}{\-T\-M\-P\-I\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$ \hyperlink{include_2thread__mpi_2collective_8h_a3326ee9767d422f023b2ae6198a561f8}{t\-M\-P\-I\-\_\-\-Shmalloc} (\hyperlink{include_2thread__mpi_2tmpi_8h_ab76dc275b882a1d00a54353fb8dd4cb3}{t\-M\-P\-I\-\_\-\-Comm} comm, size\-\_\-t size)
+\item 
+\hyperlink{share_2template_2gromacs_2thread__mpi_2visibility_8h_a1b2991140928309c56dcbe825bffb97e}{\-T\-M\-P\-I\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{structtMPI__Reduce__req}{t\-M\-P\-I\-\_\-\-Reduce\-\_\-req} $\ast$ \hyperlink{include_2thread__mpi_2collective_8h_af4dbcd5b734d52977d5fc527fb63529d}{t\-M\-P\-I\-\_\-\-Reduce\-\_\-req\-\_\-alloc} (\hyperlink{include_2thread__mpi_2tmpi_8h_ab76dc275b882a1d00a54353fb8dd4cb3}{t\-M\-P\-I\-\_\-\-Comm} comm)
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Detailed \-Description}
+\-Collective functions. 
+
+\subsection{\-Function \-Documentation}
+\hypertarget{include_2thread__mpi_2collective_8h_af798c3ec2b848612ef907f8174fafc96}{\index{include/thread\-\_\-mpi/collective.\-h@{include/thread\-\_\-mpi/collective.\-h}!t\-M\-P\-I\-\_\-\-Once@{t\-M\-P\-I\-\_\-\-Once}}
+\index{t\-M\-P\-I\-\_\-\-Once@{t\-M\-P\-I\-\_\-\-Once}!include/thread_mpi/collective.h@{include/thread\-\_\-mpi/collective.\-h}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Once}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-T\-M\-P\-I\-\_\-\-E\-X\-P\-O\-R\-T} int {\bf t\-M\-P\-I\-\_\-\-Once} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-M\-P\-I\-\_\-\-Comm}}]{comm, }
+\item[{{\bf void}($\ast$)({\bf void} $\ast$)}]{function, }
+\item[{{\bf void} $\ast$}]{param, }
+\item[{int $\ast$}]{was\-\_\-first}
+\end{DoxyParamCaption}
+)}}\label{include_2thread__mpi_2collective_8h_af798c3ec2b848612ef907f8174fafc96}
+\-Execute function once over comm
+
+\-Executes a given function only once per collective call over comm.
+
+\-Collective function.
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em function} & the function to call \\
+\hline
+\mbox{\tt in}  & {\em param} & the parameter to the function \\
+\hline
+\mbox{\tt out}  & {\em was\-\_\-first} & set to 1 if the current thread was the one to execute the function. unchanged if current thread was not the one to execute the function; ignored if \-N\-U\-L\-L. \\
+\hline
+\mbox{\tt in}  & {\em comm} & \-The communicator. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-M\-P\-I\-\_\-\-S\-U\-C\-C\-E\-S\-S on success. 
+\end{DoxyReturn}
+\hypertarget{include_2thread__mpi_2collective_8h_a7b0da84751703588bf42a7abe5cbee64}{\index{include/thread\-\_\-mpi/collective.\-h@{include/thread\-\_\-mpi/collective.\-h}!t\-M\-P\-I\-\_\-\-Once\-\_\-wait@{t\-M\-P\-I\-\_\-\-Once\-\_\-wait}}
+\index{t\-M\-P\-I\-\_\-\-Once\-\_\-wait@{t\-M\-P\-I\-\_\-\-Once\-\_\-wait}!include/thread_mpi/collective.h@{include/thread\-\_\-mpi/collective.\-h}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Once\-\_\-wait}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-T\-M\-P\-I\-\_\-\-E\-X\-P\-O\-R\-T} {\bf void}$\ast$ {\bf t\-M\-P\-I\-\_\-\-Once\-\_\-wait} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-M\-P\-I\-\_\-\-Comm}}]{comm, }
+\item[{{\bf void} $\ast$($\ast$)({\bf void} $\ast$)}]{function, }
+\item[{{\bf void} $\ast$}]{param, }
+\item[{int $\ast$}]{was\-\_\-first}
+\end{DoxyParamCaption}
+)}}\label{include_2thread__mpi_2collective_8h_a7b0da84751703588bf42a7abe5cbee64}
+\-Execute function once over comm, and wait for the function to return its value.
+
+\-Executes a given function only once per collective call over comm.
+
+\-Collective function.
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em function} & the function to call \\
+\hline
+\mbox{\tt in}  & {\em param} & the parameter to the function \\
+\hline
+\mbox{\tt out}  & {\em was\-\_\-first} & set to 1 if the current thread was the one to execute the function. unchanged if current thread was not the one to execute the function; ignored if \-N\-U\-L\-L. \\
+\hline
+\mbox{\tt in}  & {\em comm} & \-The communicator. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+the return value of the function 
+\end{DoxyReturn}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=328pt]{include_2thread__mpi_2collective_8h_a7b0da84751703588bf42a7abe5cbee64_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{include_2thread__mpi_2collective_8h_af4dbcd5b734d52977d5fc527fb63529d}{\index{include/thread\-\_\-mpi/collective.\-h@{include/thread\-\_\-mpi/collective.\-h}!t\-M\-P\-I\-\_\-\-Reduce\-\_\-req\-\_\-alloc@{t\-M\-P\-I\-\_\-\-Reduce\-\_\-req\-\_\-alloc}}
+\index{t\-M\-P\-I\-\_\-\-Reduce\-\_\-req\-\_\-alloc@{t\-M\-P\-I\-\_\-\-Reduce\-\_\-req\-\_\-alloc}!include/thread_mpi/collective.h@{include/thread\-\_\-mpi/collective.\-h}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Reduce\-\_\-req\-\_\-alloc}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-T\-M\-P\-I\-\_\-\-E\-X\-P\-O\-R\-T} {\bf t\-M\-P\-I\-\_\-\-Reduce\-\_\-req}$\ast$ {\bf t\-M\-P\-I\-\_\-\-Reduce\-\_\-req\-\_\-alloc} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-M\-P\-I\-\_\-\-Comm}}]{comm}
+\end{DoxyParamCaption}
+)}}\label{include_2thread__mpi_2collective_8h_af4dbcd5b734d52977d5fc527fb63529d}
+\-Allocate data structure for asynchronous reduce. \hypertarget{include_2thread__mpi_2collective_8h_a3326ee9767d422f023b2ae6198a561f8}{\index{include/thread\-\_\-mpi/collective.\-h@{include/thread\-\_\-mpi/collective.\-h}!t\-M\-P\-I\-\_\-\-Shmalloc@{t\-M\-P\-I\-\_\-\-Shmalloc}}
+\index{t\-M\-P\-I\-\_\-\-Shmalloc@{t\-M\-P\-I\-\_\-\-Shmalloc}!include/thread_mpi/collective.h@{include/thread\-\_\-mpi/collective.\-h}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Shmalloc}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-T\-M\-P\-I\-\_\-\-E\-X\-P\-O\-R\-T} {\bf void}$\ast$ {\bf t\-M\-P\-I\-\_\-\-Shmalloc} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-M\-P\-I\-\_\-\-Comm}}]{comm, }
+\item[{size\-\_\-t}]{size}
+\end{DoxyParamCaption}
+)}}\label{include_2thread__mpi_2collective_8h_a3326ee9767d422f023b2ae6198a561f8}
+\-Allocate a shared block of memory as a collective call.
+
+\-Collective function.
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em comm} & \-The communicator \\
+\hline
+\mbox{\tt in}  & {\em size} & \-The size in bytes to allocate \\
+\hline
+\end{DoxyParams}

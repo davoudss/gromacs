@@ -1,0 +1,744 @@
+\hypertarget{toppush_8h}{\section{src/kernel/toppush.h \-File \-Reference}
+\label{toppush_8h}\index{src/kernel/toppush.\-h@{src/kernel/toppush.\-h}}
+}
+{\ttfamily \#include \char`\"{}typedefs.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}toputil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gpp\-\_\-atomtype.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gpp\-\_\-bond\-\_\-atomtype.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}warninp.\-h\char`\"{}}\*
+\-Include dependency graph for toppush.\-h\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{toppush_8h__incl}
+\end{center}
+\end{figure}
+\-This graph shows which files directly or indirectly include this file\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{toppush_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structt__block2}{t\-\_\-block2}
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{toppush_8h_a575ae2cf97307d3e848089da1ff41b0b}{generate\-\_\-nbparams} (int comb, int funct, \hyperlink{structt__params}{t\-\_\-params} plist\mbox{[}$\,$\mbox{]}, \hyperlink{include_2gpp__atomtype_8h_a140a52ba2b384d9a6483fe65c780f110}{gpp\-\_\-atomtype\-\_\-t} atype, \hyperlink{include_2warninp_8h_a614757abb660467b0be44eeb5d54e5f2}{warninp\-\_\-t} wi)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{toppush_8h_acc78eee9ec1e93e251f7287814108955}{push\-\_\-at} (\hyperlink{structt__symtab}{t\-\_\-symtab} $\ast$symtab, \hyperlink{include_2gpp__atomtype_8h_a140a52ba2b384d9a6483fe65c780f110}{gpp\-\_\-atomtype\-\_\-t} at, \hyperlink{gpp__bond__atomtype_8h_afae798ade80df6cf1d5f34e51844cbe7}{t\-\_\-bond\-\_\-atomtype} bat, char $\ast$\hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line}, int nb\-\_\-funct, \hyperlink{structt__nbparam}{t\-\_\-nbparam} $\ast$$\ast$$\ast$nbparam, \hyperlink{structt__nbparam}{t\-\_\-nbparam} $\ast$$\ast$$\ast$pair, \hyperlink{include_2warninp_8h_a614757abb660467b0be44eeb5d54e5f2}{warninp\-\_\-t} wi)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{toppush_8h_a95e5912c93b308f5177f1b41087c407a}{push\-\_\-bt} (\hyperlink{include_2grompp_8h_a0253a0f97450621088027f8584f850d6}{directive} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae624f265c646670d373e9de0306f184b}{d}, \hyperlink{structt__params}{t\-\_\-params} bt\mbox{[}$\,$\mbox{]}, int nral, \hyperlink{include_2gpp__atomtype_8h_a140a52ba2b384d9a6483fe65c780f110}{gpp\-\_\-atomtype\-\_\-t} at, \hyperlink{gpp__bond__atomtype_8h_afae798ade80df6cf1d5f34e51844cbe7}{t\-\_\-bond\-\_\-atomtype} bat, char $\ast$\hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line}, \hyperlink{include_2warninp_8h_a614757abb660467b0be44eeb5d54e5f2}{warninp\-\_\-t} wi)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{toppush_8h_aeec1f198ad03f77d326360de7403c6fd}{push\-\_\-dihedraltype} (\hyperlink{include_2grompp_8h_a0253a0f97450621088027f8584f850d6}{directive} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae624f265c646670d373e9de0306f184b}{d}, \hyperlink{structt__params}{t\-\_\-params} bt\mbox{[}$\,$\mbox{]}, \hyperlink{gpp__bond__atomtype_8h_afae798ade80df6cf1d5f34e51844cbe7}{t\-\_\-bond\-\_\-atomtype} bat, char $\ast$\hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line}, \hyperlink{include_2warninp_8h_a614757abb660467b0be44eeb5d54e5f2}{warninp\-\_\-t} wi)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{toppush_8h_a74053d3b0a58c2305f28edb15aafa0c2}{push\-\_\-cmaptype} (\hyperlink{include_2grompp_8h_a0253a0f97450621088027f8584f850d6}{directive} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae624f265c646670d373e9de0306f184b}{d}, \hyperlink{structt__params}{t\-\_\-params} bt\mbox{[}$\,$\mbox{]}, int nral, \hyperlink{include_2gpp__atomtype_8h_a140a52ba2b384d9a6483fe65c780f110}{gpp\-\_\-atomtype\-\_\-t} at, \hyperlink{gpp__bond__atomtype_8h_afae798ade80df6cf1d5f34e51844cbe7}{t\-\_\-bond\-\_\-atomtype} bat, char $\ast$\hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line}, \hyperlink{include_2warninp_8h_a614757abb660467b0be44eeb5d54e5f2}{warninp\-\_\-t} wi)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{toppush_8h_ac9c7f967d39eeb0cf985451133cb263e}{push\-\_\-nbt} (\hyperlink{include_2grompp_8h_a0253a0f97450621088027f8584f850d6}{directive} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae624f265c646670d373e9de0306f184b}{d}, \hyperlink{structt__nbparam}{t\-\_\-nbparam} $\ast$$\ast$nbt, \hyperlink{include_2gpp__atomtype_8h_a140a52ba2b384d9a6483fe65c780f110}{gpp\-\_\-atomtype\-\_\-t} atype, char $\ast$plines, int nb\-\_\-funct, \hyperlink{include_2warninp_8h_a614757abb660467b0be44eeb5d54e5f2}{warninp\-\_\-t} wi)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{toppush_8h_a0a549637c1a120098526e786fa0d8f61}{push\-\_\-gb\-\_\-params} (\hyperlink{include_2gpp__atomtype_8h_a140a52ba2b384d9a6483fe65c780f110}{gpp\-\_\-atomtype\-\_\-t} atype, char $\ast$\hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line}, \hyperlink{include_2warninp_8h_a614757abb660467b0be44eeb5d54e5f2}{warninp\-\_\-t} wi)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{toppush_8h_a9a390dfae5909779214bf7ddf1b77514}{push\-\_\-atom} (\hyperlink{structt__symtab}{t\-\_\-symtab} $\ast$symtab, \hyperlink{structt__block}{t\-\_\-block} $\ast$cgs, \hyperlink{structt__atoms}{t\-\_\-atoms} $\ast$at, \hyperlink{include_2gpp__atomtype_8h_a140a52ba2b384d9a6483fe65c780f110}{gpp\-\_\-atomtype\-\_\-t} atype, char $\ast$\hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line}, int $\ast$lastcg, \hyperlink{include_2warninp_8h_a614757abb660467b0be44eeb5d54e5f2}{warninp\-\_\-t} wi)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{toppush_8h_a3b617b768f0efa8f1d83a5533c52d7f0}{push\-\_\-bond} (\hyperlink{include_2grompp_8h_a0253a0f97450621088027f8584f850d6}{directive} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae624f265c646670d373e9de0306f184b}{d}, \hyperlink{structt__params}{t\-\_\-params} bondtype\mbox{[}$\,$\mbox{]}, \hyperlink{structt__params}{t\-\_\-params} bond\mbox{[}$\,$\mbox{]}, \hyperlink{structt__atoms}{t\-\_\-atoms} $\ast$at, \hyperlink{include_2gpp__atomtype_8h_a140a52ba2b384d9a6483fe65c780f110}{gpp\-\_\-atomtype\-\_\-t} atype, char $\ast$\hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line}, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Bonded, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Gen\-Pairs, real fudge\-Q\-Q, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Zero, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} $\ast$b\-Warn\-\_\-copy\-\_\-\-A\-\_\-\-B, \hyperlink{include_2warninp_8h_a614757abb660467b0be44eeb5d54e5f2}{warninp\-\_\-t} wi)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{toppush_8h_a077810e2c8225b12a0f45fa588978f16}{push\-\_\-cmap} (\hyperlink{include_2grompp_8h_a0253a0f97450621088027f8584f850d6}{directive} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae624f265c646670d373e9de0306f184b}{d}, \hyperlink{structt__params}{t\-\_\-params} bondtype\mbox{[}$\,$\mbox{]}, \hyperlink{structt__params}{t\-\_\-params} bond\mbox{[}$\,$\mbox{]}, \hyperlink{structt__atoms}{t\-\_\-atoms} $\ast$at, \hyperlink{include_2gpp__atomtype_8h_a140a52ba2b384d9a6483fe65c780f110}{gpp\-\_\-atomtype\-\_\-t} atype, char $\ast$\hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line}, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} $\ast$b\-Warn\-\_\-copy\-\_\-\-A\-\_\-\-B, \hyperlink{include_2warninp_8h_a614757abb660467b0be44eeb5d54e5f2}{warninp\-\_\-t} wi)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{toppush_8h_a4e3b90475631b7d423790b21b57cef2a}{push\-\_\-vsitesn} (\hyperlink{include_2grompp_8h_a0253a0f97450621088027f8584f850d6}{directive} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae624f265c646670d373e9de0306f184b}{d}, \hyperlink{structt__params}{t\-\_\-params} bondtype\mbox{[}$\,$\mbox{]}, \hyperlink{structt__params}{t\-\_\-params} bond\mbox{[}$\,$\mbox{]}, \hyperlink{structt__atoms}{t\-\_\-atoms} $\ast$at, \hyperlink{include_2gpp__atomtype_8h_a140a52ba2b384d9a6483fe65c780f110}{gpp\-\_\-atomtype\-\_\-t} atype, char $\ast$\hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line}, \hyperlink{include_2warninp_8h_a614757abb660467b0be44eeb5d54e5f2}{warninp\-\_\-t} wi)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{toppush_8h_a12c4b8878a91a88570641a3115f21300}{push\-\_\-mol} (int nrmols, \hyperlink{structt__molinfo}{t\-\_\-molinfo} mols\mbox{[}$\,$\mbox{]}, char $\ast$pline, int $\ast$whichmol, int $\ast$nrcopies, \hyperlink{include_2warninp_8h_a614757abb660467b0be44eeb5d54e5f2}{warninp\-\_\-t} wi)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{toppush_8h_ab5c7a5a390b3820df4634125f6eff9be}{push\-\_\-molt} (\hyperlink{structt__symtab}{t\-\_\-symtab} $\ast$symtab, int $\ast$nmol, \hyperlink{structt__molinfo}{t\-\_\-molinfo} $\ast$$\ast$mol, char $\ast$\hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line}, \hyperlink{include_2warninp_8h_a614757abb660467b0be44eeb5d54e5f2}{warninp\-\_\-t} wi)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{toppush_8h_a1efa2f0e1b2ad03fcd32000a244c59e1}{init\-\_\-block2} (\hyperlink{structt__block2}{t\-\_\-block2} $\ast$b2, int natom)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{toppush_8h_af8c85f2363251fb246f8160df8a6b6bf}{done\-\_\-block2} (\hyperlink{structt__block2}{t\-\_\-block2} $\ast$b2)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{toppush_8h_a0e9cca0a1a2dc438644a46754a3dc1e2}{push\-\_\-excl} (char $\ast$\hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line}, \hyperlink{structt__block2}{t\-\_\-block2} $\ast$b2)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{toppush_8h_a6bf9fdb08e09956d58f2a286635ebbb0}{merge\-\_\-excl} (\hyperlink{structt__blocka}{t\-\_\-blocka} $\ast$excl, \hyperlink{structt__block2}{t\-\_\-block2} $\ast$b2)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{toppush_8h_a9edddefb17314d349e2713895d6302e1}{b\-\_\-to\-\_\-b2} (\hyperlink{structt__blocka}{t\-\_\-blocka} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afb462a5dea72ae7992f073bfd756fb5f}{b}, \hyperlink{structt__block2}{t\-\_\-block2} $\ast$b2)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{toppush_8h_a1ecca80e2a551e703d46748ed4e1f2a4}{b2\-\_\-to\-\_\-b} (\hyperlink{structt__block2}{t\-\_\-block2} $\ast$b2, \hyperlink{structt__blocka}{t\-\_\-blocka} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afb462a5dea72ae7992f073bfd756fb5f}{b})
+\item 
+int \hyperlink{toppush_8h_ab6d1f6bce9df5f8b02fdfb3b0b755599}{add\-\_\-atomtype\-\_\-decoupled} (\hyperlink{structt__symtab}{t\-\_\-symtab} $\ast$symtab, \hyperlink{include_2gpp__atomtype_8h_a140a52ba2b384d9a6483fe65c780f110}{gpp\-\_\-atomtype\-\_\-t} at, \hyperlink{structt__nbparam}{t\-\_\-nbparam} $\ast$$\ast$$\ast$nbparam, \hyperlink{structt__nbparam}{t\-\_\-nbparam} $\ast$$\ast$$\ast$pair)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{toppush_8h_a2c72cb4ab63125ab325bb6223c426c34}{convert\-\_\-moltype\-\_\-couple} (\hyperlink{structt__molinfo}{t\-\_\-molinfo} $\ast$mol, int atomtype\-\_\-decouple, real fudge\-Q\-Q, int couple\-\_\-lam0, int couple\-\_\-lam1, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Couple\-Intra, int nb\-\_\-funct, \hyperlink{structt__params}{t\-\_\-params} $\ast$nbp)
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{toppush_8h_ab6d1f6bce9df5f8b02fdfb3b0b755599}{\index{toppush.\-h@{toppush.\-h}!add\-\_\-atomtype\-\_\-decoupled@{add\-\_\-atomtype\-\_\-decoupled}}
+\index{add\-\_\-atomtype\-\_\-decoupled@{add\-\_\-atomtype\-\_\-decoupled}!toppush.h@{toppush.\-h}}
+\subsubsection[{add\-\_\-atomtype\-\_\-decoupled}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf add\-\_\-atomtype\-\_\-decoupled} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-symtab} $\ast$}]{symtab, }
+\item[{{\bf gpp\-\_\-atomtype\-\_\-t}}]{at, }
+\item[{{\bf t\-\_\-nbparam} $\ast$$\ast$$\ast$}]{nbparam, }
+\item[{{\bf t\-\_\-nbparam} $\ast$$\ast$$\ast$}]{pair}
+\end{DoxyParamCaption}
+)}}\label{toppush_8h_ab6d1f6bce9df5f8b02fdfb3b0b755599}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{toppush_8h_ab6d1f6bce9df5f8b02fdfb3b0b755599_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{toppush_8h_ab6d1f6bce9df5f8b02fdfb3b0b755599_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{toppush_8h_a1ecca80e2a551e703d46748ed4e1f2a4}{\index{toppush.\-h@{toppush.\-h}!b2\-\_\-to\-\_\-b@{b2\-\_\-to\-\_\-b}}
+\index{b2\-\_\-to\-\_\-b@{b2\-\_\-to\-\_\-b}!toppush.h@{toppush.\-h}}
+\subsubsection[{b2\-\_\-to\-\_\-b}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf b2\-\_\-to\-\_\-b} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-block2} $\ast$}]{b2, }
+\item[{{\bf t\-\_\-blocka} $\ast$}]{b}
+\end{DoxyParamCaption}
+)}}\label{toppush_8h_a1ecca80e2a551e703d46748ed4e1f2a4}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{toppush_8h_a1ecca80e2a551e703d46748ed4e1f2a4_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{toppush_8h_a9edddefb17314d349e2713895d6302e1}{\index{toppush.\-h@{toppush.\-h}!b\-\_\-to\-\_\-b2@{b\-\_\-to\-\_\-b2}}
+\index{b\-\_\-to\-\_\-b2@{b\-\_\-to\-\_\-b2}!toppush.h@{toppush.\-h}}
+\subsubsection[{b\-\_\-to\-\_\-b2}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf b\-\_\-to\-\_\-b2} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-blocka} $\ast$}]{b, }
+\item[{{\bf t\-\_\-block2} $\ast$}]{b2}
+\end{DoxyParamCaption}
+)}}\label{toppush_8h_a9edddefb17314d349e2713895d6302e1}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{toppush_8h_a9edddefb17314d349e2713895d6302e1_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{toppush_8h_a2c72cb4ab63125ab325bb6223c426c34}{\index{toppush.\-h@{toppush.\-h}!convert\-\_\-moltype\-\_\-couple@{convert\-\_\-moltype\-\_\-couple}}
+\index{convert\-\_\-moltype\-\_\-couple@{convert\-\_\-moltype\-\_\-couple}!toppush.h@{toppush.\-h}}
+\subsubsection[{convert\-\_\-moltype\-\_\-couple}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf convert\-\_\-moltype\-\_\-couple} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-molinfo} $\ast$}]{mol, }
+\item[{int}]{atomtype\-\_\-decouple, }
+\item[{real}]{fudge\-Q\-Q, }
+\item[{int}]{couple\-\_\-lam0, }
+\item[{int}]{couple\-\_\-lam1, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Couple\-Intra, }
+\item[{int}]{nb\-\_\-funct, }
+\item[{{\bf t\-\_\-params} $\ast$}]{nbp}
+\end{DoxyParamCaption}
+)}}\label{toppush_8h_a2c72cb4ab63125ab325bb6223c426c34}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{toppush_8h_a2c72cb4ab63125ab325bb6223c426c34_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{toppush_8h_a2c72cb4ab63125ab325bb6223c426c34_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{toppush_8h_af8c85f2363251fb246f8160df8a6b6bf}{\index{toppush.\-h@{toppush.\-h}!done\-\_\-block2@{done\-\_\-block2}}
+\index{done\-\_\-block2@{done\-\_\-block2}!toppush.h@{toppush.\-h}}
+\subsubsection[{done\-\_\-block2}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf done\-\_\-block2} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-block2} $\ast$}]{b2}
+\end{DoxyParamCaption}
+)}}\label{toppush_8h_af8c85f2363251fb246f8160df8a6b6bf}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{toppush_8h_af8c85f2363251fb246f8160df8a6b6bf_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{toppush_8h_a575ae2cf97307d3e848089da1ff41b0b}{\index{toppush.\-h@{toppush.\-h}!generate\-\_\-nbparams@{generate\-\_\-nbparams}}
+\index{generate\-\_\-nbparams@{generate\-\_\-nbparams}!toppush.h@{toppush.\-h}}
+\subsubsection[{generate\-\_\-nbparams}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf generate\-\_\-nbparams} (
+\begin{DoxyParamCaption}
+\item[{int}]{comb, }
+\item[{int}]{funct, }
+\item[{{\bf t\-\_\-params}}]{plist\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf gpp\-\_\-atomtype\-\_\-t}}]{atype, }
+\item[{{\bf warninp\-\_\-t}}]{wi}
+\end{DoxyParamCaption}
+)}}\label{toppush_8h_a575ae2cf97307d3e848089da1ff41b0b}
+\hypertarget{toppush_8h_a1efa2f0e1b2ad03fcd32000a244c59e1}{\index{toppush.\-h@{toppush.\-h}!init\-\_\-block2@{init\-\_\-block2}}
+\index{init\-\_\-block2@{init\-\_\-block2}!toppush.h@{toppush.\-h}}
+\subsubsection[{init\-\_\-block2}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf init\-\_\-block2} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-block2} $\ast$}]{b2, }
+\item[{int}]{natom}
+\end{DoxyParamCaption}
+)}}\label{toppush_8h_a1efa2f0e1b2ad03fcd32000a244c59e1}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{toppush_8h_a1efa2f0e1b2ad03fcd32000a244c59e1_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{toppush_8h_a6bf9fdb08e09956d58f2a286635ebbb0}{\index{toppush.\-h@{toppush.\-h}!merge\-\_\-excl@{merge\-\_\-excl}}
+\index{merge\-\_\-excl@{merge\-\_\-excl}!toppush.h@{toppush.\-h}}
+\subsubsection[{merge\-\_\-excl}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf merge\-\_\-excl} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-blocka} $\ast$}]{excl, }
+\item[{{\bf t\-\_\-block2} $\ast$}]{b2}
+\end{DoxyParamCaption}
+)}}\label{toppush_8h_a6bf9fdb08e09956d58f2a286635ebbb0}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=244pt]{toppush_8h_a6bf9fdb08e09956d58f2a286635ebbb0_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{toppush_8h_a6bf9fdb08e09956d58f2a286635ebbb0_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{toppush_8h_acc78eee9ec1e93e251f7287814108955}{\index{toppush.\-h@{toppush.\-h}!push\-\_\-at@{push\-\_\-at}}
+\index{push\-\_\-at@{push\-\_\-at}!toppush.h@{toppush.\-h}}
+\subsubsection[{push\-\_\-at}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf push\-\_\-at} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-symtab} $\ast$}]{symtab, }
+\item[{{\bf gpp\-\_\-atomtype\-\_\-t}}]{at, }
+\item[{{\bf t\-\_\-bond\-\_\-atomtype}}]{bat, }
+\item[{char $\ast$}]{line, }
+\item[{int}]{nb\-\_\-funct, }
+\item[{{\bf t\-\_\-nbparam} $\ast$$\ast$$\ast$}]{nbparam, }
+\item[{{\bf t\-\_\-nbparam} $\ast$$\ast$$\ast$}]{pair, }
+\item[{{\bf warninp\-\_\-t}}]{wi}
+\end{DoxyParamCaption}
+)}}\label{toppush_8h_acc78eee9ec1e93e251f7287814108955}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{toppush_8h_acc78eee9ec1e93e251f7287814108955_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{toppush_8h_acc78eee9ec1e93e251f7287814108955_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{toppush_8h_a9a390dfae5909779214bf7ddf1b77514}{\index{toppush.\-h@{toppush.\-h}!push\-\_\-atom@{push\-\_\-atom}}
+\index{push\-\_\-atom@{push\-\_\-atom}!toppush.h@{toppush.\-h}}
+\subsubsection[{push\-\_\-atom}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf push\-\_\-atom} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-symtab} $\ast$}]{symtab, }
+\item[{{\bf t\-\_\-block} $\ast$}]{cgs, }
+\item[{{\bf t\-\_\-atoms} $\ast$}]{at, }
+\item[{{\bf gpp\-\_\-atomtype\-\_\-t}}]{atype, }
+\item[{char $\ast$}]{line, }
+\item[{int $\ast$}]{lastcg, }
+\item[{{\bf warninp\-\_\-t}}]{wi}
+\end{DoxyParamCaption}
+)}}\label{toppush_8h_a9a390dfae5909779214bf7ddf1b77514}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{toppush_8h_a9a390dfae5909779214bf7ddf1b77514_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{toppush_8h_a9a390dfae5909779214bf7ddf1b77514_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{toppush_8h_a3b617b768f0efa8f1d83a5533c52d7f0}{\index{toppush.\-h@{toppush.\-h}!push\-\_\-bond@{push\-\_\-bond}}
+\index{push\-\_\-bond@{push\-\_\-bond}!toppush.h@{toppush.\-h}}
+\subsubsection[{push\-\_\-bond}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf push\-\_\-bond} (
+\begin{DoxyParamCaption}
+\item[{{\bf directive}}]{d, }
+\item[{{\bf t\-\_\-params}}]{bondtype\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf t\-\_\-params}}]{bond\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf t\-\_\-atoms} $\ast$}]{at, }
+\item[{{\bf gpp\-\_\-atomtype\-\_\-t}}]{atype, }
+\item[{char $\ast$}]{line, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Bonded, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Gen\-Pairs, }
+\item[{real}]{fudge\-Q\-Q, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Zero, }
+\item[{{\bf gmx\-\_\-bool} $\ast$}]{b\-Warn\-\_\-copy\-\_\-\-A\-\_\-\-B, }
+\item[{{\bf warninp\-\_\-t}}]{wi}
+\end{DoxyParamCaption}
+)}}\label{toppush_8h_a3b617b768f0efa8f1d83a5533c52d7f0}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{toppush_8h_a3b617b768f0efa8f1d83a5533c52d7f0_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{toppush_8h_a3b617b768f0efa8f1d83a5533c52d7f0_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{toppush_8h_a95e5912c93b308f5177f1b41087c407a}{\index{toppush.\-h@{toppush.\-h}!push\-\_\-bt@{push\-\_\-bt}}
+\index{push\-\_\-bt@{push\-\_\-bt}!toppush.h@{toppush.\-h}}
+\subsubsection[{push\-\_\-bt}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf push\-\_\-bt} (
+\begin{DoxyParamCaption}
+\item[{{\bf directive}}]{d, }
+\item[{{\bf t\-\_\-params}}]{bt\mbox{[}$\,$\mbox{]}, }
+\item[{int}]{nral, }
+\item[{{\bf gpp\-\_\-atomtype\-\_\-t}}]{at, }
+\item[{{\bf t\-\_\-bond\-\_\-atomtype}}]{bat, }
+\item[{char $\ast$}]{line, }
+\item[{{\bf warninp\-\_\-t}}]{wi}
+\end{DoxyParamCaption}
+)}}\label{toppush_8h_a95e5912c93b308f5177f1b41087c407a}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{toppush_8h_a95e5912c93b308f5177f1b41087c407a_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{toppush_8h_a95e5912c93b308f5177f1b41087c407a_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{toppush_8h_a077810e2c8225b12a0f45fa588978f16}{\index{toppush.\-h@{toppush.\-h}!push\-\_\-cmap@{push\-\_\-cmap}}
+\index{push\-\_\-cmap@{push\-\_\-cmap}!toppush.h@{toppush.\-h}}
+\subsubsection[{push\-\_\-cmap}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf push\-\_\-cmap} (
+\begin{DoxyParamCaption}
+\item[{{\bf directive}}]{d, }
+\item[{{\bf t\-\_\-params}}]{bondtype\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf t\-\_\-params}}]{bond\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf t\-\_\-atoms} $\ast$}]{at, }
+\item[{{\bf gpp\-\_\-atomtype\-\_\-t}}]{atype, }
+\item[{char $\ast$}]{line, }
+\item[{{\bf gmx\-\_\-bool} $\ast$}]{b\-Warn\-\_\-copy\-\_\-\-A\-\_\-\-B, }
+\item[{{\bf warninp\-\_\-t}}]{wi}
+\end{DoxyParamCaption}
+)}}\label{toppush_8h_a077810e2c8225b12a0f45fa588978f16}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{toppush_8h_a077810e2c8225b12a0f45fa588978f16_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{toppush_8h_a077810e2c8225b12a0f45fa588978f16_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{toppush_8h_a74053d3b0a58c2305f28edb15aafa0c2}{\index{toppush.\-h@{toppush.\-h}!push\-\_\-cmaptype@{push\-\_\-cmaptype}}
+\index{push\-\_\-cmaptype@{push\-\_\-cmaptype}!toppush.h@{toppush.\-h}}
+\subsubsection[{push\-\_\-cmaptype}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf push\-\_\-cmaptype} (
+\begin{DoxyParamCaption}
+\item[{{\bf directive}}]{d, }
+\item[{{\bf t\-\_\-params}}]{bt\mbox{[}$\,$\mbox{]}, }
+\item[{int}]{nral, }
+\item[{{\bf gpp\-\_\-atomtype\-\_\-t}}]{at, }
+\item[{{\bf t\-\_\-bond\-\_\-atomtype}}]{bat, }
+\item[{char $\ast$}]{line, }
+\item[{{\bf warninp\-\_\-t}}]{wi}
+\end{DoxyParamCaption}
+)}}\label{toppush_8h_a74053d3b0a58c2305f28edb15aafa0c2}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{toppush_8h_a74053d3b0a58c2305f28edb15aafa0c2_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{toppush_8h_a74053d3b0a58c2305f28edb15aafa0c2_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{toppush_8h_aeec1f198ad03f77d326360de7403c6fd}{\index{toppush.\-h@{toppush.\-h}!push\-\_\-dihedraltype@{push\-\_\-dihedraltype}}
+\index{push\-\_\-dihedraltype@{push\-\_\-dihedraltype}!toppush.h@{toppush.\-h}}
+\subsubsection[{push\-\_\-dihedraltype}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf push\-\_\-dihedraltype} (
+\begin{DoxyParamCaption}
+\item[{{\bf directive}}]{d, }
+\item[{{\bf t\-\_\-params}}]{bt\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf t\-\_\-bond\-\_\-atomtype}}]{bat, }
+\item[{char $\ast$}]{line, }
+\item[{{\bf warninp\-\_\-t}}]{wi}
+\end{DoxyParamCaption}
+)}}\label{toppush_8h_aeec1f198ad03f77d326360de7403c6fd}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{toppush_8h_aeec1f198ad03f77d326360de7403c6fd_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{toppush_8h_aeec1f198ad03f77d326360de7403c6fd_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{toppush_8h_a0e9cca0a1a2dc438644a46754a3dc1e2}{\index{toppush.\-h@{toppush.\-h}!push\-\_\-excl@{push\-\_\-excl}}
+\index{push\-\_\-excl@{push\-\_\-excl}!toppush.h@{toppush.\-h}}
+\subsubsection[{push\-\_\-excl}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf push\-\_\-excl} (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{line, }
+\item[{{\bf t\-\_\-block2} $\ast$}]{b2}
+\end{DoxyParamCaption}
+)}}\label{toppush_8h_a0e9cca0a1a2dc438644a46754a3dc1e2}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=238pt]{toppush_8h_a0e9cca0a1a2dc438644a46754a3dc1e2_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{toppush_8h_a0e9cca0a1a2dc438644a46754a3dc1e2_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{toppush_8h_a0a549637c1a120098526e786fa0d8f61}{\index{toppush.\-h@{toppush.\-h}!push\-\_\-gb\-\_\-params@{push\-\_\-gb\-\_\-params}}
+\index{push\-\_\-gb\-\_\-params@{push\-\_\-gb\-\_\-params}!toppush.h@{toppush.\-h}}
+\subsubsection[{push\-\_\-gb\-\_\-params}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf push\-\_\-gb\-\_\-params} (
+\begin{DoxyParamCaption}
+\item[{{\bf gpp\-\_\-atomtype\-\_\-t}}]{atype, }
+\item[{char $\ast$}]{line, }
+\item[{{\bf warninp\-\_\-t}}]{wi}
+\end{DoxyParamCaption}
+)}}\label{toppush_8h_a0a549637c1a120098526e786fa0d8f61}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=328pt]{toppush_8h_a0a549637c1a120098526e786fa0d8f61_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{toppush_8h_a0a549637c1a120098526e786fa0d8f61_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{toppush_8h_a12c4b8878a91a88570641a3115f21300}{\index{toppush.\-h@{toppush.\-h}!push\-\_\-mol@{push\-\_\-mol}}
+\index{push\-\_\-mol@{push\-\_\-mol}!toppush.h@{toppush.\-h}}
+\subsubsection[{push\-\_\-mol}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf push\-\_\-mol} (
+\begin{DoxyParamCaption}
+\item[{int}]{nrmols, }
+\item[{{\bf t\-\_\-molinfo}}]{mols\mbox{[}$\,$\mbox{]}, }
+\item[{char $\ast$}]{pline, }
+\item[{int $\ast$}]{whichmol, }
+\item[{int $\ast$}]{nrcopies, }
+\item[{{\bf warninp\-\_\-t}}]{wi}
+\end{DoxyParamCaption}
+)}}\label{toppush_8h_a12c4b8878a91a88570641a3115f21300}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=268pt]{toppush_8h_a12c4b8878a91a88570641a3115f21300_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{toppush_8h_a12c4b8878a91a88570641a3115f21300_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{toppush_8h_ab5c7a5a390b3820df4634125f6eff9be}{\index{toppush.\-h@{toppush.\-h}!push\-\_\-molt@{push\-\_\-molt}}
+\index{push\-\_\-molt@{push\-\_\-molt}!toppush.h@{toppush.\-h}}
+\subsubsection[{push\-\_\-molt}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf push\-\_\-molt} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-symtab} $\ast$}]{symtab, }
+\item[{int $\ast$}]{nmol, }
+\item[{{\bf t\-\_\-molinfo} $\ast$$\ast$}]{mol, }
+\item[{char $\ast$}]{line, }
+\item[{{\bf warninp\-\_\-t}}]{wi}
+\end{DoxyParamCaption}
+)}}\label{toppush_8h_ab5c7a5a390b3820df4634125f6eff9be}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=270pt]{toppush_8h_ab5c7a5a390b3820df4634125f6eff9be_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{toppush_8h_ab5c7a5a390b3820df4634125f6eff9be_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{toppush_8h_ac9c7f967d39eeb0cf985451133cb263e}{\index{toppush.\-h@{toppush.\-h}!push\-\_\-nbt@{push\-\_\-nbt}}
+\index{push\-\_\-nbt@{push\-\_\-nbt}!toppush.h@{toppush.\-h}}
+\subsubsection[{push\-\_\-nbt}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf push\-\_\-nbt} (
+\begin{DoxyParamCaption}
+\item[{{\bf directive}}]{d, }
+\item[{{\bf t\-\_\-nbparam} $\ast$$\ast$}]{nbt, }
+\item[{{\bf gpp\-\_\-atomtype\-\_\-t}}]{atype, }
+\item[{char $\ast$}]{plines, }
+\item[{int}]{nb\-\_\-funct, }
+\item[{{\bf warninp\-\_\-t}}]{wi}
+\end{DoxyParamCaption}
+)}}\label{toppush_8h_ac9c7f967d39eeb0cf985451133cb263e}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{toppush_8h_ac9c7f967d39eeb0cf985451133cb263e_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{toppush_8h_ac9c7f967d39eeb0cf985451133cb263e_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{toppush_8h_a4e3b90475631b7d423790b21b57cef2a}{\index{toppush.\-h@{toppush.\-h}!push\-\_\-vsitesn@{push\-\_\-vsitesn}}
+\index{push\-\_\-vsitesn@{push\-\_\-vsitesn}!toppush.h@{toppush.\-h}}
+\subsubsection[{push\-\_\-vsitesn}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf push\-\_\-vsitesn} (
+\begin{DoxyParamCaption}
+\item[{{\bf directive}}]{d, }
+\item[{{\bf t\-\_\-params}}]{bondtype\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf t\-\_\-params}}]{bond\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf t\-\_\-atoms} $\ast$}]{at, }
+\item[{{\bf gpp\-\_\-atomtype\-\_\-t}}]{atype, }
+\item[{char $\ast$}]{line, }
+\item[{{\bf warninp\-\_\-t}}]{wi}
+\end{DoxyParamCaption}
+)}}\label{toppush_8h_a4e3b90475631b7d423790b21b57cef2a}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{toppush_8h_a4e3b90475631b7d423790b21b57cef2a_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{toppush_8h_a4e3b90475631b7d423790b21b57cef2a_icgraph}
+\end{center}
+\end{figure}
+
+

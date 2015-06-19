@@ -1,0 +1,1128 @@
+\hypertarget{forcerec_8c}{\section{src/mdlib/forcerec.c \-File \-Reference}
+\label{forcerec_8c}\index{src/mdlib/forcerec.\-c@{src/mdlib/forcerec.\-c}}
+}
+{\ttfamily \#include $<$math.\-h$>$}\*
+{\ttfamily \#include $<$string.\-h$>$}\*
+{\ttfamily \#include \char`\"{}assert.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}sysstuff.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}typedefs.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}vec.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}maths.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}macros.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}smalloc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-fatal.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-fatal\-\_\-collective.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}physics.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}force.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}tables.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}nonbonded.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}invblock.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}names.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}network.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}pbc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}ns.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}mshift.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}txtdump.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}coulomb.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}md\-\_\-support.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}md\-\_\-logging.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}domdec.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}partdec.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}qmmm.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}copyrite.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}mtop\-\_\-util.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}nbnxn\-\_\-search.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}nbnxn\-\_\-atomdata.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}nbnxn\-\_\-consts.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}statutil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-omp\-\_\-nthreads.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-detect\-\_\-hardware.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}types/nbnxn\-\_\-cuda\-\_\-types\-\_\-ext.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gpu\-\_\-utils.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}nbnxn\-\_\-cuda\-\_\-data\-\_\-mgmt.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}pmalloc\-\_\-cuda.\-h\char`\"{}}\*
+\-Include dependency graph for forcerec.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{forcerec_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structsolvent__parameters__t}{solvent\-\_\-parameters\-\_\-t}
+\end{DoxyCompactItemize}
+\subsection*{\-Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{forcerec_8c_a4c8c0f53cf8ab0c8ab692cc73744b944}{pr\-\_\-real}(fp, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae039a6f39df62bd858e5e3f5ec77b24b}{r})~fprintf(fp, \char`\"{}\%s\-: \%\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a89f48d1344f16f082b0bcdb5fe459693}{e}$\backslash$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}\char`\"{},\#r, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae039a6f39df62bd858e5e3f5ec77b24b}{r})
+\item 
+\#define \hyperlink{forcerec_8c_a4891955e794d0eb20a5eccea314caf8c}{pr\-\_\-int}(fp, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a3c7542401c1cb8bd37ef5e7d9eb0f5a8}{i})~fprintf((fp), \char`\"{}\%s\-: \%\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae624f265c646670d373e9de0306f184b}{d}$\backslash$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}\char`\"{},\#i, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a3c7542401c1cb8bd37ef5e7d9eb0f5a8}{i})
+\item 
+\#define \hyperlink{forcerec_8c_ae6ca3c424231789b5ade47aa9c026a5d}{pr\-\_\-bool}(fp, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afb462a5dea72ae7992f073bfd756fb5f}{b})~fprintf((fp), \char`\"{}\%s\-: \%\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a6dd0d3574865c5458827c47f2cfd02b8}{s}$\backslash$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}\char`\"{},\#b, \hyperlink{names_8c_a082cd260018e977ef3e89edb061159db}{bool\-\_\-names}\mbox{[}\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afb462a5dea72ae7992f073bfd756fb5f}{b}\mbox{]})
+\end{DoxyCompactItemize}
+\subsection*{\-Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \{ \hyperlink{forcerec_8c_af01802ada3cad45fab403a42f8a2e9c2a1053ced8213a828ac7ced4365ebb307e}{ac\-N\-O\-N\-E} =  0, 
+\hyperlink{forcerec_8c_af01802ada3cad45fab403a42f8a2e9c2a3df5cda692ebdde1dc54f578fb091729}{ac\-C\-O\-N\-S\-T\-R\-A\-I\-N\-T}, 
+\hyperlink{forcerec_8c_af01802ada3cad45fab403a42f8a2e9c2a76c1e82ad69de1a436cfff3e231cb912}{ac\-S\-E\-T\-T\-L\-E}
+ \}
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structt__forcerec}{t\-\_\-forcerec} $\ast$ \hyperlink{forcerec_8c_ad438ca0e4c451cfa1731c6c1dbb48599}{mk\-\_\-forcerec} (\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void})
+\item 
+static real $\ast$ \hyperlink{forcerec_8c_ab1c86b8eab4d9401b36fec24c3d13058}{mk\-\_\-nbfp} (const \hyperlink{structgmx__ffparams__t}{gmx\-\_\-ffparams\-\_\-t} $\ast$idef, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-B\-H\-A\-M)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{forcerec_8c_ae702d276b8a1981e54aa1d1e538567e6}{check\-\_\-solvent\-\_\-cg} (const \hyperlink{structgmx__moltype__t}{gmx\-\_\-moltype\-\_\-t} $\ast$molt, int cg0, int nmol, const unsigned char $\ast$qm\-\_\-grpnr, const \hyperlink{structt__grps}{t\-\_\-grps} $\ast$qm\-\_\-grps, \hyperlink{structt__forcerec}{t\-\_\-forcerec} $\ast$\hyperlink{addconf_8c_ae8414314f87c5e49503ac0117eb511ad}{fr}, int $\ast$n\-\_\-solvent\-\_\-parameters, \hyperlink{structsolvent__parameters__t}{solvent\-\_\-parameters\-\_\-t} $\ast$$\ast$solvent\-\_\-parameters\-\_\-p, int cginfo, int $\ast$cg\-\_\-sp)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{forcerec_8c_a2466d8937f13ab7caeff493fc9d6dce6}{check\-\_\-solvent} (\-F\-I\-L\-E $\ast$fp, const \hyperlink{structgmx__mtop__t}{gmx\-\_\-mtop\-\_\-t} $\ast$mtop, \hyperlink{structt__forcerec}{t\-\_\-forcerec} $\ast$\hyperlink{addconf_8c_ae8414314f87c5e49503ac0117eb511ad}{fr}, \hyperlink{structcginfo__mb__t}{cginfo\-\_\-mb\-\_\-t} $\ast$cginfo\-\_\-mb)
+\item 
+static \hyperlink{structcginfo__mb__t}{cginfo\-\_\-mb\-\_\-t} $\ast$ \hyperlink{forcerec_8c_aa62bc1a0e482d009be014e896c7a5b21}{init\-\_\-cginfo\-\_\-mb} (\-F\-I\-L\-E $\ast$fplog, const \hyperlink{structgmx__mtop__t}{gmx\-\_\-mtop\-\_\-t} $\ast$mtop, \hyperlink{structt__forcerec}{t\-\_\-forcerec} $\ast$\hyperlink{addconf_8c_ae8414314f87c5e49503ac0117eb511ad}{fr}, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-No\-Solv\-Opt, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} $\ast$b\-Excl\-\_\-\-Intra\-C\-G\-All\-\_\-\-Inter\-C\-G\-None)
+\item 
+static int $\ast$ \hyperlink{forcerec_8c_acd16a0fced009f7217cd29eaf4f803d3}{cginfo\-\_\-expand} (int nmb, \hyperlink{structcginfo__mb__t}{cginfo\-\_\-mb\-\_\-t} $\ast$cgi\-\_\-mb)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{forcerec_8c_ad42e007c636e12ea14a0b78b6c96a6aa}{set\-\_\-chargesum} (\-F\-I\-L\-E $\ast$log, \hyperlink{structt__forcerec}{t\-\_\-forcerec} $\ast$\hyperlink{addconf_8c_ae8414314f87c5e49503ac0117eb511ad}{fr}, const \hyperlink{structgmx__mtop__t}{gmx\-\_\-mtop\-\_\-t} $\ast$mtop)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{forcerec_8c_aa4674626b2cea49c17aa71b80614948a}{update\-\_\-forcerec} (\-F\-I\-L\-E $\ast$log, \hyperlink{structt__forcerec}{t\-\_\-forcerec} $\ast$\hyperlink{addconf_8c_ae8414314f87c5e49503ac0117eb511ad}{fr}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{forcerec_8c_a8c657a5b4d0db76918e806622a8dba71}{set\-\_\-avcsixtwelve} (\-F\-I\-L\-E $\ast$fplog, \hyperlink{structt__forcerec}{t\-\_\-forcerec} $\ast$\hyperlink{addconf_8c_ae8414314f87c5e49503ac0117eb511ad}{fr}, const \hyperlink{structgmx__mtop__t}{gmx\-\_\-mtop\-\_\-t} $\ast$mtop)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{forcerec_8c_a056fba53761b5f08531640f7f1ee65e7}{set\-\_\-bham\-\_\-b\-\_\-max} (\-F\-I\-L\-E $\ast$fplog, \hyperlink{structt__forcerec}{t\-\_\-forcerec} $\ast$\hyperlink{addconf_8c_ae8414314f87c5e49503ac0117eb511ad}{fr}, const \hyperlink{structgmx__mtop__t}{gmx\-\_\-mtop\-\_\-t} $\ast$mtop)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{forcerec_8c_a0e0bebc3d7a0fce91c7936a5285850df}{make\-\_\-nbf\-\_\-tables} (\-F\-I\-L\-E $\ast$fp, const \hyperlink{include_2types_2oenv_8h_a6a48d77d95132d7318780544821da6a5}{output\-\_\-env\-\_\-t} oenv, \hyperlink{structt__forcerec}{t\-\_\-forcerec} $\ast$\hyperlink{addconf_8c_ae8414314f87c5e49503ac0117eb511ad}{fr}, real rtab, const \hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr, const char $\ast$tabfn, char $\ast$\hyperlink{dialogs_8c_a640e110a8e92c1283f2aae76e4649f48abb257a30e523f24558f9b0cb31aa65e9}{eg1}, char $\ast$eg2, \hyperlink{structt__nblists}{t\-\_\-nblists} $\ast$nbl)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{forcerec_8c_ac7ceadba72d0c0c0ea8e1cadb590fb34}{count\-\_\-tables} (int ftype1, int ftype2, const \hyperlink{structgmx__mtop__t}{gmx\-\_\-mtop\-\_\-t} $\ast$mtop, int $\ast$ncount, int $\ast$$\ast$count)
+\item 
+static \hyperlink{structbondedtable__t}{bondedtable\-\_\-t} $\ast$ \hyperlink{forcerec_8c_aeac59f6ed7e51632e9eb29f1ee97b07e}{make\-\_\-bonded\-\_\-tables} (\-F\-I\-L\-E $\ast$fplog, int ftype1, int ftype2, const \hyperlink{structgmx__mtop__t}{gmx\-\_\-mtop\-\_\-t} $\ast$mtop, const char $\ast$basefn, const char $\ast$tabext)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{forcerec_8c_abed4cd76d5c1927ee02821713cc0a873}{forcerec\-\_\-set\-\_\-ranges} (\hyperlink{structt__forcerec}{t\-\_\-forcerec} $\ast$\hyperlink{addconf_8c_ae8414314f87c5e49503ac0117eb511ad}{fr}, int ncg\-\_\-home, int ncg\-\_\-force, int natoms\-\_\-force, int natoms\-\_\-force\-\_\-constr, int natoms\-\_\-f\-\_\-novirsum)
+\item 
+static real \hyperlink{forcerec_8c_a07256b1234c0daea7b63c6c2aa0a9f82}{cutoff\-\_\-inf} (real cutoff)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{forcerec_8c_a9a29cb6ee3c05cc1b6b14aae8bad1853}{make\-\_\-adress\-\_\-tf\-\_\-tables} (\-F\-I\-L\-E $\ast$fp, const \hyperlink{include_2types_2oenv_8h_a6a48d77d95132d7318780544821da6a5}{output\-\_\-env\-\_\-t} oenv, \hyperlink{structt__forcerec}{t\-\_\-forcerec} $\ast$\hyperlink{addconf_8c_ae8414314f87c5e49503ac0117eb511ad}{fr}, const \hyperlink{structt__inputrec}{t\-\_\-inputrec} $\ast$ir, const char $\ast$tabfn, const \hyperlink{structgmx__mtop__t}{gmx\-\_\-mtop\-\_\-t} $\ast$mtop, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box)
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{forcerec_8c_abd65bcc4a875a30ae73f8f6f036df54e}{can\-\_\-use\-\_\-allvsall} (const \hyperlink{structt__inputrec}{t\-\_\-inputrec} $\ast$ir, const \hyperlink{structgmx__mtop__t}{gmx\-\_\-mtop\-\_\-t} $\ast$mtop, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Print\-Note, \hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr, \-F\-I\-L\-E $\ast$fp)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{forcerec_8c_a5a95db6e2451e099c69c7fc161a6cbec}{init\-\_\-forcerec\-\_\-f\-\_\-threads} (\hyperlink{structt__forcerec}{t\-\_\-forcerec} $\ast$\hyperlink{addconf_8c_ae8414314f87c5e49503ac0117eb511ad}{fr}, int nenergrp)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{forcerec_8c_a74f9b81d774f557030b63d031cb832eb}{pick\-\_\-nbnxn\-\_\-kernel\-\_\-cpu} (\-F\-I\-L\-E $\ast$fp, const \hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr, const \hyperlink{include_2gmx__cpuid_8h_aca8ed5c31d10235eeec45dfd0c17408b}{gmx\-\_\-cpuid\-\_\-t} cpuid\-\_\-info, const \hyperlink{structt__inputrec}{t\-\_\-inputrec} $\ast$ir, int $\ast$kernel\-\_\-type, int $\ast$ewald\-\_\-excl)
+\item 
+const char $\ast$ \hyperlink{forcerec_8c_aae7c3cb1114aee5cbcb613cfa00c55aa}{lookup\-\_\-nbnxn\-\_\-kernel\-\_\-name} (int kernel\-\_\-type)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{forcerec_8c_ae5717457a1c4f3b83261cb2646c47a04}{pick\-\_\-nbnxn\-\_\-kernel} (\-F\-I\-L\-E $\ast$fp, const \hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr, const \hyperlink{structgmx__hw__info__t}{gmx\-\_\-hw\-\_\-info\-\_\-t} $\ast$hwinfo, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} use\-\_\-cpu\-\_\-acceleration, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Use\-G\-P\-U, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Emulate\-G\-P\-U, const \hyperlink{structt__inputrec}{t\-\_\-inputrec} $\ast$ir, int $\ast$kernel\-\_\-type, int $\ast$ewald\-\_\-excl, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Do\-Nonbonded)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{forcerec_8c_a3e8c85774b0caee8584a607d6e1dc39b}{pick\-\_\-nbnxn\-\_\-resources} (\-F\-I\-L\-E $\ast$fp, const \hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr, const \hyperlink{structgmx__hw__info__t}{gmx\-\_\-hw\-\_\-info\-\_\-t} $\ast$hwinfo, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Do\-Nonbonded, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} $\ast$b\-Use\-G\-P\-U, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} $\ast$b\-Emulate\-G\-P\-U)
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{forcerec_8c_af61bc42b2a9f99979a33e84a65d0878e}{uses\-\_\-simple\-\_\-tables} (int cutoff\-\_\-scheme, \hyperlink{structnonbonded__verlet__t}{nonbonded\-\_\-verlet\-\_\-t} $\ast$nbv, int group)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{forcerec_8c_acf29813f4e7f1bf6862418fbb6acdf8e}{init\-\_\-ewald\-\_\-f\-\_\-table} (\hyperlink{structinteraction__const__t}{interaction\-\_\-const\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2nbnxn__cuda__data__mgmt_8h_a34557b939b10b264adf47e54fc7e7f6c}{ic}, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Uses\-Simple\-Tables, real rtab)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{forcerec_8c_a77892e99e947df81ae9063e6b899e712}{init\-\_\-interaction\-\_\-const\-\_\-tables} (\-F\-I\-L\-E $\ast$fp, \hyperlink{structinteraction__const__t}{interaction\-\_\-const\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2nbnxn__cuda__data__mgmt_8h_a34557b939b10b264adf47e54fc7e7f6c}{ic}, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Uses\-Simple\-Tables, real rtab)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{forcerec_8c_adccd54a6708036a92b0b50f4b8ebac50}{init\-\_\-interaction\-\_\-const} (\-F\-I\-L\-E $\ast$fp, \hyperlink{structinteraction__const__t}{interaction\-\_\-const\-\_\-t} $\ast$$\ast$interaction\-\_\-const, const \hyperlink{structt__forcerec}{t\-\_\-forcerec} $\ast$\hyperlink{addconf_8c_ae8414314f87c5e49503ac0117eb511ad}{fr}, real rtab)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{forcerec_8c_a1bca7adc0da852ffbdfce7f31fdd9e4e}{init\-\_\-nb\-\_\-verlet} (\-F\-I\-L\-E $\ast$fp, \hyperlink{structnonbonded__verlet__t}{nonbonded\-\_\-verlet\-\_\-t} $\ast$$\ast$nb\-\_\-verlet, const \hyperlink{structt__inputrec}{t\-\_\-inputrec} $\ast$ir, const \hyperlink{structt__forcerec}{t\-\_\-forcerec} $\ast$\hyperlink{addconf_8c_ae8414314f87c5e49503ac0117eb511ad}{fr}, const \hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr, const char $\ast$nbpu\-\_\-opt)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{forcerec_8c_a07f604c1512b5bf7e51e683e89437279}{init\-\_\-forcerec} (\-F\-I\-L\-E $\ast$fp, const \hyperlink{include_2types_2oenv_8h_a6a48d77d95132d7318780544821da6a5}{output\-\_\-env\-\_\-t} oenv, \hyperlink{structt__forcerec}{t\-\_\-forcerec} $\ast$\hyperlink{addconf_8c_ae8414314f87c5e49503ac0117eb511ad}{fr}, \hyperlink{structt__fcdata}{t\-\_\-fcdata} $\ast$fcd, const \hyperlink{structt__inputrec}{t\-\_\-inputrec} $\ast$ir, const \hyperlink{structgmx__mtop__t}{gmx\-\_\-mtop\-\_\-t} $\ast$mtop, const \hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Mol\-Epot, const char $\ast$tabfn, const char $\ast$tabafn, const char $\ast$tabpfn, const char $\ast$tabbfn, const char $\ast$nbpu\-\_\-opt, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-No\-Solv\-Opt, real print\-\_\-force)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{forcerec_8c_a51f3773068f423ac57f620c2250a9cc0}{pr\-\_\-forcerec} (\-F\-I\-L\-E $\ast$fp, \hyperlink{structt__forcerec}{t\-\_\-forcerec} $\ast$\hyperlink{addconf_8c_ae8414314f87c5e49503ac0117eb511ad}{fr}, \hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{forcerec_8c_ad55063e7474b076ab294fb33f678b62e}{forcerec\-\_\-set\-\_\-excl\-\_\-load} (\hyperlink{structt__forcerec}{t\-\_\-forcerec} $\ast$\hyperlink{addconf_8c_ae8414314f87c5e49503ac0117eb511ad}{fr}, const \hyperlink{structgmx__localtop__t}{gmx\-\_\-localtop\-\_\-t} $\ast$\hyperlink{gmx__disre_8c_a1b538a2ce75aba6c346bc03980ffeb28}{top}, const \hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr)
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Define \-Documentation}
+\hypertarget{forcerec_8c_ae6ca3c424231789b5ade47aa9c026a5d}{\index{forcerec.\-c@{forcerec.\-c}!pr\-\_\-bool@{pr\-\_\-bool}}
+\index{pr\-\_\-bool@{pr\-\_\-bool}!forcerec.c@{forcerec.\-c}}
+\subsubsection[{pr\-\_\-bool}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf pr\-\_\-bool}(
+\begin{DoxyParamCaption}
+\item[{}]{fp, }
+\item[{}]{{\bf b}}
+\end{DoxyParamCaption}
+)~fprintf((fp), \char`\"{}\%s\-: \%{\bf s}$\backslash${\bf n}\char`\"{},\#b, {\bf bool\-\_\-names}\mbox{[}{\bf b}\mbox{]})}}\label{forcerec_8c_ae6ca3c424231789b5ade47aa9c026a5d}
+\hypertarget{forcerec_8c_a4891955e794d0eb20a5eccea314caf8c}{\index{forcerec.\-c@{forcerec.\-c}!pr\-\_\-int@{pr\-\_\-int}}
+\index{pr\-\_\-int@{pr\-\_\-int}!forcerec.c@{forcerec.\-c}}
+\subsubsection[{pr\-\_\-int}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf pr\-\_\-int}(
+\begin{DoxyParamCaption}
+\item[{}]{fp, }
+\item[{}]{{\bf i}}
+\end{DoxyParamCaption}
+)~fprintf((fp), \char`\"{}\%s\-: \%{\bf d}$\backslash${\bf n}\char`\"{},\#i, {\bf i})}}\label{forcerec_8c_a4891955e794d0eb20a5eccea314caf8c}
+\hypertarget{forcerec_8c_a4c8c0f53cf8ab0c8ab692cc73744b944}{\index{forcerec.\-c@{forcerec.\-c}!pr\-\_\-real@{pr\-\_\-real}}
+\index{pr\-\_\-real@{pr\-\_\-real}!forcerec.c@{forcerec.\-c}}
+\subsubsection[{pr\-\_\-real}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf pr\-\_\-real}(
+\begin{DoxyParamCaption}
+\item[{}]{fp, }
+\item[{}]{{\bf r}}
+\end{DoxyParamCaption}
+)~fprintf(fp, \char`\"{}\%s\-: \%{\bf e}$\backslash${\bf n}\char`\"{},\#r, {\bf r})}}\label{forcerec_8c_a4c8c0f53cf8ab0c8ab692cc73744b944}
+
+
+\subsection{\-Enumeration \-Type \-Documentation}
+\hypertarget{forcerec_8c_af01802ada3cad45fab403a42f8a2e9c2}{\subsubsection[{anonymous enum}]{\setlength{\rightskip}{0pt plus 5cm}anonymous enum}}\label{forcerec_8c_af01802ada3cad45fab403a42f8a2e9c2}
+\begin{Desc}
+\item[\-Enumerator\-: ]\par
+\begin{description}
+\index{ac\-N\-O\-N\-E@{ac\-N\-O\-N\-E}!forcerec.\-c@{forcerec.\-c}}\index{forcerec.\-c@{forcerec.\-c}!ac\-N\-O\-N\-E@{ac\-N\-O\-N\-E}}\item[{\em 
+\hypertarget{forcerec_8c_af01802ada3cad45fab403a42f8a2e9c2a1053ced8213a828ac7ced4365ebb307e}{ac\-N\-O\-N\-E}\label{forcerec_8c_af01802ada3cad45fab403a42f8a2e9c2a1053ced8213a828ac7ced4365ebb307e}
+}]\index{ac\-C\-O\-N\-S\-T\-R\-A\-I\-N\-T@{ac\-C\-O\-N\-S\-T\-R\-A\-I\-N\-T}!forcerec.\-c@{forcerec.\-c}}\index{forcerec.\-c@{forcerec.\-c}!ac\-C\-O\-N\-S\-T\-R\-A\-I\-N\-T@{ac\-C\-O\-N\-S\-T\-R\-A\-I\-N\-T}}\item[{\em 
+\hypertarget{forcerec_8c_af01802ada3cad45fab403a42f8a2e9c2a3df5cda692ebdde1dc54f578fb091729}{ac\-C\-O\-N\-S\-T\-R\-A\-I\-N\-T}\label{forcerec_8c_af01802ada3cad45fab403a42f8a2e9c2a3df5cda692ebdde1dc54f578fb091729}
+}]\index{ac\-S\-E\-T\-T\-L\-E@{ac\-S\-E\-T\-T\-L\-E}!forcerec.\-c@{forcerec.\-c}}\index{forcerec.\-c@{forcerec.\-c}!ac\-S\-E\-T\-T\-L\-E@{ac\-S\-E\-T\-T\-L\-E}}\item[{\em 
+\hypertarget{forcerec_8c_af01802ada3cad45fab403a42f8a2e9c2a76c1e82ad69de1a436cfff3e231cb912}{ac\-S\-E\-T\-T\-L\-E}\label{forcerec_8c_af01802ada3cad45fab403a42f8a2e9c2a76c1e82ad69de1a436cfff3e231cb912}
+}]\end{description}
+\end{Desc}
+
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{forcerec_8c_abd65bcc4a875a30ae73f8f6f036df54e}{\index{forcerec.\-c@{forcerec.\-c}!can\-\_\-use\-\_\-allvsall@{can\-\_\-use\-\_\-allvsall}}
+\index{can\-\_\-use\-\_\-allvsall@{can\-\_\-use\-\_\-allvsall}!forcerec.c@{forcerec.\-c}}
+\subsubsection[{can\-\_\-use\-\_\-allvsall}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf can\-\_\-use\-\_\-allvsall} (
+\begin{DoxyParamCaption}
+\item[{const {\bf t\-\_\-inputrec} $\ast$}]{ir, }
+\item[{const {\bf gmx\-\_\-mtop\-\_\-t} $\ast$}]{mtop, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Print\-Note, }
+\item[{{\bf t\-\_\-commrec} $\ast$}]{cr, }
+\item[{\-F\-I\-L\-E $\ast$}]{fp}
+\end{DoxyParamCaption}
+)}}\label{forcerec_8c_abd65bcc4a875a30ae73f8f6f036df54e}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{forcerec_8c_abd65bcc4a875a30ae73f8f6f036df54e_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{forcerec_8c_acd16a0fced009f7217cd29eaf4f803d3}{\index{forcerec.\-c@{forcerec.\-c}!cginfo\-\_\-expand@{cginfo\-\_\-expand}}
+\index{cginfo\-\_\-expand@{cginfo\-\_\-expand}!forcerec.c@{forcerec.\-c}}
+\subsubsection[{cginfo\-\_\-expand}]{\setlength{\rightskip}{0pt plus 5cm}static int$\ast$ {\bf cginfo\-\_\-expand} (
+\begin{DoxyParamCaption}
+\item[{int}]{nmb, }
+\item[{{\bf cginfo\-\_\-mb\-\_\-t} $\ast$}]{cgi\-\_\-mb}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{forcerec_8c_acd16a0fced009f7217cd29eaf4f803d3}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{forcerec_8c_acd16a0fced009f7217cd29eaf4f803d3_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{forcerec_8c_a2466d8937f13ab7caeff493fc9d6dce6}{\index{forcerec.\-c@{forcerec.\-c}!check\-\_\-solvent@{check\-\_\-solvent}}
+\index{check\-\_\-solvent@{check\-\_\-solvent}!forcerec.c@{forcerec.\-c}}
+\subsubsection[{check\-\_\-solvent}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf check\-\_\-solvent} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{const {\bf gmx\-\_\-mtop\-\_\-t} $\ast$}]{mtop, }
+\item[{{\bf t\-\_\-forcerec} $\ast$}]{fr, }
+\item[{{\bf cginfo\-\_\-mb\-\_\-t} $\ast$}]{cginfo\-\_\-mb}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{forcerec_8c_a2466d8937f13ab7caeff493fc9d6dce6}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=292pt]{forcerec_8c_a2466d8937f13ab7caeff493fc9d6dce6_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{forcerec_8c_a2466d8937f13ab7caeff493fc9d6dce6_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{forcerec_8c_ae702d276b8a1981e54aa1d1e538567e6}{\index{forcerec.\-c@{forcerec.\-c}!check\-\_\-solvent\-\_\-cg@{check\-\_\-solvent\-\_\-cg}}
+\index{check\-\_\-solvent\-\_\-cg@{check\-\_\-solvent\-\_\-cg}!forcerec.c@{forcerec.\-c}}
+\subsubsection[{check\-\_\-solvent\-\_\-cg}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf check\-\_\-solvent\-\_\-cg} (
+\begin{DoxyParamCaption}
+\item[{const {\bf gmx\-\_\-moltype\-\_\-t} $\ast$}]{molt, }
+\item[{int}]{cg0, }
+\item[{int}]{nmol, }
+\item[{const unsigned char $\ast$}]{qm\-\_\-grpnr, }
+\item[{const {\bf t\-\_\-grps} $\ast$}]{qm\-\_\-grps, }
+\item[{{\bf t\-\_\-forcerec} $\ast$}]{fr, }
+\item[{int $\ast$}]{n\-\_\-solvent\-\_\-parameters, }
+\item[{{\bf solvent\-\_\-parameters\-\_\-t} $\ast$$\ast$}]{solvent\-\_\-parameters\-\_\-p, }
+\item[{int}]{cginfo, }
+\item[{int $\ast$}]{cg\-\_\-sp}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{forcerec_8c_ae702d276b8a1981e54aa1d1e538567e6}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{forcerec_8c_ae702d276b8a1981e54aa1d1e538567e6_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{forcerec_8c_ac7ceadba72d0c0c0ea8e1cadb590fb34}{\index{forcerec.\-c@{forcerec.\-c}!count\-\_\-tables@{count\-\_\-tables}}
+\index{count\-\_\-tables@{count\-\_\-tables}!forcerec.c@{forcerec.\-c}}
+\subsubsection[{count\-\_\-tables}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf count\-\_\-tables} (
+\begin{DoxyParamCaption}
+\item[{int}]{ftype1, }
+\item[{int}]{ftype2, }
+\item[{const {\bf gmx\-\_\-mtop\-\_\-t} $\ast$}]{mtop, }
+\item[{int $\ast$}]{ncount, }
+\item[{int $\ast$$\ast$}]{count}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{forcerec_8c_ac7ceadba72d0c0c0ea8e1cadb590fb34}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=248pt]{forcerec_8c_ac7ceadba72d0c0c0ea8e1cadb590fb34_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{forcerec_8c_ac7ceadba72d0c0c0ea8e1cadb590fb34_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{forcerec_8c_a07256b1234c0daea7b63c6c2aa0a9f82}{\index{forcerec.\-c@{forcerec.\-c}!cutoff\-\_\-inf@{cutoff\-\_\-inf}}
+\index{cutoff\-\_\-inf@{cutoff\-\_\-inf}!forcerec.c@{forcerec.\-c}}
+\subsubsection[{cutoff\-\_\-inf}]{\setlength{\rightskip}{0pt plus 5cm}static real {\bf cutoff\-\_\-inf} (
+\begin{DoxyParamCaption}
+\item[{real}]{cutoff}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{forcerec_8c_a07256b1234c0daea7b63c6c2aa0a9f82}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{forcerec_8c_a07256b1234c0daea7b63c6c2aa0a9f82_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{forcerec_8c_ad55063e7474b076ab294fb33f678b62e}{\index{forcerec.\-c@{forcerec.\-c}!forcerec\-\_\-set\-\_\-excl\-\_\-load@{forcerec\-\_\-set\-\_\-excl\-\_\-load}}
+\index{forcerec\-\_\-set\-\_\-excl\-\_\-load@{forcerec\-\_\-set\-\_\-excl\-\_\-load}!forcerec.c@{forcerec.\-c}}
+\subsubsection[{forcerec\-\_\-set\-\_\-excl\-\_\-load}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf forcerec\-\_\-set\-\_\-excl\-\_\-load} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-forcerec} $\ast$}]{fr, }
+\item[{const {\bf gmx\-\_\-localtop\-\_\-t} $\ast$}]{top, }
+\item[{const {\bf t\-\_\-commrec} $\ast$}]{cr}
+\end{DoxyParamCaption}
+)}}\label{forcerec_8c_ad55063e7474b076ab294fb33f678b62e}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=304pt]{forcerec_8c_ad55063e7474b076ab294fb33f678b62e_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{forcerec_8c_ad55063e7474b076ab294fb33f678b62e_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{forcerec_8c_abed4cd76d5c1927ee02821713cc0a873}{\index{forcerec.\-c@{forcerec.\-c}!forcerec\-\_\-set\-\_\-ranges@{forcerec\-\_\-set\-\_\-ranges}}
+\index{forcerec\-\_\-set\-\_\-ranges@{forcerec\-\_\-set\-\_\-ranges}!forcerec.c@{forcerec.\-c}}
+\subsubsection[{forcerec\-\_\-set\-\_\-ranges}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf forcerec\-\_\-set\-\_\-ranges} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-forcerec} $\ast$}]{fr, }
+\item[{int}]{ncg\-\_\-home, }
+\item[{int}]{ncg\-\_\-force, }
+\item[{int}]{natoms\-\_\-force, }
+\item[{int}]{natoms\-\_\-force\-\_\-constr, }
+\item[{int}]{natoms\-\_\-f\-\_\-novirsum}
+\end{DoxyParamCaption}
+)}}\label{forcerec_8c_abed4cd76d5c1927ee02821713cc0a873}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=300pt]{forcerec_8c_abed4cd76d5c1927ee02821713cc0a873_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{forcerec_8c_abed4cd76d5c1927ee02821713cc0a873_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{forcerec_8c_aa62bc1a0e482d009be014e896c7a5b21}{\index{forcerec.\-c@{forcerec.\-c}!init\-\_\-cginfo\-\_\-mb@{init\-\_\-cginfo\-\_\-mb}}
+\index{init\-\_\-cginfo\-\_\-mb@{init\-\_\-cginfo\-\_\-mb}!forcerec.c@{forcerec.\-c}}
+\subsubsection[{init\-\_\-cginfo\-\_\-mb}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf cginfo\-\_\-mb\-\_\-t}$\ast$ {\bf init\-\_\-cginfo\-\_\-mb} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fplog, }
+\item[{const {\bf gmx\-\_\-mtop\-\_\-t} $\ast$}]{mtop, }
+\item[{{\bf t\-\_\-forcerec} $\ast$}]{fr, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-No\-Solv\-Opt, }
+\item[{{\bf gmx\-\_\-bool} $\ast$}]{b\-Excl\-\_\-\-Intra\-C\-G\-All\-\_\-\-Inter\-C\-G\-None}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{forcerec_8c_aa62bc1a0e482d009be014e896c7a5b21}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{forcerec_8c_aa62bc1a0e482d009be014e896c7a5b21_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{forcerec_8c_aa62bc1a0e482d009be014e896c7a5b21_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{forcerec_8c_acf29813f4e7f1bf6862418fbb6acdf8e}{\index{forcerec.\-c@{forcerec.\-c}!init\-\_\-ewald\-\_\-f\-\_\-table@{init\-\_\-ewald\-\_\-f\-\_\-table}}
+\index{init\-\_\-ewald\-\_\-f\-\_\-table@{init\-\_\-ewald\-\_\-f\-\_\-table}!forcerec.c@{forcerec.\-c}}
+\subsubsection[{init\-\_\-ewald\-\_\-f\-\_\-table}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf init\-\_\-ewald\-\_\-f\-\_\-table} (
+\begin{DoxyParamCaption}
+\item[{{\bf interaction\-\_\-const\-\_\-t} $\ast$}]{ic, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Uses\-Simple\-Tables, }
+\item[{real}]{rtab}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{forcerec_8c_acf29813f4e7f1bf6862418fbb6acdf8e}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=346pt]{forcerec_8c_acf29813f4e7f1bf6862418fbb6acdf8e_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{forcerec_8c_acf29813f4e7f1bf6862418fbb6acdf8e_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{forcerec_8c_a07f604c1512b5bf7e51e683e89437279}{\index{forcerec.\-c@{forcerec.\-c}!init\-\_\-forcerec@{init\-\_\-forcerec}}
+\index{init\-\_\-forcerec@{init\-\_\-forcerec}!forcerec.c@{forcerec.\-c}}
+\subsubsection[{init\-\_\-forcerec}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf init\-\_\-forcerec} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{const {\bf output\-\_\-env\-\_\-t}}]{oenv, }
+\item[{{\bf t\-\_\-forcerec} $\ast$}]{fr, }
+\item[{{\bf t\-\_\-fcdata} $\ast$}]{fcd, }
+\item[{const {\bf t\-\_\-inputrec} $\ast$}]{ir, }
+\item[{const {\bf gmx\-\_\-mtop\-\_\-t} $\ast$}]{mtop, }
+\item[{const {\bf t\-\_\-commrec} $\ast$}]{cr, }
+\item[{{\bf matrix}}]{box, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Mol\-Epot, }
+\item[{const char $\ast$}]{tabfn, }
+\item[{const char $\ast$}]{tabafn, }
+\item[{const char $\ast$}]{tabpfn, }
+\item[{const char $\ast$}]{tabbfn, }
+\item[{const char $\ast$}]{nbpu\-\_\-opt, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-No\-Solv\-Opt, }
+\item[{real}]{print\-\_\-force}
+\end{DoxyParamCaption}
+)}}\label{forcerec_8c_a07f604c1512b5bf7e51e683e89437279}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{forcerec_8c_a07f604c1512b5bf7e51e683e89437279_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{forcerec_8c_a07f604c1512b5bf7e51e683e89437279_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{forcerec_8c_a5a95db6e2451e099c69c7fc161a6cbec}{\index{forcerec.\-c@{forcerec.\-c}!init\-\_\-forcerec\-\_\-f\-\_\-threads@{init\-\_\-forcerec\-\_\-f\-\_\-threads}}
+\index{init\-\_\-forcerec\-\_\-f\-\_\-threads@{init\-\_\-forcerec\-\_\-f\-\_\-threads}!forcerec.c@{forcerec.\-c}}
+\subsubsection[{init\-\_\-forcerec\-\_\-f\-\_\-threads}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf init\-\_\-forcerec\-\_\-f\-\_\-threads} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-forcerec} $\ast$}]{fr, }
+\item[{int}]{nenergrp}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{forcerec_8c_a5a95db6e2451e099c69c7fc161a6cbec}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{forcerec_8c_a5a95db6e2451e099c69c7fc161a6cbec_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{forcerec_8c_a5a95db6e2451e099c69c7fc161a6cbec_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{forcerec_8c_adccd54a6708036a92b0b50f4b8ebac50}{\index{forcerec.\-c@{forcerec.\-c}!init\-\_\-interaction\-\_\-const@{init\-\_\-interaction\-\_\-const}}
+\index{init\-\_\-interaction\-\_\-const@{init\-\_\-interaction\-\_\-const}!forcerec.c@{forcerec.\-c}}
+\subsubsection[{init\-\_\-interaction\-\_\-const}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf init\-\_\-interaction\-\_\-const} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{{\bf interaction\-\_\-const\-\_\-t} $\ast$$\ast$}]{interaction\-\_\-const, }
+\item[{const {\bf t\-\_\-forcerec} $\ast$}]{fr, }
+\item[{real}]{rtab}
+\end{DoxyParamCaption}
+)}}\label{forcerec_8c_adccd54a6708036a92b0b50f4b8ebac50}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{forcerec_8c_adccd54a6708036a92b0b50f4b8ebac50_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{forcerec_8c_adccd54a6708036a92b0b50f4b8ebac50_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{forcerec_8c_a77892e99e947df81ae9063e6b899e712}{\index{forcerec.\-c@{forcerec.\-c}!init\-\_\-interaction\-\_\-const\-\_\-tables@{init\-\_\-interaction\-\_\-const\-\_\-tables}}
+\index{init\-\_\-interaction\-\_\-const\-\_\-tables@{init\-\_\-interaction\-\_\-const\-\_\-tables}!forcerec.c@{forcerec.\-c}}
+\subsubsection[{init\-\_\-interaction\-\_\-const\-\_\-tables}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf init\-\_\-interaction\-\_\-const\-\_\-tables} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{{\bf interaction\-\_\-const\-\_\-t} $\ast$}]{ic, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Uses\-Simple\-Tables, }
+\item[{real}]{rtab}
+\end{DoxyParamCaption}
+)}}\label{forcerec_8c_a77892e99e947df81ae9063e6b899e712}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{forcerec_8c_a77892e99e947df81ae9063e6b899e712_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{forcerec_8c_a77892e99e947df81ae9063e6b899e712_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{forcerec_8c_a1bca7adc0da852ffbdfce7f31fdd9e4e}{\index{forcerec.\-c@{forcerec.\-c}!init\-\_\-nb\-\_\-verlet@{init\-\_\-nb\-\_\-verlet}}
+\index{init\-\_\-nb\-\_\-verlet@{init\-\_\-nb\-\_\-verlet}!forcerec.c@{forcerec.\-c}}
+\subsubsection[{init\-\_\-nb\-\_\-verlet}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf init\-\_\-nb\-\_\-verlet} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{{\bf nonbonded\-\_\-verlet\-\_\-t} $\ast$$\ast$}]{nb\-\_\-verlet, }
+\item[{const {\bf t\-\_\-inputrec} $\ast$}]{ir, }
+\item[{const {\bf t\-\_\-forcerec} $\ast$}]{fr, }
+\item[{const {\bf t\-\_\-commrec} $\ast$}]{cr, }
+\item[{const char $\ast$}]{nbpu\-\_\-opt}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{forcerec_8c_a1bca7adc0da852ffbdfce7f31fdd9e4e}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{forcerec_8c_a1bca7adc0da852ffbdfce7f31fdd9e4e_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{forcerec_8c_a1bca7adc0da852ffbdfce7f31fdd9e4e_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{forcerec_8c_aae7c3cb1114aee5cbcb613cfa00c55aa}{\index{forcerec.\-c@{forcerec.\-c}!lookup\-\_\-nbnxn\-\_\-kernel\-\_\-name@{lookup\-\_\-nbnxn\-\_\-kernel\-\_\-name}}
+\index{lookup\-\_\-nbnxn\-\_\-kernel\-\_\-name@{lookup\-\_\-nbnxn\-\_\-kernel\-\_\-name}!forcerec.c@{forcerec.\-c}}
+\subsubsection[{lookup\-\_\-nbnxn\-\_\-kernel\-\_\-name}]{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ {\bf lookup\-\_\-nbnxn\-\_\-kernel\-\_\-name} (
+\begin{DoxyParamCaption}
+\item[{int}]{kernel\-\_\-type}
+\end{DoxyParamCaption}
+)}}\label{forcerec_8c_aae7c3cb1114aee5cbcb613cfa00c55aa}
+\-Return a string indentifying the kernel type 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=314pt]{forcerec_8c_aae7c3cb1114aee5cbcb613cfa00c55aa_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{forcerec_8c_aae7c3cb1114aee5cbcb613cfa00c55aa_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{forcerec_8c_a9a29cb6ee3c05cc1b6b14aae8bad1853}{\index{forcerec.\-c@{forcerec.\-c}!make\-\_\-adress\-\_\-tf\-\_\-tables@{make\-\_\-adress\-\_\-tf\-\_\-tables}}
+\index{make\-\_\-adress\-\_\-tf\-\_\-tables@{make\-\_\-adress\-\_\-tf\-\_\-tables}!forcerec.c@{forcerec.\-c}}
+\subsubsection[{make\-\_\-adress\-\_\-tf\-\_\-tables}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf make\-\_\-adress\-\_\-tf\-\_\-tables} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{const {\bf output\-\_\-env\-\_\-t}}]{oenv, }
+\item[{{\bf t\-\_\-forcerec} $\ast$}]{fr, }
+\item[{const {\bf t\-\_\-inputrec} $\ast$}]{ir, }
+\item[{const char $\ast$}]{tabfn, }
+\item[{const {\bf gmx\-\_\-mtop\-\_\-t} $\ast$}]{mtop, }
+\item[{{\bf matrix}}]{box}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{forcerec_8c_a9a29cb6ee3c05cc1b6b14aae8bad1853}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=318pt]{forcerec_8c_a9a29cb6ee3c05cc1b6b14aae8bad1853_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{forcerec_8c_a9a29cb6ee3c05cc1b6b14aae8bad1853_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{forcerec_8c_aeac59f6ed7e51632e9eb29f1ee97b07e}{\index{forcerec.\-c@{forcerec.\-c}!make\-\_\-bonded\-\_\-tables@{make\-\_\-bonded\-\_\-tables}}
+\index{make\-\_\-bonded\-\_\-tables@{make\-\_\-bonded\-\_\-tables}!forcerec.c@{forcerec.\-c}}
+\subsubsection[{make\-\_\-bonded\-\_\-tables}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf bondedtable\-\_\-t}$\ast$ {\bf make\-\_\-bonded\-\_\-tables} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fplog, }
+\item[{int}]{ftype1, }
+\item[{int}]{ftype2, }
+\item[{const {\bf gmx\-\_\-mtop\-\_\-t} $\ast$}]{mtop, }
+\item[{const char $\ast$}]{basefn, }
+\item[{const char $\ast$}]{tabext}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{forcerec_8c_aeac59f6ed7e51632e9eb29f1ee97b07e}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{forcerec_8c_aeac59f6ed7e51632e9eb29f1ee97b07e_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{forcerec_8c_aeac59f6ed7e51632e9eb29f1ee97b07e_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{forcerec_8c_a0e0bebc3d7a0fce91c7936a5285850df}{\index{forcerec.\-c@{forcerec.\-c}!make\-\_\-nbf\-\_\-tables@{make\-\_\-nbf\-\_\-tables}}
+\index{make\-\_\-nbf\-\_\-tables@{make\-\_\-nbf\-\_\-tables}!forcerec.c@{forcerec.\-c}}
+\subsubsection[{make\-\_\-nbf\-\_\-tables}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf make\-\_\-nbf\-\_\-tables} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{const {\bf output\-\_\-env\-\_\-t}}]{oenv, }
+\item[{{\bf t\-\_\-forcerec} $\ast$}]{fr, }
+\item[{real}]{rtab, }
+\item[{const {\bf t\-\_\-commrec} $\ast$}]{cr, }
+\item[{const char $\ast$}]{tabfn, }
+\item[{char $\ast$}]{eg1, }
+\item[{char $\ast$}]{eg2, }
+\item[{{\bf t\-\_\-nblists} $\ast$}]{nbl}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{forcerec_8c_a0e0bebc3d7a0fce91c7936a5285850df}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=280pt]{forcerec_8c_a0e0bebc3d7a0fce91c7936a5285850df_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{forcerec_8c_a0e0bebc3d7a0fce91c7936a5285850df_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{forcerec_8c_ad438ca0e4c451cfa1731c6c1dbb48599}{\index{forcerec.\-c@{forcerec.\-c}!mk\-\_\-forcerec@{mk\-\_\-forcerec}}
+\index{mk\-\_\-forcerec@{mk\-\_\-forcerec}!forcerec.c@{forcerec.\-c}}
+\subsubsection[{mk\-\_\-forcerec}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\-\_\-forcerec}$\ast$ {\bf mk\-\_\-forcerec} (
+\begin{DoxyParamCaption}
+\item[{{\bf void}}]{}
+\end{DoxyParamCaption}
+)}}\label{forcerec_8c_ad438ca0e4c451cfa1731c6c1dbb48599}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{forcerec_8c_ad438ca0e4c451cfa1731c6c1dbb48599_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{forcerec_8c_ab1c86b8eab4d9401b36fec24c3d13058}{\index{forcerec.\-c@{forcerec.\-c}!mk\-\_\-nbfp@{mk\-\_\-nbfp}}
+\index{mk\-\_\-nbfp@{mk\-\_\-nbfp}!forcerec.c@{forcerec.\-c}}
+\subsubsection[{mk\-\_\-nbfp}]{\setlength{\rightskip}{0pt plus 5cm}static real$\ast$ {\bf mk\-\_\-nbfp} (
+\begin{DoxyParamCaption}
+\item[{const {\bf gmx\-\_\-ffparams\-\_\-t} $\ast$}]{idef, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-B\-H\-A\-M}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{forcerec_8c_ab1c86b8eab4d9401b36fec24c3d13058}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{forcerec_8c_ab1c86b8eab4d9401b36fec24c3d13058_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{forcerec_8c_ae5717457a1c4f3b83261cb2646c47a04}{\index{forcerec.\-c@{forcerec.\-c}!pick\-\_\-nbnxn\-\_\-kernel@{pick\-\_\-nbnxn\-\_\-kernel}}
+\index{pick\-\_\-nbnxn\-\_\-kernel@{pick\-\_\-nbnxn\-\_\-kernel}!forcerec.c@{forcerec.\-c}}
+\subsubsection[{pick\-\_\-nbnxn\-\_\-kernel}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf pick\-\_\-nbnxn\-\_\-kernel} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{const {\bf t\-\_\-commrec} $\ast$}]{cr, }
+\item[{const {\bf gmx\-\_\-hw\-\_\-info\-\_\-t} $\ast$}]{hwinfo, }
+\item[{{\bf gmx\-\_\-bool}}]{use\-\_\-cpu\-\_\-acceleration, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Use\-G\-P\-U, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Emulate\-G\-P\-U, }
+\item[{const {\bf t\-\_\-inputrec} $\ast$}]{ir, }
+\item[{int $\ast$}]{kernel\-\_\-type, }
+\item[{int $\ast$}]{ewald\-\_\-excl, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Do\-Nonbonded}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{forcerec_8c_ae5717457a1c4f3b83261cb2646c47a04}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{forcerec_8c_ae5717457a1c4f3b83261cb2646c47a04_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{forcerec_8c_ae5717457a1c4f3b83261cb2646c47a04_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{forcerec_8c_a74f9b81d774f557030b63d031cb832eb}{\index{forcerec.\-c@{forcerec.\-c}!pick\-\_\-nbnxn\-\_\-kernel\-\_\-cpu@{pick\-\_\-nbnxn\-\_\-kernel\-\_\-cpu}}
+\index{pick\-\_\-nbnxn\-\_\-kernel\-\_\-cpu@{pick\-\_\-nbnxn\-\_\-kernel\-\_\-cpu}!forcerec.c@{forcerec.\-c}}
+\subsubsection[{pick\-\_\-nbnxn\-\_\-kernel\-\_\-cpu}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf pick\-\_\-nbnxn\-\_\-kernel\-\_\-cpu} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{const {\bf t\-\_\-commrec} $\ast$}]{cr, }
+\item[{const {\bf gmx\-\_\-cpuid\-\_\-t}}]{cpuid\-\_\-info, }
+\item[{const {\bf t\-\_\-inputrec} $\ast$}]{ir, }
+\item[{int $\ast$}]{kernel\-\_\-type, }
+\item[{int $\ast$}]{ewald\-\_\-excl}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{forcerec_8c_a74f9b81d774f557030b63d031cb832eb}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=296pt]{forcerec_8c_a74f9b81d774f557030b63d031cb832eb_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{forcerec_8c_a74f9b81d774f557030b63d031cb832eb_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{forcerec_8c_a3e8c85774b0caee8584a607d6e1dc39b}{\index{forcerec.\-c@{forcerec.\-c}!pick\-\_\-nbnxn\-\_\-resources@{pick\-\_\-nbnxn\-\_\-resources}}
+\index{pick\-\_\-nbnxn\-\_\-resources@{pick\-\_\-nbnxn\-\_\-resources}!forcerec.c@{forcerec.\-c}}
+\subsubsection[{pick\-\_\-nbnxn\-\_\-resources}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf pick\-\_\-nbnxn\-\_\-resources} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{const {\bf t\-\_\-commrec} $\ast$}]{cr, }
+\item[{const {\bf gmx\-\_\-hw\-\_\-info\-\_\-t} $\ast$}]{hwinfo, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Do\-Nonbonded, }
+\item[{{\bf gmx\-\_\-bool} $\ast$}]{b\-Use\-G\-P\-U, }
+\item[{{\bf gmx\-\_\-bool} $\ast$}]{b\-Emulate\-G\-P\-U}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{forcerec_8c_a3e8c85774b0caee8584a607d6e1dc39b}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=290pt]{forcerec_8c_a3e8c85774b0caee8584a607d6e1dc39b_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{forcerec_8c_a3e8c85774b0caee8584a607d6e1dc39b_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{forcerec_8c_a51f3773068f423ac57f620c2250a9cc0}{\index{forcerec.\-c@{forcerec.\-c}!pr\-\_\-forcerec@{pr\-\_\-forcerec}}
+\index{pr\-\_\-forcerec@{pr\-\_\-forcerec}!forcerec.c@{forcerec.\-c}}
+\subsubsection[{pr\-\_\-forcerec}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf pr\-\_\-forcerec} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{{\bf t\-\_\-forcerec} $\ast$}]{fr, }
+\item[{{\bf t\-\_\-commrec} $\ast$}]{cr}
+\end{DoxyParamCaption}
+)}}\label{forcerec_8c_a51f3773068f423ac57f620c2250a9cc0}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{forcerec_8c_a51f3773068f423ac57f620c2250a9cc0_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{forcerec_8c_a8c657a5b4d0db76918e806622a8dba71}{\index{forcerec.\-c@{forcerec.\-c}!set\-\_\-avcsixtwelve@{set\-\_\-avcsixtwelve}}
+\index{set\-\_\-avcsixtwelve@{set\-\_\-avcsixtwelve}!forcerec.c@{forcerec.\-c}}
+\subsubsection[{set\-\_\-avcsixtwelve}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf set\-\_\-avcsixtwelve} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fplog, }
+\item[{{\bf t\-\_\-forcerec} $\ast$}]{fr, }
+\item[{const {\bf gmx\-\_\-mtop\-\_\-t} $\ast$}]{mtop}
+\end{DoxyParamCaption}
+)}}\label{forcerec_8c_a8c657a5b4d0db76918e806622a8dba71}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=268pt]{forcerec_8c_a8c657a5b4d0db76918e806622a8dba71_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{forcerec_8c_a8c657a5b4d0db76918e806622a8dba71_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{forcerec_8c_a056fba53761b5f08531640f7f1ee65e7}{\index{forcerec.\-c@{forcerec.\-c}!set\-\_\-bham\-\_\-b\-\_\-max@{set\-\_\-bham\-\_\-b\-\_\-max}}
+\index{set\-\_\-bham\-\_\-b\-\_\-max@{set\-\_\-bham\-\_\-b\-\_\-max}!forcerec.c@{forcerec.\-c}}
+\subsubsection[{set\-\_\-bham\-\_\-b\-\_\-max}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf set\-\_\-bham\-\_\-b\-\_\-max} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fplog, }
+\item[{{\bf t\-\_\-forcerec} $\ast$}]{fr, }
+\item[{const {\bf gmx\-\_\-mtop\-\_\-t} $\ast$}]{mtop}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{forcerec_8c_a056fba53761b5f08531640f7f1ee65e7}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=270pt]{forcerec_8c_a056fba53761b5f08531640f7f1ee65e7_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{forcerec_8c_a056fba53761b5f08531640f7f1ee65e7_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{forcerec_8c_ad42e007c636e12ea14a0b78b6c96a6aa}{\index{forcerec.\-c@{forcerec.\-c}!set\-\_\-chargesum@{set\-\_\-chargesum}}
+\index{set\-\_\-chargesum@{set\-\_\-chargesum}!forcerec.c@{forcerec.\-c}}
+\subsubsection[{set\-\_\-chargesum}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf set\-\_\-chargesum} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{log, }
+\item[{{\bf t\-\_\-forcerec} $\ast$}]{fr, }
+\item[{const {\bf gmx\-\_\-mtop\-\_\-t} $\ast$}]{mtop}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{forcerec_8c_ad42e007c636e12ea14a0b78b6c96a6aa}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{forcerec_8c_ad42e007c636e12ea14a0b78b6c96a6aa_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{forcerec_8c_aa4674626b2cea49c17aa71b80614948a}{\index{forcerec.\-c@{forcerec.\-c}!update\-\_\-forcerec@{update\-\_\-forcerec}}
+\index{update\-\_\-forcerec@{update\-\_\-forcerec}!forcerec.c@{forcerec.\-c}}
+\subsubsection[{update\-\_\-forcerec}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf update\-\_\-forcerec} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{log, }
+\item[{{\bf t\-\_\-forcerec} $\ast$}]{fr, }
+\item[{{\bf matrix}}]{box}
+\end{DoxyParamCaption}
+)}}\label{forcerec_8c_aa4674626b2cea49c17aa71b80614948a}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=262pt]{forcerec_8c_aa4674626b2cea49c17aa71b80614948a_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{forcerec_8c_aa4674626b2cea49c17aa71b80614948a_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{forcerec_8c_af61bc42b2a9f99979a33e84a65d0878e}{\index{forcerec.\-c@{forcerec.\-c}!uses\-\_\-simple\-\_\-tables@{uses\-\_\-simple\-\_\-tables}}
+\index{uses\-\_\-simple\-\_\-tables@{uses\-\_\-simple\-\_\-tables}!forcerec.c@{forcerec.\-c}}
+\subsubsection[{uses\-\_\-simple\-\_\-tables}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf uses\-\_\-simple\-\_\-tables} (
+\begin{DoxyParamCaption}
+\item[{int}]{cutoff\-\_\-scheme, }
+\item[{{\bf nonbonded\-\_\-verlet\-\_\-t} $\ast$}]{nbv, }
+\item[{int}]{group}
+\end{DoxyParamCaption}
+)}}\label{forcerec_8c_af61bc42b2a9f99979a33e84a65d0878e}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{forcerec_8c_af61bc42b2a9f99979a33e84a65d0878e_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{forcerec_8c_af61bc42b2a9f99979a33e84a65d0878e_icgraph}
+\end{center}
+\end{figure}
+
+

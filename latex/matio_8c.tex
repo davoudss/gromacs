@@ -1,0 +1,1068 @@
+\hypertarget{matio_8c}{\section{src/gmxlib/matio.c \-File \-Reference}
+\label{matio_8c}\index{src/gmxlib/matio.\-c@{src/gmxlib/matio.\-c}}
+}
+{\ttfamily \#include $<$stdio.\-h$>$}\*
+{\ttfamily \#include $<$ctype.\-h$>$}\*
+{\ttfamily \#include \char`\"{}sysstuff.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}futil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}string2.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}macros.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}smalloc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-fatal.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}matio.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}statutil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmxfio.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}maths.\-h\char`\"{}}\*
+\-Include dependency graph for matio.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{matio_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{matio_8c_a52b76bc2991db4c888d07d1e016b8939}{round}(\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a0880879736d1ab747a972d1942421886}{a})~(int)(\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a0880879736d1ab747a972d1942421886}{a}+0.\-5)
+\item 
+\#define \hyperlink{matio_8c_a0308482d69a4ee8eb07c20880792a361}{\-N\-M\-A\-P}~(long int)strlen(\hyperlink{matio_8c_a1e605e8e63f4d3c63bca9dcced15e1d5}{mapper})
+\item 
+\#define \hyperlink{matio_8c_a03182adc5924f611d40bf8dacad5a422}{\-M\-A\-X\-\_\-\-X\-P\-M\-\_\-\-L\-I\-N\-E\-L\-E\-N\-G\-T\-H}~4096
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+real $\ast$$\ast$ \hyperlink{matio_8c_a4fe9a6c17de89d6865ac7371999bc320}{mk\-\_\-matrix} (int nx, int ny, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b1\-D)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{matio_8c_a2145005d94ed36098cdaa0beddd7766c}{done\-\_\-matrix} (int nx, real $\ast$$\ast$$\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_aa30cfa61c7e675800f65322a90f8ac96}{m})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{matio_8c_a98f6b775429007b6286b3297f9ad7ad5}{clear\-\_\-matrix} (int nx, int ny, real $\ast$$\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_aa30cfa61c7e675800f65322a90f8ac96}{m})
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{matio_8c_ad6e2ad29a151184a8fad24cbffb184f0}{matelmt\-\_\-cmp} (\hyperlink{structt__xpmelmt}{t\-\_\-xpmelmt} e1, \hyperlink{structt__xpmelmt}{t\-\_\-xpmelmt} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a9e1ef2633cb50ff83ad9b4e1b3a4923e}{e2})
+\item 
+\hyperlink{include_2types_2matrix_8h_aa83c808690a6c78238569bf8d14eb60a}{t\-\_\-matelmt} \hyperlink{matio_8c_a08ad35b7879e29a972dfc78812ebb94e}{searchcmap} (int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, \hyperlink{structt__mapping}{t\-\_\-mapping} map\mbox{[}$\,$\mbox{]}, \hyperlink{structt__xpmelmt}{t\-\_\-xpmelmt} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae4f482ada992ba1e6b96026c14729ffe}{c})
+\item 
+int \hyperlink{matio_8c_aab51398b56c5fa4da1e7c49562669150}{getcmap} (\-F\-I\-L\-E $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a5ac1e96244316833544f4a5edc3edfc9}{in}, const char $\ast$fn, \hyperlink{structt__mapping}{t\-\_\-mapping} $\ast$$\ast$map)
+\item 
+int \hyperlink{matio_8c_aad6069825ce8e3341800565463767f87}{readcmap} (const char $\ast$fn, \hyperlink{structt__mapping}{t\-\_\-mapping} $\ast$$\ast$map)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{matio_8c_a601caeb8712c23b5437ad55b80e1f895}{printcmap} (\-F\-I\-L\-E $\ast$out, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, \hyperlink{structt__mapping}{t\-\_\-mapping} map\mbox{[}$\,$\mbox{]})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{matio_8c_a3143b1688cd0541b327309a6b68ed722}{writecmap} (const char $\ast$fn, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, \hyperlink{structt__mapping}{t\-\_\-mapping} map\mbox{[}$\,$\mbox{]})
+\item 
+static char $\ast$ \hyperlink{matio_8c_ac392109ba437af4952e67453d7810a24}{fgetline} (char $\ast$$\ast$\hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line}, int llmax, int $\ast$llalloc, \-F\-I\-L\-E $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a5ac1e96244316833544f4a5edc3edfc9}{in})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{matio_8c_a9ce8f312273ecb106f3a1c0e3b519fdf}{skipstr} (char $\ast$\hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line})
+\item 
+char $\ast$ \hyperlink{matio_8c_a90c78b62ef00464bb351992ec341372d}{line2string} (char $\ast$$\ast$\hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{matio_8c_acfaa88208db606a91ee7f501b0c7709f}{parsestring} (char $\ast$\hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line}, const char $\ast$label, char $\ast$string)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{matio_8c_a4642c5ccfc95d549748c59d433e65589}{read\-\_\-xpm\-\_\-entry} (\-F\-I\-L\-E $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a5ac1e96244316833544f4a5edc3edfc9}{in}, \hyperlink{structt__matrix}{t\-\_\-matrix} $\ast$mm)
+\item 
+int \hyperlink{matio_8c_a14c1180414597a1aa3441cbc9588112b}{read\-\_\-xpm\-\_\-matrix} (const char $\ast$fnm, \hyperlink{structt__matrix}{t\-\_\-matrix} $\ast$$\ast$\hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix})
+\item 
+real $\ast$$\ast$ \hyperlink{matio_8c_a57f314a61aba7b7f684e238cb0ff1b7e}{matrix2real} (\hyperlink{structt__matrix}{t\-\_\-matrix} $\ast$\hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix}, real $\ast$$\ast$mat)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{matio_8c_a44c6e3dfe6c34f62ebfba12f2b1f92ce}{write\-\_\-xpm\-\_\-header} (\-F\-I\-L\-E $\ast$out, const char $\ast$title, const char $\ast$legend, const char $\ast$label\-\_\-x, const char $\ast$label\-\_\-y, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Discrete)
+\item 
+static int \hyperlink{matio_8c_a2296e04cd6531c54330938f78d05a1aa}{calc\-\_\-nmid} (int nlevels, real lo, real mid, real hi)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{matio_8c_af87fbfd85304c0f742fcacc676ea1a0e}{write\-\_\-xpm\-\_\-map3} (\-F\-I\-L\-E $\ast$out, int n\-\_\-x, int n\-\_\-y, int $\ast$nlevels, real lo, real mid, real hi, \hyperlink{structt__rgb}{t\-\_\-rgb} rlo, \hyperlink{structt__rgb}{t\-\_\-rgb} rmid, \hyperlink{structt__rgb}{t\-\_\-rgb} rhi)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{matio_8c_a64c6e1b8341da28e072463a2495b092d}{pr\-\_\-simple\-\_\-cmap} (\-F\-I\-L\-E $\ast$out, real lo, real hi, int nlevel, \hyperlink{structt__rgb}{t\-\_\-rgb} rlo, \hyperlink{structt__rgb}{t\-\_\-rgb} rhi, int i0)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{matio_8c_a712f2d2c6daac29180d7657a14d82233}{pr\-\_\-discrete\-\_\-cmap} (\-F\-I\-L\-E $\ast$out, int $\ast$nlevel, int i0)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{matio_8c_a5c69caeb1909214a00185afffa3d6229}{write\-\_\-xpm\-\_\-map\-\_\-split} (\-F\-I\-L\-E $\ast$out, int n\-\_\-x, int n\-\_\-y, int $\ast$nlevel\-\_\-top, real lo\-\_\-top, real hi\-\_\-top, \hyperlink{structt__rgb}{t\-\_\-rgb} rlo\-\_\-top, \hyperlink{structt__rgb}{t\-\_\-rgb} rhi\-\_\-top, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Discrete\-Color, int $\ast$nlevel\-\_\-bot, real lo\-\_\-bot, real hi\-\_\-bot, \hyperlink{structt__rgb}{t\-\_\-rgb} rlo\-\_\-bot, \hyperlink{structt__rgb}{t\-\_\-rgb} rhi\-\_\-bot)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{matio_8c_a32532720834b442ae54615af324d5307}{write\-\_\-xpm\-\_\-map} (\-F\-I\-L\-E $\ast$out, int n\-\_\-x, int n\-\_\-y, int $\ast$nlevels, real lo, real hi, \hyperlink{structt__rgb}{t\-\_\-rgb} rlo, \hyperlink{structt__rgb}{t\-\_\-rgb} rhi)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{matio_8c_a2bc22063856e6f12d5a481aaad61fd70}{write\-\_\-xpm\-\_\-axis} (\-F\-I\-L\-E $\ast$out, const char $\ast$axis, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Spatial, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, real $\ast$label)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{matio_8c_ab144054e67151c7ee5a1516f2000eb52}{write\-\_\-xpm\-\_\-data} (\-F\-I\-L\-E $\ast$out, int n\-\_\-x, int n\-\_\-y, real $\ast$$\ast$\hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix}, real lo, real hi, int nlevels)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{matio_8c_a03c1282e0eae9e68831f8b2ec2a91f02}{write\-\_\-xpm\-\_\-data3} (\-F\-I\-L\-E $\ast$out, int n\-\_\-x, int n\-\_\-y, real $\ast$$\ast$\hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix}, real lo, real mid, real hi, int nlevels)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{matio_8c_a21ccd48ab89f9a95483c175316128a23}{write\-\_\-xpm\-\_\-data\-\_\-split} (\-F\-I\-L\-E $\ast$out, int n\-\_\-x, int n\-\_\-y, real $\ast$$\ast$\hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix}, real lo\-\_\-top, real hi\-\_\-top, int nlevel\-\_\-top, real lo\-\_\-bot, real hi\-\_\-bot, int nlevel\-\_\-bot)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{matio_8c_a1091d9715c36182a853ca034eb34c801}{write\-\_\-xpm\-\_\-m} (\-F\-I\-L\-E $\ast$out, \hyperlink{structt__matrix}{t\-\_\-matrix} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_aa30cfa61c7e675800f65322a90f8ac96}{m})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{matio_8c_a37aa6de6fe370630a53538de04046dc9}{write\-\_\-xpm3} (\-F\-I\-L\-E $\ast$out, unsigned int \hyperlink{nbnxn__cuda_8h_a04d8e308e05daeaa5002e3a3c983a14f}{flags}, const char $\ast$title, const char $\ast$legend, const char $\ast$label\-\_\-x, const char $\ast$label\-\_\-y, int n\-\_\-x, int n\-\_\-y, real axis\-\_\-x\mbox{[}$\,$\mbox{]}, real axis\-\_\-y\mbox{[}$\,$\mbox{]}, real $\ast$\hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix}\mbox{[}$\,$\mbox{]}, real lo, real mid, real hi, \hyperlink{structt__rgb}{t\-\_\-rgb} rlo, \hyperlink{structt__rgb}{t\-\_\-rgb} rmid, \hyperlink{structt__rgb}{t\-\_\-rgb} rhi, int $\ast$nlevels)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{matio_8c_ae985faa29841d80251a36fc49d19701b}{write\-\_\-xpm\-\_\-split} (\-F\-I\-L\-E $\ast$out, unsigned int \hyperlink{nbnxn__cuda_8h_a04d8e308e05daeaa5002e3a3c983a14f}{flags}, const char $\ast$title, const char $\ast$legend, const char $\ast$label\-\_\-x, const char $\ast$label\-\_\-y, int n\-\_\-x, int n\-\_\-y, real axis\-\_\-x\mbox{[}$\,$\mbox{]}, real axis\-\_\-y\mbox{[}$\,$\mbox{]}, real $\ast$\hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix}\mbox{[}$\,$\mbox{]}, real lo\-\_\-top, real hi\-\_\-top, int $\ast$nlevel\-\_\-top, \hyperlink{structt__rgb}{t\-\_\-rgb} rlo\-\_\-top, \hyperlink{structt__rgb}{t\-\_\-rgb} rhi\-\_\-top, real lo\-\_\-bot, real hi\-\_\-bot, int $\ast$nlevel\-\_\-bot, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Discrete\-Color, \hyperlink{structt__rgb}{t\-\_\-rgb} rlo\-\_\-bot, \hyperlink{structt__rgb}{t\-\_\-rgb} rhi\-\_\-bot)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{matio_8c_ac893ca6de93762f74f01f0848d7f3b38}{write\-\_\-xpm} (\-F\-I\-L\-E $\ast$out, unsigned int \hyperlink{nbnxn__cuda_8h_a04d8e308e05daeaa5002e3a3c983a14f}{flags}, const char $\ast$title, const char $\ast$legend, const char $\ast$label\-\_\-x, const char $\ast$label\-\_\-y, int n\-\_\-x, int n\-\_\-y, real axis\-\_\-x\mbox{[}$\,$\mbox{]}, real axis\-\_\-y\mbox{[}$\,$\mbox{]}, real $\ast$\hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix}\mbox{[}$\,$\mbox{]}, real lo, real hi, \hyperlink{structt__rgb}{t\-\_\-rgb} rlo, \hyperlink{structt__rgb}{t\-\_\-rgb} rhi, int $\ast$nlevels)
+\end{DoxyCompactItemize}
+\subsection*{\-Variables}
+\begin{DoxyCompactItemize}
+\item 
+static const char \hyperlink{matio_8c_a1e605e8e63f4d3c63bca9dcced15e1d5}{mapper} \mbox{[}$\,$\mbox{]} = \char`\"{}\-A\-B\-C\-D\-E\-F\-G\-H\-I\-J\-K\-L\-M\-N\-O\-P\-Q\-R\-S\-T\-U\-V\-W\-X\-Y\-Zabcdefghijklmnopqrstuvwxyz0123456789!@\#\$\%$^\wedge$\&$\ast$()-\/\-\_\-=+\{\}$|$;\-:',$<$.$>$/?\char`\"{}
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Define \-Documentation}
+\hypertarget{matio_8c_a03182adc5924f611d40bf8dacad5a422}{\index{matio.\-c@{matio.\-c}!\-M\-A\-X\-\_\-\-X\-P\-M\-\_\-\-L\-I\-N\-E\-L\-E\-N\-G\-T\-H@{\-M\-A\-X\-\_\-\-X\-P\-M\-\_\-\-L\-I\-N\-E\-L\-E\-N\-G\-T\-H}}
+\index{\-M\-A\-X\-\_\-\-X\-P\-M\-\_\-\-L\-I\-N\-E\-L\-E\-N\-G\-T\-H@{\-M\-A\-X\-\_\-\-X\-P\-M\-\_\-\-L\-I\-N\-E\-L\-E\-N\-G\-T\-H}!matio.c@{matio.\-c}}
+\subsubsection[{\-M\-A\-X\-\_\-\-X\-P\-M\-\_\-\-L\-I\-N\-E\-L\-E\-N\-G\-T\-H}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-M\-A\-X\-\_\-\-X\-P\-M\-\_\-\-L\-I\-N\-E\-L\-E\-N\-G\-T\-H}~4096}}\label{matio_8c_a03182adc5924f611d40bf8dacad5a422}
+\hypertarget{matio_8c_a0308482d69a4ee8eb07c20880792a361}{\index{matio.\-c@{matio.\-c}!\-N\-M\-A\-P@{\-N\-M\-A\-P}}
+\index{\-N\-M\-A\-P@{\-N\-M\-A\-P}!matio.c@{matio.\-c}}
+\subsubsection[{\-N\-M\-A\-P}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-N\-M\-A\-P}~(long int)strlen({\bf mapper})}}\label{matio_8c_a0308482d69a4ee8eb07c20880792a361}
+\hypertarget{matio_8c_a52b76bc2991db4c888d07d1e016b8939}{\index{matio.\-c@{matio.\-c}!round@{round}}
+\index{round@{round}!matio.c@{matio.\-c}}
+\subsubsection[{round}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf round}(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf a}}
+\end{DoxyParamCaption}
+)~(int)({\bf a}+0.\-5)}}\label{matio_8c_a52b76bc2991db4c888d07d1e016b8939}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{matio_8c_a2296e04cd6531c54330938f78d05a1aa}{\index{matio.\-c@{matio.\-c}!calc\-\_\-nmid@{calc\-\_\-nmid}}
+\index{calc\-\_\-nmid@{calc\-\_\-nmid}!matio.c@{matio.\-c}}
+\subsubsection[{calc\-\_\-nmid}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf calc\-\_\-nmid} (
+\begin{DoxyParamCaption}
+\item[{int}]{nlevels, }
+\item[{real}]{lo, }
+\item[{real}]{mid, }
+\item[{real}]{hi}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{matio_8c_a2296e04cd6531c54330938f78d05a1aa}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{matio_8c_a2296e04cd6531c54330938f78d05a1aa_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{matio_8c_a98f6b775429007b6286b3297f9ad7ad5}{\index{matio.\-c@{matio.\-c}!clear\-\_\-matrix@{clear\-\_\-matrix}}
+\index{clear\-\_\-matrix@{clear\-\_\-matrix}!matio.c@{matio.\-c}}
+\subsubsection[{clear\-\_\-matrix}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf clear\-\_\-matrix} (
+\begin{DoxyParamCaption}
+\item[{int}]{nx, }
+\item[{int}]{ny, }
+\item[{real $\ast$$\ast$}]{m}
+\end{DoxyParamCaption}
+)}}\label{matio_8c_a98f6b775429007b6286b3297f9ad7ad5}
+\hypertarget{matio_8c_a2145005d94ed36098cdaa0beddd7766c}{\index{matio.\-c@{matio.\-c}!done\-\_\-matrix@{done\-\_\-matrix}}
+\index{done\-\_\-matrix@{done\-\_\-matrix}!matio.c@{matio.\-c}}
+\subsubsection[{done\-\_\-matrix}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf done\-\_\-matrix} (
+\begin{DoxyParamCaption}
+\item[{int}]{nx, }
+\item[{real $\ast$$\ast$$\ast$}]{m}
+\end{DoxyParamCaption}
+)}}\label{matio_8c_a2145005d94ed36098cdaa0beddd7766c}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{matio_8c_a2145005d94ed36098cdaa0beddd7766c_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{matio_8c_ac392109ba437af4952e67453d7810a24}{\index{matio.\-c@{matio.\-c}!fgetline@{fgetline}}
+\index{fgetline@{fgetline}!matio.c@{matio.\-c}}
+\subsubsection[{fgetline}]{\setlength{\rightskip}{0pt plus 5cm}static char$\ast$ {\bf fgetline} (
+\begin{DoxyParamCaption}
+\item[{char $\ast$$\ast$}]{line, }
+\item[{int}]{llmax, }
+\item[{int $\ast$}]{llalloc, }
+\item[{\-F\-I\-L\-E $\ast$}]{in}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{matio_8c_ac392109ba437af4952e67453d7810a24}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=198pt]{matio_8c_ac392109ba437af4952e67453d7810a24_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{matio_8c_ac392109ba437af4952e67453d7810a24_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{matio_8c_aab51398b56c5fa4da1e7c49562669150}{\index{matio.\-c@{matio.\-c}!getcmap@{getcmap}}
+\index{getcmap@{getcmap}!matio.c@{matio.\-c}}
+\subsubsection[{getcmap}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf getcmap} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{in, }
+\item[{const char $\ast$}]{fn, }
+\item[{{\bf t\-\_\-mapping} $\ast$$\ast$}]{map}
+\end{DoxyParamCaption}
+)}}\label{matio_8c_aab51398b56c5fa4da1e7c49562669150}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{matio_8c_aab51398b56c5fa4da1e7c49562669150_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=322pt]{matio_8c_aab51398b56c5fa4da1e7c49562669150_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{matio_8c_a90c78b62ef00464bb351992ec341372d}{\index{matio.\-c@{matio.\-c}!line2string@{line2string}}
+\index{line2string@{line2string}!matio.c@{matio.\-c}}
+\subsubsection[{line2string}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ {\bf line2string} (
+\begin{DoxyParamCaption}
+\item[{char $\ast$$\ast$}]{line}
+\end{DoxyParamCaption}
+)}}\label{matio_8c_a90c78b62ef00464bb351992ec341372d}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{matio_8c_a90c78b62ef00464bb351992ec341372d_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{matio_8c_a90c78b62ef00464bb351992ec341372d_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{matio_8c_ad6e2ad29a151184a8fad24cbffb184f0}{\index{matio.\-c@{matio.\-c}!matelmt\-\_\-cmp@{matelmt\-\_\-cmp}}
+\index{matelmt\-\_\-cmp@{matelmt\-\_\-cmp}!matio.c@{matio.\-c}}
+\subsubsection[{matelmt\-\_\-cmp}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf matelmt\-\_\-cmp} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-xpmelmt}}]{e1, }
+\item[{{\bf t\-\_\-xpmelmt}}]{e2}
+\end{DoxyParamCaption}
+)}}\label{matio_8c_ad6e2ad29a151184a8fad24cbffb184f0}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{matio_8c_ad6e2ad29a151184a8fad24cbffb184f0_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{matio_8c_a57f314a61aba7b7f684e238cb0ff1b7e}{\index{matio.\-c@{matio.\-c}!matrix2real@{matrix2real}}
+\index{matrix2real@{matrix2real}!matio.c@{matio.\-c}}
+\subsubsection[{matrix2real}]{\setlength{\rightskip}{0pt plus 5cm}real$\ast$$\ast$ {\bf matrix2real} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-matrix} $\ast$}]{matrix, }
+\item[{real $\ast$$\ast$}]{mat}
+\end{DoxyParamCaption}
+)}}\label{matio_8c_a57f314a61aba7b7f684e238cb0ff1b7e}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{matio_8c_a57f314a61aba7b7f684e238cb0ff1b7e_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{matio_8c_a4fe9a6c17de89d6865ac7371999bc320}{\index{matio.\-c@{matio.\-c}!mk\-\_\-matrix@{mk\-\_\-matrix}}
+\index{mk\-\_\-matrix@{mk\-\_\-matrix}!matio.c@{matio.\-c}}
+\subsubsection[{mk\-\_\-matrix}]{\setlength{\rightskip}{0pt plus 5cm}real$\ast$$\ast$ {\bf mk\-\_\-matrix} (
+\begin{DoxyParamCaption}
+\item[{int}]{nx, }
+\item[{int}]{ny, }
+\item[{{\bf gmx\-\_\-bool}}]{b1\-D}
+\end{DoxyParamCaption}
+)}}\label{matio_8c_a4fe9a6c17de89d6865ac7371999bc320}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{matio_8c_a4fe9a6c17de89d6865ac7371999bc320_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{matio_8c_acfaa88208db606a91ee7f501b0c7709f}{\index{matio.\-c@{matio.\-c}!parsestring@{parsestring}}
+\index{parsestring@{parsestring}!matio.c@{matio.\-c}}
+\subsubsection[{parsestring}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf parsestring} (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{line, }
+\item[{const char $\ast$}]{label, }
+\item[{char $\ast$}]{string}
+\end{DoxyParamCaption}
+)}}\label{matio_8c_acfaa88208db606a91ee7f501b0c7709f}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{matio_8c_acfaa88208db606a91ee7f501b0c7709f_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{matio_8c_acfaa88208db606a91ee7f501b0c7709f_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{matio_8c_a712f2d2c6daac29180d7657a14d82233}{\index{matio.\-c@{matio.\-c}!pr\-\_\-discrete\-\_\-cmap@{pr\-\_\-discrete\-\_\-cmap}}
+\index{pr\-\_\-discrete\-\_\-cmap@{pr\-\_\-discrete\-\_\-cmap}!matio.c@{matio.\-c}}
+\subsubsection[{pr\-\_\-discrete\-\_\-cmap}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf pr\-\_\-discrete\-\_\-cmap} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{out, }
+\item[{int $\ast$}]{nlevel, }
+\item[{int}]{i0}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{matio_8c_a712f2d2c6daac29180d7657a14d82233}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{matio_8c_a712f2d2c6daac29180d7657a14d82233_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{matio_8c_a64c6e1b8341da28e072463a2495b092d}{\index{matio.\-c@{matio.\-c}!pr\-\_\-simple\-\_\-cmap@{pr\-\_\-simple\-\_\-cmap}}
+\index{pr\-\_\-simple\-\_\-cmap@{pr\-\_\-simple\-\_\-cmap}!matio.c@{matio.\-c}}
+\subsubsection[{pr\-\_\-simple\-\_\-cmap}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf pr\-\_\-simple\-\_\-cmap} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{out, }
+\item[{real}]{lo, }
+\item[{real}]{hi, }
+\item[{int}]{nlevel, }
+\item[{{\bf t\-\_\-rgb}}]{rlo, }
+\item[{{\bf t\-\_\-rgb}}]{rhi, }
+\item[{int}]{i0}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{matio_8c_a64c6e1b8341da28e072463a2495b092d}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{matio_8c_a64c6e1b8341da28e072463a2495b092d_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{matio_8c_a601caeb8712c23b5437ad55b80e1f895}{\index{matio.\-c@{matio.\-c}!printcmap@{printcmap}}
+\index{printcmap@{printcmap}!matio.c@{matio.\-c}}
+\subsubsection[{printcmap}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf printcmap} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{out, }
+\item[{int}]{n, }
+\item[{{\bf t\-\_\-mapping}}]{map\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{matio_8c_a601caeb8712c23b5437ad55b80e1f895}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=238pt]{matio_8c_a601caeb8712c23b5437ad55b80e1f895_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{matio_8c_a4642c5ccfc95d549748c59d433e65589}{\index{matio.\-c@{matio.\-c}!read\-\_\-xpm\-\_\-entry@{read\-\_\-xpm\-\_\-entry}}
+\index{read\-\_\-xpm\-\_\-entry@{read\-\_\-xpm\-\_\-entry}!matio.c@{matio.\-c}}
+\subsubsection[{read\-\_\-xpm\-\_\-entry}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf read\-\_\-xpm\-\_\-entry} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{in, }
+\item[{{\bf t\-\_\-matrix} $\ast$}]{mm}
+\end{DoxyParamCaption}
+)}}\label{matio_8c_a4642c5ccfc95d549748c59d433e65589}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{matio_8c_a4642c5ccfc95d549748c59d433e65589_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{matio_8c_a4642c5ccfc95d549748c59d433e65589_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{matio_8c_a14c1180414597a1aa3441cbc9588112b}{\index{matio.\-c@{matio.\-c}!read\-\_\-xpm\-\_\-matrix@{read\-\_\-xpm\-\_\-matrix}}
+\index{read\-\_\-xpm\-\_\-matrix@{read\-\_\-xpm\-\_\-matrix}!matio.c@{matio.\-c}}
+\subsubsection[{read\-\_\-xpm\-\_\-matrix}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf read\-\_\-xpm\-\_\-matrix} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{fnm, }
+\item[{{\bf t\-\_\-matrix} $\ast$$\ast$}]{matrix}
+\end{DoxyParamCaption}
+)}}\label{matio_8c_a14c1180414597a1aa3441cbc9588112b}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{matio_8c_a14c1180414597a1aa3441cbc9588112b_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{matio_8c_a14c1180414597a1aa3441cbc9588112b_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{matio_8c_aad6069825ce8e3341800565463767f87}{\index{matio.\-c@{matio.\-c}!readcmap@{readcmap}}
+\index{readcmap@{readcmap}!matio.c@{matio.\-c}}
+\subsubsection[{readcmap}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf readcmap} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{fn, }
+\item[{{\bf t\-\_\-mapping} $\ast$$\ast$}]{map}
+\end{DoxyParamCaption}
+)}}\label{matio_8c_aad6069825ce8e3341800565463767f87}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=260pt]{matio_8c_aad6069825ce8e3341800565463767f87_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{matio_8c_a08ad35b7879e29a972dfc78812ebb94e}{\index{matio.\-c@{matio.\-c}!searchcmap@{searchcmap}}
+\index{searchcmap@{searchcmap}!matio.c@{matio.\-c}}
+\subsubsection[{searchcmap}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\-\_\-matelmt} {\bf searchcmap} (
+\begin{DoxyParamCaption}
+\item[{int}]{n, }
+\item[{{\bf t\-\_\-mapping}}]{map\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf t\-\_\-xpmelmt}}]{c}
+\end{DoxyParamCaption}
+)}}\label{matio_8c_a08ad35b7879e29a972dfc78812ebb94e}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=262pt]{matio_8c_a08ad35b7879e29a972dfc78812ebb94e_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{matio_8c_a08ad35b7879e29a972dfc78812ebb94e_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{matio_8c_a9ce8f312273ecb106f3a1c0e3b519fdf}{\index{matio.\-c@{matio.\-c}!skipstr@{skipstr}}
+\index{skipstr@{skipstr}!matio.c@{matio.\-c}}
+\subsubsection[{skipstr}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf skipstr} (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{line}
+\end{DoxyParamCaption}
+)}}\label{matio_8c_a9ce8f312273ecb106f3a1c0e3b519fdf}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=198pt]{matio_8c_a9ce8f312273ecb106f3a1c0e3b519fdf_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{matio_8c_a9ce8f312273ecb106f3a1c0e3b519fdf_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{matio_8c_ac893ca6de93762f74f01f0848d7f3b38}{\index{matio.\-c@{matio.\-c}!write\-\_\-xpm@{write\-\_\-xpm}}
+\index{write\-\_\-xpm@{write\-\_\-xpm}!matio.c@{matio.\-c}}
+\subsubsection[{write\-\_\-xpm}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf write\-\_\-xpm} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{out, }
+\item[{unsigned int}]{flags, }
+\item[{const char $\ast$}]{title, }
+\item[{const char $\ast$}]{legend, }
+\item[{const char $\ast$}]{label\-\_\-x, }
+\item[{const char $\ast$}]{label\-\_\-y, }
+\item[{int}]{n\-\_\-x, }
+\item[{int}]{n\-\_\-y, }
+\item[{real}]{axis\-\_\-x\mbox{[}$\,$\mbox{]}, }
+\item[{real}]{axis\-\_\-y\mbox{[}$\,$\mbox{]}, }
+\item[{real $\ast$}]{matrix\mbox{[}$\,$\mbox{]}, }
+\item[{real}]{lo, }
+\item[{real}]{hi, }
+\item[{{\bf t\-\_\-rgb}}]{rlo, }
+\item[{{\bf t\-\_\-rgb}}]{rhi, }
+\item[{int $\ast$}]{nlevels}
+\end{DoxyParamCaption}
+)}}\label{matio_8c_ac893ca6de93762f74f01f0848d7f3b38}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{matio_8c_ac893ca6de93762f74f01f0848d7f3b38_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{matio_8c_ac893ca6de93762f74f01f0848d7f3b38_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{matio_8c_a37aa6de6fe370630a53538de04046dc9}{\index{matio.\-c@{matio.\-c}!write\-\_\-xpm3@{write\-\_\-xpm3}}
+\index{write\-\_\-xpm3@{write\-\_\-xpm3}!matio.c@{matio.\-c}}
+\subsubsection[{write\-\_\-xpm3}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf write\-\_\-xpm3} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{out, }
+\item[{unsigned int}]{flags, }
+\item[{const char $\ast$}]{title, }
+\item[{const char $\ast$}]{legend, }
+\item[{const char $\ast$}]{label\-\_\-x, }
+\item[{const char $\ast$}]{label\-\_\-y, }
+\item[{int}]{n\-\_\-x, }
+\item[{int}]{n\-\_\-y, }
+\item[{real}]{axis\-\_\-x\mbox{[}$\,$\mbox{]}, }
+\item[{real}]{axis\-\_\-y\mbox{[}$\,$\mbox{]}, }
+\item[{real $\ast$}]{matrix\mbox{[}$\,$\mbox{]}, }
+\item[{real}]{lo, }
+\item[{real}]{mid, }
+\item[{real}]{hi, }
+\item[{{\bf t\-\_\-rgb}}]{rlo, }
+\item[{{\bf t\-\_\-rgb}}]{rmid, }
+\item[{{\bf t\-\_\-rgb}}]{rhi, }
+\item[{int $\ast$}]{nlevels}
+\end{DoxyParamCaption}
+)}}\label{matio_8c_a37aa6de6fe370630a53538de04046dc9}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{matio_8c_a37aa6de6fe370630a53538de04046dc9_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{matio_8c_a37aa6de6fe370630a53538de04046dc9_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{matio_8c_a2bc22063856e6f12d5a481aaad61fd70}{\index{matio.\-c@{matio.\-c}!write\-\_\-xpm\-\_\-axis@{write\-\_\-xpm\-\_\-axis}}
+\index{write\-\_\-xpm\-\_\-axis@{write\-\_\-xpm\-\_\-axis}!matio.c@{matio.\-c}}
+\subsubsection[{write\-\_\-xpm\-\_\-axis}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf write\-\_\-xpm\-\_\-axis} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{out, }
+\item[{const char $\ast$}]{axis, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Spatial, }
+\item[{int}]{n, }
+\item[{real $\ast$}]{label}
+\end{DoxyParamCaption}
+)}}\label{matio_8c_a2bc22063856e6f12d5a481aaad61fd70}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{matio_8c_a2bc22063856e6f12d5a481aaad61fd70_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{matio_8c_ab144054e67151c7ee5a1516f2000eb52}{\index{matio.\-c@{matio.\-c}!write\-\_\-xpm\-\_\-data@{write\-\_\-xpm\-\_\-data}}
+\index{write\-\_\-xpm\-\_\-data@{write\-\_\-xpm\-\_\-data}!matio.c@{matio.\-c}}
+\subsubsection[{write\-\_\-xpm\-\_\-data}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf write\-\_\-xpm\-\_\-data} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{out, }
+\item[{int}]{n\-\_\-x, }
+\item[{int}]{n\-\_\-y, }
+\item[{real $\ast$$\ast$}]{matrix, }
+\item[{real}]{lo, }
+\item[{real}]{hi, }
+\item[{int}]{nlevels}
+\end{DoxyParamCaption}
+)}}\label{matio_8c_ab144054e67151c7ee5a1516f2000eb52}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=258pt]{matio_8c_ab144054e67151c7ee5a1516f2000eb52_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{matio_8c_ab144054e67151c7ee5a1516f2000eb52_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{matio_8c_a03c1282e0eae9e68831f8b2ec2a91f02}{\index{matio.\-c@{matio.\-c}!write\-\_\-xpm\-\_\-data3@{write\-\_\-xpm\-\_\-data3}}
+\index{write\-\_\-xpm\-\_\-data3@{write\-\_\-xpm\-\_\-data3}!matio.c@{matio.\-c}}
+\subsubsection[{write\-\_\-xpm\-\_\-data3}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf write\-\_\-xpm\-\_\-data3} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{out, }
+\item[{int}]{n\-\_\-x, }
+\item[{int}]{n\-\_\-y, }
+\item[{real $\ast$$\ast$}]{matrix, }
+\item[{real}]{lo, }
+\item[{real}]{mid, }
+\item[{real}]{hi, }
+\item[{int}]{nlevels}
+\end{DoxyParamCaption}
+)}}\label{matio_8c_a03c1282e0eae9e68831f8b2ec2a91f02}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=270pt]{matio_8c_a03c1282e0eae9e68831f8b2ec2a91f02_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{matio_8c_a03c1282e0eae9e68831f8b2ec2a91f02_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{matio_8c_a21ccd48ab89f9a95483c175316128a23}{\index{matio.\-c@{matio.\-c}!write\-\_\-xpm\-\_\-data\-\_\-split@{write\-\_\-xpm\-\_\-data\-\_\-split}}
+\index{write\-\_\-xpm\-\_\-data\-\_\-split@{write\-\_\-xpm\-\_\-data\-\_\-split}!matio.c@{matio.\-c}}
+\subsubsection[{write\-\_\-xpm\-\_\-data\-\_\-split}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf write\-\_\-xpm\-\_\-data\-\_\-split} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{out, }
+\item[{int}]{n\-\_\-x, }
+\item[{int}]{n\-\_\-y, }
+\item[{real $\ast$$\ast$}]{matrix, }
+\item[{real}]{lo\-\_\-top, }
+\item[{real}]{hi\-\_\-top, }
+\item[{int}]{nlevel\-\_\-top, }
+\item[{real}]{lo\-\_\-bot, }
+\item[{real}]{hi\-\_\-bot, }
+\item[{int}]{nlevel\-\_\-bot}
+\end{DoxyParamCaption}
+)}}\label{matio_8c_a21ccd48ab89f9a95483c175316128a23}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=286pt]{matio_8c_a21ccd48ab89f9a95483c175316128a23_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{matio_8c_a21ccd48ab89f9a95483c175316128a23_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{matio_8c_a44c6e3dfe6c34f62ebfba12f2b1f92ce}{\index{matio.\-c@{matio.\-c}!write\-\_\-xpm\-\_\-header@{write\-\_\-xpm\-\_\-header}}
+\index{write\-\_\-xpm\-\_\-header@{write\-\_\-xpm\-\_\-header}!matio.c@{matio.\-c}}
+\subsubsection[{write\-\_\-xpm\-\_\-header}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf write\-\_\-xpm\-\_\-header} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{out, }
+\item[{const char $\ast$}]{title, }
+\item[{const char $\ast$}]{legend, }
+\item[{const char $\ast$}]{label\-\_\-x, }
+\item[{const char $\ast$}]{label\-\_\-y, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Discrete}
+\end{DoxyParamCaption}
+)}}\label{matio_8c_a44c6e3dfe6c34f62ebfba12f2b1f92ce}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=266pt]{matio_8c_a44c6e3dfe6c34f62ebfba12f2b1f92ce_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{matio_8c_a44c6e3dfe6c34f62ebfba12f2b1f92ce_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{matio_8c_a1091d9715c36182a853ca034eb34c801}{\index{matio.\-c@{matio.\-c}!write\-\_\-xpm\-\_\-m@{write\-\_\-xpm\-\_\-m}}
+\index{write\-\_\-xpm\-\_\-m@{write\-\_\-xpm\-\_\-m}!matio.c@{matio.\-c}}
+\subsubsection[{write\-\_\-xpm\-\_\-m}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf write\-\_\-xpm\-\_\-m} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{out, }
+\item[{{\bf t\-\_\-matrix}}]{m}
+\end{DoxyParamCaption}
+)}}\label{matio_8c_a1091d9715c36182a853ca034eb34c801}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{matio_8c_a1091d9715c36182a853ca034eb34c801_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{matio_8c_a1091d9715c36182a853ca034eb34c801_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{matio_8c_a32532720834b442ae54615af324d5307}{\index{matio.\-c@{matio.\-c}!write\-\_\-xpm\-\_\-map@{write\-\_\-xpm\-\_\-map}}
+\index{write\-\_\-xpm\-\_\-map@{write\-\_\-xpm\-\_\-map}!matio.c@{matio.\-c}}
+\subsubsection[{write\-\_\-xpm\-\_\-map}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf write\-\_\-xpm\-\_\-map} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{out, }
+\item[{int}]{n\-\_\-x, }
+\item[{int}]{n\-\_\-y, }
+\item[{int $\ast$}]{nlevels, }
+\item[{real}]{lo, }
+\item[{real}]{hi, }
+\item[{{\bf t\-\_\-rgb}}]{rlo, }
+\item[{{\bf t\-\_\-rgb}}]{rhi}
+\end{DoxyParamCaption}
+)}}\label{matio_8c_a32532720834b442ae54615af324d5307}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{matio_8c_a32532720834b442ae54615af324d5307_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{matio_8c_af87fbfd85304c0f742fcacc676ea1a0e}{\index{matio.\-c@{matio.\-c}!write\-\_\-xpm\-\_\-map3@{write\-\_\-xpm\-\_\-map3}}
+\index{write\-\_\-xpm\-\_\-map3@{write\-\_\-xpm\-\_\-map3}!matio.c@{matio.\-c}}
+\subsubsection[{write\-\_\-xpm\-\_\-map3}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf write\-\_\-xpm\-\_\-map3} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{out, }
+\item[{int}]{n\-\_\-x, }
+\item[{int}]{n\-\_\-y, }
+\item[{int $\ast$}]{nlevels, }
+\item[{real}]{lo, }
+\item[{real}]{mid, }
+\item[{real}]{hi, }
+\item[{{\bf t\-\_\-rgb}}]{rlo, }
+\item[{{\bf t\-\_\-rgb}}]{rmid, }
+\item[{{\bf t\-\_\-rgb}}]{rhi}
+\end{DoxyParamCaption}
+)}}\label{matio_8c_af87fbfd85304c0f742fcacc676ea1a0e}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=270pt]{matio_8c_af87fbfd85304c0f742fcacc676ea1a0e_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{matio_8c_af87fbfd85304c0f742fcacc676ea1a0e_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{matio_8c_a5c69caeb1909214a00185afffa3d6229}{\index{matio.\-c@{matio.\-c}!write\-\_\-xpm\-\_\-map\-\_\-split@{write\-\_\-xpm\-\_\-map\-\_\-split}}
+\index{write\-\_\-xpm\-\_\-map\-\_\-split@{write\-\_\-xpm\-\_\-map\-\_\-split}!matio.c@{matio.\-c}}
+\subsubsection[{write\-\_\-xpm\-\_\-map\-\_\-split}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf write\-\_\-xpm\-\_\-map\-\_\-split} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{out, }
+\item[{int}]{n\-\_\-x, }
+\item[{int}]{n\-\_\-y, }
+\item[{int $\ast$}]{nlevel\-\_\-top, }
+\item[{real}]{lo\-\_\-top, }
+\item[{real}]{hi\-\_\-top, }
+\item[{{\bf t\-\_\-rgb}}]{rlo\-\_\-top, }
+\item[{{\bf t\-\_\-rgb}}]{rhi\-\_\-top, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Discrete\-Color, }
+\item[{int $\ast$}]{nlevel\-\_\-bot, }
+\item[{real}]{lo\-\_\-bot, }
+\item[{real}]{hi\-\_\-bot, }
+\item[{{\bf t\-\_\-rgb}}]{rlo\-\_\-bot, }
+\item[{{\bf t\-\_\-rgb}}]{rhi\-\_\-bot}
+\end{DoxyParamCaption}
+)}}\label{matio_8c_a5c69caeb1909214a00185afffa3d6229}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=320pt]{matio_8c_a5c69caeb1909214a00185afffa3d6229_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{matio_8c_a5c69caeb1909214a00185afffa3d6229_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{matio_8c_ae985faa29841d80251a36fc49d19701b}{\index{matio.\-c@{matio.\-c}!write\-\_\-xpm\-\_\-split@{write\-\_\-xpm\-\_\-split}}
+\index{write\-\_\-xpm\-\_\-split@{write\-\_\-xpm\-\_\-split}!matio.c@{matio.\-c}}
+\subsubsection[{write\-\_\-xpm\-\_\-split}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf write\-\_\-xpm\-\_\-split} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{out, }
+\item[{unsigned int}]{flags, }
+\item[{const char $\ast$}]{title, }
+\item[{const char $\ast$}]{legend, }
+\item[{const char $\ast$}]{label\-\_\-x, }
+\item[{const char $\ast$}]{label\-\_\-y, }
+\item[{int}]{n\-\_\-x, }
+\item[{int}]{n\-\_\-y, }
+\item[{real}]{axis\-\_\-x\mbox{[}$\,$\mbox{]}, }
+\item[{real}]{axis\-\_\-y\mbox{[}$\,$\mbox{]}, }
+\item[{real $\ast$}]{matrix\mbox{[}$\,$\mbox{]}, }
+\item[{real}]{lo\-\_\-top, }
+\item[{real}]{hi\-\_\-top, }
+\item[{int $\ast$}]{nlevel\-\_\-top, }
+\item[{{\bf t\-\_\-rgb}}]{rlo\-\_\-top, }
+\item[{{\bf t\-\_\-rgb}}]{rhi\-\_\-top, }
+\item[{real}]{lo\-\_\-bot, }
+\item[{real}]{hi\-\_\-bot, }
+\item[{int $\ast$}]{nlevel\-\_\-bot, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Discrete\-Color, }
+\item[{{\bf t\-\_\-rgb}}]{rlo\-\_\-bot, }
+\item[{{\bf t\-\_\-rgb}}]{rhi\-\_\-bot}
+\end{DoxyParamCaption}
+)}}\label{matio_8c_ae985faa29841d80251a36fc49d19701b}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{matio_8c_ae985faa29841d80251a36fc49d19701b_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=346pt]{matio_8c_ae985faa29841d80251a36fc49d19701b_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{matio_8c_a3143b1688cd0541b327309a6b68ed722}{\index{matio.\-c@{matio.\-c}!writecmap@{writecmap}}
+\index{writecmap@{writecmap}!matio.c@{matio.\-c}}
+\subsubsection[{writecmap}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf writecmap} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{fn, }
+\item[{int}]{n, }
+\item[{{\bf t\-\_\-mapping}}]{map\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{matio_8c_a3143b1688cd0541b327309a6b68ed722}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=262pt]{matio_8c_a3143b1688cd0541b327309a6b68ed722_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{\-Variable \-Documentation}
+\hypertarget{matio_8c_a1e605e8e63f4d3c63bca9dcced15e1d5}{\index{matio.\-c@{matio.\-c}!mapper@{mapper}}
+\index{mapper@{mapper}!matio.c@{matio.\-c}}
+\subsubsection[{mapper}]{\setlength{\rightskip}{0pt plus 5cm}const char {\bf mapper}\mbox{[}$\,$\mbox{]} = \char`\"{}\-A\-B\-C\-D\-E\-F\-G\-H\-I\-J\-K\-L\-M\-N\-O\-P\-Q\-R\-S\-T\-U\-V\-W\-X\-Y\-Zabcdefghijklmnopqrstuvwxyz0123456789!@\#\$\%$^\wedge$\&$\ast$()-\/\-\_\-=+\{\}$|$;\-:',$<$.$>$/?\char`\"{}\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{matio_8c_a1e605e8e63f4d3c63bca9dcced15e1d5}

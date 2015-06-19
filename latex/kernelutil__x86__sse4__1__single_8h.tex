@@ -1,0 +1,425 @@
+\hypertarget{kernelutil__x86__sse4__1__single_8h}{\section{src/gmxlib/nonbonded/nb\-\_\-kernel\-\_\-sse4\-\_\-1\-\_\-single/kernelutil\-\_\-x86\-\_\-sse4\-\_\-1\-\_\-single.h \-File \-Reference}
+\label{kernelutil__x86__sse4__1__single_8h}\index{src/gmxlib/nonbonded/nb\-\_\-kernel\-\_\-sse4\-\_\-1\-\_\-single/kernelutil\-\_\-x86\-\_\-sse4\-\_\-1\-\_\-single.\-h@{src/gmxlib/nonbonded/nb\-\_\-kernel\-\_\-sse4\-\_\-1\-\_\-single/kernelutil\-\_\-x86\-\_\-sse4\-\_\-1\-\_\-single.\-h}}
+}
+{\ttfamily \#include $<$math.\-h$>$}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-x86\-\_\-sse4\-\_\-1.\-h\char`\"{}}\*
+\-Include dependency graph for kernelutil\-\_\-x86\-\_\-sse4\-\_\-1\-\_\-single.\-h\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{kernelutil__x86__sse4__1__single_8h__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict}
+\item 
+\#define \hyperlink{kernelutil__x86__sse4__1__single_8h_ac5ef534dca179fe6f2eb52b500132b04}{gmx\-\_\-mm\-\_\-sum4\-\_\-ps}(t0, t1, t2, t3)~\-\_\-mm\-\_\-add\-\_\-ps(\-\_\-mm\-\_\-add\-\_\-ps(t0, t1), \-\_\-mm\-\_\-add\-\_\-ps(t2, t3))
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{config_8h_ae41cb23b2e5c6546d8b571ff65ee8257}{gmx\-\_\-inline} \-\_\-\-\_\-m128 \hyperlink{kernelutil__x86__sse4__1__single_8h_a021afe0ebd168389a1985fe21d351364}{gmx\-\_\-mm\-\_\-calc\-\_\-rsq\-\_\-ps} (\-\_\-\-\_\-m128 \hyperlink{share_2template_2gromacs_2gmx__blas_8h_ad5c6c54e1a03f3517ff918d2f18f5f68}{dx}, \-\_\-\-\_\-m128 \hyperlink{share_2template_2gromacs_2gmx__blas_8h_ab22d39b99f8eaf91354f167b9e204e58}{dy}, \-\_\-\-\_\-m128 dz)
+\item 
+static \hyperlink{config_8h_ae41cb23b2e5c6546d8b571ff65ee8257}{gmx\-\_\-inline} int \hyperlink{kernelutil__x86__sse4__1__single_8h_a1d560ff1bfc67875aaf3c318791cef79}{gmx\-\_\-mm\-\_\-any\-\_\-lt} (\-\_\-\-\_\-m128 \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a0880879736d1ab747a972d1942421886}{a}, \-\_\-\-\_\-m128 \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afb462a5dea72ae7992f073bfd756fb5f}{b})
+\item 
+static \hyperlink{config_8h_ae41cb23b2e5c6546d8b571ff65ee8257}{gmx\-\_\-inline} \-\_\-\-\_\-m128 \hyperlink{kernelutil__x86__sse4__1__single_8h_a908e7554d05a675566ccac1a9c95bb36}{gmx\-\_\-mm\-\_\-load\-\_\-4real\-\_\-swizzle\-\_\-ps} (const float $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} ptr\-A, const float $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} ptr\-B, const float $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} ptr\-C, const float $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} ptr\-D)
+\item 
+static \hyperlink{config_8h_ae41cb23b2e5c6546d8b571ff65ee8257}{gmx\-\_\-inline} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{kernelutil__x86__sse4__1__single_8h_ad897b36e1d4acfc5451ec7c5a61d0327}{gmx\-\_\-mm\-\_\-store\-\_\-4real\-\_\-swizzle\-\_\-ps} (float $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} ptr\-A, float $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} ptr\-B, float $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} ptr\-C, float $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} ptr\-D, \-\_\-\-\_\-m128 xmm1)
+\item 
+static \hyperlink{config_8h_ae41cb23b2e5c6546d8b571ff65ee8257}{gmx\-\_\-inline} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{kernelutil__x86__sse4__1__single_8h_afb47e3182df8527a8c8d53050a035c4b}{gmx\-\_\-mm\-\_\-increment\-\_\-4real\-\_\-swizzle\-\_\-ps} (float $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} ptr\-A, float $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} ptr\-B, float $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} ptr\-C, float $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} ptr\-D, \-\_\-\-\_\-m128 xmm1)
+\item 
+static \hyperlink{config_8h_ae41cb23b2e5c6546d8b571ff65ee8257}{gmx\-\_\-inline} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{kernelutil__x86__sse4__1__single_8h_a3ca5c8fd89d41e89001e188b61bcd025}{gmx\-\_\-mm\-\_\-load\-\_\-4pair\-\_\-swizzle\-\_\-ps} (const float $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} p1, const float $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} \hyperlink{shift__util_8c_ac7fe378b61573ed72552802373181039}{p2}, const float $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} \hyperlink{shift__util_8c_aac53ef8ef4e1f0fd902268acc590006e}{p3}, const float $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} \hyperlink{shift__util_8c_a2f8f2405709da468bc4b62bdec1f6ba1}{p4}, \-\_\-\-\_\-m128 $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} \hyperlink{shift__util_8c_a8db6aaa06aed47d7dee06fdea5371a57}{c6}, \-\_\-\-\_\-m128 $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} c12)
+\item 
+static \hyperlink{config_8h_ae41cb23b2e5c6546d8b571ff65ee8257}{gmx\-\_\-inline} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{kernelutil__x86__sse4__1__single_8h_a715582509a0d4acbb7e90a171a9f1eb9}{gmx\-\_\-mm\-\_\-load\-\_\-shift\-\_\-and\-\_\-1rvec\-\_\-broadcast\-\_\-ps} (const float $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} xyz\-\_\-shift, const float $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} xyz, \-\_\-\-\_\-m128 $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} x1, \-\_\-\-\_\-m128 $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} y1, \-\_\-\-\_\-m128 $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} z1)
+\item 
+static \hyperlink{config_8h_ae41cb23b2e5c6546d8b571ff65ee8257}{gmx\-\_\-inline} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{kernelutil__x86__sse4__1__single_8h_a0b2f10584e76d5a6975a4e1fec476a37}{gmx\-\_\-mm\-\_\-load\-\_\-shift\-\_\-and\-\_\-3rvec\-\_\-broadcast\-\_\-ps} (const float $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} xyz\-\_\-shift, const float $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} xyz, \-\_\-\-\_\-m128 $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} x1, \-\_\-\-\_\-m128 $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} y1, \-\_\-\-\_\-m128 $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} z1, \-\_\-\-\_\-m128 $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} x2, \-\_\-\-\_\-m128 $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} y2, \-\_\-\-\_\-m128 $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} z2, \-\_\-\-\_\-m128 $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} x3, \-\_\-\-\_\-m128 $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} y3, \-\_\-\-\_\-m128 $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} z3)
+\item 
+static \hyperlink{config_8h_ae41cb23b2e5c6546d8b571ff65ee8257}{gmx\-\_\-inline} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{kernelutil__x86__sse4__1__single_8h_a04cee4a646e8b7aa3eec52baa8b609b8}{gmx\-\_\-mm\-\_\-load\-\_\-shift\-\_\-and\-\_\-4rvec\-\_\-broadcast\-\_\-ps} (const float $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} xyz\-\_\-shift, const float $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} xyz, \-\_\-\-\_\-m128 $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} x1, \-\_\-\-\_\-m128 $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} y1, \-\_\-\-\_\-m128 $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} z1, \-\_\-\-\_\-m128 $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} x2, \-\_\-\-\_\-m128 $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} y2, \-\_\-\-\_\-m128 $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} z2, \-\_\-\-\_\-m128 $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} x3, \-\_\-\-\_\-m128 $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} y3, \-\_\-\-\_\-m128 $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} z3, \-\_\-\-\_\-m128 $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} x4, \-\_\-\-\_\-m128 $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} y4, \-\_\-\-\_\-m128 $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} z4)
+\item 
+static \hyperlink{config_8h_ae41cb23b2e5c6546d8b571ff65ee8257}{gmx\-\_\-inline} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{kernelutil__x86__sse4__1__single_8h_a912c748decab07af683ea14c1b9c86f2}{gmx\-\_\-mm\-\_\-load\-\_\-1rvec\-\_\-4ptr\-\_\-swizzle\-\_\-ps} (const float $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} ptr\-A, const float $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} ptr\-B, const float $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} ptr\-C, const float $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} ptr\-D, \-\_\-\-\_\-m128 $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} x1, \-\_\-\-\_\-m128 $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} y1, \-\_\-\-\_\-m128 $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} z1)
+\item 
+static \hyperlink{config_8h_ae41cb23b2e5c6546d8b571ff65ee8257}{gmx\-\_\-inline} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{kernelutil__x86__sse4__1__single_8h_a2944ec92a2d3925f63daea09c79a2bee}{gmx\-\_\-mm\-\_\-load\-\_\-3rvec\-\_\-4ptr\-\_\-swizzle\-\_\-ps} (const float $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} ptr\-A, const float $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} ptr\-B, const float $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} ptr\-C, const float $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} ptr\-D, \-\_\-\-\_\-m128 $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} x1, \-\_\-\-\_\-m128 $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} y1, \-\_\-\-\_\-m128 $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} z1, \-\_\-\-\_\-m128 $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} x2, \-\_\-\-\_\-m128 $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} y2, \-\_\-\-\_\-m128 $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} z2, \-\_\-\-\_\-m128 $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} x3, \-\_\-\-\_\-m128 $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} y3, \-\_\-\-\_\-m128 $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} z3)
+\item 
+static \hyperlink{config_8h_ae41cb23b2e5c6546d8b571ff65ee8257}{gmx\-\_\-inline} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{kernelutil__x86__sse4__1__single_8h_a861b9d8aae19b95d9a578d32e4b14f41}{gmx\-\_\-mm\-\_\-load\-\_\-4rvec\-\_\-4ptr\-\_\-swizzle\-\_\-ps} (const float $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} ptr\-A, const float $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} ptr\-B, const float $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} ptr\-C, const float $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} ptr\-D, \-\_\-\-\_\-m128 $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} x1, \-\_\-\-\_\-m128 $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} y1, \-\_\-\-\_\-m128 $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} z1, \-\_\-\-\_\-m128 $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} x2, \-\_\-\-\_\-m128 $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} y2, \-\_\-\-\_\-m128 $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} z2, \-\_\-\-\_\-m128 $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} x3, \-\_\-\-\_\-m128 $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} y3, \-\_\-\-\_\-m128 $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} z3, \-\_\-\-\_\-m128 $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} x4, \-\_\-\-\_\-m128 $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} y4, \-\_\-\-\_\-m128 $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} z4)
+\item 
+static \hyperlink{config_8h_ae41cb23b2e5c6546d8b571ff65ee8257}{gmx\-\_\-inline} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{kernelutil__x86__sse4__1__single_8h_a90f4a10f78b2f993e32ab7979b761dc2}{gmx\-\_\-mm\-\_\-decrement\-\_\-1rvec\-\_\-4ptr\-\_\-swizzle\-\_\-ps} (float $\ast$ptr\-A, float $\ast$ptr\-B, float $\ast$ptr\-C, float $\ast$ptr\-D, \-\_\-\-\_\-m128 x1, \-\_\-\-\_\-m128 y1, \-\_\-\-\_\-m128 z1)
+\item 
+static \hyperlink{config_8h_ae41cb23b2e5c6546d8b571ff65ee8257}{gmx\-\_\-inline} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{kernelutil__x86__sse4__1__single_8h_aa5d23805ecb1b8248a4b3da8abfaf459}{gmx\-\_\-mm\-\_\-decrement\-\_\-3rvec\-\_\-4ptr\-\_\-swizzle\-\_\-ps} (float $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} ptr\-A, float $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} ptr\-B, float $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} ptr\-C, float $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} ptr\-D, \-\_\-\-\_\-m128 x1, \-\_\-\-\_\-m128 y1, \-\_\-\-\_\-m128 z1, \-\_\-\-\_\-m128 x2, \-\_\-\-\_\-m128 y2, \-\_\-\-\_\-m128 z2, \-\_\-\-\_\-m128 x3, \-\_\-\-\_\-m128 y3, \-\_\-\-\_\-m128 z3)
+\item 
+static \hyperlink{config_8h_ae41cb23b2e5c6546d8b571ff65ee8257}{gmx\-\_\-inline} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{kernelutil__x86__sse4__1__single_8h_aa956c6f8172b3f50a1dc8bf0bc6f35d2}{gmx\-\_\-mm\-\_\-decrement\-\_\-4rvec\-\_\-4ptr\-\_\-swizzle\-\_\-ps} (float $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} ptr\-A, float $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} ptr\-B, float $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} ptr\-C, float $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} ptr\-D, \-\_\-\-\_\-m128 x1, \-\_\-\-\_\-m128 y1, \-\_\-\-\_\-m128 z1, \-\_\-\-\_\-m128 x2, \-\_\-\-\_\-m128 y2, \-\_\-\-\_\-m128 z2, \-\_\-\-\_\-m128 x3, \-\_\-\-\_\-m128 y3, \-\_\-\-\_\-m128 z3, \-\_\-\-\_\-m128 x4, \-\_\-\-\_\-m128 y4, \-\_\-\-\_\-m128 z4)
+\item 
+static \hyperlink{config_8h_ae41cb23b2e5c6546d8b571ff65ee8257}{gmx\-\_\-inline} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{kernelutil__x86__sse4__1__single_8h_a91fcd6b3494c3e09426686cafd8a63ea}{gmx\-\_\-mm\-\_\-update\-\_\-iforce\-\_\-1atom\-\_\-swizzle\-\_\-ps} (\-\_\-\-\_\-m128 fix1, \-\_\-\-\_\-m128 fiy1, \-\_\-\-\_\-m128 fiz1, float $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} fptr, float $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} fshiftptr)
+\item 
+static \hyperlink{config_8h_ae41cb23b2e5c6546d8b571ff65ee8257}{gmx\-\_\-inline} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{kernelutil__x86__sse4__1__single_8h_ad246562079f17d4aef12b17c2bf8141d}{gmx\-\_\-mm\-\_\-update\-\_\-iforce\-\_\-3atom\-\_\-swizzle\-\_\-ps} (\-\_\-\-\_\-m128 fix1, \-\_\-\-\_\-m128 fiy1, \-\_\-\-\_\-m128 fiz1, \-\_\-\-\_\-m128 fix2, \-\_\-\-\_\-m128 fiy2, \-\_\-\-\_\-m128 fiz2, \-\_\-\-\_\-m128 fix3, \-\_\-\-\_\-m128 fiy3, \-\_\-\-\_\-m128 fiz3, float $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} fptr, float $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} fshiftptr)
+\item 
+static \hyperlink{config_8h_ae41cb23b2e5c6546d8b571ff65ee8257}{gmx\-\_\-inline} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{kernelutil__x86__sse4__1__single_8h_a5c527d1c90f83aacc2bf110cd89488c8}{gmx\-\_\-mm\-\_\-update\-\_\-iforce\-\_\-4atom\-\_\-swizzle\-\_\-ps} (\-\_\-\-\_\-m128 fix1, \-\_\-\-\_\-m128 fiy1, \-\_\-\-\_\-m128 fiz1, \-\_\-\-\_\-m128 fix2, \-\_\-\-\_\-m128 fiy2, \-\_\-\-\_\-m128 fiz2, \-\_\-\-\_\-m128 fix3, \-\_\-\-\_\-m128 fiy3, \-\_\-\-\_\-m128 fiz3, \-\_\-\-\_\-m128 fix4, \-\_\-\-\_\-m128 fiy4, \-\_\-\-\_\-m128 fiz4, float $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} fptr, float $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} fshiftptr)
+\item 
+static \hyperlink{config_8h_ae41cb23b2e5c6546d8b571ff65ee8257}{gmx\-\_\-inline} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{kernelutil__x86__sse4__1__single_8h_a3c9513ad3040a6ac776bb498e0a0cd49}{gmx\-\_\-mm\-\_\-update\-\_\-1pot\-\_\-ps} (\-\_\-\-\_\-m128 pot1, float $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} ptr\-A)
+\item 
+static \hyperlink{config_8h_ae41cb23b2e5c6546d8b571ff65ee8257}{gmx\-\_\-inline} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{kernelutil__x86__sse4__1__single_8h_a92fd0154ab467698d4bcdf39aba9a874}{gmx\-\_\-mm\-\_\-update\-\_\-2pot\-\_\-ps} (\-\_\-\-\_\-m128 pot1, float $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} ptr\-A, \-\_\-\-\_\-m128 pot2, float $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} ptr\-B)
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Define \-Documentation}
+\hypertarget{kernelutil__x86__sse4__1__single_8h_ac5ef534dca179fe6f2eb52b500132b04}{\index{kernelutil\-\_\-x86\-\_\-sse4\-\_\-1\-\_\-single.\-h@{kernelutil\-\_\-x86\-\_\-sse4\-\_\-1\-\_\-single.\-h}!gmx\-\_\-mm\-\_\-sum4\-\_\-ps@{gmx\-\_\-mm\-\_\-sum4\-\_\-ps}}
+\index{gmx\-\_\-mm\-\_\-sum4\-\_\-ps@{gmx\-\_\-mm\-\_\-sum4\-\_\-ps}!kernelutil_x86_sse4_1_single.h@{kernelutil\-\_\-x86\-\_\-sse4\-\_\-1\-\_\-single.\-h}}
+\subsubsection[{gmx\-\_\-mm\-\_\-sum4\-\_\-ps}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf gmx\-\_\-mm\-\_\-sum4\-\_\-ps}(
+\begin{DoxyParamCaption}
+\item[{}]{t0, }
+\item[{}]{t1, }
+\item[{}]{t2, }
+\item[{}]{t3}
+\end{DoxyParamCaption}
+)~\-\_\-mm\-\_\-add\-\_\-ps(\-\_\-mm\-\_\-add\-\_\-ps(t0, t1), \-\_\-mm\-\_\-add\-\_\-ps(t2, t3))}}\label{kernelutil__x86__sse4__1__single_8h_ac5ef534dca179fe6f2eb52b500132b04}
+\hypertarget{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{\index{kernelutil\-\_\-x86\-\_\-sse4\-\_\-1\-\_\-single.\-h@{kernelutil\-\_\-x86\-\_\-sse4\-\_\-1\-\_\-single.\-h}!gmx\-\_\-restrict@{gmx\-\_\-restrict}}
+\index{gmx\-\_\-restrict@{gmx\-\_\-restrict}!kernelutil_x86_sse4_1_single.h@{kernelutil\-\_\-x86\-\_\-sse4\-\_\-1\-\_\-single.\-h}}
+\subsubsection[{gmx\-\_\-restrict}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf gmx\-\_\-restrict}}}\label{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{kernelutil__x86__sse4__1__single_8h_a1d560ff1bfc67875aaf3c318791cef79}{\index{kernelutil\-\_\-x86\-\_\-sse4\-\_\-1\-\_\-single.\-h@{kernelutil\-\_\-x86\-\_\-sse4\-\_\-1\-\_\-single.\-h}!gmx\-\_\-mm\-\_\-any\-\_\-lt@{gmx\-\_\-mm\-\_\-any\-\_\-lt}}
+\index{gmx\-\_\-mm\-\_\-any\-\_\-lt@{gmx\-\_\-mm\-\_\-any\-\_\-lt}!kernelutil_x86_sse4_1_single.h@{kernelutil\-\_\-x86\-\_\-sse4\-\_\-1\-\_\-single.\-h}}
+\subsubsection[{gmx\-\_\-mm\-\_\-any\-\_\-lt}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gmx\-\_\-inline} int {\bf gmx\-\_\-mm\-\_\-any\-\_\-lt} (
+\begin{DoxyParamCaption}
+\item[{\-\_\-\-\_\-m128}]{a, }
+\item[{\-\_\-\-\_\-m128}]{b}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{kernelutil__x86__sse4__1__single_8h_a1d560ff1bfc67875aaf3c318791cef79}
+\hypertarget{kernelutil__x86__sse4__1__single_8h_a021afe0ebd168389a1985fe21d351364}{\index{kernelutil\-\_\-x86\-\_\-sse4\-\_\-1\-\_\-single.\-h@{kernelutil\-\_\-x86\-\_\-sse4\-\_\-1\-\_\-single.\-h}!gmx\-\_\-mm\-\_\-calc\-\_\-rsq\-\_\-ps@{gmx\-\_\-mm\-\_\-calc\-\_\-rsq\-\_\-ps}}
+\index{gmx\-\_\-mm\-\_\-calc\-\_\-rsq\-\_\-ps@{gmx\-\_\-mm\-\_\-calc\-\_\-rsq\-\_\-ps}!kernelutil_x86_sse4_1_single.h@{kernelutil\-\_\-x86\-\_\-sse4\-\_\-1\-\_\-single.\-h}}
+\subsubsection[{gmx\-\_\-mm\-\_\-calc\-\_\-rsq\-\_\-ps}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gmx\-\_\-inline} \-\_\-\-\_\-m128 {\bf gmx\-\_\-mm\-\_\-calc\-\_\-rsq\-\_\-ps} (
+\begin{DoxyParamCaption}
+\item[{\-\_\-\-\_\-m128}]{dx, }
+\item[{\-\_\-\-\_\-m128}]{dy, }
+\item[{\-\_\-\-\_\-m128}]{dz}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{kernelutil__x86__sse4__1__single_8h_a021afe0ebd168389a1985fe21d351364}
+\hypertarget{kernelutil__x86__sse4__1__single_8h_a90f4a10f78b2f993e32ab7979b761dc2}{\index{kernelutil\-\_\-x86\-\_\-sse4\-\_\-1\-\_\-single.\-h@{kernelutil\-\_\-x86\-\_\-sse4\-\_\-1\-\_\-single.\-h}!gmx\-\_\-mm\-\_\-decrement\-\_\-1rvec\-\_\-4ptr\-\_\-swizzle\-\_\-ps@{gmx\-\_\-mm\-\_\-decrement\-\_\-1rvec\-\_\-4ptr\-\_\-swizzle\-\_\-ps}}
+\index{gmx\-\_\-mm\-\_\-decrement\-\_\-1rvec\-\_\-4ptr\-\_\-swizzle\-\_\-ps@{gmx\-\_\-mm\-\_\-decrement\-\_\-1rvec\-\_\-4ptr\-\_\-swizzle\-\_\-ps}!kernelutil_x86_sse4_1_single.h@{kernelutil\-\_\-x86\-\_\-sse4\-\_\-1\-\_\-single.\-h}}
+\subsubsection[{gmx\-\_\-mm\-\_\-decrement\-\_\-1rvec\-\_\-4ptr\-\_\-swizzle\-\_\-ps}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gmx\-\_\-inline} {\bf void} {\bf gmx\-\_\-mm\-\_\-decrement\-\_\-1rvec\-\_\-4ptr\-\_\-swizzle\-\_\-ps} (
+\begin{DoxyParamCaption}
+\item[{float $\ast$}]{ptr\-A, }
+\item[{float $\ast$}]{ptr\-B, }
+\item[{float $\ast$}]{ptr\-C, }
+\item[{float $\ast$}]{ptr\-D, }
+\item[{\-\_\-\-\_\-m128}]{x1, }
+\item[{\-\_\-\-\_\-m128}]{y1, }
+\item[{\-\_\-\-\_\-m128}]{z1}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{kernelutil__x86__sse4__1__single_8h_a90f4a10f78b2f993e32ab7979b761dc2}
+\hypertarget{kernelutil__x86__sse4__1__single_8h_aa5d23805ecb1b8248a4b3da8abfaf459}{\index{kernelutil\-\_\-x86\-\_\-sse4\-\_\-1\-\_\-single.\-h@{kernelutil\-\_\-x86\-\_\-sse4\-\_\-1\-\_\-single.\-h}!gmx\-\_\-mm\-\_\-decrement\-\_\-3rvec\-\_\-4ptr\-\_\-swizzle\-\_\-ps@{gmx\-\_\-mm\-\_\-decrement\-\_\-3rvec\-\_\-4ptr\-\_\-swizzle\-\_\-ps}}
+\index{gmx\-\_\-mm\-\_\-decrement\-\_\-3rvec\-\_\-4ptr\-\_\-swizzle\-\_\-ps@{gmx\-\_\-mm\-\_\-decrement\-\_\-3rvec\-\_\-4ptr\-\_\-swizzle\-\_\-ps}!kernelutil_x86_sse4_1_single.h@{kernelutil\-\_\-x86\-\_\-sse4\-\_\-1\-\_\-single.\-h}}
+\subsubsection[{gmx\-\_\-mm\-\_\-decrement\-\_\-3rvec\-\_\-4ptr\-\_\-swizzle\-\_\-ps}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gmx\-\_\-inline} {\bf void} {\bf gmx\-\_\-mm\-\_\-decrement\-\_\-3rvec\-\_\-4ptr\-\_\-swizzle\-\_\-ps} (
+\begin{DoxyParamCaption}
+\item[{float $\ast${\bf gmx\-\_\-restrict}}]{ptr\-A, }
+\item[{float $\ast${\bf gmx\-\_\-restrict}}]{ptr\-B, }
+\item[{float $\ast${\bf gmx\-\_\-restrict}}]{ptr\-C, }
+\item[{float $\ast${\bf gmx\-\_\-restrict}}]{ptr\-D, }
+\item[{\-\_\-\-\_\-m128}]{x1, }
+\item[{\-\_\-\-\_\-m128}]{y1, }
+\item[{\-\_\-\-\_\-m128}]{z1, }
+\item[{\-\_\-\-\_\-m128}]{x2, }
+\item[{\-\_\-\-\_\-m128}]{y2, }
+\item[{\-\_\-\-\_\-m128}]{z2, }
+\item[{\-\_\-\-\_\-m128}]{x3, }
+\item[{\-\_\-\-\_\-m128}]{y3, }
+\item[{\-\_\-\-\_\-m128}]{z3}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{kernelutil__x86__sse4__1__single_8h_aa5d23805ecb1b8248a4b3da8abfaf459}
+\hypertarget{kernelutil__x86__sse4__1__single_8h_aa956c6f8172b3f50a1dc8bf0bc6f35d2}{\index{kernelutil\-\_\-x86\-\_\-sse4\-\_\-1\-\_\-single.\-h@{kernelutil\-\_\-x86\-\_\-sse4\-\_\-1\-\_\-single.\-h}!gmx\-\_\-mm\-\_\-decrement\-\_\-4rvec\-\_\-4ptr\-\_\-swizzle\-\_\-ps@{gmx\-\_\-mm\-\_\-decrement\-\_\-4rvec\-\_\-4ptr\-\_\-swizzle\-\_\-ps}}
+\index{gmx\-\_\-mm\-\_\-decrement\-\_\-4rvec\-\_\-4ptr\-\_\-swizzle\-\_\-ps@{gmx\-\_\-mm\-\_\-decrement\-\_\-4rvec\-\_\-4ptr\-\_\-swizzle\-\_\-ps}!kernelutil_x86_sse4_1_single.h@{kernelutil\-\_\-x86\-\_\-sse4\-\_\-1\-\_\-single.\-h}}
+\subsubsection[{gmx\-\_\-mm\-\_\-decrement\-\_\-4rvec\-\_\-4ptr\-\_\-swizzle\-\_\-ps}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gmx\-\_\-inline} {\bf void} {\bf gmx\-\_\-mm\-\_\-decrement\-\_\-4rvec\-\_\-4ptr\-\_\-swizzle\-\_\-ps} (
+\begin{DoxyParamCaption}
+\item[{float $\ast${\bf gmx\-\_\-restrict}}]{ptr\-A, }
+\item[{float $\ast${\bf gmx\-\_\-restrict}}]{ptr\-B, }
+\item[{float $\ast${\bf gmx\-\_\-restrict}}]{ptr\-C, }
+\item[{float $\ast${\bf gmx\-\_\-restrict}}]{ptr\-D, }
+\item[{\-\_\-\-\_\-m128}]{x1, }
+\item[{\-\_\-\-\_\-m128}]{y1, }
+\item[{\-\_\-\-\_\-m128}]{z1, }
+\item[{\-\_\-\-\_\-m128}]{x2, }
+\item[{\-\_\-\-\_\-m128}]{y2, }
+\item[{\-\_\-\-\_\-m128}]{z2, }
+\item[{\-\_\-\-\_\-m128}]{x3, }
+\item[{\-\_\-\-\_\-m128}]{y3, }
+\item[{\-\_\-\-\_\-m128}]{z3, }
+\item[{\-\_\-\-\_\-m128}]{x4, }
+\item[{\-\_\-\-\_\-m128}]{y4, }
+\item[{\-\_\-\-\_\-m128}]{z4}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{kernelutil__x86__sse4__1__single_8h_aa956c6f8172b3f50a1dc8bf0bc6f35d2}
+\hypertarget{kernelutil__x86__sse4__1__single_8h_afb47e3182df8527a8c8d53050a035c4b}{\index{kernelutil\-\_\-x86\-\_\-sse4\-\_\-1\-\_\-single.\-h@{kernelutil\-\_\-x86\-\_\-sse4\-\_\-1\-\_\-single.\-h}!gmx\-\_\-mm\-\_\-increment\-\_\-4real\-\_\-swizzle\-\_\-ps@{gmx\-\_\-mm\-\_\-increment\-\_\-4real\-\_\-swizzle\-\_\-ps}}
+\index{gmx\-\_\-mm\-\_\-increment\-\_\-4real\-\_\-swizzle\-\_\-ps@{gmx\-\_\-mm\-\_\-increment\-\_\-4real\-\_\-swizzle\-\_\-ps}!kernelutil_x86_sse4_1_single.h@{kernelutil\-\_\-x86\-\_\-sse4\-\_\-1\-\_\-single.\-h}}
+\subsubsection[{gmx\-\_\-mm\-\_\-increment\-\_\-4real\-\_\-swizzle\-\_\-ps}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gmx\-\_\-inline} {\bf void} {\bf gmx\-\_\-mm\-\_\-increment\-\_\-4real\-\_\-swizzle\-\_\-ps} (
+\begin{DoxyParamCaption}
+\item[{float $\ast${\bf gmx\-\_\-restrict}}]{ptr\-A, }
+\item[{float $\ast${\bf gmx\-\_\-restrict}}]{ptr\-B, }
+\item[{float $\ast${\bf gmx\-\_\-restrict}}]{ptr\-C, }
+\item[{float $\ast${\bf gmx\-\_\-restrict}}]{ptr\-D, }
+\item[{\-\_\-\-\_\-m128}]{xmm1}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{kernelutil__x86__sse4__1__single_8h_afb47e3182df8527a8c8d53050a035c4b}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{kernelutil__x86__sse4__1__single_8h_afb47e3182df8527a8c8d53050a035c4b_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{kernelutil__x86__sse4__1__single_8h_a912c748decab07af683ea14c1b9c86f2}{\index{kernelutil\-\_\-x86\-\_\-sse4\-\_\-1\-\_\-single.\-h@{kernelutil\-\_\-x86\-\_\-sse4\-\_\-1\-\_\-single.\-h}!gmx\-\_\-mm\-\_\-load\-\_\-1rvec\-\_\-4ptr\-\_\-swizzle\-\_\-ps@{gmx\-\_\-mm\-\_\-load\-\_\-1rvec\-\_\-4ptr\-\_\-swizzle\-\_\-ps}}
+\index{gmx\-\_\-mm\-\_\-load\-\_\-1rvec\-\_\-4ptr\-\_\-swizzle\-\_\-ps@{gmx\-\_\-mm\-\_\-load\-\_\-1rvec\-\_\-4ptr\-\_\-swizzle\-\_\-ps}!kernelutil_x86_sse4_1_single.h@{kernelutil\-\_\-x86\-\_\-sse4\-\_\-1\-\_\-single.\-h}}
+\subsubsection[{gmx\-\_\-mm\-\_\-load\-\_\-1rvec\-\_\-4ptr\-\_\-swizzle\-\_\-ps}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gmx\-\_\-inline} {\bf void} {\bf gmx\-\_\-mm\-\_\-load\-\_\-1rvec\-\_\-4ptr\-\_\-swizzle\-\_\-ps} (
+\begin{DoxyParamCaption}
+\item[{const float $\ast${\bf gmx\-\_\-restrict}}]{ptr\-A, }
+\item[{const float $\ast${\bf gmx\-\_\-restrict}}]{ptr\-B, }
+\item[{const float $\ast${\bf gmx\-\_\-restrict}}]{ptr\-C, }
+\item[{const float $\ast${\bf gmx\-\_\-restrict}}]{ptr\-D, }
+\item[{\-\_\-\-\_\-m128 $\ast${\bf gmx\-\_\-restrict}}]{x1, }
+\item[{\-\_\-\-\_\-m128 $\ast${\bf gmx\-\_\-restrict}}]{y1, }
+\item[{\-\_\-\-\_\-m128 $\ast${\bf gmx\-\_\-restrict}}]{z1}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{kernelutil__x86__sse4__1__single_8h_a912c748decab07af683ea14c1b9c86f2}
+\hypertarget{kernelutil__x86__sse4__1__single_8h_a2944ec92a2d3925f63daea09c79a2bee}{\index{kernelutil\-\_\-x86\-\_\-sse4\-\_\-1\-\_\-single.\-h@{kernelutil\-\_\-x86\-\_\-sse4\-\_\-1\-\_\-single.\-h}!gmx\-\_\-mm\-\_\-load\-\_\-3rvec\-\_\-4ptr\-\_\-swizzle\-\_\-ps@{gmx\-\_\-mm\-\_\-load\-\_\-3rvec\-\_\-4ptr\-\_\-swizzle\-\_\-ps}}
+\index{gmx\-\_\-mm\-\_\-load\-\_\-3rvec\-\_\-4ptr\-\_\-swizzle\-\_\-ps@{gmx\-\_\-mm\-\_\-load\-\_\-3rvec\-\_\-4ptr\-\_\-swizzle\-\_\-ps}!kernelutil_x86_sse4_1_single.h@{kernelutil\-\_\-x86\-\_\-sse4\-\_\-1\-\_\-single.\-h}}
+\subsubsection[{gmx\-\_\-mm\-\_\-load\-\_\-3rvec\-\_\-4ptr\-\_\-swizzle\-\_\-ps}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gmx\-\_\-inline} {\bf void} {\bf gmx\-\_\-mm\-\_\-load\-\_\-3rvec\-\_\-4ptr\-\_\-swizzle\-\_\-ps} (
+\begin{DoxyParamCaption}
+\item[{const float $\ast${\bf gmx\-\_\-restrict}}]{ptr\-A, }
+\item[{const float $\ast${\bf gmx\-\_\-restrict}}]{ptr\-B, }
+\item[{const float $\ast${\bf gmx\-\_\-restrict}}]{ptr\-C, }
+\item[{const float $\ast${\bf gmx\-\_\-restrict}}]{ptr\-D, }
+\item[{\-\_\-\-\_\-m128 $\ast${\bf gmx\-\_\-restrict}}]{x1, }
+\item[{\-\_\-\-\_\-m128 $\ast${\bf gmx\-\_\-restrict}}]{y1, }
+\item[{\-\_\-\-\_\-m128 $\ast${\bf gmx\-\_\-restrict}}]{z1, }
+\item[{\-\_\-\-\_\-m128 $\ast${\bf gmx\-\_\-restrict}}]{x2, }
+\item[{\-\_\-\-\_\-m128 $\ast${\bf gmx\-\_\-restrict}}]{y2, }
+\item[{\-\_\-\-\_\-m128 $\ast${\bf gmx\-\_\-restrict}}]{z2, }
+\item[{\-\_\-\-\_\-m128 $\ast${\bf gmx\-\_\-restrict}}]{x3, }
+\item[{\-\_\-\-\_\-m128 $\ast${\bf gmx\-\_\-restrict}}]{y3, }
+\item[{\-\_\-\-\_\-m128 $\ast${\bf gmx\-\_\-restrict}}]{z3}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{kernelutil__x86__sse4__1__single_8h_a2944ec92a2d3925f63daea09c79a2bee}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{kernelutil__x86__sse4__1__single_8h_a2944ec92a2d3925f63daea09c79a2bee_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{kernelutil__x86__sse4__1__single_8h_a3ca5c8fd89d41e89001e188b61bcd025}{\index{kernelutil\-\_\-x86\-\_\-sse4\-\_\-1\-\_\-single.\-h@{kernelutil\-\_\-x86\-\_\-sse4\-\_\-1\-\_\-single.\-h}!gmx\-\_\-mm\-\_\-load\-\_\-4pair\-\_\-swizzle\-\_\-ps@{gmx\-\_\-mm\-\_\-load\-\_\-4pair\-\_\-swizzle\-\_\-ps}}
+\index{gmx\-\_\-mm\-\_\-load\-\_\-4pair\-\_\-swizzle\-\_\-ps@{gmx\-\_\-mm\-\_\-load\-\_\-4pair\-\_\-swizzle\-\_\-ps}!kernelutil_x86_sse4_1_single.h@{kernelutil\-\_\-x86\-\_\-sse4\-\_\-1\-\_\-single.\-h}}
+\subsubsection[{gmx\-\_\-mm\-\_\-load\-\_\-4pair\-\_\-swizzle\-\_\-ps}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gmx\-\_\-inline} {\bf void} {\bf gmx\-\_\-mm\-\_\-load\-\_\-4pair\-\_\-swizzle\-\_\-ps} (
+\begin{DoxyParamCaption}
+\item[{const float $\ast${\bf gmx\-\_\-restrict}}]{p1, }
+\item[{const float $\ast${\bf gmx\-\_\-restrict}}]{p2, }
+\item[{const float $\ast${\bf gmx\-\_\-restrict}}]{p3, }
+\item[{const float $\ast${\bf gmx\-\_\-restrict}}]{p4, }
+\item[{\-\_\-\-\_\-m128 $\ast${\bf gmx\-\_\-restrict}}]{c6, }
+\item[{\-\_\-\-\_\-m128 $\ast${\bf gmx\-\_\-restrict}}]{c12}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{kernelutil__x86__sse4__1__single_8h_a3ca5c8fd89d41e89001e188b61bcd025}
+\hypertarget{kernelutil__x86__sse4__1__single_8h_a908e7554d05a675566ccac1a9c95bb36}{\index{kernelutil\-\_\-x86\-\_\-sse4\-\_\-1\-\_\-single.\-h@{kernelutil\-\_\-x86\-\_\-sse4\-\_\-1\-\_\-single.\-h}!gmx\-\_\-mm\-\_\-load\-\_\-4real\-\_\-swizzle\-\_\-ps@{gmx\-\_\-mm\-\_\-load\-\_\-4real\-\_\-swizzle\-\_\-ps}}
+\index{gmx\-\_\-mm\-\_\-load\-\_\-4real\-\_\-swizzle\-\_\-ps@{gmx\-\_\-mm\-\_\-load\-\_\-4real\-\_\-swizzle\-\_\-ps}!kernelutil_x86_sse4_1_single.h@{kernelutil\-\_\-x86\-\_\-sse4\-\_\-1\-\_\-single.\-h}}
+\subsubsection[{gmx\-\_\-mm\-\_\-load\-\_\-4real\-\_\-swizzle\-\_\-ps}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gmx\-\_\-inline} \-\_\-\-\_\-m128 {\bf gmx\-\_\-mm\-\_\-load\-\_\-4real\-\_\-swizzle\-\_\-ps} (
+\begin{DoxyParamCaption}
+\item[{const float $\ast${\bf gmx\-\_\-restrict}}]{ptr\-A, }
+\item[{const float $\ast${\bf gmx\-\_\-restrict}}]{ptr\-B, }
+\item[{const float $\ast${\bf gmx\-\_\-restrict}}]{ptr\-C, }
+\item[{const float $\ast${\bf gmx\-\_\-restrict}}]{ptr\-D}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{kernelutil__x86__sse4__1__single_8h_a908e7554d05a675566ccac1a9c95bb36}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{kernelutil__x86__sse4__1__single_8h_a908e7554d05a675566ccac1a9c95bb36_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{kernelutil__x86__sse4__1__single_8h_a861b9d8aae19b95d9a578d32e4b14f41}{\index{kernelutil\-\_\-x86\-\_\-sse4\-\_\-1\-\_\-single.\-h@{kernelutil\-\_\-x86\-\_\-sse4\-\_\-1\-\_\-single.\-h}!gmx\-\_\-mm\-\_\-load\-\_\-4rvec\-\_\-4ptr\-\_\-swizzle\-\_\-ps@{gmx\-\_\-mm\-\_\-load\-\_\-4rvec\-\_\-4ptr\-\_\-swizzle\-\_\-ps}}
+\index{gmx\-\_\-mm\-\_\-load\-\_\-4rvec\-\_\-4ptr\-\_\-swizzle\-\_\-ps@{gmx\-\_\-mm\-\_\-load\-\_\-4rvec\-\_\-4ptr\-\_\-swizzle\-\_\-ps}!kernelutil_x86_sse4_1_single.h@{kernelutil\-\_\-x86\-\_\-sse4\-\_\-1\-\_\-single.\-h}}
+\subsubsection[{gmx\-\_\-mm\-\_\-load\-\_\-4rvec\-\_\-4ptr\-\_\-swizzle\-\_\-ps}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gmx\-\_\-inline} {\bf void} {\bf gmx\-\_\-mm\-\_\-load\-\_\-4rvec\-\_\-4ptr\-\_\-swizzle\-\_\-ps} (
+\begin{DoxyParamCaption}
+\item[{const float $\ast${\bf gmx\-\_\-restrict}}]{ptr\-A, }
+\item[{const float $\ast${\bf gmx\-\_\-restrict}}]{ptr\-B, }
+\item[{const float $\ast${\bf gmx\-\_\-restrict}}]{ptr\-C, }
+\item[{const float $\ast${\bf gmx\-\_\-restrict}}]{ptr\-D, }
+\item[{\-\_\-\-\_\-m128 $\ast${\bf gmx\-\_\-restrict}}]{x1, }
+\item[{\-\_\-\-\_\-m128 $\ast${\bf gmx\-\_\-restrict}}]{y1, }
+\item[{\-\_\-\-\_\-m128 $\ast${\bf gmx\-\_\-restrict}}]{z1, }
+\item[{\-\_\-\-\_\-m128 $\ast${\bf gmx\-\_\-restrict}}]{x2, }
+\item[{\-\_\-\-\_\-m128 $\ast${\bf gmx\-\_\-restrict}}]{y2, }
+\item[{\-\_\-\-\_\-m128 $\ast${\bf gmx\-\_\-restrict}}]{z2, }
+\item[{\-\_\-\-\_\-m128 $\ast${\bf gmx\-\_\-restrict}}]{x3, }
+\item[{\-\_\-\-\_\-m128 $\ast${\bf gmx\-\_\-restrict}}]{y3, }
+\item[{\-\_\-\-\_\-m128 $\ast${\bf gmx\-\_\-restrict}}]{z3, }
+\item[{\-\_\-\-\_\-m128 $\ast${\bf gmx\-\_\-restrict}}]{x4, }
+\item[{\-\_\-\-\_\-m128 $\ast${\bf gmx\-\_\-restrict}}]{y4, }
+\item[{\-\_\-\-\_\-m128 $\ast${\bf gmx\-\_\-restrict}}]{z4}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{kernelutil__x86__sse4__1__single_8h_a861b9d8aae19b95d9a578d32e4b14f41}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{kernelutil__x86__sse4__1__single_8h_a861b9d8aae19b95d9a578d32e4b14f41_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{kernelutil__x86__sse4__1__single_8h_a715582509a0d4acbb7e90a171a9f1eb9}{\index{kernelutil\-\_\-x86\-\_\-sse4\-\_\-1\-\_\-single.\-h@{kernelutil\-\_\-x86\-\_\-sse4\-\_\-1\-\_\-single.\-h}!gmx\-\_\-mm\-\_\-load\-\_\-shift\-\_\-and\-\_\-1rvec\-\_\-broadcast\-\_\-ps@{gmx\-\_\-mm\-\_\-load\-\_\-shift\-\_\-and\-\_\-1rvec\-\_\-broadcast\-\_\-ps}}
+\index{gmx\-\_\-mm\-\_\-load\-\_\-shift\-\_\-and\-\_\-1rvec\-\_\-broadcast\-\_\-ps@{gmx\-\_\-mm\-\_\-load\-\_\-shift\-\_\-and\-\_\-1rvec\-\_\-broadcast\-\_\-ps}!kernelutil_x86_sse4_1_single.h@{kernelutil\-\_\-x86\-\_\-sse4\-\_\-1\-\_\-single.\-h}}
+\subsubsection[{gmx\-\_\-mm\-\_\-load\-\_\-shift\-\_\-and\-\_\-1rvec\-\_\-broadcast\-\_\-ps}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gmx\-\_\-inline} {\bf void} {\bf gmx\-\_\-mm\-\_\-load\-\_\-shift\-\_\-and\-\_\-1rvec\-\_\-broadcast\-\_\-ps} (
+\begin{DoxyParamCaption}
+\item[{const float $\ast${\bf gmx\-\_\-restrict}}]{xyz\-\_\-shift, }
+\item[{const float $\ast${\bf gmx\-\_\-restrict}}]{xyz, }
+\item[{\-\_\-\-\_\-m128 $\ast${\bf gmx\-\_\-restrict}}]{x1, }
+\item[{\-\_\-\-\_\-m128 $\ast${\bf gmx\-\_\-restrict}}]{y1, }
+\item[{\-\_\-\-\_\-m128 $\ast${\bf gmx\-\_\-restrict}}]{z1}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{kernelutil__x86__sse4__1__single_8h_a715582509a0d4acbb7e90a171a9f1eb9}
+\hypertarget{kernelutil__x86__sse4__1__single_8h_a0b2f10584e76d5a6975a4e1fec476a37}{\index{kernelutil\-\_\-x86\-\_\-sse4\-\_\-1\-\_\-single.\-h@{kernelutil\-\_\-x86\-\_\-sse4\-\_\-1\-\_\-single.\-h}!gmx\-\_\-mm\-\_\-load\-\_\-shift\-\_\-and\-\_\-3rvec\-\_\-broadcast\-\_\-ps@{gmx\-\_\-mm\-\_\-load\-\_\-shift\-\_\-and\-\_\-3rvec\-\_\-broadcast\-\_\-ps}}
+\index{gmx\-\_\-mm\-\_\-load\-\_\-shift\-\_\-and\-\_\-3rvec\-\_\-broadcast\-\_\-ps@{gmx\-\_\-mm\-\_\-load\-\_\-shift\-\_\-and\-\_\-3rvec\-\_\-broadcast\-\_\-ps}!kernelutil_x86_sse4_1_single.h@{kernelutil\-\_\-x86\-\_\-sse4\-\_\-1\-\_\-single.\-h}}
+\subsubsection[{gmx\-\_\-mm\-\_\-load\-\_\-shift\-\_\-and\-\_\-3rvec\-\_\-broadcast\-\_\-ps}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gmx\-\_\-inline} {\bf void} {\bf gmx\-\_\-mm\-\_\-load\-\_\-shift\-\_\-and\-\_\-3rvec\-\_\-broadcast\-\_\-ps} (
+\begin{DoxyParamCaption}
+\item[{const float $\ast${\bf gmx\-\_\-restrict}}]{xyz\-\_\-shift, }
+\item[{const float $\ast${\bf gmx\-\_\-restrict}}]{xyz, }
+\item[{\-\_\-\-\_\-m128 $\ast${\bf gmx\-\_\-restrict}}]{x1, }
+\item[{\-\_\-\-\_\-m128 $\ast${\bf gmx\-\_\-restrict}}]{y1, }
+\item[{\-\_\-\-\_\-m128 $\ast${\bf gmx\-\_\-restrict}}]{z1, }
+\item[{\-\_\-\-\_\-m128 $\ast${\bf gmx\-\_\-restrict}}]{x2, }
+\item[{\-\_\-\-\_\-m128 $\ast${\bf gmx\-\_\-restrict}}]{y2, }
+\item[{\-\_\-\-\_\-m128 $\ast${\bf gmx\-\_\-restrict}}]{z2, }
+\item[{\-\_\-\-\_\-m128 $\ast${\bf gmx\-\_\-restrict}}]{x3, }
+\item[{\-\_\-\-\_\-m128 $\ast${\bf gmx\-\_\-restrict}}]{y3, }
+\item[{\-\_\-\-\_\-m128 $\ast${\bf gmx\-\_\-restrict}}]{z3}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{kernelutil__x86__sse4__1__single_8h_a0b2f10584e76d5a6975a4e1fec476a37}
+\hypertarget{kernelutil__x86__sse4__1__single_8h_a04cee4a646e8b7aa3eec52baa8b609b8}{\index{kernelutil\-\_\-x86\-\_\-sse4\-\_\-1\-\_\-single.\-h@{kernelutil\-\_\-x86\-\_\-sse4\-\_\-1\-\_\-single.\-h}!gmx\-\_\-mm\-\_\-load\-\_\-shift\-\_\-and\-\_\-4rvec\-\_\-broadcast\-\_\-ps@{gmx\-\_\-mm\-\_\-load\-\_\-shift\-\_\-and\-\_\-4rvec\-\_\-broadcast\-\_\-ps}}
+\index{gmx\-\_\-mm\-\_\-load\-\_\-shift\-\_\-and\-\_\-4rvec\-\_\-broadcast\-\_\-ps@{gmx\-\_\-mm\-\_\-load\-\_\-shift\-\_\-and\-\_\-4rvec\-\_\-broadcast\-\_\-ps}!kernelutil_x86_sse4_1_single.h@{kernelutil\-\_\-x86\-\_\-sse4\-\_\-1\-\_\-single.\-h}}
+\subsubsection[{gmx\-\_\-mm\-\_\-load\-\_\-shift\-\_\-and\-\_\-4rvec\-\_\-broadcast\-\_\-ps}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gmx\-\_\-inline} {\bf void} {\bf gmx\-\_\-mm\-\_\-load\-\_\-shift\-\_\-and\-\_\-4rvec\-\_\-broadcast\-\_\-ps} (
+\begin{DoxyParamCaption}
+\item[{const float $\ast${\bf gmx\-\_\-restrict}}]{xyz\-\_\-shift, }
+\item[{const float $\ast${\bf gmx\-\_\-restrict}}]{xyz, }
+\item[{\-\_\-\-\_\-m128 $\ast${\bf gmx\-\_\-restrict}}]{x1, }
+\item[{\-\_\-\-\_\-m128 $\ast${\bf gmx\-\_\-restrict}}]{y1, }
+\item[{\-\_\-\-\_\-m128 $\ast${\bf gmx\-\_\-restrict}}]{z1, }
+\item[{\-\_\-\-\_\-m128 $\ast${\bf gmx\-\_\-restrict}}]{x2, }
+\item[{\-\_\-\-\_\-m128 $\ast${\bf gmx\-\_\-restrict}}]{y2, }
+\item[{\-\_\-\-\_\-m128 $\ast${\bf gmx\-\_\-restrict}}]{z2, }
+\item[{\-\_\-\-\_\-m128 $\ast${\bf gmx\-\_\-restrict}}]{x3, }
+\item[{\-\_\-\-\_\-m128 $\ast${\bf gmx\-\_\-restrict}}]{y3, }
+\item[{\-\_\-\-\_\-m128 $\ast${\bf gmx\-\_\-restrict}}]{z3, }
+\item[{\-\_\-\-\_\-m128 $\ast${\bf gmx\-\_\-restrict}}]{x4, }
+\item[{\-\_\-\-\_\-m128 $\ast${\bf gmx\-\_\-restrict}}]{y4, }
+\item[{\-\_\-\-\_\-m128 $\ast${\bf gmx\-\_\-restrict}}]{z4}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{kernelutil__x86__sse4__1__single_8h_a04cee4a646e8b7aa3eec52baa8b609b8}
+\hypertarget{kernelutil__x86__sse4__1__single_8h_ad897b36e1d4acfc5451ec7c5a61d0327}{\index{kernelutil\-\_\-x86\-\_\-sse4\-\_\-1\-\_\-single.\-h@{kernelutil\-\_\-x86\-\_\-sse4\-\_\-1\-\_\-single.\-h}!gmx\-\_\-mm\-\_\-store\-\_\-4real\-\_\-swizzle\-\_\-ps@{gmx\-\_\-mm\-\_\-store\-\_\-4real\-\_\-swizzle\-\_\-ps}}
+\index{gmx\-\_\-mm\-\_\-store\-\_\-4real\-\_\-swizzle\-\_\-ps@{gmx\-\_\-mm\-\_\-store\-\_\-4real\-\_\-swizzle\-\_\-ps}!kernelutil_x86_sse4_1_single.h@{kernelutil\-\_\-x86\-\_\-sse4\-\_\-1\-\_\-single.\-h}}
+\subsubsection[{gmx\-\_\-mm\-\_\-store\-\_\-4real\-\_\-swizzle\-\_\-ps}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gmx\-\_\-inline} {\bf void} {\bf gmx\-\_\-mm\-\_\-store\-\_\-4real\-\_\-swizzle\-\_\-ps} (
+\begin{DoxyParamCaption}
+\item[{float $\ast${\bf gmx\-\_\-restrict}}]{ptr\-A, }
+\item[{float $\ast${\bf gmx\-\_\-restrict}}]{ptr\-B, }
+\item[{float $\ast${\bf gmx\-\_\-restrict}}]{ptr\-C, }
+\item[{float $\ast${\bf gmx\-\_\-restrict}}]{ptr\-D, }
+\item[{\-\_\-\-\_\-m128}]{xmm1}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{kernelutil__x86__sse4__1__single_8h_ad897b36e1d4acfc5451ec7c5a61d0327}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{kernelutil__x86__sse4__1__single_8h_ad897b36e1d4acfc5451ec7c5a61d0327_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{kernelutil__x86__sse4__1__single_8h_a3c9513ad3040a6ac776bb498e0a0cd49}{\index{kernelutil\-\_\-x86\-\_\-sse4\-\_\-1\-\_\-single.\-h@{kernelutil\-\_\-x86\-\_\-sse4\-\_\-1\-\_\-single.\-h}!gmx\-\_\-mm\-\_\-update\-\_\-1pot\-\_\-ps@{gmx\-\_\-mm\-\_\-update\-\_\-1pot\-\_\-ps}}
+\index{gmx\-\_\-mm\-\_\-update\-\_\-1pot\-\_\-ps@{gmx\-\_\-mm\-\_\-update\-\_\-1pot\-\_\-ps}!kernelutil_x86_sse4_1_single.h@{kernelutil\-\_\-x86\-\_\-sse4\-\_\-1\-\_\-single.\-h}}
+\subsubsection[{gmx\-\_\-mm\-\_\-update\-\_\-1pot\-\_\-ps}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gmx\-\_\-inline} {\bf void} {\bf gmx\-\_\-mm\-\_\-update\-\_\-1pot\-\_\-ps} (
+\begin{DoxyParamCaption}
+\item[{\-\_\-\-\_\-m128}]{pot1, }
+\item[{float $\ast${\bf gmx\-\_\-restrict}}]{ptr\-A}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{kernelutil__x86__sse4__1__single_8h_a3c9513ad3040a6ac776bb498e0a0cd49}
+\hypertarget{kernelutil__x86__sse4__1__single_8h_a92fd0154ab467698d4bcdf39aba9a874}{\index{kernelutil\-\_\-x86\-\_\-sse4\-\_\-1\-\_\-single.\-h@{kernelutil\-\_\-x86\-\_\-sse4\-\_\-1\-\_\-single.\-h}!gmx\-\_\-mm\-\_\-update\-\_\-2pot\-\_\-ps@{gmx\-\_\-mm\-\_\-update\-\_\-2pot\-\_\-ps}}
+\index{gmx\-\_\-mm\-\_\-update\-\_\-2pot\-\_\-ps@{gmx\-\_\-mm\-\_\-update\-\_\-2pot\-\_\-ps}!kernelutil_x86_sse4_1_single.h@{kernelutil\-\_\-x86\-\_\-sse4\-\_\-1\-\_\-single.\-h}}
+\subsubsection[{gmx\-\_\-mm\-\_\-update\-\_\-2pot\-\_\-ps}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gmx\-\_\-inline} {\bf void} {\bf gmx\-\_\-mm\-\_\-update\-\_\-2pot\-\_\-ps} (
+\begin{DoxyParamCaption}
+\item[{\-\_\-\-\_\-m128}]{pot1, }
+\item[{float $\ast${\bf gmx\-\_\-restrict}}]{ptr\-A, }
+\item[{\-\_\-\-\_\-m128}]{pot2, }
+\item[{float $\ast${\bf gmx\-\_\-restrict}}]{ptr\-B}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{kernelutil__x86__sse4__1__single_8h_a92fd0154ab467698d4bcdf39aba9a874}
+\hypertarget{kernelutil__x86__sse4__1__single_8h_a91fcd6b3494c3e09426686cafd8a63ea}{\index{kernelutil\-\_\-x86\-\_\-sse4\-\_\-1\-\_\-single.\-h@{kernelutil\-\_\-x86\-\_\-sse4\-\_\-1\-\_\-single.\-h}!gmx\-\_\-mm\-\_\-update\-\_\-iforce\-\_\-1atom\-\_\-swizzle\-\_\-ps@{gmx\-\_\-mm\-\_\-update\-\_\-iforce\-\_\-1atom\-\_\-swizzle\-\_\-ps}}
+\index{gmx\-\_\-mm\-\_\-update\-\_\-iforce\-\_\-1atom\-\_\-swizzle\-\_\-ps@{gmx\-\_\-mm\-\_\-update\-\_\-iforce\-\_\-1atom\-\_\-swizzle\-\_\-ps}!kernelutil_x86_sse4_1_single.h@{kernelutil\-\_\-x86\-\_\-sse4\-\_\-1\-\_\-single.\-h}}
+\subsubsection[{gmx\-\_\-mm\-\_\-update\-\_\-iforce\-\_\-1atom\-\_\-swizzle\-\_\-ps}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gmx\-\_\-inline} {\bf void} {\bf gmx\-\_\-mm\-\_\-update\-\_\-iforce\-\_\-1atom\-\_\-swizzle\-\_\-ps} (
+\begin{DoxyParamCaption}
+\item[{\-\_\-\-\_\-m128}]{fix1, }
+\item[{\-\_\-\-\_\-m128}]{fiy1, }
+\item[{\-\_\-\-\_\-m128}]{fiz1, }
+\item[{float $\ast${\bf gmx\-\_\-restrict}}]{fptr, }
+\item[{float $\ast${\bf gmx\-\_\-restrict}}]{fshiftptr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{kernelutil__x86__sse4__1__single_8h_a91fcd6b3494c3e09426686cafd8a63ea}
+\hypertarget{kernelutil__x86__sse4__1__single_8h_ad246562079f17d4aef12b17c2bf8141d}{\index{kernelutil\-\_\-x86\-\_\-sse4\-\_\-1\-\_\-single.\-h@{kernelutil\-\_\-x86\-\_\-sse4\-\_\-1\-\_\-single.\-h}!gmx\-\_\-mm\-\_\-update\-\_\-iforce\-\_\-3atom\-\_\-swizzle\-\_\-ps@{gmx\-\_\-mm\-\_\-update\-\_\-iforce\-\_\-3atom\-\_\-swizzle\-\_\-ps}}
+\index{gmx\-\_\-mm\-\_\-update\-\_\-iforce\-\_\-3atom\-\_\-swizzle\-\_\-ps@{gmx\-\_\-mm\-\_\-update\-\_\-iforce\-\_\-3atom\-\_\-swizzle\-\_\-ps}!kernelutil_x86_sse4_1_single.h@{kernelutil\-\_\-x86\-\_\-sse4\-\_\-1\-\_\-single.\-h}}
+\subsubsection[{gmx\-\_\-mm\-\_\-update\-\_\-iforce\-\_\-3atom\-\_\-swizzle\-\_\-ps}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gmx\-\_\-inline} {\bf void} {\bf gmx\-\_\-mm\-\_\-update\-\_\-iforce\-\_\-3atom\-\_\-swizzle\-\_\-ps} (
+\begin{DoxyParamCaption}
+\item[{\-\_\-\-\_\-m128}]{fix1, }
+\item[{\-\_\-\-\_\-m128}]{fiy1, }
+\item[{\-\_\-\-\_\-m128}]{fiz1, }
+\item[{\-\_\-\-\_\-m128}]{fix2, }
+\item[{\-\_\-\-\_\-m128}]{fiy2, }
+\item[{\-\_\-\-\_\-m128}]{fiz2, }
+\item[{\-\_\-\-\_\-m128}]{fix3, }
+\item[{\-\_\-\-\_\-m128}]{fiy3, }
+\item[{\-\_\-\-\_\-m128}]{fiz3, }
+\item[{float $\ast${\bf gmx\-\_\-restrict}}]{fptr, }
+\item[{float $\ast${\bf gmx\-\_\-restrict}}]{fshiftptr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{kernelutil__x86__sse4__1__single_8h_ad246562079f17d4aef12b17c2bf8141d}
+\hypertarget{kernelutil__x86__sse4__1__single_8h_a5c527d1c90f83aacc2bf110cd89488c8}{\index{kernelutil\-\_\-x86\-\_\-sse4\-\_\-1\-\_\-single.\-h@{kernelutil\-\_\-x86\-\_\-sse4\-\_\-1\-\_\-single.\-h}!gmx\-\_\-mm\-\_\-update\-\_\-iforce\-\_\-4atom\-\_\-swizzle\-\_\-ps@{gmx\-\_\-mm\-\_\-update\-\_\-iforce\-\_\-4atom\-\_\-swizzle\-\_\-ps}}
+\index{gmx\-\_\-mm\-\_\-update\-\_\-iforce\-\_\-4atom\-\_\-swizzle\-\_\-ps@{gmx\-\_\-mm\-\_\-update\-\_\-iforce\-\_\-4atom\-\_\-swizzle\-\_\-ps}!kernelutil_x86_sse4_1_single.h@{kernelutil\-\_\-x86\-\_\-sse4\-\_\-1\-\_\-single.\-h}}
+\subsubsection[{gmx\-\_\-mm\-\_\-update\-\_\-iforce\-\_\-4atom\-\_\-swizzle\-\_\-ps}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gmx\-\_\-inline} {\bf void} {\bf gmx\-\_\-mm\-\_\-update\-\_\-iforce\-\_\-4atom\-\_\-swizzle\-\_\-ps} (
+\begin{DoxyParamCaption}
+\item[{\-\_\-\-\_\-m128}]{fix1, }
+\item[{\-\_\-\-\_\-m128}]{fiy1, }
+\item[{\-\_\-\-\_\-m128}]{fiz1, }
+\item[{\-\_\-\-\_\-m128}]{fix2, }
+\item[{\-\_\-\-\_\-m128}]{fiy2, }
+\item[{\-\_\-\-\_\-m128}]{fiz2, }
+\item[{\-\_\-\-\_\-m128}]{fix3, }
+\item[{\-\_\-\-\_\-m128}]{fiy3, }
+\item[{\-\_\-\-\_\-m128}]{fiz3, }
+\item[{\-\_\-\-\_\-m128}]{fix4, }
+\item[{\-\_\-\-\_\-m128}]{fiy4, }
+\item[{\-\_\-\-\_\-m128}]{fiz4, }
+\item[{float $\ast${\bf gmx\-\_\-restrict}}]{fptr, }
+\item[{float $\ast${\bf gmx\-\_\-restrict}}]{fshiftptr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{kernelutil__x86__sse4__1__single_8h_a5c527d1c90f83aacc2bf110cd89488c8}

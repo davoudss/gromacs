@@ -1,0 +1,431 @@
+\hypertarget{atomprop_8c}{\section{src/gmxlib/atomprop.c \-File \-Reference}
+\label{atomprop_8c}\index{src/gmxlib/atomprop.\-c@{src/gmxlib/atomprop.\-c}}
+}
+{\ttfamily \#include $<$ctype.\-h$>$}\*
+{\ttfamily \#include \char`\"{}sysstuff.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}smalloc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}string2.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}futil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}maths.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-fatal.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}atomprop.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}macros.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}index.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}strdb.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}copyrite.\-h\char`\"{}}\*
+\-Include dependency graph for atomprop.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{atomprop_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structaprop__t}{aprop\-\_\-t}
+\item 
+struct \hyperlink{structgmx__atomprop}{gmx\-\_\-atomprop}
+\end{DoxyCompactItemize}
+\subsection*{\-Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{atomprop_8c_af708e94d886ba3f59582612949cac702}{\-M\-A\-X\-Q}~32
+\end{DoxyCompactItemize}
+\subsection*{\-Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \hyperlink{structgmx__atomprop}{gmx\-\_\-atomprop} \hyperlink{atomprop_8c_a35aa0c905a213960259120a0b7c22592}{gmx\-\_\-atomprop}
+\end{DoxyCompactItemize}
+\subsection*{\-Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \{ \hyperlink{atomprop_8c_a930200ae35b2712706fbd833d42a70f3a567edbd0a255db14adb3e0af5f615a23}{\-N\-O\-T\-F\-O\-U\-N\-D} =  -\/4, 
+\hyperlink{atomprop_8c_a930200ae35b2712706fbd833d42a70f3ab334ed227cdad131d14241ef90885514}{\-W\-I\-L\-D\-C\-A\-R\-D}, 
+\hyperlink{atomprop_8c_a930200ae35b2712706fbd833d42a70f3a061836b0483bc5993e1531bf2d4deb60}{\-W\-I\-L\-D\-P\-R\-O\-T}, 
+\hyperlink{atomprop_8c_a930200ae35b2712706fbd833d42a70f3a8b89fd9e5a9e8c681b15b27479408bd6}{\-P\-R\-O\-T\-E\-I\-N}
+ \}
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+static int \hyperlink{atomprop_8c_acfd86536a5bce145edf2b4f9f149e569}{dbcmp\-\_\-len} (char $\ast$search, char $\ast$database)
+\item 
+static int \hyperlink{atomprop_8c_a4b087de137f7654a13e7b7c7eeaf87a8}{get\-\_\-prop\-\_\-index} (\hyperlink{structaprop__t}{aprop\-\_\-t} $\ast$ap, \hyperlink{include_2index_8h_af0ab0a62e166db9905eac3aa7e1203f3}{gmx\-\_\-residuetype\-\_\-t} restype, char $\ast$resnm, char $\ast$atomnm, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} $\ast$b\-Exact)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{atomprop_8c_a7e4e448680d4e142091e28e8f285c9a9}{add\-\_\-prop} (\hyperlink{structaprop__t}{aprop\-\_\-t} $\ast$ap, \hyperlink{include_2index_8h_af0ab0a62e166db9905eac3aa7e1203f3}{gmx\-\_\-residuetype\-\_\-t} restype, char $\ast$resnm, char $\ast$atomnm, real p, int \hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line})
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{atomprop_8c_aa93ef8c17e028937fe149b8f55689d2e}{read\-\_\-prop} (\hyperlink{include_2atomprop_8h_ae4925697fb23634b190713e46ad3f1a3}{gmx\-\_\-atomprop\-\_\-t} aps, int eprop, double \hyperlink{coupling_8c_a9fa6cb6aeef8e03a280001b320eb3dc1}{factor})
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{atomprop_8c_ac131f6cf3e07b8471604d548d585002b}{set\-\_\-prop} (\hyperlink{include_2atomprop_8h_ae4925697fb23634b190713e46ad3f1a3}{gmx\-\_\-atomprop\-\_\-t} aps, int eprop)
+\item 
+\hyperlink{include_2atomprop_8h_ae4925697fb23634b190713e46ad3f1a3}{gmx\-\_\-atomprop\-\_\-t} \hyperlink{atomprop_8c_afea66b2afa90e770cbb0b9d01120370f}{gmx\-\_\-atomprop\-\_\-init} (\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void})
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{atomprop_8c_af2c2ab228b30b6c173320b84d3bf9fa5}{destroy\-\_\-prop} (\hyperlink{structaprop__t}{aprop\-\_\-t} $\ast$ap)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{atomprop_8c_ad58523ca68ea52942f6ed887f3b3e7b5}{gmx\-\_\-atomprop\-\_\-destroy} (\hyperlink{include_2atomprop_8h_ae4925697fb23634b190713e46ad3f1a3}{gmx\-\_\-atomprop\-\_\-t} aps)
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{atomprop_8c_a5a9091377fa34a5af38b3951d19953e4}{gmx\-\_\-atomprop\-\_\-query} (\hyperlink{include_2atomprop_8h_ae4925697fb23634b190713e46ad3f1a3}{gmx\-\_\-atomprop\-\_\-t} aps, int eprop, const char $\ast$resnm, const char $\ast$atomnm, real $\ast$value)
+\item 
+char $\ast$ \hyperlink{atomprop_8c_acbaf27749dee0ea774963ed3e649e059}{gmx\-\_\-atomprop\-\_\-element} (\hyperlink{include_2atomprop_8h_ae4925697fb23634b190713e46ad3f1a3}{gmx\-\_\-atomprop\-\_\-t} aps, int atomnumber)
+\item 
+int \hyperlink{atomprop_8c_ae5d16170e9859fb3db28245fc6e951ac}{gmx\-\_\-atomprop\-\_\-atomnumber} (\hyperlink{include_2atomprop_8h_ae4925697fb23634b190713e46ad3f1a3}{gmx\-\_\-atomprop\-\_\-t} aps, const char $\ast$elem)
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Define \-Documentation}
+\hypertarget{atomprop_8c_af708e94d886ba3f59582612949cac702}{\index{atomprop.\-c@{atomprop.\-c}!\-M\-A\-X\-Q@{\-M\-A\-X\-Q}}
+\index{\-M\-A\-X\-Q@{\-M\-A\-X\-Q}!atomprop.c@{atomprop.\-c}}
+\subsubsection[{\-M\-A\-X\-Q}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-M\-A\-X\-Q}~32}}\label{atomprop_8c_af708e94d886ba3f59582612949cac702}
+
+
+\subsection{\-Typedef \-Documentation}
+\hypertarget{atomprop_8c_a35aa0c905a213960259120a0b7c22592}{\index{atomprop.\-c@{atomprop.\-c}!gmx\-\_\-atomprop@{gmx\-\_\-atomprop}}
+\index{gmx\-\_\-atomprop@{gmx\-\_\-atomprop}!atomprop.c@{atomprop.\-c}}
+\subsubsection[{gmx\-\_\-atomprop}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf gmx\-\_\-atomprop}  {\bf gmx\-\_\-atomprop}}}\label{atomprop_8c_a35aa0c905a213960259120a0b7c22592}
+
+
+\subsection{\-Enumeration \-Type \-Documentation}
+\hypertarget{atomprop_8c_a930200ae35b2712706fbd833d42a70f3}{\subsubsection[{anonymous enum}]{\setlength{\rightskip}{0pt plus 5cm}anonymous enum}}\label{atomprop_8c_a930200ae35b2712706fbd833d42a70f3}
+\begin{Desc}
+\item[\-Enumerator\-: ]\par
+\begin{description}
+\index{\-N\-O\-T\-F\-O\-U\-N\-D@{\-N\-O\-T\-F\-O\-U\-N\-D}!atomprop.\-c@{atomprop.\-c}}\index{atomprop.\-c@{atomprop.\-c}!\-N\-O\-T\-F\-O\-U\-N\-D@{\-N\-O\-T\-F\-O\-U\-N\-D}}\item[{\em 
+\hypertarget{atomprop_8c_a930200ae35b2712706fbd833d42a70f3a567edbd0a255db14adb3e0af5f615a23}{\-N\-O\-T\-F\-O\-U\-N\-D}\label{atomprop_8c_a930200ae35b2712706fbd833d42a70f3a567edbd0a255db14adb3e0af5f615a23}
+}]\index{\-W\-I\-L\-D\-C\-A\-R\-D@{\-W\-I\-L\-D\-C\-A\-R\-D}!atomprop.\-c@{atomprop.\-c}}\index{atomprop.\-c@{atomprop.\-c}!\-W\-I\-L\-D\-C\-A\-R\-D@{\-W\-I\-L\-D\-C\-A\-R\-D}}\item[{\em 
+\hypertarget{atomprop_8c_a930200ae35b2712706fbd833d42a70f3ab334ed227cdad131d14241ef90885514}{\-W\-I\-L\-D\-C\-A\-R\-D}\label{atomprop_8c_a930200ae35b2712706fbd833d42a70f3ab334ed227cdad131d14241ef90885514}
+}]\index{\-W\-I\-L\-D\-P\-R\-O\-T@{\-W\-I\-L\-D\-P\-R\-O\-T}!atomprop.\-c@{atomprop.\-c}}\index{atomprop.\-c@{atomprop.\-c}!\-W\-I\-L\-D\-P\-R\-O\-T@{\-W\-I\-L\-D\-P\-R\-O\-T}}\item[{\em 
+\hypertarget{atomprop_8c_a930200ae35b2712706fbd833d42a70f3a061836b0483bc5993e1531bf2d4deb60}{\-W\-I\-L\-D\-P\-R\-O\-T}\label{atomprop_8c_a930200ae35b2712706fbd833d42a70f3a061836b0483bc5993e1531bf2d4deb60}
+}]\index{\-P\-R\-O\-T\-E\-I\-N@{\-P\-R\-O\-T\-E\-I\-N}!atomprop.\-c@{atomprop.\-c}}\index{atomprop.\-c@{atomprop.\-c}!\-P\-R\-O\-T\-E\-I\-N@{\-P\-R\-O\-T\-E\-I\-N}}\item[{\em 
+\hypertarget{atomprop_8c_a930200ae35b2712706fbd833d42a70f3a8b89fd9e5a9e8c681b15b27479408bd6}{\-P\-R\-O\-T\-E\-I\-N}\label{atomprop_8c_a930200ae35b2712706fbd833d42a70f3a8b89fd9e5a9e8c681b15b27479408bd6}
+}]\end{description}
+\end{Desc}
+
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{atomprop_8c_a7e4e448680d4e142091e28e8f285c9a9}{\index{atomprop.\-c@{atomprop.\-c}!add\-\_\-prop@{add\-\_\-prop}}
+\index{add\-\_\-prop@{add\-\_\-prop}!atomprop.c@{atomprop.\-c}}
+\subsubsection[{add\-\_\-prop}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf add\-\_\-prop} (
+\begin{DoxyParamCaption}
+\item[{{\bf aprop\-\_\-t} $\ast$}]{ap, }
+\item[{{\bf gmx\-\_\-residuetype\-\_\-t}}]{restype, }
+\item[{char $\ast$}]{resnm, }
+\item[{char $\ast$}]{atomnm, }
+\item[{real}]{p, }
+\item[{int}]{line}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{atomprop_8c_a7e4e448680d4e142091e28e8f285c9a9}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{atomprop_8c_a7e4e448680d4e142091e28e8f285c9a9_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{atomprop_8c_a7e4e448680d4e142091e28e8f285c9a9_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{atomprop_8c_acfd86536a5bce145edf2b4f9f149e569}{\index{atomprop.\-c@{atomprop.\-c}!dbcmp\-\_\-len@{dbcmp\-\_\-len}}
+\index{dbcmp\-\_\-len@{dbcmp\-\_\-len}!atomprop.c@{atomprop.\-c}}
+\subsubsection[{dbcmp\-\_\-len}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf dbcmp\-\_\-len} (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{search, }
+\item[{char $\ast$}]{database}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{atomprop_8c_acfd86536a5bce145edf2b4f9f149e569}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{atomprop_8c_acfd86536a5bce145edf2b4f9f149e569_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{atomprop_8c_af2c2ab228b30b6c173320b84d3bf9fa5}{\index{atomprop.\-c@{atomprop.\-c}!destroy\-\_\-prop@{destroy\-\_\-prop}}
+\index{destroy\-\_\-prop@{destroy\-\_\-prop}!atomprop.c@{atomprop.\-c}}
+\subsubsection[{destroy\-\_\-prop}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf destroy\-\_\-prop} (
+\begin{DoxyParamCaption}
+\item[{{\bf aprop\-\_\-t} $\ast$}]{ap}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{atomprop_8c_af2c2ab228b30b6c173320b84d3bf9fa5}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{atomprop_8c_af2c2ab228b30b6c173320b84d3bf9fa5_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{atomprop_8c_a4b087de137f7654a13e7b7c7eeaf87a8}{\index{atomprop.\-c@{atomprop.\-c}!get\-\_\-prop\-\_\-index@{get\-\_\-prop\-\_\-index}}
+\index{get\-\_\-prop\-\_\-index@{get\-\_\-prop\-\_\-index}!atomprop.c@{atomprop.\-c}}
+\subsubsection[{get\-\_\-prop\-\_\-index}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf get\-\_\-prop\-\_\-index} (
+\begin{DoxyParamCaption}
+\item[{{\bf aprop\-\_\-t} $\ast$}]{ap, }
+\item[{{\bf gmx\-\_\-residuetype\-\_\-t}}]{restype, }
+\item[{char $\ast$}]{resnm, }
+\item[{char $\ast$}]{atomnm, }
+\item[{{\bf gmx\-\_\-bool} $\ast$}]{b\-Exact}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{atomprop_8c_a4b087de137f7654a13e7b7c7eeaf87a8}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=338pt]{atomprop_8c_a4b087de137f7654a13e7b7c7eeaf87a8_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{atomprop_8c_a4b087de137f7654a13e7b7c7eeaf87a8_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{atomprop_8c_ae5d16170e9859fb3db28245fc6e951ac}{\index{atomprop.\-c@{atomprop.\-c}!gmx\-\_\-atomprop\-\_\-atomnumber@{gmx\-\_\-atomprop\-\_\-atomnumber}}
+\index{gmx\-\_\-atomprop\-\_\-atomnumber@{gmx\-\_\-atomprop\-\_\-atomnumber}!atomprop.c@{atomprop.\-c}}
+\subsubsection[{gmx\-\_\-atomprop\-\_\-atomnumber}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-atomprop\-\_\-atomnumber} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-atomprop\-\_\-t}}]{aps, }
+\item[{const char $\ast$}]{elem}
+\end{DoxyParamCaption}
+)}}\label{atomprop_8c_ae5d16170e9859fb3db28245fc6e951ac}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{atomprop_8c_ae5d16170e9859fb3db28245fc6e951ac_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{atomprop_8c_ad58523ca68ea52942f6ed887f3b3e7b5}{\index{atomprop.\-c@{atomprop.\-c}!gmx\-\_\-atomprop\-\_\-destroy@{gmx\-\_\-atomprop\-\_\-destroy}}
+\index{gmx\-\_\-atomprop\-\_\-destroy@{gmx\-\_\-atomprop\-\_\-destroy}!atomprop.c@{atomprop.\-c}}
+\subsubsection[{gmx\-\_\-atomprop\-\_\-destroy}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-atomprop\-\_\-destroy} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-atomprop\-\_\-t}}]{aps}
+\end{DoxyParamCaption}
+)}}\label{atomprop_8c_ad58523ca68ea52942f6ed887f3b3e7b5}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{atomprop_8c_ad58523ca68ea52942f6ed887f3b3e7b5_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{atomprop_8c_ad58523ca68ea52942f6ed887f3b3e7b5_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{atomprop_8c_acbaf27749dee0ea774963ed3e649e059}{\index{atomprop.\-c@{atomprop.\-c}!gmx\-\_\-atomprop\-\_\-element@{gmx\-\_\-atomprop\-\_\-element}}
+\index{gmx\-\_\-atomprop\-\_\-element@{gmx\-\_\-atomprop\-\_\-element}!atomprop.c@{atomprop.\-c}}
+\subsubsection[{gmx\-\_\-atomprop\-\_\-element}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ {\bf gmx\-\_\-atomprop\-\_\-element} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-atomprop\-\_\-t}}]{aps, }
+\item[{int}]{atomnumber}
+\end{DoxyParamCaption}
+)}}\label{atomprop_8c_acbaf27749dee0ea774963ed3e649e059}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{atomprop_8c_acbaf27749dee0ea774963ed3e649e059_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{atomprop_8c_acbaf27749dee0ea774963ed3e649e059_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{atomprop_8c_afea66b2afa90e770cbb0b9d01120370f}{\index{atomprop.\-c@{atomprop.\-c}!gmx\-\_\-atomprop\-\_\-init@{gmx\-\_\-atomprop\-\_\-init}}
+\index{gmx\-\_\-atomprop\-\_\-init@{gmx\-\_\-atomprop\-\_\-init}!atomprop.c@{atomprop.\-c}}
+\subsubsection[{gmx\-\_\-atomprop\-\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-atomprop\-\_\-t} {\bf gmx\-\_\-atomprop\-\_\-init} (
+\begin{DoxyParamCaption}
+\item[{{\bf void}}]{}
+\end{DoxyParamCaption}
+)}}\label{atomprop_8c_afea66b2afa90e770cbb0b9d01120370f}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=326pt]{atomprop_8c_afea66b2afa90e770cbb0b9d01120370f_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{atomprop_8c_afea66b2afa90e770cbb0b9d01120370f_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{atomprop_8c_a5a9091377fa34a5af38b3951d19953e4}{\index{atomprop.\-c@{atomprop.\-c}!gmx\-\_\-atomprop\-\_\-query@{gmx\-\_\-atomprop\-\_\-query}}
+\index{gmx\-\_\-atomprop\-\_\-query@{gmx\-\_\-atomprop\-\_\-query}!atomprop.c@{atomprop.\-c}}
+\subsubsection[{gmx\-\_\-atomprop\-\_\-query}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-atomprop\-\_\-query} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-atomprop\-\_\-t}}]{aps, }
+\item[{int}]{eprop, }
+\item[{const char $\ast$}]{resnm, }
+\item[{const char $\ast$}]{atomnm, }
+\item[{real $\ast$}]{value}
+\end{DoxyParamCaption}
+)}}\label{atomprop_8c_a5a9091377fa34a5af38b3951d19953e4}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{atomprop_8c_a5a9091377fa34a5af38b3951d19953e4_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{atomprop_8c_a5a9091377fa34a5af38b3951d19953e4_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{atomprop_8c_aa93ef8c17e028937fe149b8f55689d2e}{\index{atomprop.\-c@{atomprop.\-c}!read\-\_\-prop@{read\-\_\-prop}}
+\index{read\-\_\-prop@{read\-\_\-prop}!atomprop.c@{atomprop.\-c}}
+\subsubsection[{read\-\_\-prop}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf read\-\_\-prop} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-atomprop\-\_\-t}}]{aps, }
+\item[{int}]{eprop, }
+\item[{double}]{factor}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{atomprop_8c_aa93ef8c17e028937fe149b8f55689d2e}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{atomprop_8c_aa93ef8c17e028937fe149b8f55689d2e_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{atomprop_8c_aa93ef8c17e028937fe149b8f55689d2e_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{atomprop_8c_ac131f6cf3e07b8471604d548d585002b}{\index{atomprop.\-c@{atomprop.\-c}!set\-\_\-prop@{set\-\_\-prop}}
+\index{set\-\_\-prop@{set\-\_\-prop}!atomprop.c@{atomprop.\-c}}
+\subsubsection[{set\-\_\-prop}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf set\-\_\-prop} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-atomprop\-\_\-t}}]{aps, }
+\item[{int}]{eprop}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{atomprop_8c_ac131f6cf3e07b8471604d548d585002b}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{atomprop_8c_ac131f6cf3e07b8471604d548d585002b_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{atomprop_8c_ac131f6cf3e07b8471604d548d585002b_icgraph}
+\end{center}
+\end{figure}
+
+

@@ -1,0 +1,595 @@
+\hypertarget{sm__compare_8c}{\section{src/gmxlib/selection/sm\-\_\-compare.c \-File \-Reference}
+\label{sm__compare_8c}\index{src/gmxlib/selection/sm\-\_\-compare.\-c@{src/gmxlib/selection/sm\-\_\-compare.\-c}}
+}
+{\ttfamily \#include $<$maths.\-h$>$}\*
+{\ttfamily \#include $<$macros.\-h$>$}\*
+{\ttfamily \#include $<$smalloc.\-h$>$}\*
+{\ttfamily \#include $<$gmx\-\_\-fatal.\-h$>$}\*
+{\ttfamily \#include $<$selmethod.\-h$>$}\*
+\-Include dependency graph for sm\-\_\-compare.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{sm__compare_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structt__compare__value}{t\-\_\-compare\-\_\-value}
+\item 
+struct \hyperlink{structt__methoddata__compare}{t\-\_\-methoddata\-\_\-compare}
+\end{DoxyCompactItemize}
+\subsection*{\-Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{sm__compare_8c_acaed2842a518715bd9a7d8340c54a8dc}{\-C\-M\-P\-\_\-\-S\-I\-N\-G\-L\-E\-V\-A\-L}~1
+\item 
+\#define \hyperlink{sm__compare_8c_a8ca48e4b031ed599140d615f85f47506}{\-C\-M\-P\-\_\-\-D\-Y\-N\-A\-M\-I\-C\-V\-A\-L}~2
+\item 
+\#define \hyperlink{sm__compare_8c_ab34a7c52c4a01ba0dcd2576ec011c700}{\-C\-M\-P\-\_\-\-R\-E\-A\-L\-V\-A\-L}~4
+\item 
+\#define \hyperlink{sm__compare_8c_a4f4ba35b0b3b93173ad262cd7b6d59cb}{\-C\-M\-P\-\_\-\-A\-L\-L\-O\-C\-I\-N\-T}~16
+\item 
+\#define \hyperlink{sm__compare_8c_a5d14f88d7ee31f8fb0451395cd89dd6d}{\-C\-M\-P\-\_\-\-A\-L\-L\-O\-C\-R\-E\-A\-L}~32
+\end{DoxyCompactItemize}
+\subsection*{\-Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{sm__compare_8c_a4c494127cd83d1f0dae8853a278569b5}{e\-\_\-comparison\-\_\-t} \{ \*
+\hyperlink{sm__compare_8c_a4c494127cd83d1f0dae8853a278569b5ac8fc7c0cd25967ec80612d13f43920c8}{\-C\-M\-P\-\_\-\-I\-N\-V\-A\-L\-I\-D}, 
+\hyperlink{sm__compare_8c_a4c494127cd83d1f0dae8853a278569b5a2eb13396f22cd506d8a87dd21d92a134}{\-C\-M\-P\-\_\-\-L\-E\-S\-S}, 
+\hyperlink{sm__compare_8c_a4c494127cd83d1f0dae8853a278569b5a21a9f335526f7cccf3be617fd69b1997}{\-C\-M\-P\-\_\-\-L\-E\-Q}, 
+\hyperlink{sm__compare_8c_a4c494127cd83d1f0dae8853a278569b5a952a8220aefbeb820d9f2a57385004e8}{\-C\-M\-P\-\_\-\-G\-T\-R}, 
+\*
+\hyperlink{sm__compare_8c_a4c494127cd83d1f0dae8853a278569b5acbf87d65ff27dd11d09c3d4168ec5690}{\-C\-M\-P\-\_\-\-G\-E\-Q}, 
+\hyperlink{sm__compare_8c_a4c494127cd83d1f0dae8853a278569b5a69017e915c3273f6c77dc13aefd5bd0e}{\-C\-M\-P\-\_\-\-E\-Q\-U\-A\-L}, 
+\hyperlink{sm__compare_8c_a4c494127cd83d1f0dae8853a278569b5acff35e061674951fc02df39f1ecd189f}{\-C\-M\-P\-\_\-\-N\-E\-Q}
+ \}
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$ \hyperlink{sm__compare_8c_a2c25c6848ba93c12f1ef2f63e016761d}{init\-\_\-data\-\_\-compare} (int npar, \hyperlink{structgmx__ana__selparam__t}{gmx\-\_\-ana\-\_\-selparam\-\_\-t} $\ast$param)
+\item 
+static int \hyperlink{sm__compare_8c_aa70fed01904def2aced9646cda967ba8}{init\-\_\-compare} (\hyperlink{structt__topology}{t\-\_\-topology} $\ast$\hyperlink{gmx__disre_8c_a1b538a2ce75aba6c346bc03980ffeb28}{top}, int npar, \hyperlink{structgmx__ana__selparam__t}{gmx\-\_\-ana\-\_\-selparam\-\_\-t} $\ast$param, \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$data)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{sm__compare_8c_aa72d1a8a8f2afb1fc226cf082c051125}{free\-\_\-data\-\_\-compare} (\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$data)
+\item 
+static int \hyperlink{sm__compare_8c_a4859a7916393e00d04e481decacdb54b}{evaluate\-\_\-compare} (\hyperlink{structt__topology}{t\-\_\-topology} $\ast$\hyperlink{gmx__disre_8c_a1b538a2ce75aba6c346bc03980ffeb28}{top}, \hyperlink{include_2types_2trx_8h_a206f77137d72a5db1097a457a7144ad5}{t\-\_\-trxframe} $\ast$\hyperlink{addconf_8c_ae8414314f87c5e49503ac0117eb511ad}{fr}, \hyperlink{structt__pbc}{t\-\_\-pbc} $\ast$pbc, \hyperlink{structgmx__ana__index__t}{gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g}, \hyperlink{structgmx__ana__selvalue__t}{gmx\-\_\-ana\-\_\-selvalue\-\_\-t} $\ast$out, \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$data)
+\item 
+static \hyperlink{sm__compare_8c_a4c494127cd83d1f0dae8853a278569b5}{e\-\_\-comparison\-\_\-t} \hyperlink{sm__compare_8c_a19d029e2af21186379d79e8e1dbac84d}{comparison\-\_\-type} (char $\ast$str)
+\begin{DoxyCompactList}\small\item\em \-Returns a {\ttfamily e\-\_\-comparison\-\_\-t} value corresponding to an operator. \end{DoxyCompactList}\item 
+static const char $\ast$ \hyperlink{sm__compare_8c_af2f0367a81dc65515838db2edea06bc0}{comparison\-\_\-type\-\_\-str} (\hyperlink{sm__compare_8c_a4c494127cd83d1f0dae8853a278569b5}{e\-\_\-comparison\-\_\-t} cmpt)
+\begin{DoxyCompactList}\small\item\em \-Returns a string corresponding to a {\ttfamily e\-\_\-comparison\-\_\-t} value. \end{DoxyCompactList}\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{sm__compare_8c_a804fe473e13723903e8a1065177e86da}{\-\_\-gmx\-\_\-selelem\-\_\-print\-\_\-compare\-\_\-info} (\-F\-I\-L\-E $\ast$fp, \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$data)
+\item 
+static \hyperlink{sm__compare_8c_a4c494127cd83d1f0dae8853a278569b5}{e\-\_\-comparison\-\_\-t} \hyperlink{sm__compare_8c_aeafad0888285495ec3de412cfe3b51db}{reverse\-\_\-comparison\-\_\-type} (\hyperlink{sm__compare_8c_a4c494127cd83d1f0dae8853a278569b5}{e\-\_\-comparison\-\_\-t} \hyperlink{fgrid_8c_a7f3986ef06a5ebd031c536fbcdce3c49}{type})
+\item 
+static int \hyperlink{sm__compare_8c_aafe6d6ec2249c4f050f28347e811a4e6}{init\-\_\-comparison\-\_\-value} (\hyperlink{structt__compare__value}{t\-\_\-compare\-\_\-value} $\ast$val, \hyperlink{structgmx__ana__selparam__t}{gmx\-\_\-ana\-\_\-selparam\-\_\-t} param\mbox{[}2\mbox{]})
+\begin{DoxyCompactList}\small\item\em \-Initializes the value storage for comparison expression. \end{DoxyCompactList}\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{sm__compare_8c_a50d20dac63c9cae7e6690bc44650edca}{convert\-\_\-int\-\_\-real} (int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, \hyperlink{structt__compare__value}{t\-\_\-compare\-\_\-value} $\ast$val)
+\item 
+static int \hyperlink{sm__compare_8c_a7eabe6e6b645a8222ff5266bc604b12e}{convert\-\_\-real\-\_\-int} (int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, \hyperlink{structt__compare__value}{t\-\_\-compare\-\_\-value} $\ast$val, \hyperlink{sm__compare_8c_a4c494127cd83d1f0dae8853a278569b5}{e\-\_\-comparison\-\_\-t} cmpt, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Right)
+\item 
+static int \hyperlink{sm__compare_8c_aa1dd516baab6c08ff824f0a8e17a0ad1}{evaluate\-\_\-compare\-\_\-int} (\hyperlink{structt__topology}{t\-\_\-topology} $\ast$\hyperlink{gmx__disre_8c_a1b538a2ce75aba6c346bc03980ffeb28}{top}, \hyperlink{include_2types_2trx_8h_a206f77137d72a5db1097a457a7144ad5}{t\-\_\-trxframe} $\ast$\hyperlink{addconf_8c_ae8414314f87c5e49503ac0117eb511ad}{fr}, \hyperlink{structt__pbc}{t\-\_\-pbc} $\ast$pbc, \hyperlink{structgmx__ana__index__t}{gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g}, \hyperlink{structgmx__ana__selvalue__t}{gmx\-\_\-ana\-\_\-selvalue\-\_\-t} $\ast$out, \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$data)
+\item 
+static int \hyperlink{sm__compare_8c_a947f7b72224fe5b8eb64e29287304b89}{evaluate\-\_\-compare\-\_\-real} (\hyperlink{structt__topology}{t\-\_\-topology} $\ast$\hyperlink{gmx__disre_8c_a1b538a2ce75aba6c346bc03980ffeb28}{top}, \hyperlink{include_2types_2trx_8h_a206f77137d72a5db1097a457a7144ad5}{t\-\_\-trxframe} $\ast$\hyperlink{addconf_8c_ae8414314f87c5e49503ac0117eb511ad}{fr}, \hyperlink{structt__pbc}{t\-\_\-pbc} $\ast$pbc, \hyperlink{structgmx__ana__index__t}{gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g}, \hyperlink{structgmx__ana__selvalue__t}{gmx\-\_\-ana\-\_\-selvalue\-\_\-t} $\ast$out, \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$data)
+\end{DoxyCompactItemize}
+\subsection*{\-Variables}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{structgmx__ana__selparam__t}{gmx\-\_\-ana\-\_\-selparam\-\_\-t} \hyperlink{sm__compare_8c_af78441e8403199ac9eb8cbd85f8c3a19}{smparams\-\_\-compare} \mbox{[}$\,$\mbox{]}
+\item 
+\hyperlink{structgmx__ana__selmethod__t}{gmx\-\_\-ana\-\_\-selmethod\-\_\-t} \hyperlink{sm__compare_8c_af10d13b130c0d9a80b6cc2f79656ba2f}{sm\-\_\-compare}
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Define \-Documentation}
+\hypertarget{sm__compare_8c_a4f4ba35b0b3b93173ad262cd7b6d59cb}{\index{sm\-\_\-compare.\-c@{sm\-\_\-compare.\-c}!\-C\-M\-P\-\_\-\-A\-L\-L\-O\-C\-I\-N\-T@{\-C\-M\-P\-\_\-\-A\-L\-L\-O\-C\-I\-N\-T}}
+\index{\-C\-M\-P\-\_\-\-A\-L\-L\-O\-C\-I\-N\-T@{\-C\-M\-P\-\_\-\-A\-L\-L\-O\-C\-I\-N\-T}!sm_compare.c@{sm\-\_\-compare.\-c}}
+\subsubsection[{\-C\-M\-P\-\_\-\-A\-L\-L\-O\-C\-I\-N\-T}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-C\-M\-P\-\_\-\-A\-L\-L\-O\-C\-I\-N\-T}~16}}\label{sm__compare_8c_a4f4ba35b0b3b93173ad262cd7b6d59cb}
+\-The integer array is allocated. \hypertarget{sm__compare_8c_a5d14f88d7ee31f8fb0451395cd89dd6d}{\index{sm\-\_\-compare.\-c@{sm\-\_\-compare.\-c}!\-C\-M\-P\-\_\-\-A\-L\-L\-O\-C\-R\-E\-A\-L@{\-C\-M\-P\-\_\-\-A\-L\-L\-O\-C\-R\-E\-A\-L}}
+\index{\-C\-M\-P\-\_\-\-A\-L\-L\-O\-C\-R\-E\-A\-L@{\-C\-M\-P\-\_\-\-A\-L\-L\-O\-C\-R\-E\-A\-L}!sm_compare.c@{sm\-\_\-compare.\-c}}
+\subsubsection[{\-C\-M\-P\-\_\-\-A\-L\-L\-O\-C\-R\-E\-A\-L}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-C\-M\-P\-\_\-\-A\-L\-L\-O\-C\-R\-E\-A\-L}~32}}\label{sm__compare_8c_a5d14f88d7ee31f8fb0451395cd89dd6d}
+\-The real array is allocated. \hypertarget{sm__compare_8c_a8ca48e4b031ed599140d615f85f47506}{\index{sm\-\_\-compare.\-c@{sm\-\_\-compare.\-c}!\-C\-M\-P\-\_\-\-D\-Y\-N\-A\-M\-I\-C\-V\-A\-L@{\-C\-M\-P\-\_\-\-D\-Y\-N\-A\-M\-I\-C\-V\-A\-L}}
+\index{\-C\-M\-P\-\_\-\-D\-Y\-N\-A\-M\-I\-C\-V\-A\-L@{\-C\-M\-P\-\_\-\-D\-Y\-N\-A\-M\-I\-C\-V\-A\-L}!sm_compare.c@{sm\-\_\-compare.\-c}}
+\subsubsection[{\-C\-M\-P\-\_\-\-D\-Y\-N\-A\-M\-I\-C\-V\-A\-L}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-C\-M\-P\-\_\-\-D\-Y\-N\-A\-M\-I\-C\-V\-A\-L}~2}}\label{sm__compare_8c_a8ca48e4b031ed599140d615f85f47506}
+\-The operand value is dynamic. \hypertarget{sm__compare_8c_ab34a7c52c4a01ba0dcd2576ec011c700}{\index{sm\-\_\-compare.\-c@{sm\-\_\-compare.\-c}!\-C\-M\-P\-\_\-\-R\-E\-A\-L\-V\-A\-L@{\-C\-M\-P\-\_\-\-R\-E\-A\-L\-V\-A\-L}}
+\index{\-C\-M\-P\-\_\-\-R\-E\-A\-L\-V\-A\-L@{\-C\-M\-P\-\_\-\-R\-E\-A\-L\-V\-A\-L}!sm_compare.c@{sm\-\_\-compare.\-c}}
+\subsubsection[{\-C\-M\-P\-\_\-\-R\-E\-A\-L\-V\-A\-L}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-C\-M\-P\-\_\-\-R\-E\-A\-L\-V\-A\-L}~4}}\label{sm__compare_8c_ab34a7c52c4a01ba0dcd2576ec011c700}
+\-The value is real. \hypertarget{sm__compare_8c_acaed2842a518715bd9a7d8340c54a8dc}{\index{sm\-\_\-compare.\-c@{sm\-\_\-compare.\-c}!\-C\-M\-P\-\_\-\-S\-I\-N\-G\-L\-E\-V\-A\-L@{\-C\-M\-P\-\_\-\-S\-I\-N\-G\-L\-E\-V\-A\-L}}
+\index{\-C\-M\-P\-\_\-\-S\-I\-N\-G\-L\-E\-V\-A\-L@{\-C\-M\-P\-\_\-\-S\-I\-N\-G\-L\-E\-V\-A\-L}!sm_compare.c@{sm\-\_\-compare.\-c}}
+\subsubsection[{\-C\-M\-P\-\_\-\-S\-I\-N\-G\-L\-E\-V\-A\-L}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-C\-M\-P\-\_\-\-S\-I\-N\-G\-L\-E\-V\-A\-L}~1}}\label{sm__compare_8c_acaed2842a518715bd9a7d8340c54a8dc}
+\-The operand has a single value. 
+
+\subsection{\-Enumeration \-Type \-Documentation}
+\hypertarget{sm__compare_8c_a4c494127cd83d1f0dae8853a278569b5}{\index{sm\-\_\-compare.\-c@{sm\-\_\-compare.\-c}!e\-\_\-comparison\-\_\-t@{e\-\_\-comparison\-\_\-t}}
+\index{e\-\_\-comparison\-\_\-t@{e\-\_\-comparison\-\_\-t}!sm_compare.c@{sm\-\_\-compare.\-c}}
+\subsubsection[{e\-\_\-comparison\-\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf e\-\_\-comparison\-\_\-t}}}\label{sm__compare_8c_a4c494127cd83d1f0dae8853a278569b5}
+\-Defines the comparison operator for comparison expressions. \begin{Desc}
+\item[\-Enumerator\-: ]\par
+\begin{description}
+\index{\-C\-M\-P\-\_\-\-I\-N\-V\-A\-L\-I\-D@{\-C\-M\-P\-\_\-\-I\-N\-V\-A\-L\-I\-D}!sm\-\_\-compare.\-c@{sm\-\_\-compare.\-c}}\index{sm\-\_\-compare.\-c@{sm\-\_\-compare.\-c}!\-C\-M\-P\-\_\-\-I\-N\-V\-A\-L\-I\-D@{\-C\-M\-P\-\_\-\-I\-N\-V\-A\-L\-I\-D}}\item[{\em 
+\hypertarget{sm__compare_8c_a4c494127cd83d1f0dae8853a278569b5ac8fc7c0cd25967ec80612d13f43920c8}{\-C\-M\-P\-\_\-\-I\-N\-V\-A\-L\-I\-D}\label{sm__compare_8c_a4c494127cd83d1f0dae8853a278569b5ac8fc7c0cd25967ec80612d13f43920c8}
+}]\-Indicates an error \index{\-C\-M\-P\-\_\-\-L\-E\-S\-S@{\-C\-M\-P\-\_\-\-L\-E\-S\-S}!sm\-\_\-compare.\-c@{sm\-\_\-compare.\-c}}\index{sm\-\_\-compare.\-c@{sm\-\_\-compare.\-c}!\-C\-M\-P\-\_\-\-L\-E\-S\-S@{\-C\-M\-P\-\_\-\-L\-E\-S\-S}}\item[{\em 
+\hypertarget{sm__compare_8c_a4c494127cd83d1f0dae8853a278569b5a2eb13396f22cd506d8a87dd21d92a134}{\-C\-M\-P\-\_\-\-L\-E\-S\-S}\label{sm__compare_8c_a4c494127cd83d1f0dae8853a278569b5a2eb13396f22cd506d8a87dd21d92a134}
+}]'$<$' \index{\-C\-M\-P\-\_\-\-L\-E\-Q@{\-C\-M\-P\-\_\-\-L\-E\-Q}!sm\-\_\-compare.\-c@{sm\-\_\-compare.\-c}}\index{sm\-\_\-compare.\-c@{sm\-\_\-compare.\-c}!\-C\-M\-P\-\_\-\-L\-E\-Q@{\-C\-M\-P\-\_\-\-L\-E\-Q}}\item[{\em 
+\hypertarget{sm__compare_8c_a4c494127cd83d1f0dae8853a278569b5a21a9f335526f7cccf3be617fd69b1997}{\-C\-M\-P\-\_\-\-L\-E\-Q}\label{sm__compare_8c_a4c494127cd83d1f0dae8853a278569b5a21a9f335526f7cccf3be617fd69b1997}
+}]'$<$=' \index{\-C\-M\-P\-\_\-\-G\-T\-R@{\-C\-M\-P\-\_\-\-G\-T\-R}!sm\-\_\-compare.\-c@{sm\-\_\-compare.\-c}}\index{sm\-\_\-compare.\-c@{sm\-\_\-compare.\-c}!\-C\-M\-P\-\_\-\-G\-T\-R@{\-C\-M\-P\-\_\-\-G\-T\-R}}\item[{\em 
+\hypertarget{sm__compare_8c_a4c494127cd83d1f0dae8853a278569b5a952a8220aefbeb820d9f2a57385004e8}{\-C\-M\-P\-\_\-\-G\-T\-R}\label{sm__compare_8c_a4c494127cd83d1f0dae8853a278569b5a952a8220aefbeb820d9f2a57385004e8}
+}]'$>$' \index{\-C\-M\-P\-\_\-\-G\-E\-Q@{\-C\-M\-P\-\_\-\-G\-E\-Q}!sm\-\_\-compare.\-c@{sm\-\_\-compare.\-c}}\index{sm\-\_\-compare.\-c@{sm\-\_\-compare.\-c}!\-C\-M\-P\-\_\-\-G\-E\-Q@{\-C\-M\-P\-\_\-\-G\-E\-Q}}\item[{\em 
+\hypertarget{sm__compare_8c_a4c494127cd83d1f0dae8853a278569b5acbf87d65ff27dd11d09c3d4168ec5690}{\-C\-M\-P\-\_\-\-G\-E\-Q}\label{sm__compare_8c_a4c494127cd83d1f0dae8853a278569b5acbf87d65ff27dd11d09c3d4168ec5690}
+}]'$>$=' \index{\-C\-M\-P\-\_\-\-E\-Q\-U\-A\-L@{\-C\-M\-P\-\_\-\-E\-Q\-U\-A\-L}!sm\-\_\-compare.\-c@{sm\-\_\-compare.\-c}}\index{sm\-\_\-compare.\-c@{sm\-\_\-compare.\-c}!\-C\-M\-P\-\_\-\-E\-Q\-U\-A\-L@{\-C\-M\-P\-\_\-\-E\-Q\-U\-A\-L}}\item[{\em 
+\hypertarget{sm__compare_8c_a4c494127cd83d1f0dae8853a278569b5a69017e915c3273f6c77dc13aefd5bd0e}{\-C\-M\-P\-\_\-\-E\-Q\-U\-A\-L}\label{sm__compare_8c_a4c494127cd83d1f0dae8853a278569b5a69017e915c3273f6c77dc13aefd5bd0e}
+}]'==' \index{\-C\-M\-P\-\_\-\-N\-E\-Q@{\-C\-M\-P\-\_\-\-N\-E\-Q}!sm\-\_\-compare.\-c@{sm\-\_\-compare.\-c}}\index{sm\-\_\-compare.\-c@{sm\-\_\-compare.\-c}!\-C\-M\-P\-\_\-\-N\-E\-Q@{\-C\-M\-P\-\_\-\-N\-E\-Q}}\item[{\em 
+\hypertarget{sm__compare_8c_a4c494127cd83d1f0dae8853a278569b5acff35e061674951fc02df39f1ecd189f}{\-C\-M\-P\-\_\-\-N\-E\-Q}\label{sm__compare_8c_a4c494127cd83d1f0dae8853a278569b5acff35e061674951fc02df39f1ecd189f}
+}]'!=' \end{description}
+\end{Desc}
+
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{sm__compare_8c_a804fe473e13723903e8a1065177e86da}{\index{sm\-\_\-compare.\-c@{sm\-\_\-compare.\-c}!\-\_\-gmx\-\_\-selelem\-\_\-print\-\_\-compare\-\_\-info@{\-\_\-gmx\-\_\-selelem\-\_\-print\-\_\-compare\-\_\-info}}
+\index{\-\_\-gmx\-\_\-selelem\-\_\-print\-\_\-compare\-\_\-info@{\-\_\-gmx\-\_\-selelem\-\_\-print\-\_\-compare\-\_\-info}!sm_compare.c@{sm\-\_\-compare.\-c}}
+\subsubsection[{\-\_\-gmx\-\_\-selelem\-\_\-print\-\_\-compare\-\_\-info}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf \-\_\-gmx\-\_\-selelem\-\_\-print\-\_\-compare\-\_\-info} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{{\bf void} $\ast$}]{data}
+\end{DoxyParamCaption}
+)}}\label{sm__compare_8c_a804fe473e13723903e8a1065177e86da}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em fp} & \-File to receive the output. \\
+\hline
+\mbox{\tt in}  & {\em data} & \-Should point to a {\ttfamily \hyperlink{structt__methoddata__compare}{t\-\_\-methoddata\-\_\-compare}}. \\
+\hline
+\end{DoxyParams}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{sm__compare_8c_a804fe473e13723903e8a1065177e86da_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{sm__compare_8c_a804fe473e13723903e8a1065177e86da_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{sm__compare_8c_a19d029e2af21186379d79e8e1dbac84d}{\index{sm\-\_\-compare.\-c@{sm\-\_\-compare.\-c}!comparison\-\_\-type@{comparison\-\_\-type}}
+\index{comparison\-\_\-type@{comparison\-\_\-type}!sm_compare.c@{sm\-\_\-compare.\-c}}
+\subsubsection[{comparison\-\_\-type}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf e\-\_\-comparison\-\_\-t} {\bf comparison\-\_\-type} (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{str}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{sm__compare_8c_a19d029e2af21186379d79e8e1dbac84d}
+
+
+\-Returns a {\ttfamily e\-\_\-comparison\-\_\-t} value corresponding to an operator. 
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em str} & \-String to process. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-The comparison type corresponding to the first one or two characters of {\ttfamily str}.
+\end{DoxyReturn}
+{\ttfamily str} can contain any number of characters; only the first two are used. \-If the beginning of {\ttfamily str} does not match any of the recognized types, \hyperlink{sm__compare_8c_a4c494127cd83d1f0dae8853a278569b5ac8fc7c0cd25967ec80612d13f43920c8}{\-C\-M\-P\-\_\-\-I\-N\-V\-A\-L\-I\-D} is returned. 
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=280pt]{sm__compare_8c_a19d029e2af21186379d79e8e1dbac84d_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{sm__compare_8c_af2f0367a81dc65515838db2edea06bc0}{\index{sm\-\_\-compare.\-c@{sm\-\_\-compare.\-c}!comparison\-\_\-type\-\_\-str@{comparison\-\_\-type\-\_\-str}}
+\index{comparison\-\_\-type\-\_\-str@{comparison\-\_\-type\-\_\-str}!sm_compare.c@{sm\-\_\-compare.\-c}}
+\subsubsection[{comparison\-\_\-type\-\_\-str}]{\setlength{\rightskip}{0pt plus 5cm}static const char$\ast$ {\bf comparison\-\_\-type\-\_\-str} (
+\begin{DoxyParamCaption}
+\item[{{\bf e\-\_\-comparison\-\_\-t}}]{cmpt}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{sm__compare_8c_af2f0367a81dc65515838db2edea06bc0}
+
+
+\-Returns a string corresponding to a {\ttfamily e\-\_\-comparison\-\_\-t} value. 
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em cmpt} & \-Comparison type to convert. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-Pointer to a string that corresponds to {\ttfamily cmpt}.
+\end{DoxyReturn}
+\-The return value points to a string constant and should not be {\ttfamily free'd}.
+
+\-The function returns \-N\-U\-L\-L if {\ttfamily cmpt} is not one of the valid values. 
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{sm__compare_8c_af2f0367a81dc65515838db2edea06bc0_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{sm__compare_8c_a50d20dac63c9cae7e6690bc44650edca}{\index{sm\-\_\-compare.\-c@{sm\-\_\-compare.\-c}!convert\-\_\-int\-\_\-real@{convert\-\_\-int\-\_\-real}}
+\index{convert\-\_\-int\-\_\-real@{convert\-\_\-int\-\_\-real}!sm_compare.c@{sm\-\_\-compare.\-c}}
+\subsubsection[{convert\-\_\-int\-\_\-real}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf convert\-\_\-int\-\_\-real} (
+\begin{DoxyParamCaption}
+\item[{int}]{n, }
+\item[{{\bf t\-\_\-compare\-\_\-value} $\ast$}]{val}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{sm__compare_8c_a50d20dac63c9cae7e6690bc44650edca}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=274pt]{sm__compare_8c_a50d20dac63c9cae7e6690bc44650edca_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{sm__compare_8c_a7eabe6e6b645a8222ff5266bc604b12e}{\index{sm\-\_\-compare.\-c@{sm\-\_\-compare.\-c}!convert\-\_\-real\-\_\-int@{convert\-\_\-real\-\_\-int}}
+\index{convert\-\_\-real\-\_\-int@{convert\-\_\-real\-\_\-int}!sm_compare.c@{sm\-\_\-compare.\-c}}
+\subsubsection[{convert\-\_\-real\-\_\-int}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf convert\-\_\-real\-\_\-int} (
+\begin{DoxyParamCaption}
+\item[{int}]{n, }
+\item[{{\bf t\-\_\-compare\-\_\-value} $\ast$}]{val, }
+\item[{{\bf e\-\_\-comparison\-\_\-t}}]{cmpt, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Right}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{sm__compare_8c_a7eabe6e6b645a8222ff5266bc604b12e}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=330pt]{sm__compare_8c_a7eabe6e6b645a8222ff5266bc604b12e_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=274pt]{sm__compare_8c_a7eabe6e6b645a8222ff5266bc604b12e_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{sm__compare_8c_a4859a7916393e00d04e481decacdb54b}{\index{sm\-\_\-compare.\-c@{sm\-\_\-compare.\-c}!evaluate\-\_\-compare@{evaluate\-\_\-compare}}
+\index{evaluate\-\_\-compare@{evaluate\-\_\-compare}!sm_compare.c@{sm\-\_\-compare.\-c}}
+\subsubsection[{evaluate\-\_\-compare}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf evaluate\-\_\-compare} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-topology} $\ast$}]{top, }
+\item[{{\bf t\-\_\-trxframe} $\ast$}]{fr, }
+\item[{{\bf t\-\_\-pbc} $\ast$}]{pbc, }
+\item[{{\bf gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$}]{g, }
+\item[{{\bf gmx\-\_\-ana\-\_\-selvalue\-\_\-t} $\ast$}]{out, }
+\item[{{\bf void} $\ast$}]{data}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{sm__compare_8c_a4859a7916393e00d04e481decacdb54b}
+\-Evaluates comparison expressions.
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em top} & \-Not used. \\
+\hline
+\mbox{\tt in}  & {\em fr} & \-Not used. \\
+\hline
+\mbox{\tt in}  & {\em pbc} & \-Not used. \\
+\hline
+\mbox{\tt in}  & {\em g} & \-Evaluation index group. \\
+\hline
+\mbox{\tt out}  & {\em out} & \-Output data structure ({\ttfamily out-\/$>$u.\-g} is used). \\
+\hline
+\mbox{\tt in}  & {\em data} & \-Should point to a {\ttfamily \hyperlink{structt__methoddata__compare}{t\-\_\-methoddata\-\_\-compare}}. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+0 for success. 
+\end{DoxyReturn}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{sm__compare_8c_a4859a7916393e00d04e481decacdb54b_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{sm__compare_8c_aa1dd516baab6c08ff824f0a8e17a0ad1}{\index{sm\-\_\-compare.\-c@{sm\-\_\-compare.\-c}!evaluate\-\_\-compare\-\_\-int@{evaluate\-\_\-compare\-\_\-int}}
+\index{evaluate\-\_\-compare\-\_\-int@{evaluate\-\_\-compare\-\_\-int}!sm_compare.c@{sm\-\_\-compare.\-c}}
+\subsubsection[{evaluate\-\_\-compare\-\_\-int}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf evaluate\-\_\-compare\-\_\-int} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-topology} $\ast$}]{top, }
+\item[{{\bf t\-\_\-trxframe} $\ast$}]{fr, }
+\item[{{\bf t\-\_\-pbc} $\ast$}]{pbc, }
+\item[{{\bf gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$}]{g, }
+\item[{{\bf gmx\-\_\-ana\-\_\-selvalue\-\_\-t} $\ast$}]{out, }
+\item[{{\bf void} $\ast$}]{data}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{sm__compare_8c_aa1dd516baab6c08ff824f0a8e17a0ad1}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em top} & \-Not used. \\
+\hline
+\mbox{\tt in}  & {\em fr} & \-Not used. \\
+\hline
+\mbox{\tt in}  & {\em pbc} & \-Not used. \\
+\hline
+\mbox{\tt in}  & {\em g} & \-Evaluation index group. \\
+\hline
+\mbox{\tt out}  & {\em out} & \-Output data structure ({\ttfamily out-\/$>$u.\-g} is used). \\
+\hline
+\mbox{\tt in}  & {\em data} & \-Should point to a {\ttfamily \hyperlink{structt__methoddata__compare}{t\-\_\-methoddata\-\_\-compare}}. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+0 for success. 
+\end{DoxyReturn}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=324pt]{sm__compare_8c_aa1dd516baab6c08ff824f0a8e17a0ad1_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{sm__compare_8c_a947f7b72224fe5b8eb64e29287304b89}{\index{sm\-\_\-compare.\-c@{sm\-\_\-compare.\-c}!evaluate\-\_\-compare\-\_\-real@{evaluate\-\_\-compare\-\_\-real}}
+\index{evaluate\-\_\-compare\-\_\-real@{evaluate\-\_\-compare\-\_\-real}!sm_compare.c@{sm\-\_\-compare.\-c}}
+\subsubsection[{evaluate\-\_\-compare\-\_\-real}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf evaluate\-\_\-compare\-\_\-real} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-topology} $\ast$}]{top, }
+\item[{{\bf t\-\_\-trxframe} $\ast$}]{fr, }
+\item[{{\bf t\-\_\-pbc} $\ast$}]{pbc, }
+\item[{{\bf gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$}]{g, }
+\item[{{\bf gmx\-\_\-ana\-\_\-selvalue\-\_\-t} $\ast$}]{out, }
+\item[{{\bf void} $\ast$}]{data}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{sm__compare_8c_a947f7b72224fe5b8eb64e29287304b89}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em top} & \-Not used. \\
+\hline
+\mbox{\tt in}  & {\em fr} & \-Not used. \\
+\hline
+\mbox{\tt in}  & {\em pbc} & \-Not used. \\
+\hline
+\mbox{\tt in}  & {\em g} & \-Evaluation index group. \\
+\hline
+\mbox{\tt out}  & {\em out} & \-Output data structure ({\ttfamily out-\/$>$u.\-g} is used). \\
+\hline
+\mbox{\tt in}  & {\em data} & \-Should point to a {\ttfamily \hyperlink{structt__methoddata__compare}{t\-\_\-methoddata\-\_\-compare}}. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+0 for success. 
+\end{DoxyReturn}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=316pt]{sm__compare_8c_a947f7b72224fe5b8eb64e29287304b89_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=330pt]{sm__compare_8c_a947f7b72224fe5b8eb64e29287304b89_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{sm__compare_8c_aa72d1a8a8f2afb1fc226cf082c051125}{\index{sm\-\_\-compare.\-c@{sm\-\_\-compare.\-c}!free\-\_\-data\-\_\-compare@{free\-\_\-data\-\_\-compare}}
+\index{free\-\_\-data\-\_\-compare@{free\-\_\-data\-\_\-compare}!sm_compare.c@{sm\-\_\-compare.\-c}}
+\subsubsection[{free\-\_\-data\-\_\-compare}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf free\-\_\-data\-\_\-compare} (
+\begin{DoxyParamCaption}
+\item[{{\bf void} $\ast$}]{data}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{sm__compare_8c_aa72d1a8a8f2afb1fc226cf082c051125}
+\-Frees the memory allocated for comparison expression evaluation.
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em data} & \-Data to free (should point to a {\ttfamily \hyperlink{structt__methoddata__compare}{t\-\_\-methoddata\-\_\-compare}}).\\
+\hline
+\end{DoxyParams}
+\-Frees the memory allocated for {\ttfamily \hyperlink{structt__methoddata__compare}{t\-\_\-methoddata\-\_\-compare}}. \hypertarget{sm__compare_8c_aa70fed01904def2aced9646cda967ba8}{\index{sm\-\_\-compare.\-c@{sm\-\_\-compare.\-c}!init\-\_\-compare@{init\-\_\-compare}}
+\index{init\-\_\-compare@{init\-\_\-compare}!sm_compare.c@{sm\-\_\-compare.\-c}}
+\subsubsection[{init\-\_\-compare}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf init\-\_\-compare} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-topology} $\ast$}]{top, }
+\item[{int}]{npar, }
+\item[{{\bf gmx\-\_\-ana\-\_\-selparam\-\_\-t} $\ast$}]{param, }
+\item[{{\bf void} $\ast$}]{data}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{sm__compare_8c_aa70fed01904def2aced9646cda967ba8}
+\-Initializes data for comparison expression evaluation.
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em top} & \-Not used. \\
+\hline
+\mbox{\tt in}  & {\em npar} & \-Not used (should be 5). \\
+\hline
+\mbox{\tt in}  & {\em param} & \-Method parameters (should point to \hyperlink{sm__compare_8c_af78441e8403199ac9eb8cbd85f8c3a19}{smparams\-\_\-compare}). \\
+\hline
+\mbox{\tt in}  & {\em data} & \-Should point to a {\ttfamily \hyperlink{structt__methoddata__compare}{t\-\_\-methoddata\-\_\-compare}}. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+0 if the input data is valid, -\/1 on error. 
+\end{DoxyReturn}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{sm__compare_8c_aa70fed01904def2aced9646cda967ba8_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{sm__compare_8c_aafe6d6ec2249c4f050f28347e811a4e6}{\index{sm\-\_\-compare.\-c@{sm\-\_\-compare.\-c}!init\-\_\-comparison\-\_\-value@{init\-\_\-comparison\-\_\-value}}
+\index{init\-\_\-comparison\-\_\-value@{init\-\_\-comparison\-\_\-value}!sm_compare.c@{sm\-\_\-compare.\-c}}
+\subsubsection[{init\-\_\-comparison\-\_\-value}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf init\-\_\-comparison\-\_\-value} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-compare\-\_\-value} $\ast$}]{val, }
+\item[{{\bf gmx\-\_\-ana\-\_\-selparam\-\_\-t}}]{param\mbox{[}2\mbox{]}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{sm__compare_8c_aafe6d6ec2249c4f050f28347e811a4e6}
+
+
+\-Initializes the value storage for comparison expression. 
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt out}  & {\em val} & \-Value structure to initialize. \\
+\hline
+\mbox{\tt in}  & {\em param} & \-Parameters to use for initialization. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-The number of values provided for the value, 0 on error. 
+\end{DoxyReturn}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=302pt]{sm__compare_8c_aafe6d6ec2249c4f050f28347e811a4e6_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{sm__compare_8c_a2c25c6848ba93c12f1ef2f63e016761d}{\index{sm\-\_\-compare.\-c@{sm\-\_\-compare.\-c}!init\-\_\-data\-\_\-compare@{init\-\_\-data\-\_\-compare}}
+\index{init\-\_\-data\-\_\-compare@{init\-\_\-data\-\_\-compare}!sm_compare.c@{sm\-\_\-compare.\-c}}
+\subsubsection[{init\-\_\-data\-\_\-compare}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} $\ast$ {\bf init\-\_\-data\-\_\-compare} (
+\begin{DoxyParamCaption}
+\item[{int}]{npar, }
+\item[{{\bf gmx\-\_\-ana\-\_\-selparam\-\_\-t} $\ast$}]{param}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{sm__compare_8c_a2c25c6848ba93c12f1ef2f63e016761d}
+\-Allocates data for comparison expression evaluation.
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em npar} & \-Not used (should be 5). \\
+\hline
+\mbox{\tt in,out}  & {\em param} & \-Method parameters (should point to a copy of \hyperlink{sm__compare_8c_af78441e8403199ac9eb8cbd85f8c3a19}{smparams\-\_\-compare}). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-Pointer to the allocated data ({\ttfamily \hyperlink{structt__methoddata__compare}{t\-\_\-methoddata\-\_\-compare}}).
+\end{DoxyReturn}
+\-Allocates memory for a {\ttfamily \hyperlink{structt__methoddata__compare}{t\-\_\-methoddata\-\_\-compare}} structure. \hypertarget{sm__compare_8c_aeafad0888285495ec3de412cfe3b51db}{\index{sm\-\_\-compare.\-c@{sm\-\_\-compare.\-c}!reverse\-\_\-comparison\-\_\-type@{reverse\-\_\-comparison\-\_\-type}}
+\index{reverse\-\_\-comparison\-\_\-type@{reverse\-\_\-comparison\-\_\-type}!sm_compare.c@{sm\-\_\-compare.\-c}}
+\subsubsection[{reverse\-\_\-comparison\-\_\-type}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf e\-\_\-comparison\-\_\-t} {\bf reverse\-\_\-comparison\-\_\-type} (
+\begin{DoxyParamCaption}
+\item[{{\bf e\-\_\-comparison\-\_\-t}}]{type}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{sm__compare_8c_aeafad0888285495ec3de412cfe3b51db}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{sm__compare_8c_aeafad0888285495ec3de412cfe3b51db_icgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{\-Variable \-Documentation}
+\hypertarget{sm__compare_8c_af10d13b130c0d9a80b6cc2f79656ba2f}{\index{sm\-\_\-compare.\-c@{sm\-\_\-compare.\-c}!sm\-\_\-compare@{sm\-\_\-compare}}
+\index{sm\-\_\-compare@{sm\-\_\-compare}!sm_compare.c@{sm\-\_\-compare.\-c}}
+\subsubsection[{sm\-\_\-compare}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-ana\-\_\-selmethod\-\_\-t} {\bf sm\-\_\-compare}}}\label{sm__compare_8c_af10d13b130c0d9a80b6cc2f79656ba2f}
+{\bfseries \-Initial value\-:}
+\begin{DoxyCode}
+ {
+    "cmp", GROUP_VALUE, SMETH_SINGLEVAL,
+    asize(smparams_compare), smparams_compare,
+    &init_data_compare,
+    NULL,
+    &init_compare,
+    NULL,
+    &free_data_compare,
+    NULL,
+    &evaluate_compare,
+    NULL,
+    {NULL, 0, NULL},
+}
+\end{DoxyCode}
+\-Selection method data for comparison expression evaluation. \hypertarget{sm__compare_8c_af78441e8403199ac9eb8cbd85f8c3a19}{\index{sm\-\_\-compare.\-c@{sm\-\_\-compare.\-c}!smparams\-\_\-compare@{smparams\-\_\-compare}}
+\index{smparams\-\_\-compare@{smparams\-\_\-compare}!sm_compare.c@{sm\-\_\-compare.\-c}}
+\subsubsection[{smparams\-\_\-compare}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-ana\-\_\-selparam\-\_\-t} {\bf smparams\-\_\-compare}\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{sm__compare_8c_af78441e8403199ac9eb8cbd85f8c3a19}
+{\bfseries \-Initial value\-:}
+\begin{DoxyCode}
+ {
+    {"int1",  {INT_VALUE,  -1, {NULL}}, NULL,
+     SPAR_OPTIONAL | SPAR_DYNAMIC | SPAR_ATOMVAL},
+    {"real1", {REAL_VALUE, -1, {NULL}}, NULL,
+     SPAR_OPTIONAL | SPAR_DYNAMIC | SPAR_ATOMVAL},
+    {"op",    {STR_VALUE,   1, {NULL}}, NULL, 0},
+    {"int2",  {INT_VALUE,  -1, {NULL}}, NULL,
+     SPAR_OPTIONAL | SPAR_DYNAMIC | SPAR_ATOMVAL},
+    {"real2", {REAL_VALUE, -1, {NULL}}, NULL,
+     SPAR_OPTIONAL | SPAR_DYNAMIC | SPAR_ATOMVAL},
+}
+\end{DoxyCode}
+\-Parameters for comparison expression evaluation. 

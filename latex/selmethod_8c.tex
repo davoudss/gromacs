@@ -1,0 +1,579 @@
+\hypertarget{selmethod_8c}{\section{src/gmxlib/selection/selmethod.c \-File \-Reference}
+\label{selmethod_8c}\index{src/gmxlib/selection/selmethod.\-c@{src/gmxlib/selection/selmethod.\-c}}
+}
+{\ttfamily \#include $<$ctype.\-h$>$}\*
+{\ttfamily \#include $<$stdarg.\-h$>$}\*
+{\ttfamily \#include $<$macros.\-h$>$}\*
+{\ttfamily \#include $<$string2.\-h$>$}\*
+{\ttfamily \#include $<$selmethod.\-h$>$}\*
+{\ttfamily \#include \char`\"{}selcollection.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}symrec.\-h\char`\"{}}\*
+\-Include dependency graph for selmethod.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{selmethod_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structt__register__method}{t\-\_\-register\-\_\-method}
+\begin{DoxyCompactList}\small\item\em \-Helper structure for defining selection methods. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{selmethod_8c_a2c3fd1c7dc583369c189d98e452708a3}{report\-\_\-error} (\-F\-I\-L\-E $\ast$fp, const char $\ast$name, const char $\ast$fmt,...)
+\begin{DoxyCompactList}\small\item\em \-Convenience function for reporting errors found in selection methods. \end{DoxyCompactList}\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{selmethod_8c_a56ed5be79584a99a68e82c531808dc12}{report\-\_\-param\-\_\-error} (\-F\-I\-L\-E $\ast$fp, const char $\ast$mname, const char $\ast$pname, const char $\ast$fmt,...)
+\begin{DoxyCompactList}\small\item\em \-Convenience function for reporting errors found in selection method parameters. \end{DoxyCompactList}\item 
+static \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{selmethod_8c_a41b9deed900534ed13c99afacb33bc03}{check\-\_\-params} (\-F\-I\-L\-E $\ast$fp, const char $\ast$name, int nparams, \hyperlink{structgmx__ana__selparam__t}{gmx\-\_\-ana\-\_\-selparam\-\_\-t} param\mbox{[}$\,$\mbox{]}, \hyperlink{structgmx__sel__symtab__t}{gmx\-\_\-sel\-\_\-symtab\-\_\-t} $\ast$symtab)
+\begin{DoxyCompactList}\small\item\em \-Checks the validity of parameters. \end{DoxyCompactList}\item 
+static \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{selmethod_8c_a25003915be9099878730a29976fa45f6}{check\-\_\-callbacks} (\-F\-I\-L\-E $\ast$fp, \hyperlink{structgmx__ana__selmethod__t}{gmx\-\_\-ana\-\_\-selmethod\-\_\-t} $\ast$method)
+\begin{DoxyCompactList}\small\item\em \-Checks the validity of selection method callback functions. \end{DoxyCompactList}\item 
+static \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{selmethod_8c_a61c0e240489803c8ba10f4d56bc44526}{check\-\_\-method} (\-F\-I\-L\-E $\ast$fp, \hyperlink{structgmx__ana__selmethod__t}{gmx\-\_\-ana\-\_\-selmethod\-\_\-t} $\ast$method, \hyperlink{structgmx__sel__symtab__t}{gmx\-\_\-sel\-\_\-symtab\-\_\-t} $\ast$symtab)
+\item 
+static \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{selmethod_8c_a49da43b9c165c96e4add1e075dd4a137}{check\-\_\-modifier} (\-F\-I\-L\-E $\ast$fp, \hyperlink{structgmx__ana__selmethod__t}{gmx\-\_\-ana\-\_\-selmethod\-\_\-t} $\ast$method, \hyperlink{structgmx__sel__symtab__t}{gmx\-\_\-sel\-\_\-symtab\-\_\-t} $\ast$symtab)
+\item 
+int \hyperlink{selmethod_8c_a820231622b6b4dd57fba7570f705498f}{gmx\-\_\-ana\-\_\-selmethod\-\_\-register} (struct \hyperlink{structgmx__ana__selcollection__t}{gmx\-\_\-ana\-\_\-selcollection\-\_\-t} $\ast$sc, const char $\ast$name, \hyperlink{structgmx__ana__selmethod__t}{gmx\-\_\-ana\-\_\-selmethod\-\_\-t} $\ast$method)
+\item 
+int \hyperlink{selmethod_8c_a42ce5e3ffcaaf60fd7a6f758594be655}{gmx\-\_\-ana\-\_\-selmethod\-\_\-register\-\_\-defaults} (struct \hyperlink{structgmx__ana__selcollection__t}{gmx\-\_\-ana\-\_\-selcollection\-\_\-t} $\ast$sc)
+\item 
+\hyperlink{structgmx__ana__selparam__t}{gmx\-\_\-ana\-\_\-selparam\-\_\-t} $\ast$ \hyperlink{selmethod_8c_a0e7b6b47ea1bd6dc301b26eb73524a16}{gmx\-\_\-ana\-\_\-selmethod\-\_\-find\-\_\-param} (const char $\ast$name, \hyperlink{structgmx__ana__selmethod__t}{gmx\-\_\-ana\-\_\-selmethod\-\_\-t} $\ast$method)
+\end{DoxyCompactItemize}
+\subsection*{\-Variables}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structgmx__ana__selmethod__t}{gmx\-\_\-ana\-\_\-selmethod\-\_\-t} \hyperlink{selmethod_8c_af9a727ba7eea9781c00b26d057adfa04}{sm\-\_\-cog}
+\item 
+\hyperlink{structgmx__ana__selmethod__t}{gmx\-\_\-ana\-\_\-selmethod\-\_\-t} \hyperlink{selmethod_8c_a29d2e9bd87b4e02450709c5d78562e3b}{sm\-\_\-com}
+\item 
+\hyperlink{structgmx__ana__selmethod__t}{gmx\-\_\-ana\-\_\-selmethod\-\_\-t} \hyperlink{selmethod_8c_a0efddd07e423c92f2bf32ce6bebd2c00}{sm\-\_\-all}
+\item 
+\hyperlink{structgmx__ana__selmethod__t}{gmx\-\_\-ana\-\_\-selmethod\-\_\-t} \hyperlink{selmethod_8c_a6c04c3634ebe06f1a23d2c9b18bb5115}{sm\-\_\-none}
+\item 
+\hyperlink{structgmx__ana__selmethod__t}{gmx\-\_\-ana\-\_\-selmethod\-\_\-t} \hyperlink{selmethod_8c_a1efc238f72dff88b51503e45000c02c1}{sm\-\_\-atomnr}
+\item 
+\hyperlink{structgmx__ana__selmethod__t}{gmx\-\_\-ana\-\_\-selmethod\-\_\-t} \hyperlink{selmethod_8c_afc251a6dab32f4c5bb7b5f8b90a6256e}{sm\-\_\-resnr}
+\item 
+\hyperlink{structgmx__ana__selmethod__t}{gmx\-\_\-ana\-\_\-selmethod\-\_\-t} \hyperlink{selmethod_8c_a892e74957fce909b23c0784c170e3249}{sm\-\_\-resindex}
+\item 
+\hyperlink{structgmx__ana__selmethod__t}{gmx\-\_\-ana\-\_\-selmethod\-\_\-t} \hyperlink{selmethod_8c_a2fad7801ff18028bb664b7b2834b2bdf}{sm\-\_\-molindex}
+\item 
+\hyperlink{structgmx__ana__selmethod__t}{gmx\-\_\-ana\-\_\-selmethod\-\_\-t} \hyperlink{selmethod_8c_ade0a921cccacbb3389a938f58bd0fe88}{sm\-\_\-atomname}
+\item 
+\hyperlink{structgmx__ana__selmethod__t}{gmx\-\_\-ana\-\_\-selmethod\-\_\-t} \hyperlink{selmethod_8c_a1c87c3042959ee72faab20400c8e7dab}{sm\-\_\-pdbatomname}
+\item 
+\hyperlink{structgmx__ana__selmethod__t}{gmx\-\_\-ana\-\_\-selmethod\-\_\-t} \hyperlink{selmethod_8c_affa6aa555a5631232d365677450d0183}{sm\-\_\-atomtype}
+\item 
+\hyperlink{structgmx__ana__selmethod__t}{gmx\-\_\-ana\-\_\-selmethod\-\_\-t} \hyperlink{selmethod_8c_aff4e4852b4448046d181b57f84db4967}{sm\-\_\-resname}
+\item 
+\hyperlink{structgmx__ana__selmethod__t}{gmx\-\_\-ana\-\_\-selmethod\-\_\-t} \hyperlink{selmethod_8c_a835d95dc871b7e1bb02029f393a25867}{sm\-\_\-insertcode}
+\item 
+\hyperlink{structgmx__ana__selmethod__t}{gmx\-\_\-ana\-\_\-selmethod\-\_\-t} \hyperlink{selmethod_8c_a3e65a738690b4e74f572f5da13f10798}{sm\-\_\-chain}
+\item 
+\hyperlink{structgmx__ana__selmethod__t}{gmx\-\_\-ana\-\_\-selmethod\-\_\-t} \hyperlink{selmethod_8c_ac10d87e87d95e3a2a81f8f345d81d728}{sm\-\_\-mass}
+\item 
+\hyperlink{structgmx__ana__selmethod__t}{gmx\-\_\-ana\-\_\-selmethod\-\_\-t} \hyperlink{selmethod_8c_a300117b5f09807d790a7bdfcfbd6101d}{sm\-\_\-charge}
+\item 
+\hyperlink{structgmx__ana__selmethod__t}{gmx\-\_\-ana\-\_\-selmethod\-\_\-t} \hyperlink{selmethod_8c_af8651e1901b26fabd23e56c7e0977d85}{sm\-\_\-altloc}
+\item 
+\hyperlink{structgmx__ana__selmethod__t}{gmx\-\_\-ana\-\_\-selmethod\-\_\-t} \hyperlink{selmethod_8c_a052d92ce3aa70601428de301353473cc}{sm\-\_\-occupancy}
+\item 
+\hyperlink{structgmx__ana__selmethod__t}{gmx\-\_\-ana\-\_\-selmethod\-\_\-t} \hyperlink{selmethod_8c_ae2fb953dd8327cad27e186ad580591ec}{sm\-\_\-betafactor}
+\item 
+\hyperlink{structgmx__ana__selmethod__t}{gmx\-\_\-ana\-\_\-selmethod\-\_\-t} \hyperlink{selmethod_8c_aac12f745532934c6e4299fd8cd41d76c}{sm\-\_\-x}
+\item 
+\hyperlink{structgmx__ana__selmethod__t}{gmx\-\_\-ana\-\_\-selmethod\-\_\-t} \hyperlink{selmethod_8c_a69b821ddeadaf7b25f6e2f9851871941}{sm\-\_\-y}
+\item 
+\hyperlink{structgmx__ana__selmethod__t}{gmx\-\_\-ana\-\_\-selmethod\-\_\-t} \hyperlink{selmethod_8c_ac5155116ff5b6af3a39fe9ac66cd6751}{sm\-\_\-z}
+\item 
+\hyperlink{structgmx__ana__selmethod__t}{gmx\-\_\-ana\-\_\-selmethod\-\_\-t} \hyperlink{selmethod_8c_a8764fb39a637f6ab7a2e58fbfbd0a859}{sm\-\_\-distance}
+\item 
+\hyperlink{structgmx__ana__selmethod__t}{gmx\-\_\-ana\-\_\-selmethod\-\_\-t} \hyperlink{selmethod_8c_a6402bbb0106b249b25cb8466e9dc5c67}{sm\-\_\-mindistance}
+\item 
+\hyperlink{structgmx__ana__selmethod__t}{gmx\-\_\-ana\-\_\-selmethod\-\_\-t} \hyperlink{selmethod_8c_a2a5d8bcd8f682845103bc733edafbacf}{sm\-\_\-within}
+\item 
+\hyperlink{structgmx__ana__selmethod__t}{gmx\-\_\-ana\-\_\-selmethod\-\_\-t} \hyperlink{selmethod_8c_a91d0726e5b25e139e82d56bad168f17a}{sm\-\_\-insolidangle}
+\item 
+\hyperlink{structgmx__ana__selmethod__t}{gmx\-\_\-ana\-\_\-selmethod\-\_\-t} \hyperlink{selmethod_8c_a92c9295bc9433d468d1a52e79921281d}{sm\-\_\-same}
+\item 
+\hyperlink{structgmx__ana__selmethod__t}{gmx\-\_\-ana\-\_\-selmethod\-\_\-t} \hyperlink{selmethod_8c_a75b5a1f38bc046f978f1e1eb9fed825c}{sm\-\_\-merge}
+\item 
+\hyperlink{structgmx__ana__selmethod__t}{gmx\-\_\-ana\-\_\-selmethod\-\_\-t} \hyperlink{selmethod_8c_aa7c68df94e88b3ffd6e4ee186d6d3f9c}{sm\-\_\-plus}
+\item 
+\hyperlink{structgmx__ana__selmethod__t}{gmx\-\_\-ana\-\_\-selmethod\-\_\-t} \hyperlink{selmethod_8c_a87c4c929a7a199fdc495fe849049cb2e}{sm\-\_\-permute}
+\item 
+static const \hyperlink{structt__register__method}{t\-\_\-register\-\_\-method} \hyperlink{selmethod_8c_acd51b86ccd847b3906aec685d0feb5dd}{smtable\-\_\-def} \mbox{[}$\,$\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{selmethod_8c_a25003915be9099878730a29976fa45f6}{\index{selmethod.\-c@{selmethod.\-c}!check\-\_\-callbacks@{check\-\_\-callbacks}}
+\index{check\-\_\-callbacks@{check\-\_\-callbacks}!selmethod.c@{selmethod.\-c}}
+\subsubsection[{check\-\_\-callbacks}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gmx\-\_\-bool} {\bf check\-\_\-callbacks} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{{\bf gmx\-\_\-ana\-\_\-selmethod\-\_\-t} $\ast$}]{method}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{selmethod_8c_a25003915be9099878730a29976fa45f6}
+
+
+\-Checks the validity of selection method callback functions. 
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em fp} & \-File handle to use for diagnostic messages (can be \-N\-U\-L\-L). \\
+\hline
+\mbox{\tt in}  & {\em method} & \-The method to check. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-T\-R\-U\-E if there are no problems, \-F\-A\-L\-S\-E otherwise.
+\end{DoxyReturn}
+\-This function performs some checks common to both \hyperlink{selmethod_8c_a61c0e240489803c8ba10f4d56bc44526}{check\-\_\-method()} and \hyperlink{selmethod_8c_a49da43b9c165c96e4add1e075dd4a137}{check\-\_\-modifier()}. \-This function checks that all the required callbacks are defined, i.\-e., not \-N\-U\-L\-L, to find programming errors. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=272pt]{selmethod_8c_a25003915be9099878730a29976fa45f6_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{selmethod_8c_a25003915be9099878730a29976fa45f6_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{selmethod_8c_a61c0e240489803c8ba10f4d56bc44526}{\index{selmethod.\-c@{selmethod.\-c}!check\-\_\-method@{check\-\_\-method}}
+\index{check\-\_\-method@{check\-\_\-method}!selmethod.c@{selmethod.\-c}}
+\subsubsection[{check\-\_\-method}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gmx\-\_\-bool} {\bf check\-\_\-method} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{{\bf gmx\-\_\-ana\-\_\-selmethod\-\_\-t} $\ast$}]{method, }
+\item[{{\bf gmx\-\_\-sel\-\_\-symtab\-\_\-t} $\ast$}]{symtab}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{selmethod_8c_a61c0e240489803c8ba10f4d56bc44526}
+\-Checks the validity of a selection method.
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em fp} & \-File handle to use for diagnostic messages (can be \-N\-U\-L\-L). \\
+\hline
+\mbox{\tt in,out}  & {\em method} & \-Method to check. \\
+\hline
+\mbox{\tt in}  & {\em symtab} & \-Symbol table (used for checking overlaps).\\
+\hline
+\end{DoxyParams}
+\-Checks the validity of the given selection method data structure that does not have \hyperlink{share_2template_2gromacs_2selmethod_8h_aa5b18df47b72690889afd89f5e68694c}{\-S\-M\-E\-T\-H\-\_\-\-M\-O\-D\-I\-F\-I\-E\-R} set. \-If you remove a check, please make sure that the selection parser, compiler, and evaluation functions can deal with the method. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{selmethod_8c_a61c0e240489803c8ba10f4d56bc44526_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{selmethod_8c_a61c0e240489803c8ba10f4d56bc44526_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{selmethod_8c_a49da43b9c165c96e4add1e075dd4a137}{\index{selmethod.\-c@{selmethod.\-c}!check\-\_\-modifier@{check\-\_\-modifier}}
+\index{check\-\_\-modifier@{check\-\_\-modifier}!selmethod.c@{selmethod.\-c}}
+\subsubsection[{check\-\_\-modifier}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gmx\-\_\-bool} {\bf check\-\_\-modifier} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{{\bf gmx\-\_\-ana\-\_\-selmethod\-\_\-t} $\ast$}]{method, }
+\item[{{\bf gmx\-\_\-sel\-\_\-symtab\-\_\-t} $\ast$}]{symtab}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{selmethod_8c_a49da43b9c165c96e4add1e075dd4a137}
+\-Checks the validity of a selection modifier method.
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em fp} & \-File handle to use for diagnostic messages (can be \-N\-U\-L\-L). \\
+\hline
+\mbox{\tt in,out}  & {\em method} & \-Method to check. \\
+\hline
+\mbox{\tt in}  & {\em symtab} & \-Symbol table (used for checking overlaps).\\
+\hline
+\end{DoxyParams}
+\-Checks the validity of the given selection method data structure that has \hyperlink{share_2template_2gromacs_2selmethod_8h_aa5b18df47b72690889afd89f5e68694c}{\-S\-M\-E\-T\-H\-\_\-\-M\-O\-D\-I\-F\-I\-E\-R} set. \-If you remove a check, please make sure that the selection parser, compiler, and evaluation functions can deal with the method. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{selmethod_8c_a49da43b9c165c96e4add1e075dd4a137_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{selmethod_8c_a49da43b9c165c96e4add1e075dd4a137_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{selmethod_8c_a41b9deed900534ed13c99afacb33bc03}{\index{selmethod.\-c@{selmethod.\-c}!check\-\_\-params@{check\-\_\-params}}
+\index{check\-\_\-params@{check\-\_\-params}!selmethod.c@{selmethod.\-c}}
+\subsubsection[{check\-\_\-params}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gmx\-\_\-bool} {\bf check\-\_\-params} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{const char $\ast$}]{name, }
+\item[{int}]{nparams, }
+\item[{{\bf gmx\-\_\-ana\-\_\-selparam\-\_\-t}}]{param\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf gmx\-\_\-sel\-\_\-symtab\-\_\-t} $\ast$}]{symtab}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{selmethod_8c_a41b9deed900534ed13c99afacb33bc03}
+
+
+\-Checks the validity of parameters. 
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em fp} & \-File handle to use for diagnostic messages (can be \-N\-U\-L\-L). \\
+\hline
+\mbox{\tt in}  & {\em name} & \-Name of the method (used for error messages). \\
+\hline
+\mbox{\tt in}  & {\em nparams} & \-Number of parameters in {\ttfamily param}. \\
+\hline
+\mbox{\tt in,out}  & {\em param} & \-Parameter array (only the {\ttfamily flags} field of gmx\-\_\-boolean parameters may be modified). \\
+\hline
+\mbox{\tt in}  & {\em symtab} & \-Symbol table (used for checking overlaps). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-T\-R\-U\-E if there are no problems with the parameters, \-F\-A\-L\-S\-E otherwise.
+\end{DoxyReturn}
+\-This function performs some checks common to both \hyperlink{selmethod_8c_a61c0e240489803c8ba10f4d56bc44526}{check\-\_\-method()} and \hyperlink{selmethod_8c_a49da43b9c165c96e4add1e075dd4a137}{check\-\_\-modifier()}. \-The purpose of these checks is to ensure that the selection parser does not need to check for the validity of the parameters at each turn, and to report programming errors as early as possible. \-If you remove a check, make sure that the parameter parser can handle the resulting parameters. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{selmethod_8c_a41b9deed900534ed13c99afacb33bc03_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{selmethod_8c_a41b9deed900534ed13c99afacb33bc03_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{selmethod_8c_a0e7b6b47ea1bd6dc301b26eb73524a16}{\index{selmethod.\-c@{selmethod.\-c}!gmx\-\_\-ana\-\_\-selmethod\-\_\-find\-\_\-param@{gmx\-\_\-ana\-\_\-selmethod\-\_\-find\-\_\-param}}
+\index{gmx\-\_\-ana\-\_\-selmethod\-\_\-find\-\_\-param@{gmx\-\_\-ana\-\_\-selmethod\-\_\-find\-\_\-param}!selmethod.c@{selmethod.\-c}}
+\subsubsection[{gmx\-\_\-ana\-\_\-selmethod\-\_\-find\-\_\-param}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-ana\-\_\-selparam\-\_\-t}$\ast$ {\bf gmx\-\_\-ana\-\_\-selmethod\-\_\-find\-\_\-param} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{name, }
+\item[{{\bf gmx\-\_\-ana\-\_\-selmethod\-\_\-t} $\ast$}]{method}
+\end{DoxyParamCaption}
+)}}\label{selmethod_8c_a0e7b6b47ea1bd6dc301b26eb73524a16}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em name} & \-Name of the parameter to search. \\
+\hline
+\mbox{\tt in}  & {\em method} & \-Method to search for the parameter. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-Pointer to the parameter in the \hyperlink{structgmx__ana__selmethod__t_a1a26cbd06fbc4ab9a5744148d9af3503}{method-\/$>$param} array, or \-N\-U\-L\-L if no parameter with name {\ttfamily name} was found.
+\end{DoxyReturn}
+\-This is a simple wrapper for \hyperlink{include_2selparam_8h_a7400c81820037ea822c19a60c31fc486}{gmx\-\_\-ana\-\_\-selparam\-\_\-find()}. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{selmethod_8c_a0e7b6b47ea1bd6dc301b26eb73524a16_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{selmethod_8c_a0e7b6b47ea1bd6dc301b26eb73524a16_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{selmethod_8c_a820231622b6b4dd57fba7570f705498f}{\index{selmethod.\-c@{selmethod.\-c}!gmx\-\_\-ana\-\_\-selmethod\-\_\-register@{gmx\-\_\-ana\-\_\-selmethod\-\_\-register}}
+\index{gmx\-\_\-ana\-\_\-selmethod\-\_\-register@{gmx\-\_\-ana\-\_\-selmethod\-\_\-register}!selmethod.c@{selmethod.\-c}}
+\subsubsection[{gmx\-\_\-ana\-\_\-selmethod\-\_\-register}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-ana\-\_\-selmethod\-\_\-register} (
+\begin{DoxyParamCaption}
+\item[{struct {\bf gmx\-\_\-ana\-\_\-selcollection\-\_\-t} $\ast$}]{sc, }
+\item[{const char $\ast$}]{name, }
+\item[{{\bf gmx\-\_\-ana\-\_\-selmethod\-\_\-t} $\ast$}]{method}
+\end{DoxyParamCaption}
+)}}\label{selmethod_8c_a820231622b6b4dd57fba7570f705498f}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in,out}  & {\em sc} & \-Selection collection to registered the method to. \\
+\hline
+\mbox{\tt in}  & {\em name} & \-Name under which the method should be registered. \\
+\hline
+\mbox{\tt in}  & {\em method} & \-Method to register. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+0 on success, \-E\-I\-N\-V\-A\-L if there was something wrong with the method.
+\end{DoxyReturn}
+{\ttfamily name} does not need to match the name of the method, and the same method can be registered multiple times under different names. \-If {\ttfamily name} equals some previously registered name, an error message is printed and the method is not registered.
+
+\-The function also performs some sanity checking on the input method, and refuses to register it if there are problems. \-Some problems only generate warnings. \-All problems are described to {\ttfamily stderr}. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{selmethod_8c_a820231622b6b4dd57fba7570f705498f_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{selmethod_8c_a820231622b6b4dd57fba7570f705498f_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{selmethod_8c_a42ce5e3ffcaaf60fd7a6f758594be655}{\index{selmethod.\-c@{selmethod.\-c}!gmx\-\_\-ana\-\_\-selmethod\-\_\-register\-\_\-defaults@{gmx\-\_\-ana\-\_\-selmethod\-\_\-register\-\_\-defaults}}
+\index{gmx\-\_\-ana\-\_\-selmethod\-\_\-register\-\_\-defaults@{gmx\-\_\-ana\-\_\-selmethod\-\_\-register\-\_\-defaults}!selmethod.c@{selmethod.\-c}}
+\subsubsection[{gmx\-\_\-ana\-\_\-selmethod\-\_\-register\-\_\-defaults}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-ana\-\_\-selmethod\-\_\-register\-\_\-defaults} (
+\begin{DoxyParamCaption}
+\item[{struct {\bf gmx\-\_\-ana\-\_\-selcollection\-\_\-t} $\ast$}]{sc}
+\end{DoxyParamCaption}
+)}}\label{selmethod_8c_a42ce5e3ffcaaf60fd7a6f758594be655}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in,out}  & {\em sc} & \-Selection collection to registered the methods to. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+0 on success, -\/1 if any of the default methods could not be registered. 
+\end{DoxyReturn}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{selmethod_8c_a42ce5e3ffcaaf60fd7a6f758594be655_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{selmethod_8c_a42ce5e3ffcaaf60fd7a6f758594be655_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{selmethod_8c_a2c3fd1c7dc583369c189d98e452708a3}{\index{selmethod.\-c@{selmethod.\-c}!report\-\_\-error@{report\-\_\-error}}
+\index{report\-\_\-error@{report\-\_\-error}!selmethod.c@{selmethod.\-c}}
+\subsubsection[{report\-\_\-error}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf report\-\_\-error} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{const char $\ast$}]{name, }
+\item[{const char $\ast$}]{fmt, }
+\item[{}]{...}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{selmethod_8c_a2c3fd1c7dc583369c189d98e452708a3}
+
+
+\-Convenience function for reporting errors found in selection methods. 
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{selmethod_8c_a2c3fd1c7dc583369c189d98e452708a3_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{selmethod_8c_a56ed5be79584a99a68e82c531808dc12}{\index{selmethod.\-c@{selmethod.\-c}!report\-\_\-param\-\_\-error@{report\-\_\-param\-\_\-error}}
+\index{report\-\_\-param\-\_\-error@{report\-\_\-param\-\_\-error}!selmethod.c@{selmethod.\-c}}
+\subsubsection[{report\-\_\-param\-\_\-error}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf report\-\_\-param\-\_\-error} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{const char $\ast$}]{mname, }
+\item[{const char $\ast$}]{pname, }
+\item[{const char $\ast$}]{fmt, }
+\item[{}]{...}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{selmethod_8c_a56ed5be79584a99a68e82c531808dc12}
+
+
+\-Convenience function for reporting errors found in selection method parameters. 
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{selmethod_8c_a56ed5be79584a99a68e82c531808dc12_icgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{\-Variable \-Documentation}
+\hypertarget{selmethod_8c_a0efddd07e423c92f2bf32ce6bebd2c00}{\index{selmethod.\-c@{selmethod.\-c}!sm\-\_\-all@{sm\-\_\-all}}
+\index{sm\-\_\-all@{sm\-\_\-all}!selmethod.c@{selmethod.\-c}}
+\subsubsection[{sm\-\_\-all}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-ana\-\_\-selmethod\-\_\-t} {\bf sm\-\_\-all}}}\label{selmethod_8c_a0efddd07e423c92f2bf32ce6bebd2c00}
+\hypertarget{selmethod_8c_af8651e1901b26fabd23e56c7e0977d85}{\index{selmethod.\-c@{selmethod.\-c}!sm\-\_\-altloc@{sm\-\_\-altloc}}
+\index{sm\-\_\-altloc@{sm\-\_\-altloc}!selmethod.c@{selmethod.\-c}}
+\subsubsection[{sm\-\_\-altloc}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-ana\-\_\-selmethod\-\_\-t} {\bf sm\-\_\-altloc}}}\label{selmethod_8c_af8651e1901b26fabd23e56c7e0977d85}
+\hypertarget{selmethod_8c_ade0a921cccacbb3389a938f58bd0fe88}{\index{selmethod.\-c@{selmethod.\-c}!sm\-\_\-atomname@{sm\-\_\-atomname}}
+\index{sm\-\_\-atomname@{sm\-\_\-atomname}!selmethod.c@{selmethod.\-c}}
+\subsubsection[{sm\-\_\-atomname}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-ana\-\_\-selmethod\-\_\-t} {\bf sm\-\_\-atomname}}}\label{selmethod_8c_ade0a921cccacbb3389a938f58bd0fe88}
+\hypertarget{selmethod_8c_a1efc238f72dff88b51503e45000c02c1}{\index{selmethod.\-c@{selmethod.\-c}!sm\-\_\-atomnr@{sm\-\_\-atomnr}}
+\index{sm\-\_\-atomnr@{sm\-\_\-atomnr}!selmethod.c@{selmethod.\-c}}
+\subsubsection[{sm\-\_\-atomnr}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-ana\-\_\-selmethod\-\_\-t} {\bf sm\-\_\-atomnr}}}\label{selmethod_8c_a1efc238f72dff88b51503e45000c02c1}
+\hypertarget{selmethod_8c_affa6aa555a5631232d365677450d0183}{\index{selmethod.\-c@{selmethod.\-c}!sm\-\_\-atomtype@{sm\-\_\-atomtype}}
+\index{sm\-\_\-atomtype@{sm\-\_\-atomtype}!selmethod.c@{selmethod.\-c}}
+\subsubsection[{sm\-\_\-atomtype}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-ana\-\_\-selmethod\-\_\-t} {\bf sm\-\_\-atomtype}}}\label{selmethod_8c_affa6aa555a5631232d365677450d0183}
+\hypertarget{selmethod_8c_ae2fb953dd8327cad27e186ad580591ec}{\index{selmethod.\-c@{selmethod.\-c}!sm\-\_\-betafactor@{sm\-\_\-betafactor}}
+\index{sm\-\_\-betafactor@{sm\-\_\-betafactor}!selmethod.c@{selmethod.\-c}}
+\subsubsection[{sm\-\_\-betafactor}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-ana\-\_\-selmethod\-\_\-t} {\bf sm\-\_\-betafactor}}}\label{selmethod_8c_ae2fb953dd8327cad27e186ad580591ec}
+\hypertarget{selmethod_8c_a3e65a738690b4e74f572f5da13f10798}{\index{selmethod.\-c@{selmethod.\-c}!sm\-\_\-chain@{sm\-\_\-chain}}
+\index{sm\-\_\-chain@{sm\-\_\-chain}!selmethod.c@{selmethod.\-c}}
+\subsubsection[{sm\-\_\-chain}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-ana\-\_\-selmethod\-\_\-t} {\bf sm\-\_\-chain}}}\label{selmethod_8c_a3e65a738690b4e74f572f5da13f10798}
+\hypertarget{selmethod_8c_a300117b5f09807d790a7bdfcfbd6101d}{\index{selmethod.\-c@{selmethod.\-c}!sm\-\_\-charge@{sm\-\_\-charge}}
+\index{sm\-\_\-charge@{sm\-\_\-charge}!selmethod.c@{selmethod.\-c}}
+\subsubsection[{sm\-\_\-charge}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-ana\-\_\-selmethod\-\_\-t} {\bf sm\-\_\-charge}}}\label{selmethod_8c_a300117b5f09807d790a7bdfcfbd6101d}
+\hypertarget{selmethod_8c_af9a727ba7eea9781c00b26d057adfa04}{\index{selmethod.\-c@{selmethod.\-c}!sm\-\_\-cog@{sm\-\_\-cog}}
+\index{sm\-\_\-cog@{sm\-\_\-cog}!selmethod.c@{selmethod.\-c}}
+\subsubsection[{sm\-\_\-cog}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-ana\-\_\-selmethod\-\_\-t} {\bf sm\-\_\-cog}}}\label{selmethod_8c_af9a727ba7eea9781c00b26d057adfa04}
+\hypertarget{selmethod_8c_a29d2e9bd87b4e02450709c5d78562e3b}{\index{selmethod.\-c@{selmethod.\-c}!sm\-\_\-com@{sm\-\_\-com}}
+\index{sm\-\_\-com@{sm\-\_\-com}!selmethod.c@{selmethod.\-c}}
+\subsubsection[{sm\-\_\-com}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-ana\-\_\-selmethod\-\_\-t} {\bf sm\-\_\-com}}}\label{selmethod_8c_a29d2e9bd87b4e02450709c5d78562e3b}
+\hypertarget{selmethod_8c_a8764fb39a637f6ab7a2e58fbfbd0a859}{\index{selmethod.\-c@{selmethod.\-c}!sm\-\_\-distance@{sm\-\_\-distance}}
+\index{sm\-\_\-distance@{sm\-\_\-distance}!selmethod.c@{selmethod.\-c}}
+\subsubsection[{sm\-\_\-distance}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-ana\-\_\-selmethod\-\_\-t} {\bf sm\-\_\-distance}}}\label{selmethod_8c_a8764fb39a637f6ab7a2e58fbfbd0a859}
+\hypertarget{selmethod_8c_a835d95dc871b7e1bb02029f393a25867}{\index{selmethod.\-c@{selmethod.\-c}!sm\-\_\-insertcode@{sm\-\_\-insertcode}}
+\index{sm\-\_\-insertcode@{sm\-\_\-insertcode}!selmethod.c@{selmethod.\-c}}
+\subsubsection[{sm\-\_\-insertcode}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-ana\-\_\-selmethod\-\_\-t} {\bf sm\-\_\-insertcode}}}\label{selmethod_8c_a835d95dc871b7e1bb02029f393a25867}
+\hypertarget{selmethod_8c_a91d0726e5b25e139e82d56bad168f17a}{\index{selmethod.\-c@{selmethod.\-c}!sm\-\_\-insolidangle@{sm\-\_\-insolidangle}}
+\index{sm\-\_\-insolidangle@{sm\-\_\-insolidangle}!selmethod.c@{selmethod.\-c}}
+\subsubsection[{sm\-\_\-insolidangle}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-ana\-\_\-selmethod\-\_\-t} {\bf sm\-\_\-insolidangle}}}\label{selmethod_8c_a91d0726e5b25e139e82d56bad168f17a}
+\hypertarget{selmethod_8c_ac10d87e87d95e3a2a81f8f345d81d728}{\index{selmethod.\-c@{selmethod.\-c}!sm\-\_\-mass@{sm\-\_\-mass}}
+\index{sm\-\_\-mass@{sm\-\_\-mass}!selmethod.c@{selmethod.\-c}}
+\subsubsection[{sm\-\_\-mass}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-ana\-\_\-selmethod\-\_\-t} {\bf sm\-\_\-mass}}}\label{selmethod_8c_ac10d87e87d95e3a2a81f8f345d81d728}
+\hypertarget{selmethod_8c_a75b5a1f38bc046f978f1e1eb9fed825c}{\index{selmethod.\-c@{selmethod.\-c}!sm\-\_\-merge@{sm\-\_\-merge}}
+\index{sm\-\_\-merge@{sm\-\_\-merge}!selmethod.c@{selmethod.\-c}}
+\subsubsection[{sm\-\_\-merge}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-ana\-\_\-selmethod\-\_\-t} {\bf sm\-\_\-merge}}}\label{selmethod_8c_a75b5a1f38bc046f978f1e1eb9fed825c}
+\hypertarget{selmethod_8c_a6402bbb0106b249b25cb8466e9dc5c67}{\index{selmethod.\-c@{selmethod.\-c}!sm\-\_\-mindistance@{sm\-\_\-mindistance}}
+\index{sm\-\_\-mindistance@{sm\-\_\-mindistance}!selmethod.c@{selmethod.\-c}}
+\subsubsection[{sm\-\_\-mindistance}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-ana\-\_\-selmethod\-\_\-t} {\bf sm\-\_\-mindistance}}}\label{selmethod_8c_a6402bbb0106b249b25cb8466e9dc5c67}
+\hypertarget{selmethod_8c_a2fad7801ff18028bb664b7b2834b2bdf}{\index{selmethod.\-c@{selmethod.\-c}!sm\-\_\-molindex@{sm\-\_\-molindex}}
+\index{sm\-\_\-molindex@{sm\-\_\-molindex}!selmethod.c@{selmethod.\-c}}
+\subsubsection[{sm\-\_\-molindex}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-ana\-\_\-selmethod\-\_\-t} {\bf sm\-\_\-molindex}}}\label{selmethod_8c_a2fad7801ff18028bb664b7b2834b2bdf}
+\hypertarget{selmethod_8c_a6c04c3634ebe06f1a23d2c9b18bb5115}{\index{selmethod.\-c@{selmethod.\-c}!sm\-\_\-none@{sm\-\_\-none}}
+\index{sm\-\_\-none@{sm\-\_\-none}!selmethod.c@{selmethod.\-c}}
+\subsubsection[{sm\-\_\-none}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-ana\-\_\-selmethod\-\_\-t} {\bf sm\-\_\-none}}}\label{selmethod_8c_a6c04c3634ebe06f1a23d2c9b18bb5115}
+\hypertarget{selmethod_8c_a052d92ce3aa70601428de301353473cc}{\index{selmethod.\-c@{selmethod.\-c}!sm\-\_\-occupancy@{sm\-\_\-occupancy}}
+\index{sm\-\_\-occupancy@{sm\-\_\-occupancy}!selmethod.c@{selmethod.\-c}}
+\subsubsection[{sm\-\_\-occupancy}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-ana\-\_\-selmethod\-\_\-t} {\bf sm\-\_\-occupancy}}}\label{selmethod_8c_a052d92ce3aa70601428de301353473cc}
+\hypertarget{selmethod_8c_a1c87c3042959ee72faab20400c8e7dab}{\index{selmethod.\-c@{selmethod.\-c}!sm\-\_\-pdbatomname@{sm\-\_\-pdbatomname}}
+\index{sm\-\_\-pdbatomname@{sm\-\_\-pdbatomname}!selmethod.c@{selmethod.\-c}}
+\subsubsection[{sm\-\_\-pdbatomname}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-ana\-\_\-selmethod\-\_\-t} {\bf sm\-\_\-pdbatomname}}}\label{selmethod_8c_a1c87c3042959ee72faab20400c8e7dab}
+\hypertarget{selmethod_8c_a87c4c929a7a199fdc495fe849049cb2e}{\index{selmethod.\-c@{selmethod.\-c}!sm\-\_\-permute@{sm\-\_\-permute}}
+\index{sm\-\_\-permute@{sm\-\_\-permute}!selmethod.c@{selmethod.\-c}}
+\subsubsection[{sm\-\_\-permute}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-ana\-\_\-selmethod\-\_\-t} {\bf sm\-\_\-permute}}}\label{selmethod_8c_a87c4c929a7a199fdc495fe849049cb2e}
+\hypertarget{selmethod_8c_aa7c68df94e88b3ffd6e4ee186d6d3f9c}{\index{selmethod.\-c@{selmethod.\-c}!sm\-\_\-plus@{sm\-\_\-plus}}
+\index{sm\-\_\-plus@{sm\-\_\-plus}!selmethod.c@{selmethod.\-c}}
+\subsubsection[{sm\-\_\-plus}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-ana\-\_\-selmethod\-\_\-t} {\bf sm\-\_\-plus}}}\label{selmethod_8c_aa7c68df94e88b3ffd6e4ee186d6d3f9c}
+\hypertarget{selmethod_8c_a892e74957fce909b23c0784c170e3249}{\index{selmethod.\-c@{selmethod.\-c}!sm\-\_\-resindex@{sm\-\_\-resindex}}
+\index{sm\-\_\-resindex@{sm\-\_\-resindex}!selmethod.c@{selmethod.\-c}}
+\subsubsection[{sm\-\_\-resindex}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-ana\-\_\-selmethod\-\_\-t} {\bf sm\-\_\-resindex}}}\label{selmethod_8c_a892e74957fce909b23c0784c170e3249}
+\hypertarget{selmethod_8c_aff4e4852b4448046d181b57f84db4967}{\index{selmethod.\-c@{selmethod.\-c}!sm\-\_\-resname@{sm\-\_\-resname}}
+\index{sm\-\_\-resname@{sm\-\_\-resname}!selmethod.c@{selmethod.\-c}}
+\subsubsection[{sm\-\_\-resname}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-ana\-\_\-selmethod\-\_\-t} {\bf sm\-\_\-resname}}}\label{selmethod_8c_aff4e4852b4448046d181b57f84db4967}
+\hypertarget{selmethod_8c_afc251a6dab32f4c5bb7b5f8b90a6256e}{\index{selmethod.\-c@{selmethod.\-c}!sm\-\_\-resnr@{sm\-\_\-resnr}}
+\index{sm\-\_\-resnr@{sm\-\_\-resnr}!selmethod.c@{selmethod.\-c}}
+\subsubsection[{sm\-\_\-resnr}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-ana\-\_\-selmethod\-\_\-t} {\bf sm\-\_\-resnr}}}\label{selmethod_8c_afc251a6dab32f4c5bb7b5f8b90a6256e}
+\hypertarget{selmethod_8c_a92c9295bc9433d468d1a52e79921281d}{\index{selmethod.\-c@{selmethod.\-c}!sm\-\_\-same@{sm\-\_\-same}}
+\index{sm\-\_\-same@{sm\-\_\-same}!selmethod.c@{selmethod.\-c}}
+\subsubsection[{sm\-\_\-same}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-ana\-\_\-selmethod\-\_\-t} {\bf sm\-\_\-same}}}\label{selmethod_8c_a92c9295bc9433d468d1a52e79921281d}
+\hypertarget{selmethod_8c_a2a5d8bcd8f682845103bc733edafbacf}{\index{selmethod.\-c@{selmethod.\-c}!sm\-\_\-within@{sm\-\_\-within}}
+\index{sm\-\_\-within@{sm\-\_\-within}!selmethod.c@{selmethod.\-c}}
+\subsubsection[{sm\-\_\-within}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-ana\-\_\-selmethod\-\_\-t} {\bf sm\-\_\-within}}}\label{selmethod_8c_a2a5d8bcd8f682845103bc733edafbacf}
+\hypertarget{selmethod_8c_aac12f745532934c6e4299fd8cd41d76c}{\index{selmethod.\-c@{selmethod.\-c}!sm\-\_\-x@{sm\-\_\-x}}
+\index{sm\-\_\-x@{sm\-\_\-x}!selmethod.c@{selmethod.\-c}}
+\subsubsection[{sm\-\_\-x}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-ana\-\_\-selmethod\-\_\-t} {\bf sm\-\_\-x}}}\label{selmethod_8c_aac12f745532934c6e4299fd8cd41d76c}
+\hypertarget{selmethod_8c_a69b821ddeadaf7b25f6e2f9851871941}{\index{selmethod.\-c@{selmethod.\-c}!sm\-\_\-y@{sm\-\_\-y}}
+\index{sm\-\_\-y@{sm\-\_\-y}!selmethod.c@{selmethod.\-c}}
+\subsubsection[{sm\-\_\-y}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-ana\-\_\-selmethod\-\_\-t} {\bf sm\-\_\-y}}}\label{selmethod_8c_a69b821ddeadaf7b25f6e2f9851871941}
+\hypertarget{selmethod_8c_ac5155116ff5b6af3a39fe9ac66cd6751}{\index{selmethod.\-c@{selmethod.\-c}!sm\-\_\-z@{sm\-\_\-z}}
+\index{sm\-\_\-z@{sm\-\_\-z}!selmethod.c@{selmethod.\-c}}
+\subsubsection[{sm\-\_\-z}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-ana\-\_\-selmethod\-\_\-t} {\bf sm\-\_\-z}}}\label{selmethod_8c_ac5155116ff5b6af3a39fe9ac66cd6751}
+\hypertarget{selmethod_8c_acd51b86ccd847b3906aec685d0feb5dd}{\index{selmethod.\-c@{selmethod.\-c}!smtable\-\_\-def@{smtable\-\_\-def}}
+\index{smtable\-\_\-def@{smtable\-\_\-def}!selmethod.c@{selmethod.\-c}}
+\subsubsection[{smtable\-\_\-def}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf t\-\_\-register\-\_\-method} {\bf smtable\-\_\-def}\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{selmethod_8c_acd51b86ccd847b3906aec685d0feb5dd}
+\-Array of selection methods defined in the library. 

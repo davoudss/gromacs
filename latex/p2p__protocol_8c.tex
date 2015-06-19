@@ -1,0 +1,992 @@
+\hypertarget{p2p__protocol_8c}{\section{src/gmxlib/thread\-\_\-mpi/p2p\-\_\-protocol.c \-File \-Reference}
+\label{p2p__protocol_8c}\index{src/gmxlib/thread\-\_\-mpi/p2p\-\_\-protocol.\-c@{src/gmxlib/thread\-\_\-mpi/p2p\-\_\-protocol.\-c}}
+}
+{\ttfamily \#include $<$errno.\-h$>$}\*
+{\ttfamily \#include $<$stdlib.\-h$>$}\*
+{\ttfamily \#include $<$stdio.\-h$>$}\*
+{\ttfamily \#include $<$stdarg.\-h$>$}\*
+{\ttfamily \#include $<$string.\-h$>$}\*
+{\ttfamily \#include \char`\"{}impl.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}p2p.\-h\char`\"{}}\*
+\-Include dependency graph for p2p\-\_\-protocol.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{p2p__protocol_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+static struct \hyperlink{structenvelope}{envelope} $\ast$ \hyperlink{p2p__protocol_8c_ab28902206c8a11a0b08fd9579f9bc11d}{t\-M\-P\-I\-\_\-\-Free\-\_\-env\-\_\-list\-\_\-fetch\-\_\-recv} (struct \hyperlink{structfree__envelope__list}{free\-\_\-envelope\-\_\-list} $\ast$evl)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{p2p__protocol_8c_ab8837fe2cdb76c3b801797e122eb7917}{t\-M\-P\-I\-\_\-\-Free\-\_\-env\-\_\-list\-\_\-return\-\_\-recv} (struct \hyperlink{structfree__envelope__list}{free\-\_\-envelope\-\_\-list} $\ast$evl, struct \hyperlink{structenvelope}{envelope} $\ast$rev)
+\item 
+static struct \hyperlink{structenvelope}{envelope} $\ast$ \hyperlink{p2p__protocol_8c_ad8c1966364be38336d0cc1d90bed642b}{t\-M\-P\-I\-\_\-\-Send\-\_\-env\-\_\-list\-\_\-fetch\-\_\-new} (struct \hyperlink{structsend__envelope__list}{send\-\_\-envelope\-\_\-list} $\ast$evl)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{p2p__protocol_8c_a228609f940a14ca4bc015e6cfd254873}{t\-M\-P\-I\-\_\-\-Send\-\_\-env\-\_\-list\-\_\-return} (struct \hyperlink{structenvelope}{envelope} $\ast$ev)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{p2p__protocol_8c_a1dff60136f78f3ffc429267ada60726f}{t\-M\-P\-I\-\_\-\-Send\-\_\-env\-\_\-list\-\_\-remove\-\_\-old} (struct \hyperlink{structenvelope}{envelope} $\ast$sev)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{p2p__protocol_8c_a372e189d64ca4382e0308721bad5e110}{t\-M\-P\-I\-\_\-\-Send\-\_\-env\-\_\-list\-\_\-add\-\_\-new} (struct \hyperlink{structtmpi__thread}{tmpi\-\_\-thread} $\ast$cur, struct \hyperlink{structsend__envelope__list}{send\-\_\-envelope\-\_\-list} $\ast$evl, struct \hyperlink{structenvelope}{envelope} $\ast$sev)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{p2p__protocol_8c_a626280e357341d46baaedb03da5372ef}{t\-M\-P\-I\-\_\-\-Send\-\_\-env\-\_\-list\-\_\-move\-\_\-to\-\_\-old} (struct \hyperlink{structenvelope}{envelope} $\ast$sev)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{p2p__protocol_8c_a8f145c061c2aa011c80d62113efbfaec}{t\-M\-P\-I\-\_\-\-Recv\-\_\-env\-\_\-list\-\_\-add} (struct \hyperlink{structrecv__envelope__list}{recv\-\_\-envelope\-\_\-list} $\ast$evl, struct \hyperlink{structenvelope}{envelope} $\ast$ev)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{p2p__protocol_8c_a9160011da08e7cd4a3925935f867682b}{t\-M\-P\-I\-\_\-\-Recv\-\_\-env\-\_\-list\-\_\-remove} (struct \hyperlink{structenvelope}{envelope} $\ast$ev)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{p2p__protocol_8c_aff0e2756d2518397e11fd08ca0530ccf}{t\-M\-P\-I\-\_\-\-Xfer} (struct \hyperlink{structtmpi__thread}{tmpi\-\_\-thread} $\ast$cur, struct \hyperlink{structenvelope}{envelope} $\ast$sev, struct \hyperlink{structenvelope}{envelope} $\ast$rev)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{p2p__protocol_8c_af960cb39aed55e0c4abb0d5bee2aee3b}{t\-M\-P\-I\-\_\-\-Free\-\_\-env\-\_\-list\-\_\-init} (struct \hyperlink{structfree__envelope__list}{free\-\_\-envelope\-\_\-list} $\ast$evl, int \hyperlink{3dview_8c_a0240ac851181b84ac374872dc5434ee4}{\-N})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{p2p__protocol_8c_a33ecedc7ea64acb0ffd19c59c532b18b}{t\-M\-P\-I\-\_\-\-Free\-\_\-env\-\_\-list\-\_\-destroy} (struct \hyperlink{structfree__envelope__list}{free\-\_\-envelope\-\_\-list} $\ast$evl)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{p2p__protocol_8c_a36e4c1aa310c9373dc2e6555c011d688}{t\-M\-P\-I\-\_\-\-Send\-\_\-env\-\_\-list\-\_\-init} (struct \hyperlink{structsend__envelope__list}{send\-\_\-envelope\-\_\-list} $\ast$evl, int \hyperlink{3dview_8c_a0240ac851181b84ac374872dc5434ee4}{\-N})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{p2p__protocol_8c_a420d9350e784b8979f18d42bbed26789}{t\-M\-P\-I\-\_\-\-Send\-\_\-env\-\_\-list\-\_\-destroy} (struct \hyperlink{structsend__envelope__list}{send\-\_\-envelope\-\_\-list} $\ast$evl)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{p2p__protocol_8c_a3f86ca3ce6095cbd51dbda2c0b51ba77}{t\-M\-P\-I\-\_\-\-Recv\-\_\-env\-\_\-list\-\_\-init} (struct \hyperlink{structrecv__envelope__list}{recv\-\_\-envelope\-\_\-list} $\ast$evl)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{p2p__protocol_8c_aefb927aaaef1fabe6a09ad9d31246baa}{t\-M\-P\-I\-\_\-\-Recv\-\_\-env\-\_\-list\-\_\-destroy} (struct \hyperlink{structrecv__envelope__list}{recv\-\_\-envelope\-\_\-list} $\ast$evl)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{p2p__protocol_8c_aea0b2e12994b8a3e7511f497aeb98b9e}{t\-M\-P\-I\-\_\-\-Req\-\_\-list\-\_\-init} (struct \hyperlink{structreq__list}{req\-\_\-list} $\ast$rl, int \-N\-\_\-reqs)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{p2p__protocol_8c_a26a00628c21fea565c82ac39d0e91f34}{t\-M\-P\-I\-\_\-\-Req\-\_\-list\-\_\-destroy} (struct \hyperlink{structreq__list}{req\-\_\-list} $\ast$rl)
+\item 
+struct \hyperlink{structtmpi__req__}{tmpi\-\_\-req\-\_\-} $\ast$ \hyperlink{p2p__protocol_8c_ac03670f265687546fa6551d3fda481c5}{t\-M\-P\-I\-\_\-\-Get\-\_\-req} (struct \hyperlink{structreq__list}{req\-\_\-list} $\ast$rl)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{p2p__protocol_8c_aaad29c7ca6c8bb998966b5e24de1da92}{t\-M\-P\-I\-\_\-\-Return\-\_\-req} (struct \hyperlink{structreq__list}{req\-\_\-list} $\ast$rl, struct \hyperlink{structtmpi__req__}{tmpi\-\_\-req\-\_\-} $\ast$req)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{p2p__protocol_8c_ae9901286e2cb8d16e2ff49239445af6e}{t\-M\-P\-I\-\_\-\-Req\-\_\-init} (struct \hyperlink{structtmpi__req__}{tmpi\-\_\-req\-\_\-} $\ast$rq, struct \hyperlink{structenvelope}{envelope} $\ast$ev)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{p2p__protocol_8c_a87b4b237dfbfd4989160ca14d44601b6}{t\-M\-P\-I\-\_\-\-Set\-\_\-req} (struct \hyperlink{structenvelope}{envelope} $\ast$ev, struct \hyperlink{structtmpi__req__}{tmpi\-\_\-req\-\_\-} $\ast$req)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{p2p__protocol_8c_a0b012785a71d7d2c7e804749bc8c014b}{t\-M\-P\-I\-\_\-\-Set\-\_\-status} (struct \hyperlink{structtmpi__req__}{tmpi\-\_\-req\-\_\-} $\ast$req, \hyperlink{include_2thread__mpi_2tmpi_8h_a531b9d68a797b1d19168df2fd83cb8aa}{t\-M\-P\-I\-\_\-\-Status} $\ast$st)
+\item 
+\hyperlink{impl_8h_a1c904605658586a00645b5fc9f6b8479}{tmpi\-\_\-bool} \hyperlink{p2p__protocol_8c_ae1e3d437cf3723a7f9ead6145f75e5a3}{t\-M\-P\-I\-\_\-\-Envelope\-\_\-matches} (const struct \hyperlink{structenvelope}{envelope} $\ast$sev, const struct \hyperlink{structenvelope}{envelope} $\ast$rev)
+\item 
+struct \hyperlink{structenvelope}{envelope} $\ast$ \hyperlink{p2p__protocol_8c_a74a5944ddce828ec4f24dfb4eb6b62e9}{t\-M\-P\-I\-\_\-\-Send\-\_\-env\-\_\-list\-\_\-search\-\_\-old} (struct \hyperlink{structsend__envelope__list}{send\-\_\-envelope\-\_\-list} $\ast$evl, struct \hyperlink{structenvelope}{envelope} $\ast$rev)
+\item 
+struct \hyperlink{structenvelope}{envelope} $\ast$ \hyperlink{p2p__protocol_8c_a00d43160bd8ccc87582dfb473dcb7520}{t\-M\-P\-I\-\_\-\-Recv\-\_\-env\-\_\-list\-\_\-search\-\_\-new} (struct \hyperlink{structrecv__envelope__list}{recv\-\_\-envelope\-\_\-list} $\ast$evl, struct \hyperlink{structenvelope}{envelope} $\ast$sev)
+\item 
+struct \hyperlink{structenvelope}{envelope} $\ast$ \hyperlink{p2p__protocol_8c_a36da956febb032edf5bc55aadbc18547}{t\-M\-P\-I\-\_\-\-Prep\-\_\-send\-\_\-envelope} (struct \hyperlink{structsend__envelope__list}{send\-\_\-envelope\-\_\-list} $\ast$evl, \hyperlink{include_2thread__mpi_2tmpi_8h_ab76dc275b882a1d00a54353fb8dd4cb3}{t\-M\-P\-I\-\_\-\-Comm} comm, struct \hyperlink{structtmpi__thread}{tmpi\-\_\-thread} $\ast$src, struct \hyperlink{structtmpi__thread}{tmpi\-\_\-thread} $\ast$dest, \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$buf, int count, \hyperlink{include_2thread__mpi_2tmpi_8h_a5dfe10378be22fca9362e52f6abdf503}{t\-M\-P\-I\-\_\-\-Datatype} datatype, int tag, \hyperlink{impl_8h_a1c904605658586a00645b5fc9f6b8479}{tmpi\-\_\-bool} nonblock)
+\item 
+struct \hyperlink{structenvelope}{envelope} $\ast$ \hyperlink{p2p__protocol_8c_a9b94f83db9670bd1684fc68a56119b15}{t\-M\-P\-I\-\_\-\-Prep\-\_\-recv\-\_\-envelope} (struct \hyperlink{structtmpi__thread}{tmpi\-\_\-thread} $\ast$cur, \hyperlink{include_2thread__mpi_2tmpi_8h_ab76dc275b882a1d00a54353fb8dd4cb3}{t\-M\-P\-I\-\_\-\-Comm} comm, struct \hyperlink{structtmpi__thread}{tmpi\-\_\-thread} $\ast$src, struct \hyperlink{structtmpi__thread}{tmpi\-\_\-thread} $\ast$dest, \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$buf, int count, \hyperlink{include_2thread__mpi_2tmpi_8h_a5dfe10378be22fca9362e52f6abdf503}{t\-M\-P\-I\-\_\-\-Datatype} datatype, int tag, \hyperlink{impl_8h_a1c904605658586a00645b5fc9f6b8479}{tmpi\-\_\-bool} nonblock)
+\item 
+struct \hyperlink{structenvelope}{envelope} $\ast$ \hyperlink{p2p__protocol_8c_a561a44b4de788ee7f3e39dccf68d59a2}{t\-M\-P\-I\-\_\-\-Post\-\_\-match\-\_\-recv} (struct \hyperlink{structtmpi__thread}{tmpi\-\_\-thread} $\ast$cur, \hyperlink{include_2thread__mpi_2tmpi_8h_ab76dc275b882a1d00a54353fb8dd4cb3}{t\-M\-P\-I\-\_\-\-Comm} comm, struct \hyperlink{structtmpi__thread}{tmpi\-\_\-thread} $\ast$src, \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$recv\-\_\-buf, int recv\-\_\-count, \hyperlink{include_2thread__mpi_2tmpi_8h_a5dfe10378be22fca9362e52f6abdf503}{t\-M\-P\-I\-\_\-\-Datatype} datatype, int tag, \hyperlink{impl_8h_a1c904605658586a00645b5fc9f6b8479}{tmpi\-\_\-bool} nonblock)
+\item 
+struct \hyperlink{structenvelope}{envelope} $\ast$ \hyperlink{p2p__protocol_8c_a6163d9d3ff185f4b5bc6592ab11750f1}{t\-M\-P\-I\-\_\-\-Post\-\_\-send} (struct \hyperlink{structtmpi__thread}{tmpi\-\_\-thread} $\ast$cur, \hyperlink{include_2thread__mpi_2tmpi_8h_ab76dc275b882a1d00a54353fb8dd4cb3}{t\-M\-P\-I\-\_\-\-Comm} comm, struct \hyperlink{structtmpi__thread}{tmpi\-\_\-thread} $\ast$dest, \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$send\-\_\-buf, int send\-\_\-count, \hyperlink{include_2thread__mpi_2tmpi_8h_a5dfe10378be22fca9362e52f6abdf503}{t\-M\-P\-I\-\_\-\-Datatype} datatype, int tag, \hyperlink{impl_8h_a1c904605658586a00645b5fc9f6b8479}{tmpi\-\_\-bool} nonblock)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{p2p__protocol_8c_a9e6ca86d7e30fa8258ab22541398dd91}{t\-M\-P\-I\-\_\-\-Wait\-\_\-process\-\_\-incoming} (struct \hyperlink{structtmpi__thread}{tmpi\-\_\-thread} $\ast$cur)
+\item 
+\hyperlink{impl_8h_a1c904605658586a00645b5fc9f6b8479}{tmpi\-\_\-bool} \hyperlink{p2p__protocol_8c_ae85ad17aa89340d84a633fc471f941bd}{t\-M\-P\-I\-\_\-\-Test\-\_\-single} (struct \hyperlink{structtmpi__thread}{tmpi\-\_\-thread} $\ast$cur, struct \hyperlink{structtmpi__req__}{tmpi\-\_\-req\-\_\-} $\ast$rq)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{p2p__protocol_8c_ae959cd5c60b1e79ab2ebda1eef1ae9c7}{t\-M\-P\-I\-\_\-\-Wait\-\_\-single} (struct \hyperlink{structtmpi__thread}{tmpi\-\_\-thread} $\ast$cur, struct \hyperlink{structtmpi__req__}{tmpi\-\_\-req\-\_\-} $\ast$rq)
+\item 
+\hyperlink{impl_8h_a1c904605658586a00645b5fc9f6b8479}{tmpi\-\_\-bool} \hyperlink{p2p__protocol_8c_acb512ff8762afbcdd910401f993c340d}{t\-M\-P\-I\-\_\-\-Test\-\_\-multi} (struct \hyperlink{structtmpi__thread}{tmpi\-\_\-thread} $\ast$cur, struct \hyperlink{structtmpi__req__}{tmpi\-\_\-req\-\_\-} $\ast$rqs, \hyperlink{impl_8h_a1c904605658586a00645b5fc9f6b8479}{tmpi\-\_\-bool} $\ast$any\-\_\-done)
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{p2p__protocol_8c_ae1e3d437cf3723a7f9ead6145f75e5a3}{\index{p2p\-\_\-protocol.\-c@{p2p\-\_\-protocol.\-c}!t\-M\-P\-I\-\_\-\-Envelope\-\_\-matches@{t\-M\-P\-I\-\_\-\-Envelope\-\_\-matches}}
+\index{t\-M\-P\-I\-\_\-\-Envelope\-\_\-matches@{t\-M\-P\-I\-\_\-\-Envelope\-\_\-matches}!p2p_protocol.c@{p2p\-\_\-protocol.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Envelope\-\_\-matches}]{\setlength{\rightskip}{0pt plus 5cm}{\bf tmpi\-\_\-bool} {\bf t\-M\-P\-I\-\_\-\-Envelope\-\_\-matches} (
+\begin{DoxyParamCaption}
+\item[{const struct {\bf envelope} $\ast$}]{sev, }
+\item[{const struct {\bf envelope} $\ast$}]{rev}
+\end{DoxyParamCaption}
+)}}\label{p2p__protocol_8c_ae1e3d437cf3723a7f9ead6145f75e5a3}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{p2p__protocol_8c_ae1e3d437cf3723a7f9ead6145f75e5a3_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{p2p__protocol_8c_a33ecedc7ea64acb0ffd19c59c532b18b}{\index{p2p\-\_\-protocol.\-c@{p2p\-\_\-protocol.\-c}!t\-M\-P\-I\-\_\-\-Free\-\_\-env\-\_\-list\-\_\-destroy@{t\-M\-P\-I\-\_\-\-Free\-\_\-env\-\_\-list\-\_\-destroy}}
+\index{t\-M\-P\-I\-\_\-\-Free\-\_\-env\-\_\-list\-\_\-destroy@{t\-M\-P\-I\-\_\-\-Free\-\_\-env\-\_\-list\-\_\-destroy}!p2p_protocol.c@{p2p\-\_\-protocol.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Free\-\_\-env\-\_\-list\-\_\-destroy}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf t\-M\-P\-I\-\_\-\-Free\-\_\-env\-\_\-list\-\_\-destroy} (
+\begin{DoxyParamCaption}
+\item[{struct {\bf free\-\_\-envelope\-\_\-list} $\ast$}]{evl}
+\end{DoxyParamCaption}
+)}}\label{p2p__protocol_8c_a33ecedc7ea64acb0ffd19c59c532b18b}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{p2p__protocol_8c_a33ecedc7ea64acb0ffd19c59c532b18b_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{p2p__protocol_8c_ab28902206c8a11a0b08fd9579f9bc11d}{\index{p2p\-\_\-protocol.\-c@{p2p\-\_\-protocol.\-c}!t\-M\-P\-I\-\_\-\-Free\-\_\-env\-\_\-list\-\_\-fetch\-\_\-recv@{t\-M\-P\-I\-\_\-\-Free\-\_\-env\-\_\-list\-\_\-fetch\-\_\-recv}}
+\index{t\-M\-P\-I\-\_\-\-Free\-\_\-env\-\_\-list\-\_\-fetch\-\_\-recv@{t\-M\-P\-I\-\_\-\-Free\-\_\-env\-\_\-list\-\_\-fetch\-\_\-recv}!p2p_protocol.c@{p2p\-\_\-protocol.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Free\-\_\-env\-\_\-list\-\_\-fetch\-\_\-recv}]{\setlength{\rightskip}{0pt plus 5cm}static struct {\bf envelope} $\ast$ {\bf t\-M\-P\-I\-\_\-\-Free\-\_\-env\-\_\-list\-\_\-fetch\-\_\-recv} (
+\begin{DoxyParamCaption}
+\item[{struct {\bf free\-\_\-envelope\-\_\-list} $\ast$}]{evl}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static, read\mbox{]}}}}\label{p2p__protocol_8c_ab28902206c8a11a0b08fd9579f9bc11d}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{p2p__protocol_8c_ab28902206c8a11a0b08fd9579f9bc11d_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{p2p__protocol_8c_af960cb39aed55e0c4abb0d5bee2aee3b}{\index{p2p\-\_\-protocol.\-c@{p2p\-\_\-protocol.\-c}!t\-M\-P\-I\-\_\-\-Free\-\_\-env\-\_\-list\-\_\-init@{t\-M\-P\-I\-\_\-\-Free\-\_\-env\-\_\-list\-\_\-init}}
+\index{t\-M\-P\-I\-\_\-\-Free\-\_\-env\-\_\-list\-\_\-init@{t\-M\-P\-I\-\_\-\-Free\-\_\-env\-\_\-list\-\_\-init}!p2p_protocol.c@{p2p\-\_\-protocol.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Free\-\_\-env\-\_\-list\-\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf t\-M\-P\-I\-\_\-\-Free\-\_\-env\-\_\-list\-\_\-init} (
+\begin{DoxyParamCaption}
+\item[{struct {\bf free\-\_\-envelope\-\_\-list} $\ast$}]{evl, }
+\item[{int}]{\-N}
+\end{DoxyParamCaption}
+)}}\label{p2p__protocol_8c_af960cb39aed55e0c4abb0d5bee2aee3b}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{p2p__protocol_8c_af960cb39aed55e0c4abb0d5bee2aee3b_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{p2p__protocol_8c_af960cb39aed55e0c4abb0d5bee2aee3b_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{p2p__protocol_8c_ab8837fe2cdb76c3b801797e122eb7917}{\index{p2p\-\_\-protocol.\-c@{p2p\-\_\-protocol.\-c}!t\-M\-P\-I\-\_\-\-Free\-\_\-env\-\_\-list\-\_\-return\-\_\-recv@{t\-M\-P\-I\-\_\-\-Free\-\_\-env\-\_\-list\-\_\-return\-\_\-recv}}
+\index{t\-M\-P\-I\-\_\-\-Free\-\_\-env\-\_\-list\-\_\-return\-\_\-recv@{t\-M\-P\-I\-\_\-\-Free\-\_\-env\-\_\-list\-\_\-return\-\_\-recv}!p2p_protocol.c@{p2p\-\_\-protocol.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Free\-\_\-env\-\_\-list\-\_\-return\-\_\-recv}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf t\-M\-P\-I\-\_\-\-Free\-\_\-env\-\_\-list\-\_\-return\-\_\-recv} (
+\begin{DoxyParamCaption}
+\item[{struct {\bf free\-\_\-envelope\-\_\-list} $\ast$}]{evl, }
+\item[{struct {\bf envelope} $\ast$}]{rev}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{p2p__protocol_8c_ab8837fe2cdb76c3b801797e122eb7917}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{p2p__protocol_8c_ab8837fe2cdb76c3b801797e122eb7917_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{p2p__protocol_8c_ac03670f265687546fa6551d3fda481c5}{\index{p2p\-\_\-protocol.\-c@{p2p\-\_\-protocol.\-c}!t\-M\-P\-I\-\_\-\-Get\-\_\-req@{t\-M\-P\-I\-\_\-\-Get\-\_\-req}}
+\index{t\-M\-P\-I\-\_\-\-Get\-\_\-req@{t\-M\-P\-I\-\_\-\-Get\-\_\-req}!p2p_protocol.c@{p2p\-\_\-protocol.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Get\-\_\-req}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf tmpi\-\_\-req\-\_\-}$\ast$ {\bf t\-M\-P\-I\-\_\-\-Get\-\_\-req} (
+\begin{DoxyParamCaption}
+\item[{struct {\bf req\-\_\-list} $\ast$}]{rl}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}read\mbox{]}}}}\label{p2p__protocol_8c_ac03670f265687546fa6551d3fda481c5}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{p2p__protocol_8c_ac03670f265687546fa6551d3fda481c5_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=262pt]{p2p__protocol_8c_ac03670f265687546fa6551d3fda481c5_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{p2p__protocol_8c_a561a44b4de788ee7f3e39dccf68d59a2}{\index{p2p\-\_\-protocol.\-c@{p2p\-\_\-protocol.\-c}!t\-M\-P\-I\-\_\-\-Post\-\_\-match\-\_\-recv@{t\-M\-P\-I\-\_\-\-Post\-\_\-match\-\_\-recv}}
+\index{t\-M\-P\-I\-\_\-\-Post\-\_\-match\-\_\-recv@{t\-M\-P\-I\-\_\-\-Post\-\_\-match\-\_\-recv}!p2p_protocol.c@{p2p\-\_\-protocol.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Post\-\_\-match\-\_\-recv}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf envelope}$\ast$ {\bf t\-M\-P\-I\-\_\-\-Post\-\_\-match\-\_\-recv} (
+\begin{DoxyParamCaption}
+\item[{struct {\bf tmpi\-\_\-thread} $\ast$}]{cur, }
+\item[{{\bf t\-M\-P\-I\-\_\-\-Comm}}]{comm, }
+\item[{struct {\bf tmpi\-\_\-thread} $\ast$}]{src, }
+\item[{{\bf void} $\ast$}]{recv\-\_\-buf, }
+\item[{int}]{recv\-\_\-count, }
+\item[{{\bf t\-M\-P\-I\-\_\-\-Datatype}}]{datatype, }
+\item[{int}]{tag, }
+\item[{{\bf tmpi\-\_\-bool}}]{nonblock}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}read\mbox{]}}}}\label{p2p__protocol_8c_a561a44b4de788ee7f3e39dccf68d59a2}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{p2p__protocol_8c_a561a44b4de788ee7f3e39dccf68d59a2_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=320pt]{p2p__protocol_8c_a561a44b4de788ee7f3e39dccf68d59a2_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{p2p__protocol_8c_a6163d9d3ff185f4b5bc6592ab11750f1}{\index{p2p\-\_\-protocol.\-c@{p2p\-\_\-protocol.\-c}!t\-M\-P\-I\-\_\-\-Post\-\_\-send@{t\-M\-P\-I\-\_\-\-Post\-\_\-send}}
+\index{t\-M\-P\-I\-\_\-\-Post\-\_\-send@{t\-M\-P\-I\-\_\-\-Post\-\_\-send}!p2p_protocol.c@{p2p\-\_\-protocol.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Post\-\_\-send}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf envelope}$\ast$ {\bf t\-M\-P\-I\-\_\-\-Post\-\_\-send} (
+\begin{DoxyParamCaption}
+\item[{struct {\bf tmpi\-\_\-thread} $\ast$}]{cur, }
+\item[{{\bf t\-M\-P\-I\-\_\-\-Comm}}]{comm, }
+\item[{struct {\bf tmpi\-\_\-thread} $\ast$}]{dest, }
+\item[{{\bf void} $\ast$}]{send\-\_\-buf, }
+\item[{int}]{send\-\_\-count, }
+\item[{{\bf t\-M\-P\-I\-\_\-\-Datatype}}]{datatype, }
+\item[{int}]{tag, }
+\item[{{\bf tmpi\-\_\-bool}}]{nonblock}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}read\mbox{]}}}}\label{p2p__protocol_8c_a6163d9d3ff185f4b5bc6592ab11750f1}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{p2p__protocol_8c_a6163d9d3ff185f4b5bc6592ab11750f1_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=290pt]{p2p__protocol_8c_a6163d9d3ff185f4b5bc6592ab11750f1_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{p2p__protocol_8c_a9b94f83db9670bd1684fc68a56119b15}{\index{p2p\-\_\-protocol.\-c@{p2p\-\_\-protocol.\-c}!t\-M\-P\-I\-\_\-\-Prep\-\_\-recv\-\_\-envelope@{t\-M\-P\-I\-\_\-\-Prep\-\_\-recv\-\_\-envelope}}
+\index{t\-M\-P\-I\-\_\-\-Prep\-\_\-recv\-\_\-envelope@{t\-M\-P\-I\-\_\-\-Prep\-\_\-recv\-\_\-envelope}!p2p_protocol.c@{p2p\-\_\-protocol.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Prep\-\_\-recv\-\_\-envelope}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf envelope}$\ast$ {\bf t\-M\-P\-I\-\_\-\-Prep\-\_\-recv\-\_\-envelope} (
+\begin{DoxyParamCaption}
+\item[{struct {\bf tmpi\-\_\-thread} $\ast$}]{cur, }
+\item[{{\bf t\-M\-P\-I\-\_\-\-Comm}}]{comm, }
+\item[{struct {\bf tmpi\-\_\-thread} $\ast$}]{src, }
+\item[{struct {\bf tmpi\-\_\-thread} $\ast$}]{dest, }
+\item[{{\bf void} $\ast$}]{buf, }
+\item[{int}]{count, }
+\item[{{\bf t\-M\-P\-I\-\_\-\-Datatype}}]{datatype, }
+\item[{int}]{tag, }
+\item[{{\bf tmpi\-\_\-bool}}]{nonblock}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}read\mbox{]}}}}\label{p2p__protocol_8c_a9b94f83db9670bd1684fc68a56119b15}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{p2p__protocol_8c_a9b94f83db9670bd1684fc68a56119b15_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{p2p__protocol_8c_a9b94f83db9670bd1684fc68a56119b15_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{p2p__protocol_8c_a36da956febb032edf5bc55aadbc18547}{\index{p2p\-\_\-protocol.\-c@{p2p\-\_\-protocol.\-c}!t\-M\-P\-I\-\_\-\-Prep\-\_\-send\-\_\-envelope@{t\-M\-P\-I\-\_\-\-Prep\-\_\-send\-\_\-envelope}}
+\index{t\-M\-P\-I\-\_\-\-Prep\-\_\-send\-\_\-envelope@{t\-M\-P\-I\-\_\-\-Prep\-\_\-send\-\_\-envelope}!p2p_protocol.c@{p2p\-\_\-protocol.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Prep\-\_\-send\-\_\-envelope}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf envelope}$\ast$ {\bf t\-M\-P\-I\-\_\-\-Prep\-\_\-send\-\_\-envelope} (
+\begin{DoxyParamCaption}
+\item[{struct {\bf send\-\_\-envelope\-\_\-list} $\ast$}]{evl, }
+\item[{{\bf t\-M\-P\-I\-\_\-\-Comm}}]{comm, }
+\item[{struct {\bf tmpi\-\_\-thread} $\ast$}]{src, }
+\item[{struct {\bf tmpi\-\_\-thread} $\ast$}]{dest, }
+\item[{{\bf void} $\ast$}]{buf, }
+\item[{int}]{count, }
+\item[{{\bf t\-M\-P\-I\-\_\-\-Datatype}}]{datatype, }
+\item[{int}]{tag, }
+\item[{{\bf tmpi\-\_\-bool}}]{nonblock}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}read\mbox{]}}}}\label{p2p__protocol_8c_a36da956febb032edf5bc55aadbc18547}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{p2p__protocol_8c_a36da956febb032edf5bc55aadbc18547_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{p2p__protocol_8c_a36da956febb032edf5bc55aadbc18547_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{p2p__protocol_8c_a8f145c061c2aa011c80d62113efbfaec}{\index{p2p\-\_\-protocol.\-c@{p2p\-\_\-protocol.\-c}!t\-M\-P\-I\-\_\-\-Recv\-\_\-env\-\_\-list\-\_\-add@{t\-M\-P\-I\-\_\-\-Recv\-\_\-env\-\_\-list\-\_\-add}}
+\index{t\-M\-P\-I\-\_\-\-Recv\-\_\-env\-\_\-list\-\_\-add@{t\-M\-P\-I\-\_\-\-Recv\-\_\-env\-\_\-list\-\_\-add}!p2p_protocol.c@{p2p\-\_\-protocol.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Recv\-\_\-env\-\_\-list\-\_\-add}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf t\-M\-P\-I\-\_\-\-Recv\-\_\-env\-\_\-list\-\_\-add} (
+\begin{DoxyParamCaption}
+\item[{struct {\bf recv\-\_\-envelope\-\_\-list} $\ast$}]{evl, }
+\item[{struct {\bf envelope} $\ast$}]{ev}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{p2p__protocol_8c_a8f145c061c2aa011c80d62113efbfaec}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{p2p__protocol_8c_a8f145c061c2aa011c80d62113efbfaec_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{p2p__protocol_8c_aefb927aaaef1fabe6a09ad9d31246baa}{\index{p2p\-\_\-protocol.\-c@{p2p\-\_\-protocol.\-c}!t\-M\-P\-I\-\_\-\-Recv\-\_\-env\-\_\-list\-\_\-destroy@{t\-M\-P\-I\-\_\-\-Recv\-\_\-env\-\_\-list\-\_\-destroy}}
+\index{t\-M\-P\-I\-\_\-\-Recv\-\_\-env\-\_\-list\-\_\-destroy@{t\-M\-P\-I\-\_\-\-Recv\-\_\-env\-\_\-list\-\_\-destroy}!p2p_protocol.c@{p2p\-\_\-protocol.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Recv\-\_\-env\-\_\-list\-\_\-destroy}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf t\-M\-P\-I\-\_\-\-Recv\-\_\-env\-\_\-list\-\_\-destroy} (
+\begin{DoxyParamCaption}
+\item[{struct {\bf recv\-\_\-envelope\-\_\-list} $\ast$}]{evl}
+\end{DoxyParamCaption}
+)}}\label{p2p__protocol_8c_aefb927aaaef1fabe6a09ad9d31246baa}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{p2p__protocol_8c_aefb927aaaef1fabe6a09ad9d31246baa_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{p2p__protocol_8c_a3f86ca3ce6095cbd51dbda2c0b51ba77}{\index{p2p\-\_\-protocol.\-c@{p2p\-\_\-protocol.\-c}!t\-M\-P\-I\-\_\-\-Recv\-\_\-env\-\_\-list\-\_\-init@{t\-M\-P\-I\-\_\-\-Recv\-\_\-env\-\_\-list\-\_\-init}}
+\index{t\-M\-P\-I\-\_\-\-Recv\-\_\-env\-\_\-list\-\_\-init@{t\-M\-P\-I\-\_\-\-Recv\-\_\-env\-\_\-list\-\_\-init}!p2p_protocol.c@{p2p\-\_\-protocol.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Recv\-\_\-env\-\_\-list\-\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf t\-M\-P\-I\-\_\-\-Recv\-\_\-env\-\_\-list\-\_\-init} (
+\begin{DoxyParamCaption}
+\item[{struct {\bf recv\-\_\-envelope\-\_\-list} $\ast$}]{evl}
+\end{DoxyParamCaption}
+)}}\label{p2p__protocol_8c_a3f86ca3ce6095cbd51dbda2c0b51ba77}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{p2p__protocol_8c_a3f86ca3ce6095cbd51dbda2c0b51ba77_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{p2p__protocol_8c_a9160011da08e7cd4a3925935f867682b}{\index{p2p\-\_\-protocol.\-c@{p2p\-\_\-protocol.\-c}!t\-M\-P\-I\-\_\-\-Recv\-\_\-env\-\_\-list\-\_\-remove@{t\-M\-P\-I\-\_\-\-Recv\-\_\-env\-\_\-list\-\_\-remove}}
+\index{t\-M\-P\-I\-\_\-\-Recv\-\_\-env\-\_\-list\-\_\-remove@{t\-M\-P\-I\-\_\-\-Recv\-\_\-env\-\_\-list\-\_\-remove}!p2p_protocol.c@{p2p\-\_\-protocol.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Recv\-\_\-env\-\_\-list\-\_\-remove}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf t\-M\-P\-I\-\_\-\-Recv\-\_\-env\-\_\-list\-\_\-remove} (
+\begin{DoxyParamCaption}
+\item[{struct {\bf envelope} $\ast$}]{ev}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{p2p__protocol_8c_a9160011da08e7cd4a3925935f867682b}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{p2p__protocol_8c_a9160011da08e7cd4a3925935f867682b_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{p2p__protocol_8c_a00d43160bd8ccc87582dfb473dcb7520}{\index{p2p\-\_\-protocol.\-c@{p2p\-\_\-protocol.\-c}!t\-M\-P\-I\-\_\-\-Recv\-\_\-env\-\_\-list\-\_\-search\-\_\-new@{t\-M\-P\-I\-\_\-\-Recv\-\_\-env\-\_\-list\-\_\-search\-\_\-new}}
+\index{t\-M\-P\-I\-\_\-\-Recv\-\_\-env\-\_\-list\-\_\-search\-\_\-new@{t\-M\-P\-I\-\_\-\-Recv\-\_\-env\-\_\-list\-\_\-search\-\_\-new}!p2p_protocol.c@{p2p\-\_\-protocol.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Recv\-\_\-env\-\_\-list\-\_\-search\-\_\-new}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf envelope}$\ast$ {\bf t\-M\-P\-I\-\_\-\-Recv\-\_\-env\-\_\-list\-\_\-search\-\_\-new} (
+\begin{DoxyParamCaption}
+\item[{struct {\bf recv\-\_\-envelope\-\_\-list} $\ast$}]{evl, }
+\item[{struct {\bf envelope} $\ast$}]{sev}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}read\mbox{]}}}}\label{p2p__protocol_8c_a00d43160bd8ccc87582dfb473dcb7520}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{p2p__protocol_8c_a00d43160bd8ccc87582dfb473dcb7520_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{p2p__protocol_8c_a00d43160bd8ccc87582dfb473dcb7520_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{p2p__protocol_8c_ae9901286e2cb8d16e2ff49239445af6e}{\index{p2p\-\_\-protocol.\-c@{p2p\-\_\-protocol.\-c}!t\-M\-P\-I\-\_\-\-Req\-\_\-init@{t\-M\-P\-I\-\_\-\-Req\-\_\-init}}
+\index{t\-M\-P\-I\-\_\-\-Req\-\_\-init@{t\-M\-P\-I\-\_\-\-Req\-\_\-init}!p2p_protocol.c@{p2p\-\_\-protocol.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Req\-\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf t\-M\-P\-I\-\_\-\-Req\-\_\-init} (
+\begin{DoxyParamCaption}
+\item[{struct {\bf tmpi\-\_\-req\-\_\-} $\ast$}]{rq, }
+\item[{struct {\bf envelope} $\ast$}]{ev}
+\end{DoxyParamCaption}
+)}}\label{p2p__protocol_8c_ae9901286e2cb8d16e2ff49239445af6e}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=280pt]{p2p__protocol_8c_ae9901286e2cb8d16e2ff49239445af6e_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{p2p__protocol_8c_a26a00628c21fea565c82ac39d0e91f34}{\index{p2p\-\_\-protocol.\-c@{p2p\-\_\-protocol.\-c}!t\-M\-P\-I\-\_\-\-Req\-\_\-list\-\_\-destroy@{t\-M\-P\-I\-\_\-\-Req\-\_\-list\-\_\-destroy}}
+\index{t\-M\-P\-I\-\_\-\-Req\-\_\-list\-\_\-destroy@{t\-M\-P\-I\-\_\-\-Req\-\_\-list\-\_\-destroy}!p2p_protocol.c@{p2p\-\_\-protocol.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Req\-\_\-list\-\_\-destroy}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf t\-M\-P\-I\-\_\-\-Req\-\_\-list\-\_\-destroy} (
+\begin{DoxyParamCaption}
+\item[{struct {\bf req\-\_\-list} $\ast$}]{rl}
+\end{DoxyParamCaption}
+)}}\label{p2p__protocol_8c_a26a00628c21fea565c82ac39d0e91f34}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{p2p__protocol_8c_a26a00628c21fea565c82ac39d0e91f34_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{p2p__protocol_8c_aea0b2e12994b8a3e7511f497aeb98b9e}{\index{p2p\-\_\-protocol.\-c@{p2p\-\_\-protocol.\-c}!t\-M\-P\-I\-\_\-\-Req\-\_\-list\-\_\-init@{t\-M\-P\-I\-\_\-\-Req\-\_\-list\-\_\-init}}
+\index{t\-M\-P\-I\-\_\-\-Req\-\_\-list\-\_\-init@{t\-M\-P\-I\-\_\-\-Req\-\_\-list\-\_\-init}!p2p_protocol.c@{p2p\-\_\-protocol.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Req\-\_\-list\-\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf t\-M\-P\-I\-\_\-\-Req\-\_\-list\-\_\-init} (
+\begin{DoxyParamCaption}
+\item[{struct {\bf req\-\_\-list} $\ast$}]{rl, }
+\item[{int}]{\-N\-\_\-reqs}
+\end{DoxyParamCaption}
+)}}\label{p2p__protocol_8c_aea0b2e12994b8a3e7511f497aeb98b9e}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{p2p__protocol_8c_aea0b2e12994b8a3e7511f497aeb98b9e_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{p2p__protocol_8c_aea0b2e12994b8a3e7511f497aeb98b9e_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{p2p__protocol_8c_aaad29c7ca6c8bb998966b5e24de1da92}{\index{p2p\-\_\-protocol.\-c@{p2p\-\_\-protocol.\-c}!t\-M\-P\-I\-\_\-\-Return\-\_\-req@{t\-M\-P\-I\-\_\-\-Return\-\_\-req}}
+\index{t\-M\-P\-I\-\_\-\-Return\-\_\-req@{t\-M\-P\-I\-\_\-\-Return\-\_\-req}!p2p_protocol.c@{p2p\-\_\-protocol.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Return\-\_\-req}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf t\-M\-P\-I\-\_\-\-Return\-\_\-req} (
+\begin{DoxyParamCaption}
+\item[{struct {\bf req\-\_\-list} $\ast$}]{rl, }
+\item[{struct {\bf tmpi\-\_\-req\-\_\-} $\ast$}]{req}
+\end{DoxyParamCaption}
+)}}\label{p2p__protocol_8c_aaad29c7ca6c8bb998966b5e24de1da92}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=296pt]{p2p__protocol_8c_aaad29c7ca6c8bb998966b5e24de1da92_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{p2p__protocol_8c_a372e189d64ca4382e0308721bad5e110}{\index{p2p\-\_\-protocol.\-c@{p2p\-\_\-protocol.\-c}!t\-M\-P\-I\-\_\-\-Send\-\_\-env\-\_\-list\-\_\-add\-\_\-new@{t\-M\-P\-I\-\_\-\-Send\-\_\-env\-\_\-list\-\_\-add\-\_\-new}}
+\index{t\-M\-P\-I\-\_\-\-Send\-\_\-env\-\_\-list\-\_\-add\-\_\-new@{t\-M\-P\-I\-\_\-\-Send\-\_\-env\-\_\-list\-\_\-add\-\_\-new}!p2p_protocol.c@{p2p\-\_\-protocol.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Send\-\_\-env\-\_\-list\-\_\-add\-\_\-new}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf t\-M\-P\-I\-\_\-\-Send\-\_\-env\-\_\-list\-\_\-add\-\_\-new} (
+\begin{DoxyParamCaption}
+\item[{struct {\bf tmpi\-\_\-thread} $\ast$}]{cur, }
+\item[{struct {\bf send\-\_\-envelope\-\_\-list} $\ast$}]{evl, }
+\item[{struct {\bf envelope} $\ast$}]{sev}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{p2p__protocol_8c_a372e189d64ca4382e0308721bad5e110}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{p2p__protocol_8c_a372e189d64ca4382e0308721bad5e110_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{p2p__protocol_8c_a420d9350e784b8979f18d42bbed26789}{\index{p2p\-\_\-protocol.\-c@{p2p\-\_\-protocol.\-c}!t\-M\-P\-I\-\_\-\-Send\-\_\-env\-\_\-list\-\_\-destroy@{t\-M\-P\-I\-\_\-\-Send\-\_\-env\-\_\-list\-\_\-destroy}}
+\index{t\-M\-P\-I\-\_\-\-Send\-\_\-env\-\_\-list\-\_\-destroy@{t\-M\-P\-I\-\_\-\-Send\-\_\-env\-\_\-list\-\_\-destroy}!p2p_protocol.c@{p2p\-\_\-protocol.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Send\-\_\-env\-\_\-list\-\_\-destroy}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf t\-M\-P\-I\-\_\-\-Send\-\_\-env\-\_\-list\-\_\-destroy} (
+\begin{DoxyParamCaption}
+\item[{struct {\bf send\-\_\-envelope\-\_\-list} $\ast$}]{evl}
+\end{DoxyParamCaption}
+)}}\label{p2p__protocol_8c_a420d9350e784b8979f18d42bbed26789}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{p2p__protocol_8c_a420d9350e784b8979f18d42bbed26789_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{p2p__protocol_8c_ad8c1966364be38336d0cc1d90bed642b}{\index{p2p\-\_\-protocol.\-c@{p2p\-\_\-protocol.\-c}!t\-M\-P\-I\-\_\-\-Send\-\_\-env\-\_\-list\-\_\-fetch\-\_\-new@{t\-M\-P\-I\-\_\-\-Send\-\_\-env\-\_\-list\-\_\-fetch\-\_\-new}}
+\index{t\-M\-P\-I\-\_\-\-Send\-\_\-env\-\_\-list\-\_\-fetch\-\_\-new@{t\-M\-P\-I\-\_\-\-Send\-\_\-env\-\_\-list\-\_\-fetch\-\_\-new}!p2p_protocol.c@{p2p\-\_\-protocol.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Send\-\_\-env\-\_\-list\-\_\-fetch\-\_\-new}]{\setlength{\rightskip}{0pt plus 5cm}static struct {\bf envelope} $\ast$ {\bf t\-M\-P\-I\-\_\-\-Send\-\_\-env\-\_\-list\-\_\-fetch\-\_\-new} (
+\begin{DoxyParamCaption}
+\item[{struct {\bf send\-\_\-envelope\-\_\-list} $\ast$}]{evl}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static, read\mbox{]}}}}\label{p2p__protocol_8c_ad8c1966364be38336d0cc1d90bed642b}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{p2p__protocol_8c_ad8c1966364be38336d0cc1d90bed642b_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{p2p__protocol_8c_ad8c1966364be38336d0cc1d90bed642b_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{p2p__protocol_8c_a36e4c1aa310c9373dc2e6555c011d688}{\index{p2p\-\_\-protocol.\-c@{p2p\-\_\-protocol.\-c}!t\-M\-P\-I\-\_\-\-Send\-\_\-env\-\_\-list\-\_\-init@{t\-M\-P\-I\-\_\-\-Send\-\_\-env\-\_\-list\-\_\-init}}
+\index{t\-M\-P\-I\-\_\-\-Send\-\_\-env\-\_\-list\-\_\-init@{t\-M\-P\-I\-\_\-\-Send\-\_\-env\-\_\-list\-\_\-init}!p2p_protocol.c@{p2p\-\_\-protocol.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Send\-\_\-env\-\_\-list\-\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf t\-M\-P\-I\-\_\-\-Send\-\_\-env\-\_\-list\-\_\-init} (
+\begin{DoxyParamCaption}
+\item[{struct {\bf send\-\_\-envelope\-\_\-list} $\ast$}]{evl, }
+\item[{int}]{\-N}
+\end{DoxyParamCaption}
+)}}\label{p2p__protocol_8c_a36e4c1aa310c9373dc2e6555c011d688}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{p2p__protocol_8c_a36e4c1aa310c9373dc2e6555c011d688_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{p2p__protocol_8c_a36e4c1aa310c9373dc2e6555c011d688_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{p2p__protocol_8c_a626280e357341d46baaedb03da5372ef}{\index{p2p\-\_\-protocol.\-c@{p2p\-\_\-protocol.\-c}!t\-M\-P\-I\-\_\-\-Send\-\_\-env\-\_\-list\-\_\-move\-\_\-to\-\_\-old@{t\-M\-P\-I\-\_\-\-Send\-\_\-env\-\_\-list\-\_\-move\-\_\-to\-\_\-old}}
+\index{t\-M\-P\-I\-\_\-\-Send\-\_\-env\-\_\-list\-\_\-move\-\_\-to\-\_\-old@{t\-M\-P\-I\-\_\-\-Send\-\_\-env\-\_\-list\-\_\-move\-\_\-to\-\_\-old}!p2p_protocol.c@{p2p\-\_\-protocol.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Send\-\_\-env\-\_\-list\-\_\-move\-\_\-to\-\_\-old}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf t\-M\-P\-I\-\_\-\-Send\-\_\-env\-\_\-list\-\_\-move\-\_\-to\-\_\-old} (
+\begin{DoxyParamCaption}
+\item[{struct {\bf envelope} $\ast$}]{sev}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{p2p__protocol_8c_a626280e357341d46baaedb03da5372ef}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{p2p__protocol_8c_a626280e357341d46baaedb03da5372ef_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{p2p__protocol_8c_a1dff60136f78f3ffc429267ada60726f}{\index{p2p\-\_\-protocol.\-c@{p2p\-\_\-protocol.\-c}!t\-M\-P\-I\-\_\-\-Send\-\_\-env\-\_\-list\-\_\-remove\-\_\-old@{t\-M\-P\-I\-\_\-\-Send\-\_\-env\-\_\-list\-\_\-remove\-\_\-old}}
+\index{t\-M\-P\-I\-\_\-\-Send\-\_\-env\-\_\-list\-\_\-remove\-\_\-old@{t\-M\-P\-I\-\_\-\-Send\-\_\-env\-\_\-list\-\_\-remove\-\_\-old}!p2p_protocol.c@{p2p\-\_\-protocol.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Send\-\_\-env\-\_\-list\-\_\-remove\-\_\-old}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf t\-M\-P\-I\-\_\-\-Send\-\_\-env\-\_\-list\-\_\-remove\-\_\-old} (
+\begin{DoxyParamCaption}
+\item[{struct {\bf envelope} $\ast$}]{sev}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{p2p__protocol_8c_a1dff60136f78f3ffc429267ada60726f}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{p2p__protocol_8c_a1dff60136f78f3ffc429267ada60726f_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{p2p__protocol_8c_a228609f940a14ca4bc015e6cfd254873}{\index{p2p\-\_\-protocol.\-c@{p2p\-\_\-protocol.\-c}!t\-M\-P\-I\-\_\-\-Send\-\_\-env\-\_\-list\-\_\-return@{t\-M\-P\-I\-\_\-\-Send\-\_\-env\-\_\-list\-\_\-return}}
+\index{t\-M\-P\-I\-\_\-\-Send\-\_\-env\-\_\-list\-\_\-return@{t\-M\-P\-I\-\_\-\-Send\-\_\-env\-\_\-list\-\_\-return}!p2p_protocol.c@{p2p\-\_\-protocol.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Send\-\_\-env\-\_\-list\-\_\-return}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf t\-M\-P\-I\-\_\-\-Send\-\_\-env\-\_\-list\-\_\-return} (
+\begin{DoxyParamCaption}
+\item[{struct {\bf envelope} $\ast$}]{ev}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{p2p__protocol_8c_a228609f940a14ca4bc015e6cfd254873}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{p2p__protocol_8c_a228609f940a14ca4bc015e6cfd254873_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{p2p__protocol_8c_a74a5944ddce828ec4f24dfb4eb6b62e9}{\index{p2p\-\_\-protocol.\-c@{p2p\-\_\-protocol.\-c}!t\-M\-P\-I\-\_\-\-Send\-\_\-env\-\_\-list\-\_\-search\-\_\-old@{t\-M\-P\-I\-\_\-\-Send\-\_\-env\-\_\-list\-\_\-search\-\_\-old}}
+\index{t\-M\-P\-I\-\_\-\-Send\-\_\-env\-\_\-list\-\_\-search\-\_\-old@{t\-M\-P\-I\-\_\-\-Send\-\_\-env\-\_\-list\-\_\-search\-\_\-old}!p2p_protocol.c@{p2p\-\_\-protocol.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Send\-\_\-env\-\_\-list\-\_\-search\-\_\-old}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf envelope}$\ast$ {\bf t\-M\-P\-I\-\_\-\-Send\-\_\-env\-\_\-list\-\_\-search\-\_\-old} (
+\begin{DoxyParamCaption}
+\item[{struct {\bf send\-\_\-envelope\-\_\-list} $\ast$}]{evl, }
+\item[{struct {\bf envelope} $\ast$}]{rev}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}read\mbox{]}}}}\label{p2p__protocol_8c_a74a5944ddce828ec4f24dfb4eb6b62e9}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{p2p__protocol_8c_a74a5944ddce828ec4f24dfb4eb6b62e9_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{p2p__protocol_8c_a74a5944ddce828ec4f24dfb4eb6b62e9_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{p2p__protocol_8c_a87b4b237dfbfd4989160ca14d44601b6}{\index{p2p\-\_\-protocol.\-c@{p2p\-\_\-protocol.\-c}!t\-M\-P\-I\-\_\-\-Set\-\_\-req@{t\-M\-P\-I\-\_\-\-Set\-\_\-req}}
+\index{t\-M\-P\-I\-\_\-\-Set\-\_\-req@{t\-M\-P\-I\-\_\-\-Set\-\_\-req}!p2p_protocol.c@{p2p\-\_\-protocol.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Set\-\_\-req}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf t\-M\-P\-I\-\_\-\-Set\-\_\-req} (
+\begin{DoxyParamCaption}
+\item[{struct {\bf envelope} $\ast$}]{ev, }
+\item[{struct {\bf tmpi\-\_\-req\-\_\-} $\ast$}]{req}
+\end{DoxyParamCaption}
+)}}\label{p2p__protocol_8c_a87b4b237dfbfd4989160ca14d44601b6}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{p2p__protocol_8c_a87b4b237dfbfd4989160ca14d44601b6_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{p2p__protocol_8c_a0b012785a71d7d2c7e804749bc8c014b}{\index{p2p\-\_\-protocol.\-c@{p2p\-\_\-protocol.\-c}!t\-M\-P\-I\-\_\-\-Set\-\_\-status@{t\-M\-P\-I\-\_\-\-Set\-\_\-status}}
+\index{t\-M\-P\-I\-\_\-\-Set\-\_\-status@{t\-M\-P\-I\-\_\-\-Set\-\_\-status}!p2p_protocol.c@{p2p\-\_\-protocol.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Set\-\_\-status}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf t\-M\-P\-I\-\_\-\-Set\-\_\-status} (
+\begin{DoxyParamCaption}
+\item[{struct {\bf tmpi\-\_\-req\-\_\-} $\ast$}]{req, }
+\item[{{\bf t\-M\-P\-I\-\_\-\-Status} $\ast$}]{st}
+\end{DoxyParamCaption}
+)}}\label{p2p__protocol_8c_a0b012785a71d7d2c7e804749bc8c014b}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=328pt]{p2p__protocol_8c_a0b012785a71d7d2c7e804749bc8c014b_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=294pt]{p2p__protocol_8c_a0b012785a71d7d2c7e804749bc8c014b_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{p2p__protocol_8c_acb512ff8762afbcdd910401f993c340d}{\index{p2p\-\_\-protocol.\-c@{p2p\-\_\-protocol.\-c}!t\-M\-P\-I\-\_\-\-Test\-\_\-multi@{t\-M\-P\-I\-\_\-\-Test\-\_\-multi}}
+\index{t\-M\-P\-I\-\_\-\-Test\-\_\-multi@{t\-M\-P\-I\-\_\-\-Test\-\_\-multi}!p2p_protocol.c@{p2p\-\_\-protocol.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Test\-\_\-multi}]{\setlength{\rightskip}{0pt plus 5cm}{\bf tmpi\-\_\-bool} {\bf t\-M\-P\-I\-\_\-\-Test\-\_\-multi} (
+\begin{DoxyParamCaption}
+\item[{struct {\bf tmpi\-\_\-thread} $\ast$}]{cur, }
+\item[{struct {\bf tmpi\-\_\-req\-\_\-} $\ast$}]{rqs, }
+\item[{{\bf tmpi\-\_\-bool} $\ast$}]{any\-\_\-done}
+\end{DoxyParamCaption}
+)}}\label{p2p__protocol_8c_acb512ff8762afbcdd910401f993c340d}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{p2p__protocol_8c_acb512ff8762afbcdd910401f993c340d_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{p2p__protocol_8c_acb512ff8762afbcdd910401f993c340d_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{p2p__protocol_8c_ae85ad17aa89340d84a633fc471f941bd}{\index{p2p\-\_\-protocol.\-c@{p2p\-\_\-protocol.\-c}!t\-M\-P\-I\-\_\-\-Test\-\_\-single@{t\-M\-P\-I\-\_\-\-Test\-\_\-single}}
+\index{t\-M\-P\-I\-\_\-\-Test\-\_\-single@{t\-M\-P\-I\-\_\-\-Test\-\_\-single}!p2p_protocol.c@{p2p\-\_\-protocol.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Test\-\_\-single}]{\setlength{\rightskip}{0pt plus 5cm}{\bf tmpi\-\_\-bool} {\bf t\-M\-P\-I\-\_\-\-Test\-\_\-single} (
+\begin{DoxyParamCaption}
+\item[{struct {\bf tmpi\-\_\-thread} $\ast$}]{cur, }
+\item[{struct {\bf tmpi\-\_\-req\-\_\-} $\ast$}]{rq}
+\end{DoxyParamCaption}
+)}}\label{p2p__protocol_8c_ae85ad17aa89340d84a633fc471f941bd}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{p2p__protocol_8c_ae85ad17aa89340d84a633fc471f941bd_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{p2p__protocol_8c_ae85ad17aa89340d84a633fc471f941bd_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{p2p__protocol_8c_a9e6ca86d7e30fa8258ab22541398dd91}{\index{p2p\-\_\-protocol.\-c@{p2p\-\_\-protocol.\-c}!t\-M\-P\-I\-\_\-\-Wait\-\_\-process\-\_\-incoming@{t\-M\-P\-I\-\_\-\-Wait\-\_\-process\-\_\-incoming}}
+\index{t\-M\-P\-I\-\_\-\-Wait\-\_\-process\-\_\-incoming@{t\-M\-P\-I\-\_\-\-Wait\-\_\-process\-\_\-incoming}!p2p_protocol.c@{p2p\-\_\-protocol.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Wait\-\_\-process\-\_\-incoming}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf t\-M\-P\-I\-\_\-\-Wait\-\_\-process\-\_\-incoming} (
+\begin{DoxyParamCaption}
+\item[{struct {\bf tmpi\-\_\-thread} $\ast$}]{cur}
+\end{DoxyParamCaption}
+)}}\label{p2p__protocol_8c_a9e6ca86d7e30fa8258ab22541398dd91}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{p2p__protocol_8c_a9e6ca86d7e30fa8258ab22541398dd91_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{p2p__protocol_8c_a9e6ca86d7e30fa8258ab22541398dd91_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{p2p__protocol_8c_ae959cd5c60b1e79ab2ebda1eef1ae9c7}{\index{p2p\-\_\-protocol.\-c@{p2p\-\_\-protocol.\-c}!t\-M\-P\-I\-\_\-\-Wait\-\_\-single@{t\-M\-P\-I\-\_\-\-Wait\-\_\-single}}
+\index{t\-M\-P\-I\-\_\-\-Wait\-\_\-single@{t\-M\-P\-I\-\_\-\-Wait\-\_\-single}!p2p_protocol.c@{p2p\-\_\-protocol.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Wait\-\_\-single}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf t\-M\-P\-I\-\_\-\-Wait\-\_\-single} (
+\begin{DoxyParamCaption}
+\item[{struct {\bf tmpi\-\_\-thread} $\ast$}]{cur, }
+\item[{struct {\bf tmpi\-\_\-req\-\_\-} $\ast$}]{rq}
+\end{DoxyParamCaption}
+)}}\label{p2p__protocol_8c_ae959cd5c60b1e79ab2ebda1eef1ae9c7}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{p2p__protocol_8c_ae959cd5c60b1e79ab2ebda1eef1ae9c7_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=276pt]{p2p__protocol_8c_ae959cd5c60b1e79ab2ebda1eef1ae9c7_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{p2p__protocol_8c_aff0e2756d2518397e11fd08ca0530ccf}{\index{p2p\-\_\-protocol.\-c@{p2p\-\_\-protocol.\-c}!t\-M\-P\-I\-\_\-\-Xfer@{t\-M\-P\-I\-\_\-\-Xfer}}
+\index{t\-M\-P\-I\-\_\-\-Xfer@{t\-M\-P\-I\-\_\-\-Xfer}!p2p_protocol.c@{p2p\-\_\-protocol.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Xfer}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf t\-M\-P\-I\-\_\-\-Xfer} (
+\begin{DoxyParamCaption}
+\item[{struct {\bf tmpi\-\_\-thread} $\ast$}]{cur, }
+\item[{struct {\bf envelope} $\ast$}]{sev, }
+\item[{struct {\bf envelope} $\ast$}]{rev}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{p2p__protocol_8c_aff0e2756d2518397e11fd08ca0530ccf}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{p2p__protocol_8c_aff0e2756d2518397e11fd08ca0530ccf_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{p2p__protocol_8c_aff0e2756d2518397e11fd08ca0530ccf_icgraph}
+\end{center}
+\end{figure}
+
+

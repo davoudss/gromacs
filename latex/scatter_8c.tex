@@ -1,0 +1,135 @@
+\hypertarget{scatter_8c}{\section{src/gmxlib/thread\-\_\-mpi/scatter.c \-File \-Reference}
+\label{scatter_8c}\index{src/gmxlib/thread\-\_\-mpi/scatter.\-c@{src/gmxlib/thread\-\_\-mpi/scatter.\-c}}
+}
+{\ttfamily \#include $<$errno.\-h$>$}\*
+{\ttfamily \#include $<$stdlib.\-h$>$}\*
+{\ttfamily \#include $<$stdio.\-h$>$}\*
+{\ttfamily \#include $<$stdarg.\-h$>$}\*
+{\ttfamily \#include $<$string.\-h$>$}\*
+{\ttfamily \#include \char`\"{}impl.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}collective.\-h\char`\"{}}\*
+\-Include dependency graph for scatter.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{scatter_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{scatter_8c_a803763ca4fa9bbd34bc9dfef6fa043e3}{t\-M\-P\-I\-\_\-\-Scatter} (\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$sendbuf, int sendcount, \hyperlink{include_2thread__mpi_2tmpi_8h_a5dfe10378be22fca9362e52f6abdf503}{t\-M\-P\-I\-\_\-\-Datatype} sendtype, \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$recvbuf, int recvcount, \hyperlink{include_2thread__mpi_2tmpi_8h_a5dfe10378be22fca9362e52f6abdf503}{t\-M\-P\-I\-\_\-\-Datatype} recvtype, int root, \hyperlink{include_2thread__mpi_2tmpi_8h_ab76dc275b882a1d00a54353fb8dd4cb3}{t\-M\-P\-I\-\_\-\-Comm} comm)
+\item 
+int \hyperlink{scatter_8c_a25b9e52dd078dcefb8bb2030627721a7}{t\-M\-P\-I\-\_\-\-Scatterv} (\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$sendbuf, int $\ast$sendcounts, int $\ast$displs, \hyperlink{include_2thread__mpi_2tmpi_8h_a5dfe10378be22fca9362e52f6abdf503}{t\-M\-P\-I\-\_\-\-Datatype} sendtype, \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$recvbuf, int recvcount, \hyperlink{include_2thread__mpi_2tmpi_8h_a5dfe10378be22fca9362e52f6abdf503}{t\-M\-P\-I\-\_\-\-Datatype} recvtype, int root, \hyperlink{include_2thread__mpi_2tmpi_8h_ab76dc275b882a1d00a54353fb8dd4cb3}{t\-M\-P\-I\-\_\-\-Comm} comm)
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{scatter_8c_a803763ca4fa9bbd34bc9dfef6fa043e3}{\index{scatter.\-c@{scatter.\-c}!t\-M\-P\-I\-\_\-\-Scatter@{t\-M\-P\-I\-\_\-\-Scatter}}
+\index{t\-M\-P\-I\-\_\-\-Scatter@{t\-M\-P\-I\-\_\-\-Scatter}!scatter.c@{scatter.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Scatter}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf t\-M\-P\-I\-\_\-\-Scatter} (
+\begin{DoxyParamCaption}
+\item[{{\bf void} $\ast$}]{sendbuf, }
+\item[{int}]{sendcount, }
+\item[{{\bf t\-M\-P\-I\-\_\-\-Datatype}}]{sendtype, }
+\item[{{\bf void} $\ast$}]{recvbuf, }
+\item[{int}]{recvcount, }
+\item[{{\bf t\-M\-P\-I\-\_\-\-Datatype}}]{recvtype, }
+\item[{int}]{root, }
+\item[{{\bf t\-M\-P\-I\-\_\-\-Comm}}]{comm}
+\end{DoxyParamCaption}
+)}}\label{scatter_8c_a803763ca4fa9bbd34bc9dfef6fa043e3}
+\-Spread parts of sendbuf to all processes in comm from root.
+
+\-Collective function.
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em sendbuf} & \-The send buffer for root. \\
+\hline
+\mbox{\tt in}  & {\em sendcount} & \-The number of items for root to send to each thread. \\
+\hline
+\mbox{\tt in}  & {\em sendtype} & \-The type of the items root sends. \\
+\hline
+\mbox{\tt out}  & {\em recvbuf} & \-The receiving buffer for all receiving threads (root may specify \-T\-M\-P\-I\-\_\-\-I\-N\-\_\-\-P\-L\-A\-C\-E, in which case it transmits nothing to itself). \\
+\hline
+\mbox{\tt in}  & {\em recvcount} & \-The number of items recvbuf can receive. \\
+\hline
+\mbox{\tt in}  & {\em recvtype} & \-The type of items to receive. \\
+\hline
+\mbox{\tt in}  & {\em root} & \-The rank of root. \\
+\hline
+\mbox{\tt in}  & {\em comm} & \-The communicator.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-T\-M\-P\-I\-\_\-\-S\-U\-C\-C\-E\-S\-S on success, \-T\-M\-P\-I\-\_\-\-F\-A\-I\-L\-U\-R\-E on failure. 
+\end{DoxyReturn}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{scatter_8c_a803763ca4fa9bbd34bc9dfef6fa043e3_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{scatter_8c_a25b9e52dd078dcefb8bb2030627721a7}{\index{scatter.\-c@{scatter.\-c}!t\-M\-P\-I\-\_\-\-Scatterv@{t\-M\-P\-I\-\_\-\-Scatterv}}
+\index{t\-M\-P\-I\-\_\-\-Scatterv@{t\-M\-P\-I\-\_\-\-Scatterv}!scatter.c@{scatter.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Scatterv}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf t\-M\-P\-I\-\_\-\-Scatterv} (
+\begin{DoxyParamCaption}
+\item[{{\bf void} $\ast$}]{sendbuf, }
+\item[{int $\ast$}]{sendcounts, }
+\item[{int $\ast$}]{displs, }
+\item[{{\bf t\-M\-P\-I\-\_\-\-Datatype}}]{sendtype, }
+\item[{{\bf void} $\ast$}]{recvbuf, }
+\item[{int}]{recvcount, }
+\item[{{\bf t\-M\-P\-I\-\_\-\-Datatype}}]{recvtype, }
+\item[{int}]{root, }
+\item[{{\bf t\-M\-P\-I\-\_\-\-Comm}}]{comm}
+\end{DoxyParamCaption}
+)}}\label{scatter_8c_a25b9e52dd078dcefb8bb2030627721a7}
+\-Spread irregularly laid out parts of sendbuf to all processes in comm from root.
+
+\-Collective function.
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em sendbuf} & \-The send buffer for root. \\
+\hline
+\mbox{\tt in}  & {\em sendcounts} & \-List of the number of items for root to send to each thread. \\
+\hline
+\mbox{\tt in}  & {\em displs} & \-List of displacements in sendbuf from which to start transmission to each thread. \\
+\hline
+\mbox{\tt in}  & {\em sendtype} & \-The type of the items root sends. \\
+\hline
+\mbox{\tt out}  & {\em recvbuf} & \-The receiving buffer for all receiving threads (root may specify \-T\-M\-P\-I\-\_\-\-I\-N\-\_\-\-P\-L\-A\-C\-E, in which case it transmits nothing to itself). \\
+\hline
+\mbox{\tt in}  & {\em recvcount} & \-The number of items recvbuf can receive. \\
+\hline
+\mbox{\tt in}  & {\em recvtype} & \-The type of items to receive. \\
+\hline
+\mbox{\tt in}  & {\em root} & \-The rank of root. \\
+\hline
+\mbox{\tt in}  & {\em comm} & \-The communicator.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-T\-M\-P\-I\-\_\-\-S\-U\-C\-C\-E\-S\-S on success, \-T\-M\-P\-I\-\_\-\-F\-A\-I\-L\-U\-R\-E on failure. 
+\end{DoxyReturn}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{scatter_8c_a25b9e52dd078dcefb8bb2030627721a7_cgraph}
+\end{center}
+\end{figure}
+
+

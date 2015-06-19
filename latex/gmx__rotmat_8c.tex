@@ -1,0 +1,127 @@
+\hypertarget{gmx__rotmat_8c}{\section{src/tools/gmx\-\_\-rotmat.c \-File \-Reference}
+\label{gmx__rotmat_8c}\index{src/tools/gmx\-\_\-rotmat.\-c@{src/tools/gmx\-\_\-rotmat.\-c}}
+}
+{\ttfamily \#include $<$math.\-h$>$}\*
+{\ttfamily \#include $<$string.\-h$>$}\*
+{\ttfamily \#include \char`\"{}statutil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}sysstuff.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}typedefs.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}smalloc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}macros.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}vec.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}pbc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}copyrite.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}futil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}index.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}mshift.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}xvgr.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}rmpbc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}tpxio.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}do\-\_\-fit.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-ana.\-h\char`\"{}}\*
+\-Include dependency graph for gmx\-\_\-rotmat.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__rotmat_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{gmx__rotmat_8c_a9fb1d82db119e585aeab609317f87f01}{\-N\-L\-E\-G}~\hyperlink{share_2template_2gromacs_2macros_8h_a0883345a58f8f63aefa249a4f127f707}{asize}(leg)
+\item 
+\#define \hyperlink{gmx__rotmat_8c_a8485f4e81de2537e6a0935626167a775}{\-N\-F\-I\-L\-E}~\hyperlink{share_2template_2gromacs_2macros_8h_a0883345a58f8f63aefa249a4f127f707}{asize}(fnm)
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__rotmat_8c_a9707c81fd1be62863c51f6f9fd0ceb30}{get\-\_\-refx} (\hyperlink{include_2types_2oenv_8h_a6a48d77d95132d7318780544821da6a5}{output\-\_\-env\-\_\-t} oenv, const char $\ast$trxfn, int nfitdim, int skip, int gnx, int $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a49fd977001162d7256c8fcd293f9d12a}{index}, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-M\-W, \hyperlink{structt__topology}{t\-\_\-topology} $\ast$\hyperlink{gmx__disre_8c_a1b538a2ce75aba6c346bc03980ffeb28}{top}, int e\-P\-B\-C, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$x\-\_\-ref)
+\item 
+int \hyperlink{gmx__rotmat_8c_a4ca0064615510a621686c9c5131ead73}{gmx\-\_\-rotmat} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Define \-Documentation}
+\hypertarget{gmx__rotmat_8c_a8485f4e81de2537e6a0935626167a775}{\index{gmx\-\_\-rotmat.\-c@{gmx\-\_\-rotmat.\-c}!\-N\-F\-I\-L\-E@{\-N\-F\-I\-L\-E}}
+\index{\-N\-F\-I\-L\-E@{\-N\-F\-I\-L\-E}!gmx_rotmat.c@{gmx\-\_\-rotmat.\-c}}
+\subsubsection[{\-N\-F\-I\-L\-E}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-N\-F\-I\-L\-E}~{\bf asize}(fnm)}}\label{gmx__rotmat_8c_a8485f4e81de2537e6a0935626167a775}
+\hypertarget{gmx__rotmat_8c_a9fb1d82db119e585aeab609317f87f01}{\index{gmx\-\_\-rotmat.\-c@{gmx\-\_\-rotmat.\-c}!\-N\-L\-E\-G@{\-N\-L\-E\-G}}
+\index{\-N\-L\-E\-G@{\-N\-L\-E\-G}!gmx_rotmat.c@{gmx\-\_\-rotmat.\-c}}
+\subsubsection[{\-N\-L\-E\-G}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-N\-L\-E\-G}~{\bf asize}(leg)}}\label{gmx__rotmat_8c_a9fb1d82db119e585aeab609317f87f01}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{gmx__rotmat_8c_a9707c81fd1be62863c51f6f9fd0ceb30}{\index{gmx\-\_\-rotmat.\-c@{gmx\-\_\-rotmat.\-c}!get\-\_\-refx@{get\-\_\-refx}}
+\index{get\-\_\-refx@{get\-\_\-refx}!gmx_rotmat.c@{gmx\-\_\-rotmat.\-c}}
+\subsubsection[{get\-\_\-refx}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf get\-\_\-refx} (
+\begin{DoxyParamCaption}
+\item[{{\bf output\-\_\-env\-\_\-t}}]{oenv, }
+\item[{const char $\ast$}]{trxfn, }
+\item[{int}]{nfitdim, }
+\item[{int}]{skip, }
+\item[{int}]{gnx, }
+\item[{int $\ast$}]{index, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-M\-W, }
+\item[{{\bf t\-\_\-topology} $\ast$}]{top, }
+\item[{int}]{e\-P\-B\-C, }
+\item[{{\bf rvec} $\ast$}]{x\-\_\-ref}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__rotmat_8c_a9707c81fd1be62863c51f6f9fd0ceb30}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=262pt]{gmx__rotmat_8c_a9707c81fd1be62863c51f6f9fd0ceb30_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=310pt]{gmx__rotmat_8c_a9707c81fd1be62863c51f6f9fd0ceb30_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__rotmat_8c_a4ca0064615510a621686c9c5131ead73}{\index{gmx\-\_\-rotmat.\-c@{gmx\-\_\-rotmat.\-c}!gmx\-\_\-rotmat@{gmx\-\_\-rotmat}}
+\index{gmx\-\_\-rotmat@{gmx\-\_\-rotmat}!gmx_rotmat.c@{gmx\-\_\-rotmat.\-c}}
+\subsubsection[{gmx\-\_\-rotmat}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-rotmat} (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{gmx__rotmat_8c_a4ca0064615510a621686c9c5131ead73}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{gmx__rotmat_8c_a4ca0064615510a621686c9c5131ead73_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=222pt]{gmx__rotmat_8c_a4ca0064615510a621686c9c5131ead73_icgraph}
+\end{center}
+\end{figure}
+
+

@@ -1,0 +1,317 @@
+\hypertarget{nleg_8c}{\section{src/ngmx/nleg.c \-File \-Reference}
+\label{nleg_8c}\index{src/ngmx/nleg.\-c@{src/ngmx/nleg.\-c}}
+}
+{\ttfamily \#include $<$ctype.\-h$>$}\*
+{\ttfamily \#include $<$string.\-h$>$}\*
+{\ttfamily \#include $<$smalloc.\-h$>$}\*
+{\ttfamily \#include $<$macros.\-h$>$}\*
+{\ttfamily \#include \char`\"{}buttons.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}nleg.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}writeps.\-h\char`\"{}}\*
+\-Include dependency graph for nleg.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nleg_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structt__atomcolor}{t\-\_\-atomcolor}
+\end{DoxyCompactItemize}
+\subsection*{\-Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{nleg_8c_aa449c4496154c20a5c121eba5b5c665d}{\-N\-A\-C}~\hyperlink{share_2template_2gromacs_2macros_8h_a0883345a58f8f63aefa249a4f127f707}{asize}(\hyperlink{nleg_8c_a80921a6f68810b3cef3e50c652a2d58d}{ac})
+\item 
+\#define \hyperlink{nleg_8c_a3b0d0f5f434c669eb356291cf8046f13}{\-N\-L\-A\-B}~6
+\item 
+\#define \hyperlink{nleg_8c_ab59ad2ee1a48b83c2eef1f019ed8cc48}{\-C\-O\-L\-S}~3
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{nleg_8c_abc47205d26aa09e134d86b1cd50b95b8}{search\-\_\-ac} (const char $\ast$\hyperlink{fgrid_8c_a7f3986ef06a5ebd031c536fbcdce3c49}{type})
+\item 
+unsigned long \hyperlink{nleg_8c_af6201b2c4288d6a851142b4ccae60c76}{\-Type2\-Color} (const char $\ast$\hyperlink{fgrid_8c_a7f3986ef06a5ebd031c536fbcdce3c49}{type})
+\item 
+\hyperlink{structt__rgb}{t\-\_\-rgb} $\ast$ \hyperlink{nleg_8c_a09f7e372fff465c5724a6697bd46a61c}{\-Type2\-R\-G\-B} (const char $\ast$\hyperlink{fgrid_8c_a7f3986ef06a5ebd031c536fbcdce3c49}{type})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{nleg_8c_a8e1e60b3f29c4e120c892d894fbf3db3}{\-Draw\-Legend} (\hyperlink{structt__x11}{t\-\_\-x11} $\ast$x11, \hyperlink{structt__windata}{t\-\_\-windata} $\ast$\-Win)
+\item 
+static \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{nleg_8c_ad46ed2c52308d73ecb64f6cfb69934a4}{\-Leg\-W\-Call\-Back} (\hyperlink{structt__x11}{t\-\_\-x11} $\ast$x11, \-X\-Event $\ast$event, \-Window \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_adf78cb898ff892dd3fa9c4a1da899392}{w}, \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$data)
+\item 
+\hyperlink{structt__legendwin}{t\-\_\-legendwin} $\ast$ \hyperlink{nleg_8c_a9dfe46acf32f9f97595371afb2de8a9c}{init\-\_\-legw} (\hyperlink{structt__x11}{t\-\_\-x11} $\ast$x11, \-Window \-Parent, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ad992d70ec70c927046cfc2ab1c79b188}{y}, int width, int height, unsigned long fg, unsigned long bg)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{nleg_8c_afd6e31d60afe0dc3ea62c3137412101d}{map\-\_\-legw} (\hyperlink{structt__x11}{t\-\_\-x11} $\ast$x11, \hyperlink{structt__legendwin}{t\-\_\-legendwin} $\ast$lw)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{nleg_8c_aba951e8ecaefd17a577b591950c65fad}{done\-\_\-legw} (\hyperlink{structt__x11}{t\-\_\-x11} $\ast$x11, \hyperlink{structt__legendwin}{t\-\_\-legendwin} $\ast$lw)
+\end{DoxyCompactItemize}
+\subsection*{\-Variables}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{structt__atomcolor}{t\-\_\-atomcolor} \hyperlink{nleg_8c_a80921a6f68810b3cef3e50c652a2d58d}{ac} \mbox{[}$\,$\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Define \-Documentation}
+\hypertarget{nleg_8c_ab59ad2ee1a48b83c2eef1f019ed8cc48}{\index{nleg.\-c@{nleg.\-c}!\-C\-O\-L\-S@{\-C\-O\-L\-S}}
+\index{\-C\-O\-L\-S@{\-C\-O\-L\-S}!nleg.c@{nleg.\-c}}
+\subsubsection[{\-C\-O\-L\-S}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-C\-O\-L\-S}~3}}\label{nleg_8c_ab59ad2ee1a48b83c2eef1f019ed8cc48}
+\hypertarget{nleg_8c_aa449c4496154c20a5c121eba5b5c665d}{\index{nleg.\-c@{nleg.\-c}!\-N\-A\-C@{\-N\-A\-C}}
+\index{\-N\-A\-C@{\-N\-A\-C}!nleg.c@{nleg.\-c}}
+\subsubsection[{\-N\-A\-C}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-N\-A\-C}~{\bf asize}({\bf ac})}}\label{nleg_8c_aa449c4496154c20a5c121eba5b5c665d}
+\hypertarget{nleg_8c_a3b0d0f5f434c669eb356291cf8046f13}{\index{nleg.\-c@{nleg.\-c}!\-N\-L\-A\-B@{\-N\-L\-A\-B}}
+\index{\-N\-L\-A\-B@{\-N\-L\-A\-B}!nleg.c@{nleg.\-c}}
+\subsubsection[{\-N\-L\-A\-B}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-N\-L\-A\-B}~6}}\label{nleg_8c_a3b0d0f5f434c669eb356291cf8046f13}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{nleg_8c_aba951e8ecaefd17a577b591950c65fad}{\index{nleg.\-c@{nleg.\-c}!done\-\_\-legw@{done\-\_\-legw}}
+\index{done\-\_\-legw@{done\-\_\-legw}!nleg.c@{nleg.\-c}}
+\subsubsection[{done\-\_\-legw}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf done\-\_\-legw} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-x11} $\ast$}]{x11, }
+\item[{{\bf t\-\_\-legendwin} $\ast$}]{lw}
+\end{DoxyParamCaption}
+)}}\label{nleg_8c_aba951e8ecaefd17a577b591950c65fad}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nleg_8c_aba951e8ecaefd17a577b591950c65fad_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{nleg_8c_a8e1e60b3f29c4e120c892d894fbf3db3}{\index{nleg.\-c@{nleg.\-c}!\-Draw\-Legend@{\-Draw\-Legend}}
+\index{\-Draw\-Legend@{\-Draw\-Legend}!nleg.c@{nleg.\-c}}
+\subsubsection[{\-Draw\-Legend}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf \-Draw\-Legend} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-x11} $\ast$}]{x11, }
+\item[{{\bf t\-\_\-windata} $\ast$}]{\-Win}
+\end{DoxyParamCaption}
+)}}\label{nleg_8c_a8e1e60b3f29c4e120c892d894fbf3db3}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nleg_8c_a8e1e60b3f29c4e120c892d894fbf3db3_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nleg_8c_a8e1e60b3f29c4e120c892d894fbf3db3_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{nleg_8c_a9dfe46acf32f9f97595371afb2de8a9c}{\index{nleg.\-c@{nleg.\-c}!init\-\_\-legw@{init\-\_\-legw}}
+\index{init\-\_\-legw@{init\-\_\-legw}!nleg.c@{nleg.\-c}}
+\subsubsection[{init\-\_\-legw}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\-\_\-legendwin}$\ast$ {\bf init\-\_\-legw} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-x11} $\ast$}]{x11, }
+\item[{\-Window}]{\-Parent, }
+\item[{int}]{x, }
+\item[{int}]{y, }
+\item[{int}]{width, }
+\item[{int}]{height, }
+\item[{unsigned long}]{fg, }
+\item[{unsigned long}]{bg}
+\end{DoxyParamCaption}
+)}}\label{nleg_8c_a9dfe46acf32f9f97595371afb2de8a9c}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nleg_8c_a9dfe46acf32f9f97595371afb2de8a9c_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nleg_8c_a9dfe46acf32f9f97595371afb2de8a9c_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{nleg_8c_ad46ed2c52308d73ecb64f6cfb69934a4}{\index{nleg.\-c@{nleg.\-c}!\-Leg\-W\-Call\-Back@{\-Leg\-W\-Call\-Back}}
+\index{\-Leg\-W\-Call\-Back@{\-Leg\-W\-Call\-Back}!nleg.c@{nleg.\-c}}
+\subsubsection[{\-Leg\-W\-Call\-Back}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gmx\-\_\-bool} {\bf \-Leg\-W\-Call\-Back} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-x11} $\ast$}]{x11, }
+\item[{\-X\-Event $\ast$}]{event, }
+\item[{\-Window}]{w, }
+\item[{{\bf void} $\ast$}]{data}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{nleg_8c_ad46ed2c52308d73ecb64f6cfb69934a4}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nleg_8c_ad46ed2c52308d73ecb64f6cfb69934a4_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nleg_8c_ad46ed2c52308d73ecb64f6cfb69934a4_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{nleg_8c_afd6e31d60afe0dc3ea62c3137412101d}{\index{nleg.\-c@{nleg.\-c}!map\-\_\-legw@{map\-\_\-legw}}
+\index{map\-\_\-legw@{map\-\_\-legw}!nleg.c@{nleg.\-c}}
+\subsubsection[{map\-\_\-legw}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf map\-\_\-legw} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-x11} $\ast$}]{x11, }
+\item[{{\bf t\-\_\-legendwin} $\ast$}]{lw}
+\end{DoxyParamCaption}
+)}}\label{nleg_8c_afd6e31d60afe0dc3ea62c3137412101d}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nleg_8c_afd6e31d60afe0dc3ea62c3137412101d_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{nleg_8c_abc47205d26aa09e134d86b1cd50b95b8}{\index{nleg.\-c@{nleg.\-c}!search\-\_\-ac@{search\-\_\-ac}}
+\index{search\-\_\-ac@{search\-\_\-ac}!nleg.c@{nleg.\-c}}
+\subsubsection[{search\-\_\-ac}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf search\-\_\-ac} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{type}
+\end{DoxyParamCaption}
+)}}\label{nleg_8c_abc47205d26aa09e134d86b1cd50b95b8}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nleg_8c_abc47205d26aa09e134d86b1cd50b95b8_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{nleg_8c_af6201b2c4288d6a851142b4ccae60c76}{\index{nleg.\-c@{nleg.\-c}!\-Type2\-Color@{\-Type2\-Color}}
+\index{\-Type2\-Color@{\-Type2\-Color}!nleg.c@{nleg.\-c}}
+\subsubsection[{\-Type2\-Color}]{\setlength{\rightskip}{0pt plus 5cm}unsigned long {\bf \-Type2\-Color} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{type}
+\end{DoxyParamCaption}
+)}}\label{nleg_8c_af6201b2c4288d6a851142b4ccae60c76}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=246pt]{nleg_8c_af6201b2c4288d6a851142b4ccae60c76_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nleg_8c_af6201b2c4288d6a851142b4ccae60c76_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{nleg_8c_a09f7e372fff465c5724a6697bd46a61c}{\index{nleg.\-c@{nleg.\-c}!\-Type2\-R\-G\-B@{\-Type2\-R\-G\-B}}
+\index{\-Type2\-R\-G\-B@{\-Type2\-R\-G\-B}!nleg.c@{nleg.\-c}}
+\subsubsection[{\-Type2\-R\-G\-B}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\-\_\-rgb}$\ast$ {\bf \-Type2\-R\-G\-B} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{type}
+\end{DoxyParamCaption}
+)}}\label{nleg_8c_a09f7e372fff465c5724a6697bd46a61c}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=244pt]{nleg_8c_a09f7e372fff465c5724a6697bd46a61c_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nleg_8c_a09f7e372fff465c5724a6697bd46a61c_icgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{\-Variable \-Documentation}
+\hypertarget{nleg_8c_a80921a6f68810b3cef3e50c652a2d58d}{\index{nleg.\-c@{nleg.\-c}!ac@{ac}}
+\index{ac@{ac}!nleg.c@{nleg.\-c}}
+\subsubsection[{ac}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\-\_\-atomcolor} {\bf ac}\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{nleg_8c_a80921a6f68810b3cef3e50c652a2d58d}
+{\bfseries \-Initial value\-:}
+\begin{DoxyCode}
+ {
+    { "O",  &LIGHTRED,     { 1,  0,  0   } },
+    { "N",  &LIGHTCYAN,    { 0,  0,  1   } },
+    { "NA", &LIGHTGREY,    { 0.6, 0.6, 0.6 } },
+    { "S",  &YELLOW,       { 1,  1,  0   } },
+    { "C",  &LIGHTGREEN,   { 0,  1,  0   } },
+    { "CL", &VIOLET,       { 1,  0,  1   } },
+    { "F",  &LIGHTGREY,    { 0.6, 0.6, 0.6 } },
+    { "Z",  &LIGHTGREY,    { 0.6, 0.6, 0.6 } },
+    { "P",  &LIGHTBLUE,    { 0.4, 0.4, 1.0 } },
+    { "H",  &WHITE,        { 0.8, 0.8, 0.8 } }
+}
+\end{DoxyCode}

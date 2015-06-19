@@ -1,0 +1,104 @@
+\hypertarget{list_8c}{\section{src/gmxlib/thread\-\_\-mpi/list.c \-File \-Reference}
+\label{list_8c}\index{src/gmxlib/thread\-\_\-mpi/list.\-c@{src/gmxlib/thread\-\_\-mpi/list.\-c}}
+}
+{\ttfamily \#include $<$errno.\-h$>$}\*
+{\ttfamily \#include $<$stdlib.\-h$>$}\*
+{\ttfamily \#include $<$stdio.\-h$>$}\*
+{\ttfamily \#include $<$string.\-h$>$}\*
+{\ttfamily \#include \char`\"{}thread\-\_\-mpi/list.\-h\char`\"{}}\*
+\-Include dependency graph for list.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{list_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{list_8c_a804d8a60d7ba8f99e30e888876072ca4}{t\-M\-P\-I\-\_\-\-Stack\-\_\-init} (\hyperlink{structtMPI__Stack}{t\-M\-P\-I\-\_\-\-Stack} $\ast$st)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{list_8c_a6c8d5dc13c87a08442fd8fd34c0ca10b}{t\-M\-P\-I\-\_\-\-Stack\-\_\-destroy} (\hyperlink{structtMPI__Stack}{t\-M\-P\-I\-\_\-\-Stack} $\ast$st)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{list_8c_a59becd93d6bec3c144811334baf502fc}{t\-M\-P\-I\-\_\-\-Stack\-\_\-push} (\hyperlink{structtMPI__Stack}{t\-M\-P\-I\-\_\-\-Stack} $\ast$st, \hyperlink{structtMPI__Stack__element}{t\-M\-P\-I\-\_\-\-Stack\-\_\-element} $\ast$el)
+\item 
+\hyperlink{structtMPI__Stack__element}{t\-M\-P\-I\-\_\-\-Stack\-\_\-element} $\ast$ \hyperlink{list_8c_a6776f8c0494dece69a96182cf8fd02e9}{t\-M\-P\-I\-\_\-\-Stack\-\_\-pop} (\hyperlink{structtMPI__Stack}{t\-M\-P\-I\-\_\-\-Stack} $\ast$st)
+\item 
+\hyperlink{structtMPI__Stack__element}{t\-M\-P\-I\-\_\-\-Stack\-\_\-element} $\ast$ \hyperlink{list_8c_a442d28372b0eaccc6c6180d071f91d76}{t\-M\-P\-I\-\_\-\-Stack\-\_\-detach} (\hyperlink{structtMPI__Stack}{t\-M\-P\-I\-\_\-\-Stack} $\ast$st)
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{list_8c_a6c8d5dc13c87a08442fd8fd34c0ca10b}{\index{list.\-c@{list.\-c}!t\-M\-P\-I\-\_\-\-Stack\-\_\-destroy@{t\-M\-P\-I\-\_\-\-Stack\-\_\-destroy}}
+\index{t\-M\-P\-I\-\_\-\-Stack\-\_\-destroy@{t\-M\-P\-I\-\_\-\-Stack\-\_\-destroy}!list.c@{list.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Stack\-\_\-destroy}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf t\-M\-P\-I\-\_\-\-Stack\-\_\-destroy} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-M\-P\-I\-\_\-\-Stack} $\ast$}]{st}
+\end{DoxyParamCaption}
+)}}\label{list_8c_a6c8d5dc13c87a08442fd8fd34c0ca10b}
+\-Deallocates a stack \hypertarget{list_8c_a442d28372b0eaccc6c6180d071f91d76}{\index{list.\-c@{list.\-c}!t\-M\-P\-I\-\_\-\-Stack\-\_\-detach@{t\-M\-P\-I\-\_\-\-Stack\-\_\-detach}}
+\index{t\-M\-P\-I\-\_\-\-Stack\-\_\-detach@{t\-M\-P\-I\-\_\-\-Stack\-\_\-detach}!list.c@{list.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Stack\-\_\-detach}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\-M\-P\-I\-\_\-\-Stack\-\_\-element}$\ast$ {\bf t\-M\-P\-I\-\_\-\-Stack\-\_\-detach} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-M\-P\-I\-\_\-\-Stack} $\ast$}]{st}
+\end{DoxyParamCaption}
+)}}\label{list_8c_a442d28372b0eaccc6c6180d071f91d76}
+\-Detaches entire stack for use by a single thread 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{list_8c_a442d28372b0eaccc6c6180d071f91d76_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{list_8c_a804d8a60d7ba8f99e30e888876072ca4}{\index{list.\-c@{list.\-c}!t\-M\-P\-I\-\_\-\-Stack\-\_\-init@{t\-M\-P\-I\-\_\-\-Stack\-\_\-init}}
+\index{t\-M\-P\-I\-\_\-\-Stack\-\_\-init@{t\-M\-P\-I\-\_\-\-Stack\-\_\-init}!list.c@{list.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Stack\-\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf t\-M\-P\-I\-\_\-\-Stack\-\_\-init} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-M\-P\-I\-\_\-\-Stack} $\ast$}]{st}
+\end{DoxyParamCaption}
+)}}\label{list_8c_a804d8a60d7ba8f99e30e888876072ca4}
+\-Initialize a stack \hypertarget{list_8c_a6776f8c0494dece69a96182cf8fd02e9}{\index{list.\-c@{list.\-c}!t\-M\-P\-I\-\_\-\-Stack\-\_\-pop@{t\-M\-P\-I\-\_\-\-Stack\-\_\-pop}}
+\index{t\-M\-P\-I\-\_\-\-Stack\-\_\-pop@{t\-M\-P\-I\-\_\-\-Stack\-\_\-pop}!list.c@{list.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Stack\-\_\-pop}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\-M\-P\-I\-\_\-\-Stack\-\_\-element}$\ast$ {\bf t\-M\-P\-I\-\_\-\-Stack\-\_\-pop} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-M\-P\-I\-\_\-\-Stack} $\ast$}]{st}
+\end{DoxyParamCaption}
+)}}\label{list_8c_a6776f8c0494dece69a96182cf8fd02e9}
+\-Pops a stack element from a stack 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{list_8c_a6776f8c0494dece69a96182cf8fd02e9_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{list_8c_a59becd93d6bec3c144811334baf502fc}{\index{list.\-c@{list.\-c}!t\-M\-P\-I\-\_\-\-Stack\-\_\-push@{t\-M\-P\-I\-\_\-\-Stack\-\_\-push}}
+\index{t\-M\-P\-I\-\_\-\-Stack\-\_\-push@{t\-M\-P\-I\-\_\-\-Stack\-\_\-push}!list.c@{list.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Stack\-\_\-push}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf t\-M\-P\-I\-\_\-\-Stack\-\_\-push} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-M\-P\-I\-\_\-\-Stack} $\ast$}]{st, }
+\item[{{\bf t\-M\-P\-I\-\_\-\-Stack\-\_\-element} $\ast$}]{el}
+\end{DoxyParamCaption}
+)}}\label{list_8c_a59becd93d6bec3c144811334baf502fc}
+\-Pushes a stack element onto a stack 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{list_8c_a59becd93d6bec3c144811334baf502fc_cgraph}
+\end{center}
+\end{figure}
+
+

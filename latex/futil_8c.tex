@@ -1,0 +1,591 @@
+\hypertarget{futil_8c}{\section{src/gmxlib/futil.c \-File \-Reference}
+\label{futil_8c}\index{src/gmxlib/futil.\-c@{src/gmxlib/futil.\-c}}
+}
+{\ttfamily \#include $<$stdio.\-h$>$}\*
+{\ttfamily \#include $<$stdlib.\-h$>$}\*
+{\ttfamily \#include $<$string.\-h$>$}\*
+{\ttfamily \#include $<$sys/types.\-h$>$}\*
+{\ttfamily \#include $<$sys/stat.\-h$>$}\*
+{\ttfamily \#include $<$fcntl.\-h$>$}\*
+{\ttfamily \#include \char`\"{}sysstuff.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}string2.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}futil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}network.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-fatal.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}smalloc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}statutil.\-h\char`\"{}}\*
+\-Include dependency graph for futil.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{futil_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structt__pstack}{t\-\_\-pstack}
+\item 
+struct \hyperlink{structgmx__directory}{gmx\-\_\-directory}
+\end{DoxyCompactItemize}
+\subsection*{\-Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{futil_8c_a5880ec0d5758fc1e5be1306456ed28b3}{\-C\-O\-U\-N\-T\-M\-A\-X}~99
+\end{DoxyCompactItemize}
+\subsection*{\-Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \hyperlink{structt__pstack}{t\-\_\-pstack} \hyperlink{futil_8c_a71b6b04c60ffcd0aa070cee24a5ddedc}{t\-\_\-pstack}
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{futil_8c_a3735a67e0fe75cae87f14430785bcd9d}{no\-\_\-buffers} (\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{futil_8c_a6677ef0d969d93832ae17d5f62c1c84a}{push\-\_\-ps} (\-F\-I\-L\-E $\ast$fp)
+\item 
+static \-F\-I\-L\-E $\ast$ \hyperlink{futil_8c_afeecc7834978a868084b2591454e944a}{popen} (const char $\ast$\hyperlink{anaf_8c_a0e2c9d6b8df27abcaabfa694136eab55}{nm}, const char $\ast$mode)
+\item 
+static int \hyperlink{futil_8c_abb4bc86e93d6ec5a0b0a5064fa23e619}{pclose} (\-F\-I\-L\-E $\ast$fp)
+\item 
+int \hyperlink{futil_8c_a458bec716d02c1ad83fae1edc1bf7ef2}{ffclose} (\-F\-I\-L\-E $\ast$fp)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{futil_8c_a97d171ba8393365df315e678061376c0}{frewind} (\-F\-I\-L\-E $\ast$fp)
+\item 
+int \hyperlink{futil_8c_a753a02b3c29d5bceb1ddd85a4f270090}{gmx\-\_\-fseek} (\-F\-I\-L\-E $\ast$stream, \hyperlink{include_2futil_8h_a62ca72cb29d851d8f5bcbe6809d3786d}{gmx\-\_\-off\-\_\-t} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_acad7bd957065e1f895ebb1017eba166d}{offset}, int whence)
+\item 
+\hyperlink{include_2futil_8h_a62ca72cb29d851d8f5bcbe6809d3786d}{gmx\-\_\-off\-\_\-t} \hyperlink{futil_8c_a12c2b3c4ce544e97cc094b72c0698843}{gmx\-\_\-ftell} (\-F\-I\-L\-E $\ast$stream)
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{futil_8c_a31939befb91fcf492e641d011b399ae5}{is\-\_\-pipe} (\-F\-I\-L\-E $\ast$fp)
+\item 
+static \-F\-I\-L\-E $\ast$ \hyperlink{futil_8c_a831a1e5c4b1f446e54cc3ac61958769f}{uncompress} (const char $\ast$fn, const char $\ast$mode)
+\item 
+static \-F\-I\-L\-E $\ast$ \hyperlink{futil_8c_a9ed6dba1c809b4f1597a244229834bef}{gunzip} (const char $\ast$fn, const char $\ast$mode)
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{futil_8c_abfdb6d2c9d419a59da6cd0d07ea90e19}{gmx\-\_\-fexist} (const char $\ast$fname)
+\item 
+static \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{futil_8c_a46a265791f7f6650ca1e3ba01bfd983b}{gmx\-\_\-is\-\_\-file} (const char $\ast$fname)
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{futil_8c_a9cd0f298bbba14379eaff61a521426ca}{gmx\-\_\-fexist\-\_\-master} (const char $\ast$fname, \hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr)
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{futil_8c_aa6e50741344216e794da0bb8cf5bacf7}{gmx\-\_\-eof} (\-F\-I\-L\-E $\ast$fp)
+\item 
+static char $\ast$ \hyperlink{futil_8c_ac523f0ef11f55235b2c017df5b76f0f5}{backup\-\_\-fn} (const char $\ast$file, int count\-\_\-max)
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{futil_8c_a86f2cd8aacf98a3b13087e7850eef26e}{make\-\_\-backup} (const char $\ast$name)
+\item 
+\-F\-I\-L\-E $\ast$ \hyperlink{futil_8c_a61946f9145cf16ec95d93f963446a984}{ffopen} (const char $\ast$file, const char $\ast$mode)
+\item 
+int \hyperlink{futil_8c_a5a30051f18e74ce6d9a1704c21fb795e}{gmx\-\_\-directory\-\_\-open} (\hyperlink{include_2futil_8h_ab5deb72299c24cd8a1d085e80c3bf849}{gmx\-\_\-directory\-\_\-t} $\ast$p\-\_\-gmxdir, const char $\ast$dirname)
+\end{DoxyCompactItemize}
+\subsection*{\-Variables}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{structt__pstack}{t\-\_\-pstack} $\ast$ \hyperlink{futil_8c_a60b169a863a09da5bd42244c385dd8f1}{pstack} = \-N\-U\-L\-L
+\item 
+static \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{futil_8c_a62d5b2f80d97937b5c4bba0c3c25c22a}{b\-Unbuffered} = \hyperlink{impl_8h_aa93f0eb578d23995850d61f7d61c55c1}{\-F\-A\-L\-S\-E}
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Define \-Documentation}
+\hypertarget{futil_8c_a5880ec0d5758fc1e5be1306456ed28b3}{\index{futil.\-c@{futil.\-c}!\-C\-O\-U\-N\-T\-M\-A\-X@{\-C\-O\-U\-N\-T\-M\-A\-X}}
+\index{\-C\-O\-U\-N\-T\-M\-A\-X@{\-C\-O\-U\-N\-T\-M\-A\-X}!futil.c@{futil.\-c}}
+\subsubsection[{\-C\-O\-U\-N\-T\-M\-A\-X}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-C\-O\-U\-N\-T\-M\-A\-X}~99}}\label{futil_8c_a5880ec0d5758fc1e5be1306456ed28b3}
+
+
+\subsection{\-Typedef \-Documentation}
+\hypertarget{futil_8c_a71b6b04c60ffcd0aa070cee24a5ddedc}{\index{futil.\-c@{futil.\-c}!t\-\_\-pstack@{t\-\_\-pstack}}
+\index{t\-\_\-pstack@{t\-\_\-pstack}!futil.c@{futil.\-c}}
+\subsubsection[{t\-\_\-pstack}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf t\-\_\-pstack}  {\bf t\-\_\-pstack}}}\label{futil_8c_a71b6b04c60ffcd0aa070cee24a5ddedc}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{futil_8c_ac523f0ef11f55235b2c017df5b76f0f5}{\index{futil.\-c@{futil.\-c}!backup\-\_\-fn@{backup\-\_\-fn}}
+\index{backup\-\_\-fn@{backup\-\_\-fn}!futil.c@{futil.\-c}}
+\subsubsection[{backup\-\_\-fn}]{\setlength{\rightskip}{0pt plus 5cm}static char$\ast$ {\bf backup\-\_\-fn} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{file, }
+\item[{int}]{count\-\_\-max}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{futil_8c_ac523f0ef11f55235b2c017df5b76f0f5}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=246pt]{futil_8c_ac523f0ef11f55235b2c017df5b76f0f5_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{futil_8c_ac523f0ef11f55235b2c017df5b76f0f5_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{futil_8c_a458bec716d02c1ad83fae1edc1bf7ef2}{\index{futil.\-c@{futil.\-c}!ffclose@{ffclose}}
+\index{ffclose@{ffclose}!futil.c@{futil.\-c}}
+\subsubsection[{ffclose}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf ffclose} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp}
+\end{DoxyParamCaption}
+)}}\label{futil_8c_a458bec716d02c1ad83fae1edc1bf7ef2}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=302pt]{futil_8c_a458bec716d02c1ad83fae1edc1bf7ef2_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{futil_8c_a61946f9145cf16ec95d93f963446a984}{\index{futil.\-c@{futil.\-c}!ffopen@{ffopen}}
+\index{ffopen@{ffopen}!futil.c@{futil.\-c}}
+\subsubsection[{ffopen}]{\setlength{\rightskip}{0pt plus 5cm}\-F\-I\-L\-E$\ast$ {\bf ffopen} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{file, }
+\item[{const char $\ast$}]{mode}
+\end{DoxyParamCaption}
+)}}\label{futil_8c_a61946f9145cf16ec95d93f963446a984}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{futil_8c_a61946f9145cf16ec95d93f963446a984_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{futil_8c_a97d171ba8393365df315e678061376c0}{\index{futil.\-c@{futil.\-c}!frewind@{frewind}}
+\index{frewind@{frewind}!futil.c@{futil.\-c}}
+\subsubsection[{frewind}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf frewind} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp}
+\end{DoxyParamCaption}
+)}}\label{futil_8c_a97d171ba8393365df315e678061376c0}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=304pt]{futil_8c_a97d171ba8393365df315e678061376c0_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{futil_8c_a97d171ba8393365df315e678061376c0_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{futil_8c_a5a30051f18e74ce6d9a1704c21fb795e}{\index{futil.\-c@{futil.\-c}!gmx\-\_\-directory\-\_\-open@{gmx\-\_\-directory\-\_\-open}}
+\index{gmx\-\_\-directory\-\_\-open@{gmx\-\_\-directory\-\_\-open}!futil.c@{futil.\-c}}
+\subsubsection[{gmx\-\_\-directory\-\_\-open}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-directory\-\_\-open} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-directory\-\_\-t} $\ast$}]{p\-\_\-gmxdir, }
+\item[{const char $\ast$}]{dirname}
+\end{DoxyParamCaption}
+)}}\label{futil_8c_a5a30051f18e74ce6d9a1704c21fb795e}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=280pt]{futil_8c_a5a30051f18e74ce6d9a1704c21fb795e_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{futil_8c_a5a30051f18e74ce6d9a1704c21fb795e_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{futil_8c_aa6e50741344216e794da0bb8cf5bacf7}{\index{futil.\-c@{futil.\-c}!gmx\-\_\-eof@{gmx\-\_\-eof}}
+\index{gmx\-\_\-eof@{gmx\-\_\-eof}!futil.c@{futil.\-c}}
+\subsubsection[{gmx\-\_\-eof}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-eof} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp}
+\end{DoxyParamCaption}
+)}}\label{futil_8c_aa6e50741344216e794da0bb8cf5bacf7}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=236pt]{futil_8c_aa6e50741344216e794da0bb8cf5bacf7_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{futil_8c_aa6e50741344216e794da0bb8cf5bacf7_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{futil_8c_abfdb6d2c9d419a59da6cd0d07ea90e19}{\index{futil.\-c@{futil.\-c}!gmx\-\_\-fexist@{gmx\-\_\-fexist}}
+\index{gmx\-\_\-fexist@{gmx\-\_\-fexist}!futil.c@{futil.\-c}}
+\subsubsection[{gmx\-\_\-fexist}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-fexist} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{fname}
+\end{DoxyParamCaption}
+)}}\label{futil_8c_abfdb6d2c9d419a59da6cd0d07ea90e19}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{futil_8c_abfdb6d2c9d419a59da6cd0d07ea90e19_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{futil_8c_a9cd0f298bbba14379eaff61a521426ca}{\index{futil.\-c@{futil.\-c}!gmx\-\_\-fexist\-\_\-master@{gmx\-\_\-fexist\-\_\-master}}
+\index{gmx\-\_\-fexist\-\_\-master@{gmx\-\_\-fexist\-\_\-master}!futil.c@{futil.\-c}}
+\subsubsection[{gmx\-\_\-fexist\-\_\-master}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-fexist\-\_\-master} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{fname, }
+\item[{{\bf t\-\_\-commrec} $\ast$}]{cr}
+\end{DoxyParamCaption}
+)}}\label{futil_8c_a9cd0f298bbba14379eaff61a521426ca}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=282pt]{futil_8c_a9cd0f298bbba14379eaff61a521426ca_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=274pt]{futil_8c_a9cd0f298bbba14379eaff61a521426ca_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{futil_8c_a753a02b3c29d5bceb1ddd85a4f270090}{\index{futil.\-c@{futil.\-c}!gmx\-\_\-fseek@{gmx\-\_\-fseek}}
+\index{gmx\-\_\-fseek@{gmx\-\_\-fseek}!futil.c@{futil.\-c}}
+\subsubsection[{gmx\-\_\-fseek}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-fseek} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{stream, }
+\item[{{\bf gmx\-\_\-off\-\_\-t}}]{offset, }
+\item[{int}]{whence}
+\end{DoxyParamCaption}
+)}}\label{futil_8c_a753a02b3c29d5bceb1ddd85a4f270090}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{futil_8c_a753a02b3c29d5bceb1ddd85a4f270090_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{futil_8c_a12c2b3c4ce544e97cc094b72c0698843}{\index{futil.\-c@{futil.\-c}!gmx\-\_\-ftell@{gmx\-\_\-ftell}}
+\index{gmx\-\_\-ftell@{gmx\-\_\-ftell}!futil.c@{futil.\-c}}
+\subsubsection[{gmx\-\_\-ftell}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-off\-\_\-t} {\bf gmx\-\_\-ftell} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{stream}
+\end{DoxyParamCaption}
+)}}\label{futil_8c_a12c2b3c4ce544e97cc094b72c0698843}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{futil_8c_a12c2b3c4ce544e97cc094b72c0698843_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{futil_8c_a46a265791f7f6650ca1e3ba01bfd983b}{\index{futil.\-c@{futil.\-c}!gmx\-\_\-is\-\_\-file@{gmx\-\_\-is\-\_\-file}}
+\index{gmx\-\_\-is\-\_\-file@{gmx\-\_\-is\-\_\-file}!futil.c@{futil.\-c}}
+\subsubsection[{gmx\-\_\-is\-\_\-file}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gmx\-\_\-bool} {\bf gmx\-\_\-is\-\_\-file} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{fname}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{futil_8c_a46a265791f7f6650ca1e3ba01bfd983b}
+\hypertarget{futil_8c_a9ed6dba1c809b4f1597a244229834bef}{\index{futil.\-c@{futil.\-c}!gunzip@{gunzip}}
+\index{gunzip@{gunzip}!futil.c@{futil.\-c}}
+\subsubsection[{gunzip}]{\setlength{\rightskip}{0pt plus 5cm}static \-F\-I\-L\-E$\ast$ {\bf gunzip} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{fn, }
+\item[{const char $\ast$}]{mode}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{futil_8c_a9ed6dba1c809b4f1597a244229834bef}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{futil_8c_a9ed6dba1c809b4f1597a244229834bef_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{futil_8c_a9ed6dba1c809b4f1597a244229834bef_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{futil_8c_a31939befb91fcf492e641d011b399ae5}{\index{futil.\-c@{futil.\-c}!is\-\_\-pipe@{is\-\_\-pipe}}
+\index{is\-\_\-pipe@{is\-\_\-pipe}!futil.c@{futil.\-c}}
+\subsubsection[{is\-\_\-pipe}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf is\-\_\-pipe} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp}
+\end{DoxyParamCaption}
+)}}\label{futil_8c_a31939befb91fcf492e641d011b399ae5}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=304pt]{futil_8c_a31939befb91fcf492e641d011b399ae5_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{futil_8c_a31939befb91fcf492e641d011b399ae5_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{futil_8c_a86f2cd8aacf98a3b13087e7850eef26e}{\index{futil.\-c@{futil.\-c}!make\-\_\-backup@{make\-\_\-backup}}
+\index{make\-\_\-backup@{make\-\_\-backup}!futil.c@{futil.\-c}}
+\subsubsection[{make\-\_\-backup}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf make\-\_\-backup} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{name}
+\end{DoxyParamCaption}
+)}}\label{futil_8c_a86f2cd8aacf98a3b13087e7850eef26e}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{futil_8c_a86f2cd8aacf98a3b13087e7850eef26e_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{futil_8c_a86f2cd8aacf98a3b13087e7850eef26e_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{futil_8c_a3735a67e0fe75cae87f14430785bcd9d}{\index{futil.\-c@{futil.\-c}!no\-\_\-buffers@{no\-\_\-buffers}}
+\index{no\-\_\-buffers@{no\-\_\-buffers}!futil.c@{futil.\-c}}
+\subsubsection[{no\-\_\-buffers}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf no\-\_\-buffers} (
+\begin{DoxyParamCaption}
+\item[{{\bf void}}]{}
+\end{DoxyParamCaption}
+)}}\label{futil_8c_a3735a67e0fe75cae87f14430785bcd9d}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{futil_8c_a3735a67e0fe75cae87f14430785bcd9d_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{futil_8c_abb4bc86e93d6ec5a0b0a5064fa23e619}{\index{futil.\-c@{futil.\-c}!pclose@{pclose}}
+\index{pclose@{pclose}!futil.c@{futil.\-c}}
+\subsubsection[{pclose}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf pclose} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{futil_8c_abb4bc86e93d6ec5a0b0a5064fa23e619}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{futil_8c_abb4bc86e93d6ec5a0b0a5064fa23e619_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{futil_8c_afeecc7834978a868084b2591454e944a}{\index{futil.\-c@{futil.\-c}!popen@{popen}}
+\index{popen@{popen}!futil.c@{futil.\-c}}
+\subsubsection[{popen}]{\setlength{\rightskip}{0pt plus 5cm}static \-F\-I\-L\-E$\ast$ {\bf popen} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{nm, }
+\item[{const char $\ast$}]{mode}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{futil_8c_afeecc7834978a868084b2591454e944a}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{futil_8c_afeecc7834978a868084b2591454e944a_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{futil_8c_a6677ef0d969d93832ae17d5f62c1c84a}{\index{futil.\-c@{futil.\-c}!push\-\_\-ps@{push\-\_\-ps}}
+\index{push\-\_\-ps@{push\-\_\-ps}!futil.c@{futil.\-c}}
+\subsubsection[{push\-\_\-ps}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf push\-\_\-ps} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp}
+\end{DoxyParamCaption}
+)}}\label{futil_8c_a6677ef0d969d93832ae17d5f62c1c84a}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=310pt]{futil_8c_a6677ef0d969d93832ae17d5f62c1c84a_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{futil_8c_a6677ef0d969d93832ae17d5f62c1c84a_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{futil_8c_a831a1e5c4b1f446e54cc3ac61958769f}{\index{futil.\-c@{futil.\-c}!uncompress@{uncompress}}
+\index{uncompress@{uncompress}!futil.c@{futil.\-c}}
+\subsubsection[{uncompress}]{\setlength{\rightskip}{0pt plus 5cm}static \-F\-I\-L\-E$\ast$ {\bf uncompress} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{fn, }
+\item[{const char $\ast$}]{mode}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{futil_8c_a831a1e5c4b1f446e54cc3ac61958769f}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{futil_8c_a831a1e5c4b1f446e54cc3ac61958769f_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{futil_8c_a831a1e5c4b1f446e54cc3ac61958769f_icgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{\-Variable \-Documentation}
+\hypertarget{futil_8c_a62d5b2f80d97937b5c4bba0c3c25c22a}{\index{futil.\-c@{futil.\-c}!b\-Unbuffered@{b\-Unbuffered}}
+\index{b\-Unbuffered@{b\-Unbuffered}!futil.c@{futil.\-c}}
+\subsubsection[{b\-Unbuffered}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf b\-Unbuffered} = {\bf \-F\-A\-L\-S\-E}\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{futil_8c_a62d5b2f80d97937b5c4bba0c3c25c22a}
+\hypertarget{futil_8c_a60b169a863a09da5bd42244c385dd8f1}{\index{futil.\-c@{futil.\-c}!pstack@{pstack}}
+\index{pstack@{pstack}!futil.c@{futil.\-c}}
+\subsubsection[{pstack}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\-\_\-pstack}$\ast$ {\bf pstack} = \-N\-U\-L\-L\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{futil_8c_a60b169a863a09da5bd42244c385dd8f1}

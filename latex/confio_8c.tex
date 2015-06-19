@@ -1,0 +1,1200 @@
+\hypertarget{confio_8c}{\section{src/gmxlib/confio.c \-File \-Reference}
+\label{confio_8c}\index{src/gmxlib/confio.\-c@{src/gmxlib/confio.\-c}}
+}
+{\ttfamily \#include $<$math.\-h$>$}\*
+{\ttfamily \#include \char`\"{}sysstuff.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}typedefs.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}smalloc.\-h\char`\"{}}\*
+{\ttfamily \#include $<$errno.\-h$>$}\*
+{\ttfamily \#include \char`\"{}macros.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}string2.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}confio.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}vec.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}symtab.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}futil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}xdrf.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}filenm.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}pdbio.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}tpxio.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-fatal.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}copyrite.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}statutil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}pbc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}mtop\-\_\-util.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmxfio.\-h\char`\"{}}\*
+\-Include dependency graph for confio.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{confio_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{confio_8c_a46b0c9f79d0d7e018c29f0efa7b51f03}{\-C\-H\-A\-R\-\_\-\-S\-H\-I\-F\-T}~24
+\end{DoxyCompactItemize}
+\subsection*{\-Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \{ \*
+\hyperlink{confio_8c_a0b59433d0ab361c389e51d79061c070cacec92e2e2807cf5e1a09dc662c8c119b}{esp\-I\-D}, 
+\hyperlink{confio_8c_a0b59433d0ab361c389e51d79061c070caa0b74212ac752322f869651f51408cc4}{esp\-P\-O\-S}, 
+\hyperlink{confio_8c_a0b59433d0ab361c389e51d79061c070caa599af46f52b1d77f370761204345054}{esp\-T\-Y\-P\-E}, 
+\hyperlink{confio_8c_a0b59433d0ab361c389e51d79061c070cac26b518e5ac25fb454aa0d6e6ee273cf}{esp\-Q}, 
+\*
+\hyperlink{confio_8c_a0b59433d0ab361c389e51d79061c070ca9f5103624c59f0438ff2c29f18a16454}{esp\-V}, 
+\hyperlink{confio_8c_a0b59433d0ab361c389e51d79061c070ca7149e543af21e7989afda805006c6de1}{esp\-F}, 
+\hyperlink{confio_8c_a0b59433d0ab361c389e51d79061c070ca51acf732dccdb368f0bfc6799d82433d}{esp\-M\-O\-L\-E\-C\-U\-L\-E}, 
+\hyperlink{confio_8c_a0b59433d0ab361c389e51d79061c070ca46e5e32998028b795d7d0a9992988d94}{esp\-N\-R}
+ \}
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+static int \hyperlink{confio_8c_a51bab9d3500e13b3d9afce81d993a7fe}{read\-\_\-g96\-\_\-pos} (char \hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line}\mbox{[}$\,$\mbox{]}, \hyperlink{structt__symtab}{t\-\_\-symtab} $\ast$symtab, \-F\-I\-L\-E $\ast$fp, const char $\ast$infile, \hyperlink{include_2types_2trx_8h_a206f77137d72a5db1097a457a7144ad5}{t\-\_\-trxframe} $\ast$\hyperlink{addconf_8c_ae8414314f87c5e49503ac0117eb511ad}{fr})
+\item 
+static int \hyperlink{confio_8c_a94b5f2aedf2794d39cd8ff896f656c2e}{read\-\_\-g96\-\_\-vel} (char \hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line}\mbox{[}$\,$\mbox{]}, \-F\-I\-L\-E $\ast$fp, const char $\ast$infile, \hyperlink{include_2types_2trx_8h_a206f77137d72a5db1097a457a7144ad5}{t\-\_\-trxframe} $\ast$\hyperlink{addconf_8c_ae8414314f87c5e49503ac0117eb511ad}{fr})
+\item 
+int \hyperlink{confio_8c_a55776b374f0df226d04b3061ef2e09be}{read\-\_\-g96\-\_\-conf} (\-F\-I\-L\-E $\ast$fp, const char $\ast$infile, \hyperlink{include_2types_2trx_8h_a206f77137d72a5db1097a457a7144ad5}{t\-\_\-trxframe} $\ast$\hyperlink{addconf_8c_ae8414314f87c5e49503ac0117eb511ad}{fr}, char $\ast$\hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{confio_8c_ae03764d992a77e72ca0d12e72afd9bc3}{write\-\_\-g96\-\_\-conf} (\-F\-I\-L\-E $\ast$out, \hyperlink{include_2types_2trx_8h_a206f77137d72a5db1097a457a7144ad5}{t\-\_\-trxframe} $\ast$\hyperlink{addconf_8c_ae8414314f87c5e49503ac0117eb511ad}{fr}, int nindex, \hyperlink{include_2types_2simple_8h_ad3f47cdb48677e516e2049719612c737}{atom\-\_\-id} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a49fd977001162d7256c8fcd293f9d12a}{index})
+\item 
+static int \hyperlink{confio_8c_ae155590fb366adb3f32bb4f4ea91ced5}{get\-\_\-espresso\-\_\-word} (\-F\-I\-L\-E $\ast$fp, char word\mbox{[}$\,$\mbox{]})
+\item 
+static int \hyperlink{confio_8c_adf4727ec2485097832c32feeab4b2e25}{check\-\_\-open\-\_\-parenthesis} (\-F\-I\-L\-E $\ast$fp, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae039a6f39df62bd858e5e3f5ec77b24b}{r}, const char $\ast$infile, const char $\ast$keyword)
+\item 
+static int \hyperlink{confio_8c_a9ebdb03acd88f34b6dc6bf238ec00157}{check\-\_\-close\-\_\-parenthesis} (\-F\-I\-L\-E $\ast$fp, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae039a6f39df62bd858e5e3f5ec77b24b}{r}, const char $\ast$infile, const char $\ast$keyword)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{confio_8c_a0439805352d57010d2dd26a19ec5926d}{read\-\_\-espresso\-\_\-conf} (const char $\ast$infile, \hyperlink{structt__atoms}{t\-\_\-atoms} $\ast$atoms, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a339df93739a405c3e4b0506624fa27a5}{v}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box)
+\item 
+static int \hyperlink{confio_8c_a13c838671560d845dec8f450996cdba0}{get\-\_\-espresso\-\_\-coordnum} (const char $\ast$infile)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{confio_8c_a64a399cef15e87c008c6cad8daddb4a4}{write\-\_\-espresso\-\_\-conf\-\_\-indexed} (\-F\-I\-L\-E $\ast$out, const char $\ast$title, \hyperlink{structt__atoms}{t\-\_\-atoms} $\ast$atoms, int nx, \hyperlink{include_2types_2simple_8h_ad3f47cdb48677e516e2049719612c737}{atom\-\_\-id} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a49fd977001162d7256c8fcd293f9d12a}{index}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a339df93739a405c3e4b0506624fa27a5}{v}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{confio_8c_aabd7c82bc6b6b26b2ae5361b87a3a113}{get\-\_\-coordnum\-\_\-fp} (\-F\-I\-L\-E $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a5ac1e96244316833544f4a5edc3edfc9}{in}, char $\ast$title, int $\ast$natoms)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{confio_8c_ae4b66137bbc9f4a07f8c4da5c087307d}{get\-\_\-coordnum} (const char $\ast$infile, int $\ast$natoms)
+\item 
+static \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{confio_8c_ac44a4cf00c221d580de20c9cc2dbe69a}{get\-\_\-w\-\_\-conf} (\-F\-I\-L\-E $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a5ac1e96244316833544f4a5edc3edfc9}{in}, const char $\ast$infile, char $\ast$title, \hyperlink{structt__symtab}{t\-\_\-symtab} $\ast$symtab, \hyperlink{structt__atoms}{t\-\_\-atoms} $\ast$atoms, int $\ast$ndec, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a339df93739a405c3e4b0506624fa27a5}{v}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{confio_8c_a5c9f74b939e274a2e58e6f8e54e1a72c}{read\-\_\-whole\-\_\-conf} (const char $\ast$infile, char $\ast$title, \hyperlink{structt__atoms}{t\-\_\-atoms} $\ast$atoms, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a339df93739a405c3e4b0506624fa27a5}{v}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box)
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{confio_8c_a075fe1a4555af86317ad07367ae2a3c8}{gro\-\_\-next\-\_\-x\-\_\-or\-\_\-v} (\-F\-I\-L\-E $\ast$status, \hyperlink{include_2types_2trx_8h_a206f77137d72a5db1097a457a7144ad5}{t\-\_\-trxframe} $\ast$\hyperlink{addconf_8c_ae8414314f87c5e49503ac0117eb511ad}{fr})
+\item 
+int \hyperlink{confio_8c_a57712b6d95c3b9f3a7816ecdf38df0ed}{gro\-\_\-first\-\_\-x\-\_\-or\-\_\-v} (\-F\-I\-L\-E $\ast$status, \hyperlink{include_2types_2trx_8h_a206f77137d72a5db1097a457a7144ad5}{t\-\_\-trxframe} $\ast$\hyperlink{addconf_8c_ae8414314f87c5e49503ac0117eb511ad}{fr})
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{confio_8c_a424ff49fa744d8f88f93e2b99ef70c3f}{make\-\_\-hconf\-\_\-format} (int pr, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Vel, char format\mbox{[}$\,$\mbox{]})
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{confio_8c_a0060e9308fe143b41b0c1a0163ce4992}{write\-\_\-hconf\-\_\-box} (\-F\-I\-L\-E $\ast$out, int pr, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{confio_8c_ad19e0b0f378db41e4f8e95324278e3be}{write\-\_\-hconf\-\_\-indexed\-\_\-p} (\-F\-I\-L\-E $\ast$out, const char $\ast$title, \hyperlink{structt__atoms}{t\-\_\-atoms} $\ast$atoms, int nx, \hyperlink{include_2types_2simple_8h_ad3f47cdb48677e516e2049719612c737}{atom\-\_\-id} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a49fd977001162d7256c8fcd293f9d12a}{index}\mbox{[}$\,$\mbox{]}, int pr, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a339df93739a405c3e4b0506624fa27a5}{v}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{confio_8c_acb15cd92a420124094cc8e4611490391}{write\-\_\-hconf\-\_\-mtop} (\-F\-I\-L\-E $\ast$out, const char $\ast$title, \hyperlink{structgmx__mtop__t}{gmx\-\_\-mtop\-\_\-t} $\ast$mtop, int pr, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a339df93739a405c3e4b0506624fa27a5}{v}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{confio_8c_abaa013ac1314961e07abce7050a79022}{write\-\_\-hconf\-\_\-p} (\-F\-I\-L\-E $\ast$out, const char $\ast$title, \hyperlink{structt__atoms}{t\-\_\-atoms} $\ast$atoms, int pr, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a339df93739a405c3e4b0506624fa27a5}{v}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{confio_8c_aa6d7e9ffb776a771158396f6d2bf8f54}{write\-\_\-conf\-\_\-p} (const char $\ast$outfile, const char $\ast$title, \hyperlink{structt__atoms}{t\-\_\-atoms} $\ast$atoms, int pr, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a339df93739a405c3e4b0506624fa27a5}{v}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{confio_8c_ade0eeb948af84bd6cce8f3e5bffb0349}{write\-\_\-conf} (const char $\ast$outfile, const char $\ast$title, \hyperlink{structt__atoms}{t\-\_\-atoms} $\ast$atoms, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a339df93739a405c3e4b0506624fa27a5}{v}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{confio_8c_a00bcbedf63f6eb0936f21f3fc0642be8}{write\-\_\-sto\-\_\-conf\-\_\-indexed} (const char $\ast$outfile, const char $\ast$title, \hyperlink{structt__atoms}{t\-\_\-atoms} $\ast$atoms, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a339df93739a405c3e4b0506624fa27a5}{v}, int e\-P\-B\-C, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box, \hyperlink{include_2types_2simple_8h_ad3f47cdb48677e516e2049719612c737}{atom\-\_\-id} nindex, \hyperlink{include_2types_2simple_8h_ad3f47cdb48677e516e2049719612c737}{atom\-\_\-id} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a49fd977001162d7256c8fcd293f9d12a}{index}\mbox{[}$\,$\mbox{]})
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{confio_8c_a907fdf09e81c97491cd84ea0ffd73fea}{write\-\_\-xyz\-\_\-conf} (const char $\ast$outfile, const char $\ast$title, \hyperlink{structt__atoms}{t\-\_\-atoms} $\ast$atoms, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{confio_8c_a2bd20fd26a3abe27c370ddbc62254ade}{write\-\_\-sto\-\_\-conf} (const char $\ast$outfile, const char $\ast$title, \hyperlink{structt__atoms}{t\-\_\-atoms} $\ast$atoms, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a339df93739a405c3e4b0506624fa27a5}{v}, int e\-P\-B\-C, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{confio_8c_afb2648b292dbcc49f2c2d9872ada4d10}{write\-\_\-sto\-\_\-conf\-\_\-mtop} (const char $\ast$outfile, const char $\ast$title, \hyperlink{structgmx__mtop__t}{gmx\-\_\-mtop\-\_\-t} $\ast$mtop, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a339df93739a405c3e4b0506624fa27a5}{v}, int e\-P\-B\-C, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box)
+\item 
+static int \hyperlink{confio_8c_a7acb3d8234cbef871c0fd0cdc90ce0d4}{get\-\_\-xyz\-\_\-coordnum} (const char $\ast$infile)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{confio_8c_a40d45e3bc6bc44473861dcbe1be189cd}{read\-\_\-xyz\-\_\-conf} (const char $\ast$infile, char $\ast$title, \hyperlink{structt__atoms}{t\-\_\-atoms} $\ast$atoms, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{confio_8c_a3b3bd723b13f5a206f04e794fae788a9}{get\-\_\-stx\-\_\-coordnum} (const char $\ast$infile, int $\ast$natoms)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{confio_8c_acff53ddd78100f7e3a8018558ad3e0ed}{read\-\_\-stx\-\_\-conf} (const char $\ast$infile, char $\ast$title, \hyperlink{structt__atoms}{t\-\_\-atoms} $\ast$atoms, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a339df93739a405c3e4b0506624fa27a5}{v}, int $\ast$e\-P\-B\-C, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box)
+\end{DoxyCompactItemize}
+\subsection*{\-Variables}
+\begin{DoxyCompactItemize}
+\item 
+const char $\ast$ \hyperlink{confio_8c_a55a12fe1c4bd32a7ec162c4ba88c59b3}{esp\-\_\-prop} \mbox{[}\hyperlink{confio_8c_a0b59433d0ab361c389e51d79061c070ca46e5e32998028b795d7d0a9992988d94}{esp\-N\-R}\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Define \-Documentation}
+\hypertarget{confio_8c_a46b0c9f79d0d7e018c29f0efa7b51f03}{\index{confio.\-c@{confio.\-c}!\-C\-H\-A\-R\-\_\-\-S\-H\-I\-F\-T@{\-C\-H\-A\-R\-\_\-\-S\-H\-I\-F\-T}}
+\index{\-C\-H\-A\-R\-\_\-\-S\-H\-I\-F\-T@{\-C\-H\-A\-R\-\_\-\-S\-H\-I\-F\-T}!confio.c@{confio.\-c}}
+\subsubsection[{\-C\-H\-A\-R\-\_\-\-S\-H\-I\-F\-T}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-C\-H\-A\-R\-\_\-\-S\-H\-I\-F\-T}~24}}\label{confio_8c_a46b0c9f79d0d7e018c29f0efa7b51f03}
+
+
+\subsection{\-Enumeration \-Type \-Documentation}
+\hypertarget{confio_8c_a0b59433d0ab361c389e51d79061c070c}{\subsubsection[{anonymous enum}]{\setlength{\rightskip}{0pt plus 5cm}anonymous enum}}\label{confio_8c_a0b59433d0ab361c389e51d79061c070c}
+\begin{Desc}
+\item[\-Enumerator\-: ]\par
+\begin{description}
+\index{esp\-I\-D@{esp\-I\-D}!confio.\-c@{confio.\-c}}\index{confio.\-c@{confio.\-c}!esp\-I\-D@{esp\-I\-D}}\item[{\em 
+\hypertarget{confio_8c_a0b59433d0ab361c389e51d79061c070cacec92e2e2807cf5e1a09dc662c8c119b}{esp\-I\-D}\label{confio_8c_a0b59433d0ab361c389e51d79061c070cacec92e2e2807cf5e1a09dc662c8c119b}
+}]\index{esp\-P\-O\-S@{esp\-P\-O\-S}!confio.\-c@{confio.\-c}}\index{confio.\-c@{confio.\-c}!esp\-P\-O\-S@{esp\-P\-O\-S}}\item[{\em 
+\hypertarget{confio_8c_a0b59433d0ab361c389e51d79061c070caa0b74212ac752322f869651f51408cc4}{esp\-P\-O\-S}\label{confio_8c_a0b59433d0ab361c389e51d79061c070caa0b74212ac752322f869651f51408cc4}
+}]\index{esp\-T\-Y\-P\-E@{esp\-T\-Y\-P\-E}!confio.\-c@{confio.\-c}}\index{confio.\-c@{confio.\-c}!esp\-T\-Y\-P\-E@{esp\-T\-Y\-P\-E}}\item[{\em 
+\hypertarget{confio_8c_a0b59433d0ab361c389e51d79061c070caa599af46f52b1d77f370761204345054}{esp\-T\-Y\-P\-E}\label{confio_8c_a0b59433d0ab361c389e51d79061c070caa599af46f52b1d77f370761204345054}
+}]\index{esp\-Q@{esp\-Q}!confio.\-c@{confio.\-c}}\index{confio.\-c@{confio.\-c}!esp\-Q@{esp\-Q}}\item[{\em 
+\hypertarget{confio_8c_a0b59433d0ab361c389e51d79061c070cac26b518e5ac25fb454aa0d6e6ee273cf}{esp\-Q}\label{confio_8c_a0b59433d0ab361c389e51d79061c070cac26b518e5ac25fb454aa0d6e6ee273cf}
+}]\index{esp\-V@{esp\-V}!confio.\-c@{confio.\-c}}\index{confio.\-c@{confio.\-c}!esp\-V@{esp\-V}}\item[{\em 
+\hypertarget{confio_8c_a0b59433d0ab361c389e51d79061c070ca9f5103624c59f0438ff2c29f18a16454}{esp\-V}\label{confio_8c_a0b59433d0ab361c389e51d79061c070ca9f5103624c59f0438ff2c29f18a16454}
+}]\index{esp\-F@{esp\-F}!confio.\-c@{confio.\-c}}\index{confio.\-c@{confio.\-c}!esp\-F@{esp\-F}}\item[{\em 
+\hypertarget{confio_8c_a0b59433d0ab361c389e51d79061c070ca7149e543af21e7989afda805006c6de1}{esp\-F}\label{confio_8c_a0b59433d0ab361c389e51d79061c070ca7149e543af21e7989afda805006c6de1}
+}]\index{esp\-M\-O\-L\-E\-C\-U\-L\-E@{esp\-M\-O\-L\-E\-C\-U\-L\-E}!confio.\-c@{confio.\-c}}\index{confio.\-c@{confio.\-c}!esp\-M\-O\-L\-E\-C\-U\-L\-E@{esp\-M\-O\-L\-E\-C\-U\-L\-E}}\item[{\em 
+\hypertarget{confio_8c_a0b59433d0ab361c389e51d79061c070ca51acf732dccdb368f0bfc6799d82433d}{esp\-M\-O\-L\-E\-C\-U\-L\-E}\label{confio_8c_a0b59433d0ab361c389e51d79061c070ca51acf732dccdb368f0bfc6799d82433d}
+}]\index{esp\-N\-R@{esp\-N\-R}!confio.\-c@{confio.\-c}}\index{confio.\-c@{confio.\-c}!esp\-N\-R@{esp\-N\-R}}\item[{\em 
+\hypertarget{confio_8c_a0b59433d0ab361c389e51d79061c070ca46e5e32998028b795d7d0a9992988d94}{esp\-N\-R}\label{confio_8c_a0b59433d0ab361c389e51d79061c070ca46e5e32998028b795d7d0a9992988d94}
+}]\end{description}
+\end{Desc}
+
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{confio_8c_a9ebdb03acd88f34b6dc6bf238ec00157}{\index{confio.\-c@{confio.\-c}!check\-\_\-close\-\_\-parenthesis@{check\-\_\-close\-\_\-parenthesis}}
+\index{check\-\_\-close\-\_\-parenthesis@{check\-\_\-close\-\_\-parenthesis}!confio.c@{confio.\-c}}
+\subsubsection[{check\-\_\-close\-\_\-parenthesis}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf check\-\_\-close\-\_\-parenthesis} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{int}]{r, }
+\item[{const char $\ast$}]{infile, }
+\item[{const char $\ast$}]{keyword}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{confio_8c_a9ebdb03acd88f34b6dc6bf238ec00157}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=346pt]{confio_8c_a9ebdb03acd88f34b6dc6bf238ec00157_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{confio_8c_a9ebdb03acd88f34b6dc6bf238ec00157_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{confio_8c_adf4727ec2485097832c32feeab4b2e25}{\index{confio.\-c@{confio.\-c}!check\-\_\-open\-\_\-parenthesis@{check\-\_\-open\-\_\-parenthesis}}
+\index{check\-\_\-open\-\_\-parenthesis@{check\-\_\-open\-\_\-parenthesis}!confio.c@{confio.\-c}}
+\subsubsection[{check\-\_\-open\-\_\-parenthesis}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf check\-\_\-open\-\_\-parenthesis} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{int}]{r, }
+\item[{const char $\ast$}]{infile, }
+\item[{const char $\ast$}]{keyword}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{confio_8c_adf4727ec2485097832c32feeab4b2e25}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=344pt]{confio_8c_adf4727ec2485097832c32feeab4b2e25_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{confio_8c_adf4727ec2485097832c32feeab4b2e25_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{confio_8c_ae4b66137bbc9f4a07f8c4da5c087307d}{\index{confio.\-c@{confio.\-c}!get\-\_\-coordnum@{get\-\_\-coordnum}}
+\index{get\-\_\-coordnum@{get\-\_\-coordnum}!confio.c@{confio.\-c}}
+\subsubsection[{get\-\_\-coordnum}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf get\-\_\-coordnum} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{infile, }
+\item[{int $\ast$}]{natoms}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{confio_8c_ae4b66137bbc9f4a07f8c4da5c087307d}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{confio_8c_ae4b66137bbc9f4a07f8c4da5c087307d_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{confio_8c_ae4b66137bbc9f4a07f8c4da5c087307d_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{confio_8c_aabd7c82bc6b6b26b2ae5361b87a3a113}{\index{confio.\-c@{confio.\-c}!get\-\_\-coordnum\-\_\-fp@{get\-\_\-coordnum\-\_\-fp}}
+\index{get\-\_\-coordnum\-\_\-fp@{get\-\_\-coordnum\-\_\-fp}!confio.c@{confio.\-c}}
+\subsubsection[{get\-\_\-coordnum\-\_\-fp}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf get\-\_\-coordnum\-\_\-fp} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{in, }
+\item[{char $\ast$}]{title, }
+\item[{int $\ast$}]{natoms}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{confio_8c_aabd7c82bc6b6b26b2ae5361b87a3a113}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{confio_8c_aabd7c82bc6b6b26b2ae5361b87a3a113_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{confio_8c_aabd7c82bc6b6b26b2ae5361b87a3a113_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{confio_8c_a13c838671560d845dec8f450996cdba0}{\index{confio.\-c@{confio.\-c}!get\-\_\-espresso\-\_\-coordnum@{get\-\_\-espresso\-\_\-coordnum}}
+\index{get\-\_\-espresso\-\_\-coordnum@{get\-\_\-espresso\-\_\-coordnum}!confio.c@{confio.\-c}}
+\subsubsection[{get\-\_\-espresso\-\_\-coordnum}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf get\-\_\-espresso\-\_\-coordnum} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{infile}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{confio_8c_a13c838671560d845dec8f450996cdba0}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{confio_8c_a13c838671560d845dec8f450996cdba0_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{confio_8c_a13c838671560d845dec8f450996cdba0_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{confio_8c_ae155590fb366adb3f32bb4f4ea91ced5}{\index{confio.\-c@{confio.\-c}!get\-\_\-espresso\-\_\-word@{get\-\_\-espresso\-\_\-word}}
+\index{get\-\_\-espresso\-\_\-word@{get\-\_\-espresso\-\_\-word}!confio.c@{confio.\-c}}
+\subsubsection[{get\-\_\-espresso\-\_\-word}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf get\-\_\-espresso\-\_\-word} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{char}]{word\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{confio_8c_ae155590fb366adb3f32bb4f4ea91ced5}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{confio_8c_ae155590fb366adb3f32bb4f4ea91ced5_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{confio_8c_a3b3bd723b13f5a206f04e794fae788a9}{\index{confio.\-c@{confio.\-c}!get\-\_\-stx\-\_\-coordnum@{get\-\_\-stx\-\_\-coordnum}}
+\index{get\-\_\-stx\-\_\-coordnum@{get\-\_\-stx\-\_\-coordnum}!confio.c@{confio.\-c}}
+\subsubsection[{get\-\_\-stx\-\_\-coordnum}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf get\-\_\-stx\-\_\-coordnum} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{infile, }
+\item[{int $\ast$}]{natoms}
+\end{DoxyParamCaption}
+)}}\label{confio_8c_a3b3bd723b13f5a206f04e794fae788a9}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{confio_8c_a3b3bd723b13f5a206f04e794fae788a9_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{confio_8c_a3b3bd723b13f5a206f04e794fae788a9_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{confio_8c_ac44a4cf00c221d580de20c9cc2dbe69a}{\index{confio.\-c@{confio.\-c}!get\-\_\-w\-\_\-conf@{get\-\_\-w\-\_\-conf}}
+\index{get\-\_\-w\-\_\-conf@{get\-\_\-w\-\_\-conf}!confio.c@{confio.\-c}}
+\subsubsection[{get\-\_\-w\-\_\-conf}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gmx\-\_\-bool} {\bf get\-\_\-w\-\_\-conf} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{in, }
+\item[{const char $\ast$}]{infile, }
+\item[{char $\ast$}]{title, }
+\item[{{\bf t\-\_\-symtab} $\ast$}]{symtab, }
+\item[{{\bf t\-\_\-atoms} $\ast$}]{atoms, }
+\item[{int $\ast$}]{ndec, }
+\item[{{\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec} $\ast$}]{v, }
+\item[{{\bf matrix}}]{box}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{confio_8c_ac44a4cf00c221d580de20c9cc2dbe69a}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{confio_8c_ac44a4cf00c221d580de20c9cc2dbe69a_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{confio_8c_ac44a4cf00c221d580de20c9cc2dbe69a_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{confio_8c_a7acb3d8234cbef871c0fd0cdc90ce0d4}{\index{confio.\-c@{confio.\-c}!get\-\_\-xyz\-\_\-coordnum@{get\-\_\-xyz\-\_\-coordnum}}
+\index{get\-\_\-xyz\-\_\-coordnum@{get\-\_\-xyz\-\_\-coordnum}!confio.c@{confio.\-c}}
+\subsubsection[{get\-\_\-xyz\-\_\-coordnum}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf get\-\_\-xyz\-\_\-coordnum} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{infile}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{confio_8c_a7acb3d8234cbef871c0fd0cdc90ce0d4}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=300pt]{confio_8c_a7acb3d8234cbef871c0fd0cdc90ce0d4_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{confio_8c_a7acb3d8234cbef871c0fd0cdc90ce0d4_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{confio_8c_a57712b6d95c3b9f3a7816ecdf38df0ed}{\index{confio.\-c@{confio.\-c}!gro\-\_\-first\-\_\-x\-\_\-or\-\_\-v@{gro\-\_\-first\-\_\-x\-\_\-or\-\_\-v}}
+\index{gro\-\_\-first\-\_\-x\-\_\-or\-\_\-v@{gro\-\_\-first\-\_\-x\-\_\-or\-\_\-v}!confio.c@{confio.\-c}}
+\subsubsection[{gro\-\_\-first\-\_\-x\-\_\-or\-\_\-v}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gro\-\_\-first\-\_\-x\-\_\-or\-\_\-v} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{status, }
+\item[{{\bf t\-\_\-trxframe} $\ast$}]{fr}
+\end{DoxyParamCaption}
+)}}\label{confio_8c_a57712b6d95c3b9f3a7816ecdf38df0ed}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{confio_8c_a57712b6d95c3b9f3a7816ecdf38df0ed_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{confio_8c_a57712b6d95c3b9f3a7816ecdf38df0ed_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{confio_8c_a075fe1a4555af86317ad07367ae2a3c8}{\index{confio.\-c@{confio.\-c}!gro\-\_\-next\-\_\-x\-\_\-or\-\_\-v@{gro\-\_\-next\-\_\-x\-\_\-or\-\_\-v}}
+\index{gro\-\_\-next\-\_\-x\-\_\-or\-\_\-v@{gro\-\_\-next\-\_\-x\-\_\-or\-\_\-v}!confio.c@{confio.\-c}}
+\subsubsection[{gro\-\_\-next\-\_\-x\-\_\-or\-\_\-v}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gro\-\_\-next\-\_\-x\-\_\-or\-\_\-v} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{status, }
+\item[{{\bf t\-\_\-trxframe} $\ast$}]{fr}
+\end{DoxyParamCaption}
+)}}\label{confio_8c_a075fe1a4555af86317ad07367ae2a3c8}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{confio_8c_a075fe1a4555af86317ad07367ae2a3c8_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{confio_8c_a075fe1a4555af86317ad07367ae2a3c8_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{confio_8c_a424ff49fa744d8f88f93e2b99ef70c3f}{\index{confio.\-c@{confio.\-c}!make\-\_\-hconf\-\_\-format@{make\-\_\-hconf\-\_\-format}}
+\index{make\-\_\-hconf\-\_\-format@{make\-\_\-hconf\-\_\-format}!confio.c@{confio.\-c}}
+\subsubsection[{make\-\_\-hconf\-\_\-format}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf make\-\_\-hconf\-\_\-format} (
+\begin{DoxyParamCaption}
+\item[{int}]{pr, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Vel, }
+\item[{char}]{format\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{confio_8c_a424ff49fa744d8f88f93e2b99ef70c3f}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{confio_8c_a424ff49fa744d8f88f93e2b99ef70c3f_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{confio_8c_a0439805352d57010d2dd26a19ec5926d}{\index{confio.\-c@{confio.\-c}!read\-\_\-espresso\-\_\-conf@{read\-\_\-espresso\-\_\-conf}}
+\index{read\-\_\-espresso\-\_\-conf@{read\-\_\-espresso\-\_\-conf}!confio.c@{confio.\-c}}
+\subsubsection[{read\-\_\-espresso\-\_\-conf}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf read\-\_\-espresso\-\_\-conf} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{infile, }
+\item[{{\bf t\-\_\-atoms} $\ast$}]{atoms, }
+\item[{{\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec} $\ast$}]{v, }
+\item[{{\bf matrix}}]{box}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{confio_8c_a0439805352d57010d2dd26a19ec5926d}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{confio_8c_a0439805352d57010d2dd26a19ec5926d_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{confio_8c_a0439805352d57010d2dd26a19ec5926d_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{confio_8c_a55776b374f0df226d04b3061ef2e09be}{\index{confio.\-c@{confio.\-c}!read\-\_\-g96\-\_\-conf@{read\-\_\-g96\-\_\-conf}}
+\index{read\-\_\-g96\-\_\-conf@{read\-\_\-g96\-\_\-conf}!confio.c@{confio.\-c}}
+\subsubsection[{read\-\_\-g96\-\_\-conf}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf read\-\_\-g96\-\_\-conf} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{const char $\ast$}]{infile, }
+\item[{{\bf t\-\_\-trxframe} $\ast$}]{fr, }
+\item[{char $\ast$}]{line}
+\end{DoxyParamCaption}
+)}}\label{confio_8c_a55776b374f0df226d04b3061ef2e09be}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{confio_8c_a55776b374f0df226d04b3061ef2e09be_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{confio_8c_a55776b374f0df226d04b3061ef2e09be_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{confio_8c_a51bab9d3500e13b3d9afce81d993a7fe}{\index{confio.\-c@{confio.\-c}!read\-\_\-g96\-\_\-pos@{read\-\_\-g96\-\_\-pos}}
+\index{read\-\_\-g96\-\_\-pos@{read\-\_\-g96\-\_\-pos}!confio.c@{confio.\-c}}
+\subsubsection[{read\-\_\-g96\-\_\-pos}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf read\-\_\-g96\-\_\-pos} (
+\begin{DoxyParamCaption}
+\item[{char}]{line\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf t\-\_\-symtab} $\ast$}]{symtab, }
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{const char $\ast$}]{infile, }
+\item[{{\bf t\-\_\-trxframe} $\ast$}]{fr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{confio_8c_a51bab9d3500e13b3d9afce81d993a7fe}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=300pt]{confio_8c_a51bab9d3500e13b3d9afce81d993a7fe_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{confio_8c_a51bab9d3500e13b3d9afce81d993a7fe_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{confio_8c_a94b5f2aedf2794d39cd8ff896f656c2e}{\index{confio.\-c@{confio.\-c}!read\-\_\-g96\-\_\-vel@{read\-\_\-g96\-\_\-vel}}
+\index{read\-\_\-g96\-\_\-vel@{read\-\_\-g96\-\_\-vel}!confio.c@{confio.\-c}}
+\subsubsection[{read\-\_\-g96\-\_\-vel}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf read\-\_\-g96\-\_\-vel} (
+\begin{DoxyParamCaption}
+\item[{char}]{line\mbox{[}$\,$\mbox{]}, }
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{const char $\ast$}]{infile, }
+\item[{{\bf t\-\_\-trxframe} $\ast$}]{fr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{confio_8c_a94b5f2aedf2794d39cd8ff896f656c2e}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=250pt]{confio_8c_a94b5f2aedf2794d39cd8ff896f656c2e_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{confio_8c_a94b5f2aedf2794d39cd8ff896f656c2e_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{confio_8c_acff53ddd78100f7e3a8018558ad3e0ed}{\index{confio.\-c@{confio.\-c}!read\-\_\-stx\-\_\-conf@{read\-\_\-stx\-\_\-conf}}
+\index{read\-\_\-stx\-\_\-conf@{read\-\_\-stx\-\_\-conf}!confio.c@{confio.\-c}}
+\subsubsection[{read\-\_\-stx\-\_\-conf}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf read\-\_\-stx\-\_\-conf} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{infile, }
+\item[{char $\ast$}]{title, }
+\item[{{\bf t\-\_\-atoms} $\ast$}]{atoms, }
+\item[{{\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec} $\ast$}]{v, }
+\item[{int $\ast$}]{e\-P\-B\-C, }
+\item[{{\bf matrix}}]{box}
+\end{DoxyParamCaption}
+)}}\label{confio_8c_acff53ddd78100f7e3a8018558ad3e0ed}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{confio_8c_acff53ddd78100f7e3a8018558ad3e0ed_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{confio_8c_acff53ddd78100f7e3a8018558ad3e0ed_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{confio_8c_a5c9f74b939e274a2e58e6f8e54e1a72c}{\index{confio.\-c@{confio.\-c}!read\-\_\-whole\-\_\-conf@{read\-\_\-whole\-\_\-conf}}
+\index{read\-\_\-whole\-\_\-conf@{read\-\_\-whole\-\_\-conf}!confio.c@{confio.\-c}}
+\subsubsection[{read\-\_\-whole\-\_\-conf}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf read\-\_\-whole\-\_\-conf} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{infile, }
+\item[{char $\ast$}]{title, }
+\item[{{\bf t\-\_\-atoms} $\ast$}]{atoms, }
+\item[{{\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec} $\ast$}]{v, }
+\item[{{\bf matrix}}]{box}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{confio_8c_a5c9f74b939e274a2e58e6f8e54e1a72c}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{confio_8c_a5c9f74b939e274a2e58e6f8e54e1a72c_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{confio_8c_a5c9f74b939e274a2e58e6f8e54e1a72c_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{confio_8c_a40d45e3bc6bc44473861dcbe1be189cd}{\index{confio.\-c@{confio.\-c}!read\-\_\-xyz\-\_\-conf@{read\-\_\-xyz\-\_\-conf}}
+\index{read\-\_\-xyz\-\_\-conf@{read\-\_\-xyz\-\_\-conf}!confio.c@{confio.\-c}}
+\subsubsection[{read\-\_\-xyz\-\_\-conf}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf read\-\_\-xyz\-\_\-conf} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{infile, }
+\item[{char $\ast$}]{title, }
+\item[{{\bf t\-\_\-atoms} $\ast$}]{atoms, }
+\item[{{\bf rvec} $\ast$}]{x}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{confio_8c_a40d45e3bc6bc44473861dcbe1be189cd}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=280pt]{confio_8c_a40d45e3bc6bc44473861dcbe1be189cd_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{confio_8c_a40d45e3bc6bc44473861dcbe1be189cd_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{confio_8c_ade0eeb948af84bd6cce8f3e5bffb0349}{\index{confio.\-c@{confio.\-c}!write\-\_\-conf@{write\-\_\-conf}}
+\index{write\-\_\-conf@{write\-\_\-conf}!confio.c@{confio.\-c}}
+\subsubsection[{write\-\_\-conf}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf write\-\_\-conf} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{outfile, }
+\item[{const char $\ast$}]{title, }
+\item[{{\bf t\-\_\-atoms} $\ast$}]{atoms, }
+\item[{{\bf rvec} $\ast$}]{x, }
+\item[{{\bf rvec} $\ast$}]{v, }
+\item[{{\bf matrix}}]{box}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{confio_8c_ade0eeb948af84bd6cce8f3e5bffb0349}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{confio_8c_ade0eeb948af84bd6cce8f3e5bffb0349_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{confio_8c_ade0eeb948af84bd6cce8f3e5bffb0349_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{confio_8c_aa6d7e9ffb776a771158396f6d2bf8f54}{\index{confio.\-c@{confio.\-c}!write\-\_\-conf\-\_\-p@{write\-\_\-conf\-\_\-p}}
+\index{write\-\_\-conf\-\_\-p@{write\-\_\-conf\-\_\-p}!confio.c@{confio.\-c}}
+\subsubsection[{write\-\_\-conf\-\_\-p}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf write\-\_\-conf\-\_\-p} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{outfile, }
+\item[{const char $\ast$}]{title, }
+\item[{{\bf t\-\_\-atoms} $\ast$}]{atoms, }
+\item[{int}]{pr, }
+\item[{{\bf rvec} $\ast$}]{x, }
+\item[{{\bf rvec} $\ast$}]{v, }
+\item[{{\bf matrix}}]{box}
+\end{DoxyParamCaption}
+)}}\label{confio_8c_aa6d7e9ffb776a771158396f6d2bf8f54}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=272pt]{confio_8c_aa6d7e9ffb776a771158396f6d2bf8f54_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{confio_8c_aa6d7e9ffb776a771158396f6d2bf8f54_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{confio_8c_a64a399cef15e87c008c6cad8daddb4a4}{\index{confio.\-c@{confio.\-c}!write\-\_\-espresso\-\_\-conf\-\_\-indexed@{write\-\_\-espresso\-\_\-conf\-\_\-indexed}}
+\index{write\-\_\-espresso\-\_\-conf\-\_\-indexed@{write\-\_\-espresso\-\_\-conf\-\_\-indexed}!confio.c@{confio.\-c}}
+\subsubsection[{write\-\_\-espresso\-\_\-conf\-\_\-indexed}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf write\-\_\-espresso\-\_\-conf\-\_\-indexed} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{out, }
+\item[{const char $\ast$}]{title, }
+\item[{{\bf t\-\_\-atoms} $\ast$}]{atoms, }
+\item[{int}]{nx, }
+\item[{{\bf atom\-\_\-id} $\ast$}]{index, }
+\item[{{\bf rvec} $\ast$}]{x, }
+\item[{{\bf rvec} $\ast$}]{v, }
+\item[{{\bf matrix}}]{box}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{confio_8c_a64a399cef15e87c008c6cad8daddb4a4}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=336pt]{confio_8c_a64a399cef15e87c008c6cad8daddb4a4_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{confio_8c_a64a399cef15e87c008c6cad8daddb4a4_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{confio_8c_ae03764d992a77e72ca0d12e72afd9bc3}{\index{confio.\-c@{confio.\-c}!write\-\_\-g96\-\_\-conf@{write\-\_\-g96\-\_\-conf}}
+\index{write\-\_\-g96\-\_\-conf@{write\-\_\-g96\-\_\-conf}!confio.c@{confio.\-c}}
+\subsubsection[{write\-\_\-g96\-\_\-conf}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf write\-\_\-g96\-\_\-conf} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{out, }
+\item[{{\bf t\-\_\-trxframe} $\ast$}]{fr, }
+\item[{int}]{nindex, }
+\item[{{\bf atom\-\_\-id} $\ast$}]{index}
+\end{DoxyParamCaption}
+)}}\label{confio_8c_ae03764d992a77e72ca0d12e72afd9bc3}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{confio_8c_ae03764d992a77e72ca0d12e72afd9bc3_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{confio_8c_a0060e9308fe143b41b0c1a0163ce4992}{\index{confio.\-c@{confio.\-c}!write\-\_\-hconf\-\_\-box@{write\-\_\-hconf\-\_\-box}}
+\index{write\-\_\-hconf\-\_\-box@{write\-\_\-hconf\-\_\-box}!confio.c@{confio.\-c}}
+\subsubsection[{write\-\_\-hconf\-\_\-box}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf write\-\_\-hconf\-\_\-box} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{out, }
+\item[{int}]{pr, }
+\item[{{\bf matrix}}]{box}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{confio_8c_a0060e9308fe143b41b0c1a0163ce4992}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{confio_8c_a0060e9308fe143b41b0c1a0163ce4992_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{confio_8c_ad19e0b0f378db41e4f8e95324278e3be}{\index{confio.\-c@{confio.\-c}!write\-\_\-hconf\-\_\-indexed\-\_\-p@{write\-\_\-hconf\-\_\-indexed\-\_\-p}}
+\index{write\-\_\-hconf\-\_\-indexed\-\_\-p@{write\-\_\-hconf\-\_\-indexed\-\_\-p}!confio.c@{confio.\-c}}
+\subsubsection[{write\-\_\-hconf\-\_\-indexed\-\_\-p}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf write\-\_\-hconf\-\_\-indexed\-\_\-p} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{out, }
+\item[{const char $\ast$}]{title, }
+\item[{{\bf t\-\_\-atoms} $\ast$}]{atoms, }
+\item[{int}]{nx, }
+\item[{{\bf atom\-\_\-id}}]{index\mbox{[}$\,$\mbox{]}, }
+\item[{int}]{pr, }
+\item[{{\bf rvec} $\ast$}]{x, }
+\item[{{\bf rvec} $\ast$}]{v, }
+\item[{{\bf matrix}}]{box}
+\end{DoxyParamCaption}
+)}}\label{confio_8c_ad19e0b0f378db41e4f8e95324278e3be}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=336pt]{confio_8c_ad19e0b0f378db41e4f8e95324278e3be_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{confio_8c_ad19e0b0f378db41e4f8e95324278e3be_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{confio_8c_acb15cd92a420124094cc8e4611490391}{\index{confio.\-c@{confio.\-c}!write\-\_\-hconf\-\_\-mtop@{write\-\_\-hconf\-\_\-mtop}}
+\index{write\-\_\-hconf\-\_\-mtop@{write\-\_\-hconf\-\_\-mtop}!confio.c@{confio.\-c}}
+\subsubsection[{write\-\_\-hconf\-\_\-mtop}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf write\-\_\-hconf\-\_\-mtop} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{out, }
+\item[{const char $\ast$}]{title, }
+\item[{{\bf gmx\-\_\-mtop\-\_\-t} $\ast$}]{mtop, }
+\item[{int}]{pr, }
+\item[{{\bf rvec} $\ast$}]{x, }
+\item[{{\bf rvec} $\ast$}]{v, }
+\item[{{\bf matrix}}]{box}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{confio_8c_acb15cd92a420124094cc8e4611490391}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{confio_8c_acb15cd92a420124094cc8e4611490391_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{confio_8c_acb15cd92a420124094cc8e4611490391_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{confio_8c_abaa013ac1314961e07abce7050a79022}{\index{confio.\-c@{confio.\-c}!write\-\_\-hconf\-\_\-p@{write\-\_\-hconf\-\_\-p}}
+\index{write\-\_\-hconf\-\_\-p@{write\-\_\-hconf\-\_\-p}!confio.c@{confio.\-c}}
+\subsubsection[{write\-\_\-hconf\-\_\-p}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf write\-\_\-hconf\-\_\-p} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{out, }
+\item[{const char $\ast$}]{title, }
+\item[{{\bf t\-\_\-atoms} $\ast$}]{atoms, }
+\item[{int}]{pr, }
+\item[{{\bf rvec} $\ast$}]{x, }
+\item[{{\bf rvec} $\ast$}]{v, }
+\item[{{\bf matrix}}]{box}
+\end{DoxyParamCaption}
+)}}\label{confio_8c_abaa013ac1314961e07abce7050a79022}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=310pt]{confio_8c_abaa013ac1314961e07abce7050a79022_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{confio_8c_abaa013ac1314961e07abce7050a79022_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{confio_8c_a2bd20fd26a3abe27c370ddbc62254ade}{\index{confio.\-c@{confio.\-c}!write\-\_\-sto\-\_\-conf@{write\-\_\-sto\-\_\-conf}}
+\index{write\-\_\-sto\-\_\-conf@{write\-\_\-sto\-\_\-conf}!confio.c@{confio.\-c}}
+\subsubsection[{write\-\_\-sto\-\_\-conf}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf write\-\_\-sto\-\_\-conf} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{outfile, }
+\item[{const char $\ast$}]{title, }
+\item[{{\bf t\-\_\-atoms} $\ast$}]{atoms, }
+\item[{{\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec} $\ast$}]{v, }
+\item[{int}]{e\-P\-B\-C, }
+\item[{{\bf matrix}}]{box}
+\end{DoxyParamCaption}
+)}}\label{confio_8c_a2bd20fd26a3abe27c370ddbc62254ade}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{confio_8c_a2bd20fd26a3abe27c370ddbc62254ade_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{confio_8c_a2bd20fd26a3abe27c370ddbc62254ade_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{confio_8c_a00bcbedf63f6eb0936f21f3fc0642be8}{\index{confio.\-c@{confio.\-c}!write\-\_\-sto\-\_\-conf\-\_\-indexed@{write\-\_\-sto\-\_\-conf\-\_\-indexed}}
+\index{write\-\_\-sto\-\_\-conf\-\_\-indexed@{write\-\_\-sto\-\_\-conf\-\_\-indexed}!confio.c@{confio.\-c}}
+\subsubsection[{write\-\_\-sto\-\_\-conf\-\_\-indexed}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf write\-\_\-sto\-\_\-conf\-\_\-indexed} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{outfile, }
+\item[{const char $\ast$}]{title, }
+\item[{{\bf t\-\_\-atoms} $\ast$}]{atoms, }
+\item[{{\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec} $\ast$}]{v, }
+\item[{int}]{e\-P\-B\-C, }
+\item[{{\bf matrix}}]{box, }
+\item[{{\bf atom\-\_\-id}}]{nindex, }
+\item[{{\bf atom\-\_\-id}}]{index\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{confio_8c_a00bcbedf63f6eb0936f21f3fc0642be8}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{confio_8c_a00bcbedf63f6eb0936f21f3fc0642be8_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{confio_8c_a00bcbedf63f6eb0936f21f3fc0642be8_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{confio_8c_afb2648b292dbcc49f2c2d9872ada4d10}{\index{confio.\-c@{confio.\-c}!write\-\_\-sto\-\_\-conf\-\_\-mtop@{write\-\_\-sto\-\_\-conf\-\_\-mtop}}
+\index{write\-\_\-sto\-\_\-conf\-\_\-mtop@{write\-\_\-sto\-\_\-conf\-\_\-mtop}!confio.c@{confio.\-c}}
+\subsubsection[{write\-\_\-sto\-\_\-conf\-\_\-mtop}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf write\-\_\-sto\-\_\-conf\-\_\-mtop} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{outfile, }
+\item[{const char $\ast$}]{title, }
+\item[{{\bf gmx\-\_\-mtop\-\_\-t} $\ast$}]{mtop, }
+\item[{{\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec} $\ast$}]{v, }
+\item[{int}]{e\-P\-B\-C, }
+\item[{{\bf matrix}}]{box}
+\end{DoxyParamCaption}
+)}}\label{confio_8c_afb2648b292dbcc49f2c2d9872ada4d10}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{confio_8c_afb2648b292dbcc49f2c2d9872ada4d10_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{confio_8c_afb2648b292dbcc49f2c2d9872ada4d10_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{confio_8c_a907fdf09e81c97491cd84ea0ffd73fea}{\index{confio.\-c@{confio.\-c}!write\-\_\-xyz\-\_\-conf@{write\-\_\-xyz\-\_\-conf}}
+\index{write\-\_\-xyz\-\_\-conf@{write\-\_\-xyz\-\_\-conf}!confio.c@{confio.\-c}}
+\subsubsection[{write\-\_\-xyz\-\_\-conf}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf write\-\_\-xyz\-\_\-conf} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{outfile, }
+\item[{const char $\ast$}]{title, }
+\item[{{\bf t\-\_\-atoms} $\ast$}]{atoms, }
+\item[{{\bf rvec} $\ast$}]{x}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{confio_8c_a907fdf09e81c97491cd84ea0ffd73fea}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=322pt]{confio_8c_a907fdf09e81c97491cd84ea0ffd73fea_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{confio_8c_a907fdf09e81c97491cd84ea0ffd73fea_icgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{\-Variable \-Documentation}
+\hypertarget{confio_8c_a55a12fe1c4bd32a7ec162c4ba88c59b3}{\index{confio.\-c@{confio.\-c}!esp\-\_\-prop@{esp\-\_\-prop}}
+\index{esp\-\_\-prop@{esp\-\_\-prop}!confio.c@{confio.\-c}}
+\subsubsection[{esp\-\_\-prop}]{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ {\bf esp\-\_\-prop}\mbox{[}{\bf esp\-N\-R}\mbox{]}}}\label{confio_8c_a55a12fe1c4bd32a7ec162c4ba88c59b3}
+{\bfseries \-Initial value\-:}
+\begin{DoxyCode}
+ {
+    "id", "pos", "type", "q", "v", "f",
+    "molecule"
+}
+\end{DoxyCode}

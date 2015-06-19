@@ -1,0 +1,121 @@
+\hypertarget{structgmx__ana__selvalue__t}{\section{gmx\-\_\-ana\-\_\-selvalue\-\_\-t \-Struct \-Reference}
+\label{structgmx__ana__selvalue__t}\index{gmx\-\_\-ana\-\_\-selvalue\-\_\-t@{gmx\-\_\-ana\-\_\-selvalue\-\_\-t}}
+}
+
+
+\-Describes a value of a selection expression or of a selection method parameter.  
+
+
+
+
+{\ttfamily \#include $<$selvalue.\-h$>$}
+
+
+
+\-Collaboration diagram for gmx\-\_\-ana\-\_\-selvalue\-\_\-t\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{structgmx__ana__selvalue__t__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{\-Public \-Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{include_2selvalue_8h_a70b42b87d434580bf1493591857b8bec}{e\-\_\-selvalue\-\_\-t} \hyperlink{structgmx__ana__selvalue__t_a0a7b3be96275660c0fb58068c31d8daf}{type}
+\item 
+int \hyperlink{structgmx__ana__selvalue__t_a80661a78ccd9ecb369adb4c0d4bb2c72}{nr}
+\begin{DoxyCompactList}\small\item\em \-Number of values in the array pointed by the union. \end{DoxyCompactList}\item 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+union \{\\
+\>\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$ \hyperlink{structgmx__ana__selvalue__t_a12b279f9954e6c83e9e9957fcde06e81}{ptr}\\
+\>\>{\em Generic pointer for operations that do not need type information. }\\
+\>int $\ast$ \hyperlink{structgmx__ana__selvalue__t_af72b5764d0dbc8bc2c4479cc6f4c8148}{i}\\
+\>real $\ast$ \hyperlink{structgmx__ana__selvalue__t_afdab2e1a8e6d0b4157f0d823f063020a}{r}\\
+\>char $\ast$$\ast$ \hyperlink{structgmx__ana__selvalue__t_aa4c476a22542ca86519dc9851c08e767}{s}\\
+\>struct \hyperlink{structgmx__ana__pos__t}{gmx\_ana\_pos\_t} $\ast$ \hyperlink{structgmx__ana__selvalue__t_a5ac7ec54e9c4bd24a4e1c525eb8ab996}{p}\\
+\>struct \hyperlink{structgmx__ana__index__t}{gmx\_ana\_index\_t} $\ast$ \hyperlink{structgmx__ana__selvalue__t_aecb3187d4996ff0548a69f97e258aecb}{g}\\
+\>\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\_bool} $\ast$ \hyperlink{structgmx__ana__selvalue__t_a040d77c026d33b7da43871c37c92eebb}{b}\\
+\} \hyperlink{structgmx__ana__selvalue__t_a623f44abe0246882e1d86e116b56c89c}{u}\\
+
+\end{tabbing}\item 
+int \hyperlink{structgmx__ana__selvalue__t_a7f0a3a02a38a85dfc48611d126779a23}{nalloc}
+\begin{DoxyCompactList}\small\item\em \-Number of elements allocated for the value array. \end{DoxyCompactList}\item 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+union \{\\
+\>\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$ \hyperlink{structgmx__ana__selvalue__t_a12b279f9954e6c83e9e9957fcde06e81}{ptr}\\
+\>\>{\em Generic pointer for operations that do not need type information. }\\
+\>int $\ast$ \hyperlink{structgmx__ana__selvalue__t_af72b5764d0dbc8bc2c4479cc6f4c8148}{i}\\
+\>real $\ast$ \hyperlink{structgmx__ana__selvalue__t_afdab2e1a8e6d0b4157f0d823f063020a}{r}\\
+\>char $\ast$$\ast$ \hyperlink{structgmx__ana__selvalue__t_aa4c476a22542ca86519dc9851c08e767}{s}\\
+\>struct \hyperlink{structgmx__ana__pos__t}{gmx\_ana\_pos\_t} $\ast$ \hyperlink{structgmx__ana__selvalue__t_a5ac7ec54e9c4bd24a4e1c525eb8ab996}{p}\\
+\>struct \hyperlink{structgmx__ana__index__t}{gmx\_ana\_index\_t} $\ast$ \hyperlink{structgmx__ana__selvalue__t_aecb3187d4996ff0548a69f97e258aecb}{g}\\
+\>\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\_bool} $\ast$ \hyperlink{structgmx__ana__selvalue__t_a040d77c026d33b7da43871c37c92eebb}{b}\\
+\} \hyperlink{structgmx__ana__selvalue__t_a47d85dba2471011f88b5fc779dd85a3e}{u}\\
+
+\end{tabbing}\end{DoxyCompactItemize}
+
+
+\subsection{\-Detailed \-Description}
+\-Describes a value of a selection expression or of a selection method parameter. 
+
+\-Which field in the union is used depends on the {\ttfamily type}. 
+
+\subsection{\-Member \-Data \-Documentation}
+\hypertarget{structgmx__ana__selvalue__t_a040d77c026d33b7da43871c37c92eebb}{\index{gmx\-\_\-ana\-\_\-selvalue\-\_\-t@{gmx\-\_\-ana\-\_\-selvalue\-\_\-t}!b@{b}}
+\index{b@{b}!gmx_ana_selvalue_t@{gmx\-\_\-ana\-\_\-selvalue\-\_\-t}}
+\subsubsection[{b}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool}$\ast$ {\bf gmx\-\_\-ana\-\_\-selvalue\-\_\-t\-::b}}}\label{structgmx__ana__selvalue__t_a040d77c026d33b7da43871c37c92eebb}
+\-Boolean value (only parameters of type \hyperlink{share_2template_2gromacs_2selvalue_8h_a70b42b87d434580bf1493591857b8beca4d694119ce83b62d74ff06b5e017dca8}{\-N\-O\-\_\-\-V\-A\-L\-U\-E}); \hypertarget{structgmx__ana__selvalue__t_aecb3187d4996ff0548a69f97e258aecb}{\index{gmx\-\_\-ana\-\_\-selvalue\-\_\-t@{gmx\-\_\-ana\-\_\-selvalue\-\_\-t}!g@{g}}
+\index{g@{g}!gmx_ana_selvalue_t@{gmx\-\_\-ana\-\_\-selvalue\-\_\-t}}
+\subsubsection[{g}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf gmx\-\_\-ana\-\_\-index\-\_\-t}$\ast$ {\bf gmx\-\_\-ana\-\_\-selvalue\-\_\-t\-::g}}}\label{structgmx__ana__selvalue__t_aecb3187d4996ff0548a69f97e258aecb}
+\-Group value (type \hyperlink{share_2template_2gromacs_2selvalue_8h_a70b42b87d434580bf1493591857b8beca70a2af6eafa48adfab506ceee60471f6}{\-G\-R\-O\-U\-P\-\_\-\-V\-A\-L\-U\-E}). \hypertarget{structgmx__ana__selvalue__t_af72b5764d0dbc8bc2c4479cc6f4c8148}{\index{gmx\-\_\-ana\-\_\-selvalue\-\_\-t@{gmx\-\_\-ana\-\_\-selvalue\-\_\-t}!i@{i}}
+\index{i@{i}!gmx_ana_selvalue_t@{gmx\-\_\-ana\-\_\-selvalue\-\_\-t}}
+\subsubsection[{i}]{\setlength{\rightskip}{0pt plus 5cm}int$\ast$ {\bf gmx\-\_\-ana\-\_\-selvalue\-\_\-t\-::i}}}\label{structgmx__ana__selvalue__t_af72b5764d0dbc8bc2c4479cc6f4c8148}
+\-Integer value(s) (type \hyperlink{share_2template_2gromacs_2selvalue_8h_a70b42b87d434580bf1493591857b8becacd1ce0b084595a6072a57781dc7738a0}{\-I\-N\-T\-\_\-\-V\-A\-L\-U\-E}). \hypertarget{structgmx__ana__selvalue__t_a7f0a3a02a38a85dfc48611d126779a23}{\index{gmx\-\_\-ana\-\_\-selvalue\-\_\-t@{gmx\-\_\-ana\-\_\-selvalue\-\_\-t}!nalloc@{nalloc}}
+\index{nalloc@{nalloc}!gmx_ana_selvalue_t@{gmx\-\_\-ana\-\_\-selvalue\-\_\-t}}
+\subsubsection[{nalloc}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-ana\-\_\-selvalue\-\_\-t\-::nalloc}}}\label{structgmx__ana__selvalue__t_a7f0a3a02a38a85dfc48611d126779a23}
+
+
+\-Number of elements allocated for the value array. 
+
+\hypertarget{structgmx__ana__selvalue__t_a80661a78ccd9ecb369adb4c0d4bb2c72}{\index{gmx\-\_\-ana\-\_\-selvalue\-\_\-t@{gmx\-\_\-ana\-\_\-selvalue\-\_\-t}!nr@{nr}}
+\index{nr@{nr}!gmx_ana_selvalue_t@{gmx\-\_\-ana\-\_\-selvalue\-\_\-t}}
+\subsubsection[{nr}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-ana\-\_\-selvalue\-\_\-t\-::nr}}}\label{structgmx__ana__selvalue__t_a80661a78ccd9ecb369adb4c0d4bb2c72}
+
+
+\-Number of values in the array pointed by the union. 
+
+\-Note that for position and group values, it is the number of data structures in the array, not the number of positions or the number of atoms in the group. \hypertarget{structgmx__ana__selvalue__t_a5ac7ec54e9c4bd24a4e1c525eb8ab996}{\index{gmx\-\_\-ana\-\_\-selvalue\-\_\-t@{gmx\-\_\-ana\-\_\-selvalue\-\_\-t}!p@{p}}
+\index{p@{p}!gmx_ana_selvalue_t@{gmx\-\_\-ana\-\_\-selvalue\-\_\-t}}
+\subsubsection[{p}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf gmx\-\_\-ana\-\_\-pos\-\_\-t}$\ast$ {\bf gmx\-\_\-ana\-\_\-selvalue\-\_\-t\-::p}}}\label{structgmx__ana__selvalue__t_a5ac7ec54e9c4bd24a4e1c525eb8ab996}
+\-Structure for the position value(s) (type \hyperlink{share_2template_2gromacs_2selvalue_8h_a70b42b87d434580bf1493591857b8beca31a47fbfbc85ad1472ce3d2a168fd1ec}{\-P\-O\-S\-\_\-\-V\-A\-L\-U\-E}). \hypertarget{structgmx__ana__selvalue__t_a12b279f9954e6c83e9e9957fcde06e81}{\index{gmx\-\_\-ana\-\_\-selvalue\-\_\-t@{gmx\-\_\-ana\-\_\-selvalue\-\_\-t}!ptr@{ptr}}
+\index{ptr@{ptr}!gmx_ana_selvalue_t@{gmx\-\_\-ana\-\_\-selvalue\-\_\-t}}
+\subsubsection[{ptr}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void}$\ast$ {\bf gmx\-\_\-ana\-\_\-selvalue\-\_\-t\-::ptr}}}\label{structgmx__ana__selvalue__t_a12b279f9954e6c83e9e9957fcde06e81}
+
+
+\-Generic pointer for operations that do not need type information. 
+
+\-Needs to be the first member to be able to use initialized arrays. \hypertarget{structgmx__ana__selvalue__t_afdab2e1a8e6d0b4157f0d823f063020a}{\index{gmx\-\_\-ana\-\_\-selvalue\-\_\-t@{gmx\-\_\-ana\-\_\-selvalue\-\_\-t}!r@{r}}
+\index{r@{r}!gmx_ana_selvalue_t@{gmx\-\_\-ana\-\_\-selvalue\-\_\-t}}
+\subsubsection[{r}]{\setlength{\rightskip}{0pt plus 5cm}real$\ast$ {\bf gmx\-\_\-ana\-\_\-selvalue\-\_\-t\-::r}}}\label{structgmx__ana__selvalue__t_afdab2e1a8e6d0b4157f0d823f063020a}
+\-Real value(s) (type \hyperlink{share_2template_2gromacs_2selvalue_8h_a70b42b87d434580bf1493591857b8beca7aa9587044cd6fd9c1f1690719a072cf}{\-R\-E\-A\-L\-\_\-\-V\-A\-L\-U\-E}). \hypertarget{structgmx__ana__selvalue__t_aa4c476a22542ca86519dc9851c08e767}{\index{gmx\-\_\-ana\-\_\-selvalue\-\_\-t@{gmx\-\_\-ana\-\_\-selvalue\-\_\-t}!s@{s}}
+\index{s@{s}!gmx_ana_selvalue_t@{gmx\-\_\-ana\-\_\-selvalue\-\_\-t}}
+\subsubsection[{s}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$$\ast$ {\bf gmx\-\_\-ana\-\_\-selvalue\-\_\-t\-::s}}}\label{structgmx__ana__selvalue__t_aa4c476a22542ca86519dc9851c08e767}
+\-String value(s) (type \hyperlink{share_2template_2gromacs_2selvalue_8h_a70b42b87d434580bf1493591857b8beca6f2f1fe9592d96990c9ac690c355bd08}{\-S\-T\-R\-\_\-\-V\-A\-L\-U\-E}). \hypertarget{structgmx__ana__selvalue__t_a0a7b3be96275660c0fb58068c31d8daf}{\index{gmx\-\_\-ana\-\_\-selvalue\-\_\-t@{gmx\-\_\-ana\-\_\-selvalue\-\_\-t}!type@{type}}
+\index{type@{type}!gmx_ana_selvalue_t@{gmx\-\_\-ana\-\_\-selvalue\-\_\-t}}
+\subsubsection[{type}]{\setlength{\rightskip}{0pt plus 5cm}{\bf e\-\_\-selvalue\-\_\-t} {\bf gmx\-\_\-ana\-\_\-selvalue\-\_\-t\-::type}}}\label{structgmx__ana__selvalue__t_a0a7b3be96275660c0fb58068c31d8daf}
+\-Type of the value. \hypertarget{structgmx__ana__selvalue__t_a47d85dba2471011f88b5fc779dd85a3e}{\index{gmx\-\_\-ana\-\_\-selvalue\-\_\-t@{gmx\-\_\-ana\-\_\-selvalue\-\_\-t}!u@{u}}
+\index{u@{u}!gmx_ana_selvalue_t@{gmx\-\_\-ana\-\_\-selvalue\-\_\-t}}
+\subsubsection[{u}]{\setlength{\rightskip}{0pt plus 5cm}union \{ ... \}                             {\bf gmx\-\_\-ana\-\_\-selvalue\-\_\-t\-::u}}}\label{structgmx__ana__selvalue__t_a47d85dba2471011f88b5fc779dd85a3e}
+\-Pointer to the value. \hypertarget{structgmx__ana__selvalue__t_a623f44abe0246882e1d86e116b56c89c}{\index{gmx\-\_\-ana\-\_\-selvalue\-\_\-t@{gmx\-\_\-ana\-\_\-selvalue\-\_\-t}!u@{u}}
+\index{u@{u}!gmx_ana_selvalue_t@{gmx\-\_\-ana\-\_\-selvalue\-\_\-t}}
+\subsubsection[{u}]{\setlength{\rightskip}{0pt plus 5cm}union \{ ... \}                             {\bf gmx\-\_\-ana\-\_\-selvalue\-\_\-t\-::u}}}\label{structgmx__ana__selvalue__t_a623f44abe0246882e1d86e116b56c89c}
+\-Pointer to the value. 
+
+\-The documentation for this struct was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+include/\hyperlink{include_2selvalue_8h}{selvalue.\-h}\item 
+share/template/gromacs/\hyperlink{share_2template_2gromacs_2selvalue_8h}{selvalue.\-h}\end{DoxyCompactItemize}

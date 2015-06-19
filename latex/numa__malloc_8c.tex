@@ -1,0 +1,122 @@
+\hypertarget{numa__malloc_8c}{\section{src/gmxlib/thread\-\_\-mpi/numa\-\_\-malloc.c \-File \-Reference}
+\label{numa__malloc_8c}\index{src/gmxlib/thread\-\_\-mpi/numa\-\_\-malloc.\-c@{src/gmxlib/thread\-\_\-mpi/numa\-\_\-malloc.\-c}}
+}
+{\ttfamily \#include $<$stdio.\-h$>$}\*
+{\ttfamily \#include $<$stdlib.\-h$>$}\*
+{\ttfamily \#include $<$string.\-h$>$}\*
+\-Include dependency graph for numa\-\_\-malloc.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=262pt]{numa__malloc_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$ \hyperlink{numa__malloc_8c_a72d605f8cf2e4b524ce080d35620681c}{t\-M\-P\-I\-\_\-\-Malloc\-\_\-local} (size\-\_\-t size)
+\begin{DoxyCompactList}\small\item\em \-Allocate local memory by size in bytes. \end{DoxyCompactList}\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$ \hyperlink{numa__malloc_8c_aa2b76663c2f8daa53f5c2da0b5acc177}{t\-M\-P\-I\-\_\-\-Calloc\-\_\-local} (size\-\_\-t nmemb, size\-\_\-t size)
+\begin{DoxyCompactList}\small\item\em \-Allocate local memory by array and element size. \end{DoxyCompactList}\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$ \hyperlink{numa__malloc_8c_a9860f470ca672ca665739b21c4780506}{t\-M\-P\-I\-\_\-\-Realloc\-\_\-local} (\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$ptr, size\-\_\-t size)
+\begin{DoxyCompactList}\small\item\em \-Re-\/allocate to local memory. \end{DoxyCompactList}\item 
+int \hyperlink{numa__malloc_8c_a20aab8bdab8ccb90ada408ddcb8996d8}{t\-M\-P\-I\-\_\-\-Free\-\_\-numa} (\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$ptr)
+\begin{DoxyCompactList}\small\item\em \-Free memory allocate with any of the \-N\-U\-M\-A-\/aware allocators. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{numa__malloc_8c_aa2b76663c2f8daa53f5c2da0b5acc177}{\index{numa\-\_\-malloc.\-c@{numa\-\_\-malloc.\-c}!t\-M\-P\-I\-\_\-\-Calloc\-\_\-local@{t\-M\-P\-I\-\_\-\-Calloc\-\_\-local}}
+\index{t\-M\-P\-I\-\_\-\-Calloc\-\_\-local@{t\-M\-P\-I\-\_\-\-Calloc\-\_\-local}!numa_malloc.c@{numa\-\_\-malloc.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Calloc\-\_\-local}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void}$\ast$ {\bf t\-M\-P\-I\-\_\-\-Calloc\-\_\-local} (
+\begin{DoxyParamCaption}
+\item[{size\-\_\-t}]{nmemb, }
+\item[{size\-\_\-t}]{size}
+\end{DoxyParamCaption}
+)}}\label{numa__malloc_8c_aa2b76663c2f8daa53f5c2da0b5acc177}
+
+
+\-Allocate local memory by array and element size. 
+
+\begin{DoxySeeAlso}{\-See also}
+calloc()
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em nmemb} & = number of array members \\
+\hline
+\mbox{\tt in}  & {\em size} & = size in units of sizeof() of a single array element\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-Pointer to allocated memory, or \-N\-U\-L\-L in case of failure 
+\end{DoxyReturn}
+\hypertarget{numa__malloc_8c_a20aab8bdab8ccb90ada408ddcb8996d8}{\index{numa\-\_\-malloc.\-c@{numa\-\_\-malloc.\-c}!t\-M\-P\-I\-\_\-\-Free\-\_\-numa@{t\-M\-P\-I\-\_\-\-Free\-\_\-numa}}
+\index{t\-M\-P\-I\-\_\-\-Free\-\_\-numa@{t\-M\-P\-I\-\_\-\-Free\-\_\-numa}!numa_malloc.c@{numa\-\_\-malloc.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Free\-\_\-numa}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf t\-M\-P\-I\-\_\-\-Free\-\_\-numa} (
+\begin{DoxyParamCaption}
+\item[{{\bf void} $\ast$}]{ptr}
+\end{DoxyParamCaption}
+)}}\label{numa__malloc_8c_a20aab8bdab8ccb90ada408ddcb8996d8}
+
+
+\-Free memory allocate with any of the \-N\-U\-M\-A-\/aware allocators. 
+
+\begin{DoxySeeAlso}{\-See also}
+calloc()
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em ptr} & = pointer to block of memory allocated with a \-N\-U\-M\-A allocator\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-Returns debug info\-: 0 if the memory was allocated with a \-N\-U\-M\-A allocator, 1 if it was allocated by another allocator. 
+\end{DoxyReturn}
+\hypertarget{numa__malloc_8c_a72d605f8cf2e4b524ce080d35620681c}{\index{numa\-\_\-malloc.\-c@{numa\-\_\-malloc.\-c}!t\-M\-P\-I\-\_\-\-Malloc\-\_\-local@{t\-M\-P\-I\-\_\-\-Malloc\-\_\-local}}
+\index{t\-M\-P\-I\-\_\-\-Malloc\-\_\-local@{t\-M\-P\-I\-\_\-\-Malloc\-\_\-local}!numa_malloc.c@{numa\-\_\-malloc.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Malloc\-\_\-local}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void}$\ast$ {\bf t\-M\-P\-I\-\_\-\-Malloc\-\_\-local} (
+\begin{DoxyParamCaption}
+\item[{size\-\_\-t}]{size}
+\end{DoxyParamCaption}
+)}}\label{numa__malloc_8c_a72d605f8cf2e4b524ce080d35620681c}
+
+
+\-Allocate local memory by size in bytes. 
+
+\begin{DoxySeeAlso}{\-See also}
+malloc()
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em size} & = size in units of sizeof() of the memory to be allocated\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-Pointer to allocated memory, or \-N\-U\-L\-L in case of failure 
+\end{DoxyReturn}
+\hypertarget{numa__malloc_8c_a9860f470ca672ca665739b21c4780506}{\index{numa\-\_\-malloc.\-c@{numa\-\_\-malloc.\-c}!t\-M\-P\-I\-\_\-\-Realloc\-\_\-local@{t\-M\-P\-I\-\_\-\-Realloc\-\_\-local}}
+\index{t\-M\-P\-I\-\_\-\-Realloc\-\_\-local@{t\-M\-P\-I\-\_\-\-Realloc\-\_\-local}!numa_malloc.c@{numa\-\_\-malloc.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Realloc\-\_\-local}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void}$\ast$ {\bf t\-M\-P\-I\-\_\-\-Realloc\-\_\-local} (
+\begin{DoxyParamCaption}
+\item[{{\bf void} $\ast$}]{ptr, }
+\item[{size\-\_\-t}]{size}
+\end{DoxyParamCaption}
+)}}\label{numa__malloc_8c_a9860f470ca672ca665739b21c4780506}
+
+
+\-Re-\/allocate to local memory. 
+
+\begin{DoxySeeAlso}{\-See also}
+realloc()
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em ptr} & = input pointer of originally allocated memory (can be allocated with \-N\-U\-M\-A or non-\/\-N\-U\-M\-A malloc()) \\
+\hline
+\mbox{\tt in}  & {\em size} & = new size in units of sizeof().\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-Pointer to allocated memory, or \-N\-U\-L\-L in case of failure 
+\end{DoxyReturn}

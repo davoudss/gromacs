@@ -1,0 +1,595 @@
+\hypertarget{do__gct_8c}{\section{src/kernel/do\-\_\-gct.c \-File \-Reference}
+\label{do__gct_8c}\index{src/kernel/do\-\_\-gct.\-c@{src/kernel/do\-\_\-gct.\-c}}
+}
+{\ttfamily \#include \char`\"{}typedefs.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}xmdrun.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}futil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}xvgr.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}macros.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}physics.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}network.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}smalloc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}mdrun.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}string2.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}readinp.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}filenm.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}update.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}vec.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}main.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}txtdump.\-h\char`\"{}}\*
+\-Include dependency graph for do\-\_\-gct.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{do__gct_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{do__gct_8c_ada833912af53cace168f9be352e7cf7c}{\-F\-M\-I\-N}~0.\-95
+\item 
+\#define \hyperlink{do__gct_8c_af9520fdf42fc2eb129de2c594eb10505}{\-F\-M\-A\-X}~1.\-05
+\item 
+\#define \hyperlink{do__gct_8c_ac983cb68abd4c9113358eee54cf4ff12}{enm2\-Debye}~48.\-0321
+\item 
+\#define \hyperlink{do__gct_8c_a6af835ef14be9ed8a3b76dd64541a77d}{d2e}(\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x})~(\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x})/\hyperlink{do__gct_8c_ac983cb68abd4c9113358eee54cf4ff12}{enm2\-Debye}
+\item 
+\#define \hyperlink{do__gct_8c_a09ae83b6d670275160b31e7fc870f94b}{enm2kjmol}(\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x})~(\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x})$\ast$0.\-0143952 /$\ast$ = 2.\-0$\ast$4.\-0$\ast$\hyperlink{share_2template_2gromacs_2physics_8h_ae71449b1cc6e6250b91f539153a7a0d3}{\-M\-\_\-\-P\-I}$\ast$\hyperlink{share_2template_2gromacs_2physics_8h_a7d8d67e90ee3b3eed0a2d2b5ffa8bc16}{\-E\-P\-S\-I\-L\-O\-N0} $\ast$/
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structt__coupl__rec}{t\-\_\-coupl\-\_\-rec} $\ast$ \hyperlink{do__gct_8c_a7862e1674b3b226136703a6934ea3c51}{init\-\_\-coupling} (\-F\-I\-L\-E $\ast$log, int nfile, const \hyperlink{structt__filenm}{t\-\_\-filenm} fnm\mbox{[}$\,$\mbox{]}, \hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr, \hyperlink{structt__forcerec}{t\-\_\-forcerec} $\ast$\hyperlink{addconf_8c_ae8414314f87c5e49503ac0117eb511ad}{fr}, \hyperlink{structt__mdatoms}{t\-\_\-mdatoms} $\ast$md, \hyperlink{structt__idef}{t\-\_\-idef} $\ast$idef)
+\item 
+static real \hyperlink{do__gct_8c_a29383fa933284be20eb2d885ccf5235b}{\-Ecouple} (\hyperlink{structt__coupl__rec}{t\-\_\-coupl\-\_\-rec} $\ast$tcr, real \hyperlink{optwat_8c_a0af9a624abbf535eeb74358ffc1634b2}{ener}\mbox{[}$\,$\mbox{]})
+\item 
+static char $\ast$ \hyperlink{do__gct_8c_ab3625b0451f8cccb6d7c7057a079a81b}{mk\-\_\-gct\-\_\-nm} (const char $\ast$fn, int ftp, int ati, int atj)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{do__gct_8c_adb6e8294a294d733d009d62f538948d7}{pr\-\_\-ff} (\hyperlink{structt__coupl__rec}{t\-\_\-coupl\-\_\-rec} $\ast$tcr, real time, \hyperlink{structt__idef}{t\-\_\-idef} $\ast$idef, \hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr, int nfile, const \hyperlink{structt__filenm}{t\-\_\-filenm} fnm\mbox{[}$\,$\mbox{]}, const \hyperlink{include_2types_2oenv_8h_a6a48d77d95132d7318780544821da6a5}{output\-\_\-env\-\_\-t} oenv)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{do__gct_8c_a7d16833c6da660e287da0a2a91fd76c4}{pr\-\_\-dev} (\hyperlink{structt__coupl__rec}{t\-\_\-coupl\-\_\-rec} $\ast$tcr, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a2b515c84b1293071f7584da32ca336c0}{t}, real dev\mbox{[}\hyperlink{xmdrun_8h_a6a6e9760871cfeaccfb8950c5573d890a0f85237a0d19a3aab67f4e1c16cb8b69}{eo\-Obs\-N\-R}\mbox{]}, \hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr, int nfile, const \hyperlink{structt__filenm}{t\-\_\-filenm} fnm\mbox{[}$\,$\mbox{]}, const \hyperlink{include_2types_2oenv_8h_a6a48d77d95132d7318780544821da6a5}{output\-\_\-env\-\_\-t} oenv)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{do__gct_8c_aef942485bce517598537ba256bba1598}{upd\-\_\-nbfplj} (\-F\-I\-L\-E $\ast$log, real $\ast$nbfp, int atnr, real f6\mbox{[}$\,$\mbox{]}, real f12\mbox{[}$\,$\mbox{]}, int combrule)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{do__gct_8c_a508a9a88cba59009bb76843e1598a9ae}{upd\-\_\-nbfpbu} (\-F\-I\-L\-E $\ast$log, real $\ast$nbfp, int atnr, real fa\mbox{[}$\,$\mbox{]}, real fb\mbox{[}$\,$\mbox{]}, real fc\mbox{[}$\,$\mbox{]})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{do__gct_8c_a47f946d8c754c67640ca90304a265cb9}{gprod} (\hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, real \hyperlink{copyrite_8c_a0757cfb6fe645a02867727255faa4f8b}{f}\mbox{[}$\,$\mbox{]})
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{do__gct_8c_a7162967580979c9be690a0ba98c4d492}{set\-\_\-factor\-\_\-matrix} (int ntypes, real \hyperlink{copyrite_8c_a0757cfb6fe645a02867727255faa4f8b}{f}\mbox{[}$\,$\mbox{]}, real fmult, int ati, int atj)
+\item 
+static real \hyperlink{do__gct_8c_ab68b591a39a25d62980f38cd652be0ba}{calc\-\_\-deviation} (real xav, real xt, real x0)
+\item 
+static real \hyperlink{do__gct_8c_abf2d66edeb1c45d0604053ecd6b29953}{calc\-\_\-dist} (\-F\-I\-L\-E $\ast$log, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]})
+\item 
+real \hyperlink{do__gct_8c_ae58555ff061e5b036b1ef965305a440b}{run\-\_\-aver} (real old, real cur, int step, int nmem)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{do__gct_8c_ab6eb914df1ec05bf35f0cfb27821e7e8}{set\-\_\-act\-\_\-value} (\hyperlink{structt__coupl__rec}{t\-\_\-coupl\-\_\-rec} $\ast$tcr, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a49fd977001162d7256c8fcd293f9d12a}{index}, real val, int step)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{do__gct_8c_a6a10eb3028d0c80e2ff81206efc6eb48}{upd\-\_\-f\-\_\-value} (\-F\-I\-L\-E $\ast$log, int atnr, real xi, real dt, real \hyperlink{coupling_8c_a9fa6cb6aeef8e03a280001b320eb3dc1}{factor}, real \hyperlink{xutils_8c_a535bdffef2ec705f343bfb4e7f2ea4fb}{ff}\mbox{[}$\,$\mbox{]}, int ati, int atj)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{do__gct_8c_a13afb3df403fba2f809743cfe29ba65a}{dump\-\_\-fm} (\-F\-I\-L\-E $\ast$fp, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, real \hyperlink{copyrite_8c_a0757cfb6fe645a02867727255faa4f8b}{f}\mbox{[}$\,$\mbox{]}, char $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a6dd0d3574865c5458827c47f2cfd02b8}{s})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{do__gct_8c_aa694b64fd29ff2442e1a6f091c683424}{do\-\_\-coupling} (\-F\-I\-L\-E $\ast$log, const \hyperlink{include_2types_2oenv_8h_a6a48d77d95132d7318780544821da6a5}{output\-\_\-env\-\_\-t} oenv, int nfile, const \hyperlink{structt__filenm}{t\-\_\-filenm} fnm\mbox{[}$\,$\mbox{]}, \hyperlink{structt__coupl__rec}{t\-\_\-coupl\-\_\-rec} $\ast$tcr, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a2b515c84b1293071f7584da32ca336c0}{t}, int step, real \hyperlink{optwat_8c_a0af9a624abbf535eeb74358ffc1634b2}{ener}\mbox{[}$\,$\mbox{]}, \hyperlink{structt__forcerec}{t\-\_\-forcerec} $\ast$\hyperlink{addconf_8c_ae8414314f87c5e49503ac0117eb511ad}{fr}, \hyperlink{structt__inputrec}{t\-\_\-inputrec} $\ast$ir, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Master, \hyperlink{structt__mdatoms}{t\-\_\-mdatoms} $\ast$md, \hyperlink{structt__idef}{t\-\_\-idef} $\ast$idef, real mu\-\_\-aver, int nmols, \hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aef0bf341f56ce75f09dbb64350488a61}{tensor} \hyperlink{mkice_8c_aff53715e07b7fc647983e58209b044f4}{virial}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aef0bf341f56ce75f09dbb64350488a61}{tensor} pres, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} mu\-\_\-tot, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{copyrite_8c_a0757cfb6fe645a02867727255faa4f8b}{f}\mbox{[}$\,$\mbox{]}, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Do\-It)
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Define \-Documentation}
+\hypertarget{do__gct_8c_a6af835ef14be9ed8a3b76dd64541a77d}{\index{do\-\_\-gct.\-c@{do\-\_\-gct.\-c}!d2e@{d2e}}
+\index{d2e@{d2e}!do_gct.c@{do\-\_\-gct.\-c}}
+\subsubsection[{d2e}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf d2e}(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf x}}
+\end{DoxyParamCaption}
+)~({\bf x})/{\bf enm2\-Debye}}}\label{do__gct_8c_a6af835ef14be9ed8a3b76dd64541a77d}
+\hypertarget{do__gct_8c_ac983cb68abd4c9113358eee54cf4ff12}{\index{do\-\_\-gct.\-c@{do\-\_\-gct.\-c}!enm2\-Debye@{enm2\-Debye}}
+\index{enm2\-Debye@{enm2\-Debye}!do_gct.c@{do\-\_\-gct.\-c}}
+\subsubsection[{enm2\-Debye}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf enm2\-Debye}~48.\-0321}}\label{do__gct_8c_ac983cb68abd4c9113358eee54cf4ff12}
+\hypertarget{do__gct_8c_a09ae83b6d670275160b31e7fc870f94b}{\index{do\-\_\-gct.\-c@{do\-\_\-gct.\-c}!enm2kjmol@{enm2kjmol}}
+\index{enm2kjmol@{enm2kjmol}!do_gct.c@{do\-\_\-gct.\-c}}
+\subsubsection[{enm2kjmol}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf enm2kjmol}(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf x}}
+\end{DoxyParamCaption}
+)~({\bf x})$\ast$0.\-0143952 /$\ast$ = 2.\-0$\ast$4.\-0$\ast${\bf \-M\-\_\-\-P\-I}$\ast${\bf \-E\-P\-S\-I\-L\-O\-N0} $\ast$/}}\label{do__gct_8c_a09ae83b6d670275160b31e7fc870f94b}
+\hypertarget{do__gct_8c_af9520fdf42fc2eb129de2c594eb10505}{\index{do\-\_\-gct.\-c@{do\-\_\-gct.\-c}!\-F\-M\-A\-X@{\-F\-M\-A\-X}}
+\index{\-F\-M\-A\-X@{\-F\-M\-A\-X}!do_gct.c@{do\-\_\-gct.\-c}}
+\subsubsection[{\-F\-M\-A\-X}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-F\-M\-A\-X}~1.\-05}}\label{do__gct_8c_af9520fdf42fc2eb129de2c594eb10505}
+\hypertarget{do__gct_8c_ada833912af53cace168f9be352e7cf7c}{\index{do\-\_\-gct.\-c@{do\-\_\-gct.\-c}!\-F\-M\-I\-N@{\-F\-M\-I\-N}}
+\index{\-F\-M\-I\-N@{\-F\-M\-I\-N}!do_gct.c@{do\-\_\-gct.\-c}}
+\subsubsection[{\-F\-M\-I\-N}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-F\-M\-I\-N}~0.\-95}}\label{do__gct_8c_ada833912af53cace168f9be352e7cf7c}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{do__gct_8c_ab68b591a39a25d62980f38cd652be0ba}{\index{do\-\_\-gct.\-c@{do\-\_\-gct.\-c}!calc\-\_\-deviation@{calc\-\_\-deviation}}
+\index{calc\-\_\-deviation@{calc\-\_\-deviation}!do_gct.c@{do\-\_\-gct.\-c}}
+\subsubsection[{calc\-\_\-deviation}]{\setlength{\rightskip}{0pt plus 5cm}static real {\bf calc\-\_\-deviation} (
+\begin{DoxyParamCaption}
+\item[{real}]{xav, }
+\item[{real}]{xt, }
+\item[{real}]{x0}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{do__gct_8c_ab68b591a39a25d62980f38cd652be0ba}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=346pt]{do__gct_8c_ab68b591a39a25d62980f38cd652be0ba_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{do__gct_8c_abf2d66edeb1c45d0604053ecd6b29953}{\index{do\-\_\-gct.\-c@{do\-\_\-gct.\-c}!calc\-\_\-dist@{calc\-\_\-dist}}
+\index{calc\-\_\-dist@{calc\-\_\-dist}!do_gct.c@{do\-\_\-gct.\-c}}
+\subsubsection[{calc\-\_\-dist}]{\setlength{\rightskip}{0pt plus 5cm}static real {\bf calc\-\_\-dist} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{log, }
+\item[{{\bf rvec}}]{x\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{do__gct_8c_abf2d66edeb1c45d0604053ecd6b29953}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{do__gct_8c_abf2d66edeb1c45d0604053ecd6b29953_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=322pt]{do__gct_8c_abf2d66edeb1c45d0604053ecd6b29953_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{do__gct_8c_aa694b64fd29ff2442e1a6f091c683424}{\index{do\-\_\-gct.\-c@{do\-\_\-gct.\-c}!do\-\_\-coupling@{do\-\_\-coupling}}
+\index{do\-\_\-coupling@{do\-\_\-coupling}!do_gct.c@{do\-\_\-gct.\-c}}
+\subsubsection[{do\-\_\-coupling}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf do\-\_\-coupling} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{log, }
+\item[{const {\bf output\-\_\-env\-\_\-t}}]{oenv, }
+\item[{int}]{nfile, }
+\item[{const {\bf t\-\_\-filenm}}]{fnm\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf t\-\_\-coupl\-\_\-rec} $\ast$}]{tcr, }
+\item[{real}]{t, }
+\item[{int}]{step, }
+\item[{real}]{ener\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf t\-\_\-forcerec} $\ast$}]{fr, }
+\item[{{\bf t\-\_\-inputrec} $\ast$}]{ir, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Master, }
+\item[{{\bf t\-\_\-mdatoms} $\ast$}]{md, }
+\item[{{\bf t\-\_\-idef} $\ast$}]{idef, }
+\item[{real}]{mu\-\_\-aver, }
+\item[{int}]{nmols, }
+\item[{{\bf t\-\_\-commrec} $\ast$}]{cr, }
+\item[{{\bf matrix}}]{box, }
+\item[{{\bf tensor}}]{virial, }
+\item[{{\bf tensor}}]{pres, }
+\item[{{\bf rvec}}]{mu\-\_\-tot, }
+\item[{{\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{f\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Do\-It}
+\end{DoxyParamCaption}
+)}}\label{do__gct_8c_aa694b64fd29ff2442e1a6f091c683424}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{do__gct_8c_aa694b64fd29ff2442e1a6f091c683424_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=230pt]{do__gct_8c_aa694b64fd29ff2442e1a6f091c683424_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{do__gct_8c_a13afb3df403fba2f809743cfe29ba65a}{\index{do\-\_\-gct.\-c@{do\-\_\-gct.\-c}!dump\-\_\-fm@{dump\-\_\-fm}}
+\index{dump\-\_\-fm@{dump\-\_\-fm}!do_gct.c@{do\-\_\-gct.\-c}}
+\subsubsection[{dump\-\_\-fm}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf dump\-\_\-fm} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{int}]{n, }
+\item[{real}]{f\mbox{[}$\,$\mbox{]}, }
+\item[{char $\ast$}]{s}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{do__gct_8c_a13afb3df403fba2f809743cfe29ba65a}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=324pt]{do__gct_8c_a13afb3df403fba2f809743cfe29ba65a_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{do__gct_8c_a29383fa933284be20eb2d885ccf5235b}{\index{do\-\_\-gct.\-c@{do\-\_\-gct.\-c}!\-Ecouple@{\-Ecouple}}
+\index{\-Ecouple@{\-Ecouple}!do_gct.c@{do\-\_\-gct.\-c}}
+\subsubsection[{\-Ecouple}]{\setlength{\rightskip}{0pt plus 5cm}static real {\bf \-Ecouple} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-coupl\-\_\-rec} $\ast$}]{tcr, }
+\item[{real}]{ener\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{do__gct_8c_a29383fa933284be20eb2d885ccf5235b}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=318pt]{do__gct_8c_a29383fa933284be20eb2d885ccf5235b_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{do__gct_8c_a47f946d8c754c67640ca90304a265cb9}{\index{do\-\_\-gct.\-c@{do\-\_\-gct.\-c}!gprod@{gprod}}
+\index{gprod@{gprod}!do_gct.c@{do\-\_\-gct.\-c}}
+\subsubsection[{gprod}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gprod} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-commrec} $\ast$}]{cr, }
+\item[{int}]{n, }
+\item[{real}]{f\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{do__gct_8c_a47f946d8c754c67640ca90304a265cb9}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=308pt]{do__gct_8c_a47f946d8c754c67640ca90304a265cb9_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{do__gct_8c_a7862e1674b3b226136703a6934ea3c51}{\index{do\-\_\-gct.\-c@{do\-\_\-gct.\-c}!init\-\_\-coupling@{init\-\_\-coupling}}
+\index{init\-\_\-coupling@{init\-\_\-coupling}!do_gct.c@{do\-\_\-gct.\-c}}
+\subsubsection[{init\-\_\-coupling}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\-\_\-coupl\-\_\-rec}$\ast$ {\bf init\-\_\-coupling} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{log, }
+\item[{int}]{nfile, }
+\item[{const {\bf t\-\_\-filenm}}]{fnm\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf t\-\_\-commrec} $\ast$}]{cr, }
+\item[{{\bf t\-\_\-forcerec} $\ast$}]{fr, }
+\item[{{\bf t\-\_\-mdatoms} $\ast$}]{md, }
+\item[{{\bf t\-\_\-idef} $\ast$}]{idef}
+\end{DoxyParamCaption}
+)}}\label{do__gct_8c_a7862e1674b3b226136703a6934ea3c51}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{do__gct_8c_a7862e1674b3b226136703a6934ea3c51_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=234pt]{do__gct_8c_a7862e1674b3b226136703a6934ea3c51_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{do__gct_8c_ab3625b0451f8cccb6d7c7057a079a81b}{\index{do\-\_\-gct.\-c@{do\-\_\-gct.\-c}!mk\-\_\-gct\-\_\-nm@{mk\-\_\-gct\-\_\-nm}}
+\index{mk\-\_\-gct\-\_\-nm@{mk\-\_\-gct\-\_\-nm}!do_gct.c@{do\-\_\-gct.\-c}}
+\subsubsection[{mk\-\_\-gct\-\_\-nm}]{\setlength{\rightskip}{0pt plus 5cm}static char$\ast$ {\bf mk\-\_\-gct\-\_\-nm} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{fn, }
+\item[{int}]{ftp, }
+\item[{int}]{ati, }
+\item[{int}]{atj}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{do__gct_8c_ab3625b0451f8cccb6d7c7057a079a81b}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=232pt]{do__gct_8c_ab3625b0451f8cccb6d7c7057a079a81b_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{do__gct_8c_ab3625b0451f8cccb6d7c7057a079a81b_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{do__gct_8c_a7d16833c6da660e287da0a2a91fd76c4}{\index{do\-\_\-gct.\-c@{do\-\_\-gct.\-c}!pr\-\_\-dev@{pr\-\_\-dev}}
+\index{pr\-\_\-dev@{pr\-\_\-dev}!do_gct.c@{do\-\_\-gct.\-c}}
+\subsubsection[{pr\-\_\-dev}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf pr\-\_\-dev} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-coupl\-\_\-rec} $\ast$}]{tcr, }
+\item[{real}]{t, }
+\item[{real}]{dev\mbox{[}eo\-Obs\-N\-R\mbox{]}, }
+\item[{{\bf t\-\_\-commrec} $\ast$}]{cr, }
+\item[{int}]{nfile, }
+\item[{const {\bf t\-\_\-filenm}}]{fnm\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf output\-\_\-env\-\_\-t}}]{oenv}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{do__gct_8c_a7d16833c6da660e287da0a2a91fd76c4}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=232pt]{do__gct_8c_a7d16833c6da660e287da0a2a91fd76c4_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=312pt]{do__gct_8c_a7d16833c6da660e287da0a2a91fd76c4_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{do__gct_8c_adb6e8294a294d733d009d62f538948d7}{\index{do\-\_\-gct.\-c@{do\-\_\-gct.\-c}!pr\-\_\-ff@{pr\-\_\-ff}}
+\index{pr\-\_\-ff@{pr\-\_\-ff}!do_gct.c@{do\-\_\-gct.\-c}}
+\subsubsection[{pr\-\_\-ff}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf pr\-\_\-ff} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-coupl\-\_\-rec} $\ast$}]{tcr, }
+\item[{real}]{time, }
+\item[{{\bf t\-\_\-idef} $\ast$}]{idef, }
+\item[{{\bf t\-\_\-commrec} $\ast$}]{cr, }
+\item[{int}]{nfile, }
+\item[{const {\bf t\-\_\-filenm}}]{fnm\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf output\-\_\-env\-\_\-t}}]{oenv}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{do__gct_8c_adb6e8294a294d733d009d62f538948d7}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=306pt]{do__gct_8c_adb6e8294a294d733d009d62f538948d7_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=302pt]{do__gct_8c_adb6e8294a294d733d009d62f538948d7_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{do__gct_8c_ae58555ff061e5b036b1ef965305a440b}{\index{do\-\_\-gct.\-c@{do\-\_\-gct.\-c}!run\-\_\-aver@{run\-\_\-aver}}
+\index{run\-\_\-aver@{run\-\_\-aver}!do_gct.c@{do\-\_\-gct.\-c}}
+\subsubsection[{run\-\_\-aver}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf run\-\_\-aver} (
+\begin{DoxyParamCaption}
+\item[{real}]{old, }
+\item[{real}]{cur, }
+\item[{int}]{step, }
+\item[{int}]{nmem}
+\end{DoxyParamCaption}
+)}}\label{do__gct_8c_ae58555ff061e5b036b1ef965305a440b}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{do__gct_8c_ae58555ff061e5b036b1ef965305a440b_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{do__gct_8c_ab6eb914df1ec05bf35f0cfb27821e7e8}{\index{do\-\_\-gct.\-c@{do\-\_\-gct.\-c}!set\-\_\-act\-\_\-value@{set\-\_\-act\-\_\-value}}
+\index{set\-\_\-act\-\_\-value@{set\-\_\-act\-\_\-value}!do_gct.c@{do\-\_\-gct.\-c}}
+\subsubsection[{set\-\_\-act\-\_\-value}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf set\-\_\-act\-\_\-value} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-coupl\-\_\-rec} $\ast$}]{tcr, }
+\item[{int}]{index, }
+\item[{real}]{val, }
+\item[{int}]{step}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{do__gct_8c_ab6eb914df1ec05bf35f0cfb27821e7e8}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=248pt]{do__gct_8c_ab6eb914df1ec05bf35f0cfb27821e7e8_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=344pt]{do__gct_8c_ab6eb914df1ec05bf35f0cfb27821e7e8_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{do__gct_8c_a7162967580979c9be690a0ba98c4d492}{\index{do\-\_\-gct.\-c@{do\-\_\-gct.\-c}!set\-\_\-factor\-\_\-matrix@{set\-\_\-factor\-\_\-matrix}}
+\index{set\-\_\-factor\-\_\-matrix@{set\-\_\-factor\-\_\-matrix}!do_gct.c@{do\-\_\-gct.\-c}}
+\subsubsection[{set\-\_\-factor\-\_\-matrix}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf set\-\_\-factor\-\_\-matrix} (
+\begin{DoxyParamCaption}
+\item[{int}]{ntypes, }
+\item[{real}]{f\mbox{[}$\,$\mbox{]}, }
+\item[{real}]{fmult, }
+\item[{int}]{ati, }
+\item[{int}]{atj}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{do__gct_8c_a7162967580979c9be690a0ba98c4d492}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{do__gct_8c_a7162967580979c9be690a0ba98c4d492_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{do__gct_8c_a6a10eb3028d0c80e2ff81206efc6eb48}{\index{do\-\_\-gct.\-c@{do\-\_\-gct.\-c}!upd\-\_\-f\-\_\-value@{upd\-\_\-f\-\_\-value}}
+\index{upd\-\_\-f\-\_\-value@{upd\-\_\-f\-\_\-value}!do_gct.c@{do\-\_\-gct.\-c}}
+\subsubsection[{upd\-\_\-f\-\_\-value}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf upd\-\_\-f\-\_\-value} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{log, }
+\item[{int}]{atnr, }
+\item[{real}]{xi, }
+\item[{real}]{dt, }
+\item[{real}]{factor, }
+\item[{real}]{ff\mbox{[}$\,$\mbox{]}, }
+\item[{int}]{ati, }
+\item[{int}]{atj}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{do__gct_8c_a6a10eb3028d0c80e2ff81206efc6eb48}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=278pt]{do__gct_8c_a6a10eb3028d0c80e2ff81206efc6eb48_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=336pt]{do__gct_8c_a6a10eb3028d0c80e2ff81206efc6eb48_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{do__gct_8c_a508a9a88cba59009bb76843e1598a9ae}{\index{do\-\_\-gct.\-c@{do\-\_\-gct.\-c}!upd\-\_\-nbfpbu@{upd\-\_\-nbfpbu}}
+\index{upd\-\_\-nbfpbu@{upd\-\_\-nbfpbu}!do_gct.c@{do\-\_\-gct.\-c}}
+\subsubsection[{upd\-\_\-nbfpbu}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf upd\-\_\-nbfpbu} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{log, }
+\item[{real $\ast$}]{nbfp, }
+\item[{int}]{atnr, }
+\item[{real}]{fa\mbox{[}$\,$\mbox{]}, }
+\item[{real}]{fb\mbox{[}$\,$\mbox{]}, }
+\item[{real}]{fc\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{do__gct_8c_a508a9a88cba59009bb76843e1598a9ae}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=334pt]{do__gct_8c_a508a9a88cba59009bb76843e1598a9ae_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{do__gct_8c_aef942485bce517598537ba256bba1598}{\index{do\-\_\-gct.\-c@{do\-\_\-gct.\-c}!upd\-\_\-nbfplj@{upd\-\_\-nbfplj}}
+\index{upd\-\_\-nbfplj@{upd\-\_\-nbfplj}!do_gct.c@{do\-\_\-gct.\-c}}
+\subsubsection[{upd\-\_\-nbfplj}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf upd\-\_\-nbfplj} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{log, }
+\item[{real $\ast$}]{nbfp, }
+\item[{int}]{atnr, }
+\item[{real}]{f6\mbox{[}$\,$\mbox{]}, }
+\item[{real}]{f12\mbox{[}$\,$\mbox{]}, }
+\item[{int}]{combrule}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{do__gct_8c_aef942485bce517598537ba256bba1598}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=238pt]{do__gct_8c_aef942485bce517598537ba256bba1598_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=328pt]{do__gct_8c_aef942485bce517598537ba256bba1598_icgraph}
+\end{center}
+\end{figure}
+
+

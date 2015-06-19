@@ -1,0 +1,271 @@
+\hypertarget{share_2template_2gromacs_2thread__mpi_2atomic_2msvc_8h}{\section{share/template/gromacs/thread\-\_\-mpi/atomic/msvc.h \-File \-Reference}
+\label{share_2template_2gromacs_2thread__mpi_2atomic_2msvc_8h}\index{share/template/gromacs/thread\-\_\-mpi/atomic/msvc.\-h@{share/template/gromacs/thread\-\_\-mpi/atomic/msvc.\-h}}
+}
+{\ttfamily \#include $<$windows.\-h$>$}\*
+\-Include dependency graph for msvc.\-h\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=320pt]{share_2template_2gromacs_2thread__mpi_2atomic_2msvc_8h__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structtMPI__Atomic}{t\-M\-P\-I\-\_\-\-Atomic}
+\item 
+struct \hyperlink{structtMPI__Atomic__ptr}{t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr}
+\item 
+struct \hyperlink{structtMPI__Spinlock}{t\-M\-P\-I\-\_\-\-Spinlock}
+\end{DoxyCompactItemize}
+\subsection*{\-Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{share_2template_2gromacs_2thread__mpi_2atomic_2msvc_8h_ac7bef5d85e3dcd73eef56ad39ffc84a9}{\-W\-I\-N32\-\_\-\-L\-E\-A\-N\-\_\-\-A\-N\-D\-\_\-\-M\-E\-A\-N}
+\item 
+\#define \hyperlink{share_2template_2gromacs_2thread__mpi_2atomic_2msvc_8h_ad38b6384ad69e03c9702284dca736423}{inline\-\_\-defined\-\_\-in\-\_\-atomic}~1
+\item 
+\#define \hyperlink{share_2template_2gromacs_2thread__mpi_2atomic_2msvc_8h_a00d24c7231be28dbaf71f5408f30e44c}{inline}~\-\_\-\-\_\-inline
+\item 
+\#define \hyperlink{share_2template_2gromacs_2thread__mpi_2atomic_2msvc_8h_a5d2ee17509e3123d1c71d00b02888daa}{t\-M\-P\-I\-\_\-\-Atomic\-\_\-memory\-\_\-barrier}()
+\item 
+\#define \hyperlink{share_2template_2gromacs_2thread__mpi_2atomic_2msvc_8h_a1e5bbd6483e8792893f3a5e8e2bbe510}{\-T\-M\-P\-I\-\_\-\-S\-P\-I\-N\-L\-O\-C\-K\-\_\-\-I\-N\-I\-T\-I\-A\-L\-I\-Z\-E\-R}~\{ 0 \}
+\item 
+\#define \hyperlink{share_2template_2gromacs_2thread__mpi_2atomic_2msvc_8h_a5678d1d1347c68f014b5ccc78d75fc21}{\-T\-M\-P\-I\-\_\-\-H\-A\-V\-E\-\_\-\-S\-W\-A\-P}
+\item 
+\#define \hyperlink{share_2template_2gromacs_2thread__mpi_2atomic_2msvc_8h_ad046655ee56cc30c2a8719f3d1091b8e}{t\-M\-P\-I\-\_\-\-Atomic\-\_\-get}(\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a0880879736d1ab747a972d1942421886}{a})~((\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a0880879736d1ab747a972d1942421886}{a})-\/$>$value)
+\item 
+\#define \hyperlink{share_2template_2gromacs_2thread__mpi_2atomic_2msvc_8h_a3e989e8b5935d25fdc5cde21b153482c}{t\-M\-P\-I\-\_\-\-Atomic\-\_\-set}(\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a0880879736d1ab747a972d1942421886}{a}, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a3c7542401c1cb8bd37ef5e7d9eb0f5a8}{i})~(((\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a0880879736d1ab747a972d1942421886}{a})-\/$>$value) = (\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a3c7542401c1cb8bd37ef5e7d9eb0f5a8}{i}))
+\item 
+\#define \hyperlink{share_2template_2gromacs_2thread__mpi_2atomic_2msvc_8h_a0769c59b89bb5ff489110f9de52658cf}{t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-get}(\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a0880879736d1ab747a972d1942421886}{a})~((\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a0880879736d1ab747a972d1942421886}{a})-\/$>$value)
+\item 
+\#define \hyperlink{share_2template_2gromacs_2thread__mpi_2atomic_2msvc_8h_a8b8855344b6d33a7f1e2793056fbf418}{t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-set}(\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a0880879736d1ab747a972d1942421886}{a}, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a3c7542401c1cb8bd37ef5e7d9eb0f5a8}{i})~(((\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a0880879736d1ab747a972d1942421886}{a})-\/$>$value) = (\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void}$\ast$)(\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a3c7542401c1cb8bd37ef5e7d9eb0f5a8}{i}))
+\item 
+\#define \hyperlink{share_2template_2gromacs_2thread__mpi_2atomic_2msvc_8h_ae32ce6227536b2c16677cfb40208b2ba}{t\-M\-P\-I\-\_\-\-Atomic\-\_\-fetch\-\_\-add}(\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a0880879736d1ab747a972d1942421886}{a}, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a3c7542401c1cb8bd37ef5e7d9eb0f5a8}{i})~\-Interlocked\-Exchange\-Add((\-L\-O\-N\-G volatile $\ast$)(\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a0880879736d1ab747a972d1942421886}{a}), (\-L\-O\-N\-G) (\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a3c7542401c1cb8bd37ef5e7d9eb0f5a8}{i}))
+\item 
+\#define \hyperlink{share_2template_2gromacs_2thread__mpi_2atomic_2msvc_8h_adc3ff872350ded01de8fb932eb047fca}{t\-M\-P\-I\-\_\-\-Atomic\-\_\-add\-\_\-return}(\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a0880879736d1ab747a972d1942421886}{a}, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a3c7542401c1cb8bd37ef5e7d9eb0f5a8}{i})~( (\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a3c7542401c1cb8bd37ef5e7d9eb0f5a8}{i}) + \-Interlocked\-Exchange\-Add((\-L\-O\-N\-G volatile $\ast$)(\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a0880879736d1ab747a972d1942421886}{a}), (\-L\-O\-N\-G) (\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a3c7542401c1cb8bd37ef5e7d9eb0f5a8}{i})) )
+\item 
+\#define \hyperlink{share_2template_2gromacs_2thread__mpi_2atomic_2msvc_8h_a7a0fe02cebfa9ad9466c79f9b65ded3c}{t\-M\-P\-I\-\_\-\-Atomic\-\_\-cas}(\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a0880879736d1ab747a972d1942421886}{a}, oldval, newval)~(\-Interlocked\-Compare\-Exchange((\-L\-O\-N\-G volatile $\ast$)(\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a0880879736d1ab747a972d1942421886}{a}), (\-L\-O\-N\-G) (newval), (\-L\-O\-N\-G) (oldval)) == (\-L\-O\-N\-G)oldval)
+\item 
+\#define \hyperlink{share_2template_2gromacs_2thread__mpi_2atomic_2msvc_8h_a5ca67ac98b578ce70815a5ade9519732}{t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-cas}(\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a0880879736d1ab747a972d1942421886}{a}, oldval, newval)
+\item 
+\#define \hyperlink{share_2template_2gromacs_2thread__mpi_2atomic_2msvc_8h_a52d7d3080da14156eeb060cb1104853d}{t\-M\-P\-I\-\_\-\-Atomic\-\_\-swap}(\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a0880879736d1ab747a972d1942421886}{a}, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afb462a5dea72ae7992f073bfd756fb5f}{b})~\-Interlocked\-Exchange((\-L\-O\-N\-G volatile $\ast$)(\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a0880879736d1ab747a972d1942421886}{a}), (\-L\-O\-N\-G) (\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afb462a5dea72ae7992f073bfd756fb5f}{b}))
+\item 
+\#define \hyperlink{share_2template_2gromacs_2thread__mpi_2atomic_2msvc_8h_a1d4cb18f802b621262bd4861fc53b052}{t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-swap}(\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a0880879736d1ab747a972d1942421886}{a}, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afb462a5dea72ae7992f073bfd756fb5f}{b})~\-Interlocked\-Exchange\-Pointer(\&((\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a0880879736d1ab747a972d1942421886}{a})-\/$>$value), (\-P\-V\-O\-I\-D) (\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afb462a5dea72ae7992f073bfd756fb5f}{b}))
+\item 
+\#define \hyperlink{share_2template_2gromacs_2thread__mpi_2atomic_2msvc_8h_a2803cb18c476e44a4d3a830d0bbf9ba8}{t\-M\-P\-I\-\_\-\-Spinlock\-\_\-lock}(\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x})~while ((\-Interlocked\-Compare\-Exchange((\-L\-O\-N\-G volatile $\ast$)(\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}), 1, 0)) != 0)
+\item 
+\#define \hyperlink{share_2template_2gromacs_2thread__mpi_2atomic_2msvc_8h_a9b3ce3dc46a8e6a118f61dec7acf8e30}{t\-M\-P\-I\-\_\-\-Spinlock\-\_\-trylock}(\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x})~\-Interlocked\-Compare\-Exchange((\-L\-O\-N\-G volatile $\ast$)(\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}), 1, 0)
+\end{DoxyCompactItemize}
+\subsection*{\-Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \hyperlink{structtMPI__Atomic}{t\-M\-P\-I\-\_\-\-Atomic} \hyperlink{share_2template_2gromacs_2thread__mpi_2atomic_2msvc_8h_a51120bc2e9c1f8a5ab3172d8f5429472}{t\-M\-P\-I\-\_\-\-Atomic\-\_\-t}
+\item 
+typedef struct \hyperlink{structtMPI__Atomic__ptr}{t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr} \hyperlink{share_2template_2gromacs_2thread__mpi_2atomic_2msvc_8h_a4984c4052af74252d6f3a11f2af87f32}{t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-t}
+\item 
+typedef struct \hyperlink{structtMPI__Spinlock}{t\-M\-P\-I\-\_\-\-Spinlock} \hyperlink{share_2template_2gromacs_2thread__mpi_2atomic_2msvc_8h_a633ceb65ba18cbc39b03d5f44bf66875}{t\-M\-P\-I\-\_\-\-Spinlock\-\_\-t}
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{share_2template_2gromacs_2thread__mpi_2atomic_2msvc_8h_a43bcfcb921d49a8a459787430b948727}{t\-M\-P\-I\-\_\-\-Spinlock\-\_\-init} (\hyperlink{structtMPI__Spinlock__t}{t\-M\-P\-I\-\_\-\-Spinlock\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x})
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{share_2template_2gromacs_2thread__mpi_2atomic_2msvc_8h_a0058b8c076a24c3a769a4e452a83b62b}{t\-M\-P\-I\-\_\-\-Spinlock\-\_\-unlock} (\hyperlink{structtMPI__Spinlock__t}{t\-M\-P\-I\-\_\-\-Spinlock\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x})
+\item 
+static int \hyperlink{share_2template_2gromacs_2thread__mpi_2atomic_2msvc_8h_a9c1fcecfb28c137324759a1629b274d2}{t\-M\-P\-I\-\_\-\-Spinlock\-\_\-islocked} (const \hyperlink{structtMPI__Spinlock__t}{t\-M\-P\-I\-\_\-\-Spinlock\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x})
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{share_2template_2gromacs_2thread__mpi_2atomic_2msvc_8h_a6e5a0f7574f0ecc628db19497bd3cddb}{t\-M\-P\-I\-\_\-\-Spinlock\-\_\-wait} (\hyperlink{structtMPI__Spinlock__t}{t\-M\-P\-I\-\_\-\-Spinlock\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x})
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Define \-Documentation}
+\hypertarget{share_2template_2gromacs_2thread__mpi_2atomic_2msvc_8h_a00d24c7231be28dbaf71f5408f30e44c}{\index{share/template/gromacs/thread\-\_\-mpi/atomic/msvc.\-h@{share/template/gromacs/thread\-\_\-mpi/atomic/msvc.\-h}!inline@{inline}}
+\index{inline@{inline}!share/template/gromacs/thread_mpi/atomic/msvc.h@{share/template/gromacs/thread\-\_\-mpi/atomic/msvc.\-h}}
+\subsubsection[{inline}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf inline}~\-\_\-\-\_\-inline}}\label{share_2template_2gromacs_2thread__mpi_2atomic_2msvc_8h_a00d24c7231be28dbaf71f5408f30e44c}
+\hypertarget{share_2template_2gromacs_2thread__mpi_2atomic_2msvc_8h_ad38b6384ad69e03c9702284dca736423}{\index{share/template/gromacs/thread\-\_\-mpi/atomic/msvc.\-h@{share/template/gromacs/thread\-\_\-mpi/atomic/msvc.\-h}!inline\-\_\-defined\-\_\-in\-\_\-atomic@{inline\-\_\-defined\-\_\-in\-\_\-atomic}}
+\index{inline\-\_\-defined\-\_\-in\-\_\-atomic@{inline\-\_\-defined\-\_\-in\-\_\-atomic}!share/template/gromacs/thread_mpi/atomic/msvc.h@{share/template/gromacs/thread\-\_\-mpi/atomic/msvc.\-h}}
+\subsubsection[{inline\-\_\-defined\-\_\-in\-\_\-atomic}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf inline\-\_\-defined\-\_\-in\-\_\-atomic}~1}}\label{share_2template_2gromacs_2thread__mpi_2atomic_2msvc_8h_ad38b6384ad69e03c9702284dca736423}
+\hypertarget{share_2template_2gromacs_2thread__mpi_2atomic_2msvc_8h_adc3ff872350ded01de8fb932eb047fca}{\index{share/template/gromacs/thread\-\_\-mpi/atomic/msvc.\-h@{share/template/gromacs/thread\-\_\-mpi/atomic/msvc.\-h}!t\-M\-P\-I\-\_\-\-Atomic\-\_\-add\-\_\-return@{t\-M\-P\-I\-\_\-\-Atomic\-\_\-add\-\_\-return}}
+\index{t\-M\-P\-I\-\_\-\-Atomic\-\_\-add\-\_\-return@{t\-M\-P\-I\-\_\-\-Atomic\-\_\-add\-\_\-return}!share/template/gromacs/thread_mpi/atomic/msvc.h@{share/template/gromacs/thread\-\_\-mpi/atomic/msvc.\-h}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Atomic\-\_\-add\-\_\-return}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf t\-M\-P\-I\-\_\-\-Atomic\-\_\-add\-\_\-return}(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf a}, }
+\item[{}]{{\bf i}}
+\end{DoxyParamCaption}
+)~( ({\bf i}) + \-Interlocked\-Exchange\-Add((\-L\-O\-N\-G volatile $\ast$)({\bf a}), (\-L\-O\-N\-G) ({\bf i})) )}}\label{share_2template_2gromacs_2thread__mpi_2atomic_2msvc_8h_adc3ff872350ded01de8fb932eb047fca}
+\hypertarget{share_2template_2gromacs_2thread__mpi_2atomic_2msvc_8h_a7a0fe02cebfa9ad9466c79f9b65ded3c}{\index{share/template/gromacs/thread\-\_\-mpi/atomic/msvc.\-h@{share/template/gromacs/thread\-\_\-mpi/atomic/msvc.\-h}!t\-M\-P\-I\-\_\-\-Atomic\-\_\-cas@{t\-M\-P\-I\-\_\-\-Atomic\-\_\-cas}}
+\index{t\-M\-P\-I\-\_\-\-Atomic\-\_\-cas@{t\-M\-P\-I\-\_\-\-Atomic\-\_\-cas}!share/template/gromacs/thread_mpi/atomic/msvc.h@{share/template/gromacs/thread\-\_\-mpi/atomic/msvc.\-h}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Atomic\-\_\-cas}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf t\-M\-P\-I\-\_\-\-Atomic\-\_\-cas}(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf a}, }
+\item[{}]{oldval, }
+\item[{}]{newval}
+\end{DoxyParamCaption}
+)~(\-Interlocked\-Compare\-Exchange((\-L\-O\-N\-G volatile $\ast$)({\bf a}), (\-L\-O\-N\-G) (newval), (\-L\-O\-N\-G) (oldval)) == (\-L\-O\-N\-G)oldval)}}\label{share_2template_2gromacs_2thread__mpi_2atomic_2msvc_8h_a7a0fe02cebfa9ad9466c79f9b65ded3c}
+\hypertarget{share_2template_2gromacs_2thread__mpi_2atomic_2msvc_8h_ae32ce6227536b2c16677cfb40208b2ba}{\index{share/template/gromacs/thread\-\_\-mpi/atomic/msvc.\-h@{share/template/gromacs/thread\-\_\-mpi/atomic/msvc.\-h}!t\-M\-P\-I\-\_\-\-Atomic\-\_\-fetch\-\_\-add@{t\-M\-P\-I\-\_\-\-Atomic\-\_\-fetch\-\_\-add}}
+\index{t\-M\-P\-I\-\_\-\-Atomic\-\_\-fetch\-\_\-add@{t\-M\-P\-I\-\_\-\-Atomic\-\_\-fetch\-\_\-add}!share/template/gromacs/thread_mpi/atomic/msvc.h@{share/template/gromacs/thread\-\_\-mpi/atomic/msvc.\-h}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Atomic\-\_\-fetch\-\_\-add}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf t\-M\-P\-I\-\_\-\-Atomic\-\_\-fetch\-\_\-add}(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf a}, }
+\item[{}]{{\bf i}}
+\end{DoxyParamCaption}
+)~\-Interlocked\-Exchange\-Add((\-L\-O\-N\-G volatile $\ast$)({\bf a}), (\-L\-O\-N\-G) ({\bf i}))}}\label{share_2template_2gromacs_2thread__mpi_2atomic_2msvc_8h_ae32ce6227536b2c16677cfb40208b2ba}
+\hypertarget{share_2template_2gromacs_2thread__mpi_2atomic_2msvc_8h_ad046655ee56cc30c2a8719f3d1091b8e}{\index{share/template/gromacs/thread\-\_\-mpi/atomic/msvc.\-h@{share/template/gromacs/thread\-\_\-mpi/atomic/msvc.\-h}!t\-M\-P\-I\-\_\-\-Atomic\-\_\-get@{t\-M\-P\-I\-\_\-\-Atomic\-\_\-get}}
+\index{t\-M\-P\-I\-\_\-\-Atomic\-\_\-get@{t\-M\-P\-I\-\_\-\-Atomic\-\_\-get}!share/template/gromacs/thread_mpi/atomic/msvc.h@{share/template/gromacs/thread\-\_\-mpi/atomic/msvc.\-h}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Atomic\-\_\-get}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf t\-M\-P\-I\-\_\-\-Atomic\-\_\-get}(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf a}}
+\end{DoxyParamCaption}
+)~(({\bf a})-\/$>$value)}}\label{share_2template_2gromacs_2thread__mpi_2atomic_2msvc_8h_ad046655ee56cc30c2a8719f3d1091b8e}
+\hypertarget{share_2template_2gromacs_2thread__mpi_2atomic_2msvc_8h_a5d2ee17509e3123d1c71d00b02888daa}{\index{share/template/gromacs/thread\-\_\-mpi/atomic/msvc.\-h@{share/template/gromacs/thread\-\_\-mpi/atomic/msvc.\-h}!t\-M\-P\-I\-\_\-\-Atomic\-\_\-memory\-\_\-barrier@{t\-M\-P\-I\-\_\-\-Atomic\-\_\-memory\-\_\-barrier}}
+\index{t\-M\-P\-I\-\_\-\-Atomic\-\_\-memory\-\_\-barrier@{t\-M\-P\-I\-\_\-\-Atomic\-\_\-memory\-\_\-barrier}!share/template/gromacs/thread_mpi/atomic/msvc.h@{share/template/gromacs/thread\-\_\-mpi/atomic/msvc.\-h}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Atomic\-\_\-memory\-\_\-barrier}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf t\-M\-P\-I\-\_\-\-Atomic\-\_\-memory\-\_\-barrier}(
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2thread__mpi_2atomic_2msvc_8h_a5d2ee17509e3123d1c71d00b02888daa}
+\hypertarget{share_2template_2gromacs_2thread__mpi_2atomic_2msvc_8h_a5ca67ac98b578ce70815a5ade9519732}{\index{share/template/gromacs/thread\-\_\-mpi/atomic/msvc.\-h@{share/template/gromacs/thread\-\_\-mpi/atomic/msvc.\-h}!t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-cas@{t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-cas}}
+\index{t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-cas@{t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-cas}!share/template/gromacs/thread_mpi/atomic/msvc.h@{share/template/gromacs/thread\-\_\-mpi/atomic/msvc.\-h}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-cas}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-cas}(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf a}, }
+\item[{}]{oldval, }
+\item[{}]{newval}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2thread__mpi_2atomic_2msvc_8h_a5ca67ac98b578ce70815a5ade9519732}
+{\bfseries \-Value\-:}
+\begin{DoxyCode}
+(InterlockedCompareExchangePointer(&((a)->value), (PVOID) (newval),  \
+                                       (PVOID) (oldval)) == (PVOID)oldval)
+\end{DoxyCode}
+\hypertarget{share_2template_2gromacs_2thread__mpi_2atomic_2msvc_8h_a0769c59b89bb5ff489110f9de52658cf}{\index{share/template/gromacs/thread\-\_\-mpi/atomic/msvc.\-h@{share/template/gromacs/thread\-\_\-mpi/atomic/msvc.\-h}!t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-get@{t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-get}}
+\index{t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-get@{t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-get}!share/template/gromacs/thread_mpi/atomic/msvc.h@{share/template/gromacs/thread\-\_\-mpi/atomic/msvc.\-h}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-get}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-get}(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf a}}
+\end{DoxyParamCaption}
+)~(({\bf a})-\/$>$value)}}\label{share_2template_2gromacs_2thread__mpi_2atomic_2msvc_8h_a0769c59b89bb5ff489110f9de52658cf}
+\hypertarget{share_2template_2gromacs_2thread__mpi_2atomic_2msvc_8h_a8b8855344b6d33a7f1e2793056fbf418}{\index{share/template/gromacs/thread\-\_\-mpi/atomic/msvc.\-h@{share/template/gromacs/thread\-\_\-mpi/atomic/msvc.\-h}!t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-set@{t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-set}}
+\index{t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-set@{t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-set}!share/template/gromacs/thread_mpi/atomic/msvc.h@{share/template/gromacs/thread\-\_\-mpi/atomic/msvc.\-h}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-set}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-set}(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf a}, }
+\item[{}]{{\bf i}}
+\end{DoxyParamCaption}
+)~((({\bf a})-\/$>$value) = ({\bf void}$\ast$)({\bf i}))}}\label{share_2template_2gromacs_2thread__mpi_2atomic_2msvc_8h_a8b8855344b6d33a7f1e2793056fbf418}
+\hypertarget{share_2template_2gromacs_2thread__mpi_2atomic_2msvc_8h_a1d4cb18f802b621262bd4861fc53b052}{\index{share/template/gromacs/thread\-\_\-mpi/atomic/msvc.\-h@{share/template/gromacs/thread\-\_\-mpi/atomic/msvc.\-h}!t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-swap@{t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-swap}}
+\index{t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-swap@{t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-swap}!share/template/gromacs/thread_mpi/atomic/msvc.h@{share/template/gromacs/thread\-\_\-mpi/atomic/msvc.\-h}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-swap}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-swap}(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf a}, }
+\item[{}]{{\bf b}}
+\end{DoxyParamCaption}
+)~\-Interlocked\-Exchange\-Pointer(\&(({\bf a})-\/$>$value), (\-P\-V\-O\-I\-D) ({\bf b}))}}\label{share_2template_2gromacs_2thread__mpi_2atomic_2msvc_8h_a1d4cb18f802b621262bd4861fc53b052}
+\hypertarget{share_2template_2gromacs_2thread__mpi_2atomic_2msvc_8h_a3e989e8b5935d25fdc5cde21b153482c}{\index{share/template/gromacs/thread\-\_\-mpi/atomic/msvc.\-h@{share/template/gromacs/thread\-\_\-mpi/atomic/msvc.\-h}!t\-M\-P\-I\-\_\-\-Atomic\-\_\-set@{t\-M\-P\-I\-\_\-\-Atomic\-\_\-set}}
+\index{t\-M\-P\-I\-\_\-\-Atomic\-\_\-set@{t\-M\-P\-I\-\_\-\-Atomic\-\_\-set}!share/template/gromacs/thread_mpi/atomic/msvc.h@{share/template/gromacs/thread\-\_\-mpi/atomic/msvc.\-h}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Atomic\-\_\-set}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf t\-M\-P\-I\-\_\-\-Atomic\-\_\-set}(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf a}, }
+\item[{}]{{\bf i}}
+\end{DoxyParamCaption}
+)~((({\bf a})-\/$>$value) = ({\bf i}))}}\label{share_2template_2gromacs_2thread__mpi_2atomic_2msvc_8h_a3e989e8b5935d25fdc5cde21b153482c}
+\hypertarget{share_2template_2gromacs_2thread__mpi_2atomic_2msvc_8h_a52d7d3080da14156eeb060cb1104853d}{\index{share/template/gromacs/thread\-\_\-mpi/atomic/msvc.\-h@{share/template/gromacs/thread\-\_\-mpi/atomic/msvc.\-h}!t\-M\-P\-I\-\_\-\-Atomic\-\_\-swap@{t\-M\-P\-I\-\_\-\-Atomic\-\_\-swap}}
+\index{t\-M\-P\-I\-\_\-\-Atomic\-\_\-swap@{t\-M\-P\-I\-\_\-\-Atomic\-\_\-swap}!share/template/gromacs/thread_mpi/atomic/msvc.h@{share/template/gromacs/thread\-\_\-mpi/atomic/msvc.\-h}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Atomic\-\_\-swap}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf t\-M\-P\-I\-\_\-\-Atomic\-\_\-swap}(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf a}, }
+\item[{}]{{\bf b}}
+\end{DoxyParamCaption}
+)~\-Interlocked\-Exchange((\-L\-O\-N\-G volatile $\ast$)({\bf a}), (\-L\-O\-N\-G) ({\bf b}))}}\label{share_2template_2gromacs_2thread__mpi_2atomic_2msvc_8h_a52d7d3080da14156eeb060cb1104853d}
+\hypertarget{share_2template_2gromacs_2thread__mpi_2atomic_2msvc_8h_a5678d1d1347c68f014b5ccc78d75fc21}{\index{share/template/gromacs/thread\-\_\-mpi/atomic/msvc.\-h@{share/template/gromacs/thread\-\_\-mpi/atomic/msvc.\-h}!\-T\-M\-P\-I\-\_\-\-H\-A\-V\-E\-\_\-\-S\-W\-A\-P@{\-T\-M\-P\-I\-\_\-\-H\-A\-V\-E\-\_\-\-S\-W\-A\-P}}
+\index{\-T\-M\-P\-I\-\_\-\-H\-A\-V\-E\-\_\-\-S\-W\-A\-P@{\-T\-M\-P\-I\-\_\-\-H\-A\-V\-E\-\_\-\-S\-W\-A\-P}!share/template/gromacs/thread_mpi/atomic/msvc.h@{share/template/gromacs/thread\-\_\-mpi/atomic/msvc.\-h}}
+\subsubsection[{\-T\-M\-P\-I\-\_\-\-H\-A\-V\-E\-\_\-\-S\-W\-A\-P}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-T\-M\-P\-I\-\_\-\-H\-A\-V\-E\-\_\-\-S\-W\-A\-P}}}\label{share_2template_2gromacs_2thread__mpi_2atomic_2msvc_8h_a5678d1d1347c68f014b5ccc78d75fc21}
+\hypertarget{share_2template_2gromacs_2thread__mpi_2atomic_2msvc_8h_a1e5bbd6483e8792893f3a5e8e2bbe510}{\index{share/template/gromacs/thread\-\_\-mpi/atomic/msvc.\-h@{share/template/gromacs/thread\-\_\-mpi/atomic/msvc.\-h}!\-T\-M\-P\-I\-\_\-\-S\-P\-I\-N\-L\-O\-C\-K\-\_\-\-I\-N\-I\-T\-I\-A\-L\-I\-Z\-E\-R@{\-T\-M\-P\-I\-\_\-\-S\-P\-I\-N\-L\-O\-C\-K\-\_\-\-I\-N\-I\-T\-I\-A\-L\-I\-Z\-E\-R}}
+\index{\-T\-M\-P\-I\-\_\-\-S\-P\-I\-N\-L\-O\-C\-K\-\_\-\-I\-N\-I\-T\-I\-A\-L\-I\-Z\-E\-R@{\-T\-M\-P\-I\-\_\-\-S\-P\-I\-N\-L\-O\-C\-K\-\_\-\-I\-N\-I\-T\-I\-A\-L\-I\-Z\-E\-R}!share/template/gromacs/thread_mpi/atomic/msvc.h@{share/template/gromacs/thread\-\_\-mpi/atomic/msvc.\-h}}
+\subsubsection[{\-T\-M\-P\-I\-\_\-\-S\-P\-I\-N\-L\-O\-C\-K\-\_\-\-I\-N\-I\-T\-I\-A\-L\-I\-Z\-E\-R}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-T\-M\-P\-I\-\_\-\-S\-P\-I\-N\-L\-O\-C\-K\-\_\-\-I\-N\-I\-T\-I\-A\-L\-I\-Z\-E\-R}~\{ 0 \}}}\label{share_2template_2gromacs_2thread__mpi_2atomic_2msvc_8h_a1e5bbd6483e8792893f3a5e8e2bbe510}
+\hypertarget{share_2template_2gromacs_2thread__mpi_2atomic_2msvc_8h_a2803cb18c476e44a4d3a830d0bbf9ba8}{\index{share/template/gromacs/thread\-\_\-mpi/atomic/msvc.\-h@{share/template/gromacs/thread\-\_\-mpi/atomic/msvc.\-h}!t\-M\-P\-I\-\_\-\-Spinlock\-\_\-lock@{t\-M\-P\-I\-\_\-\-Spinlock\-\_\-lock}}
+\index{t\-M\-P\-I\-\_\-\-Spinlock\-\_\-lock@{t\-M\-P\-I\-\_\-\-Spinlock\-\_\-lock}!share/template/gromacs/thread_mpi/atomic/msvc.h@{share/template/gromacs/thread\-\_\-mpi/atomic/msvc.\-h}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Spinlock\-\_\-lock}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf t\-M\-P\-I\-\_\-\-Spinlock\-\_\-lock}(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf x}}
+\end{DoxyParamCaption}
+)~while ((\-Interlocked\-Compare\-Exchange((\-L\-O\-N\-G volatile $\ast$)({\bf x}), 1, 0)) != 0)}}\label{share_2template_2gromacs_2thread__mpi_2atomic_2msvc_8h_a2803cb18c476e44a4d3a830d0bbf9ba8}
+\hypertarget{share_2template_2gromacs_2thread__mpi_2atomic_2msvc_8h_a9b3ce3dc46a8e6a118f61dec7acf8e30}{\index{share/template/gromacs/thread\-\_\-mpi/atomic/msvc.\-h@{share/template/gromacs/thread\-\_\-mpi/atomic/msvc.\-h}!t\-M\-P\-I\-\_\-\-Spinlock\-\_\-trylock@{t\-M\-P\-I\-\_\-\-Spinlock\-\_\-trylock}}
+\index{t\-M\-P\-I\-\_\-\-Spinlock\-\_\-trylock@{t\-M\-P\-I\-\_\-\-Spinlock\-\_\-trylock}!share/template/gromacs/thread_mpi/atomic/msvc.h@{share/template/gromacs/thread\-\_\-mpi/atomic/msvc.\-h}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Spinlock\-\_\-trylock}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf t\-M\-P\-I\-\_\-\-Spinlock\-\_\-trylock}(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf x}}
+\end{DoxyParamCaption}
+)~\-Interlocked\-Compare\-Exchange((\-L\-O\-N\-G volatile $\ast$)({\bf x}), 1, 0)}}\label{share_2template_2gromacs_2thread__mpi_2atomic_2msvc_8h_a9b3ce3dc46a8e6a118f61dec7acf8e30}
+\hypertarget{share_2template_2gromacs_2thread__mpi_2atomic_2msvc_8h_ac7bef5d85e3dcd73eef56ad39ffc84a9}{\index{share/template/gromacs/thread\-\_\-mpi/atomic/msvc.\-h@{share/template/gromacs/thread\-\_\-mpi/atomic/msvc.\-h}!\-W\-I\-N32\-\_\-\-L\-E\-A\-N\-\_\-\-A\-N\-D\-\_\-\-M\-E\-A\-N@{\-W\-I\-N32\-\_\-\-L\-E\-A\-N\-\_\-\-A\-N\-D\-\_\-\-M\-E\-A\-N}}
+\index{\-W\-I\-N32\-\_\-\-L\-E\-A\-N\-\_\-\-A\-N\-D\-\_\-\-M\-E\-A\-N@{\-W\-I\-N32\-\_\-\-L\-E\-A\-N\-\_\-\-A\-N\-D\-\_\-\-M\-E\-A\-N}!share/template/gromacs/thread_mpi/atomic/msvc.h@{share/template/gromacs/thread\-\_\-mpi/atomic/msvc.\-h}}
+\subsubsection[{\-W\-I\-N32\-\_\-\-L\-E\-A\-N\-\_\-\-A\-N\-D\-\_\-\-M\-E\-A\-N}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-W\-I\-N32\-\_\-\-L\-E\-A\-N\-\_\-\-A\-N\-D\-\_\-\-M\-E\-A\-N}}}\label{share_2template_2gromacs_2thread__mpi_2atomic_2msvc_8h_ac7bef5d85e3dcd73eef56ad39ffc84a9}
+
+
+\subsection{\-Typedef \-Documentation}
+\hypertarget{share_2template_2gromacs_2thread__mpi_2atomic_2msvc_8h_a4984c4052af74252d6f3a11f2af87f32}{\index{share/template/gromacs/thread\-\_\-mpi/atomic/msvc.\-h@{share/template/gromacs/thread\-\_\-mpi/atomic/msvc.\-h}!t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-t@{t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-t}}
+\index{t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-t@{t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-t}!share/template/gromacs/thread_mpi/atomic/msvc.h@{share/template/gromacs/thread\-\_\-mpi/atomic/msvc.\-h}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr}  {\bf t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-t}}}\label{share_2template_2gromacs_2thread__mpi_2atomic_2msvc_8h_a4984c4052af74252d6f3a11f2af87f32}
+\hypertarget{share_2template_2gromacs_2thread__mpi_2atomic_2msvc_8h_a51120bc2e9c1f8a5ab3172d8f5429472}{\index{share/template/gromacs/thread\-\_\-mpi/atomic/msvc.\-h@{share/template/gromacs/thread\-\_\-mpi/atomic/msvc.\-h}!t\-M\-P\-I\-\_\-\-Atomic\-\_\-t@{t\-M\-P\-I\-\_\-\-Atomic\-\_\-t}}
+\index{t\-M\-P\-I\-\_\-\-Atomic\-\_\-t@{t\-M\-P\-I\-\_\-\-Atomic\-\_\-t}!share/template/gromacs/thread_mpi/atomic/msvc.h@{share/template/gromacs/thread\-\_\-mpi/atomic/msvc.\-h}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Atomic\-\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf t\-M\-P\-I\-\_\-\-Atomic}  {\bf t\-M\-P\-I\-\_\-\-Atomic\-\_\-t}}}\label{share_2template_2gromacs_2thread__mpi_2atomic_2msvc_8h_a51120bc2e9c1f8a5ab3172d8f5429472}
+\hypertarget{share_2template_2gromacs_2thread__mpi_2atomic_2msvc_8h_a633ceb65ba18cbc39b03d5f44bf66875}{\index{share/template/gromacs/thread\-\_\-mpi/atomic/msvc.\-h@{share/template/gromacs/thread\-\_\-mpi/atomic/msvc.\-h}!t\-M\-P\-I\-\_\-\-Spinlock\-\_\-t@{t\-M\-P\-I\-\_\-\-Spinlock\-\_\-t}}
+\index{t\-M\-P\-I\-\_\-\-Spinlock\-\_\-t@{t\-M\-P\-I\-\_\-\-Spinlock\-\_\-t}!share/template/gromacs/thread_mpi/atomic/msvc.h@{share/template/gromacs/thread\-\_\-mpi/atomic/msvc.\-h}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Spinlock\-\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf t\-M\-P\-I\-\_\-\-Spinlock}  {\bf t\-M\-P\-I\-\_\-\-Spinlock\-\_\-t}}}\label{share_2template_2gromacs_2thread__mpi_2atomic_2msvc_8h_a633ceb65ba18cbc39b03d5f44bf66875}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{share_2template_2gromacs_2thread__mpi_2atomic_2msvc_8h_a43bcfcb921d49a8a459787430b948727}{\index{share/template/gromacs/thread\-\_\-mpi/atomic/msvc.\-h@{share/template/gromacs/thread\-\_\-mpi/atomic/msvc.\-h}!t\-M\-P\-I\-\_\-\-Spinlock\-\_\-init@{t\-M\-P\-I\-\_\-\-Spinlock\-\_\-init}}
+\index{t\-M\-P\-I\-\_\-\-Spinlock\-\_\-init@{t\-M\-P\-I\-\_\-\-Spinlock\-\_\-init}!share/template/gromacs/thread_mpi/atomic/msvc.h@{share/template/gromacs/thread\-\_\-mpi/atomic/msvc.\-h}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Spinlock\-\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf t\-M\-P\-I\-\_\-\-Spinlock\-\_\-init} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-M\-P\-I\-\_\-\-Spinlock\-\_\-t} $\ast$}]{x}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, static\mbox{]}}}}\label{share_2template_2gromacs_2thread__mpi_2atomic_2msvc_8h_a43bcfcb921d49a8a459787430b948727}
+\hypertarget{share_2template_2gromacs_2thread__mpi_2atomic_2msvc_8h_a9c1fcecfb28c137324759a1629b274d2}{\index{share/template/gromacs/thread\-\_\-mpi/atomic/msvc.\-h@{share/template/gromacs/thread\-\_\-mpi/atomic/msvc.\-h}!t\-M\-P\-I\-\_\-\-Spinlock\-\_\-islocked@{t\-M\-P\-I\-\_\-\-Spinlock\-\_\-islocked}}
+\index{t\-M\-P\-I\-\_\-\-Spinlock\-\_\-islocked@{t\-M\-P\-I\-\_\-\-Spinlock\-\_\-islocked}!share/template/gromacs/thread_mpi/atomic/msvc.h@{share/template/gromacs/thread\-\_\-mpi/atomic/msvc.\-h}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Spinlock\-\_\-islocked}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf t\-M\-P\-I\-\_\-\-Spinlock\-\_\-islocked} (
+\begin{DoxyParamCaption}
+\item[{const {\bf t\-M\-P\-I\-\_\-\-Spinlock\-\_\-t} $\ast$}]{x}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, static\mbox{]}}}}\label{share_2template_2gromacs_2thread__mpi_2atomic_2msvc_8h_a9c1fcecfb28c137324759a1629b274d2}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=342pt]{share_2template_2gromacs_2thread__mpi_2atomic_2msvc_8h_a9c1fcecfb28c137324759a1629b274d2_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{share_2template_2gromacs_2thread__mpi_2atomic_2msvc_8h_a0058b8c076a24c3a769a4e452a83b62b}{\index{share/template/gromacs/thread\-\_\-mpi/atomic/msvc.\-h@{share/template/gromacs/thread\-\_\-mpi/atomic/msvc.\-h}!t\-M\-P\-I\-\_\-\-Spinlock\-\_\-unlock@{t\-M\-P\-I\-\_\-\-Spinlock\-\_\-unlock}}
+\index{t\-M\-P\-I\-\_\-\-Spinlock\-\_\-unlock@{t\-M\-P\-I\-\_\-\-Spinlock\-\_\-unlock}!share/template/gromacs/thread_mpi/atomic/msvc.h@{share/template/gromacs/thread\-\_\-mpi/atomic/msvc.\-h}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Spinlock\-\_\-unlock}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf t\-M\-P\-I\-\_\-\-Spinlock\-\_\-unlock} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-M\-P\-I\-\_\-\-Spinlock\-\_\-t} $\ast$}]{x}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, static\mbox{]}}}}\label{share_2template_2gromacs_2thread__mpi_2atomic_2msvc_8h_a0058b8c076a24c3a769a4e452a83b62b}
+\hypertarget{share_2template_2gromacs_2thread__mpi_2atomic_2msvc_8h_a6e5a0f7574f0ecc628db19497bd3cddb}{\index{share/template/gromacs/thread\-\_\-mpi/atomic/msvc.\-h@{share/template/gromacs/thread\-\_\-mpi/atomic/msvc.\-h}!t\-M\-P\-I\-\_\-\-Spinlock\-\_\-wait@{t\-M\-P\-I\-\_\-\-Spinlock\-\_\-wait}}
+\index{t\-M\-P\-I\-\_\-\-Spinlock\-\_\-wait@{t\-M\-P\-I\-\_\-\-Spinlock\-\_\-wait}!share/template/gromacs/thread_mpi/atomic/msvc.h@{share/template/gromacs/thread\-\_\-mpi/atomic/msvc.\-h}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Spinlock\-\_\-wait}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf t\-M\-P\-I\-\_\-\-Spinlock\-\_\-wait} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-M\-P\-I\-\_\-\-Spinlock\-\_\-t} $\ast$}]{x}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, static\mbox{]}}}}\label{share_2template_2gromacs_2thread__mpi_2atomic_2msvc_8h_a6e5a0f7574f0ecc628db19497bd3cddb}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=342pt]{share_2template_2gromacs_2thread__mpi_2atomic_2msvc_8h_a6e5a0f7574f0ecc628db19497bd3cddb_cgraph}
+\end{center}
+\end{figure}
+
+

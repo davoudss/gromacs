@@ -1,0 +1,356 @@
+\hypertarget{gmx__current_8c}{\section{src/tools/gmx\-\_\-current.c \-File \-Reference}
+\label{gmx__current_8c}\index{src/tools/gmx\-\_\-current.\-c@{src/tools/gmx\-\_\-current.\-c}}
+}
+{\ttfamily \#include \char`\"{}statutil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}typedefs.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}smalloc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}vec.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}copyrite.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}tpxio.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}xvgr.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}rmpbc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}pbc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}physics.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}index.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-statistics.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-ana.\-h\char`\"{}}\*
+\-Include dependency graph for gmx\-\_\-current.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__current_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{gmx__current_8c_aa7866fa5e4e0ee9b034e9dab6599a9cc}{\-S\-Q\-R}(\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x})~(pow(\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}, 2.\-0))
+\item 
+\#define \hyperlink{gmx__current_8c_a814603a2d2700db42d70711c7143cc27}{\-E\-P\-S\-I0}~(\hyperlink{share_2template_2gromacs_2physics_8h_a7d8d67e90ee3b3eed0a2d2b5ffa8bc16}{\-E\-P\-S\-I\-L\-O\-N0}$\ast$\hyperlink{share_2template_2gromacs_2physics_8h_a68cb4f4908d8f9fd57f1ac556847a08d}{\-E\-\_\-\-C\-H\-A\-R\-G\-E}$\ast$\hyperlink{share_2template_2gromacs_2physics_8h_a68cb4f4908d8f9fd57f1ac556847a08d}{\-E\-\_\-\-C\-H\-A\-R\-G\-E}$\ast$\hyperlink{share_2template_2gromacs_2physics_8h_a29763ca81b8e5a8c64dac560ade56b66}{\-A\-V\-O\-G\-A\-D\-R\-O}/(\hyperlink{share_2template_2gromacs_2physics_8h_a9d8f54c9e4c2990b9171d1c88119f454}{\-K\-I\-L\-O}$\ast$\hyperlink{share_2template_2gromacs_2physics_8h_aa45f3f33a4532dd600449668c704c045}{\-N\-A\-N\-O})) /$\ast$ \hyperlink{share_2template_2gromacs_2physics_8h_a7d8d67e90ee3b3eed0a2d2b5ffa8bc16}{\-E\-P\-S\-I\-L\-O\-N0} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a5ac1e96244316833544f4a5edc3edfc9}{in} \-S\-I units $\ast$/
+\item 
+\#define \hyperlink{gmx__current_8c_a8485f4e81de2537e6a0935626167a775}{\-N\-F\-I\-L\-E}~\hyperlink{share_2template_2gromacs_2macros_8h_a0883345a58f8f63aefa249a4f127f707}{asize}(fnm)
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__current_8c_a56deade3fa1598876cfde0ccc04ea04d}{index\-\_\-atom2mol} (int $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, int $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a49fd977001162d7256c8fcd293f9d12a}{index}, \hyperlink{structt__block}{t\-\_\-block} $\ast$mols)
+\item 
+static \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{gmx__current_8c_a4d0c86751c0571edc36c13bf453e9442}{precalc} (\hyperlink{structt__topology}{t\-\_\-topology} \hyperlink{gmx__disre_8c_a1b538a2ce75aba6c346bc03980ffeb28}{top}, real mass2\mbox{[}$\,$\mbox{]}, real qmol\mbox{[}$\,$\mbox{]})
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__current_8c_a6c5e0eedcff9708c15dc4dd41b55ec1b}{remove\-\_\-jump} (\hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box, int natoms, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} xp\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]})
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__current_8c_a89b82c326839d64f71b62a4025f51e48}{calc\-\_\-mj} (\hyperlink{structt__topology}{t\-\_\-topology} \hyperlink{gmx__disre_8c_a1b538a2ce75aba6c346bc03980ffeb28}{top}, int e\-P\-B\-C, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-No\-Jump, int isize, int index0\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{addconf_8c_ae8414314f87c5e49503ac0117eb511ad}{fr}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} mj, real mass2\mbox{[}$\,$\mbox{]}, real qmol\mbox{[}$\,$\mbox{]})
+\item 
+static real \hyperlink{gmx__current_8c_a83d57b2bfd021ae5eaf74fdf2364d56d}{calceps} (real prefactor, real md2, real mj2, real cor, real eps\-\_\-rf, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-C\-O\-R)
+\item 
+static real \hyperlink{gmx__current_8c_ab2fdfd91ab8be774531b6294b9c873c1}{calc\-\_\-cacf} (\-F\-I\-L\-E $\ast$fcacf, real prefactor, real cacf\mbox{[}$\,$\mbox{]}, real time\mbox{[}$\,$\mbox{]}, int nfr, int vfr\mbox{[}$\,$\mbox{]}, int ei, int nshift)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__current_8c_a3c52a36bead79904475f69417a0c85a8}{calc\-\_\-mjdsp} (\-F\-I\-L\-E $\ast$fmjdsp, real vol, real \hyperlink{gmx__traj_8c_af8e82fafd78dc8db04fe532a01cdce3a}{temp}, real prefactor, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} mjdsp\mbox{[}$\,$\mbox{]}, real dsp2\mbox{[}$\,$\mbox{]}, real time\mbox{[}$\,$\mbox{]}, int nfr, real refr\mbox{[}$\,$\mbox{]})
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__current_8c_a849250a22010ef21435fad5bf333734b}{dielectric} (\-F\-I\-L\-E $\ast$fmj, \-F\-I\-L\-E $\ast$fmd, \-F\-I\-L\-E $\ast$outf, \-F\-I\-L\-E $\ast$fcur, \-F\-I\-L\-E $\ast$mcor, \-F\-I\-L\-E $\ast$fmjdsp, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-No\-Jump, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-A\-C\-F, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-I\-N\-T, int e\-P\-B\-C, \hyperlink{structt__topology}{t\-\_\-topology} \hyperlink{gmx__disre_8c_a1b538a2ce75aba6c346bc03980ffeb28}{top}, \hyperlink{include_2types_2trx_8h_a206f77137d72a5db1097a457a7144ad5}{t\-\_\-trxframe} \hyperlink{addconf_8c_ae8414314f87c5e49503ac0117eb511ad}{fr}, real \hyperlink{gmx__traj_8c_af8e82fafd78dc8db04fe532a01cdce3a}{temp}, real trust, real bfit, real efit, real bvit, real evit, \hyperlink{structt__trxstatus}{t\-\_\-trxstatus} $\ast$status, int isize, int nmols, int nshift, \hyperlink{include_2types_2simple_8h_ad3f47cdb48677e516e2049719612c737}{atom\-\_\-id} $\ast$index0, int indexm\mbox{[}$\,$\mbox{]}, real mass2\mbox{[}$\,$\mbox{]}, real qmol\mbox{[}$\,$\mbox{]}, real eps\-\_\-rf, const \hyperlink{include_2types_2oenv_8h_a6a48d77d95132d7318780544821da6a5}{output\-\_\-env\-\_\-t} oenv)
+\item 
+int \hyperlink{gmx__current_8c_ae63b0ede9aa590fea222057cdbfbceeb}{gmx\-\_\-current} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Define \-Documentation}
+\hypertarget{gmx__current_8c_a814603a2d2700db42d70711c7143cc27}{\index{gmx\-\_\-current.\-c@{gmx\-\_\-current.\-c}!\-E\-P\-S\-I0@{\-E\-P\-S\-I0}}
+\index{\-E\-P\-S\-I0@{\-E\-P\-S\-I0}!gmx_current.c@{gmx\-\_\-current.\-c}}
+\subsubsection[{\-E\-P\-S\-I0}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-E\-P\-S\-I0}~({\bf \-E\-P\-S\-I\-L\-O\-N0}$\ast${\bf \-E\-\_\-\-C\-H\-A\-R\-G\-E}$\ast${\bf \-E\-\_\-\-C\-H\-A\-R\-G\-E}$\ast${\bf \-A\-V\-O\-G\-A\-D\-R\-O}/({\bf \-K\-I\-L\-O}$\ast${\bf \-N\-A\-N\-O})) /$\ast$ {\bf \-E\-P\-S\-I\-L\-O\-N0} {\bf in} \-S\-I units $\ast$/}}\label{gmx__current_8c_a814603a2d2700db42d70711c7143cc27}
+\hypertarget{gmx__current_8c_a8485f4e81de2537e6a0935626167a775}{\index{gmx\-\_\-current.\-c@{gmx\-\_\-current.\-c}!\-N\-F\-I\-L\-E@{\-N\-F\-I\-L\-E}}
+\index{\-N\-F\-I\-L\-E@{\-N\-F\-I\-L\-E}!gmx_current.c@{gmx\-\_\-current.\-c}}
+\subsubsection[{\-N\-F\-I\-L\-E}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-N\-F\-I\-L\-E}~{\bf asize}(fnm)}}\label{gmx__current_8c_a8485f4e81de2537e6a0935626167a775}
+\hypertarget{gmx__current_8c_aa7866fa5e4e0ee9b034e9dab6599a9cc}{\index{gmx\-\_\-current.\-c@{gmx\-\_\-current.\-c}!\-S\-Q\-R@{\-S\-Q\-R}}
+\index{\-S\-Q\-R@{\-S\-Q\-R}!gmx_current.c@{gmx\-\_\-current.\-c}}
+\subsubsection[{\-S\-Q\-R}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-S\-Q\-R}(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf x}}
+\end{DoxyParamCaption}
+)~(pow({\bf x}, 2.\-0))}}\label{gmx__current_8c_aa7866fa5e4e0ee9b034e9dab6599a9cc}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{gmx__current_8c_ab2fdfd91ab8be774531b6294b9c873c1}{\index{gmx\-\_\-current.\-c@{gmx\-\_\-current.\-c}!calc\-\_\-cacf@{calc\-\_\-cacf}}
+\index{calc\-\_\-cacf@{calc\-\_\-cacf}!gmx_current.c@{gmx\-\_\-current.\-c}}
+\subsubsection[{calc\-\_\-cacf}]{\setlength{\rightskip}{0pt plus 5cm}static real {\bf calc\-\_\-cacf} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fcacf, }
+\item[{real}]{prefactor, }
+\item[{real}]{cacf\mbox{[}$\,$\mbox{]}, }
+\item[{real}]{time\mbox{[}$\,$\mbox{]}, }
+\item[{int}]{nfr, }
+\item[{int}]{vfr\mbox{[}$\,$\mbox{]}, }
+\item[{int}]{ei, }
+\item[{int}]{nshift}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__current_8c_ab2fdfd91ab8be774531b6294b9c873c1}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__current_8c_ab2fdfd91ab8be774531b6294b9c873c1_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__current_8c_a89b82c326839d64f71b62a4025f51e48}{\index{gmx\-\_\-current.\-c@{gmx\-\_\-current.\-c}!calc\-\_\-mj@{calc\-\_\-mj}}
+\index{calc\-\_\-mj@{calc\-\_\-mj}!gmx_current.c@{gmx\-\_\-current.\-c}}
+\subsubsection[{calc\-\_\-mj}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf calc\-\_\-mj} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-topology}}]{top, }
+\item[{int}]{e\-P\-B\-C, }
+\item[{{\bf matrix}}]{box, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-No\-Jump, }
+\item[{int}]{isize, }
+\item[{int}]{index0\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{fr\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{mj, }
+\item[{real}]{mass2\mbox{[}$\,$\mbox{]}, }
+\item[{real}]{qmol\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__current_8c_a89b82c326839d64f71b62a4025f51e48}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=254pt]{gmx__current_8c_a89b82c326839d64f71b62a4025f51e48_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__current_8c_a89b82c326839d64f71b62a4025f51e48_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__current_8c_a3c52a36bead79904475f69417a0c85a8}{\index{gmx\-\_\-current.\-c@{gmx\-\_\-current.\-c}!calc\-\_\-mjdsp@{calc\-\_\-mjdsp}}
+\index{calc\-\_\-mjdsp@{calc\-\_\-mjdsp}!gmx_current.c@{gmx\-\_\-current.\-c}}
+\subsubsection[{calc\-\_\-mjdsp}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf calc\-\_\-mjdsp} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fmjdsp, }
+\item[{real}]{vol, }
+\item[{real}]{temp, }
+\item[{real}]{prefactor, }
+\item[{{\bf rvec}}]{mjdsp\mbox{[}$\,$\mbox{]}, }
+\item[{real}]{dsp2\mbox{[}$\,$\mbox{]}, }
+\item[{real}]{time\mbox{[}$\,$\mbox{]}, }
+\item[{int}]{nfr, }
+\item[{real}]{refr\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__current_8c_a3c52a36bead79904475f69417a0c85a8}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__current_8c_a3c52a36bead79904475f69417a0c85a8_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__current_8c_a83d57b2bfd021ae5eaf74fdf2364d56d}{\index{gmx\-\_\-current.\-c@{gmx\-\_\-current.\-c}!calceps@{calceps}}
+\index{calceps@{calceps}!gmx_current.c@{gmx\-\_\-current.\-c}}
+\subsubsection[{calceps}]{\setlength{\rightskip}{0pt plus 5cm}static real {\bf calceps} (
+\begin{DoxyParamCaption}
+\item[{real}]{prefactor, }
+\item[{real}]{md2, }
+\item[{real}]{mj2, }
+\item[{real}]{cor, }
+\item[{real}]{eps\-\_\-rf, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-C\-O\-R}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__current_8c_a83d57b2bfd021ae5eaf74fdf2364d56d}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__current_8c_a83d57b2bfd021ae5eaf74fdf2364d56d_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__current_8c_a849250a22010ef21435fad5bf333734b}{\index{gmx\-\_\-current.\-c@{gmx\-\_\-current.\-c}!dielectric@{dielectric}}
+\index{dielectric@{dielectric}!gmx_current.c@{gmx\-\_\-current.\-c}}
+\subsubsection[{dielectric}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf dielectric} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fmj, }
+\item[{\-F\-I\-L\-E $\ast$}]{fmd, }
+\item[{\-F\-I\-L\-E $\ast$}]{outf, }
+\item[{\-F\-I\-L\-E $\ast$}]{fcur, }
+\item[{\-F\-I\-L\-E $\ast$}]{mcor, }
+\item[{\-F\-I\-L\-E $\ast$}]{fmjdsp, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-No\-Jump, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-A\-C\-F, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-I\-N\-T, }
+\item[{int}]{e\-P\-B\-C, }
+\item[{{\bf t\-\_\-topology}}]{top, }
+\item[{{\bf t\-\_\-trxframe}}]{fr, }
+\item[{real}]{temp, }
+\item[{real}]{trust, }
+\item[{real}]{bfit, }
+\item[{real}]{efit, }
+\item[{real}]{bvit, }
+\item[{real}]{evit, }
+\item[{{\bf t\-\_\-trxstatus} $\ast$}]{status, }
+\item[{int}]{isize, }
+\item[{int}]{nmols, }
+\item[{int}]{nshift, }
+\item[{{\bf atom\-\_\-id} $\ast$}]{index0, }
+\item[{int}]{indexm\mbox{[}$\,$\mbox{]}, }
+\item[{real}]{mass2\mbox{[}$\,$\mbox{]}, }
+\item[{real}]{qmol\mbox{[}$\,$\mbox{]}, }
+\item[{real}]{eps\-\_\-rf, }
+\item[{const {\bf output\-\_\-env\-\_\-t}}]{oenv}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__current_8c_a849250a22010ef21435fad5bf333734b}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{gmx__current_8c_a849250a22010ef21435fad5bf333734b_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=318pt]{gmx__current_8c_a849250a22010ef21435fad5bf333734b_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__current_8c_ae63b0ede9aa590fea222057cdbfbceeb}{\index{gmx\-\_\-current.\-c@{gmx\-\_\-current.\-c}!gmx\-\_\-current@{gmx\-\_\-current}}
+\index{gmx\-\_\-current@{gmx\-\_\-current}!gmx_current.c@{gmx\-\_\-current.\-c}}
+\subsubsection[{gmx\-\_\-current}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-current} (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{gmx__current_8c_ae63b0ede9aa590fea222057cdbfbceeb}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{gmx__current_8c_ae63b0ede9aa590fea222057cdbfbceeb_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=226pt]{gmx__current_8c_ae63b0ede9aa590fea222057cdbfbceeb_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__current_8c_a56deade3fa1598876cfde0ccc04ea04d}{\index{gmx\-\_\-current.\-c@{gmx\-\_\-current.\-c}!index\-\_\-atom2mol@{index\-\_\-atom2mol}}
+\index{index\-\_\-atom2mol@{index\-\_\-atom2mol}!gmx_current.c@{gmx\-\_\-current.\-c}}
+\subsubsection[{index\-\_\-atom2mol}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf index\-\_\-atom2mol} (
+\begin{DoxyParamCaption}
+\item[{int $\ast$}]{n, }
+\item[{int $\ast$}]{index, }
+\item[{{\bf t\-\_\-block} $\ast$}]{mols}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__current_8c_a56deade3fa1598876cfde0ccc04ea04d}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=264pt]{gmx__current_8c_a56deade3fa1598876cfde0ccc04ea04d_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__current_8c_a56deade3fa1598876cfde0ccc04ea04d_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__current_8c_a4d0c86751c0571edc36c13bf453e9442}{\index{gmx\-\_\-current.\-c@{gmx\-\_\-current.\-c}!precalc@{precalc}}
+\index{precalc@{precalc}!gmx_current.c@{gmx\-\_\-current.\-c}}
+\subsubsection[{precalc}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gmx\-\_\-bool} {\bf precalc} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-topology}}]{top, }
+\item[{real}]{mass2\mbox{[}$\,$\mbox{]}, }
+\item[{real}]{qmol\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__current_8c_a4d0c86751c0571edc36c13bf453e9442}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=310pt]{gmx__current_8c_a4d0c86751c0571edc36c13bf453e9442_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__current_8c_a6c5e0eedcff9708c15dc4dd41b55ec1b}{\index{gmx\-\_\-current.\-c@{gmx\-\_\-current.\-c}!remove\-\_\-jump@{remove\-\_\-jump}}
+\index{remove\-\_\-jump@{remove\-\_\-jump}!gmx_current.c@{gmx\-\_\-current.\-c}}
+\subsubsection[{remove\-\_\-jump}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf remove\-\_\-jump} (
+\begin{DoxyParamCaption}
+\item[{{\bf matrix}}]{box, }
+\item[{int}]{natoms, }
+\item[{{\bf rvec}}]{xp\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{x\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__current_8c_a6c5e0eedcff9708c15dc4dd41b55ec1b}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__current_8c_a6c5e0eedcff9708c15dc4dd41b55ec1b_icgraph}
+\end{center}
+\end{figure}
+
+

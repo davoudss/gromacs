@@ -1,0 +1,99 @@
+\hypertarget{share_2template_2gromacs_2gmx__detect__hardware_8h}{\section{share/template/gromacs/gmx\-\_\-detect\-\_\-hardware.h \-File \-Reference}
+\label{share_2template_2gromacs_2gmx__detect__hardware_8h}\index{share/template/gromacs/gmx\-\_\-detect\-\_\-hardware.\-h@{share/template/gromacs/gmx\-\_\-detect\-\_\-hardware.\-h}}
+}
+{\ttfamily \#include \char`\"{}visibility.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}types/hw\-\_\-info.\-h\char`\"{}}\*
+\-Include dependency graph for gmx\-\_\-detect\-\_\-hardware.\-h\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{share_2template_2gromacs_2gmx__detect__hardware_8h__incl}
+\end{center}
+\end{figure}
+\-This graph shows which files directly or indirectly include this file\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{share_2template_2gromacs_2gmx__detect__hardware_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_af6d678ccc5288db95c70b9d9003f11e2}{\-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{share_2template_2gromacs_2gmx__detect__hardware_8h_acd585eacfb4830535397faf1487403da}{gmx\-\_\-detect\-\_\-hardware} (\-F\-I\-L\-E $\ast$fplog, \hyperlink{structgmx__hw__info__t}{gmx\-\_\-hw\-\_\-info\-\_\-t} $\ast$hwinfo, const \hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Force\-Use\-G\-P\-U, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Try\-Use\-G\-P\-U, const char $\ast$gpu\-\_\-id)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_af6d678ccc5288db95c70b9d9003f11e2}{\-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{share_2template_2gromacs_2gmx__detect__hardware_8h_ae65e5352afa0a4f752ad211676b99b89}{gmx\-\_\-hardware\-\_\-info\-\_\-free} (\hyperlink{structgmx__hw__info__t}{gmx\-\_\-hw\-\_\-info\-\_\-t} $\ast$hwinfo)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_af6d678ccc5288db95c70b9d9003f11e2}{\-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{share_2template_2gromacs_2gmx__detect__hardware_8h_a46207456a1b66575496704127b58a1f7}{gmx\-\_\-check\-\_\-hw\-\_\-runconf\-\_\-consistency} (\-F\-I\-L\-E $\ast$fplog, \hyperlink{structgmx__hw__info__t}{gmx\-\_\-hw\-\_\-info\-\_\-t} $\ast$hwinfo, const \hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr, int ntmpi\-\_\-requsted, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Use\-G\-P\-U)
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{share_2template_2gromacs_2gmx__detect__hardware_8h_a46207456a1b66575496704127b58a1f7}{\index{share/template/gromacs/gmx\-\_\-detect\-\_\-hardware.\-h@{share/template/gromacs/gmx\-\_\-detect\-\_\-hardware.\-h}!gmx\-\_\-check\-\_\-hw\-\_\-runconf\-\_\-consistency@{gmx\-\_\-check\-\_\-hw\-\_\-runconf\-\_\-consistency}}
+\index{gmx\-\_\-check\-\_\-hw\-\_\-runconf\-\_\-consistency@{gmx\-\_\-check\-\_\-hw\-\_\-runconf\-\_\-consistency}!share/template/gromacs/gmx_detect_hardware.h@{share/template/gromacs/gmx\-\_\-detect\-\_\-hardware.\-h}}
+\subsubsection[{gmx\-\_\-check\-\_\-hw\-\_\-runconf\-\_\-consistency}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} {\bf void} {\bf gmx\-\_\-check\-\_\-hw\-\_\-runconf\-\_\-consistency} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fplog, }
+\item[{{\bf gmx\-\_\-hw\-\_\-info\-\_\-t} $\ast$}]{hwinfo, }
+\item[{const {\bf t\-\_\-commrec} $\ast$}]{cr, }
+\item[{int}]{ntmpi\-\_\-requsted, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Use\-G\-P\-U}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2gmx__detect__hardware_8h_a46207456a1b66575496704127b58a1f7}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{share_2template_2gromacs_2gmx__detect__hardware_8h_a46207456a1b66575496704127b58a1f7_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{share_2template_2gromacs_2gmx__detect__hardware_8h_acd585eacfb4830535397faf1487403da}{\index{share/template/gromacs/gmx\-\_\-detect\-\_\-hardware.\-h@{share/template/gromacs/gmx\-\_\-detect\-\_\-hardware.\-h}!gmx\-\_\-detect\-\_\-hardware@{gmx\-\_\-detect\-\_\-hardware}}
+\index{gmx\-\_\-detect\-\_\-hardware@{gmx\-\_\-detect\-\_\-hardware}!share/template/gromacs/gmx_detect_hardware.h@{share/template/gromacs/gmx\-\_\-detect\-\_\-hardware.\-h}}
+\subsubsection[{gmx\-\_\-detect\-\_\-hardware}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} {\bf void} {\bf gmx\-\_\-detect\-\_\-hardware} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fplog, }
+\item[{{\bf gmx\-\_\-hw\-\_\-info\-\_\-t} $\ast$}]{hwinfo, }
+\item[{const {\bf t\-\_\-commrec} $\ast$}]{cr, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Force\-Use\-G\-P\-U, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Try\-Use\-G\-P\-U, }
+\item[{const char $\ast$}]{gpu\-\_\-id}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2gmx__detect__hardware_8h_acd585eacfb4830535397faf1487403da}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{share_2template_2gromacs_2gmx__detect__hardware_8h_acd585eacfb4830535397faf1487403da_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{share_2template_2gromacs_2gmx__detect__hardware_8h_ae65e5352afa0a4f752ad211676b99b89}{\index{share/template/gromacs/gmx\-\_\-detect\-\_\-hardware.\-h@{share/template/gromacs/gmx\-\_\-detect\-\_\-hardware.\-h}!gmx\-\_\-hardware\-\_\-info\-\_\-free@{gmx\-\_\-hardware\-\_\-info\-\_\-free}}
+\index{gmx\-\_\-hardware\-\_\-info\-\_\-free@{gmx\-\_\-hardware\-\_\-info\-\_\-free}!share/template/gromacs/gmx_detect_hardware.h@{share/template/gromacs/gmx\-\_\-detect\-\_\-hardware.\-h}}
+\subsubsection[{gmx\-\_\-hardware\-\_\-info\-\_\-free}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} {\bf void} {\bf gmx\-\_\-hardware\-\_\-info\-\_\-free} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-hw\-\_\-info\-\_\-t} $\ast$}]{hwinfo}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2gmx__detect__hardware_8h_ae65e5352afa0a4f752ad211676b99b89}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=330pt]{share_2template_2gromacs_2gmx__detect__hardware_8h_ae65e5352afa0a4f752ad211676b99b89_cgraph}
+\end{center}
+\end{figure}
+
+

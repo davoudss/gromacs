@@ -1,0 +1,141 @@
+\hypertarget{chargegroup_8c}{\section{src/gmxlib/chargegroup.c \-File \-Reference}
+\label{chargegroup_8c}\index{src/gmxlib/chargegroup.\-c@{src/gmxlib/chargegroup.\-c}}
+}
+{\ttfamily \#include $<$math.\-h$>$}\*
+{\ttfamily \#include \char`\"{}sysstuff.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}typedefs.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}vec.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}pbc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}smalloc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-fatal.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}chargegroup.\-h\char`\"{}}\*
+\-Include dependency graph for chargegroup.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{chargegroup_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{chargegroup_8c_aa3625e68f732f4fcda7dfe0ac5d3483b}{calc\-\_\-chargegroup\-\_\-radii} (const \hyperlink{structgmx__mtop__t}{gmx\-\_\-mtop\-\_\-t} $\ast$mtop, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}, real $\ast$rvdw1, real $\ast$rvdw2, real $\ast$rcoul1, real $\ast$rcoul2)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{chargegroup_8c_aa81e0af45cddadc46c4ce952c4a637d1}{calc\-\_\-cgcm} (\-F\-I\-L\-E $\ast$fplog, int cg0, int cg1, \hyperlink{structt__block}{t\-\_\-block} $\ast$cgs, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} pos\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} cg\-\_\-cm\mbox{[}$\,$\mbox{]})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{chargegroup_8c_a1f2a966ba1a09d6effe280650a65c06f}{put\-\_\-charge\-\_\-groups\-\_\-in\-\_\-box} (\-F\-I\-L\-E $\ast$fplog, int cg0, int cg1, int e\-P\-B\-C, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box, \hyperlink{structt__block}{t\-\_\-block} $\ast$cgs, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} pos\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} cg\-\_\-cm\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{chargegroup_8c_aa81e0af45cddadc46c4ce952c4a637d1}{\index{chargegroup.\-c@{chargegroup.\-c}!calc\-\_\-cgcm@{calc\-\_\-cgcm}}
+\index{calc\-\_\-cgcm@{calc\-\_\-cgcm}!chargegroup.c@{chargegroup.\-c}}
+\subsubsection[{calc\-\_\-cgcm}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf calc\-\_\-cgcm} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fplog, }
+\item[{int}]{cg0, }
+\item[{int}]{cg1, }
+\item[{{\bf t\-\_\-block} $\ast$}]{cgs, }
+\item[{{\bf rvec}}]{pos\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{cg\-\_\-cm\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{chargegroup_8c_aa81e0af45cddadc46c4ce952c4a637d1}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=242pt]{chargegroup_8c_aa81e0af45cddadc46c4ce952c4a637d1_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{chargegroup_8c_aa81e0af45cddadc46c4ce952c4a637d1_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{chargegroup_8c_aa3625e68f732f4fcda7dfe0ac5d3483b}{\index{chargegroup.\-c@{chargegroup.\-c}!calc\-\_\-chargegroup\-\_\-radii@{calc\-\_\-chargegroup\-\_\-radii}}
+\index{calc\-\_\-chargegroup\-\_\-radii@{calc\-\_\-chargegroup\-\_\-radii}!chargegroup.c@{chargegroup.\-c}}
+\subsubsection[{calc\-\_\-chargegroup\-\_\-radii}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf calc\-\_\-chargegroup\-\_\-radii} (
+\begin{DoxyParamCaption}
+\item[{const {\bf gmx\-\_\-mtop\-\_\-t} $\ast$}]{mtop, }
+\item[{{\bf rvec} $\ast$}]{x, }
+\item[{real $\ast$}]{rvdw1, }
+\item[{real $\ast$}]{rvdw2, }
+\item[{real $\ast$}]{rcoul1, }
+\item[{real $\ast$}]{rcoul2}
+\end{DoxyParamCaption}
+)}}\label{chargegroup_8c_aa3625e68f732f4fcda7dfe0ac5d3483b}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{chargegroup_8c_aa3625e68f732f4fcda7dfe0ac5d3483b_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{chargegroup_8c_aa3625e68f732f4fcda7dfe0ac5d3483b_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{chargegroup_8c_a1f2a966ba1a09d6effe280650a65c06f}{\index{chargegroup.\-c@{chargegroup.\-c}!put\-\_\-charge\-\_\-groups\-\_\-in\-\_\-box@{put\-\_\-charge\-\_\-groups\-\_\-in\-\_\-box}}
+\index{put\-\_\-charge\-\_\-groups\-\_\-in\-\_\-box@{put\-\_\-charge\-\_\-groups\-\_\-in\-\_\-box}!chargegroup.c@{chargegroup.\-c}}
+\subsubsection[{put\-\_\-charge\-\_\-groups\-\_\-in\-\_\-box}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf put\-\_\-charge\-\_\-groups\-\_\-in\-\_\-box} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fplog, }
+\item[{int}]{cg0, }
+\item[{int}]{cg1, }
+\item[{int}]{e\-P\-B\-C, }
+\item[{{\bf matrix}}]{box, }
+\item[{{\bf t\-\_\-block} $\ast$}]{cgs, }
+\item[{{\bf rvec}}]{pos\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{cg\-\_\-cm\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{chargegroup_8c_a1f2a966ba1a09d6effe280650a65c06f}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=312pt]{chargegroup_8c_a1f2a966ba1a09d6effe280650a65c06f_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{chargegroup_8c_a1f2a966ba1a09d6effe280650a65c06f_icgraph}
+\end{center}
+\end{figure}
+
+

@@ -1,0 +1,717 @@
+\hypertarget{libxdrf_8c}{\section{src/gmxlib/libxdrf.c \-File \-Reference}
+\label{libxdrf_8c}\index{src/gmxlib/libxdrf.\-c@{src/gmxlib/libxdrf.\-c}}
+}
+{\ttfamily \#include $<$limits.\-h$>$}\*
+{\ttfamily \#include $<$math.\-h$>$}\*
+{\ttfamily \#include $<$stdio.\-h$>$}\*
+{\ttfamily \#include $<$stdlib.\-h$>$}\*
+{\ttfamily \#include $<$string.\-h$>$}\*
+{\ttfamily \#include \char`\"{}statutil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}xdrf.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}string2.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}futil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-fatal.\-h\char`\"{}}\*
+\-Include dependency graph for libxdrf.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{libxdrf_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{libxdrf_8c_aee902dfecb8bd40510259ec32fcfadf5}{\-X\-D\-R\-\_\-\-I\-N\-T\-\_\-\-S\-I\-Z\-E}~4
+\item 
+\#define \hyperlink{libxdrf_8c_a519bce0ae6bcf7c9ea49e687104a7e89}{\-M\-A\-X\-A\-B\-S}~\-I\-N\-T\-\_\-\-M\-A\-X-\/2
+\item 
+\#define \hyperlink{libxdrf_8c_a74e75242132eaabbc1c512488a135926}{\-M\-I\-N}(\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ad992d70ec70c927046cfc2ab1c79b188}{y})~((\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}) $<$ (\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ad992d70ec70c927046cfc2ab1c79b188}{y}) ? (\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}) \-: (\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ad992d70ec70c927046cfc2ab1c79b188}{y}))
+\item 
+\#define \hyperlink{libxdrf_8c_aacc3ee1a7f283f8ef65cea31f4436a95}{\-M\-A\-X}(\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ad992d70ec70c927046cfc2ab1c79b188}{y})~((\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}) $>$ (\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ad992d70ec70c927046cfc2ab1c79b188}{y}) ? (\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}) \-: (\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ad992d70ec70c927046cfc2ab1c79b188}{y}))
+\item 
+\#define \hyperlink{libxdrf_8c_aa7866fa5e4e0ee9b034e9dab6599a9cc}{\-S\-Q\-R}(\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x})~((\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x})$\ast$(\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}))
+\item 
+\#define \hyperlink{libxdrf_8c_ae8c63f0332b93349364233724764db50}{\-F\-I\-R\-S\-T\-I\-D\-X}~9
+\item 
+\#define \hyperlink{libxdrf_8c_a24d182985b6e4703ddec36263434691d}{\-L\-A\-S\-T\-I\-D\-X}~(sizeof(\hyperlink{libxdrf_8c_ab4bcf14b71c96de9c688f9adc10516fc}{magicints}) / sizeof($\ast$\hyperlink{libxdrf_8c_ab4bcf14b71c96de9c688f9adc10516fc}{magicints}))
+\item 
+\#define \hyperlink{libxdrf_8c_a385d302464c041f19593702da5cba8aa}{\-X\-T\-C\-\_\-\-M\-A\-G\-I\-C}~1995
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{libxdrf_8c_ae8e7d6d6c7b192e5437b55df759774f2}{sendbits} (int buf\mbox{[}$\,$\mbox{]}, int num\-\_\-of\-\_\-bits, int num)
+\item 
+static int \hyperlink{libxdrf_8c_aa62d4f3c5160cd8255540afdeb98e4b0}{sizeofint} (const int size)
+\item 
+static int \hyperlink{libxdrf_8c_acc36166fcf8525b9894d62e7e23ee91a}{sizeofints} (const int num\-\_\-of\-\_\-ints, unsigned int sizes\mbox{[}$\,$\mbox{]})
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{libxdrf_8c_aa3e24ccf70798abc757080ce325f45f2}{sendints} (int buf\mbox{[}$\,$\mbox{]}, const int num\-\_\-of\-\_\-ints, const int num\-\_\-of\-\_\-bits, unsigned int sizes\mbox{[}$\,$\mbox{]}, unsigned int nums\mbox{[}$\,$\mbox{]})
+\item 
+static int \hyperlink{libxdrf_8c_a30a492f30e0e9a9e69a2a37b55f32d48}{receivebits} (int buf\mbox{[}$\,$\mbox{]}, int num\-\_\-of\-\_\-bits)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{libxdrf_8c_ac8fda2e862f8463174729563b1442d17}{receiveints} (int buf\mbox{[}$\,$\mbox{]}, const int num\-\_\-of\-\_\-ints, int num\-\_\-of\-\_\-bits, unsigned int sizes\mbox{[}$\,$\mbox{]}, int nums\mbox{[}$\,$\mbox{]})
+\item 
+int \hyperlink{libxdrf_8c_a5504d3e82888c9ea5e47a58f4a50ad45}{xdr3dfcoord} (\hyperlink{structXDR}{\-X\-D\-R} $\ast$xdrs, float $\ast$fp, int $\ast$size, float $\ast$precision)
+\item 
+static int \hyperlink{libxdrf_8c_a54915dc3030f93cd1bbefd42fc4f47a9}{xtc\-\_\-at\-\_\-header\-\_\-start} (\-F\-I\-L\-E $\ast$fp, \hyperlink{structXDR}{\-X\-D\-R} $\ast$xdrs, int natoms, int $\ast$timestep, float $\ast$time)
+\item 
+static int \hyperlink{libxdrf_8c_a68b1f12b99625eab1cd122059e2dbfea}{xtc\-\_\-get\-\_\-next\-\_\-frame\-\_\-number} (\-F\-I\-L\-E $\ast$fp, \hyperlink{structXDR}{\-X\-D\-R} $\ast$xdrs, int natoms)
+\item 
+static float \hyperlink{libxdrf_8c_a1269c2159b5f0000978a3afe7136ba11}{xtc\-\_\-get\-\_\-next\-\_\-frame\-\_\-time} (\-F\-I\-L\-E $\ast$fp, \hyperlink{structXDR}{\-X\-D\-R} $\ast$xdrs, int natoms, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} $\ast$b\-O\-K)
+\item 
+static float \hyperlink{libxdrf_8c_ac9dd002d627b965b516b903035c8de98}{xtc\-\_\-get\-\_\-current\-\_\-frame\-\_\-time} (\-F\-I\-L\-E $\ast$fp, \hyperlink{structXDR}{\-X\-D\-R} $\ast$xdrs, int natoms, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} $\ast$b\-O\-K)
+\item 
+static int \hyperlink{libxdrf_8c_aa32604bf16d1f6a07e767676d83bcba3}{xtc\-\_\-get\-\_\-current\-\_\-frame\-\_\-number} (\-F\-I\-L\-E $\ast$fp, \hyperlink{structXDR}{\-X\-D\-R} $\ast$xdrs, int natoms, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} $\ast$b\-O\-K)
+\item 
+static \hyperlink{include_2futil_8h_a62ca72cb29d851d8f5bcbe6809d3786d}{gmx\-\_\-off\-\_\-t} \hyperlink{libxdrf_8c_a48b40bd0379cfc1b2e8981a8f3de1fc5}{xtc\-\_\-get\-\_\-next\-\_\-frame\-\_\-start} (\-F\-I\-L\-E $\ast$fp, \hyperlink{structXDR}{\-X\-D\-R} $\ast$xdrs, int natoms)
+\item 
+static float \hyperlink{libxdrf_8c_adbc812bebdd6cffecc9da07033ba4064}{xdr\-\_\-xtc\-\_\-estimate\-\_\-dt} (\-F\-I\-L\-E $\ast$fp, \hyperlink{structXDR}{\-X\-D\-R} $\ast$xdrs, int natoms, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} $\ast$b\-O\-K)
+\item 
+int \hyperlink{libxdrf_8c_a8dcc2a0d2ccc1d3d58421fa0c1132fc5}{xdr\-\_\-xtc\-\_\-seek\-\_\-frame} (int frame, \-F\-I\-L\-E $\ast$fp, \hyperlink{structXDR}{\-X\-D\-R} $\ast$xdrs, int natoms)
+\item 
+int \hyperlink{libxdrf_8c_aa00e15c649e99dd3d76f4bcd751ff671}{xdr\-\_\-xtc\-\_\-seek\-\_\-time} (real time, \-F\-I\-L\-E $\ast$fp, \hyperlink{structXDR}{\-X\-D\-R} $\ast$xdrs, int natoms, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Seek\-Forward\-Only)
+\item 
+float \hyperlink{libxdrf_8c_a03f66c42bf5da5b05abf6c042f9296cf}{xdr\-\_\-xtc\-\_\-get\-\_\-last\-\_\-frame\-\_\-time} (\-F\-I\-L\-E $\ast$fp, \hyperlink{structXDR}{\-X\-D\-R} $\ast$xdrs, int natoms, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} $\ast$b\-O\-K)
+\item 
+int \hyperlink{libxdrf_8c_af7efed4286f1cafc2b34f24368072dc5}{xdr\-\_\-xtc\-\_\-get\-\_\-last\-\_\-frame\-\_\-number} (\-F\-I\-L\-E $\ast$fp, \hyperlink{structXDR}{\-X\-D\-R} $\ast$xdrs, int natoms, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} $\ast$b\-O\-K)
+\end{DoxyCompactItemize}
+\subsection*{\-Variables}
+\begin{DoxyCompactItemize}
+\item 
+const char $\ast$ \hyperlink{libxdrf_8c_aae75052b1ea76d73264566465f198646}{xdr\-\_\-datatype\-\_\-names} \mbox{[}$\,$\mbox{]}
+\item 
+static const int \hyperlink{libxdrf_8c_ab4bcf14b71c96de9c688f9adc10516fc}{magicints} \mbox{[}$\,$\mbox{]}
+\item 
+static const int \hyperlink{libxdrf_8c_ad7c79748356bd8e3cbd966398a9832e2}{header\-\_\-size} = 16
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Define \-Documentation}
+\hypertarget{libxdrf_8c_ae8c63f0332b93349364233724764db50}{\index{libxdrf.\-c@{libxdrf.\-c}!\-F\-I\-R\-S\-T\-I\-D\-X@{\-F\-I\-R\-S\-T\-I\-D\-X}}
+\index{\-F\-I\-R\-S\-T\-I\-D\-X@{\-F\-I\-R\-S\-T\-I\-D\-X}!libxdrf.c@{libxdrf.\-c}}
+\subsubsection[{\-F\-I\-R\-S\-T\-I\-D\-X}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-F\-I\-R\-S\-T\-I\-D\-X}~9}}\label{libxdrf_8c_ae8c63f0332b93349364233724764db50}
+\hypertarget{libxdrf_8c_a24d182985b6e4703ddec36263434691d}{\index{libxdrf.\-c@{libxdrf.\-c}!\-L\-A\-S\-T\-I\-D\-X@{\-L\-A\-S\-T\-I\-D\-X}}
+\index{\-L\-A\-S\-T\-I\-D\-X@{\-L\-A\-S\-T\-I\-D\-X}!libxdrf.c@{libxdrf.\-c}}
+\subsubsection[{\-L\-A\-S\-T\-I\-D\-X}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-L\-A\-S\-T\-I\-D\-X}~(sizeof({\bf magicints}) / sizeof($\ast${\bf magicints}))}}\label{libxdrf_8c_a24d182985b6e4703ddec36263434691d}
+\hypertarget{libxdrf_8c_aacc3ee1a7f283f8ef65cea31f4436a95}{\index{libxdrf.\-c@{libxdrf.\-c}!\-M\-A\-X@{\-M\-A\-X}}
+\index{\-M\-A\-X@{\-M\-A\-X}!libxdrf.c@{libxdrf.\-c}}
+\subsubsection[{\-M\-A\-X}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-M\-A\-X}(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf x}, }
+\item[{}]{{\bf y}}
+\end{DoxyParamCaption}
+)~(({\bf x}) $>$ ({\bf y}) ? ({\bf x}) \-: ({\bf y}))}}\label{libxdrf_8c_aacc3ee1a7f283f8ef65cea31f4436a95}
+\hypertarget{libxdrf_8c_a519bce0ae6bcf7c9ea49e687104a7e89}{\index{libxdrf.\-c@{libxdrf.\-c}!\-M\-A\-X\-A\-B\-S@{\-M\-A\-X\-A\-B\-S}}
+\index{\-M\-A\-X\-A\-B\-S@{\-M\-A\-X\-A\-B\-S}!libxdrf.c@{libxdrf.\-c}}
+\subsubsection[{\-M\-A\-X\-A\-B\-S}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-M\-A\-X\-A\-B\-S}~\-I\-N\-T\-\_\-\-M\-A\-X-\/2}}\label{libxdrf_8c_a519bce0ae6bcf7c9ea49e687104a7e89}
+\hypertarget{libxdrf_8c_a74e75242132eaabbc1c512488a135926}{\index{libxdrf.\-c@{libxdrf.\-c}!\-M\-I\-N@{\-M\-I\-N}}
+\index{\-M\-I\-N@{\-M\-I\-N}!libxdrf.c@{libxdrf.\-c}}
+\subsubsection[{\-M\-I\-N}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-M\-I\-N}(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf x}, }
+\item[{}]{{\bf y}}
+\end{DoxyParamCaption}
+)~(({\bf x}) $<$ ({\bf y}) ? ({\bf x}) \-: ({\bf y}))}}\label{libxdrf_8c_a74e75242132eaabbc1c512488a135926}
+\hypertarget{libxdrf_8c_aa7866fa5e4e0ee9b034e9dab6599a9cc}{\index{libxdrf.\-c@{libxdrf.\-c}!\-S\-Q\-R@{\-S\-Q\-R}}
+\index{\-S\-Q\-R@{\-S\-Q\-R}!libxdrf.c@{libxdrf.\-c}}
+\subsubsection[{\-S\-Q\-R}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-S\-Q\-R}(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf x}}
+\end{DoxyParamCaption}
+)~(({\bf x})$\ast$({\bf x}))}}\label{libxdrf_8c_aa7866fa5e4e0ee9b034e9dab6599a9cc}
+\hypertarget{libxdrf_8c_aee902dfecb8bd40510259ec32fcfadf5}{\index{libxdrf.\-c@{libxdrf.\-c}!\-X\-D\-R\-\_\-\-I\-N\-T\-\_\-\-S\-I\-Z\-E@{\-X\-D\-R\-\_\-\-I\-N\-T\-\_\-\-S\-I\-Z\-E}}
+\index{\-X\-D\-R\-\_\-\-I\-N\-T\-\_\-\-S\-I\-Z\-E@{\-X\-D\-R\-\_\-\-I\-N\-T\-\_\-\-S\-I\-Z\-E}!libxdrf.c@{libxdrf.\-c}}
+\subsubsection[{\-X\-D\-R\-\_\-\-I\-N\-T\-\_\-\-S\-I\-Z\-E}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-X\-D\-R\-\_\-\-I\-N\-T\-\_\-\-S\-I\-Z\-E}~4}}\label{libxdrf_8c_aee902dfecb8bd40510259ec32fcfadf5}
+\hypertarget{libxdrf_8c_a385d302464c041f19593702da5cba8aa}{\index{libxdrf.\-c@{libxdrf.\-c}!\-X\-T\-C\-\_\-\-M\-A\-G\-I\-C@{\-X\-T\-C\-\_\-\-M\-A\-G\-I\-C}}
+\index{\-X\-T\-C\-\_\-\-M\-A\-G\-I\-C@{\-X\-T\-C\-\_\-\-M\-A\-G\-I\-C}!libxdrf.c@{libxdrf.\-c}}
+\subsubsection[{\-X\-T\-C\-\_\-\-M\-A\-G\-I\-C}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-X\-T\-C\-\_\-\-M\-A\-G\-I\-C}~1995}}\label{libxdrf_8c_a385d302464c041f19593702da5cba8aa}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{libxdrf_8c_a30a492f30e0e9a9e69a2a37b55f32d48}{\index{libxdrf.\-c@{libxdrf.\-c}!receivebits@{receivebits}}
+\index{receivebits@{receivebits}!libxdrf.c@{libxdrf.\-c}}
+\subsubsection[{receivebits}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf receivebits} (
+\begin{DoxyParamCaption}
+\item[{int}]{buf\mbox{[}$\,$\mbox{]}, }
+\item[{int}]{num\-\_\-of\-\_\-bits}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{libxdrf_8c_a30a492f30e0e9a9e69a2a37b55f32d48}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{libxdrf_8c_a30a492f30e0e9a9e69a2a37b55f32d48_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{libxdrf_8c_ac8fda2e862f8463174729563b1442d17}{\index{libxdrf.\-c@{libxdrf.\-c}!receiveints@{receiveints}}
+\index{receiveints@{receiveints}!libxdrf.c@{libxdrf.\-c}}
+\subsubsection[{receiveints}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf receiveints} (
+\begin{DoxyParamCaption}
+\item[{int}]{buf\mbox{[}$\,$\mbox{]}, }
+\item[{const int}]{num\-\_\-of\-\_\-ints, }
+\item[{int}]{num\-\_\-of\-\_\-bits, }
+\item[{unsigned int}]{sizes\mbox{[}$\,$\mbox{]}, }
+\item[{int}]{nums\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{libxdrf_8c_ac8fda2e862f8463174729563b1442d17}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=244pt]{libxdrf_8c_ac8fda2e862f8463174729563b1442d17_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{libxdrf_8c_ac8fda2e862f8463174729563b1442d17_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{libxdrf_8c_ae8e7d6d6c7b192e5437b55df759774f2}{\index{libxdrf.\-c@{libxdrf.\-c}!sendbits@{sendbits}}
+\index{sendbits@{sendbits}!libxdrf.c@{libxdrf.\-c}}
+\subsubsection[{sendbits}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf sendbits} (
+\begin{DoxyParamCaption}
+\item[{int}]{buf\mbox{[}$\,$\mbox{]}, }
+\item[{int}]{num\-\_\-of\-\_\-bits, }
+\item[{int}]{num}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{libxdrf_8c_ae8e7d6d6c7b192e5437b55df759774f2}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{libxdrf_8c_ae8e7d6d6c7b192e5437b55df759774f2_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{libxdrf_8c_aa3e24ccf70798abc757080ce325f45f2}{\index{libxdrf.\-c@{libxdrf.\-c}!sendints@{sendints}}
+\index{sendints@{sendints}!libxdrf.c@{libxdrf.\-c}}
+\subsubsection[{sendints}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf sendints} (
+\begin{DoxyParamCaption}
+\item[{int}]{buf\mbox{[}$\,$\mbox{]}, }
+\item[{const int}]{num\-\_\-of\-\_\-ints, }
+\item[{const int}]{num\-\_\-of\-\_\-bits, }
+\item[{unsigned int}]{sizes\mbox{[}$\,$\mbox{]}, }
+\item[{unsigned int}]{nums\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{libxdrf_8c_aa3e24ccf70798abc757080ce325f45f2}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=224pt]{libxdrf_8c_aa3e24ccf70798abc757080ce325f45f2_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{libxdrf_8c_aa3e24ccf70798abc757080ce325f45f2_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{libxdrf_8c_aa62d4f3c5160cd8255540afdeb98e4b0}{\index{libxdrf.\-c@{libxdrf.\-c}!sizeofint@{sizeofint}}
+\index{sizeofint@{sizeofint}!libxdrf.c@{libxdrf.\-c}}
+\subsubsection[{sizeofint}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf sizeofint} (
+\begin{DoxyParamCaption}
+\item[{const int}]{size}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{libxdrf_8c_aa62d4f3c5160cd8255540afdeb98e4b0}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{libxdrf_8c_aa62d4f3c5160cd8255540afdeb98e4b0_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{libxdrf_8c_acc36166fcf8525b9894d62e7e23ee91a}{\index{libxdrf.\-c@{libxdrf.\-c}!sizeofints@{sizeofints}}
+\index{sizeofints@{sizeofints}!libxdrf.c@{libxdrf.\-c}}
+\subsubsection[{sizeofints}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf sizeofints} (
+\begin{DoxyParamCaption}
+\item[{const int}]{num\-\_\-of\-\_\-ints, }
+\item[{unsigned int}]{sizes\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{libxdrf_8c_acc36166fcf8525b9894d62e7e23ee91a}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{libxdrf_8c_acc36166fcf8525b9894d62e7e23ee91a_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{libxdrf_8c_a5504d3e82888c9ea5e47a58f4a50ad45}{\index{libxdrf.\-c@{libxdrf.\-c}!xdr3dfcoord@{xdr3dfcoord}}
+\index{xdr3dfcoord@{xdr3dfcoord}!libxdrf.c@{libxdrf.\-c}}
+\subsubsection[{xdr3dfcoord}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf xdr3dfcoord} (
+\begin{DoxyParamCaption}
+\item[{{\bf \-X\-D\-R} $\ast$}]{xdrs, }
+\item[{float $\ast$}]{fp, }
+\item[{int $\ast$}]{size, }
+\item[{float $\ast$}]{precision}
+\end{DoxyParamCaption}
+)}}\label{libxdrf_8c_a5504d3e82888c9ea5e47a58f4a50ad45}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{libxdrf_8c_a5504d3e82888c9ea5e47a58f4a50ad45_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{libxdrf_8c_a5504d3e82888c9ea5e47a58f4a50ad45_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{libxdrf_8c_adbc812bebdd6cffecc9da07033ba4064}{\index{libxdrf.\-c@{libxdrf.\-c}!xdr\-\_\-xtc\-\_\-estimate\-\_\-dt@{xdr\-\_\-xtc\-\_\-estimate\-\_\-dt}}
+\index{xdr\-\_\-xtc\-\_\-estimate\-\_\-dt@{xdr\-\_\-xtc\-\_\-estimate\-\_\-dt}!libxdrf.c@{libxdrf.\-c}}
+\subsubsection[{xdr\-\_\-xtc\-\_\-estimate\-\_\-dt}]{\setlength{\rightskip}{0pt plus 5cm}static float {\bf xdr\-\_\-xtc\-\_\-estimate\-\_\-dt} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{{\bf \-X\-D\-R} $\ast$}]{xdrs, }
+\item[{int}]{natoms, }
+\item[{{\bf gmx\-\_\-bool} $\ast$}]{b\-O\-K}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{libxdrf_8c_adbc812bebdd6cffecc9da07033ba4064}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{libxdrf_8c_adbc812bebdd6cffecc9da07033ba4064_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{libxdrf_8c_adbc812bebdd6cffecc9da07033ba4064_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{libxdrf_8c_af7efed4286f1cafc2b34f24368072dc5}{\index{libxdrf.\-c@{libxdrf.\-c}!xdr\-\_\-xtc\-\_\-get\-\_\-last\-\_\-frame\-\_\-number@{xdr\-\_\-xtc\-\_\-get\-\_\-last\-\_\-frame\-\_\-number}}
+\index{xdr\-\_\-xtc\-\_\-get\-\_\-last\-\_\-frame\-\_\-number@{xdr\-\_\-xtc\-\_\-get\-\_\-last\-\_\-frame\-\_\-number}!libxdrf.c@{libxdrf.\-c}}
+\subsubsection[{xdr\-\_\-xtc\-\_\-get\-\_\-last\-\_\-frame\-\_\-number}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf xdr\-\_\-xtc\-\_\-get\-\_\-last\-\_\-frame\-\_\-number} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{{\bf \-X\-D\-R} $\ast$}]{xdrs, }
+\item[{int}]{natoms, }
+\item[{{\bf gmx\-\_\-bool} $\ast$}]{b\-O\-K}
+\end{DoxyParamCaption}
+)}}\label{libxdrf_8c_af7efed4286f1cafc2b34f24368072dc5}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{libxdrf_8c_af7efed4286f1cafc2b34f24368072dc5_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{libxdrf_8c_a03f66c42bf5da5b05abf6c042f9296cf}{\index{libxdrf.\-c@{libxdrf.\-c}!xdr\-\_\-xtc\-\_\-get\-\_\-last\-\_\-frame\-\_\-time@{xdr\-\_\-xtc\-\_\-get\-\_\-last\-\_\-frame\-\_\-time}}
+\index{xdr\-\_\-xtc\-\_\-get\-\_\-last\-\_\-frame\-\_\-time@{xdr\-\_\-xtc\-\_\-get\-\_\-last\-\_\-frame\-\_\-time}!libxdrf.c@{libxdrf.\-c}}
+\subsubsection[{xdr\-\_\-xtc\-\_\-get\-\_\-last\-\_\-frame\-\_\-time}]{\setlength{\rightskip}{0pt plus 5cm}float {\bf xdr\-\_\-xtc\-\_\-get\-\_\-last\-\_\-frame\-\_\-time} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{{\bf \-X\-D\-R} $\ast$}]{xdrs, }
+\item[{int}]{natoms, }
+\item[{{\bf gmx\-\_\-bool} $\ast$}]{b\-O\-K}
+\end{DoxyParamCaption}
+)}}\label{libxdrf_8c_a03f66c42bf5da5b05abf6c042f9296cf}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{libxdrf_8c_a03f66c42bf5da5b05abf6c042f9296cf_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{libxdrf_8c_a03f66c42bf5da5b05abf6c042f9296cf_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{libxdrf_8c_a8dcc2a0d2ccc1d3d58421fa0c1132fc5}{\index{libxdrf.\-c@{libxdrf.\-c}!xdr\-\_\-xtc\-\_\-seek\-\_\-frame@{xdr\-\_\-xtc\-\_\-seek\-\_\-frame}}
+\index{xdr\-\_\-xtc\-\_\-seek\-\_\-frame@{xdr\-\_\-xtc\-\_\-seek\-\_\-frame}!libxdrf.c@{libxdrf.\-c}}
+\subsubsection[{xdr\-\_\-xtc\-\_\-seek\-\_\-frame}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf xdr\-\_\-xtc\-\_\-seek\-\_\-frame} (
+\begin{DoxyParamCaption}
+\item[{int}]{frame, }
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{{\bf \-X\-D\-R} $\ast$}]{xdrs, }
+\item[{int}]{natoms}
+\end{DoxyParamCaption}
+)}}\label{libxdrf_8c_a8dcc2a0d2ccc1d3d58421fa0c1132fc5}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{libxdrf_8c_a8dcc2a0d2ccc1d3d58421fa0c1132fc5_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=308pt]{libxdrf_8c_a8dcc2a0d2ccc1d3d58421fa0c1132fc5_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{libxdrf_8c_aa00e15c649e99dd3d76f4bcd751ff671}{\index{libxdrf.\-c@{libxdrf.\-c}!xdr\-\_\-xtc\-\_\-seek\-\_\-time@{xdr\-\_\-xtc\-\_\-seek\-\_\-time}}
+\index{xdr\-\_\-xtc\-\_\-seek\-\_\-time@{xdr\-\_\-xtc\-\_\-seek\-\_\-time}!libxdrf.c@{libxdrf.\-c}}
+\subsubsection[{xdr\-\_\-xtc\-\_\-seek\-\_\-time}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf xdr\-\_\-xtc\-\_\-seek\-\_\-time} (
+\begin{DoxyParamCaption}
+\item[{real}]{time, }
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{{\bf \-X\-D\-R} $\ast$}]{xdrs, }
+\item[{int}]{natoms, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Seek\-Forward\-Only}
+\end{DoxyParamCaption}
+)}}\label{libxdrf_8c_aa00e15c649e99dd3d76f4bcd751ff671}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{libxdrf_8c_aa00e15c649e99dd3d76f4bcd751ff671_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{libxdrf_8c_aa00e15c649e99dd3d76f4bcd751ff671_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{libxdrf_8c_a54915dc3030f93cd1bbefd42fc4f47a9}{\index{libxdrf.\-c@{libxdrf.\-c}!xtc\-\_\-at\-\_\-header\-\_\-start@{xtc\-\_\-at\-\_\-header\-\_\-start}}
+\index{xtc\-\_\-at\-\_\-header\-\_\-start@{xtc\-\_\-at\-\_\-header\-\_\-start}!libxdrf.c@{libxdrf.\-c}}
+\subsubsection[{xtc\-\_\-at\-\_\-header\-\_\-start}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf xtc\-\_\-at\-\_\-header\-\_\-start} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{{\bf \-X\-D\-R} $\ast$}]{xdrs, }
+\item[{int}]{natoms, }
+\item[{int $\ast$}]{timestep, }
+\item[{float $\ast$}]{time}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{libxdrf_8c_a54915dc3030f93cd1bbefd42fc4f47a9}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=286pt]{libxdrf_8c_a54915dc3030f93cd1bbefd42fc4f47a9_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{libxdrf_8c_a54915dc3030f93cd1bbefd42fc4f47a9_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{libxdrf_8c_aa32604bf16d1f6a07e767676d83bcba3}{\index{libxdrf.\-c@{libxdrf.\-c}!xtc\-\_\-get\-\_\-current\-\_\-frame\-\_\-number@{xtc\-\_\-get\-\_\-current\-\_\-frame\-\_\-number}}
+\index{xtc\-\_\-get\-\_\-current\-\_\-frame\-\_\-number@{xtc\-\_\-get\-\_\-current\-\_\-frame\-\_\-number}!libxdrf.c@{libxdrf.\-c}}
+\subsubsection[{xtc\-\_\-get\-\_\-current\-\_\-frame\-\_\-number}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf xtc\-\_\-get\-\_\-current\-\_\-frame\-\_\-number} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{{\bf \-X\-D\-R} $\ast$}]{xdrs, }
+\item[{int}]{natoms, }
+\item[{{\bf gmx\-\_\-bool} $\ast$}]{b\-O\-K}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{libxdrf_8c_aa32604bf16d1f6a07e767676d83bcba3}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{libxdrf_8c_aa32604bf16d1f6a07e767676d83bcba3_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{libxdrf_8c_aa32604bf16d1f6a07e767676d83bcba3_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{libxdrf_8c_ac9dd002d627b965b516b903035c8de98}{\index{libxdrf.\-c@{libxdrf.\-c}!xtc\-\_\-get\-\_\-current\-\_\-frame\-\_\-time@{xtc\-\_\-get\-\_\-current\-\_\-frame\-\_\-time}}
+\index{xtc\-\_\-get\-\_\-current\-\_\-frame\-\_\-time@{xtc\-\_\-get\-\_\-current\-\_\-frame\-\_\-time}!libxdrf.c@{libxdrf.\-c}}
+\subsubsection[{xtc\-\_\-get\-\_\-current\-\_\-frame\-\_\-time}]{\setlength{\rightskip}{0pt plus 5cm}static float {\bf xtc\-\_\-get\-\_\-current\-\_\-frame\-\_\-time} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{{\bf \-X\-D\-R} $\ast$}]{xdrs, }
+\item[{int}]{natoms, }
+\item[{{\bf gmx\-\_\-bool} $\ast$}]{b\-O\-K}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{libxdrf_8c_ac9dd002d627b965b516b903035c8de98}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{libxdrf_8c_ac9dd002d627b965b516b903035c8de98_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{libxdrf_8c_ac9dd002d627b965b516b903035c8de98_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{libxdrf_8c_a68b1f12b99625eab1cd122059e2dbfea}{\index{libxdrf.\-c@{libxdrf.\-c}!xtc\-\_\-get\-\_\-next\-\_\-frame\-\_\-number@{xtc\-\_\-get\-\_\-next\-\_\-frame\-\_\-number}}
+\index{xtc\-\_\-get\-\_\-next\-\_\-frame\-\_\-number@{xtc\-\_\-get\-\_\-next\-\_\-frame\-\_\-number}!libxdrf.c@{libxdrf.\-c}}
+\subsubsection[{xtc\-\_\-get\-\_\-next\-\_\-frame\-\_\-number}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf xtc\-\_\-get\-\_\-next\-\_\-frame\-\_\-number} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{{\bf \-X\-D\-R} $\ast$}]{xdrs, }
+\item[{int}]{natoms}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{libxdrf_8c_a68b1f12b99625eab1cd122059e2dbfea}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{libxdrf_8c_a68b1f12b99625eab1cd122059e2dbfea_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{libxdrf_8c_a68b1f12b99625eab1cd122059e2dbfea_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{libxdrf_8c_a48b40bd0379cfc1b2e8981a8f3de1fc5}{\index{libxdrf.\-c@{libxdrf.\-c}!xtc\-\_\-get\-\_\-next\-\_\-frame\-\_\-start@{xtc\-\_\-get\-\_\-next\-\_\-frame\-\_\-start}}
+\index{xtc\-\_\-get\-\_\-next\-\_\-frame\-\_\-start@{xtc\-\_\-get\-\_\-next\-\_\-frame\-\_\-start}!libxdrf.c@{libxdrf.\-c}}
+\subsubsection[{xtc\-\_\-get\-\_\-next\-\_\-frame\-\_\-start}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gmx\-\_\-off\-\_\-t} {\bf xtc\-\_\-get\-\_\-next\-\_\-frame\-\_\-start} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{{\bf \-X\-D\-R} $\ast$}]{xdrs, }
+\item[{int}]{natoms}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{libxdrf_8c_a48b40bd0379cfc1b2e8981a8f3de1fc5}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{libxdrf_8c_a48b40bd0379cfc1b2e8981a8f3de1fc5_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{libxdrf_8c_a48b40bd0379cfc1b2e8981a8f3de1fc5_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{libxdrf_8c_a1269c2159b5f0000978a3afe7136ba11}{\index{libxdrf.\-c@{libxdrf.\-c}!xtc\-\_\-get\-\_\-next\-\_\-frame\-\_\-time@{xtc\-\_\-get\-\_\-next\-\_\-frame\-\_\-time}}
+\index{xtc\-\_\-get\-\_\-next\-\_\-frame\-\_\-time@{xtc\-\_\-get\-\_\-next\-\_\-frame\-\_\-time}!libxdrf.c@{libxdrf.\-c}}
+\subsubsection[{xtc\-\_\-get\-\_\-next\-\_\-frame\-\_\-time}]{\setlength{\rightskip}{0pt plus 5cm}static float {\bf xtc\-\_\-get\-\_\-next\-\_\-frame\-\_\-time} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{{\bf \-X\-D\-R} $\ast$}]{xdrs, }
+\item[{int}]{natoms, }
+\item[{{\bf gmx\-\_\-bool} $\ast$}]{b\-O\-K}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{libxdrf_8c_a1269c2159b5f0000978a3afe7136ba11}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{libxdrf_8c_a1269c2159b5f0000978a3afe7136ba11_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{libxdrf_8c_a1269c2159b5f0000978a3afe7136ba11_icgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{\-Variable \-Documentation}
+\hypertarget{libxdrf_8c_ad7c79748356bd8e3cbd966398a9832e2}{\index{libxdrf.\-c@{libxdrf.\-c}!header\-\_\-size@{header\-\_\-size}}
+\index{header\-\_\-size@{header\-\_\-size}!libxdrf.c@{libxdrf.\-c}}
+\subsubsection[{header\-\_\-size}]{\setlength{\rightskip}{0pt plus 5cm}const int {\bf header\-\_\-size} = 16\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{libxdrf_8c_ad7c79748356bd8e3cbd966398a9832e2}
+\hypertarget{libxdrf_8c_ab4bcf14b71c96de9c688f9adc10516fc}{\index{libxdrf.\-c@{libxdrf.\-c}!magicints@{magicints}}
+\index{magicints@{magicints}!libxdrf.c@{libxdrf.\-c}}
+\subsubsection[{magicints}]{\setlength{\rightskip}{0pt plus 5cm}const int {\bf magicints}\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{libxdrf_8c_ab4bcf14b71c96de9c688f9adc10516fc}
+{\bfseries \-Initial value\-:}
+\begin{DoxyCode}
+ {
+    0, 0, 0, 0, 0, 0, 0, 0, 0,
+    8, 10, 12, 16, 20, 25, 32, 40, 50, 64,
+    80, 101, 128, 161, 203, 256, 322, 406, 512, 645,
+    812, 1024, 1290, 1625, 2048, 2580, 3250, 4096, 5060, 6501,
+    8192, 10321, 13003, 16384, 20642, 26007, 32768, 41285, 52015, 65536,
+    82570, 104031, 131072, 165140, 208063, 262144, 330280, 416127, 524287, 
+      660561,
+    832255, 1048576, 1321122, 1664510, 2097152, 2642245, 3329021, 4194304, 
+      5284491, 6658042,
+    8388607, 10568983, 13316085, 16777216
+}
+\end{DoxyCode}
+\hypertarget{libxdrf_8c_aae75052b1ea76d73264566465f198646}{\index{libxdrf.\-c@{libxdrf.\-c}!xdr\-\_\-datatype\-\_\-names@{xdr\-\_\-datatype\-\_\-names}}
+\index{xdr\-\_\-datatype\-\_\-names@{xdr\-\_\-datatype\-\_\-names}!libxdrf.c@{libxdrf.\-c}}
+\subsubsection[{xdr\-\_\-datatype\-\_\-names}]{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ {\bf xdr\-\_\-datatype\-\_\-names}\mbox{[}$\,$\mbox{]}}}\label{libxdrf_8c_aae75052b1ea76d73264566465f198646}
+{\bfseries \-Initial value\-:}
+\begin{DoxyCode}
+
+{
+    "int",
+    "float",
+    "double",
+    "large int",
+    "char",
+    "string"
+}
+\end{DoxyCode}

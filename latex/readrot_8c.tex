@@ -1,0 +1,221 @@
+\hypertarget{readrot_8c}{\section{src/kernel/readrot.c \-File \-Reference}
+\label{readrot_8c}\index{src/kernel/readrot.\-c@{src/kernel/readrot.\-c}}
+}
+{\ttfamily \#include \char`\"{}vec.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}smalloc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}readir.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}names.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}futil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}trnio.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}txtdump.\-h\char`\"{}}\*
+\-Include dependency graph for readrot.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{readrot_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{readrot_8c_a3e61b8a0988d191d4fe0775d202aebe6}{string2dvec} (char buf\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_ac3f526097e99b43b9962d8676756017d}{dvec} nums)
+\item 
+char $\ast$$\ast$ \hyperlink{readrot_8c_a7e17bb334e942142af1080994b516ace}{read\-\_\-rotparams} (int $\ast$ninp\-\_\-p, \hyperlink{structt__inpfile}{t\-\_\-inpfile} $\ast$$\ast$inp\-\_\-p, \hyperlink{structt__rot}{t\-\_\-rot} $\ast$\hyperlink{hxprops_8c_adb6a00314ae684ae974fcce76dea126f}{rot}, \hyperlink{include_2warninp_8h_a614757abb660467b0be44eeb5d54e5f2}{warninp\-\_\-t} wi)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{readrot_8c_ab88803567729ee603e3103500355affc}{check\-\_\-box\-\_\-unchanged} (\hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} f\-\_\-box, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box, char fn\mbox{[}$\,$\mbox{]}, \hyperlink{include_2warninp_8h_a614757abb660467b0be44eeb5d54e5f2}{warninp\-\_\-t} wi)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{readrot_8c_a6bfac3a2b59971c70e1ae1dfab650554}{set\-\_\-reference\-\_\-positions} (\hyperlink{structt__rot}{t\-\_\-rot} $\ast$\hyperlink{hxprops_8c_adb6a00314ae684ae974fcce76dea126f}{rot}, \hyperlink{structgmx__mtop__t}{gmx\-\_\-mtop\-\_\-t} $\ast$mtop, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box, const char $\ast$fn, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Set, \hyperlink{include_2warninp_8h_a614757abb660467b0be44eeb5d54e5f2}{warninp\-\_\-t} wi)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{readrot_8c_a7a05babce7f11fd9c008149baa6bc925}{make\-\_\-rotation\-\_\-groups} (\hyperlink{structt__rot}{t\-\_\-rot} $\ast$\hyperlink{hxprops_8c_adb6a00314ae684ae974fcce76dea126f}{rot}, char $\ast$$\ast$rotgnames, \hyperlink{structt__blocka}{t\-\_\-blocka} $\ast$grps, char $\ast$$\ast$gnames)
+\end{DoxyCompactItemize}
+\subsection*{\-Variables}
+\begin{DoxyCompactItemize}
+\item 
+static char $\ast$ \hyperlink{readrot_8c_a26eaaee8920ba21905f561f96c5d34d8}{\-Rot\-Str} = \{\char`\"{}\-Enforced rotation\-:\char`\"{}\}
+\item 
+static char \hyperlink{readrot_8c_a1a9faeb7cb0a38fba18c0b0cf5c1ee2b}{s\-\_\-vec} \mbox{[}\hyperlink{share_2template_2gromacs_2types_2simple_8h_a278cf415676752815cfb411cb0b32802}{\-S\-T\-R\-L\-E\-N}\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{readrot_8c_ab88803567729ee603e3103500355affc}{\index{readrot.\-c@{readrot.\-c}!check\-\_\-box\-\_\-unchanged@{check\-\_\-box\-\_\-unchanged}}
+\index{check\-\_\-box\-\_\-unchanged@{check\-\_\-box\-\_\-unchanged}!readrot.c@{readrot.\-c}}
+\subsubsection[{check\-\_\-box\-\_\-unchanged}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf check\-\_\-box\-\_\-unchanged} (
+\begin{DoxyParamCaption}
+\item[{{\bf matrix}}]{f\-\_\-box, }
+\item[{{\bf matrix}}]{box, }
+\item[{char}]{fn\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf warninp\-\_\-t}}]{wi}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{readrot_8c_ab88803567729ee603e3103500355affc}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=286pt]{readrot_8c_ab88803567729ee603e3103500355affc_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{readrot_8c_ab88803567729ee603e3103500355affc_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{readrot_8c_a7a05babce7f11fd9c008149baa6bc925}{\index{readrot.\-c@{readrot.\-c}!make\-\_\-rotation\-\_\-groups@{make\-\_\-rotation\-\_\-groups}}
+\index{make\-\_\-rotation\-\_\-groups@{make\-\_\-rotation\-\_\-groups}!readrot.c@{readrot.\-c}}
+\subsubsection[{make\-\_\-rotation\-\_\-groups}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf make\-\_\-rotation\-\_\-groups} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-rot} $\ast$}]{rot, }
+\item[{char $\ast$$\ast$}]{rotgnames, }
+\item[{{\bf t\-\_\-blocka} $\ast$}]{grps, }
+\item[{char $\ast$$\ast$}]{gnames}
+\end{DoxyParamCaption}
+)}}\label{readrot_8c_a7a05babce7f11fd9c008149baa6bc925}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{readrot_8c_a7a05babce7f11fd9c008149baa6bc925_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{readrot_8c_a7a05babce7f11fd9c008149baa6bc925_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{readrot_8c_a7e17bb334e942142af1080994b516ace}{\index{readrot.\-c@{readrot.\-c}!read\-\_\-rotparams@{read\-\_\-rotparams}}
+\index{read\-\_\-rotparams@{read\-\_\-rotparams}!readrot.c@{readrot.\-c}}
+\subsubsection[{read\-\_\-rotparams}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$$\ast$ {\bf read\-\_\-rotparams} (
+\begin{DoxyParamCaption}
+\item[{int $\ast$}]{ninp\-\_\-p, }
+\item[{{\bf t\-\_\-inpfile} $\ast$$\ast$}]{inp\-\_\-p, }
+\item[{{\bf t\-\_\-rot} $\ast$}]{rot, }
+\item[{{\bf warninp\-\_\-t}}]{wi}
+\end{DoxyParamCaption}
+)}}\label{readrot_8c_a7e17bb334e942142af1080994b516ace}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{readrot_8c_a7e17bb334e942142af1080994b516ace_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=322pt]{readrot_8c_a7e17bb334e942142af1080994b516ace_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{readrot_8c_a6bfac3a2b59971c70e1ae1dfab650554}{\index{readrot.\-c@{readrot.\-c}!set\-\_\-reference\-\_\-positions@{set\-\_\-reference\-\_\-positions}}
+\index{set\-\_\-reference\-\_\-positions@{set\-\_\-reference\-\_\-positions}!readrot.c@{readrot.\-c}}
+\subsubsection[{set\-\_\-reference\-\_\-positions}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf set\-\_\-reference\-\_\-positions} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-rot} $\ast$}]{rot, }
+\item[{{\bf gmx\-\_\-mtop\-\_\-t} $\ast$}]{mtop, }
+\item[{{\bf rvec} $\ast$}]{x, }
+\item[{{\bf matrix}}]{box, }
+\item[{const char $\ast$}]{fn, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Set, }
+\item[{{\bf warninp\-\_\-t}}]{wi}
+\end{DoxyParamCaption}
+)}}\label{readrot_8c_a6bfac3a2b59971c70e1ae1dfab650554}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{readrot_8c_a6bfac3a2b59971c70e1ae1dfab650554_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=280pt]{readrot_8c_a6bfac3a2b59971c70e1ae1dfab650554_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{readrot_8c_a3e61b8a0988d191d4fe0775d202aebe6}{\index{readrot.\-c@{readrot.\-c}!string2dvec@{string2dvec}}
+\index{string2dvec@{string2dvec}!readrot.c@{readrot.\-c}}
+\subsubsection[{string2dvec}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf string2dvec} (
+\begin{DoxyParamCaption}
+\item[{char}]{buf\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf dvec}}]{nums}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{readrot_8c_a3e61b8a0988d191d4fe0775d202aebe6}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=244pt]{readrot_8c_a3e61b8a0988d191d4fe0775d202aebe6_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{readrot_8c_a3e61b8a0988d191d4fe0775d202aebe6_icgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{\-Variable \-Documentation}
+\hypertarget{readrot_8c_a26eaaee8920ba21905f561f96c5d34d8}{\index{readrot.\-c@{readrot.\-c}!\-Rot\-Str@{\-Rot\-Str}}
+\index{\-Rot\-Str@{\-Rot\-Str}!readrot.c@{readrot.\-c}}
+\subsubsection[{\-Rot\-Str}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ {\bf \-Rot\-Str} = \{\char`\"{}\-Enforced rotation\-:\char`\"{}\}\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{readrot_8c_a26eaaee8920ba21905f561f96c5d34d8}
+\hypertarget{readrot_8c_a1a9faeb7cb0a38fba18c0b0cf5c1ee2b}{\index{readrot.\-c@{readrot.\-c}!s\-\_\-vec@{s\-\_\-vec}}
+\index{s\-\_\-vec@{s\-\_\-vec}!readrot.c@{readrot.\-c}}
+\subsubsection[{s\-\_\-vec}]{\setlength{\rightskip}{0pt plus 5cm}char {\bf s\-\_\-vec}\mbox{[}{\bf \-S\-T\-R\-L\-E\-N}\mbox{]}\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{readrot_8c_a1a9faeb7cb0a38fba18c0b0cf5c1ee2b}

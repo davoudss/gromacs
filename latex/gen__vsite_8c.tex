@@ -1,0 +1,1017 @@
+\hypertarget{gen__vsite_8c}{\section{src/kernel/gen\-\_\-vsite.c \-File \-Reference}
+\label{gen__vsite_8c}\index{src/kernel/gen\-\_\-vsite.\-c@{src/kernel/gen\-\_\-vsite.\-c}}
+}
+{\ttfamily \#include \char`\"{}string2.\-h\char`\"{}}\*
+{\ttfamily \#include $<$stdio.\-h$>$}\*
+{\ttfamily \#include $<$math.\-h$>$}\*
+{\ttfamily \#include $<$string.\-h$>$}\*
+{\ttfamily \#include \char`\"{}gen\-\_\-vsite.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}smalloc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}resall.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}add\-\_\-par.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}vec.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}toputil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}physics.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}index.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}names.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}futil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gpp\-\_\-atomtype.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}fflibutil.\-h\char`\"{}}\*
+\-Include dependency graph for gen\-\_\-vsite.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gen__vsite_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structt__vsiteconf}{t\-\_\-vsiteconf}
+\item 
+struct \hyperlink{structt__vsitetop}{t\-\_\-vsitetop}
+\item 
+struct \hyperlink{structt__vsitetop_1_1vsitetop__bond}{t\-\_\-vsitetop\-::vsitetop\-\_\-bond}
+\item 
+struct \hyperlink{structt__vsitetop_1_1vsitetop__angle}{t\-\_\-vsitetop\-::vsitetop\-\_\-angle}
+\end{DoxyCompactItemize}
+\subsection*{\-Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{gen__vsite_8c_ac881f02a50b29d3ffa5b1f4a0e4f9568}{\-M\-A\-X\-N\-A\-M\-E}~32
+\item 
+\#define \hyperlink{gen__vsite_8c_aca34e1a6140af07fc869e9abc6f4b866}{\-O\-P\-E\-N\-D\-I\-R}~'\mbox{[}' /$\ast$ starting \hyperlink{maths_8c_a0e774219bb032f7b38a0b74e153b715d}{sign} for \hyperlink{include_2grompp_8h_a0253a0f97450621088027f8584f850d6}{directive}		$\ast$/
+\item 
+\#define \hyperlink{gen__vsite_8c_a9a9169a76e3c15a051064a774d933fb2}{\-C\-L\-O\-S\-E\-D\-I\-R}~'\mbox{]}' /$\ast$ ending \hyperlink{maths_8c_a0e774219bb032f7b38a0b74e153b715d}{sign} for \hyperlink{include_2grompp_8h_a0253a0f97450621088027f8584f850d6}{directive}		$\ast$/
+\item 
+\#define \hyperlink{gen__vsite_8c_a9f332840becb7fbf9ee20871f9ba96ea}{\-A\-N\-G\-L\-E\-\_\-6\-R\-I\-N\-G}~(\hyperlink{share_2template_2gromacs_2physics_8h_af7e8592d0a634bd3642e9fd508ea8022}{\-D\-E\-G2\-R\-A\-D}$\ast$120)
+\item 
+\#define \hyperlink{gen__vsite_8c_aa9d71125fda409b0b911feb9b50fc22f}{cosrule}(\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afb462a5dea72ae7992f073bfd756fb5f}{b}, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae4f482ada992ba1e6b96026c14729ffe}{c}, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a833e6657fc17a1b66985600fb485dffe}{alpha})~( \hyperlink{share_2template_2gromacs_2vec_8h_a8e519d2fecdee6348124abb877888da6}{sqr}(\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afb462a5dea72ae7992f073bfd756fb5f}{b}) + \hyperlink{share_2template_2gromacs_2vec_8h_a8e519d2fecdee6348124abb877888da6}{sqr}(\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae4f482ada992ba1e6b96026c14729ffe}{c}) -\/ 2$\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afb462a5dea72ae7992f073bfd756fb5f}{b}$\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae4f482ada992ba1e6b96026c14729ffe}{c}$\ast$cos(\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a833e6657fc17a1b66985600fb485dffe}{alpha}) )
+\item 
+\#define \hyperlink{gen__vsite_8c_a78c274d8776d8cfebcfc85ecf2664e42}{acosrule}(\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a0880879736d1ab747a972d1942421886}{a}, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afb462a5dea72ae7992f073bfd756fb5f}{b}, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae4f482ada992ba1e6b96026c14729ffe}{c})~( (\hyperlink{share_2template_2gromacs_2vec_8h_a8e519d2fecdee6348124abb877888da6}{sqr}(\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afb462a5dea72ae7992f073bfd756fb5f}{b})+\hyperlink{share_2template_2gromacs_2vec_8h_a8e519d2fecdee6348124abb877888da6}{sqr}(\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae4f482ada992ba1e6b96026c14729ffe}{c})-\/\hyperlink{share_2template_2gromacs_2vec_8h_a8e519d2fecdee6348124abb877888da6}{sqr}(\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a0880879736d1ab747a972d1942421886}{a}))/(2$\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afb462a5dea72ae7992f073bfd756fb5f}{b}$\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae4f482ada992ba1e6b96026c14729ffe}{c}) )
+\item 
+\#define \hyperlink{gen__vsite_8c_a09f5db4fb6a8a07addbe93c10d44e88b}{\-N\-M\-A\-S\-S}~2
+\item 
+\#define \hyperlink{gen__vsite_8c_ad6ac3e53213ad60c35a04ceb28aa8ec2}{\-M\-A\-X\-A\-T\-O\-M\-S\-P\-E\-R\-R\-E\-S\-I\-D\-U\-E}~16
+\item 
+\#define \hyperlink{gen__vsite_8c_a09f5db4fb6a8a07addbe93c10d44e88b}{\-N\-M\-A\-S\-S}~2
+\end{DoxyCompactItemize}
+\subsection*{\-Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef char \hyperlink{gen__vsite_8c_ad63b2635132b0ace24065bec2655cfdc}{t\-\_\-dirname} \mbox{[}\hyperlink{share_2template_2gromacs_2types_2simple_8h_a278cf415676752815cfb411cb0b32802}{\-S\-T\-R\-L\-E\-N}\mbox{]}
+\end{DoxyCompactItemize}
+\subsection*{\-Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \{ \*
+\hyperlink{gen__vsite_8c_a3ee4e9f70475f3c684c23241163781aba60f456ae4f7c485e9962914ce4c6bd72}{\-D\-D\-B\-\_\-\-C\-H3}, 
+\hyperlink{gen__vsite_8c_a3ee4e9f70475f3c684c23241163781abad4f042a2794c4edab0bbc0a2a7c596fc}{\-D\-D\-B\-\_\-\-N\-H3}, 
+\hyperlink{gen__vsite_8c_a3ee4e9f70475f3c684c23241163781aba1e432581e2dd2e445b298048c24dad65}{\-D\-D\-B\-\_\-\-N\-H2}, 
+\hyperlink{gen__vsite_8c_a3ee4e9f70475f3c684c23241163781abadd3854b70dd87541bf247fc9aa876e76}{\-D\-D\-B\-\_\-\-P\-H\-E}, 
+\*
+\hyperlink{gen__vsite_8c_a3ee4e9f70475f3c684c23241163781aba53ed597122569a66bf9268244eb47da2}{\-D\-D\-B\-\_\-\-T\-Y\-R}, 
+\hyperlink{gen__vsite_8c_a3ee4e9f70475f3c684c23241163781aba7008753ad3d5bdfd68985b40aec8b091}{\-D\-D\-B\-\_\-\-T\-R\-P}, 
+\hyperlink{gen__vsite_8c_a3ee4e9f70475f3c684c23241163781aba49c70d599747c6dde827b658ae8530af}{\-D\-D\-B\-\_\-\-H\-I\-S\-A}, 
+\hyperlink{gen__vsite_8c_a3ee4e9f70475f3c684c23241163781abaf8c2de379991d2493c1d9dc0b8ce0d4d}{\-D\-D\-B\-\_\-\-H\-I\-S\-B}, 
+\*
+\hyperlink{gen__vsite_8c_a3ee4e9f70475f3c684c23241163781aba9f07196c0c510539ab2697cb6404a262}{\-D\-D\-B\-\_\-\-H\-I\-S\-H}, 
+\hyperlink{gen__vsite_8c_a3ee4e9f70475f3c684c23241163781aba2abb955f48b1193d39d6b5118fcbd03f}{\-D\-D\-B\-\_\-\-D\-I\-R\-\_\-\-N\-R}
+ \}
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+static int \hyperlink{gen__vsite_8c_a9dd121733907eb56bd1a8416e955f9f1}{ddb\-\_\-name2dir} (char $\ast$name)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gen__vsite_8c_a403ada748ffc7d2be9a849108708ac67}{read\-\_\-vsite\-\_\-database} (const char $\ast$ddbname, \hyperlink{structt__vsiteconf}{t\-\_\-vsiteconf} $\ast$$\ast$pvsiteconflist, int $\ast$nvsiteconf, \hyperlink{structt__vsitetop}{t\-\_\-vsitetop} $\ast$$\ast$pvsitetoplist, int $\ast$nvsitetop)
+\item 
+static int \hyperlink{gen__vsite_8c_a6d71bd6ee73a377cd410f67f8ea20c7b}{nitrogen\-\_\-is\-\_\-planar} (\hyperlink{structt__vsiteconf}{t\-\_\-vsiteconf} vsiteconflist\mbox{[}$\,$\mbox{]}, int nvsiteconf, char atomtype\mbox{[}$\,$\mbox{]})
+\item 
+static char $\ast$ \hyperlink{gen__vsite_8c_a8e395cc801440fac1a2d02ef81d2860a}{get\-\_\-dummymass\-\_\-name} (\hyperlink{structt__vsiteconf}{t\-\_\-vsiteconf} vsiteconflist\mbox{[}$\,$\mbox{]}, int nvsiteconf, char atom\mbox{[}$\,$\mbox{]}, char nextheavy\mbox{[}$\,$\mbox{]})
+\item 
+static real \hyperlink{gen__vsite_8c_aab9f2c0027d3d73c7d11152d97cab2ab}{get\-\_\-ddb\-\_\-bond} (\hyperlink{structt__vsitetop}{t\-\_\-vsitetop} $\ast$vsitetop, int nvsitetop, const char res\mbox{[}$\,$\mbox{]}, const char atom1\mbox{[}$\,$\mbox{]}, const char atom2\mbox{[}$\,$\mbox{]})
+\item 
+static real \hyperlink{gen__vsite_8c_a7c4b2ab3747af90471c815beedfad0eb}{get\-\_\-ddb\-\_\-angle} (\hyperlink{structt__vsitetop}{t\-\_\-vsitetop} $\ast$vsitetop, int nvsitetop, const char res\mbox{[}$\,$\mbox{]}, const char atom1\mbox{[}$\,$\mbox{]}, const char atom2\mbox{[}$\,$\mbox{]}, const char atom3\mbox{[}$\,$\mbox{]})
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gen__vsite_8c_afb3164c0adf2a5ce4bc665aa4aff9980}{count\-\_\-bonds} (int atom, \hyperlink{structt__params}{t\-\_\-params} $\ast$psb, char $\ast$$\ast$$\ast$atomname, int $\ast$nrbonds, int $\ast$nr\-Hatoms, int \-Hatoms\mbox{[}$\,$\mbox{]}, int $\ast$\-Heavy, int $\ast$nrheavies, int heavies\mbox{[}$\,$\mbox{]})
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gen__vsite_8c_aad4e907d0ab3eb056bbd4a03d10cbf22}{print\-\_\-bonds} (\-F\-I\-L\-E $\ast$fp, int o2n\mbox{[}$\,$\mbox{]}, int nr\-Hatoms, int \-Hatoms\mbox{[}$\,$\mbox{]}, int \-Heavy, int nrheavies, int heavies\mbox{[}$\,$\mbox{]})
+\item 
+static int \hyperlink{gen__vsite_8c_aeea3a863ac8f7e70af859524cb055803}{get\-\_\-atype} (int atom, \hyperlink{structt__atoms}{t\-\_\-atoms} $\ast$at, int nrtp, \hyperlink{structt__restp}{t\-\_\-restp} rtp\mbox{[}$\,$\mbox{]}, \hyperlink{include_2index_8h_af0ab0a62e166db9905eac3aa7e1203f3}{gmx\-\_\-residuetype\-\_\-t} rt)
+\item 
+static int \hyperlink{gen__vsite_8c_a4ac710cc64489930a5805f27f3473858}{vsite\-\_\-nm2type} (const char $\ast$name, \hyperlink{include_2gpp__atomtype_8h_a140a52ba2b384d9a6483fe65c780f110}{gpp\-\_\-atomtype\-\_\-t} atype)
+\item 
+static real \hyperlink{gen__vsite_8c_ab754a66f7415f2c1d2f97f921fb40061}{get\-\_\-amass} (int atom, \hyperlink{structt__atoms}{t\-\_\-atoms} $\ast$at, int nrtp, \hyperlink{structt__restp}{t\-\_\-restp} rtp\mbox{[}$\,$\mbox{]}, \hyperlink{include_2index_8h_af0ab0a62e166db9905eac3aa7e1203f3}{gmx\-\_\-residuetype\-\_\-t} rt)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gen__vsite_8c_ae7892fd5b5db7780bee72d5dd831ab3e}{my\-\_\-add\-\_\-param} (\hyperlink{structt__params}{t\-\_\-params} $\ast$plist, int ai, int aj, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afb462a5dea72ae7992f073bfd756fb5f}{b})
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gen__vsite_8c_a5a4a75c0bac983a297ecfcdfd5457200}{add\-\_\-vsites} (\hyperlink{structt__params}{t\-\_\-params} plist\mbox{[}$\,$\mbox{]}, int vsite\-\_\-type\mbox{[}$\,$\mbox{]}, int \-Heavy, int nr\-Hatoms, int \-Hatoms\mbox{[}$\,$\mbox{]}, int nrheavies, int heavies\mbox{[}$\,$\mbox{]})
+\item 
+static int \hyperlink{gen__vsite_8c_a19e5cbed679857b00504c6d162d9d8ca}{gen\-\_\-vsites\-\_\-6ring} (\hyperlink{structt__atoms}{t\-\_\-atoms} $\ast$at, int $\ast$vsite\-\_\-type\mbox{[}$\,$\mbox{]}, \hyperlink{structt__params}{t\-\_\-params} plist\mbox{[}$\,$\mbox{]}, int nrfound, int $\ast$ats, real bond\-\_\-cc, real bond\-\_\-ch, real xcom, real ycom, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Do\-Z)
+\item 
+static int \hyperlink{gen__vsite_8c_a52d6cf974738e66d503b090b1cd82fb9}{gen\-\_\-vsites\-\_\-phe} (\hyperlink{structt__atoms}{t\-\_\-atoms} $\ast$at, int $\ast$vsite\-\_\-type\mbox{[}$\,$\mbox{]}, \hyperlink{structt__params}{t\-\_\-params} plist\mbox{[}$\,$\mbox{]}, int nrfound, int $\ast$ats, \hyperlink{structt__vsitetop}{t\-\_\-vsitetop} $\ast$vsitetop, int nvsitetop)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gen__vsite_8c_ad380a6b2de39a12c45f14a413f311973}{calc\-\_\-vsite3\-\_\-param} (real xd, real yd, real xi, real yi, real xj, real yj, real xk, real yk, real $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a0880879736d1ab747a972d1942421886}{a}, real $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afb462a5dea72ae7992f073bfd756fb5f}{b})
+\item 
+static int \hyperlink{gen__vsite_8c_a62275c960d180c8e2766f2b3728a28c8}{gen\-\_\-vsites\-\_\-trp} (\hyperlink{include_2gpp__atomtype_8h_a140a52ba2b384d9a6483fe65c780f110}{gpp\-\_\-atomtype\-\_\-t} atype, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$newx\mbox{[}$\,$\mbox{]}, \hyperlink{structt__atom}{t\-\_\-atom} $\ast$newatom\mbox{[}$\,$\mbox{]}, char $\ast$$\ast$$\ast$newatomname\mbox{[}$\,$\mbox{]}, int $\ast$o2n\mbox{[}$\,$\mbox{]}, int $\ast$newvsite\-\_\-type\mbox{[}$\,$\mbox{]}, int $\ast$newcgnr\mbox{[}$\,$\mbox{]}, \hyperlink{structt__symtab}{t\-\_\-symtab} $\ast$symtab, int $\ast$nadd, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, int $\ast$cgnr\mbox{[}$\,$\mbox{]}, \hyperlink{structt__atoms}{t\-\_\-atoms} $\ast$at, int $\ast$vsite\-\_\-type\mbox{[}$\,$\mbox{]}, \hyperlink{structt__params}{t\-\_\-params} plist\mbox{[}$\,$\mbox{]}, int nrfound, int $\ast$ats, int add\-\_\-shift, \hyperlink{structt__vsitetop}{t\-\_\-vsitetop} $\ast$vsitetop, int nvsitetop)
+\item 
+static int \hyperlink{gen__vsite_8c_a2de127bbe94cf38cc020d38109bb09b9}{gen\-\_\-vsites\-\_\-tyr} (\hyperlink{include_2gpp__atomtype_8h_a140a52ba2b384d9a6483fe65c780f110}{gpp\-\_\-atomtype\-\_\-t} atype, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$newx\mbox{[}$\,$\mbox{]}, \hyperlink{structt__atom}{t\-\_\-atom} $\ast$newatom\mbox{[}$\,$\mbox{]}, char $\ast$$\ast$$\ast$newatomname\mbox{[}$\,$\mbox{]}, int $\ast$o2n\mbox{[}$\,$\mbox{]}, int $\ast$newvsite\-\_\-type\mbox{[}$\,$\mbox{]}, int $\ast$newcgnr\mbox{[}$\,$\mbox{]}, \hyperlink{structt__symtab}{t\-\_\-symtab} $\ast$symtab, int $\ast$nadd, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, int $\ast$cgnr\mbox{[}$\,$\mbox{]}, \hyperlink{structt__atoms}{t\-\_\-atoms} $\ast$at, int $\ast$vsite\-\_\-type\mbox{[}$\,$\mbox{]}, \hyperlink{structt__params}{t\-\_\-params} plist\mbox{[}$\,$\mbox{]}, int nrfound, int $\ast$ats, int add\-\_\-shift, \hyperlink{structt__vsitetop}{t\-\_\-vsitetop} $\ast$vsitetop, int nvsitetop)
+\item 
+static int \hyperlink{gen__vsite_8c_a11f056201d0eb02192efb4c78f3ef1e3}{gen\-\_\-vsites\-\_\-his} (\hyperlink{structt__atoms}{t\-\_\-atoms} $\ast$at, int $\ast$vsite\-\_\-type\mbox{[}$\,$\mbox{]}, \hyperlink{structt__params}{t\-\_\-params} plist\mbox{[}$\,$\mbox{]}, int nrfound, int $\ast$ats, \hyperlink{structt__vsitetop}{t\-\_\-vsitetop} $\ast$vsitetop, int nvsitetop)
+\item 
+static \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{gen__vsite_8c_a896913855980cc20a15696ce06f6cc0e}{is\-\_\-vsite} (int vsite\-\_\-type)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gen__vsite_8c_adab7d779c28a401d36446a1bd2b5e70c}{do\-\_\-vsites} (int nrtp, \hyperlink{structt__restp}{t\-\_\-restp} rtp\mbox{[}$\,$\mbox{]}, \hyperlink{include_2gpp__atomtype_8h_a140a52ba2b384d9a6483fe65c780f110}{gpp\-\_\-atomtype\-\_\-t} atype, \hyperlink{structt__atoms}{t\-\_\-atoms} $\ast$at, \hyperlink{structt__symtab}{t\-\_\-symtab} $\ast$symtab, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{structt__params}{t\-\_\-params} plist\mbox{[}$\,$\mbox{]}, int $\ast$vsite\-\_\-type\mbox{[}$\,$\mbox{]}, int $\ast$cgnr\mbox{[}$\,$\mbox{]}, real m\-Hmult, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Vsite\-Aromatics, const char $\ast$ffdir)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gen__vsite_8c_a340e24f0de7e5c099b22e262a78223ce}{do\-\_\-h\-\_\-mass} (\hyperlink{structt__params}{t\-\_\-params} $\ast$psb, int vsite\-\_\-type\mbox{[}$\,$\mbox{]}, \hyperlink{structt__atoms}{t\-\_\-atoms} $\ast$at, real m\-Hmult, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Deuterate)
+\end{DoxyCompactItemize}
+\subsection*{\-Variables}
+\begin{DoxyCompactItemize}
+\item 
+static const \hyperlink{gen__vsite_8c_ad63b2635132b0ace24065bec2655cfdc}{t\-\_\-dirname} \hyperlink{gen__vsite_8c_ab0383a72d86a76d542a29dae7d8dce04}{ddb\-\_\-dirnames} \mbox{[}\hyperlink{gen__vsite_8c_a3ee4e9f70475f3c684c23241163781aba2abb955f48b1193d39d6b5118fcbd03f}{\-D\-D\-B\-\_\-\-D\-I\-R\-\_\-\-N\-R}\mbox{]}
+\item 
+static char \hyperlink{gen__vsite_8c_aa4bed4f144271734078a6c9e528c80e8}{atomnamesuffix} \mbox{[}$\,$\mbox{]} = \char`\"{}1234\char`\"{}
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Define \-Documentation}
+\hypertarget{gen__vsite_8c_a78c274d8776d8cfebcfc85ecf2664e42}{\index{gen\-\_\-vsite.\-c@{gen\-\_\-vsite.\-c}!acosrule@{acosrule}}
+\index{acosrule@{acosrule}!gen_vsite.c@{gen\-\_\-vsite.\-c}}
+\subsubsection[{acosrule}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf acosrule}(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf a}, }
+\item[{}]{{\bf b}, }
+\item[{}]{{\bf c}}
+\end{DoxyParamCaption}
+)~( ({\bf sqr}({\bf b})+{\bf sqr}({\bf c})-\/{\bf sqr}({\bf a}))/(2$\ast${\bf b}$\ast${\bf c}) )}}\label{gen__vsite_8c_a78c274d8776d8cfebcfc85ecf2664e42}
+\hypertarget{gen__vsite_8c_a9f332840becb7fbf9ee20871f9ba96ea}{\index{gen\-\_\-vsite.\-c@{gen\-\_\-vsite.\-c}!\-A\-N\-G\-L\-E\-\_\-6\-R\-I\-N\-G@{\-A\-N\-G\-L\-E\-\_\-6\-R\-I\-N\-G}}
+\index{\-A\-N\-G\-L\-E\-\_\-6\-R\-I\-N\-G@{\-A\-N\-G\-L\-E\-\_\-6\-R\-I\-N\-G}!gen_vsite.c@{gen\-\_\-vsite.\-c}}
+\subsubsection[{\-A\-N\-G\-L\-E\-\_\-6\-R\-I\-N\-G}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-A\-N\-G\-L\-E\-\_\-6\-R\-I\-N\-G}~({\bf \-D\-E\-G2\-R\-A\-D}$\ast$120)}}\label{gen__vsite_8c_a9f332840becb7fbf9ee20871f9ba96ea}
+\hypertarget{gen__vsite_8c_a9a9169a76e3c15a051064a774d933fb2}{\index{gen\-\_\-vsite.\-c@{gen\-\_\-vsite.\-c}!\-C\-L\-O\-S\-E\-D\-I\-R@{\-C\-L\-O\-S\-E\-D\-I\-R}}
+\index{\-C\-L\-O\-S\-E\-D\-I\-R@{\-C\-L\-O\-S\-E\-D\-I\-R}!gen_vsite.c@{gen\-\_\-vsite.\-c}}
+\subsubsection[{\-C\-L\-O\-S\-E\-D\-I\-R}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-C\-L\-O\-S\-E\-D\-I\-R}~'\mbox{]}' /$\ast$ ending {\bf sign} for {\bf directive}		$\ast$/}}\label{gen__vsite_8c_a9a9169a76e3c15a051064a774d933fb2}
+\hypertarget{gen__vsite_8c_aa9d71125fda409b0b911feb9b50fc22f}{\index{gen\-\_\-vsite.\-c@{gen\-\_\-vsite.\-c}!cosrule@{cosrule}}
+\index{cosrule@{cosrule}!gen_vsite.c@{gen\-\_\-vsite.\-c}}
+\subsubsection[{cosrule}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf cosrule}(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf b}, }
+\item[{}]{{\bf c}, }
+\item[{}]{{\bf alpha}}
+\end{DoxyParamCaption}
+)~( {\bf sqr}({\bf b}) + {\bf sqr}({\bf c}) -\/ 2$\ast${\bf b}$\ast${\bf c}$\ast$cos({\bf alpha}) )}}\label{gen__vsite_8c_aa9d71125fda409b0b911feb9b50fc22f}
+\hypertarget{gen__vsite_8c_ad6ac3e53213ad60c35a04ceb28aa8ec2}{\index{gen\-\_\-vsite.\-c@{gen\-\_\-vsite.\-c}!\-M\-A\-X\-A\-T\-O\-M\-S\-P\-E\-R\-R\-E\-S\-I\-D\-U\-E@{\-M\-A\-X\-A\-T\-O\-M\-S\-P\-E\-R\-R\-E\-S\-I\-D\-U\-E}}
+\index{\-M\-A\-X\-A\-T\-O\-M\-S\-P\-E\-R\-R\-E\-S\-I\-D\-U\-E@{\-M\-A\-X\-A\-T\-O\-M\-S\-P\-E\-R\-R\-E\-S\-I\-D\-U\-E}!gen_vsite.c@{gen\-\_\-vsite.\-c}}
+\subsubsection[{\-M\-A\-X\-A\-T\-O\-M\-S\-P\-E\-R\-R\-E\-S\-I\-D\-U\-E}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-M\-A\-X\-A\-T\-O\-M\-S\-P\-E\-R\-R\-E\-S\-I\-D\-U\-E}~16}}\label{gen__vsite_8c_ad6ac3e53213ad60c35a04ceb28aa8ec2}
+\hypertarget{gen__vsite_8c_ac881f02a50b29d3ffa5b1f4a0e4f9568}{\index{gen\-\_\-vsite.\-c@{gen\-\_\-vsite.\-c}!\-M\-A\-X\-N\-A\-M\-E@{\-M\-A\-X\-N\-A\-M\-E}}
+\index{\-M\-A\-X\-N\-A\-M\-E@{\-M\-A\-X\-N\-A\-M\-E}!gen_vsite.c@{gen\-\_\-vsite.\-c}}
+\subsubsection[{\-M\-A\-X\-N\-A\-M\-E}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-M\-A\-X\-N\-A\-M\-E}~32}}\label{gen__vsite_8c_ac881f02a50b29d3ffa5b1f4a0e4f9568}
+\hypertarget{gen__vsite_8c_a09f5db4fb6a8a07addbe93c10d44e88b}{\index{gen\-\_\-vsite.\-c@{gen\-\_\-vsite.\-c}!\-N\-M\-A\-S\-S@{\-N\-M\-A\-S\-S}}
+\index{\-N\-M\-A\-S\-S@{\-N\-M\-A\-S\-S}!gen_vsite.c@{gen\-\_\-vsite.\-c}}
+\subsubsection[{\-N\-M\-A\-S\-S}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-N\-M\-A\-S\-S}~2}}\label{gen__vsite_8c_a09f5db4fb6a8a07addbe93c10d44e88b}
+\hypertarget{gen__vsite_8c_a09f5db4fb6a8a07addbe93c10d44e88b}{\index{gen\-\_\-vsite.\-c@{gen\-\_\-vsite.\-c}!\-N\-M\-A\-S\-S@{\-N\-M\-A\-S\-S}}
+\index{\-N\-M\-A\-S\-S@{\-N\-M\-A\-S\-S}!gen_vsite.c@{gen\-\_\-vsite.\-c}}
+\subsubsection[{\-N\-M\-A\-S\-S}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-N\-M\-A\-S\-S}~2}}\label{gen__vsite_8c_a09f5db4fb6a8a07addbe93c10d44e88b}
+\hypertarget{gen__vsite_8c_aca34e1a6140af07fc869e9abc6f4b866}{\index{gen\-\_\-vsite.\-c@{gen\-\_\-vsite.\-c}!\-O\-P\-E\-N\-D\-I\-R@{\-O\-P\-E\-N\-D\-I\-R}}
+\index{\-O\-P\-E\-N\-D\-I\-R@{\-O\-P\-E\-N\-D\-I\-R}!gen_vsite.c@{gen\-\_\-vsite.\-c}}
+\subsubsection[{\-O\-P\-E\-N\-D\-I\-R}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-O\-P\-E\-N\-D\-I\-R}~'\mbox{[}' /$\ast$ starting {\bf sign} for {\bf directive}		$\ast$/}}\label{gen__vsite_8c_aca34e1a6140af07fc869e9abc6f4b866}
+
+
+\subsection{\-Typedef \-Documentation}
+\hypertarget{gen__vsite_8c_ad63b2635132b0ace24065bec2655cfdc}{\index{gen\-\_\-vsite.\-c@{gen\-\_\-vsite.\-c}!t\-\_\-dirname@{t\-\_\-dirname}}
+\index{t\-\_\-dirname@{t\-\_\-dirname}!gen_vsite.c@{gen\-\_\-vsite.\-c}}
+\subsubsection[{t\-\_\-dirname}]{\setlength{\rightskip}{0pt plus 5cm}typedef char {\bf t\-\_\-dirname}\mbox{[}{\bf \-S\-T\-R\-L\-E\-N}\mbox{]}}}\label{gen__vsite_8c_ad63b2635132b0ace24065bec2655cfdc}
+
+
+\subsection{\-Enumeration \-Type \-Documentation}
+\hypertarget{gen__vsite_8c_a3ee4e9f70475f3c684c23241163781ab}{\subsubsection[{anonymous enum}]{\setlength{\rightskip}{0pt plus 5cm}anonymous enum}}\label{gen__vsite_8c_a3ee4e9f70475f3c684c23241163781ab}
+\begin{Desc}
+\item[\-Enumerator\-: ]\par
+\begin{description}
+\index{\-D\-D\-B\-\_\-\-C\-H3@{\-D\-D\-B\-\_\-\-C\-H3}!gen\-\_\-vsite.\-c@{gen\-\_\-vsite.\-c}}\index{gen\-\_\-vsite.\-c@{gen\-\_\-vsite.\-c}!\-D\-D\-B\-\_\-\-C\-H3@{\-D\-D\-B\-\_\-\-C\-H3}}\item[{\em 
+\hypertarget{gen__vsite_8c_a3ee4e9f70475f3c684c23241163781aba60f456ae4f7c485e9962914ce4c6bd72}{\-D\-D\-B\-\_\-\-C\-H3}\label{gen__vsite_8c_a3ee4e9f70475f3c684c23241163781aba60f456ae4f7c485e9962914ce4c6bd72}
+}]\index{\-D\-D\-B\-\_\-\-N\-H3@{\-D\-D\-B\-\_\-\-N\-H3}!gen\-\_\-vsite.\-c@{gen\-\_\-vsite.\-c}}\index{gen\-\_\-vsite.\-c@{gen\-\_\-vsite.\-c}!\-D\-D\-B\-\_\-\-N\-H3@{\-D\-D\-B\-\_\-\-N\-H3}}\item[{\em 
+\hypertarget{gen__vsite_8c_a3ee4e9f70475f3c684c23241163781abad4f042a2794c4edab0bbc0a2a7c596fc}{\-D\-D\-B\-\_\-\-N\-H3}\label{gen__vsite_8c_a3ee4e9f70475f3c684c23241163781abad4f042a2794c4edab0bbc0a2a7c596fc}
+}]\index{\-D\-D\-B\-\_\-\-N\-H2@{\-D\-D\-B\-\_\-\-N\-H2}!gen\-\_\-vsite.\-c@{gen\-\_\-vsite.\-c}}\index{gen\-\_\-vsite.\-c@{gen\-\_\-vsite.\-c}!\-D\-D\-B\-\_\-\-N\-H2@{\-D\-D\-B\-\_\-\-N\-H2}}\item[{\em 
+\hypertarget{gen__vsite_8c_a3ee4e9f70475f3c684c23241163781aba1e432581e2dd2e445b298048c24dad65}{\-D\-D\-B\-\_\-\-N\-H2}\label{gen__vsite_8c_a3ee4e9f70475f3c684c23241163781aba1e432581e2dd2e445b298048c24dad65}
+}]\index{\-D\-D\-B\-\_\-\-P\-H\-E@{\-D\-D\-B\-\_\-\-P\-H\-E}!gen\-\_\-vsite.\-c@{gen\-\_\-vsite.\-c}}\index{gen\-\_\-vsite.\-c@{gen\-\_\-vsite.\-c}!\-D\-D\-B\-\_\-\-P\-H\-E@{\-D\-D\-B\-\_\-\-P\-H\-E}}\item[{\em 
+\hypertarget{gen__vsite_8c_a3ee4e9f70475f3c684c23241163781abadd3854b70dd87541bf247fc9aa876e76}{\-D\-D\-B\-\_\-\-P\-H\-E}\label{gen__vsite_8c_a3ee4e9f70475f3c684c23241163781abadd3854b70dd87541bf247fc9aa876e76}
+}]\index{\-D\-D\-B\-\_\-\-T\-Y\-R@{\-D\-D\-B\-\_\-\-T\-Y\-R}!gen\-\_\-vsite.\-c@{gen\-\_\-vsite.\-c}}\index{gen\-\_\-vsite.\-c@{gen\-\_\-vsite.\-c}!\-D\-D\-B\-\_\-\-T\-Y\-R@{\-D\-D\-B\-\_\-\-T\-Y\-R}}\item[{\em 
+\hypertarget{gen__vsite_8c_a3ee4e9f70475f3c684c23241163781aba53ed597122569a66bf9268244eb47da2}{\-D\-D\-B\-\_\-\-T\-Y\-R}\label{gen__vsite_8c_a3ee4e9f70475f3c684c23241163781aba53ed597122569a66bf9268244eb47da2}
+}]\index{\-D\-D\-B\-\_\-\-T\-R\-P@{\-D\-D\-B\-\_\-\-T\-R\-P}!gen\-\_\-vsite.\-c@{gen\-\_\-vsite.\-c}}\index{gen\-\_\-vsite.\-c@{gen\-\_\-vsite.\-c}!\-D\-D\-B\-\_\-\-T\-R\-P@{\-D\-D\-B\-\_\-\-T\-R\-P}}\item[{\em 
+\hypertarget{gen__vsite_8c_a3ee4e9f70475f3c684c23241163781aba7008753ad3d5bdfd68985b40aec8b091}{\-D\-D\-B\-\_\-\-T\-R\-P}\label{gen__vsite_8c_a3ee4e9f70475f3c684c23241163781aba7008753ad3d5bdfd68985b40aec8b091}
+}]\index{\-D\-D\-B\-\_\-\-H\-I\-S\-A@{\-D\-D\-B\-\_\-\-H\-I\-S\-A}!gen\-\_\-vsite.\-c@{gen\-\_\-vsite.\-c}}\index{gen\-\_\-vsite.\-c@{gen\-\_\-vsite.\-c}!\-D\-D\-B\-\_\-\-H\-I\-S\-A@{\-D\-D\-B\-\_\-\-H\-I\-S\-A}}\item[{\em 
+\hypertarget{gen__vsite_8c_a3ee4e9f70475f3c684c23241163781aba49c70d599747c6dde827b658ae8530af}{\-D\-D\-B\-\_\-\-H\-I\-S\-A}\label{gen__vsite_8c_a3ee4e9f70475f3c684c23241163781aba49c70d599747c6dde827b658ae8530af}
+}]\index{\-D\-D\-B\-\_\-\-H\-I\-S\-B@{\-D\-D\-B\-\_\-\-H\-I\-S\-B}!gen\-\_\-vsite.\-c@{gen\-\_\-vsite.\-c}}\index{gen\-\_\-vsite.\-c@{gen\-\_\-vsite.\-c}!\-D\-D\-B\-\_\-\-H\-I\-S\-B@{\-D\-D\-B\-\_\-\-H\-I\-S\-B}}\item[{\em 
+\hypertarget{gen__vsite_8c_a3ee4e9f70475f3c684c23241163781abaf8c2de379991d2493c1d9dc0b8ce0d4d}{\-D\-D\-B\-\_\-\-H\-I\-S\-B}\label{gen__vsite_8c_a3ee4e9f70475f3c684c23241163781abaf8c2de379991d2493c1d9dc0b8ce0d4d}
+}]\index{\-D\-D\-B\-\_\-\-H\-I\-S\-H@{\-D\-D\-B\-\_\-\-H\-I\-S\-H}!gen\-\_\-vsite.\-c@{gen\-\_\-vsite.\-c}}\index{gen\-\_\-vsite.\-c@{gen\-\_\-vsite.\-c}!\-D\-D\-B\-\_\-\-H\-I\-S\-H@{\-D\-D\-B\-\_\-\-H\-I\-S\-H}}\item[{\em 
+\hypertarget{gen__vsite_8c_a3ee4e9f70475f3c684c23241163781aba9f07196c0c510539ab2697cb6404a262}{\-D\-D\-B\-\_\-\-H\-I\-S\-H}\label{gen__vsite_8c_a3ee4e9f70475f3c684c23241163781aba9f07196c0c510539ab2697cb6404a262}
+}]\index{\-D\-D\-B\-\_\-\-D\-I\-R\-\_\-\-N\-R@{\-D\-D\-B\-\_\-\-D\-I\-R\-\_\-\-N\-R}!gen\-\_\-vsite.\-c@{gen\-\_\-vsite.\-c}}\index{gen\-\_\-vsite.\-c@{gen\-\_\-vsite.\-c}!\-D\-D\-B\-\_\-\-D\-I\-R\-\_\-\-N\-R@{\-D\-D\-B\-\_\-\-D\-I\-R\-\_\-\-N\-R}}\item[{\em 
+\hypertarget{gen__vsite_8c_a3ee4e9f70475f3c684c23241163781aba2abb955f48b1193d39d6b5118fcbd03f}{\-D\-D\-B\-\_\-\-D\-I\-R\-\_\-\-N\-R}\label{gen__vsite_8c_a3ee4e9f70475f3c684c23241163781aba2abb955f48b1193d39d6b5118fcbd03f}
+}]\end{description}
+\end{Desc}
+
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{gen__vsite_8c_a5a4a75c0bac983a297ecfcdfd5457200}{\index{gen\-\_\-vsite.\-c@{gen\-\_\-vsite.\-c}!add\-\_\-vsites@{add\-\_\-vsites}}
+\index{add\-\_\-vsites@{add\-\_\-vsites}!gen_vsite.c@{gen\-\_\-vsite.\-c}}
+\subsubsection[{add\-\_\-vsites}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf add\-\_\-vsites} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-params}}]{plist\mbox{[}$\,$\mbox{]}, }
+\item[{int}]{vsite\-\_\-type\mbox{[}$\,$\mbox{]}, }
+\item[{int}]{\-Heavy, }
+\item[{int}]{nr\-Hatoms, }
+\item[{int}]{\-Hatoms\mbox{[}$\,$\mbox{]}, }
+\item[{int}]{nrheavies, }
+\item[{int}]{heavies\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gen__vsite_8c_a5a4a75c0bac983a297ecfcdfd5457200}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gen__vsite_8c_a5a4a75c0bac983a297ecfcdfd5457200_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=328pt]{gen__vsite_8c_a5a4a75c0bac983a297ecfcdfd5457200_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gen__vsite_8c_ad380a6b2de39a12c45f14a413f311973}{\index{gen\-\_\-vsite.\-c@{gen\-\_\-vsite.\-c}!calc\-\_\-vsite3\-\_\-param@{calc\-\_\-vsite3\-\_\-param}}
+\index{calc\-\_\-vsite3\-\_\-param@{calc\-\_\-vsite3\-\_\-param}!gen_vsite.c@{gen\-\_\-vsite.\-c}}
+\subsubsection[{calc\-\_\-vsite3\-\_\-param}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf calc\-\_\-vsite3\-\_\-param} (
+\begin{DoxyParamCaption}
+\item[{real}]{xd, }
+\item[{real}]{yd, }
+\item[{real}]{xi, }
+\item[{real}]{yi, }
+\item[{real}]{xj, }
+\item[{real}]{yj, }
+\item[{real}]{xk, }
+\item[{real}]{yk, }
+\item[{real $\ast$}]{a, }
+\item[{real $\ast$}]{b}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gen__vsite_8c_ad380a6b2de39a12c45f14a413f311973}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gen__vsite_8c_ad380a6b2de39a12c45f14a413f311973_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gen__vsite_8c_afb3164c0adf2a5ce4bc665aa4aff9980}{\index{gen\-\_\-vsite.\-c@{gen\-\_\-vsite.\-c}!count\-\_\-bonds@{count\-\_\-bonds}}
+\index{count\-\_\-bonds@{count\-\_\-bonds}!gen_vsite.c@{gen\-\_\-vsite.\-c}}
+\subsubsection[{count\-\_\-bonds}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf count\-\_\-bonds} (
+\begin{DoxyParamCaption}
+\item[{int}]{atom, }
+\item[{{\bf t\-\_\-params} $\ast$}]{psb, }
+\item[{char $\ast$$\ast$$\ast$}]{atomname, }
+\item[{int $\ast$}]{nrbonds, }
+\item[{int $\ast$}]{nr\-Hatoms, }
+\item[{int}]{\-Hatoms\mbox{[}$\,$\mbox{]}, }
+\item[{int $\ast$}]{\-Heavy, }
+\item[{int $\ast$}]{nrheavies, }
+\item[{int}]{heavies\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gen__vsite_8c_afb3164c0adf2a5ce4bc665aa4aff9980}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=258pt]{gen__vsite_8c_afb3164c0adf2a5ce4bc665aa4aff9980_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=336pt]{gen__vsite_8c_afb3164c0adf2a5ce4bc665aa4aff9980_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gen__vsite_8c_a9dd121733907eb56bd1a8416e955f9f1}{\index{gen\-\_\-vsite.\-c@{gen\-\_\-vsite.\-c}!ddb\-\_\-name2dir@{ddb\-\_\-name2dir}}
+\index{ddb\-\_\-name2dir@{ddb\-\_\-name2dir}!gen_vsite.c@{gen\-\_\-vsite.\-c}}
+\subsubsection[{ddb\-\_\-name2dir}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf ddb\-\_\-name2dir} (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{name}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gen__vsite_8c_a9dd121733907eb56bd1a8416e955f9f1}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=286pt]{gen__vsite_8c_a9dd121733907eb56bd1a8416e955f9f1_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gen__vsite_8c_a9dd121733907eb56bd1a8416e955f9f1_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gen__vsite_8c_a340e24f0de7e5c099b22e262a78223ce}{\index{gen\-\_\-vsite.\-c@{gen\-\_\-vsite.\-c}!do\-\_\-h\-\_\-mass@{do\-\_\-h\-\_\-mass}}
+\index{do\-\_\-h\-\_\-mass@{do\-\_\-h\-\_\-mass}!gen_vsite.c@{gen\-\_\-vsite.\-c}}
+\subsubsection[{do\-\_\-h\-\_\-mass}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf do\-\_\-h\-\_\-mass} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-params} $\ast$}]{psb, }
+\item[{int}]{vsite\-\_\-type\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf t\-\_\-atoms} $\ast$}]{at, }
+\item[{real}]{m\-Hmult, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Deuterate}
+\end{DoxyParamCaption}
+)}}\label{gen__vsite_8c_a340e24f0de7e5c099b22e262a78223ce}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=254pt]{gen__vsite_8c_a340e24f0de7e5c099b22e262a78223ce_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=236pt]{gen__vsite_8c_a340e24f0de7e5c099b22e262a78223ce_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gen__vsite_8c_adab7d779c28a401d36446a1bd2b5e70c}{\index{gen\-\_\-vsite.\-c@{gen\-\_\-vsite.\-c}!do\-\_\-vsites@{do\-\_\-vsites}}
+\index{do\-\_\-vsites@{do\-\_\-vsites}!gen_vsite.c@{gen\-\_\-vsite.\-c}}
+\subsubsection[{do\-\_\-vsites}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf do\-\_\-vsites} (
+\begin{DoxyParamCaption}
+\item[{int}]{nrtp, }
+\item[{{\bf t\-\_\-restp}}]{rtp\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf gpp\-\_\-atomtype\-\_\-t}}]{atype, }
+\item[{{\bf t\-\_\-atoms} $\ast$}]{at, }
+\item[{{\bf t\-\_\-symtab} $\ast$}]{symtab, }
+\item[{{\bf rvec} $\ast$}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf t\-\_\-params}}]{plist\mbox{[}$\,$\mbox{]}, }
+\item[{int $\ast$}]{vsite\-\_\-type\mbox{[}$\,$\mbox{]}, }
+\item[{int $\ast$}]{cgnr\mbox{[}$\,$\mbox{]}, }
+\item[{real}]{m\-Hmult, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Vsite\-Aromatics, }
+\item[{const char $\ast$}]{ffdir}
+\end{DoxyParamCaption}
+)}}\label{gen__vsite_8c_adab7d779c28a401d36446a1bd2b5e70c}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{gen__vsite_8c_adab7d779c28a401d36446a1bd2b5e70c_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=228pt]{gen__vsite_8c_adab7d779c28a401d36446a1bd2b5e70c_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gen__vsite_8c_a19e5cbed679857b00504c6d162d9d8ca}{\index{gen\-\_\-vsite.\-c@{gen\-\_\-vsite.\-c}!gen\-\_\-vsites\-\_\-6ring@{gen\-\_\-vsites\-\_\-6ring}}
+\index{gen\-\_\-vsites\-\_\-6ring@{gen\-\_\-vsites\-\_\-6ring}!gen_vsite.c@{gen\-\_\-vsite.\-c}}
+\subsubsection[{gen\-\_\-vsites\-\_\-6ring}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf gen\-\_\-vsites\-\_\-6ring} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-atoms} $\ast$}]{at, }
+\item[{int $\ast$}]{vsite\-\_\-type\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf t\-\_\-params}}]{plist\mbox{[}$\,$\mbox{]}, }
+\item[{int}]{nrfound, }
+\item[{int $\ast$}]{ats, }
+\item[{real}]{bond\-\_\-cc, }
+\item[{real}]{bond\-\_\-ch, }
+\item[{real}]{xcom, }
+\item[{real}]{ycom, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Do\-Z}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gen__vsite_8c_a19e5cbed679857b00504c6d162d9d8ca}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gen__vsite_8c_a19e5cbed679857b00504c6d162d9d8ca_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gen__vsite_8c_a19e5cbed679857b00504c6d162d9d8ca_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gen__vsite_8c_a11f056201d0eb02192efb4c78f3ef1e3}{\index{gen\-\_\-vsite.\-c@{gen\-\_\-vsite.\-c}!gen\-\_\-vsites\-\_\-his@{gen\-\_\-vsites\-\_\-his}}
+\index{gen\-\_\-vsites\-\_\-his@{gen\-\_\-vsites\-\_\-his}!gen_vsite.c@{gen\-\_\-vsite.\-c}}
+\subsubsection[{gen\-\_\-vsites\-\_\-his}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf gen\-\_\-vsites\-\_\-his} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-atoms} $\ast$}]{at, }
+\item[{int $\ast$}]{vsite\-\_\-type\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf t\-\_\-params}}]{plist\mbox{[}$\,$\mbox{]}, }
+\item[{int}]{nrfound, }
+\item[{int $\ast$}]{ats, }
+\item[{{\bf t\-\_\-vsitetop} $\ast$}]{vsitetop, }
+\item[{int}]{nvsitetop}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gen__vsite_8c_a11f056201d0eb02192efb4c78f3ef1e3}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gen__vsite_8c_a11f056201d0eb02192efb4c78f3ef1e3_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=346pt]{gen__vsite_8c_a11f056201d0eb02192efb4c78f3ef1e3_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gen__vsite_8c_a52d6cf974738e66d503b090b1cd82fb9}{\index{gen\-\_\-vsite.\-c@{gen\-\_\-vsite.\-c}!gen\-\_\-vsites\-\_\-phe@{gen\-\_\-vsites\-\_\-phe}}
+\index{gen\-\_\-vsites\-\_\-phe@{gen\-\_\-vsites\-\_\-phe}!gen_vsite.c@{gen\-\_\-vsite.\-c}}
+\subsubsection[{gen\-\_\-vsites\-\_\-phe}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf gen\-\_\-vsites\-\_\-phe} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-atoms} $\ast$}]{at, }
+\item[{int $\ast$}]{vsite\-\_\-type\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf t\-\_\-params}}]{plist\mbox{[}$\,$\mbox{]}, }
+\item[{int}]{nrfound, }
+\item[{int $\ast$}]{ats, }
+\item[{{\bf t\-\_\-vsitetop} $\ast$}]{vsitetop, }
+\item[{int}]{nvsitetop}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gen__vsite_8c_a52d6cf974738e66d503b090b1cd82fb9}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gen__vsite_8c_a52d6cf974738e66d503b090b1cd82fb9_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gen__vsite_8c_a52d6cf974738e66d503b090b1cd82fb9_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gen__vsite_8c_a62275c960d180c8e2766f2b3728a28c8}{\index{gen\-\_\-vsite.\-c@{gen\-\_\-vsite.\-c}!gen\-\_\-vsites\-\_\-trp@{gen\-\_\-vsites\-\_\-trp}}
+\index{gen\-\_\-vsites\-\_\-trp@{gen\-\_\-vsites\-\_\-trp}!gen_vsite.c@{gen\-\_\-vsite.\-c}}
+\subsubsection[{gen\-\_\-vsites\-\_\-trp}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf gen\-\_\-vsites\-\_\-trp} (
+\begin{DoxyParamCaption}
+\item[{{\bf gpp\-\_\-atomtype\-\_\-t}}]{atype, }
+\item[{{\bf rvec} $\ast$}]{newx\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf t\-\_\-atom} $\ast$}]{newatom\mbox{[}$\,$\mbox{]}, }
+\item[{char $\ast$$\ast$$\ast$}]{newatomname\mbox{[}$\,$\mbox{]}, }
+\item[{int $\ast$}]{o2n\mbox{[}$\,$\mbox{]}, }
+\item[{int $\ast$}]{newvsite\-\_\-type\mbox{[}$\,$\mbox{]}, }
+\item[{int $\ast$}]{newcgnr\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf t\-\_\-symtab} $\ast$}]{symtab, }
+\item[{int $\ast$}]{nadd, }
+\item[{{\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{int $\ast$}]{cgnr\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf t\-\_\-atoms} $\ast$}]{at, }
+\item[{int $\ast$}]{vsite\-\_\-type\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf t\-\_\-params}}]{plist\mbox{[}$\,$\mbox{]}, }
+\item[{int}]{nrfound, }
+\item[{int $\ast$}]{ats, }
+\item[{int}]{add\-\_\-shift, }
+\item[{{\bf t\-\_\-vsitetop} $\ast$}]{vsitetop, }
+\item[{int}]{nvsitetop}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gen__vsite_8c_a62275c960d180c8e2766f2b3728a28c8}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gen__vsite_8c_a62275c960d180c8e2766f2b3728a28c8_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=344pt]{gen__vsite_8c_a62275c960d180c8e2766f2b3728a28c8_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gen__vsite_8c_a2de127bbe94cf38cc020d38109bb09b9}{\index{gen\-\_\-vsite.\-c@{gen\-\_\-vsite.\-c}!gen\-\_\-vsites\-\_\-tyr@{gen\-\_\-vsites\-\_\-tyr}}
+\index{gen\-\_\-vsites\-\_\-tyr@{gen\-\_\-vsites\-\_\-tyr}!gen_vsite.c@{gen\-\_\-vsite.\-c}}
+\subsubsection[{gen\-\_\-vsites\-\_\-tyr}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf gen\-\_\-vsites\-\_\-tyr} (
+\begin{DoxyParamCaption}
+\item[{{\bf gpp\-\_\-atomtype\-\_\-t}}]{atype, }
+\item[{{\bf rvec} $\ast$}]{newx\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf t\-\_\-atom} $\ast$}]{newatom\mbox{[}$\,$\mbox{]}, }
+\item[{char $\ast$$\ast$$\ast$}]{newatomname\mbox{[}$\,$\mbox{]}, }
+\item[{int $\ast$}]{o2n\mbox{[}$\,$\mbox{]}, }
+\item[{int $\ast$}]{newvsite\-\_\-type\mbox{[}$\,$\mbox{]}, }
+\item[{int $\ast$}]{newcgnr\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf t\-\_\-symtab} $\ast$}]{symtab, }
+\item[{int $\ast$}]{nadd, }
+\item[{{\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{int $\ast$}]{cgnr\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf t\-\_\-atoms} $\ast$}]{at, }
+\item[{int $\ast$}]{vsite\-\_\-type\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf t\-\_\-params}}]{plist\mbox{[}$\,$\mbox{]}, }
+\item[{int}]{nrfound, }
+\item[{int $\ast$}]{ats, }
+\item[{int}]{add\-\_\-shift, }
+\item[{{\bf t\-\_\-vsitetop} $\ast$}]{vsitetop, }
+\item[{int}]{nvsitetop}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gen__vsite_8c_a2de127bbe94cf38cc020d38109bb09b9}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gen__vsite_8c_a2de127bbe94cf38cc020d38109bb09b9_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=344pt]{gen__vsite_8c_a2de127bbe94cf38cc020d38109bb09b9_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gen__vsite_8c_ab754a66f7415f2c1d2f97f921fb40061}{\index{gen\-\_\-vsite.\-c@{gen\-\_\-vsite.\-c}!get\-\_\-amass@{get\-\_\-amass}}
+\index{get\-\_\-amass@{get\-\_\-amass}!gen_vsite.c@{gen\-\_\-vsite.\-c}}
+\subsubsection[{get\-\_\-amass}]{\setlength{\rightskip}{0pt plus 5cm}static real {\bf get\-\_\-amass} (
+\begin{DoxyParamCaption}
+\item[{int}]{atom, }
+\item[{{\bf t\-\_\-atoms} $\ast$}]{at, }
+\item[{int}]{nrtp, }
+\item[{{\bf t\-\_\-restp}}]{rtp\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf gmx\-\_\-residuetype\-\_\-t}}]{rt}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gen__vsite_8c_ab754a66f7415f2c1d2f97f921fb40061}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gen__vsite_8c_ab754a66f7415f2c1d2f97f921fb40061_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=330pt]{gen__vsite_8c_ab754a66f7415f2c1d2f97f921fb40061_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gen__vsite_8c_aeea3a863ac8f7e70af859524cb055803}{\index{gen\-\_\-vsite.\-c@{gen\-\_\-vsite.\-c}!get\-\_\-atype@{get\-\_\-atype}}
+\index{get\-\_\-atype@{get\-\_\-atype}!gen_vsite.c@{gen\-\_\-vsite.\-c}}
+\subsubsection[{get\-\_\-atype}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf get\-\_\-atype} (
+\begin{DoxyParamCaption}
+\item[{int}]{atom, }
+\item[{{\bf t\-\_\-atoms} $\ast$}]{at, }
+\item[{int}]{nrtp, }
+\item[{{\bf t\-\_\-restp}}]{rtp\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf gmx\-\_\-residuetype\-\_\-t}}]{rt}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gen__vsite_8c_aeea3a863ac8f7e70af859524cb055803}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gen__vsite_8c_aeea3a863ac8f7e70af859524cb055803_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=324pt]{gen__vsite_8c_aeea3a863ac8f7e70af859524cb055803_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gen__vsite_8c_a7c4b2ab3747af90471c815beedfad0eb}{\index{gen\-\_\-vsite.\-c@{gen\-\_\-vsite.\-c}!get\-\_\-ddb\-\_\-angle@{get\-\_\-ddb\-\_\-angle}}
+\index{get\-\_\-ddb\-\_\-angle@{get\-\_\-ddb\-\_\-angle}!gen_vsite.c@{gen\-\_\-vsite.\-c}}
+\subsubsection[{get\-\_\-ddb\-\_\-angle}]{\setlength{\rightskip}{0pt plus 5cm}static real {\bf get\-\_\-ddb\-\_\-angle} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-vsitetop} $\ast$}]{vsitetop, }
+\item[{int}]{nvsitetop, }
+\item[{const char}]{res\mbox{[}$\,$\mbox{]}, }
+\item[{const char}]{atom1\mbox{[}$\,$\mbox{]}, }
+\item[{const char}]{atom2\mbox{[}$\,$\mbox{]}, }
+\item[{const char}]{atom3\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gen__vsite_8c_a7c4b2ab3747af90471c815beedfad0eb}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gen__vsite_8c_a7c4b2ab3747af90471c815beedfad0eb_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gen__vsite_8c_a7c4b2ab3747af90471c815beedfad0eb_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gen__vsite_8c_aab9f2c0027d3d73c7d11152d97cab2ab}{\index{gen\-\_\-vsite.\-c@{gen\-\_\-vsite.\-c}!get\-\_\-ddb\-\_\-bond@{get\-\_\-ddb\-\_\-bond}}
+\index{get\-\_\-ddb\-\_\-bond@{get\-\_\-ddb\-\_\-bond}!gen_vsite.c@{gen\-\_\-vsite.\-c}}
+\subsubsection[{get\-\_\-ddb\-\_\-bond}]{\setlength{\rightskip}{0pt plus 5cm}static real {\bf get\-\_\-ddb\-\_\-bond} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-vsitetop} $\ast$}]{vsitetop, }
+\item[{int}]{nvsitetop, }
+\item[{const char}]{res\mbox{[}$\,$\mbox{]}, }
+\item[{const char}]{atom1\mbox{[}$\,$\mbox{]}, }
+\item[{const char}]{atom2\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gen__vsite_8c_aab9f2c0027d3d73c7d11152d97cab2ab}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=286pt]{gen__vsite_8c_aab9f2c0027d3d73c7d11152d97cab2ab_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gen__vsite_8c_aab9f2c0027d3d73c7d11152d97cab2ab_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gen__vsite_8c_a8e395cc801440fac1a2d02ef81d2860a}{\index{gen\-\_\-vsite.\-c@{gen\-\_\-vsite.\-c}!get\-\_\-dummymass\-\_\-name@{get\-\_\-dummymass\-\_\-name}}
+\index{get\-\_\-dummymass\-\_\-name@{get\-\_\-dummymass\-\_\-name}!gen_vsite.c@{gen\-\_\-vsite.\-c}}
+\subsubsection[{get\-\_\-dummymass\-\_\-name}]{\setlength{\rightskip}{0pt plus 5cm}static char$\ast$ {\bf get\-\_\-dummymass\-\_\-name} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-vsiteconf}}]{vsiteconflist\mbox{[}$\,$\mbox{]}, }
+\item[{int}]{nvsiteconf, }
+\item[{char}]{atom\mbox{[}$\,$\mbox{]}, }
+\item[{char}]{nextheavy\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gen__vsite_8c_a8e395cc801440fac1a2d02ef81d2860a}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=330pt]{gen__vsite_8c_a8e395cc801440fac1a2d02ef81d2860a_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gen__vsite_8c_a8e395cc801440fac1a2d02ef81d2860a_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gen__vsite_8c_a896913855980cc20a15696ce06f6cc0e}{\index{gen\-\_\-vsite.\-c@{gen\-\_\-vsite.\-c}!is\-\_\-vsite@{is\-\_\-vsite}}
+\index{is\-\_\-vsite@{is\-\_\-vsite}!gen_vsite.c@{gen\-\_\-vsite.\-c}}
+\subsubsection[{is\-\_\-vsite}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gmx\-\_\-bool} {\bf is\-\_\-vsite} (
+\begin{DoxyParamCaption}
+\item[{int}]{vsite\-\_\-type}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gen__vsite_8c_a896913855980cc20a15696ce06f6cc0e}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=322pt]{gen__vsite_8c_a896913855980cc20a15696ce06f6cc0e_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gen__vsite_8c_ae7892fd5b5db7780bee72d5dd831ab3e}{\index{gen\-\_\-vsite.\-c@{gen\-\_\-vsite.\-c}!my\-\_\-add\-\_\-param@{my\-\_\-add\-\_\-param}}
+\index{my\-\_\-add\-\_\-param@{my\-\_\-add\-\_\-param}!gen_vsite.c@{gen\-\_\-vsite.\-c}}
+\subsubsection[{my\-\_\-add\-\_\-param}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf my\-\_\-add\-\_\-param} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-params} $\ast$}]{plist, }
+\item[{int}]{ai, }
+\item[{int}]{aj, }
+\item[{real}]{b}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gen__vsite_8c_ae7892fd5b5db7780bee72d5dd831ab3e}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gen__vsite_8c_ae7892fd5b5db7780bee72d5dd831ab3e_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gen__vsite_8c_ae7892fd5b5db7780bee72d5dd831ab3e_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gen__vsite_8c_a6d71bd6ee73a377cd410f67f8ea20c7b}{\index{gen\-\_\-vsite.\-c@{gen\-\_\-vsite.\-c}!nitrogen\-\_\-is\-\_\-planar@{nitrogen\-\_\-is\-\_\-planar}}
+\index{nitrogen\-\_\-is\-\_\-planar@{nitrogen\-\_\-is\-\_\-planar}!gen_vsite.c@{gen\-\_\-vsite.\-c}}
+\subsubsection[{nitrogen\-\_\-is\-\_\-planar}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf nitrogen\-\_\-is\-\_\-planar} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-vsiteconf}}]{vsiteconflist\mbox{[}$\,$\mbox{]}, }
+\item[{int}]{nvsiteconf, }
+\item[{char}]{atomtype\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gen__vsite_8c_a6d71bd6ee73a377cd410f67f8ea20c7b}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=304pt]{gen__vsite_8c_a6d71bd6ee73a377cd410f67f8ea20c7b_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gen__vsite_8c_a6d71bd6ee73a377cd410f67f8ea20c7b_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gen__vsite_8c_aad4e907d0ab3eb056bbd4a03d10cbf22}{\index{gen\-\_\-vsite.\-c@{gen\-\_\-vsite.\-c}!print\-\_\-bonds@{print\-\_\-bonds}}
+\index{print\-\_\-bonds@{print\-\_\-bonds}!gen_vsite.c@{gen\-\_\-vsite.\-c}}
+\subsubsection[{print\-\_\-bonds}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf print\-\_\-bonds} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{int}]{o2n\mbox{[}$\,$\mbox{]}, }
+\item[{int}]{nr\-Hatoms, }
+\item[{int}]{\-Hatoms\mbox{[}$\,$\mbox{]}, }
+\item[{int}]{\-Heavy, }
+\item[{int}]{nrheavies, }
+\item[{int}]{heavies\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gen__vsite_8c_aad4e907d0ab3eb056bbd4a03d10cbf22}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=332pt]{gen__vsite_8c_aad4e907d0ab3eb056bbd4a03d10cbf22_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gen__vsite_8c_a403ada748ffc7d2be9a849108708ac67}{\index{gen\-\_\-vsite.\-c@{gen\-\_\-vsite.\-c}!read\-\_\-vsite\-\_\-database@{read\-\_\-vsite\-\_\-database}}
+\index{read\-\_\-vsite\-\_\-database@{read\-\_\-vsite\-\_\-database}!gen_vsite.c@{gen\-\_\-vsite.\-c}}
+\subsubsection[{read\-\_\-vsite\-\_\-database}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf read\-\_\-vsite\-\_\-database} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{ddbname, }
+\item[{{\bf t\-\_\-vsiteconf} $\ast$$\ast$}]{pvsiteconflist, }
+\item[{int $\ast$}]{nvsiteconf, }
+\item[{{\bf t\-\_\-vsitetop} $\ast$$\ast$}]{pvsitetoplist, }
+\item[{int $\ast$}]{nvsitetop}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gen__vsite_8c_a403ada748ffc7d2be9a849108708ac67}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gen__vsite_8c_a403ada748ffc7d2be9a849108708ac67_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gen__vsite_8c_a403ada748ffc7d2be9a849108708ac67_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gen__vsite_8c_a4ac710cc64489930a5805f27f3473858}{\index{gen\-\_\-vsite.\-c@{gen\-\_\-vsite.\-c}!vsite\-\_\-nm2type@{vsite\-\_\-nm2type}}
+\index{vsite\-\_\-nm2type@{vsite\-\_\-nm2type}!gen_vsite.c@{gen\-\_\-vsite.\-c}}
+\subsubsection[{vsite\-\_\-nm2type}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf vsite\-\_\-nm2type} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{name, }
+\item[{{\bf gpp\-\_\-atomtype\-\_\-t}}]{atype}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gen__vsite_8c_a4ac710cc64489930a5805f27f3473858}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=296pt]{gen__vsite_8c_a4ac710cc64489930a5805f27f3473858_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gen__vsite_8c_a4ac710cc64489930a5805f27f3473858_icgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{\-Variable \-Documentation}
+\hypertarget{gen__vsite_8c_aa4bed4f144271734078a6c9e528c80e8}{\index{gen\-\_\-vsite.\-c@{gen\-\_\-vsite.\-c}!atomnamesuffix@{atomnamesuffix}}
+\index{atomnamesuffix@{atomnamesuffix}!gen_vsite.c@{gen\-\_\-vsite.\-c}}
+\subsubsection[{atomnamesuffix}]{\setlength{\rightskip}{0pt plus 5cm}char {\bf atomnamesuffix}\mbox{[}$\,$\mbox{]} = \char`\"{}1234\char`\"{}\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gen__vsite_8c_aa4bed4f144271734078a6c9e528c80e8}
+\hypertarget{gen__vsite_8c_ab0383a72d86a76d542a29dae7d8dce04}{\index{gen\-\_\-vsite.\-c@{gen\-\_\-vsite.\-c}!ddb\-\_\-dirnames@{ddb\-\_\-dirnames}}
+\index{ddb\-\_\-dirnames@{ddb\-\_\-dirnames}!gen_vsite.c@{gen\-\_\-vsite.\-c}}
+\subsubsection[{ddb\-\_\-dirnames}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf t\-\_\-dirname} {\bf ddb\-\_\-dirnames}\mbox{[}{\bf \-D\-D\-B\-\_\-\-D\-I\-R\-\_\-\-N\-R}\mbox{]}\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gen__vsite_8c_ab0383a72d86a76d542a29dae7d8dce04}
+{\bfseries \-Initial value\-:}
+\begin{DoxyCode}
+ {
+    "CH3",
+    "NH3",
+    "NH2",
+    "PHE",
+    "TYR",
+    "TRP",
+    "HISA",
+    "HISB",
+    "HISH"
+}
+\end{DoxyCode}

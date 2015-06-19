@@ -1,0 +1,656 @@
+\hypertarget{nmol_8c}{\section{src/ngmx/nmol.c \-File \-Reference}
+\label{nmol_8c}\index{src/ngmx/nmol.\-c@{src/ngmx/nmol.\-c}}
+}
+{\ttfamily \#include $<$math.\-h$>$}\*
+{\ttfamily \#include \char`\"{}sysstuff.\-h\char`\"{}}\*
+{\ttfamily \#include $<$string.\-h$>$}\*
+{\ttfamily \#include \char`\"{}smalloc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}macros.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}xutil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}3dview.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-fatal.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}buttons.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}manager.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}nmol.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}vec.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}txtdump.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}pbc.\-h\char`\"{}}\*
+\-Include dependency graph for nmol.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nmol_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{nmol_8c_a849adc9d20371988bb26f86618fa75ba}{\-M\-S\-I\-Z\-E}~4
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{nmol_8c_afb7c6434bbe9152bb6fb18a4ef5ca174}{\-M\-W\-Call\-Back} (\hyperlink{structt__x11}{t\-\_\-x11} $\ast$x11, \-X\-Event $\ast$event, \-Window \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_adf78cb898ff892dd3fa9c4a1da899392}{w}, \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$data)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{nmol_8c_ac165067aa808751e50cc766e5be58ebf}{set\-\_\-def} (\hyperlink{structt__molwin}{t\-\_\-molwin} $\ast$mw, int e\-P\-B\-C, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box)
+\item 
+\hyperlink{structt__molwin}{t\-\_\-molwin} $\ast$ \hyperlink{nmol_8c_adcfb192571bd995171cc252b113f6be5}{init\-\_\-mw} (\hyperlink{structt__x11}{t\-\_\-x11} $\ast$x11, \-Window \-Parent, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ad992d70ec70c927046cfc2ab1c79b188}{y}, int width, int height, unsigned long fg, unsigned long bg, int e\-P\-B\-C, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{nmol_8c_a3d2fe73fadcf8b99ae823bdf9940f352}{map\-\_\-mw} (\hyperlink{structt__x11}{t\-\_\-x11} $\ast$x11, \hyperlink{structt__molwin}{t\-\_\-molwin} $\ast$mw)
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{nmol_8c_a048159762b2d1b59ddbfc620e0de2c08}{toggle\-\_\-hydrogen} (\hyperlink{structt__x11}{t\-\_\-x11} $\ast$x11, \hyperlink{structt__molwin}{t\-\_\-molwin} $\ast$mw)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{nmol_8c_a3e3f664c6621edbefd12e34267adcbff}{set\-\_\-bond\-\_\-type} (\hyperlink{structt__x11}{t\-\_\-x11} $\ast$x11, \hyperlink{structt__molwin}{t\-\_\-molwin} $\ast$mw, int bt)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{nmol_8c_a9119d61c8da5e1520adfd0cf6f824928}{set\-\_\-box\-\_\-type} (\hyperlink{structt__x11}{t\-\_\-x11} $\ast$x11, \hyperlink{structt__molwin}{t\-\_\-molwin} $\ast$mw, int bt)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{nmol_8c_a0005630eebbb538d9bc760f4ff66085e}{done\-\_\-mw} (\hyperlink{structt__x11}{t\-\_\-x11} $\ast$x11, \hyperlink{structt__molwin}{t\-\_\-molwin} $\ast$mw)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{nmol_8c_af794c23511048a1d80909a09c64e8ac9}{draw\-\_\-atom} (\-Display $\ast$disp, \-Window \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_adf78cb898ff892dd3fa9c4a1da899392}{w}, \-G\-C gc, \hyperlink{include_2types_2simple_8h_ad3f47cdb48677e516e2049719612c737}{atom\-\_\-id} ai, \hyperlink{share_2template_2gromacs_23dview_8h_a128b80c454eff54d00483f9702eb4da5}{iv2} vec2\mbox{[}$\,$\mbox{]}, unsigned long col\mbox{[}$\,$\mbox{]}, int size\mbox{[}$\,$\mbox{]}, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Ball, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Plus)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{nmol_8c_a0f00f10219d10fab606b5fee3a65878a}{my\-\_\-init\-\_\-pbc} (\hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box)
+\item 
+static \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{nmol_8c_a058e58e88d0e921f153809bed88bade0}{local\-\_\-pbc\-\_\-dx} (\hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} x1, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} x2)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{nmol_8c_a42777b09afe76e31d1b83ba376a75478}{draw\-\_\-bond} (\-Display $\ast$disp, \-Window \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_adf78cb898ff892dd3fa9c4a1da899392}{w}, \-G\-C gc, \hyperlink{include_2types_2simple_8h_ad3f47cdb48677e516e2049719612c737}{atom\-\_\-id} ai, \hyperlink{include_2types_2simple_8h_ad3f47cdb48677e516e2049719612c737}{atom\-\_\-id} aj, \hyperlink{share_2template_2gromacs_23dview_8h_a128b80c454eff54d00483f9702eb4da5}{iv2} vec2\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, unsigned long col\mbox{[}$\,$\mbox{]}, int size\mbox{[}$\,$\mbox{]}, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Balls)
+\item 
+int \hyperlink{nmol_8c_a2ee739a7d7e401b3961b64c86f38ddff}{compare\-\_\-obj} (const \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a0880879736d1ab747a972d1942421886}{a}, const \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afb462a5dea72ae7992f073bfd756fb5f}{b})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{nmol_8c_a1c801691609d880cee950b529df3d257}{create\-\_\-visibility} (\hyperlink{structt__manager}{t\-\_\-manager} $\ast$man)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{nmol_8c_a2b2acd8b71049eed52b9dc0f5121a7ff}{z\-\_\-fill} (\hyperlink{structt__manager}{t\-\_\-manager} $\ast$man, real $\ast$zz)
+\item 
+int \hyperlink{nmol_8c_a5b9c9dceaf63178b4a401cc158ed257e}{filter\-\_\-vis} (\hyperlink{structt__manager}{t\-\_\-manager} $\ast$man)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{nmol_8c_a084ca86f7f35078a2e274505048038e3}{draw\-\_\-objects} (\-Display $\ast$disp, \-Window \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_adf78cb898ff892dd3fa9c4a1da899392}{w}, \-G\-C gc, int nobj, \hyperlink{structt__object}{t\-\_\-object} objs\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_23dview_8h_a128b80c454eff54d00483f9702eb4da5}{iv2} vec2\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, unsigned long col\mbox{[}$\,$\mbox{]}, int size\mbox{[}$\,$\mbox{]}, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Show\-Hydro, int bond\-\_\-type, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Plus)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{nmol_8c_ac014181c5d3867f76fbe5c24650048ac}{v4\-\_\-to\-\_\-iv2} (\hyperlink{share_2template_2gromacs_23dview_8h_a6a41fa5ed8bfdf8468a9554d6b1f450c}{vec4} x4, \hyperlink{share_2template_2gromacs_23dview_8h_a128b80c454eff54d00483f9702eb4da5}{iv2} \hyperlink{gmx__tcaf_8c_ad3a27fd4cf1320dd23125e881ef0dd97}{v2}, int x0, int y0, real sx, real sy)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{nmol_8c_ac7c27962bb312c0b9d7936f379aca1d7}{draw\-\_\-box} (\hyperlink{structt__x11}{t\-\_\-x11} $\ast$x11, \-Window \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_adf78cb898ff892dd3fa9c4a1da899392}{w}, \hyperlink{structt__3dview}{t\-\_\-3dview} $\ast$view, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box, int x0, int y0, real sx, real sy, int boxtype)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{nmol_8c_ae380a8d4d939feaf312f3fe56aae58df}{set\-\_\-sizes} (\hyperlink{structt__manager}{t\-\_\-manager} $\ast$man, real sx, real sy)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{nmol_8c_aa5e473c13c2c948228adcb52e9f3d0ea}{draw\-\_\-mol} (\hyperlink{structt__x11}{t\-\_\-x11} $\ast$x11, \hyperlink{structt__manager}{t\-\_\-manager} $\ast$man)
+\end{DoxyCompactItemize}
+\subsection*{\-Variables}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{nmol_8c_a0f5596a0fe2e6d7b67c1d59e84fdcb87}{gl\-\_\-fbox}
+\item 
+static \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{nmol_8c_a62fad0c0c88ab74dcc3f536195968320}{gl\-\_\-hbox}
+\item 
+static \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{nmol_8c_a04a64a23e38318373c5c1ff82e06f32b}{gl\-\_\-mhbox}
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Define \-Documentation}
+\hypertarget{nmol_8c_a849adc9d20371988bb26f86618fa75ba}{\index{nmol.\-c@{nmol.\-c}!\-M\-S\-I\-Z\-E@{\-M\-S\-I\-Z\-E}}
+\index{\-M\-S\-I\-Z\-E@{\-M\-S\-I\-Z\-E}!nmol.c@{nmol.\-c}}
+\subsubsection[{\-M\-S\-I\-Z\-E}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-M\-S\-I\-Z\-E}~4}}\label{nmol_8c_a849adc9d20371988bb26f86618fa75ba}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{nmol_8c_a2ee739a7d7e401b3961b64c86f38ddff}{\index{nmol.\-c@{nmol.\-c}!compare\-\_\-obj@{compare\-\_\-obj}}
+\index{compare\-\_\-obj@{compare\-\_\-obj}!nmol.c@{nmol.\-c}}
+\subsubsection[{compare\-\_\-obj}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf compare\-\_\-obj} (
+\begin{DoxyParamCaption}
+\item[{const {\bf void} $\ast$}]{a, }
+\item[{const {\bf void} $\ast$}]{b}
+\end{DoxyParamCaption}
+)}}\label{nmol_8c_a2ee739a7d7e401b3961b64c86f38ddff}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nmol_8c_a2ee739a7d7e401b3961b64c86f38ddff_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{nmol_8c_a1c801691609d880cee950b529df3d257}{\index{nmol.\-c@{nmol.\-c}!create\-\_\-visibility@{create\-\_\-visibility}}
+\index{create\-\_\-visibility@{create\-\_\-visibility}!nmol.c@{nmol.\-c}}
+\subsubsection[{create\-\_\-visibility}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf create\-\_\-visibility} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-manager} $\ast$}]{man}
+\end{DoxyParamCaption}
+)}}\label{nmol_8c_a1c801691609d880cee950b529df3d257}
+\hypertarget{nmol_8c_a0005630eebbb538d9bc760f4ff66085e}{\index{nmol.\-c@{nmol.\-c}!done\-\_\-mw@{done\-\_\-mw}}
+\index{done\-\_\-mw@{done\-\_\-mw}!nmol.c@{nmol.\-c}}
+\subsubsection[{done\-\_\-mw}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf done\-\_\-mw} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-x11} $\ast$}]{x11, }
+\item[{{\bf t\-\_\-molwin} $\ast$}]{mw}
+\end{DoxyParamCaption}
+)}}\label{nmol_8c_a0005630eebbb538d9bc760f4ff66085e}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nmol_8c_a0005630eebbb538d9bc760f4ff66085e_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{nmol_8c_af794c23511048a1d80909a09c64e8ac9}{\index{nmol.\-c@{nmol.\-c}!draw\-\_\-atom@{draw\-\_\-atom}}
+\index{draw\-\_\-atom@{draw\-\_\-atom}!nmol.c@{nmol.\-c}}
+\subsubsection[{draw\-\_\-atom}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf draw\-\_\-atom} (
+\begin{DoxyParamCaption}
+\item[{\-Display $\ast$}]{disp, }
+\item[{\-Window}]{w, }
+\item[{\-G\-C}]{gc, }
+\item[{{\bf atom\-\_\-id}}]{ai, }
+\item[{{\bf iv2}}]{vec2\mbox{[}$\,$\mbox{]}, }
+\item[{unsigned long}]{col\mbox{[}$\,$\mbox{]}, }
+\item[{int}]{size\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Ball, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Plus}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{nmol_8c_af794c23511048a1d80909a09c64e8ac9}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nmol_8c_af794c23511048a1d80909a09c64e8ac9_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{nmol_8c_a42777b09afe76e31d1b83ba376a75478}{\index{nmol.\-c@{nmol.\-c}!draw\-\_\-bond@{draw\-\_\-bond}}
+\index{draw\-\_\-bond@{draw\-\_\-bond}!nmol.c@{nmol.\-c}}
+\subsubsection[{draw\-\_\-bond}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf draw\-\_\-bond} (
+\begin{DoxyParamCaption}
+\item[{\-Display $\ast$}]{disp, }
+\item[{\-Window}]{w, }
+\item[{\-G\-C}]{gc, }
+\item[{{\bf atom\-\_\-id}}]{ai, }
+\item[{{\bf atom\-\_\-id}}]{aj, }
+\item[{{\bf iv2}}]{vec2\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{unsigned long}]{col\mbox{[}$\,$\mbox{]}, }
+\item[{int}]{size\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Balls}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{nmol_8c_a42777b09afe76e31d1b83ba376a75478}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=254pt]{nmol_8c_a42777b09afe76e31d1b83ba376a75478_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nmol_8c_a42777b09afe76e31d1b83ba376a75478_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{nmol_8c_ac7c27962bb312c0b9d7936f379aca1d7}{\index{nmol.\-c@{nmol.\-c}!draw\-\_\-box@{draw\-\_\-box}}
+\index{draw\-\_\-box@{draw\-\_\-box}!nmol.c@{nmol.\-c}}
+\subsubsection[{draw\-\_\-box}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf draw\-\_\-box} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-x11} $\ast$}]{x11, }
+\item[{\-Window}]{w, }
+\item[{{\bf t\-\_\-3dview} $\ast$}]{view, }
+\item[{{\bf matrix}}]{box, }
+\item[{int}]{x0, }
+\item[{int}]{y0, }
+\item[{real}]{sx, }
+\item[{real}]{sy, }
+\item[{int}]{boxtype}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{nmol_8c_ac7c27962bb312c0b9d7936f379aca1d7}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=330pt]{nmol_8c_ac7c27962bb312c0b9d7936f379aca1d7_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nmol_8c_ac7c27962bb312c0b9d7936f379aca1d7_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{nmol_8c_aa5e473c13c2c948228adcb52e9f3d0ea}{\index{nmol.\-c@{nmol.\-c}!draw\-\_\-mol@{draw\-\_\-mol}}
+\index{draw\-\_\-mol@{draw\-\_\-mol}!nmol.c@{nmol.\-c}}
+\subsubsection[{draw\-\_\-mol}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf draw\-\_\-mol} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-x11} $\ast$}]{x11, }
+\item[{{\bf t\-\_\-manager} $\ast$}]{man}
+\end{DoxyParamCaption}
+)}}\label{nmol_8c_aa5e473c13c2c948228adcb52e9f3d0ea}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nmol_8c_aa5e473c13c2c948228adcb52e9f3d0ea_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nmol_8c_aa5e473c13c2c948228adcb52e9f3d0ea_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{nmol_8c_a084ca86f7f35078a2e274505048038e3}{\index{nmol.\-c@{nmol.\-c}!draw\-\_\-objects@{draw\-\_\-objects}}
+\index{draw\-\_\-objects@{draw\-\_\-objects}!nmol.c@{nmol.\-c}}
+\subsubsection[{draw\-\_\-objects}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf draw\-\_\-objects} (
+\begin{DoxyParamCaption}
+\item[{\-Display $\ast$}]{disp, }
+\item[{\-Window}]{w, }
+\item[{\-G\-C}]{gc, }
+\item[{int}]{nobj, }
+\item[{{\bf t\-\_\-object}}]{objs\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf iv2}}]{vec2\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{unsigned long}]{col\mbox{[}$\,$\mbox{]}, }
+\item[{int}]{size\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Show\-Hydro, }
+\item[{int}]{bond\-\_\-type, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Plus}
+\end{DoxyParamCaption}
+)}}\label{nmol_8c_a084ca86f7f35078a2e274505048038e3}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nmol_8c_a084ca86f7f35078a2e274505048038e3_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nmol_8c_a084ca86f7f35078a2e274505048038e3_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{nmol_8c_a5b9c9dceaf63178b4a401cc158ed257e}{\index{nmol.\-c@{nmol.\-c}!filter\-\_\-vis@{filter\-\_\-vis}}
+\index{filter\-\_\-vis@{filter\-\_\-vis}!nmol.c@{nmol.\-c}}
+\subsubsection[{filter\-\_\-vis}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf filter\-\_\-vis} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-manager} $\ast$}]{man}
+\end{DoxyParamCaption}
+)}}\label{nmol_8c_a5b9c9dceaf63178b4a401cc158ed257e}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nmol_8c_a5b9c9dceaf63178b4a401cc158ed257e_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{nmol_8c_adcfb192571bd995171cc252b113f6be5}{\index{nmol.\-c@{nmol.\-c}!init\-\_\-mw@{init\-\_\-mw}}
+\index{init\-\_\-mw@{init\-\_\-mw}!nmol.c@{nmol.\-c}}
+\subsubsection[{init\-\_\-mw}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\-\_\-molwin}$\ast$ {\bf init\-\_\-mw} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-x11} $\ast$}]{x11, }
+\item[{\-Window}]{\-Parent, }
+\item[{int}]{x, }
+\item[{int}]{y, }
+\item[{int}]{width, }
+\item[{int}]{height, }
+\item[{unsigned long}]{fg, }
+\item[{unsigned long}]{bg, }
+\item[{int}]{e\-P\-B\-C, }
+\item[{{\bf matrix}}]{box}
+\end{DoxyParamCaption}
+)}}\label{nmol_8c_adcfb192571bd995171cc252b113f6be5}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=240pt]{nmol_8c_adcfb192571bd995171cc252b113f6be5_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nmol_8c_adcfb192571bd995171cc252b113f6be5_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{nmol_8c_a058e58e88d0e921f153809bed88bade0}{\index{nmol.\-c@{nmol.\-c}!local\-\_\-pbc\-\_\-dx@{local\-\_\-pbc\-\_\-dx}}
+\index{local\-\_\-pbc\-\_\-dx@{local\-\_\-pbc\-\_\-dx}!nmol.c@{nmol.\-c}}
+\subsubsection[{local\-\_\-pbc\-\_\-dx}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gmx\-\_\-bool} {\bf local\-\_\-pbc\-\_\-dx} (
+\begin{DoxyParamCaption}
+\item[{{\bf rvec}}]{x1, }
+\item[{{\bf rvec}}]{x2}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{nmol_8c_a058e58e88d0e921f153809bed88bade0}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nmol_8c_a058e58e88d0e921f153809bed88bade0_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{nmol_8c_a3d2fe73fadcf8b99ae823bdf9940f352}{\index{nmol.\-c@{nmol.\-c}!map\-\_\-mw@{map\-\_\-mw}}
+\index{map\-\_\-mw@{map\-\_\-mw}!nmol.c@{nmol.\-c}}
+\subsubsection[{map\-\_\-mw}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf map\-\_\-mw} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-x11} $\ast$}]{x11, }
+\item[{{\bf t\-\_\-molwin} $\ast$}]{mw}
+\end{DoxyParamCaption}
+)}}\label{nmol_8c_a3d2fe73fadcf8b99ae823bdf9940f352}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nmol_8c_a3d2fe73fadcf8b99ae823bdf9940f352_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{nmol_8c_afb7c6434bbe9152bb6fb18a4ef5ca174}{\index{nmol.\-c@{nmol.\-c}!\-M\-W\-Call\-Back@{\-M\-W\-Call\-Back}}
+\index{\-M\-W\-Call\-Back@{\-M\-W\-Call\-Back}!nmol.c@{nmol.\-c}}
+\subsubsection[{\-M\-W\-Call\-Back}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gmx\-\_\-bool} {\bf \-M\-W\-Call\-Back} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-x11} $\ast$}]{x11, }
+\item[{\-X\-Event $\ast$}]{event, }
+\item[{\-Window}]{w, }
+\item[{{\bf void} $\ast$}]{data}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{nmol_8c_afb7c6434bbe9152bb6fb18a4ef5ca174}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nmol_8c_afb7c6434bbe9152bb6fb18a4ef5ca174_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{nmol_8c_a0f00f10219d10fab606b5fee3a65878a}{\index{nmol.\-c@{nmol.\-c}!my\-\_\-init\-\_\-pbc@{my\-\_\-init\-\_\-pbc}}
+\index{my\-\_\-init\-\_\-pbc@{my\-\_\-init\-\_\-pbc}!nmol.c@{nmol.\-c}}
+\subsubsection[{my\-\_\-init\-\_\-pbc}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf my\-\_\-init\-\_\-pbc} (
+\begin{DoxyParamCaption}
+\item[{{\bf matrix}}]{box}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{nmol_8c_a0f00f10219d10fab606b5fee3a65878a}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nmol_8c_a0f00f10219d10fab606b5fee3a65878a_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{nmol_8c_a3e3f664c6621edbefd12e34267adcbff}{\index{nmol.\-c@{nmol.\-c}!set\-\_\-bond\-\_\-type@{set\-\_\-bond\-\_\-type}}
+\index{set\-\_\-bond\-\_\-type@{set\-\_\-bond\-\_\-type}!nmol.c@{nmol.\-c}}
+\subsubsection[{set\-\_\-bond\-\_\-type}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf set\-\_\-bond\-\_\-type} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-x11} $\ast$}]{x11, }
+\item[{{\bf t\-\_\-molwin} $\ast$}]{mw, }
+\item[{int}]{bt}
+\end{DoxyParamCaption}
+)}}\label{nmol_8c_a3e3f664c6621edbefd12e34267adcbff}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=264pt]{nmol_8c_a3e3f664c6621edbefd12e34267adcbff_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nmol_8c_a3e3f664c6621edbefd12e34267adcbff_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{nmol_8c_a9119d61c8da5e1520adfd0cf6f824928}{\index{nmol.\-c@{nmol.\-c}!set\-\_\-box\-\_\-type@{set\-\_\-box\-\_\-type}}
+\index{set\-\_\-box\-\_\-type@{set\-\_\-box\-\_\-type}!nmol.c@{nmol.\-c}}
+\subsubsection[{set\-\_\-box\-\_\-type}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf set\-\_\-box\-\_\-type} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-x11} $\ast$}]{x11, }
+\item[{{\bf t\-\_\-molwin} $\ast$}]{mw, }
+\item[{int}]{bt}
+\end{DoxyParamCaption}
+)}}\label{nmol_8c_a9119d61c8da5e1520adfd0cf6f824928}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=260pt]{nmol_8c_a9119d61c8da5e1520adfd0cf6f824928_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nmol_8c_a9119d61c8da5e1520adfd0cf6f824928_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{nmol_8c_ac165067aa808751e50cc766e5be58ebf}{\index{nmol.\-c@{nmol.\-c}!set\-\_\-def@{set\-\_\-def}}
+\index{set\-\_\-def@{set\-\_\-def}!nmol.c@{nmol.\-c}}
+\subsubsection[{set\-\_\-def}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf set\-\_\-def} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-molwin} $\ast$}]{mw, }
+\item[{int}]{e\-P\-B\-C, }
+\item[{{\bf matrix}}]{box}
+\end{DoxyParamCaption}
+)}}\label{nmol_8c_ac165067aa808751e50cc766e5be58ebf}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nmol_8c_ac165067aa808751e50cc766e5be58ebf_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{nmol_8c_ae380a8d4d939feaf312f3fe56aae58df}{\index{nmol.\-c@{nmol.\-c}!set\-\_\-sizes@{set\-\_\-sizes}}
+\index{set\-\_\-sizes@{set\-\_\-sizes}!nmol.c@{nmol.\-c}}
+\subsubsection[{set\-\_\-sizes}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf set\-\_\-sizes} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-manager} $\ast$}]{man, }
+\item[{real}]{sx, }
+\item[{real}]{sy}
+\end{DoxyParamCaption}
+)}}\label{nmol_8c_ae380a8d4d939feaf312f3fe56aae58df}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nmol_8c_ae380a8d4d939feaf312f3fe56aae58df_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{nmol_8c_a048159762b2d1b59ddbfc620e0de2c08}{\index{nmol.\-c@{nmol.\-c}!toggle\-\_\-hydrogen@{toggle\-\_\-hydrogen}}
+\index{toggle\-\_\-hydrogen@{toggle\-\_\-hydrogen}!nmol.c@{nmol.\-c}}
+\subsubsection[{toggle\-\_\-hydrogen}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf toggle\-\_\-hydrogen} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-x11} $\ast$}]{x11, }
+\item[{{\bf t\-\_\-molwin} $\ast$}]{mw}
+\end{DoxyParamCaption}
+)}}\label{nmol_8c_a048159762b2d1b59ddbfc620e0de2c08}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=272pt]{nmol_8c_a048159762b2d1b59ddbfc620e0de2c08_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nmol_8c_a048159762b2d1b59ddbfc620e0de2c08_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{nmol_8c_ac014181c5d3867f76fbe5c24650048ac}{\index{nmol.\-c@{nmol.\-c}!v4\-\_\-to\-\_\-iv2@{v4\-\_\-to\-\_\-iv2}}
+\index{v4\-\_\-to\-\_\-iv2@{v4\-\_\-to\-\_\-iv2}!nmol.c@{nmol.\-c}}
+\subsubsection[{v4\-\_\-to\-\_\-iv2}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf v4\-\_\-to\-\_\-iv2} (
+\begin{DoxyParamCaption}
+\item[{{\bf vec4}}]{x4, }
+\item[{{\bf iv2}}]{v2, }
+\item[{int}]{x0, }
+\item[{int}]{y0, }
+\item[{real}]{sx, }
+\item[{real}]{sy}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{nmol_8c_ac014181c5d3867f76fbe5c24650048ac}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nmol_8c_ac014181c5d3867f76fbe5c24650048ac_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{nmol_8c_a2b2acd8b71049eed52b9dc0f5121a7ff}{\index{nmol.\-c@{nmol.\-c}!z\-\_\-fill@{z\-\_\-fill}}
+\index{z\-\_\-fill@{z\-\_\-fill}!nmol.c@{nmol.\-c}}
+\subsubsection[{z\-\_\-fill}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf z\-\_\-fill} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-manager} $\ast$}]{man, }
+\item[{real $\ast$}]{zz}
+\end{DoxyParamCaption}
+)}}\label{nmol_8c_a2b2acd8b71049eed52b9dc0f5121a7ff}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nmol_8c_a2b2acd8b71049eed52b9dc0f5121a7ff_icgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{\-Variable \-Documentation}
+\hypertarget{nmol_8c_a0f5596a0fe2e6d7b67c1d59e84fdcb87}{\index{nmol.\-c@{nmol.\-c}!gl\-\_\-fbox@{gl\-\_\-fbox}}
+\index{gl\-\_\-fbox@{gl\-\_\-fbox}!nmol.c@{nmol.\-c}}
+\subsubsection[{gl\-\_\-fbox}]{\setlength{\rightskip}{0pt plus 5cm}{\bf rvec} {\bf gl\-\_\-fbox}\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{nmol_8c_a0f5596a0fe2e6d7b67c1d59e84fdcb87}
+\hypertarget{nmol_8c_a62fad0c0c88ab74dcc3f536195968320}{\index{nmol.\-c@{nmol.\-c}!gl\-\_\-hbox@{gl\-\_\-hbox}}
+\index{gl\-\_\-hbox@{gl\-\_\-hbox}!nmol.c@{nmol.\-c}}
+\subsubsection[{gl\-\_\-hbox}]{\setlength{\rightskip}{0pt plus 5cm}{\bf rvec} {\bf gl\-\_\-hbox}\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{nmol_8c_a62fad0c0c88ab74dcc3f536195968320}
+\hypertarget{nmol_8c_a04a64a23e38318373c5c1ff82e06f32b}{\index{nmol.\-c@{nmol.\-c}!gl\-\_\-mhbox@{gl\-\_\-mhbox}}
+\index{gl\-\_\-mhbox@{gl\-\_\-mhbox}!nmol.c@{nmol.\-c}}
+\subsubsection[{gl\-\_\-mhbox}]{\setlength{\rightskip}{0pt plus 5cm}{\bf rvec} {\bf gl\-\_\-mhbox}\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{nmol_8c_a04a64a23e38318373c5c1ff82e06f32b}

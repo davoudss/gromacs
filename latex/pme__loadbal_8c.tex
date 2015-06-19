@@ -1,0 +1,468 @@
+\hypertarget{pme__loadbal_8c}{\section{src/kernel/pme\-\_\-loadbal.c \-File \-Reference}
+\label{pme__loadbal_8c}\index{src/kernel/pme\-\_\-loadbal.\-c@{src/kernel/pme\-\_\-loadbal.\-c}}
+}
+{\ttfamily \#include \char`\"{}smalloc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}network.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}calcgrid.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}pme.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}vec.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}domdec.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}nbnxn\-\_\-cuda\-\_\-data\-\_\-mgmt.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}force.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}md\-\_\-logging.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}pme\-\_\-loadbal.\-h\char`\"{}}\*
+\-Include dependency graph for pme\-\_\-loadbal.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{pme__loadbal_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structpme__setup__t}{pme\-\_\-setup\-\_\-t}
+\item 
+struct \hyperlink{structpme__load__balancing}{pme\-\_\-load\-\_\-balancing}
+\end{DoxyCompactItemize}
+\subsection*{\-Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{pme__loadbal_8c_a7aa07d22810dcfe17ad4cabb98976659}{\-P\-M\-E\-\_\-\-L\-B\-\_\-\-G\-R\-I\-D\-\_\-\-S\-C\-A\-L\-E\-\_\-\-F\-A\-C}~0.\-8
+\item 
+\#define \hyperlink{pme__loadbal_8c_a780b8b060c24e7b37eda4f7619a01fe6}{\-P\-M\-E\-\_\-\-L\-B\-\_\-\-G\-R\-I\-D\-\_\-\-E\-F\-F\-I\-C\-I\-E\-N\-C\-Y\-\_\-\-R\-E\-L\-\_\-\-F\-A\-C}~1.\-05
+\item 
+\#define \hyperlink{pme__loadbal_8c_ad8d7a7403580a1fceaa5dbb30ee35428}{\-P\-M\-E\-\_\-\-L\-B\-\_\-\-S\-L\-O\-W\-\_\-\-F\-A\-C}~1.\-12
+\item 
+\#define \hyperlink{pme__loadbal_8c_ac72f784a7901720330fcc98ae243d05c}{\-P\-M\-E\-\_\-\-L\-B\-\_\-\-A\-C\-C\-E\-L\-\_\-\-T\-O\-L}~1.\-02
+\end{DoxyCompactItemize}
+\subsection*{\-Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \{ \hyperlink{pme__loadbal_8c_a53a02fc48226971c712c23863ecf8196a791c0e5a262d640728d3000df906d052}{epmelblim\-N\-O}, 
+\hyperlink{pme__loadbal_8c_a53a02fc48226971c712c23863ecf8196afc03aff0b528c228f356bc283e79fb95}{epmelblim\-B\-O\-X}, 
+\hyperlink{pme__loadbal_8c_a53a02fc48226971c712c23863ecf8196a2cfc148ef81e5f01bd8c0f6489eb676a}{epmelblim\-D\-D}, 
+\hyperlink{pme__loadbal_8c_a53a02fc48226971c712c23863ecf8196a898541c74c26d592452a04fb9c457b90}{epmelblim\-N\-R}
+ \}
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{pme__loadbal_8c_a70119edd776130ac72e474e935106b43}{pme\-\_\-loadbal\-\_\-init} (\hyperlink{pme__loadbal_8h_a83b3bfd7fff13c52a8f5d8c671f74e0b}{pme\-\_\-load\-\_\-balancing\-\_\-t} $\ast$pme\-\_\-lb\-\_\-p, const \hyperlink{structt__inputrec}{t\-\_\-inputrec} $\ast$ir, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box, const \hyperlink{structinteraction__const__t}{interaction\-\_\-const\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2nbnxn__cuda__data__mgmt_8h_a34557b939b10b264adf47e54fc7e7f6c}{ic}, \hyperlink{include_2types_2forcerec_8h_a743d59574a3e2fb4fefedd7e0392a35c}{gmx\-\_\-pme\-\_\-t} pmedata)
+\item 
+static \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{pme__loadbal_8c_ae5a3e0d083d7cc6ef445bb98be11677b}{pme\-\_\-loadbal\-\_\-increase\-\_\-cutoff} (\hyperlink{pme__loadbal_8h_a83b3bfd7fff13c52a8f5d8c671f74e0b}{pme\-\_\-load\-\_\-balancing\-\_\-t} pme\-\_\-lb, int pme\-\_\-order)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{pme__loadbal_8c_a82a6f5dcabb035359a53afc2be204731}{print\-\_\-grid} (\-F\-I\-L\-E $\ast$fp\-\_\-err, \-F\-I\-L\-E $\ast$fp\-\_\-log, const char $\ast$pre, const char $\ast$desc, const \hyperlink{structpme__setup__t}{pme\-\_\-setup\-\_\-t} $\ast$set, double cycles)
+\item 
+static int \hyperlink{pme__loadbal_8c_a4fee55b7f4922bb244aca3b4d024eca0}{pme\-\_\-loadbal\-\_\-end} (\hyperlink{pme__loadbal_8h_a83b3bfd7fff13c52a8f5d8c671f74e0b}{pme\-\_\-load\-\_\-balancing\-\_\-t} pme\-\_\-lb)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{pme__loadbal_8c_a24490e5bff535fb932dd9faabad91709}{print\-\_\-loadbal\-\_\-limited} (\-F\-I\-L\-E $\ast$fp\-\_\-err, \-F\-I\-L\-E $\ast$fp\-\_\-log, gmx\-\_\-large\-\_\-int\-\_\-t step, \hyperlink{pme__loadbal_8h_a83b3bfd7fff13c52a8f5d8c671f74e0b}{pme\-\_\-load\-\_\-balancing\-\_\-t} pme\-\_\-lb)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{pme__loadbal_8c_a5e6eda4dc3d698efa650168f2636a84e}{switch\-\_\-to\-\_\-stage1} (\hyperlink{pme__loadbal_8h_a83b3bfd7fff13c52a8f5d8c671f74e0b}{pme\-\_\-load\-\_\-balancing\-\_\-t} pme\-\_\-lb)
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{pme__loadbal_8c_a15ee8475906d79f318e1629d4b119715}{pme\-\_\-load\-\_\-balance} (\hyperlink{pme__loadbal_8h_a83b3bfd7fff13c52a8f5d8c671f74e0b}{pme\-\_\-load\-\_\-balancing\-\_\-t} pme\-\_\-lb, \hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr, \-F\-I\-L\-E $\ast$fp\-\_\-err, \-F\-I\-L\-E $\ast$fp\-\_\-log, \hyperlink{structt__inputrec}{t\-\_\-inputrec} $\ast$ir, \hyperlink{structt__state}{t\-\_\-state} $\ast$state, double cycles, \hyperlink{structinteraction__const__t}{interaction\-\_\-const\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2nbnxn__cuda__data__mgmt_8h_a34557b939b10b264adf47e54fc7e7f6c}{ic}, \hyperlink{structnonbonded__verlet__t}{nonbonded\-\_\-verlet\-\_\-t} $\ast$nbv, \hyperlink{include_2types_2forcerec_8h_a743d59574a3e2fb4fefedd7e0392a35c}{gmx\-\_\-pme\-\_\-t} $\ast$pmedata, gmx\-\_\-large\-\_\-int\-\_\-t step)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{pme__loadbal_8c_a86cf2e4e2d49ed717570064191573ab3}{restart\-\_\-pme\-\_\-loadbal} (\hyperlink{pme__loadbal_8h_a83b3bfd7fff13c52a8f5d8c671f74e0b}{pme\-\_\-load\-\_\-balancing\-\_\-t} pme\-\_\-lb, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n})
+\item 
+static int \hyperlink{pme__loadbal_8c_aa096c117d68e13e5d18eeff3e39cf156}{pme\-\_\-grid\-\_\-points} (const \hyperlink{structpme__setup__t}{pme\-\_\-setup\-\_\-t} $\ast$setup)
+\item 
+static real \hyperlink{pme__loadbal_8c_a893405008dbb8267231cc930c14997a1}{pme\-\_\-loadbal\-\_\-rlist} (const \hyperlink{structpme__setup__t}{pme\-\_\-setup\-\_\-t} $\ast$setup)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{pme__loadbal_8c_a04de299e38873c5d7c3757a27301ebba}{print\-\_\-pme\-\_\-loadbal\-\_\-setting} (\-F\-I\-L\-E $\ast$fplog, char $\ast$name, const \hyperlink{structpme__setup__t}{pme\-\_\-setup\-\_\-t} $\ast$setup)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{pme__loadbal_8c_aa2343a8aec3b0a4975994120cc5fd26b}{print\-\_\-pme\-\_\-loadbal\-\_\-settings} (\hyperlink{pme__loadbal_8h_a83b3bfd7fff13c52a8f5d8c671f74e0b}{pme\-\_\-load\-\_\-balancing\-\_\-t} pme\-\_\-lb, \hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr, \-F\-I\-L\-E $\ast$fplog, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Non\-Bonded\-On\-G\-P\-U)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{pme__loadbal_8c_a0f389740cc47ad10cde8a6b8a10678d0}{pme\-\_\-loadbal\-\_\-done} (\hyperlink{pme__loadbal_8h_a83b3bfd7fff13c52a8f5d8c671f74e0b}{pme\-\_\-load\-\_\-balancing\-\_\-t} pme\-\_\-lb, \hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr, \-F\-I\-L\-E $\ast$fplog, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Non\-Bonded\-On\-G\-P\-U)
+\end{DoxyCompactItemize}
+\subsection*{\-Variables}
+\begin{DoxyCompactItemize}
+\item 
+const char $\ast$ \hyperlink{pme__loadbal_8c_a1aa04e0fdacf683ca2156a8630f52c21}{pmelblim\-\_\-str} \mbox{[}\hyperlink{pme__loadbal_8c_a53a02fc48226971c712c23863ecf8196a898541c74c26d592452a04fb9c457b90}{epmelblim\-N\-R}\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Define \-Documentation}
+\hypertarget{pme__loadbal_8c_ac72f784a7901720330fcc98ae243d05c}{\index{pme\-\_\-loadbal.\-c@{pme\-\_\-loadbal.\-c}!\-P\-M\-E\-\_\-\-L\-B\-\_\-\-A\-C\-C\-E\-L\-\_\-\-T\-O\-L@{\-P\-M\-E\-\_\-\-L\-B\-\_\-\-A\-C\-C\-E\-L\-\_\-\-T\-O\-L}}
+\index{\-P\-M\-E\-\_\-\-L\-B\-\_\-\-A\-C\-C\-E\-L\-\_\-\-T\-O\-L@{\-P\-M\-E\-\_\-\-L\-B\-\_\-\-A\-C\-C\-E\-L\-\_\-\-T\-O\-L}!pme_loadbal.c@{pme\-\_\-loadbal.\-c}}
+\subsubsection[{\-P\-M\-E\-\_\-\-L\-B\-\_\-\-A\-C\-C\-E\-L\-\_\-\-T\-O\-L}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-P\-M\-E\-\_\-\-L\-B\-\_\-\-A\-C\-C\-E\-L\-\_\-\-T\-O\-L}~1.\-02}}\label{pme__loadbal_8c_ac72f784a7901720330fcc98ae243d05c}
+\hypertarget{pme__loadbal_8c_a780b8b060c24e7b37eda4f7619a01fe6}{\index{pme\-\_\-loadbal.\-c@{pme\-\_\-loadbal.\-c}!\-P\-M\-E\-\_\-\-L\-B\-\_\-\-G\-R\-I\-D\-\_\-\-E\-F\-F\-I\-C\-I\-E\-N\-C\-Y\-\_\-\-R\-E\-L\-\_\-\-F\-A\-C@{\-P\-M\-E\-\_\-\-L\-B\-\_\-\-G\-R\-I\-D\-\_\-\-E\-F\-F\-I\-C\-I\-E\-N\-C\-Y\-\_\-\-R\-E\-L\-\_\-\-F\-A\-C}}
+\index{\-P\-M\-E\-\_\-\-L\-B\-\_\-\-G\-R\-I\-D\-\_\-\-E\-F\-F\-I\-C\-I\-E\-N\-C\-Y\-\_\-\-R\-E\-L\-\_\-\-F\-A\-C@{\-P\-M\-E\-\_\-\-L\-B\-\_\-\-G\-R\-I\-D\-\_\-\-E\-F\-F\-I\-C\-I\-E\-N\-C\-Y\-\_\-\-R\-E\-L\-\_\-\-F\-A\-C}!pme_loadbal.c@{pme\-\_\-loadbal.\-c}}
+\subsubsection[{\-P\-M\-E\-\_\-\-L\-B\-\_\-\-G\-R\-I\-D\-\_\-\-E\-F\-F\-I\-C\-I\-E\-N\-C\-Y\-\_\-\-R\-E\-L\-\_\-\-F\-A\-C}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-P\-M\-E\-\_\-\-L\-B\-\_\-\-G\-R\-I\-D\-\_\-\-E\-F\-F\-I\-C\-I\-E\-N\-C\-Y\-\_\-\-R\-E\-L\-\_\-\-F\-A\-C}~1.\-05}}\label{pme__loadbal_8c_a780b8b060c24e7b37eda4f7619a01fe6}
+\hypertarget{pme__loadbal_8c_a7aa07d22810dcfe17ad4cabb98976659}{\index{pme\-\_\-loadbal.\-c@{pme\-\_\-loadbal.\-c}!\-P\-M\-E\-\_\-\-L\-B\-\_\-\-G\-R\-I\-D\-\_\-\-S\-C\-A\-L\-E\-\_\-\-F\-A\-C@{\-P\-M\-E\-\_\-\-L\-B\-\_\-\-G\-R\-I\-D\-\_\-\-S\-C\-A\-L\-E\-\_\-\-F\-A\-C}}
+\index{\-P\-M\-E\-\_\-\-L\-B\-\_\-\-G\-R\-I\-D\-\_\-\-S\-C\-A\-L\-E\-\_\-\-F\-A\-C@{\-P\-M\-E\-\_\-\-L\-B\-\_\-\-G\-R\-I\-D\-\_\-\-S\-C\-A\-L\-E\-\_\-\-F\-A\-C}!pme_loadbal.c@{pme\-\_\-loadbal.\-c}}
+\subsubsection[{\-P\-M\-E\-\_\-\-L\-B\-\_\-\-G\-R\-I\-D\-\_\-\-S\-C\-A\-L\-E\-\_\-\-F\-A\-C}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-P\-M\-E\-\_\-\-L\-B\-\_\-\-G\-R\-I\-D\-\_\-\-S\-C\-A\-L\-E\-\_\-\-F\-A\-C}~0.\-8}}\label{pme__loadbal_8c_a7aa07d22810dcfe17ad4cabb98976659}
+\hypertarget{pme__loadbal_8c_ad8d7a7403580a1fceaa5dbb30ee35428}{\index{pme\-\_\-loadbal.\-c@{pme\-\_\-loadbal.\-c}!\-P\-M\-E\-\_\-\-L\-B\-\_\-\-S\-L\-O\-W\-\_\-\-F\-A\-C@{\-P\-M\-E\-\_\-\-L\-B\-\_\-\-S\-L\-O\-W\-\_\-\-F\-A\-C}}
+\index{\-P\-M\-E\-\_\-\-L\-B\-\_\-\-S\-L\-O\-W\-\_\-\-F\-A\-C@{\-P\-M\-E\-\_\-\-L\-B\-\_\-\-S\-L\-O\-W\-\_\-\-F\-A\-C}!pme_loadbal.c@{pme\-\_\-loadbal.\-c}}
+\subsubsection[{\-P\-M\-E\-\_\-\-L\-B\-\_\-\-S\-L\-O\-W\-\_\-\-F\-A\-C}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-P\-M\-E\-\_\-\-L\-B\-\_\-\-S\-L\-O\-W\-\_\-\-F\-A\-C}~1.\-12}}\label{pme__loadbal_8c_ad8d7a7403580a1fceaa5dbb30ee35428}
+
+
+\subsection{\-Enumeration \-Type \-Documentation}
+\hypertarget{pme__loadbal_8c_a53a02fc48226971c712c23863ecf8196}{\subsubsection[{anonymous enum}]{\setlength{\rightskip}{0pt plus 5cm}anonymous enum}}\label{pme__loadbal_8c_a53a02fc48226971c712c23863ecf8196}
+\begin{Desc}
+\item[\-Enumerator\-: ]\par
+\begin{description}
+\index{epmelblim\-N\-O@{epmelblim\-N\-O}!pme\-\_\-loadbal.\-c@{pme\-\_\-loadbal.\-c}}\index{pme\-\_\-loadbal.\-c@{pme\-\_\-loadbal.\-c}!epmelblim\-N\-O@{epmelblim\-N\-O}}\item[{\em 
+\hypertarget{pme__loadbal_8c_a53a02fc48226971c712c23863ecf8196a791c0e5a262d640728d3000df906d052}{epmelblim\-N\-O}\label{pme__loadbal_8c_a53a02fc48226971c712c23863ecf8196a791c0e5a262d640728d3000df906d052}
+}]\index{epmelblim\-B\-O\-X@{epmelblim\-B\-O\-X}!pme\-\_\-loadbal.\-c@{pme\-\_\-loadbal.\-c}}\index{pme\-\_\-loadbal.\-c@{pme\-\_\-loadbal.\-c}!epmelblim\-B\-O\-X@{epmelblim\-B\-O\-X}}\item[{\em 
+\hypertarget{pme__loadbal_8c_a53a02fc48226971c712c23863ecf8196afc03aff0b528c228f356bc283e79fb95}{epmelblim\-B\-O\-X}\label{pme__loadbal_8c_a53a02fc48226971c712c23863ecf8196afc03aff0b528c228f356bc283e79fb95}
+}]\index{epmelblim\-D\-D@{epmelblim\-D\-D}!pme\-\_\-loadbal.\-c@{pme\-\_\-loadbal.\-c}}\index{pme\-\_\-loadbal.\-c@{pme\-\_\-loadbal.\-c}!epmelblim\-D\-D@{epmelblim\-D\-D}}\item[{\em 
+\hypertarget{pme__loadbal_8c_a53a02fc48226971c712c23863ecf8196a2cfc148ef81e5f01bd8c0f6489eb676a}{epmelblim\-D\-D}\label{pme__loadbal_8c_a53a02fc48226971c712c23863ecf8196a2cfc148ef81e5f01bd8c0f6489eb676a}
+}]\index{epmelblim\-N\-R@{epmelblim\-N\-R}!pme\-\_\-loadbal.\-c@{pme\-\_\-loadbal.\-c}}\index{pme\-\_\-loadbal.\-c@{pme\-\_\-loadbal.\-c}!epmelblim\-N\-R@{epmelblim\-N\-R}}\item[{\em 
+\hypertarget{pme__loadbal_8c_a53a02fc48226971c712c23863ecf8196a898541c74c26d592452a04fb9c457b90}{epmelblim\-N\-R}\label{pme__loadbal_8c_a53a02fc48226971c712c23863ecf8196a898541c74c26d592452a04fb9c457b90}
+}]\end{description}
+\end{Desc}
+
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{pme__loadbal_8c_aa096c117d68e13e5d18eeff3e39cf156}{\index{pme\-\_\-loadbal.\-c@{pme\-\_\-loadbal.\-c}!pme\-\_\-grid\-\_\-points@{pme\-\_\-grid\-\_\-points}}
+\index{pme\-\_\-grid\-\_\-points@{pme\-\_\-grid\-\_\-points}!pme_loadbal.c@{pme\-\_\-loadbal.\-c}}
+\subsubsection[{pme\-\_\-grid\-\_\-points}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf pme\-\_\-grid\-\_\-points} (
+\begin{DoxyParamCaption}
+\item[{const {\bf pme\-\_\-setup\-\_\-t} $\ast$}]{setup}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{pme__loadbal_8c_aa096c117d68e13e5d18eeff3e39cf156}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{pme__loadbal_8c_aa096c117d68e13e5d18eeff3e39cf156_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{pme__loadbal_8c_a15ee8475906d79f318e1629d4b119715}{\index{pme\-\_\-loadbal.\-c@{pme\-\_\-loadbal.\-c}!pme\-\_\-load\-\_\-balance@{pme\-\_\-load\-\_\-balance}}
+\index{pme\-\_\-load\-\_\-balance@{pme\-\_\-load\-\_\-balance}!pme_loadbal.c@{pme\-\_\-loadbal.\-c}}
+\subsubsection[{pme\-\_\-load\-\_\-balance}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf pme\-\_\-load\-\_\-balance} (
+\begin{DoxyParamCaption}
+\item[{{\bf pme\-\_\-load\-\_\-balancing\-\_\-t}}]{pme\-\_\-lb, }
+\item[{{\bf t\-\_\-commrec} $\ast$}]{cr, }
+\item[{\-F\-I\-L\-E $\ast$}]{fp\-\_\-err, }
+\item[{\-F\-I\-L\-E $\ast$}]{fp\-\_\-log, }
+\item[{{\bf t\-\_\-inputrec} $\ast$}]{ir, }
+\item[{{\bf t\-\_\-state} $\ast$}]{state, }
+\item[{double}]{cycles, }
+\item[{{\bf interaction\-\_\-const\-\_\-t} $\ast$}]{ic, }
+\item[{{\bf nonbonded\-\_\-verlet\-\_\-t} $\ast$}]{nbv, }
+\item[{{\bf gmx\-\_\-pme\-\_\-t} $\ast$}]{pmedata, }
+\item[{gmx\-\_\-large\-\_\-int\-\_\-t}]{step}
+\end{DoxyParamCaption}
+)}}\label{pme__loadbal_8c_a15ee8475906d79f318e1629d4b119715}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{pme__loadbal_8c_a15ee8475906d79f318e1629d4b119715_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=260pt]{pme__loadbal_8c_a15ee8475906d79f318e1629d4b119715_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{pme__loadbal_8c_a0f389740cc47ad10cde8a6b8a10678d0}{\index{pme\-\_\-loadbal.\-c@{pme\-\_\-loadbal.\-c}!pme\-\_\-loadbal\-\_\-done@{pme\-\_\-loadbal\-\_\-done}}
+\index{pme\-\_\-loadbal\-\_\-done@{pme\-\_\-loadbal\-\_\-done}!pme_loadbal.c@{pme\-\_\-loadbal.\-c}}
+\subsubsection[{pme\-\_\-loadbal\-\_\-done}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf pme\-\_\-loadbal\-\_\-done} (
+\begin{DoxyParamCaption}
+\item[{{\bf pme\-\_\-load\-\_\-balancing\-\_\-t}}]{pme\-\_\-lb, }
+\item[{{\bf t\-\_\-commrec} $\ast$}]{cr, }
+\item[{\-F\-I\-L\-E $\ast$}]{fplog, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Non\-Bonded\-On\-G\-P\-U}
+\end{DoxyParamCaption}
+)}}\label{pme__loadbal_8c_a0f389740cc47ad10cde8a6b8a10678d0}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{pme__loadbal_8c_a0f389740cc47ad10cde8a6b8a10678d0_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=260pt]{pme__loadbal_8c_a0f389740cc47ad10cde8a6b8a10678d0_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{pme__loadbal_8c_a4fee55b7f4922bb244aca3b4d024eca0}{\index{pme\-\_\-loadbal.\-c@{pme\-\_\-loadbal.\-c}!pme\-\_\-loadbal\-\_\-end@{pme\-\_\-loadbal\-\_\-end}}
+\index{pme\-\_\-loadbal\-\_\-end@{pme\-\_\-loadbal\-\_\-end}!pme_loadbal.c@{pme\-\_\-loadbal.\-c}}
+\subsubsection[{pme\-\_\-loadbal\-\_\-end}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf pme\-\_\-loadbal\-\_\-end} (
+\begin{DoxyParamCaption}
+\item[{{\bf pme\-\_\-load\-\_\-balancing\-\_\-t}}]{pme\-\_\-lb}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{pme__loadbal_8c_a4fee55b7f4922bb244aca3b4d024eca0}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{pme__loadbal_8c_a4fee55b7f4922bb244aca3b4d024eca0_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{pme__loadbal_8c_ae5a3e0d083d7cc6ef445bb98be11677b}{\index{pme\-\_\-loadbal.\-c@{pme\-\_\-loadbal.\-c}!pme\-\_\-loadbal\-\_\-increase\-\_\-cutoff@{pme\-\_\-loadbal\-\_\-increase\-\_\-cutoff}}
+\index{pme\-\_\-loadbal\-\_\-increase\-\_\-cutoff@{pme\-\_\-loadbal\-\_\-increase\-\_\-cutoff}!pme_loadbal.c@{pme\-\_\-loadbal.\-c}}
+\subsubsection[{pme\-\_\-loadbal\-\_\-increase\-\_\-cutoff}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gmx\-\_\-bool} {\bf pme\-\_\-loadbal\-\_\-increase\-\_\-cutoff} (
+\begin{DoxyParamCaption}
+\item[{{\bf pme\-\_\-load\-\_\-balancing\-\_\-t}}]{pme\-\_\-lb, }
+\item[{int}]{pme\-\_\-order}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{pme__loadbal_8c_ae5a3e0d083d7cc6ef445bb98be11677b}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{pme__loadbal_8c_ae5a3e0d083d7cc6ef445bb98be11677b_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{pme__loadbal_8c_ae5a3e0d083d7cc6ef445bb98be11677b_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{pme__loadbal_8c_a70119edd776130ac72e474e935106b43}{\index{pme\-\_\-loadbal.\-c@{pme\-\_\-loadbal.\-c}!pme\-\_\-loadbal\-\_\-init@{pme\-\_\-loadbal\-\_\-init}}
+\index{pme\-\_\-loadbal\-\_\-init@{pme\-\_\-loadbal\-\_\-init}!pme_loadbal.c@{pme\-\_\-loadbal.\-c}}
+\subsubsection[{pme\-\_\-loadbal\-\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf pme\-\_\-loadbal\-\_\-init} (
+\begin{DoxyParamCaption}
+\item[{{\bf pme\-\_\-load\-\_\-balancing\-\_\-t} $\ast$}]{pme\-\_\-lb\-\_\-p, }
+\item[{const {\bf t\-\_\-inputrec} $\ast$}]{ir, }
+\item[{{\bf matrix}}]{box, }
+\item[{const {\bf interaction\-\_\-const\-\_\-t} $\ast$}]{ic, }
+\item[{{\bf gmx\-\_\-pme\-\_\-t}}]{pmedata}
+\end{DoxyParamCaption}
+)}}\label{pme__loadbal_8c_a70119edd776130ac72e474e935106b43}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{pme__loadbal_8c_a70119edd776130ac72e474e935106b43_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=252pt]{pme__loadbal_8c_a70119edd776130ac72e474e935106b43_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{pme__loadbal_8c_a893405008dbb8267231cc930c14997a1}{\index{pme\-\_\-loadbal.\-c@{pme\-\_\-loadbal.\-c}!pme\-\_\-loadbal\-\_\-rlist@{pme\-\_\-loadbal\-\_\-rlist}}
+\index{pme\-\_\-loadbal\-\_\-rlist@{pme\-\_\-loadbal\-\_\-rlist}!pme_loadbal.c@{pme\-\_\-loadbal.\-c}}
+\subsubsection[{pme\-\_\-loadbal\-\_\-rlist}]{\setlength{\rightskip}{0pt plus 5cm}static real {\bf pme\-\_\-loadbal\-\_\-rlist} (
+\begin{DoxyParamCaption}
+\item[{const {\bf pme\-\_\-setup\-\_\-t} $\ast$}]{setup}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{pme__loadbal_8c_a893405008dbb8267231cc930c14997a1}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{pme__loadbal_8c_a893405008dbb8267231cc930c14997a1_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{pme__loadbal_8c_a82a6f5dcabb035359a53afc2be204731}{\index{pme\-\_\-loadbal.\-c@{pme\-\_\-loadbal.\-c}!print\-\_\-grid@{print\-\_\-grid}}
+\index{print\-\_\-grid@{print\-\_\-grid}!pme_loadbal.c@{pme\-\_\-loadbal.\-c}}
+\subsubsection[{print\-\_\-grid}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf print\-\_\-grid} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp\-\_\-err, }
+\item[{\-F\-I\-L\-E $\ast$}]{fp\-\_\-log, }
+\item[{const char $\ast$}]{pre, }
+\item[{const char $\ast$}]{desc, }
+\item[{const {\bf pme\-\_\-setup\-\_\-t} $\ast$}]{set, }
+\item[{double}]{cycles}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{pme__loadbal_8c_a82a6f5dcabb035359a53afc2be204731}
+\hypertarget{pme__loadbal_8c_a24490e5bff535fb932dd9faabad91709}{\index{pme\-\_\-loadbal.\-c@{pme\-\_\-loadbal.\-c}!print\-\_\-loadbal\-\_\-limited@{print\-\_\-loadbal\-\_\-limited}}
+\index{print\-\_\-loadbal\-\_\-limited@{print\-\_\-loadbal\-\_\-limited}!pme_loadbal.c@{pme\-\_\-loadbal.\-c}}
+\subsubsection[{print\-\_\-loadbal\-\_\-limited}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf print\-\_\-loadbal\-\_\-limited} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp\-\_\-err, }
+\item[{\-F\-I\-L\-E $\ast$}]{fp\-\_\-log, }
+\item[{gmx\-\_\-large\-\_\-int\-\_\-t}]{step, }
+\item[{{\bf pme\-\_\-load\-\_\-balancing\-\_\-t}}]{pme\-\_\-lb}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{pme__loadbal_8c_a24490e5bff535fb932dd9faabad91709}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=314pt]{pme__loadbal_8c_a24490e5bff535fb932dd9faabad91709_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{pme__loadbal_8c_a24490e5bff535fb932dd9faabad91709_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{pme__loadbal_8c_a04de299e38873c5d7c3757a27301ebba}{\index{pme\-\_\-loadbal.\-c@{pme\-\_\-loadbal.\-c}!print\-\_\-pme\-\_\-loadbal\-\_\-setting@{print\-\_\-pme\-\_\-loadbal\-\_\-setting}}
+\index{print\-\_\-pme\-\_\-loadbal\-\_\-setting@{print\-\_\-pme\-\_\-loadbal\-\_\-setting}!pme_loadbal.c@{pme\-\_\-loadbal.\-c}}
+\subsubsection[{print\-\_\-pme\-\_\-loadbal\-\_\-setting}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf print\-\_\-pme\-\_\-loadbal\-\_\-setting} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fplog, }
+\item[{char $\ast$}]{name, }
+\item[{const {\bf pme\-\_\-setup\-\_\-t} $\ast$}]{setup}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{pme__loadbal_8c_a04de299e38873c5d7c3757a27301ebba}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=338pt]{pme__loadbal_8c_a04de299e38873c5d7c3757a27301ebba_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{pme__loadbal_8c_a04de299e38873c5d7c3757a27301ebba_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{pme__loadbal_8c_aa2343a8aec3b0a4975994120cc5fd26b}{\index{pme\-\_\-loadbal.\-c@{pme\-\_\-loadbal.\-c}!print\-\_\-pme\-\_\-loadbal\-\_\-settings@{print\-\_\-pme\-\_\-loadbal\-\_\-settings}}
+\index{print\-\_\-pme\-\_\-loadbal\-\_\-settings@{print\-\_\-pme\-\_\-loadbal\-\_\-settings}!pme_loadbal.c@{pme\-\_\-loadbal.\-c}}
+\subsubsection[{print\-\_\-pme\-\_\-loadbal\-\_\-settings}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf print\-\_\-pme\-\_\-loadbal\-\_\-settings} (
+\begin{DoxyParamCaption}
+\item[{{\bf pme\-\_\-load\-\_\-balancing\-\_\-t}}]{pme\-\_\-lb, }
+\item[{{\bf t\-\_\-commrec} $\ast$}]{cr, }
+\item[{\-F\-I\-L\-E $\ast$}]{fplog, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Non\-Bonded\-On\-G\-P\-U}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{pme__loadbal_8c_aa2343a8aec3b0a4975994120cc5fd26b}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{pme__loadbal_8c_aa2343a8aec3b0a4975994120cc5fd26b_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{pme__loadbal_8c_aa2343a8aec3b0a4975994120cc5fd26b_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{pme__loadbal_8c_a86cf2e4e2d49ed717570064191573ab3}{\index{pme\-\_\-loadbal.\-c@{pme\-\_\-loadbal.\-c}!restart\-\_\-pme\-\_\-loadbal@{restart\-\_\-pme\-\_\-loadbal}}
+\index{restart\-\_\-pme\-\_\-loadbal@{restart\-\_\-pme\-\_\-loadbal}!pme_loadbal.c@{pme\-\_\-loadbal.\-c}}
+\subsubsection[{restart\-\_\-pme\-\_\-loadbal}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf restart\-\_\-pme\-\_\-loadbal} (
+\begin{DoxyParamCaption}
+\item[{{\bf pme\-\_\-load\-\_\-balancing\-\_\-t}}]{pme\-\_\-lb, }
+\item[{int}]{n}
+\end{DoxyParamCaption}
+)}}\label{pme__loadbal_8c_a86cf2e4e2d49ed717570064191573ab3}
+\hypertarget{pme__loadbal_8c_a5e6eda4dc3d698efa650168f2636a84e}{\index{pme\-\_\-loadbal.\-c@{pme\-\_\-loadbal.\-c}!switch\-\_\-to\-\_\-stage1@{switch\-\_\-to\-\_\-stage1}}
+\index{switch\-\_\-to\-\_\-stage1@{switch\-\_\-to\-\_\-stage1}!pme_loadbal.c@{pme\-\_\-loadbal.\-c}}
+\subsubsection[{switch\-\_\-to\-\_\-stage1}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf switch\-\_\-to\-\_\-stage1} (
+\begin{DoxyParamCaption}
+\item[{{\bf pme\-\_\-load\-\_\-balancing\-\_\-t}}]{pme\-\_\-lb}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{pme__loadbal_8c_a5e6eda4dc3d698efa650168f2636a84e}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{pme__loadbal_8c_a5e6eda4dc3d698efa650168f2636a84e_icgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{\-Variable \-Documentation}
+\hypertarget{pme__loadbal_8c_a1aa04e0fdacf683ca2156a8630f52c21}{\index{pme\-\_\-loadbal.\-c@{pme\-\_\-loadbal.\-c}!pmelblim\-\_\-str@{pmelblim\-\_\-str}}
+\index{pmelblim\-\_\-str@{pmelblim\-\_\-str}!pme_loadbal.c@{pme\-\_\-loadbal.\-c}}
+\subsubsection[{pmelblim\-\_\-str}]{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ {\bf pmelblim\-\_\-str}\mbox{[}{\bf epmelblim\-N\-R}\mbox{]}}}\label{pme__loadbal_8c_a1aa04e0fdacf683ca2156a8630f52c21}
+{\bfseries \-Initial value\-:}
+\begin{DoxyCode}
+
+{ "no", "box size", "domain decompostion" }
+\end{DoxyCode}

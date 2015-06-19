@@ -1,0 +1,140 @@
+\hypertarget{md_8c}{\section{src/kernel/md.c \-File \-Reference}
+\label{md_8c}\index{src/kernel/md.\-c@{src/kernel/md.\-c}}
+}
+{\ttfamily \#include \char`\"{}typedefs.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}smalloc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}sysstuff.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}vec.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}statutil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}vcm.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}mdebin.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}nrnb.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}calcmu.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}index.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}vsite.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}update.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}ns.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}trnio.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}xtcio.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}mdrun.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}md\-\_\-support.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}md\-\_\-logging.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}confio.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}network.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}pull.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}xvgr.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}physics.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}names.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}xmdrun.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}ionize.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}disre.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}orires.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}pme.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}mdatoms.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}repl\-\_\-ex.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}qmmm.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}mpelogging.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}domdec.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}domdec\-\_\-network.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}partdec.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}topsort.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}coulomb.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}constr.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}shellfc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}compute\-\_\-io.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}mvdata.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}checkpoint.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}mtop\-\_\-util.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}sighandler.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}txtdump.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}string2.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}pme\-\_\-loadbal.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}bondf.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}membed.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}types/nlistheuristics.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}types/iteratedconstraints.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}nbnxn\-\_\-cuda\-\_\-data\-\_\-mgmt.\-h\char`\"{}}\*
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{md_8c_a2f2e65e52add1059d8fd323146eaab13}{reset\-\_\-all\-\_\-counters} (\-F\-I\-L\-E $\ast$fplog, \hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr, gmx\-\_\-large\-\_\-int\-\_\-t step, gmx\-\_\-large\-\_\-int\-\_\-t $\ast$step\-\_\-rel, \hyperlink{structt__inputrec}{t\-\_\-inputrec} $\ast$ir, \hyperlink{include_2types_2nrnb_8h_adc47bf7d40bee1f733f4c00cf76e85d9}{gmx\-\_\-wallcycle\-\_\-t} wcycle, \hyperlink{structt__nrnb}{t\-\_\-nrnb} $\ast$nrnb, \hyperlink{structgmx__runtime__t}{gmx\-\_\-runtime\-\_\-t} $\ast$runtime, \hyperlink{include_2types_2nbnxn__cuda__types__ext_8h_a472a80c4068a02a6b9fc3fa748020ae8}{nbnxn\-\_\-cuda\-\_\-ptr\-\_\-t} cu\-\_\-nbv)
+\item 
+double \hyperlink{md_8c_ab03e50f07db7a24087c44ccdce343305}{do\-\_\-md} (\-F\-I\-L\-E $\ast$fplog, \hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr, int nfile, const \hyperlink{structt__filenm}{t\-\_\-filenm} fnm\mbox{[}$\,$\mbox{]}, const \hyperlink{include_2types_2oenv_8h_a6a48d77d95132d7318780544821da6a5}{output\-\_\-env\-\_\-t} oenv, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Verbose, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Compact, int nstglobalcomm, \hyperlink{structgmx__vsite__t}{gmx\-\_\-vsite\-\_\-t} $\ast$vsite, \hyperlink{include_2types_2constr_8h_a9a1b11c17f111aab2d5d34a80d6cfcae}{gmx\-\_\-constr\-\_\-t} constr, int stepout, \hyperlink{structt__inputrec}{t\-\_\-inputrec} $\ast$ir, \hyperlink{structgmx__mtop__t}{gmx\-\_\-mtop\-\_\-t} $\ast$top\-\_\-global, \hyperlink{structt__fcdata}{t\-\_\-fcdata} $\ast$fcd, \hyperlink{structt__state}{t\-\_\-state} $\ast$state\-\_\-global, \hyperlink{structt__mdatoms}{t\-\_\-mdatoms} $\ast$mdatoms, \hyperlink{structt__nrnb}{t\-\_\-nrnb} $\ast$nrnb, \hyperlink{include_2types_2nrnb_8h_adc47bf7d40bee1f733f4c00cf76e85d9}{gmx\-\_\-wallcycle\-\_\-t} wcycle, \hyperlink{include_2types_2constr_8h_a0fa9ace476add5ee1fd6cd76c870f32e}{gmx\-\_\-edsam\-\_\-t} ed, \hyperlink{structt__forcerec}{t\-\_\-forcerec} $\ast$\hyperlink{addconf_8c_ae8414314f87c5e49503ac0117eb511ad}{fr}, int repl\-\_\-ex\-\_\-nst, int repl\-\_\-ex\-\_\-nex, int repl\-\_\-ex\-\_\-seed, \hyperlink{include_2types_2membedt_8h_aeee8aa8062df375499049d5a6bab6074}{gmx\-\_\-membed\-\_\-t} \hyperlink{structmembed}{membed}, real cpt\-\_\-period, real max\-\_\-hours, const char $\ast$device\-Options, unsigned long \-Flags, \hyperlink{structgmx__runtime__t}{gmx\-\_\-runtime\-\_\-t} $\ast$runtime)
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{md_8c_ab03e50f07db7a24087c44ccdce343305}{\index{md.\-c@{md.\-c}!do\-\_\-md@{do\-\_\-md}}
+\index{do\-\_\-md@{do\-\_\-md}!md.c@{md.\-c}}
+\subsubsection[{do\-\_\-md}]{\setlength{\rightskip}{0pt plus 5cm}double {\bf do\-\_\-md} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fplog, }
+\item[{{\bf t\-\_\-commrec} $\ast$}]{cr, }
+\item[{int}]{nfile, }
+\item[{const {\bf t\-\_\-filenm}}]{fnm\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf output\-\_\-env\-\_\-t}}]{oenv, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Verbose, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Compact, }
+\item[{int}]{nstglobalcomm, }
+\item[{{\bf gmx\-\_\-vsite\-\_\-t} $\ast$}]{vsite, }
+\item[{{\bf gmx\-\_\-constr\-\_\-t}}]{constr, }
+\item[{int}]{stepout, }
+\item[{{\bf t\-\_\-inputrec} $\ast$}]{ir, }
+\item[{{\bf gmx\-\_\-mtop\-\_\-t} $\ast$}]{top\-\_\-global, }
+\item[{{\bf t\-\_\-fcdata} $\ast$}]{fcd, }
+\item[{{\bf t\-\_\-state} $\ast$}]{state\-\_\-global, }
+\item[{{\bf t\-\_\-mdatoms} $\ast$}]{mdatoms, }
+\item[{{\bf t\-\_\-nrnb} $\ast$}]{nrnb, }
+\item[{{\bf gmx\-\_\-wallcycle\-\_\-t}}]{wcycle, }
+\item[{{\bf gmx\-\_\-edsam\-\_\-t}}]{ed, }
+\item[{{\bf t\-\_\-forcerec} $\ast$}]{fr, }
+\item[{int}]{repl\-\_\-ex\-\_\-nst, }
+\item[{int}]{repl\-\_\-ex\-\_\-nex, }
+\item[{int}]{repl\-\_\-ex\-\_\-seed, }
+\item[{{\bf gmx\-\_\-membed\-\_\-t}}]{membed, }
+\item[{real}]{cpt\-\_\-period, }
+\item[{real}]{max\-\_\-hours, }
+\item[{const char $\ast$}]{device\-Options, }
+\item[{unsigned long}]{\-Flags, }
+\item[{{\bf gmx\-\_\-runtime\-\_\-t} $\ast$}]{runtime}
+\end{DoxyParamCaption}
+)}}\label{md_8c_ab03e50f07db7a24087c44ccdce343305}
+\hypertarget{md_8c_a2f2e65e52add1059d8fd323146eaab13}{\index{md.\-c@{md.\-c}!reset\-\_\-all\-\_\-counters@{reset\-\_\-all\-\_\-counters}}
+\index{reset\-\_\-all\-\_\-counters@{reset\-\_\-all\-\_\-counters}!md.c@{md.\-c}}
+\subsubsection[{reset\-\_\-all\-\_\-counters}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf reset\-\_\-all\-\_\-counters} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fplog, }
+\item[{{\bf t\-\_\-commrec} $\ast$}]{cr, }
+\item[{gmx\-\_\-large\-\_\-int\-\_\-t}]{step, }
+\item[{gmx\-\_\-large\-\_\-int\-\_\-t $\ast$}]{step\-\_\-rel, }
+\item[{{\bf t\-\_\-inputrec} $\ast$}]{ir, }
+\item[{{\bf gmx\-\_\-wallcycle\-\_\-t}}]{wcycle, }
+\item[{{\bf t\-\_\-nrnb} $\ast$}]{nrnb, }
+\item[{{\bf gmx\-\_\-runtime\-\_\-t} $\ast$}]{runtime, }
+\item[{{\bf nbnxn\-\_\-cuda\-\_\-ptr\-\_\-t}}]{cu\-\_\-nbv}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{md_8c_a2f2e65e52add1059d8fd323146eaab13}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{md_8c_a2f2e65e52add1059d8fd323146eaab13_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=258pt]{md_8c_a2f2e65e52add1059d8fd323146eaab13_icgraph}
+\end{center}
+\end{figure}
+
+

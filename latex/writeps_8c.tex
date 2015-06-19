@@ -1,0 +1,1029 @@
+\hypertarget{writeps_8c}{\section{src/gmxlib/writeps.c \-File \-Reference}
+\label{writeps_8c}\index{src/gmxlib/writeps.\-c@{src/gmxlib/writeps.\-c}}
+}
+{\ttfamily \#include $<$stdio.\-h$>$}\*
+{\ttfamily \#include \char`\"{}futil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-fatal.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}copyrite.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}writeps.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}smalloc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmxfio.\-h\char`\"{}}\*
+\-Include dependency graph for writeps.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{writeps_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structt__int__psdata}{t\-\_\-int\-\_\-psdata}
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{include_2writeps_8h_adcb8ba9c85a9c75b24e631bf3b813d18}{t\-\_\-psdata} \hyperlink{writeps_8c_a08049852321db827fc74e80d6ec0d207}{ps\-\_\-open} (const char $\ast$fn, real x1, real y1, real x2, real y2)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{writeps_8c_a5e28ba492585846d0789edf7be2526ad}{ps\-\_\-linewidth} (\hyperlink{include_2writeps_8h_adcb8ba9c85a9c75b24e631bf3b813d18}{t\-\_\-psdata} ps, int lw)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{writeps_8c_a4ce06fdd430ce3409ba91dc81d1259fc}{ps\-\_\-defcolor} (\hyperlink{include_2writeps_8h_adcb8ba9c85a9c75b24e631bf3b813d18}{t\-\_\-psdata} ps, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae039a6f39df62bd858e5e3f5ec77b24b}{r}, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g}, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afb462a5dea72ae7992f073bfd756fb5f}{b}, char $\ast$cname)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{writeps_8c_ac5fa213589290575ddadcae771493aa4}{ps\-\_\-selcolor} (\hyperlink{include_2writeps_8h_adcb8ba9c85a9c75b24e631bf3b813d18}{t\-\_\-psdata} ps, char $\ast$cname)
+\item 
+static int \hyperlink{writeps_8c_ae74609601df2efa8817803ea7a472c89}{search\-\_\-col} (\hyperlink{include_2writeps_8h_adcb8ba9c85a9c75b24e631bf3b813d18}{t\-\_\-psdata} ps, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae039a6f39df62bd858e5e3f5ec77b24b}{r}, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g}, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afb462a5dea72ae7992f073bfd756fb5f}{b})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{writeps_8c_a9bbb082b7b70f30de670a1cd0a7078cc}{ps\-\_\-color} (\hyperlink{include_2writeps_8h_adcb8ba9c85a9c75b24e631bf3b813d18}{t\-\_\-psdata} ps, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae039a6f39df62bd858e5e3f5ec77b24b}{r}, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g}, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afb462a5dea72ae7992f073bfd756fb5f}{b})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{writeps_8c_a97869253ab8835ad8d963217a0aa2a39}{ps\-\_\-rgb} (\hyperlink{include_2writeps_8h_adcb8ba9c85a9c75b24e631bf3b813d18}{t\-\_\-psdata} ps, \hyperlink{structt__rgb}{t\-\_\-rgb} $\ast$rgb)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{writeps_8c_aee010eed89e57b61885f3ead5a77f028}{ps\-\_\-init\-\_\-rgb\-\_\-nbox} (\hyperlink{include_2writeps_8h_adcb8ba9c85a9c75b24e631bf3b813d18}{t\-\_\-psdata} ps, real xbox, real ybox)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{writeps_8c_ac74a530347fb9ee30ece5418188abf66}{ps\-\_\-rgb\-\_\-nbox} (\hyperlink{include_2writeps_8h_adcb8ba9c85a9c75b24e631bf3b813d18}{t\-\_\-psdata} ps, \hyperlink{structt__rgb}{t\-\_\-rgb} $\ast$rgb, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{writeps_8c_a92257aed91b62cb0505e79bb7c4a5da8}{ps\-\_\-init\-\_\-rgb\-\_\-box} (\hyperlink{include_2writeps_8h_adcb8ba9c85a9c75b24e631bf3b813d18}{t\-\_\-psdata} ps, real xbox, real ybox)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{writeps_8c_ac164feaec0d613ee097c851d58c59951}{ps\-\_\-rgb\-\_\-box} (\hyperlink{include_2writeps_8h_adcb8ba9c85a9c75b24e631bf3b813d18}{t\-\_\-psdata} ps, \hyperlink{structt__rgb}{t\-\_\-rgb} $\ast$rgb)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{writeps_8c_a8df813897d191f773ca80a8b4e2ec1b6}{ps\-\_\-lineto} (\hyperlink{include_2writeps_8h_adcb8ba9c85a9c75b24e631bf3b813d18}{t\-\_\-psdata} ps, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ad992d70ec70c927046cfc2ab1c79b188}{y})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{writeps_8c_a43f2fa4815a1de8cd3b273c240204327}{ps\-\_\-linerel} (\hyperlink{include_2writeps_8h_adcb8ba9c85a9c75b24e631bf3b813d18}{t\-\_\-psdata} ps, real \hyperlink{share_2template_2gromacs_2gmx__blas_8h_ad5c6c54e1a03f3517ff918d2f18f5f68}{dx}, real \hyperlink{share_2template_2gromacs_2gmx__blas_8h_ab22d39b99f8eaf91354f167b9e204e58}{dy})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{writeps_8c_a8b5b29d869e71226112a67d7b42a3219}{ps\-\_\-moveto} (\hyperlink{include_2writeps_8h_adcb8ba9c85a9c75b24e631bf3b813d18}{t\-\_\-psdata} ps, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ad992d70ec70c927046cfc2ab1c79b188}{y})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{writeps_8c_aa1d0301ce99cca1c6f3b5eba6f3dd99b}{ps\-\_\-moverel} (\hyperlink{include_2writeps_8h_adcb8ba9c85a9c75b24e631bf3b813d18}{t\-\_\-psdata} ps, real \hyperlink{share_2template_2gromacs_2gmx__blas_8h_ad5c6c54e1a03f3517ff918d2f18f5f68}{dx}, real \hyperlink{share_2template_2gromacs_2gmx__blas_8h_ab22d39b99f8eaf91354f167b9e204e58}{dy})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{writeps_8c_a2829190d383a16d2df88a68b2e4fe419}{ps\-\_\-line} (\hyperlink{include_2writeps_8h_adcb8ba9c85a9c75b24e631bf3b813d18}{t\-\_\-psdata} ps, real x1, real y1, real x2, real y2)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{writeps_8c_a60d6add07597a63ecdacfa3f38be332d}{do\-\_\-box} (\hyperlink{include_2writeps_8h_adcb8ba9c85a9c75b24e631bf3b813d18}{t\-\_\-psdata} ps, real x1, real y1, real x2, real y2)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{writeps_8c_a4c3f021a123f0fc7242d723a8109a1af}{ps\-\_\-box} (\hyperlink{include_2writeps_8h_adcb8ba9c85a9c75b24e631bf3b813d18}{t\-\_\-psdata} ps, real x1, real y1, real x2, real y2)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{writeps_8c_a76df4c221335afefdff3a81276a60123}{ps\-\_\-fillbox} (\hyperlink{include_2writeps_8h_adcb8ba9c85a9c75b24e631bf3b813d18}{t\-\_\-psdata} ps, real x1, real y1, real x2, real y2)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{writeps_8c_a275d5a69974bbcf8af6ebc6b4aa7ec6e}{ps\-\_\-arc} (\hyperlink{include_2writeps_8h_adcb8ba9c85a9c75b24e631bf3b813d18}{t\-\_\-psdata} ps, real x1, real y1, real rad, real a0, real a1)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{writeps_8c_a3b02e217843be06a23f08aa193805aba}{ps\-\_\-fillarc} (\hyperlink{include_2writeps_8h_adcb8ba9c85a9c75b24e631bf3b813d18}{t\-\_\-psdata} ps, real x1, real y1, real rad, real a0, real a1)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{writeps_8c_a02bd8aa66f5d9f2b66700ed847e43937}{ps\-\_\-arcslice} (\hyperlink{include_2writeps_8h_adcb8ba9c85a9c75b24e631bf3b813d18}{t\-\_\-psdata} ps, real xc, real yc, real rad1, real rad2, real a0, real a1)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{writeps_8c_ad68e9b6e82e23db94e1f7445c23011f7}{ps\-\_\-fillarcslice} (\hyperlink{include_2writeps_8h_adcb8ba9c85a9c75b24e631bf3b813d18}{t\-\_\-psdata} ps, real xc, real yc, real rad1, real rad2, real a0, real a1)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{writeps_8c_abb4315773ec19e15297896a71b1a2106}{ps\-\_\-circle} (\hyperlink{include_2writeps_8h_adcb8ba9c85a9c75b24e631bf3b813d18}{t\-\_\-psdata} ps, real x1, real y1, real rad)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{writeps_8c_a7d4c66dc2a7361157b7fb6c7ec8af929}{ps\-\_\-font} (\hyperlink{include_2writeps_8h_adcb8ba9c85a9c75b24e631bf3b813d18}{t\-\_\-psdata} ps, int font, real size)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{writeps_8c_a133b48be10d6c5018b3f0eecffdc4791}{ps\-\_\-strfont} (\hyperlink{include_2writeps_8h_adcb8ba9c85a9c75b24e631bf3b813d18}{t\-\_\-psdata} ps, char $\ast$font, real size)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{writeps_8c_a8ae683055d47657312d3d2410e629832}{ps\-\_\-text} (\hyperlink{include_2writeps_8h_adcb8ba9c85a9c75b24e631bf3b813d18}{t\-\_\-psdata} ps, real x1, real y1, const char $\ast$str)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{writeps_8c_a9c30f2234c84d97ceaa1d37ba8c81069}{ps\-\_\-flip} (\hyperlink{include_2writeps_8h_adcb8ba9c85a9c75b24e631bf3b813d18}{t\-\_\-psdata} ps, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Plus)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{writeps_8c_ac6c888476f881c69c8a05c4464dee860}{ps\-\_\-rotate} (\hyperlink{include_2writeps_8h_adcb8ba9c85a9c75b24e631bf3b813d18}{t\-\_\-psdata} ps, real \hyperlink{pull__rotation_8c_a46755fae48700fb4e0fb0d7c6a092654}{angle})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{writeps_8c_a1c5ac31ce23308116dc5bc524e70cdbd}{ps\-\_\-ctext} (\hyperlink{include_2writeps_8h_adcb8ba9c85a9c75b24e631bf3b813d18}{t\-\_\-psdata} ps, real x1, real y1, const char $\ast$str, int expos)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{writeps_8c_a05a77b83e34c7b5609ed6bfdbd801c29}{ps\-\_\-translate} (\hyperlink{include_2writeps_8h_adcb8ba9c85a9c75b24e631bf3b813d18}{t\-\_\-psdata} ps, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ad992d70ec70c927046cfc2ab1c79b188}{y})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{writeps_8c_abce260ba218e575bb9dc585fcfbbce39}{ps\-\_\-setorigin} (\hyperlink{include_2writeps_8h_adcb8ba9c85a9c75b24e631bf3b813d18}{t\-\_\-psdata} ps)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{writeps_8c_a2bbdc25bce506619c6536844be112781}{ps\-\_\-unsetorigin} (\hyperlink{include_2writeps_8h_adcb8ba9c85a9c75b24e631bf3b813d18}{t\-\_\-psdata} ps)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{writeps_8c_a3915d35b3309d26513d7cbe949233598}{ps\-\_\-close} (\hyperlink{include_2writeps_8h_adcb8ba9c85a9c75b24e631bf3b813d18}{t\-\_\-psdata} ps)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{writeps_8c_add907765c7757592d1cc7f6b1aea8459}{ps\-\_\-comment} (\hyperlink{include_2writeps_8h_adcb8ba9c85a9c75b24e631bf3b813d18}{t\-\_\-psdata} ps, const char $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a6dd0d3574865c5458827c47f2cfd02b8}{s})
+\end{DoxyCompactItemize}
+\subsection*{\-Variables}
+\begin{DoxyCompactItemize}
+\item 
+const char $\ast$ \hyperlink{writeps_8c_ae4bb6b14aac8154fca4ab57ed272fd12}{fontnm} \mbox{[}\hyperlink{share_2template_2gromacs_2writeps_8h_abd4fc2111b94dec34e056f8ef38c38e5a8aefe494a5387664b580d220b94ddd86}{efont\-N\-R}\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{writeps_8c_a60d6add07597a63ecdacfa3f38be332d}{\index{writeps.\-c@{writeps.\-c}!do\-\_\-box@{do\-\_\-box}}
+\index{do\-\_\-box@{do\-\_\-box}!writeps.c@{writeps.\-c}}
+\subsubsection[{do\-\_\-box}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf do\-\_\-box} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-psdata}}]{ps, }
+\item[{real}]{x1, }
+\item[{real}]{y1, }
+\item[{real}]{x2, }
+\item[{real}]{y2}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{writeps_8c_a60d6add07597a63ecdacfa3f38be332d}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=230pt]{writeps_8c_a60d6add07597a63ecdacfa3f38be332d_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{writeps_8c_a60d6add07597a63ecdacfa3f38be332d_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{writeps_8c_a275d5a69974bbcf8af6ebc6b4aa7ec6e}{\index{writeps.\-c@{writeps.\-c}!ps\-\_\-arc@{ps\-\_\-arc}}
+\index{ps\-\_\-arc@{ps\-\_\-arc}!writeps.c@{writeps.\-c}}
+\subsubsection[{ps\-\_\-arc}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf ps\-\_\-arc} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-psdata}}]{ps, }
+\item[{real}]{x1, }
+\item[{real}]{y1, }
+\item[{real}]{rad, }
+\item[{real}]{a0, }
+\item[{real}]{a1}
+\end{DoxyParamCaption}
+)}}\label{writeps_8c_a275d5a69974bbcf8af6ebc6b4aa7ec6e}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=218pt]{writeps_8c_a275d5a69974bbcf8af6ebc6b4aa7ec6e_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{writeps_8c_a02bd8aa66f5d9f2b66700ed847e43937}{\index{writeps.\-c@{writeps.\-c}!ps\-\_\-arcslice@{ps\-\_\-arcslice}}
+\index{ps\-\_\-arcslice@{ps\-\_\-arcslice}!writeps.c@{writeps.\-c}}
+\subsubsection[{ps\-\_\-arcslice}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf ps\-\_\-arcslice} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-psdata}}]{ps, }
+\item[{real}]{xc, }
+\item[{real}]{yc, }
+\item[{real}]{rad1, }
+\item[{real}]{rad2, }
+\item[{real}]{a0, }
+\item[{real}]{a1}
+\end{DoxyParamCaption}
+)}}\label{writeps_8c_a02bd8aa66f5d9f2b66700ed847e43937}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{writeps_8c_a02bd8aa66f5d9f2b66700ed847e43937_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{writeps_8c_a4c3f021a123f0fc7242d723a8109a1af}{\index{writeps.\-c@{writeps.\-c}!ps\-\_\-box@{ps\-\_\-box}}
+\index{ps\-\_\-box@{ps\-\_\-box}!writeps.c@{writeps.\-c}}
+\subsubsection[{ps\-\_\-box}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf ps\-\_\-box} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-psdata}}]{ps, }
+\item[{real}]{x1, }
+\item[{real}]{y1, }
+\item[{real}]{x2, }
+\item[{real}]{y2}
+\end{DoxyParamCaption}
+)}}\label{writeps_8c_a4c3f021a123f0fc7242d723a8109a1af}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=314pt]{writeps_8c_a4c3f021a123f0fc7242d723a8109a1af_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{writeps_8c_a4c3f021a123f0fc7242d723a8109a1af_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{writeps_8c_abb4315773ec19e15297896a71b1a2106}{\index{writeps.\-c@{writeps.\-c}!ps\-\_\-circle@{ps\-\_\-circle}}
+\index{ps\-\_\-circle@{ps\-\_\-circle}!writeps.c@{writeps.\-c}}
+\subsubsection[{ps\-\_\-circle}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf ps\-\_\-circle} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-psdata}}]{ps, }
+\item[{real}]{x1, }
+\item[{real}]{y1, }
+\item[{real}]{rad}
+\end{DoxyParamCaption}
+)}}\label{writeps_8c_abb4315773ec19e15297896a71b1a2106}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=218pt]{writeps_8c_abb4315773ec19e15297896a71b1a2106_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{writeps_8c_a3915d35b3309d26513d7cbe949233598}{\index{writeps.\-c@{writeps.\-c}!ps\-\_\-close@{ps\-\_\-close}}
+\index{ps\-\_\-close@{ps\-\_\-close}!writeps.c@{writeps.\-c}}
+\subsubsection[{ps\-\_\-close}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf ps\-\_\-close} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-psdata}}]{ps}
+\end{DoxyParamCaption}
+)}}\label{writeps_8c_a3915d35b3309d26513d7cbe949233598}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=256pt]{writeps_8c_a3915d35b3309d26513d7cbe949233598_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{writeps_8c_a3915d35b3309d26513d7cbe949233598_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{writeps_8c_a9bbb082b7b70f30de670a1cd0a7078cc}{\index{writeps.\-c@{writeps.\-c}!ps\-\_\-color@{ps\-\_\-color}}
+\index{ps\-\_\-color@{ps\-\_\-color}!writeps.c@{writeps.\-c}}
+\subsubsection[{ps\-\_\-color}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf ps\-\_\-color} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-psdata}}]{ps, }
+\item[{real}]{r, }
+\item[{real}]{g, }
+\item[{real}]{b}
+\end{DoxyParamCaption}
+)}}\label{writeps_8c_a9bbb082b7b70f30de670a1cd0a7078cc}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=340pt]{writeps_8c_a9bbb082b7b70f30de670a1cd0a7078cc_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{writeps_8c_a9bbb082b7b70f30de670a1cd0a7078cc_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{writeps_8c_add907765c7757592d1cc7f6b1aea8459}{\index{writeps.\-c@{writeps.\-c}!ps\-\_\-comment@{ps\-\_\-comment}}
+\index{ps\-\_\-comment@{ps\-\_\-comment}!writeps.c@{writeps.\-c}}
+\subsubsection[{ps\-\_\-comment}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf ps\-\_\-comment} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-psdata}}]{ps, }
+\item[{const char $\ast$}]{s}
+\end{DoxyParamCaption}
+)}}\label{writeps_8c_add907765c7757592d1cc7f6b1aea8459}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{writeps_8c_add907765c7757592d1cc7f6b1aea8459_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{writeps_8c_a1c5ac31ce23308116dc5bc524e70cdbd}{\index{writeps.\-c@{writeps.\-c}!ps\-\_\-ctext@{ps\-\_\-ctext}}
+\index{ps\-\_\-ctext@{ps\-\_\-ctext}!writeps.c@{writeps.\-c}}
+\subsubsection[{ps\-\_\-ctext}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf ps\-\_\-ctext} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-psdata}}]{ps, }
+\item[{real}]{x1, }
+\item[{real}]{y1, }
+\item[{const char $\ast$}]{str, }
+\item[{int}]{expos}
+\end{DoxyParamCaption}
+)}}\label{writeps_8c_a1c5ac31ce23308116dc5bc524e70cdbd}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=236pt]{writeps_8c_a1c5ac31ce23308116dc5bc524e70cdbd_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{writeps_8c_a1c5ac31ce23308116dc5bc524e70cdbd_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{writeps_8c_a4ce06fdd430ce3409ba91dc81d1259fc}{\index{writeps.\-c@{writeps.\-c}!ps\-\_\-defcolor@{ps\-\_\-defcolor}}
+\index{ps\-\_\-defcolor@{ps\-\_\-defcolor}!writeps.c@{writeps.\-c}}
+\subsubsection[{ps\-\_\-defcolor}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf ps\-\_\-defcolor} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-psdata}}]{ps, }
+\item[{real}]{r, }
+\item[{real}]{g, }
+\item[{real}]{b, }
+\item[{char $\ast$}]{cname}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{writeps_8c_a4ce06fdd430ce3409ba91dc81d1259fc}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{writeps_8c_a4ce06fdd430ce3409ba91dc81d1259fc_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{writeps_8c_a3b02e217843be06a23f08aa193805aba}{\index{writeps.\-c@{writeps.\-c}!ps\-\_\-fillarc@{ps\-\_\-fillarc}}
+\index{ps\-\_\-fillarc@{ps\-\_\-fillarc}!writeps.c@{writeps.\-c}}
+\subsubsection[{ps\-\_\-fillarc}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf ps\-\_\-fillarc} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-psdata}}]{ps, }
+\item[{real}]{x1, }
+\item[{real}]{y1, }
+\item[{real}]{rad, }
+\item[{real}]{a0, }
+\item[{real}]{a1}
+\end{DoxyParamCaption}
+)}}\label{writeps_8c_a3b02e217843be06a23f08aa193805aba}
+\hypertarget{writeps_8c_ad68e9b6e82e23db94e1f7445c23011f7}{\index{writeps.\-c@{writeps.\-c}!ps\-\_\-fillarcslice@{ps\-\_\-fillarcslice}}
+\index{ps\-\_\-fillarcslice@{ps\-\_\-fillarcslice}!writeps.c@{writeps.\-c}}
+\subsubsection[{ps\-\_\-fillarcslice}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf ps\-\_\-fillarcslice} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-psdata}}]{ps, }
+\item[{real}]{xc, }
+\item[{real}]{yc, }
+\item[{real}]{rad1, }
+\item[{real}]{rad2, }
+\item[{real}]{a0, }
+\item[{real}]{a1}
+\end{DoxyParamCaption}
+)}}\label{writeps_8c_ad68e9b6e82e23db94e1f7445c23011f7}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{writeps_8c_ad68e9b6e82e23db94e1f7445c23011f7_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{writeps_8c_a76df4c221335afefdff3a81276a60123}{\index{writeps.\-c@{writeps.\-c}!ps\-\_\-fillbox@{ps\-\_\-fillbox}}
+\index{ps\-\_\-fillbox@{ps\-\_\-fillbox}!writeps.c@{writeps.\-c}}
+\subsubsection[{ps\-\_\-fillbox}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf ps\-\_\-fillbox} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-psdata}}]{ps, }
+\item[{real}]{x1, }
+\item[{real}]{y1, }
+\item[{real}]{x2, }
+\item[{real}]{y2}
+\end{DoxyParamCaption}
+)}}\label{writeps_8c_a76df4c221335afefdff3a81276a60123}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=324pt]{writeps_8c_a76df4c221335afefdff3a81276a60123_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{writeps_8c_a76df4c221335afefdff3a81276a60123_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{writeps_8c_a9c30f2234c84d97ceaa1d37ba8c81069}{\index{writeps.\-c@{writeps.\-c}!ps\-\_\-flip@{ps\-\_\-flip}}
+\index{ps\-\_\-flip@{ps\-\_\-flip}!writeps.c@{writeps.\-c}}
+\subsubsection[{ps\-\_\-flip}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf ps\-\_\-flip} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-psdata}}]{ps, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Plus}
+\end{DoxyParamCaption}
+)}}\label{writeps_8c_a9c30f2234c84d97ceaa1d37ba8c81069}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{writeps_8c_a9c30f2234c84d97ceaa1d37ba8c81069_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{writeps_8c_a7d4c66dc2a7361157b7fb6c7ec8af929}{\index{writeps.\-c@{writeps.\-c}!ps\-\_\-font@{ps\-\_\-font}}
+\index{ps\-\_\-font@{ps\-\_\-font}!writeps.c@{writeps.\-c}}
+\subsubsection[{ps\-\_\-font}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf ps\-\_\-font} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-psdata}}]{ps, }
+\item[{int}]{font, }
+\item[{real}]{size}
+\end{DoxyParamCaption}
+)}}\label{writeps_8c_a7d4c66dc2a7361157b7fb6c7ec8af929}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{writeps_8c_a7d4c66dc2a7361157b7fb6c7ec8af929_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{writeps_8c_a92257aed91b62cb0505e79bb7c4a5da8}{\index{writeps.\-c@{writeps.\-c}!ps\-\_\-init\-\_\-rgb\-\_\-box@{ps\-\_\-init\-\_\-rgb\-\_\-box}}
+\index{ps\-\_\-init\-\_\-rgb\-\_\-box@{ps\-\_\-init\-\_\-rgb\-\_\-box}!writeps.c@{writeps.\-c}}
+\subsubsection[{ps\-\_\-init\-\_\-rgb\-\_\-box}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf ps\-\_\-init\-\_\-rgb\-\_\-box} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-psdata}}]{ps, }
+\item[{real}]{xbox, }
+\item[{real}]{ybox}
+\end{DoxyParamCaption}
+)}}\label{writeps_8c_a92257aed91b62cb0505e79bb7c4a5da8}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{writeps_8c_a92257aed91b62cb0505e79bb7c4a5da8_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{writeps_8c_aee010eed89e57b61885f3ead5a77f028}{\index{writeps.\-c@{writeps.\-c}!ps\-\_\-init\-\_\-rgb\-\_\-nbox@{ps\-\_\-init\-\_\-rgb\-\_\-nbox}}
+\index{ps\-\_\-init\-\_\-rgb\-\_\-nbox@{ps\-\_\-init\-\_\-rgb\-\_\-nbox}!writeps.c@{writeps.\-c}}
+\subsubsection[{ps\-\_\-init\-\_\-rgb\-\_\-nbox}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf ps\-\_\-init\-\_\-rgb\-\_\-nbox} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-psdata}}]{ps, }
+\item[{real}]{xbox, }
+\item[{real}]{ybox}
+\end{DoxyParamCaption}
+)}}\label{writeps_8c_aee010eed89e57b61885f3ead5a77f028}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{writeps_8c_aee010eed89e57b61885f3ead5a77f028_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{writeps_8c_a2829190d383a16d2df88a68b2e4fe419}{\index{writeps.\-c@{writeps.\-c}!ps\-\_\-line@{ps\-\_\-line}}
+\index{ps\-\_\-line@{ps\-\_\-line}!writeps.c@{writeps.\-c}}
+\subsubsection[{ps\-\_\-line}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf ps\-\_\-line} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-psdata}}]{ps, }
+\item[{real}]{x1, }
+\item[{real}]{y1, }
+\item[{real}]{x2, }
+\item[{real}]{y2}
+\end{DoxyParamCaption}
+)}}\label{writeps_8c_a2829190d383a16d2df88a68b2e4fe419}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=230pt]{writeps_8c_a2829190d383a16d2df88a68b2e4fe419_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{writeps_8c_a2829190d383a16d2df88a68b2e4fe419_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{writeps_8c_a43f2fa4815a1de8cd3b273c240204327}{\index{writeps.\-c@{writeps.\-c}!ps\-\_\-linerel@{ps\-\_\-linerel}}
+\index{ps\-\_\-linerel@{ps\-\_\-linerel}!writeps.c@{writeps.\-c}}
+\subsubsection[{ps\-\_\-linerel}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf ps\-\_\-linerel} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-psdata}}]{ps, }
+\item[{real}]{dx, }
+\item[{real}]{dy}
+\end{DoxyParamCaption}
+)}}\label{writeps_8c_a43f2fa4815a1de8cd3b273c240204327}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{writeps_8c_a43f2fa4815a1de8cd3b273c240204327_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{writeps_8c_a8df813897d191f773ca80a8b4e2ec1b6}{\index{writeps.\-c@{writeps.\-c}!ps\-\_\-lineto@{ps\-\_\-lineto}}
+\index{ps\-\_\-lineto@{ps\-\_\-lineto}!writeps.c@{writeps.\-c}}
+\subsubsection[{ps\-\_\-lineto}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf ps\-\_\-lineto} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-psdata}}]{ps, }
+\item[{real}]{x, }
+\item[{real}]{y}
+\end{DoxyParamCaption}
+)}}\label{writeps_8c_a8df813897d191f773ca80a8b4e2ec1b6}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{writeps_8c_a8df813897d191f773ca80a8b4e2ec1b6_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{writeps_8c_a5e28ba492585846d0789edf7be2526ad}{\index{writeps.\-c@{writeps.\-c}!ps\-\_\-linewidth@{ps\-\_\-linewidth}}
+\index{ps\-\_\-linewidth@{ps\-\_\-linewidth}!writeps.c@{writeps.\-c}}
+\subsubsection[{ps\-\_\-linewidth}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf ps\-\_\-linewidth} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-psdata}}]{ps, }
+\item[{int}]{lw}
+\end{DoxyParamCaption}
+)}}\label{writeps_8c_a5e28ba492585846d0789edf7be2526ad}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{writeps_8c_a5e28ba492585846d0789edf7be2526ad_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{writeps_8c_aa1d0301ce99cca1c6f3b5eba6f3dd99b}{\index{writeps.\-c@{writeps.\-c}!ps\-\_\-moverel@{ps\-\_\-moverel}}
+\index{ps\-\_\-moverel@{ps\-\_\-moverel}!writeps.c@{writeps.\-c}}
+\subsubsection[{ps\-\_\-moverel}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf ps\-\_\-moverel} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-psdata}}]{ps, }
+\item[{real}]{dx, }
+\item[{real}]{dy}
+\end{DoxyParamCaption}
+)}}\label{writeps_8c_aa1d0301ce99cca1c6f3b5eba6f3dd99b}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{writeps_8c_aa1d0301ce99cca1c6f3b5eba6f3dd99b_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{writeps_8c_a8b5b29d869e71226112a67d7b42a3219}{\index{writeps.\-c@{writeps.\-c}!ps\-\_\-moveto@{ps\-\_\-moveto}}
+\index{ps\-\_\-moveto@{ps\-\_\-moveto}!writeps.c@{writeps.\-c}}
+\subsubsection[{ps\-\_\-moveto}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf ps\-\_\-moveto} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-psdata}}]{ps, }
+\item[{real}]{x, }
+\item[{real}]{y}
+\end{DoxyParamCaption}
+)}}\label{writeps_8c_a8b5b29d869e71226112a67d7b42a3219}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{writeps_8c_a8b5b29d869e71226112a67d7b42a3219_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{writeps_8c_a08049852321db827fc74e80d6ec0d207}{\index{writeps.\-c@{writeps.\-c}!ps\-\_\-open@{ps\-\_\-open}}
+\index{ps\-\_\-open@{ps\-\_\-open}!writeps.c@{writeps.\-c}}
+\subsubsection[{ps\-\_\-open}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\-\_\-psdata} {\bf ps\-\_\-open} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{fn, }
+\item[{real}]{x1, }
+\item[{real}]{y1, }
+\item[{real}]{x2, }
+\item[{real}]{y2}
+\end{DoxyParamCaption}
+)}}\label{writeps_8c_a08049852321db827fc74e80d6ec0d207}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=250pt]{writeps_8c_a08049852321db827fc74e80d6ec0d207_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{writeps_8c_a08049852321db827fc74e80d6ec0d207_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{writeps_8c_a97869253ab8835ad8d963217a0aa2a39}{\index{writeps.\-c@{writeps.\-c}!ps\-\_\-rgb@{ps\-\_\-rgb}}
+\index{ps\-\_\-rgb@{ps\-\_\-rgb}!writeps.c@{writeps.\-c}}
+\subsubsection[{ps\-\_\-rgb}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf ps\-\_\-rgb} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-psdata}}]{ps, }
+\item[{{\bf t\-\_\-rgb} $\ast$}]{rgb}
+\end{DoxyParamCaption}
+)}}\label{writeps_8c_a97869253ab8835ad8d963217a0aa2a39}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=216pt]{writeps_8c_a97869253ab8835ad8d963217a0aa2a39_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{writeps_8c_a97869253ab8835ad8d963217a0aa2a39_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{writeps_8c_ac164feaec0d613ee097c851d58c59951}{\index{writeps.\-c@{writeps.\-c}!ps\-\_\-rgb\-\_\-box@{ps\-\_\-rgb\-\_\-box}}
+\index{ps\-\_\-rgb\-\_\-box@{ps\-\_\-rgb\-\_\-box}!writeps.c@{writeps.\-c}}
+\subsubsection[{ps\-\_\-rgb\-\_\-box}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf ps\-\_\-rgb\-\_\-box} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-psdata}}]{ps, }
+\item[{{\bf t\-\_\-rgb} $\ast$}]{rgb}
+\end{DoxyParamCaption}
+)}}\label{writeps_8c_ac164feaec0d613ee097c851d58c59951}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{writeps_8c_ac164feaec0d613ee097c851d58c59951_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{writeps_8c_ac164feaec0d613ee097c851d58c59951_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{writeps_8c_ac74a530347fb9ee30ece5418188abf66}{\index{writeps.\-c@{writeps.\-c}!ps\-\_\-rgb\-\_\-nbox@{ps\-\_\-rgb\-\_\-nbox}}
+\index{ps\-\_\-rgb\-\_\-nbox@{ps\-\_\-rgb\-\_\-nbox}!writeps.c@{writeps.\-c}}
+\subsubsection[{ps\-\_\-rgb\-\_\-nbox}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf ps\-\_\-rgb\-\_\-nbox} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-psdata}}]{ps, }
+\item[{{\bf t\-\_\-rgb} $\ast$}]{rgb, }
+\item[{real}]{n}
+\end{DoxyParamCaption}
+)}}\label{writeps_8c_ac74a530347fb9ee30ece5418188abf66}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=256pt]{writeps_8c_ac74a530347fb9ee30ece5418188abf66_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{writeps_8c_ac74a530347fb9ee30ece5418188abf66_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{writeps_8c_ac6c888476f881c69c8a05c4464dee860}{\index{writeps.\-c@{writeps.\-c}!ps\-\_\-rotate@{ps\-\_\-rotate}}
+\index{ps\-\_\-rotate@{ps\-\_\-rotate}!writeps.c@{writeps.\-c}}
+\subsubsection[{ps\-\_\-rotate}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf ps\-\_\-rotate} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-psdata}}]{ps, }
+\item[{real}]{angle}
+\end{DoxyParamCaption}
+)}}\label{writeps_8c_ac6c888476f881c69c8a05c4464dee860}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{writeps_8c_ac6c888476f881c69c8a05c4464dee860_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{writeps_8c_ac5fa213589290575ddadcae771493aa4}{\index{writeps.\-c@{writeps.\-c}!ps\-\_\-selcolor@{ps\-\_\-selcolor}}
+\index{ps\-\_\-selcolor@{ps\-\_\-selcolor}!writeps.c@{writeps.\-c}}
+\subsubsection[{ps\-\_\-selcolor}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf ps\-\_\-selcolor} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-psdata}}]{ps, }
+\item[{char $\ast$}]{cname}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{writeps_8c_ac5fa213589290575ddadcae771493aa4}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{writeps_8c_ac5fa213589290575ddadcae771493aa4_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{writeps_8c_abce260ba218e575bb9dc585fcfbbce39}{\index{writeps.\-c@{writeps.\-c}!ps\-\_\-setorigin@{ps\-\_\-setorigin}}
+\index{ps\-\_\-setorigin@{ps\-\_\-setorigin}!writeps.c@{writeps.\-c}}
+\subsubsection[{ps\-\_\-setorigin}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf ps\-\_\-setorigin} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-psdata}}]{ps}
+\end{DoxyParamCaption}
+)}}\label{writeps_8c_abce260ba218e575bb9dc585fcfbbce39}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{writeps_8c_abce260ba218e575bb9dc585fcfbbce39_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{writeps_8c_a133b48be10d6c5018b3f0eecffdc4791}{\index{writeps.\-c@{writeps.\-c}!ps\-\_\-strfont@{ps\-\_\-strfont}}
+\index{ps\-\_\-strfont@{ps\-\_\-strfont}!writeps.c@{writeps.\-c}}
+\subsubsection[{ps\-\_\-strfont}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf ps\-\_\-strfont} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-psdata}}]{ps, }
+\item[{char $\ast$}]{font, }
+\item[{real}]{size}
+\end{DoxyParamCaption}
+)}}\label{writeps_8c_a133b48be10d6c5018b3f0eecffdc4791}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{writeps_8c_a133b48be10d6c5018b3f0eecffdc4791_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{writeps_8c_a8ae683055d47657312d3d2410e629832}{\index{writeps.\-c@{writeps.\-c}!ps\-\_\-text@{ps\-\_\-text}}
+\index{ps\-\_\-text@{ps\-\_\-text}!writeps.c@{writeps.\-c}}
+\subsubsection[{ps\-\_\-text}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf ps\-\_\-text} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-psdata}}]{ps, }
+\item[{real}]{x1, }
+\item[{real}]{y1, }
+\item[{const char $\ast$}]{str}
+\end{DoxyParamCaption}
+)}}\label{writeps_8c_a8ae683055d47657312d3d2410e629832}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=232pt]{writeps_8c_a8ae683055d47657312d3d2410e629832_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{writeps_8c_a8ae683055d47657312d3d2410e629832_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{writeps_8c_a05a77b83e34c7b5609ed6bfdbd801c29}{\index{writeps.\-c@{writeps.\-c}!ps\-\_\-translate@{ps\-\_\-translate}}
+\index{ps\-\_\-translate@{ps\-\_\-translate}!writeps.c@{writeps.\-c}}
+\subsubsection[{ps\-\_\-translate}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf ps\-\_\-translate} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-psdata}}]{ps, }
+\item[{real}]{x, }
+\item[{real}]{y}
+\end{DoxyParamCaption}
+)}}\label{writeps_8c_a05a77b83e34c7b5609ed6bfdbd801c29}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{writeps_8c_a05a77b83e34c7b5609ed6bfdbd801c29_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{writeps_8c_a2bbdc25bce506619c6536844be112781}{\index{writeps.\-c@{writeps.\-c}!ps\-\_\-unsetorigin@{ps\-\_\-unsetorigin}}
+\index{ps\-\_\-unsetorigin@{ps\-\_\-unsetorigin}!writeps.c@{writeps.\-c}}
+\subsubsection[{ps\-\_\-unsetorigin}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf ps\-\_\-unsetorigin} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-psdata}}]{ps}
+\end{DoxyParamCaption}
+)}}\label{writeps_8c_a2bbdc25bce506619c6536844be112781}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=256pt]{writeps_8c_a2bbdc25bce506619c6536844be112781_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{writeps_8c_a2bbdc25bce506619c6536844be112781_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{writeps_8c_ae74609601df2efa8817803ea7a472c89}{\index{writeps.\-c@{writeps.\-c}!search\-\_\-col@{search\-\_\-col}}
+\index{search\-\_\-col@{search\-\_\-col}!writeps.c@{writeps.\-c}}
+\subsubsection[{search\-\_\-col}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf search\-\_\-col} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-psdata}}]{ps, }
+\item[{real}]{r, }
+\item[{real}]{g, }
+\item[{real}]{b}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{writeps_8c_ae74609601df2efa8817803ea7a472c89}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=248pt]{writeps_8c_ae74609601df2efa8817803ea7a472c89_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{writeps_8c_ae74609601df2efa8817803ea7a472c89_icgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{\-Variable \-Documentation}
+\hypertarget{writeps_8c_ae4bb6b14aac8154fca4ab57ed272fd12}{\index{writeps.\-c@{writeps.\-c}!fontnm@{fontnm}}
+\index{fontnm@{fontnm}!writeps.c@{writeps.\-c}}
+\subsubsection[{fontnm}]{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ {\bf fontnm}\mbox{[}{\bf efont\-N\-R}\mbox{]}}}\label{writeps_8c_ae4bb6b14aac8154fca4ab57ed272fd12}
+{\bfseries \-Initial value\-:}
+\begin{DoxyCode}
+ {
+    "Times-Roman", "Times-Italic",     "Times-Bold",    "Times-BoldItalic",
+    "Helvetica",  "Helvetica-Oblique", "Helvetica-Bold", "Helvetica-BoldOblique
+      ",
+    "Courier",    "Courier-Oblique",  "Courier-Bold",  "Courier-BoldOblique"
+}
+\end{DoxyCode}

@@ -1,0 +1,144 @@
+\hypertarget{gmx__clustsize_8c}{\section{src/tools/gmx\-\_\-clustsize.c \-File \-Reference}
+\label{gmx__clustsize_8c}\index{src/tools/gmx\-\_\-clustsize.\-c@{src/tools/gmx\-\_\-clustsize.\-c}}
+}
+{\ttfamily \#include $<$math.\-h$>$}\*
+{\ttfamily \#include $<$ctype.\-h$>$}\*
+{\ttfamily \#include \char`\"{}string2.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}sysstuff.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}typedefs.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}macros.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}vec.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}pbc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}rmpbc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}statutil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}xvgr.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}copyrite.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}futil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}tpxio.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}index.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}smalloc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}calcgrid.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}nrnb.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}physics.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}coulomb.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}pme.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gstat.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}matio.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}mtop\-\_\-util.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-ana.\-h\char`\"{}}\*
+\-Include dependency graph for gmx\-\_\-clustsize.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__clustsize_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{gmx__clustsize_8c_ab70d4725699c0935e4847676027e7820}{\-N\-P\-A}~\hyperlink{share_2template_2gromacs_2macros_8h_a0883345a58f8f63aefa249a4f127f707}{asize}(pa)
+\item 
+\#define \hyperlink{gmx__clustsize_8c_a8485f4e81de2537e6a0935626167a775}{\-N\-F\-I\-L\-E}~\hyperlink{share_2template_2gromacs_2macros_8h_a0883345a58f8f63aefa249a4f127f707}{asize}(fnm)
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__clustsize_8c_ac51cd0f5827620f7df1793f65db67ff2}{clust\-\_\-size} (const char $\ast$ndx, const char $\ast$trx, const char $\ast$xpm, const char $\ast$xpmw, const char $\ast$ncl, const char $\ast$acl, const char $\ast$mcl, const char $\ast$histo, const char $\ast$tempf, const char $\ast$mcn, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Mol, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-P\-B\-C, const char $\ast$tpr, real cut, int nskip, int nlevels, \hyperlink{structt__rgb}{t\-\_\-rgb} rmid, \hyperlink{structt__rgb}{t\-\_\-rgb} rhi, int ndf, const \hyperlink{include_2types_2oenv_8h_a6a48d77d95132d7318780544821da6a5}{output\-\_\-env\-\_\-t} oenv)
+\item 
+int \hyperlink{gmx__clustsize_8c_a7d3daab2c897eeac995ccc4bed0999bf}{gmx\-\_\-clustsize} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Define \-Documentation}
+\hypertarget{gmx__clustsize_8c_a8485f4e81de2537e6a0935626167a775}{\index{gmx\-\_\-clustsize.\-c@{gmx\-\_\-clustsize.\-c}!\-N\-F\-I\-L\-E@{\-N\-F\-I\-L\-E}}
+\index{\-N\-F\-I\-L\-E@{\-N\-F\-I\-L\-E}!gmx_clustsize.c@{gmx\-\_\-clustsize.\-c}}
+\subsubsection[{\-N\-F\-I\-L\-E}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-N\-F\-I\-L\-E}~{\bf asize}(fnm)}}\label{gmx__clustsize_8c_a8485f4e81de2537e6a0935626167a775}
+\hypertarget{gmx__clustsize_8c_ab70d4725699c0935e4847676027e7820}{\index{gmx\-\_\-clustsize.\-c@{gmx\-\_\-clustsize.\-c}!\-N\-P\-A@{\-N\-P\-A}}
+\index{\-N\-P\-A@{\-N\-P\-A}!gmx_clustsize.c@{gmx\-\_\-clustsize.\-c}}
+\subsubsection[{\-N\-P\-A}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-N\-P\-A}~{\bf asize}(pa)}}\label{gmx__clustsize_8c_ab70d4725699c0935e4847676027e7820}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{gmx__clustsize_8c_ac51cd0f5827620f7df1793f65db67ff2}{\index{gmx\-\_\-clustsize.\-c@{gmx\-\_\-clustsize.\-c}!clust\-\_\-size@{clust\-\_\-size}}
+\index{clust\-\_\-size@{clust\-\_\-size}!gmx_clustsize.c@{gmx\-\_\-clustsize.\-c}}
+\subsubsection[{clust\-\_\-size}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf clust\-\_\-size} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{ndx, }
+\item[{const char $\ast$}]{trx, }
+\item[{const char $\ast$}]{xpm, }
+\item[{const char $\ast$}]{xpmw, }
+\item[{const char $\ast$}]{ncl, }
+\item[{const char $\ast$}]{acl, }
+\item[{const char $\ast$}]{mcl, }
+\item[{const char $\ast$}]{histo, }
+\item[{const char $\ast$}]{tempf, }
+\item[{const char $\ast$}]{mcn, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Mol, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-P\-B\-C, }
+\item[{const char $\ast$}]{tpr, }
+\item[{real}]{cut, }
+\item[{int}]{nskip, }
+\item[{int}]{nlevels, }
+\item[{{\bf t\-\_\-rgb}}]{rmid, }
+\item[{{\bf t\-\_\-rgb}}]{rhi, }
+\item[{int}]{ndf, }
+\item[{const {\bf output\-\_\-env\-\_\-t}}]{oenv}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__clustsize_8c_ac51cd0f5827620f7df1793f65db67ff2}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{gmx__clustsize_8c_ac51cd0f5827620f7df1793f65db67ff2_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=332pt]{gmx__clustsize_8c_ac51cd0f5827620f7df1793f65db67ff2_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__clustsize_8c_a7d3daab2c897eeac995ccc4bed0999bf}{\index{gmx\-\_\-clustsize.\-c@{gmx\-\_\-clustsize.\-c}!gmx\-\_\-clustsize@{gmx\-\_\-clustsize}}
+\index{gmx\-\_\-clustsize@{gmx\-\_\-clustsize}!gmx_clustsize.c@{gmx\-\_\-clustsize.\-c}}
+\subsubsection[{gmx\-\_\-clustsize}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-clustsize} (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{gmx__clustsize_8c_a7d3daab2c897eeac995ccc4bed0999bf}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{gmx__clustsize_8c_a7d3daab2c897eeac995ccc4bed0999bf_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=234pt]{gmx__clustsize_8c_a7d3daab2c897eeac995ccc4bed0999bf_icgraph}
+\end{center}
+\end{figure}
+
+

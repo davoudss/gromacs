@@ -1,0 +1,1100 @@
+\hypertarget{poscalc_8c}{\section{src/gmxlib/trajana/poscalc.c \-File \-Reference}
+\label{poscalc_8c}\index{src/gmxlib/trajana/poscalc.\-c@{src/gmxlib/trajana/poscalc.\-c}}
+}
+{\ttfamily \#include $<$string.\-h$>$}\*
+{\ttfamily \#include $<$macros.\-h$>$}\*
+{\ttfamily \#include $<$smalloc.\-h$>$}\*
+{\ttfamily \#include $<$typedefs.\-h$>$}\*
+{\ttfamily \#include $<$pbc.\-h$>$}\*
+{\ttfamily \#include $<$vec.\-h$>$}\*
+{\ttfamily \#include $<$centerofmass.\-h$>$}\*
+{\ttfamily \#include $<$indexutil.\-h$>$}\*
+{\ttfamily \#include $<$poscalc.\-h$>$}\*
+{\ttfamily \#include $<$position.\-h$>$}\*
+\-Include dependency graph for poscalc.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{poscalc_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structgmx__ana__poscalc__coll__t}{gmx\-\_\-ana\-\_\-poscalc\-\_\-coll\-\_\-t}
+\item 
+struct \hyperlink{structgmx__ana__poscalc__t}{gmx\-\_\-ana\-\_\-poscalc\-\_\-t}
+\end{DoxyCompactItemize}
+\subsection*{\-Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{poscalc_8c_a9fbdd3902a33803f655ac79b5c65fa46}{\-N\-E\-N\-U\-M}~\hyperlink{share_2template_2gromacs_2macros_8h_a0883345a58f8f63aefa249a4f127f707}{asize}(\hyperlink{poscalc_8c_ab224b14eb6b0b66c50bfe05a3bafd3cc}{poscalc\-\_\-enum\-\_\-strings})
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{include_2indexutil_8h_ad7330829cb93245b9de7ed268cf6ba67}{e\-\_\-index\-\_\-t} \hyperlink{poscalc_8c_a1a26d01f91edcd50ef43e3a7d2e1e1ef}{index\-\_\-type\-\_\-for\-\_\-poscalc} (\hyperlink{include_2poscalc_8h_abda45ad4bf42febbe957a08c4ee291c2}{e\-\_\-poscalc\-\_\-t} \hyperlink{fgrid_8c_a7f3986ef06a5ebd031c536fbcdce3c49}{type})
+\begin{DoxyCompactList}\small\item\em \-Returns the partition type for a given position type. \end{DoxyCompactList}\item 
+int \hyperlink{poscalc_8c_af8f37a405fdcb6664c9ea85103e0d27f}{gmx\-\_\-ana\-\_\-poscalc\-\_\-type\-\_\-from\-\_\-enum} (const char $\ast$post, \hyperlink{include_2poscalc_8h_abda45ad4bf42febbe957a08c4ee291c2}{e\-\_\-poscalc\-\_\-t} $\ast$\hyperlink{fgrid_8c_a7f3986ef06a5ebd031c536fbcdce3c49}{type}, int $\ast$\hyperlink{nbnxn__cuda_8h_a04d8e308e05daeaa5002e3a3c983a14f}{flags})
+\item 
+const char $\ast$$\ast$ \hyperlink{poscalc_8c_a3331b93c16d5515ff9d121039effbcb9}{gmx\-\_\-ana\-\_\-poscalc\-\_\-create\-\_\-type\-\_\-enum} (\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Atom)
+\item 
+int \hyperlink{poscalc_8c_ac88af9aa611048920f5e314e2272b75a}{gmx\-\_\-ana\-\_\-poscalc\-\_\-coll\-\_\-create} (\hyperlink{structgmx__ana__poscalc__coll__t}{gmx\-\_\-ana\-\_\-poscalc\-\_\-coll\-\_\-t} $\ast$$\ast$pccp)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{poscalc_8c_a6cf24df8a8ad3800ca4860cbe513810f}{gmx\-\_\-ana\-\_\-poscalc\-\_\-coll\-\_\-set\-\_\-topology} (\hyperlink{structgmx__ana__poscalc__coll__t}{gmx\-\_\-ana\-\_\-poscalc\-\_\-coll\-\_\-t} $\ast$pcc, \hyperlink{structt__topology}{t\-\_\-topology} $\ast$\hyperlink{gmx__disre_8c_a1b538a2ce75aba6c346bc03980ffeb28}{top})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{poscalc_8c_adf8eed2c95df4c76619a2e5078d3057f}{gmx\-\_\-ana\-\_\-poscalc\-\_\-coll\-\_\-free} (\hyperlink{structgmx__ana__poscalc__coll__t}{gmx\-\_\-ana\-\_\-poscalc\-\_\-coll\-\_\-t} $\ast$pcc)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{poscalc_8c_ac4a83904e69b36ac05d8b5f0ded0aab3}{gmx\-\_\-ana\-\_\-poscalc\-\_\-coll\-\_\-print\-\_\-tree} (\-F\-I\-L\-E $\ast$fp, \hyperlink{structgmx__ana__poscalc__coll__t}{gmx\-\_\-ana\-\_\-poscalc\-\_\-coll\-\_\-t} $\ast$pcc)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{poscalc_8c_afb59de122260717813215bd33e35ce53}{insert\-\_\-poscalc} (\hyperlink{structgmx__ana__poscalc__t}{gmx\-\_\-ana\-\_\-poscalc\-\_\-t} $\ast$pc, \hyperlink{structgmx__ana__poscalc__t}{gmx\-\_\-ana\-\_\-poscalc\-\_\-t} $\ast$before)
+\begin{DoxyCompactList}\small\item\em \-Inserts a position calculation structure into its collection. \end{DoxyCompactList}\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{poscalc_8c_aa5080d517ce7a7cf6f43fc562ef47ddb}{remove\-\_\-poscalc} (\hyperlink{structgmx__ana__poscalc__t}{gmx\-\_\-ana\-\_\-poscalc\-\_\-t} $\ast$pc)
+\begin{DoxyCompactList}\small\item\em \-Removes a position calculation structure from its collection. \end{DoxyCompactList}\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{poscalc_8c_aa6fda5a450dd9bfdc51b08dc79fca3ca}{set\-\_\-poscalc\-\_\-maxindex} (\hyperlink{structgmx__ana__poscalc__t}{gmx\-\_\-ana\-\_\-poscalc\-\_\-t} $\ast$pc, \hyperlink{structgmx__ana__index__t}{gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g}, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Base)
+\begin{DoxyCompactList}\small\item\em \-Initializes position calculation using the maximum possible input index. \end{DoxyCompactList}\item 
+static \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{poscalc_8c_ac351e26582e3de5dcb82d0c50b2862e6}{can\-\_\-use\-\_\-base} (\hyperlink{structgmx__ana__poscalc__t}{gmx\-\_\-ana\-\_\-poscalc\-\_\-t} $\ast$pc)
+\begin{DoxyCompactList}\small\item\em \-Checks whether a position calculation should use a base at all. \end{DoxyCompactList}\item 
+static \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{poscalc_8c_abf83b55ae0e1d73b6d75c8227564dcbf}{should\-\_\-merge} (\hyperlink{structgmx__ana__poscalc__t}{gmx\-\_\-ana\-\_\-poscalc\-\_\-t} $\ast$pc1, \hyperlink{structgmx__ana__poscalc__t}{gmx\-\_\-ana\-\_\-poscalc\-\_\-t} $\ast$pc2, \hyperlink{structgmx__ana__index__t}{gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$g1, \hyperlink{structgmx__ana__index__t}{gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g})
+\begin{DoxyCompactList}\small\item\em \-Checks whether two position calculations should use a common base. \end{DoxyCompactList}\item 
+static \hyperlink{structgmx__ana__poscalc__t}{gmx\-\_\-ana\-\_\-poscalc\-\_\-t} $\ast$ \hyperlink{poscalc_8c_a1f11ebc5bb13fde12758edb6f7c6829a}{create\-\_\-simple\-\_\-base} (\hyperlink{structgmx__ana__poscalc__t}{gmx\-\_\-ana\-\_\-poscalc\-\_\-t} $\ast$pc)
+\begin{DoxyCompactList}\small\item\em \-Creates a static base for position calculation. \end{DoxyCompactList}\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{poscalc_8c_a314f6ee1fe59bd1c5b69d1fbbe523ed2}{merge\-\_\-to\-\_\-base} (\hyperlink{structgmx__ana__poscalc__t}{gmx\-\_\-ana\-\_\-poscalc\-\_\-t} $\ast$base, \hyperlink{structgmx__ana__poscalc__t}{gmx\-\_\-ana\-\_\-poscalc\-\_\-t} $\ast$pc)
+\begin{DoxyCompactList}\small\item\em \-Merges a calculation into another calculation such that the new calculation can be used as a base. \end{DoxyCompactList}\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{poscalc_8c_ae5760189a32b055f1b0404740e839193}{merge\-\_\-bases} (\hyperlink{structgmx__ana__poscalc__t}{gmx\-\_\-ana\-\_\-poscalc\-\_\-t} $\ast$tbase, \hyperlink{structgmx__ana__poscalc__t}{gmx\-\_\-ana\-\_\-poscalc\-\_\-t} $\ast$mbase)
+\begin{DoxyCompactList}\small\item\em \-Merges two bases into one. \end{DoxyCompactList}\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{poscalc_8c_a1224bdf84f4fb5c0cbc125791dff3cd9}{setup\-\_\-base} (\hyperlink{structgmx__ana__poscalc__t}{gmx\-\_\-ana\-\_\-poscalc\-\_\-t} $\ast$pc)
+\begin{DoxyCompactList}\small\item\em \-Setups the static base calculation for a position calculation. \end{DoxyCompactList}\item 
+int \hyperlink{poscalc_8c_acecf92c7e825a2cd2c88f530e604345b}{gmx\-\_\-ana\-\_\-poscalc\-\_\-create} (\hyperlink{structgmx__ana__poscalc__t}{gmx\-\_\-ana\-\_\-poscalc\-\_\-t} $\ast$$\ast$pcp, \hyperlink{structgmx__ana__poscalc__coll__t}{gmx\-\_\-ana\-\_\-poscalc\-\_\-coll\-\_\-t} $\ast$pcc, \hyperlink{include_2poscalc_8h_abda45ad4bf42febbe957a08c4ee291c2}{e\-\_\-poscalc\-\_\-t} \hyperlink{fgrid_8c_a7f3986ef06a5ebd031c536fbcdce3c49}{type}, int \hyperlink{nbnxn__cuda_8h_a04d8e308e05daeaa5002e3a3c983a14f}{flags})
+\item 
+int \hyperlink{poscalc_8c_a1c6c2dfeecd034496fb8f807c85b151b}{gmx\-\_\-ana\-\_\-poscalc\-\_\-create\-\_\-enum} (\hyperlink{structgmx__ana__poscalc__t}{gmx\-\_\-ana\-\_\-poscalc\-\_\-t} $\ast$$\ast$pcp, \hyperlink{structgmx__ana__poscalc__coll__t}{gmx\-\_\-ana\-\_\-poscalc\-\_\-coll\-\_\-t} $\ast$pcc, const char $\ast$post, int \hyperlink{nbnxn__cuda_8h_a04d8e308e05daeaa5002e3a3c983a14f}{flags})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{poscalc_8c_a399f78ef0a844eee1804054f9568bc12}{gmx\-\_\-ana\-\_\-poscalc\-\_\-set\-\_\-flags} (\hyperlink{structgmx__ana__poscalc__t}{gmx\-\_\-ana\-\_\-poscalc\-\_\-t} $\ast$pc, int \hyperlink{nbnxn__cuda_8h_a04d8e308e05daeaa5002e3a3c983a14f}{flags})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{poscalc_8c_ae6f5e6a0c3ea639b5093ee8e86333199}{gmx\-\_\-ana\-\_\-poscalc\-\_\-set\-\_\-maxindex} (\hyperlink{structgmx__ana__poscalc__t}{gmx\-\_\-ana\-\_\-poscalc\-\_\-t} $\ast$pc, \hyperlink{structgmx__ana__index__t}{gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{poscalc_8c_a7f113e8fd1bb588153117d4390b282bf}{gmx\-\_\-ana\-\_\-poscalc\-\_\-init\-\_\-pos} (\hyperlink{structgmx__ana__poscalc__t}{gmx\-\_\-ana\-\_\-poscalc\-\_\-t} $\ast$pc, \hyperlink{structgmx__ana__pos__t}{gmx\-\_\-ana\-\_\-pos\-\_\-t} $\ast$p)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{poscalc_8c_a6dabbcb52d61c65b39691fca109e5508}{gmx\-\_\-ana\-\_\-poscalc\-\_\-free} (\hyperlink{structgmx__ana__poscalc__t}{gmx\-\_\-ana\-\_\-poscalc\-\_\-t} $\ast$pc)
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{poscalc_8c_a458fce88ff3bb2fd6478cc878f0a5ab2}{gmx\-\_\-ana\-\_\-poscalc\-\_\-requires\-\_\-top} (\hyperlink{structgmx__ana__poscalc__t}{gmx\-\_\-ana\-\_\-poscalc\-\_\-t} $\ast$pc)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{poscalc_8c_a573a0b5f9d515dfe21652457e37c5e9e}{gmx\-\_\-ana\-\_\-poscalc\-\_\-init\-\_\-eval} (\hyperlink{structgmx__ana__poscalc__coll__t}{gmx\-\_\-ana\-\_\-poscalc\-\_\-coll\-\_\-t} $\ast$pcc)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{poscalc_8c_a5c5c977b48464d4f6bc62e3ff24ca764}{gmx\-\_\-ana\-\_\-poscalc\-\_\-init\-\_\-frame} (\hyperlink{structgmx__ana__poscalc__coll__t}{gmx\-\_\-ana\-\_\-poscalc\-\_\-coll\-\_\-t} $\ast$pcc)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{poscalc_8c_a4441bd43d681d376c4c26bf1e5a5070d}{gmx\-\_\-ana\-\_\-poscalc\-\_\-update} (\hyperlink{structgmx__ana__poscalc__t}{gmx\-\_\-ana\-\_\-poscalc\-\_\-t} $\ast$pc, \hyperlink{structgmx__ana__pos__t}{gmx\-\_\-ana\-\_\-pos\-\_\-t} $\ast$p, \hyperlink{structgmx__ana__index__t}{gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g}, \hyperlink{include_2types_2trx_8h_a206f77137d72a5db1097a457a7144ad5}{t\-\_\-trxframe} $\ast$\hyperlink{addconf_8c_ae8414314f87c5e49503ac0117eb511ad}{fr}, \hyperlink{structt__pbc}{t\-\_\-pbc} $\ast$pbc)
+\end{DoxyCompactItemize}
+\subsection*{\-Variables}
+\begin{DoxyCompactItemize}
+\item 
+static const char $\ast$const \hyperlink{poscalc_8c_ab224b14eb6b0b66c50bfe05a3bafd3cc}{poscalc\-\_\-enum\-\_\-strings} \mbox{[}$\,$\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Define \-Documentation}
+\hypertarget{poscalc_8c_a9fbdd3902a33803f655ac79b5c65fa46}{\index{poscalc.\-c@{poscalc.\-c}!\-N\-E\-N\-U\-M@{\-N\-E\-N\-U\-M}}
+\index{\-N\-E\-N\-U\-M@{\-N\-E\-N\-U\-M}!poscalc.c@{poscalc.\-c}}
+\subsubsection[{\-N\-E\-N\-U\-M}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-N\-E\-N\-U\-M}~{\bf asize}({\bf poscalc\-\_\-enum\-\_\-strings})}}\label{poscalc_8c_a9fbdd3902a33803f655ac79b5c65fa46}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{poscalc_8c_ac351e26582e3de5dcb82d0c50b2862e6}{\index{poscalc.\-c@{poscalc.\-c}!can\-\_\-use\-\_\-base@{can\-\_\-use\-\_\-base}}
+\index{can\-\_\-use\-\_\-base@{can\-\_\-use\-\_\-base}!poscalc.c@{poscalc.\-c}}
+\subsubsection[{can\-\_\-use\-\_\-base}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gmx\-\_\-bool} {\bf can\-\_\-use\-\_\-base} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-poscalc\-\_\-t} $\ast$}]{pc}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{poscalc_8c_ac351e26582e3de5dcb82d0c50b2862e6}
+
+
+\-Checks whether a position calculation should use a base at all. 
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em pc} & \-Position calculation data to check. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-T\-R\-U\-E if {\ttfamily pc} can use a base and gets some benefit out of it, \-F\-A\-L\-S\-E otherwise. 
+\end{DoxyReturn}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{poscalc_8c_ac351e26582e3de5dcb82d0c50b2862e6_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{poscalc_8c_a1f11ebc5bb13fde12758edb6f7c6829a}{\index{poscalc.\-c@{poscalc.\-c}!create\-\_\-simple\-\_\-base@{create\-\_\-simple\-\_\-base}}
+\index{create\-\_\-simple\-\_\-base@{create\-\_\-simple\-\_\-base}!poscalc.c@{poscalc.\-c}}
+\subsubsection[{create\-\_\-simple\-\_\-base}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gmx\-\_\-ana\-\_\-poscalc\-\_\-t}$\ast$ {\bf create\-\_\-simple\-\_\-base} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-poscalc\-\_\-t} $\ast$}]{pc}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{poscalc_8c_a1f11ebc5bb13fde12758edb6f7c6829a}
+
+
+\-Creates a static base for position calculation. 
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em pc} & \-Data structure to copy. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-Pointer to a newly allocated base for {\ttfamily pc}.
+\end{DoxyReturn}
+\-Creates and returns a deep copy of {\ttfamily pc}, but clears the \hyperlink{share_2template_2gromacs_2poscalc_8h_a62eb7b0a0896e61e43ad4345ee3bb2dd}{\-P\-O\-S\-\_\-\-D\-Y\-N\-A\-M\-I\-C} and \hyperlink{share_2template_2gromacs_2poscalc_8h_a3586daeaab8b4ff970ae759b3677e7fd}{\-P\-O\-S\-\_\-\-M\-A\-S\-K\-O\-N\-L\-Y} flags. \-The newly created structure is set as the base ({\ttfamily \hyperlink{structgmx__ana__poscalc__t_a8b9a27a793b47d53dfa203da5c01c546}{gmx\-\_\-ana\-\_\-poscalc\-\_\-t\-::sbase}}) of {\ttfamily pc} and inserted in the collection before {\ttfamily pc}. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{poscalc_8c_a1f11ebc5bb13fde12758edb6f7c6829a_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{poscalc_8c_a1f11ebc5bb13fde12758edb6f7c6829a_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{poscalc_8c_ac88af9aa611048920f5e314e2272b75a}{\index{poscalc.\-c@{poscalc.\-c}!gmx\-\_\-ana\-\_\-poscalc\-\_\-coll\-\_\-create@{gmx\-\_\-ana\-\_\-poscalc\-\_\-coll\-\_\-create}}
+\index{gmx\-\_\-ana\-\_\-poscalc\-\_\-coll\-\_\-create@{gmx\-\_\-ana\-\_\-poscalc\-\_\-coll\-\_\-create}!poscalc.c@{poscalc.\-c}}
+\subsubsection[{gmx\-\_\-ana\-\_\-poscalc\-\_\-coll\-\_\-create}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-ana\-\_\-poscalc\-\_\-coll\-\_\-create} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-poscalc\-\_\-coll\-\_\-t} $\ast$$\ast$}]{pccp}
+\end{DoxyParamCaption}
+)}}\label{poscalc_8c_ac88af9aa611048920f5e314e2272b75a}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt out}  & {\em pccp} & \-Allocated position calculation collection. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+0 for success. 
+\end{DoxyReturn}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{poscalc_8c_ac88af9aa611048920f5e314e2272b75a_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{poscalc_8c_adf8eed2c95df4c76619a2e5078d3057f}{\index{poscalc.\-c@{poscalc.\-c}!gmx\-\_\-ana\-\_\-poscalc\-\_\-coll\-\_\-free@{gmx\-\_\-ana\-\_\-poscalc\-\_\-coll\-\_\-free}}
+\index{gmx\-\_\-ana\-\_\-poscalc\-\_\-coll\-\_\-free@{gmx\-\_\-ana\-\_\-poscalc\-\_\-coll\-\_\-free}!poscalc.c@{poscalc.\-c}}
+\subsubsection[{gmx\-\_\-ana\-\_\-poscalc\-\_\-coll\-\_\-free}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-ana\-\_\-poscalc\-\_\-coll\-\_\-free} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-poscalc\-\_\-coll\-\_\-t} $\ast$}]{pcc}
+\end{DoxyParamCaption}
+)}}\label{poscalc_8c_adf8eed2c95df4c76619a2e5078d3057f}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em pcc} & \-Position calculation collection to free.\\
+\hline
+\end{DoxyParams}
+\-The pointer {\ttfamily pcc} is invalid after the call. \-Any calculations in the collection are also freed, no matter how many references to them are left. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{poscalc_8c_adf8eed2c95df4c76619a2e5078d3057f_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{poscalc_8c_adf8eed2c95df4c76619a2e5078d3057f_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{poscalc_8c_ac4a83904e69b36ac05d8b5f0ded0aab3}{\index{poscalc.\-c@{poscalc.\-c}!gmx\-\_\-ana\-\_\-poscalc\-\_\-coll\-\_\-print\-\_\-tree@{gmx\-\_\-ana\-\_\-poscalc\-\_\-coll\-\_\-print\-\_\-tree}}
+\index{gmx\-\_\-ana\-\_\-poscalc\-\_\-coll\-\_\-print\-\_\-tree@{gmx\-\_\-ana\-\_\-poscalc\-\_\-coll\-\_\-print\-\_\-tree}!poscalc.c@{poscalc.\-c}}
+\subsubsection[{gmx\-\_\-ana\-\_\-poscalc\-\_\-coll\-\_\-print\-\_\-tree}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-ana\-\_\-poscalc\-\_\-coll\-\_\-print\-\_\-tree} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{{\bf gmx\-\_\-ana\-\_\-poscalc\-\_\-coll\-\_\-t} $\ast$}]{pcc}
+\end{DoxyParamCaption}
+)}}\label{poscalc_8c_ac4a83904e69b36ac05d8b5f0ded0aab3}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em fp} & \-File handle to receive the output. \\
+\hline
+\mbox{\tt in}  & {\em pcc} & \-Position calculation collection to print.\\
+\hline
+\end{DoxyParams}
+\-The output is very technical, making this function mainly useful for debugging purposes. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{poscalc_8c_ac4a83904e69b36ac05d8b5f0ded0aab3_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{poscalc_8c_ac4a83904e69b36ac05d8b5f0ded0aab3_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{poscalc_8c_a6cf24df8a8ad3800ca4860cbe513810f}{\index{poscalc.\-c@{poscalc.\-c}!gmx\-\_\-ana\-\_\-poscalc\-\_\-coll\-\_\-set\-\_\-topology@{gmx\-\_\-ana\-\_\-poscalc\-\_\-coll\-\_\-set\-\_\-topology}}
+\index{gmx\-\_\-ana\-\_\-poscalc\-\_\-coll\-\_\-set\-\_\-topology@{gmx\-\_\-ana\-\_\-poscalc\-\_\-coll\-\_\-set\-\_\-topology}!poscalc.c@{poscalc.\-c}}
+\subsubsection[{gmx\-\_\-ana\-\_\-poscalc\-\_\-coll\-\_\-set\-\_\-topology}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-ana\-\_\-poscalc\-\_\-coll\-\_\-set\-\_\-topology} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-poscalc\-\_\-coll\-\_\-t} $\ast$}]{pcc, }
+\item[{{\bf t\-\_\-topology} $\ast$}]{top}
+\end{DoxyParamCaption}
+)}}\label{poscalc_8c_a6cf24df8a8ad3800ca4860cbe513810f}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in,out}  & {\em pcc} & \-Position calculation collection data structure. \\
+\hline
+\mbox{\tt in}  & {\em top} & \-Topology data structure.\\
+\hline
+\end{DoxyParams}
+\-This function should be called to set the topology before using \hyperlink{include_2poscalc_8h_ad773a50afa86a32f38b2baed9a74a023}{gmx\-\_\-ana\-\_\-poscalc\-\_\-set\-\_\-maxindex()} for any calculation that requires topology information. 
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{poscalc_8c_a6cf24df8a8ad3800ca4860cbe513810f_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{poscalc_8c_acecf92c7e825a2cd2c88f530e604345b}{\index{poscalc.\-c@{poscalc.\-c}!gmx\-\_\-ana\-\_\-poscalc\-\_\-create@{gmx\-\_\-ana\-\_\-poscalc\-\_\-create}}
+\index{gmx\-\_\-ana\-\_\-poscalc\-\_\-create@{gmx\-\_\-ana\-\_\-poscalc\-\_\-create}!poscalc.c@{poscalc.\-c}}
+\subsubsection[{gmx\-\_\-ana\-\_\-poscalc\-\_\-create}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-ana\-\_\-poscalc\-\_\-create} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-poscalc\-\_\-t} $\ast$$\ast$}]{pcp, }
+\item[{{\bf gmx\-\_\-ana\-\_\-poscalc\-\_\-coll\-\_\-t} $\ast$}]{pcc, }
+\item[{{\bf e\-\_\-poscalc\-\_\-t}}]{type, }
+\item[{int}]{flags}
+\end{DoxyParamCaption}
+)}}\label{poscalc_8c_acecf92c7e825a2cd2c88f530e604345b}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt out}  & {\em pcp} & \-Position calculation data structure pointer to initialize. \\
+\hline
+\mbox{\tt in,out}  & {\em pcc} & \-Position calculation collection. \\
+\hline
+\mbox{\tt in}  & {\em type} & \-Type of calculation. \\
+\hline
+\mbox{\tt in}  & {\em flags} & \-Flags for setting calculation options (see \hyperlink{share_2template_2gromacs_2poscalc_8h_poscalc_flags}{documentation of the flags}). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+0 on success. 
+\end{DoxyReturn}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{poscalc_8c_acecf92c7e825a2cd2c88f530e604345b_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{poscalc_8c_acecf92c7e825a2cd2c88f530e604345b_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{poscalc_8c_a1c6c2dfeecd034496fb8f807c85b151b}{\index{poscalc.\-c@{poscalc.\-c}!gmx\-\_\-ana\-\_\-poscalc\-\_\-create\-\_\-enum@{gmx\-\_\-ana\-\_\-poscalc\-\_\-create\-\_\-enum}}
+\index{gmx\-\_\-ana\-\_\-poscalc\-\_\-create\-\_\-enum@{gmx\-\_\-ana\-\_\-poscalc\-\_\-create\-\_\-enum}!poscalc.c@{poscalc.\-c}}
+\subsubsection[{gmx\-\_\-ana\-\_\-poscalc\-\_\-create\-\_\-enum}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-ana\-\_\-poscalc\-\_\-create\-\_\-enum} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-poscalc\-\_\-t} $\ast$$\ast$}]{pcp, }
+\item[{{\bf gmx\-\_\-ana\-\_\-poscalc\-\_\-coll\-\_\-t} $\ast$}]{pcc, }
+\item[{const char $\ast$}]{post, }
+\item[{int}]{flags}
+\end{DoxyParamCaption}
+)}}\label{poscalc_8c_a1c6c2dfeecd034496fb8f807c85b151b}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt out}  & {\em pcp} & \-Position calculation data structure pointer to initialize. \\
+\hline
+\mbox{\tt in,out}  & {\em pcc} & \-Position calculation collection. \\
+\hline
+\mbox{\tt in}  & {\em post} & \-One of the strings acceptable for \hyperlink{include_2poscalc_8h_af8f37a405fdcb6664c9ea85103e0d27f}{gmx\-\_\-ana\-\_\-poscalc\-\_\-type\-\_\-from\-\_\-enum()}. \\
+\hline
+\mbox{\tt in}  & {\em flags} & \-Flags for setting calculation options (see \hyperlink{share_2template_2gromacs_2poscalc_8h_poscalc_flags}{documentation of the flags}). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+0 on success, a non-\/zero error value on error.
+\end{DoxyReturn}
+\-This is a convenience wrapper for \hyperlink{include_2poscalc_8h_acecf92c7e825a2cd2c88f530e604345b}{gmx\-\_\-ana\-\_\-poscalc\-\_\-create()}. {\ttfamily flags} sets the default calculation options if not overridden by {\ttfamily post}; see \hyperlink{include_2poscalc_8h_af8f37a405fdcb6664c9ea85103e0d27f}{gmx\-\_\-ana\-\_\-poscalc\-\_\-type\-\_\-from\-\_\-enum()}.
+
+\begin{DoxySeeAlso}{\-See also}
+\hyperlink{include_2poscalc_8h_acecf92c7e825a2cd2c88f530e604345b}{gmx\-\_\-ana\-\_\-poscalc\-\_\-create()}, \hyperlink{include_2poscalc_8h_af8f37a405fdcb6664c9ea85103e0d27f}{gmx\-\_\-ana\-\_\-poscalc\-\_\-type\-\_\-from\-\_\-enum()} 
+\end{DoxySeeAlso}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{poscalc_8c_a1c6c2dfeecd034496fb8f807c85b151b_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{poscalc_8c_a1c6c2dfeecd034496fb8f807c85b151b_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{poscalc_8c_a3331b93c16d5515ff9d121039effbcb9}{\index{poscalc.\-c@{poscalc.\-c}!gmx\-\_\-ana\-\_\-poscalc\-\_\-create\-\_\-type\-\_\-enum@{gmx\-\_\-ana\-\_\-poscalc\-\_\-create\-\_\-type\-\_\-enum}}
+\index{gmx\-\_\-ana\-\_\-poscalc\-\_\-create\-\_\-type\-\_\-enum@{gmx\-\_\-ana\-\_\-poscalc\-\_\-create\-\_\-type\-\_\-enum}!poscalc.c@{poscalc.\-c}}
+\subsubsection[{gmx\-\_\-ana\-\_\-poscalc\-\_\-create\-\_\-type\-\_\-enum}]{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$$\ast$ {\bf gmx\-\_\-ana\-\_\-poscalc\-\_\-create\-\_\-type\-\_\-enum} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-bool}}]{b\-Atom}
+\end{DoxyParamCaption}
+)}}\label{poscalc_8c_a3331b93c16d5515ff9d121039effbcb9}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em b\-Atom} & \-If \-T\-R\-U\-E, the \char`\"{}atom\char`\"{} value is included. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-N\-U\-L\-L-\/terminated array of strings that contains the string values acceptable for \hyperlink{include_2poscalc_8h_af8f37a405fdcb6664c9ea85103e0d27f}{gmx\-\_\-ana\-\_\-poscalc\-\_\-type\-\_\-from\-\_\-enum()}.
+\end{DoxyReturn}
+\-The first string in the returned list is always \-N\-U\-L\-L to allow the list to be used with \-Gromacs command-\/line parsing. 
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{poscalc_8c_a3331b93c16d5515ff9d121039effbcb9_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{poscalc_8c_a6dabbcb52d61c65b39691fca109e5508}{\index{poscalc.\-c@{poscalc.\-c}!gmx\-\_\-ana\-\_\-poscalc\-\_\-free@{gmx\-\_\-ana\-\_\-poscalc\-\_\-free}}
+\index{gmx\-\_\-ana\-\_\-poscalc\-\_\-free@{gmx\-\_\-ana\-\_\-poscalc\-\_\-free}!poscalc.c@{poscalc.\-c}}
+\subsubsection[{gmx\-\_\-ana\-\_\-poscalc\-\_\-free}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-ana\-\_\-poscalc\-\_\-free} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-poscalc\-\_\-t} $\ast$}]{pc}
+\end{DoxyParamCaption}
+)}}\label{poscalc_8c_a6dabbcb52d61c65b39691fca109e5508}
+
+\begin{DoxyParams}{\-Parameters}
+{\em pc} & \-Position calculation data to be freed.\\
+\hline
+\end{DoxyParams}
+\-The {\ttfamily pc} pointer is invalid after the call. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{poscalc_8c_a6dabbcb52d61c65b39691fca109e5508_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{poscalc_8c_a6dabbcb52d61c65b39691fca109e5508_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{poscalc_8c_a573a0b5f9d515dfe21652457e37c5e9e}{\index{poscalc.\-c@{poscalc.\-c}!gmx\-\_\-ana\-\_\-poscalc\-\_\-init\-\_\-eval@{gmx\-\_\-ana\-\_\-poscalc\-\_\-init\-\_\-eval}}
+\index{gmx\-\_\-ana\-\_\-poscalc\-\_\-init\-\_\-eval@{gmx\-\_\-ana\-\_\-poscalc\-\_\-init\-\_\-eval}!poscalc.c@{poscalc.\-c}}
+\subsubsection[{gmx\-\_\-ana\-\_\-poscalc\-\_\-init\-\_\-eval}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-ana\-\_\-poscalc\-\_\-init\-\_\-eval} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-poscalc\-\_\-coll\-\_\-t} $\ast$}]{pcc}
+\end{DoxyParamCaption}
+)}}\label{poscalc_8c_a573a0b5f9d515dfe21652457e37c5e9e}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in,out}  & {\em pcc} & \-Position calculation collection to initialize.\\
+\hline
+\end{DoxyParams}
+\-This function does some final initialization of the data structures in the collection to prepare them for evaluation. \-After this function has been called, it is no longer possible to add new calculations to the collection.
+
+\-This function is automatically called by \hyperlink{include_2poscalc_8h_a5c5c977b48464d4f6bc62e3ff24ca764}{gmx\-\_\-ana\-\_\-poscalc\-\_\-init\-\_\-frame()} if not called by the user earlier. \-Multiple calls to the function are ignored. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{poscalc_8c_a573a0b5f9d515dfe21652457e37c5e9e_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{poscalc_8c_a573a0b5f9d515dfe21652457e37c5e9e_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{poscalc_8c_a5c5c977b48464d4f6bc62e3ff24ca764}{\index{poscalc.\-c@{poscalc.\-c}!gmx\-\_\-ana\-\_\-poscalc\-\_\-init\-\_\-frame@{gmx\-\_\-ana\-\_\-poscalc\-\_\-init\-\_\-frame}}
+\index{gmx\-\_\-ana\-\_\-poscalc\-\_\-init\-\_\-frame@{gmx\-\_\-ana\-\_\-poscalc\-\_\-init\-\_\-frame}!poscalc.c@{poscalc.\-c}}
+\subsubsection[{gmx\-\_\-ana\-\_\-poscalc\-\_\-init\-\_\-frame}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-ana\-\_\-poscalc\-\_\-init\-\_\-frame} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-poscalc\-\_\-coll\-\_\-t} $\ast$}]{pcc}
+\end{DoxyParamCaption}
+)}}\label{poscalc_8c_a5c5c977b48464d4f6bc62e3ff24ca764}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in,out}  & {\em pcc} & \-Position calculation collection to initialize.\\
+\hline
+\end{DoxyParams}
+\-Clears the evaluation flag for all calculations. \-Should be called for each frame before calling \hyperlink{include_2poscalc_8h_a7466ed08b2dd214d54d4fb1a58906828}{gmx\-\_\-ana\-\_\-poscalc\-\_\-update()}.
+
+\-This function is automatically called by \hyperlink{include_2trajana_8h_ad15724eb62ef6be23dd5e7d2d93c8f15}{gmx\-\_\-ana\-\_\-do()} for each frame, and should not be called by the user unless \hyperlink{include_2trajana_8h_ad15724eb62ef6be23dd5e7d2d93c8f15}{gmx\-\_\-ana\-\_\-do()} is not being used.
+
+\-This function calls \hyperlink{include_2poscalc_8h_a573a0b5f9d515dfe21652457e37c5e9e}{gmx\-\_\-ana\-\_\-poscalc\-\_\-init\-\_\-eval()} automatically if it has not been called earlier. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{poscalc_8c_a5c5c977b48464d4f6bc62e3ff24ca764_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{poscalc_8c_a5c5c977b48464d4f6bc62e3ff24ca764_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{poscalc_8c_a7f113e8fd1bb588153117d4390b282bf}{\index{poscalc.\-c@{poscalc.\-c}!gmx\-\_\-ana\-\_\-poscalc\-\_\-init\-\_\-pos@{gmx\-\_\-ana\-\_\-poscalc\-\_\-init\-\_\-pos}}
+\index{gmx\-\_\-ana\-\_\-poscalc\-\_\-init\-\_\-pos@{gmx\-\_\-ana\-\_\-poscalc\-\_\-init\-\_\-pos}!poscalc.c@{poscalc.\-c}}
+\subsubsection[{gmx\-\_\-ana\-\_\-poscalc\-\_\-init\-\_\-pos}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-ana\-\_\-poscalc\-\_\-init\-\_\-pos} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-poscalc\-\_\-t} $\ast$}]{pc, }
+\item[{{\bf gmx\-\_\-ana\-\_\-pos\-\_\-t} $\ast$}]{p}
+\end{DoxyParamCaption}
+)}}\label{poscalc_8c_a7f113e8fd1bb588153117d4390b282bf}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em pc} & \-Position calculation data structure. \\
+\hline
+\mbox{\tt out}  & {\em p} & \-Output positions.\\
+\hline
+\end{DoxyParams}
+\-Calls to \hyperlink{include_2poscalc_8h_a7466ed08b2dd214d54d4fb1a58906828}{gmx\-\_\-ana\-\_\-poscalc\-\_\-update()} using {\ttfamily pc} should use only positions initialized with this function. \-The {\ttfamily p-\/$>$g} pointer is initialized to point to an internal group that contains the maximum index group set with \hyperlink{include_2poscalc_8h_ad773a50afa86a32f38b2baed9a74a023}{gmx\-\_\-ana\-\_\-poscalc\-\_\-set\-\_\-maxindex()}. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{poscalc_8c_a7f113e8fd1bb588153117d4390b282bf_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{poscalc_8c_a7f113e8fd1bb588153117d4390b282bf_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{poscalc_8c_a458fce88ff3bb2fd6478cc878f0a5ab2}{\index{poscalc.\-c@{poscalc.\-c}!gmx\-\_\-ana\-\_\-poscalc\-\_\-requires\-\_\-top@{gmx\-\_\-ana\-\_\-poscalc\-\_\-requires\-\_\-top}}
+\index{gmx\-\_\-ana\-\_\-poscalc\-\_\-requires\-\_\-top@{gmx\-\_\-ana\-\_\-poscalc\-\_\-requires\-\_\-top}!poscalc.c@{poscalc.\-c}}
+\subsubsection[{gmx\-\_\-ana\-\_\-poscalc\-\_\-requires\-\_\-top}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-ana\-\_\-poscalc\-\_\-requires\-\_\-top} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-poscalc\-\_\-t} $\ast$}]{pc}
+\end{DoxyParamCaption}
+)}}\label{poscalc_8c_a458fce88ff3bb2fd6478cc878f0a5ab2}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em pc} & \-Position calculation data to query. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-T\-R\-U\-E if {\ttfamily pc} requires topology for initialization and/or evaluation, \-F\-A\-L\-S\-E otherwise. 
+\end{DoxyReturn}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{poscalc_8c_a458fce88ff3bb2fd6478cc878f0a5ab2_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{poscalc_8c_a399f78ef0a844eee1804054f9568bc12}{\index{poscalc.\-c@{poscalc.\-c}!gmx\-\_\-ana\-\_\-poscalc\-\_\-set\-\_\-flags@{gmx\-\_\-ana\-\_\-poscalc\-\_\-set\-\_\-flags}}
+\index{gmx\-\_\-ana\-\_\-poscalc\-\_\-set\-\_\-flags@{gmx\-\_\-ana\-\_\-poscalc\-\_\-set\-\_\-flags}!poscalc.c@{poscalc.\-c}}
+\subsubsection[{gmx\-\_\-ana\-\_\-poscalc\-\_\-set\-\_\-flags}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-ana\-\_\-poscalc\-\_\-set\-\_\-flags} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-poscalc\-\_\-t} $\ast$}]{pc, }
+\item[{int}]{flags}
+\end{DoxyParamCaption}
+)}}\label{poscalc_8c_a399f78ef0a844eee1804054f9568bc12}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in,out}  & {\em pc} & \-Position calculation data structure. \\
+\hline
+\mbox{\tt in}  & {\em flags} & \-New flags.\\
+\hline
+\end{DoxyParams}
+{\ttfamily flags} are added to the old flags. \-If calculation type is \hyperlink{share_2template_2gromacs_2poscalc_8h_abda45ad4bf42febbe957a08c4ee291c2a91ffdb6964763d88b5a784de222833d8}{\-P\-O\-S\-\_\-\-A\-T\-O\-M}, \hyperlink{share_2template_2gromacs_2poscalc_8h_ae2fb2ab85a6006e1061ed6af99c1f39f}{\-P\-O\-S\-\_\-\-M\-A\-S\-S} is automatically cleared. \-If both \hyperlink{share_2template_2gromacs_2poscalc_8h_a62eb7b0a0896e61e43ad4345ee3bb2dd}{\-P\-O\-S\-\_\-\-D\-Y\-N\-A\-M\-I\-C} and \hyperlink{share_2template_2gromacs_2poscalc_8h_a3586daeaab8b4ff970ae759b3677e7fd}{\-P\-O\-S\-\_\-\-M\-A\-S\-K\-O\-N\-L\-Y} are provided, \hyperlink{share_2template_2gromacs_2poscalc_8h_a62eb7b0a0896e61e43ad4345ee3bb2dd}{\-P\-O\-S\-\_\-\-D\-Y\-N\-A\-M\-I\-C} is cleared. \-If calculation type is not \hyperlink{share_2template_2gromacs_2poscalc_8h_abda45ad4bf42febbe957a08c4ee291c2a6e4eae73e805ce492df6c75c55ab712a}{\-P\-O\-S\-\_\-\-R\-E\-S} or \hyperlink{share_2template_2gromacs_2poscalc_8h_abda45ad4bf42febbe957a08c4ee291c2a832073c54a9cb1a05ae87c25315fcd7e}{\-P\-O\-S\-\_\-\-M\-O\-L}, \hyperlink{share_2template_2gromacs_2poscalc_8h_a51ff971fa79e81dad91a94091995de8a}{\-P\-O\-S\-\_\-\-C\-O\-M\-P\-L\-M\-A\-X} and \hyperlink{share_2template_2gromacs_2poscalc_8h_acb6721f6727690335c169552fcc860f5}{\-P\-O\-S\-\_\-\-C\-O\-M\-P\-L\-W\-H\-O\-L\-E} are automatically cleared. 
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{poscalc_8c_a399f78ef0a844eee1804054f9568bc12_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{poscalc_8c_ae6f5e6a0c3ea639b5093ee8e86333199}{\index{poscalc.\-c@{poscalc.\-c}!gmx\-\_\-ana\-\_\-poscalc\-\_\-set\-\_\-maxindex@{gmx\-\_\-ana\-\_\-poscalc\-\_\-set\-\_\-maxindex}}
+\index{gmx\-\_\-ana\-\_\-poscalc\-\_\-set\-\_\-maxindex@{gmx\-\_\-ana\-\_\-poscalc\-\_\-set\-\_\-maxindex}!poscalc.c@{poscalc.\-c}}
+\subsubsection[{gmx\-\_\-ana\-\_\-poscalc\-\_\-set\-\_\-maxindex}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-ana\-\_\-poscalc\-\_\-set\-\_\-maxindex} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-poscalc\-\_\-t} $\ast$}]{pc, }
+\item[{{\bf gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$}]{g}
+\end{DoxyParamCaption}
+)}}\label{poscalc_8c_ae6f5e6a0c3ea639b5093ee8e86333199}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in,out}  & {\em pc} & \-Position calculation data structure. \\
+\hline
+\mbox{\tt in}  & {\em g} & \-Maximum index group for the calculation.\\
+\hline
+\end{DoxyParams}
+\-Subsequent calls to \hyperlink{include_2poscalc_8h_a7466ed08b2dd214d54d4fb1a58906828}{gmx\-\_\-ana\-\_\-poscalc\-\_\-update()} should use only subsets of {\ttfamily g} for evaluation.
+
+\-The topology should have been set for the collection of which {\ttfamily pc} is a member. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{poscalc_8c_ae6f5e6a0c3ea639b5093ee8e86333199_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{poscalc_8c_ae6f5e6a0c3ea639b5093ee8e86333199_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{poscalc_8c_af8f37a405fdcb6664c9ea85103e0d27f}{\index{poscalc.\-c@{poscalc.\-c}!gmx\-\_\-ana\-\_\-poscalc\-\_\-type\-\_\-from\-\_\-enum@{gmx\-\_\-ana\-\_\-poscalc\-\_\-type\-\_\-from\-\_\-enum}}
+\index{gmx\-\_\-ana\-\_\-poscalc\-\_\-type\-\_\-from\-\_\-enum@{gmx\-\_\-ana\-\_\-poscalc\-\_\-type\-\_\-from\-\_\-enum}!poscalc.c@{poscalc.\-c}}
+\subsubsection[{gmx\-\_\-ana\-\_\-poscalc\-\_\-type\-\_\-from\-\_\-enum}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-ana\-\_\-poscalc\-\_\-type\-\_\-from\-\_\-enum} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{post, }
+\item[{{\bf e\-\_\-poscalc\-\_\-t} $\ast$}]{type, }
+\item[{int $\ast$}]{flags}
+\end{DoxyParamCaption}
+)}}\label{poscalc_8c_af8f37a405fdcb6664c9ea85103e0d27f}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em post} & \-String (typically an enum command-\/line argument). \-Allowed values\-: 'atom', 'res\-\_\-com', 'res\-\_\-cog', 'mol\-\_\-com', 'mol\-\_\-cog', or one of the last four prepended by 'whole\-\_\-', 'part\-\_\-', or 'dyn\-\_\-'. \\
+\hline
+\mbox{\tt out}  & {\em type} & {\ttfamily e\-\_\-poscalc\-\_\-t} corresponding to {\ttfamily post}. \\
+\hline
+\mbox{\tt in,out}  & {\em flags} & \-Flags corresponding to {\ttfamily post}. \-On input, the flags should contain the default flags. \-On exit, the flags \hyperlink{share_2template_2gromacs_2poscalc_8h_ae2fb2ab85a6006e1061ed6af99c1f39f}{\-P\-O\-S\-\_\-\-M\-A\-S\-S}, \hyperlink{share_2template_2gromacs_2poscalc_8h_a51ff971fa79e81dad91a94091995de8a}{\-P\-O\-S\-\_\-\-C\-O\-M\-P\-L\-M\-A\-X} and \hyperlink{share_2template_2gromacs_2poscalc_8h_acb6721f6727690335c169552fcc860f5}{\-P\-O\-S\-\_\-\-C\-O\-M\-P\-L\-W\-H\-O\-L\-E} have been set according to {\ttfamily post} (the completion flags are left at the default values if no completion prefix is given). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+0 if {\ttfamily post} is one of the valid strings, \-E\-I\-N\-V\-A\-L otherwise.
+\end{DoxyReturn}
+\begin{DoxyAttention}{\-Attention}
+\-Checking is not complete, and other values than those listed above may be accepted for {\ttfamily post}, but the results are undefined. 
+\end{DoxyAttention}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{poscalc_8c_af8f37a405fdcb6664c9ea85103e0d27f_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{poscalc_8c_a4441bd43d681d376c4c26bf1e5a5070d}{\index{poscalc.\-c@{poscalc.\-c}!gmx\-\_\-ana\-\_\-poscalc\-\_\-update@{gmx\-\_\-ana\-\_\-poscalc\-\_\-update}}
+\index{gmx\-\_\-ana\-\_\-poscalc\-\_\-update@{gmx\-\_\-ana\-\_\-poscalc\-\_\-update}!poscalc.c@{poscalc.\-c}}
+\subsubsection[{gmx\-\_\-ana\-\_\-poscalc\-\_\-update}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-ana\-\_\-poscalc\-\_\-update} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-poscalc\-\_\-t} $\ast$}]{pc, }
+\item[{{\bf gmx\-\_\-ana\-\_\-pos\-\_\-t} $\ast$}]{p, }
+\item[{{\bf gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$}]{g, }
+\item[{{\bf t\-\_\-trxframe} $\ast$}]{fr, }
+\item[{{\bf t\-\_\-pbc} $\ast$}]{pbc}
+\end{DoxyParamCaption}
+)}}\label{poscalc_8c_a4441bd43d681d376c4c26bf1e5a5070d}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em pc} & \-Position calculation data. \\
+\hline
+\mbox{\tt in,out}  & {\em p} & \-Output positions, initialized previously with \hyperlink{include_2poscalc_8h_aee6516ea8f53b4dd8ee74773688c12cb}{gmx\-\_\-ana\-\_\-poscalc\-\_\-init\-\_\-pos()} using {\ttfamily pc}. \\
+\hline
+\mbox{\tt in}  & {\em g} & \-Index group to use for the update. \\
+\hline
+\mbox{\tt in}  & {\em fr} & \-Current frame. \\
+\hline
+\mbox{\tt in}  & {\em pbc} & \-P\-B\-C data, or \-N\-U\-L\-L if no \-P\-B\-C should be used.\\
+\hline
+\end{DoxyParams}
+\hyperlink{include_2poscalc_8h_a5c5c977b48464d4f6bc62e3ff24ca764}{gmx\-\_\-ana\-\_\-poscalc\-\_\-init\-\_\-frame()} should be called for each frame before calling this function. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{poscalc_8c_a4441bd43d681d376c4c26bf1e5a5070d_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{poscalc_8c_a4441bd43d681d376c4c26bf1e5a5070d_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{poscalc_8c_a1a26d01f91edcd50ef43e3a7d2e1e1ef}{\index{poscalc.\-c@{poscalc.\-c}!index\-\_\-type\-\_\-for\-\_\-poscalc@{index\-\_\-type\-\_\-for\-\_\-poscalc}}
+\index{index\-\_\-type\-\_\-for\-\_\-poscalc@{index\-\_\-type\-\_\-for\-\_\-poscalc}!poscalc.c@{poscalc.\-c}}
+\subsubsection[{index\-\_\-type\-\_\-for\-\_\-poscalc}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf e\-\_\-index\-\_\-t} {\bf index\-\_\-type\-\_\-for\-\_\-poscalc} (
+\begin{DoxyParamCaption}
+\item[{{\bf e\-\_\-poscalc\-\_\-t}}]{type}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{poscalc_8c_a1a26d01f91edcd50ef43e3a7d2e1e1ef}
+
+
+\-Returns the partition type for a given position type. 
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em type} & {\ttfamily e\-\_\-poscalc\-\_\-t} value to convert. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-Corresponding {\ttfamily e\-\_\-indet\-\_\-t}. 
+\end{DoxyReturn}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{poscalc_8c_a1a26d01f91edcd50ef43e3a7d2e1e1ef_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{poscalc_8c_afb59de122260717813215bd33e35ce53}{\index{poscalc.\-c@{poscalc.\-c}!insert\-\_\-poscalc@{insert\-\_\-poscalc}}
+\index{insert\-\_\-poscalc@{insert\-\_\-poscalc}!poscalc.c@{poscalc.\-c}}
+\subsubsection[{insert\-\_\-poscalc}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf insert\-\_\-poscalc} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-poscalc\-\_\-t} $\ast$}]{pc, }
+\item[{{\bf gmx\-\_\-ana\-\_\-poscalc\-\_\-t} $\ast$}]{before}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{poscalc_8c_afb59de122260717813215bd33e35ce53}
+
+
+\-Inserts a position calculation structure into its collection. 
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em pc} & \-Data structure to insert. \\
+\hline
+{\em before} & \-Data structure before which to insert (\-N\-U\-L\-L = insert at end).\\
+\hline
+\end{DoxyParams}
+\-Inserts {\ttfamily pc} to its collection before {\ttfamily before}. \-If {\ttfamily before} is \-N\-U\-L\-L, {\ttfamily pc} is appended to the list. 
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{poscalc_8c_afb59de122260717813215bd33e35ce53_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{poscalc_8c_ae5760189a32b055f1b0404740e839193}{\index{poscalc.\-c@{poscalc.\-c}!merge\-\_\-bases@{merge\-\_\-bases}}
+\index{merge\-\_\-bases@{merge\-\_\-bases}!poscalc.c@{poscalc.\-c}}
+\subsubsection[{merge\-\_\-bases}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf merge\-\_\-bases} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-poscalc\-\_\-t} $\ast$}]{tbase, }
+\item[{{\bf gmx\-\_\-ana\-\_\-poscalc\-\_\-t} $\ast$}]{mbase}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{poscalc_8c_ae5760189a32b055f1b0404740e839193}
+
+
+\-Merges two bases into one. 
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in,out}  & {\em tbase} & \-Base calculation to merge to. \\
+\hline
+\mbox{\tt in}  & {\em mbase} & \-Base calculation to merge to {\ttfamily tbase}.\\
+\hline
+\end{DoxyParams}
+\-After the call, {\ttfamily mbase} has been freed and {\ttfamily tbase} is used as the base for all calculations that previously had {\ttfamily mbase} as their base. \-It is assumed that any overlap between {\ttfamily tbase} and {\ttfamily mbase} is in complete blocks, i.\-e., that the merge is possible. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{poscalc_8c_ae5760189a32b055f1b0404740e839193_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{poscalc_8c_ae5760189a32b055f1b0404740e839193_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{poscalc_8c_a314f6ee1fe59bd1c5b69d1fbbe523ed2}{\index{poscalc.\-c@{poscalc.\-c}!merge\-\_\-to\-\_\-base@{merge\-\_\-to\-\_\-base}}
+\index{merge\-\_\-to\-\_\-base@{merge\-\_\-to\-\_\-base}!poscalc.c@{poscalc.\-c}}
+\subsubsection[{merge\-\_\-to\-\_\-base}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf merge\-\_\-to\-\_\-base} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-poscalc\-\_\-t} $\ast$}]{base, }
+\item[{{\bf gmx\-\_\-ana\-\_\-poscalc\-\_\-t} $\ast$}]{pc}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{poscalc_8c_a314f6ee1fe59bd1c5b69d1fbbe523ed2}
+
+
+\-Merges a calculation into another calculation such that the new calculation can be used as a base. 
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in,out}  & {\em base} & \-Base calculation to merge to. \\
+\hline
+\mbox{\tt in,out}  & {\em pc} & \-Position calculation to merge to {\ttfamily base}.\\
+\hline
+\end{DoxyParams}
+\-After the call, {\ttfamily base} can be used as a base for {\ttfamily pc} (or any calculation that used it as a base). \-It is assumed that any overlap between {\ttfamily base} and {\ttfamily pc} is in complete blocks, i.\-e., that the merge is possible. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{poscalc_8c_a314f6ee1fe59bd1c5b69d1fbbe523ed2_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{poscalc_8c_a314f6ee1fe59bd1c5b69d1fbbe523ed2_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{poscalc_8c_aa5080d517ce7a7cf6f43fc562ef47ddb}{\index{poscalc.\-c@{poscalc.\-c}!remove\-\_\-poscalc@{remove\-\_\-poscalc}}
+\index{remove\-\_\-poscalc@{remove\-\_\-poscalc}!poscalc.c@{poscalc.\-c}}
+\subsubsection[{remove\-\_\-poscalc}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf remove\-\_\-poscalc} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-poscalc\-\_\-t} $\ast$}]{pc}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{poscalc_8c_aa5080d517ce7a7cf6f43fc562ef47ddb}
+
+
+\-Removes a position calculation structure from its collection. 
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em pc} & \-Data structure to remove.\\
+\hline
+\end{DoxyParams}
+\-Removes {\ttfamily pc} from its collection. 
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{poscalc_8c_aa5080d517ce7a7cf6f43fc562ef47ddb_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{poscalc_8c_aa6fda5a450dd9bfdc51b08dc79fca3ca}{\index{poscalc.\-c@{poscalc.\-c}!set\-\_\-poscalc\-\_\-maxindex@{set\-\_\-poscalc\-\_\-maxindex}}
+\index{set\-\_\-poscalc\-\_\-maxindex@{set\-\_\-poscalc\-\_\-maxindex}!poscalc.c@{poscalc.\-c}}
+\subsubsection[{set\-\_\-poscalc\-\_\-maxindex}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf set\-\_\-poscalc\-\_\-maxindex} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-poscalc\-\_\-t} $\ast$}]{pc, }
+\item[{{\bf gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$}]{g, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Base}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{poscalc_8c_aa6fda5a450dd9bfdc51b08dc79fca3ca}
+
+
+\-Initializes position calculation using the maximum possible input index. 
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in,out}  & {\em pc} & \-Position calculation data structure. \\
+\hline
+\mbox{\tt in}  & {\em g} & \-Maximum index group for the calculation. \\
+\hline
+\mbox{\tt in}  & {\em b\-Base} & \-Whether {\ttfamily pc} will be used as a base or not.\\
+\hline
+\end{DoxyParams}
+{\ttfamily b\-Base} affects on how the {\ttfamily pc-\/$>$gmax} field is initialized. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{poscalc_8c_aa6fda5a450dd9bfdc51b08dc79fca3ca_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{poscalc_8c_aa6fda5a450dd9bfdc51b08dc79fca3ca_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{poscalc_8c_a1224bdf84f4fb5c0cbc125791dff3cd9}{\index{poscalc.\-c@{poscalc.\-c}!setup\-\_\-base@{setup\-\_\-base}}
+\index{setup\-\_\-base@{setup\-\_\-base}!poscalc.c@{poscalc.\-c}}
+\subsubsection[{setup\-\_\-base}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf setup\-\_\-base} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-poscalc\-\_\-t} $\ast$}]{pc}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{poscalc_8c_a1224bdf84f4fb5c0cbc125791dff3cd9}
+
+
+\-Setups the static base calculation for a position calculation. 
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in,out}  & {\em pc} & \-Position calculation to setup the base for. \\
+\hline
+\end{DoxyParams}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{poscalc_8c_a1224bdf84f4fb5c0cbc125791dff3cd9_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{poscalc_8c_a1224bdf84f4fb5c0cbc125791dff3cd9_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{poscalc_8c_abf83b55ae0e1d73b6d75c8227564dcbf}{\index{poscalc.\-c@{poscalc.\-c}!should\-\_\-merge@{should\-\_\-merge}}
+\index{should\-\_\-merge@{should\-\_\-merge}!poscalc.c@{poscalc.\-c}}
+\subsubsection[{should\-\_\-merge}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gmx\-\_\-bool} {\bf should\-\_\-merge} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-poscalc\-\_\-t} $\ast$}]{pc1, }
+\item[{{\bf gmx\-\_\-ana\-\_\-poscalc\-\_\-t} $\ast$}]{pc2, }
+\item[{{\bf gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$}]{g1, }
+\item[{{\bf gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$}]{g}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{poscalc_8c_abf83b55ae0e1d73b6d75c8227564dcbf}
+
+
+\-Checks whether two position calculations should use a common base. 
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em pc1} & \-Calculation 1 to check for. \\
+\hline
+\mbox{\tt in}  & {\em pc2} & \-Calculation 2 to check for. \\
+\hline
+\mbox{\tt in}  & {\em g1} & \-Index group structure that contains the atoms from {\ttfamily pc1}. \\
+\hline
+\mbox{\tt in,out}  & {\em g} & \-Working space, should have enough allocated memory to contain the intersection of the atoms in {\ttfamily pc1} and {\ttfamily pc2}. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-T\-R\-U\-E if the two calculations should be merged to use a common base, \-F\-A\-L\-S\-E otherwise. 
+\end{DoxyReturn}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{poscalc_8c_abf83b55ae0e1d73b6d75c8227564dcbf_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{poscalc_8c_abf83b55ae0e1d73b6d75c8227564dcbf_icgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{\-Variable \-Documentation}
+\hypertarget{poscalc_8c_ab224b14eb6b0b66c50bfe05a3bafd3cc}{\index{poscalc.\-c@{poscalc.\-c}!poscalc\-\_\-enum\-\_\-strings@{poscalc\-\_\-enum\-\_\-strings}}
+\index{poscalc\-\_\-enum\-\_\-strings@{poscalc\-\_\-enum\-\_\-strings}!poscalc.c@{poscalc.\-c}}
+\subsubsection[{poscalc\-\_\-enum\-\_\-strings}]{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ const {\bf poscalc\-\_\-enum\-\_\-strings}\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{poscalc_8c_ab224b14eb6b0b66c50bfe05a3bafd3cc}
+{\bfseries \-Initial value\-:}
+\begin{DoxyCode}
+ {
+    "atom",
+    "res_com",       "res_cog",
+    "mol_com",       "mol_cog",
+    "whole_res_com", "whole_res_cog",
+    "whole_mol_com", "whole_mol_cog",
+    "part_res_com",  "part_res_cog",
+    "part_mol_com",  "part_mol_cog",
+    "dyn_res_com",   "dyn_res_cog",
+    "dyn_mol_com",   "dyn_mol_cog",
+    NULL,
+}
+\end{DoxyCode}

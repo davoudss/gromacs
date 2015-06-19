@@ -1,0 +1,339 @@
+\hypertarget{fflibutil_8c}{\section{src/kernel/fflibutil.c \-File \-Reference}
+\label{fflibutil_8c}\index{src/kernel/fflibutil.\-c@{src/kernel/fflibutil.\-c}}
+}
+{\ttfamily \#include $<$stdio.\-h$>$}\*
+{\ttfamily \#include $<$stdlib.\-h$>$}\*
+{\ttfamily \#include $<$string.\-h$>$}\*
+{\ttfamily \#include $<$sys/types.\-h$>$}\*
+{\ttfamily \#include $<$sys/stat.\-h$>$}\*
+{\ttfamily \#include $<$fcntl.\-h$>$}\*
+{\ttfamily \#include \char`\"{}sysstuff.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}string2.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}futil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}network.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-fatal.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}smalloc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}statutil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}fflibutil.\-h\char`\"{}}\*
+\-Include dependency graph for fflibutil.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{fflibutil_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+const char $\ast$ \hyperlink{fflibutil_8c_a6646bc39443daeaccb597eb0d1cf5058}{fflib\-\_\-forcefield\-\_\-dir\-\_\-ext} ()
+\item 
+const char $\ast$ \hyperlink{fflibutil_8c_a75f912d65573ec3496dcf267002f1571}{fflib\-\_\-forcefield\-\_\-itp} ()
+\item 
+const char $\ast$ \hyperlink{fflibutil_8c_a04757d738f3a30553b01873e2940fb56}{fflib\-\_\-forcefield\-\_\-doc} ()
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{fflibutil_8c_ac64410a0078894418827fbcd931ab9a4}{fflib\-\_\-filename\-\_\-base} (const char $\ast$filename, char $\ast$filebase, int maxlen)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{fflibutil_8c_aec8dd2921ed47b23a8cc931f868214a5}{sort\-\_\-filenames} (int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, char $\ast$$\ast$name, char $\ast$$\ast$name2)
+\item 
+static int \hyperlink{fflibutil_8c_a98f69f6db6b981255923b8d52ea65f4c}{low\-\_\-fflib\-\_\-search\-\_\-file\-\_\-end} (const char $\ast$ffdir, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Add\-C\-W\-D, const char $\ast$file\-\_\-end, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Fatal\-Error, char $\ast$$\ast$$\ast$filenames, char $\ast$$\ast$$\ast$filenames\-\_\-short)
+\item 
+int \hyperlink{fflibutil_8c_a2163d10006090f290ee0d963ceb8c799}{fflib\-\_\-search\-\_\-file\-\_\-end} (const char $\ast$ffdir, const char $\ast$file\-\_\-end, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Fatal\-Error, char $\ast$$\ast$$\ast$filenames)
+\item 
+int \hyperlink{fflibutil_8c_a3b6de80ca1d34583f4711bd5aee2348e}{fflib\-\_\-search\-\_\-file\-\_\-in\-\_\-dirend} (const char $\ast$filename, const char $\ast$dirend, char $\ast$$\ast$$\ast$dirnames)
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{fflibutil_8c_ad62e4fe9cfab1970512441f9e689962c}{fflib\-\_\-fexist} (const char $\ast$file)
+\item 
+\-F\-I\-L\-E $\ast$ \hyperlink{fflibutil_8c_a7ffab6fc4fd7e552752412b0b0d70319}{fflib\-\_\-open} (const char $\ast$file)
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{fflibutil_8c_ad62e4fe9cfab1970512441f9e689962c}{\index{fflibutil.\-c@{fflibutil.\-c}!fflib\-\_\-fexist@{fflib\-\_\-fexist}}
+\index{fflib\-\_\-fexist@{fflib\-\_\-fexist}!fflibutil.c@{fflibutil.\-c}}
+\subsubsection[{fflib\-\_\-fexist}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf fflib\-\_\-fexist} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{file}
+\end{DoxyParamCaption}
+)}}\label{fflibutil_8c_ad62e4fe9cfab1970512441f9e689962c}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=252pt]{fflibutil_8c_ad62e4fe9cfab1970512441f9e689962c_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{fflibutil_8c_ad62e4fe9cfab1970512441f9e689962c_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{fflibutil_8c_ac64410a0078894418827fbcd931ab9a4}{\index{fflibutil.\-c@{fflibutil.\-c}!fflib\-\_\-filename\-\_\-base@{fflib\-\_\-filename\-\_\-base}}
+\index{fflib\-\_\-filename\-\_\-base@{fflib\-\_\-filename\-\_\-base}!fflibutil.c@{fflibutil.\-c}}
+\subsubsection[{fflib\-\_\-filename\-\_\-base}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf fflib\-\_\-filename\-\_\-base} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{filename, }
+\item[{char $\ast$}]{filebase, }
+\item[{int}]{maxlen}
+\end{DoxyParamCaption}
+)}}\label{fflibutil_8c_ac64410a0078894418827fbcd931ab9a4}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=278pt]{fflibutil_8c_ac64410a0078894418827fbcd931ab9a4_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{fflibutil_8c_ac64410a0078894418827fbcd931ab9a4_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{fflibutil_8c_a6646bc39443daeaccb597eb0d1cf5058}{\index{fflibutil.\-c@{fflibutil.\-c}!fflib\-\_\-forcefield\-\_\-dir\-\_\-ext@{fflib\-\_\-forcefield\-\_\-dir\-\_\-ext}}
+\index{fflib\-\_\-forcefield\-\_\-dir\-\_\-ext@{fflib\-\_\-forcefield\-\_\-dir\-\_\-ext}!fflibutil.c@{fflibutil.\-c}}
+\subsubsection[{fflib\-\_\-forcefield\-\_\-dir\-\_\-ext}]{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ {\bf fflib\-\_\-forcefield\-\_\-dir\-\_\-ext} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{fflibutil_8c_a6646bc39443daeaccb597eb0d1cf5058}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{fflibutil_8c_a6646bc39443daeaccb597eb0d1cf5058_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{fflibutil_8c_a04757d738f3a30553b01873e2940fb56}{\index{fflibutil.\-c@{fflibutil.\-c}!fflib\-\_\-forcefield\-\_\-doc@{fflib\-\_\-forcefield\-\_\-doc}}
+\index{fflib\-\_\-forcefield\-\_\-doc@{fflib\-\_\-forcefield\-\_\-doc}!fflibutil.c@{fflibutil.\-c}}
+\subsubsection[{fflib\-\_\-forcefield\-\_\-doc}]{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ {\bf fflib\-\_\-forcefield\-\_\-doc} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{fflibutil_8c_a04757d738f3a30553b01873e2940fb56}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{fflibutil_8c_a04757d738f3a30553b01873e2940fb56_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{fflibutil_8c_a75f912d65573ec3496dcf267002f1571}{\index{fflibutil.\-c@{fflibutil.\-c}!fflib\-\_\-forcefield\-\_\-itp@{fflib\-\_\-forcefield\-\_\-itp}}
+\index{fflib\-\_\-forcefield\-\_\-itp@{fflib\-\_\-forcefield\-\_\-itp}!fflibutil.c@{fflibutil.\-c}}
+\subsubsection[{fflib\-\_\-forcefield\-\_\-itp}]{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ {\bf fflib\-\_\-forcefield\-\_\-itp} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{fflibutil_8c_a75f912d65573ec3496dcf267002f1571}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{fflibutil_8c_a75f912d65573ec3496dcf267002f1571_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{fflibutil_8c_a7ffab6fc4fd7e552752412b0b0d70319}{\index{fflibutil.\-c@{fflibutil.\-c}!fflib\-\_\-open@{fflib\-\_\-open}}
+\index{fflib\-\_\-open@{fflib\-\_\-open}!fflibutil.c@{fflibutil.\-c}}
+\subsubsection[{fflib\-\_\-open}]{\setlength{\rightskip}{0pt plus 5cm}\-F\-I\-L\-E$\ast$ {\bf fflib\-\_\-open} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{file}
+\end{DoxyParamCaption}
+)}}\label{fflibutil_8c_a7ffab6fc4fd7e552752412b0b0d70319}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=230pt]{fflibutil_8c_a7ffab6fc4fd7e552752412b0b0d70319_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{fflibutil_8c_a7ffab6fc4fd7e552752412b0b0d70319_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{fflibutil_8c_a2163d10006090f290ee0d963ceb8c799}{\index{fflibutil.\-c@{fflibutil.\-c}!fflib\-\_\-search\-\_\-file\-\_\-end@{fflib\-\_\-search\-\_\-file\-\_\-end}}
+\index{fflib\-\_\-search\-\_\-file\-\_\-end@{fflib\-\_\-search\-\_\-file\-\_\-end}!fflibutil.c@{fflibutil.\-c}}
+\subsubsection[{fflib\-\_\-search\-\_\-file\-\_\-end}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf fflib\-\_\-search\-\_\-file\-\_\-end} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{ffdir, }
+\item[{const char $\ast$}]{file\-\_\-end, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Fatal\-Error, }
+\item[{char $\ast$$\ast$$\ast$}]{filenames}
+\end{DoxyParamCaption}
+)}}\label{fflibutil_8c_a2163d10006090f290ee0d963ceb8c799}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{fflibutil_8c_a2163d10006090f290ee0d963ceb8c799_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{fflibutil_8c_a2163d10006090f290ee0d963ceb8c799_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{fflibutil_8c_a3b6de80ca1d34583f4711bd5aee2348e}{\index{fflibutil.\-c@{fflibutil.\-c}!fflib\-\_\-search\-\_\-file\-\_\-in\-\_\-dirend@{fflib\-\_\-search\-\_\-file\-\_\-in\-\_\-dirend}}
+\index{fflib\-\_\-search\-\_\-file\-\_\-in\-\_\-dirend@{fflib\-\_\-search\-\_\-file\-\_\-in\-\_\-dirend}!fflibutil.c@{fflibutil.\-c}}
+\subsubsection[{fflib\-\_\-search\-\_\-file\-\_\-in\-\_\-dirend}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf fflib\-\_\-search\-\_\-file\-\_\-in\-\_\-dirend} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{filename, }
+\item[{const char $\ast$}]{dirend, }
+\item[{char $\ast$$\ast$$\ast$}]{dirnames}
+\end{DoxyParamCaption}
+)}}\label{fflibutil_8c_a3b6de80ca1d34583f4711bd5aee2348e}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{fflibutil_8c_a3b6de80ca1d34583f4711bd5aee2348e_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{fflibutil_8c_a3b6de80ca1d34583f4711bd5aee2348e_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{fflibutil_8c_a98f69f6db6b981255923b8d52ea65f4c}{\index{fflibutil.\-c@{fflibutil.\-c}!low\-\_\-fflib\-\_\-search\-\_\-file\-\_\-end@{low\-\_\-fflib\-\_\-search\-\_\-file\-\_\-end}}
+\index{low\-\_\-fflib\-\_\-search\-\_\-file\-\_\-end@{low\-\_\-fflib\-\_\-search\-\_\-file\-\_\-end}!fflibutil.c@{fflibutil.\-c}}
+\subsubsection[{low\-\_\-fflib\-\_\-search\-\_\-file\-\_\-end}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf low\-\_\-fflib\-\_\-search\-\_\-file\-\_\-end} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{ffdir, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Add\-C\-W\-D, }
+\item[{const char $\ast$}]{file\-\_\-end, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Fatal\-Error, }
+\item[{char $\ast$$\ast$$\ast$}]{filenames, }
+\item[{char $\ast$$\ast$$\ast$}]{filenames\-\_\-short}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{fflibutil_8c_a98f69f6db6b981255923b8d52ea65f4c}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{fflibutil_8c_a98f69f6db6b981255923b8d52ea65f4c_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{fflibutil_8c_a98f69f6db6b981255923b8d52ea65f4c_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{fflibutil_8c_aec8dd2921ed47b23a8cc931f868214a5}{\index{fflibutil.\-c@{fflibutil.\-c}!sort\-\_\-filenames@{sort\-\_\-filenames}}
+\index{sort\-\_\-filenames@{sort\-\_\-filenames}!fflibutil.c@{fflibutil.\-c}}
+\subsubsection[{sort\-\_\-filenames}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf sort\-\_\-filenames} (
+\begin{DoxyParamCaption}
+\item[{int}]{n, }
+\item[{char $\ast$$\ast$}]{name, }
+\item[{char $\ast$$\ast$}]{name2}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{fflibutil_8c_aec8dd2921ed47b23a8cc931f868214a5}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=226pt]{fflibutil_8c_aec8dd2921ed47b23a8cc931f868214a5_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{fflibutil_8c_aec8dd2921ed47b23a8cc931f868214a5_icgraph}
+\end{center}
+\end{figure}
+
+

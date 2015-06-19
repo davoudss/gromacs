@@ -1,0 +1,538 @@
+\hypertarget{resall_8c}{\section{src/kernel/resall.c \-File \-Reference}
+\label{resall_8c}\index{src/kernel/resall.\-c@{src/kernel/resall.\-c}}
+}
+{\ttfamily \#include \char`\"{}sysstuff.\-h\char`\"{}}\*
+{\ttfamily \#include $<$ctype.\-h$>$}\*
+{\ttfamily \#include \char`\"{}string2.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}strdb.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}futil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}smalloc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-fatal.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}symtab.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}macros.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}resall.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}pgutil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}fflibutil.\-h\char`\"{}}\*
+\-Include dependency graph for resall.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{resall_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{include_2gpp__atomtype_8h_a140a52ba2b384d9a6483fe65c780f110}{gpp\-\_\-atomtype\-\_\-t} \hyperlink{resall_8c_a8fc885086353721c1aae7534a0651417}{read\-\_\-atype} (const char $\ast$ffdir, \hyperlink{structt__symtab}{t\-\_\-symtab} $\ast$tab)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{resall_8c_a3d0194e09b3614aab0f311c35b6eda06}{print\-\_\-resatoms} (\-F\-I\-L\-E $\ast$out, \hyperlink{include_2gpp__atomtype_8h_a140a52ba2b384d9a6483fe65c780f110}{gpp\-\_\-atomtype\-\_\-t} atype, \hyperlink{structt__restp}{t\-\_\-restp} $\ast$rtp)
+\item 
+static \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{resall_8c_abb8c5dc33874279234217944509542cb}{read\-\_\-atoms} (\-F\-I\-L\-E $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a5ac1e96244316833544f4a5edc3edfc9}{in}, char $\ast$\hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line}, \hyperlink{structt__restp}{t\-\_\-restp} $\ast$r0, \hyperlink{structt__symtab}{t\-\_\-symtab} $\ast$tab, \hyperlink{include_2gpp__atomtype_8h_a140a52ba2b384d9a6483fe65c780f110}{gpp\-\_\-atomtype\-\_\-t} atype)
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{resall_8c_a11b0991425425fe15f5812cabd766eac}{read\-\_\-bondeds} (int bt, \-F\-I\-L\-E $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a5ac1e96244316833544f4a5edc3edfc9}{in}, char $\ast$\hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line}, \hyperlink{structt__restp}{t\-\_\-restp} $\ast$rtp)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{resall_8c_a4b22c32933b63444757ca5f9e8fef95c}{print\-\_\-resbondeds} (\-F\-I\-L\-E $\ast$out, int bt, \hyperlink{structt__restp}{t\-\_\-restp} $\ast$rtp)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{resall_8c_a03ab76a3cd84bbfa0be5e43670ffb0b4}{check\-\_\-rtp} (int nrtp, \hyperlink{structt__restp}{t\-\_\-restp} rtp\mbox{[}$\,$\mbox{]}, char $\ast$libfn)
+\item 
+static int \hyperlink{resall_8c_a0ae8d198b79d6607378f49822d877871}{comprtp} (const \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a0880879736d1ab747a972d1942421886}{a}, const \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afb462a5dea72ae7992f073bfd756fb5f}{b})
+\item 
+int \hyperlink{resall_8c_a602ceae454bc605291b9a03b4a35bda8}{get\-\_\-bt} (char $\ast$\hyperlink{wnblist_8c_a383d5e14413e39bc8997c9f4edbe05d4}{header})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{resall_8c_a0e2d5adfc523701b0b92e160391fa980}{clear\-\_\-t\-\_\-restp} (\hyperlink{structt__restp}{t\-\_\-restp} $\ast$rrtp)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{resall_8c_a0e4ae7cff9d22817cc60147aa3561a24}{print\-\_\-resall\-\_\-header} (\-F\-I\-L\-E $\ast$out, \hyperlink{structt__restp}{t\-\_\-restp} rtp\mbox{[}$\,$\mbox{]})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{resall_8c_a3e0a69eb224a24e0cc3a0c0db8e6b6d9}{print\-\_\-resall} (\-F\-I\-L\-E $\ast$out, int nrtp, \hyperlink{structt__restp}{t\-\_\-restp} rtp\mbox{[}$\,$\mbox{]}, \hyperlink{include_2gpp__atomtype_8h_a140a52ba2b384d9a6483fe65c780f110}{gpp\-\_\-atomtype\-\_\-t} atype)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{resall_8c_a12f37ae502779c7185e199acb05556b5}{read\-\_\-resall} (char $\ast$rrdb, int $\ast$nrtpptr, \hyperlink{structt__restp}{t\-\_\-restp} $\ast$$\ast$rtp, \hyperlink{include_2gpp__atomtype_8h_a140a52ba2b384d9a6483fe65c780f110}{gpp\-\_\-atomtype\-\_\-t} atype, \hyperlink{structt__symtab}{t\-\_\-symtab} $\ast$tab, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Allow\-Override\-R\-T\-P)
+\item 
+static \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{resall_8c_ae358c4a178c95075447eda187ce97773}{is\-\_\-sign} (char \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae4f482ada992ba1e6b96026c14729ffe}{c})
+\item 
+static int \hyperlink{resall_8c_ab1f8493934a1d53bf6c15effa90e327e}{neq\-\_\-str\-\_\-sign} (const char $\ast$a1, const char $\ast$a2)
+\item 
+char $\ast$ \hyperlink{resall_8c_ad898e833865610b1c5aeba17d480cfb9}{search\-\_\-rtp} (const char $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_adc11ad865dea0f5b8c4e03061d8a7e58}{key}, int nrtp, \hyperlink{structt__restp}{t\-\_\-restp} rtp\mbox{[}$\,$\mbox{]})
+\item 
+\hyperlink{structt__restp}{t\-\_\-restp} $\ast$ \hyperlink{resall_8c_a5c464db1b725d0518d9ddb8f92e453b5}{get\-\_\-restp} (const char $\ast$rtpname, int nrtp, \hyperlink{structt__restp}{t\-\_\-restp} rtp\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{resall_8c_a03ab76a3cd84bbfa0be5e43670ffb0b4}{\index{resall.\-c@{resall.\-c}!check\-\_\-rtp@{check\-\_\-rtp}}
+\index{check\-\_\-rtp@{check\-\_\-rtp}!resall.c@{resall.\-c}}
+\subsubsection[{check\-\_\-rtp}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf check\-\_\-rtp} (
+\begin{DoxyParamCaption}
+\item[{int}]{nrtp, }
+\item[{{\bf t\-\_\-restp}}]{rtp\mbox{[}$\,$\mbox{]}, }
+\item[{char $\ast$}]{libfn}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{resall_8c_a03ab76a3cd84bbfa0be5e43670ffb0b4}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=268pt]{resall_8c_a03ab76a3cd84bbfa0be5e43670ffb0b4_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=320pt]{resall_8c_a03ab76a3cd84bbfa0be5e43670ffb0b4_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{resall_8c_a0e2d5adfc523701b0b92e160391fa980}{\index{resall.\-c@{resall.\-c}!clear\-\_\-t\-\_\-restp@{clear\-\_\-t\-\_\-restp}}
+\index{clear\-\_\-t\-\_\-restp@{clear\-\_\-t\-\_\-restp}!resall.c@{resall.\-c}}
+\subsubsection[{clear\-\_\-t\-\_\-restp}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf clear\-\_\-t\-\_\-restp} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-restp} $\ast$}]{rrtp}
+\end{DoxyParamCaption}
+)}}\label{resall_8c_a0e2d5adfc523701b0b92e160391fa980}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=334pt]{resall_8c_a0e2d5adfc523701b0b92e160391fa980_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{resall_8c_a0ae8d198b79d6607378f49822d877871}{\index{resall.\-c@{resall.\-c}!comprtp@{comprtp}}
+\index{comprtp@{comprtp}!resall.c@{resall.\-c}}
+\subsubsection[{comprtp}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf comprtp} (
+\begin{DoxyParamCaption}
+\item[{const {\bf void} $\ast$}]{a, }
+\item[{const {\bf void} $\ast$}]{b}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{resall_8c_a0ae8d198b79d6607378f49822d877871}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=260pt]{resall_8c_a0ae8d198b79d6607378f49822d877871_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=312pt]{resall_8c_a0ae8d198b79d6607378f49822d877871_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{resall_8c_a602ceae454bc605291b9a03b4a35bda8}{\index{resall.\-c@{resall.\-c}!get\-\_\-bt@{get\-\_\-bt}}
+\index{get\-\_\-bt@{get\-\_\-bt}!resall.c@{resall.\-c}}
+\subsubsection[{get\-\_\-bt}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf get\-\_\-bt} (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{header}
+\end{DoxyParamCaption}
+)}}\label{resall_8c_a602ceae454bc605291b9a03b4a35bda8}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=252pt]{resall_8c_a602ceae454bc605291b9a03b4a35bda8_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=304pt]{resall_8c_a602ceae454bc605291b9a03b4a35bda8_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{resall_8c_a5c464db1b725d0518d9ddb8f92e453b5}{\index{resall.\-c@{resall.\-c}!get\-\_\-restp@{get\-\_\-restp}}
+\index{get\-\_\-restp@{get\-\_\-restp}!resall.c@{resall.\-c}}
+\subsubsection[{get\-\_\-restp}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\-\_\-restp}$\ast$ {\bf get\-\_\-restp} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{rtpname, }
+\item[{int}]{nrtp, }
+\item[{{\bf t\-\_\-restp}}]{rtp\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{resall_8c_a5c464db1b725d0518d9ddb8f92e453b5}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=266pt]{resall_8c_a5c464db1b725d0518d9ddb8f92e453b5_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{resall_8c_a5c464db1b725d0518d9ddb8f92e453b5_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{resall_8c_ae358c4a178c95075447eda187ce97773}{\index{resall.\-c@{resall.\-c}!is\-\_\-sign@{is\-\_\-sign}}
+\index{is\-\_\-sign@{is\-\_\-sign}!resall.c@{resall.\-c}}
+\subsubsection[{is\-\_\-sign}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gmx\-\_\-bool} {\bf is\-\_\-sign} (
+\begin{DoxyParamCaption}
+\item[{char}]{c}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{resall_8c_ae358c4a178c95075447eda187ce97773}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{resall_8c_ae358c4a178c95075447eda187ce97773_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{resall_8c_ab1f8493934a1d53bf6c15effa90e327e}{\index{resall.\-c@{resall.\-c}!neq\-\_\-str\-\_\-sign@{neq\-\_\-str\-\_\-sign}}
+\index{neq\-\_\-str\-\_\-sign@{neq\-\_\-str\-\_\-sign}!resall.c@{resall.\-c}}
+\subsubsection[{neq\-\_\-str\-\_\-sign}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf neq\-\_\-str\-\_\-sign} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{a1, }
+\item[{const char $\ast$}]{a2}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{resall_8c_ab1f8493934a1d53bf6c15effa90e327e}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=286pt]{resall_8c_ab1f8493934a1d53bf6c15effa90e327e_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{resall_8c_ab1f8493934a1d53bf6c15effa90e327e_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{resall_8c_a3e0a69eb224a24e0cc3a0c0db8e6b6d9}{\index{resall.\-c@{resall.\-c}!print\-\_\-resall@{print\-\_\-resall}}
+\index{print\-\_\-resall@{print\-\_\-resall}!resall.c@{resall.\-c}}
+\subsubsection[{print\-\_\-resall}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf print\-\_\-resall} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{out, }
+\item[{int}]{nrtp, }
+\item[{{\bf t\-\_\-restp}}]{rtp\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf gpp\-\_\-atomtype\-\_\-t}}]{atype}
+\end{DoxyParamCaption}
+)}}\label{resall_8c_a3e0a69eb224a24e0cc3a0c0db8e6b6d9}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{resall_8c_a3e0a69eb224a24e0cc3a0c0db8e6b6d9_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=232pt]{resall_8c_a3e0a69eb224a24e0cc3a0c0db8e6b6d9_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{resall_8c_a0e4ae7cff9d22817cc60147aa3561a24}{\index{resall.\-c@{resall.\-c}!print\-\_\-resall\-\_\-header@{print\-\_\-resall\-\_\-header}}
+\index{print\-\_\-resall\-\_\-header@{print\-\_\-resall\-\_\-header}!resall.c@{resall.\-c}}
+\subsubsection[{print\-\_\-resall\-\_\-header}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf print\-\_\-resall\-\_\-header} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{out, }
+\item[{{\bf t\-\_\-restp}}]{rtp\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{resall_8c_a0e4ae7cff9d22817cc60147aa3561a24}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{resall_8c_a0e4ae7cff9d22817cc60147aa3561a24_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{resall_8c_a3d0194e09b3614aab0f311c35b6eda06}{\index{resall.\-c@{resall.\-c}!print\-\_\-resatoms@{print\-\_\-resatoms}}
+\index{print\-\_\-resatoms@{print\-\_\-resatoms}!resall.c@{resall.\-c}}
+\subsubsection[{print\-\_\-resatoms}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf print\-\_\-resatoms} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{out, }
+\item[{{\bf gpp\-\_\-atomtype\-\_\-t}}]{atype, }
+\item[{{\bf t\-\_\-restp} $\ast$}]{rtp}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{resall_8c_a3d0194e09b3614aab0f311c35b6eda06}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=304pt]{resall_8c_a3d0194e09b3614aab0f311c35b6eda06_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{resall_8c_a3d0194e09b3614aab0f311c35b6eda06_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{resall_8c_a4b22c32933b63444757ca5f9e8fef95c}{\index{resall.\-c@{resall.\-c}!print\-\_\-resbondeds@{print\-\_\-resbondeds}}
+\index{print\-\_\-resbondeds@{print\-\_\-resbondeds}!resall.c@{resall.\-c}}
+\subsubsection[{print\-\_\-resbondeds}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf print\-\_\-resbondeds} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{out, }
+\item[{int}]{bt, }
+\item[{{\bf t\-\_\-restp} $\ast$}]{rtp}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{resall_8c_a4b22c32933b63444757ca5f9e8fef95c}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{resall_8c_a4b22c32933b63444757ca5f9e8fef95c_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{resall_8c_abb8c5dc33874279234217944509542cb}{\index{resall.\-c@{resall.\-c}!read\-\_\-atoms@{read\-\_\-atoms}}
+\index{read\-\_\-atoms@{read\-\_\-atoms}!resall.c@{resall.\-c}}
+\subsubsection[{read\-\_\-atoms}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gmx\-\_\-bool} {\bf read\-\_\-atoms} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{in, }
+\item[{char $\ast$}]{line, }
+\item[{{\bf t\-\_\-restp} $\ast$}]{r0, }
+\item[{{\bf t\-\_\-symtab} $\ast$}]{tab, }
+\item[{{\bf gpp\-\_\-atomtype\-\_\-t}}]{atype}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{resall_8c_abb8c5dc33874279234217944509542cb}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=296pt]{resall_8c_abb8c5dc33874279234217944509542cb_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=328pt]{resall_8c_abb8c5dc33874279234217944509542cb_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{resall_8c_a8fc885086353721c1aae7534a0651417}{\index{resall.\-c@{resall.\-c}!read\-\_\-atype@{read\-\_\-atype}}
+\index{read\-\_\-atype@{read\-\_\-atype}!resall.c@{resall.\-c}}
+\subsubsection[{read\-\_\-atype}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gpp\-\_\-atomtype\-\_\-t} {\bf read\-\_\-atype} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{ffdir, }
+\item[{{\bf t\-\_\-symtab} $\ast$}]{tab}
+\end{DoxyParamCaption}
+)}}\label{resall_8c_a8fc885086353721c1aae7534a0651417}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{resall_8c_a8fc885086353721c1aae7534a0651417_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=320pt]{resall_8c_a8fc885086353721c1aae7534a0651417_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{resall_8c_a11b0991425425fe15f5812cabd766eac}{\index{resall.\-c@{resall.\-c}!read\-\_\-bondeds@{read\-\_\-bondeds}}
+\index{read\-\_\-bondeds@{read\-\_\-bondeds}!resall.c@{resall.\-c}}
+\subsubsection[{read\-\_\-bondeds}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf read\-\_\-bondeds} (
+\begin{DoxyParamCaption}
+\item[{int}]{bt, }
+\item[{\-F\-I\-L\-E $\ast$}]{in, }
+\item[{char $\ast$}]{line, }
+\item[{{\bf t\-\_\-restp} $\ast$}]{rtp}
+\end{DoxyParamCaption}
+)}}\label{resall_8c_a11b0991425425fe15f5812cabd766eac}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=256pt]{resall_8c_a11b0991425425fe15f5812cabd766eac_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=338pt]{resall_8c_a11b0991425425fe15f5812cabd766eac_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{resall_8c_a12f37ae502779c7185e199acb05556b5}{\index{resall.\-c@{resall.\-c}!read\-\_\-resall@{read\-\_\-resall}}
+\index{read\-\_\-resall@{read\-\_\-resall}!resall.c@{resall.\-c}}
+\subsubsection[{read\-\_\-resall}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf read\-\_\-resall} (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{rrdb, }
+\item[{int $\ast$}]{nrtpptr, }
+\item[{{\bf t\-\_\-restp} $\ast$$\ast$}]{rtp, }
+\item[{{\bf gpp\-\_\-atomtype\-\_\-t}}]{atype, }
+\item[{{\bf t\-\_\-symtab} $\ast$}]{tab, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Allow\-Override\-R\-T\-P}
+\end{DoxyParamCaption}
+)}}\label{resall_8c_a12f37ae502779c7185e199acb05556b5}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{resall_8c_a12f37ae502779c7185e199acb05556b5_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=224pt]{resall_8c_a12f37ae502779c7185e199acb05556b5_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{resall_8c_ad898e833865610b1c5aeba17d480cfb9}{\index{resall.\-c@{resall.\-c}!search\-\_\-rtp@{search\-\_\-rtp}}
+\index{search\-\_\-rtp@{search\-\_\-rtp}!resall.c@{resall.\-c}}
+\subsubsection[{search\-\_\-rtp}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ {\bf search\-\_\-rtp} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{key, }
+\item[{int}]{nrtp, }
+\item[{{\bf t\-\_\-restp}}]{rtp\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{resall_8c_ad898e833865610b1c5aeba17d480cfb9}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{resall_8c_ad898e833865610b1c5aeba17d480cfb9_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{resall_8c_ad898e833865610b1c5aeba17d480cfb9_icgraph}
+\end{center}
+\end{figure}
+
+

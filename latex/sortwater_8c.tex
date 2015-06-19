@@ -1,0 +1,492 @@
+\hypertarget{sortwater_8c}{\section{src/gmxlib/sortwater.c \-File \-Reference}
+\label{sortwater_8c}\index{src/gmxlib/sortwater.\-c@{src/gmxlib/sortwater.\-c}}
+}
+{\ttfamily \#include \char`\"{}typedefs.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}random.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}smalloc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}vec.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}sortwater.\-h\char`\"{}}\*
+\-Include dependency graph for sortwater.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{sortwater_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{sortwater_8c_a833800f534f5c28259946c0e579ae092}{\-S\-W\-P\-X}(vv, xx, yy)~\{ int tmp; tmp = vv\mbox{[}xx\mbox{]}; vv\mbox{[}xx\mbox{]} = vv\mbox{[}yy\mbox{]}; vv\mbox{[}yy\mbox{]} = tmp; \}
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{sortwater_8c_aa9824cd051898e484bae1477e5d9f029}{randwater} (int astart, int nwater, int nwatom, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a339df93739a405c3e4b0506624fa27a5}{v}\mbox{[}$\,$\mbox{]}, int $\ast$seed)
+\item 
+static int \hyperlink{sortwater_8c_ae5066c7080dbe0eaf98f965184b6610e}{rvcomp} (const \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a0880879736d1ab747a972d1942421886}{a}, const \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afb462a5dea72ae7992f073bfd756fb5f}{b})
+\item 
+static int \hyperlink{sortwater_8c_a3e524e2a1b98d2c757a11f4f9612caa7}{block\-\_\-index} (\hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a74f6ffdb4a9c1764f5293969d8c681b6}{ivec} nbox)
+\item 
+static int \hyperlink{sortwater_8c_a8158b58f1dc53c30d3cc19d15f70f17a}{blockcomp} (const \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a0880879736d1ab747a972d1942421886}{a}, const \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afb462a5dea72ae7992f073bfd756fb5f}{b})
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{sortwater_8c_a14ee90776711b8679ebe725117cfea22}{lo\-\_\-sortwater} (int astart, int nwater, int nwatom, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a339df93739a405c3e4b0506624fa27a5}{v}\mbox{[}$\,$\mbox{]}, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Block)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{sortwater_8c_aab7a384169c694f4d7f453a8a4bb760d}{sortwater} (int astart, int nwater, int nwatom, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a339df93739a405c3e4b0506624fa27a5}{v}\mbox{[}$\,$\mbox{]})
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{sortwater_8c_af8f2ff9328fb2a3a614f080c22825b20}{factorize} (int nn, int fac\mbox{[}$\,$\mbox{]})
+\item 
+static int \hyperlink{sortwater_8c_a3bac97d31c9684dbc6655e21e6d28343}{ipow} (int base, int exp)
+\item 
+static int \hyperlink{sortwater_8c_a29c6b8146bda9955361ee636721a48e7}{iv\-\_\-comp} (const \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a0880879736d1ab747a972d1942421886}{a}, const \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afb462a5dea72ae7992f073bfd756fb5f}{b})
+\item 
+static int \hyperlink{sortwater_8c_a7523e9814ec13e32e609ce32f410a4ee}{add\-\_\-bb} (\hyperlink{share_2template_2gromacs_2types_2simple_8h_a74f6ffdb4a9c1764f5293969d8c681b6}{ivec} \hyperlink{calch_8c_ad91fa5bb7926a489c6e63eb6f6ca4a19}{\-B\-B}\mbox{[}$\,$\mbox{]}, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a74f6ffdb4a9c1764f5293969d8c681b6}{ivec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afb462a5dea72ae7992f073bfd756fb5f}{b})
+\item 
+static real \hyperlink{sortwater_8c_a066429b1e7d0d6fae3e704a3d6f47793}{box\-\_\-weight} (\hyperlink{share_2template_2gromacs_2types_2simple_8h_a74f6ffdb4a9c1764f5293969d8c681b6}{ivec} nbox, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box)
+\item 
+static int \hyperlink{sortwater_8c_a6efb7edb5abc8184412d826db929238e}{w\-\_\-comp} (const \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a0880879736d1ab747a972d1942421886}{a}, const \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afb462a5dea72ae7992f073bfd756fb5f}{b})
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{sortwater_8c_ad380dad4294912cc7338dcaa949059fc}{buildbox} (int nnode, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a74f6ffdb4a9c1764f5293969d8c681b6}{ivec} nbox, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{sortwater_8c_a2c2a048832d00ac09834f665324dbf5e}{mkcompact} (int astart, int nwater, int nwatom, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a339df93739a405c3e4b0506624fa27a5}{v}\mbox{[}$\,$\mbox{]}, int nnode, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box)
+\end{DoxyCompactItemize}
+\subsection*{\-Variables}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$ \hyperlink{sortwater_8c_a50b4ac1d03e9c6a6477d5ab167aea14d}{xptr}
+\item 
+static \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{sortwater_8c_a85721000200856e1af73bb1af6940396}{box\-\_\-1}
+\item 
+static int \hyperlink{sortwater_8c_ab2b4df30d6dced5641a8936be3138c43}{nwat}
+\item 
+static \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} \hyperlink{sortwater_8c_af38ec725f690264cbfbca02a48efcdee}{\-B\-O\-X}
+\item 
+static \hyperlink{share_2template_2gromacs_2types_2simple_8h_a74f6ffdb4a9c1764f5293969d8c681b6}{ivec} \hyperlink{sortwater_8c_a1b1397888d64ec62f0115d1de3d89906}{\-N\-B\-O\-X}
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Define \-Documentation}
+\hypertarget{sortwater_8c_a833800f534f5c28259946c0e579ae092}{\index{sortwater.\-c@{sortwater.\-c}!\-S\-W\-P\-X@{\-S\-W\-P\-X}}
+\index{\-S\-W\-P\-X@{\-S\-W\-P\-X}!sortwater.c@{sortwater.\-c}}
+\subsubsection[{\-S\-W\-P\-X}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-S\-W\-P\-X}(
+\begin{DoxyParamCaption}
+\item[{}]{vv, }
+\item[{}]{xx, }
+\item[{}]{yy}
+\end{DoxyParamCaption}
+)~\{ int tmp; tmp = vv\mbox{[}xx\mbox{]}; vv\mbox{[}xx\mbox{]} = vv\mbox{[}yy\mbox{]}; vv\mbox{[}yy\mbox{]} = tmp; \}}}\label{sortwater_8c_a833800f534f5c28259946c0e579ae092}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{sortwater_8c_a7523e9814ec13e32e609ce32f410a4ee}{\index{sortwater.\-c@{sortwater.\-c}!add\-\_\-bb@{add\-\_\-bb}}
+\index{add\-\_\-bb@{add\-\_\-bb}!sortwater.c@{sortwater.\-c}}
+\subsubsection[{add\-\_\-bb}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf add\-\_\-bb} (
+\begin{DoxyParamCaption}
+\item[{{\bf ivec}}]{\-B\-B\mbox{[}$\,$\mbox{]}, }
+\item[{int}]{n, }
+\item[{{\bf ivec}}]{b}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{sortwater_8c_a7523e9814ec13e32e609ce32f410a4ee}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=226pt]{sortwater_8c_a7523e9814ec13e32e609ce32f410a4ee_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{sortwater_8c_a7523e9814ec13e32e609ce32f410a4ee_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{sortwater_8c_a3e524e2a1b98d2c757a11f4f9612caa7}{\index{sortwater.\-c@{sortwater.\-c}!block\-\_\-index@{block\-\_\-index}}
+\index{block\-\_\-index@{block\-\_\-index}!sortwater.c@{sortwater.\-c}}
+\subsubsection[{block\-\_\-index}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf block\-\_\-index} (
+\begin{DoxyParamCaption}
+\item[{{\bf rvec}}]{x, }
+\item[{{\bf ivec}}]{nbox}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{sortwater_8c_a3e524e2a1b98d2c757a11f4f9612caa7}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{sortwater_8c_a3e524e2a1b98d2c757a11f4f9612caa7_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{sortwater_8c_a8158b58f1dc53c30d3cc19d15f70f17a}{\index{sortwater.\-c@{sortwater.\-c}!blockcomp@{blockcomp}}
+\index{blockcomp@{blockcomp}!sortwater.c@{sortwater.\-c}}
+\subsubsection[{blockcomp}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf blockcomp} (
+\begin{DoxyParamCaption}
+\item[{const {\bf void} $\ast$}]{a, }
+\item[{const {\bf void} $\ast$}]{b}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{sortwater_8c_a8158b58f1dc53c30d3cc19d15f70f17a}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=248pt]{sortwater_8c_a8158b58f1dc53c30d3cc19d15f70f17a_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{sortwater_8c_a8158b58f1dc53c30d3cc19d15f70f17a_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{sortwater_8c_a066429b1e7d0d6fae3e704a3d6f47793}{\index{sortwater.\-c@{sortwater.\-c}!box\-\_\-weight@{box\-\_\-weight}}
+\index{box\-\_\-weight@{box\-\_\-weight}!sortwater.c@{sortwater.\-c}}
+\subsubsection[{box\-\_\-weight}]{\setlength{\rightskip}{0pt plus 5cm}static real {\bf box\-\_\-weight} (
+\begin{DoxyParamCaption}
+\item[{{\bf ivec}}]{nbox, }
+\item[{{\bf matrix}}]{box}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{sortwater_8c_a066429b1e7d0d6fae3e704a3d6f47793}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{sortwater_8c_a066429b1e7d0d6fae3e704a3d6f47793_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{sortwater_8c_ad380dad4294912cc7338dcaa949059fc}{\index{sortwater.\-c@{sortwater.\-c}!buildbox@{buildbox}}
+\index{buildbox@{buildbox}!sortwater.c@{sortwater.\-c}}
+\subsubsection[{buildbox}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf buildbox} (
+\begin{DoxyParamCaption}
+\item[{int}]{nnode, }
+\item[{{\bf ivec}}]{nbox, }
+\item[{{\bf matrix}}]{box}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{sortwater_8c_ad380dad4294912cc7338dcaa949059fc}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=332pt]{sortwater_8c_ad380dad4294912cc7338dcaa949059fc_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{sortwater_8c_ad380dad4294912cc7338dcaa949059fc_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{sortwater_8c_af8f2ff9328fb2a3a614f080c22825b20}{\index{sortwater.\-c@{sortwater.\-c}!factorize@{factorize}}
+\index{factorize@{factorize}!sortwater.c@{sortwater.\-c}}
+\subsubsection[{factorize}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf factorize} (
+\begin{DoxyParamCaption}
+\item[{int}]{nn, }
+\item[{int}]{fac\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{sortwater_8c_af8f2ff9328fb2a3a614f080c22825b20}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{sortwater_8c_af8f2ff9328fb2a3a614f080c22825b20_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{sortwater_8c_a3bac97d31c9684dbc6655e21e6d28343}{\index{sortwater.\-c@{sortwater.\-c}!ipow@{ipow}}
+\index{ipow@{ipow}!sortwater.c@{sortwater.\-c}}
+\subsubsection[{ipow}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf ipow} (
+\begin{DoxyParamCaption}
+\item[{int}]{base, }
+\item[{int}]{exp}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{sortwater_8c_a3bac97d31c9684dbc6655e21e6d28343}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{sortwater_8c_a3bac97d31c9684dbc6655e21e6d28343_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{sortwater_8c_a29c6b8146bda9955361ee636721a48e7}{\index{sortwater.\-c@{sortwater.\-c}!iv\-\_\-comp@{iv\-\_\-comp}}
+\index{iv\-\_\-comp@{iv\-\_\-comp}!sortwater.c@{sortwater.\-c}}
+\subsubsection[{iv\-\_\-comp}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf iv\-\_\-comp} (
+\begin{DoxyParamCaption}
+\item[{const {\bf void} $\ast$}]{a, }
+\item[{const {\bf void} $\ast$}]{b}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{sortwater_8c_a29c6b8146bda9955361ee636721a48e7}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{sortwater_8c_a29c6b8146bda9955361ee636721a48e7_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{sortwater_8c_a14ee90776711b8679ebe725117cfea22}{\index{sortwater.\-c@{sortwater.\-c}!lo\-\_\-sortwater@{lo\-\_\-sortwater}}
+\index{lo\-\_\-sortwater@{lo\-\_\-sortwater}!sortwater.c@{sortwater.\-c}}
+\subsubsection[{lo\-\_\-sortwater}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf lo\-\_\-sortwater} (
+\begin{DoxyParamCaption}
+\item[{int}]{astart, }
+\item[{int}]{nwater, }
+\item[{int}]{nwatom, }
+\item[{{\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{v\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Block}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{sortwater_8c_a14ee90776711b8679ebe725117cfea22}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{sortwater_8c_a14ee90776711b8679ebe725117cfea22_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{sortwater_8c_a14ee90776711b8679ebe725117cfea22_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{sortwater_8c_a2c2a048832d00ac09834f665324dbf5e}{\index{sortwater.\-c@{sortwater.\-c}!mkcompact@{mkcompact}}
+\index{mkcompact@{mkcompact}!sortwater.c@{sortwater.\-c}}
+\subsubsection[{mkcompact}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf mkcompact} (
+\begin{DoxyParamCaption}
+\item[{int}]{astart, }
+\item[{int}]{nwater, }
+\item[{int}]{nwatom, }
+\item[{{\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{v\mbox{[}$\,$\mbox{]}, }
+\item[{int}]{nnode, }
+\item[{{\bf matrix}}]{box}
+\end{DoxyParamCaption}
+)}}\label{sortwater_8c_a2c2a048832d00ac09834f665324dbf5e}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{sortwater_8c_a2c2a048832d00ac09834f665324dbf5e_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=334pt]{sortwater_8c_a2c2a048832d00ac09834f665324dbf5e_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{sortwater_8c_aa9824cd051898e484bae1477e5d9f029}{\index{sortwater.\-c@{sortwater.\-c}!randwater@{randwater}}
+\index{randwater@{randwater}!sortwater.c@{sortwater.\-c}}
+\subsubsection[{randwater}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf randwater} (
+\begin{DoxyParamCaption}
+\item[{int}]{astart, }
+\item[{int}]{nwater, }
+\item[{int}]{nwatom, }
+\item[{{\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{v\mbox{[}$\,$\mbox{]}, }
+\item[{int $\ast$}]{seed}
+\end{DoxyParamCaption}
+)}}\label{sortwater_8c_aa9824cd051898e484bae1477e5d9f029}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=238pt]{sortwater_8c_aa9824cd051898e484bae1477e5d9f029_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=326pt]{sortwater_8c_aa9824cd051898e484bae1477e5d9f029_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{sortwater_8c_ae5066c7080dbe0eaf98f965184b6610e}{\index{sortwater.\-c@{sortwater.\-c}!rvcomp@{rvcomp}}
+\index{rvcomp@{rvcomp}!sortwater.c@{sortwater.\-c}}
+\subsubsection[{rvcomp}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf rvcomp} (
+\begin{DoxyParamCaption}
+\item[{const {\bf void} $\ast$}]{a, }
+\item[{const {\bf void} $\ast$}]{b}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{sortwater_8c_ae5066c7080dbe0eaf98f965184b6610e}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{sortwater_8c_ae5066c7080dbe0eaf98f965184b6610e_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{sortwater_8c_aab7a384169c694f4d7f453a8a4bb760d}{\index{sortwater.\-c@{sortwater.\-c}!sortwater@{sortwater}}
+\index{sortwater@{sortwater}!sortwater.c@{sortwater.\-c}}
+\subsubsection[{sortwater}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf sortwater} (
+\begin{DoxyParamCaption}
+\item[{int}]{astart, }
+\item[{int}]{nwater, }
+\item[{int}]{nwatom, }
+\item[{{\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{v\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{sortwater_8c_aab7a384169c694f4d7f453a8a4bb760d}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{sortwater_8c_aab7a384169c694f4d7f453a8a4bb760d_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=324pt]{sortwater_8c_aab7a384169c694f4d7f453a8a4bb760d_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{sortwater_8c_a6efb7edb5abc8184412d826db929238e}{\index{sortwater.\-c@{sortwater.\-c}!w\-\_\-comp@{w\-\_\-comp}}
+\index{w\-\_\-comp@{w\-\_\-comp}!sortwater.c@{sortwater.\-c}}
+\subsubsection[{w\-\_\-comp}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf w\-\_\-comp} (
+\begin{DoxyParamCaption}
+\item[{const {\bf void} $\ast$}]{a, }
+\item[{const {\bf void} $\ast$}]{b}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{sortwater_8c_a6efb7edb5abc8184412d826db929238e}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=236pt]{sortwater_8c_a6efb7edb5abc8184412d826db929238e_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{sortwater_8c_a6efb7edb5abc8184412d826db929238e_icgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{\-Variable \-Documentation}
+\hypertarget{sortwater_8c_af38ec725f690264cbfbca02a48efcdee}{\index{sortwater.\-c@{sortwater.\-c}!\-B\-O\-X@{\-B\-O\-X}}
+\index{\-B\-O\-X@{\-B\-O\-X}!sortwater.c@{sortwater.\-c}}
+\subsubsection[{\-B\-O\-X}]{\setlength{\rightskip}{0pt plus 5cm}{\bf matrix} {\bf \-B\-O\-X}\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{sortwater_8c_af38ec725f690264cbfbca02a48efcdee}
+\hypertarget{sortwater_8c_a85721000200856e1af73bb1af6940396}{\index{sortwater.\-c@{sortwater.\-c}!box\-\_\-1@{box\-\_\-1}}
+\index{box\-\_\-1@{box\-\_\-1}!sortwater.c@{sortwater.\-c}}
+\subsubsection[{box\-\_\-1}]{\setlength{\rightskip}{0pt plus 5cm}{\bf rvec} {\bf box\-\_\-1}\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{sortwater_8c_a85721000200856e1af73bb1af6940396}
+\hypertarget{sortwater_8c_a1b1397888d64ec62f0115d1de3d89906}{\index{sortwater.\-c@{sortwater.\-c}!\-N\-B\-O\-X@{\-N\-B\-O\-X}}
+\index{\-N\-B\-O\-X@{\-N\-B\-O\-X}!sortwater.c@{sortwater.\-c}}
+\subsubsection[{\-N\-B\-O\-X}]{\setlength{\rightskip}{0pt plus 5cm}{\bf ivec} {\bf \-N\-B\-O\-X}\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{sortwater_8c_a1b1397888d64ec62f0115d1de3d89906}
+\hypertarget{sortwater_8c_ab2b4df30d6dced5641a8936be3138c43}{\index{sortwater.\-c@{sortwater.\-c}!nwat@{nwat}}
+\index{nwat@{nwat}!sortwater.c@{sortwater.\-c}}
+\subsubsection[{nwat}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf nwat}\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{sortwater_8c_ab2b4df30d6dced5641a8936be3138c43}
+\hypertarget{sortwater_8c_a50b4ac1d03e9c6a6477d5ab167aea14d}{\index{sortwater.\-c@{sortwater.\-c}!xptr@{xptr}}
+\index{xptr@{xptr}!sortwater.c@{sortwater.\-c}}
+\subsubsection[{xptr}]{\setlength{\rightskip}{0pt plus 5cm}{\bf rvec}$\ast$ {\bf xptr}\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{sortwater_8c_a50b4ac1d03e9c6a6477d5ab167aea14d}

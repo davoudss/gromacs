@@ -1,0 +1,120 @@
+\hypertarget{gmx__principal_8c}{\section{src/tools/gmx\-\_\-principal.c \-File \-Reference}
+\label{gmx__principal_8c}\index{src/tools/gmx\-\_\-principal.\-c@{src/tools/gmx\-\_\-principal.\-c}}
+}
+{\ttfamily \#include $<$math.\-h$>$}\*
+{\ttfamily \#include $<$string.\-h$>$}\*
+{\ttfamily \#include \char`\"{}statutil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}sysstuff.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}typedefs.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}smalloc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}macros.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}vec.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}pbc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}copyrite.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}futil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}index.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}mshift.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}xvgr.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}princ.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}rmpbc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}txtdump.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}tpxio.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gstat.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-ana.\-h\char`\"{}}\*
+\-Include dependency graph for gmx\-\_\-principal.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__principal_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{gmx__principal_8c_a8485f4e81de2537e6a0935626167a775}{\-N\-F\-I\-L\-E}~\hyperlink{share_2template_2gromacs_2macros_8h_a0883345a58f8f63aefa249a4f127f707}{asize}(fnm)
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__principal_8c_a65ca0e303c5e1dadc1494ad859548e94}{calc\-\_\-principal\-\_\-axes} (\hyperlink{structt__topology}{t\-\_\-topology} $\ast$\hyperlink{gmx__disre_8c_a1b538a2ce75aba6c346bc03980ffeb28}{top}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}, \hyperlink{include_2types_2simple_8h_ad3f47cdb48677e516e2049719612c737}{atom\-\_\-id} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a49fd977001162d7256c8fcd293f9d12a}{index}, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} axes, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} inertia)
+\item 
+int \hyperlink{gmx__principal_8c_a086eaba37bba4f6c88069d2411d64084}{gmx\-\_\-principal} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Define \-Documentation}
+\hypertarget{gmx__principal_8c_a8485f4e81de2537e6a0935626167a775}{\index{gmx\-\_\-principal.\-c@{gmx\-\_\-principal.\-c}!\-N\-F\-I\-L\-E@{\-N\-F\-I\-L\-E}}
+\index{\-N\-F\-I\-L\-E@{\-N\-F\-I\-L\-E}!gmx_principal.c@{gmx\-\_\-principal.\-c}}
+\subsubsection[{\-N\-F\-I\-L\-E}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-N\-F\-I\-L\-E}~{\bf asize}(fnm)}}\label{gmx__principal_8c_a8485f4e81de2537e6a0935626167a775}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{gmx__principal_8c_a65ca0e303c5e1dadc1494ad859548e94}{\index{gmx\-\_\-principal.\-c@{gmx\-\_\-principal.\-c}!calc\-\_\-principal\-\_\-axes@{calc\-\_\-principal\-\_\-axes}}
+\index{calc\-\_\-principal\-\_\-axes@{calc\-\_\-principal\-\_\-axes}!gmx_principal.c@{gmx\-\_\-principal.\-c}}
+\subsubsection[{calc\-\_\-principal\-\_\-axes}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf calc\-\_\-principal\-\_\-axes} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-topology} $\ast$}]{top, }
+\item[{{\bf rvec} $\ast$}]{x, }
+\item[{{\bf atom\-\_\-id} $\ast$}]{index, }
+\item[{int}]{n, }
+\item[{{\bf matrix}}]{axes, }
+\item[{{\bf rvec}}]{inertia}
+\end{DoxyParamCaption}
+)}}\label{gmx__principal_8c_a65ca0e303c5e1dadc1494ad859548e94}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=300pt]{gmx__principal_8c_a65ca0e303c5e1dadc1494ad859548e94_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__principal_8c_a65ca0e303c5e1dadc1494ad859548e94_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__principal_8c_a086eaba37bba4f6c88069d2411d64084}{\index{gmx\-\_\-principal.\-c@{gmx\-\_\-principal.\-c}!gmx\-\_\-principal@{gmx\-\_\-principal}}
+\index{gmx\-\_\-principal@{gmx\-\_\-principal}!gmx_principal.c@{gmx\-\_\-principal.\-c}}
+\subsubsection[{gmx\-\_\-principal}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-principal} (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{gmx__principal_8c_a086eaba37bba4f6c88069d2411d64084}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{gmx__principal_8c_a086eaba37bba4f6c88069d2411d64084_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=232pt]{gmx__principal_8c_a086eaba37bba4f6c88069d2411d64084_icgraph}
+\end{center}
+\end{figure}
+
+

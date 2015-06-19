@@ -1,0 +1,126 @@
+\hypertarget{eigensolver_8c}{\section{src/tools/eigensolver.c \-File \-Reference}
+\label{eigensolver_8c}\index{src/tools/eigensolver.\-c@{src/tools/eigensolver.\-c}}
+}
+{\ttfamily \#include \char`\"{}types/simple.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}smalloc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-fatal.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}sparsematrix.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}eigensolver.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-lapack.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-arpack.\-h\char`\"{}}\*
+\-Include dependency graph for eigensolver.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{eigensolver_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{eigensolver_8c_a6656af9e663b4e5d8dff372542c56ab7}{eigensolver} (real $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a0880879736d1ab747a972d1942421886}{a}, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, int index\-\_\-lower, int index\-\_\-upper, real $\ast$eigenvalues, real $\ast$eigenvectors)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{eigensolver_8c_a422c179fa61a7c831067b68ba01b8a60}{sparse\-\_\-eigensolver} (\hyperlink{include_2sparsematrix_8h_acc946265e6f9b5b25ab54aeed0aa7c1b}{gmx\-\_\-sparsematrix\-\_\-t} $\ast$\hyperlink{shift__util_8c_aacaa5b9630e45bd7f464005e7eb9ce14}{\-A}, int neig, real $\ast$eigenvalues, real $\ast$eigenvectors, int maxiter)
+\begin{DoxyCompactList}\small\item\em \-Sparse matrix eigensolver. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{eigensolver_8c_a6656af9e663b4e5d8dff372542c56ab7}{\index{eigensolver.\-c@{eigensolver.\-c}!eigensolver@{eigensolver}}
+\index{eigensolver@{eigensolver}!eigensolver.c@{eigensolver.\-c}}
+\subsubsection[{eigensolver}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf eigensolver} (
+\begin{DoxyParamCaption}
+\item[{real $\ast$}]{a, }
+\item[{int}]{n, }
+\item[{int}]{index\-\_\-lower, }
+\item[{int}]{index\-\_\-upper, }
+\item[{real $\ast$}]{eigenvalues, }
+\item[{real $\ast$}]{eigenvec}
+\end{DoxyParamCaption}
+)}}\label{eigensolver_8c_a6656af9e663b4e5d8dff372542c56ab7}
+\-Calculate eigenvalues/vectors a matrix stored in linear memory (not sparse).
+
+\-This routine uses lapack to diagonalize a matrix efficiently, and the eigenvalues/vectors will be sorted in ascending order on output. \-Gromacs comes with a built-\/in portable \-B\-L\-A\-S/\-L\-A\-P\-A\-C\-K, but if performance matters it is advisable to link with an optimized vendor-\/provided library.
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em a} & \-Pointer to matrix data, total size n$\ast$n \-The input data in the matrix will be destroyed/changed. \\
+\hline
+{\em n} & \-Side of the matrix to calculate eigenvalues for. \\
+\hline
+{\em index\-\_\-lower} & \-Index of first eigenvector to determine. \\
+\hline
+{\em index\-\_\-upper} & \-Last eigenvector determined is index\-\_\-upper-\/1. \\
+\hline
+{\em eigenvalues} & \-Array of the eigenvalues on return. \-The length of this array \-\_\-must\-\_\- be n, even if not all eigenvectors are calculated, since all eigenvalues might be needed as an intermediate step. \\
+\hline
+{\em eigenvectors} & \-If this pointer is non-\/\-N\-U\-L\-L, the eigenvectors specified by the indices are returned as rows of a matrix, i.\-e. eigenvector j starts at offset j$\ast$n, and is of length n. \\
+\hline
+\end{DoxyParams}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=242pt]{eigensolver_8c_a6656af9e663b4e5d8dff372542c56ab7_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{eigensolver_8c_a6656af9e663b4e5d8dff372542c56ab7_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{eigensolver_8c_a422c179fa61a7c831067b68ba01b8a60}{\index{eigensolver.\-c@{eigensolver.\-c}!sparse\-\_\-eigensolver@{sparse\-\_\-eigensolver}}
+\index{sparse\-\_\-eigensolver@{sparse\-\_\-eigensolver}!eigensolver.c@{eigensolver.\-c}}
+\subsubsection[{sparse\-\_\-eigensolver}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf sparse\-\_\-eigensolver} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-sparsematrix\-\_\-t} $\ast$}]{\-A, }
+\item[{int}]{neig, }
+\item[{real $\ast$}]{eigenvalues, }
+\item[{real $\ast$}]{eigenvectors, }
+\item[{int}]{maxiter}
+\end{DoxyParamCaption}
+)}}\label{eigensolver_8c_a422c179fa61a7c831067b68ba01b8a60}
+
+
+\-Sparse matrix eigensolver. 
+
+\-This routine is intended for large matrices that might not fit in memory.
+
+\-It will determine the neig lowest eigenvalues, and if the eigenvectors pointer is non-\/\-N\-U\-L\-L also the corresponding eigenvectors.
+
+maxiter=100000 should suffice in most cases! 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{eigensolver_8c_a422c179fa61a7c831067b68ba01b8a60_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{eigensolver_8c_a422c179fa61a7c831067b68ba01b8a60_icgraph}
+\end{center}
+\end{figure}
+
+

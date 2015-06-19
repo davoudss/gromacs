@@ -1,0 +1,165 @@
+\hypertarget{share_2template_2gromacs_2selparam_8h}{\section{share/template/gromacs/selparam.h \-File \-Reference}
+\label{share_2template_2gromacs_2selparam_8h}\index{share/template/gromacs/selparam.\-h@{share/template/gromacs/selparam.\-h}}
+}
+
+
+\-A\-P\-I for handling parameters used in selections.  
+
+
+{\ttfamily \#include \char`\"{}typedefs.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}indexutil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}selvalue.\-h\char`\"{}}\*
+\-Include dependency graph for selparam.\-h\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{share_2template_2gromacs_2selparam_8h__incl}
+\end{center}
+\end{figure}
+\-This graph shows which files directly or indirectly include this file\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{share_2template_2gromacs_2selparam_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structgmx__ana__selparam__t}{gmx\-\_\-ana\-\_\-selparam\-\_\-t}
+\begin{DoxyCompactList}\small\item\em \-Describes a single parameter for a selection method. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{\-Defines}
+\begin{Indent}{\bf \-Parameter flags}\par
+{\em \label{share_2template_2gromacs_2selparam_8h_selparam_flags}%
+\hypertarget{share_2template_2gromacs_2selparam_8h_selparam_flags}{}%
+}\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{share_2template_2gromacs_2selparam_8h_a0831296b9cea31c425fcc456b1286614}{\-S\-P\-A\-R\-\_\-\-S\-E\-T}~1
+\begin{DoxyCompactList}\small\item\em \-This flag is set if the user has provided the parameter. \end{DoxyCompactList}\item 
+\#define \hyperlink{share_2template_2gromacs_2selparam_8h_a9829627bea1b9a81fe204f333a6519b6}{\-S\-P\-A\-R\-\_\-\-O\-P\-T\-I\-O\-N\-A\-L}~2
+\begin{DoxyCompactList}\small\item\em \-If not set, an error is reported if the parameter is not specified by the user. \end{DoxyCompactList}\item 
+\#define \hyperlink{share_2template_2gromacs_2selparam_8h_ae44a94b4d013d2a344cfb3a9f8c5479f}{\-S\-P\-A\-R\-\_\-\-D\-Y\-N\-A\-M\-I\-C}~4
+\begin{DoxyCompactList}\small\item\em \-If set, the parameter value can be dynamic, i.\-e., be different for different frames. \end{DoxyCompactList}\item 
+\#define \hyperlink{share_2template_2gromacs_2selparam_8h_ab39fef32ca729815df1299fafdd623b1}{\-S\-P\-A\-R\-\_\-\-R\-A\-N\-G\-E\-S}~8
+\begin{DoxyCompactList}\small\item\em \-If set, the parameter value is parsed into sorted ranges. \end{DoxyCompactList}\item 
+\#define \hyperlink{share_2template_2gromacs_2selparam_8h_a400330277d7e17cdfef1610cc37838ea}{\-S\-P\-A\-R\-\_\-\-V\-A\-R\-N\-U\-M}~16
+\begin{DoxyCompactList}\small\item\em \-If set, the parameter can have any number of values. \end{DoxyCompactList}\item 
+\#define \hyperlink{share_2template_2gromacs_2selparam_8h_ababaf52ada40922bb660a4949e1e52f0}{\-S\-P\-A\-R\-\_\-\-A\-T\-O\-M\-V\-A\-L}~32
+\begin{DoxyCompactList}\small\item\em \-If set, the parameter can have a separate value for each atom. \end{DoxyCompactList}\item 
+\#define \hyperlink{share_2template_2gromacs_2selparam_8h_a9cab7952c47c82291754bb1b90db31e7}{\-S\-P\-A\-R\-\_\-\-E\-N\-U\-M\-V\-A\-L}~128
+\begin{DoxyCompactList}\small\item\em \-If set, the parameter takes one of a set of predefined strings. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+\subsection*{\-Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \hyperlink{structgmx__ana__selparam__t}{gmx\-\_\-ana\-\_\-selparam\-\_\-t} \hyperlink{share_2template_2gromacs_2selparam_8h_a6ca2a18c27259793f19da62ce271e499}{gmx\-\_\-ana\-\_\-selparam\-\_\-t}
+\begin{DoxyCompactList}\small\item\em \-Describes a single parameter for a selection method. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structgmx__ana__selparam__t}{gmx\-\_\-ana\-\_\-selparam\-\_\-t} $\ast$ \hyperlink{share_2template_2gromacs_2selparam_8h_a7400c81820037ea822c19a60c31fc486}{gmx\-\_\-ana\-\_\-selparam\-\_\-find} (const char $\ast$name, int nparam, \hyperlink{structgmx__ana__selparam__t}{gmx\-\_\-ana\-\_\-selparam\-\_\-t} $\ast$param)
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Detailed \-Description}
+\-A\-P\-I for handling parameters used in selections. \-There should be no need to use the data structures or call the functions in this file directly unless implementing a custom selection method.
+
+\-More details can be found on the page discussing \hyperlink{selmethods}{custom selection methods}. 
+
+\subsection{\-Define \-Documentation}
+\hypertarget{share_2template_2gromacs_2selparam_8h_ababaf52ada40922bb660a4949e1e52f0}{\index{share/template/gromacs/selparam.\-h@{share/template/gromacs/selparam.\-h}!\-S\-P\-A\-R\-\_\-\-A\-T\-O\-M\-V\-A\-L@{\-S\-P\-A\-R\-\_\-\-A\-T\-O\-M\-V\-A\-L}}
+\index{\-S\-P\-A\-R\-\_\-\-A\-T\-O\-M\-V\-A\-L@{\-S\-P\-A\-R\-\_\-\-A\-T\-O\-M\-V\-A\-L}!share/template/gromacs/selparam.h@{share/template/gromacs/selparam.\-h}}
+\subsubsection[{\-S\-P\-A\-R\-\_\-\-A\-T\-O\-M\-V\-A\-L}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-S\-P\-A\-R\-\_\-\-A\-T\-O\-M\-V\-A\-L}~32}}\label{share_2template_2gromacs_2selparam_8h_ababaf52ada40922bb660a4949e1e52f0}
+
+
+\-If set, the parameter can have a separate value for each atom. 
+
+\-The flag is cleared before \hyperlink{include_2selmethod_8h_a112e5ec6891c5963a59384cf41f0cc89}{sel\-\_\-initfunc()} if the value provided is actually a single value.
+
+\-Cannot be combined with \hyperlink{share_2template_2gromacs_2selvalue_8h_a70b42b87d434580bf1493591857b8beca31a47fbfbc85ad1472ce3d2a168fd1ec}{\-P\-O\-S\-\_\-\-V\-A\-L\-U\-E} or \hyperlink{share_2template_2gromacs_2selvalue_8h_a70b42b87d434580bf1493591857b8beca70a2af6eafa48adfab506ceee60471f6}{\-G\-R\-O\-U\-P\-\_\-\-V\-A\-L\-U\-E} parameters. \hypertarget{share_2template_2gromacs_2selparam_8h_ae44a94b4d013d2a344cfb3a9f8c5479f}{\index{share/template/gromacs/selparam.\-h@{share/template/gromacs/selparam.\-h}!\-S\-P\-A\-R\-\_\-\-D\-Y\-N\-A\-M\-I\-C@{\-S\-P\-A\-R\-\_\-\-D\-Y\-N\-A\-M\-I\-C}}
+\index{\-S\-P\-A\-R\-\_\-\-D\-Y\-N\-A\-M\-I\-C@{\-S\-P\-A\-R\-\_\-\-D\-Y\-N\-A\-M\-I\-C}!share/template/gromacs/selparam.h@{share/template/gromacs/selparam.\-h}}
+\subsubsection[{\-S\-P\-A\-R\-\_\-\-D\-Y\-N\-A\-M\-I\-C}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-S\-P\-A\-R\-\_\-\-D\-Y\-N\-A\-M\-I\-C}~4}}\label{share_2template_2gromacs_2selparam_8h_ae44a94b4d013d2a344cfb3a9f8c5479f}
+
+
+\-If set, the parameter value can be dynamic, i.\-e., be different for different frames. 
+
+\-If set, the parameter value should only be accessed in the update function of {\ttfamily \hyperlink{structgmx__ana__selmethod__t}{gmx\-\_\-ana\-\_\-selmethod\-\_\-t}}. \-The flag is cleared before \hyperlink{include_2selmethod_8h_a112e5ec6891c5963a59384cf41f0cc89}{sel\-\_\-initfunc()} if the value provided is actually static. \hypertarget{share_2template_2gromacs_2selparam_8h_a9cab7952c47c82291754bb1b90db31e7}{\index{share/template/gromacs/selparam.\-h@{share/template/gromacs/selparam.\-h}!\-S\-P\-A\-R\-\_\-\-E\-N\-U\-M\-V\-A\-L@{\-S\-P\-A\-R\-\_\-\-E\-N\-U\-M\-V\-A\-L}}
+\index{\-S\-P\-A\-R\-\_\-\-E\-N\-U\-M\-V\-A\-L@{\-S\-P\-A\-R\-\_\-\-E\-N\-U\-M\-V\-A\-L}!share/template/gromacs/selparam.h@{share/template/gromacs/selparam.\-h}}
+\subsubsection[{\-S\-P\-A\-R\-\_\-\-E\-N\-U\-M\-V\-A\-L}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-S\-P\-A\-R\-\_\-\-E\-N\-U\-M\-V\-A\-L}~128}}\label{share_2template_2gromacs_2selparam_8h_a9cab7952c47c82291754bb1b90db31e7}
+
+
+\-If set, the parameter takes one of a set of predefined strings. 
+
+\-Can only be specified for a \hyperlink{share_2template_2gromacs_2selvalue_8h_a70b42b87d434580bf1493591857b8beca6f2f1fe9592d96990c9ac690c355bd08}{\-S\-T\-R\-\_\-\-V\-A\-L\-U\-E} parameter that takes a single string. \-The data pointer in {\ttfamily \hyperlink{structgmx__ana__selparam__t_a1a2ccba901e24c9c8e2c00c2b61b24d2}{gmx\-\_\-ana\-\_\-selparam\-\_\-t\-::val}} should be initialized into an array of strings such that the first and last elements are \-N\-U\-L\-L, and the rest give the possible values. \-For optional values, the second element in the array should give the default value. \-The string given by the user is matched against the beginnings of the given strings, and if a unique match is found, the first pointer in the array will be initialized to point to the matching string. \-The data pointer can be initialized as a static array; duplication of the array for multiple instances of the same method is automatically taken care of. \hypertarget{share_2template_2gromacs_2selparam_8h_a9829627bea1b9a81fe204f333a6519b6}{\index{share/template/gromacs/selparam.\-h@{share/template/gromacs/selparam.\-h}!\-S\-P\-A\-R\-\_\-\-O\-P\-T\-I\-O\-N\-A\-L@{\-S\-P\-A\-R\-\_\-\-O\-P\-T\-I\-O\-N\-A\-L}}
+\index{\-S\-P\-A\-R\-\_\-\-O\-P\-T\-I\-O\-N\-A\-L@{\-S\-P\-A\-R\-\_\-\-O\-P\-T\-I\-O\-N\-A\-L}!share/template/gromacs/selparam.h@{share/template/gromacs/selparam.\-h}}
+\subsubsection[{\-S\-P\-A\-R\-\_\-\-O\-P\-T\-I\-O\-N\-A\-L}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-S\-P\-A\-R\-\_\-\-O\-P\-T\-I\-O\-N\-A\-L}~2}}\label{share_2template_2gromacs_2selparam_8h_a9829627bea1b9a81fe204f333a6519b6}
+
+
+\-If not set, an error is reported if the parameter is not specified by the user. 
+
+\hypertarget{share_2template_2gromacs_2selparam_8h_ab39fef32ca729815df1299fafdd623b1}{\index{share/template/gromacs/selparam.\-h@{share/template/gromacs/selparam.\-h}!\-S\-P\-A\-R\-\_\-\-R\-A\-N\-G\-E\-S@{\-S\-P\-A\-R\-\_\-\-R\-A\-N\-G\-E\-S}}
+\index{\-S\-P\-A\-R\-\_\-\-R\-A\-N\-G\-E\-S@{\-S\-P\-A\-R\-\_\-\-R\-A\-N\-G\-E\-S}!share/template/gromacs/selparam.h@{share/template/gromacs/selparam.\-h}}
+\subsubsection[{\-S\-P\-A\-R\-\_\-\-R\-A\-N\-G\-E\-S}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-S\-P\-A\-R\-\_\-\-R\-A\-N\-G\-E\-S}~8}}\label{share_2template_2gromacs_2selparam_8h_ab39fef32ca729815df1299fafdd623b1}
+
+
+\-If set, the parameter value is parsed into sorted ranges. 
+
+\-Can only be specified for integer parameters. \-If specified, the value of the parameter ({\ttfamily \hyperlink{structgmx__ana__selparam__t_a1a2ccba901e24c9c8e2c00c2b61b24d2}{gmx\-\_\-ana\-\_\-selparam\-\_\-t\-::val}}) consists of sets of two integers, each specifying a range. \-The values give the endpoints of the ranges (inclusive). \-The ranges are sorted and overlapping/continuous ranges are merged into a single range to minimize the number of ranges.
+
+\-If this flag is specified, {\ttfamily gmx\-\_\-ana\-\_\-selparam\-\_\-t\-::nval} gives the number of ranges. {\ttfamily gmx\-\_\-ana\-\_\-selparam\-\_\-t\-::nval} should be 1 or \hyperlink{share_2template_2gromacs_2selparam_8h_a400330277d7e17cdfef1610cc37838ea}{\-S\-P\-A\-R\-\_\-\-V\-A\-R\-N\-U\-M} should be specified; other values would lead to unpredictable behavior. \hypertarget{share_2template_2gromacs_2selparam_8h_a0831296b9cea31c425fcc456b1286614}{\index{share/template/gromacs/selparam.\-h@{share/template/gromacs/selparam.\-h}!\-S\-P\-A\-R\-\_\-\-S\-E\-T@{\-S\-P\-A\-R\-\_\-\-S\-E\-T}}
+\index{\-S\-P\-A\-R\-\_\-\-S\-E\-T@{\-S\-P\-A\-R\-\_\-\-S\-E\-T}!share/template/gromacs/selparam.h@{share/template/gromacs/selparam.\-h}}
+\subsubsection[{\-S\-P\-A\-R\-\_\-\-S\-E\-T}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-S\-P\-A\-R\-\_\-\-S\-E\-T}~1}}\label{share_2template_2gromacs_2selparam_8h_a0831296b9cea31c425fcc456b1286614}
+
+
+\-This flag is set if the user has provided the parameter. 
+
+\-This flag is set automatically, and should not be set by the user. \hypertarget{share_2template_2gromacs_2selparam_8h_a400330277d7e17cdfef1610cc37838ea}{\index{share/template/gromacs/selparam.\-h@{share/template/gromacs/selparam.\-h}!\-S\-P\-A\-R\-\_\-\-V\-A\-R\-N\-U\-M@{\-S\-P\-A\-R\-\_\-\-V\-A\-R\-N\-U\-M}}
+\index{\-S\-P\-A\-R\-\_\-\-V\-A\-R\-N\-U\-M@{\-S\-P\-A\-R\-\_\-\-V\-A\-R\-N\-U\-M}!share/template/gromacs/selparam.h@{share/template/gromacs/selparam.\-h}}
+\subsubsection[{\-S\-P\-A\-R\-\_\-\-V\-A\-R\-N\-U\-M}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-S\-P\-A\-R\-\_\-\-V\-A\-R\-N\-U\-M}~16}}\label{share_2template_2gromacs_2selparam_8h_a400330277d7e17cdfef1610cc37838ea}
+
+
+\-If set, the parameter can have any number of values. 
+
+\-If specified, the data pointer in {\ttfamily \hyperlink{structgmx__ana__selparam__t_a1a2ccba901e24c9c8e2c00c2b61b24d2}{gmx\-\_\-ana\-\_\-selparam\-\_\-t\-::val}} should be \-N\-U\-L\-L; the memory is allocated by the parameter parser. \-The implementation of the method should ensure that the pointer to the allocated memory is stored somewhere in \hyperlink{include_2selmethod_8h_a112e5ec6891c5963a59384cf41f0cc89}{sel\-\_\-initfunc()}; otherwise, the memory is lost.
+
+\-The initial value of {\ttfamily gmx\-\_\-ana\-\_\-selparam\-\_\-t\-::nval} is not used with this flag. \-Instead, it will give the number of actual values provided by the user after the parameters have been parsed. \-For consistency, it should be initialized to -\/1.
+
+\-Cannot be combined with \hyperlink{share_2template_2gromacs_2selvalue_8h_a70b42b87d434580bf1493591857b8beca70a2af6eafa48adfab506ceee60471f6}{\-G\-R\-O\-U\-P\-\_\-\-V\-A\-L\-U\-E} parameters. 
+
+\subsection{\-Typedef \-Documentation}
+\hypertarget{share_2template_2gromacs_2selparam_8h_a6ca2a18c27259793f19da62ce271e499}{\index{share/template/gromacs/selparam.\-h@{share/template/gromacs/selparam.\-h}!gmx\-\_\-ana\-\_\-selparam\-\_\-t@{gmx\-\_\-ana\-\_\-selparam\-\_\-t}}
+\index{gmx\-\_\-ana\-\_\-selparam\-\_\-t@{gmx\-\_\-ana\-\_\-selparam\-\_\-t}!share/template/gromacs/selparam.h@{share/template/gromacs/selparam.\-h}}
+\subsubsection[{gmx\-\_\-ana\-\_\-selparam\-\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf gmx\-\_\-ana\-\_\-selparam\-\_\-t}  {\bf gmx\-\_\-ana\-\_\-selparam\-\_\-t}}}\label{share_2template_2gromacs_2selparam_8h_a6ca2a18c27259793f19da62ce271e499}
+
+
+\-Describes a single parameter for a selection method. 
+
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{share_2template_2gromacs_2selparam_8h_a7400c81820037ea822c19a60c31fc486}{\index{share/template/gromacs/selparam.\-h@{share/template/gromacs/selparam.\-h}!gmx\-\_\-ana\-\_\-selparam\-\_\-find@{gmx\-\_\-ana\-\_\-selparam\-\_\-find}}
+\index{gmx\-\_\-ana\-\_\-selparam\-\_\-find@{gmx\-\_\-ana\-\_\-selparam\-\_\-find}!share/template/gromacs/selparam.h@{share/template/gromacs/selparam.\-h}}
+\subsubsection[{gmx\-\_\-ana\-\_\-selparam\-\_\-find}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-ana\-\_\-selparam\-\_\-t}$\ast$ {\bf gmx\-\_\-ana\-\_\-selparam\-\_\-find} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{name, }
+\item[{int}]{nparam, }
+\item[{{\bf gmx\-\_\-ana\-\_\-selparam\-\_\-t} $\ast$}]{param}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2selparam_8h_a7400c81820037ea822c19a60c31fc486}
+\-Finds a parameter from an array by name.
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em name} & \-Name of the parameter to search. \\
+\hline
+\mbox{\tt in}  & {\em nparam} & \-Number of parameters in the {\ttfamily param} array. \\
+\hline
+\mbox{\tt in}  & {\em param} & \-Parameter array to search. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-Pointer to the parameter in the {\ttfamily param} or \-N\-U\-L\-L if no parameter with name {\ttfamily name} was found.
+\end{DoxyReturn}
+\-The comparison is case-\/sensitive. 

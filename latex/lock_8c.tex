@@ -1,0 +1,153 @@
+\hypertarget{lock_8c}{\section{src/gmxlib/thread\-\_\-mpi/lock.c \-File \-Reference}
+\label{lock_8c}\index{src/gmxlib/thread\-\_\-mpi/lock.\-c@{src/gmxlib/thread\-\_\-mpi/lock.\-c}}
+}
+{\ttfamily \#include $<$errno.\-h$>$}\*
+{\ttfamily \#include $<$stdlib.\-h$>$}\*
+{\ttfamily \#include $<$stdio.\-h$>$}\*
+{\ttfamily \#include $<$stdarg.\-h$>$}\*
+{\ttfamily \#include $<$string.\-h$>$}\*
+{\ttfamily \#include \char`\"{}impl.\-h\char`\"{}}\*
+\-Include dependency graph for lock.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{lock_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{lock_8c_affdd8ab7eb66e13b3dec60c4dca73b98}{t\-M\-P\-I\-\_\-\-Lock\-\_\-init} (\hyperlink{include_2thread__mpi_2lock_8h_a34994f489d37feb8cb745e89c3be2977}{t\-M\-P\-I\-\_\-\-Lock\-\_\-t} $\ast$lock)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{lock_8c_a6aa062d8d5224a7355767a168aaabf97}{t\-M\-P\-I\-\_\-\-Lock\-\_\-lock} (\hyperlink{include_2thread__mpi_2lock_8h_a34994f489d37feb8cb745e89c3be2977}{t\-M\-P\-I\-\_\-\-Lock\-\_\-t} $\ast$lock)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{lock_8c_a73cbea550d593b2e799a50c90f8480e6}{t\-M\-P\-I\-\_\-\-Lock\-\_\-unlock} (\hyperlink{include_2thread__mpi_2lock_8h_a34994f489d37feb8cb745e89c3be2977}{t\-M\-P\-I\-\_\-\-Lock\-\_\-t} $\ast$lock)
+\item 
+int \hyperlink{lock_8c_a212ab578d6101c28a4f4225cd0c608d2}{t\-M\-P\-I\-\_\-\-Lock\-\_\-trylock} (\hyperlink{include_2thread__mpi_2lock_8h_a34994f489d37feb8cb745e89c3be2977}{t\-M\-P\-I\-\_\-\-Lock\-\_\-t} $\ast$lock)
+\item 
+int \hyperlink{lock_8c_a002b74f06f19c0b97e5217cb7c818d84}{t\-M\-P\-I\-\_\-\-Lock\-\_\-islocked} (const \hyperlink{include_2thread__mpi_2lock_8h_a34994f489d37feb8cb745e89c3be2977}{t\-M\-P\-I\-\_\-\-Lock\-\_\-t} $\ast$lock)
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{lock_8c_affdd8ab7eb66e13b3dec60c4dca73b98}{\index{lock.\-c@{lock.\-c}!t\-M\-P\-I\-\_\-\-Lock\-\_\-init@{t\-M\-P\-I\-\_\-\-Lock\-\_\-init}}
+\index{t\-M\-P\-I\-\_\-\-Lock\-\_\-init@{t\-M\-P\-I\-\_\-\-Lock\-\_\-init}!lock.c@{lock.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Lock\-\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf t\-M\-P\-I\-\_\-\-Lock\-\_\-init} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-M\-P\-I\-\_\-\-Lock\-\_\-t} $\ast$}]{lock}
+\end{DoxyParamCaption}
+)}}\label{lock_8c_affdd8ab7eb66e13b3dec60c4dca73b98}
+\-Initialize lock
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em lock} & \-Pointer to the new lock. \\
+\hline
+\end{DoxyParams}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{lock_8c_affdd8ab7eb66e13b3dec60c4dca73b98_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{lock_8c_a002b74f06f19c0b97e5217cb7c818d84}{\index{lock.\-c@{lock.\-c}!t\-M\-P\-I\-\_\-\-Lock\-\_\-islocked@{t\-M\-P\-I\-\_\-\-Lock\-\_\-islocked}}
+\index{t\-M\-P\-I\-\_\-\-Lock\-\_\-islocked@{t\-M\-P\-I\-\_\-\-Lock\-\_\-islocked}!lock.c@{lock.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Lock\-\_\-islocked}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf t\-M\-P\-I\-\_\-\-Lock\-\_\-islocked} (
+\begin{DoxyParamCaption}
+\item[{const {\bf t\-M\-P\-I\-\_\-\-Lock\-\_\-t} $\ast$}]{lock}
+\end{DoxyParamCaption}
+)}}\label{lock_8c_a002b74f06f19c0b97e5217cb7c818d84}
+\-Check the status of the lock without affecting its state
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em lock} & \-Pointer to previously created lock. \\
+\hline
+\end{DoxyParams}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=344pt]{lock_8c_a002b74f06f19c0b97e5217cb7c818d84_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{lock_8c_a6aa062d8d5224a7355767a168aaabf97}{\index{lock.\-c@{lock.\-c}!t\-M\-P\-I\-\_\-\-Lock\-\_\-lock@{t\-M\-P\-I\-\_\-\-Lock\-\_\-lock}}
+\index{t\-M\-P\-I\-\_\-\-Lock\-\_\-lock@{t\-M\-P\-I\-\_\-\-Lock\-\_\-lock}!lock.c@{lock.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Lock\-\_\-lock}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf t\-M\-P\-I\-\_\-\-Lock\-\_\-lock} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-M\-P\-I\-\_\-\-Lock\-\_\-t} $\ast$}]{lock}
+\end{DoxyParamCaption}
+)}}\label{lock_8c_a6aa062d8d5224a7355767a168aaabf97}
+\-Perform yielding, busy-\/waiting locking
+
+\-This function blocks until the lock is locked.
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em lock} & \-Pointer to previously created lock. \\
+\hline
+\end{DoxyParams}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{lock_8c_a6aa062d8d5224a7355767a168aaabf97_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{lock_8c_a212ab578d6101c28a4f4225cd0c608d2}{\index{lock.\-c@{lock.\-c}!t\-M\-P\-I\-\_\-\-Lock\-\_\-trylock@{t\-M\-P\-I\-\_\-\-Lock\-\_\-trylock}}
+\index{t\-M\-P\-I\-\_\-\-Lock\-\_\-trylock@{t\-M\-P\-I\-\_\-\-Lock\-\_\-trylock}!lock.c@{lock.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Lock\-\_\-trylock}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf t\-M\-P\-I\-\_\-\-Lock\-\_\-trylock} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-M\-P\-I\-\_\-\-Lock\-\_\-t} $\ast$}]{lock}
+\end{DoxyParamCaption}
+)}}\label{lock_8c_a212ab578d6101c28a4f4225cd0c608d2}
+\-Try to lock the lock but don't block if it is locked.
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em lock} & \-Pointer to previously created lock. \\
+\hline
+\end{DoxyParams}
+\hypertarget{lock_8c_a73cbea550d593b2e799a50c90f8480e6}{\index{lock.\-c@{lock.\-c}!t\-M\-P\-I\-\_\-\-Lock\-\_\-unlock@{t\-M\-P\-I\-\_\-\-Lock\-\_\-unlock}}
+\index{t\-M\-P\-I\-\_\-\-Lock\-\_\-unlock@{t\-M\-P\-I\-\_\-\-Lock\-\_\-unlock}!lock.c@{lock.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Lock\-\_\-unlock}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf t\-M\-P\-I\-\_\-\-Lock\-\_\-unlock} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-M\-P\-I\-\_\-\-Lock\-\_\-t} $\ast$}]{lock}
+\end{DoxyParamCaption}
+)}}\label{lock_8c_a73cbea550d593b2e799a50c90f8480e6}
+\-Unlock the lock
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em lock} & \-Pointer to previously created lock. \\
+\hline
+\end{DoxyParams}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{lock_8c_a73cbea550d593b2e799a50c90f8480e6_icgraph}
+\end{center}
+\end{figure}
+
+

@@ -1,0 +1,738 @@
+\hypertarget{dialogs_8c}{\section{src/ngmx/dialogs.c \-File \-Reference}
+\label{dialogs_8c}\index{src/ngmx/dialogs.\-c@{src/ngmx/dialogs.\-c}}
+}
+{\ttfamily \#include \char`\"{}smalloc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}sysstuff.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}macros.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}string2.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}x11.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}xdlghi.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}xmb.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}dialogs.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}names.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}nmol.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}manager.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}futil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-fatal.\-h\char`\"{}}\*
+\-Include dependency graph for dialogs.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{dialogs_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structt__dlginit}{t\-\_\-dlginit}
+\item 
+struct \hyperlink{structt__mbinit}{t\-\_\-mbinit}
+\end{DoxyCompactItemize}
+\subsection*{\-Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{dialogs_8c_ab38db797129e68f80088c0bc7029cc35}{\-M\-B\-F\-L\-A\-G\-S}~/$\ast$ \hyperlink{xmb_8h_adce6e133c5480d4bb0e0dc85be646c9b}{\-M\-B\-\_\-\-A\-P\-P\-L\-M\-O\-D\-A\-L} $|$ $\ast$/ \hyperlink{xmb_8h_a68a081d1b157e1305c49d76c4d4d0778}{\-M\-B\-\_\-\-D\-O\-N\-T\-S\-H\-O\-W}
+\item 
+\#define \hyperlink{dialogs_8c_acee7a183f53accea460b5aae6a570be7}{\-D\-O\-\_\-\-N\-O\-T}(\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afb462a5dea72ae7992f073bfd756fb5f}{b})~(\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afb462a5dea72ae7992f073bfd756fb5f}{b}) = (!(\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afb462a5dea72ae7992f073bfd756fb5f}{b}))
+\end{DoxyCompactItemize}
+\subsection*{\-Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef \hyperlink{structt__dlg}{t\-\_\-dlg} $\ast$ \hyperlink{dialogs_8c_a6c60fa5fcad93d89a599e7ee811abdb3}{t\-\_\-mmb} (\hyperlink{structt__x11}{t\-\_\-x11} $\ast$x11, \hyperlink{structt__gmx}{t\-\_\-gmx} $\ast$gmx)
+\end{DoxyCompactItemize}
+\subsection*{\-Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \{ \*
+\hyperlink{dialogs_8c_ac371861a8e747f0329417e865f29c942aa75056474d67bf965c28e61877c83ea0}{e\-Ex\-E}, 
+\hyperlink{dialogs_8c_ac371861a8e747f0329417e865f29c942aff28778e3f9ebf635acfd6f097e44701}{e\-Ex\-Grom}, 
+\hyperlink{dialogs_8c_ac371861a8e747f0329417e865f29c942afc57a23191cd8237516056ad785b054d}{e\-Ex\-Pdb}, 
+\hyperlink{dialogs_8c_ac371861a8e747f0329417e865f29c942ac4a10190e6ffb260cdc62994d3e2441a}{e\-Ex\-Conf}, 
+\*
+\hyperlink{dialogs_8c_ac371861a8e747f0329417e865f29c942adbe571063806ea637d61c1be47bd637e}{e\-Ex\-N\-R}
+ \}
+\item 
+enum \{ \*
+\hyperlink{dialogs_8c_a640e110a8e92c1283f2aae76e4649f48a49a946d56710dc84f6c18d58fbcc3ac3}{eg0}, 
+\hyperlink{dialogs_8c_a640e110a8e92c1283f2aae76e4649f48a383c3fcfc2d4fd13b5cb4d14558f1efd}{eg\-T\-O\-P\-O\-L}, 
+\hyperlink{dialogs_8c_a640e110a8e92c1283f2aae76e4649f48aa3d41427621b7c0672fea35c4952841e}{eg\-C\-O\-N\-F\-I\-N}, 
+\hyperlink{dialogs_8c_a640e110a8e92c1283f2aae76e4649f48a91c6c77731c8e4f590537b210a32c543}{eg\-P\-A\-R\-A\-M}, 
+\*
+\hyperlink{dialogs_8c_a640e110a8e92c1283f2aae76e4649f48abb257a30e523f24558f9b0cb31aa65e9}{eg1}, 
+\hyperlink{dialogs_8c_a640e110a8e92c1283f2aae76e4649f48adfa11fa7bfd3a0d8482cf13bc1fd216e}{eg1\-P\-R\-O\-C}, 
+\hyperlink{dialogs_8c_a640e110a8e92c1283f2aae76e4649f48af8237d0054ed7a0e14ff308d48a78ced}{eg32\-P\-R\-O\-C}
+ \}
+\item 
+enum \hyperlink{dialogs_8c_a1de2d88af76442ed8f995b70d8d71bfc}{bond\-\_\-set} \{ \*
+\hyperlink{dialogs_8c_a1de2d88af76442ed8f995b70d8d71bfcac596ace702431749175c992a0d4b8ff0}{eb\-Show\-H} =  11, 
+\hyperlink{dialogs_8c_a1de2d88af76442ed8f995b70d8d71bfca4e51309254a10667c568cfbf7aa65de7}{eb\-D\-Plus}, 
+\hyperlink{dialogs_8c_a1de2d88af76442ed8f995b70d8d71bfca55c12e25c2d7cd68f3699e80124aafe3}{eb\-R\-M\-P\-B\-C}, 
+\hyperlink{dialogs_8c_a1de2d88af76442ed8f995b70d8d71bfcaa6f1a87a683df1c16a6de6c3bc56102b}{eb\-Cue}, 
+\*
+\hyperlink{dialogs_8c_a1de2d88af76442ed8f995b70d8d71bfcaa2ed8d031b831ab992cb56332cc3e0f9}{eb\-Skip}, 
+\hyperlink{dialogs_8c_a1de2d88af76442ed8f995b70d8d71bfcaceb4151b555e7141d9f6ee8042f197d8}{eb\-Wait}
+ \}
+\item 
+enum \{ \*
+\hyperlink{dialogs_8c_a688e8862af90a31ae0f4d894b555a7bda07d23611a6e523e638898fe0549bdac8}{es\-F\-U\-N\-C\-T} =  1, 
+\hyperlink{dialogs_8c_a688e8862af90a31ae0f4d894b555a7bdab5d6ea69466c9fbeddccbda6a9c64e4e}{es\-B\-S\-H\-O\-W}, 
+\hyperlink{dialogs_8c_a688e8862af90a31ae0f4d894b555a7bda96bd64e46c8ffc7cc86ed83140e5a4e3}{es\-I\-N\-F\-I\-L}, 
+\hyperlink{dialogs_8c_a688e8862af90a31ae0f4d894b555a7bdaccdf9bfbe0693bfe8c698822becd546c}{es\-I\-N\-D\-E\-X\-F\-I\-L}, 
+\*
+\hyperlink{dialogs_8c_a688e8862af90a31ae0f4d894b555a7bda3055bf906d17e1cf62a093e9f54032d3}{es\-L\-S\-Q}, 
+\hyperlink{dialogs_8c_a688e8862af90a31ae0f4d894b555a7bda0ff67132bc258e8a664277751c61b4a9}{es\-S\-H\-O\-W}, 
+\hyperlink{dialogs_8c_a688e8862af90a31ae0f4d894b555a7bda85c9a3a421ae7d65c8227637326b3840}{es\-P\-L\-O\-T\-F\-I\-L}
+ \}
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{dialogs_8c_aa4c68639ee2303efb5fd08dba1fa1d35}{write\-\_\-gmx} (\hyperlink{structt__x11}{t\-\_\-x11} $\ast$x11, \hyperlink{structt__gmx}{t\-\_\-gmx} $\ast$gmx, int mess)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{dialogs_8c_a64f2019513722b8a1a6fddfcbe6b7043}{shell\-\_\-comm} (const char $\ast$title, const char $\ast$script, int nsleep)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{dialogs_8c_a0f498ea9ac2a49a238749cf70fecd392}{show\-\_\-mb} (\hyperlink{structt__gmx}{t\-\_\-gmx} $\ast$gmx, int mb)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{dialogs_8c_a2f24c9ec6e4b6b074b6a33d1ecf4a9aa}{hide\-\_\-mb} (\hyperlink{structt__gmx}{t\-\_\-gmx} $\ast$gmx)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{dialogs_8c_a0c9e7d1b90560c3e94d530b1d90caf66}{\-M\-B\-Callback} (\hyperlink{structt__x11}{t\-\_\-x11} $\ast$x11, int dlg\-\_\-mess, int item\-\_\-id, char $\ast$set, \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$data)
+\item 
+static \hyperlink{structt__dlg}{t\-\_\-dlg} $\ast$ \hyperlink{dialogs_8c_a249bfda7c06b6b1c8c19f19d79aaa725}{about\-\_\-mb} (\hyperlink{structt__x11}{t\-\_\-x11} $\ast$x11, \hyperlink{structt__gmx}{t\-\_\-gmx} $\ast$gmx)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{dialogs_8c_a9156cbe0e157ac3416c5baa43108e93a}{\-Quit\-C\-B} (\hyperlink{structt__x11}{t\-\_\-x11} $\ast$x11, int dlg\-\_\-mess, int item\-\_\-id, char $\ast$set, \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$data)
+\item 
+static \hyperlink{structt__dlg}{t\-\_\-dlg} $\ast$ \hyperlink{dialogs_8c_acf57b65f0f3b69df34b9e1fa9832fa5f}{quit\-\_\-mb} (\hyperlink{structt__x11}{t\-\_\-x11} $\ast$x11, \hyperlink{structt__gmx}{t\-\_\-gmx} $\ast$gmx)
+\item 
+static \hyperlink{structt__dlg}{t\-\_\-dlg} $\ast$ \hyperlink{dialogs_8c_aa996fca25a2ba4b453a5f6b293621d44}{help\-\_\-mb} (\hyperlink{structt__x11}{t\-\_\-x11} $\ast$x11, \hyperlink{structt__gmx}{t\-\_\-gmx} $\ast$gmx)
+\item 
+static \hyperlink{structt__dlg}{t\-\_\-dlg} $\ast$ \hyperlink{dialogs_8c_a830c54e5b29d657eb6835ee73c3625f5}{ni\-\_\-mb} (\hyperlink{structt__x11}{t\-\_\-x11} $\ast$x11, \hyperlink{structt__gmx}{t\-\_\-gmx} $\ast$gmx)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{dialogs_8c_a1b020f15e252238c4b8e97bb007e90c6}{\-Export\-C\-B} (\hyperlink{structt__x11}{t\-\_\-x11} $\ast$x11, int dlg\-\_\-mess, int item\-\_\-id, char $\ast$set, \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$data)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{dialogs_8c_aba4983be5fc11105d72b5ce0ff729c08}{\-Extract} (\hyperlink{structt__dlg}{t\-\_\-dlg} $\ast$dlg, int \-I\-D, char $\ast$buf)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{dialogs_8c_ae197ac1225420ae9c1a66229b2aa7473}{\-Bonds\-C\-B} (\hyperlink{structt__x11}{t\-\_\-x11} $\ast$x11, int dlg\-\_\-mess, int item\-\_\-id, char $\ast$set, \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$data)
+\item 
+static \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{dialogs_8c_a2df576f3a82cd6d5fa8201e253d77d19}{in\-\_\-set} (int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a3c7542401c1cb8bd37ef5e7d9eb0f5a8}{i}, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, int set\mbox{[}$\,$\mbox{]})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{dialogs_8c_a68ff8fde4b4a81c1265f6fe03f9fee3d}{init\-\_\-dlgs} (\hyperlink{structt__x11}{t\-\_\-x11} $\ast$x11, \hyperlink{structt__gmx}{t\-\_\-gmx} $\ast$gmx)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{dialogs_8c_a16350e7f086165699039599a86be666f}{done\-\_\-dlgs} (\hyperlink{structt__gmx}{t\-\_\-gmx} $\ast$gmx)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{dialogs_8c_a3f8c82f87b97d7a75ac120ca952ef03d}{edit\-\_\-file} (const char $\ast$fn)
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Define \-Documentation}
+\hypertarget{dialogs_8c_acee7a183f53accea460b5aae6a570be7}{\index{dialogs.\-c@{dialogs.\-c}!\-D\-O\-\_\-\-N\-O\-T@{\-D\-O\-\_\-\-N\-O\-T}}
+\index{\-D\-O\-\_\-\-N\-O\-T@{\-D\-O\-\_\-\-N\-O\-T}!dialogs.c@{dialogs.\-c}}
+\subsubsection[{\-D\-O\-\_\-\-N\-O\-T}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-D\-O\-\_\-\-N\-O\-T}(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf b}}
+\end{DoxyParamCaption}
+)~({\bf b}) = (!({\bf b}))}}\label{dialogs_8c_acee7a183f53accea460b5aae6a570be7}
+\hypertarget{dialogs_8c_ab38db797129e68f80088c0bc7029cc35}{\index{dialogs.\-c@{dialogs.\-c}!\-M\-B\-F\-L\-A\-G\-S@{\-M\-B\-F\-L\-A\-G\-S}}
+\index{\-M\-B\-F\-L\-A\-G\-S@{\-M\-B\-F\-L\-A\-G\-S}!dialogs.c@{dialogs.\-c}}
+\subsubsection[{\-M\-B\-F\-L\-A\-G\-S}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-M\-B\-F\-L\-A\-G\-S}~/$\ast$ {\bf \-M\-B\-\_\-\-A\-P\-P\-L\-M\-O\-D\-A\-L} $|$ $\ast$/ {\bf \-M\-B\-\_\-\-D\-O\-N\-T\-S\-H\-O\-W}}}\label{dialogs_8c_ab38db797129e68f80088c0bc7029cc35}
+
+
+\subsection{\-Typedef \-Documentation}
+\hypertarget{dialogs_8c_a6c60fa5fcad93d89a599e7ee811abdb3}{\index{dialogs.\-c@{dialogs.\-c}!t\-\_\-mmb@{t\-\_\-mmb}}
+\index{t\-\_\-mmb@{t\-\_\-mmb}!dialogs.c@{dialogs.\-c}}
+\subsubsection[{t\-\_\-mmb}]{\setlength{\rightskip}{0pt plus 5cm}typedef {\bf t\-\_\-dlg}$\ast$ {\bf t\-\_\-mmb}({\bf t\-\_\-x11} $\ast$x11, {\bf t\-\_\-gmx} $\ast$gmx)}}\label{dialogs_8c_a6c60fa5fcad93d89a599e7ee811abdb3}
+
+
+\subsection{\-Enumeration \-Type \-Documentation}
+\hypertarget{dialogs_8c_ac371861a8e747f0329417e865f29c942}{\subsubsection[{anonymous enum}]{\setlength{\rightskip}{0pt plus 5cm}anonymous enum}}\label{dialogs_8c_ac371861a8e747f0329417e865f29c942}
+\begin{Desc}
+\item[\-Enumerator\-: ]\par
+\begin{description}
+\index{e\-Ex\-E@{e\-Ex\-E}!dialogs.\-c@{dialogs.\-c}}\index{dialogs.\-c@{dialogs.\-c}!e\-Ex\-E@{e\-Ex\-E}}\item[{\em 
+\hypertarget{dialogs_8c_ac371861a8e747f0329417e865f29c942aa75056474d67bf965c28e61877c83ea0}{e\-Ex\-E}\label{dialogs_8c_ac371861a8e747f0329417e865f29c942aa75056474d67bf965c28e61877c83ea0}
+}]\index{e\-Ex\-Grom@{e\-Ex\-Grom}!dialogs.\-c@{dialogs.\-c}}\index{dialogs.\-c@{dialogs.\-c}!e\-Ex\-Grom@{e\-Ex\-Grom}}\item[{\em 
+\hypertarget{dialogs_8c_ac371861a8e747f0329417e865f29c942aff28778e3f9ebf635acfd6f097e44701}{e\-Ex\-Grom}\label{dialogs_8c_ac371861a8e747f0329417e865f29c942aff28778e3f9ebf635acfd6f097e44701}
+}]\index{e\-Ex\-Pdb@{e\-Ex\-Pdb}!dialogs.\-c@{dialogs.\-c}}\index{dialogs.\-c@{dialogs.\-c}!e\-Ex\-Pdb@{e\-Ex\-Pdb}}\item[{\em 
+\hypertarget{dialogs_8c_ac371861a8e747f0329417e865f29c942afc57a23191cd8237516056ad785b054d}{e\-Ex\-Pdb}\label{dialogs_8c_ac371861a8e747f0329417e865f29c942afc57a23191cd8237516056ad785b054d}
+}]\index{e\-Ex\-Conf@{e\-Ex\-Conf}!dialogs.\-c@{dialogs.\-c}}\index{dialogs.\-c@{dialogs.\-c}!e\-Ex\-Conf@{e\-Ex\-Conf}}\item[{\em 
+\hypertarget{dialogs_8c_ac371861a8e747f0329417e865f29c942ac4a10190e6ffb260cdc62994d3e2441a}{e\-Ex\-Conf}\label{dialogs_8c_ac371861a8e747f0329417e865f29c942ac4a10190e6ffb260cdc62994d3e2441a}
+}]\index{e\-Ex\-N\-R@{e\-Ex\-N\-R}!dialogs.\-c@{dialogs.\-c}}\index{dialogs.\-c@{dialogs.\-c}!e\-Ex\-N\-R@{e\-Ex\-N\-R}}\item[{\em 
+\hypertarget{dialogs_8c_ac371861a8e747f0329417e865f29c942adbe571063806ea637d61c1be47bd637e}{e\-Ex\-N\-R}\label{dialogs_8c_ac371861a8e747f0329417e865f29c942adbe571063806ea637d61c1be47bd637e}
+}]\end{description}
+\end{Desc}
+
+\hypertarget{dialogs_8c_a640e110a8e92c1283f2aae76e4649f48}{\subsubsection[{anonymous enum}]{\setlength{\rightskip}{0pt plus 5cm}anonymous enum}}\label{dialogs_8c_a640e110a8e92c1283f2aae76e4649f48}
+\begin{Desc}
+\item[\-Enumerator\-: ]\par
+\begin{description}
+\index{eg0@{eg0}!dialogs.\-c@{dialogs.\-c}}\index{dialogs.\-c@{dialogs.\-c}!eg0@{eg0}}\item[{\em 
+\hypertarget{dialogs_8c_a640e110a8e92c1283f2aae76e4649f48a49a946d56710dc84f6c18d58fbcc3ac3}{eg0}\label{dialogs_8c_a640e110a8e92c1283f2aae76e4649f48a49a946d56710dc84f6c18d58fbcc3ac3}
+}]\index{eg\-T\-O\-P\-O\-L@{eg\-T\-O\-P\-O\-L}!dialogs.\-c@{dialogs.\-c}}\index{dialogs.\-c@{dialogs.\-c}!eg\-T\-O\-P\-O\-L@{eg\-T\-O\-P\-O\-L}}\item[{\em 
+\hypertarget{dialogs_8c_a640e110a8e92c1283f2aae76e4649f48a383c3fcfc2d4fd13b5cb4d14558f1efd}{eg\-T\-O\-P\-O\-L}\label{dialogs_8c_a640e110a8e92c1283f2aae76e4649f48a383c3fcfc2d4fd13b5cb4d14558f1efd}
+}]\index{eg\-C\-O\-N\-F\-I\-N@{eg\-C\-O\-N\-F\-I\-N}!dialogs.\-c@{dialogs.\-c}}\index{dialogs.\-c@{dialogs.\-c}!eg\-C\-O\-N\-F\-I\-N@{eg\-C\-O\-N\-F\-I\-N}}\item[{\em 
+\hypertarget{dialogs_8c_a640e110a8e92c1283f2aae76e4649f48aa3d41427621b7c0672fea35c4952841e}{eg\-C\-O\-N\-F\-I\-N}\label{dialogs_8c_a640e110a8e92c1283f2aae76e4649f48aa3d41427621b7c0672fea35c4952841e}
+}]\index{eg\-P\-A\-R\-A\-M@{eg\-P\-A\-R\-A\-M}!dialogs.\-c@{dialogs.\-c}}\index{dialogs.\-c@{dialogs.\-c}!eg\-P\-A\-R\-A\-M@{eg\-P\-A\-R\-A\-M}}\item[{\em 
+\hypertarget{dialogs_8c_a640e110a8e92c1283f2aae76e4649f48a91c6c77731c8e4f590537b210a32c543}{eg\-P\-A\-R\-A\-M}\label{dialogs_8c_a640e110a8e92c1283f2aae76e4649f48a91c6c77731c8e4f590537b210a32c543}
+}]\index{eg1@{eg1}!dialogs.\-c@{dialogs.\-c}}\index{dialogs.\-c@{dialogs.\-c}!eg1@{eg1}}\item[{\em 
+\hypertarget{dialogs_8c_a640e110a8e92c1283f2aae76e4649f48abb257a30e523f24558f9b0cb31aa65e9}{eg1}\label{dialogs_8c_a640e110a8e92c1283f2aae76e4649f48abb257a30e523f24558f9b0cb31aa65e9}
+}]\index{eg1\-P\-R\-O\-C@{eg1\-P\-R\-O\-C}!dialogs.\-c@{dialogs.\-c}}\index{dialogs.\-c@{dialogs.\-c}!eg1\-P\-R\-O\-C@{eg1\-P\-R\-O\-C}}\item[{\em 
+\hypertarget{dialogs_8c_a640e110a8e92c1283f2aae76e4649f48adfa11fa7bfd3a0d8482cf13bc1fd216e}{eg1\-P\-R\-O\-C}\label{dialogs_8c_a640e110a8e92c1283f2aae76e4649f48adfa11fa7bfd3a0d8482cf13bc1fd216e}
+}]\index{eg32\-P\-R\-O\-C@{eg32\-P\-R\-O\-C}!dialogs.\-c@{dialogs.\-c}}\index{dialogs.\-c@{dialogs.\-c}!eg32\-P\-R\-O\-C@{eg32\-P\-R\-O\-C}}\item[{\em 
+\hypertarget{dialogs_8c_a640e110a8e92c1283f2aae76e4649f48af8237d0054ed7a0e14ff308d48a78ced}{eg32\-P\-R\-O\-C}\label{dialogs_8c_a640e110a8e92c1283f2aae76e4649f48af8237d0054ed7a0e14ff308d48a78ced}
+}]\end{description}
+\end{Desc}
+
+\hypertarget{dialogs_8c_a688e8862af90a31ae0f4d894b555a7bd}{\subsubsection[{anonymous enum}]{\setlength{\rightskip}{0pt plus 5cm}anonymous enum}}\label{dialogs_8c_a688e8862af90a31ae0f4d894b555a7bd}
+\begin{Desc}
+\item[\-Enumerator\-: ]\par
+\begin{description}
+\index{es\-F\-U\-N\-C\-T@{es\-F\-U\-N\-C\-T}!dialogs.\-c@{dialogs.\-c}}\index{dialogs.\-c@{dialogs.\-c}!es\-F\-U\-N\-C\-T@{es\-F\-U\-N\-C\-T}}\item[{\em 
+\hypertarget{dialogs_8c_a688e8862af90a31ae0f4d894b555a7bda07d23611a6e523e638898fe0549bdac8}{es\-F\-U\-N\-C\-T}\label{dialogs_8c_a688e8862af90a31ae0f4d894b555a7bda07d23611a6e523e638898fe0549bdac8}
+}]\index{es\-B\-S\-H\-O\-W@{es\-B\-S\-H\-O\-W}!dialogs.\-c@{dialogs.\-c}}\index{dialogs.\-c@{dialogs.\-c}!es\-B\-S\-H\-O\-W@{es\-B\-S\-H\-O\-W}}\item[{\em 
+\hypertarget{dialogs_8c_a688e8862af90a31ae0f4d894b555a7bdab5d6ea69466c9fbeddccbda6a9c64e4e}{es\-B\-S\-H\-O\-W}\label{dialogs_8c_a688e8862af90a31ae0f4d894b555a7bdab5d6ea69466c9fbeddccbda6a9c64e4e}
+}]\index{es\-I\-N\-F\-I\-L@{es\-I\-N\-F\-I\-L}!dialogs.\-c@{dialogs.\-c}}\index{dialogs.\-c@{dialogs.\-c}!es\-I\-N\-F\-I\-L@{es\-I\-N\-F\-I\-L}}\item[{\em 
+\hypertarget{dialogs_8c_a688e8862af90a31ae0f4d894b555a7bda96bd64e46c8ffc7cc86ed83140e5a4e3}{es\-I\-N\-F\-I\-L}\label{dialogs_8c_a688e8862af90a31ae0f4d894b555a7bda96bd64e46c8ffc7cc86ed83140e5a4e3}
+}]\index{es\-I\-N\-D\-E\-X\-F\-I\-L@{es\-I\-N\-D\-E\-X\-F\-I\-L}!dialogs.\-c@{dialogs.\-c}}\index{dialogs.\-c@{dialogs.\-c}!es\-I\-N\-D\-E\-X\-F\-I\-L@{es\-I\-N\-D\-E\-X\-F\-I\-L}}\item[{\em 
+\hypertarget{dialogs_8c_a688e8862af90a31ae0f4d894b555a7bdaccdf9bfbe0693bfe8c698822becd546c}{es\-I\-N\-D\-E\-X\-F\-I\-L}\label{dialogs_8c_a688e8862af90a31ae0f4d894b555a7bdaccdf9bfbe0693bfe8c698822becd546c}
+}]\index{es\-L\-S\-Q@{es\-L\-S\-Q}!dialogs.\-c@{dialogs.\-c}}\index{dialogs.\-c@{dialogs.\-c}!es\-L\-S\-Q@{es\-L\-S\-Q}}\item[{\em 
+\hypertarget{dialogs_8c_a688e8862af90a31ae0f4d894b555a7bda3055bf906d17e1cf62a093e9f54032d3}{es\-L\-S\-Q}\label{dialogs_8c_a688e8862af90a31ae0f4d894b555a7bda3055bf906d17e1cf62a093e9f54032d3}
+}]\index{es\-S\-H\-O\-W@{es\-S\-H\-O\-W}!dialogs.\-c@{dialogs.\-c}}\index{dialogs.\-c@{dialogs.\-c}!es\-S\-H\-O\-W@{es\-S\-H\-O\-W}}\item[{\em 
+\hypertarget{dialogs_8c_a688e8862af90a31ae0f4d894b555a7bda0ff67132bc258e8a664277751c61b4a9}{es\-S\-H\-O\-W}\label{dialogs_8c_a688e8862af90a31ae0f4d894b555a7bda0ff67132bc258e8a664277751c61b4a9}
+}]\index{es\-P\-L\-O\-T\-F\-I\-L@{es\-P\-L\-O\-T\-F\-I\-L}!dialogs.\-c@{dialogs.\-c}}\index{dialogs.\-c@{dialogs.\-c}!es\-P\-L\-O\-T\-F\-I\-L@{es\-P\-L\-O\-T\-F\-I\-L}}\item[{\em 
+\hypertarget{dialogs_8c_a688e8862af90a31ae0f4d894b555a7bda85c9a3a421ae7d65c8227637326b3840}{es\-P\-L\-O\-T\-F\-I\-L}\label{dialogs_8c_a688e8862af90a31ae0f4d894b555a7bda85c9a3a421ae7d65c8227637326b3840}
+}]\end{description}
+\end{Desc}
+
+\hypertarget{dialogs_8c_a1de2d88af76442ed8f995b70d8d71bfc}{\index{dialogs.\-c@{dialogs.\-c}!bond\-\_\-set@{bond\-\_\-set}}
+\index{bond\-\_\-set@{bond\-\_\-set}!dialogs.c@{dialogs.\-c}}
+\subsubsection[{bond\-\_\-set}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf bond\-\_\-set}}}\label{dialogs_8c_a1de2d88af76442ed8f995b70d8d71bfc}
+\begin{Desc}
+\item[\-Enumerator\-: ]\par
+\begin{description}
+\index{eb\-Show\-H@{eb\-Show\-H}!dialogs.\-c@{dialogs.\-c}}\index{dialogs.\-c@{dialogs.\-c}!eb\-Show\-H@{eb\-Show\-H}}\item[{\em 
+\hypertarget{dialogs_8c_a1de2d88af76442ed8f995b70d8d71bfcac596ace702431749175c992a0d4b8ff0}{eb\-Show\-H}\label{dialogs_8c_a1de2d88af76442ed8f995b70d8d71bfcac596ace702431749175c992a0d4b8ff0}
+}]\index{eb\-D\-Plus@{eb\-D\-Plus}!dialogs.\-c@{dialogs.\-c}}\index{dialogs.\-c@{dialogs.\-c}!eb\-D\-Plus@{eb\-D\-Plus}}\item[{\em 
+\hypertarget{dialogs_8c_a1de2d88af76442ed8f995b70d8d71bfca4e51309254a10667c568cfbf7aa65de7}{eb\-D\-Plus}\label{dialogs_8c_a1de2d88af76442ed8f995b70d8d71bfca4e51309254a10667c568cfbf7aa65de7}
+}]\index{eb\-R\-M\-P\-B\-C@{eb\-R\-M\-P\-B\-C}!dialogs.\-c@{dialogs.\-c}}\index{dialogs.\-c@{dialogs.\-c}!eb\-R\-M\-P\-B\-C@{eb\-R\-M\-P\-B\-C}}\item[{\em 
+\hypertarget{dialogs_8c_a1de2d88af76442ed8f995b70d8d71bfca55c12e25c2d7cd68f3699e80124aafe3}{eb\-R\-M\-P\-B\-C}\label{dialogs_8c_a1de2d88af76442ed8f995b70d8d71bfca55c12e25c2d7cd68f3699e80124aafe3}
+}]\index{eb\-Cue@{eb\-Cue}!dialogs.\-c@{dialogs.\-c}}\index{dialogs.\-c@{dialogs.\-c}!eb\-Cue@{eb\-Cue}}\item[{\em 
+\hypertarget{dialogs_8c_a1de2d88af76442ed8f995b70d8d71bfcaa6f1a87a683df1c16a6de6c3bc56102b}{eb\-Cue}\label{dialogs_8c_a1de2d88af76442ed8f995b70d8d71bfcaa6f1a87a683df1c16a6de6c3bc56102b}
+}]\index{eb\-Skip@{eb\-Skip}!dialogs.\-c@{dialogs.\-c}}\index{dialogs.\-c@{dialogs.\-c}!eb\-Skip@{eb\-Skip}}\item[{\em 
+\hypertarget{dialogs_8c_a1de2d88af76442ed8f995b70d8d71bfcaa2ed8d031b831ab992cb56332cc3e0f9}{eb\-Skip}\label{dialogs_8c_a1de2d88af76442ed8f995b70d8d71bfcaa2ed8d031b831ab992cb56332cc3e0f9}
+}]\index{eb\-Wait@{eb\-Wait}!dialogs.\-c@{dialogs.\-c}}\index{dialogs.\-c@{dialogs.\-c}!eb\-Wait@{eb\-Wait}}\item[{\em 
+\hypertarget{dialogs_8c_a1de2d88af76442ed8f995b70d8d71bfcaceb4151b555e7141d9f6ee8042f197d8}{eb\-Wait}\label{dialogs_8c_a1de2d88af76442ed8f995b70d8d71bfcaceb4151b555e7141d9f6ee8042f197d8}
+}]\end{description}
+\end{Desc}
+
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{dialogs_8c_a249bfda7c06b6b1c8c19f19d79aaa725}{\index{dialogs.\-c@{dialogs.\-c}!about\-\_\-mb@{about\-\_\-mb}}
+\index{about\-\_\-mb@{about\-\_\-mb}!dialogs.c@{dialogs.\-c}}
+\subsubsection[{about\-\_\-mb}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf t\-\_\-dlg}$\ast$ {\bf about\-\_\-mb} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-x11} $\ast$}]{x11, }
+\item[{{\bf t\-\_\-gmx} $\ast$}]{gmx}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{dialogs_8c_a249bfda7c06b6b1c8c19f19d79aaa725}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{dialogs_8c_a249bfda7c06b6b1c8c19f19d79aaa725_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{dialogs_8c_a249bfda7c06b6b1c8c19f19d79aaa725_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{dialogs_8c_ae197ac1225420ae9c1a66229b2aa7473}{\index{dialogs.\-c@{dialogs.\-c}!\-Bonds\-C\-B@{\-Bonds\-C\-B}}
+\index{\-Bonds\-C\-B@{\-Bonds\-C\-B}!dialogs.c@{dialogs.\-c}}
+\subsubsection[{\-Bonds\-C\-B}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf \-Bonds\-C\-B} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-x11} $\ast$}]{x11, }
+\item[{int}]{dlg\-\_\-mess, }
+\item[{int}]{item\-\_\-id, }
+\item[{char $\ast$}]{set, }
+\item[{{\bf void} $\ast$}]{data}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{dialogs_8c_ae197ac1225420ae9c1a66229b2aa7473}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{dialogs_8c_ae197ac1225420ae9c1a66229b2aa7473_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{dialogs_8c_ae197ac1225420ae9c1a66229b2aa7473_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{dialogs_8c_a16350e7f086165699039599a86be666f}{\index{dialogs.\-c@{dialogs.\-c}!done\-\_\-dlgs@{done\-\_\-dlgs}}
+\index{done\-\_\-dlgs@{done\-\_\-dlgs}!dialogs.c@{dialogs.\-c}}
+\subsubsection[{done\-\_\-dlgs}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf done\-\_\-dlgs} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-gmx} $\ast$}]{gmx}
+\end{DoxyParamCaption}
+)}}\label{dialogs_8c_a16350e7f086165699039599a86be666f}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{dialogs_8c_a16350e7f086165699039599a86be666f_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{dialogs_8c_a16350e7f086165699039599a86be666f_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{dialogs_8c_a3f8c82f87b97d7a75ac120ca952ef03d}{\index{dialogs.\-c@{dialogs.\-c}!edit\-\_\-file@{edit\-\_\-file}}
+\index{edit\-\_\-file@{edit\-\_\-file}!dialogs.c@{dialogs.\-c}}
+\subsubsection[{edit\-\_\-file}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf edit\-\_\-file} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{fn}
+\end{DoxyParamCaption}
+)}}\label{dialogs_8c_a3f8c82f87b97d7a75ac120ca952ef03d}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=348pt]{dialogs_8c_a3f8c82f87b97d7a75ac120ca952ef03d_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{dialogs_8c_a3f8c82f87b97d7a75ac120ca952ef03d_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{dialogs_8c_a1b020f15e252238c4b8e97bb007e90c6}{\index{dialogs.\-c@{dialogs.\-c}!\-Export\-C\-B@{\-Export\-C\-B}}
+\index{\-Export\-C\-B@{\-Export\-C\-B}!dialogs.c@{dialogs.\-c}}
+\subsubsection[{\-Export\-C\-B}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf \-Export\-C\-B} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-x11} $\ast$}]{x11, }
+\item[{int}]{dlg\-\_\-mess, }
+\item[{int}]{item\-\_\-id, }
+\item[{char $\ast$}]{set, }
+\item[{{\bf void} $\ast$}]{data}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{dialogs_8c_a1b020f15e252238c4b8e97bb007e90c6}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{dialogs_8c_a1b020f15e252238c4b8e97bb007e90c6_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{dialogs_8c_a1b020f15e252238c4b8e97bb007e90c6_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{dialogs_8c_aba4983be5fc11105d72b5ce0ff729c08}{\index{dialogs.\-c@{dialogs.\-c}!\-Extract@{\-Extract}}
+\index{\-Extract@{\-Extract}!dialogs.c@{dialogs.\-c}}
+\subsubsection[{\-Extract}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf \-Extract} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-dlg} $\ast$}]{dlg, }
+\item[{int}]{\-I\-D, }
+\item[{char $\ast$}]{buf}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{dialogs_8c_aba4983be5fc11105d72b5ce0ff729c08}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=310pt]{dialogs_8c_aba4983be5fc11105d72b5ce0ff729c08_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{dialogs_8c_aa996fca25a2ba4b453a5f6b293621d44}{\index{dialogs.\-c@{dialogs.\-c}!help\-\_\-mb@{help\-\_\-mb}}
+\index{help\-\_\-mb@{help\-\_\-mb}!dialogs.c@{dialogs.\-c}}
+\subsubsection[{help\-\_\-mb}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf t\-\_\-dlg}$\ast$ {\bf help\-\_\-mb} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-x11} $\ast$}]{x11, }
+\item[{{\bf t\-\_\-gmx} $\ast$}]{gmx}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{dialogs_8c_aa996fca25a2ba4b453a5f6b293621d44}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{dialogs_8c_aa996fca25a2ba4b453a5f6b293621d44_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{dialogs_8c_aa996fca25a2ba4b453a5f6b293621d44_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{dialogs_8c_a2f24c9ec6e4b6b074b6a33d1ecf4a9aa}{\index{dialogs.\-c@{dialogs.\-c}!hide\-\_\-mb@{hide\-\_\-mb}}
+\index{hide\-\_\-mb@{hide\-\_\-mb}!dialogs.c@{dialogs.\-c}}
+\subsubsection[{hide\-\_\-mb}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf hide\-\_\-mb} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-gmx} $\ast$}]{gmx}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{dialogs_8c_a2f24c9ec6e4b6b074b6a33d1ecf4a9aa}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=322pt]{dialogs_8c_a2f24c9ec6e4b6b074b6a33d1ecf4a9aa_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{dialogs_8c_a2f24c9ec6e4b6b074b6a33d1ecf4a9aa_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{dialogs_8c_a2df576f3a82cd6d5fa8201e253d77d19}{\index{dialogs.\-c@{dialogs.\-c}!in\-\_\-set@{in\-\_\-set}}
+\index{in\-\_\-set@{in\-\_\-set}!dialogs.c@{dialogs.\-c}}
+\subsubsection[{in\-\_\-set}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gmx\-\_\-bool} {\bf in\-\_\-set} (
+\begin{DoxyParamCaption}
+\item[{int}]{i, }
+\item[{int}]{n, }
+\item[{int}]{set\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{dialogs_8c_a2df576f3a82cd6d5fa8201e253d77d19}
+\hypertarget{dialogs_8c_a68ff8fde4b4a81c1265f6fe03f9fee3d}{\index{dialogs.\-c@{dialogs.\-c}!init\-\_\-dlgs@{init\-\_\-dlgs}}
+\index{init\-\_\-dlgs@{init\-\_\-dlgs}!dialogs.c@{dialogs.\-c}}
+\subsubsection[{init\-\_\-dlgs}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf init\-\_\-dlgs} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-x11} $\ast$}]{x11, }
+\item[{{\bf t\-\_\-gmx} $\ast$}]{gmx}
+\end{DoxyParamCaption}
+)}}\label{dialogs_8c_a68ff8fde4b4a81c1265f6fe03f9fee3d}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{dialogs_8c_a68ff8fde4b4a81c1265f6fe03f9fee3d_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=298pt]{dialogs_8c_a68ff8fde4b4a81c1265f6fe03f9fee3d_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{dialogs_8c_a0c9e7d1b90560c3e94d530b1d90caf66}{\index{dialogs.\-c@{dialogs.\-c}!\-M\-B\-Callback@{\-M\-B\-Callback}}
+\index{\-M\-B\-Callback@{\-M\-B\-Callback}!dialogs.c@{dialogs.\-c}}
+\subsubsection[{\-M\-B\-Callback}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf \-M\-B\-Callback} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-x11} $\ast$}]{x11, }
+\item[{int}]{dlg\-\_\-mess, }
+\item[{int}]{item\-\_\-id, }
+\item[{char $\ast$}]{set, }
+\item[{{\bf void} $\ast$}]{data}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{dialogs_8c_a0c9e7d1b90560c3e94d530b1d90caf66}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{dialogs_8c_a0c9e7d1b90560c3e94d530b1d90caf66_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{dialogs_8c_a0c9e7d1b90560c3e94d530b1d90caf66_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{dialogs_8c_a830c54e5b29d657eb6835ee73c3625f5}{\index{dialogs.\-c@{dialogs.\-c}!ni\-\_\-mb@{ni\-\_\-mb}}
+\index{ni\-\_\-mb@{ni\-\_\-mb}!dialogs.c@{dialogs.\-c}}
+\subsubsection[{ni\-\_\-mb}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf t\-\_\-dlg}$\ast$ {\bf ni\-\_\-mb} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-x11} $\ast$}]{x11, }
+\item[{{\bf t\-\_\-gmx} $\ast$}]{gmx}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{dialogs_8c_a830c54e5b29d657eb6835ee73c3625f5}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{dialogs_8c_a830c54e5b29d657eb6835ee73c3625f5_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{dialogs_8c_a830c54e5b29d657eb6835ee73c3625f5_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{dialogs_8c_acf57b65f0f3b69df34b9e1fa9832fa5f}{\index{dialogs.\-c@{dialogs.\-c}!quit\-\_\-mb@{quit\-\_\-mb}}
+\index{quit\-\_\-mb@{quit\-\_\-mb}!dialogs.c@{dialogs.\-c}}
+\subsubsection[{quit\-\_\-mb}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf t\-\_\-dlg}$\ast$ {\bf quit\-\_\-mb} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-x11} $\ast$}]{x11, }
+\item[{{\bf t\-\_\-gmx} $\ast$}]{gmx}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{dialogs_8c_acf57b65f0f3b69df34b9e1fa9832fa5f}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{dialogs_8c_acf57b65f0f3b69df34b9e1fa9832fa5f_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{dialogs_8c_acf57b65f0f3b69df34b9e1fa9832fa5f_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{dialogs_8c_a9156cbe0e157ac3416c5baa43108e93a}{\index{dialogs.\-c@{dialogs.\-c}!\-Quit\-C\-B@{\-Quit\-C\-B}}
+\index{\-Quit\-C\-B@{\-Quit\-C\-B}!dialogs.c@{dialogs.\-c}}
+\subsubsection[{\-Quit\-C\-B}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf \-Quit\-C\-B} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-x11} $\ast$}]{x11, }
+\item[{int}]{dlg\-\_\-mess, }
+\item[{int}]{item\-\_\-id, }
+\item[{char $\ast$}]{set, }
+\item[{{\bf void} $\ast$}]{data}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{dialogs_8c_a9156cbe0e157ac3416c5baa43108e93a}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{dialogs_8c_a9156cbe0e157ac3416c5baa43108e93a_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{dialogs_8c_a9156cbe0e157ac3416c5baa43108e93a_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{dialogs_8c_a64f2019513722b8a1a6fddfcbe6b7043}{\index{dialogs.\-c@{dialogs.\-c}!shell\-\_\-comm@{shell\-\_\-comm}}
+\index{shell\-\_\-comm@{shell\-\_\-comm}!dialogs.c@{dialogs.\-c}}
+\subsubsection[{shell\-\_\-comm}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf shell\-\_\-comm} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{title, }
+\item[{const char $\ast$}]{script, }
+\item[{int}]{nsleep}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{dialogs_8c_a64f2019513722b8a1a6fddfcbe6b7043}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=262pt]{dialogs_8c_a64f2019513722b8a1a6fddfcbe6b7043_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{dialogs_8c_a64f2019513722b8a1a6fddfcbe6b7043_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{dialogs_8c_a0f498ea9ac2a49a238749cf70fecd392}{\index{dialogs.\-c@{dialogs.\-c}!show\-\_\-mb@{show\-\_\-mb}}
+\index{show\-\_\-mb@{show\-\_\-mb}!dialogs.c@{dialogs.\-c}}
+\subsubsection[{show\-\_\-mb}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf show\-\_\-mb} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-gmx} $\ast$}]{gmx, }
+\item[{int}]{mb}
+\end{DoxyParamCaption}
+)}}\label{dialogs_8c_a0f498ea9ac2a49a238749cf70fecd392}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=336pt]{dialogs_8c_a0f498ea9ac2a49a238749cf70fecd392_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{dialogs_8c_a0f498ea9ac2a49a238749cf70fecd392_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{dialogs_8c_aa4c68639ee2303efb5fd08dba1fa1d35}{\index{dialogs.\-c@{dialogs.\-c}!write\-\_\-gmx@{write\-\_\-gmx}}
+\index{write\-\_\-gmx@{write\-\_\-gmx}!dialogs.c@{dialogs.\-c}}
+\subsubsection[{write\-\_\-gmx}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf write\-\_\-gmx} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-x11} $\ast$}]{x11, }
+\item[{{\bf t\-\_\-gmx} $\ast$}]{gmx, }
+\item[{int}]{mess}
+\end{DoxyParamCaption}
+)}}\label{dialogs_8c_aa4c68639ee2303efb5fd08dba1fa1d35}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{dialogs_8c_aa4c68639ee2303efb5fd08dba1fa1d35_icgraph}
+\end{center}
+\end{figure}
+
+

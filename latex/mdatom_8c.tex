@@ -1,0 +1,131 @@
+\hypertarget{mdatom_8c}{\section{src/mdlib/mdatom.c \-File \-Reference}
+\label{mdatom_8c}\index{src/mdlib/mdatom.\-c@{src/mdlib/mdatom.\-c}}
+}
+{\ttfamily \#include \char`\"{}typedefs.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}mdatoms.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}smalloc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}main.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}qmmm.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}mtop\-\_\-util.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-omp\-\_\-nthreads.\-h\char`\"{}}\*
+\-Include dependency graph for mdatom.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mdatom_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{mdatom_8c_af1eda01eaa3d9dc5167d5fefd39b1d75}{\-A\-L\-M\-O\-S\-T\-\_\-\-Z\-E\-R\-O}~1e-\/30
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structt__mdatoms}{t\-\_\-mdatoms} $\ast$ \hyperlink{mdatom_8c_ab7685100b740ebe69b43cc5fa0482129}{init\-\_\-mdatoms} (\-F\-I\-L\-E $\ast$fp, \hyperlink{structgmx__mtop__t}{gmx\-\_\-mtop\-\_\-t} $\ast$mtop, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Free\-Energy)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{mdatom_8c_a05825d7433a4a73d59f6b869a5f4025e}{atoms2md} (\hyperlink{structgmx__mtop__t}{gmx\-\_\-mtop\-\_\-t} $\ast$mtop, \hyperlink{structt__inputrec}{t\-\_\-inputrec} $\ast$ir, int nindex, int $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a49fd977001162d7256c8fcd293f9d12a}{index}, int start, int homenr, \hyperlink{structt__mdatoms}{t\-\_\-mdatoms} $\ast$md)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{mdatom_8c_a250fd75fde010b6a84bad4f33c3d27a5}{update\-\_\-mdatoms} (\hyperlink{structt__mdatoms}{t\-\_\-mdatoms} $\ast$md, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_aec47b6dda9c386285e755f058a846af8}{lambda})
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Define \-Documentation}
+\hypertarget{mdatom_8c_af1eda01eaa3d9dc5167d5fefd39b1d75}{\index{mdatom.\-c@{mdatom.\-c}!\-A\-L\-M\-O\-S\-T\-\_\-\-Z\-E\-R\-O@{\-A\-L\-M\-O\-S\-T\-\_\-\-Z\-E\-R\-O}}
+\index{\-A\-L\-M\-O\-S\-T\-\_\-\-Z\-E\-R\-O@{\-A\-L\-M\-O\-S\-T\-\_\-\-Z\-E\-R\-O}!mdatom.c@{mdatom.\-c}}
+\subsubsection[{\-A\-L\-M\-O\-S\-T\-\_\-\-Z\-E\-R\-O}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-A\-L\-M\-O\-S\-T\-\_\-\-Z\-E\-R\-O}~1e-\/30}}\label{mdatom_8c_af1eda01eaa3d9dc5167d5fefd39b1d75}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{mdatom_8c_a05825d7433a4a73d59f6b869a5f4025e}{\index{mdatom.\-c@{mdatom.\-c}!atoms2md@{atoms2md}}
+\index{atoms2md@{atoms2md}!mdatom.c@{mdatom.\-c}}
+\subsubsection[{atoms2md}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf atoms2md} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-mtop\-\_\-t} $\ast$}]{mtop, }
+\item[{{\bf t\-\_\-inputrec} $\ast$}]{ir, }
+\item[{int}]{nindex, }
+\item[{int $\ast$}]{index, }
+\item[{int}]{start, }
+\item[{int}]{homenr, }
+\item[{{\bf t\-\_\-mdatoms} $\ast$}]{md}
+\end{DoxyParamCaption}
+)}}\label{mdatom_8c_a05825d7433a4a73d59f6b869a5f4025e}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=334pt]{mdatom_8c_a05825d7433a4a73d59f6b869a5f4025e_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mdatom_8c_a05825d7433a4a73d59f6b869a5f4025e_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{mdatom_8c_ab7685100b740ebe69b43cc5fa0482129}{\index{mdatom.\-c@{mdatom.\-c}!init\-\_\-mdatoms@{init\-\_\-mdatoms}}
+\index{init\-\_\-mdatoms@{init\-\_\-mdatoms}!mdatom.c@{mdatom.\-c}}
+\subsubsection[{init\-\_\-mdatoms}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\-\_\-mdatoms}$\ast$ {\bf init\-\_\-mdatoms} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{{\bf gmx\-\_\-mtop\-\_\-t} $\ast$}]{mtop, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Free\-Energy}
+\end{DoxyParamCaption}
+)}}\label{mdatom_8c_ab7685100b740ebe69b43cc5fa0482129}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=338pt]{mdatom_8c_ab7685100b740ebe69b43cc5fa0482129_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mdatom_8c_ab7685100b740ebe69b43cc5fa0482129_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{mdatom_8c_a250fd75fde010b6a84bad4f33c3d27a5}{\index{mdatom.\-c@{mdatom.\-c}!update\-\_\-mdatoms@{update\-\_\-mdatoms}}
+\index{update\-\_\-mdatoms@{update\-\_\-mdatoms}!mdatom.c@{mdatom.\-c}}
+\subsubsection[{update\-\_\-mdatoms}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf update\-\_\-mdatoms} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-mdatoms} $\ast$}]{md, }
+\item[{real}]{lambda}
+\end{DoxyParamCaption}
+)}}\label{mdatom_8c_a250fd75fde010b6a84bad4f33c3d27a5}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mdatom_8c_a250fd75fde010b6a84bad4f33c3d27a5_icgraph}
+\end{center}
+\end{figure}
+
+

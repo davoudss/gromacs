@@ -1,0 +1,750 @@
+\hypertarget{statutil_8c}{\section{src/gmxlib/statutil.c \-File \-Reference}
+\label{statutil_8c}\index{src/gmxlib/statutil.\-c@{src/gmxlib/statutil.\-c}}
+}
+{\ttfamily \#include $<$ctype.\-h$>$}\*
+{\ttfamily \#include $<$assert.\-h$>$}\*
+{\ttfamily \#include \char`\"{}copyrite.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}sysstuff.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}macros.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}string2.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}smalloc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}pbc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}statutil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}names.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}vec.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}futil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}wman.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}tpxio.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-fatal.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}network.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}mtop\-\_\-util.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmxfio.\-h\char`\"{}}\*
+\-Include dependency graph for statutil.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{statutil_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{statutil_8c_a9119bfe775a9c99adca0ad5c671cafcc}{\-T\-U\-N\-I\-T\-L\-A\-B\-E\-L}~\char`\"{}\%t\char`\"{}
+\item 
+\#define \hyperlink{statutil_8c_a5005425d162ca0527c545913e2b34899}{\-N\-T\-U\-N\-I\-T}~strlen(\hyperlink{statutil_8c_a9119bfe775a9c99adca0ad5c671cafcc}{\-T\-U\-N\-I\-T\-L\-A\-B\-E\-L})
+\item 
+\#define \hyperlink{statutil_8c_af4cf221bab0761ed6eb44e643c110d79}{\-E\-X\-T\-R\-A\-\_\-\-P\-A}~16
+\item 
+\#define \hyperlink{statutil_8c_a57a572e15ce936d9761591ce998a9da4}{\-N\-P\-C\-A\-\_\-\-P\-A}~\hyperlink{share_2template_2gromacs_2macros_8h_a0883345a58f8f63aefa249a4f127f707}{asize}(pca\-\_\-pa)
+\item 
+\#define \hyperlink{statutil_8c_afff68493d2f934b98df589b8a90bacb6}{\-F\-F}(arg)~((\-Flags \& arg) == arg)
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+const char $\ast$ \hyperlink{statutil_8c_a1fa94d80fe443686454c3a18763fdf4d}{\-Short\-Program} (\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void})
+\item 
+const char $\ast$ \hyperlink{statutil_8c_aa2c8efb6b103322b7043da704283e5d3}{\-Program} (\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void})
+\item 
+const char $\ast$ \hyperlink{statutil_8c_a9a23bfe68b4e820f80a523d12b6f98c1}{command\-\_\-line} (\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{statutil_8c_a5c2ef50cb2d5ec29ca422dc3bc5ecc47}{set\-\_\-program\-\_\-name} (const char $\ast$argvzero)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{statutil_8c_acea34fa5287347d0c53e18abeec81938}{set\-\_\-command\-\_\-line} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{statutil_8c_a31c07bd2307af8a51b10c3fa9dbcbbb0}{b\-Rmod\-\_\-fd} (double \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a0880879736d1ab747a972d1942421886}{a}, double \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afb462a5dea72ae7992f073bfd756fb5f}{b}, double \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae4f482ada992ba1e6b96026c14729ffe}{c}, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Double)
+\item 
+int \hyperlink{statutil_8c_a12ccec04819e3c8908d1aa168b56c8b4}{check\-\_\-times2} (real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a2b515c84b1293071f7584da32ca336c0}{t}, real t0, real tp, real tpp, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Double)
+\item 
+int \hyperlink{statutil_8c_a658fbc08c3b3173e3a36aff486fd8ddb}{check\-\_\-times} (real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a2b515c84b1293071f7584da32ca336c0}{t})
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{statutil_8c_a129abd6cf00bd4b101a6bf5d14679e0f}{set\-\_\-default\-\_\-time\-\_\-unit} (const char $\ast$time\-\_\-list\mbox{[}$\,$\mbox{]}, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Can\-Time)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{statutil_8c_a4f20f9eebfcb6044a909dfc01d4b26c5}{set\-\_\-default\-\_\-xvg\-\_\-format} (const char $\ast$xvg\-\_\-list\mbox{[}$\,$\mbox{]})
+\item 
+\hyperlink{structt__topology}{t\-\_\-topology} $\ast$ \hyperlink{statutil_8c_ac05f7eeddc95fa66bfe0659f24a0d6e8}{read\-\_\-top} (const char $\ast$fn, int $\ast$e\-P\-B\-C)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{statutil_8c_aa5861406738cc8aa6f808a4dde90c8ea}{usage} (const char $\ast$\hyperlink{fgrid_8c_a7f3986ef06a5ebd031c536fbcdce3c49}{type}, const char $\ast$arg)
+\item 
+int \hyperlink{statutil_8c_a7b44a12c40ff8974bc6ab36dafffb94d}{iscan} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]}, int $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a3c7542401c1cb8bd37ef5e7d9eb0f5a8}{i})
+\item 
+gmx\-\_\-large\-\_\-int\-\_\-t \hyperlink{statutil_8c_acc7f81f652a7fd81c35f04e6f3f9d3de}{istepscan} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]}, int $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a3c7542401c1cb8bd37ef5e7d9eb0f5a8}{i})
+\item 
+double \hyperlink{statutil_8c_a1159a1f54a2e351e2aa574f842ace315}{dscan} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]}, int $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a3c7542401c1cb8bd37ef5e7d9eb0f5a8}{i})
+\item 
+char $\ast$ \hyperlink{statutil_8c_aadc801289a89fbb10e350448524d819c}{sscan} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]}, int $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a3c7542401c1cb8bd37ef5e7d9eb0f5a8}{i})
+\item 
+int \hyperlink{statutil_8c_a0a74f7c7945af63c38f88e41b4313d58}{nenum} (const char $\ast$const enumc\mbox{[}$\,$\mbox{]})
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{statutil_8c_a4b8a54da1aeaea2bb20ad4a77489a596}{pdesc} (char $\ast$desc)
+\item 
+static \-F\-I\-L\-E $\ast$ \hyperlink{statutil_8c_af5707942b0e6f3d22c0e2bcff1085315}{man\-\_\-file} (const \hyperlink{include_2types_2oenv_8h_a6a48d77d95132d7318780544821da6a5}{output\-\_\-env\-\_\-t} oenv, const char $\ast$mantp)
+\item 
+static int \hyperlink{statutil_8c_a94efeb5b4fbe377d83b37064ae1fb100}{add\-\_\-parg} (int \hyperlink{gmx__trjcat_8c_a991ca54733f8b2ab497f259dece78179}{npargs}, \hyperlink{structt__pargs}{t\-\_\-pargs} $\ast$pa, \hyperlink{structt__pargs}{t\-\_\-pargs} $\ast$pa\-\_\-add)
+\item 
+static char $\ast$ \hyperlink{statutil_8c_aa6ebb296bed21cd0dc29c5b865c0bc82}{mk\-\_\-desc} (\hyperlink{structt__pargs}{t\-\_\-pargs} $\ast$pa, const char $\ast$time\-\_\-unit\-\_\-str)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{statutil_8c_a6f81bb28d37726fb087d5e036d884246}{parse\-\_\-common\-\_\-args} (int $\ast$argc, char $\ast$argv\mbox{[}$\,$\mbox{]}, unsigned long \-Flags, int nfile, \hyperlink{structt__filenm}{t\-\_\-filenm} fnm\mbox{[}$\,$\mbox{]}, int \hyperlink{gmx__trjcat_8c_a991ca54733f8b2ab497f259dece78179}{npargs}, \hyperlink{structt__pargs}{t\-\_\-pargs} $\ast$pa, int ndesc, const char $\ast$$\ast$desc, int nbugs, const char $\ast$$\ast$bugs, \hyperlink{include_2types_2oenv_8h_a6a48d77d95132d7318780544821da6a5}{output\-\_\-env\-\_\-t} $\ast$oenv)
+\end{DoxyCompactItemize}
+\subsection*{\-Variables}
+\begin{DoxyCompactItemize}
+\item 
+static const char $\ast$ \hyperlink{statutil_8c_ae44e96c1808be0a56730c26b8b3d2c2a}{program\-\_\-name} = \-N\-U\-L\-L
+\item 
+static char $\ast$ \hyperlink{statutil_8c_afc99aa22cc3be3797af3208ba3d729ac}{cmd\-\_\-line} = \-N\-U\-L\-L
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Define \-Documentation}
+\hypertarget{statutil_8c_af4cf221bab0761ed6eb44e643c110d79}{\index{statutil.\-c@{statutil.\-c}!\-E\-X\-T\-R\-A\-\_\-\-P\-A@{\-E\-X\-T\-R\-A\-\_\-\-P\-A}}
+\index{\-E\-X\-T\-R\-A\-\_\-\-P\-A@{\-E\-X\-T\-R\-A\-\_\-\-P\-A}!statutil.c@{statutil.\-c}}
+\subsubsection[{\-E\-X\-T\-R\-A\-\_\-\-P\-A}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-E\-X\-T\-R\-A\-\_\-\-P\-A}~16}}\label{statutil_8c_af4cf221bab0761ed6eb44e643c110d79}
+\hypertarget{statutil_8c_afff68493d2f934b98df589b8a90bacb6}{\index{statutil.\-c@{statutil.\-c}!\-F\-F@{\-F\-F}}
+\index{\-F\-F@{\-F\-F}!statutil.c@{statutil.\-c}}
+\subsubsection[{\-F\-F}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-F\-F}(
+\begin{DoxyParamCaption}
+\item[{}]{arg}
+\end{DoxyParamCaption}
+)~((\-Flags \& arg) == arg)}}\label{statutil_8c_afff68493d2f934b98df589b8a90bacb6}
+\hypertarget{statutil_8c_a57a572e15ce936d9761591ce998a9da4}{\index{statutil.\-c@{statutil.\-c}!\-N\-P\-C\-A\-\_\-\-P\-A@{\-N\-P\-C\-A\-\_\-\-P\-A}}
+\index{\-N\-P\-C\-A\-\_\-\-P\-A@{\-N\-P\-C\-A\-\_\-\-P\-A}!statutil.c@{statutil.\-c}}
+\subsubsection[{\-N\-P\-C\-A\-\_\-\-P\-A}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-N\-P\-C\-A\-\_\-\-P\-A}~{\bf asize}(pca\-\_\-pa)}}\label{statutil_8c_a57a572e15ce936d9761591ce998a9da4}
+\hypertarget{statutil_8c_a5005425d162ca0527c545913e2b34899}{\index{statutil.\-c@{statutil.\-c}!\-N\-T\-U\-N\-I\-T@{\-N\-T\-U\-N\-I\-T}}
+\index{\-N\-T\-U\-N\-I\-T@{\-N\-T\-U\-N\-I\-T}!statutil.c@{statutil.\-c}}
+\subsubsection[{\-N\-T\-U\-N\-I\-T}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-N\-T\-U\-N\-I\-T}~strlen({\bf \-T\-U\-N\-I\-T\-L\-A\-B\-E\-L})}}\label{statutil_8c_a5005425d162ca0527c545913e2b34899}
+\hypertarget{statutil_8c_a9119bfe775a9c99adca0ad5c671cafcc}{\index{statutil.\-c@{statutil.\-c}!\-T\-U\-N\-I\-T\-L\-A\-B\-E\-L@{\-T\-U\-N\-I\-T\-L\-A\-B\-E\-L}}
+\index{\-T\-U\-N\-I\-T\-L\-A\-B\-E\-L@{\-T\-U\-N\-I\-T\-L\-A\-B\-E\-L}!statutil.c@{statutil.\-c}}
+\subsubsection[{\-T\-U\-N\-I\-T\-L\-A\-B\-E\-L}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-T\-U\-N\-I\-T\-L\-A\-B\-E\-L}~\char`\"{}\%t\char`\"{}}}\label{statutil_8c_a9119bfe775a9c99adca0ad5c671cafcc}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{statutil_8c_a94efeb5b4fbe377d83b37064ae1fb100}{\index{statutil.\-c@{statutil.\-c}!add\-\_\-parg@{add\-\_\-parg}}
+\index{add\-\_\-parg@{add\-\_\-parg}!statutil.c@{statutil.\-c}}
+\subsubsection[{add\-\_\-parg}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf add\-\_\-parg} (
+\begin{DoxyParamCaption}
+\item[{int}]{npargs, }
+\item[{{\bf t\-\_\-pargs} $\ast$}]{pa, }
+\item[{{\bf t\-\_\-pargs} $\ast$}]{pa\-\_\-add}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{statutil_8c_a94efeb5b4fbe377d83b37064ae1fb100}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{statutil_8c_a94efeb5b4fbe377d83b37064ae1fb100_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{statutil_8c_a31c07bd2307af8a51b10c3fa9dbcbbb0}{\index{statutil.\-c@{statutil.\-c}!b\-Rmod\-\_\-fd@{b\-Rmod\-\_\-fd}}
+\index{b\-Rmod\-\_\-fd@{b\-Rmod\-\_\-fd}!statutil.c@{statutil.\-c}}
+\subsubsection[{b\-Rmod\-\_\-fd}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf b\-Rmod\-\_\-fd} (
+\begin{DoxyParamCaption}
+\item[{double}]{a, }
+\item[{double}]{b, }
+\item[{double}]{c, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Double}
+\end{DoxyParamCaption}
+)}}\label{statutil_8c_a31c07bd2307af8a51b10c3fa9dbcbbb0}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{statutil_8c_a31c07bd2307af8a51b10c3fa9dbcbbb0_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{statutil_8c_a658fbc08c3b3173e3a36aff486fd8ddb}{\index{statutil.\-c@{statutil.\-c}!check\-\_\-times@{check\-\_\-times}}
+\index{check\-\_\-times@{check\-\_\-times}!statutil.c@{statutil.\-c}}
+\subsubsection[{check\-\_\-times}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf check\-\_\-times} (
+\begin{DoxyParamCaption}
+\item[{real}]{t}
+\end{DoxyParamCaption}
+)}}\label{statutil_8c_a658fbc08c3b3173e3a36aff486fd8ddb}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=266pt]{statutil_8c_a658fbc08c3b3173e3a36aff486fd8ddb_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{statutil_8c_a658fbc08c3b3173e3a36aff486fd8ddb_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{statutil_8c_a12ccec04819e3c8908d1aa168b56c8b4}{\index{statutil.\-c@{statutil.\-c}!check\-\_\-times2@{check\-\_\-times2}}
+\index{check\-\_\-times2@{check\-\_\-times2}!statutil.c@{statutil.\-c}}
+\subsubsection[{check\-\_\-times2}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf check\-\_\-times2} (
+\begin{DoxyParamCaption}
+\item[{real}]{t, }
+\item[{real}]{t0, }
+\item[{real}]{tp, }
+\item[{real}]{tpp, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Double}
+\end{DoxyParamCaption}
+)}}\label{statutil_8c_a12ccec04819e3c8908d1aa168b56c8b4}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=260pt]{statutil_8c_a12ccec04819e3c8908d1aa168b56c8b4_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{statutil_8c_a12ccec04819e3c8908d1aa168b56c8b4_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{statutil_8c_a9a23bfe68b4e820f80a523d12b6f98c1}{\index{statutil.\-c@{statutil.\-c}!command\-\_\-line@{command\-\_\-line}}
+\index{command\-\_\-line@{command\-\_\-line}!statutil.c@{statutil.\-c}}
+\subsubsection[{command\-\_\-line}]{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ {\bf command\-\_\-line} (
+\begin{DoxyParamCaption}
+\item[{{\bf void}}]{}
+\end{DoxyParamCaption}
+)}}\label{statutil_8c_a9a23bfe68b4e820f80a523d12b6f98c1}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=336pt]{statutil_8c_a9a23bfe68b4e820f80a523d12b6f98c1_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{statutil_8c_a9a23bfe68b4e820f80a523d12b6f98c1_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{statutil_8c_a1159a1f54a2e351e2aa574f842ace315}{\index{statutil.\-c@{statutil.\-c}!dscan@{dscan}}
+\index{dscan@{dscan}!statutil.c@{statutil.\-c}}
+\subsubsection[{dscan}]{\setlength{\rightskip}{0pt plus 5cm}double {\bf dscan} (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]}, }
+\item[{int $\ast$}]{i}
+\end{DoxyParamCaption}
+)}}\label{statutil_8c_a1159a1f54a2e351e2aa574f842ace315}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=300pt]{statutil_8c_a1159a1f54a2e351e2aa574f842ace315_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{statutil_8c_a1159a1f54a2e351e2aa574f842ace315_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{statutil_8c_a7b44a12c40ff8974bc6ab36dafffb94d}{\index{statutil.\-c@{statutil.\-c}!iscan@{iscan}}
+\index{iscan@{iscan}!statutil.c@{statutil.\-c}}
+\subsubsection[{iscan}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf iscan} (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]}, }
+\item[{int $\ast$}]{i}
+\end{DoxyParamCaption}
+)}}\label{statutil_8c_a7b44a12c40ff8974bc6ab36dafffb94d}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=296pt]{statutil_8c_a7b44a12c40ff8974bc6ab36dafffb94d_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{statutil_8c_a7b44a12c40ff8974bc6ab36dafffb94d_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{statutil_8c_acc7f81f652a7fd81c35f04e6f3f9d3de}{\index{statutil.\-c@{statutil.\-c}!istepscan@{istepscan}}
+\index{istepscan@{istepscan}!statutil.c@{statutil.\-c}}
+\subsubsection[{istepscan}]{\setlength{\rightskip}{0pt plus 5cm}gmx\-\_\-large\-\_\-int\-\_\-t {\bf istepscan} (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]}, }
+\item[{int $\ast$}]{i}
+\end{DoxyParamCaption}
+)}}\label{statutil_8c_acc7f81f652a7fd81c35f04e6f3f9d3de}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=316pt]{statutil_8c_acc7f81f652a7fd81c35f04e6f3f9d3de_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{statutil_8c_acc7f81f652a7fd81c35f04e6f3f9d3de_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{statutil_8c_af5707942b0e6f3d22c0e2bcff1085315}{\index{statutil.\-c@{statutil.\-c}!man\-\_\-file@{man\-\_\-file}}
+\index{man\-\_\-file@{man\-\_\-file}!statutil.c@{statutil.\-c}}
+\subsubsection[{man\-\_\-file}]{\setlength{\rightskip}{0pt plus 5cm}static \-F\-I\-L\-E$\ast$ {\bf man\-\_\-file} (
+\begin{DoxyParamCaption}
+\item[{const {\bf output\-\_\-env\-\_\-t}}]{oenv, }
+\item[{const char $\ast$}]{mantp}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{statutil_8c_af5707942b0e6f3d22c0e2bcff1085315}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{statutil_8c_af5707942b0e6f3d22c0e2bcff1085315_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{statutil_8c_af5707942b0e6f3d22c0e2bcff1085315_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{statutil_8c_aa6ebb296bed21cd0dc29c5b865c0bc82}{\index{statutil.\-c@{statutil.\-c}!mk\-\_\-desc@{mk\-\_\-desc}}
+\index{mk\-\_\-desc@{mk\-\_\-desc}!statutil.c@{statutil.\-c}}
+\subsubsection[{mk\-\_\-desc}]{\setlength{\rightskip}{0pt plus 5cm}static char$\ast$ {\bf mk\-\_\-desc} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-pargs} $\ast$}]{pa, }
+\item[{const char $\ast$}]{time\-\_\-unit\-\_\-str}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{statutil_8c_aa6ebb296bed21cd0dc29c5b865c0bc82}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=230pt]{statutil_8c_aa6ebb296bed21cd0dc29c5b865c0bc82_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{statutil_8c_aa6ebb296bed21cd0dc29c5b865c0bc82_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{statutil_8c_a0a74f7c7945af63c38f88e41b4313d58}{\index{statutil.\-c@{statutil.\-c}!nenum@{nenum}}
+\index{nenum@{nenum}!statutil.c@{statutil.\-c}}
+\subsubsection[{nenum}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf nenum} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$const}]{enumc\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{statutil_8c_a0a74f7c7945af63c38f88e41b4313d58}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{statutil_8c_a0a74f7c7945af63c38f88e41b4313d58_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{statutil_8c_a6f81bb28d37726fb087d5e036d884246}{\index{statutil.\-c@{statutil.\-c}!parse\-\_\-common\-\_\-args@{parse\-\_\-common\-\_\-args}}
+\index{parse\-\_\-common\-\_\-args@{parse\-\_\-common\-\_\-args}!statutil.c@{statutil.\-c}}
+\subsubsection[{parse\-\_\-common\-\_\-args}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf parse\-\_\-common\-\_\-args} (
+\begin{DoxyParamCaption}
+\item[{int $\ast$}]{argc, }
+\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]}, }
+\item[{unsigned long}]{\-Flags, }
+\item[{int}]{nfile, }
+\item[{{\bf t\-\_\-filenm}}]{fnm\mbox{[}$\,$\mbox{]}, }
+\item[{int}]{npargs, }
+\item[{{\bf t\-\_\-pargs} $\ast$}]{pa, }
+\item[{int}]{ndesc, }
+\item[{const char $\ast$$\ast$}]{desc, }
+\item[{int}]{nbugs, }
+\item[{const char $\ast$$\ast$}]{bugs, }
+\item[{{\bf output\-\_\-env\-\_\-t} $\ast$}]{oenv}
+\end{DoxyParamCaption}
+)}}\label{statutil_8c_a6f81bb28d37726fb087d5e036d884246}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{statutil_8c_a6f81bb28d37726fb087d5e036d884246_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{statutil_8c_a4b8a54da1aeaea2bb20ad4a77489a596}{\index{statutil.\-c@{statutil.\-c}!pdesc@{pdesc}}
+\index{pdesc@{pdesc}!statutil.c@{statutil.\-c}}
+\subsubsection[{pdesc}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf pdesc} (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{desc}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{statutil_8c_a4b8a54da1aeaea2bb20ad4a77489a596}
+\hypertarget{statutil_8c_aa2c8efb6b103322b7043da704283e5d3}{\index{statutil.\-c@{statutil.\-c}!\-Program@{\-Program}}
+\index{\-Program@{\-Program}!statutil.c@{statutil.\-c}}
+\subsubsection[{\-Program}]{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ {\bf \-Program} (
+\begin{DoxyParamCaption}
+\item[{{\bf void}}]{}
+\end{DoxyParamCaption}
+)}}\label{statutil_8c_aa2c8efb6b103322b7043da704283e5d3}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=310pt]{statutil_8c_aa2c8efb6b103322b7043da704283e5d3_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{statutil_8c_aa2c8efb6b103322b7043da704283e5d3_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{statutil_8c_ac05f7eeddc95fa66bfe0659f24a0d6e8}{\index{statutil.\-c@{statutil.\-c}!read\-\_\-top@{read\-\_\-top}}
+\index{read\-\_\-top@{read\-\_\-top}!statutil.c@{statutil.\-c}}
+\subsubsection[{read\-\_\-top}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\-\_\-topology}$\ast$ {\bf read\-\_\-top} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{fn, }
+\item[{int $\ast$}]{e\-P\-B\-C}
+\end{DoxyParamCaption}
+)}}\label{statutil_8c_ac05f7eeddc95fa66bfe0659f24a0d6e8}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=244pt]{statutil_8c_ac05f7eeddc95fa66bfe0659f24a0d6e8_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{statutil_8c_ac05f7eeddc95fa66bfe0659f24a0d6e8_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{statutil_8c_acea34fa5287347d0c53e18abeec81938}{\index{statutil.\-c@{statutil.\-c}!set\-\_\-command\-\_\-line@{set\-\_\-command\-\_\-line}}
+\index{set\-\_\-command\-\_\-line@{set\-\_\-command\-\_\-line}!statutil.c@{statutil.\-c}}
+\subsubsection[{set\-\_\-command\-\_\-line}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf set\-\_\-command\-\_\-line} (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{statutil_8c_acea34fa5287347d0c53e18abeec81938}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{statutil_8c_acea34fa5287347d0c53e18abeec81938_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{statutil_8c_acea34fa5287347d0c53e18abeec81938_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{statutil_8c_a129abd6cf00bd4b101a6bf5d14679e0f}{\index{statutil.\-c@{statutil.\-c}!set\-\_\-default\-\_\-time\-\_\-unit@{set\-\_\-default\-\_\-time\-\_\-unit}}
+\index{set\-\_\-default\-\_\-time\-\_\-unit@{set\-\_\-default\-\_\-time\-\_\-unit}!statutil.c@{statutil.\-c}}
+\subsubsection[{set\-\_\-default\-\_\-time\-\_\-unit}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf set\-\_\-default\-\_\-time\-\_\-unit} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{time\-\_\-list\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Can\-Time}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{statutil_8c_a129abd6cf00bd4b101a6bf5d14679e0f}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{statutil_8c_a129abd6cf00bd4b101a6bf5d14679e0f_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{statutil_8c_a4f20f9eebfcb6044a909dfc01d4b26c5}{\index{statutil.\-c@{statutil.\-c}!set\-\_\-default\-\_\-xvg\-\_\-format@{set\-\_\-default\-\_\-xvg\-\_\-format}}
+\index{set\-\_\-default\-\_\-xvg\-\_\-format@{set\-\_\-default\-\_\-xvg\-\_\-format}!statutil.c@{statutil.\-c}}
+\subsubsection[{set\-\_\-default\-\_\-xvg\-\_\-format}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf set\-\_\-default\-\_\-xvg\-\_\-format} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{xvg\-\_\-list\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{statutil_8c_a4f20f9eebfcb6044a909dfc01d4b26c5}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{statutil_8c_a4f20f9eebfcb6044a909dfc01d4b26c5_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{statutil_8c_a5c2ef50cb2d5ec29ca422dc3bc5ecc47}{\index{statutil.\-c@{statutil.\-c}!set\-\_\-program\-\_\-name@{set\-\_\-program\-\_\-name}}
+\index{set\-\_\-program\-\_\-name@{set\-\_\-program\-\_\-name}!statutil.c@{statutil.\-c}}
+\subsubsection[{set\-\_\-program\-\_\-name}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf set\-\_\-program\-\_\-name} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{argvzero}
+\end{DoxyParamCaption}
+)}}\label{statutil_8c_a5c2ef50cb2d5ec29ca422dc3bc5ecc47}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{statutil_8c_a5c2ef50cb2d5ec29ca422dc3bc5ecc47_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{statutil_8c_a5c2ef50cb2d5ec29ca422dc3bc5ecc47_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{statutil_8c_a1fa94d80fe443686454c3a18763fdf4d}{\index{statutil.\-c@{statutil.\-c}!\-Short\-Program@{\-Short\-Program}}
+\index{\-Short\-Program@{\-Short\-Program}!statutil.c@{statutil.\-c}}
+\subsubsection[{\-Short\-Program}]{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ {\bf \-Short\-Program} (
+\begin{DoxyParamCaption}
+\item[{{\bf void}}]{}
+\end{DoxyParamCaption}
+)}}\label{statutil_8c_a1fa94d80fe443686454c3a18763fdf4d}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=334pt]{statutil_8c_a1fa94d80fe443686454c3a18763fdf4d_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{statutil_8c_a1fa94d80fe443686454c3a18763fdf4d_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{statutil_8c_aadc801289a89fbb10e350448524d819c}{\index{statutil.\-c@{statutil.\-c}!sscan@{sscan}}
+\index{sscan@{sscan}!statutil.c@{statutil.\-c}}
+\subsubsection[{sscan}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ {\bf sscan} (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]}, }
+\item[{int $\ast$}]{i}
+\end{DoxyParamCaption}
+)}}\label{statutil_8c_aadc801289a89fbb10e350448524d819c}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=300pt]{statutil_8c_aadc801289a89fbb10e350448524d819c_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{statutil_8c_aadc801289a89fbb10e350448524d819c_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{statutil_8c_aa5861406738cc8aa6f808a4dde90c8ea}{\index{statutil.\-c@{statutil.\-c}!usage@{usage}}
+\index{usage@{usage}!statutil.c@{statutil.\-c}}
+\subsubsection[{usage}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf usage} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{type, }
+\item[{const char $\ast$}]{arg}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{statutil_8c_aa5861406738cc8aa6f808a4dde90c8ea}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=220pt]{statutil_8c_aa5861406738cc8aa6f808a4dde90c8ea_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{statutil_8c_aa5861406738cc8aa6f808a4dde90c8ea_icgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{\-Variable \-Documentation}
+\hypertarget{statutil_8c_afc99aa22cc3be3797af3208ba3d729ac}{\index{statutil.\-c@{statutil.\-c}!cmd\-\_\-line@{cmd\-\_\-line}}
+\index{cmd\-\_\-line@{cmd\-\_\-line}!statutil.c@{statutil.\-c}}
+\subsubsection[{cmd\-\_\-line}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ {\bf cmd\-\_\-line} = \-N\-U\-L\-L\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{statutil_8c_afc99aa22cc3be3797af3208ba3d729ac}
+\hypertarget{statutil_8c_ae44e96c1808be0a56730c26b8b3d2c2a}{\index{statutil.\-c@{statutil.\-c}!program\-\_\-name@{program\-\_\-name}}
+\index{program\-\_\-name@{program\-\_\-name}!statutil.c@{statutil.\-c}}
+\subsubsection[{program\-\_\-name}]{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ {\bf program\-\_\-name} = \-N\-U\-L\-L\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{statutil_8c_ae44e96c1808be0a56730c26b8b3d2c2a}

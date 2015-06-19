@@ -1,0 +1,116 @@
+\hypertarget{gmx__angle_8c}{\section{src/tools/gmx\-\_\-angle.c \-File \-Reference}
+\label{gmx__angle_8c}\index{src/tools/gmx\-\_\-angle.\-c@{src/tools/gmx\-\_\-angle.\-c}}
+}
+{\ttfamily \#include $<$math.\-h$>$}\*
+{\ttfamily \#include $<$string.\-h$>$}\*
+{\ttfamily \#include \char`\"{}sysstuff.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}physics.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}typedefs.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}smalloc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}futil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}statutil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}copyrite.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}vec.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}index.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}macros.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-fatal.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}xvgr.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gstat.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}trnio.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-ana.\-h\char`\"{}}\*
+\-Include dependency graph for gmx\-\_\-angle.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__angle_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{gmx__angle_8c_a8485f4e81de2537e6a0935626167a775}{\-N\-F\-I\-L\-E}~\hyperlink{share_2template_2gromacs_2macros_8h_a0883345a58f8f63aefa249a4f127f707}{asize}(fnm)
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__angle_8c_a26e3171061e3c0cc17d7a83fd4f4ca19}{dump\-\_\-dih\-\_\-trn} (int nframes, int nangles, real $\ast$$\ast$dih, const char $\ast$fn, real $\ast$time)
+\item 
+int \hyperlink{gmx__angle_8c_ae4021856e01e8dabf7269d3697e47693}{gmx\-\_\-g\-\_\-angle} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Define \-Documentation}
+\hypertarget{gmx__angle_8c_a8485f4e81de2537e6a0935626167a775}{\index{gmx\-\_\-angle.\-c@{gmx\-\_\-angle.\-c}!\-N\-F\-I\-L\-E@{\-N\-F\-I\-L\-E}}
+\index{\-N\-F\-I\-L\-E@{\-N\-F\-I\-L\-E}!gmx_angle.c@{gmx\-\_\-angle.\-c}}
+\subsubsection[{\-N\-F\-I\-L\-E}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-N\-F\-I\-L\-E}~{\bf asize}(fnm)}}\label{gmx__angle_8c_a8485f4e81de2537e6a0935626167a775}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{gmx__angle_8c_a26e3171061e3c0cc17d7a83fd4f4ca19}{\index{gmx\-\_\-angle.\-c@{gmx\-\_\-angle.\-c}!dump\-\_\-dih\-\_\-trn@{dump\-\_\-dih\-\_\-trn}}
+\index{dump\-\_\-dih\-\_\-trn@{dump\-\_\-dih\-\_\-trn}!gmx_angle.c@{gmx\-\_\-angle.\-c}}
+\subsubsection[{dump\-\_\-dih\-\_\-trn}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf dump\-\_\-dih\-\_\-trn} (
+\begin{DoxyParamCaption}
+\item[{int}]{nframes, }
+\item[{int}]{nangles, }
+\item[{real $\ast$$\ast$}]{dih, }
+\item[{const char $\ast$}]{fn, }
+\item[{real $\ast$}]{time}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__angle_8c_a26e3171061e3c0cc17d7a83fd4f4ca19}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=250pt]{gmx__angle_8c_a26e3171061e3c0cc17d7a83fd4f4ca19_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=340pt]{gmx__angle_8c_a26e3171061e3c0cc17d7a83fd4f4ca19_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__angle_8c_ae4021856e01e8dabf7269d3697e47693}{\index{gmx\-\_\-angle.\-c@{gmx\-\_\-angle.\-c}!gmx\-\_\-g\-\_\-angle@{gmx\-\_\-g\-\_\-angle}}
+\index{gmx\-\_\-g\-\_\-angle@{gmx\-\_\-g\-\_\-angle}!gmx_angle.c@{gmx\-\_\-angle.\-c}}
+\subsubsection[{gmx\-\_\-g\-\_\-angle}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-g\-\_\-angle} (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{gmx__angle_8c_ae4021856e01e8dabf7269d3697e47693}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{gmx__angle_8c_ae4021856e01e8dabf7269d3697e47693_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=228pt]{gmx__angle_8c_ae4021856e01e8dabf7269d3697e47693_icgraph}
+\end{center}
+\end{figure}
+
+

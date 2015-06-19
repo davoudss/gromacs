@@ -1,0 +1,288 @@
+\hypertarget{share_2template_2gromacs_2mdebin_8h}{\section{share/template/gromacs/mdebin.h \-File \-Reference}
+\label{share_2template_2gromacs_2mdebin_8h}\index{share/template/gromacs/mdebin.\-h@{share/template/gromacs/mdebin.\-h}}
+}
+{\ttfamily \#include \char`\"{}visibility.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}typedefs.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}sysstuff.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}ebin.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}enxio.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}types/state.\-h\char`\"{}}\*
+\-Include dependency graph for mdebin.\-h\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{share_2template_2gromacs_2mdebin_8h__incl}
+\end{center}
+\end{figure}
+\-This graph shows which files directly or indirectly include this file\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{share_2template_2gromacs_2mdebin_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structt__mdebin}{t\-\_\-mdebin}
+\end{DoxyCompactItemize}
+\subsection*{\-Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \hyperlink{structt__mde__delta__h__coll}{t\-\_\-mde\-\_\-delta\-\_\-h\-\_\-coll} \hyperlink{share_2template_2gromacs_2mdebin_8h_a9a8bb3712051832178935997c6af0100}{t\-\_\-mde\-\_\-delta\-\_\-h\-\_\-coll}
+\end{DoxyCompactItemize}
+\subsection*{\-Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \{ \*
+\hyperlink{share_2template_2gromacs_2mdebin_8h_a8feb5a39a55448c86e0dfc20f53a6c1da765fa2498c8448dc617646ed69caeff0}{dhbt\-D\-H} =  0, 
+\hyperlink{share_2template_2gromacs_2mdebin_8h_a8feb5a39a55448c86e0dfc20f53a6c1daef6664b9fc2995d932f13b21a9ff88f6}{dhbt\-D\-H\-D\-L} =  1, 
+\hyperlink{share_2template_2gromacs_2mdebin_8h_a8feb5a39a55448c86e0dfc20f53a6c1da28cb7eec2509e9cc44115ff9ffc53dba}{dhbt\-E\-N}, 
+\hyperlink{share_2template_2gromacs_2mdebin_8h_a8feb5a39a55448c86e0dfc20f53a6c1daf5b4abfa0e08cd2f65d3b62b46137e57}{dhbt\-P\-V}, 
+\*
+\hyperlink{share_2template_2gromacs_2mdebin_8h_a8feb5a39a55448c86e0dfc20f53a6c1daa51b9318bdfc6027223e5cb77711824c}{dhbt\-E\-X\-P\-A\-N\-D\-E\-D}, 
+\hyperlink{share_2template_2gromacs_2mdebin_8h_a8feb5a39a55448c86e0dfc20f53a6c1dab0f151c2996a68b552ac15bdaa8a8058}{dhbt\-N\-R}
+ \}
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structt__mdebin}{t\-\_\-mdebin} $\ast$ \hyperlink{share_2template_2gromacs_2mdebin_8h_a60dd00a595e0224106af45b441440fe9}{init\-\_\-mdebin} (\hyperlink{include_2enxio_8h_a349ec360f67c80515a64c99c76d84c50}{ener\-\_\-file\-\_\-t} fp\-\_\-ene, const \hyperlink{structgmx__mtop__t}{gmx\-\_\-mtop\-\_\-t} $\ast$mtop, const \hyperlink{structt__inputrec}{t\-\_\-inputrec} $\ast$ir, \-F\-I\-L\-E $\ast$fp\-\_\-dhdl)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_ab80ef94c2b909a1a948639e98e63b612}{\-G\-M\-X\-\_\-\-L\-I\-B\-M\-D\-\_\-\-E\-X\-P\-O\-R\-T} \-F\-I\-L\-E $\ast$ \hyperlink{share_2template_2gromacs_2mdebin_8h_a516974a0de296d1604f77c6c3b6fbbcd}{open\-\_\-dhdl} (const char $\ast$filename, const \hyperlink{structt__inputrec}{t\-\_\-inputrec} $\ast$ir, const \hyperlink{include_2types_2oenv_8h_a6a48d77d95132d7318780544821da6a5}{output\-\_\-env\-\_\-t} oenv)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_ab80ef94c2b909a1a948639e98e63b612}{\-G\-M\-X\-\_\-\-L\-I\-B\-M\-D\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{share_2template_2gromacs_2mdebin_8h_ad498ca6c9e14fac93de8cc12fcc4bb74}{upd\-\_\-mdebin} (\hyperlink{structt__mdebin}{t\-\_\-mdebin} $\ast$md, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Do\-D\-H\-D\-L, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Sum, double time, real tmass, \hyperlink{structgmx__enerdata__t}{gmx\-\_\-enerdata\-\_\-t} $\ast$enerd, \hyperlink{structt__state}{t\-\_\-state} $\ast$state, \hyperlink{structt__lambda}{t\-\_\-lambda} $\ast$fep, \hyperlink{structt__expanded}{t\-\_\-expanded} $\ast$expand, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} lastbox, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aef0bf341f56ce75f09dbb64350488a61}{tensor} svir, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aef0bf341f56ce75f09dbb64350488a61}{tensor} fvir, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aef0bf341f56ce75f09dbb64350488a61}{tensor} vir, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aef0bf341f56ce75f09dbb64350488a61}{tensor} pres, \hyperlink{structgmx__ekindata__t}{gmx\-\_\-ekindata\-\_\-t} $\ast$ekind, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} mu\-\_\-tot, \hyperlink{include_2types_2constr_8h_a9a1b11c17f111aab2d5d34a80d6cfcae}{gmx\-\_\-constr\-\_\-t} constr)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_ab80ef94c2b909a1a948639e98e63b612}{\-G\-M\-X\-\_\-\-L\-I\-B\-M\-D\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{share_2template_2gromacs_2mdebin_8h_a3967d2d987cda143e98f4b24a360bf9e}{upd\-\_\-mdebin\-\_\-step} (\hyperlink{structt__mdebin}{t\-\_\-mdebin} $\ast$md)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_ab80ef94c2b909a1a948639e98e63b612}{\-G\-M\-X\-\_\-\-L\-I\-B\-M\-D\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{share_2template_2gromacs_2mdebin_8h_ae387371e8fa982d2a985f99ac042e68e}{print\-\_\-ebin\-\_\-header} (\-F\-I\-L\-E $\ast$log, gmx\-\_\-large\-\_\-int\-\_\-t steps, double time, real lamb)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_ab80ef94c2b909a1a948639e98e63b612}{\-G\-M\-X\-\_\-\-L\-I\-B\-M\-D\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{share_2template_2gromacs_2mdebin_8h_a877aadf1020624d1063c96ce87921423}{print\-\_\-ebin} (\hyperlink{include_2enxio_8h_a349ec360f67c80515a64c99c76d84c50}{ener\-\_\-file\-\_\-t} fp\-\_\-ene, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Ene, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-D\-R, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-O\-R, \-F\-I\-L\-E $\ast$log, gmx\-\_\-large\-\_\-int\-\_\-t step, double time, int mode, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Compact, \hyperlink{structt__mdebin}{t\-\_\-mdebin} $\ast$md, \hyperlink{structt__fcdata}{t\-\_\-fcdata} $\ast$fcd, \hyperlink{structgmx__groups__t}{gmx\-\_\-groups\-\_\-t} $\ast$groups, \hyperlink{structt__grpopts}{t\-\_\-grpopts} $\ast$opts)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_ab80ef94c2b909a1a948639e98e63b612}{\-G\-M\-X\-\_\-\-L\-I\-B\-M\-D\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{share_2template_2gromacs_2mdebin_8h_aea213941b653491dc98a50ab5f357fa3}{update\-\_\-energyhistory} (\hyperlink{structenergyhistory__t}{energyhistory\-\_\-t} $\ast$enerhist, \hyperlink{structt__mdebin}{t\-\_\-mdebin} $\ast$mdebin)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_ab80ef94c2b909a1a948639e98e63b612}{\-G\-M\-X\-\_\-\-L\-I\-B\-M\-D\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{share_2template_2gromacs_2mdebin_8h_ae4aaa70ddc4761c62ec0c484beddc958}{restore\-\_\-energyhistory\-\_\-from\-\_\-state} (\hyperlink{structt__mdebin}{t\-\_\-mdebin} $\ast$mdebin, \hyperlink{structenergyhistory__t}{energyhistory\-\_\-t} $\ast$enerhist)
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Typedef \-Documentation}
+\hypertarget{share_2template_2gromacs_2mdebin_8h_a9a8bb3712051832178935997c6af0100}{\index{share/template/gromacs/mdebin.\-h@{share/template/gromacs/mdebin.\-h}!t\-\_\-mde\-\_\-delta\-\_\-h\-\_\-coll@{t\-\_\-mde\-\_\-delta\-\_\-h\-\_\-coll}}
+\index{t\-\_\-mde\-\_\-delta\-\_\-h\-\_\-coll@{t\-\_\-mde\-\_\-delta\-\_\-h\-\_\-coll}!share/template/gromacs/mdebin.h@{share/template/gromacs/mdebin.\-h}}
+\subsubsection[{t\-\_\-mde\-\_\-delta\-\_\-h\-\_\-coll}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf t\-\_\-mde\-\_\-delta\-\_\-h\-\_\-coll} {\bf t\-\_\-mde\-\_\-delta\-\_\-h\-\_\-coll}}}\label{share_2template_2gromacs_2mdebin_8h_a9a8bb3712051832178935997c6af0100}
+
+
+\subsection{\-Enumeration \-Type \-Documentation}
+\hypertarget{share_2template_2gromacs_2mdebin_8h_a8feb5a39a55448c86e0dfc20f53a6c1d}{\subsubsection[{anonymous enum}]{\setlength{\rightskip}{0pt plus 5cm}anonymous enum}}\label{share_2template_2gromacs_2mdebin_8h_a8feb5a39a55448c86e0dfc20f53a6c1d}
+\begin{Desc}
+\item[\-Enumerator\-: ]\par
+\begin{description}
+\index{dhbt\-D\-H@{dhbt\-D\-H}!share/template/gromacs/mdebin.\-h@{share/template/gromacs/mdebin.\-h}}\index{share/template/gromacs/mdebin.\-h@{share/template/gromacs/mdebin.\-h}!dhbt\-D\-H@{dhbt\-D\-H}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2mdebin_8h_a8feb5a39a55448c86e0dfc20f53a6c1da765fa2498c8448dc617646ed69caeff0}{dhbt\-D\-H}\label{share_2template_2gromacs_2mdebin_8h_a8feb5a39a55448c86e0dfc20f53a6c1da765fa2498c8448dc617646ed69caeff0}
+}]\index{dhbt\-D\-H\-D\-L@{dhbt\-D\-H\-D\-L}!share/template/gromacs/mdebin.\-h@{share/template/gromacs/mdebin.\-h}}\index{share/template/gromacs/mdebin.\-h@{share/template/gromacs/mdebin.\-h}!dhbt\-D\-H\-D\-L@{dhbt\-D\-H\-D\-L}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2mdebin_8h_a8feb5a39a55448c86e0dfc20f53a6c1daef6664b9fc2995d932f13b21a9ff88f6}{dhbt\-D\-H\-D\-L}\label{share_2template_2gromacs_2mdebin_8h_a8feb5a39a55448c86e0dfc20f53a6c1daef6664b9fc2995d932f13b21a9ff88f6}
+}]\index{dhbt\-E\-N@{dhbt\-E\-N}!share/template/gromacs/mdebin.\-h@{share/template/gromacs/mdebin.\-h}}\index{share/template/gromacs/mdebin.\-h@{share/template/gromacs/mdebin.\-h}!dhbt\-E\-N@{dhbt\-E\-N}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2mdebin_8h_a8feb5a39a55448c86e0dfc20f53a6c1da28cb7eec2509e9cc44115ff9ffc53dba}{dhbt\-E\-N}\label{share_2template_2gromacs_2mdebin_8h_a8feb5a39a55448c86e0dfc20f53a6c1da28cb7eec2509e9cc44115ff9ffc53dba}
+}]\index{dhbt\-P\-V@{dhbt\-P\-V}!share/template/gromacs/mdebin.\-h@{share/template/gromacs/mdebin.\-h}}\index{share/template/gromacs/mdebin.\-h@{share/template/gromacs/mdebin.\-h}!dhbt\-P\-V@{dhbt\-P\-V}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2mdebin_8h_a8feb5a39a55448c86e0dfc20f53a6c1daf5b4abfa0e08cd2f65d3b62b46137e57}{dhbt\-P\-V}\label{share_2template_2gromacs_2mdebin_8h_a8feb5a39a55448c86e0dfc20f53a6c1daf5b4abfa0e08cd2f65d3b62b46137e57}
+}]\index{dhbt\-E\-X\-P\-A\-N\-D\-E\-D@{dhbt\-E\-X\-P\-A\-N\-D\-E\-D}!share/template/gromacs/mdebin.\-h@{share/template/gromacs/mdebin.\-h}}\index{share/template/gromacs/mdebin.\-h@{share/template/gromacs/mdebin.\-h}!dhbt\-E\-X\-P\-A\-N\-D\-E\-D@{dhbt\-E\-X\-P\-A\-N\-D\-E\-D}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2mdebin_8h_a8feb5a39a55448c86e0dfc20f53a6c1daa51b9318bdfc6027223e5cb77711824c}{dhbt\-E\-X\-P\-A\-N\-D\-E\-D}\label{share_2template_2gromacs_2mdebin_8h_a8feb5a39a55448c86e0dfc20f53a6c1daa51b9318bdfc6027223e5cb77711824c}
+}]\index{dhbt\-N\-R@{dhbt\-N\-R}!share/template/gromacs/mdebin.\-h@{share/template/gromacs/mdebin.\-h}}\index{share/template/gromacs/mdebin.\-h@{share/template/gromacs/mdebin.\-h}!dhbt\-N\-R@{dhbt\-N\-R}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2mdebin_8h_a8feb5a39a55448c86e0dfc20f53a6c1dab0f151c2996a68b552ac15bdaa8a8058}{dhbt\-N\-R}\label{share_2template_2gromacs_2mdebin_8h_a8feb5a39a55448c86e0dfc20f53a6c1dab0f151c2996a68b552ac15bdaa8a8058}
+}]\end{description}
+\end{Desc}
+
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{share_2template_2gromacs_2mdebin_8h_a60dd00a595e0224106af45b441440fe9}{\index{share/template/gromacs/mdebin.\-h@{share/template/gromacs/mdebin.\-h}!init\-\_\-mdebin@{init\-\_\-mdebin}}
+\index{init\-\_\-mdebin@{init\-\_\-mdebin}!share/template/gromacs/mdebin.h@{share/template/gromacs/mdebin.\-h}}
+\subsubsection[{init\-\_\-mdebin}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\-\_\-mdebin}$\ast$ {\bf init\-\_\-mdebin} (
+\begin{DoxyParamCaption}
+\item[{{\bf ener\-\_\-file\-\_\-t}}]{fp\-\_\-ene, }
+\item[{const {\bf gmx\-\_\-mtop\-\_\-t} $\ast$}]{mtop, }
+\item[{const {\bf t\-\_\-inputrec} $\ast$}]{ir, }
+\item[{\-F\-I\-L\-E $\ast$}]{fp\-\_\-dhdl}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2mdebin_8h_a60dd00a595e0224106af45b441440fe9}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{share_2template_2gromacs_2mdebin_8h_a60dd00a595e0224106af45b441440fe9_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{share_2template_2gromacs_2mdebin_8h_a516974a0de296d1604f77c6c3b6fbbcd}{\index{share/template/gromacs/mdebin.\-h@{share/template/gromacs/mdebin.\-h}!open\-\_\-dhdl@{open\-\_\-dhdl}}
+\index{open\-\_\-dhdl@{open\-\_\-dhdl}!share/template/gromacs/mdebin.h@{share/template/gromacs/mdebin.\-h}}
+\subsubsection[{open\-\_\-dhdl}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-M\-D\-\_\-\-E\-X\-P\-O\-R\-T} \-F\-I\-L\-E$\ast$ {\bf open\-\_\-dhdl} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{filename, }
+\item[{const {\bf t\-\_\-inputrec} $\ast$}]{ir, }
+\item[{const {\bf output\-\_\-env\-\_\-t}}]{oenv}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2mdebin_8h_a516974a0de296d1604f77c6c3b6fbbcd}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=282pt]{share_2template_2gromacs_2mdebin_8h_a516974a0de296d1604f77c6c3b6fbbcd_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{share_2template_2gromacs_2mdebin_8h_a877aadf1020624d1063c96ce87921423}{\index{share/template/gromacs/mdebin.\-h@{share/template/gromacs/mdebin.\-h}!print\-\_\-ebin@{print\-\_\-ebin}}
+\index{print\-\_\-ebin@{print\-\_\-ebin}!share/template/gromacs/mdebin.h@{share/template/gromacs/mdebin.\-h}}
+\subsubsection[{print\-\_\-ebin}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-M\-D\-\_\-\-E\-X\-P\-O\-R\-T} {\bf void} {\bf print\-\_\-ebin} (
+\begin{DoxyParamCaption}
+\item[{{\bf ener\-\_\-file\-\_\-t}}]{fp\-\_\-ene, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Ene, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-D\-R, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-O\-R, }
+\item[{\-F\-I\-L\-E $\ast$}]{log, }
+\item[{gmx\-\_\-large\-\_\-int\-\_\-t}]{step, }
+\item[{double}]{time, }
+\item[{int}]{mode, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Compact, }
+\item[{{\bf t\-\_\-mdebin} $\ast$}]{md, }
+\item[{{\bf t\-\_\-fcdata} $\ast$}]{fcd, }
+\item[{{\bf gmx\-\_\-groups\-\_\-t} $\ast$}]{groups, }
+\item[{{\bf t\-\_\-grpopts} $\ast$}]{opts}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2mdebin_8h_a877aadf1020624d1063c96ce87921423}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{share_2template_2gromacs_2mdebin_8h_a877aadf1020624d1063c96ce87921423_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{share_2template_2gromacs_2mdebin_8h_ae387371e8fa982d2a985f99ac042e68e}{\index{share/template/gromacs/mdebin.\-h@{share/template/gromacs/mdebin.\-h}!print\-\_\-ebin\-\_\-header@{print\-\_\-ebin\-\_\-header}}
+\index{print\-\_\-ebin\-\_\-header@{print\-\_\-ebin\-\_\-header}!share/template/gromacs/mdebin.h@{share/template/gromacs/mdebin.\-h}}
+\subsubsection[{print\-\_\-ebin\-\_\-header}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-M\-D\-\_\-\-E\-X\-P\-O\-R\-T} {\bf void} {\bf print\-\_\-ebin\-\_\-header} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{log, }
+\item[{gmx\-\_\-large\-\_\-int\-\_\-t}]{steps, }
+\item[{double}]{time, }
+\item[{real}]{lamb}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2mdebin_8h_ae387371e8fa982d2a985f99ac042e68e}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=286pt]{share_2template_2gromacs_2mdebin_8h_ae387371e8fa982d2a985f99ac042e68e_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{share_2template_2gromacs_2mdebin_8h_ae4aaa70ddc4761c62ec0c484beddc958}{\index{share/template/gromacs/mdebin.\-h@{share/template/gromacs/mdebin.\-h}!restore\-\_\-energyhistory\-\_\-from\-\_\-state@{restore\-\_\-energyhistory\-\_\-from\-\_\-state}}
+\index{restore\-\_\-energyhistory\-\_\-from\-\_\-state@{restore\-\_\-energyhistory\-\_\-from\-\_\-state}!share/template/gromacs/mdebin.h@{share/template/gromacs/mdebin.\-h}}
+\subsubsection[{restore\-\_\-energyhistory\-\_\-from\-\_\-state}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-M\-D\-\_\-\-E\-X\-P\-O\-R\-T} {\bf void} {\bf restore\-\_\-energyhistory\-\_\-from\-\_\-state} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-mdebin} $\ast$}]{mdebin, }
+\item[{{\bf energyhistory\-\_\-t} $\ast$}]{enerhist}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2mdebin_8h_ae4aaa70ddc4761c62ec0c484beddc958}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{share_2template_2gromacs_2mdebin_8h_ae4aaa70ddc4761c62ec0c484beddc958_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{share_2template_2gromacs_2mdebin_8h_ad498ca6c9e14fac93de8cc12fcc4bb74}{\index{share/template/gromacs/mdebin.\-h@{share/template/gromacs/mdebin.\-h}!upd\-\_\-mdebin@{upd\-\_\-mdebin}}
+\index{upd\-\_\-mdebin@{upd\-\_\-mdebin}!share/template/gromacs/mdebin.h@{share/template/gromacs/mdebin.\-h}}
+\subsubsection[{upd\-\_\-mdebin}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-M\-D\-\_\-\-E\-X\-P\-O\-R\-T} {\bf void} {\bf upd\-\_\-mdebin} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-mdebin} $\ast$}]{md, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Do\-D\-H\-D\-L, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Sum, }
+\item[{double}]{time, }
+\item[{real}]{tmass, }
+\item[{{\bf gmx\-\_\-enerdata\-\_\-t} $\ast$}]{enerd, }
+\item[{{\bf t\-\_\-state} $\ast$}]{state, }
+\item[{{\bf t\-\_\-lambda} $\ast$}]{fep, }
+\item[{{\bf t\-\_\-expanded} $\ast$}]{expand, }
+\item[{{\bf matrix}}]{lastbox, }
+\item[{{\bf tensor}}]{svir, }
+\item[{{\bf tensor}}]{fvir, }
+\item[{{\bf tensor}}]{vir, }
+\item[{{\bf tensor}}]{pres, }
+\item[{{\bf gmx\-\_\-ekindata\-\_\-t} $\ast$}]{ekind, }
+\item[{{\bf rvec}}]{mu\-\_\-tot, }
+\item[{{\bf gmx\-\_\-constr\-\_\-t}}]{constr}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2mdebin_8h_ad498ca6c9e14fac93de8cc12fcc4bb74}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{share_2template_2gromacs_2mdebin_8h_ad498ca6c9e14fac93de8cc12fcc4bb74_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{share_2template_2gromacs_2mdebin_8h_a3967d2d987cda143e98f4b24a360bf9e}{\index{share/template/gromacs/mdebin.\-h@{share/template/gromacs/mdebin.\-h}!upd\-\_\-mdebin\-\_\-step@{upd\-\_\-mdebin\-\_\-step}}
+\index{upd\-\_\-mdebin\-\_\-step@{upd\-\_\-mdebin\-\_\-step}!share/template/gromacs/mdebin.h@{share/template/gromacs/mdebin.\-h}}
+\subsubsection[{upd\-\_\-mdebin\-\_\-step}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-M\-D\-\_\-\-E\-X\-P\-O\-R\-T} {\bf void} {\bf upd\-\_\-mdebin\-\_\-step} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-mdebin} $\ast$}]{md}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2mdebin_8h_a3967d2d987cda143e98f4b24a360bf9e}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=316pt]{share_2template_2gromacs_2mdebin_8h_a3967d2d987cda143e98f4b24a360bf9e_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{share_2template_2gromacs_2mdebin_8h_aea213941b653491dc98a50ab5f357fa3}{\index{share/template/gromacs/mdebin.\-h@{share/template/gromacs/mdebin.\-h}!update\-\_\-energyhistory@{update\-\_\-energyhistory}}
+\index{update\-\_\-energyhistory@{update\-\_\-energyhistory}!share/template/gromacs/mdebin.h@{share/template/gromacs/mdebin.\-h}}
+\subsubsection[{update\-\_\-energyhistory}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-M\-D\-\_\-\-E\-X\-P\-O\-R\-T} {\bf void} {\bf update\-\_\-energyhistory} (
+\begin{DoxyParamCaption}
+\item[{{\bf energyhistory\-\_\-t} $\ast$}]{enerhist, }
+\item[{{\bf t\-\_\-mdebin} $\ast$}]{mdebin}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2mdebin_8h_aea213941b653491dc98a50ab5f357fa3}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{share_2template_2gromacs_2mdebin_8h_aea213941b653491dc98a50ab5f357fa3_cgraph}
+\end{center}
+\end{figure}
+
+

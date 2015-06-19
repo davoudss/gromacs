@@ -1,0 +1,563 @@
+\hypertarget{include_2xvgr_8h}{\section{include/xvgr.h \-File \-Reference}
+\label{include_2xvgr_8h}\index{include/xvgr.\-h@{include/xvgr.\-h}}
+}
+{\ttfamily \#include \char`\"{}visibility.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}sysstuff.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}typedefs.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}viewit.\-h\char`\"{}}\*
+\-Include dependency graph for xvgr.\-h\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{include_2xvgr_8h__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \{ \*
+\hyperlink{include_2xvgr_8h_a97f905ac94bfebd46e50e32c7389e6eba6e80e9311fc3d68581067ed0a42b988e}{el\-None}, 
+\hyperlink{include_2xvgr_8h_a97f905ac94bfebd46e50e32c7389e6eba7ce47bb970b689e66453e41a481f69d8}{el\-Solid}, 
+\hyperlink{include_2xvgr_8h_a97f905ac94bfebd46e50e32c7389e6ebae9aa5b31771eea7fd91c88d9f8b7fd10}{el\-Dotted}, 
+\hyperlink{include_2xvgr_8h_a97f905ac94bfebd46e50e32c7389e6eba0c902f7930408ff6227446b1e6a458a0}{el\-Dashed}, 
+\*
+\hyperlink{include_2xvgr_8h_a97f905ac94bfebd46e50e32c7389e6eba3c7be8349eb97ac9880c7d8f3d926645}{el\-Long\-Dashed}, 
+\hyperlink{include_2xvgr_8h_a97f905ac94bfebd46e50e32c7389e6eba50b395ac65208ee83dba050507aa6905}{el\-Dot\-Dashed}, 
+\hyperlink{include_2xvgr_8h_a97f905ac94bfebd46e50e32c7389e6eba60d1ab07ada9d67cd02c4f1bdcbbcbe7}{el\-N\-R}
+ \}
+\item 
+enum \{ \*
+\hyperlink{include_2xvgr_8h_a9b29769343da78881f442e657eb62b6eaafce4d4ef1461b6c14c96658aaccad71}{ec\-White}, 
+\hyperlink{include_2xvgr_8h_a9b29769343da78881f442e657eb62b6ea3c84487db9f93e57e9698da6efba7227}{ec\-Frank}, 
+\hyperlink{include_2xvgr_8h_a9b29769343da78881f442e657eb62b6ea5eb244e5977687a89af8385d2d45407b}{ec\-Black} =  ec\-Frank, 
+\hyperlink{include_2xvgr_8h_a9b29769343da78881f442e657eb62b6ea9b00b15634bf30bb9cc7c1cbfe9e78f2}{ec\-Red}, 
+\*
+\hyperlink{include_2xvgr_8h_a9b29769343da78881f442e657eb62b6ea1e47224f0ccb1f0d0589057da6fa2c6a}{ec\-Green}, 
+\hyperlink{include_2xvgr_8h_a9b29769343da78881f442e657eb62b6ea9df03aecb6004d399769fd1619ec9d7d}{ec\-Blue}, 
+\hyperlink{include_2xvgr_8h_a9b29769343da78881f442e657eb62b6eae1fa34cd04bff3f3e5663104b09dde13}{ec\-Yellow}, 
+\hyperlink{include_2xvgr_8h_a9b29769343da78881f442e657eb62b6eaba643dbd951c62299c9f5135bf59df10}{ec\-Brown}, 
+\*
+\hyperlink{include_2xvgr_8h_a9b29769343da78881f442e657eb62b6eaf865f3d53971a8a513d0dc72b4101bb9}{ec\-Gray}, 
+\hyperlink{include_2xvgr_8h_a9b29769343da78881f442e657eb62b6ea0f0973f29f88f78f572935ec1fd2420d}{ec\-Purple}, 
+\hyperlink{include_2xvgr_8h_a9b29769343da78881f442e657eb62b6ea489c8047320cae49bfaf91447e295962}{ec\-Light\-Blue}, 
+\hyperlink{include_2xvgr_8h_a9b29769343da78881f442e657eb62b6ea2c199561929f06c2ab79cd271ef7dad5}{ec\-Violet}, 
+\*
+\hyperlink{include_2xvgr_8h_a9b29769343da78881f442e657eb62b6ea3d78195a0631c512a576caa8d9859c51}{ec\-Holland}, 
+\hyperlink{include_2xvgr_8h_a9b29769343da78881f442e657eb62b6ea4cee1ceeaac9ef7b58cc4f399f0aa0c8}{ec\-Lila}, 
+\hyperlink{include_2xvgr_8h_a9b29769343da78881f442e657eb62b6ea39880c7be01cbd092dec2a14e74f0284}{ec\-Dark\-Gray}, 
+\hyperlink{include_2xvgr_8h_a9b29769343da78881f442e657eb62b6ea45285a41af65d72337a72c2a1ae6731d}{ec\-Aquamarine}, 
+\*
+\hyperlink{include_2xvgr_8h_a9b29769343da78881f442e657eb62b6ea84eb0c67befa5e2d5f3fda5cddd601c6}{ec\-Olive}, 
+\hyperlink{include_2xvgr_8h_a9b29769343da78881f442e657eb62b6eafeb47685db07244475b243818afe75f6}{ec\-N\-R}
+ \}
+\item 
+enum \{ \hyperlink{include_2xvgr_8h_a1e8054db89feba236b2235d16d0bd1adae7157f62381abc96879b4369e81db19d}{epp\-None}, 
+\hyperlink{include_2xvgr_8h_a1e8054db89feba236b2235d16d0bd1adabc1ab977520fad58970279cee2da00f6}{epp\-Color}, 
+\hyperlink{include_2xvgr_8h_a1e8054db89feba236b2235d16d0bd1adaf0ccd2bc564882834af24a76078f0880}{epp\-Pattern}, 
+\hyperlink{include_2xvgr_8h_a1e8054db89feba236b2235d16d0bd1adaa60ed5a7ea472ac9c8353e0e4728ff3b}{epp\-N\-R}
+ \}
+\item 
+enum \{ \hyperlink{include_2xvgr_8h_a4f79453548dc20926be4b5a000ecbd66a5a9aad2320c64284fe96ca434e74c454}{ev\-View}, 
+\hyperlink{include_2xvgr_8h_a4f79453548dc20926be4b5a000ecbd66a13d8184ebd3a00ae13dbb9d2f0c4d927}{ev\-World}, 
+\hyperlink{include_2xvgr_8h_a4f79453548dc20926be4b5a000ecbd66a3eda65f7354aa7e76c426c3df0085c30}{ev\-N\-R}
+ \}
+\item 
+enum \{ \*
+\hyperlink{include_2xvgr_8h_af59064efe753e6928fd91539a27503d1a42d387b92bb00a8a03fa157942eddb60}{exvggt\-N\-O\-N\-E}, 
+\hyperlink{include_2xvgr_8h_af59064efe753e6928fd91539a27503d1a29758c7c3be82beccc06fe79df03ac27}{exvggt\-X\-N\-Y}, 
+\hyperlink{include_2xvgr_8h_af59064efe753e6928fd91539a27503d1a25403b915273277df2121226775dfc09}{exvggt\-X\-Y\-D\-Y}, 
+\hyperlink{include_2xvgr_8h_af59064efe753e6928fd91539a27503d1adbfa1b96929d82705a7b255c90d1178b}{exvggt\-X\-Y\-D\-Y\-D\-Y}, 
+\*
+\hyperlink{include_2xvgr_8h_af59064efe753e6928fd91539a27503d1a5d9635764996c6815fa67662f407a1d9}{exvggt\-N\-R}
+ \}
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_af6d678ccc5288db95c70b9d9003f11e2}{\-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{include_2xvgr_8h_a3cf355d6b9624ded139b660b729f323a}{output\-\_\-env\-\_\-get\-\_\-print\-\_\-xvgr\-\_\-codes} (const \hyperlink{include_2types_2oenv_8h_a6a48d77d95132d7318780544821da6a5}{output\-\_\-env\-\_\-t} oenv)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_af6d678ccc5288db95c70b9d9003f11e2}{\-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{include_2xvgr_8h_a3748c3922f9015111d79a715eb38d4a3}{xvgr\-\_\-header} (\-F\-I\-L\-E $\ast$fp, const char $\ast$title, const char $\ast$xaxis, const char $\ast$yaxis, int exvg\-\_\-graph\-\_\-type, const \hyperlink{include_2types_2oenv_8h_a6a48d77d95132d7318780544821da6a5}{output\-\_\-env\-\_\-t} oenv)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_af6d678ccc5288db95c70b9d9003f11e2}{\-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} \-F\-I\-L\-E $\ast$ \hyperlink{include_2xvgr_8h_a367f73486f5839915242f431554c3f2a}{xvgropen\-\_\-type} (const char $\ast$fn, const char $\ast$title, const char $\ast$xaxis, const char $\ast$yaxis, int exvg\-\_\-graph\-\_\-type, const \hyperlink{include_2types_2oenv_8h_a6a48d77d95132d7318780544821da6a5}{output\-\_\-env\-\_\-t} oenv)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_af6d678ccc5288db95c70b9d9003f11e2}{\-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} \-F\-I\-L\-E $\ast$ \hyperlink{include_2xvgr_8h_aa90d00b2a47a31b4d2eb4b1f342cf3ee}{xvgropen} (const char $\ast$fn, const char $\ast$title, const char $\ast$xaxis, const char $\ast$yaxis, const \hyperlink{include_2types_2oenv_8h_a6a48d77d95132d7318780544821da6a5}{output\-\_\-env\-\_\-t} oenv)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_af6d678ccc5288db95c70b9d9003f11e2}{\-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{include_2xvgr_8h_ac301fb2c0eec6b6c2077bdc6375ea409}{xvgrclose} (\-F\-I\-L\-E $\ast$fp)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_af6d678ccc5288db95c70b9d9003f11e2}{\-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{include_2xvgr_8h_a3f2641027ed41d176b1426a3a3b290dc}{xvgr\-\_\-subtitle} (\-F\-I\-L\-E $\ast$out, const char $\ast$subtitle, const \hyperlink{include_2types_2oenv_8h_a6a48d77d95132d7318780544821da6a5}{output\-\_\-env\-\_\-t} oenv)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_af6d678ccc5288db95c70b9d9003f11e2}{\-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{include_2xvgr_8h_ac374faac9e9ef25a75b16d4188db39be}{xvgr\-\_\-view} (\-F\-I\-L\-E $\ast$out, real xmin, real ymin, real xmax, real ymax, const \hyperlink{include_2types_2oenv_8h_a6a48d77d95132d7318780544821da6a5}{output\-\_\-env\-\_\-t} oenv)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_af6d678ccc5288db95c70b9d9003f11e2}{\-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{include_2xvgr_8h_a694cdc2035a2ca5a7b4ad74069ae2882}{xvgr\-\_\-world} (\-F\-I\-L\-E $\ast$out, real xmin, real ymin, real xmax, real ymax, const \hyperlink{include_2types_2oenv_8h_a6a48d77d95132d7318780544821da6a5}{output\-\_\-env\-\_\-t} oenv)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_af6d678ccc5288db95c70b9d9003f11e2}{\-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{include_2xvgr_8h_a42acd311763e8aa65599d3d9ba76a364}{xvgr\-\_\-legend} (\-F\-I\-L\-E $\ast$out, int nsets, const char $\ast$$\ast$setnames, const \hyperlink{include_2types_2oenv_8h_a6a48d77d95132d7318780544821da6a5}{output\-\_\-env\-\_\-t} oenv)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_af6d678ccc5288db95c70b9d9003f11e2}{\-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{include_2xvgr_8h_aadc270981cd3bcba7721a199921ad630}{xvgr\-\_\-new\-\_\-dataset} (\-F\-I\-L\-E $\ast$out, int nr\-\_\-first, int nsets, const char $\ast$$\ast$setnames, const \hyperlink{include_2types_2oenv_8h_a6a48d77d95132d7318780544821da6a5}{output\-\_\-env\-\_\-t} oenv)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_af6d678ccc5288db95c70b9d9003f11e2}{\-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{include_2xvgr_8h_a7b9635212096f6879e3fec30a54d1b1f}{xvgr\-\_\-line\-\_\-props} (\-F\-I\-L\-E $\ast$out, int \-Nr\-Set, int \-Line\-Style, int \-Line\-Color, const \hyperlink{include_2types_2oenv_8h_a6a48d77d95132d7318780544821da6a5}{output\-\_\-env\-\_\-t} oenv)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{include_2xvgr_8h_a7a4531832ec2ed2d0f06582a9818caf2}{xvgr\-\_\-box} (\-F\-I\-L\-E $\ast$out, int \-Loc\-Type, real xmin, real ymin, real xmax, real ymax, int \-Line\-Style, int \-Line\-Width, int \-Line\-Color, int \-Box\-Fill, int \-Box\-Color, int \-Box\-Pattern, const \hyperlink{include_2types_2oenv_8h_a6a48d77d95132d7318780544821da6a5}{output\-\_\-env\-\_\-t} oenv)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_af6d678ccc5288db95c70b9d9003f11e2}{\-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} int \hyperlink{include_2xvgr_8h_a17c92791537883378221664a0dda558a}{read\-\_\-xvg\-\_\-legend} (const char $\ast$fn, double $\ast$$\ast$$\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ad992d70ec70c927046cfc2ab1c79b188}{y}, int $\ast$ny, char $\ast$$\ast$subtitle, char $\ast$$\ast$$\ast$legend)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_af6d678ccc5288db95c70b9d9003f11e2}{\-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} int \hyperlink{include_2xvgr_8h_aeabb7f54e03bf1cac790a195f3eb70ff}{read\-\_\-xvg} (const char $\ast$fn, double $\ast$$\ast$$\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ad992d70ec70c927046cfc2ab1c79b188}{y}, int $\ast$ny)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_af6d678ccc5288db95c70b9d9003f11e2}{\-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{include_2xvgr_8h_a9300496f3f3b984d99e381708f632a7b}{write\-\_\-xvg} (const char $\ast$fn, const char $\ast$title, int nx, int ny, real $\ast$$\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ad992d70ec70c927046cfc2ab1c79b188}{y}, const char $\ast$$\ast$leg, const \hyperlink{include_2types_2oenv_8h_a6a48d77d95132d7318780544821da6a5}{output\-\_\-env\-\_\-t} oenv)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_af6d678ccc5288db95c70b9d9003f11e2}{\-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} real $\ast$$\ast$ \hyperlink{include_2xvgr_8h_aaa9d494cda122472cb6a2526179ef398}{read\-\_\-xvg\-\_\-time} (const char $\ast$fn, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Have\-T, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-T\-B, real tb, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-T\-E, real te, int nsets\-\_\-in, int $\ast$nset, int $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a47f9c9a63fbc81ce7d0d3202ffb3c0a8}{nval}, real $\ast$dt, real $\ast$$\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a2b515c84b1293071f7584da32ca336c0}{t})
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Enumeration \-Type \-Documentation}
+\hypertarget{include_2xvgr_8h_a97f905ac94bfebd46e50e32c7389e6eb}{\subsubsection[{anonymous enum}]{\setlength{\rightskip}{0pt plus 5cm}anonymous enum}}\label{include_2xvgr_8h_a97f905ac94bfebd46e50e32c7389e6eb}
+\begin{Desc}
+\item[\-Enumerator\-: ]\par
+\begin{description}
+\index{el\-None@{el\-None}!include/xvgr.\-h@{include/xvgr.\-h}}\index{include/xvgr.\-h@{include/xvgr.\-h}!el\-None@{el\-None}}\item[{\em 
+\hypertarget{include_2xvgr_8h_a97f905ac94bfebd46e50e32c7389e6eba6e80e9311fc3d68581067ed0a42b988e}{el\-None}\label{include_2xvgr_8h_a97f905ac94bfebd46e50e32c7389e6eba6e80e9311fc3d68581067ed0a42b988e}
+}]\index{el\-Solid@{el\-Solid}!include/xvgr.\-h@{include/xvgr.\-h}}\index{include/xvgr.\-h@{include/xvgr.\-h}!el\-Solid@{el\-Solid}}\item[{\em 
+\hypertarget{include_2xvgr_8h_a97f905ac94bfebd46e50e32c7389e6eba7ce47bb970b689e66453e41a481f69d8}{el\-Solid}\label{include_2xvgr_8h_a97f905ac94bfebd46e50e32c7389e6eba7ce47bb970b689e66453e41a481f69d8}
+}]\index{el\-Dotted@{el\-Dotted}!include/xvgr.\-h@{include/xvgr.\-h}}\index{include/xvgr.\-h@{include/xvgr.\-h}!el\-Dotted@{el\-Dotted}}\item[{\em 
+\hypertarget{include_2xvgr_8h_a97f905ac94bfebd46e50e32c7389e6ebae9aa5b31771eea7fd91c88d9f8b7fd10}{el\-Dotted}\label{include_2xvgr_8h_a97f905ac94bfebd46e50e32c7389e6ebae9aa5b31771eea7fd91c88d9f8b7fd10}
+}]\index{el\-Dashed@{el\-Dashed}!include/xvgr.\-h@{include/xvgr.\-h}}\index{include/xvgr.\-h@{include/xvgr.\-h}!el\-Dashed@{el\-Dashed}}\item[{\em 
+\hypertarget{include_2xvgr_8h_a97f905ac94bfebd46e50e32c7389e6eba0c902f7930408ff6227446b1e6a458a0}{el\-Dashed}\label{include_2xvgr_8h_a97f905ac94bfebd46e50e32c7389e6eba0c902f7930408ff6227446b1e6a458a0}
+}]\index{el\-Long\-Dashed@{el\-Long\-Dashed}!include/xvgr.\-h@{include/xvgr.\-h}}\index{include/xvgr.\-h@{include/xvgr.\-h}!el\-Long\-Dashed@{el\-Long\-Dashed}}\item[{\em 
+\hypertarget{include_2xvgr_8h_a97f905ac94bfebd46e50e32c7389e6eba3c7be8349eb97ac9880c7d8f3d926645}{el\-Long\-Dashed}\label{include_2xvgr_8h_a97f905ac94bfebd46e50e32c7389e6eba3c7be8349eb97ac9880c7d8f3d926645}
+}]\index{el\-Dot\-Dashed@{el\-Dot\-Dashed}!include/xvgr.\-h@{include/xvgr.\-h}}\index{include/xvgr.\-h@{include/xvgr.\-h}!el\-Dot\-Dashed@{el\-Dot\-Dashed}}\item[{\em 
+\hypertarget{include_2xvgr_8h_a97f905ac94bfebd46e50e32c7389e6eba50b395ac65208ee83dba050507aa6905}{el\-Dot\-Dashed}\label{include_2xvgr_8h_a97f905ac94bfebd46e50e32c7389e6eba50b395ac65208ee83dba050507aa6905}
+}]\index{el\-N\-R@{el\-N\-R}!include/xvgr.\-h@{include/xvgr.\-h}}\index{include/xvgr.\-h@{include/xvgr.\-h}!el\-N\-R@{el\-N\-R}}\item[{\em 
+\hypertarget{include_2xvgr_8h_a97f905ac94bfebd46e50e32c7389e6eba60d1ab07ada9d67cd02c4f1bdcbbcbe7}{el\-N\-R}\label{include_2xvgr_8h_a97f905ac94bfebd46e50e32c7389e6eba60d1ab07ada9d67cd02c4f1bdcbbcbe7}
+}]\end{description}
+\end{Desc}
+
+\hypertarget{include_2xvgr_8h_a9b29769343da78881f442e657eb62b6e}{\subsubsection[{anonymous enum}]{\setlength{\rightskip}{0pt plus 5cm}anonymous enum}}\label{include_2xvgr_8h_a9b29769343da78881f442e657eb62b6e}
+\begin{Desc}
+\item[\-Enumerator\-: ]\par
+\begin{description}
+\index{ec\-White@{ec\-White}!include/xvgr.\-h@{include/xvgr.\-h}}\index{include/xvgr.\-h@{include/xvgr.\-h}!ec\-White@{ec\-White}}\item[{\em 
+\hypertarget{include_2xvgr_8h_a9b29769343da78881f442e657eb62b6eaafce4d4ef1461b6c14c96658aaccad71}{ec\-White}\label{include_2xvgr_8h_a9b29769343da78881f442e657eb62b6eaafce4d4ef1461b6c14c96658aaccad71}
+}]\index{ec\-Frank@{ec\-Frank}!include/xvgr.\-h@{include/xvgr.\-h}}\index{include/xvgr.\-h@{include/xvgr.\-h}!ec\-Frank@{ec\-Frank}}\item[{\em 
+\hypertarget{include_2xvgr_8h_a9b29769343da78881f442e657eb62b6ea3c84487db9f93e57e9698da6efba7227}{ec\-Frank}\label{include_2xvgr_8h_a9b29769343da78881f442e657eb62b6ea3c84487db9f93e57e9698da6efba7227}
+}]\index{ec\-Black@{ec\-Black}!include/xvgr.\-h@{include/xvgr.\-h}}\index{include/xvgr.\-h@{include/xvgr.\-h}!ec\-Black@{ec\-Black}}\item[{\em 
+\hypertarget{include_2xvgr_8h_a9b29769343da78881f442e657eb62b6ea5eb244e5977687a89af8385d2d45407b}{ec\-Black}\label{include_2xvgr_8h_a9b29769343da78881f442e657eb62b6ea5eb244e5977687a89af8385d2d45407b}
+}]\index{ec\-Red@{ec\-Red}!include/xvgr.\-h@{include/xvgr.\-h}}\index{include/xvgr.\-h@{include/xvgr.\-h}!ec\-Red@{ec\-Red}}\item[{\em 
+\hypertarget{include_2xvgr_8h_a9b29769343da78881f442e657eb62b6ea9b00b15634bf30bb9cc7c1cbfe9e78f2}{ec\-Red}\label{include_2xvgr_8h_a9b29769343da78881f442e657eb62b6ea9b00b15634bf30bb9cc7c1cbfe9e78f2}
+}]\index{ec\-Green@{ec\-Green}!include/xvgr.\-h@{include/xvgr.\-h}}\index{include/xvgr.\-h@{include/xvgr.\-h}!ec\-Green@{ec\-Green}}\item[{\em 
+\hypertarget{include_2xvgr_8h_a9b29769343da78881f442e657eb62b6ea1e47224f0ccb1f0d0589057da6fa2c6a}{ec\-Green}\label{include_2xvgr_8h_a9b29769343da78881f442e657eb62b6ea1e47224f0ccb1f0d0589057da6fa2c6a}
+}]\index{ec\-Blue@{ec\-Blue}!include/xvgr.\-h@{include/xvgr.\-h}}\index{include/xvgr.\-h@{include/xvgr.\-h}!ec\-Blue@{ec\-Blue}}\item[{\em 
+\hypertarget{include_2xvgr_8h_a9b29769343da78881f442e657eb62b6ea9df03aecb6004d399769fd1619ec9d7d}{ec\-Blue}\label{include_2xvgr_8h_a9b29769343da78881f442e657eb62b6ea9df03aecb6004d399769fd1619ec9d7d}
+}]\index{ec\-Yellow@{ec\-Yellow}!include/xvgr.\-h@{include/xvgr.\-h}}\index{include/xvgr.\-h@{include/xvgr.\-h}!ec\-Yellow@{ec\-Yellow}}\item[{\em 
+\hypertarget{include_2xvgr_8h_a9b29769343da78881f442e657eb62b6eae1fa34cd04bff3f3e5663104b09dde13}{ec\-Yellow}\label{include_2xvgr_8h_a9b29769343da78881f442e657eb62b6eae1fa34cd04bff3f3e5663104b09dde13}
+}]\index{ec\-Brown@{ec\-Brown}!include/xvgr.\-h@{include/xvgr.\-h}}\index{include/xvgr.\-h@{include/xvgr.\-h}!ec\-Brown@{ec\-Brown}}\item[{\em 
+\hypertarget{include_2xvgr_8h_a9b29769343da78881f442e657eb62b6eaba643dbd951c62299c9f5135bf59df10}{ec\-Brown}\label{include_2xvgr_8h_a9b29769343da78881f442e657eb62b6eaba643dbd951c62299c9f5135bf59df10}
+}]\index{ec\-Gray@{ec\-Gray}!include/xvgr.\-h@{include/xvgr.\-h}}\index{include/xvgr.\-h@{include/xvgr.\-h}!ec\-Gray@{ec\-Gray}}\item[{\em 
+\hypertarget{include_2xvgr_8h_a9b29769343da78881f442e657eb62b6eaf865f3d53971a8a513d0dc72b4101bb9}{ec\-Gray}\label{include_2xvgr_8h_a9b29769343da78881f442e657eb62b6eaf865f3d53971a8a513d0dc72b4101bb9}
+}]\index{ec\-Purple@{ec\-Purple}!include/xvgr.\-h@{include/xvgr.\-h}}\index{include/xvgr.\-h@{include/xvgr.\-h}!ec\-Purple@{ec\-Purple}}\item[{\em 
+\hypertarget{include_2xvgr_8h_a9b29769343da78881f442e657eb62b6ea0f0973f29f88f78f572935ec1fd2420d}{ec\-Purple}\label{include_2xvgr_8h_a9b29769343da78881f442e657eb62b6ea0f0973f29f88f78f572935ec1fd2420d}
+}]\index{ec\-Light\-Blue@{ec\-Light\-Blue}!include/xvgr.\-h@{include/xvgr.\-h}}\index{include/xvgr.\-h@{include/xvgr.\-h}!ec\-Light\-Blue@{ec\-Light\-Blue}}\item[{\em 
+\hypertarget{include_2xvgr_8h_a9b29769343da78881f442e657eb62b6ea489c8047320cae49bfaf91447e295962}{ec\-Light\-Blue}\label{include_2xvgr_8h_a9b29769343da78881f442e657eb62b6ea489c8047320cae49bfaf91447e295962}
+}]\index{ec\-Violet@{ec\-Violet}!include/xvgr.\-h@{include/xvgr.\-h}}\index{include/xvgr.\-h@{include/xvgr.\-h}!ec\-Violet@{ec\-Violet}}\item[{\em 
+\hypertarget{include_2xvgr_8h_a9b29769343da78881f442e657eb62b6ea2c199561929f06c2ab79cd271ef7dad5}{ec\-Violet}\label{include_2xvgr_8h_a9b29769343da78881f442e657eb62b6ea2c199561929f06c2ab79cd271ef7dad5}
+}]\index{ec\-Holland@{ec\-Holland}!include/xvgr.\-h@{include/xvgr.\-h}}\index{include/xvgr.\-h@{include/xvgr.\-h}!ec\-Holland@{ec\-Holland}}\item[{\em 
+\hypertarget{include_2xvgr_8h_a9b29769343da78881f442e657eb62b6ea3d78195a0631c512a576caa8d9859c51}{ec\-Holland}\label{include_2xvgr_8h_a9b29769343da78881f442e657eb62b6ea3d78195a0631c512a576caa8d9859c51}
+}]\index{ec\-Lila@{ec\-Lila}!include/xvgr.\-h@{include/xvgr.\-h}}\index{include/xvgr.\-h@{include/xvgr.\-h}!ec\-Lila@{ec\-Lila}}\item[{\em 
+\hypertarget{include_2xvgr_8h_a9b29769343da78881f442e657eb62b6ea4cee1ceeaac9ef7b58cc4f399f0aa0c8}{ec\-Lila}\label{include_2xvgr_8h_a9b29769343da78881f442e657eb62b6ea4cee1ceeaac9ef7b58cc4f399f0aa0c8}
+}]\index{ec\-Dark\-Gray@{ec\-Dark\-Gray}!include/xvgr.\-h@{include/xvgr.\-h}}\index{include/xvgr.\-h@{include/xvgr.\-h}!ec\-Dark\-Gray@{ec\-Dark\-Gray}}\item[{\em 
+\hypertarget{include_2xvgr_8h_a9b29769343da78881f442e657eb62b6ea39880c7be01cbd092dec2a14e74f0284}{ec\-Dark\-Gray}\label{include_2xvgr_8h_a9b29769343da78881f442e657eb62b6ea39880c7be01cbd092dec2a14e74f0284}
+}]\index{ec\-Aquamarine@{ec\-Aquamarine}!include/xvgr.\-h@{include/xvgr.\-h}}\index{include/xvgr.\-h@{include/xvgr.\-h}!ec\-Aquamarine@{ec\-Aquamarine}}\item[{\em 
+\hypertarget{include_2xvgr_8h_a9b29769343da78881f442e657eb62b6ea45285a41af65d72337a72c2a1ae6731d}{ec\-Aquamarine}\label{include_2xvgr_8h_a9b29769343da78881f442e657eb62b6ea45285a41af65d72337a72c2a1ae6731d}
+}]\index{ec\-Olive@{ec\-Olive}!include/xvgr.\-h@{include/xvgr.\-h}}\index{include/xvgr.\-h@{include/xvgr.\-h}!ec\-Olive@{ec\-Olive}}\item[{\em 
+\hypertarget{include_2xvgr_8h_a9b29769343da78881f442e657eb62b6ea84eb0c67befa5e2d5f3fda5cddd601c6}{ec\-Olive}\label{include_2xvgr_8h_a9b29769343da78881f442e657eb62b6ea84eb0c67befa5e2d5f3fda5cddd601c6}
+}]\index{ec\-N\-R@{ec\-N\-R}!include/xvgr.\-h@{include/xvgr.\-h}}\index{include/xvgr.\-h@{include/xvgr.\-h}!ec\-N\-R@{ec\-N\-R}}\item[{\em 
+\hypertarget{include_2xvgr_8h_a9b29769343da78881f442e657eb62b6eafeb47685db07244475b243818afe75f6}{ec\-N\-R}\label{include_2xvgr_8h_a9b29769343da78881f442e657eb62b6eafeb47685db07244475b243818afe75f6}
+}]\end{description}
+\end{Desc}
+
+\hypertarget{include_2xvgr_8h_a1e8054db89feba236b2235d16d0bd1ad}{\subsubsection[{anonymous enum}]{\setlength{\rightskip}{0pt plus 5cm}anonymous enum}}\label{include_2xvgr_8h_a1e8054db89feba236b2235d16d0bd1ad}
+\begin{Desc}
+\item[\-Enumerator\-: ]\par
+\begin{description}
+\index{epp\-None@{epp\-None}!include/xvgr.\-h@{include/xvgr.\-h}}\index{include/xvgr.\-h@{include/xvgr.\-h}!epp\-None@{epp\-None}}\item[{\em 
+\hypertarget{include_2xvgr_8h_a1e8054db89feba236b2235d16d0bd1adae7157f62381abc96879b4369e81db19d}{epp\-None}\label{include_2xvgr_8h_a1e8054db89feba236b2235d16d0bd1adae7157f62381abc96879b4369e81db19d}
+}]\index{epp\-Color@{epp\-Color}!include/xvgr.\-h@{include/xvgr.\-h}}\index{include/xvgr.\-h@{include/xvgr.\-h}!epp\-Color@{epp\-Color}}\item[{\em 
+\hypertarget{include_2xvgr_8h_a1e8054db89feba236b2235d16d0bd1adabc1ab977520fad58970279cee2da00f6}{epp\-Color}\label{include_2xvgr_8h_a1e8054db89feba236b2235d16d0bd1adabc1ab977520fad58970279cee2da00f6}
+}]\index{epp\-Pattern@{epp\-Pattern}!include/xvgr.\-h@{include/xvgr.\-h}}\index{include/xvgr.\-h@{include/xvgr.\-h}!epp\-Pattern@{epp\-Pattern}}\item[{\em 
+\hypertarget{include_2xvgr_8h_a1e8054db89feba236b2235d16d0bd1adaf0ccd2bc564882834af24a76078f0880}{epp\-Pattern}\label{include_2xvgr_8h_a1e8054db89feba236b2235d16d0bd1adaf0ccd2bc564882834af24a76078f0880}
+}]\index{epp\-N\-R@{epp\-N\-R}!include/xvgr.\-h@{include/xvgr.\-h}}\index{include/xvgr.\-h@{include/xvgr.\-h}!epp\-N\-R@{epp\-N\-R}}\item[{\em 
+\hypertarget{include_2xvgr_8h_a1e8054db89feba236b2235d16d0bd1adaa60ed5a7ea472ac9c8353e0e4728ff3b}{epp\-N\-R}\label{include_2xvgr_8h_a1e8054db89feba236b2235d16d0bd1adaa60ed5a7ea472ac9c8353e0e4728ff3b}
+}]\end{description}
+\end{Desc}
+
+\hypertarget{include_2xvgr_8h_a4f79453548dc20926be4b5a000ecbd66}{\subsubsection[{anonymous enum}]{\setlength{\rightskip}{0pt plus 5cm}anonymous enum}}\label{include_2xvgr_8h_a4f79453548dc20926be4b5a000ecbd66}
+\begin{Desc}
+\item[\-Enumerator\-: ]\par
+\begin{description}
+\index{ev\-View@{ev\-View}!include/xvgr.\-h@{include/xvgr.\-h}}\index{include/xvgr.\-h@{include/xvgr.\-h}!ev\-View@{ev\-View}}\item[{\em 
+\hypertarget{include_2xvgr_8h_a4f79453548dc20926be4b5a000ecbd66a5a9aad2320c64284fe96ca434e74c454}{ev\-View}\label{include_2xvgr_8h_a4f79453548dc20926be4b5a000ecbd66a5a9aad2320c64284fe96ca434e74c454}
+}]\index{ev\-World@{ev\-World}!include/xvgr.\-h@{include/xvgr.\-h}}\index{include/xvgr.\-h@{include/xvgr.\-h}!ev\-World@{ev\-World}}\item[{\em 
+\hypertarget{include_2xvgr_8h_a4f79453548dc20926be4b5a000ecbd66a13d8184ebd3a00ae13dbb9d2f0c4d927}{ev\-World}\label{include_2xvgr_8h_a4f79453548dc20926be4b5a000ecbd66a13d8184ebd3a00ae13dbb9d2f0c4d927}
+}]\index{ev\-N\-R@{ev\-N\-R}!include/xvgr.\-h@{include/xvgr.\-h}}\index{include/xvgr.\-h@{include/xvgr.\-h}!ev\-N\-R@{ev\-N\-R}}\item[{\em 
+\hypertarget{include_2xvgr_8h_a4f79453548dc20926be4b5a000ecbd66a3eda65f7354aa7e76c426c3df0085c30}{ev\-N\-R}\label{include_2xvgr_8h_a4f79453548dc20926be4b5a000ecbd66a3eda65f7354aa7e76c426c3df0085c30}
+}]\end{description}
+\end{Desc}
+
+\hypertarget{include_2xvgr_8h_af59064efe753e6928fd91539a27503d1}{\subsubsection[{anonymous enum}]{\setlength{\rightskip}{0pt plus 5cm}anonymous enum}}\label{include_2xvgr_8h_af59064efe753e6928fd91539a27503d1}
+\begin{Desc}
+\item[\-Enumerator\-: ]\par
+\begin{description}
+\index{exvggt\-N\-O\-N\-E@{exvggt\-N\-O\-N\-E}!include/xvgr.\-h@{include/xvgr.\-h}}\index{include/xvgr.\-h@{include/xvgr.\-h}!exvggt\-N\-O\-N\-E@{exvggt\-N\-O\-N\-E}}\item[{\em 
+\hypertarget{include_2xvgr_8h_af59064efe753e6928fd91539a27503d1a42d387b92bb00a8a03fa157942eddb60}{exvggt\-N\-O\-N\-E}\label{include_2xvgr_8h_af59064efe753e6928fd91539a27503d1a42d387b92bb00a8a03fa157942eddb60}
+}]\index{exvggt\-X\-N\-Y@{exvggt\-X\-N\-Y}!include/xvgr.\-h@{include/xvgr.\-h}}\index{include/xvgr.\-h@{include/xvgr.\-h}!exvggt\-X\-N\-Y@{exvggt\-X\-N\-Y}}\item[{\em 
+\hypertarget{include_2xvgr_8h_af59064efe753e6928fd91539a27503d1a29758c7c3be82beccc06fe79df03ac27}{exvggt\-X\-N\-Y}\label{include_2xvgr_8h_af59064efe753e6928fd91539a27503d1a29758c7c3be82beccc06fe79df03ac27}
+}]\index{exvggt\-X\-Y\-D\-Y@{exvggt\-X\-Y\-D\-Y}!include/xvgr.\-h@{include/xvgr.\-h}}\index{include/xvgr.\-h@{include/xvgr.\-h}!exvggt\-X\-Y\-D\-Y@{exvggt\-X\-Y\-D\-Y}}\item[{\em 
+\hypertarget{include_2xvgr_8h_af59064efe753e6928fd91539a27503d1a25403b915273277df2121226775dfc09}{exvggt\-X\-Y\-D\-Y}\label{include_2xvgr_8h_af59064efe753e6928fd91539a27503d1a25403b915273277df2121226775dfc09}
+}]\index{exvggt\-X\-Y\-D\-Y\-D\-Y@{exvggt\-X\-Y\-D\-Y\-D\-Y}!include/xvgr.\-h@{include/xvgr.\-h}}\index{include/xvgr.\-h@{include/xvgr.\-h}!exvggt\-X\-Y\-D\-Y\-D\-Y@{exvggt\-X\-Y\-D\-Y\-D\-Y}}\item[{\em 
+\hypertarget{include_2xvgr_8h_af59064efe753e6928fd91539a27503d1adbfa1b96929d82705a7b255c90d1178b}{exvggt\-X\-Y\-D\-Y\-D\-Y}\label{include_2xvgr_8h_af59064efe753e6928fd91539a27503d1adbfa1b96929d82705a7b255c90d1178b}
+}]\index{exvggt\-N\-R@{exvggt\-N\-R}!include/xvgr.\-h@{include/xvgr.\-h}}\index{include/xvgr.\-h@{include/xvgr.\-h}!exvggt\-N\-R@{exvggt\-N\-R}}\item[{\em 
+\hypertarget{include_2xvgr_8h_af59064efe753e6928fd91539a27503d1a5d9635764996c6815fa67662f407a1d9}{exvggt\-N\-R}\label{include_2xvgr_8h_af59064efe753e6928fd91539a27503d1a5d9635764996c6815fa67662f407a1d9}
+}]\end{description}
+\end{Desc}
+
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{include_2xvgr_8h_a3cf355d6b9624ded139b660b729f323a}{\index{include/xvgr.\-h@{include/xvgr.\-h}!output\-\_\-env\-\_\-get\-\_\-print\-\_\-xvgr\-\_\-codes@{output\-\_\-env\-\_\-get\-\_\-print\-\_\-xvgr\-\_\-codes}}
+\index{output\-\_\-env\-\_\-get\-\_\-print\-\_\-xvgr\-\_\-codes@{output\-\_\-env\-\_\-get\-\_\-print\-\_\-xvgr\-\_\-codes}!include/xvgr.h@{include/xvgr.\-h}}
+\subsubsection[{output\-\_\-env\-\_\-get\-\_\-print\-\_\-xvgr\-\_\-codes}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} {\bf gmx\-\_\-bool} {\bf output\-\_\-env\-\_\-get\-\_\-print\-\_\-xvgr\-\_\-codes} (
+\begin{DoxyParamCaption}
+\item[{const {\bf output\-\_\-env\-\_\-t}}]{oenv}
+\end{DoxyParamCaption}
+)}}\label{include_2xvgr_8h_a3cf355d6b9624ded139b660b729f323a}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{include_2xvgr_8h_a3cf355d6b9624ded139b660b729f323a_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{include_2xvgr_8h_aeabb7f54e03bf1cac790a195f3eb70ff}{\index{include/xvgr.\-h@{include/xvgr.\-h}!read\-\_\-xvg@{read\-\_\-xvg}}
+\index{read\-\_\-xvg@{read\-\_\-xvg}!include/xvgr.h@{include/xvgr.\-h}}
+\subsubsection[{read\-\_\-xvg}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} int {\bf read\-\_\-xvg} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{fn, }
+\item[{double $\ast$$\ast$$\ast$}]{y, }
+\item[{int $\ast$}]{ny}
+\end{DoxyParamCaption}
+)}}\label{include_2xvgr_8h_aeabb7f54e03bf1cac790a195f3eb70ff}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{include_2xvgr_8h_aeabb7f54e03bf1cac790a195f3eb70ff_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{include_2xvgr_8h_a17c92791537883378221664a0dda558a}{\index{include/xvgr.\-h@{include/xvgr.\-h}!read\-\_\-xvg\-\_\-legend@{read\-\_\-xvg\-\_\-legend}}
+\index{read\-\_\-xvg\-\_\-legend@{read\-\_\-xvg\-\_\-legend}!include/xvgr.h@{include/xvgr.\-h}}
+\subsubsection[{read\-\_\-xvg\-\_\-legend}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} int {\bf read\-\_\-xvg\-\_\-legend} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{fn, }
+\item[{double $\ast$$\ast$$\ast$}]{y, }
+\item[{int $\ast$}]{ny, }
+\item[{char $\ast$$\ast$}]{subtitle, }
+\item[{char $\ast$$\ast$$\ast$}]{legend}
+\end{DoxyParamCaption}
+)}}\label{include_2xvgr_8h_a17c92791537883378221664a0dda558a}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{include_2xvgr_8h_a17c92791537883378221664a0dda558a_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{include_2xvgr_8h_aaa9d494cda122472cb6a2526179ef398}{\index{include/xvgr.\-h@{include/xvgr.\-h}!read\-\_\-xvg\-\_\-time@{read\-\_\-xvg\-\_\-time}}
+\index{read\-\_\-xvg\-\_\-time@{read\-\_\-xvg\-\_\-time}!include/xvgr.h@{include/xvgr.\-h}}
+\subsubsection[{read\-\_\-xvg\-\_\-time}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} real$\ast$$\ast$ {\bf read\-\_\-xvg\-\_\-time} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{fn, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Have\-T, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-T\-B, }
+\item[{real}]{tb, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-T\-E, }
+\item[{real}]{te, }
+\item[{int}]{nsets\-\_\-in, }
+\item[{int $\ast$}]{nset, }
+\item[{int $\ast$}]{nval, }
+\item[{real $\ast$}]{dt, }
+\item[{real $\ast$$\ast$}]{t}
+\end{DoxyParamCaption}
+)}}\label{include_2xvgr_8h_aaa9d494cda122472cb6a2526179ef398}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=344pt]{include_2xvgr_8h_aaa9d494cda122472cb6a2526179ef398_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{include_2xvgr_8h_a9300496f3f3b984d99e381708f632a7b}{\index{include/xvgr.\-h@{include/xvgr.\-h}!write\-\_\-xvg@{write\-\_\-xvg}}
+\index{write\-\_\-xvg@{write\-\_\-xvg}!include/xvgr.h@{include/xvgr.\-h}}
+\subsubsection[{write\-\_\-xvg}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} {\bf void} {\bf write\-\_\-xvg} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{fn, }
+\item[{const char $\ast$}]{title, }
+\item[{int}]{nx, }
+\item[{int}]{ny, }
+\item[{real $\ast$$\ast$}]{y, }
+\item[{const char $\ast$$\ast$}]{leg, }
+\item[{const {\bf output\-\_\-env\-\_\-t}}]{oenv}
+\end{DoxyParamCaption}
+)}}\label{include_2xvgr_8h_a9300496f3f3b984d99e381708f632a7b}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=330pt]{include_2xvgr_8h_a9300496f3f3b984d99e381708f632a7b_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{include_2xvgr_8h_a7a4531832ec2ed2d0f06582a9818caf2}{\index{include/xvgr.\-h@{include/xvgr.\-h}!xvgr\-\_\-box@{xvgr\-\_\-box}}
+\index{xvgr\-\_\-box@{xvgr\-\_\-box}!include/xvgr.h@{include/xvgr.\-h}}
+\subsubsection[{xvgr\-\_\-box}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf xvgr\-\_\-box} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{out, }
+\item[{int}]{\-Loc\-Type, }
+\item[{real}]{xmin, }
+\item[{real}]{ymin, }
+\item[{real}]{xmax, }
+\item[{real}]{ymax, }
+\item[{int}]{\-Line\-Style, }
+\item[{int}]{\-Line\-Width, }
+\item[{int}]{\-Line\-Color, }
+\item[{int}]{\-Box\-Fill, }
+\item[{int}]{\-Box\-Color, }
+\item[{int}]{\-Box\-Pattern, }
+\item[{const {\bf output\-\_\-env\-\_\-t}}]{oenv}
+\end{DoxyParamCaption}
+)}}\label{include_2xvgr_8h_a7a4531832ec2ed2d0f06582a9818caf2}
+\hypertarget{include_2xvgr_8h_a3748c3922f9015111d79a715eb38d4a3}{\index{include/xvgr.\-h@{include/xvgr.\-h}!xvgr\-\_\-header@{xvgr\-\_\-header}}
+\index{xvgr\-\_\-header@{xvgr\-\_\-header}!include/xvgr.h@{include/xvgr.\-h}}
+\subsubsection[{xvgr\-\_\-header}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} {\bf void} {\bf xvgr\-\_\-header} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{const char $\ast$}]{title, }
+\item[{const char $\ast$}]{xaxis, }
+\item[{const char $\ast$}]{yaxis, }
+\item[{int}]{exvg\-\_\-graph\-\_\-type, }
+\item[{const {\bf output\-\_\-env\-\_\-t}}]{oenv}
+\end{DoxyParamCaption}
+)}}\label{include_2xvgr_8h_a3748c3922f9015111d79a715eb38d4a3}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{include_2xvgr_8h_a3748c3922f9015111d79a715eb38d4a3_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{include_2xvgr_8h_a42acd311763e8aa65599d3d9ba76a364}{\index{include/xvgr.\-h@{include/xvgr.\-h}!xvgr\-\_\-legend@{xvgr\-\_\-legend}}
+\index{xvgr\-\_\-legend@{xvgr\-\_\-legend}!include/xvgr.h@{include/xvgr.\-h}}
+\subsubsection[{xvgr\-\_\-legend}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} {\bf void} {\bf xvgr\-\_\-legend} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{out, }
+\item[{int}]{nsets, }
+\item[{const char $\ast$$\ast$}]{setnames, }
+\item[{const {\bf output\-\_\-env\-\_\-t}}]{oenv}
+\end{DoxyParamCaption}
+)}}\label{include_2xvgr_8h_a42acd311763e8aa65599d3d9ba76a364}
+\hypertarget{include_2xvgr_8h_a7b9635212096f6879e3fec30a54d1b1f}{\index{include/xvgr.\-h@{include/xvgr.\-h}!xvgr\-\_\-line\-\_\-props@{xvgr\-\_\-line\-\_\-props}}
+\index{xvgr\-\_\-line\-\_\-props@{xvgr\-\_\-line\-\_\-props}!include/xvgr.h@{include/xvgr.\-h}}
+\subsubsection[{xvgr\-\_\-line\-\_\-props}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} {\bf void} {\bf xvgr\-\_\-line\-\_\-props} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{out, }
+\item[{int}]{\-Nr\-Set, }
+\item[{int}]{\-Line\-Style, }
+\item[{int}]{\-Line\-Color, }
+\item[{const {\bf output\-\_\-env\-\_\-t}}]{oenv}
+\end{DoxyParamCaption}
+)}}\label{include_2xvgr_8h_a7b9635212096f6879e3fec30a54d1b1f}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=338pt]{include_2xvgr_8h_a7b9635212096f6879e3fec30a54d1b1f_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{include_2xvgr_8h_aadc270981cd3bcba7721a199921ad630}{\index{include/xvgr.\-h@{include/xvgr.\-h}!xvgr\-\_\-new\-\_\-dataset@{xvgr\-\_\-new\-\_\-dataset}}
+\index{xvgr\-\_\-new\-\_\-dataset@{xvgr\-\_\-new\-\_\-dataset}!include/xvgr.h@{include/xvgr.\-h}}
+\subsubsection[{xvgr\-\_\-new\-\_\-dataset}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} {\bf void} {\bf xvgr\-\_\-new\-\_\-dataset} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{out, }
+\item[{int}]{nr\-\_\-first, }
+\item[{int}]{nsets, }
+\item[{const char $\ast$$\ast$}]{setnames, }
+\item[{const {\bf output\-\_\-env\-\_\-t}}]{oenv}
+\end{DoxyParamCaption}
+)}}\label{include_2xvgr_8h_aadc270981cd3bcba7721a199921ad630}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{include_2xvgr_8h_aadc270981cd3bcba7721a199921ad630_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{include_2xvgr_8h_a3f2641027ed41d176b1426a3a3b290dc}{\index{include/xvgr.\-h@{include/xvgr.\-h}!xvgr\-\_\-subtitle@{xvgr\-\_\-subtitle}}
+\index{xvgr\-\_\-subtitle@{xvgr\-\_\-subtitle}!include/xvgr.h@{include/xvgr.\-h}}
+\subsubsection[{xvgr\-\_\-subtitle}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} {\bf void} {\bf xvgr\-\_\-subtitle} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{out, }
+\item[{const char $\ast$}]{subtitle, }
+\item[{const {\bf output\-\_\-env\-\_\-t}}]{oenv}
+\end{DoxyParamCaption}
+)}}\label{include_2xvgr_8h_a3f2641027ed41d176b1426a3a3b290dc}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{include_2xvgr_8h_a3f2641027ed41d176b1426a3a3b290dc_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{include_2xvgr_8h_ac374faac9e9ef25a75b16d4188db39be}{\index{include/xvgr.\-h@{include/xvgr.\-h}!xvgr\-\_\-view@{xvgr\-\_\-view}}
+\index{xvgr\-\_\-view@{xvgr\-\_\-view}!include/xvgr.h@{include/xvgr.\-h}}
+\subsubsection[{xvgr\-\_\-view}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} {\bf void} {\bf xvgr\-\_\-view} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{out, }
+\item[{real}]{xmin, }
+\item[{real}]{ymin, }
+\item[{real}]{xmax, }
+\item[{real}]{ymax, }
+\item[{const {\bf output\-\_\-env\-\_\-t}}]{oenv}
+\end{DoxyParamCaption}
+)}}\label{include_2xvgr_8h_ac374faac9e9ef25a75b16d4188db39be}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{include_2xvgr_8h_ac374faac9e9ef25a75b16d4188db39be_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{include_2xvgr_8h_a694cdc2035a2ca5a7b4ad74069ae2882}{\index{include/xvgr.\-h@{include/xvgr.\-h}!xvgr\-\_\-world@{xvgr\-\_\-world}}
+\index{xvgr\-\_\-world@{xvgr\-\_\-world}!include/xvgr.h@{include/xvgr.\-h}}
+\subsubsection[{xvgr\-\_\-world}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} {\bf void} {\bf xvgr\-\_\-world} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{out, }
+\item[{real}]{xmin, }
+\item[{real}]{ymin, }
+\item[{real}]{xmax, }
+\item[{real}]{ymax, }
+\item[{const {\bf output\-\_\-env\-\_\-t}}]{oenv}
+\end{DoxyParamCaption}
+)}}\label{include_2xvgr_8h_a694cdc2035a2ca5a7b4ad74069ae2882}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{include_2xvgr_8h_a694cdc2035a2ca5a7b4ad74069ae2882_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{include_2xvgr_8h_ac301fb2c0eec6b6c2077bdc6375ea409}{\index{include/xvgr.\-h@{include/xvgr.\-h}!xvgrclose@{xvgrclose}}
+\index{xvgrclose@{xvgrclose}!include/xvgr.h@{include/xvgr.\-h}}
+\subsubsection[{xvgrclose}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} {\bf void} {\bf xvgrclose} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp}
+\end{DoxyParamCaption}
+)}}\label{include_2xvgr_8h_ac301fb2c0eec6b6c2077bdc6375ea409}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{include_2xvgr_8h_ac301fb2c0eec6b6c2077bdc6375ea409_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{include_2xvgr_8h_aa90d00b2a47a31b4d2eb4b1f342cf3ee}{\index{include/xvgr.\-h@{include/xvgr.\-h}!xvgropen@{xvgropen}}
+\index{xvgropen@{xvgropen}!include/xvgr.h@{include/xvgr.\-h}}
+\subsubsection[{xvgropen}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} \-F\-I\-L\-E$\ast$ {\bf xvgropen} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{fn, }
+\item[{const char $\ast$}]{title, }
+\item[{const char $\ast$}]{xaxis, }
+\item[{const char $\ast$}]{yaxis, }
+\item[{const {\bf output\-\_\-env\-\_\-t}}]{oenv}
+\end{DoxyParamCaption}
+)}}\label{include_2xvgr_8h_aa90d00b2a47a31b4d2eb4b1f342cf3ee}
+\hypertarget{include_2xvgr_8h_a367f73486f5839915242f431554c3f2a}{\index{include/xvgr.\-h@{include/xvgr.\-h}!xvgropen\-\_\-type@{xvgropen\-\_\-type}}
+\index{xvgropen\-\_\-type@{xvgropen\-\_\-type}!include/xvgr.h@{include/xvgr.\-h}}
+\subsubsection[{xvgropen\-\_\-type}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} \-F\-I\-L\-E$\ast$ {\bf xvgropen\-\_\-type} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{fn, }
+\item[{const char $\ast$}]{title, }
+\item[{const char $\ast$}]{xaxis, }
+\item[{const char $\ast$}]{yaxis, }
+\item[{int}]{exvg\-\_\-graph\-\_\-type, }
+\item[{const {\bf output\-\_\-env\-\_\-t}}]{oenv}
+\end{DoxyParamCaption}
+)}}\label{include_2xvgr_8h_a367f73486f5839915242f431554c3f2a}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{include_2xvgr_8h_a367f73486f5839915242f431554c3f2a_icgraph}
+\end{center}
+\end{figure}
+
+

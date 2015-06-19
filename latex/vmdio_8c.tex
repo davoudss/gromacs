@@ -1,0 +1,211 @@
+\hypertarget{vmdio_8c}{\section{src/gmxlib/vmdio.c \-File \-Reference}
+\label{vmdio_8c}\index{src/gmxlib/vmdio.\-c@{src/gmxlib/vmdio.\-c}}
+}
+{\ttfamily \#include $<$stdlib.\-h$>$}\*
+{\ttfamily \#include $<$stdio.\-h$>$}\*
+{\ttfamily \#include $<$string.\-h$>$}\*
+{\ttfamily \#include $<$assert.\-h$>$}\*
+{\ttfamily \#include \char`\"{}molfile\-\_\-plugin.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}vmddlopen.\-h\char`\"{}}\*
+{\ttfamily \#include $<$glob.\-h$>$}\*
+{\ttfamily \#include \char`\"{}smalloc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}futil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}vmdio.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}types/simple.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}vec.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmxfio.\-h\char`\"{}}\*
+\-Include dependency graph for vmdio.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{vmdio_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef int($\ast$ \hyperlink{vmdio_8c_a182d9cc141dd58d8013b22c79c2129e6}{initfunc} )(\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void})
+\item 
+typedef int($\ast$ \hyperlink{vmdio_8c_a69d9300bc8252d8469d96d7dad8400cc}{regfunc} )(\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$, \hyperlink{vmdplugin_8h_a33fc5540f197154c824eef8d1509400e}{vmdplugin\-\_\-register\-\_\-cb})
+\item 
+typedef int($\ast$ \hyperlink{vmdio_8c_a48c5c9222ffa5d399c3db18a0475ac97}{finifunc} )(\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void})
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+static int \hyperlink{vmdio_8c_a3c706d37579220ee30464a4a2329e210}{register\-\_\-cb} (\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a339df93739a405c3e4b0506624fa27a5}{v}, \hyperlink{structvmdplugin__t}{vmdplugin\-\_\-t} $\ast$p)
+\item 
+static int \hyperlink{vmdio_8c_acfe018293e0b6ed3bd5689aca71b54fa}{load\-\_\-sharedlibrary\-\_\-plugins} (const char $\ast$fullpath, \hyperlink{include_2types_2trx_8h_a0fcfedfce7828864ba1387f5b39d2b48}{t\-\_\-gmxvmdplugin} $\ast$vmdplugin)
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{vmdio_8c_ac167350554559244a4851b0f2b97492c}{read\-\_\-next\-\_\-vmd\-\_\-frame} (int status, \hyperlink{include_2types_2trx_8h_a206f77137d72a5db1097a457a7144ad5}{t\-\_\-trxframe} $\ast$\hyperlink{addconf_8c_ae8414314f87c5e49503ac0117eb511ad}{fr})
+\item 
+static int \hyperlink{vmdio_8c_ac93ff1e70f7e4b7d73e8a99651c7614f}{load\-\_\-vmd\-\_\-library} (const char $\ast$fn, \hyperlink{include_2types_2trx_8h_a0fcfedfce7828864ba1387f5b39d2b48}{t\-\_\-gmxvmdplugin} $\ast$vmdplugin)
+\item 
+int \hyperlink{vmdio_8c_a8934581243924667a785327d3c32793d}{read\-\_\-first\-\_\-vmd\-\_\-frame} (int $\ast$status, const char $\ast$fn, \hyperlink{include_2types_2trx_8h_a206f77137d72a5db1097a457a7144ad5}{t\-\_\-trxframe} $\ast$\hyperlink{addconf_8c_ae8414314f87c5e49503ac0117eb511ad}{fr}, int \hyperlink{nbnxn__cuda_8h_a04d8e308e05daeaa5002e3a3c983a14f}{flags})
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Typedef \-Documentation}
+\hypertarget{vmdio_8c_a48c5c9222ffa5d399c3db18a0475ac97}{\index{vmdio.\-c@{vmdio.\-c}!finifunc@{finifunc}}
+\index{finifunc@{finifunc}!vmdio.c@{vmdio.\-c}}
+\subsubsection[{finifunc}]{\setlength{\rightskip}{0pt plus 5cm}typedef int($\ast$ {\bf finifunc})({\bf void})}}\label{vmdio_8c_a48c5c9222ffa5d399c3db18a0475ac97}
+\hypertarget{vmdio_8c_a182d9cc141dd58d8013b22c79c2129e6}{\index{vmdio.\-c@{vmdio.\-c}!initfunc@{initfunc}}
+\index{initfunc@{initfunc}!vmdio.c@{vmdio.\-c}}
+\subsubsection[{initfunc}]{\setlength{\rightskip}{0pt plus 5cm}typedef int($\ast$ {\bf initfunc})({\bf void})}}\label{vmdio_8c_a182d9cc141dd58d8013b22c79c2129e6}
+\hypertarget{vmdio_8c_a69d9300bc8252d8469d96d7dad8400cc}{\index{vmdio.\-c@{vmdio.\-c}!regfunc@{regfunc}}
+\index{regfunc@{regfunc}!vmdio.c@{vmdio.\-c}}
+\subsubsection[{regfunc}]{\setlength{\rightskip}{0pt plus 5cm}typedef int($\ast$ {\bf regfunc})({\bf void} $\ast$, {\bf vmdplugin\-\_\-register\-\_\-cb})}}\label{vmdio_8c_a69d9300bc8252d8469d96d7dad8400cc}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{vmdio_8c_acfe018293e0b6ed3bd5689aca71b54fa}{\index{vmdio.\-c@{vmdio.\-c}!load\-\_\-sharedlibrary\-\_\-plugins@{load\-\_\-sharedlibrary\-\_\-plugins}}
+\index{load\-\_\-sharedlibrary\-\_\-plugins@{load\-\_\-sharedlibrary\-\_\-plugins}!vmdio.c@{vmdio.\-c}}
+\subsubsection[{load\-\_\-sharedlibrary\-\_\-plugins}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf load\-\_\-sharedlibrary\-\_\-plugins} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{fullpath, }
+\item[{{\bf t\-\_\-gmxvmdplugin} $\ast$}]{vmdplugin}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{vmdio_8c_acfe018293e0b6ed3bd5689aca71b54fa}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=314pt]{vmdio_8c_acfe018293e0b6ed3bd5689aca71b54fa_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{vmdio_8c_acfe018293e0b6ed3bd5689aca71b54fa_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{vmdio_8c_ac93ff1e70f7e4b7d73e8a99651c7614f}{\index{vmdio.\-c@{vmdio.\-c}!load\-\_\-vmd\-\_\-library@{load\-\_\-vmd\-\_\-library}}
+\index{load\-\_\-vmd\-\_\-library@{load\-\_\-vmd\-\_\-library}!vmdio.c@{vmdio.\-c}}
+\subsubsection[{load\-\_\-vmd\-\_\-library}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf load\-\_\-vmd\-\_\-library} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{fn, }
+\item[{{\bf t\-\_\-gmxvmdplugin} $\ast$}]{vmdplugin}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{vmdio_8c_ac93ff1e70f7e4b7d73e8a99651c7614f}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{vmdio_8c_ac93ff1e70f7e4b7d73e8a99651c7614f_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{vmdio_8c_ac93ff1e70f7e4b7d73e8a99651c7614f_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{vmdio_8c_a8934581243924667a785327d3c32793d}{\index{vmdio.\-c@{vmdio.\-c}!read\-\_\-first\-\_\-vmd\-\_\-frame@{read\-\_\-first\-\_\-vmd\-\_\-frame}}
+\index{read\-\_\-first\-\_\-vmd\-\_\-frame@{read\-\_\-first\-\_\-vmd\-\_\-frame}!vmdio.c@{vmdio.\-c}}
+\subsubsection[{read\-\_\-first\-\_\-vmd\-\_\-frame}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf read\-\_\-first\-\_\-vmd\-\_\-frame} (
+\begin{DoxyParamCaption}
+\item[{int $\ast$}]{status, }
+\item[{const char $\ast$}]{fn, }
+\item[{{\bf t\-\_\-trxframe} $\ast$}]{fr, }
+\item[{int}]{flags}
+\end{DoxyParamCaption}
+)}}\label{vmdio_8c_a8934581243924667a785327d3c32793d}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{vmdio_8c_a8934581243924667a785327d3c32793d_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{vmdio_8c_a8934581243924667a785327d3c32793d_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{vmdio_8c_ac167350554559244a4851b0f2b97492c}{\index{vmdio.\-c@{vmdio.\-c}!read\-\_\-next\-\_\-vmd\-\_\-frame@{read\-\_\-next\-\_\-vmd\-\_\-frame}}
+\index{read\-\_\-next\-\_\-vmd\-\_\-frame@{read\-\_\-next\-\_\-vmd\-\_\-frame}!vmdio.c@{vmdio.\-c}}
+\subsubsection[{read\-\_\-next\-\_\-vmd\-\_\-frame}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf read\-\_\-next\-\_\-vmd\-\_\-frame} (
+\begin{DoxyParamCaption}
+\item[{int}]{status, }
+\item[{{\bf t\-\_\-trxframe} $\ast$}]{fr}
+\end{DoxyParamCaption}
+)}}\label{vmdio_8c_ac167350554559244a4851b0f2b97492c}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{vmdio_8c_ac167350554559244a4851b0f2b97492c_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{vmdio_8c_ac167350554559244a4851b0f2b97492c_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{vmdio_8c_a3c706d37579220ee30464a4a2329e210}{\index{vmdio.\-c@{vmdio.\-c}!register\-\_\-cb@{register\-\_\-cb}}
+\index{register\-\_\-cb@{register\-\_\-cb}!vmdio.c@{vmdio.\-c}}
+\subsubsection[{register\-\_\-cb}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf register\-\_\-cb} (
+\begin{DoxyParamCaption}
+\item[{{\bf void} $\ast$}]{v, }
+\item[{{\bf vmdplugin\-\_\-t} $\ast$}]{p}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{vmdio_8c_a3c706d37579220ee30464a4a2329e210}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{vmdio_8c_a3c706d37579220ee30464a4a2329e210_icgraph}
+\end{center}
+\end{figure}
+
+

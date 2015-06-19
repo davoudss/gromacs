@@ -1,0 +1,188 @@
+\hypertarget{share_2template_2gromacs_2vsite_8h}{\section{share/template/gromacs/vsite.h \-File \-Reference}
+\label{share_2template_2gromacs_2vsite_8h}\index{share/template/gromacs/vsite.\-h@{share/template/gromacs/vsite.\-h}}
+}
+{\ttfamily \#include $<$stdio.\-h$>$}\*
+{\ttfamily \#include \char`\"{}visibility.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}typedefs.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}types/commrec.\-h\char`\"{}}\*
+\-Include dependency graph for vsite.\-h\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{share_2template_2gromacs_2vsite_8h__incl}
+\end{center}
+\end{figure}
+\-This graph shows which files directly or indirectly include this file\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{share_2template_2gromacs_2vsite_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structt__comm__vsites}{t\-\_\-comm\-\_\-vsites}
+\item 
+struct \hyperlink{structgmx__vsite__thread__t}{gmx\-\_\-vsite\-\_\-thread\-\_\-t}
+\item 
+struct \hyperlink{structgmx__vsite__t}{gmx\-\_\-vsite\-\_\-t}
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_ab80ef94c2b909a1a948639e98e63b612}{\-G\-M\-X\-\_\-\-L\-I\-B\-M\-D\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{share_2template_2gromacs_2vsite_8h_a043b08e0efae3a6f3a38d13e9c8f0b23}{construct\-\_\-vsites} (\-F\-I\-L\-E $\ast$log, \hyperlink{structgmx__vsite__t}{gmx\-\_\-vsite\-\_\-t} $\ast$vsite, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{structt__nrnb}{t\-\_\-nrnb} $\ast$nrnb, real dt, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a339df93739a405c3e4b0506624fa27a5}{v}\mbox{[}$\,$\mbox{]}, \hyperlink{uniont__iparams}{t\-\_\-iparams} ip\mbox{[}$\,$\mbox{]}, \hyperlink{structt__ilist}{t\-\_\-ilist} ilist\mbox{[}$\,$\mbox{]}, int e\-P\-B\-C, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Mol\-P\-B\-C, \hyperlink{structt__graph}{t\-\_\-graph} $\ast$graph, \hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_ab80ef94c2b909a1a948639e98e63b612}{\-G\-M\-X\-\_\-\-L\-I\-B\-M\-D\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{share_2template_2gromacs_2vsite_8h_a92c3782d983f778265666900bb6bf470}{construct\-\_\-vsites\-\_\-mtop} (\-F\-I\-L\-E $\ast$log, \hyperlink{structgmx__vsite__t}{gmx\-\_\-vsite\-\_\-t} $\ast$vsite, \hyperlink{structgmx__mtop__t}{gmx\-\_\-mtop\-\_\-t} $\ast$mtop, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{share_2template_2gromacs_2vsite_8h_ad6fc7b4028eaeaa85df6b86d15777130}{spread\-\_\-vsite\-\_\-f} (\-F\-I\-L\-E $\ast$log, \hyperlink{structgmx__vsite__t}{gmx\-\_\-vsite\-\_\-t} $\ast$vsite, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{copyrite_8c_a0757cfb6fe645a02867727255faa4f8b}{f}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$fshift, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \-Vir\-Corr, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} vir, \hyperlink{structt__nrnb}{t\-\_\-nrnb} $\ast$nrnb, \hyperlink{structt__idef}{t\-\_\-idef} $\ast$idef, int e\-P\-B\-C, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Mol\-P\-B\-C, \hyperlink{structt__graph}{t\-\_\-graph} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box, \hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_ab80ef94c2b909a1a948639e98e63b612}{\-G\-M\-X\-\_\-\-L\-I\-B\-M\-D\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{structgmx__vsite__t}{gmx\-\_\-vsite\-\_\-t} $\ast$ \hyperlink{share_2template_2gromacs_2vsite_8h_ab95345a6199e567ab3a9cfefc9e9f305}{init\-\_\-vsite} (\hyperlink{structgmx__mtop__t}{gmx\-\_\-mtop\-\_\-t} $\ast$mtop, \hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Serial\-\_\-\-No\-P\-B\-C)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{share_2template_2gromacs_2vsite_8h_ac5d92fb22dc81e7d697e705d2e40a3d3}{split\-\_\-vsites\-\_\-over\-\_\-threads} (const \hyperlink{structt__ilist}{t\-\_\-ilist} $\ast$ilist, const \hyperlink{structt__mdatoms}{t\-\_\-mdatoms} $\ast$mdatoms, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Limit\-Range, \hyperlink{structgmx__vsite__t}{gmx\-\_\-vsite\-\_\-t} $\ast$vsite)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_ab80ef94c2b909a1a948639e98e63b612}{\-G\-M\-X\-\_\-\-L\-I\-B\-M\-D\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{share_2template_2gromacs_2vsite_8h_aae5081432f3e0da258c18a667e5c1189}{set\-\_\-vsite\-\_\-top} (\hyperlink{structgmx__vsite__t}{gmx\-\_\-vsite\-\_\-t} $\ast$vsite, \hyperlink{structgmx__localtop__t}{gmx\-\_\-localtop\-\_\-t} $\ast$\hyperlink{gmx__disre_8c_a1b538a2ce75aba6c346bc03980ffeb28}{top}, \hyperlink{structt__mdatoms}{t\-\_\-mdatoms} $\ast$md, \hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr)
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{share_2template_2gromacs_2vsite_8h_a043b08e0efae3a6f3a38d13e9c8f0b23}{\index{share/template/gromacs/vsite.\-h@{share/template/gromacs/vsite.\-h}!construct\-\_\-vsites@{construct\-\_\-vsites}}
+\index{construct\-\_\-vsites@{construct\-\_\-vsites}!share/template/gromacs/vsite.h@{share/template/gromacs/vsite.\-h}}
+\subsubsection[{construct\-\_\-vsites}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-M\-D\-\_\-\-E\-X\-P\-O\-R\-T} {\bf void} {\bf construct\-\_\-vsites} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{log, }
+\item[{{\bf gmx\-\_\-vsite\-\_\-t} $\ast$}]{vsite, }
+\item[{{\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf t\-\_\-nrnb} $\ast$}]{nrnb, }
+\item[{real}]{dt, }
+\item[{{\bf rvec}}]{v\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf t\-\_\-iparams}}]{ip\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf t\-\_\-ilist}}]{ilist\mbox{[}$\,$\mbox{]}, }
+\item[{int}]{e\-P\-B\-C, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Mol\-P\-B\-C, }
+\item[{{\bf t\-\_\-graph} $\ast$}]{graph, }
+\item[{{\bf t\-\_\-commrec} $\ast$}]{cr, }
+\item[{{\bf matrix}}]{box}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2vsite_8h_a043b08e0efae3a6f3a38d13e9c8f0b23}
+\hypertarget{share_2template_2gromacs_2vsite_8h_a92c3782d983f778265666900bb6bf470}{\index{share/template/gromacs/vsite.\-h@{share/template/gromacs/vsite.\-h}!construct\-\_\-vsites\-\_\-mtop@{construct\-\_\-vsites\-\_\-mtop}}
+\index{construct\-\_\-vsites\-\_\-mtop@{construct\-\_\-vsites\-\_\-mtop}!share/template/gromacs/vsite.h@{share/template/gromacs/vsite.\-h}}
+\subsubsection[{construct\-\_\-vsites\-\_\-mtop}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-M\-D\-\_\-\-E\-X\-P\-O\-R\-T} {\bf void} {\bf construct\-\_\-vsites\-\_\-mtop} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{log, }
+\item[{{\bf gmx\-\_\-vsite\-\_\-t} $\ast$}]{vsite, }
+\item[{{\bf gmx\-\_\-mtop\-\_\-t} $\ast$}]{mtop, }
+\item[{{\bf rvec}}]{x\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2vsite_8h_a92c3782d983f778265666900bb6bf470}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=322pt]{share_2template_2gromacs_2vsite_8h_a92c3782d983f778265666900bb6bf470_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{share_2template_2gromacs_2vsite_8h_ab95345a6199e567ab3a9cfefc9e9f305}{\index{share/template/gromacs/vsite.\-h@{share/template/gromacs/vsite.\-h}!init\-\_\-vsite@{init\-\_\-vsite}}
+\index{init\-\_\-vsite@{init\-\_\-vsite}!share/template/gromacs/vsite.h@{share/template/gromacs/vsite.\-h}}
+\subsubsection[{init\-\_\-vsite}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-M\-D\-\_\-\-E\-X\-P\-O\-R\-T} {\bf gmx\-\_\-vsite\-\_\-t}$\ast$ {\bf init\-\_\-vsite} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-mtop\-\_\-t} $\ast$}]{mtop, }
+\item[{{\bf t\-\_\-commrec} $\ast$}]{cr, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Serial\-\_\-\-No\-P\-B\-C}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2vsite_8h_ab95345a6199e567ab3a9cfefc9e9f305}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{share_2template_2gromacs_2vsite_8h_ab95345a6199e567ab3a9cfefc9e9f305_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{share_2template_2gromacs_2vsite_8h_aae5081432f3e0da258c18a667e5c1189}{\index{share/template/gromacs/vsite.\-h@{share/template/gromacs/vsite.\-h}!set\-\_\-vsite\-\_\-top@{set\-\_\-vsite\-\_\-top}}
+\index{set\-\_\-vsite\-\_\-top@{set\-\_\-vsite\-\_\-top}!share/template/gromacs/vsite.h@{share/template/gromacs/vsite.\-h}}
+\subsubsection[{set\-\_\-vsite\-\_\-top}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-M\-D\-\_\-\-E\-X\-P\-O\-R\-T} {\bf void} {\bf set\-\_\-vsite\-\_\-top} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-vsite\-\_\-t} $\ast$}]{vsite, }
+\item[{{\bf gmx\-\_\-localtop\-\_\-t} $\ast$}]{top, }
+\item[{{\bf t\-\_\-mdatoms} $\ast$}]{md, }
+\item[{{\bf t\-\_\-commrec} $\ast$}]{cr}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2vsite_8h_aae5081432f3e0da258c18a667e5c1189}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=320pt]{share_2template_2gromacs_2vsite_8h_aae5081432f3e0da258c18a667e5c1189_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{share_2template_2gromacs_2vsite_8h_ac5d92fb22dc81e7d697e705d2e40a3d3}{\index{share/template/gromacs/vsite.\-h@{share/template/gromacs/vsite.\-h}!split\-\_\-vsites\-\_\-over\-\_\-threads@{split\-\_\-vsites\-\_\-over\-\_\-threads}}
+\index{split\-\_\-vsites\-\_\-over\-\_\-threads@{split\-\_\-vsites\-\_\-over\-\_\-threads}!share/template/gromacs/vsite.h@{share/template/gromacs/vsite.\-h}}
+\subsubsection[{split\-\_\-vsites\-\_\-over\-\_\-threads}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf split\-\_\-vsites\-\_\-over\-\_\-threads} (
+\begin{DoxyParamCaption}
+\item[{const {\bf t\-\_\-ilist} $\ast$}]{ilist, }
+\item[{const {\bf t\-\_\-mdatoms} $\ast$}]{mdatoms, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Limit\-Range, }
+\item[{{\bf gmx\-\_\-vsite\-\_\-t} $\ast$}]{vsite}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2vsite_8h_ac5d92fb22dc81e7d697e705d2e40a3d3}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{share_2template_2gromacs_2vsite_8h_ac5d92fb22dc81e7d697e705d2e40a3d3_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{share_2template_2gromacs_2vsite_8h_ad6fc7b4028eaeaa85df6b86d15777130}{\index{share/template/gromacs/vsite.\-h@{share/template/gromacs/vsite.\-h}!spread\-\_\-vsite\-\_\-f@{spread\-\_\-vsite\-\_\-f}}
+\index{spread\-\_\-vsite\-\_\-f@{spread\-\_\-vsite\-\_\-f}!share/template/gromacs/vsite.h@{share/template/gromacs/vsite.\-h}}
+\subsubsection[{spread\-\_\-vsite\-\_\-f}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf spread\-\_\-vsite\-\_\-f} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{log, }
+\item[{{\bf gmx\-\_\-vsite\-\_\-t} $\ast$}]{vsite, }
+\item[{{\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{f\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec} $\ast$}]{fshift, }
+\item[{{\bf gmx\-\_\-bool}}]{\-Vir\-Corr, }
+\item[{{\bf matrix}}]{vir, }
+\item[{{\bf t\-\_\-nrnb} $\ast$}]{nrnb, }
+\item[{{\bf t\-\_\-idef} $\ast$}]{idef, }
+\item[{int}]{e\-P\-B\-C, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Mol\-P\-B\-C, }
+\item[{{\bf t\-\_\-graph} $\ast$}]{g, }
+\item[{{\bf matrix}}]{box, }
+\item[{{\bf t\-\_\-commrec} $\ast$}]{cr}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2vsite_8h_ad6fc7b4028eaeaa85df6b86d15777130}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{share_2template_2gromacs_2vsite_8h_ad6fc7b4028eaeaa85df6b86d15777130_cgraph}
+\end{center}
+\end{figure}
+
+

@@ -1,0 +1,12 @@
+libdir=/NOBACKUP/davoudss/gromacs/lib
+includedir=/NOBACKUP/davoudss/gromacs/include
+
+Name: libgmxana
+Description: Gromacs analysis lib
+URL: http://www.gromacs.org
+Version: 4.6.1
+Requires:  libgmx_d libmd_d
+Libs.private: -lm -lpthread
+Libs: -L${libdir} -lgmxana_d
+Cflags: -I${includedir}  -DGMX_DOUBLE -DGMX_SOFTWARE_INVSQRT -DGMX_THREAD_MPI -fopenmp
+

@@ -1,0 +1,108 @@
+\hypertarget{share_2template_2gromacs_2chargegroup_8h}{\section{share/template/gromacs/chargegroup.h \-File \-Reference}
+\label{share_2template_2gromacs_2chargegroup_8h}\index{share/template/gromacs/chargegroup.\-h@{share/template/gromacs/chargegroup.\-h}}
+}
+{\ttfamily \#include \char`\"{}visibility.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}sysstuff.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}typedefs.\-h\char`\"{}}\*
+\-Include dependency graph for chargegroup.\-h\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{share_2template_2gromacs_2chargegroup_8h__incl}
+\end{center}
+\end{figure}
+\-This graph shows which files directly or indirectly include this file\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{share_2template_2gromacs_2chargegroup_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_af6d678ccc5288db95c70b9d9003f11e2}{\-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{share_2template_2gromacs_2chargegroup_8h_a58c89a21d9a05ae74959ad6efa7663e1}{calc\-\_\-chargegroup\-\_\-radii} (const \hyperlink{structgmx__mtop__t}{gmx\-\_\-mtop\-\_\-t} $\ast$mtop, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}, real $\ast$rvdw1, real $\ast$rvdw2, real $\ast$rcoul1, real $\ast$rcoul2)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_af6d678ccc5288db95c70b9d9003f11e2}{\-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{share_2template_2gromacs_2chargegroup_8h_a99e36555b59f62f73a81c4a96690a538}{calc\-\_\-cgcm} (\-F\-I\-L\-E $\ast$log, int cg0, int cg1, \hyperlink{structt__block}{t\-\_\-block} $\ast$cgs, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} pos\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} cg\-\_\-cm\mbox{[}$\,$\mbox{]})
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_af6d678ccc5288db95c70b9d9003f11e2}{\-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{share_2template_2gromacs_2chargegroup_8h_a9d428994f03ee185f8db3bc851c0486b}{put\-\_\-charge\-\_\-groups\-\_\-in\-\_\-box} (\-F\-I\-L\-E $\ast$log, int cg0, int cg1, int e\-P\-B\-C, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box, \hyperlink{structt__block}{t\-\_\-block} $\ast$cgs, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} pos\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} cg\-\_\-cm\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{share_2template_2gromacs_2chargegroup_8h_a99e36555b59f62f73a81c4a96690a538}{\index{share/template/gromacs/chargegroup.\-h@{share/template/gromacs/chargegroup.\-h}!calc\-\_\-cgcm@{calc\-\_\-cgcm}}
+\index{calc\-\_\-cgcm@{calc\-\_\-cgcm}!share/template/gromacs/chargegroup.h@{share/template/gromacs/chargegroup.\-h}}
+\subsubsection[{calc\-\_\-cgcm}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} {\bf void} {\bf calc\-\_\-cgcm} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{log, }
+\item[{int}]{cg0, }
+\item[{int}]{cg1, }
+\item[{{\bf t\-\_\-block} $\ast$}]{cgs, }
+\item[{{\bf rvec}}]{pos\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{cg\-\_\-cm\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2chargegroup_8h_a99e36555b59f62f73a81c4a96690a538}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=242pt]{share_2template_2gromacs_2chargegroup_8h_a99e36555b59f62f73a81c4a96690a538_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{share_2template_2gromacs_2chargegroup_8h_a58c89a21d9a05ae74959ad6efa7663e1}{\index{share/template/gromacs/chargegroup.\-h@{share/template/gromacs/chargegroup.\-h}!calc\-\_\-chargegroup\-\_\-radii@{calc\-\_\-chargegroup\-\_\-radii}}
+\index{calc\-\_\-chargegroup\-\_\-radii@{calc\-\_\-chargegroup\-\_\-radii}!share/template/gromacs/chargegroup.h@{share/template/gromacs/chargegroup.\-h}}
+\subsubsection[{calc\-\_\-chargegroup\-\_\-radii}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} {\bf void} {\bf calc\-\_\-chargegroup\-\_\-radii} (
+\begin{DoxyParamCaption}
+\item[{const {\bf gmx\-\_\-mtop\-\_\-t} $\ast$}]{mtop, }
+\item[{{\bf rvec} $\ast$}]{x, }
+\item[{real $\ast$}]{rvdw1, }
+\item[{real $\ast$}]{rvdw2, }
+\item[{real $\ast$}]{rcoul1, }
+\item[{real $\ast$}]{rcoul2}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2chargegroup_8h_a58c89a21d9a05ae74959ad6efa7663e1}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{share_2template_2gromacs_2chargegroup_8h_a58c89a21d9a05ae74959ad6efa7663e1_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{share_2template_2gromacs_2chargegroup_8h_a9d428994f03ee185f8db3bc851c0486b}{\index{share/template/gromacs/chargegroup.\-h@{share/template/gromacs/chargegroup.\-h}!put\-\_\-charge\-\_\-groups\-\_\-in\-\_\-box@{put\-\_\-charge\-\_\-groups\-\_\-in\-\_\-box}}
+\index{put\-\_\-charge\-\_\-groups\-\_\-in\-\_\-box@{put\-\_\-charge\-\_\-groups\-\_\-in\-\_\-box}!share/template/gromacs/chargegroup.h@{share/template/gromacs/chargegroup.\-h}}
+\subsubsection[{put\-\_\-charge\-\_\-groups\-\_\-in\-\_\-box}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} {\bf void} {\bf put\-\_\-charge\-\_\-groups\-\_\-in\-\_\-box} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{log, }
+\item[{int}]{cg0, }
+\item[{int}]{cg1, }
+\item[{int}]{e\-P\-B\-C, }
+\item[{{\bf matrix}}]{box, }
+\item[{{\bf t\-\_\-block} $\ast$}]{cgs, }
+\item[{{\bf rvec}}]{pos\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{cg\-\_\-cm\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2chargegroup_8h_a9d428994f03ee185f8db3bc851c0486b}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=312pt]{share_2template_2gromacs_2chargegroup_8h_a9d428994f03ee185f8db3bc851c0486b_cgraph}
+\end{center}
+\end{figure}
+
+

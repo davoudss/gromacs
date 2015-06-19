@@ -1,0 +1,641 @@
+\hypertarget{tmpi__init_8c}{\section{src/gmxlib/thread\-\_\-mpi/tmpi\-\_\-init.c \-File \-Reference}
+\label{tmpi__init_8c}\index{src/gmxlib/thread\-\_\-mpi/tmpi\-\_\-init.\-c@{src/gmxlib/thread\-\_\-mpi/tmpi\-\_\-init.\-c}}
+}
+{\ttfamily \#include $<$errno.\-h$>$}\*
+{\ttfamily \#include $<$stdlib.\-h$>$}\*
+{\ttfamily \#include $<$stdio.\-h$>$}\*
+{\ttfamily \#include $<$string.\-h$>$}\*
+{\ttfamily \#include $<$sys/time.\-h$>$}\*
+{\ttfamily \#include \char`\"{}impl.\-h\char`\"{}}\*
+\-Include dependency graph for tmpi\-\_\-init.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tmpi__init_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{tmpi__init_8c_a08de6d004fdfa2767473db50ac1c4990}{t\-M\-P\-I\-\_\-\-Start\-\_\-threads} (\hyperlink{impl_8h_a1c904605658586a00645b5fc9f6b8479}{tmpi\-\_\-bool} main\-\_\-returns, int \hyperlink{3dview_8c_a0240ac851181b84ac374872dc5434ee4}{\-N}, \hyperlink{include_2thread__mpi_2tmpi_8h_addb14c251e4805bc95120dc0cb90849f}{t\-M\-P\-I\-\_\-\-Affinity\-\_\-strategy} aff\-\_\-strategy, int $\ast$argc, char $\ast$$\ast$$\ast$argv, \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void}($\ast$start\-\_\-fn)(\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$), \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$start\-\_\-arg, int($\ast$start\-\_\-fn\-\_\-main)(int, char $\ast$$\ast$))
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$ \hyperlink{tmpi__init_8c_ae905027d19e11af1ab3152b00b1b61f6}{t\-M\-P\-I\-\_\-\-Thread\-\_\-starter} (\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$arg)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{tmpi__init_8c_acaabc7c84c40aef8559142f2dca3afb1}{t\-M\-P\-I\-\_\-\-Thread\-\_\-init} (struct \hyperlink{structtmpi__thread}{tmpi\-\_\-thread} $\ast$th)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{tmpi__init_8c_af0ca776c5795651d630d3feba27d6c16}{t\-M\-P\-I\-\_\-\-Thread\-\_\-destroy} (struct \hyperlink{structtmpi__thread}{tmpi\-\_\-thread} $\ast$th)
+\item 
+\hyperlink{impl_8h_a1c904605658586a00645b5fc9f6b8479}{tmpi\-\_\-bool} \hyperlink{tmpi__init_8c_aa780330eaa0987ca2cf8419aba305e27}{t\-M\-P\-I\-\_\-\-Is\-\_\-master} (\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void})
+\item 
+\hyperlink{include_2thread__mpi_2tmpi_8h_ab76dc275b882a1d00a54353fb8dd4cb3}{t\-M\-P\-I\-\_\-\-Comm} \hyperlink{tmpi__init_8c_adba1b3d5b9298ccf5e2f2b3e63d06fb6}{t\-M\-P\-I\-\_\-\-Get\-\_\-comm\-\_\-self} (\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void})
+\item 
+int \hyperlink{tmpi__init_8c_a3e0b4e50f1ee0a8cae67acd180afcd5c}{t\-M\-P\-I\-\_\-\-Get\-\_\-\-N} (int $\ast$argc, char $\ast$$\ast$$\ast$argv, const char $\ast$optname, int $\ast$nthreads)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{tmpi__init_8c_a1bfe1af13f814f58675f0af517a3d9ca}{t\-M\-P\-I\-\_\-\-Global\-\_\-init} (struct \hyperlink{structtmpi__global}{tmpi\-\_\-global} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g}, int \hyperlink{tmpi__init_8c_a9046e7e5bba439c464448d73eae04f82}{\-Nthreads})
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{tmpi__init_8c_af254eaebe93e1b7e6f87cb997b3af4d2}{t\-M\-P\-I\-\_\-\-Global\-\_\-destroy} (struct \hyperlink{structtmpi__global}{tmpi\-\_\-global} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g})
+\item 
+int \hyperlink{tmpi__init_8c_a296a8767c2484c8c5ec8a19e43687579}{t\-M\-P\-I\-\_\-\-Init} (int $\ast$argc, char $\ast$$\ast$$\ast$argv, int($\ast$start\-\_\-function)(int, char $\ast$$\ast$))
+\item 
+int \hyperlink{tmpi__init_8c_a4d9071631b3311e05f58aa04272f05cf}{t\-M\-P\-I\-\_\-\-Init\-\_\-fn} (int main\-\_\-thread\-\_\-returns, int \hyperlink{3dview_8c_a0240ac851181b84ac374872dc5434ee4}{\-N}, \hyperlink{include_2thread__mpi_2tmpi_8h_addb14c251e4805bc95120dc0cb90849f}{t\-M\-P\-I\-\_\-\-Affinity\-\_\-strategy} aff\-\_\-strategy, \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void}($\ast$start\-\_\-function)(\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$), \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$arg)
+\item 
+int \hyperlink{tmpi__init_8c_a8d06ac2e75304efce77bd18c0567f744}{t\-M\-P\-I\-\_\-\-Initialized} (int $\ast$flag)
+\item 
+int \hyperlink{tmpi__init_8c_a926fb1139d7f32804bea5661c5912ab7}{t\-M\-P\-I\-\_\-\-Finalize} (\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void})
+\item 
+int \hyperlink{tmpi__init_8c_a96785ceff957dd2a92e0f55cb8a6b7ed}{t\-M\-P\-I\-\_\-\-Finalized} (int $\ast$flag)
+\item 
+int \hyperlink{tmpi__init_8c_acf5f2ea60fd339a7d8f8563658d9b4ac}{t\-M\-P\-I\-\_\-\-Abort} (\hyperlink{include_2thread__mpi_2tmpi_8h_ab76dc275b882a1d00a54353fb8dd4cb3}{t\-M\-P\-I\-\_\-\-Comm} comm, int errorcode)
+\item 
+int \hyperlink{tmpi__init_8c_a062509ea3b062ded2da5feae071eca39}{t\-M\-P\-I\-\_\-\-Get\-\_\-processor\-\_\-name} (char $\ast$name, int $\ast$resultlen)
+\item 
+double \hyperlink{tmpi__init_8c_a70f6fe9914433dfdf059dd7971b193b0}{t\-M\-P\-I\-\_\-\-Wtime} (\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void})
+\item 
+double \hyperlink{tmpi__init_8c_acd1509e4a6bac15f653b582b1776ed97}{t\-M\-P\-I\-\_\-\-Wtick} (\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void})
+\item 
+int \hyperlink{tmpi__init_8c_a73fda6e40d52811ee5fc98f81da4e8b0}{t\-M\-P\-I\-\_\-\-Get\-\_\-count} (\hyperlink{include_2thread__mpi_2tmpi_8h_a531b9d68a797b1d19168df2fd83cb8aa}{t\-M\-P\-I\-\_\-\-Status} $\ast$status, \hyperlink{include_2thread__mpi_2tmpi_8h_a5dfe10378be22fca9362e52f6abdf503}{t\-M\-P\-I\-\_\-\-Datatype} datatype, int $\ast$count)
+\end{DoxyCompactItemize}
+\subsection*{\-Variables}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{include_2thread__mpi_2tmpi_8h_a06ce6c4dd30c26fae966d27930a8e505}{t\-M\-P\-I\-\_\-\-Group} \hyperlink{tmpi__init_8c_a73f7e7bc4c0aabd6b0c2b08fb8d2a0ec}{\-T\-M\-P\-I\-\_\-\-G\-R\-O\-U\-P\-\_\-\-E\-M\-P\-T\-Y} = \-N\-U\-L\-L
+\item 
+struct \hyperlink{structtmpi__thread}{tmpi\-\_\-thread} $\ast$ \hyperlink{tmpi__init_8c_ade26fbb78691cfbed3c109994b29e8ff}{threads} = \-N\-U\-L\-L
+\item 
+int \hyperlink{tmpi__init_8c_a9046e7e5bba439c464448d73eae04f82}{\-Nthreads} = 0
+\item 
+\hyperlink{structtMPI__Thread__key__t}{t\-M\-P\-I\-\_\-\-Thread\-\_\-key\-\_\-t} \hyperlink{tmpi__init_8c_a3cf2ec47bc30c80fe1fe0c2e70d94a29}{id\-\_\-key}
+\item 
+static \hyperlink{impl_8h_a1c904605658586a00645b5fc9f6b8479}{tmpi\-\_\-bool} \hyperlink{tmpi__init_8c_a90a1699aba8a96e9ad290acf84b5fbb6}{tmpi\-\_\-finalized} = \hyperlink{impl_8h_aa93f0eb578d23995850d61f7d61c55c1}{\-F\-A\-L\-S\-E}
+\item 
+struct \hyperlink{structtmpi__global}{tmpi\-\_\-global} $\ast$ \hyperlink{tmpi__init_8c_a5dfcb0a8495d5c0afb9344bdc41fbd97}{tmpi\-\_\-global} = \-N\-U\-L\-L
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{tmpi__init_8c_acf5f2ea60fd339a7d8f8563658d9b4ac}{\index{tmpi\-\_\-init.\-c@{tmpi\-\_\-init.\-c}!t\-M\-P\-I\-\_\-\-Abort@{t\-M\-P\-I\-\_\-\-Abort}}
+\index{t\-M\-P\-I\-\_\-\-Abort@{t\-M\-P\-I\-\_\-\-Abort}!tmpi_init.c@{tmpi\-\_\-init.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Abort}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf t\-M\-P\-I\-\_\-\-Abort} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-M\-P\-I\-\_\-\-Comm}}]{comm, }
+\item[{int}]{errorcode}
+\end{DoxyParamCaption}
+)}}\label{tmpi__init_8c_acf5f2ea60fd339a7d8f8563658d9b4ac}
+\-Just kills all threads.
+
+\-Not really neccesary because exit() would do that for us anyway.
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em comm} & \-Comm to kill threads for \\
+\hline
+\mbox{\tt in}  & {\em errorcode} & \-Error code to exit with\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-Never returns. 
+\end{DoxyReturn}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=276pt]{tmpi__init_8c_acf5f2ea60fd339a7d8f8563658d9b4ac_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{tmpi__init_8c_a926fb1139d7f32804bea5661c5912ab7}{\index{tmpi\-\_\-init.\-c@{tmpi\-\_\-init.\-c}!t\-M\-P\-I\-\_\-\-Finalize@{t\-M\-P\-I\-\_\-\-Finalize}}
+\index{t\-M\-P\-I\-\_\-\-Finalize@{t\-M\-P\-I\-\_\-\-Finalize}!tmpi_init.c@{tmpi\-\_\-init.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Finalize}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf t\-M\-P\-I\-\_\-\-Finalize} (
+\begin{DoxyParamCaption}
+\item[{{\bf void}}]{}
+\end{DoxyParamCaption}
+)}}\label{tmpi__init_8c_a926fb1139d7f32804bea5661c5912ab7}
+\-Waits for all other threads to finish and cleans up
+
+\begin{DoxyReturn}{\-Returns}
+\-T\-M\-P\-I\-\_\-\-S\-U\-C\-C\-E\-S\-S on success, \-T\-M\-P\-I\-\_\-\-F\-A\-I\-L\-U\-R\-E on failure. 
+\end{DoxyReturn}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tmpi__init_8c_a926fb1139d7f32804bea5661c5912ab7_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tmpi__init_8c_a926fb1139d7f32804bea5661c5912ab7_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{tmpi__init_8c_a96785ceff957dd2a92e0f55cb8a6b7ed}{\index{tmpi\-\_\-init.\-c@{tmpi\-\_\-init.\-c}!t\-M\-P\-I\-\_\-\-Finalized@{t\-M\-P\-I\-\_\-\-Finalized}}
+\index{t\-M\-P\-I\-\_\-\-Finalized@{t\-M\-P\-I\-\_\-\-Finalized}!tmpi_init.c@{tmpi\-\_\-init.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Finalized}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf t\-M\-P\-I\-\_\-\-Finalized} (
+\begin{DoxyParamCaption}
+\item[{int $\ast$}]{flag}
+\end{DoxyParamCaption}
+)}}\label{tmpi__init_8c_a96785ceff957dd2a92e0f55cb8a6b7ed}
+\-Determine whether t\-M\-P\-I\-\_\-\-Finalize has been run.
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt out}  & {\em flag} & \-Set to \-T\-R\-U\-E if \hyperlink{include_2thread__mpi_2tmpi_8h_ac568a7b884ce15b1b9827f93e595e42b}{t\-M\-P\-I\-\_\-\-Finalize()} has been called, \-F\-A\-L\-S\-E if not.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+always returns \-T\-M\-P\-I\-\_\-\-S\-U\-C\-C\-E\-S\-S. 
+\end{DoxyReturn}
+\hypertarget{tmpi__init_8c_adba1b3d5b9298ccf5e2f2b3e63d06fb6}{\index{tmpi\-\_\-init.\-c@{tmpi\-\_\-init.\-c}!t\-M\-P\-I\-\_\-\-Get\-\_\-comm\-\_\-self@{t\-M\-P\-I\-\_\-\-Get\-\_\-comm\-\_\-self}}
+\index{t\-M\-P\-I\-\_\-\-Get\-\_\-comm\-\_\-self@{t\-M\-P\-I\-\_\-\-Get\-\_\-comm\-\_\-self}!tmpi_init.c@{tmpi\-\_\-init.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Get\-\_\-comm\-\_\-self}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\-M\-P\-I\-\_\-\-Comm} {\bf t\-M\-P\-I\-\_\-\-Get\-\_\-comm\-\_\-self} (
+\begin{DoxyParamCaption}
+\item[{{\bf void}}]{}
+\end{DoxyParamCaption}
+)}}\label{tmpi__init_8c_adba1b3d5b9298ccf5e2f2b3e63d06fb6}
+\hypertarget{tmpi__init_8c_a73fda6e40d52811ee5fc98f81da4e8b0}{\index{tmpi\-\_\-init.\-c@{tmpi\-\_\-init.\-c}!t\-M\-P\-I\-\_\-\-Get\-\_\-count@{t\-M\-P\-I\-\_\-\-Get\-\_\-count}}
+\index{t\-M\-P\-I\-\_\-\-Get\-\_\-count@{t\-M\-P\-I\-\_\-\-Get\-\_\-count}!tmpi_init.c@{tmpi\-\_\-init.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Get\-\_\-count}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf t\-M\-P\-I\-\_\-\-Get\-\_\-count} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-M\-P\-I\-\_\-\-Status} $\ast$}]{status, }
+\item[{{\bf t\-M\-P\-I\-\_\-\-Datatype}}]{datatype, }
+\item[{int $\ast$}]{count}
+\end{DoxyParamCaption}
+)}}\label{tmpi__init_8c_a73fda6e40d52811ee5fc98f81da4e8b0}
+get the number of actually transferred items from a receive status.
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em status} & \-The status. \\
+\hline
+\mbox{\tt in}  & {\em datatype} & \-The data type which was received. \\
+\hline
+\mbox{\tt out}  & {\em count} & \-The number of items actually received.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-T\-M\-P\-I\-\_\-\-S\-U\-C\-C\-E\-S\-S on success, \-T\-M\-P\-I\-\_\-\-F\-A\-I\-L\-U\-R\-E on failure. 
+\end{DoxyReturn}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tmpi__init_8c_a73fda6e40d52811ee5fc98f81da4e8b0_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{tmpi__init_8c_a3e0b4e50f1ee0a8cae67acd180afcd5c}{\index{tmpi\-\_\-init.\-c@{tmpi\-\_\-init.\-c}!t\-M\-P\-I\-\_\-\-Get\-\_\-\-N@{t\-M\-P\-I\-\_\-\-Get\-\_\-\-N}}
+\index{t\-M\-P\-I\-\_\-\-Get\-\_\-\-N@{t\-M\-P\-I\-\_\-\-Get\-\_\-\-N}!tmpi_init.c@{tmpi\-\_\-init.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Get\-\_\-\-N}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf t\-M\-P\-I\-\_\-\-Get\-\_\-\-N} (
+\begin{DoxyParamCaption}
+\item[{int $\ast$}]{argc, }
+\item[{char $\ast$$\ast$$\ast$}]{argv, }
+\item[{const char $\ast$}]{optname, }
+\item[{int $\ast$}]{nthreads}
+\end{DoxyParamCaption}
+)}}\label{tmpi__init_8c_a3e0b4e50f1ee0a8cae67acd180afcd5c}
+get the number of threads from the command line
+
+can be called before \hyperlink{include_2thread__mpi_2tmpi_8h_ae84ee78d835a33e3f1918e2dd455de1e}{t\-M\-P\-I\-\_\-\-Init()}
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em argc} & argc from \hyperlink{TestAtomics_8c_a840291bc02cba5474a4cb46a9b9566fe}{main()} \\
+\hline
+\mbox{\tt in}  & {\em argv} & argv from \hyperlink{TestAtomics_8c_a840291bc02cba5474a4cb46a9b9566fe}{main()} \\
+\hline
+\mbox{\tt in}  & {\em optname} & name of the argument specifying the number of threads to run. \-If this is \-N\-U\-L\-L, this function will read the first argument and interpret it as the number of threads. \\
+\hline
+\mbox{\tt out}  & {\em nthreads} & the number of threads\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-T\-M\-P\-I\-\_\-\-S\-U\-C\-C\-E\-S\-S on success, \-T\-M\-P\-I\-\_\-\-F\-A\-I\-L\-U\-R\-E on failure. 
+\end{DoxyReturn}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=336pt]{tmpi__init_8c_a3e0b4e50f1ee0a8cae67acd180afcd5c_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=244pt]{tmpi__init_8c_a3e0b4e50f1ee0a8cae67acd180afcd5c_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{tmpi__init_8c_a062509ea3b062ded2da5feae071eca39}{\index{tmpi\-\_\-init.\-c@{tmpi\-\_\-init.\-c}!t\-M\-P\-I\-\_\-\-Get\-\_\-processor\-\_\-name@{t\-M\-P\-I\-\_\-\-Get\-\_\-processor\-\_\-name}}
+\index{t\-M\-P\-I\-\_\-\-Get\-\_\-processor\-\_\-name@{t\-M\-P\-I\-\_\-\-Get\-\_\-processor\-\_\-name}!tmpi_init.c@{tmpi\-\_\-init.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Get\-\_\-processor\-\_\-name}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf t\-M\-P\-I\-\_\-\-Get\-\_\-processor\-\_\-name} (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{name, }
+\item[{int $\ast$}]{resultlen}
+\end{DoxyParamCaption}
+)}}\label{tmpi__init_8c_a062509ea3b062ded2da5feae071eca39}
+returns string with thread number.
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt out}  & {\em name} & \-Pre-\/allocated string to output name to (will not be longer than \-T\-M\-P\-I\-\_\-\-M\-A\-X\-\_\-\-P\-R\-O\-C\-E\-S\-S\-O\-R\-\_\-\-N\-A\-M\-E). \\
+\hline
+\mbox{\tt out}  & {\em resultlen} & \-The length of the output. \-Note that this is an int instead of a size\-\_\-t because the \-M\-P\-I standard for some reason defines all sizes as int\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-T\-M\-P\-I\-\_\-\-S\-U\-C\-C\-E\-S\-S on success, \-T\-M\-P\-I\-\_\-\-F\-A\-I\-L\-U\-R\-E on failure. 
+\end{DoxyReturn}
+\hypertarget{tmpi__init_8c_af254eaebe93e1b7e6f87cb997b3af4d2}{\index{tmpi\-\_\-init.\-c@{tmpi\-\_\-init.\-c}!t\-M\-P\-I\-\_\-\-Global\-\_\-destroy@{t\-M\-P\-I\-\_\-\-Global\-\_\-destroy}}
+\index{t\-M\-P\-I\-\_\-\-Global\-\_\-destroy@{t\-M\-P\-I\-\_\-\-Global\-\_\-destroy}!tmpi_init.c@{tmpi\-\_\-init.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Global\-\_\-destroy}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf t\-M\-P\-I\-\_\-\-Global\-\_\-destroy} (
+\begin{DoxyParamCaption}
+\item[{struct {\bf tmpi\-\_\-global} $\ast$}]{g}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{tmpi__init_8c_af254eaebe93e1b7e6f87cb997b3af4d2}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tmpi__init_8c_af254eaebe93e1b7e6f87cb997b3af4d2_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tmpi__init_8c_af254eaebe93e1b7e6f87cb997b3af4d2_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{tmpi__init_8c_a1bfe1af13f814f58675f0af517a3d9ca}{\index{tmpi\-\_\-init.\-c@{tmpi\-\_\-init.\-c}!t\-M\-P\-I\-\_\-\-Global\-\_\-init@{t\-M\-P\-I\-\_\-\-Global\-\_\-init}}
+\index{t\-M\-P\-I\-\_\-\-Global\-\_\-init@{t\-M\-P\-I\-\_\-\-Global\-\_\-init}!tmpi_init.c@{tmpi\-\_\-init.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Global\-\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf t\-M\-P\-I\-\_\-\-Global\-\_\-init} (
+\begin{DoxyParamCaption}
+\item[{struct {\bf tmpi\-\_\-global} $\ast$}]{g, }
+\item[{int}]{\-Nthreads}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{tmpi__init_8c_a1bfe1af13f814f58675f0af517a3d9ca}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=330pt]{tmpi__init_8c_a1bfe1af13f814f58675f0af517a3d9ca_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tmpi__init_8c_a1bfe1af13f814f58675f0af517a3d9ca_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{tmpi__init_8c_a296a8767c2484c8c5ec8a19e43687579}{\index{tmpi\-\_\-init.\-c@{tmpi\-\_\-init.\-c}!t\-M\-P\-I\-\_\-\-Init@{t\-M\-P\-I\-\_\-\-Init}}
+\index{t\-M\-P\-I\-\_\-\-Init@{t\-M\-P\-I\-\_\-\-Init}!tmpi_init.c@{tmpi\-\_\-init.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Init}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf t\-M\-P\-I\-\_\-\-Init} (
+\begin{DoxyParamCaption}
+\item[{int $\ast$}]{argc, }
+\item[{char $\ast$$\ast$$\ast$}]{argv, }
+\item[{int($\ast$)(int, char $\ast$$\ast$)}]{start\-\_\-function}
+\end{DoxyParamCaption}
+)}}\label{tmpi__init_8c_a296a8767c2484c8c5ec8a19e43687579}
+\-Traditional \-M\-P\-I initializer; spawns threads that start at the given function.
+
+\-Seeks the argument '-\/nt n', where n is the number of threads that will be created. \-If n==0, the number of threads will be the recommended number of threads for this platform as obtained from t\-M\-P\-I\-\_\-\-Get\-\_\-recommended\-\_\-ntreads().
+
+\-The new threads then run the function start\-\_\-function, with the original argc and argv. \-This function could be \hyperlink{TestAtomics_8c_a840291bc02cba5474a4cb46a9b9566fe}{main()}, or any other function; calling this function again -\/ whether from the started threads or from the main thread -\/ has no effect.
+
+\-On platforms that support thread affinity setting, this function will use the 'all-\/cores' affinity strategy\-: it will only set thread affinity if the number of threads is equal to the number of hardware threads (cores + hyperthreads).
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em argc} & argc of original \hyperlink{TestAtomics_8c_a840291bc02cba5474a4cb46a9b9566fe}{main()} invocation, or \-N\-U\-L\-L \\
+\hline
+\mbox{\tt in}  & {\em argv} & argv of original \hyperlink{TestAtomics_8c_a840291bc02cba5474a4cb46a9b9566fe}{main()} invocation, or \-N\-U\-L\-L. \\
+\hline
+\mbox{\tt in}  & {\em start\-\_\-function} & \-Starting function of type int start\-\_\-function(int argc, char $\ast$argv\mbox{[}$\,$\mbox{]});\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-T\-M\-P\-I\-\_\-\-S\-U\-C\-C\-E\-S\-S on success, \-T\-M\-P\-I\-\_\-\-F\-A\-I\-L\-U\-R\-E on failure. 
+\end{DoxyReturn}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tmpi__init_8c_a296a8767c2484c8c5ec8a19e43687579_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{tmpi__init_8c_a4d9071631b3311e05f58aa04272f05cf}{\index{tmpi\-\_\-init.\-c@{tmpi\-\_\-init.\-c}!t\-M\-P\-I\-\_\-\-Init\-\_\-fn@{t\-M\-P\-I\-\_\-\-Init\-\_\-fn}}
+\index{t\-M\-P\-I\-\_\-\-Init\-\_\-fn@{t\-M\-P\-I\-\_\-\-Init\-\_\-fn}!tmpi_init.c@{tmpi\-\_\-init.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Init\-\_\-fn}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf t\-M\-P\-I\-\_\-\-Init\-\_\-fn} (
+\begin{DoxyParamCaption}
+\item[{int}]{main\-\_\-thread\-\_\-returns, }
+\item[{int}]{\-N, }
+\item[{{\bf t\-M\-P\-I\-\_\-\-Affinity\-\_\-strategy}}]{aff\-\_\-strategy, }
+\item[{{\bf void}($\ast$)({\bf void} $\ast$)}]{start\-\_\-function, }
+\item[{{\bf void} $\ast$}]{arg}
+\end{DoxyParamCaption}
+)}}\label{tmpi__init_8c_a4d9071631b3311e05f58aa04272f05cf}
+\-Generic init function thread \-M\-P\-I intializer and thread spawner.
+
+\-Creates \-N threads (including main thread) that run the function start\-\_\-function, which takes a void$\ast$ argument, given by arg. \-The function start\-\_\-function also gets called by the main thread. \-When the function start\-\_\-function returns it, will behave as if t\-M\-P\-I\-\_\-\-Finalize is called, and if it's a sub-\/thread it will stop running.
+
+\-If \-N==0, the number of threads will be the recommended number of threads for this platform as obtained from t\-M\-P\-I\-\_\-\-Get\-\_\-recommended\-\_\-ntreads().
+
+\-Note that thread affinity strategy only has an effect when this is supported by the underlying platform. \-As of yet (2012), this is not the case for \-Mac \-O\-S \-X, for example.
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em main\-\_\-thread\-\_\-returns} & whether the control in the main thread should return immediately (if true), or the start\-\_\-function() should be called from the main thread, too (if false). \\
+\hline
+\mbox{\tt in}  & {\em \-N} & \-The number of threads to start (or 0 to automatically determine this). \\
+\hline
+\mbox{\tt in}  & {\em aff\-\_\-strategy} & \-The thread affinity strategy to use. \\
+\hline
+\mbox{\tt in}  & {\em start\-\_\-function} & \-The function to start threads at (including main thread if main\-\_\-thread\-\_\-returns). \\
+\hline
+\mbox{\tt in}  & {\em arg} & \-An optional argument for start\-\_\-function().\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-T\-M\-P\-I\-\_\-\-F\-A\-I\-L\-U\-R\-E on failure, \-T\-M\-P\-I\-\_\-\-S\-U\-C\-C\-E\-S\-S on succes (after all threads have finished if main\-\_\-thread\-\_\-returns=true). 
+\end{DoxyReturn}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tmpi__init_8c_a4d9071631b3311e05f58aa04272f05cf_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{tmpi__init_8c_a8d06ac2e75304efce77bd18c0567f744}{\index{tmpi\-\_\-init.\-c@{tmpi\-\_\-init.\-c}!t\-M\-P\-I\-\_\-\-Initialized@{t\-M\-P\-I\-\_\-\-Initialized}}
+\index{t\-M\-P\-I\-\_\-\-Initialized@{t\-M\-P\-I\-\_\-\-Initialized}!tmpi_init.c@{tmpi\-\_\-init.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Initialized}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf t\-M\-P\-I\-\_\-\-Initialized} (
+\begin{DoxyParamCaption}
+\item[{int $\ast$}]{flag}
+\end{DoxyParamCaption}
+)}}\label{tmpi__init_8c_a8d06ac2e75304efce77bd18c0567f744}
+whether t\-M\-P\-I\-\_\-\-Init, but not yet t\-M\-P\-I\-\_\-\-Finalize, has been run
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt out}  & {\em flag} & \-Set to \-T\-R\-U\-E if \hyperlink{include_2thread__mpi_2tmpi_8h_ae84ee78d835a33e3f1918e2dd455de1e}{t\-M\-P\-I\-\_\-\-Init()} has been called, \-F\-A\-L\-S\-E if not.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+always returns \-T\-M\-P\-I\-\_\-\-S\-U\-C\-C\-E\-S\-S. 
+\end{DoxyReturn}
+\hypertarget{tmpi__init_8c_aa780330eaa0987ca2cf8419aba305e27}{\index{tmpi\-\_\-init.\-c@{tmpi\-\_\-init.\-c}!t\-M\-P\-I\-\_\-\-Is\-\_\-master@{t\-M\-P\-I\-\_\-\-Is\-\_\-master}}
+\index{t\-M\-P\-I\-\_\-\-Is\-\_\-master@{t\-M\-P\-I\-\_\-\-Is\-\_\-master}!tmpi_init.c@{tmpi\-\_\-init.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Is\-\_\-master}]{\setlength{\rightskip}{0pt plus 5cm}{\bf tmpi\-\_\-bool} {\bf t\-M\-P\-I\-\_\-\-Is\-\_\-master} (
+\begin{DoxyParamCaption}
+\item[{{\bf void}}]{}
+\end{DoxyParamCaption}
+)}}\label{tmpi__init_8c_aa780330eaa0987ca2cf8419aba305e27}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tmpi__init_8c_aa780330eaa0987ca2cf8419aba305e27_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{tmpi__init_8c_a08de6d004fdfa2767473db50ac1c4990}{\index{tmpi\-\_\-init.\-c@{tmpi\-\_\-init.\-c}!t\-M\-P\-I\-\_\-\-Start\-\_\-threads@{t\-M\-P\-I\-\_\-\-Start\-\_\-threads}}
+\index{t\-M\-P\-I\-\_\-\-Start\-\_\-threads@{t\-M\-P\-I\-\_\-\-Start\-\_\-threads}!tmpi_init.c@{tmpi\-\_\-init.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Start\-\_\-threads}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf t\-M\-P\-I\-\_\-\-Start\-\_\-threads} (
+\begin{DoxyParamCaption}
+\item[{{\bf tmpi\-\_\-bool}}]{main\-\_\-returns, }
+\item[{int}]{\-N, }
+\item[{{\bf t\-M\-P\-I\-\_\-\-Affinity\-\_\-strategy}}]{aff\-\_\-strategy, }
+\item[{int $\ast$}]{argc, }
+\item[{char $\ast$$\ast$$\ast$}]{argv, }
+\item[{{\bf void}($\ast$)({\bf void} $\ast$)}]{start\-\_\-fn, }
+\item[{{\bf void} $\ast$}]{start\-\_\-arg, }
+\item[{int($\ast$)(int, char $\ast$$\ast$)}]{start\-\_\-fn\-\_\-main}
+\end{DoxyParamCaption}
+)}}\label{tmpi__init_8c_a08de6d004fdfa2767473db50ac1c4990}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tmpi__init_8c_a08de6d004fdfa2767473db50ac1c4990_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=288pt]{tmpi__init_8c_a08de6d004fdfa2767473db50ac1c4990_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{tmpi__init_8c_af0ca776c5795651d630d3feba27d6c16}{\index{tmpi\-\_\-init.\-c@{tmpi\-\_\-init.\-c}!t\-M\-P\-I\-\_\-\-Thread\-\_\-destroy@{t\-M\-P\-I\-\_\-\-Thread\-\_\-destroy}}
+\index{t\-M\-P\-I\-\_\-\-Thread\-\_\-destroy@{t\-M\-P\-I\-\_\-\-Thread\-\_\-destroy}!tmpi_init.c@{tmpi\-\_\-init.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Thread\-\_\-destroy}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf t\-M\-P\-I\-\_\-\-Thread\-\_\-destroy} (
+\begin{DoxyParamCaption}
+\item[{struct {\bf tmpi\-\_\-thread} $\ast$}]{th}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{tmpi__init_8c_af0ca776c5795651d630d3feba27d6c16}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tmpi__init_8c_af0ca776c5795651d630d3feba27d6c16_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tmpi__init_8c_af0ca776c5795651d630d3feba27d6c16_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{tmpi__init_8c_acaabc7c84c40aef8559142f2dca3afb1}{\index{tmpi\-\_\-init.\-c@{tmpi\-\_\-init.\-c}!t\-M\-P\-I\-\_\-\-Thread\-\_\-init@{t\-M\-P\-I\-\_\-\-Thread\-\_\-init}}
+\index{t\-M\-P\-I\-\_\-\-Thread\-\_\-init@{t\-M\-P\-I\-\_\-\-Thread\-\_\-init}!tmpi_init.c@{tmpi\-\_\-init.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Thread\-\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf t\-M\-P\-I\-\_\-\-Thread\-\_\-init} (
+\begin{DoxyParamCaption}
+\item[{struct {\bf tmpi\-\_\-thread} $\ast$}]{th}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{tmpi__init_8c_acaabc7c84c40aef8559142f2dca3afb1}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tmpi__init_8c_acaabc7c84c40aef8559142f2dca3afb1_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tmpi__init_8c_acaabc7c84c40aef8559142f2dca3afb1_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{tmpi__init_8c_ae905027d19e11af1ab3152b00b1b61f6}{\index{tmpi\-\_\-init.\-c@{tmpi\-\_\-init.\-c}!t\-M\-P\-I\-\_\-\-Thread\-\_\-starter@{t\-M\-P\-I\-\_\-\-Thread\-\_\-starter}}
+\index{t\-M\-P\-I\-\_\-\-Thread\-\_\-starter@{t\-M\-P\-I\-\_\-\-Thread\-\_\-starter}!tmpi_init.c@{tmpi\-\_\-init.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Thread\-\_\-starter}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} $\ast$ {\bf t\-M\-P\-I\-\_\-\-Thread\-\_\-starter} (
+\begin{DoxyParamCaption}
+\item[{{\bf void} $\ast$}]{arg}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{tmpi__init_8c_ae905027d19e11af1ab3152b00b1b61f6}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tmpi__init_8c_ae905027d19e11af1ab3152b00b1b61f6_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tmpi__init_8c_ae905027d19e11af1ab3152b00b1b61f6_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{tmpi__init_8c_acd1509e4a6bac15f653b582b1776ed97}{\index{tmpi\-\_\-init.\-c@{tmpi\-\_\-init.\-c}!t\-M\-P\-I\-\_\-\-Wtick@{t\-M\-P\-I\-\_\-\-Wtick}}
+\index{t\-M\-P\-I\-\_\-\-Wtick@{t\-M\-P\-I\-\_\-\-Wtick}!tmpi_init.c@{tmpi\-\_\-init.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Wtick}]{\setlength{\rightskip}{0pt plus 5cm}double {\bf t\-M\-P\-I\-\_\-\-Wtick} (
+\begin{DoxyParamCaption}
+\item[{{\bf void}}]{}
+\end{DoxyParamCaption}
+)}}\label{tmpi__init_8c_acd1509e4a6bac15f653b582b1776ed97}
+get the resolution of t\-M\-P\-I\-\_\-\-Wtime as a double, in seconds
+
+\begin{DoxyReturn}{\-Returns}
+time resolution. 
+\end{DoxyReturn}
+\hypertarget{tmpi__init_8c_a70f6fe9914433dfdf059dd7971b193b0}{\index{tmpi\-\_\-init.\-c@{tmpi\-\_\-init.\-c}!t\-M\-P\-I\-\_\-\-Wtime@{t\-M\-P\-I\-\_\-\-Wtime}}
+\index{t\-M\-P\-I\-\_\-\-Wtime@{t\-M\-P\-I\-\_\-\-Wtime}!tmpi_init.c@{tmpi\-\_\-init.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Wtime}]{\setlength{\rightskip}{0pt plus 5cm}double {\bf t\-M\-P\-I\-\_\-\-Wtime} (
+\begin{DoxyParamCaption}
+\item[{{\bf void}}]{}
+\end{DoxyParamCaption}
+)}}\label{tmpi__init_8c_a70f6fe9914433dfdf059dd7971b193b0}
+get a time value as a double, in seconds.
+
+\begin{DoxyReturn}{\-Returns}
+time value. 
+\end{DoxyReturn}
+
+
+\subsection{\-Variable \-Documentation}
+\hypertarget{tmpi__init_8c_a3cf2ec47bc30c80fe1fe0c2e70d94a29}{\index{tmpi\-\_\-init.\-c@{tmpi\-\_\-init.\-c}!id\-\_\-key@{id\-\_\-key}}
+\index{id\-\_\-key@{id\-\_\-key}!tmpi_init.c@{tmpi\-\_\-init.\-c}}
+\subsubsection[{id\-\_\-key}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\-M\-P\-I\-\_\-\-Thread\-\_\-key\-\_\-t} {\bf id\-\_\-key}}}\label{tmpi__init_8c_a3cf2ec47bc30c80fe1fe0c2e70d94a29}
+\hypertarget{tmpi__init_8c_a9046e7e5bba439c464448d73eae04f82}{\index{tmpi\-\_\-init.\-c@{tmpi\-\_\-init.\-c}!\-Nthreads@{\-Nthreads}}
+\index{\-Nthreads@{\-Nthreads}!tmpi_init.c@{tmpi\-\_\-init.\-c}}
+\subsubsection[{\-Nthreads}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf \-Nthreads} = 0}}\label{tmpi__init_8c_a9046e7e5bba439c464448d73eae04f82}
+\hypertarget{tmpi__init_8c_ade26fbb78691cfbed3c109994b29e8ff}{\index{tmpi\-\_\-init.\-c@{tmpi\-\_\-init.\-c}!threads@{threads}}
+\index{threads@{threads}!tmpi_init.c@{tmpi\-\_\-init.\-c}}
+\subsubsection[{threads}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf tmpi\-\_\-thread}$\ast$ {\bf threads} = \-N\-U\-L\-L}}\label{tmpi__init_8c_ade26fbb78691cfbed3c109994b29e8ff}
+\hypertarget{tmpi__init_8c_a90a1699aba8a96e9ad290acf84b5fbb6}{\index{tmpi\-\_\-init.\-c@{tmpi\-\_\-init.\-c}!tmpi\-\_\-finalized@{tmpi\-\_\-finalized}}
+\index{tmpi\-\_\-finalized@{tmpi\-\_\-finalized}!tmpi_init.c@{tmpi\-\_\-init.\-c}}
+\subsubsection[{tmpi\-\_\-finalized}]{\setlength{\rightskip}{0pt plus 5cm}{\bf tmpi\-\_\-bool} {\bf tmpi\-\_\-finalized} = {\bf \-F\-A\-L\-S\-E}\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{tmpi__init_8c_a90a1699aba8a96e9ad290acf84b5fbb6}
+\hypertarget{tmpi__init_8c_a5dfcb0a8495d5c0afb9344bdc41fbd97}{\index{tmpi\-\_\-init.\-c@{tmpi\-\_\-init.\-c}!tmpi\-\_\-global@{tmpi\-\_\-global}}
+\index{tmpi\-\_\-global@{tmpi\-\_\-global}!tmpi_init.c@{tmpi\-\_\-init.\-c}}
+\subsubsection[{tmpi\-\_\-global}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf tmpi\-\_\-global}$\ast$ {\bf tmpi\-\_\-global} = \-N\-U\-L\-L}}\label{tmpi__init_8c_a5dfcb0a8495d5c0afb9344bdc41fbd97}
+\hypertarget{tmpi__init_8c_a73f7e7bc4c0aabd6b0c2b08fb8d2a0ec}{\index{tmpi\-\_\-init.\-c@{tmpi\-\_\-init.\-c}!\-T\-M\-P\-I\-\_\-\-G\-R\-O\-U\-P\-\_\-\-E\-M\-P\-T\-Y@{\-T\-M\-P\-I\-\_\-\-G\-R\-O\-U\-P\-\_\-\-E\-M\-P\-T\-Y}}
+\index{\-T\-M\-P\-I\-\_\-\-G\-R\-O\-U\-P\-\_\-\-E\-M\-P\-T\-Y@{\-T\-M\-P\-I\-\_\-\-G\-R\-O\-U\-P\-\_\-\-E\-M\-P\-T\-Y}!tmpi_init.c@{tmpi\-\_\-init.\-c}}
+\subsubsection[{\-T\-M\-P\-I\-\_\-\-G\-R\-O\-U\-P\-\_\-\-E\-M\-P\-T\-Y}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\-M\-P\-I\-\_\-\-Group} {\bf \-T\-M\-P\-I\-\_\-\-G\-R\-O\-U\-P\-\_\-\-E\-M\-P\-T\-Y} = \-N\-U\-L\-L}}\label{tmpi__init_8c_a73f7e7bc4c0aabd6b0c2b08fb8d2a0ec}
+the empty group 

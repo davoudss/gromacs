@@ -1,0 +1,509 @@
+\hypertarget{pme__pp_8c}{\section{src/mdlib/pme\-\_\-pp.c \-File \-Reference}
+\label{pme__pp_8c}\index{src/mdlib/pme\-\_\-pp.\-c@{src/mdlib/pme\-\_\-pp.\-c}}
+}
+{\ttfamily \#include $<$stdio.\-h$>$}\*
+{\ttfamily \#include $<$string.\-h$>$}\*
+{\ttfamily \#include $<$math.\-h$>$}\*
+{\ttfamily \#include \char`\"{}typedefs.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}smalloc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-fatal.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}vec.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}pme.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}network.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}domdec.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}sighandler.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}mpelogging.\-h\char`\"{}}\*
+\-Include dependency graph for pme\-\_\-pp.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{pme__pp_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structgmx__pme__pp}{gmx\-\_\-pme\-\_\-pp}
+\item 
+struct \hyperlink{structgmx__pme__comm__n__box}{gmx\-\_\-pme\-\_\-comm\-\_\-n\-\_\-box}
+\item 
+struct \hyperlink{structgmx__pme__comm__vir__ene__t}{gmx\-\_\-pme\-\_\-comm\-\_\-vir\-\_\-ene\-\_\-t}
+\end{DoxyCompactItemize}
+\subsection*{\-Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{pme__pp_8c_a32f4ec122146ec951b8c703d4d52d7fa}{\-P\-P\-\_\-\-P\-M\-E\-\_\-\-C\-H\-A\-R\-G\-E}~(1$<$$<$0)
+\item 
+\#define \hyperlink{pme__pp_8c_aa65ffb292f2904e883d721e103e8662d}{\-P\-P\-\_\-\-P\-M\-E\-\_\-\-C\-H\-A\-R\-G\-E\-B}~(1$<$$<$1)
+\item 
+\#define \hyperlink{pme__pp_8c_a46c59171641abe02acaa2a2b2cb60e10}{\-P\-P\-\_\-\-P\-M\-E\-\_\-\-C\-O\-O\-R\-D}~(1$<$$<$2)
+\item 
+\#define \hyperlink{pme__pp_8c_aeb76c6c686e11514b9f3863ab2871070}{\-P\-P\-\_\-\-P\-M\-E\-\_\-\-F\-E\-P}~(1$<$$<$3)
+\item 
+\#define \hyperlink{pme__pp_8c_a40a60cb981a1ddd4c35a50237e88e089}{\-P\-P\-\_\-\-P\-M\-E\-\_\-\-E\-N\-E\-R\-\_\-\-V\-I\-R}~(1$<$$<$4)
+\item 
+\#define \hyperlink{pme__pp_8c_ab64cbedc844ba7be1855497f719daeec}{\-P\-P\-\_\-\-P\-M\-E\-\_\-\-F\-I\-N\-I\-S\-H}~(1$<$$<$5)
+\item 
+\#define \hyperlink{pme__pp_8c_a7fb02c6093add88b6cccfa027cc630be}{\-P\-P\-\_\-\-P\-M\-E\-\_\-\-S\-W\-I\-T\-C\-H\-G\-R\-I\-D}~(1$<$$<$6)
+\item 
+\#define \hyperlink{pme__pp_8c_aa33496897eb456704c6e5d1350f7ef46}{\-P\-P\-\_\-\-P\-M\-E\-\_\-\-R\-E\-S\-E\-T\-C\-O\-U\-N\-T\-E\-R\-S}~(1$<$$<$7)
+\item 
+\#define \hyperlink{pme__pp_8c_a49486983e69d327a684b335b2010f57d}{\-P\-M\-E\-\_\-\-P\-P\-\_\-\-S\-I\-G\-S\-T\-O\-P}~(1$<$$<$0)
+\item 
+\#define \hyperlink{pme__pp_8c_a155453e2154a004887eb12341137a076}{\-P\-M\-E\-\_\-\-P\-P\-\_\-\-S\-I\-G\-S\-T\-O\-P\-N\-S\-S}~(1$<$$<$1)
+\end{DoxyCompactItemize}
+\subsection*{\-Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \hyperlink{structgmx__pme__pp}{gmx\-\_\-pme\-\_\-pp} \hyperlink{pme__pp_8c_a68d8b31ec3a5d6ad21849ba0d26bdc21}{t\-\_\-gmx\-\_\-pme\-\_\-pp}
+\item 
+typedef struct \hyperlink{structgmx__pme__comm__n__box}{gmx\-\_\-pme\-\_\-comm\-\_\-n\-\_\-box} \hyperlink{pme__pp_8c_a558db959985de365ad3add0d4157efbf}{gmx\-\_\-pme\-\_\-comm\-\_\-n\-\_\-box\-\_\-t}
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{include_2pme_8h_a15c52a6fc863f1c3c5ee78ae74ded512}{gmx\-\_\-pme\-\_\-pp\-\_\-t} \hyperlink{pme__pp_8c_ac99fbaaba95da9c1f6febb56fce9ba0a}{gmx\-\_\-pme\-\_\-pp\-\_\-init} (\hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{pme__pp_8c_a72d1dc2a1fedb2420d503720226a8388}{gmx\-\_\-pme\-\_\-send\-\_\-q\-\_\-x\-\_\-wait} (\hyperlink{structgmx__domdec__t}{gmx\-\_\-domdec\-\_\-t} $\ast$dd)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{pme__pp_8c_a91e8c987c60700b76b0456ff84c8df77}{gmx\-\_\-pme\-\_\-send\-\_\-q\-\_\-x} (\hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr, int \hyperlink{nbnxn__cuda_8h_a04d8e308e05daeaa5002e3a3c983a14f}{flags}, real $\ast$charge\-A, real $\ast$charge\-B, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_aec47b6dda9c386285e755f058a846af8}{lambda}, int maxshift\-\_\-x, int maxshift\-\_\-y, gmx\-\_\-large\-\_\-int\-\_\-t step)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{pme__pp_8c_a3b2d81980ec4169cda7f8e3be915f7c1}{gmx\-\_\-pme\-\_\-send\-\_\-q} (\hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Free\-Energy, real $\ast$charge\-A, real $\ast$charge\-B, int maxshift\-\_\-x, int maxshift\-\_\-y)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{pme__pp_8c_a95287a3b01d26d52e7091dc43bd45bbe}{gmx\-\_\-pme\-\_\-send\-\_\-x} (\hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Free\-Energy, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_aec47b6dda9c386285e755f058a846af8}{lambda}, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Ener\-Vir, gmx\-\_\-large\-\_\-int\-\_\-t step)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{pme__pp_8c_acd176e956708fb3b98956114261d993c}{gmx\-\_\-pme\-\_\-send\-\_\-finish} (\hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{pme__pp_8c_afd435051f0ef39f68322a05ed1c8e7e0}{gmx\-\_\-pme\-\_\-send\-\_\-switchgrid} (\hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a74f6ffdb4a9c1764f5293969d8c681b6}{ivec} grid\-\_\-size, real ewaldcoeff)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{pme__pp_8c_a3571b84fbf4d827a37c77c5e80c64dee}{gmx\-\_\-pme\-\_\-send\-\_\-resetcounters} (\hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr, gmx\-\_\-large\-\_\-int\-\_\-t step)
+\item 
+int \hyperlink{pme__pp_8c_a2d48d185e84f9693252d2cb81db3966a}{gmx\-\_\-pme\-\_\-recv\-\_\-q\-\_\-x} (struct \hyperlink{structgmx__pme__pp}{gmx\-\_\-pme\-\_\-pp} $\ast$pme\-\_\-pp, int $\ast$natoms, real $\ast$$\ast$charge\-A, real $\ast$$\ast$charge\-B, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$$\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$$\ast$\hyperlink{copyrite_8c_a0757cfb6fe645a02867727255faa4f8b}{f}, int $\ast$maxshift\-\_\-x, int $\ast$maxshift\-\_\-y, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} $\ast$b\-Free\-Energy, real $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_aec47b6dda9c386285e755f058a846af8}{lambda}, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} $\ast$b\-Ener\-Vir, gmx\-\_\-large\-\_\-int\-\_\-t $\ast$step, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a74f6ffdb4a9c1764f5293969d8c681b6}{ivec} grid\-\_\-size, real $\ast$ewaldcoeff)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{pme__pp_8c_a0c39d33cd4b56196daa6e9a63f138b05}{receive\-\_\-virial\-\_\-energy} (\hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} vir, real $\ast$\hyperlink{readir_8c_a5a06e50a13385093bb93cbf7458759a0}{energy}, real $\ast$dvdlambda, float $\ast$pme\-\_\-cycles)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{pme__pp_8c_a06829ae6c4a8fa3751c4f95d64870ab6}{gmx\-\_\-pme\-\_\-receive\-\_\-f} (\hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{copyrite_8c_a0757cfb6fe645a02867727255faa4f8b}{f}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} vir, real $\ast$\hyperlink{readir_8c_a5a06e50a13385093bb93cbf7458759a0}{energy}, real $\ast$dvdlambda, float $\ast$pme\-\_\-cycles)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{pme__pp_8c_a8a03ce74280b7ae55e1878c7bb886eb2}{gmx\-\_\-pme\-\_\-send\-\_\-force\-\_\-vir\-\_\-ener} (struct \hyperlink{structgmx__pme__pp}{gmx\-\_\-pme\-\_\-pp} $\ast$pme\-\_\-pp, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$\hyperlink{copyrite_8c_a0757cfb6fe645a02867727255faa4f8b}{f}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} vir, real \hyperlink{readir_8c_a5a06e50a13385093bb93cbf7458759a0}{energy}, real dvdlambda, float cycles)
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Define \-Documentation}
+\hypertarget{pme__pp_8c_a49486983e69d327a684b335b2010f57d}{\index{pme\-\_\-pp.\-c@{pme\-\_\-pp.\-c}!\-P\-M\-E\-\_\-\-P\-P\-\_\-\-S\-I\-G\-S\-T\-O\-P@{\-P\-M\-E\-\_\-\-P\-P\-\_\-\-S\-I\-G\-S\-T\-O\-P}}
+\index{\-P\-M\-E\-\_\-\-P\-P\-\_\-\-S\-I\-G\-S\-T\-O\-P@{\-P\-M\-E\-\_\-\-P\-P\-\_\-\-S\-I\-G\-S\-T\-O\-P}!pme_pp.c@{pme\-\_\-pp.\-c}}
+\subsubsection[{\-P\-M\-E\-\_\-\-P\-P\-\_\-\-S\-I\-G\-S\-T\-O\-P}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-P\-M\-E\-\_\-\-P\-P\-\_\-\-S\-I\-G\-S\-T\-O\-P}~(1$<$$<$0)}}\label{pme__pp_8c_a49486983e69d327a684b335b2010f57d}
+\hypertarget{pme__pp_8c_a155453e2154a004887eb12341137a076}{\index{pme\-\_\-pp.\-c@{pme\-\_\-pp.\-c}!\-P\-M\-E\-\_\-\-P\-P\-\_\-\-S\-I\-G\-S\-T\-O\-P\-N\-S\-S@{\-P\-M\-E\-\_\-\-P\-P\-\_\-\-S\-I\-G\-S\-T\-O\-P\-N\-S\-S}}
+\index{\-P\-M\-E\-\_\-\-P\-P\-\_\-\-S\-I\-G\-S\-T\-O\-P\-N\-S\-S@{\-P\-M\-E\-\_\-\-P\-P\-\_\-\-S\-I\-G\-S\-T\-O\-P\-N\-S\-S}!pme_pp.c@{pme\-\_\-pp.\-c}}
+\subsubsection[{\-P\-M\-E\-\_\-\-P\-P\-\_\-\-S\-I\-G\-S\-T\-O\-P\-N\-S\-S}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-P\-M\-E\-\_\-\-P\-P\-\_\-\-S\-I\-G\-S\-T\-O\-P\-N\-S\-S}~(1$<$$<$1)}}\label{pme__pp_8c_a155453e2154a004887eb12341137a076}
+\hypertarget{pme__pp_8c_a32f4ec122146ec951b8c703d4d52d7fa}{\index{pme\-\_\-pp.\-c@{pme\-\_\-pp.\-c}!\-P\-P\-\_\-\-P\-M\-E\-\_\-\-C\-H\-A\-R\-G\-E@{\-P\-P\-\_\-\-P\-M\-E\-\_\-\-C\-H\-A\-R\-G\-E}}
+\index{\-P\-P\-\_\-\-P\-M\-E\-\_\-\-C\-H\-A\-R\-G\-E@{\-P\-P\-\_\-\-P\-M\-E\-\_\-\-C\-H\-A\-R\-G\-E}!pme_pp.c@{pme\-\_\-pp.\-c}}
+\subsubsection[{\-P\-P\-\_\-\-P\-M\-E\-\_\-\-C\-H\-A\-R\-G\-E}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-P\-P\-\_\-\-P\-M\-E\-\_\-\-C\-H\-A\-R\-G\-E}~(1$<$$<$0)}}\label{pme__pp_8c_a32f4ec122146ec951b8c703d4d52d7fa}
+\hypertarget{pme__pp_8c_aa65ffb292f2904e883d721e103e8662d}{\index{pme\-\_\-pp.\-c@{pme\-\_\-pp.\-c}!\-P\-P\-\_\-\-P\-M\-E\-\_\-\-C\-H\-A\-R\-G\-E\-B@{\-P\-P\-\_\-\-P\-M\-E\-\_\-\-C\-H\-A\-R\-G\-E\-B}}
+\index{\-P\-P\-\_\-\-P\-M\-E\-\_\-\-C\-H\-A\-R\-G\-E\-B@{\-P\-P\-\_\-\-P\-M\-E\-\_\-\-C\-H\-A\-R\-G\-E\-B}!pme_pp.c@{pme\-\_\-pp.\-c}}
+\subsubsection[{\-P\-P\-\_\-\-P\-M\-E\-\_\-\-C\-H\-A\-R\-G\-E\-B}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-P\-P\-\_\-\-P\-M\-E\-\_\-\-C\-H\-A\-R\-G\-E\-B}~(1$<$$<$1)}}\label{pme__pp_8c_aa65ffb292f2904e883d721e103e8662d}
+\hypertarget{pme__pp_8c_a46c59171641abe02acaa2a2b2cb60e10}{\index{pme\-\_\-pp.\-c@{pme\-\_\-pp.\-c}!\-P\-P\-\_\-\-P\-M\-E\-\_\-\-C\-O\-O\-R\-D@{\-P\-P\-\_\-\-P\-M\-E\-\_\-\-C\-O\-O\-R\-D}}
+\index{\-P\-P\-\_\-\-P\-M\-E\-\_\-\-C\-O\-O\-R\-D@{\-P\-P\-\_\-\-P\-M\-E\-\_\-\-C\-O\-O\-R\-D}!pme_pp.c@{pme\-\_\-pp.\-c}}
+\subsubsection[{\-P\-P\-\_\-\-P\-M\-E\-\_\-\-C\-O\-O\-R\-D}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-P\-P\-\_\-\-P\-M\-E\-\_\-\-C\-O\-O\-R\-D}~(1$<$$<$2)}}\label{pme__pp_8c_a46c59171641abe02acaa2a2b2cb60e10}
+\hypertarget{pme__pp_8c_a40a60cb981a1ddd4c35a50237e88e089}{\index{pme\-\_\-pp.\-c@{pme\-\_\-pp.\-c}!\-P\-P\-\_\-\-P\-M\-E\-\_\-\-E\-N\-E\-R\-\_\-\-V\-I\-R@{\-P\-P\-\_\-\-P\-M\-E\-\_\-\-E\-N\-E\-R\-\_\-\-V\-I\-R}}
+\index{\-P\-P\-\_\-\-P\-M\-E\-\_\-\-E\-N\-E\-R\-\_\-\-V\-I\-R@{\-P\-P\-\_\-\-P\-M\-E\-\_\-\-E\-N\-E\-R\-\_\-\-V\-I\-R}!pme_pp.c@{pme\-\_\-pp.\-c}}
+\subsubsection[{\-P\-P\-\_\-\-P\-M\-E\-\_\-\-E\-N\-E\-R\-\_\-\-V\-I\-R}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-P\-P\-\_\-\-P\-M\-E\-\_\-\-E\-N\-E\-R\-\_\-\-V\-I\-R}~(1$<$$<$4)}}\label{pme__pp_8c_a40a60cb981a1ddd4c35a50237e88e089}
+\hypertarget{pme__pp_8c_aeb76c6c686e11514b9f3863ab2871070}{\index{pme\-\_\-pp.\-c@{pme\-\_\-pp.\-c}!\-P\-P\-\_\-\-P\-M\-E\-\_\-\-F\-E\-P@{\-P\-P\-\_\-\-P\-M\-E\-\_\-\-F\-E\-P}}
+\index{\-P\-P\-\_\-\-P\-M\-E\-\_\-\-F\-E\-P@{\-P\-P\-\_\-\-P\-M\-E\-\_\-\-F\-E\-P}!pme_pp.c@{pme\-\_\-pp.\-c}}
+\subsubsection[{\-P\-P\-\_\-\-P\-M\-E\-\_\-\-F\-E\-P}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-P\-P\-\_\-\-P\-M\-E\-\_\-\-F\-E\-P}~(1$<$$<$3)}}\label{pme__pp_8c_aeb76c6c686e11514b9f3863ab2871070}
+\hypertarget{pme__pp_8c_ab64cbedc844ba7be1855497f719daeec}{\index{pme\-\_\-pp.\-c@{pme\-\_\-pp.\-c}!\-P\-P\-\_\-\-P\-M\-E\-\_\-\-F\-I\-N\-I\-S\-H@{\-P\-P\-\_\-\-P\-M\-E\-\_\-\-F\-I\-N\-I\-S\-H}}
+\index{\-P\-P\-\_\-\-P\-M\-E\-\_\-\-F\-I\-N\-I\-S\-H@{\-P\-P\-\_\-\-P\-M\-E\-\_\-\-F\-I\-N\-I\-S\-H}!pme_pp.c@{pme\-\_\-pp.\-c}}
+\subsubsection[{\-P\-P\-\_\-\-P\-M\-E\-\_\-\-F\-I\-N\-I\-S\-H}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-P\-P\-\_\-\-P\-M\-E\-\_\-\-F\-I\-N\-I\-S\-H}~(1$<$$<$5)}}\label{pme__pp_8c_ab64cbedc844ba7be1855497f719daeec}
+\hypertarget{pme__pp_8c_aa33496897eb456704c6e5d1350f7ef46}{\index{pme\-\_\-pp.\-c@{pme\-\_\-pp.\-c}!\-P\-P\-\_\-\-P\-M\-E\-\_\-\-R\-E\-S\-E\-T\-C\-O\-U\-N\-T\-E\-R\-S@{\-P\-P\-\_\-\-P\-M\-E\-\_\-\-R\-E\-S\-E\-T\-C\-O\-U\-N\-T\-E\-R\-S}}
+\index{\-P\-P\-\_\-\-P\-M\-E\-\_\-\-R\-E\-S\-E\-T\-C\-O\-U\-N\-T\-E\-R\-S@{\-P\-P\-\_\-\-P\-M\-E\-\_\-\-R\-E\-S\-E\-T\-C\-O\-U\-N\-T\-E\-R\-S}!pme_pp.c@{pme\-\_\-pp.\-c}}
+\subsubsection[{\-P\-P\-\_\-\-P\-M\-E\-\_\-\-R\-E\-S\-E\-T\-C\-O\-U\-N\-T\-E\-R\-S}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-P\-P\-\_\-\-P\-M\-E\-\_\-\-R\-E\-S\-E\-T\-C\-O\-U\-N\-T\-E\-R\-S}~(1$<$$<$7)}}\label{pme__pp_8c_aa33496897eb456704c6e5d1350f7ef46}
+\hypertarget{pme__pp_8c_a7fb02c6093add88b6cccfa027cc630be}{\index{pme\-\_\-pp.\-c@{pme\-\_\-pp.\-c}!\-P\-P\-\_\-\-P\-M\-E\-\_\-\-S\-W\-I\-T\-C\-H\-G\-R\-I\-D@{\-P\-P\-\_\-\-P\-M\-E\-\_\-\-S\-W\-I\-T\-C\-H\-G\-R\-I\-D}}
+\index{\-P\-P\-\_\-\-P\-M\-E\-\_\-\-S\-W\-I\-T\-C\-H\-G\-R\-I\-D@{\-P\-P\-\_\-\-P\-M\-E\-\_\-\-S\-W\-I\-T\-C\-H\-G\-R\-I\-D}!pme_pp.c@{pme\-\_\-pp.\-c}}
+\subsubsection[{\-P\-P\-\_\-\-P\-M\-E\-\_\-\-S\-W\-I\-T\-C\-H\-G\-R\-I\-D}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-P\-P\-\_\-\-P\-M\-E\-\_\-\-S\-W\-I\-T\-C\-H\-G\-R\-I\-D}~(1$<$$<$6)}}\label{pme__pp_8c_a7fb02c6093add88b6cccfa027cc630be}
+
+
+\subsection{\-Typedef \-Documentation}
+\hypertarget{pme__pp_8c_a558db959985de365ad3add0d4157efbf}{\index{pme\-\_\-pp.\-c@{pme\-\_\-pp.\-c}!gmx\-\_\-pme\-\_\-comm\-\_\-n\-\_\-box\-\_\-t@{gmx\-\_\-pme\-\_\-comm\-\_\-n\-\_\-box\-\_\-t}}
+\index{gmx\-\_\-pme\-\_\-comm\-\_\-n\-\_\-box\-\_\-t@{gmx\-\_\-pme\-\_\-comm\-\_\-n\-\_\-box\-\_\-t}!pme_pp.c@{pme\-\_\-pp.\-c}}
+\subsubsection[{gmx\-\_\-pme\-\_\-comm\-\_\-n\-\_\-box\-\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf gmx\-\_\-pme\-\_\-comm\-\_\-n\-\_\-box}  {\bf gmx\-\_\-pme\-\_\-comm\-\_\-n\-\_\-box\-\_\-t}}}\label{pme__pp_8c_a558db959985de365ad3add0d4157efbf}
+\hypertarget{pme__pp_8c_a68d8b31ec3a5d6ad21849ba0d26bdc21}{\index{pme\-\_\-pp.\-c@{pme\-\_\-pp.\-c}!t\-\_\-gmx\-\_\-pme\-\_\-pp@{t\-\_\-gmx\-\_\-pme\-\_\-pp}}
+\index{t\-\_\-gmx\-\_\-pme\-\_\-pp@{t\-\_\-gmx\-\_\-pme\-\_\-pp}!pme_pp.c@{pme\-\_\-pp.\-c}}
+\subsubsection[{t\-\_\-gmx\-\_\-pme\-\_\-pp}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf gmx\-\_\-pme\-\_\-pp}  {\bf t\-\_\-gmx\-\_\-pme\-\_\-pp}}}\label{pme__pp_8c_a68d8b31ec3a5d6ad21849ba0d26bdc21}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{pme__pp_8c_ac99fbaaba95da9c1f6febb56fce9ba0a}{\index{pme\-\_\-pp.\-c@{pme\-\_\-pp.\-c}!gmx\-\_\-pme\-\_\-pp\-\_\-init@{gmx\-\_\-pme\-\_\-pp\-\_\-init}}
+\index{gmx\-\_\-pme\-\_\-pp\-\_\-init@{gmx\-\_\-pme\-\_\-pp\-\_\-init}!pme_pp.c@{pme\-\_\-pp.\-c}}
+\subsubsection[{gmx\-\_\-pme\-\_\-pp\-\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-pme\-\_\-pp\-\_\-t} {\bf gmx\-\_\-pme\-\_\-pp\-\_\-init} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-commrec} $\ast$}]{cr}
+\end{DoxyParamCaption}
+)}}\label{pme__pp_8c_ac99fbaaba95da9c1f6febb56fce9ba0a}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=306pt]{pme__pp_8c_ac99fbaaba95da9c1f6febb56fce9ba0a_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{pme__pp_8c_ac99fbaaba95da9c1f6febb56fce9ba0a_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{pme__pp_8c_a06829ae6c4a8fa3751c4f95d64870ab6}{\index{pme\-\_\-pp.\-c@{pme\-\_\-pp.\-c}!gmx\-\_\-pme\-\_\-receive\-\_\-f@{gmx\-\_\-pme\-\_\-receive\-\_\-f}}
+\index{gmx\-\_\-pme\-\_\-receive\-\_\-f@{gmx\-\_\-pme\-\_\-receive\-\_\-f}!pme_pp.c@{pme\-\_\-pp.\-c}}
+\subsubsection[{gmx\-\_\-pme\-\_\-receive\-\_\-f}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-pme\-\_\-receive\-\_\-f} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-commrec} $\ast$}]{cr, }
+\item[{{\bf rvec}}]{f\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf matrix}}]{vir, }
+\item[{real $\ast$}]{energy, }
+\item[{real $\ast$}]{dvdlambda, }
+\item[{float $\ast$}]{pme\-\_\-cycles}
+\end{DoxyParamCaption}
+)}}\label{pme__pp_8c_a06829ae6c4a8fa3751c4f95d64870ab6}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{pme__pp_8c_a06829ae6c4a8fa3751c4f95d64870ab6_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{pme__pp_8c_a06829ae6c4a8fa3751c4f95d64870ab6_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{pme__pp_8c_a2d48d185e84f9693252d2cb81db3966a}{\index{pme\-\_\-pp.\-c@{pme\-\_\-pp.\-c}!gmx\-\_\-pme\-\_\-recv\-\_\-q\-\_\-x@{gmx\-\_\-pme\-\_\-recv\-\_\-q\-\_\-x}}
+\index{gmx\-\_\-pme\-\_\-recv\-\_\-q\-\_\-x@{gmx\-\_\-pme\-\_\-recv\-\_\-q\-\_\-x}!pme_pp.c@{pme\-\_\-pp.\-c}}
+\subsubsection[{gmx\-\_\-pme\-\_\-recv\-\_\-q\-\_\-x}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-pme\-\_\-recv\-\_\-q\-\_\-x} (
+\begin{DoxyParamCaption}
+\item[{struct {\bf gmx\-\_\-pme\-\_\-pp} $\ast$}]{pme\-\_\-pp, }
+\item[{int $\ast$}]{natoms, }
+\item[{real $\ast$$\ast$}]{charge\-A, }
+\item[{real $\ast$$\ast$}]{charge\-B, }
+\item[{{\bf matrix}}]{box, }
+\item[{{\bf rvec} $\ast$$\ast$}]{x, }
+\item[{{\bf rvec} $\ast$$\ast$}]{f, }
+\item[{int $\ast$}]{maxshift\-\_\-x, }
+\item[{int $\ast$}]{maxshift\-\_\-y, }
+\item[{{\bf gmx\-\_\-bool} $\ast$}]{b\-Free\-Energy, }
+\item[{real $\ast$}]{lambda, }
+\item[{{\bf gmx\-\_\-bool} $\ast$}]{b\-Ener\-Vir, }
+\item[{gmx\-\_\-large\-\_\-int\-\_\-t $\ast$}]{step, }
+\item[{{\bf ivec}}]{grid\-\_\-size, }
+\item[{real $\ast$}]{ewaldcoeff}
+\end{DoxyParamCaption}
+)}}\label{pme__pp_8c_a2d48d185e84f9693252d2cb81db3966a}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{pme__pp_8c_a2d48d185e84f9693252d2cb81db3966a_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{pme__pp_8c_acd176e956708fb3b98956114261d993c}{\index{pme\-\_\-pp.\-c@{pme\-\_\-pp.\-c}!gmx\-\_\-pme\-\_\-send\-\_\-finish@{gmx\-\_\-pme\-\_\-send\-\_\-finish}}
+\index{gmx\-\_\-pme\-\_\-send\-\_\-finish@{gmx\-\_\-pme\-\_\-send\-\_\-finish}!pme_pp.c@{pme\-\_\-pp.\-c}}
+\subsubsection[{gmx\-\_\-pme\-\_\-send\-\_\-finish}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-pme\-\_\-send\-\_\-finish} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-commrec} $\ast$}]{cr}
+\end{DoxyParamCaption}
+)}}\label{pme__pp_8c_acd176e956708fb3b98956114261d993c}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{pme__pp_8c_acd176e956708fb3b98956114261d993c_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{pme__pp_8c_acd176e956708fb3b98956114261d993c_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{pme__pp_8c_a8a03ce74280b7ae55e1878c7bb886eb2}{\index{pme\-\_\-pp.\-c@{pme\-\_\-pp.\-c}!gmx\-\_\-pme\-\_\-send\-\_\-force\-\_\-vir\-\_\-ener@{gmx\-\_\-pme\-\_\-send\-\_\-force\-\_\-vir\-\_\-ener}}
+\index{gmx\-\_\-pme\-\_\-send\-\_\-force\-\_\-vir\-\_\-ener@{gmx\-\_\-pme\-\_\-send\-\_\-force\-\_\-vir\-\_\-ener}!pme_pp.c@{pme\-\_\-pp.\-c}}
+\subsubsection[{gmx\-\_\-pme\-\_\-send\-\_\-force\-\_\-vir\-\_\-ener}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-pme\-\_\-send\-\_\-force\-\_\-vir\-\_\-ener} (
+\begin{DoxyParamCaption}
+\item[{struct {\bf gmx\-\_\-pme\-\_\-pp} $\ast$}]{pme\-\_\-pp, }
+\item[{{\bf rvec} $\ast$}]{f, }
+\item[{{\bf matrix}}]{vir, }
+\item[{real}]{energy, }
+\item[{real}]{dvdlambda, }
+\item[{float}]{cycles}
+\end{DoxyParamCaption}
+)}}\label{pme__pp_8c_a8a03ce74280b7ae55e1878c7bb886eb2}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{pme__pp_8c_a8a03ce74280b7ae55e1878c7bb886eb2_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{pme__pp_8c_a3b2d81980ec4169cda7f8e3be915f7c1}{\index{pme\-\_\-pp.\-c@{pme\-\_\-pp.\-c}!gmx\-\_\-pme\-\_\-send\-\_\-q@{gmx\-\_\-pme\-\_\-send\-\_\-q}}
+\index{gmx\-\_\-pme\-\_\-send\-\_\-q@{gmx\-\_\-pme\-\_\-send\-\_\-q}!pme_pp.c@{pme\-\_\-pp.\-c}}
+\subsubsection[{gmx\-\_\-pme\-\_\-send\-\_\-q}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-pme\-\_\-send\-\_\-q} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-commrec} $\ast$}]{cr, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Free\-Energy, }
+\item[{real $\ast$}]{charge\-A, }
+\item[{real $\ast$}]{charge\-B, }
+\item[{int}]{maxshift\-\_\-x, }
+\item[{int}]{maxshift\-\_\-y}
+\end{DoxyParamCaption}
+)}}\label{pme__pp_8c_a3b2d81980ec4169cda7f8e3be915f7c1}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{pme__pp_8c_a3b2d81980ec4169cda7f8e3be915f7c1_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{pme__pp_8c_a3b2d81980ec4169cda7f8e3be915f7c1_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{pme__pp_8c_a91e8c987c60700b76b0456ff84c8df77}{\index{pme\-\_\-pp.\-c@{pme\-\_\-pp.\-c}!gmx\-\_\-pme\-\_\-send\-\_\-q\-\_\-x@{gmx\-\_\-pme\-\_\-send\-\_\-q\-\_\-x}}
+\index{gmx\-\_\-pme\-\_\-send\-\_\-q\-\_\-x@{gmx\-\_\-pme\-\_\-send\-\_\-q\-\_\-x}!pme_pp.c@{pme\-\_\-pp.\-c}}
+\subsubsection[{gmx\-\_\-pme\-\_\-send\-\_\-q\-\_\-x}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf gmx\-\_\-pme\-\_\-send\-\_\-q\-\_\-x} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-commrec} $\ast$}]{cr, }
+\item[{int}]{flags, }
+\item[{real $\ast$}]{charge\-A, }
+\item[{real $\ast$}]{charge\-B, }
+\item[{{\bf matrix}}]{box, }
+\item[{{\bf rvec} $\ast$}]{x, }
+\item[{real}]{lambda, }
+\item[{int}]{maxshift\-\_\-x, }
+\item[{int}]{maxshift\-\_\-y, }
+\item[{gmx\-\_\-large\-\_\-int\-\_\-t}]{step}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{pme__pp_8c_a91e8c987c60700b76b0456ff84c8df77}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{pme__pp_8c_a91e8c987c60700b76b0456ff84c8df77_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{pme__pp_8c_a91e8c987c60700b76b0456ff84c8df77_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{pme__pp_8c_a72d1dc2a1fedb2420d503720226a8388}{\index{pme\-\_\-pp.\-c@{pme\-\_\-pp.\-c}!gmx\-\_\-pme\-\_\-send\-\_\-q\-\_\-x\-\_\-wait@{gmx\-\_\-pme\-\_\-send\-\_\-q\-\_\-x\-\_\-wait}}
+\index{gmx\-\_\-pme\-\_\-send\-\_\-q\-\_\-x\-\_\-wait@{gmx\-\_\-pme\-\_\-send\-\_\-q\-\_\-x\-\_\-wait}!pme_pp.c@{pme\-\_\-pp.\-c}}
+\subsubsection[{gmx\-\_\-pme\-\_\-send\-\_\-q\-\_\-x\-\_\-wait}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf gmx\-\_\-pme\-\_\-send\-\_\-q\-\_\-x\-\_\-wait} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-domdec\-\_\-t} $\ast$}]{dd}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{pme__pp_8c_a72d1dc2a1fedb2420d503720226a8388}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{pme__pp_8c_a72d1dc2a1fedb2420d503720226a8388_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{pme__pp_8c_a3571b84fbf4d827a37c77c5e80c64dee}{\index{pme\-\_\-pp.\-c@{pme\-\_\-pp.\-c}!gmx\-\_\-pme\-\_\-send\-\_\-resetcounters@{gmx\-\_\-pme\-\_\-send\-\_\-resetcounters}}
+\index{gmx\-\_\-pme\-\_\-send\-\_\-resetcounters@{gmx\-\_\-pme\-\_\-send\-\_\-resetcounters}!pme_pp.c@{pme\-\_\-pp.\-c}}
+\subsubsection[{gmx\-\_\-pme\-\_\-send\-\_\-resetcounters}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-pme\-\_\-send\-\_\-resetcounters} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-commrec} $\ast$}]{cr, }
+\item[{gmx\-\_\-large\-\_\-int\-\_\-t}]{step}
+\end{DoxyParamCaption}
+)}}\label{pme__pp_8c_a3571b84fbf4d827a37c77c5e80c64dee}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=312pt]{pme__pp_8c_a3571b84fbf4d827a37c77c5e80c64dee_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{pme__pp_8c_afd435051f0ef39f68322a05ed1c8e7e0}{\index{pme\-\_\-pp.\-c@{pme\-\_\-pp.\-c}!gmx\-\_\-pme\-\_\-send\-\_\-switchgrid@{gmx\-\_\-pme\-\_\-send\-\_\-switchgrid}}
+\index{gmx\-\_\-pme\-\_\-send\-\_\-switchgrid@{gmx\-\_\-pme\-\_\-send\-\_\-switchgrid}!pme_pp.c@{pme\-\_\-pp.\-c}}
+\subsubsection[{gmx\-\_\-pme\-\_\-send\-\_\-switchgrid}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-pme\-\_\-send\-\_\-switchgrid} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-commrec} $\ast$}]{cr, }
+\item[{{\bf ivec}}]{grid\-\_\-size, }
+\item[{real}]{ewaldcoeff}
+\end{DoxyParamCaption}
+)}}\label{pme__pp_8c_afd435051f0ef39f68322a05ed1c8e7e0}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=314pt]{pme__pp_8c_afd435051f0ef39f68322a05ed1c8e7e0_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{pme__pp_8c_afd435051f0ef39f68322a05ed1c8e7e0_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{pme__pp_8c_a95287a3b01d26d52e7091dc43bd45bbe}{\index{pme\-\_\-pp.\-c@{pme\-\_\-pp.\-c}!gmx\-\_\-pme\-\_\-send\-\_\-x@{gmx\-\_\-pme\-\_\-send\-\_\-x}}
+\index{gmx\-\_\-pme\-\_\-send\-\_\-x@{gmx\-\_\-pme\-\_\-send\-\_\-x}!pme_pp.c@{pme\-\_\-pp.\-c}}
+\subsubsection[{gmx\-\_\-pme\-\_\-send\-\_\-x}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-pme\-\_\-send\-\_\-x} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-commrec} $\ast$}]{cr, }
+\item[{{\bf matrix}}]{box, }
+\item[{{\bf rvec} $\ast$}]{x, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Free\-Energy, }
+\item[{real}]{lambda, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Ener\-Vir, }
+\item[{gmx\-\_\-large\-\_\-int\-\_\-t}]{step}
+\end{DoxyParamCaption}
+)}}\label{pme__pp_8c_a95287a3b01d26d52e7091dc43bd45bbe}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{pme__pp_8c_a95287a3b01d26d52e7091dc43bd45bbe_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{pme__pp_8c_a95287a3b01d26d52e7091dc43bd45bbe_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{pme__pp_8c_a0c39d33cd4b56196daa6e9a63f138b05}{\index{pme\-\_\-pp.\-c@{pme\-\_\-pp.\-c}!receive\-\_\-virial\-\_\-energy@{receive\-\_\-virial\-\_\-energy}}
+\index{receive\-\_\-virial\-\_\-energy@{receive\-\_\-virial\-\_\-energy}!pme_pp.c@{pme\-\_\-pp.\-c}}
+\subsubsection[{receive\-\_\-virial\-\_\-energy}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf receive\-\_\-virial\-\_\-energy} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-commrec} $\ast$}]{cr, }
+\item[{{\bf matrix}}]{vir, }
+\item[{real $\ast$}]{energy, }
+\item[{real $\ast$}]{dvdlambda, }
+\item[{float $\ast$}]{pme\-\_\-cycles}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{pme__pp_8c_a0c39d33cd4b56196daa6e9a63f138b05}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=346pt]{pme__pp_8c_a0c39d33cd4b56196daa6e9a63f138b05_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{pme__pp_8c_a0c39d33cd4b56196daa6e9a63f138b05_icgraph}
+\end{center}
+\end{figure}
+
+

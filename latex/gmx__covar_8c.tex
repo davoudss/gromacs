@@ -1,0 +1,100 @@
+\hypertarget{gmx__covar_8c}{\section{src/tools/gmx\-\_\-covar.c \-File \-Reference}
+\label{gmx__covar_8c}\index{src/tools/gmx\-\_\-covar.\-c@{src/tools/gmx\-\_\-covar.\-c}}
+}
+{\ttfamily \#include $<$math.\-h$>$}\*
+{\ttfamily \#include $<$string.\-h$>$}\*
+{\ttfamily \#include $<$time.\-h$>$}\*
+{\ttfamily \#include \char`\"{}visibility.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}statutil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}sysstuff.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}typedefs.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}smalloc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}macros.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}vec.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}pbc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}copyrite.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}futil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}index.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}confio.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}trnio.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}mshift.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}xvgr.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}do\-\_\-fit.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}rmpbc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}txtdump.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}matio.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}eigio.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}eigensolver.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}physics.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-ana.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}string2.\-h\char`\"{}}\*
+\-Include dependency graph for gmx\-\_\-covar.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__covar_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{gmx__covar_8c_a8485f4e81de2537e6a0935626167a775}{\-N\-F\-I\-L\-E}~\hyperlink{share_2template_2gromacs_2macros_8h_a0883345a58f8f63aefa249a4f127f707}{asize}(fnm)
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_af6d678ccc5288db95c70b9d9003f11e2}{\-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} char $\ast$ \hyperlink{gmx__covar_8c_a6f784756642d5b49eaa15074866d5f07}{gmx\-\_\-ctime\-\_\-r} (const time\-\_\-t $\ast$clock, char $\ast$buf, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n})
+\item 
+int \hyperlink{gmx__covar_8c_aefd9e4b9b7dcc4131c17255e44154968}{gmx\-\_\-covar} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Define \-Documentation}
+\hypertarget{gmx__covar_8c_a8485f4e81de2537e6a0935626167a775}{\index{gmx\-\_\-covar.\-c@{gmx\-\_\-covar.\-c}!\-N\-F\-I\-L\-E@{\-N\-F\-I\-L\-E}}
+\index{\-N\-F\-I\-L\-E@{\-N\-F\-I\-L\-E}!gmx_covar.c@{gmx\-\_\-covar.\-c}}
+\subsubsection[{\-N\-F\-I\-L\-E}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-N\-F\-I\-L\-E}~{\bf asize}(fnm)}}\label{gmx__covar_8c_a8485f4e81de2537e6a0935626167a775}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{gmx__covar_8c_aefd9e4b9b7dcc4131c17255e44154968}{\index{gmx\-\_\-covar.\-c@{gmx\-\_\-covar.\-c}!gmx\-\_\-covar@{gmx\-\_\-covar}}
+\index{gmx\-\_\-covar@{gmx\-\_\-covar}!gmx_covar.c@{gmx\-\_\-covar.\-c}}
+\subsubsection[{gmx\-\_\-covar}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-covar} (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{gmx__covar_8c_aefd9e4b9b7dcc4131c17255e44154968}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{gmx__covar_8c_aefd9e4b9b7dcc4131c17255e44154968_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=220pt]{gmx__covar_8c_aefd9e4b9b7dcc4131c17255e44154968_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__covar_8c_a6f784756642d5b49eaa15074866d5f07}{\index{gmx\-\_\-covar.\-c@{gmx\-\_\-covar.\-c}!gmx\-\_\-ctime\-\_\-r@{gmx\-\_\-ctime\-\_\-r}}
+\index{gmx\-\_\-ctime\-\_\-r@{gmx\-\_\-ctime\-\_\-r}!gmx_covar.c@{gmx\-\_\-covar.\-c}}
+\subsubsection[{gmx\-\_\-ctime\-\_\-r}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} char$\ast$ {\bf gmx\-\_\-ctime\-\_\-r} (
+\begin{DoxyParamCaption}
+\item[{const time\-\_\-t $\ast$}]{clock, }
+\item[{char $\ast$}]{buf, }
+\item[{int}]{n}
+\end{DoxyParamCaption}
+)}}\label{gmx__covar_8c_a6f784756642d5b49eaa15074866d5f07}

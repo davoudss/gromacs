@@ -1,0 +1,675 @@
+\hypertarget{nsgrid_8c}{\section{src/mdlib/nsgrid.c \-File \-Reference}
+\label{nsgrid_8c}\index{src/mdlib/nsgrid.\-c@{src/mdlib/nsgrid.\-c}}
+}
+{\ttfamily \#include $<$stdlib.\-h$>$}\*
+{\ttfamily \#include \char`\"{}sysstuff.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}typedefs.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}types/commrec.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}macros.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}smalloc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}nsgrid.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-fatal.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}vec.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}network.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}domdec.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}partdec.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}pbc.\-h\char`\"{}}\*
+{\ttfamily \#include $<$stdio.\-h$>$}\*
+{\ttfamily \#include \char`\"{}futil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}pdbio.\-h\char`\"{}}\*
+\-Include dependency graph for nsgrid.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nsgrid_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{nsgrid_8c_a2f905a9c4868f5f248b12d584a78dfbd}{next}~((cur+1) \% (cr-\/$>$nnodes-\/cr-\/$>$npmenodes))
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{nsgrid_8c_ad6b8ab755a4cbf295c800ad4f37093b3}{calc\-\_\-x\-\_\-av\-\_\-stddev} (int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} av, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} stddev)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{nsgrid_8c_aa89b161836534ba65627c5a67efef556}{get\-\_\-nsgrid\-\_\-boundaries\-\_\-vac} (real av, real stddev, real $\ast$bound0, real $\ast$bound1, real $\ast$bdens0, real $\ast$bdens1)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{nsgrid_8c_aa37d450ff0e1e44389556897b7d7171b}{dd\-\_\-box\-\_\-bounds\-\_\-to\-\_\-ns\-\_\-bounds} (real box0, real box\-\_\-size, real $\ast$\hyperlink{gmx__hbond_8c_ae9481b45ac17ab64ccbe9ab02225b90ea3825ff922743891f25368f8d3a23d92f}{gr0}, real $\ast$\hyperlink{gmx__hbond_8c_ae9481b45ac17ab64ccbe9ab02225b90eaf93e01548de97b3cf8db0e3b7e3b5022}{gr1})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{nsgrid_8c_ace8e17626b74536dcdb1cdb044c2401a}{get\-\_\-nsgrid\-\_\-boundaries} (int nboundeddim, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box, \hyperlink{structgmx__domdec__t}{gmx\-\_\-domdec\-\_\-t} $\ast$dd, \hyperlink{structgmx__ddbox__t}{gmx\-\_\-ddbox\-\_\-t} $\ast$ddbox, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$\hyperlink{gmx__hbond_8c_ae9481b45ac17ab64ccbe9ab02225b90ea3825ff922743891f25368f8d3a23d92f}{gr0}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$\hyperlink{gmx__hbond_8c_ae9481b45ac17ab64ccbe9ab02225b90eaf93e01548de97b3cf8db0e3b7e3b5022}{gr1}, int ncg, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$cgcm, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} grid\-\_\-x0, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} grid\-\_\-x1, real $\ast$grid\-\_\-density)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{nsgrid_8c_a97248ebe398a0901d133419d40a39556}{set\-\_\-grid\-\_\-sizes} (\hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} izones\-\_\-x0, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} izones\-\_\-x1, real rlist, const \hyperlink{structgmx__domdec__t}{gmx\-\_\-domdec\-\_\-t} $\ast$dd, const \hyperlink{structgmx__ddbox__t}{gmx\-\_\-ddbox\-\_\-t} $\ast$ddbox, \hyperlink{structt__grid}{t\-\_\-grid} $\ast$grid, real grid\-\_\-density)
+\item 
+\hyperlink{structt__grid}{t\-\_\-grid} $\ast$ \hyperlink{nsgrid_8c_a667890281c84bcc82a70eb0fe82d28bb}{init\-\_\-grid} (\-F\-I\-L\-E $\ast$fplog, \hyperlink{structt__forcerec}{t\-\_\-forcerec} $\ast$\hyperlink{addconf_8c_ae8414314f87c5e49503ac0117eb511ad}{fr})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{nsgrid_8c_a37bd4d91bd747832e0c73e32cc1ab8a4}{done\-\_\-grid} (\hyperlink{structt__grid}{t\-\_\-grid} $\ast$grid)
+\item 
+int \hyperlink{nsgrid_8c_a1196393c38c82b16b3d05255bdca8a4a}{xyz2ci\-\_\-} (int nry, int nrz, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ad992d70ec70c927046cfc2ab1c79b188}{y}, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_abf930f675551f29a5e46efa4cb496828}{z})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{nsgrid_8c_a12660e620d48c947c793a9df816bf143}{ci2xyz} (\hyperlink{structt__grid}{t\-\_\-grid} $\ast$grid, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a3c7542401c1cb8bd37ef5e7d9eb0f5a8}{i}, int $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}, int $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ad992d70ec70c927046cfc2ab1c79b188}{y}, int $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_abf930f675551f29a5e46efa4cb496828}{z})
+\item 
+static int \hyperlink{nsgrid_8c_abd6ebce50164b1926114310ce528d0c0}{ci\-\_\-not\-\_\-used} (\hyperlink{share_2template_2gromacs_2types_2simple_8h_a74f6ffdb4a9c1764f5293969d8c681b6}{ivec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n})
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{nsgrid_8c_aae0f3606b641c377af3d85adfd65b07c}{set\-\_\-grid\-\_\-ncg} (\hyperlink{structt__grid}{t\-\_\-grid} $\ast$grid, int ncg)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{nsgrid_8c_a8b951cfb80a79bc55a32ef1b1c3571ce}{grid\-\_\-first} (\-F\-I\-L\-E $\ast$fplog, \hyperlink{structt__grid}{t\-\_\-grid} $\ast$grid, \hyperlink{structgmx__domdec__t}{gmx\-\_\-domdec\-\_\-t} $\ast$dd, const \hyperlink{structgmx__ddbox__t}{gmx\-\_\-ddbox\-\_\-t} $\ast$ddbox, int e\-P\-B\-C, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} izones\-\_\-x0, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} izones\-\_\-x1, real rlistlong, real grid\-\_\-density)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{nsgrid_8c_a303194d9957c1a17d561bc7b41d1ce64}{calc\-\_\-bor} (int cg0, int cg1, int ncg, int \-C\-G0\mbox{[}2\mbox{]}, int \-C\-G1\mbox{[}2\mbox{]})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{nsgrid_8c_a890c36a90125d63059b909584b7b4e3c}{calc\-\_\-elemnr} (\-F\-I\-L\-E $\ast$fplog, \hyperlink{structt__grid}{t\-\_\-grid} $\ast$grid, int cg0, int cg1, int ncg)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{nsgrid_8c_adfa396fa6c95dc80d0f9717fd3cbaac3}{calc\-\_\-ptrs} (\hyperlink{structt__grid}{t\-\_\-grid} $\ast$grid)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{nsgrid_8c_a7f6e00c8c80600e86636bcc39951b754}{grid\-\_\-last} (\-F\-I\-L\-E $\ast$log, \hyperlink{structt__grid}{t\-\_\-grid} $\ast$grid, int cg0, int cg1, int ncg)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{nsgrid_8c_a24a84865ae3bafe9af905e2f94ca1127}{fill\-\_\-grid} (\-F\-I\-L\-E $\ast$log, \hyperlink{structgmx__domdec__zones__t}{gmx\-\_\-domdec\-\_\-zones\-\_\-t} $\ast$dd\-\_\-zones, \hyperlink{structt__grid}{t\-\_\-grid} $\ast$grid, int ncg\-\_\-tot, int cg0, int cg1, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} cg\-\_\-cm\mbox{[}$\,$\mbox{]})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{nsgrid_8c_a8089af75f0476365a50d961e00e42c82}{check\-\_\-grid} (\-F\-I\-L\-E $\ast$log, \hyperlink{structt__grid}{t\-\_\-grid} $\ast$grid)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{nsgrid_8c_ae4429dfdd43f0befbecc35eb2e98929e}{print\-\_\-grid} (\-F\-I\-L\-E $\ast$log, \hyperlink{structt__grid}{t\-\_\-grid} $\ast$grid)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{nsgrid_8c_a3b8f7649c857e5344c7228a864b0f5be}{mv\-\_\-grid} (\hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr, \hyperlink{structt__grid}{t\-\_\-grid} $\ast$grid)
+\end{DoxyCompactItemize}
+\subsection*{\-Variables}
+\begin{DoxyCompactItemize}
+\item 
+const char $\ast$ \hyperlink{nsgrid_8c_aae72281170aafcf9c154e5a986545d20}{range\-\_\-warn} = \char`\"{}energy seems reasonable before trying again.\char`\"{}
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Define \-Documentation}
+\hypertarget{nsgrid_8c_a2f905a9c4868f5f248b12d584a78dfbd}{\index{nsgrid.\-c@{nsgrid.\-c}!next@{next}}
+\index{next@{next}!nsgrid.c@{nsgrid.\-c}}
+\subsubsection[{next}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf next}~((cur+1) \% (cr-\/$>$nnodes-\/cr-\/$>$npmenodes))}}\label{nsgrid_8c_a2f905a9c4868f5f248b12d584a78dfbd}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{nsgrid_8c_a303194d9957c1a17d561bc7b41d1ce64}{\index{nsgrid.\-c@{nsgrid.\-c}!calc\-\_\-bor@{calc\-\_\-bor}}
+\index{calc\-\_\-bor@{calc\-\_\-bor}!nsgrid.c@{nsgrid.\-c}}
+\subsubsection[{calc\-\_\-bor}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf calc\-\_\-bor} (
+\begin{DoxyParamCaption}
+\item[{int}]{cg0, }
+\item[{int}]{cg1, }
+\item[{int}]{ncg, }
+\item[{int}]{\-C\-G0\mbox{[}2\mbox{]}, }
+\item[{int}]{\-C\-G1\mbox{[}2\mbox{]}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{nsgrid_8c_a303194d9957c1a17d561bc7b41d1ce64}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nsgrid_8c_a303194d9957c1a17d561bc7b41d1ce64_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{nsgrid_8c_a890c36a90125d63059b909584b7b4e3c}{\index{nsgrid.\-c@{nsgrid.\-c}!calc\-\_\-elemnr@{calc\-\_\-elemnr}}
+\index{calc\-\_\-elemnr@{calc\-\_\-elemnr}!nsgrid.c@{nsgrid.\-c}}
+\subsubsection[{calc\-\_\-elemnr}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf calc\-\_\-elemnr} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fplog, }
+\item[{{\bf t\-\_\-grid} $\ast$}]{grid, }
+\item[{int}]{cg0, }
+\item[{int}]{cg1, }
+\item[{int}]{ncg}
+\end{DoxyParamCaption}
+)}}\label{nsgrid_8c_a890c36a90125d63059b909584b7b4e3c}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=256pt]{nsgrid_8c_a890c36a90125d63059b909584b7b4e3c_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nsgrid_8c_a890c36a90125d63059b909584b7b4e3c_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{nsgrid_8c_adfa396fa6c95dc80d0f9717fd3cbaac3}{\index{nsgrid.\-c@{nsgrid.\-c}!calc\-\_\-ptrs@{calc\-\_\-ptrs}}
+\index{calc\-\_\-ptrs@{calc\-\_\-ptrs}!nsgrid.c@{nsgrid.\-c}}
+\subsubsection[{calc\-\_\-ptrs}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf calc\-\_\-ptrs} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-grid} $\ast$}]{grid}
+\end{DoxyParamCaption}
+)}}\label{nsgrid_8c_adfa396fa6c95dc80d0f9717fd3cbaac3}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=232pt]{nsgrid_8c_adfa396fa6c95dc80d0f9717fd3cbaac3_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nsgrid_8c_adfa396fa6c95dc80d0f9717fd3cbaac3_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{nsgrid_8c_ad6b8ab755a4cbf295c800ad4f37093b3}{\index{nsgrid.\-c@{nsgrid.\-c}!calc\-\_\-x\-\_\-av\-\_\-stddev@{calc\-\_\-x\-\_\-av\-\_\-stddev}}
+\index{calc\-\_\-x\-\_\-av\-\_\-stddev@{calc\-\_\-x\-\_\-av\-\_\-stddev}!nsgrid.c@{nsgrid.\-c}}
+\subsubsection[{calc\-\_\-x\-\_\-av\-\_\-stddev}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf calc\-\_\-x\-\_\-av\-\_\-stddev} (
+\begin{DoxyParamCaption}
+\item[{int}]{n, }
+\item[{{\bf rvec} $\ast$}]{x, }
+\item[{{\bf rvec}}]{av, }
+\item[{{\bf rvec}}]{stddev}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{nsgrid_8c_ad6b8ab755a4cbf295c800ad4f37093b3}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=276pt]{nsgrid_8c_ad6b8ab755a4cbf295c800ad4f37093b3_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nsgrid_8c_ad6b8ab755a4cbf295c800ad4f37093b3_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{nsgrid_8c_a8089af75f0476365a50d961e00e42c82}{\index{nsgrid.\-c@{nsgrid.\-c}!check\-\_\-grid@{check\-\_\-grid}}
+\index{check\-\_\-grid@{check\-\_\-grid}!nsgrid.c@{nsgrid.\-c}}
+\subsubsection[{check\-\_\-grid}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf check\-\_\-grid} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{log, }
+\item[{{\bf t\-\_\-grid} $\ast$}]{grid}
+\end{DoxyParamCaption}
+)}}\label{nsgrid_8c_a8089af75f0476365a50d961e00e42c82}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=240pt]{nsgrid_8c_a8089af75f0476365a50d961e00e42c82_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nsgrid_8c_a8089af75f0476365a50d961e00e42c82_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{nsgrid_8c_a12660e620d48c947c793a9df816bf143}{\index{nsgrid.\-c@{nsgrid.\-c}!ci2xyz@{ci2xyz}}
+\index{ci2xyz@{ci2xyz}!nsgrid.c@{nsgrid.\-c}}
+\subsubsection[{ci2xyz}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf ci2xyz} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-grid} $\ast$}]{grid, }
+\item[{int}]{i, }
+\item[{int $\ast$}]{x, }
+\item[{int $\ast$}]{y, }
+\item[{int $\ast$}]{z}
+\end{DoxyParamCaption}
+)}}\label{nsgrid_8c_a12660e620d48c947c793a9df816bf143}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nsgrid_8c_a12660e620d48c947c793a9df816bf143_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{nsgrid_8c_abd6ebce50164b1926114310ce528d0c0}{\index{nsgrid.\-c@{nsgrid.\-c}!ci\-\_\-not\-\_\-used@{ci\-\_\-not\-\_\-used}}
+\index{ci\-\_\-not\-\_\-used@{ci\-\_\-not\-\_\-used}!nsgrid.c@{nsgrid.\-c}}
+\subsubsection[{ci\-\_\-not\-\_\-used}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf ci\-\_\-not\-\_\-used} (
+\begin{DoxyParamCaption}
+\item[{{\bf ivec}}]{n}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{nsgrid_8c_abd6ebce50164b1926114310ce528d0c0}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nsgrid_8c_abd6ebce50164b1926114310ce528d0c0_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{nsgrid_8c_aa37d450ff0e1e44389556897b7d7171b}{\index{nsgrid.\-c@{nsgrid.\-c}!dd\-\_\-box\-\_\-bounds\-\_\-to\-\_\-ns\-\_\-bounds@{dd\-\_\-box\-\_\-bounds\-\_\-to\-\_\-ns\-\_\-bounds}}
+\index{dd\-\_\-box\-\_\-bounds\-\_\-to\-\_\-ns\-\_\-bounds@{dd\-\_\-box\-\_\-bounds\-\_\-to\-\_\-ns\-\_\-bounds}!nsgrid.c@{nsgrid.\-c}}
+\subsubsection[{dd\-\_\-box\-\_\-bounds\-\_\-to\-\_\-ns\-\_\-bounds}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf dd\-\_\-box\-\_\-bounds\-\_\-to\-\_\-ns\-\_\-bounds} (
+\begin{DoxyParamCaption}
+\item[{real}]{box0, }
+\item[{real}]{box\-\_\-size, }
+\item[{real $\ast$}]{gr0, }
+\item[{real $\ast$}]{gr1}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{nsgrid_8c_aa37d450ff0e1e44389556897b7d7171b}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nsgrid_8c_aa37d450ff0e1e44389556897b7d7171b_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{nsgrid_8c_a37bd4d91bd747832e0c73e32cc1ab8a4}{\index{nsgrid.\-c@{nsgrid.\-c}!done\-\_\-grid@{done\-\_\-grid}}
+\index{done\-\_\-grid@{done\-\_\-grid}!nsgrid.c@{nsgrid.\-c}}
+\subsubsection[{done\-\_\-grid}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf done\-\_\-grid} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-grid} $\ast$}]{grid}
+\end{DoxyParamCaption}
+)}}\label{nsgrid_8c_a37bd4d91bd747832e0c73e32cc1ab8a4}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=238pt]{nsgrid_8c_a37bd4d91bd747832e0c73e32cc1ab8a4_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{nsgrid_8c_a24a84865ae3bafe9af905e2f94ca1127}{\index{nsgrid.\-c@{nsgrid.\-c}!fill\-\_\-grid@{fill\-\_\-grid}}
+\index{fill\-\_\-grid@{fill\-\_\-grid}!nsgrid.c@{nsgrid.\-c}}
+\subsubsection[{fill\-\_\-grid}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf fill\-\_\-grid} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{log, }
+\item[{{\bf gmx\-\_\-domdec\-\_\-zones\-\_\-t} $\ast$}]{dd\-\_\-zones, }
+\item[{{\bf t\-\_\-grid} $\ast$}]{grid, }
+\item[{int}]{ncg\-\_\-tot, }
+\item[{int}]{cg0, }
+\item[{int}]{cg1, }
+\item[{{\bf rvec}}]{cg\-\_\-cm\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{nsgrid_8c_a24a84865ae3bafe9af905e2f94ca1127}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nsgrid_8c_a24a84865ae3bafe9af905e2f94ca1127_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nsgrid_8c_a24a84865ae3bafe9af905e2f94ca1127_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{nsgrid_8c_ace8e17626b74536dcdb1cdb044c2401a}{\index{nsgrid.\-c@{nsgrid.\-c}!get\-\_\-nsgrid\-\_\-boundaries@{get\-\_\-nsgrid\-\_\-boundaries}}
+\index{get\-\_\-nsgrid\-\_\-boundaries@{get\-\_\-nsgrid\-\_\-boundaries}!nsgrid.c@{nsgrid.\-c}}
+\subsubsection[{get\-\_\-nsgrid\-\_\-boundaries}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf get\-\_\-nsgrid\-\_\-boundaries} (
+\begin{DoxyParamCaption}
+\item[{int}]{nboundeddim, }
+\item[{{\bf matrix}}]{box, }
+\item[{{\bf gmx\-\_\-domdec\-\_\-t} $\ast$}]{dd, }
+\item[{{\bf gmx\-\_\-ddbox\-\_\-t} $\ast$}]{ddbox, }
+\item[{{\bf rvec} $\ast$}]{gr0, }
+\item[{{\bf rvec} $\ast$}]{gr1, }
+\item[{int}]{ncg, }
+\item[{{\bf rvec} $\ast$}]{cgcm, }
+\item[{{\bf rvec}}]{grid\-\_\-x0, }
+\item[{{\bf rvec}}]{grid\-\_\-x1, }
+\item[{real $\ast$}]{grid\-\_\-density}
+\end{DoxyParamCaption}
+)}}\label{nsgrid_8c_ace8e17626b74536dcdb1cdb044c2401a}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nsgrid_8c_ace8e17626b74536dcdb1cdb044c2401a_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nsgrid_8c_ace8e17626b74536dcdb1cdb044c2401a_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{nsgrid_8c_aa89b161836534ba65627c5a67efef556}{\index{nsgrid.\-c@{nsgrid.\-c}!get\-\_\-nsgrid\-\_\-boundaries\-\_\-vac@{get\-\_\-nsgrid\-\_\-boundaries\-\_\-vac}}
+\index{get\-\_\-nsgrid\-\_\-boundaries\-\_\-vac@{get\-\_\-nsgrid\-\_\-boundaries\-\_\-vac}!nsgrid.c@{nsgrid.\-c}}
+\subsubsection[{get\-\_\-nsgrid\-\_\-boundaries\-\_\-vac}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf get\-\_\-nsgrid\-\_\-boundaries\-\_\-vac} (
+\begin{DoxyParamCaption}
+\item[{real}]{av, }
+\item[{real}]{stddev, }
+\item[{real $\ast$}]{bound0, }
+\item[{real $\ast$}]{bound1, }
+\item[{real $\ast$}]{bdens0, }
+\item[{real $\ast$}]{bdens1}
+\end{DoxyParamCaption}
+)}}\label{nsgrid_8c_aa89b161836534ba65627c5a67efef556}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nsgrid_8c_aa89b161836534ba65627c5a67efef556_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{nsgrid_8c_a8b951cfb80a79bc55a32ef1b1c3571ce}{\index{nsgrid.\-c@{nsgrid.\-c}!grid\-\_\-first@{grid\-\_\-first}}
+\index{grid\-\_\-first@{grid\-\_\-first}!nsgrid.c@{nsgrid.\-c}}
+\subsubsection[{grid\-\_\-first}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf grid\-\_\-first} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fplog, }
+\item[{{\bf t\-\_\-grid} $\ast$}]{grid, }
+\item[{{\bf gmx\-\_\-domdec\-\_\-t} $\ast$}]{dd, }
+\item[{const {\bf gmx\-\_\-ddbox\-\_\-t} $\ast$}]{ddbox, }
+\item[{int}]{e\-P\-B\-C, }
+\item[{{\bf matrix}}]{box, }
+\item[{{\bf rvec}}]{izones\-\_\-x0, }
+\item[{{\bf rvec}}]{izones\-\_\-x1, }
+\item[{real}]{rlistlong, }
+\item[{real}]{grid\-\_\-density}
+\end{DoxyParamCaption}
+)}}\label{nsgrid_8c_a8b951cfb80a79bc55a32ef1b1c3571ce}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=348pt]{nsgrid_8c_a8b951cfb80a79bc55a32ef1b1c3571ce_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nsgrid_8c_a8b951cfb80a79bc55a32ef1b1c3571ce_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{nsgrid_8c_a7f6e00c8c80600e86636bcc39951b754}{\index{nsgrid.\-c@{nsgrid.\-c}!grid\-\_\-last@{grid\-\_\-last}}
+\index{grid\-\_\-last@{grid\-\_\-last}!nsgrid.c@{nsgrid.\-c}}
+\subsubsection[{grid\-\_\-last}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf grid\-\_\-last} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{log, }
+\item[{{\bf t\-\_\-grid} $\ast$}]{grid, }
+\item[{int}]{cg0, }
+\item[{int}]{cg1, }
+\item[{int}]{ncg}
+\end{DoxyParamCaption}
+)}}\label{nsgrid_8c_a7f6e00c8c80600e86636bcc39951b754}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=240pt]{nsgrid_8c_a7f6e00c8c80600e86636bcc39951b754_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nsgrid_8c_a7f6e00c8c80600e86636bcc39951b754_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{nsgrid_8c_a667890281c84bcc82a70eb0fe82d28bb}{\index{nsgrid.\-c@{nsgrid.\-c}!init\-\_\-grid@{init\-\_\-grid}}
+\index{init\-\_\-grid@{init\-\_\-grid}!nsgrid.c@{nsgrid.\-c}}
+\subsubsection[{init\-\_\-grid}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\-\_\-grid}$\ast$ {\bf init\-\_\-grid} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fplog, }
+\item[{{\bf t\-\_\-forcerec} $\ast$}]{fr}
+\end{DoxyParamCaption}
+)}}\label{nsgrid_8c_a667890281c84bcc82a70eb0fe82d28bb}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=252pt]{nsgrid_8c_a667890281c84bcc82a70eb0fe82d28bb_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nsgrid_8c_a667890281c84bcc82a70eb0fe82d28bb_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{nsgrid_8c_a3b8f7649c857e5344c7228a864b0f5be}{\index{nsgrid.\-c@{nsgrid.\-c}!mv\-\_\-grid@{mv\-\_\-grid}}
+\index{mv\-\_\-grid@{mv\-\_\-grid}!nsgrid.c@{nsgrid.\-c}}
+\subsubsection[{mv\-\_\-grid}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf mv\-\_\-grid} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-commrec} $\ast$}]{cr, }
+\item[{{\bf t\-\_\-grid} $\ast$}]{grid}
+\end{DoxyParamCaption}
+)}}\label{nsgrid_8c_a3b8f7649c857e5344c7228a864b0f5be}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=240pt]{nsgrid_8c_a3b8f7649c857e5344c7228a864b0f5be_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nsgrid_8c_a3b8f7649c857e5344c7228a864b0f5be_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{nsgrid_8c_ae4429dfdd43f0befbecc35eb2e98929e}{\index{nsgrid.\-c@{nsgrid.\-c}!print\-\_\-grid@{print\-\_\-grid}}
+\index{print\-\_\-grid@{print\-\_\-grid}!nsgrid.c@{nsgrid.\-c}}
+\subsubsection[{print\-\_\-grid}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf print\-\_\-grid} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{log, }
+\item[{{\bf t\-\_\-grid} $\ast$}]{grid}
+\end{DoxyParamCaption}
+)}}\label{nsgrid_8c_ae4429dfdd43f0befbecc35eb2e98929e}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nsgrid_8c_ae4429dfdd43f0befbecc35eb2e98929e_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{nsgrid_8c_aae0f3606b641c377af3d85adfd65b07c}{\index{nsgrid.\-c@{nsgrid.\-c}!set\-\_\-grid\-\_\-ncg@{set\-\_\-grid\-\_\-ncg}}
+\index{set\-\_\-grid\-\_\-ncg@{set\-\_\-grid\-\_\-ncg}!nsgrid.c@{nsgrid.\-c}}
+\subsubsection[{set\-\_\-grid\-\_\-ncg}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf set\-\_\-grid\-\_\-ncg} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-grid} $\ast$}]{grid, }
+\item[{int}]{ncg}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{nsgrid_8c_aae0f3606b641c377af3d85adfd65b07c}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=266pt]{nsgrid_8c_aae0f3606b641c377af3d85adfd65b07c_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nsgrid_8c_aae0f3606b641c377af3d85adfd65b07c_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{nsgrid_8c_a97248ebe398a0901d133419d40a39556}{\index{nsgrid.\-c@{nsgrid.\-c}!set\-\_\-grid\-\_\-sizes@{set\-\_\-grid\-\_\-sizes}}
+\index{set\-\_\-grid\-\_\-sizes@{set\-\_\-grid\-\_\-sizes}!nsgrid.c@{nsgrid.\-c}}
+\subsubsection[{set\-\_\-grid\-\_\-sizes}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf set\-\_\-grid\-\_\-sizes} (
+\begin{DoxyParamCaption}
+\item[{{\bf matrix}}]{box, }
+\item[{{\bf rvec}}]{izones\-\_\-x0, }
+\item[{{\bf rvec}}]{izones\-\_\-x1, }
+\item[{real}]{rlist, }
+\item[{const {\bf gmx\-\_\-domdec\-\_\-t} $\ast$}]{dd, }
+\item[{const {\bf gmx\-\_\-ddbox\-\_\-t} $\ast$}]{ddbox, }
+\item[{{\bf t\-\_\-grid} $\ast$}]{grid, }
+\item[{real}]{grid\-\_\-density}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{nsgrid_8c_a97248ebe398a0901d133419d40a39556}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=258pt]{nsgrid_8c_a97248ebe398a0901d133419d40a39556_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nsgrid_8c_a97248ebe398a0901d133419d40a39556_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{nsgrid_8c_a1196393c38c82b16b3d05255bdca8a4a}{\index{nsgrid.\-c@{nsgrid.\-c}!xyz2ci\-\_\-@{xyz2ci\-\_\-}}
+\index{xyz2ci\-\_\-@{xyz2ci\-\_\-}!nsgrid.c@{nsgrid.\-c}}
+\subsubsection[{xyz2ci\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf xyz2ci\-\_\-} (
+\begin{DoxyParamCaption}
+\item[{int}]{nry, }
+\item[{int}]{nrz, }
+\item[{int}]{x, }
+\item[{int}]{y, }
+\item[{int}]{z}
+\end{DoxyParamCaption}
+)}}\label{nsgrid_8c_a1196393c38c82b16b3d05255bdca8a4a}
+
+
+\subsection{\-Variable \-Documentation}
+\hypertarget{nsgrid_8c_aae72281170aafcf9c154e5a986545d20}{\index{nsgrid.\-c@{nsgrid.\-c}!range\-\_\-warn@{range\-\_\-warn}}
+\index{range\-\_\-warn@{range\-\_\-warn}!nsgrid.c@{nsgrid.\-c}}
+\subsubsection[{range\-\_\-warn}]{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ {\bf range\-\_\-warn} = \char`\"{}energy seems reasonable before trying again.\char`\"{}}}\label{nsgrid_8c_aae72281170aafcf9c154e5a986545d20}

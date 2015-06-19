@@ -1,0 +1,199 @@
+\hypertarget{share_2template_2gromacs_2checkpoint_8h}{\section{share/template/gromacs/checkpoint.h \-File \-Reference}
+\label{share_2template_2gromacs_2checkpoint_8h}\index{share/template/gromacs/checkpoint.\-h@{share/template/gromacs/checkpoint.\-h}}
+}
+{\ttfamily \#include \char`\"{}visibility.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}typedefs.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmxfio.\-h\char`\"{}}\*
+\-Include dependency graph for checkpoint.\-h\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{share_2template_2gromacs_2checkpoint_8h__incl}
+\end{center}
+\end{figure}
+\-This graph shows which files directly or indirectly include this file\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{share_2template_2gromacs_2checkpoint_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{share_2template_2gromacs_2checkpoint_8h_a825dd15142a6e46b9dec5e2710bf3572}{\-G\-M\-X\-\_\-\-I\-G\-N\-O\-R\-E\-\_\-\-F\-S\-Y\-N\-C\-\_\-\-F\-A\-I\-L\-U\-R\-E\-\_\-\-E\-N\-V}~\char`\"{}\-G\-M\-X\-\_\-\-I\-G\-N\-O\-R\-E\-\_\-\-F\-S\-Y\-N\-C\-\_\-\-F\-A\-I\-L\-U\-R\-E\char`\"{}
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_af6d678ccc5288db95c70b9d9003f11e2}{\-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{share_2template_2gromacs_2checkpoint_8h_ae6270729a98ef0a8b2e329e964e8cc2f}{write\-\_\-checkpoint} (const char $\ast$fn, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Number\-And\-Keep, \-F\-I\-L\-E $\ast$fplog, \hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr, int e\-Integrator, int simulation\-\_\-part, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Expanded, int elamstats, gmx\-\_\-large\-\_\-int\-\_\-t step, double \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a2b515c84b1293071f7584da32ca336c0}{t}, \hyperlink{structt__state}{t\-\_\-state} $\ast$state)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_af6d678ccc5288db95c70b9d9003f11e2}{\-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{share_2template_2gromacs_2checkpoint_8h_a9f92990a295637f522d1c70f3a46a80a}{load\-\_\-checkpoint} (const char $\ast$fn, \-F\-I\-L\-E $\ast$$\ast$fplog, \hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Part\-Decomp, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a74f6ffdb4a9c1764f5293969d8c681b6}{ivec} dd\-\_\-nc, \hyperlink{structt__inputrec}{t\-\_\-inputrec} $\ast$ir, \hyperlink{structt__state}{t\-\_\-state} $\ast$state, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} $\ast$b\-Read\-R\-N\-G, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} $\ast$b\-Read\-Ekin, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Append, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Force\-Append)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_af6d678ccc5288db95c70b9d9003f11e2}{\-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{share_2template_2gromacs_2checkpoint_8h_ae32313e926fa28a46c2645aae4d9c64e}{read\-\_\-checkpoint\-\_\-state} (const char $\ast$fn, int $\ast$simulation\-\_\-part, gmx\-\_\-large\-\_\-int\-\_\-t $\ast$step, double $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a2b515c84b1293071f7584da32ca336c0}{t}, \hyperlink{structt__state}{t\-\_\-state} $\ast$state)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{share_2template_2gromacs_2checkpoint_8h_a2adcb93a2ac830ae343f29c72cd1c6a0}{read\-\_\-checkpoint\-\_\-trxframe} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fp, \hyperlink{include_2types_2trx_8h_a206f77137d72a5db1097a457a7144ad5}{t\-\_\-trxframe} $\ast$\hyperlink{addconf_8c_ae8414314f87c5e49503ac0117eb511ad}{fr})
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_af6d678ccc5288db95c70b9d9003f11e2}{\-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{share_2template_2gromacs_2checkpoint_8h_a2bcda8f55e290f119bd6b8c66e6d2d29}{list\-\_\-checkpoint} (const char $\ast$fn, \-F\-I\-L\-E $\ast$out)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_af6d678ccc5288db95c70b9d9003f11e2}{\-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{share_2template_2gromacs_2checkpoint_8h_a690202aa9d0d691b46e075bd4e0c17d5}{read\-\_\-checkpoint\-\_\-simulation\-\_\-part} (const char $\ast$filename, int $\ast$simulation\-\_\-part, gmx\-\_\-large\-\_\-int\-\_\-t $\ast$step, \hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Append\-Req, int nfile, const \hyperlink{structt__filenm}{t\-\_\-filenm} fnm\mbox{[}$\,$\mbox{]}, const char $\ast$part\-\_\-suffix, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} $\ast$b\-Add\-Part)
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Define \-Documentation}
+\hypertarget{share_2template_2gromacs_2checkpoint_8h_a825dd15142a6e46b9dec5e2710bf3572}{\index{share/template/gromacs/checkpoint.\-h@{share/template/gromacs/checkpoint.\-h}!\-G\-M\-X\-\_\-\-I\-G\-N\-O\-R\-E\-\_\-\-F\-S\-Y\-N\-C\-\_\-\-F\-A\-I\-L\-U\-R\-E\-\_\-\-E\-N\-V@{\-G\-M\-X\-\_\-\-I\-G\-N\-O\-R\-E\-\_\-\-F\-S\-Y\-N\-C\-\_\-\-F\-A\-I\-L\-U\-R\-E\-\_\-\-E\-N\-V}}
+\index{\-G\-M\-X\-\_\-\-I\-G\-N\-O\-R\-E\-\_\-\-F\-S\-Y\-N\-C\-\_\-\-F\-A\-I\-L\-U\-R\-E\-\_\-\-E\-N\-V@{\-G\-M\-X\-\_\-\-I\-G\-N\-O\-R\-E\-\_\-\-F\-S\-Y\-N\-C\-\_\-\-F\-A\-I\-L\-U\-R\-E\-\_\-\-E\-N\-V}!share/template/gromacs/checkpoint.h@{share/template/gromacs/checkpoint.\-h}}
+\subsubsection[{\-G\-M\-X\-\_\-\-I\-G\-N\-O\-R\-E\-\_\-\-F\-S\-Y\-N\-C\-\_\-\-F\-A\-I\-L\-U\-R\-E\-\_\-\-E\-N\-V}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-G\-M\-X\-\_\-\-I\-G\-N\-O\-R\-E\-\_\-\-F\-S\-Y\-N\-C\-\_\-\-F\-A\-I\-L\-U\-R\-E\-\_\-\-E\-N\-V}~\char`\"{}\-G\-M\-X\-\_\-\-I\-G\-N\-O\-R\-E\-\_\-\-F\-S\-Y\-N\-C\-\_\-\-F\-A\-I\-L\-U\-R\-E\char`\"{}}}\label{share_2template_2gromacs_2checkpoint_8h_a825dd15142a6e46b9dec5e2710bf3572}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{share_2template_2gromacs_2checkpoint_8h_a2bcda8f55e290f119bd6b8c66e6d2d29}{\index{share/template/gromacs/checkpoint.\-h@{share/template/gromacs/checkpoint.\-h}!list\-\_\-checkpoint@{list\-\_\-checkpoint}}
+\index{list\-\_\-checkpoint@{list\-\_\-checkpoint}!share/template/gromacs/checkpoint.h@{share/template/gromacs/checkpoint.\-h}}
+\subsubsection[{list\-\_\-checkpoint}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} {\bf void} {\bf list\-\_\-checkpoint} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{fn, }
+\item[{\-F\-I\-L\-E $\ast$}]{out}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2checkpoint_8h_a2bcda8f55e290f119bd6b8c66e6d2d29}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{share_2template_2gromacs_2checkpoint_8h_a2bcda8f55e290f119bd6b8c66e6d2d29_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{share_2template_2gromacs_2checkpoint_8h_a9f92990a295637f522d1c70f3a46a80a}{\index{share/template/gromacs/checkpoint.\-h@{share/template/gromacs/checkpoint.\-h}!load\-\_\-checkpoint@{load\-\_\-checkpoint}}
+\index{load\-\_\-checkpoint@{load\-\_\-checkpoint}!share/template/gromacs/checkpoint.h@{share/template/gromacs/checkpoint.\-h}}
+\subsubsection[{load\-\_\-checkpoint}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} {\bf void} {\bf load\-\_\-checkpoint} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{fn, }
+\item[{\-F\-I\-L\-E $\ast$$\ast$}]{fplog, }
+\item[{{\bf t\-\_\-commrec} $\ast$}]{cr, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Part\-Decomp, }
+\item[{{\bf ivec}}]{dd\-\_\-nc, }
+\item[{{\bf t\-\_\-inputrec} $\ast$}]{ir, }
+\item[{{\bf t\-\_\-state} $\ast$}]{state, }
+\item[{{\bf gmx\-\_\-bool} $\ast$}]{b\-Read\-R\-N\-G, }
+\item[{{\bf gmx\-\_\-bool} $\ast$}]{b\-Read\-Ekin, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Append, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Force\-Append}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2checkpoint_8h_a9f92990a295637f522d1c70f3a46a80a}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{share_2template_2gromacs_2checkpoint_8h_a9f92990a295637f522d1c70f3a46a80a_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{share_2template_2gromacs_2checkpoint_8h_a690202aa9d0d691b46e075bd4e0c17d5}{\index{share/template/gromacs/checkpoint.\-h@{share/template/gromacs/checkpoint.\-h}!read\-\_\-checkpoint\-\_\-simulation\-\_\-part@{read\-\_\-checkpoint\-\_\-simulation\-\_\-part}}
+\index{read\-\_\-checkpoint\-\_\-simulation\-\_\-part@{read\-\_\-checkpoint\-\_\-simulation\-\_\-part}!share/template/gromacs/checkpoint.h@{share/template/gromacs/checkpoint.\-h}}
+\subsubsection[{read\-\_\-checkpoint\-\_\-simulation\-\_\-part}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} {\bf gmx\-\_\-bool} {\bf read\-\_\-checkpoint\-\_\-simulation\-\_\-part} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{filename, }
+\item[{int $\ast$}]{simulation\-\_\-part, }
+\item[{gmx\-\_\-large\-\_\-int\-\_\-t $\ast$}]{step, }
+\item[{{\bf t\-\_\-commrec} $\ast$}]{cr, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Append\-Req, }
+\item[{int}]{nfile, }
+\item[{const {\bf t\-\_\-filenm}}]{fnm\mbox{[}$\,$\mbox{]}, }
+\item[{const char $\ast$}]{part\-\_\-suffix, }
+\item[{{\bf gmx\-\_\-bool} $\ast$}]{b\-Add\-Part}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2checkpoint_8h_a690202aa9d0d691b46e075bd4e0c17d5}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{share_2template_2gromacs_2checkpoint_8h_a690202aa9d0d691b46e075bd4e0c17d5_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{share_2template_2gromacs_2checkpoint_8h_ae32313e926fa28a46c2645aae4d9c64e}{\index{share/template/gromacs/checkpoint.\-h@{share/template/gromacs/checkpoint.\-h}!read\-\_\-checkpoint\-\_\-state@{read\-\_\-checkpoint\-\_\-state}}
+\index{read\-\_\-checkpoint\-\_\-state@{read\-\_\-checkpoint\-\_\-state}!share/template/gromacs/checkpoint.h@{share/template/gromacs/checkpoint.\-h}}
+\subsubsection[{read\-\_\-checkpoint\-\_\-state}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} {\bf void} {\bf read\-\_\-checkpoint\-\_\-state} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{fn, }
+\item[{int $\ast$}]{simulation\-\_\-part, }
+\item[{gmx\-\_\-large\-\_\-int\-\_\-t $\ast$}]{step, }
+\item[{double $\ast$}]{t, }
+\item[{{\bf t\-\_\-state} $\ast$}]{state}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2checkpoint_8h_ae32313e926fa28a46c2645aae4d9c64e}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{share_2template_2gromacs_2checkpoint_8h_ae32313e926fa28a46c2645aae4d9c64e_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{share_2template_2gromacs_2checkpoint_8h_a2adcb93a2ac830ae343f29c72cd1c6a0}{\index{share/template/gromacs/checkpoint.\-h@{share/template/gromacs/checkpoint.\-h}!read\-\_\-checkpoint\-\_\-trxframe@{read\-\_\-checkpoint\-\_\-trxframe}}
+\index{read\-\_\-checkpoint\-\_\-trxframe@{read\-\_\-checkpoint\-\_\-trxframe}!share/template/gromacs/checkpoint.h@{share/template/gromacs/checkpoint.\-h}}
+\subsubsection[{read\-\_\-checkpoint\-\_\-trxframe}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf read\-\_\-checkpoint\-\_\-trxframe} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fp, }
+\item[{{\bf t\-\_\-trxframe} $\ast$}]{fr}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2checkpoint_8h_a2adcb93a2ac830ae343f29c72cd1c6a0}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{share_2template_2gromacs_2checkpoint_8h_a2adcb93a2ac830ae343f29c72cd1c6a0_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{share_2template_2gromacs_2checkpoint_8h_ae6270729a98ef0a8b2e329e964e8cc2f}{\index{share/template/gromacs/checkpoint.\-h@{share/template/gromacs/checkpoint.\-h}!write\-\_\-checkpoint@{write\-\_\-checkpoint}}
+\index{write\-\_\-checkpoint@{write\-\_\-checkpoint}!share/template/gromacs/checkpoint.h@{share/template/gromacs/checkpoint.\-h}}
+\subsubsection[{write\-\_\-checkpoint}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} {\bf void} {\bf write\-\_\-checkpoint} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{fn, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Number\-And\-Keep, }
+\item[{\-F\-I\-L\-E $\ast$}]{fplog, }
+\item[{{\bf t\-\_\-commrec} $\ast$}]{cr, }
+\item[{int}]{e\-Integrator, }
+\item[{int}]{simulation\-\_\-part, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Expanded, }
+\item[{int}]{elamstats, }
+\item[{gmx\-\_\-large\-\_\-int\-\_\-t}]{step, }
+\item[{double}]{t, }
+\item[{{\bf t\-\_\-state} $\ast$}]{state}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2checkpoint_8h_ae6270729a98ef0a8b2e329e964e8cc2f}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{share_2template_2gromacs_2checkpoint_8h_ae6270729a98ef0a8b2e329e964e8cc2f_cgraph}
+\end{center}
+\end{figure}
+
+

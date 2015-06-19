@@ -1,0 +1,701 @@
+\hypertarget{ehdata_8c}{\section{src/contrib/ehdata.c \-File \-Reference}
+\label{ehdata_8c}\index{src/contrib/ehdata.\-c@{src/contrib/ehdata.\-c}}
+}
+{\ttfamily \#include $<$stdlib.\-h$>$}\*
+{\ttfamily \#include $<$math.\-h$>$}\*
+{\ttfamily \#include \char`\"{}typedefs.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}smalloc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}macros.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}copyrite.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}statutil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-fatal.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}random.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}strdb.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}futil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}physics.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}ehdata.\-h\char`\"{}}\*
+\-Include dependency graph for ehdata.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ehdata_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structt__pq__inel}{t\-\_\-pq\-\_\-inel}
+\item 
+struct \hyperlink{structt__p2Ddata}{t\-\_\-p2\-Ddata}
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+static int \hyperlink{ehdata_8c_a1de00c274067babba0ce61d15392f0c8}{realcomp} (const \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a0880879736d1ab747a972d1942421886}{a}, const \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afb462a5dea72ae7992f073bfd756fb5f}{b})
+\item 
+static \hyperlink{structt__p2Ddata}{t\-\_\-p2\-Ddata} $\ast$ \hyperlink{ehdata_8c_a1aef27c7927f47dc03ed3c6f76782482}{read\-\_\-p2\-Ddata} (char $\ast$fn)
+\item 
+static \hyperlink{structt__pq__inel}{t\-\_\-pq\-\_\-inel} $\ast$ \hyperlink{ehdata_8c_a9d9bae15d5b68d6f93ffad90e8e42748}{read\-\_\-pq} (char $\ast$fn)
+\item 
+static int \hyperlink{ehdata_8c_ac88766dacda11903be961c02d4474051}{my\-\_\-bsearch} (real val, int ndata, real data\mbox{[}$\,$\mbox{]}, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Lower)
+\item 
+static real \hyperlink{ehdata_8c_a941fd6c6b3646745098259e787eda8ce}{interpolate2\-D} (int nx, int ny, real $\ast$\hyperlink{share_2template_2gromacs_2gmx__blas_8h_ad5c6c54e1a03f3517ff918d2f18f5f68}{dx}, real $\ast$$\ast$data, real x0, real fy, int nx0, int ny0)
+\item 
+real \hyperlink{ehdata_8c_a7489756bd5475192691625c3234ff1d9}{get\-\_\-omega} (real ekin, int $\ast$seed, \-F\-I\-L\-E $\ast$fp, char $\ast$fn)
+\item 
+real \hyperlink{ehdata_8c_af645365750dafdd68fbf4bf4a5040090}{get\-\_\-theta\-\_\-el} (real ekin, int $\ast$seed, \-F\-I\-L\-E $\ast$fp, char $\ast$fn)
+\item 
+real \hyperlink{ehdata_8c_a5a3eeaaa8eada0ba241466826a653cb6}{get\-\_\-q\-\_\-inel} (real ekin, real omega, int $\ast$seed, \-F\-I\-L\-E $\ast$fp, char $\ast$fn)
+\item 
+static int \hyperlink{ehdata_8c_aaed256848f27fe3df51fbc0302702eff}{read\-\_\-cross} (char $\ast$fn, real $\ast$$\ast$\hyperlink{optwat_8c_a0af9a624abbf535eeb74358ffc1634b2}{ener}, real $\ast$$\ast$cross, real \hyperlink{coupling_8c_a9fa6cb6aeef8e03a280001b320eb3dc1}{factor})
+\item 
+real \hyperlink{ehdata_8c_accc4703844960894a1744a0502624a88}{cross\-\_\-inel} (real ekin, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a3f8dca81f48c6b3fa603f143a276ca88}{rho}, char $\ast$fn)
+\item 
+real \hyperlink{ehdata_8c_a8e69fa2b3e0d3ddf04b297c17f236022}{cross\-\_\-el} (real ekin, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a3f8dca81f48c6b3fa603f143a276ca88}{rho}, char $\ast$fn)
+\item 
+real \hyperlink{ehdata_8c_a14b5768f9acfe80ecf10c1e5f5b95e35}{band\-\_\-ener} (int $\ast$seed, \-F\-I\-L\-E $\ast$fp, char $\ast$fn)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{ehdata_8c_a5d76c7beab5406351f93d2830323b323}{test\-\_\-omega} (\-F\-I\-L\-E $\ast$fp, int $\ast$seed)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{ehdata_8c_a67dd3905e021996265ae5d5dfbcb6755}{test\-\_\-q\-\_\-inel} (\-F\-I\-L\-E $\ast$fp, int $\ast$seed)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{ehdata_8c_ac346d78203d7b811e3c85870bfacf75e}{test\-\_\-theta\-\_\-el} (\-F\-I\-L\-E $\ast$fp, int $\ast$seed)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{ehdata_8c_a82305f86c18aba242d2b90c1f143601b}{test\-\_\-sigma\-\_\-el} (\-F\-I\-L\-E $\ast$fp, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a3f8dca81f48c6b3fa603f143a276ca88}{rho})
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{ehdata_8c_ac6021207856135d22902b18f4802ca0e}{test\-\_\-sigma\-\_\-inel} (\-F\-I\-L\-E $\ast$fp, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a3f8dca81f48c6b3fa603f143a276ca88}{rho})
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{ehdata_8c_af5b11e4d357493eb9d341d7c6c1889a8}{test\-\_\-band\-\_\-ener} (int $\ast$seed, \-F\-I\-L\-E $\ast$fp)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{ehdata_8c_ad621cb4823d2b8d1cb3a7c52510a1103}{init\-\_\-tables} (int nfile, \hyperlink{structt__filenm}{t\-\_\-filenm} fnm\mbox{[}$\,$\mbox{]}, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a3f8dca81f48c6b3fa603f143a276ca88}{rho})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{ehdata_8c_a2a938bceb295225b6181c62e2c3b4e57}{test\-\_\-tables} (int $\ast$seed, char $\ast$fn, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a3f8dca81f48c6b3fa603f143a276ca88}{rho})
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{ehdata_8c_a14b5768f9acfe80ecf10c1e5f5b95e35}{\index{ehdata.\-c@{ehdata.\-c}!band\-\_\-ener@{band\-\_\-ener}}
+\index{band\-\_\-ener@{band\-\_\-ener}!ehdata.c@{ehdata.\-c}}
+\subsubsection[{band\-\_\-ener}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf band\-\_\-ener} (
+\begin{DoxyParamCaption}
+\item[{int $\ast$}]{seed, }
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{char $\ast$}]{fn}
+\end{DoxyParamCaption}
+)}}\label{ehdata_8c_a14b5768f9acfe80ecf10c1e5f5b95e35}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=332pt]{ehdata_8c_a14b5768f9acfe80ecf10c1e5f5b95e35_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ehdata_8c_a14b5768f9acfe80ecf10c1e5f5b95e35_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{ehdata_8c_a8e69fa2b3e0d3ddf04b297c17f236022}{\index{ehdata.\-c@{ehdata.\-c}!cross\-\_\-el@{cross\-\_\-el}}
+\index{cross\-\_\-el@{cross\-\_\-el}!ehdata.c@{ehdata.\-c}}
+\subsubsection[{cross\-\_\-el}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf cross\-\_\-el} (
+\begin{DoxyParamCaption}
+\item[{real}]{ekin, }
+\item[{real}]{rho, }
+\item[{char $\ast$}]{fn}
+\end{DoxyParamCaption}
+)}}\label{ehdata_8c_a8e69fa2b3e0d3ddf04b297c17f236022}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=324pt]{ehdata_8c_a8e69fa2b3e0d3ddf04b297c17f236022_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ehdata_8c_a8e69fa2b3e0d3ddf04b297c17f236022_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{ehdata_8c_accc4703844960894a1744a0502624a88}{\index{ehdata.\-c@{ehdata.\-c}!cross\-\_\-inel@{cross\-\_\-inel}}
+\index{cross\-\_\-inel@{cross\-\_\-inel}!ehdata.c@{ehdata.\-c}}
+\subsubsection[{cross\-\_\-inel}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf cross\-\_\-inel} (
+\begin{DoxyParamCaption}
+\item[{real}]{ekin, }
+\item[{real}]{rho, }
+\item[{char $\ast$}]{fn}
+\end{DoxyParamCaption}
+)}}\label{ehdata_8c_accc4703844960894a1744a0502624a88}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=332pt]{ehdata_8c_accc4703844960894a1744a0502624a88_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ehdata_8c_accc4703844960894a1744a0502624a88_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{ehdata_8c_a7489756bd5475192691625c3234ff1d9}{\index{ehdata.\-c@{ehdata.\-c}!get\-\_\-omega@{get\-\_\-omega}}
+\index{get\-\_\-omega@{get\-\_\-omega}!ehdata.c@{ehdata.\-c}}
+\subsubsection[{get\-\_\-omega}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf get\-\_\-omega} (
+\begin{DoxyParamCaption}
+\item[{real}]{ekin, }
+\item[{int $\ast$}]{seed, }
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{char $\ast$}]{fn}
+\end{DoxyParamCaption}
+)}}\label{ehdata_8c_a7489756bd5475192691625c3234ff1d9}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ehdata_8c_a7489756bd5475192691625c3234ff1d9_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ehdata_8c_a7489756bd5475192691625c3234ff1d9_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{ehdata_8c_a5a3eeaaa8eada0ba241466826a653cb6}{\index{ehdata.\-c@{ehdata.\-c}!get\-\_\-q\-\_\-inel@{get\-\_\-q\-\_\-inel}}
+\index{get\-\_\-q\-\_\-inel@{get\-\_\-q\-\_\-inel}!ehdata.c@{ehdata.\-c}}
+\subsubsection[{get\-\_\-q\-\_\-inel}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf get\-\_\-q\-\_\-inel} (
+\begin{DoxyParamCaption}
+\item[{real}]{ekin, }
+\item[{real}]{omega, }
+\item[{int $\ast$}]{seed, }
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{char $\ast$}]{fn}
+\end{DoxyParamCaption}
+)}}\label{ehdata_8c_a5a3eeaaa8eada0ba241466826a653cb6}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=344pt]{ehdata_8c_a5a3eeaaa8eada0ba241466826a653cb6_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ehdata_8c_a5a3eeaaa8eada0ba241466826a653cb6_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{ehdata_8c_af645365750dafdd68fbf4bf4a5040090}{\index{ehdata.\-c@{ehdata.\-c}!get\-\_\-theta\-\_\-el@{get\-\_\-theta\-\_\-el}}
+\index{get\-\_\-theta\-\_\-el@{get\-\_\-theta\-\_\-el}!ehdata.c@{ehdata.\-c}}
+\subsubsection[{get\-\_\-theta\-\_\-el}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf get\-\_\-theta\-\_\-el} (
+\begin{DoxyParamCaption}
+\item[{real}]{ekin, }
+\item[{int $\ast$}]{seed, }
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{char $\ast$}]{fn}
+\end{DoxyParamCaption}
+)}}\label{ehdata_8c_af645365750dafdd68fbf4bf4a5040090}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ehdata_8c_af645365750dafdd68fbf4bf4a5040090_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ehdata_8c_af645365750dafdd68fbf4bf4a5040090_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{ehdata_8c_ad621cb4823d2b8d1cb3a7c52510a1103}{\index{ehdata.\-c@{ehdata.\-c}!init\-\_\-tables@{init\-\_\-tables}}
+\index{init\-\_\-tables@{init\-\_\-tables}!ehdata.c@{ehdata.\-c}}
+\subsubsection[{init\-\_\-tables}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf init\-\_\-tables} (
+\begin{DoxyParamCaption}
+\item[{int}]{nfile, }
+\item[{{\bf t\-\_\-filenm}}]{fnm\mbox{[}$\,$\mbox{]}, }
+\item[{real}]{rho}
+\end{DoxyParamCaption}
+)}}\label{ehdata_8c_ad621cb4823d2b8d1cb3a7c52510a1103}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ehdata_8c_ad621cb4823d2b8d1cb3a7c52510a1103_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=216pt]{ehdata_8c_ad621cb4823d2b8d1cb3a7c52510a1103_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{ehdata_8c_a941fd6c6b3646745098259e787eda8ce}{\index{ehdata.\-c@{ehdata.\-c}!interpolate2\-D@{interpolate2\-D}}
+\index{interpolate2\-D@{interpolate2\-D}!ehdata.c@{ehdata.\-c}}
+\subsubsection[{interpolate2\-D}]{\setlength{\rightskip}{0pt plus 5cm}static real {\bf interpolate2\-D} (
+\begin{DoxyParamCaption}
+\item[{int}]{nx, }
+\item[{int}]{ny, }
+\item[{real $\ast$}]{dx, }
+\item[{real $\ast$$\ast$}]{data, }
+\item[{real}]{x0, }
+\item[{real}]{fy, }
+\item[{int}]{nx0, }
+\item[{int}]{ny0}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{ehdata_8c_a941fd6c6b3646745098259e787eda8ce}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ehdata_8c_a941fd6c6b3646745098259e787eda8ce_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{ehdata_8c_ac88766dacda11903be961c02d4474051}{\index{ehdata.\-c@{ehdata.\-c}!my\-\_\-bsearch@{my\-\_\-bsearch}}
+\index{my\-\_\-bsearch@{my\-\_\-bsearch}!ehdata.c@{ehdata.\-c}}
+\subsubsection[{my\-\_\-bsearch}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf my\-\_\-bsearch} (
+\begin{DoxyParamCaption}
+\item[{real}]{val, }
+\item[{int}]{ndata, }
+\item[{real}]{data\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Lower}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{ehdata_8c_ac88766dacda11903be961c02d4474051}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ehdata_8c_ac88766dacda11903be961c02d4474051_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{ehdata_8c_aaed256848f27fe3df51fbc0302702eff}{\index{ehdata.\-c@{ehdata.\-c}!read\-\_\-cross@{read\-\_\-cross}}
+\index{read\-\_\-cross@{read\-\_\-cross}!ehdata.c@{ehdata.\-c}}
+\subsubsection[{read\-\_\-cross}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf read\-\_\-cross} (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{fn, }
+\item[{real $\ast$$\ast$}]{ener, }
+\item[{real $\ast$$\ast$}]{cross, }
+\item[{real}]{factor}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{ehdata_8c_aaed256848f27fe3df51fbc0302702eff}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=230pt]{ehdata_8c_aaed256848f27fe3df51fbc0302702eff_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ehdata_8c_aaed256848f27fe3df51fbc0302702eff_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{ehdata_8c_a1aef27c7927f47dc03ed3c6f76782482}{\index{ehdata.\-c@{ehdata.\-c}!read\-\_\-p2\-Ddata@{read\-\_\-p2\-Ddata}}
+\index{read\-\_\-p2\-Ddata@{read\-\_\-p2\-Ddata}!ehdata.c@{ehdata.\-c}}
+\subsubsection[{read\-\_\-p2\-Ddata}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf t\-\_\-p2\-Ddata}$\ast$ {\bf read\-\_\-p2\-Ddata} (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{fn}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{ehdata_8c_a1aef27c7927f47dc03ed3c6f76782482}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=254pt]{ehdata_8c_a1aef27c7927f47dc03ed3c6f76782482_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ehdata_8c_a1aef27c7927f47dc03ed3c6f76782482_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{ehdata_8c_a9d9bae15d5b68d6f93ffad90e8e42748}{\index{ehdata.\-c@{ehdata.\-c}!read\-\_\-pq@{read\-\_\-pq}}
+\index{read\-\_\-pq@{read\-\_\-pq}!ehdata.c@{ehdata.\-c}}
+\subsubsection[{read\-\_\-pq}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf t\-\_\-pq\-\_\-inel}$\ast$ {\bf read\-\_\-pq} (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{fn}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{ehdata_8c_a9d9bae15d5b68d6f93ffad90e8e42748}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=228pt]{ehdata_8c_a9d9bae15d5b68d6f93ffad90e8e42748_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ehdata_8c_a9d9bae15d5b68d6f93ffad90e8e42748_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{ehdata_8c_a1de00c274067babba0ce61d15392f0c8}{\index{ehdata.\-c@{ehdata.\-c}!realcomp@{realcomp}}
+\index{realcomp@{realcomp}!ehdata.c@{ehdata.\-c}}
+\subsubsection[{realcomp}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf realcomp} (
+\begin{DoxyParamCaption}
+\item[{const {\bf void} $\ast$}]{a, }
+\item[{const {\bf void} $\ast$}]{b}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{ehdata_8c_a1de00c274067babba0ce61d15392f0c8}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ehdata_8c_a1de00c274067babba0ce61d15392f0c8_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{ehdata_8c_af5b11e4d357493eb9d341d7c6c1889a8}{\index{ehdata.\-c@{ehdata.\-c}!test\-\_\-band\-\_\-ener@{test\-\_\-band\-\_\-ener}}
+\index{test\-\_\-band\-\_\-ener@{test\-\_\-band\-\_\-ener}!ehdata.c@{ehdata.\-c}}
+\subsubsection[{test\-\_\-band\-\_\-ener}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf test\-\_\-band\-\_\-ener} (
+\begin{DoxyParamCaption}
+\item[{int $\ast$}]{seed, }
+\item[{\-F\-I\-L\-E $\ast$}]{fp}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{ehdata_8c_af5b11e4d357493eb9d341d7c6c1889a8}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ehdata_8c_af5b11e4d357493eb9d341d7c6c1889a8_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=340pt]{ehdata_8c_af5b11e4d357493eb9d341d7c6c1889a8_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{ehdata_8c_a5d76c7beab5406351f93d2830323b323}{\index{ehdata.\-c@{ehdata.\-c}!test\-\_\-omega@{test\-\_\-omega}}
+\index{test\-\_\-omega@{test\-\_\-omega}!ehdata.c@{ehdata.\-c}}
+\subsubsection[{test\-\_\-omega}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf test\-\_\-omega} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{int $\ast$}]{seed}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{ehdata_8c_a5d76c7beab5406351f93d2830323b323}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ehdata_8c_a5d76c7beab5406351f93d2830323b323_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=324pt]{ehdata_8c_a5d76c7beab5406351f93d2830323b323_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{ehdata_8c_a67dd3905e021996265ae5d5dfbcb6755}{\index{ehdata.\-c@{ehdata.\-c}!test\-\_\-q\-\_\-inel@{test\-\_\-q\-\_\-inel}}
+\index{test\-\_\-q\-\_\-inel@{test\-\_\-q\-\_\-inel}!ehdata.c@{ehdata.\-c}}
+\subsubsection[{test\-\_\-q\-\_\-inel}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf test\-\_\-q\-\_\-inel} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{int $\ast$}]{seed}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{ehdata_8c_a67dd3905e021996265ae5d5dfbcb6755}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ehdata_8c_a67dd3905e021996265ae5d5dfbcb6755_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=320pt]{ehdata_8c_a67dd3905e021996265ae5d5dfbcb6755_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{ehdata_8c_a82305f86c18aba242d2b90c1f143601b}{\index{ehdata.\-c@{ehdata.\-c}!test\-\_\-sigma\-\_\-el@{test\-\_\-sigma\-\_\-el}}
+\index{test\-\_\-sigma\-\_\-el@{test\-\_\-sigma\-\_\-el}!ehdata.c@{ehdata.\-c}}
+\subsubsection[{test\-\_\-sigma\-\_\-el}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf test\-\_\-sigma\-\_\-el} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{real}]{rho}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{ehdata_8c_a82305f86c18aba242d2b90c1f143601b}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ehdata_8c_a82305f86c18aba242d2b90c1f143601b_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=334pt]{ehdata_8c_a82305f86c18aba242d2b90c1f143601b_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{ehdata_8c_ac6021207856135d22902b18f4802ca0e}{\index{ehdata.\-c@{ehdata.\-c}!test\-\_\-sigma\-\_\-inel@{test\-\_\-sigma\-\_\-inel}}
+\index{test\-\_\-sigma\-\_\-inel@{test\-\_\-sigma\-\_\-inel}!ehdata.c@{ehdata.\-c}}
+\subsubsection[{test\-\_\-sigma\-\_\-inel}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf test\-\_\-sigma\-\_\-inel} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{real}]{rho}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{ehdata_8c_ac6021207856135d22902b18f4802ca0e}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ehdata_8c_ac6021207856135d22902b18f4802ca0e_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=342pt]{ehdata_8c_ac6021207856135d22902b18f4802ca0e_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{ehdata_8c_a2a938bceb295225b6181c62e2c3b4e57}{\index{ehdata.\-c@{ehdata.\-c}!test\-\_\-tables@{test\-\_\-tables}}
+\index{test\-\_\-tables@{test\-\_\-tables}!ehdata.c@{ehdata.\-c}}
+\subsubsection[{test\-\_\-tables}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf test\-\_\-tables} (
+\begin{DoxyParamCaption}
+\item[{int $\ast$}]{seed, }
+\item[{char $\ast$}]{fn, }
+\item[{real}]{rho}
+\end{DoxyParamCaption}
+)}}\label{ehdata_8c_a2a938bceb295225b6181c62e2c3b4e57}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ehdata_8c_a2a938bceb295225b6181c62e2c3b4e57_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=220pt]{ehdata_8c_a2a938bceb295225b6181c62e2c3b4e57_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{ehdata_8c_ac346d78203d7b811e3c85870bfacf75e}{\index{ehdata.\-c@{ehdata.\-c}!test\-\_\-theta\-\_\-el@{test\-\_\-theta\-\_\-el}}
+\index{test\-\_\-theta\-\_\-el@{test\-\_\-theta\-\_\-el}!ehdata.c@{ehdata.\-c}}
+\subsubsection[{test\-\_\-theta\-\_\-el}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf test\-\_\-theta\-\_\-el} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{int $\ast$}]{seed}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{ehdata_8c_ac346d78203d7b811e3c85870bfacf75e}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ehdata_8c_ac346d78203d7b811e3c85870bfacf75e_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=330pt]{ehdata_8c_ac346d78203d7b811e3c85870bfacf75e_icgraph}
+\end{center}
+\end{figure}
+
+

@@ -1,0 +1,587 @@
+\hypertarget{hackblock_8c}{\section{src/kernel/hackblock.c \-File \-Reference}
+\label{hackblock_8c}\index{src/kernel/hackblock.\-c@{src/kernel/hackblock.\-c}}
+}
+{\ttfamily \#include $<$string.\-h$>$}\*
+{\ttfamily \#include \char`\"{}hackblock.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}smalloc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}vec.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}string2.\-h\char`\"{}}\*
+\-Include dependency graph for hackblock.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{hackblock_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{hackblock_8c_a6e34668b65636ffe750ef0233599c104}{safe\-\_\-strdup}(str)~((str != \-N\-U\-L\-L) ? strdup(str) \-: \-N\-U\-L\-L)
+\item 
+\#define \hyperlink{hackblock_8c_a7ddf0494bc58defe54adb87d389729ff}{\-S\-S}(\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a6dd0d3574865c5458827c47f2cfd02b8}{s})~(\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a6dd0d3574865c5458827c47f2cfd02b8}{s}) ? (\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a6dd0d3574865c5458827c47f2cfd02b8}{s}) \-: \char`\"{}-\/\char`\"{}
+\item 
+\#define \hyperlink{hackblock_8c_a624a37ff829f1c3de3e3329a76e61e10}{\-S\-A}(\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a6dd0d3574865c5458827c47f2cfd02b8}{s})~(\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a6dd0d3574865c5458827c47f2cfd02b8}{s}) ? \char`\"{}+\char`\"{} \-: \char`\"{}\char`\"{}
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{hackblock_8c_a1a803e1ab135d6fb51cd213f7dbb66c4}{free\-\_\-t\-\_\-bonded} (\hyperlink{structt__rbonded}{t\-\_\-rbonded} $\ast$rb)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{hackblock_8c_a15eda87838f1f97282d78505686865ea}{free\-\_\-t\-\_\-bondeds} (\hyperlink{structt__rbondeds}{t\-\_\-rbondeds} $\ast$rbs)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{hackblock_8c_ab1437558c3db67913b9b547ad738dfa9}{free\-\_\-t\-\_\-restp} (int nrtp, \hyperlink{structt__restp}{t\-\_\-restp} $\ast$$\ast$rtp)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{hackblock_8c_a1618a7f98f1f761feb920ac242b0a060}{free\-\_\-t\-\_\-hack} (int nh, \hyperlink{structt__hack}{t\-\_\-hack} $\ast$$\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a9bcf37986fb7bcbb472454ccb7e7367d}{h})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{hackblock_8c_a53cf6430b1712e1cd1789a4e060ddaba}{free\-\_\-t\-\_\-hackblock} (int nhb, \hyperlink{structt__hackblock}{t\-\_\-hackblock} $\ast$$\ast$hb)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{hackblock_8c_ac10b990e8abb2d1afcaefc0541e40c04}{clear\-\_\-t\-\_\-hackblock} (\hyperlink{structt__hackblock}{t\-\_\-hackblock} $\ast$hb)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{hackblock_8c_a4f7471baa8e125f5b90691c9c4dba82a}{clear\-\_\-t\-\_\-hack} (\hyperlink{structt__hack}{t\-\_\-hack} $\ast$hack)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{hackblock_8c_aae91f67654170c296f90f637638ea764}{copy\-\_\-t\-\_\-rbonded} (\hyperlink{structt__rbonded}{t\-\_\-rbonded} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a6dd0d3574865c5458827c47f2cfd02b8}{s}, \hyperlink{structt__rbonded}{t\-\_\-rbonded} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae624f265c646670d373e9de0306f184b}{d})
+\item 
+static \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{hackblock_8c_ad6a3bbc5f3679431d5c2783ea4703618}{contains\-\_\-char} (\hyperlink{structt__rbonded}{t\-\_\-rbonded} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a6dd0d3574865c5458827c47f2cfd02b8}{s}, char \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae4f482ada992ba1e6b96026c14729ffe}{c})
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{hackblock_8c_a896830414ac8192ebbc6cb3e991e5a72}{merge\-\_\-t\-\_\-bondeds} (\hyperlink{structt__rbondeds}{t\-\_\-rbondeds} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a6dd0d3574865c5458827c47f2cfd02b8}{s}\mbox{[}$\,$\mbox{]}, \hyperlink{structt__rbondeds}{t\-\_\-rbondeds} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae624f265c646670d373e9de0306f184b}{d}\mbox{[}$\,$\mbox{]}, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Min, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Plus)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{hackblock_8c_a31f251693f5dad98bb6d8d526ee148b6}{copy\-\_\-t\-\_\-restp} (\hyperlink{structt__restp}{t\-\_\-restp} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a6dd0d3574865c5458827c47f2cfd02b8}{s}, \hyperlink{structt__restp}{t\-\_\-restp} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae624f265c646670d373e9de0306f184b}{d})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{hackblock_8c_a1fea07cfa221ca4f5b0f23351764d465}{copy\-\_\-t\-\_\-hack} (\hyperlink{structt__hack}{t\-\_\-hack} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a6dd0d3574865c5458827c47f2cfd02b8}{s}, \hyperlink{structt__hack}{t\-\_\-hack} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae624f265c646670d373e9de0306f184b}{d})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{hackblock_8c_aef7cda07a58632ef95b6f1fe0fc79ed5}{merge\-\_\-hacks\-\_\-lo} (int \hyperlink{force_8c_a8bfb3526a6b945b195833476988e72ef}{ns}, \hyperlink{structt__hack}{t\-\_\-hack} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a6dd0d3574865c5458827c47f2cfd02b8}{s}, int $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a8e9ce7d544c02c22962c4773a33a9b15}{nd}, \hyperlink{structt__hack}{t\-\_\-hack} $\ast$$\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae624f265c646670d373e9de0306f184b}{d})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{hackblock_8c_a63b9f55e60b25c1f8c0f54b77aad6ef4}{merge\-\_\-hacks} (\hyperlink{structt__hackblock}{t\-\_\-hackblock} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a6dd0d3574865c5458827c47f2cfd02b8}{s}, \hyperlink{structt__hackblock}{t\-\_\-hackblock} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae624f265c646670d373e9de0306f184b}{d})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{hackblock_8c_a1b7a6418c5a90e787c1c5a0723e87545}{merge\-\_\-t\-\_\-hackblock} (\hyperlink{structt__hackblock}{t\-\_\-hackblock} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a6dd0d3574865c5458827c47f2cfd02b8}{s}, \hyperlink{structt__hackblock}{t\-\_\-hackblock} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae624f265c646670d373e9de0306f184b}{d})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{hackblock_8c_aae9a7bc9732a67f96a488318501ccfa5}{copy\-\_\-t\-\_\-hackblock} (\hyperlink{structt__hackblock}{t\-\_\-hackblock} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a6dd0d3574865c5458827c47f2cfd02b8}{s}, \hyperlink{structt__hackblock}{t\-\_\-hackblock} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae624f265c646670d373e9de0306f184b}{d})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{hackblock_8c_a7edc17377cf4f647b886df1cc11c4e7f}{dump\-\_\-hb} (\-F\-I\-L\-E $\ast$out, int nres, \hyperlink{structt__hackblock}{t\-\_\-hackblock} hb\mbox{[}$\,$\mbox{]})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{hackblock_8c_a2533981b21d0e5b787c91fc7d2629bdb}{init\-\_\-t\-\_\-protonate} (\hyperlink{structt__protonate}{t\-\_\-protonate} $\ast$\hyperlink{genhydro_8h_a08ff78de599d0d79ddadbe465ef5edc7}{protonate})
+\end{DoxyCompactItemize}
+\subsection*{\-Variables}
+\begin{DoxyCompactItemize}
+\item 
+const char $\ast$ \hyperlink{hackblock_8c_a9983e992bd2478f39aad930dd7a98ddc}{bts\-Names} \mbox{[}\hyperlink{share_2template_2gromacs_2hackblock_8h_a3153161a0d848ec64bf4895db3cf1be4a018bbf49e461419a9fce05a412e904ae}{ebts\-N\-R}\mbox{]} = \{ \char`\"{}bonds\char`\"{}, \char`\"{}\hyperlink{bondfree_8c_af80699f69fb5e367d4a781b515c87c69}{angles}\char`\"{}, \char`\"{}dihedrals\char`\"{}, \char`\"{}impropers\char`\"{}, \char`\"{}exclusions\char`\"{}, \char`\"{}cmap\char`\"{} \}
+\item 
+const int \hyperlink{hackblock_8c_a9c34625e4dd6f87d08c8824c62775996}{bts\-Niatoms} \mbox{[}\hyperlink{share_2template_2gromacs_2hackblock_8h_a3153161a0d848ec64bf4895db3cf1be4a018bbf49e461419a9fce05a412e904ae}{ebts\-N\-R}\mbox{]} = \{ 2, 3, 4, 4, 2, 5 \}
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Define \-Documentation}
+\hypertarget{hackblock_8c_a624a37ff829f1c3de3e3329a76e61e10}{\index{hackblock.\-c@{hackblock.\-c}!\-S\-A@{\-S\-A}}
+\index{\-S\-A@{\-S\-A}!hackblock.c@{hackblock.\-c}}
+\subsubsection[{\-S\-A}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-S\-A}(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf s}}
+\end{DoxyParamCaption}
+)~({\bf s}) ? \char`\"{}+\char`\"{} \-: \char`\"{}\char`\"{}}}\label{hackblock_8c_a624a37ff829f1c3de3e3329a76e61e10}
+\hypertarget{hackblock_8c_a6e34668b65636ffe750ef0233599c104}{\index{hackblock.\-c@{hackblock.\-c}!safe\-\_\-strdup@{safe\-\_\-strdup}}
+\index{safe\-\_\-strdup@{safe\-\_\-strdup}!hackblock.c@{hackblock.\-c}}
+\subsubsection[{safe\-\_\-strdup}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf safe\-\_\-strdup}(
+\begin{DoxyParamCaption}
+\item[{}]{str}
+\end{DoxyParamCaption}
+)~((str != \-N\-U\-L\-L) ? strdup(str) \-: \-N\-U\-L\-L)}}\label{hackblock_8c_a6e34668b65636ffe750ef0233599c104}
+\hypertarget{hackblock_8c_a7ddf0494bc58defe54adb87d389729ff}{\index{hackblock.\-c@{hackblock.\-c}!\-S\-S@{\-S\-S}}
+\index{\-S\-S@{\-S\-S}!hackblock.c@{hackblock.\-c}}
+\subsubsection[{\-S\-S}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-S\-S}(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf s}}
+\end{DoxyParamCaption}
+)~({\bf s}) ? ({\bf s}) \-: \char`\"{}-\/\char`\"{}}}\label{hackblock_8c_a7ddf0494bc58defe54adb87d389729ff}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{hackblock_8c_a4f7471baa8e125f5b90691c9c4dba82a}{\index{hackblock.\-c@{hackblock.\-c}!clear\-\_\-t\-\_\-hack@{clear\-\_\-t\-\_\-hack}}
+\index{clear\-\_\-t\-\_\-hack@{clear\-\_\-t\-\_\-hack}!hackblock.c@{hackblock.\-c}}
+\subsubsection[{clear\-\_\-t\-\_\-hack}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf clear\-\_\-t\-\_\-hack} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-hack} $\ast$}]{hack}
+\end{DoxyParamCaption}
+)}}\label{hackblock_8c_a4f7471baa8e125f5b90691c9c4dba82a}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{hackblock_8c_a4f7471baa8e125f5b90691c9c4dba82a_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{hackblock_8c_ac10b990e8abb2d1afcaefc0541e40c04}{\index{hackblock.\-c@{hackblock.\-c}!clear\-\_\-t\-\_\-hackblock@{clear\-\_\-t\-\_\-hackblock}}
+\index{clear\-\_\-t\-\_\-hackblock@{clear\-\_\-t\-\_\-hackblock}!hackblock.c@{hackblock.\-c}}
+\subsubsection[{clear\-\_\-t\-\_\-hackblock}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf clear\-\_\-t\-\_\-hackblock} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-hackblock} $\ast$}]{hb}
+\end{DoxyParamCaption}
+)}}\label{hackblock_8c_ac10b990e8abb2d1afcaefc0541e40c04}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{hackblock_8c_ac10b990e8abb2d1afcaefc0541e40c04_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{hackblock_8c_ad6a3bbc5f3679431d5c2783ea4703618}{\index{hackblock.\-c@{hackblock.\-c}!contains\-\_\-char@{contains\-\_\-char}}
+\index{contains\-\_\-char@{contains\-\_\-char}!hackblock.c@{hackblock.\-c}}
+\subsubsection[{contains\-\_\-char}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gmx\-\_\-bool} {\bf contains\-\_\-char} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-rbonded} $\ast$}]{s, }
+\item[{char}]{c}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{hackblock_8c_ad6a3bbc5f3679431d5c2783ea4703618}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{hackblock_8c_ad6a3bbc5f3679431d5c2783ea4703618_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{hackblock_8c_a1fea07cfa221ca4f5b0f23351764d465}{\index{hackblock.\-c@{hackblock.\-c}!copy\-\_\-t\-\_\-hack@{copy\-\_\-t\-\_\-hack}}
+\index{copy\-\_\-t\-\_\-hack@{copy\-\_\-t\-\_\-hack}!hackblock.c@{hackblock.\-c}}
+\subsubsection[{copy\-\_\-t\-\_\-hack}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf copy\-\_\-t\-\_\-hack} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-hack} $\ast$}]{s, }
+\item[{{\bf t\-\_\-hack} $\ast$}]{d}
+\end{DoxyParamCaption}
+)}}\label{hackblock_8c_a1fea07cfa221ca4f5b0f23351764d465}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=250pt]{hackblock_8c_a1fea07cfa221ca4f5b0f23351764d465_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{hackblock_8c_a1fea07cfa221ca4f5b0f23351764d465_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{hackblock_8c_aae9a7bc9732a67f96a488318501ccfa5}{\index{hackblock.\-c@{hackblock.\-c}!copy\-\_\-t\-\_\-hackblock@{copy\-\_\-t\-\_\-hackblock}}
+\index{copy\-\_\-t\-\_\-hackblock@{copy\-\_\-t\-\_\-hackblock}!hackblock.c@{hackblock.\-c}}
+\subsubsection[{copy\-\_\-t\-\_\-hackblock}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf copy\-\_\-t\-\_\-hackblock} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-hackblock} $\ast$}]{s, }
+\item[{{\bf t\-\_\-hackblock} $\ast$}]{d}
+\end{DoxyParamCaption}
+)}}\label{hackblock_8c_aae9a7bc9732a67f96a488318501ccfa5}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=314pt]{hackblock_8c_aae9a7bc9732a67f96a488318501ccfa5_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{hackblock_8c_aae9a7bc9732a67f96a488318501ccfa5_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{hackblock_8c_aae91f67654170c296f90f637638ea764}{\index{hackblock.\-c@{hackblock.\-c}!copy\-\_\-t\-\_\-rbonded@{copy\-\_\-t\-\_\-rbonded}}
+\index{copy\-\_\-t\-\_\-rbonded@{copy\-\_\-t\-\_\-rbonded}!hackblock.c@{hackblock.\-c}}
+\subsubsection[{copy\-\_\-t\-\_\-rbonded}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf copy\-\_\-t\-\_\-rbonded} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-rbonded} $\ast$}]{s, }
+\item[{{\bf t\-\_\-rbonded} $\ast$}]{d}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{hackblock_8c_aae91f67654170c296f90f637638ea764}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{hackblock_8c_aae91f67654170c296f90f637638ea764_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{hackblock_8c_a31f251693f5dad98bb6d8d526ee148b6}{\index{hackblock.\-c@{hackblock.\-c}!copy\-\_\-t\-\_\-restp@{copy\-\_\-t\-\_\-restp}}
+\index{copy\-\_\-t\-\_\-restp@{copy\-\_\-t\-\_\-restp}!hackblock.c@{hackblock.\-c}}
+\subsubsection[{copy\-\_\-t\-\_\-restp}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf copy\-\_\-t\-\_\-restp} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-restp} $\ast$}]{s, }
+\item[{{\bf t\-\_\-restp} $\ast$}]{d}
+\end{DoxyParamCaption}
+)}}\label{hackblock_8c_a31f251693f5dad98bb6d8d526ee148b6}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=284pt]{hackblock_8c_a31f251693f5dad98bb6d8d526ee148b6_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{hackblock_8c_a31f251693f5dad98bb6d8d526ee148b6_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{hackblock_8c_a7edc17377cf4f647b886df1cc11c4e7f}{\index{hackblock.\-c@{hackblock.\-c}!dump\-\_\-hb@{dump\-\_\-hb}}
+\index{dump\-\_\-hb@{dump\-\_\-hb}!hackblock.c@{hackblock.\-c}}
+\subsubsection[{dump\-\_\-hb}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf dump\-\_\-hb} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{out, }
+\item[{int}]{nres, }
+\item[{{\bf t\-\_\-hackblock}}]{hb\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{hackblock_8c_a7edc17377cf4f647b886df1cc11c4e7f}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{hackblock_8c_a7edc17377cf4f647b886df1cc11c4e7f_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{hackblock_8c_a1a803e1ab135d6fb51cd213f7dbb66c4}{\index{hackblock.\-c@{hackblock.\-c}!free\-\_\-t\-\_\-bonded@{free\-\_\-t\-\_\-bonded}}
+\index{free\-\_\-t\-\_\-bonded@{free\-\_\-t\-\_\-bonded}!hackblock.c@{hackblock.\-c}}
+\subsubsection[{free\-\_\-t\-\_\-bonded}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf free\-\_\-t\-\_\-bonded} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-rbonded} $\ast$}]{rb}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{hackblock_8c_a1a803e1ab135d6fb51cd213f7dbb66c4}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{hackblock_8c_a1a803e1ab135d6fb51cd213f7dbb66c4_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{hackblock_8c_a15eda87838f1f97282d78505686865ea}{\index{hackblock.\-c@{hackblock.\-c}!free\-\_\-t\-\_\-bondeds@{free\-\_\-t\-\_\-bondeds}}
+\index{free\-\_\-t\-\_\-bondeds@{free\-\_\-t\-\_\-bondeds}!hackblock.c@{hackblock.\-c}}
+\subsubsection[{free\-\_\-t\-\_\-bondeds}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf free\-\_\-t\-\_\-bondeds} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-rbondeds} $\ast$}]{rbs}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{hackblock_8c_a15eda87838f1f97282d78505686865ea}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=278pt]{hackblock_8c_a15eda87838f1f97282d78505686865ea_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{hackblock_8c_a15eda87838f1f97282d78505686865ea_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{hackblock_8c_a1618a7f98f1f761feb920ac242b0a060}{\index{hackblock.\-c@{hackblock.\-c}!free\-\_\-t\-\_\-hack@{free\-\_\-t\-\_\-hack}}
+\index{free\-\_\-t\-\_\-hack@{free\-\_\-t\-\_\-hack}!hackblock.c@{hackblock.\-c}}
+\subsubsection[{free\-\_\-t\-\_\-hack}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf free\-\_\-t\-\_\-hack} (
+\begin{DoxyParamCaption}
+\item[{int}]{nh, }
+\item[{{\bf t\-\_\-hack} $\ast$$\ast$}]{h}
+\end{DoxyParamCaption}
+)}}\label{hackblock_8c_a1618a7f98f1f761feb920ac242b0a060}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{hackblock_8c_a1618a7f98f1f761feb920ac242b0a060_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{hackblock_8c_a53cf6430b1712e1cd1789a4e060ddaba}{\index{hackblock.\-c@{hackblock.\-c}!free\-\_\-t\-\_\-hackblock@{free\-\_\-t\-\_\-hackblock}}
+\index{free\-\_\-t\-\_\-hackblock@{free\-\_\-t\-\_\-hackblock}!hackblock.c@{hackblock.\-c}}
+\subsubsection[{free\-\_\-t\-\_\-hackblock}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf free\-\_\-t\-\_\-hackblock} (
+\begin{DoxyParamCaption}
+\item[{int}]{nhb, }
+\item[{{\bf t\-\_\-hackblock} $\ast$$\ast$}]{hb}
+\end{DoxyParamCaption}
+)}}\label{hackblock_8c_a53cf6430b1712e1cd1789a4e060ddaba}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{hackblock_8c_a53cf6430b1712e1cd1789a4e060ddaba_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{hackblock_8c_a53cf6430b1712e1cd1789a4e060ddaba_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{hackblock_8c_ab1437558c3db67913b9b547ad738dfa9}{\index{hackblock.\-c@{hackblock.\-c}!free\-\_\-t\-\_\-restp@{free\-\_\-t\-\_\-restp}}
+\index{free\-\_\-t\-\_\-restp@{free\-\_\-t\-\_\-restp}!hackblock.c@{hackblock.\-c}}
+\subsubsection[{free\-\_\-t\-\_\-restp}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf free\-\_\-t\-\_\-restp} (
+\begin{DoxyParamCaption}
+\item[{int}]{nrtp, }
+\item[{{\bf t\-\_\-restp} $\ast$$\ast$}]{rtp}
+\end{DoxyParamCaption}
+)}}\label{hackblock_8c_ab1437558c3db67913b9b547ad738dfa9}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{hackblock_8c_ab1437558c3db67913b9b547ad738dfa9_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=236pt]{hackblock_8c_ab1437558c3db67913b9b547ad738dfa9_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{hackblock_8c_a2533981b21d0e5b787c91fc7d2629bdb}{\index{hackblock.\-c@{hackblock.\-c}!init\-\_\-t\-\_\-protonate@{init\-\_\-t\-\_\-protonate}}
+\index{init\-\_\-t\-\_\-protonate@{init\-\_\-t\-\_\-protonate}!hackblock.c@{hackblock.\-c}}
+\subsubsection[{init\-\_\-t\-\_\-protonate}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf init\-\_\-t\-\_\-protonate} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-protonate} $\ast$}]{protonate}
+\end{DoxyParamCaption}
+)}}\label{hackblock_8c_a2533981b21d0e5b787c91fc7d2629bdb}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=244pt]{hackblock_8c_a2533981b21d0e5b787c91fc7d2629bdb_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{hackblock_8c_a63b9f55e60b25c1f8c0f54b77aad6ef4}{\index{hackblock.\-c@{hackblock.\-c}!merge\-\_\-hacks@{merge\-\_\-hacks}}
+\index{merge\-\_\-hacks@{merge\-\_\-hacks}!hackblock.c@{hackblock.\-c}}
+\subsubsection[{merge\-\_\-hacks}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf merge\-\_\-hacks} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-hackblock} $\ast$}]{s, }
+\item[{{\bf t\-\_\-hackblock} $\ast$}]{d}
+\end{DoxyParamCaption}
+)}}\label{hackblock_8c_a63b9f55e60b25c1f8c0f54b77aad6ef4}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=280pt]{hackblock_8c_a63b9f55e60b25c1f8c0f54b77aad6ef4_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{hackblock_8c_a63b9f55e60b25c1f8c0f54b77aad6ef4_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{hackblock_8c_aef7cda07a58632ef95b6f1fe0fc79ed5}{\index{hackblock.\-c@{hackblock.\-c}!merge\-\_\-hacks\-\_\-lo@{merge\-\_\-hacks\-\_\-lo}}
+\index{merge\-\_\-hacks\-\_\-lo@{merge\-\_\-hacks\-\_\-lo}!hackblock.c@{hackblock.\-c}}
+\subsubsection[{merge\-\_\-hacks\-\_\-lo}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf merge\-\_\-hacks\-\_\-lo} (
+\begin{DoxyParamCaption}
+\item[{int}]{ns, }
+\item[{{\bf t\-\_\-hack} $\ast$}]{s, }
+\item[{int $\ast$}]{nd, }
+\item[{{\bf t\-\_\-hack} $\ast$$\ast$}]{d}
+\end{DoxyParamCaption}
+)}}\label{hackblock_8c_aef7cda07a58632ef95b6f1fe0fc79ed5}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=276pt]{hackblock_8c_aef7cda07a58632ef95b6f1fe0fc79ed5_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{hackblock_8c_aef7cda07a58632ef95b6f1fe0fc79ed5_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{hackblock_8c_a896830414ac8192ebbc6cb3e991e5a72}{\index{hackblock.\-c@{hackblock.\-c}!merge\-\_\-t\-\_\-bondeds@{merge\-\_\-t\-\_\-bondeds}}
+\index{merge\-\_\-t\-\_\-bondeds@{merge\-\_\-t\-\_\-bondeds}!hackblock.c@{hackblock.\-c}}
+\subsubsection[{merge\-\_\-t\-\_\-bondeds}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf merge\-\_\-t\-\_\-bondeds} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-rbondeds}}]{s\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf t\-\_\-rbondeds}}]{d\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Min, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Plus}
+\end{DoxyParamCaption}
+)}}\label{hackblock_8c_a896830414ac8192ebbc6cb3e991e5a72}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=296pt]{hackblock_8c_a896830414ac8192ebbc6cb3e991e5a72_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{hackblock_8c_a896830414ac8192ebbc6cb3e991e5a72_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{hackblock_8c_a1b7a6418c5a90e787c1c5a0723e87545}{\index{hackblock.\-c@{hackblock.\-c}!merge\-\_\-t\-\_\-hackblock@{merge\-\_\-t\-\_\-hackblock}}
+\index{merge\-\_\-t\-\_\-hackblock@{merge\-\_\-t\-\_\-hackblock}!hackblock.c@{hackblock.\-c}}
+\subsubsection[{merge\-\_\-t\-\_\-hackblock}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf merge\-\_\-t\-\_\-hackblock} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-hackblock} $\ast$}]{s, }
+\item[{{\bf t\-\_\-hackblock} $\ast$}]{d}
+\end{DoxyParamCaption}
+)}}\label{hackblock_8c_a1b7a6418c5a90e787c1c5a0723e87545}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=312pt]{hackblock_8c_a1b7a6418c5a90e787c1c5a0723e87545_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{hackblock_8c_a1b7a6418c5a90e787c1c5a0723e87545_icgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{\-Variable \-Documentation}
+\hypertarget{hackblock_8c_a9983e992bd2478f39aad930dd7a98ddc}{\index{hackblock.\-c@{hackblock.\-c}!bts\-Names@{bts\-Names}}
+\index{bts\-Names@{bts\-Names}!hackblock.c@{hackblock.\-c}}
+\subsubsection[{bts\-Names}]{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ {\bf bts\-Names}\mbox{[}{\bf ebts\-N\-R}\mbox{]} = \{ \char`\"{}bonds\char`\"{}, \char`\"{}{\bf angles}\char`\"{}, \char`\"{}dihedrals\char`\"{}, \char`\"{}impropers\char`\"{}, \char`\"{}exclusions\char`\"{}, \char`\"{}cmap\char`\"{} \}}}\label{hackblock_8c_a9983e992bd2478f39aad930dd7a98ddc}
+\hypertarget{hackblock_8c_a9c34625e4dd6f87d08c8824c62775996}{\index{hackblock.\-c@{hackblock.\-c}!bts\-Niatoms@{bts\-Niatoms}}
+\index{bts\-Niatoms@{bts\-Niatoms}!hackblock.c@{hackblock.\-c}}
+\subsubsection[{bts\-Niatoms}]{\setlength{\rightskip}{0pt plus 5cm}const int {\bf bts\-Niatoms}\mbox{[}{\bf ebts\-N\-R}\mbox{]} = \{ 2, 3, 4, 4, 2, 5 \}}}\label{hackblock_8c_a9c34625e4dd6f87d08c8824c62775996}

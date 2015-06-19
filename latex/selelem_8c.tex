@@ -1,0 +1,555 @@
+\hypertarget{selelem_8c}{\section{src/gmxlib/selection/selelem.c \-File \-Reference}
+\label{selelem_8c}\index{src/gmxlib/selection/selelem.\-c@{src/gmxlib/selection/selelem.\-c}}
+}
+{\ttfamily \#include $<$smalloc.\-h$>$}\*
+{\ttfamily \#include $<$gmx\-\_\-fatal.\-h$>$}\*
+{\ttfamily \#include $<$indexutil.\-h$>$}\*
+{\ttfamily \#include $<$poscalc.\-h$>$}\*
+{\ttfamily \#include $<$position.\-h$>$}\*
+{\ttfamily \#include $<$selmethod.\-h$>$}\*
+{\ttfamily \#include \char`\"{}keywords.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}mempool.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}selelem.\-h\char`\"{}}\*
+\-Include dependency graph for selelem.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{selelem_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+const char $\ast$ \hyperlink{selelem_8c_a313f2581252d4b122778f088a4da0c77}{\-\_\-gmx\-\_\-selelem\-\_\-type\-\_\-str} (\hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$sel)
+\item 
+const char $\ast$ \hyperlink{selelem_8c_a0ea3e418c653f8201bf7a8815cf175e0}{\-\_\-gmx\-\_\-sel\-\_\-value\-\_\-type\-\_\-str} (\hyperlink{structgmx__ana__selvalue__t}{gmx\-\_\-ana\-\_\-selvalue\-\_\-t} $\ast$val)
+\item 
+const char $\ast$ \hyperlink{selelem_8c_a4ffc53eabc802eea2dfbe4913cb88871}{\-\_\-gmx\-\_\-selelem\-\_\-gmx\-\_\-boolean\-\_\-type\-\_\-str} (\hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$sel)
+\item 
+\hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$ \hyperlink{selelem_8c_a9e138198d5d3809d89eb95e41c0e95a5}{\-\_\-gmx\-\_\-selelem\-\_\-create} (\hyperlink{selelem_8h_a1f104d5c71b1198ef51acc4ef016ae46}{e\-\_\-selelem\-\_\-t} \hyperlink{fgrid_8c_a7f3986ef06a5ebd031c536fbcdce3c49}{type})
+\item 
+int \hyperlink{selelem_8c_a55a00ca1a95def5c40fa473ac5d0d58b}{\-\_\-gmx\-\_\-selelem\-\_\-set\-\_\-vtype} (\hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$sel, \hyperlink{include_2selvalue_8h_a70b42b87d434580bf1493591857b8bec}{e\-\_\-selvalue\-\_\-t} vtype)
+\item 
+int \hyperlink{selelem_8c_a0a876c4315e9669491ab5d3e3ce4ebb3}{\-\_\-gmx\-\_\-selelem\-\_\-mempool\-\_\-reserve} (\hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$sel, int count)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{selelem_8c_a27ee7c256421883a2e05c80f023e673a}{\-\_\-gmx\-\_\-selelem\-\_\-mempool\-\_\-release} (\hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$sel)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{selelem_8c_a14460e675c52f57f54d9848d37676f0b}{\-\_\-gmx\-\_\-selelem\-\_\-free\-\_\-values} (\hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$sel)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{selelem_8c_a2ed05d881794db6c17844fc074f76fa6}{\-\_\-gmx\-\_\-selelem\-\_\-free\-\_\-method} (\hyperlink{structgmx__ana__selmethod__t}{gmx\-\_\-ana\-\_\-selmethod\-\_\-t} $\ast$method, \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$mdata)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{selelem_8c_adcd35479f735d36f1052a23b976fd028}{\-\_\-gmx\-\_\-selelem\-\_\-free\-\_\-exprdata} (\hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$sel)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{selelem_8c_aaed6ed0ba5861b38dd522ce18f8b2538}{\-\_\-gmx\-\_\-selelem\-\_\-free} (\hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$sel)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{selelem_8c_a16d5ea3dd9be0ded9e1e1f91d8bbfb6e}{\-\_\-gmx\-\_\-selelem\-\_\-free\-\_\-chain} (\hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$first)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{selelem_8c_af93d90b4e28b5f01d95d7e502e544ebe}{\-\_\-gmx\-\_\-selelem\-\_\-print\-\_\-tree} (\-F\-I\-L\-E $\ast$fp, \hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$sel, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Values, int level)
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{selelem_8c_abf231f2d9cb151efe8bab02aeb791e47}{\-\_\-gmx\-\_\-selelem\-\_\-requires\-\_\-top} (\hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$root)
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{selelem_8c_a0ea3e418c653f8201bf7a8815cf175e0}{\index{selelem.\-c@{selelem.\-c}!\-\_\-gmx\-\_\-sel\-\_\-value\-\_\-type\-\_\-str@{\-\_\-gmx\-\_\-sel\-\_\-value\-\_\-type\-\_\-str}}
+\index{\-\_\-gmx\-\_\-sel\-\_\-value\-\_\-type\-\_\-str@{\-\_\-gmx\-\_\-sel\-\_\-value\-\_\-type\-\_\-str}!selelem.c@{selelem.\-c}}
+\subsubsection[{\-\_\-gmx\-\_\-sel\-\_\-value\-\_\-type\-\_\-str}]{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ {\bf \-\_\-gmx\-\_\-sel\-\_\-value\-\_\-type\-\_\-str} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-selvalue\-\_\-t} $\ast$}]{val}
+\end{DoxyParamCaption}
+)}}\label{selelem_8c_a0ea3e418c653f8201bf7a8815cf175e0}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em val} & \-Value structore for which the string is requested. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-Pointer to a string that corresponds to {\ttfamily val-\/$>$type}, \-N\-U\-L\-L if the type value is invalid.
+\end{DoxyReturn}
+\-The return value points to a string constant and should not be {\ttfamily free'd}. 
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{selelem_8c_a0ea3e418c653f8201bf7a8815cf175e0_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{selelem_8c_a9e138198d5d3809d89eb95e41c0e95a5}{\index{selelem.\-c@{selelem.\-c}!\-\_\-gmx\-\_\-selelem\-\_\-create@{\-\_\-gmx\-\_\-selelem\-\_\-create}}
+\index{\-\_\-gmx\-\_\-selelem\-\_\-create@{\-\_\-gmx\-\_\-selelem\-\_\-create}!selelem.c@{selelem.\-c}}
+\subsubsection[{\-\_\-gmx\-\_\-selelem\-\_\-create}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\-\_\-selelem}$\ast$ {\bf \-\_\-gmx\-\_\-selelem\-\_\-create} (
+\begin{DoxyParamCaption}
+\item[{{\bf e\-\_\-selelem\-\_\-t}}]{type}
+\end{DoxyParamCaption}
+)}}\label{selelem_8c_a9e138198d5d3809d89eb95e41c0e95a5}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em type} & \-Type of selection element to allocate. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-Pointer to the newly allocated and initialized element.
+\end{DoxyReturn}
+{\ttfamily \hyperlink{structt__selelem_a092a85a68970855e3ee5ee48e32c809f}{t\-\_\-selelem\-::type}} is set to {\ttfamily type}, {\ttfamily t\-\_\-selelem\-::v\-::type} is set to \hyperlink{share_2template_2gromacs_2selvalue_8h_a70b42b87d434580bf1493591857b8beca70a2af6eafa48adfab506ceee60471f6}{\-G\-R\-O\-U\-P\-\_\-\-V\-A\-L\-U\-E} for gmx\-\_\-boolean and comparison expressions and \hyperlink{share_2template_2gromacs_2selvalue_8h_a70b42b87d434580bf1493591857b8beca4d694119ce83b62d74ff06b5e017dca8}{\-N\-O\-\_\-\-V\-A\-L\-U\-E} for others, \hyperlink{selelem_8h_a6fee1910b915d2f6e873f134e297ab47}{\-S\-E\-L\-\_\-\-A\-L\-L\-O\-C\-V\-A\-L} is set for non-\/root elements (\hyperlink{selelem_8h_a9014d6430c86dbc2ed5a067436bcf6f4}{\-S\-E\-L\-\_\-\-A\-L\-L\-O\-C\-D\-A\-T\-A} is also set for \hyperlink{selelem_8h_a1f104d5c71b1198ef51acc4ef016ae46ae886c4e170c3abd5527de0af74ba4a45}{\-S\-E\-L\-\_\-\-B\-O\-O\-L\-E\-A\-N} elements), and {\ttfamily \hyperlink{structt__selelem_a6082e97ed5fd779a65d0b8d04c12c5bb}{t\-\_\-selelem\-::refcount}} is set to one. \-All the pointers are set to \-N\-U\-L\-L. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=336pt]{selelem_8c_a9e138198d5d3809d89eb95e41c0e95a5_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{selelem_8c_a9e138198d5d3809d89eb95e41c0e95a5_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{selelem_8c_aaed6ed0ba5861b38dd522ce18f8b2538}{\index{selelem.\-c@{selelem.\-c}!\-\_\-gmx\-\_\-selelem\-\_\-free@{\-\_\-gmx\-\_\-selelem\-\_\-free}}
+\index{\-\_\-gmx\-\_\-selelem\-\_\-free@{\-\_\-gmx\-\_\-selelem\-\_\-free}!selelem.c@{selelem.\-c}}
+\subsubsection[{\-\_\-gmx\-\_\-selelem\-\_\-free}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf \-\_\-gmx\-\_\-selelem\-\_\-free} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-selelem} $\ast$}]{sel}
+\end{DoxyParamCaption}
+)}}\label{selelem_8c_aaed6ed0ba5861b38dd522ce18f8b2538}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em sel} & \-Selection to free.\\
+\hline
+\end{DoxyParams}
+\-Decrements \hyperlink{structt__selelem_a6082e97ed5fd779a65d0b8d04c12c5bb}{sel-\/$>$refcount} and frees the memory allocated for {\ttfamily sel} and all its children if the reference count reaches zero. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{selelem_8c_aaed6ed0ba5861b38dd522ce18f8b2538_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{selelem_8c_aaed6ed0ba5861b38dd522ce18f8b2538_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{selelem_8c_a16d5ea3dd9be0ded9e1e1f91d8bbfb6e}{\index{selelem.\-c@{selelem.\-c}!\-\_\-gmx\-\_\-selelem\-\_\-free\-\_\-chain@{\-\_\-gmx\-\_\-selelem\-\_\-free\-\_\-chain}}
+\index{\-\_\-gmx\-\_\-selelem\-\_\-free\-\_\-chain@{\-\_\-gmx\-\_\-selelem\-\_\-free\-\_\-chain}!selelem.c@{selelem.\-c}}
+\subsubsection[{\-\_\-gmx\-\_\-selelem\-\_\-free\-\_\-chain}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf \-\_\-gmx\-\_\-selelem\-\_\-free\-\_\-chain} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-selelem} $\ast$}]{first}
+\end{DoxyParamCaption}
+)}}\label{selelem_8c_a16d5ea3dd9be0ded9e1e1f91d8bbfb6e}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em first} & \-First selection to free.\\
+\hline
+\end{DoxyParams}
+\-Frees {\ttfamily first} and all selections accessible through the \hyperlink{structt__selelem_aa083abd2a03676e7eab479081390f600}{first-\/$>$next} pointer. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{selelem_8c_a16d5ea3dd9be0ded9e1e1f91d8bbfb6e_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{selelem_8c_a16d5ea3dd9be0ded9e1e1f91d8bbfb6e_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{selelem_8c_adcd35479f735d36f1052a23b976fd028}{\index{selelem.\-c@{selelem.\-c}!\-\_\-gmx\-\_\-selelem\-\_\-free\-\_\-exprdata@{\-\_\-gmx\-\_\-selelem\-\_\-free\-\_\-exprdata}}
+\index{\-\_\-gmx\-\_\-selelem\-\_\-free\-\_\-exprdata@{\-\_\-gmx\-\_\-selelem\-\_\-free\-\_\-exprdata}!selelem.c@{selelem.\-c}}
+\subsubsection[{\-\_\-gmx\-\_\-selelem\-\_\-free\-\_\-exprdata}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf \-\_\-gmx\-\_\-selelem\-\_\-free\-\_\-exprdata} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-selelem} $\ast$}]{sel}
+\end{DoxyParamCaption}
+)}}\label{selelem_8c_adcd35479f735d36f1052a23b976fd028}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em sel} & \-Selection to free. \\
+\hline
+\end{DoxyParams}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{selelem_8c_adcd35479f735d36f1052a23b976fd028_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{selelem_8c_adcd35479f735d36f1052a23b976fd028_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{selelem_8c_a2ed05d881794db6c17844fc074f76fa6}{\index{selelem.\-c@{selelem.\-c}!\-\_\-gmx\-\_\-selelem\-\_\-free\-\_\-method@{\-\_\-gmx\-\_\-selelem\-\_\-free\-\_\-method}}
+\index{\-\_\-gmx\-\_\-selelem\-\_\-free\-\_\-method@{\-\_\-gmx\-\_\-selelem\-\_\-free\-\_\-method}!selelem.c@{selelem.\-c}}
+\subsubsection[{\-\_\-gmx\-\_\-selelem\-\_\-free\-\_\-method}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf \-\_\-gmx\-\_\-selelem\-\_\-free\-\_\-method} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-selmethod\-\_\-t} $\ast$}]{method, }
+\item[{{\bf void} $\ast$}]{mdata}
+\end{DoxyParamCaption}
+)}}\label{selelem_8c_a2ed05d881794db6c17844fc074f76fa6}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em method} & \-Method to free. \\
+\hline
+\mbox{\tt in}  & {\em mdata} & \-Method data to free. \\
+\hline
+\end{DoxyParams}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{selelem_8c_a2ed05d881794db6c17844fc074f76fa6_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{selelem_8c_a2ed05d881794db6c17844fc074f76fa6_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{selelem_8c_a14460e675c52f57f54d9848d37676f0b}{\index{selelem.\-c@{selelem.\-c}!\-\_\-gmx\-\_\-selelem\-\_\-free\-\_\-values@{\-\_\-gmx\-\_\-selelem\-\_\-free\-\_\-values}}
+\index{\-\_\-gmx\-\_\-selelem\-\_\-free\-\_\-values@{\-\_\-gmx\-\_\-selelem\-\_\-free\-\_\-values}!selelem.c@{selelem.\-c}}
+\subsubsection[{\-\_\-gmx\-\_\-selelem\-\_\-free\-\_\-values}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf \-\_\-gmx\-\_\-selelem\-\_\-free\-\_\-values} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-selelem} $\ast$}]{sel}
+\end{DoxyParamCaption}
+)}}\label{selelem_8c_a14460e675c52f57f54d9848d37676f0b}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em sel} & \-Selection to free. \\
+\hline
+\end{DoxyParams}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{selelem_8c_a14460e675c52f57f54d9848d37676f0b_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{selelem_8c_a14460e675c52f57f54d9848d37676f0b_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{selelem_8c_a4ffc53eabc802eea2dfbe4913cb88871}{\index{selelem.\-c@{selelem.\-c}!\-\_\-gmx\-\_\-selelem\-\_\-gmx\-\_\-boolean\-\_\-type\-\_\-str@{\-\_\-gmx\-\_\-selelem\-\_\-gmx\-\_\-boolean\-\_\-type\-\_\-str}}
+\index{\-\_\-gmx\-\_\-selelem\-\_\-gmx\-\_\-boolean\-\_\-type\-\_\-str@{\-\_\-gmx\-\_\-selelem\-\_\-gmx\-\_\-boolean\-\_\-type\-\_\-str}!selelem.c@{selelem.\-c}}
+\subsubsection[{\-\_\-gmx\-\_\-selelem\-\_\-gmx\-\_\-boolean\-\_\-type\-\_\-str}]{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ {\bf \-\_\-gmx\-\_\-selelem\-\_\-gmx\-\_\-boolean\-\_\-type\-\_\-str} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-selelem} $\ast$}]{sel}
+\end{DoxyParamCaption}
+)}}\label{selelem_8c_a4ffc53eabc802eea2dfbe4913cb88871}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em sel} & \-Selection for which the string is requested \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-Pointer to a string that corresponds to {\ttfamily sel-\/$>$type}.
+\end{DoxyReturn}
+\-The return value points to a string constant and should not be {\ttfamily free'd}.
+
+\-The function returns \-N\-U\-L\-L if {\ttfamily sel-\/$>$type} is not one of the valid values.  
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{selelem_8c_a4ffc53eabc802eea2dfbe4913cb88871_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{selelem_8c_a27ee7c256421883a2e05c80f023e673a}{\index{selelem.\-c@{selelem.\-c}!\-\_\-gmx\-\_\-selelem\-\_\-mempool\-\_\-release@{\-\_\-gmx\-\_\-selelem\-\_\-mempool\-\_\-release}}
+\index{\-\_\-gmx\-\_\-selelem\-\_\-mempool\-\_\-release@{\-\_\-gmx\-\_\-selelem\-\_\-mempool\-\_\-release}!selelem.c@{selelem.\-c}}
+\subsubsection[{\-\_\-gmx\-\_\-selelem\-\_\-mempool\-\_\-release}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf \-\_\-gmx\-\_\-selelem\-\_\-mempool\-\_\-release} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-selelem} $\ast$}]{sel}
+\end{DoxyParamCaption}
+)}}\label{selelem_8c_a27ee7c256421883a2e05c80f023e673a}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in,out}  & {\em sel} & \-Selection element to release.\\
+\hline
+\end{DoxyParams}
+\-Releases the memory allocated for the values of {\ttfamily sel} from the {\ttfamily sel-\/$>$mempool} memory pool. \-If no memory pool is set, nothing is done. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{selelem_8c_a27ee7c256421883a2e05c80f023e673a_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{selelem_8c_a27ee7c256421883a2e05c80f023e673a_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{selelem_8c_a0a876c4315e9669491ab5d3e3ce4ebb3}{\index{selelem.\-c@{selelem.\-c}!\-\_\-gmx\-\_\-selelem\-\_\-mempool\-\_\-reserve@{\-\_\-gmx\-\_\-selelem\-\_\-mempool\-\_\-reserve}}
+\index{\-\_\-gmx\-\_\-selelem\-\_\-mempool\-\_\-reserve@{\-\_\-gmx\-\_\-selelem\-\_\-mempool\-\_\-reserve}!selelem.c@{selelem.\-c}}
+\subsubsection[{\-\_\-gmx\-\_\-selelem\-\_\-mempool\-\_\-reserve}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf \-\_\-gmx\-\_\-selelem\-\_\-mempool\-\_\-reserve} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-selelem} $\ast$}]{sel, }
+\item[{int}]{count}
+\end{DoxyParamCaption}
+)}}\label{selelem_8c_a0a876c4315e9669491ab5d3e3ce4ebb3}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in,out}  & {\em sel} & \-Selection element to reserve. \\
+\hline
+\mbox{\tt in}  & {\em count} & \-Number of values to reserve memory for. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+0 on success or if no memory pool, non-\/zero on error.
+\end{DoxyReturn}
+\-Reserves memory for the values of {\ttfamily sel} from the {\ttfamily sel-\/$>$mempool} memory pool. \-If no memory pool is set, nothing is done. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{selelem_8c_a0a876c4315e9669491ab5d3e3ce4ebb3_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{selelem_8c_a0a876c4315e9669491ab5d3e3ce4ebb3_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{selelem_8c_af93d90b4e28b5f01d95d7e502e544ebe}{\index{selelem.\-c@{selelem.\-c}!\-\_\-gmx\-\_\-selelem\-\_\-print\-\_\-tree@{\-\_\-gmx\-\_\-selelem\-\_\-print\-\_\-tree}}
+\index{\-\_\-gmx\-\_\-selelem\-\_\-print\-\_\-tree@{\-\_\-gmx\-\_\-selelem\-\_\-print\-\_\-tree}!selelem.c@{selelem.\-c}}
+\subsubsection[{\-\_\-gmx\-\_\-selelem\-\_\-print\-\_\-tree}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf \-\_\-gmx\-\_\-selelem\-\_\-print\-\_\-tree} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{{\bf t\-\_\-selelem} $\ast$}]{sel, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Values, }
+\item[{int}]{level}
+\end{DoxyParamCaption}
+)}}\label{selelem_8c_af93d90b4e28b5f01d95d7e502e544ebe}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em fp} & \-File handle to receive the output. \\
+\hline
+\mbox{\tt in}  & {\em sel} & \-Root of the selection subtree to print. \\
+\hline
+\mbox{\tt in}  & {\em b\-Values} & \-If \-T\-R\-U\-E, the evaluated values of selection elements are printed as well. \\
+\hline
+\mbox{\tt in}  & {\em level} & \-Indentation level, starting from zero. \\
+\hline
+\end{DoxyParams}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{selelem_8c_af93d90b4e28b5f01d95d7e502e544ebe_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{selelem_8c_af93d90b4e28b5f01d95d7e502e544ebe_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{selelem_8c_abf231f2d9cb151efe8bab02aeb791e47}{\index{selelem.\-c@{selelem.\-c}!\-\_\-gmx\-\_\-selelem\-\_\-requires\-\_\-top@{\-\_\-gmx\-\_\-selelem\-\_\-requires\-\_\-top}}
+\index{\-\_\-gmx\-\_\-selelem\-\_\-requires\-\_\-top@{\-\_\-gmx\-\_\-selelem\-\_\-requires\-\_\-top}!selelem.c@{selelem.\-c}}
+\subsubsection[{\-\_\-gmx\-\_\-selelem\-\_\-requires\-\_\-top}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf \-\_\-gmx\-\_\-selelem\-\_\-requires\-\_\-top} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-selelem} $\ast$}]{root}
+\end{DoxyParamCaption}
+)}}\label{selelem_8c_abf231f2d9cb151efe8bab02aeb791e47}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em root} & \-Root of the subtree to query. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-T\-R\-U\-E if {\ttfamily root} or any any of its elements require topology information, \-F\-A\-L\-S\-E otherwise. 
+\end{DoxyReturn}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{selelem_8c_abf231f2d9cb151efe8bab02aeb791e47_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{selelem_8c_abf231f2d9cb151efe8bab02aeb791e47_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{selelem_8c_a55a00ca1a95def5c40fa473ac5d0d58b}{\index{selelem.\-c@{selelem.\-c}!\-\_\-gmx\-\_\-selelem\-\_\-set\-\_\-vtype@{\-\_\-gmx\-\_\-selelem\-\_\-set\-\_\-vtype}}
+\index{\-\_\-gmx\-\_\-selelem\-\_\-set\-\_\-vtype@{\-\_\-gmx\-\_\-selelem\-\_\-set\-\_\-vtype}!selelem.c@{selelem.\-c}}
+\subsubsection[{\-\_\-gmx\-\_\-selelem\-\_\-set\-\_\-vtype}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf \-\_\-gmx\-\_\-selelem\-\_\-set\-\_\-vtype} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-selelem} $\ast$}]{sel, }
+\item[{{\bf e\-\_\-selvalue\-\_\-t}}]{vtype}
+\end{DoxyParamCaption}
+)}}\label{selelem_8c_a55a00ca1a95def5c40fa473ac5d0d58b}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in,out}  & {\em sel} & \-Selection element to set the type for. \\
+\hline
+\mbox{\tt in}  & {\em vtype} & \-Value type for the selection element. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+0 on success, \-E\-I\-N\-V\-A\-L if the value type is invalid.
+\end{DoxyReturn}
+\-If the new type is \hyperlink{share_2template_2gromacs_2selvalue_8h_a70b42b87d434580bf1493591857b8beca70a2af6eafa48adfab506ceee60471f6}{\-G\-R\-O\-U\-P\-\_\-\-V\-A\-L\-U\-E} or \hyperlink{share_2template_2gromacs_2selvalue_8h_a70b42b87d434580bf1493591857b8beca31a47fbfbc85ad1472ce3d2a168fd1ec}{\-P\-O\-S\-\_\-\-V\-A\-L\-U\-E}, the \hyperlink{selelem_8h_a9014d6430c86dbc2ed5a067436bcf6f4}{\-S\-E\-L\-\_\-\-A\-L\-L\-O\-C\-D\-A\-T\-A} flag is also set.
+
+\-This function should only be called at most once for each element, preferably right after calling \hyperlink{selelem_8c_a9e138198d5d3809d89eb95e41c0e95a5}{\-\_\-gmx\-\_\-selelem\-\_\-create()}. 
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{selelem_8c_a55a00ca1a95def5c40fa473ac5d0d58b_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{selelem_8c_a313f2581252d4b122778f088a4da0c77}{\index{selelem.\-c@{selelem.\-c}!\-\_\-gmx\-\_\-selelem\-\_\-type\-\_\-str@{\-\_\-gmx\-\_\-selelem\-\_\-type\-\_\-str}}
+\index{\-\_\-gmx\-\_\-selelem\-\_\-type\-\_\-str@{\-\_\-gmx\-\_\-selelem\-\_\-type\-\_\-str}!selelem.c@{selelem.\-c}}
+\subsubsection[{\-\_\-gmx\-\_\-selelem\-\_\-type\-\_\-str}]{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ {\bf \-\_\-gmx\-\_\-selelem\-\_\-type\-\_\-str} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-selelem} $\ast$}]{sel}
+\end{DoxyParamCaption}
+)}}\label{selelem_8c_a313f2581252d4b122778f088a4da0c77}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em sel} & \-Selection for which the string is requested \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-Pointer to a string that corresponds to {\ttfamily sel-\/$>$type}.
+\end{DoxyReturn}
+\-The return value points to a string constant and should not be {\ttfamily free'd}.
+
+\-The function returns \-N\-U\-L\-L if {\ttfamily sel-\/$>$type} is not one of the valid values. 
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{selelem_8c_a313f2581252d4b122778f088a4da0c77_icgraph}
+\end{center}
+\end{figure}
+
+

@@ -1,0 +1,135 @@
+\hypertarget{fitahx_8c}{\section{src/tools/fitahx.c \-File \-Reference}
+\label{fitahx_8c}\index{src/tools/fitahx.\-c@{src/tools/fitahx.\-c}}
+}
+{\ttfamily \#include \char`\"{}fitahx.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}vec.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}do\-\_\-fit.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}smalloc.\-h\char`\"{}}\*
+\-Include dependency graph for fitahx.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{fitahx_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{fitahx_8c_a342b8f51903136be1384f91d29aa32e3}{my\-\_\-calc\-\_\-xcm} (int nbb, \hyperlink{include_2types_2simple_8h_ad3f47cdb48677e516e2049719612c737}{atom\-\_\-id} bbind\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} xcm)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{fitahx_8c_a801fae26dd1db6bc09f1b031d5cb5778}{my\-\_\-sub\-\_\-xcm} (int nbb, \hyperlink{include_2types_2simple_8h_ad3f47cdb48677e516e2049719612c737}{atom\-\_\-id} bbind\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} xcm)
+\item 
+real \hyperlink{fitahx_8c_a05efff800b7f82ec15ba010c40a0a307}{fit\-\_\-ahx} (int nres, \hyperlink{structt__bb}{t\-\_\-bb} bb\mbox{[}$\,$\mbox{]}, int natoms, int nall, \hyperlink{include_2types_2simple_8h_ad3f47cdb48677e516e2049719612c737}{atom\-\_\-id} allindex\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, int nca, \hyperlink{include_2types_2simple_8h_ad3f47cdb48677e516e2049719612c737}{atom\-\_\-id} caindex\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Fit)
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{fitahx_8c_a05efff800b7f82ec15ba010c40a0a307}{\index{fitahx.\-c@{fitahx.\-c}!fit\-\_\-ahx@{fit\-\_\-ahx}}
+\index{fit\-\_\-ahx@{fit\-\_\-ahx}!fitahx.c@{fitahx.\-c}}
+\subsubsection[{fit\-\_\-ahx}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf fit\-\_\-ahx} (
+\begin{DoxyParamCaption}
+\item[{int}]{nres, }
+\item[{{\bf t\-\_\-bb}}]{bb\mbox{[}$\,$\mbox{]}, }
+\item[{int}]{natoms, }
+\item[{int}]{nall, }
+\item[{{\bf atom\-\_\-id}}]{allindex\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{int}]{nca, }
+\item[{{\bf atom\-\_\-id}}]{caindex\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf matrix}}]{box, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Fit}
+\end{DoxyParamCaption}
+)}}\label{fitahx_8c_a05efff800b7f82ec15ba010c40a0a307}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=338pt]{fitahx_8c_a05efff800b7f82ec15ba010c40a0a307_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=298pt]{fitahx_8c_a05efff800b7f82ec15ba010c40a0a307_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{fitahx_8c_a342b8f51903136be1384f91d29aa32e3}{\index{fitahx.\-c@{fitahx.\-c}!my\-\_\-calc\-\_\-xcm@{my\-\_\-calc\-\_\-xcm}}
+\index{my\-\_\-calc\-\_\-xcm@{my\-\_\-calc\-\_\-xcm}!fitahx.c@{fitahx.\-c}}
+\subsubsection[{my\-\_\-calc\-\_\-xcm}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf my\-\_\-calc\-\_\-xcm} (
+\begin{DoxyParamCaption}
+\item[{int}]{nbb, }
+\item[{{\bf atom\-\_\-id}}]{bbind\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{xcm}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{fitahx_8c_a342b8f51903136be1384f91d29aa32e3}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=256pt]{fitahx_8c_a342b8f51903136be1384f91d29aa32e3_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{fitahx_8c_a342b8f51903136be1384f91d29aa32e3_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{fitahx_8c_a801fae26dd1db6bc09f1b031d5cb5778}{\index{fitahx.\-c@{fitahx.\-c}!my\-\_\-sub\-\_\-xcm@{my\-\_\-sub\-\_\-xcm}}
+\index{my\-\_\-sub\-\_\-xcm@{my\-\_\-sub\-\_\-xcm}!fitahx.c@{fitahx.\-c}}
+\subsubsection[{my\-\_\-sub\-\_\-xcm}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf my\-\_\-sub\-\_\-xcm} (
+\begin{DoxyParamCaption}
+\item[{int}]{nbb, }
+\item[{{\bf atom\-\_\-id}}]{bbind\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{xcm}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{fitahx_8c_a801fae26dd1db6bc09f1b031d5cb5778}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=248pt]{fitahx_8c_a801fae26dd1db6bc09f1b031d5cb5778_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{fitahx_8c_a801fae26dd1db6bc09f1b031d5cb5778_icgraph}
+\end{center}
+\end{figure}
+
+

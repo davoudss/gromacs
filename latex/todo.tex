@@ -1,0 +1,18 @@
+
+\begin{DoxyRefList}
+\item[\label{todo__todo000005}%
+\hypertarget{todo__todo000005}{}%
+\-Member \hyperlink{evaluate_8h_ad4649d8e25fbf50a6b917ee188f849ff}{\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-subexpr} (\hyperlink{structgmx__sel__evaluate__t}{gmx\-\_\-sel\-\_\-evaluate\-\_\-t} $\ast$data, \hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$sel, \hyperlink{structgmx__ana__index__t}{gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$g)]\-The call to \hyperlink{include_2indexutil_8h_a36418762a1d83eed47840281d779e312}{gmx\-\_\-ana\-\_\-index\-\_\-difference()} can take quite a lot of unnecessary time if the subexpression is evaluated either several times for the same group or for completely distinct groups. \-However, in the majority of cases, these situations occur when \hyperlink{evaluate_8c_a4f113a86ee0dfa0ec3f7ba3ad70661b6}{\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-subexpr\-\_\-staticeval()} can be used, so this should not be a major problem.  
+\item[\label{todo__todo000001}%
+\hypertarget{todo__todo000001}{}%
+\-Page \hyperlink{selmethods}{\-Custom selection methods} ]\-The modifier handling could be made more flexible and more generic; the current implementation does not allow many things which would be possible with slight changes in the internals of the library. 
+\item[\label{todo__todo000006}%
+\hypertarget{todo__todo000006}{}%
+\-Member \hyperlink{selelem_8h_a6fee1910b915d2f6e873f134e297ab47}{\-S\-E\-L\-\_\-\-A\-L\-L\-O\-C\-V\-A\-L} ]\-This flag overlaps with the function of {\ttfamily v.\-nalloc} field, and could probably be removed, making memory management simpler. \-Currently, the {\ttfamily v.\-nalloc} field is not kept up-\/to-\/date in all cases when this flag is changed and is used in places where this flag is not, so this would require a careful investigation of the selection code.  
+\item[\label{todo__todo000002}%
+\hypertarget{todo__todo000002}{}%
+\-File \hyperlink{include_2trajana_8h}{trajana.h} ]\-Better handling of reference groups. \-It would be nice to be able to provide a string that would be used in prompting the groups, and also in automatic reporting of what the tool is about to do. 
+\item[\label{todo__todo000004}%
+\hypertarget{todo__todo000004}{}%
+\-File \hyperlink{share_2template_2gromacs_2trajana_8h}{trajana.h} ]\-Better handling of reference groups. \-It would be nice to be able to provide a string that would be used in prompting the groups, and also in automatic reporting of what the tool is about to do.
+\end{DoxyRefList}

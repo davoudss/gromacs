@@ -1,0 +1,446 @@
+\hypertarget{share_2template_2gromacs_2gmx__wallcycle_8h}{\section{share/template/gromacs/gmx\-\_\-wallcycle.h \-File \-Reference}
+\label{share_2template_2gromacs_2gmx__wallcycle_8h}\index{share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}}
+}
+{\ttfamily \#include $<$stdio.\-h$>$}\*
+{\ttfamily \#include \char`\"{}visibility.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}typedefs.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}types/commrec.\-h\char`\"{}}\*
+\-Include dependency graph for gmx\-\_\-wallcycle.\-h\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{share_2template_2gromacs_2gmx__wallcycle_8h__incl}
+\end{center}
+\end{figure}
+\-This graph shows which files directly or indirectly include this file\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{share_2template_2gromacs_2gmx__wallcycle_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{share_2template_2gromacs_2gmx__wallcycle_8h_a1802afe0a6b775a36580a5e2c8932500}{wallcycle\-\_\-sub\-\_\-start}(wc, ewcs)
+\item 
+\#define \hyperlink{share_2template_2gromacs_2gmx__wallcycle_8h_a4b8276cc4314341de2da7fd25140ac52}{wallcycle\-\_\-sub\-\_\-stop}(wc, ewcs)
+\end{DoxyCompactItemize}
+\subsection*{\-Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \{ \*
+\hyperlink{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5a67390435a45b4920e1b8be6d3e7d1f1d}{ewc\-R\-U\-N}, 
+\hyperlink{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5a80935cc35a1b3822e20b2aa3c788bf45}{ewc\-S\-T\-E\-P}, 
+\hyperlink{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5a3c365bcf84c223eaa8d5e33f2f83d17a}{ewc\-P\-P\-D\-U\-R\-I\-N\-G\-P\-M\-E}, 
+\hyperlink{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5ab546abffe2d45a9a134d4018df60a389}{ewc\-D\-O\-M\-D\-E\-C}, 
+\*
+\hyperlink{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5afc78c01b97a2c6ea184d89dd3788dfb6}{ewc\-D\-D\-C\-O\-M\-M\-L\-O\-A\-D}, 
+\hyperlink{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5a749e318bf2b58b39ee973d9558874f98}{ewc\-D\-D\-C\-O\-M\-M\-B\-O\-U\-N\-D}, 
+\hyperlink{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5a7ffe7afba2d6be6af62a95b6c1c5f769}{ewc\-V\-S\-I\-T\-E\-C\-O\-N\-S\-T\-R}, 
+\hyperlink{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5adbc77b37cd812266a5ace262e541c77c}{ewc\-P\-P\-\_\-\-P\-M\-E\-S\-E\-N\-D\-X}, 
+\*
+\hyperlink{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5a02f0fad7e79124ad1cbc812bd9481178}{ewc\-N\-S}, 
+\hyperlink{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5a3dcc23bbe610d29fc8e93929167553e3}{ewc\-L\-A\-U\-N\-C\-H\-\_\-\-G\-P\-U\-\_\-\-N\-B}, 
+\hyperlink{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5ae7a18526b3986c2ae69083dbea48f79f}{ewc\-M\-O\-V\-E\-X}, 
+\hyperlink{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5a8e0be999ad3753a6d03e67cc3eee11dc}{ewc\-G\-B}, 
+\*
+\hyperlink{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5a88016e1000fb7fac57dcc739f7db9156}{ewc\-F\-O\-R\-C\-E}, 
+\hyperlink{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5aaa37c43c8de1b5f10a2aeecf5f697495}{ewc\-M\-O\-V\-E\-F}, 
+\hyperlink{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5aed92825c4b6b583e6542afaf5e61abe1}{ewc\-P\-M\-E\-M\-E\-S\-H}, 
+\hyperlink{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5ab669c864b870a16017fecd0d6b6bbf11}{ewc\-P\-M\-E\-\_\-\-R\-E\-D\-I\-S\-T\-X\-F}, 
+\*
+\hyperlink{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5a7ea600625f6f145946929f0efdf4483b}{ewc\-P\-M\-E\-\_\-\-S\-P\-R\-E\-A\-D\-G\-A\-T\-H\-E\-R}, 
+\hyperlink{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5a8df0c963db2cdc8a243deb383b04041b}{ewc\-P\-M\-E\-\_\-\-F\-F\-T}, 
+\hyperlink{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5a1e4172c0e241ed0c047a1dfc2937e979}{ewc\-P\-M\-E\-\_\-\-F\-F\-T\-C\-O\-M\-M}, 
+\hyperlink{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5a731713429ff5be8b814bc48f1c751ee0}{ewc\-P\-M\-E\-\_\-\-S\-O\-L\-V\-E}, 
+\*
+\hyperlink{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5a7f6e19914c9ff228d2713b152e1acb7d}{ewc\-S\-E\-\_\-\-R\-E\-D\-I\-S\-T\-X\-F}, 
+\hyperlink{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5ae9a621eac277480b744ffc028c6b2f53}{ewc\-S\-E\-\_\-\-S\-P\-R\-E\-A\-D\-G\-A\-T\-H\-E\-R}, 
+\hyperlink{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5a3be9ac6e54b8041947568f1c97f03470}{ewc\-S\-E\-\_\-\-F\-F\-T}, 
+\hyperlink{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5af4fa5f34bd52210392251cceb095485e}{ewc\-S\-E\-\_\-\-F\-F\-T\-C\-O\-M\-M}, 
+\*
+\hyperlink{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5a3f0eaeae0051491d7eab389e3b68edbf}{ewc\-S\-E\-\_\-\-S\-O\-L\-V\-E}, 
+\hyperlink{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5acd36bed7d04115d73ebd1a260248e718}{ewc\-P\-M\-E\-W\-A\-I\-T\-C\-O\-M\-M}, 
+\hyperlink{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5a57c09cbc7b60ff34eae2b133bfead5ff}{ewc\-P\-P\-\_\-\-P\-M\-E\-W\-A\-I\-T\-R\-E\-C\-V\-F}, 
+\hyperlink{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5a4580df67c697c4f65f69dc7fffbd0652}{ewc\-W\-A\-I\-T\-\_\-\-G\-P\-U\-\_\-\-N\-B\-\_\-\-N\-L}, 
+\*
+\hyperlink{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5a75e4f148c1b5b0bee5ac895f03d7d50a}{ewc\-W\-A\-I\-T\-\_\-\-G\-P\-U\-\_\-\-N\-B\-\_\-\-L}, 
+\hyperlink{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5a988cb9156b0d40b897a92359b4a2d7a7}{ewc\-N\-B\-\_\-\-X\-F\-\_\-\-B\-U\-F\-\_\-\-O\-P\-S}, 
+\hyperlink{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5a3c1c1db312f0b97aa3ea107a5bca0cdf}{ewc\-V\-S\-I\-T\-E\-S\-P\-R\-E\-A\-D}, 
+\hyperlink{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5a6145b07535db113576dc603d55a3995b}{ewc\-T\-R\-A\-J}, 
+\*
+\hyperlink{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5abc0872eaf2b2400eba3823fb2512cc2c}{ewc\-U\-P\-D\-A\-T\-E}, 
+\hyperlink{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5aad9536ad491810bda67054e18bea2bca}{ewc\-C\-O\-N\-S\-T\-R}, 
+\hyperlink{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5a6e1bbf06ef670c59ac982dd0e84825de}{ewc\-Move\-E}, 
+\hyperlink{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5a23d41d081e1d3050dc0e99fcf8ef91d9}{ewc\-R\-O\-T}, 
+\*
+\hyperlink{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5a8ee712e5bc69b582d281d1a6ce16e5f3}{ewc\-R\-O\-Tadd}, 
+\hyperlink{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5a55de8512f2d8f97efb08efea1eae4fa7}{ewc\-T\-E\-S\-T}, 
+\hyperlink{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5a49f1dd36e2e41767dae1fa0452d1eeb8}{ewc\-N\-R}
+ \}
+\item 
+enum \{ \*
+\hyperlink{share_2template_2gromacs_2gmx__wallcycle_8h_a5e8ce9967db697e85d5528dafee6b8dead7f9aea13fc00e26f5d3c57278e5684f}{ewcs\-D\-D\-\_\-\-R\-E\-D\-I\-S\-T}, 
+\hyperlink{share_2template_2gromacs_2gmx__wallcycle_8h_a5e8ce9967db697e85d5528dafee6b8deafcfa5e8b7b88b355eacb001882bca4b7}{ewcs\-D\-D\-\_\-\-G\-R\-I\-D}, 
+\hyperlink{share_2template_2gromacs_2gmx__wallcycle_8h_a5e8ce9967db697e85d5528dafee6b8dea4a695eb607249c7f0aace7a105eda724}{ewcs\-D\-D\-\_\-\-S\-E\-T\-U\-P\-C\-O\-M\-M}, 
+\hyperlink{share_2template_2gromacs_2gmx__wallcycle_8h_a5e8ce9967db697e85d5528dafee6b8dea3a9963cd0621f7eb89d46d8bf3df86e2}{ewcs\-D\-D\-\_\-\-M\-A\-K\-E\-T\-O\-P}, 
+\*
+\hyperlink{share_2template_2gromacs_2gmx__wallcycle_8h_a5e8ce9967db697e85d5528dafee6b8dea013488faedfb1acf7507c76269bfad1e}{ewcs\-D\-D\-\_\-\-M\-A\-K\-E\-C\-O\-N\-S\-T\-R}, 
+\hyperlink{share_2template_2gromacs_2gmx__wallcycle_8h_a5e8ce9967db697e85d5528dafee6b8dea1f82d4a1ef2ba0b3ec7057e271465f6a}{ewcs\-D\-D\-\_\-\-T\-O\-P\-O\-T\-H\-E\-R}, 
+\hyperlink{share_2template_2gromacs_2gmx__wallcycle_8h_a5e8ce9967db697e85d5528dafee6b8dea5ca006bea78503b66aefb634e5226545}{ewcs\-N\-B\-S\-\_\-\-G\-R\-I\-D\-\_\-\-L\-O\-C\-A\-L}, 
+\hyperlink{share_2template_2gromacs_2gmx__wallcycle_8h_a5e8ce9967db697e85d5528dafee6b8deaa436be69164903af47af7f5ae322f368}{ewcs\-N\-B\-S\-\_\-\-G\-R\-I\-D\-\_\-\-N\-O\-N\-L\-O\-C\-A\-L}, 
+\*
+\hyperlink{share_2template_2gromacs_2gmx__wallcycle_8h_a5e8ce9967db697e85d5528dafee6b8dea866b5a59a7c2af6ab7a8ba76dbe39501}{ewcs\-N\-B\-S\-\_\-\-S\-E\-A\-R\-C\-H\-\_\-\-L\-O\-C\-A\-L}, 
+\hyperlink{share_2template_2gromacs_2gmx__wallcycle_8h_a5e8ce9967db697e85d5528dafee6b8dea1a816d4ff6201315e32ed42732bdd025}{ewcs\-N\-B\-S\-\_\-\-S\-E\-A\-R\-C\-H\-\_\-\-N\-O\-N\-L\-O\-C\-A\-L}, 
+\hyperlink{share_2template_2gromacs_2gmx__wallcycle_8h_a5e8ce9967db697e85d5528dafee6b8dea2ee02a0b1c84a27ee62eb49405e5ac2f}{ewcs\-B\-O\-N\-D\-E\-D}, 
+\hyperlink{share_2template_2gromacs_2gmx__wallcycle_8h_a5e8ce9967db697e85d5528dafee6b8dea6e9226ccfdbd83af31d274f35f555703}{ewcs\-N\-O\-N\-B\-O\-N\-D\-E\-D}, 
+\*
+\hyperlink{share_2template_2gromacs_2gmx__wallcycle_8h_a5e8ce9967db697e85d5528dafee6b8deaef59b48236c9f483764d05f684e5134a}{ewcs\-E\-W\-A\-L\-D\-\_\-\-C\-O\-R\-R\-E\-C\-T\-I\-O\-N}, 
+\hyperlink{share_2template_2gromacs_2gmx__wallcycle_8h_a5e8ce9967db697e85d5528dafee6b8dea046b6daea5c806fb57e16d7918d4ab05}{ewcs\-N\-B\-\_\-\-X\-\_\-\-B\-U\-F\-\_\-\-O\-P\-S}, 
+\hyperlink{share_2template_2gromacs_2gmx__wallcycle_8h_a5e8ce9967db697e85d5528dafee6b8dea4f55d9bdef4a102a5480d0e2cf8f89c7}{ewcs\-N\-B\-\_\-\-F\-\_\-\-B\-U\-F\-\_\-\-O\-P\-S}, 
+\hyperlink{share_2template_2gromacs_2gmx__wallcycle_8h_a5e8ce9967db697e85d5528dafee6b8dea3c51ab4b3c82cab5932c44111a6be5cd}{ewcs\-N\-R}
+ \}
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{share_2template_2gromacs_2gmx__wallcycle_8h_ac854c3d0525d1faa787634024d95d95b}{wallcycle\-\_\-have\-\_\-counter} (\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void})
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_ab80ef94c2b909a1a948639e98e63b612}{\-G\-M\-X\-\_\-\-L\-I\-B\-M\-D\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{include_2types_2nrnb_8h_adc47bf7d40bee1f733f4c00cf76e85d9}{gmx\-\_\-wallcycle\-\_\-t} \hyperlink{share_2template_2gromacs_2gmx__wallcycle_8h_adc1d7339493bd0df5a903765073794ca}{wallcycle\-\_\-init} (\-F\-I\-L\-E $\ast$fplog, int resetstep, \hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr, int nthreads\-\_\-pp, int nthreads\-\_\-pme)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_ab80ef94c2b909a1a948639e98e63b612}{\-G\-M\-X\-\_\-\-L\-I\-B\-M\-D\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{share_2template_2gromacs_2gmx__wallcycle_8h_ade68720cdb6c50b85ad15e068613b869}{wallcycle\-\_\-start} (\hyperlink{include_2types_2nrnb_8h_adc47bf7d40bee1f733f4c00cf76e85d9}{gmx\-\_\-wallcycle\-\_\-t} wc, int ewc)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{share_2template_2gromacs_2gmx__wallcycle_8h_a71bdd1c7d6d4ca890705507419a9dc23}{wallcycle\-\_\-start\-\_\-nocount} (\hyperlink{include_2types_2nrnb_8h_adc47bf7d40bee1f733f4c00cf76e85d9}{gmx\-\_\-wallcycle\-\_\-t} wc, int ewc)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_ab80ef94c2b909a1a948639e98e63b612}{\-G\-M\-X\-\_\-\-L\-I\-B\-M\-D\-\_\-\-E\-X\-P\-O\-R\-T} double \hyperlink{share_2template_2gromacs_2gmx__wallcycle_8h_a0552b61aba0d0efb3eacc5e7566dafa0}{wallcycle\-\_\-stop} (\hyperlink{include_2types_2nrnb_8h_adc47bf7d40bee1f733f4c00cf76e85d9}{gmx\-\_\-wallcycle\-\_\-t} wc, int ewc)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_ab80ef94c2b909a1a948639e98e63b612}{\-G\-M\-X\-\_\-\-L\-I\-B\-M\-D\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{share_2template_2gromacs_2gmx__wallcycle_8h_ab6f6b2618d9f747bcea3be38a6df1995}{wallcycle\-\_\-reset\-\_\-all} (\hyperlink{include_2types_2nrnb_8h_adc47bf7d40bee1f733f4c00cf76e85d9}{gmx\-\_\-wallcycle\-\_\-t} wc)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{share_2template_2gromacs_2gmx__wallcycle_8h_a5515f2294ccf74488599b8ebd143c02a}{wallcycle\-\_\-sum} (\hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr, \hyperlink{include_2types_2nrnb_8h_adc47bf7d40bee1f733f4c00cf76e85d9}{gmx\-\_\-wallcycle\-\_\-t} wc)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{share_2template_2gromacs_2gmx__wallcycle_8h_a7dde3bbf18f7006046887af95f7ddca2}{wallcycle\-\_\-print} (\-F\-I\-L\-E $\ast$fplog, int nnodes, int npme, double realtime, \hyperlink{include_2types_2nrnb_8h_adc47bf7d40bee1f733f4c00cf76e85d9}{gmx\-\_\-wallcycle\-\_\-t} wc, \hyperlink{include_2types_2nbnxn__cuda__types__ext_8h_ad97be7a8b4770fd5989bf4f84f116aae}{wallclock\-\_\-gpu\-\_\-t} $\ast$gpu\-\_\-t)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_ab80ef94c2b909a1a948639e98e63b612}{\-G\-M\-X\-\_\-\-L\-I\-B\-M\-D\-\_\-\-E\-X\-P\-O\-R\-T} gmx\-\_\-large\-\_\-int\-\_\-t \hyperlink{share_2template_2gromacs_2gmx__wallcycle_8h_a82d00b6c1e53eb45c49ffee1b60003e7}{wcycle\-\_\-get\-\_\-reset\-\_\-counters} (\hyperlink{include_2types_2nrnb_8h_adc47bf7d40bee1f733f4c00cf76e85d9}{gmx\-\_\-wallcycle\-\_\-t} wc)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_ab80ef94c2b909a1a948639e98e63b612}{\-G\-M\-X\-\_\-\-L\-I\-B\-M\-D\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{share_2template_2gromacs_2gmx__wallcycle_8h_aea2118f67aaac0e38814ead84adcbb9e}{wcycle\-\_\-set\-\_\-reset\-\_\-counters} (\hyperlink{include_2types_2nrnb_8h_adc47bf7d40bee1f733f4c00cf76e85d9}{gmx\-\_\-wallcycle\-\_\-t} wc, gmx\-\_\-large\-\_\-int\-\_\-t reset\-\_\-counters)
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Define \-Documentation}
+\hypertarget{share_2template_2gromacs_2gmx__wallcycle_8h_a1802afe0a6b775a36580a5e2c8932500}{\index{share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}!wallcycle\-\_\-sub\-\_\-start@{wallcycle\-\_\-sub\-\_\-start}}
+\index{wallcycle\-\_\-sub\-\_\-start@{wallcycle\-\_\-sub\-\_\-start}!share/template/gromacs/gmx_wallcycle.h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}}
+\subsubsection[{wallcycle\-\_\-sub\-\_\-start}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf wallcycle\-\_\-sub\-\_\-start}(
+\begin{DoxyParamCaption}
+\item[{}]{wc, }
+\item[{}]{ewcs}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2gmx__wallcycle_8h_a1802afe0a6b775a36580a5e2c8932500}
+\hypertarget{share_2template_2gromacs_2gmx__wallcycle_8h_a4b8276cc4314341de2da7fd25140ac52}{\index{share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}!wallcycle\-\_\-sub\-\_\-stop@{wallcycle\-\_\-sub\-\_\-stop}}
+\index{wallcycle\-\_\-sub\-\_\-stop@{wallcycle\-\_\-sub\-\_\-stop}!share/template/gromacs/gmx_wallcycle.h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}}
+\subsubsection[{wallcycle\-\_\-sub\-\_\-stop}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf wallcycle\-\_\-sub\-\_\-stop}(
+\begin{DoxyParamCaption}
+\item[{}]{wc, }
+\item[{}]{ewcs}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2gmx__wallcycle_8h_a4b8276cc4314341de2da7fd25140ac52}
+
+
+\subsection{\-Enumeration \-Type \-Documentation}
+\hypertarget{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5}{\subsubsection[{anonymous enum}]{\setlength{\rightskip}{0pt plus 5cm}anonymous enum}}\label{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5}
+\begin{Desc}
+\item[\-Enumerator\-: ]\par
+\begin{description}
+\index{ewc\-R\-U\-N@{ewc\-R\-U\-N}!share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}}\index{share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}!ewc\-R\-U\-N@{ewc\-R\-U\-N}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5a67390435a45b4920e1b8be6d3e7d1f1d}{ewc\-R\-U\-N}\label{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5a67390435a45b4920e1b8be6d3e7d1f1d}
+}]\index{ewc\-S\-T\-E\-P@{ewc\-S\-T\-E\-P}!share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}}\index{share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}!ewc\-S\-T\-E\-P@{ewc\-S\-T\-E\-P}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5a80935cc35a1b3822e20b2aa3c788bf45}{ewc\-S\-T\-E\-P}\label{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5a80935cc35a1b3822e20b2aa3c788bf45}
+}]\index{ewc\-P\-P\-D\-U\-R\-I\-N\-G\-P\-M\-E@{ewc\-P\-P\-D\-U\-R\-I\-N\-G\-P\-M\-E}!share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}}\index{share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}!ewc\-P\-P\-D\-U\-R\-I\-N\-G\-P\-M\-E@{ewc\-P\-P\-D\-U\-R\-I\-N\-G\-P\-M\-E}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5a3c365bcf84c223eaa8d5e33f2f83d17a}{ewc\-P\-P\-D\-U\-R\-I\-N\-G\-P\-M\-E}\label{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5a3c365bcf84c223eaa8d5e33f2f83d17a}
+}]\index{ewc\-D\-O\-M\-D\-E\-C@{ewc\-D\-O\-M\-D\-E\-C}!share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}}\index{share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}!ewc\-D\-O\-M\-D\-E\-C@{ewc\-D\-O\-M\-D\-E\-C}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5ab546abffe2d45a9a134d4018df60a389}{ewc\-D\-O\-M\-D\-E\-C}\label{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5ab546abffe2d45a9a134d4018df60a389}
+}]\index{ewc\-D\-D\-C\-O\-M\-M\-L\-O\-A\-D@{ewc\-D\-D\-C\-O\-M\-M\-L\-O\-A\-D}!share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}}\index{share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}!ewc\-D\-D\-C\-O\-M\-M\-L\-O\-A\-D@{ewc\-D\-D\-C\-O\-M\-M\-L\-O\-A\-D}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5afc78c01b97a2c6ea184d89dd3788dfb6}{ewc\-D\-D\-C\-O\-M\-M\-L\-O\-A\-D}\label{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5afc78c01b97a2c6ea184d89dd3788dfb6}
+}]\index{ewc\-D\-D\-C\-O\-M\-M\-B\-O\-U\-N\-D@{ewc\-D\-D\-C\-O\-M\-M\-B\-O\-U\-N\-D}!share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}}\index{share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}!ewc\-D\-D\-C\-O\-M\-M\-B\-O\-U\-N\-D@{ewc\-D\-D\-C\-O\-M\-M\-B\-O\-U\-N\-D}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5a749e318bf2b58b39ee973d9558874f98}{ewc\-D\-D\-C\-O\-M\-M\-B\-O\-U\-N\-D}\label{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5a749e318bf2b58b39ee973d9558874f98}
+}]\index{ewc\-V\-S\-I\-T\-E\-C\-O\-N\-S\-T\-R@{ewc\-V\-S\-I\-T\-E\-C\-O\-N\-S\-T\-R}!share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}}\index{share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}!ewc\-V\-S\-I\-T\-E\-C\-O\-N\-S\-T\-R@{ewc\-V\-S\-I\-T\-E\-C\-O\-N\-S\-T\-R}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5a7ffe7afba2d6be6af62a95b6c1c5f769}{ewc\-V\-S\-I\-T\-E\-C\-O\-N\-S\-T\-R}\label{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5a7ffe7afba2d6be6af62a95b6c1c5f769}
+}]\index{ewc\-P\-P\-\_\-\-P\-M\-E\-S\-E\-N\-D\-X@{ewc\-P\-P\-\_\-\-P\-M\-E\-S\-E\-N\-D\-X}!share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}}\index{share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}!ewc\-P\-P\-\_\-\-P\-M\-E\-S\-E\-N\-D\-X@{ewc\-P\-P\-\_\-\-P\-M\-E\-S\-E\-N\-D\-X}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5adbc77b37cd812266a5ace262e541c77c}{ewc\-P\-P\-\_\-\-P\-M\-E\-S\-E\-N\-D\-X}\label{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5adbc77b37cd812266a5ace262e541c77c}
+}]\index{ewc\-N\-S@{ewc\-N\-S}!share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}}\index{share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}!ewc\-N\-S@{ewc\-N\-S}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5a02f0fad7e79124ad1cbc812bd9481178}{ewc\-N\-S}\label{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5a02f0fad7e79124ad1cbc812bd9481178}
+}]\index{ewc\-L\-A\-U\-N\-C\-H\-\_\-\-G\-P\-U\-\_\-\-N\-B@{ewc\-L\-A\-U\-N\-C\-H\-\_\-\-G\-P\-U\-\_\-\-N\-B}!share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}}\index{share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}!ewc\-L\-A\-U\-N\-C\-H\-\_\-\-G\-P\-U\-\_\-\-N\-B@{ewc\-L\-A\-U\-N\-C\-H\-\_\-\-G\-P\-U\-\_\-\-N\-B}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5a3dcc23bbe610d29fc8e93929167553e3}{ewc\-L\-A\-U\-N\-C\-H\-\_\-\-G\-P\-U\-\_\-\-N\-B}\label{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5a3dcc23bbe610d29fc8e93929167553e3}
+}]\index{ewc\-M\-O\-V\-E\-X@{ewc\-M\-O\-V\-E\-X}!share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}}\index{share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}!ewc\-M\-O\-V\-E\-X@{ewc\-M\-O\-V\-E\-X}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5ae7a18526b3986c2ae69083dbea48f79f}{ewc\-M\-O\-V\-E\-X}\label{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5ae7a18526b3986c2ae69083dbea48f79f}
+}]\index{ewc\-G\-B@{ewc\-G\-B}!share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}}\index{share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}!ewc\-G\-B@{ewc\-G\-B}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5a8e0be999ad3753a6d03e67cc3eee11dc}{ewc\-G\-B}\label{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5a8e0be999ad3753a6d03e67cc3eee11dc}
+}]\index{ewc\-F\-O\-R\-C\-E@{ewc\-F\-O\-R\-C\-E}!share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}}\index{share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}!ewc\-F\-O\-R\-C\-E@{ewc\-F\-O\-R\-C\-E}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5a88016e1000fb7fac57dcc739f7db9156}{ewc\-F\-O\-R\-C\-E}\label{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5a88016e1000fb7fac57dcc739f7db9156}
+}]\index{ewc\-M\-O\-V\-E\-F@{ewc\-M\-O\-V\-E\-F}!share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}}\index{share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}!ewc\-M\-O\-V\-E\-F@{ewc\-M\-O\-V\-E\-F}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5aaa37c43c8de1b5f10a2aeecf5f697495}{ewc\-M\-O\-V\-E\-F}\label{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5aaa37c43c8de1b5f10a2aeecf5f697495}
+}]\index{ewc\-P\-M\-E\-M\-E\-S\-H@{ewc\-P\-M\-E\-M\-E\-S\-H}!share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}}\index{share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}!ewc\-P\-M\-E\-M\-E\-S\-H@{ewc\-P\-M\-E\-M\-E\-S\-H}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5aed92825c4b6b583e6542afaf5e61abe1}{ewc\-P\-M\-E\-M\-E\-S\-H}\label{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5aed92825c4b6b583e6542afaf5e61abe1}
+}]\index{ewc\-P\-M\-E\-\_\-\-R\-E\-D\-I\-S\-T\-X\-F@{ewc\-P\-M\-E\-\_\-\-R\-E\-D\-I\-S\-T\-X\-F}!share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}}\index{share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}!ewc\-P\-M\-E\-\_\-\-R\-E\-D\-I\-S\-T\-X\-F@{ewc\-P\-M\-E\-\_\-\-R\-E\-D\-I\-S\-T\-X\-F}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5ab669c864b870a16017fecd0d6b6bbf11}{ewc\-P\-M\-E\-\_\-\-R\-E\-D\-I\-S\-T\-X\-F}\label{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5ab669c864b870a16017fecd0d6b6bbf11}
+}]\index{ewc\-P\-M\-E\-\_\-\-S\-P\-R\-E\-A\-D\-G\-A\-T\-H\-E\-R@{ewc\-P\-M\-E\-\_\-\-S\-P\-R\-E\-A\-D\-G\-A\-T\-H\-E\-R}!share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}}\index{share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}!ewc\-P\-M\-E\-\_\-\-S\-P\-R\-E\-A\-D\-G\-A\-T\-H\-E\-R@{ewc\-P\-M\-E\-\_\-\-S\-P\-R\-E\-A\-D\-G\-A\-T\-H\-E\-R}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5a7ea600625f6f145946929f0efdf4483b}{ewc\-P\-M\-E\-\_\-\-S\-P\-R\-E\-A\-D\-G\-A\-T\-H\-E\-R}\label{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5a7ea600625f6f145946929f0efdf4483b}
+}]\index{ewc\-P\-M\-E\-\_\-\-F\-F\-T@{ewc\-P\-M\-E\-\_\-\-F\-F\-T}!share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}}\index{share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}!ewc\-P\-M\-E\-\_\-\-F\-F\-T@{ewc\-P\-M\-E\-\_\-\-F\-F\-T}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5a8df0c963db2cdc8a243deb383b04041b}{ewc\-P\-M\-E\-\_\-\-F\-F\-T}\label{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5a8df0c963db2cdc8a243deb383b04041b}
+}]\index{ewc\-P\-M\-E\-\_\-\-F\-F\-T\-C\-O\-M\-M@{ewc\-P\-M\-E\-\_\-\-F\-F\-T\-C\-O\-M\-M}!share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}}\index{share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}!ewc\-P\-M\-E\-\_\-\-F\-F\-T\-C\-O\-M\-M@{ewc\-P\-M\-E\-\_\-\-F\-F\-T\-C\-O\-M\-M}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5a1e4172c0e241ed0c047a1dfc2937e979}{ewc\-P\-M\-E\-\_\-\-F\-F\-T\-C\-O\-M\-M}\label{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5a1e4172c0e241ed0c047a1dfc2937e979}
+}]\index{ewc\-P\-M\-E\-\_\-\-S\-O\-L\-V\-E@{ewc\-P\-M\-E\-\_\-\-S\-O\-L\-V\-E}!share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}}\index{share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}!ewc\-P\-M\-E\-\_\-\-S\-O\-L\-V\-E@{ewc\-P\-M\-E\-\_\-\-S\-O\-L\-V\-E}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5a731713429ff5be8b814bc48f1c751ee0}{ewc\-P\-M\-E\-\_\-\-S\-O\-L\-V\-E}\label{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5a731713429ff5be8b814bc48f1c751ee0}
+}]\index{ewc\-S\-E\-\_\-\-R\-E\-D\-I\-S\-T\-X\-F@{ewc\-S\-E\-\_\-\-R\-E\-D\-I\-S\-T\-X\-F}!share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}}\index{share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}!ewc\-S\-E\-\_\-\-R\-E\-D\-I\-S\-T\-X\-F@{ewc\-S\-E\-\_\-\-R\-E\-D\-I\-S\-T\-X\-F}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5a7f6e19914c9ff228d2713b152e1acb7d}{ewc\-S\-E\-\_\-\-R\-E\-D\-I\-S\-T\-X\-F}\label{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5a7f6e19914c9ff228d2713b152e1acb7d}
+}]\index{ewc\-S\-E\-\_\-\-S\-P\-R\-E\-A\-D\-G\-A\-T\-H\-E\-R@{ewc\-S\-E\-\_\-\-S\-P\-R\-E\-A\-D\-G\-A\-T\-H\-E\-R}!share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}}\index{share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}!ewc\-S\-E\-\_\-\-S\-P\-R\-E\-A\-D\-G\-A\-T\-H\-E\-R@{ewc\-S\-E\-\_\-\-S\-P\-R\-E\-A\-D\-G\-A\-T\-H\-E\-R}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5ae9a621eac277480b744ffc028c6b2f53}{ewc\-S\-E\-\_\-\-S\-P\-R\-E\-A\-D\-G\-A\-T\-H\-E\-R}\label{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5ae9a621eac277480b744ffc028c6b2f53}
+}]\index{ewc\-S\-E\-\_\-\-F\-F\-T@{ewc\-S\-E\-\_\-\-F\-F\-T}!share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}}\index{share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}!ewc\-S\-E\-\_\-\-F\-F\-T@{ewc\-S\-E\-\_\-\-F\-F\-T}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5a3be9ac6e54b8041947568f1c97f03470}{ewc\-S\-E\-\_\-\-F\-F\-T}\label{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5a3be9ac6e54b8041947568f1c97f03470}
+}]\index{ewc\-S\-E\-\_\-\-F\-F\-T\-C\-O\-M\-M@{ewc\-S\-E\-\_\-\-F\-F\-T\-C\-O\-M\-M}!share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}}\index{share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}!ewc\-S\-E\-\_\-\-F\-F\-T\-C\-O\-M\-M@{ewc\-S\-E\-\_\-\-F\-F\-T\-C\-O\-M\-M}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5af4fa5f34bd52210392251cceb095485e}{ewc\-S\-E\-\_\-\-F\-F\-T\-C\-O\-M\-M}\label{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5af4fa5f34bd52210392251cceb095485e}
+}]\index{ewc\-S\-E\-\_\-\-S\-O\-L\-V\-E@{ewc\-S\-E\-\_\-\-S\-O\-L\-V\-E}!share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}}\index{share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}!ewc\-S\-E\-\_\-\-S\-O\-L\-V\-E@{ewc\-S\-E\-\_\-\-S\-O\-L\-V\-E}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5a3f0eaeae0051491d7eab389e3b68edbf}{ewc\-S\-E\-\_\-\-S\-O\-L\-V\-E}\label{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5a3f0eaeae0051491d7eab389e3b68edbf}
+}]\index{ewc\-P\-M\-E\-W\-A\-I\-T\-C\-O\-M\-M@{ewc\-P\-M\-E\-W\-A\-I\-T\-C\-O\-M\-M}!share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}}\index{share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}!ewc\-P\-M\-E\-W\-A\-I\-T\-C\-O\-M\-M@{ewc\-P\-M\-E\-W\-A\-I\-T\-C\-O\-M\-M}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5acd36bed7d04115d73ebd1a260248e718}{ewc\-P\-M\-E\-W\-A\-I\-T\-C\-O\-M\-M}\label{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5acd36bed7d04115d73ebd1a260248e718}
+}]\index{ewc\-P\-P\-\_\-\-P\-M\-E\-W\-A\-I\-T\-R\-E\-C\-V\-F@{ewc\-P\-P\-\_\-\-P\-M\-E\-W\-A\-I\-T\-R\-E\-C\-V\-F}!share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}}\index{share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}!ewc\-P\-P\-\_\-\-P\-M\-E\-W\-A\-I\-T\-R\-E\-C\-V\-F@{ewc\-P\-P\-\_\-\-P\-M\-E\-W\-A\-I\-T\-R\-E\-C\-V\-F}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5a57c09cbc7b60ff34eae2b133bfead5ff}{ewc\-P\-P\-\_\-\-P\-M\-E\-W\-A\-I\-T\-R\-E\-C\-V\-F}\label{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5a57c09cbc7b60ff34eae2b133bfead5ff}
+}]\index{ewc\-W\-A\-I\-T\-\_\-\-G\-P\-U\-\_\-\-N\-B\-\_\-\-N\-L@{ewc\-W\-A\-I\-T\-\_\-\-G\-P\-U\-\_\-\-N\-B\-\_\-\-N\-L}!share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}}\index{share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}!ewc\-W\-A\-I\-T\-\_\-\-G\-P\-U\-\_\-\-N\-B\-\_\-\-N\-L@{ewc\-W\-A\-I\-T\-\_\-\-G\-P\-U\-\_\-\-N\-B\-\_\-\-N\-L}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5a4580df67c697c4f65f69dc7fffbd0652}{ewc\-W\-A\-I\-T\-\_\-\-G\-P\-U\-\_\-\-N\-B\-\_\-\-N\-L}\label{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5a4580df67c697c4f65f69dc7fffbd0652}
+}]\index{ewc\-W\-A\-I\-T\-\_\-\-G\-P\-U\-\_\-\-N\-B\-\_\-\-L@{ewc\-W\-A\-I\-T\-\_\-\-G\-P\-U\-\_\-\-N\-B\-\_\-\-L}!share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}}\index{share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}!ewc\-W\-A\-I\-T\-\_\-\-G\-P\-U\-\_\-\-N\-B\-\_\-\-L@{ewc\-W\-A\-I\-T\-\_\-\-G\-P\-U\-\_\-\-N\-B\-\_\-\-L}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5a75e4f148c1b5b0bee5ac895f03d7d50a}{ewc\-W\-A\-I\-T\-\_\-\-G\-P\-U\-\_\-\-N\-B\-\_\-\-L}\label{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5a75e4f148c1b5b0bee5ac895f03d7d50a}
+}]\index{ewc\-N\-B\-\_\-\-X\-F\-\_\-\-B\-U\-F\-\_\-\-O\-P\-S@{ewc\-N\-B\-\_\-\-X\-F\-\_\-\-B\-U\-F\-\_\-\-O\-P\-S}!share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}}\index{share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}!ewc\-N\-B\-\_\-\-X\-F\-\_\-\-B\-U\-F\-\_\-\-O\-P\-S@{ewc\-N\-B\-\_\-\-X\-F\-\_\-\-B\-U\-F\-\_\-\-O\-P\-S}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5a988cb9156b0d40b897a92359b4a2d7a7}{ewc\-N\-B\-\_\-\-X\-F\-\_\-\-B\-U\-F\-\_\-\-O\-P\-S}\label{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5a988cb9156b0d40b897a92359b4a2d7a7}
+}]\index{ewc\-V\-S\-I\-T\-E\-S\-P\-R\-E\-A\-D@{ewc\-V\-S\-I\-T\-E\-S\-P\-R\-E\-A\-D}!share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}}\index{share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}!ewc\-V\-S\-I\-T\-E\-S\-P\-R\-E\-A\-D@{ewc\-V\-S\-I\-T\-E\-S\-P\-R\-E\-A\-D}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5a3c1c1db312f0b97aa3ea107a5bca0cdf}{ewc\-V\-S\-I\-T\-E\-S\-P\-R\-E\-A\-D}\label{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5a3c1c1db312f0b97aa3ea107a5bca0cdf}
+}]\index{ewc\-T\-R\-A\-J@{ewc\-T\-R\-A\-J}!share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}}\index{share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}!ewc\-T\-R\-A\-J@{ewc\-T\-R\-A\-J}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5a6145b07535db113576dc603d55a3995b}{ewc\-T\-R\-A\-J}\label{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5a6145b07535db113576dc603d55a3995b}
+}]\index{ewc\-U\-P\-D\-A\-T\-E@{ewc\-U\-P\-D\-A\-T\-E}!share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}}\index{share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}!ewc\-U\-P\-D\-A\-T\-E@{ewc\-U\-P\-D\-A\-T\-E}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5abc0872eaf2b2400eba3823fb2512cc2c}{ewc\-U\-P\-D\-A\-T\-E}\label{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5abc0872eaf2b2400eba3823fb2512cc2c}
+}]\index{ewc\-C\-O\-N\-S\-T\-R@{ewc\-C\-O\-N\-S\-T\-R}!share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}}\index{share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}!ewc\-C\-O\-N\-S\-T\-R@{ewc\-C\-O\-N\-S\-T\-R}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5aad9536ad491810bda67054e18bea2bca}{ewc\-C\-O\-N\-S\-T\-R}\label{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5aad9536ad491810bda67054e18bea2bca}
+}]\index{ewc\-Move\-E@{ewc\-Move\-E}!share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}}\index{share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}!ewc\-Move\-E@{ewc\-Move\-E}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5a6e1bbf06ef670c59ac982dd0e84825de}{ewc\-Move\-E}\label{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5a6e1bbf06ef670c59ac982dd0e84825de}
+}]\index{ewc\-R\-O\-T@{ewc\-R\-O\-T}!share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}}\index{share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}!ewc\-R\-O\-T@{ewc\-R\-O\-T}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5a23d41d081e1d3050dc0e99fcf8ef91d9}{ewc\-R\-O\-T}\label{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5a23d41d081e1d3050dc0e99fcf8ef91d9}
+}]\index{ewc\-R\-O\-Tadd@{ewc\-R\-O\-Tadd}!share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}}\index{share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}!ewc\-R\-O\-Tadd@{ewc\-R\-O\-Tadd}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5a8ee712e5bc69b582d281d1a6ce16e5f3}{ewc\-R\-O\-Tadd}\label{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5a8ee712e5bc69b582d281d1a6ce16e5f3}
+}]\index{ewc\-T\-E\-S\-T@{ewc\-T\-E\-S\-T}!share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}}\index{share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}!ewc\-T\-E\-S\-T@{ewc\-T\-E\-S\-T}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5a55de8512f2d8f97efb08efea1eae4fa7}{ewc\-T\-E\-S\-T}\label{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5a55de8512f2d8f97efb08efea1eae4fa7}
+}]\index{ewc\-N\-R@{ewc\-N\-R}!share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}}\index{share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}!ewc\-N\-R@{ewc\-N\-R}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5a49f1dd36e2e41767dae1fa0452d1eeb8}{ewc\-N\-R}\label{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5a49f1dd36e2e41767dae1fa0452d1eeb8}
+}]\end{description}
+\end{Desc}
+
+\hypertarget{share_2template_2gromacs_2gmx__wallcycle_8h_a5e8ce9967db697e85d5528dafee6b8de}{\subsubsection[{anonymous enum}]{\setlength{\rightskip}{0pt plus 5cm}anonymous enum}}\label{share_2template_2gromacs_2gmx__wallcycle_8h_a5e8ce9967db697e85d5528dafee6b8de}
+\begin{Desc}
+\item[\-Enumerator\-: ]\par
+\begin{description}
+\index{ewcs\-D\-D\-\_\-\-R\-E\-D\-I\-S\-T@{ewcs\-D\-D\-\_\-\-R\-E\-D\-I\-S\-T}!share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}}\index{share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}!ewcs\-D\-D\-\_\-\-R\-E\-D\-I\-S\-T@{ewcs\-D\-D\-\_\-\-R\-E\-D\-I\-S\-T}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2gmx__wallcycle_8h_a5e8ce9967db697e85d5528dafee6b8dead7f9aea13fc00e26f5d3c57278e5684f}{ewcs\-D\-D\-\_\-\-R\-E\-D\-I\-S\-T}\label{share_2template_2gromacs_2gmx__wallcycle_8h_a5e8ce9967db697e85d5528dafee6b8dead7f9aea13fc00e26f5d3c57278e5684f}
+}]\index{ewcs\-D\-D\-\_\-\-G\-R\-I\-D@{ewcs\-D\-D\-\_\-\-G\-R\-I\-D}!share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}}\index{share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}!ewcs\-D\-D\-\_\-\-G\-R\-I\-D@{ewcs\-D\-D\-\_\-\-G\-R\-I\-D}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2gmx__wallcycle_8h_a5e8ce9967db697e85d5528dafee6b8deafcfa5e8b7b88b355eacb001882bca4b7}{ewcs\-D\-D\-\_\-\-G\-R\-I\-D}\label{share_2template_2gromacs_2gmx__wallcycle_8h_a5e8ce9967db697e85d5528dafee6b8deafcfa5e8b7b88b355eacb001882bca4b7}
+}]\index{ewcs\-D\-D\-\_\-\-S\-E\-T\-U\-P\-C\-O\-M\-M@{ewcs\-D\-D\-\_\-\-S\-E\-T\-U\-P\-C\-O\-M\-M}!share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}}\index{share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}!ewcs\-D\-D\-\_\-\-S\-E\-T\-U\-P\-C\-O\-M\-M@{ewcs\-D\-D\-\_\-\-S\-E\-T\-U\-P\-C\-O\-M\-M}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2gmx__wallcycle_8h_a5e8ce9967db697e85d5528dafee6b8dea4a695eb607249c7f0aace7a105eda724}{ewcs\-D\-D\-\_\-\-S\-E\-T\-U\-P\-C\-O\-M\-M}\label{share_2template_2gromacs_2gmx__wallcycle_8h_a5e8ce9967db697e85d5528dafee6b8dea4a695eb607249c7f0aace7a105eda724}
+}]\index{ewcs\-D\-D\-\_\-\-M\-A\-K\-E\-T\-O\-P@{ewcs\-D\-D\-\_\-\-M\-A\-K\-E\-T\-O\-P}!share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}}\index{share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}!ewcs\-D\-D\-\_\-\-M\-A\-K\-E\-T\-O\-P@{ewcs\-D\-D\-\_\-\-M\-A\-K\-E\-T\-O\-P}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2gmx__wallcycle_8h_a5e8ce9967db697e85d5528dafee6b8dea3a9963cd0621f7eb89d46d8bf3df86e2}{ewcs\-D\-D\-\_\-\-M\-A\-K\-E\-T\-O\-P}\label{share_2template_2gromacs_2gmx__wallcycle_8h_a5e8ce9967db697e85d5528dafee6b8dea3a9963cd0621f7eb89d46d8bf3df86e2}
+}]\index{ewcs\-D\-D\-\_\-\-M\-A\-K\-E\-C\-O\-N\-S\-T\-R@{ewcs\-D\-D\-\_\-\-M\-A\-K\-E\-C\-O\-N\-S\-T\-R}!share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}}\index{share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}!ewcs\-D\-D\-\_\-\-M\-A\-K\-E\-C\-O\-N\-S\-T\-R@{ewcs\-D\-D\-\_\-\-M\-A\-K\-E\-C\-O\-N\-S\-T\-R}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2gmx__wallcycle_8h_a5e8ce9967db697e85d5528dafee6b8dea013488faedfb1acf7507c76269bfad1e}{ewcs\-D\-D\-\_\-\-M\-A\-K\-E\-C\-O\-N\-S\-T\-R}\label{share_2template_2gromacs_2gmx__wallcycle_8h_a5e8ce9967db697e85d5528dafee6b8dea013488faedfb1acf7507c76269bfad1e}
+}]\index{ewcs\-D\-D\-\_\-\-T\-O\-P\-O\-T\-H\-E\-R@{ewcs\-D\-D\-\_\-\-T\-O\-P\-O\-T\-H\-E\-R}!share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}}\index{share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}!ewcs\-D\-D\-\_\-\-T\-O\-P\-O\-T\-H\-E\-R@{ewcs\-D\-D\-\_\-\-T\-O\-P\-O\-T\-H\-E\-R}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2gmx__wallcycle_8h_a5e8ce9967db697e85d5528dafee6b8dea1f82d4a1ef2ba0b3ec7057e271465f6a}{ewcs\-D\-D\-\_\-\-T\-O\-P\-O\-T\-H\-E\-R}\label{share_2template_2gromacs_2gmx__wallcycle_8h_a5e8ce9967db697e85d5528dafee6b8dea1f82d4a1ef2ba0b3ec7057e271465f6a}
+}]\index{ewcs\-N\-B\-S\-\_\-\-G\-R\-I\-D\-\_\-\-L\-O\-C\-A\-L@{ewcs\-N\-B\-S\-\_\-\-G\-R\-I\-D\-\_\-\-L\-O\-C\-A\-L}!share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}}\index{share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}!ewcs\-N\-B\-S\-\_\-\-G\-R\-I\-D\-\_\-\-L\-O\-C\-A\-L@{ewcs\-N\-B\-S\-\_\-\-G\-R\-I\-D\-\_\-\-L\-O\-C\-A\-L}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2gmx__wallcycle_8h_a5e8ce9967db697e85d5528dafee6b8dea5ca006bea78503b66aefb634e5226545}{ewcs\-N\-B\-S\-\_\-\-G\-R\-I\-D\-\_\-\-L\-O\-C\-A\-L}\label{share_2template_2gromacs_2gmx__wallcycle_8h_a5e8ce9967db697e85d5528dafee6b8dea5ca006bea78503b66aefb634e5226545}
+}]\index{ewcs\-N\-B\-S\-\_\-\-G\-R\-I\-D\-\_\-\-N\-O\-N\-L\-O\-C\-A\-L@{ewcs\-N\-B\-S\-\_\-\-G\-R\-I\-D\-\_\-\-N\-O\-N\-L\-O\-C\-A\-L}!share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}}\index{share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}!ewcs\-N\-B\-S\-\_\-\-G\-R\-I\-D\-\_\-\-N\-O\-N\-L\-O\-C\-A\-L@{ewcs\-N\-B\-S\-\_\-\-G\-R\-I\-D\-\_\-\-N\-O\-N\-L\-O\-C\-A\-L}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2gmx__wallcycle_8h_a5e8ce9967db697e85d5528dafee6b8deaa436be69164903af47af7f5ae322f368}{ewcs\-N\-B\-S\-\_\-\-G\-R\-I\-D\-\_\-\-N\-O\-N\-L\-O\-C\-A\-L}\label{share_2template_2gromacs_2gmx__wallcycle_8h_a5e8ce9967db697e85d5528dafee6b8deaa436be69164903af47af7f5ae322f368}
+}]\index{ewcs\-N\-B\-S\-\_\-\-S\-E\-A\-R\-C\-H\-\_\-\-L\-O\-C\-A\-L@{ewcs\-N\-B\-S\-\_\-\-S\-E\-A\-R\-C\-H\-\_\-\-L\-O\-C\-A\-L}!share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}}\index{share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}!ewcs\-N\-B\-S\-\_\-\-S\-E\-A\-R\-C\-H\-\_\-\-L\-O\-C\-A\-L@{ewcs\-N\-B\-S\-\_\-\-S\-E\-A\-R\-C\-H\-\_\-\-L\-O\-C\-A\-L}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2gmx__wallcycle_8h_a5e8ce9967db697e85d5528dafee6b8dea866b5a59a7c2af6ab7a8ba76dbe39501}{ewcs\-N\-B\-S\-\_\-\-S\-E\-A\-R\-C\-H\-\_\-\-L\-O\-C\-A\-L}\label{share_2template_2gromacs_2gmx__wallcycle_8h_a5e8ce9967db697e85d5528dafee6b8dea866b5a59a7c2af6ab7a8ba76dbe39501}
+}]\index{ewcs\-N\-B\-S\-\_\-\-S\-E\-A\-R\-C\-H\-\_\-\-N\-O\-N\-L\-O\-C\-A\-L@{ewcs\-N\-B\-S\-\_\-\-S\-E\-A\-R\-C\-H\-\_\-\-N\-O\-N\-L\-O\-C\-A\-L}!share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}}\index{share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}!ewcs\-N\-B\-S\-\_\-\-S\-E\-A\-R\-C\-H\-\_\-\-N\-O\-N\-L\-O\-C\-A\-L@{ewcs\-N\-B\-S\-\_\-\-S\-E\-A\-R\-C\-H\-\_\-\-N\-O\-N\-L\-O\-C\-A\-L}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2gmx__wallcycle_8h_a5e8ce9967db697e85d5528dafee6b8dea1a816d4ff6201315e32ed42732bdd025}{ewcs\-N\-B\-S\-\_\-\-S\-E\-A\-R\-C\-H\-\_\-\-N\-O\-N\-L\-O\-C\-A\-L}\label{share_2template_2gromacs_2gmx__wallcycle_8h_a5e8ce9967db697e85d5528dafee6b8dea1a816d4ff6201315e32ed42732bdd025}
+}]\index{ewcs\-B\-O\-N\-D\-E\-D@{ewcs\-B\-O\-N\-D\-E\-D}!share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}}\index{share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}!ewcs\-B\-O\-N\-D\-E\-D@{ewcs\-B\-O\-N\-D\-E\-D}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2gmx__wallcycle_8h_a5e8ce9967db697e85d5528dafee6b8dea2ee02a0b1c84a27ee62eb49405e5ac2f}{ewcs\-B\-O\-N\-D\-E\-D}\label{share_2template_2gromacs_2gmx__wallcycle_8h_a5e8ce9967db697e85d5528dafee6b8dea2ee02a0b1c84a27ee62eb49405e5ac2f}
+}]\index{ewcs\-N\-O\-N\-B\-O\-N\-D\-E\-D@{ewcs\-N\-O\-N\-B\-O\-N\-D\-E\-D}!share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}}\index{share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}!ewcs\-N\-O\-N\-B\-O\-N\-D\-E\-D@{ewcs\-N\-O\-N\-B\-O\-N\-D\-E\-D}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2gmx__wallcycle_8h_a5e8ce9967db697e85d5528dafee6b8dea6e9226ccfdbd83af31d274f35f555703}{ewcs\-N\-O\-N\-B\-O\-N\-D\-E\-D}\label{share_2template_2gromacs_2gmx__wallcycle_8h_a5e8ce9967db697e85d5528dafee6b8dea6e9226ccfdbd83af31d274f35f555703}
+}]\index{ewcs\-E\-W\-A\-L\-D\-\_\-\-C\-O\-R\-R\-E\-C\-T\-I\-O\-N@{ewcs\-E\-W\-A\-L\-D\-\_\-\-C\-O\-R\-R\-E\-C\-T\-I\-O\-N}!share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}}\index{share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}!ewcs\-E\-W\-A\-L\-D\-\_\-\-C\-O\-R\-R\-E\-C\-T\-I\-O\-N@{ewcs\-E\-W\-A\-L\-D\-\_\-\-C\-O\-R\-R\-E\-C\-T\-I\-O\-N}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2gmx__wallcycle_8h_a5e8ce9967db697e85d5528dafee6b8deaef59b48236c9f483764d05f684e5134a}{ewcs\-E\-W\-A\-L\-D\-\_\-\-C\-O\-R\-R\-E\-C\-T\-I\-O\-N}\label{share_2template_2gromacs_2gmx__wallcycle_8h_a5e8ce9967db697e85d5528dafee6b8deaef59b48236c9f483764d05f684e5134a}
+}]\index{ewcs\-N\-B\-\_\-\-X\-\_\-\-B\-U\-F\-\_\-\-O\-P\-S@{ewcs\-N\-B\-\_\-\-X\-\_\-\-B\-U\-F\-\_\-\-O\-P\-S}!share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}}\index{share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}!ewcs\-N\-B\-\_\-\-X\-\_\-\-B\-U\-F\-\_\-\-O\-P\-S@{ewcs\-N\-B\-\_\-\-X\-\_\-\-B\-U\-F\-\_\-\-O\-P\-S}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2gmx__wallcycle_8h_a5e8ce9967db697e85d5528dafee6b8dea046b6daea5c806fb57e16d7918d4ab05}{ewcs\-N\-B\-\_\-\-X\-\_\-\-B\-U\-F\-\_\-\-O\-P\-S}\label{share_2template_2gromacs_2gmx__wallcycle_8h_a5e8ce9967db697e85d5528dafee6b8dea046b6daea5c806fb57e16d7918d4ab05}
+}]\index{ewcs\-N\-B\-\_\-\-F\-\_\-\-B\-U\-F\-\_\-\-O\-P\-S@{ewcs\-N\-B\-\_\-\-F\-\_\-\-B\-U\-F\-\_\-\-O\-P\-S}!share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}}\index{share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}!ewcs\-N\-B\-\_\-\-F\-\_\-\-B\-U\-F\-\_\-\-O\-P\-S@{ewcs\-N\-B\-\_\-\-F\-\_\-\-B\-U\-F\-\_\-\-O\-P\-S}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2gmx__wallcycle_8h_a5e8ce9967db697e85d5528dafee6b8dea4f55d9bdef4a102a5480d0e2cf8f89c7}{ewcs\-N\-B\-\_\-\-F\-\_\-\-B\-U\-F\-\_\-\-O\-P\-S}\label{share_2template_2gromacs_2gmx__wallcycle_8h_a5e8ce9967db697e85d5528dafee6b8dea4f55d9bdef4a102a5480d0e2cf8f89c7}
+}]\index{ewcs\-N\-R@{ewcs\-N\-R}!share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}}\index{share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}!ewcs\-N\-R@{ewcs\-N\-R}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2gmx__wallcycle_8h_a5e8ce9967db697e85d5528dafee6b8dea3c51ab4b3c82cab5932c44111a6be5cd}{ewcs\-N\-R}\label{share_2template_2gromacs_2gmx__wallcycle_8h_a5e8ce9967db697e85d5528dafee6b8dea3c51ab4b3c82cab5932c44111a6be5cd}
+}]\end{description}
+\end{Desc}
+
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{share_2template_2gromacs_2gmx__wallcycle_8h_ac854c3d0525d1faa787634024d95d95b}{\index{share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}!wallcycle\-\_\-have\-\_\-counter@{wallcycle\-\_\-have\-\_\-counter}}
+\index{wallcycle\-\_\-have\-\_\-counter@{wallcycle\-\_\-have\-\_\-counter}!share/template/gromacs/gmx_wallcycle.h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}}
+\subsubsection[{wallcycle\-\_\-have\-\_\-counter}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf wallcycle\-\_\-have\-\_\-counter} (
+\begin{DoxyParamCaption}
+\item[{{\bf void}}]{}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2gmx__wallcycle_8h_ac854c3d0525d1faa787634024d95d95b}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{share_2template_2gromacs_2gmx__wallcycle_8h_ac854c3d0525d1faa787634024d95d95b_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{share_2template_2gromacs_2gmx__wallcycle_8h_adc1d7339493bd0df5a903765073794ca}{\index{share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}!wallcycle\-\_\-init@{wallcycle\-\_\-init}}
+\index{wallcycle\-\_\-init@{wallcycle\-\_\-init}!share/template/gromacs/gmx_wallcycle.h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}}
+\subsubsection[{wallcycle\-\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-M\-D\-\_\-\-E\-X\-P\-O\-R\-T} {\bf gmx\-\_\-wallcycle\-\_\-t} {\bf wallcycle\-\_\-init} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fplog, }
+\item[{int}]{resetstep, }
+\item[{{\bf t\-\_\-commrec} $\ast$}]{cr, }
+\item[{int}]{nthreads\-\_\-pp, }
+\item[{int}]{nthreads\-\_\-pme}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2gmx__wallcycle_8h_adc1d7339493bd0df5a903765073794ca}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=314pt]{share_2template_2gromacs_2gmx__wallcycle_8h_adc1d7339493bd0df5a903765073794ca_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{share_2template_2gromacs_2gmx__wallcycle_8h_a7dde3bbf18f7006046887af95f7ddca2}{\index{share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}!wallcycle\-\_\-print@{wallcycle\-\_\-print}}
+\index{wallcycle\-\_\-print@{wallcycle\-\_\-print}!share/template/gromacs/gmx_wallcycle.h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}}
+\subsubsection[{wallcycle\-\_\-print}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf wallcycle\-\_\-print} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fplog, }
+\item[{int}]{nnodes, }
+\item[{int}]{npme, }
+\item[{double}]{realtime, }
+\item[{{\bf gmx\-\_\-wallcycle\-\_\-t}}]{wc, }
+\item[{{\bf wallclock\-\_\-gpu\-\_\-t} $\ast$}]{gpu\-\_\-t}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2gmx__wallcycle_8h_a7dde3bbf18f7006046887af95f7ddca2}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=300pt]{share_2template_2gromacs_2gmx__wallcycle_8h_a7dde3bbf18f7006046887af95f7ddca2_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{share_2template_2gromacs_2gmx__wallcycle_8h_ab6f6b2618d9f747bcea3be38a6df1995}{\index{share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}!wallcycle\-\_\-reset\-\_\-all@{wallcycle\-\_\-reset\-\_\-all}}
+\index{wallcycle\-\_\-reset\-\_\-all@{wallcycle\-\_\-reset\-\_\-all}!share/template/gromacs/gmx_wallcycle.h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}}
+\subsubsection[{wallcycle\-\_\-reset\-\_\-all}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-M\-D\-\_\-\-E\-X\-P\-O\-R\-T} {\bf void} {\bf wallcycle\-\_\-reset\-\_\-all} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-wallcycle\-\_\-t}}]{wc}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2gmx__wallcycle_8h_ab6f6b2618d9f747bcea3be38a6df1995}
+\hypertarget{share_2template_2gromacs_2gmx__wallcycle_8h_ade68720cdb6c50b85ad15e068613b869}{\index{share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}!wallcycle\-\_\-start@{wallcycle\-\_\-start}}
+\index{wallcycle\-\_\-start@{wallcycle\-\_\-start}!share/template/gromacs/gmx_wallcycle.h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}}
+\subsubsection[{wallcycle\-\_\-start}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-M\-D\-\_\-\-E\-X\-P\-O\-R\-T} {\bf void} {\bf wallcycle\-\_\-start} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-wallcycle\-\_\-t}}]{wc, }
+\item[{int}]{ewc}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2gmx__wallcycle_8h_ade68720cdb6c50b85ad15e068613b869}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=296pt]{share_2template_2gromacs_2gmx__wallcycle_8h_ade68720cdb6c50b85ad15e068613b869_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{share_2template_2gromacs_2gmx__wallcycle_8h_a71bdd1c7d6d4ca890705507419a9dc23}{\index{share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}!wallcycle\-\_\-start\-\_\-nocount@{wallcycle\-\_\-start\-\_\-nocount}}
+\index{wallcycle\-\_\-start\-\_\-nocount@{wallcycle\-\_\-start\-\_\-nocount}!share/template/gromacs/gmx_wallcycle.h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}}
+\subsubsection[{wallcycle\-\_\-start\-\_\-nocount}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf wallcycle\-\_\-start\-\_\-nocount} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-wallcycle\-\_\-t}}]{wc, }
+\item[{int}]{ewc}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2gmx__wallcycle_8h_a71bdd1c7d6d4ca890705507419a9dc23}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=320pt]{share_2template_2gromacs_2gmx__wallcycle_8h_a71bdd1c7d6d4ca890705507419a9dc23_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{share_2template_2gromacs_2gmx__wallcycle_8h_a0552b61aba0d0efb3eacc5e7566dafa0}{\index{share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}!wallcycle\-\_\-stop@{wallcycle\-\_\-stop}}
+\index{wallcycle\-\_\-stop@{wallcycle\-\_\-stop}!share/template/gromacs/gmx_wallcycle.h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}}
+\subsubsection[{wallcycle\-\_\-stop}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-M\-D\-\_\-\-E\-X\-P\-O\-R\-T} double {\bf wallcycle\-\_\-stop} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-wallcycle\-\_\-t}}]{wc, }
+\item[{int}]{ewc}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2gmx__wallcycle_8h_a0552b61aba0d0efb3eacc5e7566dafa0}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=296pt]{share_2template_2gromacs_2gmx__wallcycle_8h_a0552b61aba0d0efb3eacc5e7566dafa0_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{share_2template_2gromacs_2gmx__wallcycle_8h_a5515f2294ccf74488599b8ebd143c02a}{\index{share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}!wallcycle\-\_\-sum@{wallcycle\-\_\-sum}}
+\index{wallcycle\-\_\-sum@{wallcycle\-\_\-sum}!share/template/gromacs/gmx_wallcycle.h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}}
+\subsubsection[{wallcycle\-\_\-sum}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf wallcycle\-\_\-sum} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-commrec} $\ast$}]{cr, }
+\item[{{\bf gmx\-\_\-wallcycle\-\_\-t}}]{wc}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2gmx__wallcycle_8h_a5515f2294ccf74488599b8ebd143c02a}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=284pt]{share_2template_2gromacs_2gmx__wallcycle_8h_a5515f2294ccf74488599b8ebd143c02a_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{share_2template_2gromacs_2gmx__wallcycle_8h_a82d00b6c1e53eb45c49ffee1b60003e7}{\index{share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}!wcycle\-\_\-get\-\_\-reset\-\_\-counters@{wcycle\-\_\-get\-\_\-reset\-\_\-counters}}
+\index{wcycle\-\_\-get\-\_\-reset\-\_\-counters@{wcycle\-\_\-get\-\_\-reset\-\_\-counters}!share/template/gromacs/gmx_wallcycle.h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}}
+\subsubsection[{wcycle\-\_\-get\-\_\-reset\-\_\-counters}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-M\-D\-\_\-\-E\-X\-P\-O\-R\-T} gmx\-\_\-large\-\_\-int\-\_\-t {\bf wcycle\-\_\-get\-\_\-reset\-\_\-counters} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-wallcycle\-\_\-t}}]{wc}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2gmx__wallcycle_8h_a82d00b6c1e53eb45c49ffee1b60003e7}
+\hypertarget{share_2template_2gromacs_2gmx__wallcycle_8h_aea2118f67aaac0e38814ead84adcbb9e}{\index{share/template/gromacs/gmx\-\_\-wallcycle.\-h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}!wcycle\-\_\-set\-\_\-reset\-\_\-counters@{wcycle\-\_\-set\-\_\-reset\-\_\-counters}}
+\index{wcycle\-\_\-set\-\_\-reset\-\_\-counters@{wcycle\-\_\-set\-\_\-reset\-\_\-counters}!share/template/gromacs/gmx_wallcycle.h@{share/template/gromacs/gmx\-\_\-wallcycle.\-h}}
+\subsubsection[{wcycle\-\_\-set\-\_\-reset\-\_\-counters}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-M\-D\-\_\-\-E\-X\-P\-O\-R\-T} {\bf void} {\bf wcycle\-\_\-set\-\_\-reset\-\_\-counters} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-wallcycle\-\_\-t}}]{wc, }
+\item[{gmx\-\_\-large\-\_\-int\-\_\-t}]{reset\-\_\-counters}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2gmx__wallcycle_8h_aea2118f67aaac0e38814ead84adcbb9e}

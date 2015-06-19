@@ -1,0 +1,129 @@
+\hypertarget{wnblist_8c}{\section{src/mdlib/wnblist.c \-File \-Reference}
+\label{wnblist_8c}\index{src/mdlib/wnblist.\-c@{src/mdlib/wnblist.\-c}}
+}
+{\ttfamily \#include $<$stdio.\-h$>$}\*
+{\ttfamily \#include $<$string.\-h$>$}\*
+{\ttfamily \#include \char`\"{}string2.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}force.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}smalloc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}ns.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}nrnb.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-fatal.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}macros.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}futil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}names.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}domdec.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmxfio.\-h\char`\"{}}\*
+\-Include dependency graph for wnblist.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{wnblist_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{wnblist_8c_a383d5e14413e39bc8997c9f4edbe05d4}{header}~\char`\"{}\-Neighborlist\-:\char`\"{}
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{wnblist_8c_ade80d7a91f0eb2101b178eb45cf994b0}{write\-\_\-nblist} (\-F\-I\-L\-E $\ast$out, \hyperlink{structgmx__domdec__t}{gmx\-\_\-domdec\-\_\-t} $\ast$dd, \hyperlink{structt__nblist}{t\-\_\-nblist} $\ast$nblist, int n\-D\-N\-L)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{wnblist_8c_a3f218eac54c323a5ac7eb1339ff58e96}{set\-\_\-mat} (\-F\-I\-L\-E $\ast$fp, int $\ast$$\ast$mat, int i0, int ni, int j0, int nj, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Symm, int shift)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{wnblist_8c_ad646d7395eb3f11f7bc78f1dd647073a}{dump\-\_\-nblist} (\-F\-I\-L\-E $\ast$out, \hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr, \hyperlink{structt__forcerec}{t\-\_\-forcerec} $\ast$\hyperlink{addconf_8c_ae8414314f87c5e49503ac0117eb511ad}{fr}, int n\-D\-N\-L)
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Define \-Documentation}
+\hypertarget{wnblist_8c_a383d5e14413e39bc8997c9f4edbe05d4}{\index{wnblist.\-c@{wnblist.\-c}!header@{header}}
+\index{header@{header}!wnblist.c@{wnblist.\-c}}
+\subsubsection[{header}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf header}~\char`\"{}\-Neighborlist\-:\char`\"{}}}\label{wnblist_8c_a383d5e14413e39bc8997c9f4edbe05d4}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{wnblist_8c_ad646d7395eb3f11f7bc78f1dd647073a}{\index{wnblist.\-c@{wnblist.\-c}!dump\-\_\-nblist@{dump\-\_\-nblist}}
+\index{dump\-\_\-nblist@{dump\-\_\-nblist}!wnblist.c@{wnblist.\-c}}
+\subsubsection[{dump\-\_\-nblist}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf dump\-\_\-nblist} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{out, }
+\item[{{\bf t\-\_\-commrec} $\ast$}]{cr, }
+\item[{{\bf t\-\_\-forcerec} $\ast$}]{fr, }
+\item[{int}]{n\-D\-N\-L}
+\end{DoxyParamCaption}
+)}}\label{wnblist_8c_ad646d7395eb3f11f7bc78f1dd647073a}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{wnblist_8c_ad646d7395eb3f11f7bc78f1dd647073a_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{wnblist_8c_ad646d7395eb3f11f7bc78f1dd647073a_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{wnblist_8c_a3f218eac54c323a5ac7eb1339ff58e96}{\index{wnblist.\-c@{wnblist.\-c}!set\-\_\-mat@{set\-\_\-mat}}
+\index{set\-\_\-mat@{set\-\_\-mat}!wnblist.c@{wnblist.\-c}}
+\subsubsection[{set\-\_\-mat}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf set\-\_\-mat} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{int $\ast$$\ast$}]{mat, }
+\item[{int}]{i0, }
+\item[{int}]{ni, }
+\item[{int}]{j0, }
+\item[{int}]{nj, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Symm, }
+\item[{int}]{shift}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{wnblist_8c_a3f218eac54c323a5ac7eb1339ff58e96}
+\hypertarget{wnblist_8c_ade80d7a91f0eb2101b178eb45cf994b0}{\index{wnblist.\-c@{wnblist.\-c}!write\-\_\-nblist@{write\-\_\-nblist}}
+\index{write\-\_\-nblist@{write\-\_\-nblist}!wnblist.c@{wnblist.\-c}}
+\subsubsection[{write\-\_\-nblist}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf write\-\_\-nblist} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{out, }
+\item[{{\bf gmx\-\_\-domdec\-\_\-t} $\ast$}]{dd, }
+\item[{{\bf t\-\_\-nblist} $\ast$}]{nblist, }
+\item[{int}]{n\-D\-N\-L}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{wnblist_8c_ade80d7a91f0eb2101b178eb45cf994b0}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=266pt]{wnblist_8c_ade80d7a91f0eb2101b178eb45cf994b0_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{wnblist_8c_ade80d7a91f0eb2101b178eb45cf994b0_icgraph}
+\end{center}
+\end{figure}
+
+

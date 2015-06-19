@@ -1,0 +1,654 @@
+\hypertarget{selection_8c}{\section{src/gmxlib/selection/selection.c \-File \-Reference}
+\label{selection_8c}\index{src/gmxlib/selection/selection.\-c@{src/gmxlib/selection/selection.\-c}}
+}
+{\ttfamily \#include $<$smalloc.\-h$>$}\*
+{\ttfamily \#include $<$statutil.\-h$>$}\*
+{\ttfamily \#include $<$string2.\-h$>$}\*
+{\ttfamily \#include $<$xvgr.\-h$>$}\*
+{\ttfamily \#include $<$gmx\-\_\-fatal.\-h$>$}\*
+{\ttfamily \#include $<$poscalc.\-h$>$}\*
+{\ttfamily \#include $<$selection.\-h$>$}\*
+{\ttfamily \#include $<$selmethod.\-h$>$}\*
+{\ttfamily \#include \char`\"{}mempool.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}selcollection.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}selelem.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}symrec.\-h\char`\"{}}\*
+\-Include dependency graph for selection.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{selection_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{selection_8c_a00290d54f86754cbe35d29a471228b92}{gmx\-\_\-ana\-\_\-selcollection\-\_\-create} (\hyperlink{structgmx__ana__selcollection__t}{gmx\-\_\-ana\-\_\-selcollection\-\_\-t} $\ast$$\ast$scp, \hyperlink{structgmx__ana__poscalc__coll__t}{gmx\-\_\-ana\-\_\-poscalc\-\_\-coll\-\_\-t} $\ast$pcc)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{selection_8c_a04d7d13748650709e3065ebcdf2ac861}{gmx\-\_\-ana\-\_\-selcollection\-\_\-free} (\hyperlink{structgmx__ana__selcollection__t}{gmx\-\_\-ana\-\_\-selcollection\-\_\-t} $\ast$sc)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{selection_8c_a8da3741b8a7bb80e082f7bb2b910c6e2}{\-\_\-gmx\-\_\-selcollection\-\_\-clear\-\_\-symtab} (\hyperlink{structgmx__ana__selcollection__t}{gmx\-\_\-ana\-\_\-selcollection\-\_\-t} $\ast$sc)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{selection_8c_a8a9eb259f1fb45cd0676be514ab3ee00}{gmx\-\_\-ana\-\_\-selcollection\-\_\-set\-\_\-refpostype} (\hyperlink{structgmx__ana__selcollection__t}{gmx\-\_\-ana\-\_\-selcollection\-\_\-t} $\ast$sc, const char $\ast$\hyperlink{fgrid_8c_a7f3986ef06a5ebd031c536fbcdce3c49}{type})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{selection_8c_ab1a820faf79391d4f20ce16eea3d2169}{gmx\-\_\-ana\-\_\-selcollection\-\_\-set\-\_\-outpostype} (\hyperlink{structgmx__ana__selcollection__t}{gmx\-\_\-ana\-\_\-selcollection\-\_\-t} $\ast$sc, const char $\ast$\hyperlink{fgrid_8c_a7f3986ef06a5ebd031c536fbcdce3c49}{type}, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Mask\-Only)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{selection_8c_aa9a1c056c6d445716e793904d832405e}{gmx\-\_\-ana\-\_\-selcollection\-\_\-set\-\_\-veloutput} (\hyperlink{structgmx__ana__selcollection__t}{gmx\-\_\-ana\-\_\-selcollection\-\_\-t} $\ast$sc, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Vel\-Out)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{selection_8c_a3a82492dda8ce56f8b8d5f94bf2b51da}{gmx\-\_\-ana\-\_\-selcollection\-\_\-set\-\_\-forceoutput} (\hyperlink{structgmx__ana__selcollection__t}{gmx\-\_\-ana\-\_\-selcollection\-\_\-t} $\ast$sc, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Force\-Out)
+\item 
+int \hyperlink{selection_8c_a9756c0e459a8c57673721b7496a67d67}{gmx\-\_\-ana\-\_\-selcollection\-\_\-set\-\_\-topology} (\hyperlink{structgmx__ana__selcollection__t}{gmx\-\_\-ana\-\_\-selcollection\-\_\-t} $\ast$sc, \hyperlink{structt__topology}{t\-\_\-topology} $\ast$\hyperlink{gmx__disre_8c_a1b538a2ce75aba6c346bc03980ffeb28}{top}, int natoms)
+\item 
+int \hyperlink{selection_8c_a0132c3b354dc3129ad1637d6a92b83d3}{gmx\-\_\-ana\-\_\-selcollection\-\_\-get\-\_\-count} (\hyperlink{structgmx__ana__selcollection__t}{gmx\-\_\-ana\-\_\-selcollection\-\_\-t} $\ast$sc)
+\item 
+\hyperlink{structgmx__ana__selection__t}{gmx\-\_\-ana\-\_\-selection\-\_\-t} $\ast$ \hyperlink{selection_8c_a78d132d50e68ebccdaf38efbb516f9c1}{gmx\-\_\-ana\-\_\-selcollection\-\_\-get\-\_\-selection} (\hyperlink{structgmx__ana__selcollection__t}{gmx\-\_\-ana\-\_\-selcollection\-\_\-t} $\ast$sc, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a3c7542401c1cb8bd37ef5e7d9eb0f5a8}{i})
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{selection_8c_a6fffe7cdfcc038b35236600e2f15f968}{gmx\-\_\-ana\-\_\-selcollection\-\_\-requires\-\_\-top} (\hyperlink{structgmx__ana__selcollection__t}{gmx\-\_\-ana\-\_\-selcollection\-\_\-t} $\ast$sc)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{selection_8c_af98ec0367f673e2d9a8658ccb63f4cb6}{gmx\-\_\-ana\-\_\-selcollection\-\_\-print\-\_\-tree} (\-F\-I\-L\-E $\ast$fp, \hyperlink{structgmx__ana__selcollection__t}{gmx\-\_\-ana\-\_\-selcollection\-\_\-t} $\ast$sc, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Values)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{selection_8c_a3aad3393588bf54a1de00919767c968e}{gmx\-\_\-ana\-\_\-selection\-\_\-free} (\hyperlink{structgmx__ana__selection__t}{gmx\-\_\-ana\-\_\-selection\-\_\-t} $\ast$sel)
+\item 
+char $\ast$ \hyperlink{selection_8c_a08736ed634486e075919b9d064acb90e}{gmx\-\_\-ana\-\_\-selection\-\_\-name} (\hyperlink{structgmx__ana__selection__t}{gmx\-\_\-ana\-\_\-selection\-\_\-t} $\ast$sel)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{selection_8c_a753fdeb2fedbd37a2712f3836ec88661}{gmx\-\_\-ana\-\_\-selection\-\_\-print\-\_\-info} (\hyperlink{structgmx__ana__selection__t}{gmx\-\_\-ana\-\_\-selection\-\_\-t} $\ast$sel)
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{selection_8c_ae897544b5cee33cd53dd605cad785573}{gmx\-\_\-ana\-\_\-selection\-\_\-init\-\_\-coverfrac} (\hyperlink{structgmx__ana__selection__t}{gmx\-\_\-ana\-\_\-selection\-\_\-t} $\ast$sel, \hyperlink{include_2selection_8h_a3586467b9eaf1c08160c5fef7377e622}{e\-\_\-coverfrac\-\_\-t} \hyperlink{fgrid_8c_a7f3986ef06a5ebd031c536fbcdce3c49}{type})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{selection_8c_aafde25043f25e48189e2b1c38d0bc9e7}{xvgr\-\_\-selcollection} (\-F\-I\-L\-E $\ast$out, \hyperlink{structgmx__ana__selcollection__t}{gmx\-\_\-ana\-\_\-selcollection\-\_\-t} $\ast$sc, const \hyperlink{include_2types_2oenv_8h_a6a48d77d95132d7318780544821da6a5}{output\-\_\-env\-\_\-t} oenv)
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{selection_8c_a8da3741b8a7bb80e082f7bb2b910c6e2}{\index{selection.\-c@{selection.\-c}!\-\_\-gmx\-\_\-selcollection\-\_\-clear\-\_\-symtab@{\-\_\-gmx\-\_\-selcollection\-\_\-clear\-\_\-symtab}}
+\index{\-\_\-gmx\-\_\-selcollection\-\_\-clear\-\_\-symtab@{\-\_\-gmx\-\_\-selcollection\-\_\-clear\-\_\-symtab}!selection.c@{selection.\-c}}
+\subsubsection[{\-\_\-gmx\-\_\-selcollection\-\_\-clear\-\_\-symtab}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf \-\_\-gmx\-\_\-selcollection\-\_\-clear\-\_\-symtab} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-selcollection\-\_\-t} $\ast$}]{sc}
+\end{DoxyParamCaption}
+)}}\label{selection_8c_a8da3741b8a7bb80e082f7bb2b910c6e2}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in,out}  & {\em sc} & \-Selection collection. \\
+\hline
+\end{DoxyParams}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{selection_8c_a8da3741b8a7bb80e082f7bb2b910c6e2_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{selection_8c_a8da3741b8a7bb80e082f7bb2b910c6e2_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{selection_8c_a00290d54f86754cbe35d29a471228b92}{\index{selection.\-c@{selection.\-c}!gmx\-\_\-ana\-\_\-selcollection\-\_\-create@{gmx\-\_\-ana\-\_\-selcollection\-\_\-create}}
+\index{gmx\-\_\-ana\-\_\-selcollection\-\_\-create@{gmx\-\_\-ana\-\_\-selcollection\-\_\-create}!selection.c@{selection.\-c}}
+\subsubsection[{gmx\-\_\-ana\-\_\-selcollection\-\_\-create}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-ana\-\_\-selcollection\-\_\-create} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-selcollection\-\_\-t} $\ast$$\ast$}]{scp, }
+\item[{{\bf gmx\-\_\-ana\-\_\-poscalc\-\_\-coll\-\_\-t} $\ast$}]{pcc}
+\end{DoxyParamCaption}
+)}}\label{selection_8c_a00290d54f86754cbe35d29a471228b92}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt out}  & {\em scp} & \-Pointer to a newly allocated empty selection collection. \\
+\hline
+\mbox{\tt in}  & {\em pcc} & \-Position calculation data structure to use for selection position evaluation. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+0 on success. 
+\end{DoxyReturn}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{selection_8c_a00290d54f86754cbe35d29a471228b92_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{selection_8c_a00290d54f86754cbe35d29a471228b92_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{selection_8c_a04d7d13748650709e3065ebcdf2ac861}{\index{selection.\-c@{selection.\-c}!gmx\-\_\-ana\-\_\-selcollection\-\_\-free@{gmx\-\_\-ana\-\_\-selcollection\-\_\-free}}
+\index{gmx\-\_\-ana\-\_\-selcollection\-\_\-free@{gmx\-\_\-ana\-\_\-selcollection\-\_\-free}!selection.c@{selection.\-c}}
+\subsubsection[{gmx\-\_\-ana\-\_\-selcollection\-\_\-free}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-ana\-\_\-selcollection\-\_\-free} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-selcollection\-\_\-t} $\ast$}]{sc}
+\end{DoxyParamCaption}
+)}}\label{selection_8c_a04d7d13748650709e3065ebcdf2ac861}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in,out}  & {\em sc} & \-Selection collection to free.\\
+\hline
+\end{DoxyParams}
+\-The pointer {\ttfamily sc} is invalid after the call. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{selection_8c_a04d7d13748650709e3065ebcdf2ac861_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{selection_8c_a04d7d13748650709e3065ebcdf2ac861_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{selection_8c_a0132c3b354dc3129ad1637d6a92b83d3}{\index{selection.\-c@{selection.\-c}!gmx\-\_\-ana\-\_\-selcollection\-\_\-get\-\_\-count@{gmx\-\_\-ana\-\_\-selcollection\-\_\-get\-\_\-count}}
+\index{gmx\-\_\-ana\-\_\-selcollection\-\_\-get\-\_\-count@{gmx\-\_\-ana\-\_\-selcollection\-\_\-get\-\_\-count}!selection.c@{selection.\-c}}
+\subsubsection[{gmx\-\_\-ana\-\_\-selcollection\-\_\-get\-\_\-count}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-ana\-\_\-selcollection\-\_\-get\-\_\-count} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-selcollection\-\_\-t} $\ast$}]{sc}
+\end{DoxyParamCaption}
+)}}\label{selection_8c_a0132c3b354dc3129ad1637d6a92b83d3}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em sc} & \-Selection collection to query. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-Number of selections in {\ttfamily sc}.
+\end{DoxyReturn}
+\-If gmx\-\_\-ana\-\_\-selcollection\-\_\-parse\-\_\-$\ast$() has not been called, returns 0.
+
+\begin{DoxySeeAlso}{\-See also}
+\hyperlink{include_2selection_8h_a78d132d50e68ebccdaf38efbb516f9c1}{gmx\-\_\-ana\-\_\-selcollection\-\_\-get\-\_\-selection()} 
+\end{DoxySeeAlso}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{selection_8c_a0132c3b354dc3129ad1637d6a92b83d3_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{selection_8c_a78d132d50e68ebccdaf38efbb516f9c1}{\index{selection.\-c@{selection.\-c}!gmx\-\_\-ana\-\_\-selcollection\-\_\-get\-\_\-selection@{gmx\-\_\-ana\-\_\-selcollection\-\_\-get\-\_\-selection}}
+\index{gmx\-\_\-ana\-\_\-selcollection\-\_\-get\-\_\-selection@{gmx\-\_\-ana\-\_\-selcollection\-\_\-get\-\_\-selection}!selection.c@{selection.\-c}}
+\subsubsection[{gmx\-\_\-ana\-\_\-selcollection\-\_\-get\-\_\-selection}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-ana\-\_\-selection\-\_\-t}$\ast$ {\bf gmx\-\_\-ana\-\_\-selcollection\-\_\-get\-\_\-selection} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-selcollection\-\_\-t} $\ast$}]{sc, }
+\item[{int}]{i}
+\end{DoxyParamCaption}
+)}}\label{selection_8c_a78d132d50e68ebccdaf38efbb516f9c1}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em sc} & \-Selection collection to query. \\
+\hline
+\mbox{\tt in}  & {\em i} & \-Number of the selection. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-Pointer to the {\ttfamily i'th} selection in {\ttfamily sc}, or \-N\-U\-L\-L if there is no such selection.
+\end{DoxyReturn}
+{\ttfamily i} should be between 0 and the value returned by \hyperlink{include_2selection_8h_a0132c3b354dc3129ad1637d6a92b83d3}{gmx\-\_\-ana\-\_\-selcollection\-\_\-get\-\_\-count()}. \-The returned pointer should not be freed. \-If \hyperlink{include_2selection_8h_a1561ef3c1aff347b13d9b05bd8dbd20f}{gmx\-\_\-ana\-\_\-selcollection\-\_\-compile()} has not been called, the returned selection is not completely initialized (but the returned pointer will be valid even after compilation, and will point to the initialized selection).
+
+\begin{DoxySeeAlso}{\-See also}
+\hyperlink{include_2selection_8h_a0132c3b354dc3129ad1637d6a92b83d3}{gmx\-\_\-ana\-\_\-selcollection\-\_\-get\-\_\-count()} 
+\end{DoxySeeAlso}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{selection_8c_a78d132d50e68ebccdaf38efbb516f9c1_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{selection_8c_af98ec0367f673e2d9a8658ccb63f4cb6}{\index{selection.\-c@{selection.\-c}!gmx\-\_\-ana\-\_\-selcollection\-\_\-print\-\_\-tree@{gmx\-\_\-ana\-\_\-selcollection\-\_\-print\-\_\-tree}}
+\index{gmx\-\_\-ana\-\_\-selcollection\-\_\-print\-\_\-tree@{gmx\-\_\-ana\-\_\-selcollection\-\_\-print\-\_\-tree}!selection.c@{selection.\-c}}
+\subsubsection[{gmx\-\_\-ana\-\_\-selcollection\-\_\-print\-\_\-tree}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-ana\-\_\-selcollection\-\_\-print\-\_\-tree} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{{\bf gmx\-\_\-ana\-\_\-selcollection\-\_\-t} $\ast$}]{sc, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Values}
+\end{DoxyParamCaption}
+)}}\label{selection_8c_af98ec0367f673e2d9a8658ccb63f4cb6}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em fp} & \-File handle to receive the output. \\
+\hline
+\mbox{\tt in}  & {\em sc} & \-Selection collection to print. \\
+\hline
+\mbox{\tt in}  & {\em b\-Values} & \-If \-T\-R\-U\-E, the evaluated values of selection elements are printed as well. \\
+\hline
+\end{DoxyParams}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{selection_8c_af98ec0367f673e2d9a8658ccb63f4cb6_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{selection_8c_af98ec0367f673e2d9a8658ccb63f4cb6_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{selection_8c_a6fffe7cdfcc038b35236600e2f15f968}{\index{selection.\-c@{selection.\-c}!gmx\-\_\-ana\-\_\-selcollection\-\_\-requires\-\_\-top@{gmx\-\_\-ana\-\_\-selcollection\-\_\-requires\-\_\-top}}
+\index{gmx\-\_\-ana\-\_\-selcollection\-\_\-requires\-\_\-top@{gmx\-\_\-ana\-\_\-selcollection\-\_\-requires\-\_\-top}!selection.c@{selection.\-c}}
+\subsubsection[{gmx\-\_\-ana\-\_\-selcollection\-\_\-requires\-\_\-top}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-ana\-\_\-selcollection\-\_\-requires\-\_\-top} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-selcollection\-\_\-t} $\ast$}]{sc}
+\end{DoxyParamCaption}
+)}}\label{selection_8c_a6fffe7cdfcc038b35236600e2f15f968}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em sc} & \-Selection collection to query. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-T\-R\-U\-E if any selection in {\ttfamily sc} requires topology information, \-F\-A\-L\-S\-E otherwise.
+\end{DoxyReturn}
+\-Before gmx\-\_\-ana\-\_\-selcollection\-\_\-parse\-\_\-$\ast$(), the return value is based just on the position types set. \-After gmx\-\_\-ana\-\_\-selcollection\-\_\-parse\-\_\-$\ast$(), the return value also takes into account the selection keywords used. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{selection_8c_a6fffe7cdfcc038b35236600e2f15f968_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{selection_8c_a6fffe7cdfcc038b35236600e2f15f968_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{selection_8c_a3a82492dda8ce56f8b8d5f94bf2b51da}{\index{selection.\-c@{selection.\-c}!gmx\-\_\-ana\-\_\-selcollection\-\_\-set\-\_\-forceoutput@{gmx\-\_\-ana\-\_\-selcollection\-\_\-set\-\_\-forceoutput}}
+\index{gmx\-\_\-ana\-\_\-selcollection\-\_\-set\-\_\-forceoutput@{gmx\-\_\-ana\-\_\-selcollection\-\_\-set\-\_\-forceoutput}!selection.c@{selection.\-c}}
+\subsubsection[{gmx\-\_\-ana\-\_\-selcollection\-\_\-set\-\_\-forceoutput}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-ana\-\_\-selcollection\-\_\-set\-\_\-forceoutput} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-selcollection\-\_\-t} $\ast$}]{sc, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Force\-Out}
+\end{DoxyParamCaption}
+)}}\label{selection_8c_a3a82492dda8ce56f8b8d5f94bf2b51da}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in,out}  & {\em sc} & \-Selection collection to modify. \\
+\hline
+\mbox{\tt in}  & {\em b\-Force\-Out} & \-If \-T\-R\-U\-E, selections will also evaluate forces. \\
+\hline
+\end{DoxyParams}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{selection_8c_a3a82492dda8ce56f8b8d5f94bf2b51da_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{selection_8c_ab1a820faf79391d4f20ce16eea3d2169}{\index{selection.\-c@{selection.\-c}!gmx\-\_\-ana\-\_\-selcollection\-\_\-set\-\_\-outpostype@{gmx\-\_\-ana\-\_\-selcollection\-\_\-set\-\_\-outpostype}}
+\index{gmx\-\_\-ana\-\_\-selcollection\-\_\-set\-\_\-outpostype@{gmx\-\_\-ana\-\_\-selcollection\-\_\-set\-\_\-outpostype}!selection.c@{selection.\-c}}
+\subsubsection[{gmx\-\_\-ana\-\_\-selcollection\-\_\-set\-\_\-outpostype}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-ana\-\_\-selcollection\-\_\-set\-\_\-outpostype} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-selcollection\-\_\-t} $\ast$}]{sc, }
+\item[{const char $\ast$}]{type, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Mask\-Only}
+\end{DoxyParamCaption}
+)}}\label{selection_8c_ab1a820faf79391d4f20ce16eea3d2169}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in,out}  & {\em sc} & \-Selection collection to modify. \\
+\hline
+\mbox{\tt in}  & {\em type} & \-Default selection output position type (one of the strings acceptable for gmx\-\_\-ana\-\_\-poslcalc\-\_\-type\-\_\-from\-\_\-enum()). \\
+\hline
+\mbox{\tt in}  & {\em b\-Mask\-Only} & \-If \-T\-R\-U\-E, the output positions are initialized using \hyperlink{share_2template_2gromacs_2poscalc_8h_a3586daeaab8b4ff970ae759b3677e7fd}{\-P\-O\-S\-\_\-\-M\-A\-S\-K\-O\-N\-L\-Y}.\\
+\hline
+\end{DoxyParams}
+\-If {\ttfamily type} is \-N\-U\-L\-L, the default type is not modified. \-Should be called before calling \hyperlink{include_2selection_8h_a6fffe7cdfcc038b35236600e2f15f968}{gmx\-\_\-ana\-\_\-selcollection\-\_\-requires\-\_\-top()} or gmx\-\_\-ana\-\_\-selcollection\-\_\-parse\-\_\-$\ast$(). 
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{selection_8c_ab1a820faf79391d4f20ce16eea3d2169_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{selection_8c_a8a9eb259f1fb45cd0676be514ab3ee00}{\index{selection.\-c@{selection.\-c}!gmx\-\_\-ana\-\_\-selcollection\-\_\-set\-\_\-refpostype@{gmx\-\_\-ana\-\_\-selcollection\-\_\-set\-\_\-refpostype}}
+\index{gmx\-\_\-ana\-\_\-selcollection\-\_\-set\-\_\-refpostype@{gmx\-\_\-ana\-\_\-selcollection\-\_\-set\-\_\-refpostype}!selection.c@{selection.\-c}}
+\subsubsection[{gmx\-\_\-ana\-\_\-selcollection\-\_\-set\-\_\-refpostype}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-ana\-\_\-selcollection\-\_\-set\-\_\-refpostype} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-selcollection\-\_\-t} $\ast$}]{sc, }
+\item[{const char $\ast$}]{type}
+\end{DoxyParamCaption}
+)}}\label{selection_8c_a8a9eb259f1fb45cd0676be514ab3ee00}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in,out}  & {\em sc} & \-Selection collection to modify. \\
+\hline
+\mbox{\tt in}  & {\em type} & \-Default selection reference position type (one of the strings acceptable for \hyperlink{include_2poscalc_8h_af8f37a405fdcb6664c9ea85103e0d27f}{gmx\-\_\-ana\-\_\-poscalc\-\_\-type\-\_\-from\-\_\-enum()}).\\
+\hline
+\end{DoxyParams}
+\-Should be called before calling \hyperlink{include_2selection_8h_a6fffe7cdfcc038b35236600e2f15f968}{gmx\-\_\-ana\-\_\-selcollection\-\_\-requires\-\_\-top()} or gmx\-\_\-ana\-\_\-selcollection\-\_\-parse\-\_\-$\ast$(). 
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{selection_8c_a8a9eb259f1fb45cd0676be514ab3ee00_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{selection_8c_a9756c0e459a8c57673721b7496a67d67}{\index{selection.\-c@{selection.\-c}!gmx\-\_\-ana\-\_\-selcollection\-\_\-set\-\_\-topology@{gmx\-\_\-ana\-\_\-selcollection\-\_\-set\-\_\-topology}}
+\index{gmx\-\_\-ana\-\_\-selcollection\-\_\-set\-\_\-topology@{gmx\-\_\-ana\-\_\-selcollection\-\_\-set\-\_\-topology}!selection.c@{selection.\-c}}
+\subsubsection[{gmx\-\_\-ana\-\_\-selcollection\-\_\-set\-\_\-topology}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-ana\-\_\-selcollection\-\_\-set\-\_\-topology} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-selcollection\-\_\-t} $\ast$}]{sc, }
+\item[{{\bf t\-\_\-topology} $\ast$}]{top, }
+\item[{int}]{natoms}
+\end{DoxyParamCaption}
+)}}\label{selection_8c_a9756c0e459a8c57673721b7496a67d67}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in,out}  & {\em sc} & \-Selection collection to set the topology for. \\
+\hline
+\mbox{\tt in}  & {\em top} & \-Topology data. \\
+\hline
+\mbox{\tt in}  & {\em natoms} & \-Number of atoms. \-If $<$=0, the number of atoms in the topology is used. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+0 on success, \-E\-I\-N\-V\-A\-L if {\ttfamily top} is \-N\-U\-L\-L and {\ttfamily natoms} $<$= 0.
+\end{DoxyReturn}
+\-The topology is also set for the position calculation collection associated with {\ttfamily sc}.
+
+{\ttfamily natoms} determines the largest atom index that can be selected by the selection\-: even if the topology contains more atoms, they will not be selected. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{selection_8c_a9756c0e459a8c57673721b7496a67d67_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{selection_8c_a9756c0e459a8c57673721b7496a67d67_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{selection_8c_aa9a1c056c6d445716e793904d832405e}{\index{selection.\-c@{selection.\-c}!gmx\-\_\-ana\-\_\-selcollection\-\_\-set\-\_\-veloutput@{gmx\-\_\-ana\-\_\-selcollection\-\_\-set\-\_\-veloutput}}
+\index{gmx\-\_\-ana\-\_\-selcollection\-\_\-set\-\_\-veloutput@{gmx\-\_\-ana\-\_\-selcollection\-\_\-set\-\_\-veloutput}!selection.c@{selection.\-c}}
+\subsubsection[{gmx\-\_\-ana\-\_\-selcollection\-\_\-set\-\_\-veloutput}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-ana\-\_\-selcollection\-\_\-set\-\_\-veloutput} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-selcollection\-\_\-t} $\ast$}]{sc, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Vel\-Out}
+\end{DoxyParamCaption}
+)}}\label{selection_8c_aa9a1c056c6d445716e793904d832405e}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in,out}  & {\em sc} & \-Selection collection to modify. \\
+\hline
+\mbox{\tt in}  & {\em b\-Vel\-Out} & \-If \-T\-R\-U\-E, selections will also evaluate velocities. \\
+\hline
+\end{DoxyParams}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{selection_8c_aa9a1c056c6d445716e793904d832405e_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{selection_8c_a3aad3393588bf54a1de00919767c968e}{\index{selection.\-c@{selection.\-c}!gmx\-\_\-ana\-\_\-selection\-\_\-free@{gmx\-\_\-ana\-\_\-selection\-\_\-free}}
+\index{gmx\-\_\-ana\-\_\-selection\-\_\-free@{gmx\-\_\-ana\-\_\-selection\-\_\-free}!selection.c@{selection.\-c}}
+\subsubsection[{gmx\-\_\-ana\-\_\-selection\-\_\-free}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-ana\-\_\-selection\-\_\-free} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-selection\-\_\-t} $\ast$}]{sel}
+\end{DoxyParamCaption}
+)}}\label{selection_8c_a3aad3393588bf54a1de00919767c968e}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em sel} & \-Selection to free.\\
+\hline
+\end{DoxyParams}
+\-After the call, the pointer {\ttfamily sel} is invalid. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=344pt]{selection_8c_a3aad3393588bf54a1de00919767c968e_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{selection_8c_a3aad3393588bf54a1de00919767c968e_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{selection_8c_ae897544b5cee33cd53dd605cad785573}{\index{selection.\-c@{selection.\-c}!gmx\-\_\-ana\-\_\-selection\-\_\-init\-\_\-coverfrac@{gmx\-\_\-ana\-\_\-selection\-\_\-init\-\_\-coverfrac}}
+\index{gmx\-\_\-ana\-\_\-selection\-\_\-init\-\_\-coverfrac@{gmx\-\_\-ana\-\_\-selection\-\_\-init\-\_\-coverfrac}!selection.c@{selection.\-c}}
+\subsubsection[{gmx\-\_\-ana\-\_\-selection\-\_\-init\-\_\-coverfrac}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-ana\-\_\-selection\-\_\-init\-\_\-coverfrac} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-selection\-\_\-t} $\ast$}]{sel, }
+\item[{{\bf e\-\_\-coverfrac\-\_\-t}}]{type}
+\end{DoxyParamCaption}
+)}}\label{selection_8c_ae897544b5cee33cd53dd605cad785573}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em sel} & \-Selection to initialize. \\
+\hline
+\mbox{\tt in}  & {\em type} & \-Type of covered fraction required. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-T\-R\-U\-E if the covered fraction can be calculated for the selection, \-F\-A\-L\-S\-E otherwise. 
+\end{DoxyReturn}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{selection_8c_ae897544b5cee33cd53dd605cad785573_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{selection_8c_ae897544b5cee33cd53dd605cad785573_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{selection_8c_a08736ed634486e075919b9d064acb90e}{\index{selection.\-c@{selection.\-c}!gmx\-\_\-ana\-\_\-selection\-\_\-name@{gmx\-\_\-ana\-\_\-selection\-\_\-name}}
+\index{gmx\-\_\-ana\-\_\-selection\-\_\-name@{gmx\-\_\-ana\-\_\-selection\-\_\-name}!selection.c@{selection.\-c}}
+\subsubsection[{gmx\-\_\-ana\-\_\-selection\-\_\-name}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ {\bf gmx\-\_\-ana\-\_\-selection\-\_\-name} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-selection\-\_\-t} $\ast$}]{sel}
+\end{DoxyParamCaption}
+)}}\label{selection_8c_a08736ed634486e075919b9d064acb90e}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em sel} & \-Selection whose name is needed. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-Pointer to the name of the selection.
+\end{DoxyReturn}
+\-The return value should not be freed by the caller. 
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{selection_8c_a08736ed634486e075919b9d064acb90e_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{selection_8c_a753fdeb2fedbd37a2712f3836ec88661}{\index{selection.\-c@{selection.\-c}!gmx\-\_\-ana\-\_\-selection\-\_\-print\-\_\-info@{gmx\-\_\-ana\-\_\-selection\-\_\-print\-\_\-info}}
+\index{gmx\-\_\-ana\-\_\-selection\-\_\-print\-\_\-info@{gmx\-\_\-ana\-\_\-selection\-\_\-print\-\_\-info}!selection.c@{selection.\-c}}
+\subsubsection[{gmx\-\_\-ana\-\_\-selection\-\_\-print\-\_\-info}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-ana\-\_\-selection\-\_\-print\-\_\-info} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-selection\-\_\-t} $\ast$}]{sel}
+\end{DoxyParamCaption}
+)}}\label{selection_8c_a753fdeb2fedbd37a2712f3836ec88661}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em sel} & \-Selection for which information should be printed. \\
+\hline
+\end{DoxyParams}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{selection_8c_a753fdeb2fedbd37a2712f3836ec88661_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{selection_8c_aafde25043f25e48189e2b1c38d0bc9e7}{\index{selection.\-c@{selection.\-c}!xvgr\-\_\-selcollection@{xvgr\-\_\-selcollection}}
+\index{xvgr\-\_\-selcollection@{xvgr\-\_\-selcollection}!selection.c@{selection.\-c}}
+\subsubsection[{xvgr\-\_\-selcollection}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf xvgr\-\_\-selcollection} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{out, }
+\item[{{\bf gmx\-\_\-ana\-\_\-selcollection\-\_\-t} $\ast$}]{sc, }
+\item[{const {\bf output\-\_\-env\-\_\-t}}]{oenv}
+\end{DoxyParamCaption}
+)}}\label{selection_8c_aafde25043f25e48189e2b1c38d0bc9e7}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em out} & \-Output file. \\
+\hline
+\mbox{\tt in}  & {\em sc} & \-Selection collection which should be written. \\
+\hline
+\mbox{\tt in}  & {\em oenv} & \-Output options structure. \\
+\hline
+\end{DoxyParams}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{selection_8c_aafde25043f25e48189e2b1c38d0bc9e7_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{selection_8c_aafde25043f25e48189e2b1c38d0bc9e7_icgraph}
+\end{center}
+\end{figure}
+
+

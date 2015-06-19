@@ -1,0 +1,142 @@
+\hypertarget{gmx__saltbr_8c}{\section{src/tools/gmx\-\_\-saltbr.c \-File \-Reference}
+\label{gmx__saltbr_8c}\index{src/tools/gmx\-\_\-saltbr.\-c@{src/tools/gmx\-\_\-saltbr.\-c}}
+}
+{\ttfamily \#include $<$math.\-h$>$}\*
+{\ttfamily \#include $<$string.\-h$>$}\*
+{\ttfamily \#include \char`\"{}macros.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}vec.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}sysstuff.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}typedefs.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}filenm.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}statutil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}copyrite.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}futil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-fatal.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}smalloc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}pbc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}xvgr.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-ana.\-h\char`\"{}}\*
+\-Include dependency graph for gmx\-\_\-saltbr.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__saltbr_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structt__charge}{t\-\_\-charge}
+\end{DoxyCompactItemize}
+\subsection*{\-Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{gmx__saltbr_8c_a8485f4e81de2537e6a0935626167a775}{\-N\-F\-I\-L\-E}~\hyperlink{share_2template_2gromacs_2macros_8h_a0883345a58f8f63aefa249a4f127f707}{asize}(fnm)
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{structt__charge}{t\-\_\-charge} $\ast$ \hyperlink{gmx__saltbr_8c_aa5b1d4424bd7973d3d73565e9b297e2a}{mk\-\_\-charge} (\hyperlink{structt__atoms}{t\-\_\-atoms} $\ast$atoms, \hyperlink{structt__block}{t\-\_\-block} $\ast$cgs, int $\ast$nncg)
+\item 
+static real \hyperlink{gmx__saltbr_8c_a1ef7d8b4392524d57017cc8004018810}{calc\-\_\-dist} (\hyperlink{structt__pbc}{t\-\_\-pbc} $\ast$pbc, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{structt__block}{t\-\_\-block} $\ast$cgs, int icg, int jcg)
+\item 
+int \hyperlink{gmx__saltbr_8c_af0c102acf767a100180f5888749b3145}{gmx\-\_\-saltbr} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Define \-Documentation}
+\hypertarget{gmx__saltbr_8c_a8485f4e81de2537e6a0935626167a775}{\index{gmx\-\_\-saltbr.\-c@{gmx\-\_\-saltbr.\-c}!\-N\-F\-I\-L\-E@{\-N\-F\-I\-L\-E}}
+\index{\-N\-F\-I\-L\-E@{\-N\-F\-I\-L\-E}!gmx_saltbr.c@{gmx\-\_\-saltbr.\-c}}
+\subsubsection[{\-N\-F\-I\-L\-E}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-N\-F\-I\-L\-E}~{\bf asize}(fnm)}}\label{gmx__saltbr_8c_a8485f4e81de2537e6a0935626167a775}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{gmx__saltbr_8c_a1ef7d8b4392524d57017cc8004018810}{\index{gmx\-\_\-saltbr.\-c@{gmx\-\_\-saltbr.\-c}!calc\-\_\-dist@{calc\-\_\-dist}}
+\index{calc\-\_\-dist@{calc\-\_\-dist}!gmx_saltbr.c@{gmx\-\_\-saltbr.\-c}}
+\subsubsection[{calc\-\_\-dist}]{\setlength{\rightskip}{0pt plus 5cm}static real {\bf calc\-\_\-dist} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-pbc} $\ast$}]{pbc, }
+\item[{{\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf t\-\_\-block} $\ast$}]{cgs, }
+\item[{int}]{icg, }
+\item[{int}]{jcg}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__saltbr_8c_a1ef7d8b4392524d57017cc8004018810}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=220pt]{gmx__saltbr_8c_a1ef7d8b4392524d57017cc8004018810_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=312pt]{gmx__saltbr_8c_a1ef7d8b4392524d57017cc8004018810_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__saltbr_8c_af0c102acf767a100180f5888749b3145}{\index{gmx\-\_\-saltbr.\-c@{gmx\-\_\-saltbr.\-c}!gmx\-\_\-saltbr@{gmx\-\_\-saltbr}}
+\index{gmx\-\_\-saltbr@{gmx\-\_\-saltbr}!gmx_saltbr.c@{gmx\-\_\-saltbr.\-c}}
+\subsubsection[{gmx\-\_\-saltbr}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-saltbr} (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{gmx__saltbr_8c_af0c102acf767a100180f5888749b3145}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{gmx__saltbr_8c_af0c102acf767a100180f5888749b3145_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=220pt]{gmx__saltbr_8c_af0c102acf767a100180f5888749b3145_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__saltbr_8c_aa5b1d4424bd7973d3d73565e9b297e2a}{\index{gmx\-\_\-saltbr.\-c@{gmx\-\_\-saltbr.\-c}!mk\-\_\-charge@{mk\-\_\-charge}}
+\index{mk\-\_\-charge@{mk\-\_\-charge}!gmx_saltbr.c@{gmx\-\_\-saltbr.\-c}}
+\subsubsection[{mk\-\_\-charge}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf t\-\_\-charge}$\ast$ {\bf mk\-\_\-charge} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-atoms} $\ast$}]{atoms, }
+\item[{{\bf t\-\_\-block} $\ast$}]{cgs, }
+\item[{int $\ast$}]{nncg}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__saltbr_8c_aa5b1d4424bd7973d3d73565e9b297e2a}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=322pt]{gmx__saltbr_8c_aa5b1d4424bd7973d3d73565e9b297e2a_icgraph}
+\end{center}
+\end{figure}
+
+

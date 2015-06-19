@@ -1,0 +1,373 @@
+\hypertarget{ter__db_8c}{\section{src/kernel/ter\-\_\-db.c \-File \-Reference}
+\label{ter__db_8c}\index{src/kernel/ter\-\_\-db.\-c@{src/kernel/ter\-\_\-db.\-c}}
+}
+{\ttfamily \#include \char`\"{}sysstuff.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}smalloc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}typedefs.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}symtab.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}futil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}resall.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}h\-\_\-db.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}string2.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}strdb.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-fatal.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}ter\-\_\-db.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}toputil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmxfio.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}fflibutil.\-h\char`\"{}}\*
+\-Include dependency graph for ter\-\_\-db.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ter__db_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{ter__db_8c_a54620a0cbb3d2b88b12d25eb54eb4687}{ekw\-Repl}~\hyperlink{share_2template_2gromacs_2hackblock_8h_a3153161a0d848ec64bf4895db3cf1be4a018bbf49e461419a9fce05a412e904ae}{ebts\-N\-R}+1
+\item 
+\#define \hyperlink{ter__db_8c_a6bd177e29a15c588b3fcfd261e2cc2a7}{ekw\-Add}~\hyperlink{share_2template_2gromacs_2hackblock_8h_a3153161a0d848ec64bf4895db3cf1be4a018bbf49e461419a9fce05a412e904ae}{ebts\-N\-R}+2
+\item 
+\#define \hyperlink{ter__db_8c_a6494f86d345afc6f94dc641d6f1eb50d}{ekw\-Del}~\hyperlink{share_2template_2gromacs_2hackblock_8h_a3153161a0d848ec64bf4895db3cf1be4a018bbf49e461419a9fce05a412e904ae}{ebts\-N\-R}+3
+\item 
+\#define \hyperlink{ter__db_8c_ae54385564e5cd074d7a9e34c3fb44139}{ekw\-N\-R}~3
+\item 
+\#define \hyperlink{ter__db_8c_add1ca99959ff3aaffe88678be7cd01d0}{\-F\-A\-T\-A\-L}()~\hyperlink{gmx__fatal_8c_a11dd5c494ab8edb3c42d2bd1c73dc5b4}{gmx\-\_\-fatal}(\hyperlink{share_2template_2gromacs_2gmx__fatal_8h_ad420b10b269f0310c1ace73100fb5aad}{\-F\-A\-R\-G\-S}, \char`\"{}\-Reading \-Termini \-Database\-: not enough items on \hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line}$\backslash$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}\%\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a6dd0d3574865c5458827c47f2cfd02b8}{s}\char`\"{}, line)
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{ter__db_8c_ad80df61834e121bc3774dc27d8c2e161}{find\-\_\-kw} (char $\ast$keyw)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{ter__db_8c_a1e06508fb95b5d4f30cbc65e8910c248}{read\-\_\-atom} (char $\ast$\hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line}, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Add, char $\ast$$\ast$nname, \hyperlink{structt__atom}{t\-\_\-atom} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a0880879736d1ab747a972d1942421886}{a}, \hyperlink{include_2gpp__atomtype_8h_a140a52ba2b384d9a6483fe65c780f110}{gpp\-\_\-atomtype\-\_\-t} atype, int $\ast$cgnr)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{ter__db_8c_ace0e886c9f3180df95c7ed60dbb18345}{print\-\_\-atom} (\-F\-I\-L\-E $\ast$out, \hyperlink{structt__atom}{t\-\_\-atom} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a0880879736d1ab747a972d1942421886}{a}, \hyperlink{include_2gpp__atomtype_8h_a140a52ba2b384d9a6483fe65c780f110}{gpp\-\_\-atomtype\-\_\-t} atype, char $\ast$newnm)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{ter__db_8c_a64d0517d455dda38e0a5c4cf775c2032}{print\-\_\-ter\-\_\-db} (const char $\ast$\hyperlink{xutils_8c_a535bdffef2ec705f343bfb4e7f2ea4fb}{ff}, char \hyperlink{shift__util_8c_a87764be6e0891eb364215d65d4982fc2}{\-C}, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a86b8049133b29aa036248fbc0c64bead}{nb}, \hyperlink{structt__hackblock}{t\-\_\-hackblock} tb\mbox{[}$\,$\mbox{]}, \hyperlink{include_2gpp__atomtype_8h_a140a52ba2b384d9a6483fe65c780f110}{gpp\-\_\-atomtype\-\_\-t} atype)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{ter__db_8c_ac27c10e90ff70192ff9b2524cfa620d2}{read\-\_\-ter\-\_\-db\-\_\-file} (char $\ast$fn, int $\ast$ntbptr, \hyperlink{structt__hackblock}{t\-\_\-hackblock} $\ast$$\ast$tbptr, \hyperlink{include_2gpp__atomtype_8h_a140a52ba2b384d9a6483fe65c780f110}{gpp\-\_\-atomtype\-\_\-t} atype)
+\item 
+int \hyperlink{ter__db_8c_a5da06425d709488f685e8ce555f8425f}{read\-\_\-ter\-\_\-db} (const char $\ast$ffdir, char ter, \hyperlink{structt__hackblock}{t\-\_\-hackblock} $\ast$$\ast$tbptr, \hyperlink{include_2gpp__atomtype_8h_a140a52ba2b384d9a6483fe65c780f110}{gpp\-\_\-atomtype\-\_\-t} atype)
+\item 
+\hyperlink{structt__hackblock}{t\-\_\-hackblock} $\ast$$\ast$ \hyperlink{ter__db_8c_a9bede4aae9d9561cf79545ec1af437c5}{filter\-\_\-ter} (int nrtp, \hyperlink{structt__restp}{t\-\_\-restp} rtp\mbox{[}$\,$\mbox{]}, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a86b8049133b29aa036248fbc0c64bead}{nb}, \hyperlink{structt__hackblock}{t\-\_\-hackblock} tb\mbox{[}$\,$\mbox{]}, const char $\ast$resname, const char $\ast$rtpname, int $\ast$nret)
+\item 
+\hyperlink{structt__hackblock}{t\-\_\-hackblock} $\ast$ \hyperlink{ter__db_8c_a400cd5f26fd2861ca881b387252a1b0f}{choose\-\_\-ter} (int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a86b8049133b29aa036248fbc0c64bead}{nb}, \hyperlink{structt__hackblock}{t\-\_\-hackblock} $\ast$$\ast$tb, const char $\ast$title)
+\end{DoxyCompactItemize}
+\subsection*{\-Variables}
+\begin{DoxyCompactItemize}
+\item 
+const char $\ast$ \hyperlink{ter__db_8c_a3e3d538247914966a64e2dc6f3465cbe}{kw\-\_\-names} \mbox{[}\hyperlink{ter__db_8c_ae54385564e5cd074d7a9e34c3fb44139}{ekw\-N\-R}\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Define \-Documentation}
+\hypertarget{ter__db_8c_a6bd177e29a15c588b3fcfd261e2cc2a7}{\index{ter\-\_\-db.\-c@{ter\-\_\-db.\-c}!ekw\-Add@{ekw\-Add}}
+\index{ekw\-Add@{ekw\-Add}!ter_db.c@{ter\-\_\-db.\-c}}
+\subsubsection[{ekw\-Add}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf ekw\-Add}~{\bf ebts\-N\-R}+2}}\label{ter__db_8c_a6bd177e29a15c588b3fcfd261e2cc2a7}
+\hypertarget{ter__db_8c_a6494f86d345afc6f94dc641d6f1eb50d}{\index{ter\-\_\-db.\-c@{ter\-\_\-db.\-c}!ekw\-Del@{ekw\-Del}}
+\index{ekw\-Del@{ekw\-Del}!ter_db.c@{ter\-\_\-db.\-c}}
+\subsubsection[{ekw\-Del}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf ekw\-Del}~{\bf ebts\-N\-R}+3}}\label{ter__db_8c_a6494f86d345afc6f94dc641d6f1eb50d}
+\hypertarget{ter__db_8c_ae54385564e5cd074d7a9e34c3fb44139}{\index{ter\-\_\-db.\-c@{ter\-\_\-db.\-c}!ekw\-N\-R@{ekw\-N\-R}}
+\index{ekw\-N\-R@{ekw\-N\-R}!ter_db.c@{ter\-\_\-db.\-c}}
+\subsubsection[{ekw\-N\-R}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf ekw\-N\-R}~3}}\label{ter__db_8c_ae54385564e5cd074d7a9e34c3fb44139}
+\hypertarget{ter__db_8c_a54620a0cbb3d2b88b12d25eb54eb4687}{\index{ter\-\_\-db.\-c@{ter\-\_\-db.\-c}!ekw\-Repl@{ekw\-Repl}}
+\index{ekw\-Repl@{ekw\-Repl}!ter_db.c@{ter\-\_\-db.\-c}}
+\subsubsection[{ekw\-Repl}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf ekw\-Repl}~{\bf ebts\-N\-R}+1}}\label{ter__db_8c_a54620a0cbb3d2b88b12d25eb54eb4687}
+\hypertarget{ter__db_8c_add1ca99959ff3aaffe88678be7cd01d0}{\index{ter\-\_\-db.\-c@{ter\-\_\-db.\-c}!\-F\-A\-T\-A\-L@{\-F\-A\-T\-A\-L}}
+\index{\-F\-A\-T\-A\-L@{\-F\-A\-T\-A\-L}!ter_db.c@{ter\-\_\-db.\-c}}
+\subsubsection[{\-F\-A\-T\-A\-L}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-F\-A\-T\-A\-L}(
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)~{\bf gmx\-\_\-fatal}({\bf \-F\-A\-R\-G\-S}, \char`\"{}\-Reading \-Termini \-Database\-: not enough items on {\bf line}$\backslash${\bf n}\%{\bf s}\char`\"{}, line)}}\label{ter__db_8c_add1ca99959ff3aaffe88678be7cd01d0}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{ter__db_8c_a400cd5f26fd2861ca881b387252a1b0f}{\index{ter\-\_\-db.\-c@{ter\-\_\-db.\-c}!choose\-\_\-ter@{choose\-\_\-ter}}
+\index{choose\-\_\-ter@{choose\-\_\-ter}!ter_db.c@{ter\-\_\-db.\-c}}
+\subsubsection[{choose\-\_\-ter}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\-\_\-hackblock}$\ast$ {\bf choose\-\_\-ter} (
+\begin{DoxyParamCaption}
+\item[{int}]{nb, }
+\item[{{\bf t\-\_\-hackblock} $\ast$$\ast$}]{tb, }
+\item[{const char $\ast$}]{title}
+\end{DoxyParamCaption}
+)}}\label{ter__db_8c_a400cd5f26fd2861ca881b387252a1b0f}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=262pt]{ter__db_8c_a400cd5f26fd2861ca881b387252a1b0f_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=226pt]{ter__db_8c_a400cd5f26fd2861ca881b387252a1b0f_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{ter__db_8c_a9bede4aae9d9561cf79545ec1af437c5}{\index{ter\-\_\-db.\-c@{ter\-\_\-db.\-c}!filter\-\_\-ter@{filter\-\_\-ter}}
+\index{filter\-\_\-ter@{filter\-\_\-ter}!ter_db.c@{ter\-\_\-db.\-c}}
+\subsubsection[{filter\-\_\-ter}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\-\_\-hackblock}$\ast$$\ast$ {\bf filter\-\_\-ter} (
+\begin{DoxyParamCaption}
+\item[{int}]{nrtp, }
+\item[{{\bf t\-\_\-restp}}]{rtp\mbox{[}$\,$\mbox{]}, }
+\item[{int}]{nb, }
+\item[{{\bf t\-\_\-hackblock}}]{tb\mbox{[}$\,$\mbox{]}, }
+\item[{const char $\ast$}]{resname, }
+\item[{const char $\ast$}]{rtpname, }
+\item[{int $\ast$}]{nret}
+\end{DoxyParamCaption}
+)}}\label{ter__db_8c_a9bede4aae9d9561cf79545ec1af437c5}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=266pt]{ter__db_8c_a9bede4aae9d9561cf79545ec1af437c5_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=212pt]{ter__db_8c_a9bede4aae9d9561cf79545ec1af437c5_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{ter__db_8c_ad80df61834e121bc3774dc27d8c2e161}{\index{ter\-\_\-db.\-c@{ter\-\_\-db.\-c}!find\-\_\-kw@{find\-\_\-kw}}
+\index{find\-\_\-kw@{find\-\_\-kw}!ter_db.c@{ter\-\_\-db.\-c}}
+\subsubsection[{find\-\_\-kw}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf find\-\_\-kw} (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{keyw}
+\end{DoxyParamCaption}
+)}}\label{ter__db_8c_ad80df61834e121bc3774dc27d8c2e161}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=258pt]{ter__db_8c_ad80df61834e121bc3774dc27d8c2e161_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ter__db_8c_ad80df61834e121bc3774dc27d8c2e161_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{ter__db_8c_ace0e886c9f3180df95c7ed60dbb18345}{\index{ter\-\_\-db.\-c@{ter\-\_\-db.\-c}!print\-\_\-atom@{print\-\_\-atom}}
+\index{print\-\_\-atom@{print\-\_\-atom}!ter_db.c@{ter\-\_\-db.\-c}}
+\subsubsection[{print\-\_\-atom}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf print\-\_\-atom} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{out, }
+\item[{{\bf t\-\_\-atom} $\ast$}]{a, }
+\item[{{\bf gpp\-\_\-atomtype\-\_\-t}}]{atype, }
+\item[{char $\ast$}]{newnm}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{ter__db_8c_ace0e886c9f3180df95c7ed60dbb18345}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=284pt]{ter__db_8c_ace0e886c9f3180df95c7ed60dbb18345_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ter__db_8c_ace0e886c9f3180df95c7ed60dbb18345_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{ter__db_8c_a64d0517d455dda38e0a5c4cf775c2032}{\index{ter\-\_\-db.\-c@{ter\-\_\-db.\-c}!print\-\_\-ter\-\_\-db@{print\-\_\-ter\-\_\-db}}
+\index{print\-\_\-ter\-\_\-db@{print\-\_\-ter\-\_\-db}!ter_db.c@{ter\-\_\-db.\-c}}
+\subsubsection[{print\-\_\-ter\-\_\-db}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf print\-\_\-ter\-\_\-db} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{ff, }
+\item[{char}]{\-C, }
+\item[{int}]{nb, }
+\item[{{\bf t\-\_\-hackblock}}]{tb\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf gpp\-\_\-atomtype\-\_\-t}}]{atype}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{ter__db_8c_a64d0517d455dda38e0a5c4cf775c2032}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ter__db_8c_a64d0517d455dda38e0a5c4cf775c2032_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ter__db_8c_a64d0517d455dda38e0a5c4cf775c2032_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{ter__db_8c_a1e06508fb95b5d4f30cbc65e8910c248}{\index{ter\-\_\-db.\-c@{ter\-\_\-db.\-c}!read\-\_\-atom@{read\-\_\-atom}}
+\index{read\-\_\-atom@{read\-\_\-atom}!ter_db.c@{ter\-\_\-db.\-c}}
+\subsubsection[{read\-\_\-atom}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf read\-\_\-atom} (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{line, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Add, }
+\item[{char $\ast$$\ast$}]{nname, }
+\item[{{\bf t\-\_\-atom} $\ast$}]{a, }
+\item[{{\bf gpp\-\_\-atomtype\-\_\-t}}]{atype, }
+\item[{int $\ast$}]{cgnr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{ter__db_8c_a1e06508fb95b5d4f30cbc65e8910c248}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=278pt]{ter__db_8c_a1e06508fb95b5d4f30cbc65e8910c248_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ter__db_8c_a1e06508fb95b5d4f30cbc65e8910c248_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{ter__db_8c_a5da06425d709488f685e8ce555f8425f}{\index{ter\-\_\-db.\-c@{ter\-\_\-db.\-c}!read\-\_\-ter\-\_\-db@{read\-\_\-ter\-\_\-db}}
+\index{read\-\_\-ter\-\_\-db@{read\-\_\-ter\-\_\-db}!ter_db.c@{ter\-\_\-db.\-c}}
+\subsubsection[{read\-\_\-ter\-\_\-db}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf read\-\_\-ter\-\_\-db} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{ffdir, }
+\item[{char}]{ter, }
+\item[{{\bf t\-\_\-hackblock} $\ast$$\ast$}]{tbptr, }
+\item[{{\bf gpp\-\_\-atomtype\-\_\-t}}]{atype}
+\end{DoxyParamCaption}
+)}}\label{ter__db_8c_a5da06425d709488f685e8ce555f8425f}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ter__db_8c_a5da06425d709488f685e8ce555f8425f_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=322pt]{ter__db_8c_a5da06425d709488f685e8ce555f8425f_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{ter__db_8c_ac27c10e90ff70192ff9b2524cfa620d2}{\index{ter\-\_\-db.\-c@{ter\-\_\-db.\-c}!read\-\_\-ter\-\_\-db\-\_\-file@{read\-\_\-ter\-\_\-db\-\_\-file}}
+\index{read\-\_\-ter\-\_\-db\-\_\-file@{read\-\_\-ter\-\_\-db\-\_\-file}!ter_db.c@{ter\-\_\-db.\-c}}
+\subsubsection[{read\-\_\-ter\-\_\-db\-\_\-file}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf read\-\_\-ter\-\_\-db\-\_\-file} (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{fn, }
+\item[{int $\ast$}]{ntbptr, }
+\item[{{\bf t\-\_\-hackblock} $\ast$$\ast$}]{tbptr, }
+\item[{{\bf gpp\-\_\-atomtype\-\_\-t}}]{atype}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{ter__db_8c_ac27c10e90ff70192ff9b2524cfa620d2}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{ter__db_8c_ac27c10e90ff70192ff9b2524cfa620d2_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ter__db_8c_ac27c10e90ff70192ff9b2524cfa620d2_icgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{\-Variable \-Documentation}
+\hypertarget{ter__db_8c_a3e3d538247914966a64e2dc6f3465cbe}{\index{ter\-\_\-db.\-c@{ter\-\_\-db.\-c}!kw\-\_\-names@{kw\-\_\-names}}
+\index{kw\-\_\-names@{kw\-\_\-names}!ter_db.c@{ter\-\_\-db.\-c}}
+\subsubsection[{kw\-\_\-names}]{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ {\bf kw\-\_\-names}\mbox{[}{\bf ekw\-N\-R}\mbox{]}}}\label{ter__db_8c_a3e3d538247914966a64e2dc6f3465cbe}
+{\bfseries \-Initial value\-:}
+\begin{DoxyCode}
+ {
+    "replace", "add", "delete"
+}
+\end{DoxyCode}

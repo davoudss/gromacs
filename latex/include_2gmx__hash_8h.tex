@@ -1,0 +1,282 @@
+\hypertarget{include_2gmx__hash_8h}{\section{include/gmx\-\_\-hash.h \-File \-Reference}
+\label{include_2gmx__hash_8h}\index{include/gmx\-\_\-hash.\-h@{include/gmx\-\_\-hash.\-h}}
+}
+{\ttfamily \#include \char`\"{}typedefs.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}smalloc.\-h\char`\"{}}\*
+\-Include dependency graph for gmx\-\_\-hash.\-h\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{include_2gmx__hash_8h__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structgmx__hash__e__t}{gmx\-\_\-hash\-\_\-e\-\_\-t}
+\item 
+struct \hyperlink{structgmx__hash}{gmx\-\_\-hash}
+\end{DoxyCompactItemize}
+\subsection*{\-Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \hyperlink{structgmx__hash}{gmx\-\_\-hash} \hyperlink{include_2gmx__hash_8h_a15ef35179394f6e23ad1282f056b607e}{t\-\_\-gmx\-\_\-hash}
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{include_2gmx__hash_8h_a4c4af16976f84c847566dbd173bc0ea8}{gmx\-\_\-hash\-\_\-clear} (\hyperlink{include_2types_2commrec_8h_a560df2747fed5736f0666039be2e9e49}{gmx\-\_\-hash\-\_\-t} hash)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{include_2gmx__hash_8h_aeb118df512a2bc8d7b0eb84e4e2020cf}{gmx\-\_\-hash\-\_\-realloc} (\hyperlink{include_2types_2commrec_8h_a560df2747fed5736f0666039be2e9e49}{gmx\-\_\-hash\-\_\-t} hash, int nkey\-\_\-used\-\_\-estimate)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{include_2gmx__hash_8h_a1aa759611db392abd56567e1a32fb9b0}{gmx\-\_\-hash\-\_\-clear\-\_\-and\-\_\-optimize} (\hyperlink{include_2types_2commrec_8h_a560df2747fed5736f0666039be2e9e49}{gmx\-\_\-hash\-\_\-t} hash)
+\item 
+static \hyperlink{include_2types_2commrec_8h_a560df2747fed5736f0666039be2e9e49}{gmx\-\_\-hash\-\_\-t} \hyperlink{include_2gmx__hash_8h_a945dd1113e89960dfa1b111166835546}{gmx\-\_\-hash\-\_\-init} (int nkey\-\_\-used\-\_\-estimate)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{include_2gmx__hash_8h_ae1b6062de6e079f96aca7dc7e5f65779}{gmx\-\_\-hash\-\_\-set} (\hyperlink{include_2types_2commrec_8h_a560df2747fed5736f0666039be2e9e49}{gmx\-\_\-hash\-\_\-t} hash, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_adc11ad865dea0f5b8c4e03061d8a7e58}{key}, int value)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{include_2gmx__hash_8h_a1091205bead3586e700191c4c6b0cab7}{gmx\-\_\-hash\-\_\-del} (\hyperlink{include_2types_2commrec_8h_a560df2747fed5736f0666039be2e9e49}{gmx\-\_\-hash\-\_\-t} hash, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_adc11ad865dea0f5b8c4e03061d8a7e58}{key})
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{include_2gmx__hash_8h_aa8a358b351365e8cbaf13c09187044ed}{gmx\-\_\-hash\-\_\-change\-\_\-value} (\hyperlink{include_2types_2commrec_8h_a560df2747fed5736f0666039be2e9e49}{gmx\-\_\-hash\-\_\-t} hash, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_adc11ad865dea0f5b8c4e03061d8a7e58}{key}, int value)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{include_2gmx__hash_8h_a8eea15e638a233b2a8660e5b281001c6}{gmx\-\_\-hash\-\_\-change\-\_\-or\-\_\-set} (\hyperlink{include_2types_2commrec_8h_a560df2747fed5736f0666039be2e9e49}{gmx\-\_\-hash\-\_\-t} hash, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_adc11ad865dea0f5b8c4e03061d8a7e58}{key}, int value)
+\item 
+static \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{include_2gmx__hash_8h_a3615c5c20945af4fd92c41b4bd3891d1}{gmx\-\_\-hash\-\_\-get} (const \hyperlink{include_2types_2commrec_8h_a560df2747fed5736f0666039be2e9e49}{gmx\-\_\-hash\-\_\-t} hash, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_adc11ad865dea0f5b8c4e03061d8a7e58}{key}, int $\ast$value)
+\item 
+static int \hyperlink{include_2gmx__hash_8h_a95b63a5bfe5d603a8d7896cfa157b48a}{gmx\-\_\-hash\-\_\-get\-\_\-minone} (const \hyperlink{include_2types_2commrec_8h_a560df2747fed5736f0666039be2e9e49}{gmx\-\_\-hash\-\_\-t} hash, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_adc11ad865dea0f5b8c4e03061d8a7e58}{key})
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Typedef \-Documentation}
+\hypertarget{include_2gmx__hash_8h_a15ef35179394f6e23ad1282f056b607e}{\index{include/gmx\-\_\-hash.\-h@{include/gmx\-\_\-hash.\-h}!t\-\_\-gmx\-\_\-hash@{t\-\_\-gmx\-\_\-hash}}
+\index{t\-\_\-gmx\-\_\-hash@{t\-\_\-gmx\-\_\-hash}!include/gmx_hash.h@{include/gmx\-\_\-hash.\-h}}
+\subsubsection[{t\-\_\-gmx\-\_\-hash}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf gmx\-\_\-hash}  {\bf t\-\_\-gmx\-\_\-hash}}}\label{include_2gmx__hash_8h_a15ef35179394f6e23ad1282f056b607e}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{include_2gmx__hash_8h_a8eea15e638a233b2a8660e5b281001c6}{\index{include/gmx\-\_\-hash.\-h@{include/gmx\-\_\-hash.\-h}!gmx\-\_\-hash\-\_\-change\-\_\-or\-\_\-set@{gmx\-\_\-hash\-\_\-change\-\_\-or\-\_\-set}}
+\index{gmx\-\_\-hash\-\_\-change\-\_\-or\-\_\-set@{gmx\-\_\-hash\-\_\-change\-\_\-or\-\_\-set}!include/gmx_hash.h@{include/gmx\-\_\-hash.\-h}}
+\subsubsection[{gmx\-\_\-hash\-\_\-change\-\_\-or\-\_\-set}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf gmx\-\_\-hash\-\_\-change\-\_\-or\-\_\-set} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-hash\-\_\-t}}]{hash, }
+\item[{int}]{key, }
+\item[{int}]{value}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{include_2gmx__hash_8h_a8eea15e638a233b2a8660e5b281001c6}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{include_2gmx__hash_8h_a8eea15e638a233b2a8660e5b281001c6_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{include_2gmx__hash_8h_a8eea15e638a233b2a8660e5b281001c6_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{include_2gmx__hash_8h_aa8a358b351365e8cbaf13c09187044ed}{\index{include/gmx\-\_\-hash.\-h@{include/gmx\-\_\-hash.\-h}!gmx\-\_\-hash\-\_\-change\-\_\-value@{gmx\-\_\-hash\-\_\-change\-\_\-value}}
+\index{gmx\-\_\-hash\-\_\-change\-\_\-value@{gmx\-\_\-hash\-\_\-change\-\_\-value}!include/gmx_hash.h@{include/gmx\-\_\-hash.\-h}}
+\subsubsection[{gmx\-\_\-hash\-\_\-change\-\_\-value}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf gmx\-\_\-hash\-\_\-change\-\_\-value} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-hash\-\_\-t}}]{hash, }
+\item[{int}]{key, }
+\item[{int}]{value}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{include_2gmx__hash_8h_aa8a358b351365e8cbaf13c09187044ed}
+\hypertarget{include_2gmx__hash_8h_a4c4af16976f84c847566dbd173bc0ea8}{\index{include/gmx\-\_\-hash.\-h@{include/gmx\-\_\-hash.\-h}!gmx\-\_\-hash\-\_\-clear@{gmx\-\_\-hash\-\_\-clear}}
+\index{gmx\-\_\-hash\-\_\-clear@{gmx\-\_\-hash\-\_\-clear}!include/gmx_hash.h@{include/gmx\-\_\-hash.\-h}}
+\subsubsection[{gmx\-\_\-hash\-\_\-clear}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf gmx\-\_\-hash\-\_\-clear} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-hash\-\_\-t}}]{hash}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{include_2gmx__hash_8h_a4c4af16976f84c847566dbd173bc0ea8}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{include_2gmx__hash_8h_a4c4af16976f84c847566dbd173bc0ea8_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{include_2gmx__hash_8h_a1aa759611db392abd56567e1a32fb9b0}{\index{include/gmx\-\_\-hash.\-h@{include/gmx\-\_\-hash.\-h}!gmx\-\_\-hash\-\_\-clear\-\_\-and\-\_\-optimize@{gmx\-\_\-hash\-\_\-clear\-\_\-and\-\_\-optimize}}
+\index{gmx\-\_\-hash\-\_\-clear\-\_\-and\-\_\-optimize@{gmx\-\_\-hash\-\_\-clear\-\_\-and\-\_\-optimize}!include/gmx_hash.h@{include/gmx\-\_\-hash.\-h}}
+\subsubsection[{gmx\-\_\-hash\-\_\-clear\-\_\-and\-\_\-optimize}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf gmx\-\_\-hash\-\_\-clear\-\_\-and\-\_\-optimize} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-hash\-\_\-t}}]{hash}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{include_2gmx__hash_8h_a1aa759611db392abd56567e1a32fb9b0}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{include_2gmx__hash_8h_a1aa759611db392abd56567e1a32fb9b0_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{include_2gmx__hash_8h_a1aa759611db392abd56567e1a32fb9b0_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{include_2gmx__hash_8h_a1091205bead3586e700191c4c6b0cab7}{\index{include/gmx\-\_\-hash.\-h@{include/gmx\-\_\-hash.\-h}!gmx\-\_\-hash\-\_\-del@{gmx\-\_\-hash\-\_\-del}}
+\index{gmx\-\_\-hash\-\_\-del@{gmx\-\_\-hash\-\_\-del}!include/gmx_hash.h@{include/gmx\-\_\-hash.\-h}}
+\subsubsection[{gmx\-\_\-hash\-\_\-del}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf gmx\-\_\-hash\-\_\-del} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-hash\-\_\-t}}]{hash, }
+\item[{int}]{key}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{include_2gmx__hash_8h_a1091205bead3586e700191c4c6b0cab7}
+\hypertarget{include_2gmx__hash_8h_a3615c5c20945af4fd92c41b4bd3891d1}{\index{include/gmx\-\_\-hash.\-h@{include/gmx\-\_\-hash.\-h}!gmx\-\_\-hash\-\_\-get@{gmx\-\_\-hash\-\_\-get}}
+\index{gmx\-\_\-hash\-\_\-get@{gmx\-\_\-hash\-\_\-get}!include/gmx_hash.h@{include/gmx\-\_\-hash.\-h}}
+\subsubsection[{gmx\-\_\-hash\-\_\-get}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gmx\-\_\-bool} {\bf gmx\-\_\-hash\-\_\-get} (
+\begin{DoxyParamCaption}
+\item[{const {\bf gmx\-\_\-hash\-\_\-t}}]{hash, }
+\item[{int}]{key, }
+\item[{int $\ast$}]{value}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{include_2gmx__hash_8h_a3615c5c20945af4fd92c41b4bd3891d1}
+\hypertarget{include_2gmx__hash_8h_a95b63a5bfe5d603a8d7896cfa157b48a}{\index{include/gmx\-\_\-hash.\-h@{include/gmx\-\_\-hash.\-h}!gmx\-\_\-hash\-\_\-get\-\_\-minone@{gmx\-\_\-hash\-\_\-get\-\_\-minone}}
+\index{gmx\-\_\-hash\-\_\-get\-\_\-minone@{gmx\-\_\-hash\-\_\-get\-\_\-minone}!include/gmx_hash.h@{include/gmx\-\_\-hash.\-h}}
+\subsubsection[{gmx\-\_\-hash\-\_\-get\-\_\-minone}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf gmx\-\_\-hash\-\_\-get\-\_\-minone} (
+\begin{DoxyParamCaption}
+\item[{const {\bf gmx\-\_\-hash\-\_\-t}}]{hash, }
+\item[{int}]{key}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{include_2gmx__hash_8h_a95b63a5bfe5d603a8d7896cfa157b48a}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{include_2gmx__hash_8h_a95b63a5bfe5d603a8d7896cfa157b48a_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{include_2gmx__hash_8h_a945dd1113e89960dfa1b111166835546}{\index{include/gmx\-\_\-hash.\-h@{include/gmx\-\_\-hash.\-h}!gmx\-\_\-hash\-\_\-init@{gmx\-\_\-hash\-\_\-init}}
+\index{gmx\-\_\-hash\-\_\-init@{gmx\-\_\-hash\-\_\-init}!include/gmx_hash.h@{include/gmx\-\_\-hash.\-h}}
+\subsubsection[{gmx\-\_\-hash\-\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gmx\-\_\-hash\-\_\-t} {\bf gmx\-\_\-hash\-\_\-init} (
+\begin{DoxyParamCaption}
+\item[{int}]{nkey\-\_\-used\-\_\-estimate}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{include_2gmx__hash_8h_a945dd1113e89960dfa1b111166835546}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{include_2gmx__hash_8h_a945dd1113e89960dfa1b111166835546_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{include_2gmx__hash_8h_a945dd1113e89960dfa1b111166835546_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{include_2gmx__hash_8h_aeb118df512a2bc8d7b0eb84e4e2020cf}{\index{include/gmx\-\_\-hash.\-h@{include/gmx\-\_\-hash.\-h}!gmx\-\_\-hash\-\_\-realloc@{gmx\-\_\-hash\-\_\-realloc}}
+\index{gmx\-\_\-hash\-\_\-realloc@{gmx\-\_\-hash\-\_\-realloc}!include/gmx_hash.h@{include/gmx\-\_\-hash.\-h}}
+\subsubsection[{gmx\-\_\-hash\-\_\-realloc}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf gmx\-\_\-hash\-\_\-realloc} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-hash\-\_\-t}}]{hash, }
+\item[{int}]{nkey\-\_\-used\-\_\-estimate}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{include_2gmx__hash_8h_aeb118df512a2bc8d7b0eb84e4e2020cf}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=290pt]{include_2gmx__hash_8h_aeb118df512a2bc8d7b0eb84e4e2020cf_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{include_2gmx__hash_8h_aeb118df512a2bc8d7b0eb84e4e2020cf_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{include_2gmx__hash_8h_ae1b6062de6e079f96aca7dc7e5f65779}{\index{include/gmx\-\_\-hash.\-h@{include/gmx\-\_\-hash.\-h}!gmx\-\_\-hash\-\_\-set@{gmx\-\_\-hash\-\_\-set}}
+\index{gmx\-\_\-hash\-\_\-set@{gmx\-\_\-hash\-\_\-set}!include/gmx_hash.h@{include/gmx\-\_\-hash.\-h}}
+\subsubsection[{gmx\-\_\-hash\-\_\-set}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf gmx\-\_\-hash\-\_\-set} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-hash\-\_\-t}}]{hash, }
+\item[{int}]{key, }
+\item[{int}]{value}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{include_2gmx__hash_8h_ae1b6062de6e079f96aca7dc7e5f65779}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=274pt]{include_2gmx__hash_8h_ae1b6062de6e079f96aca7dc7e5f65779_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{include_2gmx__hash_8h_ae1b6062de6e079f96aca7dc7e5f65779_icgraph}
+\end{center}
+\end{figure}
+
+

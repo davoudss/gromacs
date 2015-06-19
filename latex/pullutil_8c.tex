@@ -1,0 +1,232 @@
+\hypertarget{pullutil_8c}{\section{src/mdlib/pullutil.c \-File \-Reference}
+\label{pullutil_8c}\index{src/mdlib/pullutil.\-c@{src/mdlib/pullutil.\-c}}
+}
+{\ttfamily \#include $<$stdlib.\-h$>$}\*
+{\ttfamily \#include \char`\"{}sysstuff.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}princ.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}futil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}statutil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}vec.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}smalloc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}typedefs.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}names.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-fatal.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}macros.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}symtab.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}index.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}confio.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}network.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}pbc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}pull.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-ga2la.\-h\char`\"{}}\*
+\-Include dependency graph for pullutil.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{pullutil_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{pullutil_8c_a8b5252d173e65c69e7c8b0770fdc747c}{pull\-\_\-set\-\_\-pbcatom} (\hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr, \hyperlink{structt__pullgrp}{t\-\_\-pullgrp} $\ast$pg, \hyperlink{structt__mdatoms}{t\-\_\-mdatoms} $\ast$md, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} x\-\_\-pbc)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{pullutil_8c_ae7ba561505297053d4962d4d91ac296d}{pull\-\_\-set\-\_\-pbcatoms} (\hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr, \hyperlink{structt__pull}{t\-\_\-pull} $\ast$pull, \hyperlink{structt__mdatoms}{t\-\_\-mdatoms} $\ast$md, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$x\-\_\-pbc)
+\item 
+static real \hyperlink{pullutil_8c_a3628bba29ff734b5712da5b93d9248af}{get\-\_\-weight} (real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}, real r1, real r0)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{pullutil_8c_a6ffe73ade547558a45d2b5908bccd574}{make\-\_\-cyl\-\_\-refgrps} (\hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr, \hyperlink{structt__pull}{t\-\_\-pull} $\ast$pull, \hyperlink{structt__mdatoms}{t\-\_\-mdatoms} $\ast$md, \hyperlink{structt__pbc}{t\-\_\-pbc} $\ast$pbc, double \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a2b515c84b1293071f7584da32ca336c0}{t}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$xp)
+\item 
+static double \hyperlink{pullutil_8c_a3c6f6ff83e8fec3526f746d51a560e54}{atan2\-\_\-0\-\_\-2pi} (double \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ad992d70ec70c927046cfc2ab1c79b188}{y}, double \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{pullutil_8c_a6d705b9b8b7add30c253277b9a3ece22}{pull\-\_\-calc\-\_\-coms} (\hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr, \hyperlink{structt__pull}{t\-\_\-pull} $\ast$pull, \hyperlink{structt__mdatoms}{t\-\_\-mdatoms} $\ast$md, \hyperlink{structt__pbc}{t\-\_\-pbc} $\ast$pbc, double \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a2b515c84b1293071f7584da32ca336c0}{t}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$xp)
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{pullutil_8c_a3c6f6ff83e8fec3526f746d51a560e54}{\index{pullutil.\-c@{pullutil.\-c}!atan2\-\_\-0\-\_\-2pi@{atan2\-\_\-0\-\_\-2pi}}
+\index{atan2\-\_\-0\-\_\-2pi@{atan2\-\_\-0\-\_\-2pi}!pullutil.c@{pullutil.\-c}}
+\subsubsection[{atan2\-\_\-0\-\_\-2pi}]{\setlength{\rightskip}{0pt plus 5cm}static double {\bf atan2\-\_\-0\-\_\-2pi} (
+\begin{DoxyParamCaption}
+\item[{double}]{y, }
+\item[{double}]{x}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{pullutil_8c_a3c6f6ff83e8fec3526f746d51a560e54}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{pullutil_8c_a3c6f6ff83e8fec3526f746d51a560e54_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{pullutil_8c_a3628bba29ff734b5712da5b93d9248af}{\index{pullutil.\-c@{pullutil.\-c}!get\-\_\-weight@{get\-\_\-weight}}
+\index{get\-\_\-weight@{get\-\_\-weight}!pullutil.c@{pullutil.\-c}}
+\subsubsection[{get\-\_\-weight}]{\setlength{\rightskip}{0pt plus 5cm}static real {\bf get\-\_\-weight} (
+\begin{DoxyParamCaption}
+\item[{real}]{x, }
+\item[{real}]{r1, }
+\item[{real}]{r0}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{pullutil_8c_a3628bba29ff734b5712da5b93d9248af}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{pullutil_8c_a3628bba29ff734b5712da5b93d9248af_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{pullutil_8c_a6ffe73ade547558a45d2b5908bccd574}{\index{pullutil.\-c@{pullutil.\-c}!make\-\_\-cyl\-\_\-refgrps@{make\-\_\-cyl\-\_\-refgrps}}
+\index{make\-\_\-cyl\-\_\-refgrps@{make\-\_\-cyl\-\_\-refgrps}!pullutil.c@{pullutil.\-c}}
+\subsubsection[{make\-\_\-cyl\-\_\-refgrps}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf make\-\_\-cyl\-\_\-refgrps} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-commrec} $\ast$}]{cr, }
+\item[{{\bf t\-\_\-pull} $\ast$}]{pull, }
+\item[{{\bf t\-\_\-mdatoms} $\ast$}]{md, }
+\item[{{\bf t\-\_\-pbc} $\ast$}]{pbc, }
+\item[{double}]{t, }
+\item[{{\bf rvec} $\ast$}]{x, }
+\item[{{\bf rvec} $\ast$}]{xp}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{pullutil_8c_a6ffe73ade547558a45d2b5908bccd574}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=298pt]{pullutil_8c_a6ffe73ade547558a45d2b5908bccd574_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{pullutil_8c_a6ffe73ade547558a45d2b5908bccd574_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{pullutil_8c_a6d705b9b8b7add30c253277b9a3ece22}{\index{pullutil.\-c@{pullutil.\-c}!pull\-\_\-calc\-\_\-coms@{pull\-\_\-calc\-\_\-coms}}
+\index{pull\-\_\-calc\-\_\-coms@{pull\-\_\-calc\-\_\-coms}!pullutil.c@{pullutil.\-c}}
+\subsubsection[{pull\-\_\-calc\-\_\-coms}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf pull\-\_\-calc\-\_\-coms} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-commrec} $\ast$}]{cr, }
+\item[{{\bf t\-\_\-pull} $\ast$}]{pull, }
+\item[{{\bf t\-\_\-mdatoms} $\ast$}]{md, }
+\item[{{\bf t\-\_\-pbc} $\ast$}]{pbc, }
+\item[{double}]{t, }
+\item[{{\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec} $\ast$}]{xp}
+\end{DoxyParamCaption}
+)}}\label{pullutil_8c_a6d705b9b8b7add30c253277b9a3ece22}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{pullutil_8c_a6d705b9b8b7add30c253277b9a3ece22_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{pullutil_8c_a6d705b9b8b7add30c253277b9a3ece22_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{pullutil_8c_a8b5252d173e65c69e7c8b0770fdc747c}{\index{pullutil.\-c@{pullutil.\-c}!pull\-\_\-set\-\_\-pbcatom@{pull\-\_\-set\-\_\-pbcatom}}
+\index{pull\-\_\-set\-\_\-pbcatom@{pull\-\_\-set\-\_\-pbcatom}!pullutil.c@{pullutil.\-c}}
+\subsubsection[{pull\-\_\-set\-\_\-pbcatom}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf pull\-\_\-set\-\_\-pbcatom} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-commrec} $\ast$}]{cr, }
+\item[{{\bf t\-\_\-pullgrp} $\ast$}]{pg, }
+\item[{{\bf t\-\_\-mdatoms} $\ast$}]{md, }
+\item[{{\bf rvec} $\ast$}]{x, }
+\item[{{\bf rvec}}]{x\-\_\-pbc}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{pullutil_8c_a8b5252d173e65c69e7c8b0770fdc747c}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=298pt]{pullutil_8c_a8b5252d173e65c69e7c8b0770fdc747c_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{pullutil_8c_a8b5252d173e65c69e7c8b0770fdc747c_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{pullutil_8c_ae7ba561505297053d4962d4d91ac296d}{\index{pullutil.\-c@{pullutil.\-c}!pull\-\_\-set\-\_\-pbcatoms@{pull\-\_\-set\-\_\-pbcatoms}}
+\index{pull\-\_\-set\-\_\-pbcatoms@{pull\-\_\-set\-\_\-pbcatoms}!pullutil.c@{pullutil.\-c}}
+\subsubsection[{pull\-\_\-set\-\_\-pbcatoms}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf pull\-\_\-set\-\_\-pbcatoms} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-commrec} $\ast$}]{cr, }
+\item[{{\bf t\-\_\-pull} $\ast$}]{pull, }
+\item[{{\bf t\-\_\-mdatoms} $\ast$}]{md, }
+\item[{{\bf rvec} $\ast$}]{x, }
+\item[{{\bf rvec} $\ast$}]{x\-\_\-pbc}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{pullutil_8c_ae7ba561505297053d4962d4d91ac296d}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{pullutil_8c_ae7ba561505297053d4962d4d91ac296d_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{pullutil_8c_ae7ba561505297053d4962d4d91ac296d_icgraph}
+\end{center}
+\end{figure}
+
+

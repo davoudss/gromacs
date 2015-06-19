@@ -1,0 +1,287 @@
+\hypertarget{memtestG80__core_8h}{\section{src/gmxlib/gpu\-\_\-utils/memtest\-G80\-\_\-core.h \-File \-Reference}
+\label{memtestG80__core_8h}\index{src/gmxlib/gpu\-\_\-utils/memtest\-G80\-\_\-core.\-h@{src/gmxlib/gpu\-\_\-utils/memtest\-G80\-\_\-core.\-h}}
+}
+\subsection*{\-Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{classmemtestState}{memtest\-State}
+\end{DoxyCompactItemize}
+\subsection*{\-Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{memtestG80__core_8h_aec9b493e3863e6f62c899af9755723c0}{\-S\-O\-F\-T\-W\-A\-I\-T}()~if (\hyperlink{memtestG80__core_8h_ae1d9c5dd62f2c71f780980f04f4c6a49}{\-\_\-poll\-Status}() != 0) \{return 0x\-F\-F\-F\-F\-F\-F\-F\-E; \}
+\item 
+\#define \hyperlink{memtestG80__core_8h_ae843ffe89c7c13c852021c1dbf14d7f7}{\-S\-O\-F\-T\-W\-A\-I\-T\-\_\-\-L\-I\-M}(lim)~if (\hyperlink{memtestG80__core_8h_ae1d9c5dd62f2c71f780980f04f4c6a49}{\-\_\-poll\-Status}(1, lim) != 0) \{return 0x\-F\-F\-F\-F\-F\-F\-F\-E; \}
+\item 
+\#define \hyperlink{memtestG80__core_8h_ad985dffbb27879a15029860406e257c5}{\-C\-H\-E\-C\-K\-\_\-\-L\-A\-U\-N\-C\-H\-\_\-\-E\-R\-R\-O\-R}()~if (cuda\-Get\-Last\-Error() != cuda\-Success) \{return 0x\-F\-F\-F\-F\-F\-F\-F\-F; /$\ast$ -\/1 $\ast$/\}
+\end{DoxyCompactItemize}
+\subsection*{\-Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef unsigned int \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint}
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{memtestG80__core_8h_ae1d9c5dd62f2c71f780980f04f4c6a49}{\-\_\-poll\-Status} (unsigned length=1, unsigned limit=15000)
+\item 
+\-\_\-\-\_\-host\-\_\-\-\_\- double \hyperlink{memtestG80__core_8h_aa89322cbd3091c60b79792eee95cb246}{gpu\-Memory\-Bandwidth} (\hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} $\ast$src, \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} $\ast$dst, \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} mb\-To\-Test, \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} iters)
+\item 
+\-\_\-\-\_\-host\-\_\-\-\_\- \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{memtestG80__core_8h_a660e0098fd4b74e80b6bcec32b45f00d}{gpu\-Write\-Constant} (const \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} n\-Blocks, const \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} n\-Threads, \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} $\ast$base, \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} \hyperlink{3dview_8c_a0240ac851181b84ac374872dc5434ee4}{\-N}, const \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} constant)
+\item 
+\-\_\-\-\_\-host\-\_\-\-\_\- \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} \hyperlink{memtestG80__core_8h_acd99d8e49747ddaffa39965ce69d6e10}{gpu\-Verify\-Constant} (const \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} n\-Blocks, const \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} n\-Threads, \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} $\ast$base, \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} \hyperlink{3dview_8c_a0240ac851181b84ac374872dc5434ee4}{\-N}, const \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} constant, \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} $\ast$block\-Error\-Count, \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} $\ast$error\-Counts)
+\item 
+\-\_\-\-\_\-host\-\_\-\-\_\- \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{memtestG80__core_8h_a8aae6def19917e416e84712615d8440d}{cpu\-Write\-Constant} (const \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} n\-Blocks, const \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} n\-Threads, \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} $\ast$base, \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} \hyperlink{3dview_8c_a0240ac851181b84ac374872dc5434ee4}{\-N}, const \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} constant)
+\item 
+\-\_\-\-\_\-host\-\_\-\-\_\- \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} \hyperlink{memtestG80__core_8h_af0879da44c77bc52c6362c3171a7e474}{cpu\-Verify\-Constant} (const \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} n\-Blocks, const \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} n\-Threads, \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} $\ast$base, \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} \hyperlink{3dview_8c_a0240ac851181b84ac374872dc5434ee4}{\-N}, const \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} constant)
+\item 
+\-\_\-\-\_\-host\-\_\-\-\_\- \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} \hyperlink{memtestG80__core_8h_aa1a02f7e4c80032abac0cb85a46fd350}{gpu\-Short\-L\-C\-G0} (const \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} n\-Blocks, const \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} n\-Threads, \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} $\ast$base, \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} \hyperlink{3dview_8c_a0240ac851181b84ac374872dc5434ee4}{\-N}, const \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} repeats, const int period, \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} $\ast$block\-Error\-Counts, \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} $\ast$error\-Counts)
+\item 
+\-\_\-\-\_\-host\-\_\-\-\_\- \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} \hyperlink{memtestG80__core_8h_a916d3b404c60a1cdb9c867c31d70c047}{gpu\-Short\-L\-C\-G0\-Shmem} (const \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} n\-Blocks, const \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} n\-Threads, \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} $\ast$base, \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} \hyperlink{3dview_8c_a0240ac851181b84ac374872dc5434ee4}{\-N}, const \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} repeats, const int period, \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} $\ast$block\-Error\-Counts, \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} $\ast$error\-Counts)
+\item 
+\-\_\-\-\_\-host\-\_\-\-\_\- \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} \hyperlink{memtestG80__core_8h_a838c065581d353d9d1674f8323739d97}{gpu\-Moving\-Inversions\-Ones\-Zeros} (const \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} n\-Blocks, const \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} n\-Threads, \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} $\ast$base, \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} \hyperlink{3dview_8c_a0240ac851181b84ac374872dc5434ee4}{\-N}, \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} $\ast$block\-Error\-Counts, \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} $\ast$error\-Counts)
+\item 
+\-\_\-\-\_\-host\-\_\-\-\_\- \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} \hyperlink{memtestG80__core_8h_a68758ae4d7b886c85ffdba58d64a7470}{gpu\-Walking8\-Bit\-M86} (const \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} n\-Blocks, const \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} n\-Threads, \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} $\ast$base, \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} \hyperlink{3dview_8c_a0240ac851181b84ac374872dc5434ee4}{\-N}, \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} shift, \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} $\ast$block\-Error\-Counts, \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} $\ast$error\-Counts)
+\item 
+\-\_\-\-\_\-host\-\_\-\-\_\- \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} \hyperlink{memtestG80__core_8h_ac024e38b6aa2476fd4202a487f31bba0}{cpu\-Walking8\-Bit\-M86} (const \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} n\-Blocks, const \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} n\-Threads, \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} $\ast$base, \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} \hyperlink{3dview_8c_a0240ac851181b84ac374872dc5434ee4}{\-N}, \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} shift)
+\item 
+\-\_\-\-\_\-host\-\_\-\-\_\- \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} \hyperlink{memtestG80__core_8h_a633aac84b236c59478d6457bd7b0b4a3}{gpu\-Walking8\-Bit} (const \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} n\-Blocks, const \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} n\-Threads, \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} $\ast$base, \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} \hyperlink{3dview_8c_a0240ac851181b84ac374872dc5434ee4}{\-N}, bool ones, \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} shift, \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} $\ast$block\-Error\-Count, \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} $\ast$error\-Counts)
+\item 
+\-\_\-\-\_\-host\-\_\-\-\_\- \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} \hyperlink{memtestG80__core_8h_ab04b626b80e08eeafb57e1810ab8ece3}{gpu\-Moving\-Inversions\-Random} (const \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} n\-Blocks, const \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} n\-Threads, \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} $\ast$base, \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} \hyperlink{3dview_8c_a0240ac851181b84ac374872dc5434ee4}{\-N}, \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} $\ast$block\-Error\-Counts, \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} $\ast$error\-Counts)
+\item 
+\-\_\-\-\_\-host\-\_\-\-\_\- \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} \hyperlink{memtestG80__core_8h_a4e77c515e1d5799d88620a7688f0b103}{gpu\-Walking32\-Bit} (const \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} n\-Blocks, const \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} n\-Threads, \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} $\ast$base, \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} \hyperlink{3dview_8c_a0240ac851181b84ac374872dc5434ee4}{\-N}, bool ones, \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} shift, \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} $\ast$block\-Error\-Count, \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} $\ast$error\-Counts)
+\item 
+\-\_\-\-\_\-host\-\_\-\-\_\- \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} \hyperlink{memtestG80__core_8h_a31568f41f75feb4329f90e4360549656}{gpu\-Random\-Blocks} (const \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} n\-Blocks, const \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} n\-Threads, \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} $\ast$base, \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} \hyperlink{3dview_8c_a0240ac851181b84ac374872dc5434ee4}{\-N}, \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} seed, \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} $\ast$block\-Error\-Count, \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} $\ast$error\-Counts)
+\item 
+\-\_\-\-\_\-host\-\_\-\-\_\- \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} \hyperlink{memtestG80__core_8h_a63f6b4c1a4025a9b499401f9fbe228cb}{gpu\-Modulo\-X} (const \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} n\-Blocks, const \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} n\-Threads, \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} $\ast$base, const \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} \hyperlink{3dview_8c_a0240ac851181b84ac374872dc5434ee4}{\-N}, \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} shift, \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} pattern1, const \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} modulus, const \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} iters, \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} $\ast$block\-Error\-Count, \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} $\ast$error\-Counts)
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Define \-Documentation}
+\hypertarget{memtestG80__core_8h_ad985dffbb27879a15029860406e257c5}{\index{memtest\-G80\-\_\-core.\-h@{memtest\-G80\-\_\-core.\-h}!\-C\-H\-E\-C\-K\-\_\-\-L\-A\-U\-N\-C\-H\-\_\-\-E\-R\-R\-O\-R@{\-C\-H\-E\-C\-K\-\_\-\-L\-A\-U\-N\-C\-H\-\_\-\-E\-R\-R\-O\-R}}
+\index{\-C\-H\-E\-C\-K\-\_\-\-L\-A\-U\-N\-C\-H\-\_\-\-E\-R\-R\-O\-R@{\-C\-H\-E\-C\-K\-\_\-\-L\-A\-U\-N\-C\-H\-\_\-\-E\-R\-R\-O\-R}!memtestG80_core.h@{memtest\-G80\-\_\-core.\-h}}
+\subsubsection[{\-C\-H\-E\-C\-K\-\_\-\-L\-A\-U\-N\-C\-H\-\_\-\-E\-R\-R\-O\-R}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-C\-H\-E\-C\-K\-\_\-\-L\-A\-U\-N\-C\-H\-\_\-\-E\-R\-R\-O\-R}(
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)~if (cuda\-Get\-Last\-Error() != cuda\-Success) \{return 0x\-F\-F\-F\-F\-F\-F\-F\-F; /$\ast$ -\/1 $\ast$/\}}}\label{memtestG80__core_8h_ad985dffbb27879a15029860406e257c5}
+\hypertarget{memtestG80__core_8h_aec9b493e3863e6f62c899af9755723c0}{\index{memtest\-G80\-\_\-core.\-h@{memtest\-G80\-\_\-core.\-h}!\-S\-O\-F\-T\-W\-A\-I\-T@{\-S\-O\-F\-T\-W\-A\-I\-T}}
+\index{\-S\-O\-F\-T\-W\-A\-I\-T@{\-S\-O\-F\-T\-W\-A\-I\-T}!memtestG80_core.h@{memtest\-G80\-\_\-core.\-h}}
+\subsubsection[{\-S\-O\-F\-T\-W\-A\-I\-T}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-S\-O\-F\-T\-W\-A\-I\-T}(
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)~if ({\bf \-\_\-poll\-Status}() != 0) \{return 0x\-F\-F\-F\-F\-F\-F\-F\-E; \}}}\label{memtestG80__core_8h_aec9b493e3863e6f62c899af9755723c0}
+\hypertarget{memtestG80__core_8h_ae843ffe89c7c13c852021c1dbf14d7f7}{\index{memtest\-G80\-\_\-core.\-h@{memtest\-G80\-\_\-core.\-h}!\-S\-O\-F\-T\-W\-A\-I\-T\-\_\-\-L\-I\-M@{\-S\-O\-F\-T\-W\-A\-I\-T\-\_\-\-L\-I\-M}}
+\index{\-S\-O\-F\-T\-W\-A\-I\-T\-\_\-\-L\-I\-M@{\-S\-O\-F\-T\-W\-A\-I\-T\-\_\-\-L\-I\-M}!memtestG80_core.h@{memtest\-G80\-\_\-core.\-h}}
+\subsubsection[{\-S\-O\-F\-T\-W\-A\-I\-T\-\_\-\-L\-I\-M}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-S\-O\-F\-T\-W\-A\-I\-T\-\_\-\-L\-I\-M}(
+\begin{DoxyParamCaption}
+\item[{}]{lim}
+\end{DoxyParamCaption}
+)~if ({\bf \-\_\-poll\-Status}(1, lim) != 0) \{return 0x\-F\-F\-F\-F\-F\-F\-F\-E; \}}}\label{memtestG80__core_8h_ae843ffe89c7c13c852021c1dbf14d7f7}
+
+
+\subsection{\-Typedef \-Documentation}
+\hypertarget{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{\index{memtest\-G80\-\_\-core.\-h@{memtest\-G80\-\_\-core.\-h}!uint@{uint}}
+\index{uint@{uint}!memtestG80_core.h@{memtest\-G80\-\_\-core.\-h}}
+\subsubsection[{uint}]{\setlength{\rightskip}{0pt plus 5cm}typedef unsigned int {\bf uint}}}\label{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{memtestG80__core_8h_ae1d9c5dd62f2c71f780980f04f4c6a49}{\index{memtest\-G80\-\_\-core.\-h@{memtest\-G80\-\_\-core.\-h}!\-\_\-poll\-Status@{\-\_\-poll\-Status}}
+\index{\-\_\-poll\-Status@{\-\_\-poll\-Status}!memtestG80_core.h@{memtest\-G80\-\_\-core.\-h}}
+\subsubsection[{\-\_\-poll\-Status}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf \-\_\-poll\-Status} (
+\begin{DoxyParamCaption}
+\item[{unsigned}]{length = {\ttfamily 1}, }
+\item[{unsigned}]{limit = {\ttfamily 15000}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{memtestG80__core_8h_ae1d9c5dd62f2c71f780980f04f4c6a49}
+\hypertarget{memtestG80__core_8h_af0879da44c77bc52c6362c3171a7e474}{\index{memtest\-G80\-\_\-core.\-h@{memtest\-G80\-\_\-core.\-h}!cpu\-Verify\-Constant@{cpu\-Verify\-Constant}}
+\index{cpu\-Verify\-Constant@{cpu\-Verify\-Constant}!memtestG80_core.h@{memtest\-G80\-\_\-core.\-h}}
+\subsubsection[{cpu\-Verify\-Constant}]{\setlength{\rightskip}{0pt plus 5cm}\-\_\-\-\_\-host\-\_\-\-\_\- {\bf uint} {\bf cpu\-Verify\-Constant} (
+\begin{DoxyParamCaption}
+\item[{const {\bf uint}}]{n\-Blocks, }
+\item[{const {\bf uint}}]{n\-Threads, }
+\item[{{\bf uint} $\ast$}]{base, }
+\item[{{\bf uint}}]{\-N, }
+\item[{const {\bf uint}}]{constant}
+\end{DoxyParamCaption}
+)}}\label{memtestG80__core_8h_af0879da44c77bc52c6362c3171a7e474}
+\hypertarget{memtestG80__core_8h_ac024e38b6aa2476fd4202a487f31bba0}{\index{memtest\-G80\-\_\-core.\-h@{memtest\-G80\-\_\-core.\-h}!cpu\-Walking8\-Bit\-M86@{cpu\-Walking8\-Bit\-M86}}
+\index{cpu\-Walking8\-Bit\-M86@{cpu\-Walking8\-Bit\-M86}!memtestG80_core.h@{memtest\-G80\-\_\-core.\-h}}
+\subsubsection[{cpu\-Walking8\-Bit\-M86}]{\setlength{\rightskip}{0pt plus 5cm}\-\_\-\-\_\-host\-\_\-\-\_\- {\bf uint} {\bf cpu\-Walking8\-Bit\-M86} (
+\begin{DoxyParamCaption}
+\item[{const {\bf uint}}]{n\-Blocks, }
+\item[{const {\bf uint}}]{n\-Threads, }
+\item[{{\bf uint} $\ast$}]{base, }
+\item[{{\bf uint}}]{\-N, }
+\item[{{\bf uint}}]{shift}
+\end{DoxyParamCaption}
+)}}\label{memtestG80__core_8h_ac024e38b6aa2476fd4202a487f31bba0}
+\hypertarget{memtestG80__core_8h_a8aae6def19917e416e84712615d8440d}{\index{memtest\-G80\-\_\-core.\-h@{memtest\-G80\-\_\-core.\-h}!cpu\-Write\-Constant@{cpu\-Write\-Constant}}
+\index{cpu\-Write\-Constant@{cpu\-Write\-Constant}!memtestG80_core.h@{memtest\-G80\-\_\-core.\-h}}
+\subsubsection[{cpu\-Write\-Constant}]{\setlength{\rightskip}{0pt plus 5cm}\-\_\-\-\_\-host\-\_\-\-\_\- {\bf void} {\bf cpu\-Write\-Constant} (
+\begin{DoxyParamCaption}
+\item[{const {\bf uint}}]{n\-Blocks, }
+\item[{const {\bf uint}}]{n\-Threads, }
+\item[{{\bf uint} $\ast$}]{base, }
+\item[{{\bf uint}}]{\-N, }
+\item[{const {\bf uint}}]{constant}
+\end{DoxyParamCaption}
+)}}\label{memtestG80__core_8h_a8aae6def19917e416e84712615d8440d}
+\hypertarget{memtestG80__core_8h_aa89322cbd3091c60b79792eee95cb246}{\index{memtest\-G80\-\_\-core.\-h@{memtest\-G80\-\_\-core.\-h}!gpu\-Memory\-Bandwidth@{gpu\-Memory\-Bandwidth}}
+\index{gpu\-Memory\-Bandwidth@{gpu\-Memory\-Bandwidth}!memtestG80_core.h@{memtest\-G80\-\_\-core.\-h}}
+\subsubsection[{gpu\-Memory\-Bandwidth}]{\setlength{\rightskip}{0pt plus 5cm}\-\_\-\-\_\-host\-\_\-\-\_\- double {\bf gpu\-Memory\-Bandwidth} (
+\begin{DoxyParamCaption}
+\item[{{\bf uint} $\ast$}]{src, }
+\item[{{\bf uint} $\ast$}]{dst, }
+\item[{{\bf uint}}]{mb\-To\-Test, }
+\item[{{\bf uint}}]{iters}
+\end{DoxyParamCaption}
+)}}\label{memtestG80__core_8h_aa89322cbd3091c60b79792eee95cb246}
+\hypertarget{memtestG80__core_8h_a63f6b4c1a4025a9b499401f9fbe228cb}{\index{memtest\-G80\-\_\-core.\-h@{memtest\-G80\-\_\-core.\-h}!gpu\-Modulo\-X@{gpu\-Modulo\-X}}
+\index{gpu\-Modulo\-X@{gpu\-Modulo\-X}!memtestG80_core.h@{memtest\-G80\-\_\-core.\-h}}
+\subsubsection[{gpu\-Modulo\-X}]{\setlength{\rightskip}{0pt plus 5cm}\-\_\-\-\_\-host\-\_\-\-\_\- {\bf uint} {\bf gpu\-Modulo\-X} (
+\begin{DoxyParamCaption}
+\item[{const {\bf uint}}]{n\-Blocks, }
+\item[{const {\bf uint}}]{n\-Threads, }
+\item[{{\bf uint} $\ast$}]{base, }
+\item[{const {\bf uint}}]{\-N, }
+\item[{{\bf uint}}]{shift, }
+\item[{{\bf uint}}]{pattern1, }
+\item[{const {\bf uint}}]{modulus, }
+\item[{const {\bf uint}}]{iters, }
+\item[{{\bf uint} $\ast$}]{block\-Error\-Count, }
+\item[{{\bf uint} $\ast$}]{error\-Counts}
+\end{DoxyParamCaption}
+)}}\label{memtestG80__core_8h_a63f6b4c1a4025a9b499401f9fbe228cb}
+\hypertarget{memtestG80__core_8h_a838c065581d353d9d1674f8323739d97}{\index{memtest\-G80\-\_\-core.\-h@{memtest\-G80\-\_\-core.\-h}!gpu\-Moving\-Inversions\-Ones\-Zeros@{gpu\-Moving\-Inversions\-Ones\-Zeros}}
+\index{gpu\-Moving\-Inversions\-Ones\-Zeros@{gpu\-Moving\-Inversions\-Ones\-Zeros}!memtestG80_core.h@{memtest\-G80\-\_\-core.\-h}}
+\subsubsection[{gpu\-Moving\-Inversions\-Ones\-Zeros}]{\setlength{\rightskip}{0pt plus 5cm}\-\_\-\-\_\-host\-\_\-\-\_\- {\bf uint} {\bf gpu\-Moving\-Inversions\-Ones\-Zeros} (
+\begin{DoxyParamCaption}
+\item[{const {\bf uint}}]{n\-Blocks, }
+\item[{const {\bf uint}}]{n\-Threads, }
+\item[{{\bf uint} $\ast$}]{base, }
+\item[{{\bf uint}}]{\-N, }
+\item[{{\bf uint} $\ast$}]{block\-Error\-Counts, }
+\item[{{\bf uint} $\ast$}]{error\-Counts}
+\end{DoxyParamCaption}
+)}}\label{memtestG80__core_8h_a838c065581d353d9d1674f8323739d97}
+\hypertarget{memtestG80__core_8h_ab04b626b80e08eeafb57e1810ab8ece3}{\index{memtest\-G80\-\_\-core.\-h@{memtest\-G80\-\_\-core.\-h}!gpu\-Moving\-Inversions\-Random@{gpu\-Moving\-Inversions\-Random}}
+\index{gpu\-Moving\-Inversions\-Random@{gpu\-Moving\-Inversions\-Random}!memtestG80_core.h@{memtest\-G80\-\_\-core.\-h}}
+\subsubsection[{gpu\-Moving\-Inversions\-Random}]{\setlength{\rightskip}{0pt plus 5cm}\-\_\-\-\_\-host\-\_\-\-\_\- {\bf uint} {\bf gpu\-Moving\-Inversions\-Random} (
+\begin{DoxyParamCaption}
+\item[{const {\bf uint}}]{n\-Blocks, }
+\item[{const {\bf uint}}]{n\-Threads, }
+\item[{{\bf uint} $\ast$}]{base, }
+\item[{{\bf uint}}]{\-N, }
+\item[{{\bf uint} $\ast$}]{block\-Error\-Counts, }
+\item[{{\bf uint} $\ast$}]{error\-Counts}
+\end{DoxyParamCaption}
+)}}\label{memtestG80__core_8h_ab04b626b80e08eeafb57e1810ab8ece3}
+\hypertarget{memtestG80__core_8h_a31568f41f75feb4329f90e4360549656}{\index{memtest\-G80\-\_\-core.\-h@{memtest\-G80\-\_\-core.\-h}!gpu\-Random\-Blocks@{gpu\-Random\-Blocks}}
+\index{gpu\-Random\-Blocks@{gpu\-Random\-Blocks}!memtestG80_core.h@{memtest\-G80\-\_\-core.\-h}}
+\subsubsection[{gpu\-Random\-Blocks}]{\setlength{\rightskip}{0pt plus 5cm}\-\_\-\-\_\-host\-\_\-\-\_\- {\bf uint} {\bf gpu\-Random\-Blocks} (
+\begin{DoxyParamCaption}
+\item[{const {\bf uint}}]{n\-Blocks, }
+\item[{const {\bf uint}}]{n\-Threads, }
+\item[{{\bf uint} $\ast$}]{base, }
+\item[{{\bf uint}}]{\-N, }
+\item[{{\bf uint}}]{seed, }
+\item[{{\bf uint} $\ast$}]{block\-Error\-Count, }
+\item[{{\bf uint} $\ast$}]{error\-Counts}
+\end{DoxyParamCaption}
+)}}\label{memtestG80__core_8h_a31568f41f75feb4329f90e4360549656}
+\hypertarget{memtestG80__core_8h_aa1a02f7e4c80032abac0cb85a46fd350}{\index{memtest\-G80\-\_\-core.\-h@{memtest\-G80\-\_\-core.\-h}!gpu\-Short\-L\-C\-G0@{gpu\-Short\-L\-C\-G0}}
+\index{gpu\-Short\-L\-C\-G0@{gpu\-Short\-L\-C\-G0}!memtestG80_core.h@{memtest\-G80\-\_\-core.\-h}}
+\subsubsection[{gpu\-Short\-L\-C\-G0}]{\setlength{\rightskip}{0pt plus 5cm}\-\_\-\-\_\-host\-\_\-\-\_\- {\bf uint} {\bf gpu\-Short\-L\-C\-G0} (
+\begin{DoxyParamCaption}
+\item[{const {\bf uint}}]{n\-Blocks, }
+\item[{const {\bf uint}}]{n\-Threads, }
+\item[{{\bf uint} $\ast$}]{base, }
+\item[{{\bf uint}}]{\-N, }
+\item[{const {\bf uint}}]{repeats, }
+\item[{const int}]{period, }
+\item[{{\bf uint} $\ast$}]{block\-Error\-Counts, }
+\item[{{\bf uint} $\ast$}]{error\-Counts}
+\end{DoxyParamCaption}
+)}}\label{memtestG80__core_8h_aa1a02f7e4c80032abac0cb85a46fd350}
+\hypertarget{memtestG80__core_8h_a916d3b404c60a1cdb9c867c31d70c047}{\index{memtest\-G80\-\_\-core.\-h@{memtest\-G80\-\_\-core.\-h}!gpu\-Short\-L\-C\-G0\-Shmem@{gpu\-Short\-L\-C\-G0\-Shmem}}
+\index{gpu\-Short\-L\-C\-G0\-Shmem@{gpu\-Short\-L\-C\-G0\-Shmem}!memtestG80_core.h@{memtest\-G80\-\_\-core.\-h}}
+\subsubsection[{gpu\-Short\-L\-C\-G0\-Shmem}]{\setlength{\rightskip}{0pt plus 5cm}\-\_\-\-\_\-host\-\_\-\-\_\- {\bf uint} {\bf gpu\-Short\-L\-C\-G0\-Shmem} (
+\begin{DoxyParamCaption}
+\item[{const {\bf uint}}]{n\-Blocks, }
+\item[{const {\bf uint}}]{n\-Threads, }
+\item[{{\bf uint} $\ast$}]{base, }
+\item[{{\bf uint}}]{\-N, }
+\item[{const {\bf uint}}]{repeats, }
+\item[{const int}]{period, }
+\item[{{\bf uint} $\ast$}]{block\-Error\-Counts, }
+\item[{{\bf uint} $\ast$}]{error\-Counts}
+\end{DoxyParamCaption}
+)}}\label{memtestG80__core_8h_a916d3b404c60a1cdb9c867c31d70c047}
+\hypertarget{memtestG80__core_8h_acd99d8e49747ddaffa39965ce69d6e10}{\index{memtest\-G80\-\_\-core.\-h@{memtest\-G80\-\_\-core.\-h}!gpu\-Verify\-Constant@{gpu\-Verify\-Constant}}
+\index{gpu\-Verify\-Constant@{gpu\-Verify\-Constant}!memtestG80_core.h@{memtest\-G80\-\_\-core.\-h}}
+\subsubsection[{gpu\-Verify\-Constant}]{\setlength{\rightskip}{0pt plus 5cm}\-\_\-\-\_\-host\-\_\-\-\_\- {\bf uint} {\bf gpu\-Verify\-Constant} (
+\begin{DoxyParamCaption}
+\item[{const {\bf uint}}]{n\-Blocks, }
+\item[{const {\bf uint}}]{n\-Threads, }
+\item[{{\bf uint} $\ast$}]{base, }
+\item[{{\bf uint}}]{\-N, }
+\item[{const {\bf uint}}]{constant, }
+\item[{{\bf uint} $\ast$}]{block\-Error\-Count, }
+\item[{{\bf uint} $\ast$}]{error\-Counts}
+\end{DoxyParamCaption}
+)}}\label{memtestG80__core_8h_acd99d8e49747ddaffa39965ce69d6e10}
+\hypertarget{memtestG80__core_8h_a4e77c515e1d5799d88620a7688f0b103}{\index{memtest\-G80\-\_\-core.\-h@{memtest\-G80\-\_\-core.\-h}!gpu\-Walking32\-Bit@{gpu\-Walking32\-Bit}}
+\index{gpu\-Walking32\-Bit@{gpu\-Walking32\-Bit}!memtestG80_core.h@{memtest\-G80\-\_\-core.\-h}}
+\subsubsection[{gpu\-Walking32\-Bit}]{\setlength{\rightskip}{0pt plus 5cm}\-\_\-\-\_\-host\-\_\-\-\_\- {\bf uint} {\bf gpu\-Walking32\-Bit} (
+\begin{DoxyParamCaption}
+\item[{const {\bf uint}}]{n\-Blocks, }
+\item[{const {\bf uint}}]{n\-Threads, }
+\item[{{\bf uint} $\ast$}]{base, }
+\item[{{\bf uint}}]{\-N, }
+\item[{bool}]{ones, }
+\item[{{\bf uint}}]{shift, }
+\item[{{\bf uint} $\ast$}]{block\-Error\-Count, }
+\item[{{\bf uint} $\ast$}]{error\-Counts}
+\end{DoxyParamCaption}
+)}}\label{memtestG80__core_8h_a4e77c515e1d5799d88620a7688f0b103}
+\hypertarget{memtestG80__core_8h_a633aac84b236c59478d6457bd7b0b4a3}{\index{memtest\-G80\-\_\-core.\-h@{memtest\-G80\-\_\-core.\-h}!gpu\-Walking8\-Bit@{gpu\-Walking8\-Bit}}
+\index{gpu\-Walking8\-Bit@{gpu\-Walking8\-Bit}!memtestG80_core.h@{memtest\-G80\-\_\-core.\-h}}
+\subsubsection[{gpu\-Walking8\-Bit}]{\setlength{\rightskip}{0pt plus 5cm}\-\_\-\-\_\-host\-\_\-\-\_\- {\bf uint} {\bf gpu\-Walking8\-Bit} (
+\begin{DoxyParamCaption}
+\item[{const {\bf uint}}]{n\-Blocks, }
+\item[{const {\bf uint}}]{n\-Threads, }
+\item[{{\bf uint} $\ast$}]{base, }
+\item[{{\bf uint}}]{\-N, }
+\item[{bool}]{ones, }
+\item[{{\bf uint}}]{shift, }
+\item[{{\bf uint} $\ast$}]{block\-Error\-Count, }
+\item[{{\bf uint} $\ast$}]{error\-Counts}
+\end{DoxyParamCaption}
+)}}\label{memtestG80__core_8h_a633aac84b236c59478d6457bd7b0b4a3}
+\hypertarget{memtestG80__core_8h_a68758ae4d7b886c85ffdba58d64a7470}{\index{memtest\-G80\-\_\-core.\-h@{memtest\-G80\-\_\-core.\-h}!gpu\-Walking8\-Bit\-M86@{gpu\-Walking8\-Bit\-M86}}
+\index{gpu\-Walking8\-Bit\-M86@{gpu\-Walking8\-Bit\-M86}!memtestG80_core.h@{memtest\-G80\-\_\-core.\-h}}
+\subsubsection[{gpu\-Walking8\-Bit\-M86}]{\setlength{\rightskip}{0pt plus 5cm}\-\_\-\-\_\-host\-\_\-\-\_\- {\bf uint} {\bf gpu\-Walking8\-Bit\-M86} (
+\begin{DoxyParamCaption}
+\item[{const {\bf uint}}]{n\-Blocks, }
+\item[{const {\bf uint}}]{n\-Threads, }
+\item[{{\bf uint} $\ast$}]{base, }
+\item[{{\bf uint}}]{\-N, }
+\item[{{\bf uint}}]{shift, }
+\item[{{\bf uint} $\ast$}]{block\-Error\-Counts, }
+\item[{{\bf uint} $\ast$}]{error\-Counts}
+\end{DoxyParamCaption}
+)}}\label{memtestG80__core_8h_a68758ae4d7b886c85ffdba58d64a7470}
+\hypertarget{memtestG80__core_8h_a660e0098fd4b74e80b6bcec32b45f00d}{\index{memtest\-G80\-\_\-core.\-h@{memtest\-G80\-\_\-core.\-h}!gpu\-Write\-Constant@{gpu\-Write\-Constant}}
+\index{gpu\-Write\-Constant@{gpu\-Write\-Constant}!memtestG80_core.h@{memtest\-G80\-\_\-core.\-h}}
+\subsubsection[{gpu\-Write\-Constant}]{\setlength{\rightskip}{0pt plus 5cm}\-\_\-\-\_\-host\-\_\-\-\_\- {\bf void} {\bf gpu\-Write\-Constant} (
+\begin{DoxyParamCaption}
+\item[{const {\bf uint}}]{n\-Blocks, }
+\item[{const {\bf uint}}]{n\-Threads, }
+\item[{{\bf uint} $\ast$}]{base, }
+\item[{{\bf uint}}]{\-N, }
+\item[{const {\bf uint}}]{constant}
+\end{DoxyParamCaption}
+)}}\label{memtestG80__core_8h_a660e0098fd4b74e80b6bcec32b45f00d}

@@ -5,9 +5,8 @@
  */
 
 #define __SE_FGG_H
-#define FGG_SPLIT 0
 
-#define VERBOSE 0
+#define VERBOSE 1
 #ifndef VERBOSE
 #define VERBOSE 0
 #endif
@@ -17,7 +16,6 @@
 #include <stdio.h>
 #include <fftw3.h>
 #include "math.h"
-#include <sys/time.h>
 #include "math.h"
 #include <sys/time.h>
 #include "emmintrin.h"
@@ -36,7 +34,6 @@
 
 #define __IDX3_RMAJ(II,IJ,IK,N2,N3) ( (II)*(N2)*(N3)+(IJ)*(N3)+(IK) )
 
-// Select periodicty: must give -D<...> to compiler
 #define __FGG_EXPA fgg_expansion
 #define __FGG_EXPA_ALL fgg_expansion_all
 
@@ -51,9 +48,9 @@
 
 
 // display debug messages in the SSE dispatcher
-#ifdef VERBOSE
-//#define __DISPATCHER_MSG(s) __PRINTF(s)
-#define __DISPATCHER_MSG(s) {}
+#if defined VERBOSE
+#define __DISPATCHER_MSG(s) __PRINTF(s)
+//#define __DISPATCHER_MSG(s) {}
 #else
 #define __DISPATCHER_MSG(s) {}
 #endif
@@ -104,6 +101,8 @@ typedef struct
     real d;
     real h;
     real a;
+    real eta;
+    real box[3];
 
 } SE_FGG_params;
 
@@ -115,12 +114,46 @@ typedef struct
 // Particle positions and charges
 typedef struct
 {
-    real* x;
+    rvec* x;
     real* q;
+    real* phi;
 
 } SE_state;
 
+enum {
+SE_SPREAD, SE_FFT, SE_IFFT, SE_REDIST, SE_SOLVE, SE_GATHER
+};
 
+/*
+void SE_log(FILE* fp, double t, int logMode)
+{
+	SE_tot += t;
+	switch (logMode)
+	{
+		case 0:
+			fprintf(fp,"Spreading:\t\t %8.4f\n",t);
+			return;
+		case 1:
+			fprintf(fp,"FFT:      \t\t %8.4f\n",t);
+			return;
+		case 2:
+			fprintf(fp,"IFFT:     \t\t %8.4f\n",t);
+			return;
+		case 3:
+			fprintf(fp,"Precomp:  \t\t %8.4f\n",t);
+			return;
+		case 4:
+			fprintf(fp,"SE solve: \t\t %8.4f\n",t);
+			return;
+		case 5:
+			fprintf(fp,"Gathering:\t\t %8.4f\n",t);
+			fprintf(fp,"----------------------\n");
+			fprintf(fp,"Total:    \t\t %8.4f\n",SE_tot);
+			return;
+	}
+	fclose(fp);		
+}
+*/
 
 // =============================================================
 // SE GENERAL ROUTINES
@@ -133,14 +166,11 @@ inline static void parse_params(SE_opt*, real);
 inline static void k_vec(int, real*, real*, real*, real*);
 
 // do the scaling
-//static void scaling(real *, real , real *, int , int, int);
 static void scaling(real *, real *, real *, real , real *, int , int, int);
 
 
 // products sr(scalar to real) rr (real to real) rc (real to complex)
 // equivalent to .* in MATLAB. flag = 1 gives a.*b and flag = -1 gives a./b
-void product_sr(real*, real, real*, int, int, int, int);
-void product_rr(real*, real*, real*, int, int, int, int);
 void product_rc(fft_complex*, real*, fft_complex*, int, int, int, int);
 void se_product_rc(t_complex*, real*, t_complex*, int, int, int, int);
 
@@ -162,15 +192,6 @@ static void do_fft_c2c_forward_3d(fft_complex*, fft_complex*, int, int, int);
 static void do_fft_c2c_backward_3d(fft_complex*, fft_complex*, int, int, int);
 
 
-
-// printing results
-void print_r1d(char*, real*, int, real,int);
-void print_rvec(char*, rvec a[], int, real,int);
-void print_real(char*, real a[], int, real,int);
-void print_c1d(char*, fft_complex*, int, real,int);
-void print_r3d(char*, real*, int, real,int);
-void print_c3d(char*, fft_complex*, int, int, int, real,int);
-
 void copy_segrid_to_fftwgrid(real*, fft_complex*, int);
 void copy_fftwgrid_to_segrid(fft_complex*, real*, int);
 
@@ -183,15 +204,9 @@ inline int max3(int,int,int);
 static double lambertW(const double);
 
 
-
-
 // =============================================================
 // SE INTERNAL ROUTINES
 // =============================================================
-
-// Fill parameter struct
-static void SE_FGG_pack_params(SE_FGG_params*, int, int, int, int, int, 
-			       real, real);
 
 // Allocate workspace (malloc)
 static void SE_FGG_allocate_workspace(SE_FGG_work*, const SE_FGG_params*, int, int);
@@ -201,38 +216,54 @@ static real* SE_FGG_allocate_vec(int);
 // Free workspace (free)
 static void SE_FGG_free_workspace(SE_FGG_work*);
 
-// Particles to grid
+// Particles to grid SINGLE precision
 static void SE_FGG_grid(SE_FGG_work*, const SE_state*, const SE_FGG_params*);
-void SE_FGG_grid_split_SSE_dispatch(SE_FGG_work*, const SE_FGG_params*);
-void SE_FGG_grid_split(SE_FGG_work*, const SE_FGG_params*);
-void SE_FGG_grid_split_SSE(SE_FGG_work*, const SE_FGG_params*);
-void SE_FGG_grid_split_SSE_P8(SE_FGG_work*, const SE_FGG_params*);
+void SE_FGG_grid_split_SSE_dispatch(SE_FGG_work*, const SE_state*, const SE_FGG_params*);
+void SE_FGG_grid_split(SE_FGG_work*, const SE_state*, const SE_FGG_params*);
+void SE_FGG_grid_split_SSE(SE_FGG_work*, const SE_state*, const SE_FGG_params*);
+void SE_FGG_grid_split_SSE_P8(SE_FGG_work*, const SE_state*, const SE_FGG_params*);
+void SE_FGG_grid_split_AVX_dispatch(SE_FGG_work*,const SE_state*,const SE_FGG_params*);
+void SE_FGG_grid_split_AVX(SE_FGG_work*, const SE_state*, const SE_FGG_params*);
 
-// Particles to grid double precision
-void SE_FGG_grid_split_SSE_dispatch_d(SE_FGG_work*, const SE_FGG_params*);
-void SE_FGG_grid_split_d(SE_FGG_work*, const SE_FGG_params*);
-void SE_FGG_grid_split_SSE_d(SE_FGG_work*, const SE_FGG_params*);
-void SE_FGG_grid_split_SSE_u8_d(SE_FGG_work*, const SE_FGG_params*);
-void SE_FGG_grid_split_SSE_P16_d(SE_FGG_work*, const SE_FGG_params*);
+// Particles to grid DOUBLE precision
+void SE_FGG_grid_split_SSE_dispatch_d(SE_FGG_work*, const SE_state*, const SE_FGG_params*);
+void SE_FGG_grid_split_d(SE_FGG_work*, const SE_state*, const SE_FGG_params*);
+void SE_FGG_grid_split_SSE_d(SE_FGG_work*, const SE_state*, const SE_FGG_params*);
+void SE_FGG_grid_split_SSE_u8_d(SE_FGG_work*, const SE_state*, const SE_FGG_params*);
+void SE_FGG_grid_split_SSE_P16_d(SE_FGG_work*, const SE_state*, const SE_FGG_params*);
+void SE_FGG_grid_split_AVX_dispatch_d(SE_FGG_work*,const SE_state*,const SE_FGG_params*);
+void SE_FGG_grid_split_AVX_P16_d(SE_FGG_work*, const SE_state*, const SE_FGG_params*);
+void SE_FGG_grid_split_AVX_P8_d(SE_FGG_work*, const SE_state*, const SE_FGG_params*);
+void SE_FGG_grid_split_AVX_u8_d(SE_FGG_work*, const SE_state*, const SE_FGG_params*);
+void SE_FGG_grid_split_AVX_d(SE_FGG_work*, const SE_state*, const SE_FGG_params*);
+
 
 // Compute all FGG expansion vectors
 static void SE_FGG_expand_all(SE_FGG_work*, const SE_state*, const SE_FGG_params*);
 
-// Grid to particles
+// Grid to particles SINGLE precision
 static void 
-SE_FGG_int(real*, const SE_FGG_work*, const SE_state*, const SE_FGG_params*);
-void SE_FGG_int_split_SSE_dispatch(real*, const SE_FGG_work*, const SE_FGG_params*);
-void SE_FGG_int_split(real*, const SE_FGG_work*, const SE_FGG_params*);
-void SE_FGG_int_split_SSE(real*, const SE_FGG_work*, const SE_FGG_params*);
-void SE_FGG_int_split_SSE_P8(real*, const SE_FGG_work*, const SE_FGG_params*);
+SE_FGG_int(rvec*, const SE_FGG_work*, SE_state*, const SE_FGG_params*);
+void SE_FGG_int_split_SSE_dispatch(rvec*, SE_state*, const SE_FGG_work*, const SE_FGG_params*);
+void SE_FGG_int_split(rvec*, SE_state*, const SE_FGG_work*, const SE_FGG_params*);
+void SE_FGG_int_split_SSE(rvec*, SE_state*, const SE_FGG_work*, const SE_FGG_params*);
+void SE_FGG_int_split_SSE_P8(rvec*, SE_state*, const SE_FGG_work*, const SE_FGG_params*);
+void SE_FGG_int_split_AVX_dispatch(rvec*, SE_state*, const SE_FGG_work*, const SE_FGG_params*);
+void SE_FGG_int_split_AVX(rvec*, SE_state*, const SE_FGG_work*, const SE_FGG_params*);
 
-// Grid to particles double precision
-void SE_FGG_int_split_SSE_dispatch_d(real*, const SE_FGG_work*, const SE_FGG_params*);
-void SE_FGG_int_split_d(real*, const SE_FGG_work*, const SE_FGG_params*);
-void SE_FGG_int_split_SSE_d(real*, const SE_FGG_work*, const SE_FGG_params*);
-void SE_FGG_int_split_SSE_u8_d(real*, const SE_FGG_work*, const SE_FGG_params*);
-void SE_FGG_int_split_SSE_P8_d(real*, const SE_FGG_work*, const SE_FGG_params*);
-void SE_FGG_int_split_SSE_P16_d(real*, const SE_FGG_work*, const SE_FGG_params*);
+// Grid to particles DOUBLE precision
+void SE_FGG_int_split_SSE_dispatch_d(rvec*, SE_state*, const SE_FGG_work*, const SE_FGG_params*);
+void SE_FGG_int_split_d(rvec*, SE_state*, const SE_FGG_work*, const SE_FGG_params*);
+void SE_FGG_int_split_SSE_d(rvec*, SE_state*, const SE_FGG_work*, const SE_FGG_params*);
+void SE_FGG_int_split_SSE_u8_d(rvec*, SE_state*, const SE_FGG_work*, const SE_FGG_params*);
+void SE_FGG_int_split_SSE_P8_d(rvec*, SE_state*, const SE_FGG_work*, const SE_FGG_params*);
+void SE_FGG_int_split_SSE_P16_d(rvec*, SE_state*, const SE_FGG_work*, const SE_FGG_params*);
+void SE_FGG_int_split_AVX_dispatch_d(rvec*, SE_state*, const SE_FGG_work*, const SE_FGG_params*);
+void SE_FGG_int_split_AVX_P16_d(rvec*, SE_state*, const SE_FGG_work*, const SE_FGG_params*);
+void SE_FGG_int_split_AVX_P8_d(rvec*, SE_state*, const SE_FGG_work*, const SE_FGG_params*);
+void SE_FGG_int_split_AVX_u8_d(rvec*, SE_state*, const SE_FGG_work*, const SE_FGG_params*);
+void SE_FGG_int_split_AVX_d(rvec*, SE_state*, const SE_FGG_work*, const SE_FGG_params*);
+
 
 // Static Gaussian on P^3-grid
 static void SE_FGG_base_gaussian(SE_FGG_work*, const SE_FGG_params*);
@@ -243,21 +274,16 @@ static void SE_FGG_wrap_fcn(real*, const SE_FGG_work*, const SE_FGG_params*);
 // Extend periodic function
 static void SE_FGG_extend_fcn(SE_FGG_work*, const real*, const SE_FGG_params*);
 
-// Randomize positions and charges (malloc)
-static void SE_init_system(SE_state*, const SE_FGG_params*);
-
-// Free particles and charges (free)
-static void SE_free_system(SE_state*);
-
-// Retrun time in seconds
-double SE_gettime(void);
-
 // Return product of elements in integer triplet
 static int SE_prod3(const int[3]);
 
 // Set first N elements of array to floating-point zero
 static void SE_fp_set_zero(real*, int);
 
-// Reorder particles according to closest grid point
-static void SE_FGG_reorder_system(SE_state*, const SE_FGG_work*, const SE_FGG_params*);
+// Set first N elements of rvec to floating-point zero
+static void SE_fp_set_rvec_zero(rvec*, int);
 
+
+static void 
+PME_SE_FGG_base_gaussian(real*, const SE_FGG_params*);
+real sesum(real *f, int n, int e1, int e2, int dim, char*);

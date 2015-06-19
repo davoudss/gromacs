@@ -1,0 +1,196 @@
+\hypertarget{gmx__mdmat_8c}{\section{src/tools/gmx\-\_\-mdmat.c \-File \-Reference}
+\label{gmx__mdmat_8c}\index{src/tools/gmx\-\_\-mdmat.\-c@{src/tools/gmx\-\_\-mdmat.\-c}}
+}
+{\ttfamily \#include $<$math.\-h$>$}\*
+{\ttfamily \#include $<$string.\-h$>$}\*
+{\ttfamily \#include \char`\"{}macros.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}vec.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}sysstuff.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}typedefs.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}filenm.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}statutil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}copyrite.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}futil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-fatal.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}smalloc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}matio.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}xvgr.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}index.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}tpxio.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}rmpbc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}pbc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-ana.\-h\char`\"{}}\*
+\-Include dependency graph for gmx\-\_\-mdmat.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__mdmat_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{gmx__mdmat_8c_a8e7afc979141df9ef7fd3a1ec1059362}{\-F\-A\-R\-A\-W\-A\-Y}~10000
+\item 
+\#define \hyperlink{gmx__mdmat_8c_a8485f4e81de2537e6a0935626167a775}{\-N\-F\-I\-L\-E}~\hyperlink{share_2template_2gromacs_2macros_8h_a0883345a58f8f63aefa249a4f127f707}{asize}(fnm)
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+int $\ast$ \hyperlink{gmx__mdmat_8c_a911f0904a73c55b7337c2632e82646f3}{res\-\_\-ndx} (\hyperlink{structt__atoms}{t\-\_\-atoms} $\ast$atoms)
+\item 
+int $\ast$ \hyperlink{gmx__mdmat_8c_a9a9cc9caf131f40cc36f6b1c6ca9be42}{res\-\_\-natm} (\hyperlink{structt__atoms}{t\-\_\-atoms} $\ast$atoms)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__mdmat_8c_a6e6335d2de803552bbd4a3c485479bcf}{calc\-\_\-mat} (int nres, int natoms, int rndx\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{include_2types_2simple_8h_ad3f47cdb48677e516e2049719612c737}{atom\-\_\-id} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a49fd977001162d7256c8fcd293f9d12a}{index}, real trunc, real $\ast$$\ast$mdmat, int $\ast$$\ast$nmat, int e\-P\-B\-C, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__mdmat_8c_aa58ab56e900d80063580282dd2acb397}{tot\-\_\-nmat} (int nres, int natoms, int nframes, int $\ast$$\ast$nmat, int $\ast$tot\-\_\-n, real $\ast$mean\-\_\-n)
+\item 
+int \hyperlink{gmx__mdmat_8c_a277b7f873129192b1f336a03676a3003}{gmx\-\_\-mdmat} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Define \-Documentation}
+\hypertarget{gmx__mdmat_8c_a8e7afc979141df9ef7fd3a1ec1059362}{\index{gmx\-\_\-mdmat.\-c@{gmx\-\_\-mdmat.\-c}!\-F\-A\-R\-A\-W\-A\-Y@{\-F\-A\-R\-A\-W\-A\-Y}}
+\index{\-F\-A\-R\-A\-W\-A\-Y@{\-F\-A\-R\-A\-W\-A\-Y}!gmx_mdmat.c@{gmx\-\_\-mdmat.\-c}}
+\subsubsection[{\-F\-A\-R\-A\-W\-A\-Y}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-F\-A\-R\-A\-W\-A\-Y}~10000}}\label{gmx__mdmat_8c_a8e7afc979141df9ef7fd3a1ec1059362}
+\hypertarget{gmx__mdmat_8c_a8485f4e81de2537e6a0935626167a775}{\index{gmx\-\_\-mdmat.\-c@{gmx\-\_\-mdmat.\-c}!\-N\-F\-I\-L\-E@{\-N\-F\-I\-L\-E}}
+\index{\-N\-F\-I\-L\-E@{\-N\-F\-I\-L\-E}!gmx_mdmat.c@{gmx\-\_\-mdmat.\-c}}
+\subsubsection[{\-N\-F\-I\-L\-E}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-N\-F\-I\-L\-E}~{\bf asize}(fnm)}}\label{gmx__mdmat_8c_a8485f4e81de2537e6a0935626167a775}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{gmx__mdmat_8c_a6e6335d2de803552bbd4a3c485479bcf}{\index{gmx\-\_\-mdmat.\-c@{gmx\-\_\-mdmat.\-c}!calc\-\_\-mat@{calc\-\_\-mat}}
+\index{calc\-\_\-mat@{calc\-\_\-mat}!gmx_mdmat.c@{gmx\-\_\-mdmat.\-c}}
+\subsubsection[{calc\-\_\-mat}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf calc\-\_\-mat} (
+\begin{DoxyParamCaption}
+\item[{int}]{nres, }
+\item[{int}]{natoms, }
+\item[{int}]{rndx\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf atom\-\_\-id} $\ast$}]{index, }
+\item[{real}]{trunc, }
+\item[{real $\ast$$\ast$}]{mdmat, }
+\item[{int $\ast$$\ast$}]{nmat, }
+\item[{int}]{e\-P\-B\-C, }
+\item[{{\bf matrix}}]{box}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__mdmat_8c_a6e6335d2de803552bbd4a3c485479bcf}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=224pt]{gmx__mdmat_8c_a6e6335d2de803552bbd4a3c485479bcf_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=318pt]{gmx__mdmat_8c_a6e6335d2de803552bbd4a3c485479bcf_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__mdmat_8c_a277b7f873129192b1f336a03676a3003}{\index{gmx\-\_\-mdmat.\-c@{gmx\-\_\-mdmat.\-c}!gmx\-\_\-mdmat@{gmx\-\_\-mdmat}}
+\index{gmx\-\_\-mdmat@{gmx\-\_\-mdmat}!gmx_mdmat.c@{gmx\-\_\-mdmat.\-c}}
+\subsubsection[{gmx\-\_\-mdmat}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-mdmat} (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{gmx__mdmat_8c_a277b7f873129192b1f336a03676a3003}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{gmx__mdmat_8c_a277b7f873129192b1f336a03676a3003_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=226pt]{gmx__mdmat_8c_a277b7f873129192b1f336a03676a3003_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__mdmat_8c_a9a9cc9caf131f40cc36f6b1c6ca9be42}{\index{gmx\-\_\-mdmat.\-c@{gmx\-\_\-mdmat.\-c}!res\-\_\-natm@{res\-\_\-natm}}
+\index{res\-\_\-natm@{res\-\_\-natm}!gmx_mdmat.c@{gmx\-\_\-mdmat.\-c}}
+\subsubsection[{res\-\_\-natm}]{\setlength{\rightskip}{0pt plus 5cm}int$\ast$ {\bf res\-\_\-natm} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-atoms} $\ast$}]{atoms}
+\end{DoxyParamCaption}
+)}}\label{gmx__mdmat_8c_a9a9cc9caf131f40cc36f6b1c6ca9be42}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=320pt]{gmx__mdmat_8c_a9a9cc9caf131f40cc36f6b1c6ca9be42_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__mdmat_8c_a911f0904a73c55b7337c2632e82646f3}{\index{gmx\-\_\-mdmat.\-c@{gmx\-\_\-mdmat.\-c}!res\-\_\-ndx@{res\-\_\-ndx}}
+\index{res\-\_\-ndx@{res\-\_\-ndx}!gmx_mdmat.c@{gmx\-\_\-mdmat.\-c}}
+\subsubsection[{res\-\_\-ndx}]{\setlength{\rightskip}{0pt plus 5cm}int$\ast$ {\bf res\-\_\-ndx} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-atoms} $\ast$}]{atoms}
+\end{DoxyParamCaption}
+)}}\label{gmx__mdmat_8c_a911f0904a73c55b7337c2632e82646f3}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=314pt]{gmx__mdmat_8c_a911f0904a73c55b7337c2632e82646f3_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__mdmat_8c_aa58ab56e900d80063580282dd2acb397}{\index{gmx\-\_\-mdmat.\-c@{gmx\-\_\-mdmat.\-c}!tot\-\_\-nmat@{tot\-\_\-nmat}}
+\index{tot\-\_\-nmat@{tot\-\_\-nmat}!gmx_mdmat.c@{gmx\-\_\-mdmat.\-c}}
+\subsubsection[{tot\-\_\-nmat}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf tot\-\_\-nmat} (
+\begin{DoxyParamCaption}
+\item[{int}]{nres, }
+\item[{int}]{natoms, }
+\item[{int}]{nframes, }
+\item[{int $\ast$$\ast$}]{nmat, }
+\item[{int $\ast$}]{tot\-\_\-n, }
+\item[{real $\ast$}]{mean\-\_\-n}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__mdmat_8c_aa58ab56e900d80063580282dd2acb397}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=318pt]{gmx__mdmat_8c_aa58ab56e900d80063580282dd2acb397_icgraph}
+\end{center}
+\end{figure}
+
+

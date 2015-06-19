@@ -1,0 +1,547 @@
+\hypertarget{gmx__wallcycle_8c}{\section{src/mdlib/gmx\-\_\-wallcycle.c \-File \-Reference}
+\label{gmx__wallcycle_8c}\index{src/mdlib/gmx\-\_\-wallcycle.\-c@{src/mdlib/gmx\-\_\-wallcycle.\-c}}
+}
+{\ttfamily \#include $<$string.\-h$>$}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-wallcycle.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-cyclecounter.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}smalloc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-fatal.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}md\-\_\-logging.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}string2.\-h\char`\"{}}\*
+\-Include dependency graph for gmx\-\_\-wallcycle.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__wallcycle_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structwallcc__t}{wallcc\-\_\-t}
+\item 
+struct \hyperlink{structgmx__wallcycle}{gmx\-\_\-wallcycle}
+\end{DoxyCompactItemize}
+\subsection*{\-Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \hyperlink{structgmx__wallcycle}{gmx\-\_\-wallcycle} \hyperlink{gmx__wallcycle_8c_a3632303e27bb9e08c9f84b06f21c0ad9}{gmx\-\_\-wallcycle\-\_\-t\-\_\-t}
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{gmx__wallcycle_8c_ac854c3d0525d1faa787634024d95d95b}{wallcycle\-\_\-have\-\_\-counter} (\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void})
+\item 
+\hyperlink{include_2types_2nrnb_8h_adc47bf7d40bee1f733f4c00cf76e85d9}{gmx\-\_\-wallcycle\-\_\-t} \hyperlink{gmx__wallcycle_8c_a8ead3355bc59ea76d6189a659be5dfea}{wallcycle\-\_\-init} (\-F\-I\-L\-E $\ast$fplog, int resetstep, \hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr, int nthreads\-\_\-pp, int nthreads\-\_\-pme)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__wallcycle_8c_ad874580cf19c1fc3d2cc18cee1b37eac}{wallcycle\-\_\-destroy} (\hyperlink{include_2types_2nrnb_8h_adc47bf7d40bee1f733f4c00cf76e85d9}{gmx\-\_\-wallcycle\-\_\-t} wc)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__wallcycle_8c_a9787014fd89baee48d6eef2a12f34b38}{wallcycle\-\_\-all\-\_\-start} (\hyperlink{include_2types_2nrnb_8h_adc47bf7d40bee1f733f4c00cf76e85d9}{gmx\-\_\-wallcycle\-\_\-t} wc, int ewc, \hyperlink{include_2gmx__cyclecounter_8h_a7b04e633389542df9f5535b05b873baa}{gmx\-\_\-cycles\-\_\-t} cycle)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__wallcycle_8c_ade2ef7c7a594163270a0b3ad27fa5e14}{wallcycle\-\_\-all\-\_\-stop} (\hyperlink{include_2types_2nrnb_8h_adc47bf7d40bee1f733f4c00cf76e85d9}{gmx\-\_\-wallcycle\-\_\-t} wc, int ewc, \hyperlink{include_2gmx__cyclecounter_8h_a7b04e633389542df9f5535b05b873baa}{gmx\-\_\-cycles\-\_\-t} cycle)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__wallcycle_8c_af32bb87d7f070fae68d34a35a0eeff4f}{wallcycle\-\_\-start} (\hyperlink{include_2types_2nrnb_8h_adc47bf7d40bee1f733f4c00cf76e85d9}{gmx\-\_\-wallcycle\-\_\-t} wc, int ewc)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__wallcycle_8c_a71bdd1c7d6d4ca890705507419a9dc23}{wallcycle\-\_\-start\-\_\-nocount} (\hyperlink{include_2types_2nrnb_8h_adc47bf7d40bee1f733f4c00cf76e85d9}{gmx\-\_\-wallcycle\-\_\-t} wc, int ewc)
+\item 
+double \hyperlink{gmx__wallcycle_8c_a6ad176d2ed7930667fd4ed36a2f66036}{wallcycle\-\_\-stop} (\hyperlink{include_2types_2nrnb_8h_adc47bf7d40bee1f733f4c00cf76e85d9}{gmx\-\_\-wallcycle\-\_\-t} wc, int ewc)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__wallcycle_8c_a5b345bcfa2d123f06f0cb5de5b2d29f0}{wallcycle\-\_\-reset\-\_\-all} (\hyperlink{include_2types_2nrnb_8h_adc47bf7d40bee1f733f4c00cf76e85d9}{gmx\-\_\-wallcycle\-\_\-t} wc)
+\item 
+static \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{gmx__wallcycle_8c_aedfbea432efd0268d192bcaa0e1aa48f}{is\-\_\-pme\-\_\-counter} (int ewc)
+\item 
+static \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{gmx__wallcycle_8c_a8e2cfb296ddbf03def0ec9d4c73559e6}{is\-\_\-pme\-\_\-subcounter} (int ewc)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__wallcycle_8c_a5515f2294ccf74488599b8ebd143c02a}{wallcycle\-\_\-sum} (\hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr, \hyperlink{include_2types_2nrnb_8h_adc47bf7d40bee1f733f4c00cf76e85d9}{gmx\-\_\-wallcycle\-\_\-t} wc)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__wallcycle_8c_a632043deace99e31d7a628d21794b92f}{print\-\_\-cycles} (\-F\-I\-L\-E $\ast$fplog, double c2t, const char $\ast$name, int nnodes\-\_\-tot, int nnodes, int nthreads, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, double \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae4f482ada992ba1e6b96026c14729ffe}{c}, double tot)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__wallcycle_8c_ae2faecaec71344f32435098a95d35ab9}{print\-\_\-gputimes} (\-F\-I\-L\-E $\ast$fplog, const char $\ast$name, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, double \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a2b515c84b1293071f7584da32ca336c0}{t}, double tot\-\_\-t)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__wallcycle_8c_a7dde3bbf18f7006046887af95f7ddca2}{wallcycle\-\_\-print} (\-F\-I\-L\-E $\ast$fplog, int nnodes, int npme, double realtime, \hyperlink{include_2types_2nrnb_8h_adc47bf7d40bee1f733f4c00cf76e85d9}{gmx\-\_\-wallcycle\-\_\-t} wc, \hyperlink{include_2types_2nbnxn__cuda__types__ext_8h_ad97be7a8b4770fd5989bf4f84f116aae}{wallclock\-\_\-gpu\-\_\-t} $\ast$gpu\-\_\-t)
+\item 
+gmx\-\_\-large\-\_\-int\-\_\-t \hyperlink{gmx__wallcycle_8c_a6d0a25d38288ec0d4f76580109dbca86}{wcycle\-\_\-get\-\_\-reset\-\_\-counters} (\hyperlink{include_2types_2nrnb_8h_adc47bf7d40bee1f733f4c00cf76e85d9}{gmx\-\_\-wallcycle\-\_\-t} wc)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__wallcycle_8c_a3f74572830f4ccc679256ba42ccbc108}{wcycle\-\_\-set\-\_\-reset\-\_\-counters} (\hyperlink{include_2types_2nrnb_8h_adc47bf7d40bee1f733f4c00cf76e85d9}{gmx\-\_\-wallcycle\-\_\-t} wc, gmx\-\_\-large\-\_\-int\-\_\-t reset\-\_\-counters)
+\end{DoxyCompactItemize}
+\subsection*{\-Variables}
+\begin{DoxyCompactItemize}
+\item 
+static const char $\ast$ \hyperlink{gmx__wallcycle_8c_a66b1efeac1133d91160ecad20ee5409e}{wcn} \mbox{[}\hyperlink{share_2template_2gromacs_2gmx__wallcycle_8h_abc3975f01f66a098a347a8262ff103e5a49f1dd36e2e41767dae1fa0452d1eeb8}{ewc\-N\-R}\mbox{]}
+\item 
+static const char $\ast$ \hyperlink{gmx__wallcycle_8c_ae752ad75034cdeed3c0f298c85196da9}{wcsn} \mbox{[}\hyperlink{share_2template_2gromacs_2gmx__wallcycle_8h_a5e8ce9967db697e85d5528dafee6b8dea3c51ab4b3c82cab5932c44111a6be5cd}{ewcs\-N\-R}\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Typedef \-Documentation}
+\hypertarget{gmx__wallcycle_8c_a3632303e27bb9e08c9f84b06f21c0ad9}{\index{gmx\-\_\-wallcycle.\-c@{gmx\-\_\-wallcycle.\-c}!gmx\-\_\-wallcycle\-\_\-t\-\_\-t@{gmx\-\_\-wallcycle\-\_\-t\-\_\-t}}
+\index{gmx\-\_\-wallcycle\-\_\-t\-\_\-t@{gmx\-\_\-wallcycle\-\_\-t\-\_\-t}!gmx_wallcycle.c@{gmx\-\_\-wallcycle.\-c}}
+\subsubsection[{gmx\-\_\-wallcycle\-\_\-t\-\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf gmx\-\_\-wallcycle}  {\bf gmx\-\_\-wallcycle\-\_\-t\-\_\-t}}}\label{gmx__wallcycle_8c_a3632303e27bb9e08c9f84b06f21c0ad9}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{gmx__wallcycle_8c_aedfbea432efd0268d192bcaa0e1aa48f}{\index{gmx\-\_\-wallcycle.\-c@{gmx\-\_\-wallcycle.\-c}!is\-\_\-pme\-\_\-counter@{is\-\_\-pme\-\_\-counter}}
+\index{is\-\_\-pme\-\_\-counter@{is\-\_\-pme\-\_\-counter}!gmx_wallcycle.c@{gmx\-\_\-wallcycle.\-c}}
+\subsubsection[{is\-\_\-pme\-\_\-counter}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gmx\-\_\-bool} {\bf is\-\_\-pme\-\_\-counter} (
+\begin{DoxyParamCaption}
+\item[{int}]{ewc}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__wallcycle_8c_aedfbea432efd0268d192bcaa0e1aa48f}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__wallcycle_8c_aedfbea432efd0268d192bcaa0e1aa48f_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__wallcycle_8c_a8e2cfb296ddbf03def0ec9d4c73559e6}{\index{gmx\-\_\-wallcycle.\-c@{gmx\-\_\-wallcycle.\-c}!is\-\_\-pme\-\_\-subcounter@{is\-\_\-pme\-\_\-subcounter}}
+\index{is\-\_\-pme\-\_\-subcounter@{is\-\_\-pme\-\_\-subcounter}!gmx_wallcycle.c@{gmx\-\_\-wallcycle.\-c}}
+\subsubsection[{is\-\_\-pme\-\_\-subcounter}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gmx\-\_\-bool} {\bf is\-\_\-pme\-\_\-subcounter} (
+\begin{DoxyParamCaption}
+\item[{int}]{ewc}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__wallcycle_8c_a8e2cfb296ddbf03def0ec9d4c73559e6}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__wallcycle_8c_a8e2cfb296ddbf03def0ec9d4c73559e6_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__wallcycle_8c_a632043deace99e31d7a628d21794b92f}{\index{gmx\-\_\-wallcycle.\-c@{gmx\-\_\-wallcycle.\-c}!print\-\_\-cycles@{print\-\_\-cycles}}
+\index{print\-\_\-cycles@{print\-\_\-cycles}!gmx_wallcycle.c@{gmx\-\_\-wallcycle.\-c}}
+\subsubsection[{print\-\_\-cycles}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf print\-\_\-cycles} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fplog, }
+\item[{double}]{c2t, }
+\item[{const char $\ast$}]{name, }
+\item[{int}]{nnodes\-\_\-tot, }
+\item[{int}]{nnodes, }
+\item[{int}]{nthreads, }
+\item[{int}]{n, }
+\item[{double}]{c, }
+\item[{double}]{tot}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__wallcycle_8c_a632043deace99e31d7a628d21794b92f}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__wallcycle_8c_a632043deace99e31d7a628d21794b92f_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__wallcycle_8c_ae2faecaec71344f32435098a95d35ab9}{\index{gmx\-\_\-wallcycle.\-c@{gmx\-\_\-wallcycle.\-c}!print\-\_\-gputimes@{print\-\_\-gputimes}}
+\index{print\-\_\-gputimes@{print\-\_\-gputimes}!gmx_wallcycle.c@{gmx\-\_\-wallcycle.\-c}}
+\subsubsection[{print\-\_\-gputimes}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf print\-\_\-gputimes} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fplog, }
+\item[{const char $\ast$}]{name, }
+\item[{int}]{n, }
+\item[{double}]{t, }
+\item[{double}]{tot\-\_\-t}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__wallcycle_8c_ae2faecaec71344f32435098a95d35ab9}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__wallcycle_8c_ae2faecaec71344f32435098a95d35ab9_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__wallcycle_8c_a9787014fd89baee48d6eef2a12f34b38}{\index{gmx\-\_\-wallcycle.\-c@{gmx\-\_\-wallcycle.\-c}!wallcycle\-\_\-all\-\_\-start@{wallcycle\-\_\-all\-\_\-start}}
+\index{wallcycle\-\_\-all\-\_\-start@{wallcycle\-\_\-all\-\_\-start}!gmx_wallcycle.c@{gmx\-\_\-wallcycle.\-c}}
+\subsubsection[{wallcycle\-\_\-all\-\_\-start}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf wallcycle\-\_\-all\-\_\-start} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-wallcycle\-\_\-t}}]{wc, }
+\item[{int}]{ewc, }
+\item[{{\bf gmx\-\_\-cycles\-\_\-t}}]{cycle}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__wallcycle_8c_a9787014fd89baee48d6eef2a12f34b38}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__wallcycle_8c_a9787014fd89baee48d6eef2a12f34b38_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__wallcycle_8c_ade2ef7c7a594163270a0b3ad27fa5e14}{\index{gmx\-\_\-wallcycle.\-c@{gmx\-\_\-wallcycle.\-c}!wallcycle\-\_\-all\-\_\-stop@{wallcycle\-\_\-all\-\_\-stop}}
+\index{wallcycle\-\_\-all\-\_\-stop@{wallcycle\-\_\-all\-\_\-stop}!gmx_wallcycle.c@{gmx\-\_\-wallcycle.\-c}}
+\subsubsection[{wallcycle\-\_\-all\-\_\-stop}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf wallcycle\-\_\-all\-\_\-stop} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-wallcycle\-\_\-t}}]{wc, }
+\item[{int}]{ewc, }
+\item[{{\bf gmx\-\_\-cycles\-\_\-t}}]{cycle}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__wallcycle_8c_ade2ef7c7a594163270a0b3ad27fa5e14}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__wallcycle_8c_ade2ef7c7a594163270a0b3ad27fa5e14_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__wallcycle_8c_ad874580cf19c1fc3d2cc18cee1b37eac}{\index{gmx\-\_\-wallcycle.\-c@{gmx\-\_\-wallcycle.\-c}!wallcycle\-\_\-destroy@{wallcycle\-\_\-destroy}}
+\index{wallcycle\-\_\-destroy@{wallcycle\-\_\-destroy}!gmx_wallcycle.c@{gmx\-\_\-wallcycle.\-c}}
+\subsubsection[{wallcycle\-\_\-destroy}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf wallcycle\-\_\-destroy} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-wallcycle\-\_\-t}}]{wc}
+\end{DoxyParamCaption}
+)}}\label{gmx__wallcycle_8c_ad874580cf19c1fc3d2cc18cee1b37eac}
+\hypertarget{gmx__wallcycle_8c_ac854c3d0525d1faa787634024d95d95b}{\index{gmx\-\_\-wallcycle.\-c@{gmx\-\_\-wallcycle.\-c}!wallcycle\-\_\-have\-\_\-counter@{wallcycle\-\_\-have\-\_\-counter}}
+\index{wallcycle\-\_\-have\-\_\-counter@{wallcycle\-\_\-have\-\_\-counter}!gmx_wallcycle.c@{gmx\-\_\-wallcycle.\-c}}
+\subsubsection[{wallcycle\-\_\-have\-\_\-counter}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf wallcycle\-\_\-have\-\_\-counter} (
+\begin{DoxyParamCaption}
+\item[{{\bf void}}]{}
+\end{DoxyParamCaption}
+)}}\label{gmx__wallcycle_8c_ac854c3d0525d1faa787634024d95d95b}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__wallcycle_8c_ac854c3d0525d1faa787634024d95d95b_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__wallcycle_8c_ac854c3d0525d1faa787634024d95d95b_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__wallcycle_8c_a8ead3355bc59ea76d6189a659be5dfea}{\index{gmx\-\_\-wallcycle.\-c@{gmx\-\_\-wallcycle.\-c}!wallcycle\-\_\-init@{wallcycle\-\_\-init}}
+\index{wallcycle\-\_\-init@{wallcycle\-\_\-init}!gmx_wallcycle.c@{gmx\-\_\-wallcycle.\-c}}
+\subsubsection[{wallcycle\-\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-wallcycle\-\_\-t} {\bf wallcycle\-\_\-init} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fplog, }
+\item[{int}]{resetstep, }
+\item[{{\bf t\-\_\-commrec} $\ast$}]{cr, }
+\item[{int}]{nthreads\-\_\-pp, }
+\item[{int}]{nthreads\-\_\-pme}
+\end{DoxyParamCaption}
+)}}\label{gmx__wallcycle_8c_a8ead3355bc59ea76d6189a659be5dfea}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=314pt]{gmx__wallcycle_8c_a8ead3355bc59ea76d6189a659be5dfea_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=250pt]{gmx__wallcycle_8c_a8ead3355bc59ea76d6189a659be5dfea_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__wallcycle_8c_a7dde3bbf18f7006046887af95f7ddca2}{\index{gmx\-\_\-wallcycle.\-c@{gmx\-\_\-wallcycle.\-c}!wallcycle\-\_\-print@{wallcycle\-\_\-print}}
+\index{wallcycle\-\_\-print@{wallcycle\-\_\-print}!gmx_wallcycle.c@{gmx\-\_\-wallcycle.\-c}}
+\subsubsection[{wallcycle\-\_\-print}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf wallcycle\-\_\-print} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fplog, }
+\item[{int}]{nnodes, }
+\item[{int}]{npme, }
+\item[{double}]{realtime, }
+\item[{{\bf gmx\-\_\-wallcycle\-\_\-t}}]{wc, }
+\item[{{\bf wallclock\-\_\-gpu\-\_\-t} $\ast$}]{gpu\-\_\-t}
+\end{DoxyParamCaption}
+)}}\label{gmx__wallcycle_8c_a7dde3bbf18f7006046887af95f7ddca2}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=300pt]{gmx__wallcycle_8c_a7dde3bbf18f7006046887af95f7ddca2_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__wallcycle_8c_a7dde3bbf18f7006046887af95f7ddca2_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__wallcycle_8c_a5b345bcfa2d123f06f0cb5de5b2d29f0}{\index{gmx\-\_\-wallcycle.\-c@{gmx\-\_\-wallcycle.\-c}!wallcycle\-\_\-reset\-\_\-all@{wallcycle\-\_\-reset\-\_\-all}}
+\index{wallcycle\-\_\-reset\-\_\-all@{wallcycle\-\_\-reset\-\_\-all}!gmx_wallcycle.c@{gmx\-\_\-wallcycle.\-c}}
+\subsubsection[{wallcycle\-\_\-reset\-\_\-all}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf wallcycle\-\_\-reset\-\_\-all} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-wallcycle\-\_\-t}}]{wc}
+\end{DoxyParamCaption}
+)}}\label{gmx__wallcycle_8c_a5b345bcfa2d123f06f0cb5de5b2d29f0}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__wallcycle_8c_a5b345bcfa2d123f06f0cb5de5b2d29f0_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__wallcycle_8c_af32bb87d7f070fae68d34a35a0eeff4f}{\index{gmx\-\_\-wallcycle.\-c@{gmx\-\_\-wallcycle.\-c}!wallcycle\-\_\-start@{wallcycle\-\_\-start}}
+\index{wallcycle\-\_\-start@{wallcycle\-\_\-start}!gmx_wallcycle.c@{gmx\-\_\-wallcycle.\-c}}
+\subsubsection[{wallcycle\-\_\-start}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf wallcycle\-\_\-start} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-wallcycle\-\_\-t}}]{wc, }
+\item[{int}]{ewc}
+\end{DoxyParamCaption}
+)}}\label{gmx__wallcycle_8c_af32bb87d7f070fae68d34a35a0eeff4f}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=296pt]{gmx__wallcycle_8c_af32bb87d7f070fae68d34a35a0eeff4f_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__wallcycle_8c_af32bb87d7f070fae68d34a35a0eeff4f_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__wallcycle_8c_a71bdd1c7d6d4ca890705507419a9dc23}{\index{gmx\-\_\-wallcycle.\-c@{gmx\-\_\-wallcycle.\-c}!wallcycle\-\_\-start\-\_\-nocount@{wallcycle\-\_\-start\-\_\-nocount}}
+\index{wallcycle\-\_\-start\-\_\-nocount@{wallcycle\-\_\-start\-\_\-nocount}!gmx_wallcycle.c@{gmx\-\_\-wallcycle.\-c}}
+\subsubsection[{wallcycle\-\_\-start\-\_\-nocount}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf wallcycle\-\_\-start\-\_\-nocount} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-wallcycle\-\_\-t}}]{wc, }
+\item[{int}]{ewc}
+\end{DoxyParamCaption}
+)}}\label{gmx__wallcycle_8c_a71bdd1c7d6d4ca890705507419a9dc23}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=320pt]{gmx__wallcycle_8c_a71bdd1c7d6d4ca890705507419a9dc23_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__wallcycle_8c_a71bdd1c7d6d4ca890705507419a9dc23_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__wallcycle_8c_a6ad176d2ed7930667fd4ed36a2f66036}{\index{gmx\-\_\-wallcycle.\-c@{gmx\-\_\-wallcycle.\-c}!wallcycle\-\_\-stop@{wallcycle\-\_\-stop}}
+\index{wallcycle\-\_\-stop@{wallcycle\-\_\-stop}!gmx_wallcycle.c@{gmx\-\_\-wallcycle.\-c}}
+\subsubsection[{wallcycle\-\_\-stop}]{\setlength{\rightskip}{0pt plus 5cm}double {\bf wallcycle\-\_\-stop} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-wallcycle\-\_\-t}}]{wc, }
+\item[{int}]{ewc}
+\end{DoxyParamCaption}
+)}}\label{gmx__wallcycle_8c_a6ad176d2ed7930667fd4ed36a2f66036}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=296pt]{gmx__wallcycle_8c_a6ad176d2ed7930667fd4ed36a2f66036_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__wallcycle_8c_a6ad176d2ed7930667fd4ed36a2f66036_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__wallcycle_8c_a5515f2294ccf74488599b8ebd143c02a}{\index{gmx\-\_\-wallcycle.\-c@{gmx\-\_\-wallcycle.\-c}!wallcycle\-\_\-sum@{wallcycle\-\_\-sum}}
+\index{wallcycle\-\_\-sum@{wallcycle\-\_\-sum}!gmx_wallcycle.c@{gmx\-\_\-wallcycle.\-c}}
+\subsubsection[{wallcycle\-\_\-sum}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf wallcycle\-\_\-sum} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-commrec} $\ast$}]{cr, }
+\item[{{\bf gmx\-\_\-wallcycle\-\_\-t}}]{wc}
+\end{DoxyParamCaption}
+)}}\label{gmx__wallcycle_8c_a5515f2294ccf74488599b8ebd143c02a}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=284pt]{gmx__wallcycle_8c_a5515f2294ccf74488599b8ebd143c02a_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__wallcycle_8c_a5515f2294ccf74488599b8ebd143c02a_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__wallcycle_8c_a6d0a25d38288ec0d4f76580109dbca86}{\index{gmx\-\_\-wallcycle.\-c@{gmx\-\_\-wallcycle.\-c}!wcycle\-\_\-get\-\_\-reset\-\_\-counters@{wcycle\-\_\-get\-\_\-reset\-\_\-counters}}
+\index{wcycle\-\_\-get\-\_\-reset\-\_\-counters@{wcycle\-\_\-get\-\_\-reset\-\_\-counters}!gmx_wallcycle.c@{gmx\-\_\-wallcycle.\-c}}
+\subsubsection[{wcycle\-\_\-get\-\_\-reset\-\_\-counters}]{\setlength{\rightskip}{0pt plus 5cm}gmx\-\_\-large\-\_\-int\-\_\-t {\bf wcycle\-\_\-get\-\_\-reset\-\_\-counters} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-wallcycle\-\_\-t}}]{wc}
+\end{DoxyParamCaption}
+)}}\label{gmx__wallcycle_8c_a6d0a25d38288ec0d4f76580109dbca86}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=310pt]{gmx__wallcycle_8c_a6d0a25d38288ec0d4f76580109dbca86_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__wallcycle_8c_a3f74572830f4ccc679256ba42ccbc108}{\index{gmx\-\_\-wallcycle.\-c@{gmx\-\_\-wallcycle.\-c}!wcycle\-\_\-set\-\_\-reset\-\_\-counters@{wcycle\-\_\-set\-\_\-reset\-\_\-counters}}
+\index{wcycle\-\_\-set\-\_\-reset\-\_\-counters@{wcycle\-\_\-set\-\_\-reset\-\_\-counters}!gmx_wallcycle.c@{gmx\-\_\-wallcycle.\-c}}
+\subsubsection[{wcycle\-\_\-set\-\_\-reset\-\_\-counters}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf wcycle\-\_\-set\-\_\-reset\-\_\-counters} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-wallcycle\-\_\-t}}]{wc, }
+\item[{gmx\-\_\-large\-\_\-int\-\_\-t}]{reset\-\_\-counters}
+\end{DoxyParamCaption}
+)}}\label{gmx__wallcycle_8c_a3f74572830f4ccc679256ba42ccbc108}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=310pt]{gmx__wallcycle_8c_a3f74572830f4ccc679256ba42ccbc108_icgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{\-Variable \-Documentation}
+\hypertarget{gmx__wallcycle_8c_a66b1efeac1133d91160ecad20ee5409e}{\index{gmx\-\_\-wallcycle.\-c@{gmx\-\_\-wallcycle.\-c}!wcn@{wcn}}
+\index{wcn@{wcn}!gmx_wallcycle.c@{gmx\-\_\-wallcycle.\-c}}
+\subsubsection[{wcn}]{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ {\bf wcn}\mbox{[}{\bf ewc\-N\-R}\mbox{]}\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__wallcycle_8c_a66b1efeac1133d91160ecad20ee5409e}
+{\bfseries \-Initial value\-:}
+\begin{DoxyCode}
+
+{
+    "Run", "Step", "PP during PME", "Domain decomp.", "DD comm. load",
+    "DD comm. bounds", "Vsite constr.", "Send X to PME", "Neighbor search", "
+      Launch GPU ops.",
+    "Comm. coord.", "Born radii", "Force", "Wait + Comm. F", "PME mesh",
+    "PME redist. X/F", "PME spread/gather", "PME 3D-FFT", "PME 3D-FFT Comm.", "
+      PME solve",
+ "SE redist. X/F", "SE spread/gather", "SE 3D-FFT", "SE 3D-FFT Comm.", "SE
+       solve",
+    "PME wait for PP", "Wait + Recv. PME F", "Wait GPU nonlocal", "Wait GPU
+       local", "NB X/F buffer ops.",
+    "Vsite spread", "Write traj.", "Update", "Constraints", "Comm. energies",
+    "Enforced rotation", "Add rot. forces", "Test"
+}
+\end{DoxyCode}
+\hypertarget{gmx__wallcycle_8c_ae752ad75034cdeed3c0f298c85196da9}{\index{gmx\-\_\-wallcycle.\-c@{gmx\-\_\-wallcycle.\-c}!wcsn@{wcsn}}
+\index{wcsn@{wcsn}!gmx_wallcycle.c@{gmx\-\_\-wallcycle.\-c}}
+\subsubsection[{wcsn}]{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ {\bf wcsn}\mbox{[}{\bf ewcs\-N\-R}\mbox{]}\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__wallcycle_8c_ae752ad75034cdeed3c0f298c85196da9}
+{\bfseries \-Initial value\-:}
+\begin{DoxyCode}
+
+{
+    "DD redist.", "DD NS grid + sort", "DD setup comm.",
+    "DD make top.", "DD make constr.", "DD top. other",
+    "NS grid local", "NS grid non-loc.", "NS search local", "NS search non-loc.
+      ",
+    "Bonded F", "Nonbonded F", "Ewald F correction",
+    "NB X buffer ops.", "NB F buffer ops."
+}
+\end{DoxyCode}

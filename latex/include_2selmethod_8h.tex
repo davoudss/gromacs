@@ -1,0 +1,425 @@
+\hypertarget{include_2selmethod_8h}{\section{include/selmethod.h \-File \-Reference}
+\label{include_2selmethod_8h}\index{include/selmethod.\-h@{include/selmethod.\-h}}
+}
+
+
+\-A\-P\-I for handling selection methods.  
+
+
+{\ttfamily \#include \char`\"{}typedefs.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}indexutil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}selparam.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}selvalue.\-h\char`\"{}}\*
+\-Include dependency graph for selmethod.\-h\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{include_2selmethod_8h__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structgmx__ana__selmethod__help__t}{gmx\-\_\-ana\-\_\-selmethod\-\_\-help\-\_\-t}
+\begin{DoxyCompactList}\small\item\em \-Help information for a selection method. \end{DoxyCompactList}\item 
+struct \hyperlink{structgmx__ana__selmethod__t}{gmx\-\_\-ana\-\_\-selmethod\-\_\-t}
+\begin{DoxyCompactList}\small\item\em \-Describes a selection method. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{\-Defines}
+\begin{Indent}{\bf \-Selection method flags}\par
+{\em \label{share_2template_2gromacs_2selmethod_8h_selmethod_flags}%
+\hypertarget{share_2template_2gromacs_2selmethod_8h_selmethod_flags}{}%
+}\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{include_2selmethod_8h_ac5e632efef31120c54b55eac79cb23cc}{\-S\-M\-E\-T\-H\-\_\-\-R\-E\-Q\-T\-O\-P}~1
+\begin{DoxyCompactList}\small\item\em \-If set, the method requires topology information. \end{DoxyCompactList}\item 
+\#define \hyperlink{include_2selmethod_8h_af38b0eb2b4e305ae83ded06f9b12252e}{\-S\-M\-E\-T\-H\-\_\-\-D\-Y\-N\-A\-M\-I\-C}~2
+\begin{DoxyCompactList}\small\item\em \-If set, the method can only be evaluated dynamically. \end{DoxyCompactList}\item 
+\#define \hyperlink{include_2selmethod_8h_a2de9fc1fca93570388059f72b064df08}{\-S\-M\-E\-T\-H\-\_\-\-S\-I\-N\-G\-L\-E\-V\-A\-L}~4
+\begin{DoxyCompactList}\small\item\em \-If set, the method evaluates to a single value. \end{DoxyCompactList}\item 
+\#define \hyperlink{include_2selmethod_8h_ae0aa6a1bbb99ba5f0f6228c4cd401e0a}{\-S\-M\-E\-T\-H\-\_\-\-V\-A\-R\-N\-U\-M\-V\-A\-L}~8
+\begin{DoxyCompactList}\small\item\em \-If set, the method evaluates to an arbitrary number of values. \end{DoxyCompactList}\item 
+\#define \hyperlink{include_2selmethod_8h_a78abdcb637f45eafa513d07aaf14a45e}{\-S\-M\-E\-T\-H\-\_\-\-C\-H\-A\-R\-V\-A\-L}~64
+\begin{DoxyCompactList}\small\item\em \-If set, the method evaluates to single-\/character strings. \end{DoxyCompactList}\item 
+\#define \hyperlink{include_2selmethod_8h_aa5b18df47b72690889afd89f5e68694c}{\-S\-M\-E\-T\-H\-\_\-\-M\-O\-D\-I\-F\-I\-E\-R}~256
+\begin{DoxyCompactList}\small\item\em \-If set, the method is a selection modifier. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+\subsection*{\-Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$($\ast$ \hyperlink{include_2selmethod_8h_a5acbf2d7bead71c4d96f9e69b267df56}{sel\-\_\-datafunc} )(int npar, \hyperlink{structgmx__ana__selparam__t}{gmx\-\_\-ana\-\_\-selparam\-\_\-t} $\ast$param)
+\begin{DoxyCompactList}\small\item\em \-Allocates and initializes internal data and parameter values. \end{DoxyCompactList}\item 
+typedef \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void}($\ast$ \hyperlink{include_2selmethod_8h_a2b41f82c4d493740c63d148eff2129b8}{sel\-\_\-posfunc} )(struct \hyperlink{structgmx__ana__poscalc__coll__t}{gmx\-\_\-ana\-\_\-poscalc\-\_\-coll\-\_\-t} $\ast$pcc, \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$data)
+\begin{DoxyCompactList}\small\item\em \-Sets the position calculation collection for the method. \end{DoxyCompactList}\item 
+typedef int($\ast$ \hyperlink{include_2selmethod_8h_a112e5ec6891c5963a59384cf41f0cc89}{sel\-\_\-initfunc} )(\hyperlink{structt__topology}{t\-\_\-topology} $\ast$\hyperlink{gmx__disre_8c_a1b538a2ce75aba6c346bc03980ffeb28}{top}, int npar, \hyperlink{structgmx__ana__selparam__t}{gmx\-\_\-ana\-\_\-selparam\-\_\-t} $\ast$param, \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$data)
+\begin{DoxyCompactList}\small\item\em \-Does initialization based on topology and/or parameter values. \end{DoxyCompactList}\item 
+typedef int($\ast$ \hyperlink{include_2selmethod_8h_a682279959b047d5bf8a540b00196332b}{sel\-\_\-outinitfunc} )(\hyperlink{structt__topology}{t\-\_\-topology} $\ast$\hyperlink{gmx__disre_8c_a1b538a2ce75aba6c346bc03980ffeb28}{top}, \hyperlink{structgmx__ana__selvalue__t}{gmx\-\_\-ana\-\_\-selvalue\-\_\-t} $\ast$out, \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$data)
+\begin{DoxyCompactList}\small\item\em \-Initializes output data structure. \end{DoxyCompactList}\item 
+typedef \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void}($\ast$ \hyperlink{include_2selmethod_8h_a2e05a0b2274edfeab965c363f646735a}{sel\-\_\-freefunc} )(\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$data)
+\begin{DoxyCompactList}\small\item\em \-Frees the internal data. \end{DoxyCompactList}\item 
+typedef int($\ast$ \hyperlink{include_2selmethod_8h_a62eee18354ffce940f10c7dd9ff1c34b}{sel\-\_\-framefunc} )(\hyperlink{structt__topology}{t\-\_\-topology} $\ast$\hyperlink{gmx__disre_8c_a1b538a2ce75aba6c346bc03980ffeb28}{top}, \hyperlink{include_2types_2trx_8h_a206f77137d72a5db1097a457a7144ad5}{t\-\_\-trxframe} $\ast$\hyperlink{addconf_8c_ae8414314f87c5e49503ac0117eb511ad}{fr}, \hyperlink{structt__pbc}{t\-\_\-pbc} $\ast$pbc, \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$data)
+\begin{DoxyCompactList}\small\item\em \-Initializes the evaluation for a new frame. \end{DoxyCompactList}\item 
+typedef int($\ast$ \hyperlink{include_2selmethod_8h_a8492a3e2b034f195b558030d2bcecb18}{sel\-\_\-updatefunc} )(\hyperlink{structt__topology}{t\-\_\-topology} $\ast$\hyperlink{gmx__disre_8c_a1b538a2ce75aba6c346bc03980ffeb28}{top}, \hyperlink{include_2types_2trx_8h_a206f77137d72a5db1097a457a7144ad5}{t\-\_\-trxframe} $\ast$\hyperlink{addconf_8c_ae8414314f87c5e49503ac0117eb511ad}{fr}, \hyperlink{structt__pbc}{t\-\_\-pbc} $\ast$pbc, \hyperlink{structgmx__ana__index__t}{gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g}, \hyperlink{structgmx__ana__selvalue__t}{gmx\-\_\-ana\-\_\-selvalue\-\_\-t} $\ast$out, \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$data)
+\begin{DoxyCompactList}\small\item\em \-Evaluates a selection method. \end{DoxyCompactList}\item 
+typedef int($\ast$ \hyperlink{include_2selmethod_8h_a47bfb381e8df48bddd7ca78abff224bf}{sel\-\_\-updatefunc\-\_\-pos} )(\hyperlink{structt__topology}{t\-\_\-topology} $\ast$\hyperlink{gmx__disre_8c_a1b538a2ce75aba6c346bc03980ffeb28}{top}, \hyperlink{include_2types_2trx_8h_a206f77137d72a5db1097a457a7144ad5}{t\-\_\-trxframe} $\ast$\hyperlink{addconf_8c_ae8414314f87c5e49503ac0117eb511ad}{fr}, \hyperlink{structt__pbc}{t\-\_\-pbc} $\ast$pbc, struct \hyperlink{structgmx__ana__pos__t}{gmx\-\_\-ana\-\_\-pos\-\_\-t} $\ast$pos, \hyperlink{structgmx__ana__selvalue__t}{gmx\-\_\-ana\-\_\-selvalue\-\_\-t} $\ast$out, \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$data)
+\begin{DoxyCompactList}\small\item\em \-Evaluates a selection method using positions. \end{DoxyCompactList}\item 
+typedef struct \*
+\hyperlink{structgmx__ana__selmethod__help__t}{gmx\-\_\-ana\-\_\-selmethod\-\_\-help\-\_\-t} \hyperlink{include_2selmethod_8h_a8afaedaab65c40b0bc393d3b1367c5df}{gmx\-\_\-ana\-\_\-selmethod\-\_\-help\-\_\-t}
+\begin{DoxyCompactList}\small\item\em \-Help information for a selection method. \end{DoxyCompactList}\item 
+typedef struct \hyperlink{structgmx__ana__selmethod__t}{gmx\-\_\-ana\-\_\-selmethod\-\_\-t} \hyperlink{include_2selmethod_8h_ab6e50097458bace3cbe68cc66b6701d3}{gmx\-\_\-ana\-\_\-selmethod\-\_\-t}
+\begin{DoxyCompactList}\small\item\em \-Describes a selection method. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{include_2selmethod_8h_a820231622b6b4dd57fba7570f705498f}{gmx\-\_\-ana\-\_\-selmethod\-\_\-register} (struct \hyperlink{structgmx__ana__selcollection__t}{gmx\-\_\-ana\-\_\-selcollection\-\_\-t} $\ast$sc, const char $\ast$name, \hyperlink{structgmx__ana__selmethod__t}{gmx\-\_\-ana\-\_\-selmethod\-\_\-t} $\ast$method)
+\item 
+int \hyperlink{include_2selmethod_8h_a42ce5e3ffcaaf60fd7a6f758594be655}{gmx\-\_\-ana\-\_\-selmethod\-\_\-register\-\_\-defaults} (struct \hyperlink{structgmx__ana__selcollection__t}{gmx\-\_\-ana\-\_\-selcollection\-\_\-t} $\ast$sc)
+\item 
+\hyperlink{structgmx__ana__selparam__t}{gmx\-\_\-ana\-\_\-selparam\-\_\-t} $\ast$ \hyperlink{include_2selmethod_8h_a0e7b6b47ea1bd6dc301b26eb73524a16}{gmx\-\_\-ana\-\_\-selmethod\-\_\-find\-\_\-param} (const char $\ast$name, \hyperlink{structgmx__ana__selmethod__t}{gmx\-\_\-ana\-\_\-selmethod\-\_\-t} $\ast$method)
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Detailed \-Description}
+\-A\-P\-I for handling selection methods. \-There should be no need to use the data structures or call the functions in this file directly unless implementing a custom selection method.
+
+\-Instructions for implementing custom selection methods can be found on a separate page\-: \hyperlink{selmethods}{\-Custom selection methods} 
+
+\subsection{\-Define \-Documentation}
+\hypertarget{include_2selmethod_8h_a78abdcb637f45eafa513d07aaf14a45e}{\index{include/selmethod.\-h@{include/selmethod.\-h}!\-S\-M\-E\-T\-H\-\_\-\-C\-H\-A\-R\-V\-A\-L@{\-S\-M\-E\-T\-H\-\_\-\-C\-H\-A\-R\-V\-A\-L}}
+\index{\-S\-M\-E\-T\-H\-\_\-\-C\-H\-A\-R\-V\-A\-L@{\-S\-M\-E\-T\-H\-\_\-\-C\-H\-A\-R\-V\-A\-L}!include/selmethod.h@{include/selmethod.\-h}}
+\subsubsection[{\-S\-M\-E\-T\-H\-\_\-\-C\-H\-A\-R\-V\-A\-L}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-S\-M\-E\-T\-H\-\_\-\-C\-H\-A\-R\-V\-A\-L}~64}}\label{include_2selmethod_8h_a78abdcb637f45eafa513d07aaf14a45e}
+
+
+\-If set, the method evaluates to single-\/character strings. 
+
+\-This flag can only be set for \hyperlink{share_2template_2gromacs_2selvalue_8h_a70b42b87d434580bf1493591857b8beca6f2f1fe9592d96990c9ac690c355bd08}{\-S\-T\-R\-\_\-\-V\-A\-L\-U\-E} methods. \-If it is set, the selection engine automatically allocates and frees the required strings. \-The evaluation function should store the character values as the first character in the strings in the output data structure and should not change the string pointers. \hypertarget{include_2selmethod_8h_af38b0eb2b4e305ae83ded06f9b12252e}{\index{include/selmethod.\-h@{include/selmethod.\-h}!\-S\-M\-E\-T\-H\-\_\-\-D\-Y\-N\-A\-M\-I\-C@{\-S\-M\-E\-T\-H\-\_\-\-D\-Y\-N\-A\-M\-I\-C}}
+\index{\-S\-M\-E\-T\-H\-\_\-\-D\-Y\-N\-A\-M\-I\-C@{\-S\-M\-E\-T\-H\-\_\-\-D\-Y\-N\-A\-M\-I\-C}!include/selmethod.h@{include/selmethod.\-h}}
+\subsubsection[{\-S\-M\-E\-T\-H\-\_\-\-D\-Y\-N\-A\-M\-I\-C}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-S\-M\-E\-T\-H\-\_\-\-D\-Y\-N\-A\-M\-I\-C}~2}}\label{include_2selmethod_8h_af38b0eb2b4e305ae83ded06f9b12252e}
+
+
+\-If set, the method can only be evaluated dynamically. 
+
+\hypertarget{include_2selmethod_8h_aa5b18df47b72690889afd89f5e68694c}{\index{include/selmethod.\-h@{include/selmethod.\-h}!\-S\-M\-E\-T\-H\-\_\-\-M\-O\-D\-I\-F\-I\-E\-R@{\-S\-M\-E\-T\-H\-\_\-\-M\-O\-D\-I\-F\-I\-E\-R}}
+\index{\-S\-M\-E\-T\-H\-\_\-\-M\-O\-D\-I\-F\-I\-E\-R@{\-S\-M\-E\-T\-H\-\_\-\-M\-O\-D\-I\-F\-I\-E\-R}!include/selmethod.h@{include/selmethod.\-h}}
+\subsubsection[{\-S\-M\-E\-T\-H\-\_\-\-M\-O\-D\-I\-F\-I\-E\-R}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-S\-M\-E\-T\-H\-\_\-\-M\-O\-D\-I\-F\-I\-E\-R}~256}}\label{include_2selmethod_8h_aa5b18df47b72690889afd89f5e68694c}
+
+
+\-If set, the method is a selection modifier. 
+
+\-The method type should be \hyperlink{share_2template_2gromacs_2selvalue_8h_a70b42b87d434580bf1493591857b8beca70a2af6eafa48adfab506ceee60471f6}{\-G\-R\-O\-U\-P\-\_\-\-V\-A\-L\-U\-E} or \hyperlink{share_2template_2gromacs_2selvalue_8h_a70b42b87d434580bf1493591857b8beca4d694119ce83b62d74ff06b5e017dca8}{\-N\-O\-\_\-\-V\-A\-L\-U\-E} . \-Cannot be combined with \hyperlink{share_2template_2gromacs_2selmethod_8h_a2de9fc1fca93570388059f72b064df08}{\-S\-M\-E\-T\-H\-\_\-\-S\-I\-N\-G\-L\-E\-V\-A\-L} or \hyperlink{share_2template_2gromacs_2selmethod_8h_ae0aa6a1bbb99ba5f0f6228c4cd401e0a}{\-S\-M\-E\-T\-H\-\_\-\-V\-A\-R\-N\-U\-M\-V\-A\-L} . \hypertarget{include_2selmethod_8h_ac5e632efef31120c54b55eac79cb23cc}{\index{include/selmethod.\-h@{include/selmethod.\-h}!\-S\-M\-E\-T\-H\-\_\-\-R\-E\-Q\-T\-O\-P@{\-S\-M\-E\-T\-H\-\_\-\-R\-E\-Q\-T\-O\-P}}
+\index{\-S\-M\-E\-T\-H\-\_\-\-R\-E\-Q\-T\-O\-P@{\-S\-M\-E\-T\-H\-\_\-\-R\-E\-Q\-T\-O\-P}!include/selmethod.h@{include/selmethod.\-h}}
+\subsubsection[{\-S\-M\-E\-T\-H\-\_\-\-R\-E\-Q\-T\-O\-P}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-S\-M\-E\-T\-H\-\_\-\-R\-E\-Q\-T\-O\-P}~1}}\label{include_2selmethod_8h_ac5e632efef31120c54b55eac79cb23cc}
+
+
+\-If set, the method requires topology information. 
+
+\hypertarget{include_2selmethod_8h_a2de9fc1fca93570388059f72b064df08}{\index{include/selmethod.\-h@{include/selmethod.\-h}!\-S\-M\-E\-T\-H\-\_\-\-S\-I\-N\-G\-L\-E\-V\-A\-L@{\-S\-M\-E\-T\-H\-\_\-\-S\-I\-N\-G\-L\-E\-V\-A\-L}}
+\index{\-S\-M\-E\-T\-H\-\_\-\-S\-I\-N\-G\-L\-E\-V\-A\-L@{\-S\-M\-E\-T\-H\-\_\-\-S\-I\-N\-G\-L\-E\-V\-A\-L}!include/selmethod.h@{include/selmethod.\-h}}
+\subsubsection[{\-S\-M\-E\-T\-H\-\_\-\-S\-I\-N\-G\-L\-E\-V\-A\-L}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-S\-M\-E\-T\-H\-\_\-\-S\-I\-N\-G\-L\-E\-V\-A\-L}~4}}\label{include_2selmethod_8h_a2de9fc1fca93570388059f72b064df08}
+
+
+\-If set, the method evaluates to a single value. 
+
+\-The default is that the method evaluates to a value for each input atom. \-Cannot be combined with \hyperlink{share_2template_2gromacs_2selmethod_8h_ae0aa6a1bbb99ba5f0f6228c4cd401e0a}{\-S\-M\-E\-T\-H\-\_\-\-V\-A\-R\-N\-U\-M\-V\-A\-L}. \hypertarget{include_2selmethod_8h_ae0aa6a1bbb99ba5f0f6228c4cd401e0a}{\index{include/selmethod.\-h@{include/selmethod.\-h}!\-S\-M\-E\-T\-H\-\_\-\-V\-A\-R\-N\-U\-M\-V\-A\-L@{\-S\-M\-E\-T\-H\-\_\-\-V\-A\-R\-N\-U\-M\-V\-A\-L}}
+\index{\-S\-M\-E\-T\-H\-\_\-\-V\-A\-R\-N\-U\-M\-V\-A\-L@{\-S\-M\-E\-T\-H\-\_\-\-V\-A\-R\-N\-U\-M\-V\-A\-L}!include/selmethod.h@{include/selmethod.\-h}}
+\subsubsection[{\-S\-M\-E\-T\-H\-\_\-\-V\-A\-R\-N\-U\-M\-V\-A\-L}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-S\-M\-E\-T\-H\-\_\-\-V\-A\-R\-N\-U\-M\-V\-A\-L}~8}}\label{include_2selmethod_8h_ae0aa6a1bbb99ba5f0f6228c4cd401e0a}
+
+
+\-If set, the method evaluates to an arbitrary number of values. 
+
+\-The default is that the method evaluates to a value for each input atom. \-Cannot be combined with \hyperlink{share_2template_2gromacs_2selmethod_8h_a2de9fc1fca93570388059f72b064df08}{\-S\-M\-E\-T\-H\-\_\-\-S\-I\-N\-G\-L\-E\-V\-A\-L} or with \hyperlink{share_2template_2gromacs_2selvalue_8h_a70b42b87d434580bf1493591857b8beca70a2af6eafa48adfab506ceee60471f6}{\-G\-R\-O\-U\-P\-\_\-\-V\-A\-L\-U\-E}. 
+
+\subsection{\-Typedef \-Documentation}
+\hypertarget{include_2selmethod_8h_a8afaedaab65c40b0bc393d3b1367c5df}{\index{include/selmethod.\-h@{include/selmethod.\-h}!gmx\-\_\-ana\-\_\-selmethod\-\_\-help\-\_\-t@{gmx\-\_\-ana\-\_\-selmethod\-\_\-help\-\_\-t}}
+\index{gmx\-\_\-ana\-\_\-selmethod\-\_\-help\-\_\-t@{gmx\-\_\-ana\-\_\-selmethod\-\_\-help\-\_\-t}!include/selmethod.h@{include/selmethod.\-h}}
+\subsubsection[{gmx\-\_\-ana\-\_\-selmethod\-\_\-help\-\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf gmx\-\_\-ana\-\_\-selmethod\-\_\-help\-\_\-t}  {\bf gmx\-\_\-ana\-\_\-selmethod\-\_\-help\-\_\-t}}}\label{include_2selmethod_8h_a8afaedaab65c40b0bc393d3b1367c5df}
+
+
+\-Help information for a selection method. 
+
+\-If some information is not available, the corresponding field can be set to 0/\-N\-U\-L\-L. \hypertarget{include_2selmethod_8h_ab6e50097458bace3cbe68cc66b6701d3}{\index{include/selmethod.\-h@{include/selmethod.\-h}!gmx\-\_\-ana\-\_\-selmethod\-\_\-t@{gmx\-\_\-ana\-\_\-selmethod\-\_\-t}}
+\index{gmx\-\_\-ana\-\_\-selmethod\-\_\-t@{gmx\-\_\-ana\-\_\-selmethod\-\_\-t}!include/selmethod.h@{include/selmethod.\-h}}
+\subsubsection[{gmx\-\_\-ana\-\_\-selmethod\-\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf gmx\-\_\-ana\-\_\-selmethod\-\_\-t}  {\bf gmx\-\_\-ana\-\_\-selmethod\-\_\-t}}}\label{include_2selmethod_8h_ab6e50097458bace3cbe68cc66b6701d3}
+
+
+\-Describes a selection method. 
+
+\-Any of the function pointers except the update call can be \-N\-U\-L\-L if the operation is not required or not supported. \-In this case, corresponding function calls are skipped.
+
+\-See the function pointer type documentation for details of how the functions should be implemented. \-More details on implementing new selection methods can be found on a separate page\-: \hyperlink{selmethods}{\-Custom selection methods}. \hypertarget{include_2selmethod_8h_a5acbf2d7bead71c4d96f9e69b267df56}{\index{include/selmethod.\-h@{include/selmethod.\-h}!sel\-\_\-datafunc@{sel\-\_\-datafunc}}
+\index{sel\-\_\-datafunc@{sel\-\_\-datafunc}!include/selmethod.h@{include/selmethod.\-h}}
+\subsubsection[{sel\-\_\-datafunc}]{\setlength{\rightskip}{0pt plus 5cm}typedef {\bf void}$\ast$($\ast$ {\bf sel\-\_\-datafunc})(int npar, {\bf gmx\-\_\-ana\-\_\-selparam\-\_\-t} $\ast$param)}}\label{include_2selmethod_8h_a5acbf2d7bead71c4d96f9e69b267df56}
+
+
+\-Allocates and initializes internal data and parameter values. 
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em npar} & \-Number of parameters in {\ttfamily param}. \\
+\hline
+\mbox{\tt in,out}  & {\em param} & \-Pointer to (a copy of) the method's {\ttfamily \hyperlink{structgmx__ana__selmethod__t_a1a26cbd06fbc4ab9a5744148d9af3503}{gmx\-\_\-ana\-\_\-selmethod\-\_\-t\-::param}}. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-Pointer to method-\/specific data structure. \-This pointer will be passed as the last parameter of all other function calls. \-Should return \-N\-U\-L\-L on error (only error that should occur is out of memory).
+\end{DoxyReturn}
+\-Should allocate and initialize any internal data required by the method. \-Should also initialize the value pointers ({\ttfamily \hyperlink{structgmx__ana__selparam__t_a1a2ccba901e24c9c8e2c00c2b61b24d2}{gmx\-\_\-ana\-\_\-selparam\-\_\-t\-::val}}) in {\ttfamily param} to point to variables within the internal data structure, with the exception of parameters that specify the \hyperlink{share_2template_2gromacs_2selparam_8h_a400330277d7e17cdfef1610cc37838ea}{\-S\-P\-A\-R\-\_\-\-V\-A\-R\-N\-U\-M} or the \hyperlink{share_2template_2gromacs_2selparam_8h_ababaf52ada40922bb660a4949e1e52f0}{\-S\-P\-A\-R\-\_\-\-A\-T\-O\-M\-V\-A\-L} flag (these should be handled in \hyperlink{include_2selmethod_8h_a112e5ec6891c5963a59384cf41f0cc89}{sel\-\_\-initfunc()}). \-However, parameters with a position value should be initialized. \-It is also possible to initialize \hyperlink{share_2template_2gromacs_2selparam_8h_a9cab7952c47c82291754bb1b90db31e7}{\-S\-P\-A\-R\-\_\-\-E\-N\-U\-M\-V\-A\-L} statically outside this function (see \hyperlink{share_2template_2gromacs_2selparam_8h_a9cab7952c47c82291754bb1b90db31e7}{\-S\-P\-A\-R\-\_\-\-E\-N\-U\-M\-V\-A\-L}). \-The {\ttfamily \hyperlink{structgmx__ana__selparam__t_a727a1b2415611c5506aa763f0256b76d}{gmx\-\_\-ana\-\_\-selparam\-\_\-t\-::nvalptr}} should also be initialized for non-\/position-\/valued parameters that have both \hyperlink{share_2template_2gromacs_2selparam_8h_a400330277d7e17cdfef1610cc37838ea}{\-S\-P\-A\-R\-\_\-\-V\-A\-R\-N\-U\-M} and \hyperlink{share_2template_2gromacs_2selparam_8h_ae44a94b4d013d2a344cfb3a9f8c5479f}{\-S\-P\-A\-R\-\_\-\-D\-Y\-N\-A\-M\-I\-C} set (it can also be initialized for other parameters if desired, but the same information will be available through other means). \-For optional parameters, the default values can (and should) be initialized here, as the parameter values are not changed if the parameter is not provided.
+
+\-For boolean parameters (type equals \hyperlink{share_2template_2gromacs_2selvalue_8h_a70b42b87d434580bf1493591857b8beca4d694119ce83b62d74ff06b5e017dca8}{\-N\-O\-\_\-\-V\-A\-L\-U\-E}), the default value should be set here. \-The user can override the value by giving the parameter either as '\-N\-A\-M\-E'/'no\-N\-A\-M\-E', or as '\-N\-A\-M\-E on/off/yes/no'.
+
+\-If the method takes any parameters, this function must be provided. \hypertarget{include_2selmethod_8h_a62eee18354ffce940f10c7dd9ff1c34b}{\index{include/selmethod.\-h@{include/selmethod.\-h}!sel\-\_\-framefunc@{sel\-\_\-framefunc}}
+\index{sel\-\_\-framefunc@{sel\-\_\-framefunc}!include/selmethod.h@{include/selmethod.\-h}}
+\subsubsection[{sel\-\_\-framefunc}]{\setlength{\rightskip}{0pt plus 5cm}typedef int($\ast$ {\bf sel\-\_\-framefunc})({\bf t\-\_\-topology} $\ast${\bf top}, {\bf t\-\_\-trxframe} $\ast${\bf fr}, {\bf t\-\_\-pbc} $\ast$pbc, {\bf void} $\ast$data)}}\label{include_2selmethod_8h_a62eee18354ffce940f10c7dd9ff1c34b}
+
+
+\-Initializes the evaluation for a new frame. 
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em top} & \-Topology structure (can be \-N\-U\-L\-L if \hyperlink{share_2template_2gromacs_2selmethod_8h_ac5e632efef31120c54b55eac79cb23cc}{\-S\-M\-E\-T\-H\-\_\-\-R\-E\-Q\-T\-O\-P} is not set). \\
+\hline
+\mbox{\tt in}  & {\em fr} & \-Current frame. \\
+\hline
+\mbox{\tt in}  & {\em pbc} & \-Initialized periodic boundary condition structure, or \-N\-U\-L\-L if \-P\-B\-C should not be used. \\
+\hline
+ & {\em data} & \-Internal data structure from \hyperlink{include_2selmethod_8h_a5acbf2d7bead71c4d96f9e69b267df56}{sel\-\_\-datafunc()}. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+0 on success, a non-\/zero error code on failure.
+\end{DoxyReturn}
+\-This function should be implemented if the selection method needs to do some preprocessing for each frame, and the preprocessing does not depend on the evaluation group. \-Because {\ttfamily sel\-\_\-updatefunc\-\_\-$\ast$} can be called more than once for a frame, it is inefficient do the preprocessing there. \-It is ensured that this function will be called before {\ttfamily sel\-\_\-updatefunc\-\_\-$\ast$} for each frame, and that it will be called at most once for each frame. \-For static methods, it is called once, with {\ttfamily fr} and {\ttfamily pbc} set to \-N\-U\-L\-L. \hypertarget{include_2selmethod_8h_a2e05a0b2274edfeab965c363f646735a}{\index{include/selmethod.\-h@{include/selmethod.\-h}!sel\-\_\-freefunc@{sel\-\_\-freefunc}}
+\index{sel\-\_\-freefunc@{sel\-\_\-freefunc}!include/selmethod.h@{include/selmethod.\-h}}
+\subsubsection[{sel\-\_\-freefunc}]{\setlength{\rightskip}{0pt plus 5cm}typedef {\bf void}($\ast$ {\bf sel\-\_\-freefunc})({\bf void} $\ast$data)}}\label{include_2selmethod_8h_a2e05a0b2274edfeab965c363f646735a}
+
+
+\-Frees the internal data. 
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em data} & \-Internal data structure from \hyperlink{include_2selmethod_8h_a5acbf2d7bead71c4d96f9e69b267df56}{sel\-\_\-datafunc()}.\\
+\hline
+\end{DoxyParams}
+\-This function should be provided if the internal data structure contains dynamically allocated data, and should free any such data. \-The data structure itself should not be freed; this is handled automatically. \-If there is no dynamically allocated data within the structure, this function is not needed. \-Any memory pointers received as values of parameters are managed externally, and should not be freed. \-Pointers set as the value pointer of \hyperlink{share_2template_2gromacs_2selparam_8h_a9cab7952c47c82291754bb1b90db31e7}{\-S\-P\-A\-R\-\_\-\-E\-N\-U\-M\-V\-A\-L} parameters should not be freed. \hypertarget{include_2selmethod_8h_a112e5ec6891c5963a59384cf41f0cc89}{\index{include/selmethod.\-h@{include/selmethod.\-h}!sel\-\_\-initfunc@{sel\-\_\-initfunc}}
+\index{sel\-\_\-initfunc@{sel\-\_\-initfunc}!include/selmethod.h@{include/selmethod.\-h}}
+\subsubsection[{sel\-\_\-initfunc}]{\setlength{\rightskip}{0pt plus 5cm}typedef int($\ast$ {\bf sel\-\_\-initfunc})({\bf t\-\_\-topology} $\ast${\bf top}, int npar, {\bf gmx\-\_\-ana\-\_\-selparam\-\_\-t} $\ast$param, {\bf void} $\ast$data)}}\label{include_2selmethod_8h_a112e5ec6891c5963a59384cf41f0cc89}
+
+
+\-Does initialization based on topology and/or parameter values. 
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em top} & \-Topology structure (can be \-N\-U\-L\-L if \hyperlink{share_2template_2gromacs_2selmethod_8h_ac5e632efef31120c54b55eac79cb23cc}{\-S\-M\-E\-T\-H\-\_\-\-R\-E\-Q\-T\-O\-P} is not set). \\
+\hline
+\mbox{\tt in}  & {\em npar} & \-Number of parameters in {\ttfamily param}. \\
+\hline
+\mbox{\tt in}  & {\em param} & \-Pointer to (an initialized copy of) the method's {\ttfamily \hyperlink{structgmx__ana__selmethod__t_a1a26cbd06fbc4ab9a5744148d9af3503}{gmx\-\_\-ana\-\_\-selmethod\-\_\-t\-::param}}. \\
+\hline
+ & {\em data} & \-Internal data structure from \hyperlink{include_2selmethod_8h_a5acbf2d7bead71c4d96f9e69b267df56}{sel\-\_\-datafunc()}. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+0 on success, a non-\/zero error code on failure.
+\end{DoxyReturn}
+\-This function is called after the parameters have been processed\-: the values of the parameters are stored at the locations set in \hyperlink{include_2selmethod_8h_a5acbf2d7bead71c4d96f9e69b267df56}{sel\-\_\-datafunc()}. \-The flags \hyperlink{share_2template_2gromacs_2selparam_8h_ae44a94b4d013d2a344cfb3a9f8c5479f}{\-S\-P\-A\-R\-\_\-\-D\-Y\-N\-A\-M\-I\-C} and \hyperlink{share_2template_2gromacs_2selparam_8h_ababaf52ada40922bb660a4949e1e52f0}{\-S\-P\-A\-R\-\_\-\-A\-T\-O\-M\-V\-A\-L} are cleared before calling the function if the value is static or single-\/valued, respectively. \-If a parameter had the \hyperlink{share_2template_2gromacs_2selparam_8h_a400330277d7e17cdfef1610cc37838ea}{\-S\-P\-A\-R\-\_\-\-V\-A\-R\-N\-U\-M} or \hyperlink{share_2template_2gromacs_2selparam_8h_ababaf52ada40922bb660a4949e1e52f0}{\-S\-P\-A\-R\-\_\-\-A\-T\-O\-M\-V\-A\-L} flag (and is not \hyperlink{share_2template_2gromacs_2selvalue_8h_a70b42b87d434580bf1493591857b8beca31a47fbfbc85ad1472ce3d2a168fd1ec}{\-P\-O\-S\-\_\-\-V\-A\-L\-U\-E}), a pointer to the memory allocated for the values is found in {\ttfamily \hyperlink{structgmx__ana__selparam__t_a1a2ccba901e24c9c8e2c00c2b61b24d2}{gmx\-\_\-ana\-\_\-selparam\-\_\-t\-::val}}. \-The pointer should be stored by this function, otherwise the values cannot be accessed. \-For \hyperlink{share_2template_2gromacs_2selparam_8h_a400330277d7e17cdfef1610cc37838ea}{\-S\-P\-A\-R\-\_\-\-V\-A\-R\-N\-U\-M} parameters, the number of values can be accessed through {\ttfamily \hyperlink{structgmx__ana__selparam__t_a1a2ccba901e24c9c8e2c00c2b61b24d2}{gmx\-\_\-ana\-\_\-selparam\-\_\-t\-::val}}. \-For parameters with \hyperlink{share_2template_2gromacs_2selparam_8h_ae44a94b4d013d2a344cfb3a9f8c5479f}{\-S\-P\-A\-R\-\_\-\-D\-Y\-N\-A\-M\-I\-C}, the number is the maximum number of values (the actual number can be accessed in \hyperlink{include_2selmethod_8h_a62eee18354ffce940f10c7dd9ff1c34b}{sel\-\_\-framefunc()} and in the update callback through the value pointed by {\ttfamily \hyperlink{structgmx__ana__selparam__t_a727a1b2415611c5506aa763f0256b76d}{gmx\-\_\-ana\-\_\-selparam\-\_\-t\-::nvalptr}}). \-For \hyperlink{share_2template_2gromacs_2selparam_8h_ababaf52ada40922bb660a4949e1e52f0}{\-S\-P\-A\-R\-\_\-\-A\-T\-O\-M\-V\-A\-L} parameters, {\ttfamily gmx\-\_\-ana\-\_\-selparam\-\_\-t\-::val\-::nr} is set to 1 if a single value was provided, otherwise it is set to the maximum number of values possibly passed to the method. \-The value pointed by {\ttfamily \hyperlink{structgmx__ana__selparam__t_a727a1b2415611c5506aa763f0256b76d}{gmx\-\_\-ana\-\_\-selparam\-\_\-t\-::nvalptr}} always contains the same value as {\ttfamily gmx\-\_\-ana\-\_\-selparam\-\_\-t\-::val\-::nr}.
+
+\-For dynamic \hyperlink{share_2template_2gromacs_2selvalue_8h_a70b42b87d434580bf1493591857b8beca70a2af6eafa48adfab506ceee60471f6}{\-G\-R\-O\-U\-P\-\_\-\-V\-A\-L\-U\-E} parameters (\hyperlink{share_2template_2gromacs_2selparam_8h_ae44a94b4d013d2a344cfb3a9f8c5479f}{\-S\-P\-A\-R\-\_\-\-D\-Y\-N\-A\-M\-I\-C} set), the value will be the largest possible selection that may occur during the evaluation. \-For other types of dynamic parameters, the values are undefined.
+
+\-If the method takes any parameters with the \hyperlink{share_2template_2gromacs_2selparam_8h_a400330277d7e17cdfef1610cc37838ea}{\-S\-P\-A\-R\-\_\-\-V\-A\-R\-N\-U\-M} or \hyperlink{share_2template_2gromacs_2selparam_8h_ababaf52ada40922bb660a4949e1e52f0}{\-S\-P\-A\-R\-\_\-\-A\-T\-O\-M\-V\-A\-L} flags, this function must be provided, except if these parameters all have \hyperlink{share_2template_2gromacs_2selvalue_8h_a70b42b87d434580bf1493591857b8beca31a47fbfbc85ad1472ce3d2a168fd1ec}{\-P\-O\-S\-\_\-\-V\-A\-L\-U\-E}.
+
+\-This function may be called multiple times for the same method if the method takes parameters with \hyperlink{share_2template_2gromacs_2selparam_8h_ababaf52ada40922bb660a4949e1e52f0}{\-S\-P\-A\-R\-\_\-\-A\-T\-O\-M\-V\-A\-L} set. \hypertarget{include_2selmethod_8h_a682279959b047d5bf8a540b00196332b}{\index{include/selmethod.\-h@{include/selmethod.\-h}!sel\-\_\-outinitfunc@{sel\-\_\-outinitfunc}}
+\index{sel\-\_\-outinitfunc@{sel\-\_\-outinitfunc}!include/selmethod.h@{include/selmethod.\-h}}
+\subsubsection[{sel\-\_\-outinitfunc}]{\setlength{\rightskip}{0pt plus 5cm}typedef int($\ast$ {\bf sel\-\_\-outinitfunc})({\bf t\-\_\-topology} $\ast${\bf top}, {\bf gmx\-\_\-ana\-\_\-selvalue\-\_\-t} $\ast$out, {\bf void} $\ast$data)}}\label{include_2selmethod_8h_a682279959b047d5bf8a540b00196332b}
+
+
+\-Initializes output data structure. 
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em top} & \-Topology structure (can be \-N\-U\-L\-L if \hyperlink{share_2template_2gromacs_2selmethod_8h_ac5e632efef31120c54b55eac79cb23cc}{\-S\-M\-E\-T\-H\-\_\-\-R\-E\-Q\-T\-O\-P} is not set). \\
+\hline
+\mbox{\tt in,out}  & {\em out} & \-Output data structure. \\
+\hline
+\mbox{\tt in}  & {\em data} & \-Internal data structure from \hyperlink{include_2selmethod_8h_a5acbf2d7bead71c4d96f9e69b267df56}{sel\-\_\-datafunc()}. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+0 on success, an error code on error.
+\end{DoxyReturn}
+\-This function is called immediately after \hyperlink{include_2selmethod_8h_a112e5ec6891c5963a59384cf41f0cc89}{sel\-\_\-initfunc()}.
+
+\-If the method evaluates to a position (\hyperlink{share_2template_2gromacs_2selvalue_8h_a70b42b87d434580bf1493591857b8beca31a47fbfbc85ad1472ce3d2a168fd1ec}{\-P\-O\-S\-\_\-\-V\-A\-L\-U\-E}), this function should be provided, and it should initialize the {\ttfamily \hyperlink{structgmx__ana__pos__t}{gmx\-\_\-ana\-\_\-pos\-\_\-t}} data structure pointed by {\ttfamily out.\-p} (the pointer is guaranteed to be non-\/\-N\-U\-L\-L). \-The {\ttfamily out.\-p-\/$>$g} pointer should be initialized to the group that is used to evaluate positions in \hyperlink{include_2selmethod_8h_a8492a3e2b034f195b558030d2bcecb18}{sel\-\_\-updatefunc()} or \hyperlink{include_2selmethod_8h_a47bfb381e8df48bddd7ca78abff224bf}{sel\-\_\-updatefunc\-\_\-pos()}.
+
+\-The function should also be provided for non-\/position-\/valued \hyperlink{share_2template_2gromacs_2selmethod_8h_ae0aa6a1bbb99ba5f0f6228c4cd401e0a}{\-S\-M\-E\-T\-H\-\_\-\-V\-A\-R\-N\-U\-M\-V\-A\-L} methods. \-For these methods, it suffices to set the {\ttfamily out-\/$>$nr} field to reflect the maximum number of values returned by the method.
+
+\-Currently, this function is not needed for other types of methods.
+
+\-This function may be called multiple times for the same method if the method takes parameters with \hyperlink{share_2template_2gromacs_2selparam_8h_ababaf52ada40922bb660a4949e1e52f0}{\-S\-P\-A\-R\-\_\-\-A\-T\-O\-M\-V\-A\-L} set. \hypertarget{include_2selmethod_8h_a2b41f82c4d493740c63d148eff2129b8}{\index{include/selmethod.\-h@{include/selmethod.\-h}!sel\-\_\-posfunc@{sel\-\_\-posfunc}}
+\index{sel\-\_\-posfunc@{sel\-\_\-posfunc}!include/selmethod.h@{include/selmethod.\-h}}
+\subsubsection[{sel\-\_\-posfunc}]{\setlength{\rightskip}{0pt plus 5cm}typedef {\bf void}($\ast$ {\bf sel\-\_\-posfunc})(struct {\bf gmx\-\_\-ana\-\_\-poscalc\-\_\-coll\-\_\-t} $\ast$pcc, {\bf void} $\ast$data)}}\label{include_2selmethod_8h_a2b41f82c4d493740c63d148eff2129b8}
+
+
+\-Sets the position calculation collection for the method. 
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em pcc} & \-Position calculation collection that the method should use for position calculations. \\
+\hline
+ & {\em data} & \-Internal data structure from \hyperlink{include_2selmethod_8h_a5acbf2d7bead71c4d96f9e69b267df56}{sel\-\_\-datafunc()}.\\
+\hline
+\end{DoxyParams}
+\-This function should be provided if the method uses the routines from poscalc.\-h for calculating positions. \-The pointer {\ttfamily pcc} should then be stored and used for initialization for any position calculation structures. \hypertarget{include_2selmethod_8h_a8492a3e2b034f195b558030d2bcecb18}{\index{include/selmethod.\-h@{include/selmethod.\-h}!sel\-\_\-updatefunc@{sel\-\_\-updatefunc}}
+\index{sel\-\_\-updatefunc@{sel\-\_\-updatefunc}!include/selmethod.h@{include/selmethod.\-h}}
+\subsubsection[{sel\-\_\-updatefunc}]{\setlength{\rightskip}{0pt plus 5cm}typedef int($\ast$ {\bf sel\-\_\-updatefunc})({\bf t\-\_\-topology} $\ast${\bf top}, {\bf t\-\_\-trxframe} $\ast${\bf fr}, {\bf t\-\_\-pbc} $\ast$pbc, {\bf gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast${\bf g}, {\bf gmx\-\_\-ana\-\_\-selvalue\-\_\-t} $\ast$out, {\bf void} $\ast$data)}}\label{include_2selmethod_8h_a8492a3e2b034f195b558030d2bcecb18}
+
+
+\-Evaluates a selection method. 
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em top} & \-Topology structure (can be \-N\-U\-L\-L if \hyperlink{share_2template_2gromacs_2selmethod_8h_ac5e632efef31120c54b55eac79cb23cc}{\-S\-M\-E\-T\-H\-\_\-\-R\-E\-Q\-T\-O\-P} is not set). \\
+\hline
+\mbox{\tt in}  & {\em fr} & \-Current frame. \\
+\hline
+\mbox{\tt in}  & {\em pbc} & \-Initialized periodic boundary condition structure, or \-N\-U\-L\-L if \-P\-B\-C should not be used. \\
+\hline
+\mbox{\tt in}  & {\em g} & \-Index group for which the method should be evaluated. \\
+\hline
+\mbox{\tt out}  & {\em out} & \-Output data structure. \\
+\hline
+ & {\em data} & \-Internal data structure from \hyperlink{include_2selmethod_8h_a5acbf2d7bead71c4d96f9e69b267df56}{sel\-\_\-datafunc()}. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+0 on success, a non-\/zero error code on error.
+\end{DoxyReturn}
+\-This function should evaluate the method for each atom included in {\ttfamily g}, and write the output to {\ttfamily out}. \-The pointer in the union {\ttfamily out-\/$>$u} that corresponds to the type of the method should be used. \-Enough memory has been allocated to store the output values. \-The number of values in {\ttfamily out} should also be updated if necessary. \-However, \hyperlink{share_2template_2gromacs_2selvalue_8h_a70b42b87d434580bf1493591857b8beca31a47fbfbc85ad1472ce3d2a168fd1ec}{\-P\-O\-S\-\_\-\-V\-A\-L\-U\-E} or \hyperlink{share_2template_2gromacs_2selvalue_8h_a70b42b87d434580bf1493591857b8beca70a2af6eafa48adfab506ceee60471f6}{\-G\-R\-O\-U\-P\-\_\-\-V\-A\-L\-U\-E} methods should not touch {\ttfamily out-\/$>$nr} (it should be 1 anyways).
+
+\-For \hyperlink{share_2template_2gromacs_2selvalue_8h_a70b42b87d434580bf1493591857b8beca6f2f1fe9592d96990c9ac690c355bd08}{\-S\-T\-R\-\_\-\-V\-A\-L\-U\-E} methods, the pointers stored in {\ttfamily out-\/$>$s} are discarded without freeing; it is the responsibility of this function to provide pointers that can be discarded without memory leaks. \hypertarget{include_2selmethod_8h_a47bfb381e8df48bddd7ca78abff224bf}{\index{include/selmethod.\-h@{include/selmethod.\-h}!sel\-\_\-updatefunc\-\_\-pos@{sel\-\_\-updatefunc\-\_\-pos}}
+\index{sel\-\_\-updatefunc\-\_\-pos@{sel\-\_\-updatefunc\-\_\-pos}!include/selmethod.h@{include/selmethod.\-h}}
+\subsubsection[{sel\-\_\-updatefunc\-\_\-pos}]{\setlength{\rightskip}{0pt plus 5cm}typedef int($\ast$ {\bf sel\-\_\-updatefunc\-\_\-pos})({\bf t\-\_\-topology} $\ast${\bf top}, {\bf t\-\_\-trxframe} $\ast${\bf fr}, {\bf t\-\_\-pbc} $\ast$pbc, struct {\bf gmx\-\_\-ana\-\_\-pos\-\_\-t} $\ast$pos, {\bf gmx\-\_\-ana\-\_\-selvalue\-\_\-t} $\ast$out, {\bf void} $\ast$data)}}\label{include_2selmethod_8h_a47bfb381e8df48bddd7ca78abff224bf}
+
+
+\-Evaluates a selection method using positions. 
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em top} & \-Topology structure (can be \-N\-U\-L\-L if \hyperlink{share_2template_2gromacs_2selmethod_8h_ac5e632efef31120c54b55eac79cb23cc}{\-S\-M\-E\-T\-H\-\_\-\-R\-E\-Q\-T\-O\-P} is not set). \\
+\hline
+\mbox{\tt in}  & {\em fr} & \-Current frame. \\
+\hline
+\mbox{\tt in}  & {\em pbc} & \-Initialized periodic boundary condition structure, or \-N\-U\-L\-L if \-P\-B\-C should not be used. \\
+\hline
+\mbox{\tt in}  & {\em pos} & \-Positions for which the method should be evaluated. \\
+\hline
+\mbox{\tt out}  & {\em out} & \-Output data structure. \\
+\hline
+ & {\em data} & \-Internal data structure from \hyperlink{include_2selmethod_8h_a5acbf2d7bead71c4d96f9e69b267df56}{sel\-\_\-datafunc()}. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+0 on success, a non-\/zero error code on error.
+\end{DoxyReturn}
+\-This function should evaluate the method for each position in {\ttfamily g}, and write the output values to {\ttfamily out}. \-The pointer in the union {\ttfamily out-\/$>$u} that corresponds to the type of the method should be used. \-Enough memory has been allocated to store the output values. \-The number of values in {\ttfamily out} should also be updated if necessary. \-However, \hyperlink{share_2template_2gromacs_2selvalue_8h_a70b42b87d434580bf1493591857b8beca31a47fbfbc85ad1472ce3d2a168fd1ec}{\-P\-O\-S\-\_\-\-V\-A\-L\-U\-E} or \hyperlink{share_2template_2gromacs_2selvalue_8h_a70b42b87d434580bf1493591857b8beca70a2af6eafa48adfab506ceee60471f6}{\-G\-R\-O\-U\-P\-\_\-\-V\-A\-L\-U\-E} methods should not touch {\ttfamily out-\/$>$nr} (it should be 1 anyways).
+
+\-For \hyperlink{share_2template_2gromacs_2selvalue_8h_a70b42b87d434580bf1493591857b8beca6f2f1fe9592d96990c9ac690c355bd08}{\-S\-T\-R\-\_\-\-V\-A\-L\-U\-E} methods, the pointers stored in {\ttfamily out-\/$>$s} are discarded without freeing; it is the responsibility of this function to provide pointers that can be discarded without memory leaks. 
+
+\subsection{\-Function \-Documentation}
+\hypertarget{include_2selmethod_8h_a0e7b6b47ea1bd6dc301b26eb73524a16}{\index{include/selmethod.\-h@{include/selmethod.\-h}!gmx\-\_\-ana\-\_\-selmethod\-\_\-find\-\_\-param@{gmx\-\_\-ana\-\_\-selmethod\-\_\-find\-\_\-param}}
+\index{gmx\-\_\-ana\-\_\-selmethod\-\_\-find\-\_\-param@{gmx\-\_\-ana\-\_\-selmethod\-\_\-find\-\_\-param}!include/selmethod.h@{include/selmethod.\-h}}
+\subsubsection[{gmx\-\_\-ana\-\_\-selmethod\-\_\-find\-\_\-param}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-ana\-\_\-selparam\-\_\-t}$\ast$ {\bf gmx\-\_\-ana\-\_\-selmethod\-\_\-find\-\_\-param} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{name, }
+\item[{{\bf gmx\-\_\-ana\-\_\-selmethod\-\_\-t} $\ast$}]{method}
+\end{DoxyParamCaption}
+)}}\label{include_2selmethod_8h_a0e7b6b47ea1bd6dc301b26eb73524a16}
+\-Finds a parameter from a selection method by name.
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em name} & \-Name of the parameter to search. \\
+\hline
+\mbox{\tt in}  & {\em method} & \-Method to search for the parameter. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-Pointer to the parameter in the \hyperlink{structgmx__ana__selmethod__t_a1a26cbd06fbc4ab9a5744148d9af3503}{method-\/$>$param} array, or \-N\-U\-L\-L if no parameter with name {\ttfamily name} was found.
+\end{DoxyReturn}
+\-This is a simple wrapper for \hyperlink{include_2selparam_8h_a7400c81820037ea822c19a60c31fc486}{gmx\-\_\-ana\-\_\-selparam\-\_\-find()}. 
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{include_2selmethod_8h_a0e7b6b47ea1bd6dc301b26eb73524a16_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{include_2selmethod_8h_a820231622b6b4dd57fba7570f705498f}{\index{include/selmethod.\-h@{include/selmethod.\-h}!gmx\-\_\-ana\-\_\-selmethod\-\_\-register@{gmx\-\_\-ana\-\_\-selmethod\-\_\-register}}
+\index{gmx\-\_\-ana\-\_\-selmethod\-\_\-register@{gmx\-\_\-ana\-\_\-selmethod\-\_\-register}!include/selmethod.h@{include/selmethod.\-h}}
+\subsubsection[{gmx\-\_\-ana\-\_\-selmethod\-\_\-register}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-ana\-\_\-selmethod\-\_\-register} (
+\begin{DoxyParamCaption}
+\item[{struct {\bf gmx\-\_\-ana\-\_\-selcollection\-\_\-t} $\ast$}]{sc, }
+\item[{const char $\ast$}]{name, }
+\item[{{\bf gmx\-\_\-ana\-\_\-selmethod\-\_\-t} $\ast$}]{method}
+\end{DoxyParamCaption}
+)}}\label{include_2selmethod_8h_a820231622b6b4dd57fba7570f705498f}
+\-Registers a selection method.
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in,out}  & {\em sc} & \-Selection collection to registered the method to. \\
+\hline
+\mbox{\tt in}  & {\em name} & \-Name under which the method should be registered. \\
+\hline
+\mbox{\tt in}  & {\em method} & \-Method to register. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+0 on success, \-E\-I\-N\-V\-A\-L if there was something wrong with the method.
+\end{DoxyReturn}
+{\ttfamily name} does not need to match the name of the method, and the same method can be registered multiple times under different names. \-If {\ttfamily name} equals some previously registered name, an error message is printed and the method is not registered.
+
+\-The function also performs some sanity checking on the input method, and refuses to register it if there are problems. \-Some problems only generate warnings. \-All problems are described to {\ttfamily stderr}. 
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{include_2selmethod_8h_a820231622b6b4dd57fba7570f705498f_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{include_2selmethod_8h_a42ce5e3ffcaaf60fd7a6f758594be655}{\index{include/selmethod.\-h@{include/selmethod.\-h}!gmx\-\_\-ana\-\_\-selmethod\-\_\-register\-\_\-defaults@{gmx\-\_\-ana\-\_\-selmethod\-\_\-register\-\_\-defaults}}
+\index{gmx\-\_\-ana\-\_\-selmethod\-\_\-register\-\_\-defaults@{gmx\-\_\-ana\-\_\-selmethod\-\_\-register\-\_\-defaults}!include/selmethod.h@{include/selmethod.\-h}}
+\subsubsection[{gmx\-\_\-ana\-\_\-selmethod\-\_\-register\-\_\-defaults}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-ana\-\_\-selmethod\-\_\-register\-\_\-defaults} (
+\begin{DoxyParamCaption}
+\item[{struct {\bf gmx\-\_\-ana\-\_\-selcollection\-\_\-t} $\ast$}]{sc}
+\end{DoxyParamCaption}
+)}}\label{include_2selmethod_8h_a42ce5e3ffcaaf60fd7a6f758594be655}
+\-Registers all selection methods in the library.
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in,out}  & {\em sc} & \-Selection collection to registered the methods to. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+0 on success, -\/1 if any of the default methods could not be registered. 
+\end{DoxyReturn}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{include_2selmethod_8h_a42ce5e3ffcaaf60fd7a6f758594be655_icgraph}
+\end{center}
+\end{figure}
+
+

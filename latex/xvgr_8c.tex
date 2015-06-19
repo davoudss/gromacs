@@ -1,0 +1,738 @@
+\hypertarget{xvgr_8c}{\section{src/gmxlib/xvgr.c \-File \-Reference}
+\label{xvgr_8c}\index{src/gmxlib/xvgr.\-c@{src/gmxlib/xvgr.\-c}}
+}
+{\ttfamily \#include $<$string.\-h$>$}\*
+{\ttfamily \#include $<$ctype.\-h$>$}\*
+{\ttfamily \#include $<$time.\-h$>$}\*
+{\ttfamily \#include \char`\"{}sysstuff.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}string2.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}futil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}statutil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}copyrite.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}smalloc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}xvgr.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}viewit.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}vec.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmxfio.\-h\char`\"{}}\*
+\-Include dependency graph for xvgr.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{xvgr_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{xvgr_8c_a6b07e4871725dde4c716eb22b99d2231}{prev}~(1-\/cur)
+\item 
+\#define \hyperlink{xvgr_8c_a624dbcb8b6ccc24c9bf891c174f60b6d}{\-M\-A\-X\-L\-I\-N\-E\-L\-E\-N}~16384
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+char $\ast$ \hyperlink{xvgr_8c_a4a5a8db3019c622bd3a3716a7805aad7}{gmx\-\_\-ctime\-\_\-r} (const time\-\_\-t $\ast$clock, char $\ast$buf, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n})
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{xvgr_8c_ae4a8684ca10916ef16e025b1969c55e1}{output\-\_\-env\-\_\-get\-\_\-print\-\_\-xvgr\-\_\-codes} (const \hyperlink{include_2types_2oenv_8h_a6a48d77d95132d7318780544821da6a5}{output\-\_\-env\-\_\-t} oenv)
+\item 
+static char $\ast$ \hyperlink{xvgr_8c_a8a17e12d2ad759838e7f8ccdffb93ab8}{xvgrstr} (const char $\ast$gmx, const \hyperlink{include_2types_2oenv_8h_a6a48d77d95132d7318780544821da6a5}{output\-\_\-env\-\_\-t} oenv, char $\ast$buf, int buflen)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{xvgr_8c_a11786709ecfcbd6b9428c2db0d1d5cdd}{xvgr\-\_\-header} (\-F\-I\-L\-E $\ast$fp, const char $\ast$title, const char $\ast$xaxis, const char $\ast$yaxis, int exvg\-\_\-graph\-\_\-type, const \hyperlink{include_2types_2oenv_8h_a6a48d77d95132d7318780544821da6a5}{output\-\_\-env\-\_\-t} oenv)
+\item 
+\-F\-I\-L\-E $\ast$ \hyperlink{xvgr_8c_a633813574d639ad36190d1ba57f33dbc}{xvgropen\-\_\-type} (const char $\ast$fn, const char $\ast$title, const char $\ast$xaxis, const char $\ast$yaxis, int exvg\-\_\-graph\-\_\-type, const \hyperlink{include_2types_2oenv_8h_a6a48d77d95132d7318780544821da6a5}{output\-\_\-env\-\_\-t} oenv)
+\item 
+\-F\-I\-L\-E $\ast$ \hyperlink{xvgr_8c_a5f78fd86faf742eb98856ce6766d38c1}{xvgropen} (const char $\ast$fn, const char $\ast$title, const char $\ast$xaxis, const char $\ast$yaxis, const \hyperlink{include_2types_2oenv_8h_a6a48d77d95132d7318780544821da6a5}{output\-\_\-env\-\_\-t} oenv)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{xvgr_8c_aeee3621c610344b5509648ad68113c92}{xvgrclose} (\-F\-I\-L\-E $\ast$fp)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{xvgr_8c_a2c2cd0c7351a978681e15406f7096e40}{xvgr\-\_\-subtitle} (\-F\-I\-L\-E $\ast$out, const char $\ast$subtitle, const \hyperlink{include_2types_2oenv_8h_a6a48d77d95132d7318780544821da6a5}{output\-\_\-env\-\_\-t} oenv)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{xvgr_8c_a6371088c640a20bb6ba81267289109a0}{xvgr\-\_\-view} (\-F\-I\-L\-E $\ast$out, real xmin, real ymin, real xmax, real ymax, const \hyperlink{include_2types_2oenv_8h_a6a48d77d95132d7318780544821da6a5}{output\-\_\-env\-\_\-t} oenv)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{xvgr_8c_a41feabed99d3410f0c1e28a19176fd04}{xvgr\-\_\-world} (\-F\-I\-L\-E $\ast$out, real xmin, real ymin, real xmax, real ymax, const \hyperlink{include_2types_2oenv_8h_a6a48d77d95132d7318780544821da6a5}{output\-\_\-env\-\_\-t} oenv)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{xvgr_8c_a0f3e68337c100f27bac9f619c267f95b}{xvgr\-\_\-legend} (\-F\-I\-L\-E $\ast$out, int nsets, const char $\ast$$\ast$setname, const \hyperlink{include_2types_2oenv_8h_a6a48d77d95132d7318780544821da6a5}{output\-\_\-env\-\_\-t} oenv)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{xvgr_8c_a54144aad76f416c3e60d789874beb6f0}{xvgr\-\_\-new\-\_\-dataset} (\-F\-I\-L\-E $\ast$out, int nr\-\_\-first, int nsets, const char $\ast$$\ast$setname, const \hyperlink{include_2types_2oenv_8h_a6a48d77d95132d7318780544821da6a5}{output\-\_\-env\-\_\-t} oenv)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{xvgr_8c_adf6e8be035fef096f49686987d9a31cf}{xvgr\-\_\-line\-\_\-props} (\-F\-I\-L\-E $\ast$out, int \-Nr\-Set, int \-Line\-Style, int \-Line\-Color, const \hyperlink{include_2types_2oenv_8h_a6a48d77d95132d7318780544821da6a5}{output\-\_\-env\-\_\-t} oenv)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{xvgr_8c_a7a4531832ec2ed2d0f06582a9818caf2}{xvgr\-\_\-box} (\-F\-I\-L\-E $\ast$out, int \-Loc\-Type, real xmin, real ymin, real xmax, real ymax, int \-Line\-Style, int \-Line\-Width, int \-Line\-Color, int \-Box\-Fill, int \-Box\-Color, int \-Box\-Pattern, const \hyperlink{include_2types_2oenv_8h_a6a48d77d95132d7318780544821da6a5}{output\-\_\-env\-\_\-t} oenv)
+\item 
+static char $\ast$ \hyperlink{xvgr_8c_a7186c6abf5ecb3c0a0cf5e60f273ae8f}{fgets3} (\-F\-I\-L\-E $\ast$fp, char $\ast$$\ast$ptr, int $\ast$len, int maxlen)
+\item 
+static int \hyperlink{xvgr_8c_af1b8ea1012ec2c95c6de61314d87d781}{wordcount} (char $\ast$ptr)
+\item 
+static char $\ast$ \hyperlink{xvgr_8c_ad4c2a8d78cebf7b1f6af03dcf21cae37}{read\-\_\-xvgr\-\_\-string} (const char $\ast$\hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line})
+\item 
+int \hyperlink{xvgr_8c_aacbfc43b65de933bb00d4e3117d41ab5}{read\-\_\-xvg\-\_\-legend} (const char $\ast$fn, double $\ast$$\ast$$\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ad992d70ec70c927046cfc2ab1c79b188}{y}, int $\ast$ny, char $\ast$$\ast$subtitle, char $\ast$$\ast$$\ast$legend)
+\item 
+int \hyperlink{xvgr_8c_a9c92c53c3eae47e02bce9133d964dfc1}{read\-\_\-xvg} (const char $\ast$fn, double $\ast$$\ast$$\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ad992d70ec70c927046cfc2ab1c79b188}{y}, int $\ast$ny)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{xvgr_8c_a03684a5704c0d292d4ac1290b6b7663f}{write\-\_\-xvg} (const char $\ast$fn, const char $\ast$title, int nx, int ny, real $\ast$$\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ad992d70ec70c927046cfc2ab1c79b188}{y}, const char $\ast$$\ast$leg, const \hyperlink{include_2types_2oenv_8h_a6a48d77d95132d7318780544821da6a5}{output\-\_\-env\-\_\-t} oenv)
+\item 
+real $\ast$$\ast$ \hyperlink{xvgr_8c_ac3812a2adc074ef83b05ceaa7ffdc66d}{read\-\_\-xvg\-\_\-time} (const char $\ast$fn, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Have\-T, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-T\-B, real tb, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-T\-E, real te, int nsets\-\_\-in, int $\ast$nset, int $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a47f9c9a63fbc81ce7d0d3202ffb3c0a8}{nval}, real $\ast$dt, real $\ast$$\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a2b515c84b1293071f7584da32ca336c0}{t})
+\end{DoxyCompactItemize}
+\subsection*{\-Variables}
+\begin{DoxyCompactItemize}
+\item 
+static const char $\ast$ \hyperlink{xvgr_8c_ad6252b3c9767006821589ba9be36a187}{\-Loc\-Type\-Str} \mbox{[}$\,$\mbox{]} = \{ \char`\"{}view\char`\"{}, \char`\"{}world\char`\"{} \}
+\item 
+static const char $\ast$ \hyperlink{xvgr_8c_ae84f17b8da314a4d161f184b066f78cc}{\-Box\-Fill\-Str} \mbox{[}$\,$\mbox{]} = \{ \char`\"{}none\char`\"{}, \char`\"{}color\char`\"{}, \char`\"{}pattern\char`\"{} \}
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Define \-Documentation}
+\hypertarget{xvgr_8c_a624dbcb8b6ccc24c9bf891c174f60b6d}{\index{xvgr.\-c@{xvgr.\-c}!\-M\-A\-X\-L\-I\-N\-E\-L\-E\-N@{\-M\-A\-X\-L\-I\-N\-E\-L\-E\-N}}
+\index{\-M\-A\-X\-L\-I\-N\-E\-L\-E\-N@{\-M\-A\-X\-L\-I\-N\-E\-L\-E\-N}!xvgr.c@{xvgr.\-c}}
+\subsubsection[{\-M\-A\-X\-L\-I\-N\-E\-L\-E\-N}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-M\-A\-X\-L\-I\-N\-E\-L\-E\-N}~16384}}\label{xvgr_8c_a624dbcb8b6ccc24c9bf891c174f60b6d}
+\hypertarget{xvgr_8c_a6b07e4871725dde4c716eb22b99d2231}{\index{xvgr.\-c@{xvgr.\-c}!prev@{prev}}
+\index{prev@{prev}!xvgr.c@{xvgr.\-c}}
+\subsubsection[{prev}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf prev}~(1-\/cur)}}\label{xvgr_8c_a6b07e4871725dde4c716eb22b99d2231}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{xvgr_8c_a7186c6abf5ecb3c0a0cf5e60f273ae8f}{\index{xvgr.\-c@{xvgr.\-c}!fgets3@{fgets3}}
+\index{fgets3@{fgets3}!xvgr.c@{xvgr.\-c}}
+\subsubsection[{fgets3}]{\setlength{\rightskip}{0pt plus 5cm}static char$\ast$ {\bf fgets3} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{char $\ast$$\ast$}]{ptr, }
+\item[{int $\ast$}]{len, }
+\item[{int}]{maxlen}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{xvgr_8c_a7186c6abf5ecb3c0a0cf5e60f273ae8f}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{xvgr_8c_a7186c6abf5ecb3c0a0cf5e60f273ae8f_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{xvgr_8c_a4a5a8db3019c622bd3a3716a7805aad7}{\index{xvgr.\-c@{xvgr.\-c}!gmx\-\_\-ctime\-\_\-r@{gmx\-\_\-ctime\-\_\-r}}
+\index{gmx\-\_\-ctime\-\_\-r@{gmx\-\_\-ctime\-\_\-r}!xvgr.c@{xvgr.\-c}}
+\subsubsection[{gmx\-\_\-ctime\-\_\-r}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ {\bf gmx\-\_\-ctime\-\_\-r} (
+\begin{DoxyParamCaption}
+\item[{const time\-\_\-t $\ast$}]{clock, }
+\item[{char $\ast$}]{buf, }
+\item[{int}]{n}
+\end{DoxyParamCaption}
+)}}\label{xvgr_8c_a4a5a8db3019c622bd3a3716a7805aad7}
+\hypertarget{xvgr_8c_ae4a8684ca10916ef16e025b1969c55e1}{\index{xvgr.\-c@{xvgr.\-c}!output\-\_\-env\-\_\-get\-\_\-print\-\_\-xvgr\-\_\-codes@{output\-\_\-env\-\_\-get\-\_\-print\-\_\-xvgr\-\_\-codes}}
+\index{output\-\_\-env\-\_\-get\-\_\-print\-\_\-xvgr\-\_\-codes@{output\-\_\-env\-\_\-get\-\_\-print\-\_\-xvgr\-\_\-codes}!xvgr.c@{xvgr.\-c}}
+\subsubsection[{output\-\_\-env\-\_\-get\-\_\-print\-\_\-xvgr\-\_\-codes}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf output\-\_\-env\-\_\-get\-\_\-print\-\_\-xvgr\-\_\-codes} (
+\begin{DoxyParamCaption}
+\item[{const {\bf output\-\_\-env\-\_\-t}}]{oenv}
+\end{DoxyParamCaption}
+)}}\label{xvgr_8c_ae4a8684ca10916ef16e025b1969c55e1}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{xvgr_8c_ae4a8684ca10916ef16e025b1969c55e1_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{xvgr_8c_ae4a8684ca10916ef16e025b1969c55e1_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{xvgr_8c_a9c92c53c3eae47e02bce9133d964dfc1}{\index{xvgr.\-c@{xvgr.\-c}!read\-\_\-xvg@{read\-\_\-xvg}}
+\index{read\-\_\-xvg@{read\-\_\-xvg}!xvgr.c@{xvgr.\-c}}
+\subsubsection[{read\-\_\-xvg}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf read\-\_\-xvg} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{fn, }
+\item[{double $\ast$$\ast$$\ast$}]{y, }
+\item[{int $\ast$}]{ny}
+\end{DoxyParamCaption}
+)}}\label{xvgr_8c_a9c92c53c3eae47e02bce9133d964dfc1}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=262pt]{xvgr_8c_a9c92c53c3eae47e02bce9133d964dfc1_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{xvgr_8c_a9c92c53c3eae47e02bce9133d964dfc1_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{xvgr_8c_aacbfc43b65de933bb00d4e3117d41ab5}{\index{xvgr.\-c@{xvgr.\-c}!read\-\_\-xvg\-\_\-legend@{read\-\_\-xvg\-\_\-legend}}
+\index{read\-\_\-xvg\-\_\-legend@{read\-\_\-xvg\-\_\-legend}!xvgr.c@{xvgr.\-c}}
+\subsubsection[{read\-\_\-xvg\-\_\-legend}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf read\-\_\-xvg\-\_\-legend} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{fn, }
+\item[{double $\ast$$\ast$$\ast$}]{y, }
+\item[{int $\ast$}]{ny, }
+\item[{char $\ast$$\ast$}]{subtitle, }
+\item[{char $\ast$$\ast$$\ast$}]{legend}
+\end{DoxyParamCaption}
+)}}\label{xvgr_8c_aacbfc43b65de933bb00d4e3117d41ab5}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{xvgr_8c_aacbfc43b65de933bb00d4e3117d41ab5_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{xvgr_8c_aacbfc43b65de933bb00d4e3117d41ab5_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{xvgr_8c_ac3812a2adc074ef83b05ceaa7ffdc66d}{\index{xvgr.\-c@{xvgr.\-c}!read\-\_\-xvg\-\_\-time@{read\-\_\-xvg\-\_\-time}}
+\index{read\-\_\-xvg\-\_\-time@{read\-\_\-xvg\-\_\-time}!xvgr.c@{xvgr.\-c}}
+\subsubsection[{read\-\_\-xvg\-\_\-time}]{\setlength{\rightskip}{0pt plus 5cm}real$\ast$$\ast$ {\bf read\-\_\-xvg\-\_\-time} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{fn, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Have\-T, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-T\-B, }
+\item[{real}]{tb, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-T\-E, }
+\item[{real}]{te, }
+\item[{int}]{nsets\-\_\-in, }
+\item[{int $\ast$}]{nset, }
+\item[{int $\ast$}]{nval, }
+\item[{real $\ast$}]{dt, }
+\item[{real $\ast$$\ast$}]{t}
+\end{DoxyParamCaption}
+)}}\label{xvgr_8c_ac3812a2adc074ef83b05ceaa7ffdc66d}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{xvgr_8c_ac3812a2adc074ef83b05ceaa7ffdc66d_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=344pt]{xvgr_8c_ac3812a2adc074ef83b05ceaa7ffdc66d_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{xvgr_8c_ad4c2a8d78cebf7b1f6af03dcf21cae37}{\index{xvgr.\-c@{xvgr.\-c}!read\-\_\-xvgr\-\_\-string@{read\-\_\-xvgr\-\_\-string}}
+\index{read\-\_\-xvgr\-\_\-string@{read\-\_\-xvgr\-\_\-string}!xvgr.c@{xvgr.\-c}}
+\subsubsection[{read\-\_\-xvgr\-\_\-string}]{\setlength{\rightskip}{0pt plus 5cm}static char$\ast$ {\bf read\-\_\-xvgr\-\_\-string} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{line}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{xvgr_8c_ad4c2a8d78cebf7b1f6af03dcf21cae37}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{xvgr_8c_ad4c2a8d78cebf7b1f6af03dcf21cae37_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{xvgr_8c_af1b8ea1012ec2c95c6de61314d87d781}{\index{xvgr.\-c@{xvgr.\-c}!wordcount@{wordcount}}
+\index{wordcount@{wordcount}!xvgr.c@{xvgr.\-c}}
+\subsubsection[{wordcount}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf wordcount} (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{ptr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{xvgr_8c_af1b8ea1012ec2c95c6de61314d87d781}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{xvgr_8c_af1b8ea1012ec2c95c6de61314d87d781_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{xvgr_8c_a03684a5704c0d292d4ac1290b6b7663f}{\index{xvgr.\-c@{xvgr.\-c}!write\-\_\-xvg@{write\-\_\-xvg}}
+\index{write\-\_\-xvg@{write\-\_\-xvg}!xvgr.c@{xvgr.\-c}}
+\subsubsection[{write\-\_\-xvg}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf write\-\_\-xvg} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{fn, }
+\item[{const char $\ast$}]{title, }
+\item[{int}]{nx, }
+\item[{int}]{ny, }
+\item[{real $\ast$$\ast$}]{y, }
+\item[{const char $\ast$$\ast$}]{leg, }
+\item[{const {\bf output\-\_\-env\-\_\-t}}]{oenv}
+\end{DoxyParamCaption}
+)}}\label{xvgr_8c_a03684a5704c0d292d4ac1290b6b7663f}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=246pt]{xvgr_8c_a03684a5704c0d292d4ac1290b6b7663f_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=330pt]{xvgr_8c_a03684a5704c0d292d4ac1290b6b7663f_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{xvgr_8c_a7a4531832ec2ed2d0f06582a9818caf2}{\index{xvgr.\-c@{xvgr.\-c}!xvgr\-\_\-box@{xvgr\-\_\-box}}
+\index{xvgr\-\_\-box@{xvgr\-\_\-box}!xvgr.c@{xvgr.\-c}}
+\subsubsection[{xvgr\-\_\-box}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf xvgr\-\_\-box} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{out, }
+\item[{int}]{\-Loc\-Type, }
+\item[{real}]{xmin, }
+\item[{real}]{ymin, }
+\item[{real}]{xmax, }
+\item[{real}]{ymax, }
+\item[{int}]{\-Line\-Style, }
+\item[{int}]{\-Line\-Width, }
+\item[{int}]{\-Line\-Color, }
+\item[{int}]{\-Box\-Fill, }
+\item[{int}]{\-Box\-Color, }
+\item[{int}]{\-Box\-Pattern, }
+\item[{const {\bf output\-\_\-env\-\_\-t}}]{oenv}
+\end{DoxyParamCaption}
+)}}\label{xvgr_8c_a7a4531832ec2ed2d0f06582a9818caf2}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=336pt]{xvgr_8c_a7a4531832ec2ed2d0f06582a9818caf2_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{xvgr_8c_a11786709ecfcbd6b9428c2db0d1d5cdd}{\index{xvgr.\-c@{xvgr.\-c}!xvgr\-\_\-header@{xvgr\-\_\-header}}
+\index{xvgr\-\_\-header@{xvgr\-\_\-header}!xvgr.c@{xvgr.\-c}}
+\subsubsection[{xvgr\-\_\-header}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf xvgr\-\_\-header} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{const char $\ast$}]{title, }
+\item[{const char $\ast$}]{xaxis, }
+\item[{const char $\ast$}]{yaxis, }
+\item[{int}]{exvg\-\_\-graph\-\_\-type, }
+\item[{const {\bf output\-\_\-env\-\_\-t}}]{oenv}
+\end{DoxyParamCaption}
+)}}\label{xvgr_8c_a11786709ecfcbd6b9428c2db0d1d5cdd}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{xvgr_8c_a11786709ecfcbd6b9428c2db0d1d5cdd_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{xvgr_8c_a11786709ecfcbd6b9428c2db0d1d5cdd_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{xvgr_8c_a0f3e68337c100f27bac9f619c267f95b}{\index{xvgr.\-c@{xvgr.\-c}!xvgr\-\_\-legend@{xvgr\-\_\-legend}}
+\index{xvgr\-\_\-legend@{xvgr\-\_\-legend}!xvgr.c@{xvgr.\-c}}
+\subsubsection[{xvgr\-\_\-legend}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf xvgr\-\_\-legend} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{out, }
+\item[{int}]{nsets, }
+\item[{const char $\ast$$\ast$}]{setname, }
+\item[{const {\bf output\-\_\-env\-\_\-t}}]{oenv}
+\end{DoxyParamCaption}
+)}}\label{xvgr_8c_a0f3e68337c100f27bac9f619c267f95b}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{xvgr_8c_a0f3e68337c100f27bac9f619c267f95b_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{xvgr_8c_adf6e8be035fef096f49686987d9a31cf}{\index{xvgr.\-c@{xvgr.\-c}!xvgr\-\_\-line\-\_\-props@{xvgr\-\_\-line\-\_\-props}}
+\index{xvgr\-\_\-line\-\_\-props@{xvgr\-\_\-line\-\_\-props}!xvgr.c@{xvgr.\-c}}
+\subsubsection[{xvgr\-\_\-line\-\_\-props}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf xvgr\-\_\-line\-\_\-props} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{out, }
+\item[{int}]{\-Nr\-Set, }
+\item[{int}]{\-Line\-Style, }
+\item[{int}]{\-Line\-Color, }
+\item[{const {\bf output\-\_\-env\-\_\-t}}]{oenv}
+\end{DoxyParamCaption}
+)}}\label{xvgr_8c_adf6e8be035fef096f49686987d9a31cf}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{xvgr_8c_adf6e8be035fef096f49686987d9a31cf_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=338pt]{xvgr_8c_adf6e8be035fef096f49686987d9a31cf_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{xvgr_8c_a54144aad76f416c3e60d789874beb6f0}{\index{xvgr.\-c@{xvgr.\-c}!xvgr\-\_\-new\-\_\-dataset@{xvgr\-\_\-new\-\_\-dataset}}
+\index{xvgr\-\_\-new\-\_\-dataset@{xvgr\-\_\-new\-\_\-dataset}!xvgr.c@{xvgr.\-c}}
+\subsubsection[{xvgr\-\_\-new\-\_\-dataset}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf xvgr\-\_\-new\-\_\-dataset} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{out, }
+\item[{int}]{nr\-\_\-first, }
+\item[{int}]{nsets, }
+\item[{const char $\ast$$\ast$}]{setname, }
+\item[{const {\bf output\-\_\-env\-\_\-t}}]{oenv}
+\end{DoxyParamCaption}
+)}}\label{xvgr_8c_a54144aad76f416c3e60d789874beb6f0}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{xvgr_8c_a54144aad76f416c3e60d789874beb6f0_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{xvgr_8c_a54144aad76f416c3e60d789874beb6f0_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{xvgr_8c_a2c2cd0c7351a978681e15406f7096e40}{\index{xvgr.\-c@{xvgr.\-c}!xvgr\-\_\-subtitle@{xvgr\-\_\-subtitle}}
+\index{xvgr\-\_\-subtitle@{xvgr\-\_\-subtitle}!xvgr.c@{xvgr.\-c}}
+\subsubsection[{xvgr\-\_\-subtitle}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf xvgr\-\_\-subtitle} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{out, }
+\item[{const char $\ast$}]{subtitle, }
+\item[{const {\bf output\-\_\-env\-\_\-t}}]{oenv}
+\end{DoxyParamCaption}
+)}}\label{xvgr_8c_a2c2cd0c7351a978681e15406f7096e40}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{xvgr_8c_a2c2cd0c7351a978681e15406f7096e40_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{xvgr_8c_a2c2cd0c7351a978681e15406f7096e40_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{xvgr_8c_a6371088c640a20bb6ba81267289109a0}{\index{xvgr.\-c@{xvgr.\-c}!xvgr\-\_\-view@{xvgr\-\_\-view}}
+\index{xvgr\-\_\-view@{xvgr\-\_\-view}!xvgr.c@{xvgr.\-c}}
+\subsubsection[{xvgr\-\_\-view}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf xvgr\-\_\-view} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{out, }
+\item[{real}]{xmin, }
+\item[{real}]{ymin, }
+\item[{real}]{xmax, }
+\item[{real}]{ymax, }
+\item[{const {\bf output\-\_\-env\-\_\-t}}]{oenv}
+\end{DoxyParamCaption}
+)}}\label{xvgr_8c_a6371088c640a20bb6ba81267289109a0}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=342pt]{xvgr_8c_a6371088c640a20bb6ba81267289109a0_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{xvgr_8c_a6371088c640a20bb6ba81267289109a0_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{xvgr_8c_a41feabed99d3410f0c1e28a19176fd04}{\index{xvgr.\-c@{xvgr.\-c}!xvgr\-\_\-world@{xvgr\-\_\-world}}
+\index{xvgr\-\_\-world@{xvgr\-\_\-world}!xvgr.c@{xvgr.\-c}}
+\subsubsection[{xvgr\-\_\-world}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf xvgr\-\_\-world} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{out, }
+\item[{real}]{xmin, }
+\item[{real}]{ymin, }
+\item[{real}]{xmax, }
+\item[{real}]{ymax, }
+\item[{const {\bf output\-\_\-env\-\_\-t}}]{oenv}
+\end{DoxyParamCaption}
+)}}\label{xvgr_8c_a41feabed99d3410f0c1e28a19176fd04}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=344pt]{xvgr_8c_a41feabed99d3410f0c1e28a19176fd04_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{xvgr_8c_a41feabed99d3410f0c1e28a19176fd04_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{xvgr_8c_aeee3621c610344b5509648ad68113c92}{\index{xvgr.\-c@{xvgr.\-c}!xvgrclose@{xvgrclose}}
+\index{xvgrclose@{xvgrclose}!xvgr.c@{xvgr.\-c}}
+\subsubsection[{xvgrclose}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf xvgrclose} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp}
+\end{DoxyParamCaption}
+)}}\label{xvgr_8c_aeee3621c610344b5509648ad68113c92}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=260pt]{xvgr_8c_aeee3621c610344b5509648ad68113c92_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{xvgr_8c_aeee3621c610344b5509648ad68113c92_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{xvgr_8c_a5f78fd86faf742eb98856ce6766d38c1}{\index{xvgr.\-c@{xvgr.\-c}!xvgropen@{xvgropen}}
+\index{xvgropen@{xvgropen}!xvgr.c@{xvgr.\-c}}
+\subsubsection[{xvgropen}]{\setlength{\rightskip}{0pt plus 5cm}\-F\-I\-L\-E$\ast$ {\bf xvgropen} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{fn, }
+\item[{const char $\ast$}]{title, }
+\item[{const char $\ast$}]{xaxis, }
+\item[{const char $\ast$}]{yaxis, }
+\item[{const {\bf output\-\_\-env\-\_\-t}}]{oenv}
+\end{DoxyParamCaption}
+)}}\label{xvgr_8c_a5f78fd86faf742eb98856ce6766d38c1}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=252pt]{xvgr_8c_a5f78fd86faf742eb98856ce6766d38c1_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{xvgr_8c_a633813574d639ad36190d1ba57f33dbc}{\index{xvgr.\-c@{xvgr.\-c}!xvgropen\-\_\-type@{xvgropen\-\_\-type}}
+\index{xvgropen\-\_\-type@{xvgropen\-\_\-type}!xvgr.c@{xvgr.\-c}}
+\subsubsection[{xvgropen\-\_\-type}]{\setlength{\rightskip}{0pt plus 5cm}\-F\-I\-L\-E$\ast$ {\bf xvgropen\-\_\-type} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{fn, }
+\item[{const char $\ast$}]{title, }
+\item[{const char $\ast$}]{xaxis, }
+\item[{const char $\ast$}]{yaxis, }
+\item[{int}]{exvg\-\_\-graph\-\_\-type, }
+\item[{const {\bf output\-\_\-env\-\_\-t}}]{oenv}
+\end{DoxyParamCaption}
+)}}\label{xvgr_8c_a633813574d639ad36190d1ba57f33dbc}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=276pt]{xvgr_8c_a633813574d639ad36190d1ba57f33dbc_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{xvgr_8c_a633813574d639ad36190d1ba57f33dbc_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{xvgr_8c_a8a17e12d2ad759838e7f8ccdffb93ab8}{\index{xvgr.\-c@{xvgr.\-c}!xvgrstr@{xvgrstr}}
+\index{xvgrstr@{xvgrstr}!xvgr.c@{xvgr.\-c}}
+\subsubsection[{xvgrstr}]{\setlength{\rightskip}{0pt plus 5cm}static char$\ast$ {\bf xvgrstr} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{gmx, }
+\item[{const {\bf output\-\_\-env\-\_\-t}}]{oenv, }
+\item[{char $\ast$}]{buf, }
+\item[{int}]{buflen}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{xvgr_8c_a8a17e12d2ad759838e7f8ccdffb93ab8}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=302pt]{xvgr_8c_a8a17e12d2ad759838e7f8ccdffb93ab8_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{xvgr_8c_a8a17e12d2ad759838e7f8ccdffb93ab8_icgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{\-Variable \-Documentation}
+\hypertarget{xvgr_8c_ae84f17b8da314a4d161f184b066f78cc}{\index{xvgr.\-c@{xvgr.\-c}!\-Box\-Fill\-Str@{\-Box\-Fill\-Str}}
+\index{\-Box\-Fill\-Str@{\-Box\-Fill\-Str}!xvgr.c@{xvgr.\-c}}
+\subsubsection[{\-Box\-Fill\-Str}]{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ {\bf \-Box\-Fill\-Str}\mbox{[}$\,$\mbox{]} = \{ \char`\"{}none\char`\"{}, \char`\"{}color\char`\"{}, \char`\"{}pattern\char`\"{} \}\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{xvgr_8c_ae84f17b8da314a4d161f184b066f78cc}
+\hypertarget{xvgr_8c_ad6252b3c9767006821589ba9be36a187}{\index{xvgr.\-c@{xvgr.\-c}!\-Loc\-Type\-Str@{\-Loc\-Type\-Str}}
+\index{\-Loc\-Type\-Str@{\-Loc\-Type\-Str}!xvgr.c@{xvgr.\-c}}
+\subsubsection[{\-Loc\-Type\-Str}]{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ {\bf \-Loc\-Type\-Str}\mbox{[}$\,$\mbox{]} = \{ \char`\"{}view\char`\"{}, \char`\"{}world\char`\"{} \}\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{xvgr_8c_ad6252b3c9767006821589ba9be36a187}

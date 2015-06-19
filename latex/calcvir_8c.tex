@@ -1,0 +1,193 @@
+\hypertarget{calcvir_8c}{\section{src/mdlib/calcvir.c \-File \-Reference}
+\label{calcvir_8c}\index{src/mdlib/calcvir.\-c@{src/mdlib/calcvir.\-c}}
+}
+{\ttfamily \#include \char`\"{}sysstuff.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}force.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}vec.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}mshift.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}macros.\-h\char`\"{}}\*
+\-Include dependency graph for calcvir.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{calcvir_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{calcvir_8c_a7fbc6150a900516fe08f3d1d78d10a3a}{upd\-\_\-vir} (\hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} vir, real dvx, real dvy, real dvz)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{calcvir_8c_a46402efea59defb81984d74de250c994}{calc\-\_\-vir} (\-F\-I\-L\-E $\ast$log, int nxf, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{copyrite_8c_a0757cfb6fe645a02867727255faa4f8b}{f}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aef0bf341f56ce75f09dbb64350488a61}{tensor} vir, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Screw\-P\-B\-C, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{calcvir_8c_a9f559adb79e5668d2782ac5dfb71620a}{lo\-\_\-fcv} (int i0, int i1, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, real \hyperlink{copyrite_8c_a0757cfb6fe645a02867727255faa4f8b}{f}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aef0bf341f56ce75f09dbb64350488a61}{tensor} vir, int is\mbox{[}$\,$\mbox{]}, real box\mbox{[}$\,$\mbox{]}, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Triclinic)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{calcvir_8c_a9111ae64524281f1533cff80da10090b}{lo\-\_\-fcv2} (int i0, int i1, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{copyrite_8c_a0757cfb6fe645a02867727255faa4f8b}{f}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aef0bf341f56ce75f09dbb64350488a61}{tensor} vir, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a74f6ffdb4a9c1764f5293969d8c681b6}{ivec} is\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Triclinic)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{calcvir_8c_ae817b645d093968dc9ee012a1876dc9c}{f\-\_\-calc\-\_\-vir} (\-F\-I\-L\-E $\ast$log, int i0, int i1, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{copyrite_8c_a0757cfb6fe645a02867727255faa4f8b}{f}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aef0bf341f56ce75f09dbb64350488a61}{tensor} vir, \hyperlink{structt__graph}{t\-\_\-graph} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box)
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{calcvir_8c_a46402efea59defb81984d74de250c994}{\index{calcvir.\-c@{calcvir.\-c}!calc\-\_\-vir@{calc\-\_\-vir}}
+\index{calc\-\_\-vir@{calc\-\_\-vir}!calcvir.c@{calcvir.\-c}}
+\subsubsection[{calc\-\_\-vir}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf calc\-\_\-vir} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{log, }
+\item[{int}]{nxf, }
+\item[{{\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{f\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf tensor}}]{vir, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Screw\-P\-B\-C, }
+\item[{{\bf matrix}}]{box}
+\end{DoxyParamCaption}
+)}}\label{calcvir_8c_a46402efea59defb81984d74de250c994}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=214pt]{calcvir_8c_a46402efea59defb81984d74de250c994_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{calcvir_8c_a46402efea59defb81984d74de250c994_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{calcvir_8c_ae817b645d093968dc9ee012a1876dc9c}{\index{calcvir.\-c@{calcvir.\-c}!f\-\_\-calc\-\_\-vir@{f\-\_\-calc\-\_\-vir}}
+\index{f\-\_\-calc\-\_\-vir@{f\-\_\-calc\-\_\-vir}!calcvir.c@{calcvir.\-c}}
+\subsubsection[{f\-\_\-calc\-\_\-vir}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf f\-\_\-calc\-\_\-vir} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{log, }
+\item[{int}]{i0, }
+\item[{int}]{i1, }
+\item[{{\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{f\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf tensor}}]{vir, }
+\item[{{\bf t\-\_\-graph} $\ast$}]{g, }
+\item[{{\bf matrix}}]{box}
+\end{DoxyParamCaption}
+)}}\label{calcvir_8c_ae817b645d093968dc9ee012a1876dc9c}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=310pt]{calcvir_8c_ae817b645d093968dc9ee012a1876dc9c_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{calcvir_8c_a9f559adb79e5668d2782ac5dfb71620a}{\index{calcvir.\-c@{calcvir.\-c}!lo\-\_\-fcv@{lo\-\_\-fcv}}
+\index{lo\-\_\-fcv@{lo\-\_\-fcv}!calcvir.c@{calcvir.\-c}}
+\subsubsection[{lo\-\_\-fcv}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf lo\-\_\-fcv} (
+\begin{DoxyParamCaption}
+\item[{int}]{i0, }
+\item[{int}]{i1, }
+\item[{real}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{real}]{f\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf tensor}}]{vir, }
+\item[{int}]{is\mbox{[}$\,$\mbox{]}, }
+\item[{real}]{box\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Triclinic}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{calcvir_8c_a9f559adb79e5668d2782ac5dfb71620a}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=208pt]{calcvir_8c_a9f559adb79e5668d2782ac5dfb71620a_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=220pt]{calcvir_8c_a9f559adb79e5668d2782ac5dfb71620a_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{calcvir_8c_a9111ae64524281f1533cff80da10090b}{\index{calcvir.\-c@{calcvir.\-c}!lo\-\_\-fcv2@{lo\-\_\-fcv2}}
+\index{lo\-\_\-fcv2@{lo\-\_\-fcv2}!calcvir.c@{calcvir.\-c}}
+\subsubsection[{lo\-\_\-fcv2}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf lo\-\_\-fcv2} (
+\begin{DoxyParamCaption}
+\item[{int}]{i0, }
+\item[{int}]{i1, }
+\item[{{\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{f\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf tensor}}]{vir, }
+\item[{{\bf ivec}}]{is\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf matrix}}]{box, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Triclinic}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{calcvir_8c_a9111ae64524281f1533cff80da10090b}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=212pt]{calcvir_8c_a9111ae64524281f1533cff80da10090b_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=224pt]{calcvir_8c_a9111ae64524281f1533cff80da10090b_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{calcvir_8c_a7fbc6150a900516fe08f3d1d78d10a3a}{\index{calcvir.\-c@{calcvir.\-c}!upd\-\_\-vir@{upd\-\_\-vir}}
+\index{upd\-\_\-vir@{upd\-\_\-vir}!calcvir.c@{calcvir.\-c}}
+\subsubsection[{upd\-\_\-vir}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf upd\-\_\-vir} (
+\begin{DoxyParamCaption}
+\item[{{\bf rvec}}]{vir, }
+\item[{real}]{dvx, }
+\item[{real}]{dvy, }
+\item[{real}]{dvz}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{calcvir_8c_a7fbc6150a900516fe08f3d1d78d10a3a}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{calcvir_8c_a7fbc6150a900516fe08f3d1d78d10a3a_icgraph}
+\end{center}
+\end{figure}
+
+

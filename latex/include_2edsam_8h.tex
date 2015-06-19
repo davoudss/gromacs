@@ -1,0 +1,158 @@
+\hypertarget{include_2edsam_8h}{\section{include/edsam.h \-File \-Reference}
+\label{include_2edsam_8h}\index{include/edsam.\-h@{include/edsam.\-h}}
+}
+{\ttfamily \#include \char`\"{}visibility.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}typedefs.\-h\char`\"{}}\*
+\-Include dependency graph for edsam.\-h\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{include_2edsam_8h__incl}
+\end{center}
+\end{figure}
+\-This graph shows which files directly or indirectly include this file\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=180pt]{include_2edsam_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{include_2edsam_8h_a14f16676bee65b22fa373ee0a0cac80a}{do\-\_\-edsam} (\hyperlink{structt__inputrec}{t\-\_\-inputrec} $\ast$ir, gmx\-\_\-large\-\_\-int\-\_\-t step, \hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} xs\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a339df93739a405c3e4b0506624fa27a5}{v}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box, \hyperlink{include_2types_2constr_8h_a0fa9ace476add5ee1fd6cd76c870f32e}{gmx\-\_\-edsam\-\_\-t} ed)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_ab80ef94c2b909a1a948639e98e63b612}{\-G\-M\-X\-\_\-\-L\-I\-B\-M\-D\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{include_2types_2constr_8h_a0fa9ace476add5ee1fd6cd76c870f32e}{gmx\-\_\-edsam\-\_\-t} \hyperlink{include_2edsam_8h_a2b068a16ce598cb83cbc0ba7f34e43bd}{ed\-\_\-open} (int natoms, \hyperlink{structedsamstate__t}{edsamstate\-\_\-t} $\ast$\-E\-Dstate, int nfile, const \hyperlink{structt__filenm}{t\-\_\-filenm} fnm\mbox{[}$\,$\mbox{]}, unsigned long \-Flags, const \hyperlink{include_2types_2oenv_8h_a6a48d77d95132d7318780544821da6a5}{output\-\_\-env\-\_\-t} oenv, \hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{include_2edsam_8h_ab262018b2aea2804bd8130f4d2f3bef4}{init\-\_\-edsam} (\hyperlink{structgmx__mtop__t}{gmx\-\_\-mtop\-\_\-t} $\ast$mtop, \hyperlink{structt__inputrec}{t\-\_\-inputrec} $\ast$ir, \hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr, \hyperlink{include_2types_2constr_8h_a0fa9ace476add5ee1fd6cd76c870f32e}{gmx\-\_\-edsam\-\_\-t} ed, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box, \hyperlink{structedsamstate__t}{edsamstate\-\_\-t} $\ast$edsamstate)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{include_2edsam_8h_a3d1ca11c16f6a6dc7d851e00cdd20972}{dd\-\_\-make\-\_\-local\-\_\-ed\-\_\-indices} (\hyperlink{structgmx__domdec__t}{gmx\-\_\-domdec\-\_\-t} $\ast$dd, \hyperlink{include_2types_2constr_8h_a0fa9ace476add5ee1fd6cd76c870f32e}{gmx\-\_\-edsam\-\_\-t} ed)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{include_2edsam_8h_a1774ffce043cc82bd18fc9c9d8884273}{do\-\_\-flood} (\hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr, \hyperlink{structt__inputrec}{t\-\_\-inputrec} $\ast$ir, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} force\mbox{[}$\,$\mbox{]}, \hyperlink{include_2types_2constr_8h_a0fa9ace476add5ee1fd6cd76c870f32e}{gmx\-\_\-edsam\-\_\-t} ed, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box, gmx\-\_\-large\-\_\-int\-\_\-t step, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-N\-S)
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{include_2edsam_8h_a3d1ca11c16f6a6dc7d851e00cdd20972}{\index{include/edsam.\-h@{include/edsam.\-h}!dd\-\_\-make\-\_\-local\-\_\-ed\-\_\-indices@{dd\-\_\-make\-\_\-local\-\_\-ed\-\_\-indices}}
+\index{dd\-\_\-make\-\_\-local\-\_\-ed\-\_\-indices@{dd\-\_\-make\-\_\-local\-\_\-ed\-\_\-indices}!include/edsam.h@{include/edsam.\-h}}
+\subsubsection[{dd\-\_\-make\-\_\-local\-\_\-ed\-\_\-indices}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf dd\-\_\-make\-\_\-local\-\_\-ed\-\_\-indices} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-domdec\-\_\-t} $\ast$}]{dd, }
+\item[{{\bf gmx\-\_\-edsam\-\_\-t}}]{ed}
+\end{DoxyParamCaption}
+)}}\label{include_2edsam_8h_a3d1ca11c16f6a6dc7d851e00cdd20972}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=334pt]{include_2edsam_8h_a3d1ca11c16f6a6dc7d851e00cdd20972_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{include_2edsam_8h_a14f16676bee65b22fa373ee0a0cac80a}{\index{include/edsam.\-h@{include/edsam.\-h}!do\-\_\-edsam@{do\-\_\-edsam}}
+\index{do\-\_\-edsam@{do\-\_\-edsam}!include/edsam.h@{include/edsam.\-h}}
+\subsubsection[{do\-\_\-edsam}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf do\-\_\-edsam} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-inputrec} $\ast$}]{ir, }
+\item[{gmx\-\_\-large\-\_\-int\-\_\-t}]{step, }
+\item[{{\bf t\-\_\-commrec} $\ast$}]{cr, }
+\item[{{\bf rvec}}]{xs\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{v\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf matrix}}]{box, }
+\item[{{\bf gmx\-\_\-edsam\-\_\-t}}]{ed}
+\end{DoxyParamCaption}
+)}}\label{include_2edsam_8h_a14f16676bee65b22fa373ee0a0cac80a}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=234pt]{include_2edsam_8h_a14f16676bee65b22fa373ee0a0cac80a_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{include_2edsam_8h_a1774ffce043cc82bd18fc9c9d8884273}{\index{include/edsam.\-h@{include/edsam.\-h}!do\-\_\-flood@{do\-\_\-flood}}
+\index{do\-\_\-flood@{do\-\_\-flood}!include/edsam.h@{include/edsam.\-h}}
+\subsubsection[{do\-\_\-flood}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf do\-\_\-flood} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-commrec} $\ast$}]{cr, }
+\item[{{\bf t\-\_\-inputrec} $\ast$}]{ir, }
+\item[{{\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{force\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf gmx\-\_\-edsam\-\_\-t}}]{ed, }
+\item[{{\bf matrix}}]{box, }
+\item[{gmx\-\_\-large\-\_\-int\-\_\-t}]{step, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-N\-S}
+\end{DoxyParamCaption}
+)}}\label{include_2edsam_8h_a1774ffce043cc82bd18fc9c9d8884273}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{include_2edsam_8h_a1774ffce043cc82bd18fc9c9d8884273_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{include_2edsam_8h_a2b068a16ce598cb83cbc0ba7f34e43bd}{\index{include/edsam.\-h@{include/edsam.\-h}!ed\-\_\-open@{ed\-\_\-open}}
+\index{ed\-\_\-open@{ed\-\_\-open}!include/edsam.h@{include/edsam.\-h}}
+\subsubsection[{ed\-\_\-open}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-M\-D\-\_\-\-E\-X\-P\-O\-R\-T} {\bf gmx\-\_\-edsam\-\_\-t} {\bf ed\-\_\-open} (
+\begin{DoxyParamCaption}
+\item[{int}]{natoms, }
+\item[{{\bf edsamstate\-\_\-t} $\ast$}]{\-E\-Dstate, }
+\item[{int}]{nfile, }
+\item[{const {\bf t\-\_\-filenm}}]{fnm\mbox{[}$\,$\mbox{]}, }
+\item[{unsigned long}]{\-Flags, }
+\item[{const {\bf output\-\_\-env\-\_\-t}}]{oenv, }
+\item[{{\bf t\-\_\-commrec} $\ast$}]{cr}
+\end{DoxyParamCaption}
+)}}\label{include_2edsam_8h_a2b068a16ce598cb83cbc0ba7f34e43bd}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=228pt]{include_2edsam_8h_a2b068a16ce598cb83cbc0ba7f34e43bd_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{include_2edsam_8h_ab262018b2aea2804bd8130f4d2f3bef4}{\index{include/edsam.\-h@{include/edsam.\-h}!init\-\_\-edsam@{init\-\_\-edsam}}
+\index{init\-\_\-edsam@{init\-\_\-edsam}!include/edsam.h@{include/edsam.\-h}}
+\subsubsection[{init\-\_\-edsam}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf init\-\_\-edsam} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-mtop\-\_\-t} $\ast$}]{mtop, }
+\item[{{\bf t\-\_\-inputrec} $\ast$}]{ir, }
+\item[{{\bf t\-\_\-commrec} $\ast$}]{cr, }
+\item[{{\bf gmx\-\_\-edsam\-\_\-t}}]{ed, }
+\item[{{\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf matrix}}]{box, }
+\item[{{\bf edsamstate\-\_\-t} $\ast$}]{edsamstate}
+\end{DoxyParamCaption}
+)}}\label{include_2edsam_8h_ab262018b2aea2804bd8130f4d2f3bef4}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{include_2edsam_8h_ab262018b2aea2804bd8130f4d2f3bef4_icgraph}
+\end{center}
+\end{figure}
+
+

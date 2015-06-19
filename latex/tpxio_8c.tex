@@ -1,0 +1,1562 @@
+\hypertarget{tpxio_8c}{\section{src/gmxlib/tpxio.c \-File \-Reference}
+\label{tpxio_8c}\index{src/gmxlib/tpxio.\-c@{src/gmxlib/tpxio.\-c}}
+}
+{\ttfamily \#include $<$ctype.\-h$>$}\*
+{\ttfamily \#include \char`\"{}sysstuff.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}smalloc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}string2.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-fatal.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}macros.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}names.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}symtab.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}futil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}filenm.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmxfio.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}topsort.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}tpxio.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}txtdump.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}confio.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}atomprop.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}copyrite.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}vec.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}mtop\-\_\-util.\-h\char`\"{}}\*
+\-Include dependency graph for tpxio.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tpxio_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structt__ftupd}{t\-\_\-ftupd}
+\end{DoxyCompactItemize}
+\subsection*{\-Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{tpxio_8c_a460485504c30d458b97f837d696da388}{\-T\-P\-X\-\_\-\-T\-A\-G\-\_\-\-R\-E\-L\-E\-A\-S\-E}~\char`\"{}release\char`\"{}
+\item 
+\#define \hyperlink{tpxio_8c_a552bb9e3e31f4b78ac1d738c4eb70254}{\-N\-F\-T\-U\-P\-D}~\hyperlink{share_2template_2gromacs_2macros_8h_a0883345a58f8f63aefa249a4f127f707}{asize}(\hyperlink{tpxio_8c_ae0eea25df83982c4d170c76ae7afcbf3}{ftupd})
+\item 
+\#define \hyperlink{tpxio_8c_aa3863e37f00f4da9de7455066a83b335}{\-M\-A\-X\-N\-O\-D\-E\-S}~256
+\item 
+\#define \hyperlink{tpxio_8c_a23d6cec46329b9f7ffcadb4acc0e38b2}{do\-\_\-section}(fio, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_adc11ad865dea0f5b8c4e03061d8a7e58}{key}, b\-Read)~\hyperlink{tpxio_8c_ae42c9501336615cd639970b0a557a216}{\-\_\-do\-\_\-section}(fio, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_adc11ad865dea0f5b8c4e03061d8a7e58}{key}, b\-Read, \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)
+\item 
+\#define \hyperlink{tpxio_8c_ac6c5d2f8c994bc2a0de64162b67ba4a0}{\-C\-H\-A\-I\-N\-\_\-\-M\-I\-N\-\_\-\-A\-T\-O\-M\-S}~15
+\item 
+\#define \hyperlink{tpxio_8c_a67e20f094ecf97f08dc9439aa5e5631f}{do\-\_\-test}(fio, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afb462a5dea72ae7992f073bfd756fb5f}{b}, p)~if (b\-Read \&\& (p != \-N\-U\-L\-L) \&\& !\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afb462a5dea72ae7992f073bfd756fb5f}{b}) \hyperlink{gmx__fatal_8c_a11dd5c494ab8edb3c42d2bd1c73dc5b4}{gmx\-\_\-fatal}(\hyperlink{share_2template_2gromacs_2gmx__fatal_8h_ad420b10b269f0310c1ace73100fb5aad}{\-F\-A\-R\-G\-S}, \char`\"{}\-No \%\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a6dd0d3574865c5458827c47f2cfd02b8}{s} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a5ac1e96244316833544f4a5edc3edfc9}{in} \%\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a6dd0d3574865c5458827c47f2cfd02b8}{s}\char`\"{},\#p, \hyperlink{gmxfio_8c_ada79f779c70a3d456615e5396b6edf76}{gmx\-\_\-fio\-\_\-getname}(fio))
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{tpxio_8c_ae42c9501336615cd639970b0a557a216}{\-\_\-do\-\_\-section} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_adc11ad865dea0f5b8c4e03061d8a7e58}{key}, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Read, const char $\ast$src, int \hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line})
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{tpxio_8c_a43bf050f7f0d83f628dd182ecffe9a6c}{do\-\_\-pullgrp} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, \hyperlink{structt__pullgrp}{t\-\_\-pullgrp} $\ast$pgrp, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Read, int file\-\_\-version)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{tpxio_8c_a638be4ff2e88528995be040e6c10d392}{do\-\_\-expandedvals} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, \hyperlink{structt__expanded}{t\-\_\-expanded} $\ast$expand, \hyperlink{structt__lambda}{t\-\_\-lambda} $\ast$fepvals, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Read, int file\-\_\-version)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{tpxio_8c_aac2c0cf35931fcf50374d9c66d3ae3be}{do\-\_\-simtempvals} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, \hyperlink{structt__simtemp}{t\-\_\-simtemp} $\ast$simtemp, int n\-\_\-lambda, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Read, int file\-\_\-version)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{tpxio_8c_a6fe4b414843f570c9bbc7ac3342684e7}{do\-\_\-fepvals} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, \hyperlink{structt__lambda}{t\-\_\-lambda} $\ast$fepvals, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Read, int file\-\_\-version)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{tpxio_8c_a7faf51603d29f762ac6fac1c8aa72141}{do\-\_\-pull} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, \hyperlink{structt__pull}{t\-\_\-pull} $\ast$pull, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Read, int file\-\_\-version)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{tpxio_8c_a7287aebfa7add6b24757e4412810b2b0}{do\-\_\-rotgrp} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, \hyperlink{structt__rotgrp}{t\-\_\-rotgrp} $\ast$rotg, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Read, int file\-\_\-version)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{tpxio_8c_a59116319201254327abd3f09c3c2956d}{do\-\_\-rot} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, \hyperlink{structt__rot}{t\-\_\-rot} $\ast$\hyperlink{hxprops_8c_adb6a00314ae684ae974fcce76dea126f}{rot}, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Read, int file\-\_\-version)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{tpxio_8c_aafd4c1073fd09c4dc7b05f5c4f916cd6}{do\-\_\-inputrec} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, \hyperlink{structt__inputrec}{t\-\_\-inputrec} $\ast$ir, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Read, int file\-\_\-version, real $\ast$fudge\-Q\-Q)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{tpxio_8c_a9f7a023340cc65018868b7ff552f24b7}{do\-\_\-harm} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, \hyperlink{uniont__iparams}{t\-\_\-iparams} $\ast$iparams, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Read)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{tpxio_8c_acfeb62112e5c456afdf2c594ec45c652}{do\-\_\-iparams} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, \hyperlink{include_2types_2idef_8h_a8150aed9cb62c0b3826244d7caeb0a57}{t\-\_\-functype} ftype, \hyperlink{uniont__iparams}{t\-\_\-iparams} $\ast$iparams, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Read, int file\-\_\-version)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{tpxio_8c_ade7d554c700b11c99876619a3d44026c}{do\-\_\-ilist} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, \hyperlink{structt__ilist}{t\-\_\-ilist} $\ast$ilist, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Read, int file\-\_\-version, int ftype)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{tpxio_8c_a6c53c96f6c58c90272616c3f52dbdff9}{do\-\_\-ffparams} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, \hyperlink{structgmx__ffparams__t}{gmx\-\_\-ffparams\-\_\-t} $\ast$ffparams, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Read, int file\-\_\-version)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{tpxio_8c_a700290c917b4522e5b2791cbe655e910}{add\-\_\-settle\-\_\-atoms} (\hyperlink{structt__ilist}{t\-\_\-ilist} $\ast$ilist)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{tpxio_8c_adf1f07c7a37e963f02b50a13ad96f334}{do\-\_\-ilists} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, \hyperlink{structt__ilist}{t\-\_\-ilist} $\ast$ilist, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Read, int file\-\_\-version)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{tpxio_8c_a1996b8653d75087c2d43842c85f9f84b}{do\-\_\-idef} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, \hyperlink{structgmx__ffparams__t}{gmx\-\_\-ffparams\-\_\-t} $\ast$ffparams, \hyperlink{structgmx__moltype__t}{gmx\-\_\-moltype\-\_\-t} $\ast$molt, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Read, int file\-\_\-version)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{tpxio_8c_a26e3938418a3133b633471b92d617abb}{do\-\_\-block} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, \hyperlink{structt__block}{t\-\_\-block} $\ast$block, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Read, int file\-\_\-version)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{tpxio_8c_ac0ec1a93d52d853ce0929bc198c52965}{do\-\_\-blocka} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, \hyperlink{structt__blocka}{t\-\_\-blocka} $\ast$block, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Read, int file\-\_\-version)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{tpxio_8c_af1cdd37e781e4b72b138a812c0d3b745}{do\-\_\-atom} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, \hyperlink{structt__atom}{t\-\_\-atom} $\ast$atom, int ngrp, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Read, int file\-\_\-version, \hyperlink{structgmx__groups__t}{gmx\-\_\-groups\-\_\-t} $\ast$groups, int atnr)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{tpxio_8c_a395ca3d1973679b008d6793a0f2446a2}{do\-\_\-grps} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, int ngrp, \hyperlink{structt__grps}{t\-\_\-grps} grps\mbox{[}$\,$\mbox{]}, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Read, int file\-\_\-version)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{tpxio_8c_a560f8b232a324172a93f4df319ae0976}{do\-\_\-symstr} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, char $\ast$$\ast$$\ast$\hyperlink{anaf_8c_a0e2c9d6b8df27abcaabfa694136eab55}{nm}, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Read, \hyperlink{structt__symtab}{t\-\_\-symtab} $\ast$symtab)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{tpxio_8c_aa425bb27e0130194494084e18dbd5a76}{do\-\_\-strstr} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, int nstr, char $\ast$$\ast$$\ast$\hyperlink{anaf_8c_a0e2c9d6b8df27abcaabfa694136eab55}{nm}, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Read, \hyperlink{structt__symtab}{t\-\_\-symtab} $\ast$symtab)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{tpxio_8c_a017e1683df9f40d58ca96d1406c73a62}{do\-\_\-resinfo} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, \hyperlink{structt__resinfo}{t\-\_\-resinfo} $\ast$ri, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Read, \hyperlink{structt__symtab}{t\-\_\-symtab} $\ast$symtab, int file\-\_\-version)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{tpxio_8c_ad7540e765092f769378f4ac36ee15fc4}{do\-\_\-atoms} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, \hyperlink{structt__atoms}{t\-\_\-atoms} $\ast$atoms, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Read, \hyperlink{structt__symtab}{t\-\_\-symtab} $\ast$symtab, int file\-\_\-version, \hyperlink{structgmx__groups__t}{gmx\-\_\-groups\-\_\-t} $\ast$groups)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{tpxio_8c_a1c7abfb14ee6be2592b15dc15e998119}{do\-\_\-groups} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, \hyperlink{structgmx__groups__t}{gmx\-\_\-groups\-\_\-t} $\ast$groups, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Read, \hyperlink{structt__symtab}{t\-\_\-symtab} $\ast$symtab, int file\-\_\-version)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{tpxio_8c_ad1da8a762913c66b6666ec31f095f8a0}{do\-\_\-atomtypes} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, \hyperlink{structt__atomtypes}{t\-\_\-atomtypes} $\ast$atomtypes, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Read, \hyperlink{structt__symtab}{t\-\_\-symtab} $\ast$symtab, int file\-\_\-version)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{tpxio_8c_ae09e08cc3675704f3a6ee209721264d1}{do\-\_\-symtab} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, \hyperlink{structt__symtab}{t\-\_\-symtab} $\ast$symtab, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Read)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{tpxio_8c_a784037fa6909611650a1c3a3733cc587}{do\-\_\-cmap} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, \hyperlink{structgmx__cmap__t}{gmx\-\_\-cmap\-\_\-t} $\ast$cmap\-\_\-grid, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Read)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{tpxio_8c_a52cfde11ba36ca1d7d3e9f132cb657dd}{tpx\-\_\-make\-\_\-chain\-\_\-identifiers} (\hyperlink{structt__atoms}{t\-\_\-atoms} $\ast$atoms, \hyperlink{structt__block}{t\-\_\-block} $\ast$mols)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{tpxio_8c_a95f6e8bc08a545e5d105e6d4aadf98fc}{do\-\_\-moltype} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, \hyperlink{structgmx__moltype__t}{gmx\-\_\-moltype\-\_\-t} $\ast$molt, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Read, \hyperlink{structt__symtab}{t\-\_\-symtab} $\ast$symtab, int file\-\_\-version, \hyperlink{structgmx__groups__t}{gmx\-\_\-groups\-\_\-t} $\ast$groups)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{tpxio_8c_a5ce536672ee816968e324cc75ee6b772}{do\-\_\-molblock} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, \hyperlink{structgmx__molblock__t}{gmx\-\_\-molblock\-\_\-t} $\ast$molb, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Read, int file\-\_\-version)
+\item 
+static \hyperlink{structt__block}{t\-\_\-block} \hyperlink{tpxio_8c_a025fe464ea3f193a836db9eb1ec3e363}{mtop\-\_\-mols} (\hyperlink{structgmx__mtop__t}{gmx\-\_\-mtop\-\_\-t} $\ast$mtop)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{tpxio_8c_a908ed00a5c996ee5d98ff683349291f6}{add\-\_\-posres\-\_\-molblock} (\hyperlink{structgmx__mtop__t}{gmx\-\_\-mtop\-\_\-t} $\ast$mtop)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{tpxio_8c_ac55a939181209177ba8a327496bf6a28}{set\-\_\-disres\-\_\-npair} (\hyperlink{structgmx__mtop__t}{gmx\-\_\-mtop\-\_\-t} $\ast$mtop)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{tpxio_8c_a5e8feae6a743a46dfb671503f3a7d8f6}{do\-\_\-mtop} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, \hyperlink{structgmx__mtop__t}{gmx\-\_\-mtop\-\_\-t} $\ast$mtop, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Read, int file\-\_\-version)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{tpxio_8c_ab3af589267297911efa83760afef592a}{do\-\_\-tpxheader} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Read, \hyperlink{structt__tpxheader}{t\-\_\-tpxheader} $\ast$tpx, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \-Top\-Only\-O\-K, int $\ast$file\-\_\-version, int $\ast$file\-\_\-generation)
+\item 
+static int \hyperlink{tpxio_8c_a963bef131ec631a80b0aed255c84f02f}{do\-\_\-tpx} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Read, \hyperlink{structt__inputrec}{t\-\_\-inputrec} $\ast$ir, \hyperlink{structt__state}{t\-\_\-state} $\ast$state, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$\hyperlink{copyrite_8c_a0757cfb6fe645a02867727255faa4f8b}{f}, \hyperlink{structgmx__mtop__t}{gmx\-\_\-mtop\-\_\-t} $\ast$mtop, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-X\-Vallocated)
+\item 
+\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$ \hyperlink{tpxio_8c_a1cc7dc3592647897201f74b82ba9d1f1}{open\-\_\-tpx} (const char $\ast$fn, const char $\ast$mode)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{tpxio_8c_adf1fd3ae74f240a05bc6b1ab2acaf317}{close\-\_\-tpx} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{tpxio_8c_ace4067cc7bf518e7d3d4483368861898}{read\-\_\-tpxheader} (const char $\ast$fn, \hyperlink{structt__tpxheader}{t\-\_\-tpxheader} $\ast$tpx, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \-Top\-Only\-O\-K, int $\ast$file\-\_\-version, int $\ast$file\-\_\-generation)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{tpxio_8c_a322a9b09fe78ee00d01f95e3ce957634}{write\-\_\-tpx\-\_\-state} (const char $\ast$fn, \hyperlink{structt__inputrec}{t\-\_\-inputrec} $\ast$ir, \hyperlink{structt__state}{t\-\_\-state} $\ast$state, \hyperlink{structgmx__mtop__t}{gmx\-\_\-mtop\-\_\-t} $\ast$mtop)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{tpxio_8c_a70625a12145fefca1dafc74c333290eb}{read\-\_\-tpx\-\_\-state} (const char $\ast$fn, \hyperlink{structt__inputrec}{t\-\_\-inputrec} $\ast$ir, \hyperlink{structt__state}{t\-\_\-state} $\ast$state, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$\hyperlink{copyrite_8c_a0757cfb6fe645a02867727255faa4f8b}{f}, \hyperlink{structgmx__mtop__t}{gmx\-\_\-mtop\-\_\-t} $\ast$mtop)
+\item 
+int \hyperlink{tpxio_8c_a1787e5a369f77332328bd09df1575ef1}{read\-\_\-tpx} (const char $\ast$fn, \hyperlink{structt__inputrec}{t\-\_\-inputrec} $\ast$ir, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box, int $\ast$natoms, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a339df93739a405c3e4b0506624fa27a5}{v}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$\hyperlink{copyrite_8c_a0757cfb6fe645a02867727255faa4f8b}{f}, \hyperlink{structgmx__mtop__t}{gmx\-\_\-mtop\-\_\-t} $\ast$mtop)
+\item 
+int \hyperlink{tpxio_8c_a05ade2aac84ca357ea6ffb4d601d35f3}{read\-\_\-tpx\-\_\-top} (const char $\ast$fn, \hyperlink{structt__inputrec}{t\-\_\-inputrec} $\ast$ir, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box, int $\ast$natoms, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a339df93739a405c3e4b0506624fa27a5}{v}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$\hyperlink{copyrite_8c_a0757cfb6fe645a02867727255faa4f8b}{f}, \hyperlink{structt__topology}{t\-\_\-topology} $\ast$\hyperlink{gmx__disre_8c_a1b538a2ce75aba6c346bc03980ffeb28}{top})
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{tpxio_8c_a1688096d7dad2d71d088ca0a80ff1c69}{fn2b\-T\-P\-X} (const char $\ast$file)
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{tpxio_8c_a1104bf46e9f289264ce75f98c0922158}{read\-\_\-tps\-\_\-conf} (const char $\ast$infile, char $\ast$title, \hyperlink{structt__topology}{t\-\_\-topology} $\ast$\hyperlink{gmx__disre_8c_a1b538a2ce75aba6c346bc03980ffeb28}{top}, int $\ast$e\-P\-B\-C, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$$\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$$\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a339df93739a405c3e4b0506624fa27a5}{v}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Mass)
+\end{DoxyCompactItemize}
+\subsection*{\-Variables}
+\begin{DoxyCompactItemize}
+\item 
+static const char $\ast$ \hyperlink{tpxio_8c_aae4996facc70e62754f53a469dc68942}{tpx\-\_\-tag} = \hyperlink{tpxio_8c_a460485504c30d458b97f837d696da388}{\-T\-P\-X\-\_\-\-T\-A\-G\-\_\-\-R\-E\-L\-E\-A\-S\-E}
+\item 
+static const int \hyperlink{tpxio_8c_ab6015318bdb1712d5753f5d8bfaeed46}{tpx\-\_\-version} = 83
+\item 
+static const int \hyperlink{tpxio_8c_aecfb4ba7e3ab0ca341d6ae4baf859a33}{tpx\-\_\-generation} = 24
+\item 
+static const int \hyperlink{tpxio_8c_af0e4d1c7bded2c1a92cef8b41716424a}{tpx\-\_\-incompatible\-\_\-version} = 9
+\item 
+static const \hyperlink{structt__ftupd}{t\-\_\-ftupd} \hyperlink{tpxio_8c_ae0eea25df83982c4d170c76ae7afcbf3}{ftupd} \mbox{[}$\,$\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Define \-Documentation}
+\hypertarget{tpxio_8c_ac6c5d2f8c994bc2a0de64162b67ba4a0}{\index{tpxio.\-c@{tpxio.\-c}!\-C\-H\-A\-I\-N\-\_\-\-M\-I\-N\-\_\-\-A\-T\-O\-M\-S@{\-C\-H\-A\-I\-N\-\_\-\-M\-I\-N\-\_\-\-A\-T\-O\-M\-S}}
+\index{\-C\-H\-A\-I\-N\-\_\-\-M\-I\-N\-\_\-\-A\-T\-O\-M\-S@{\-C\-H\-A\-I\-N\-\_\-\-M\-I\-N\-\_\-\-A\-T\-O\-M\-S}!tpxio.c@{tpxio.\-c}}
+\subsubsection[{\-C\-H\-A\-I\-N\-\_\-\-M\-I\-N\-\_\-\-A\-T\-O\-M\-S}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-C\-H\-A\-I\-N\-\_\-\-M\-I\-N\-\_\-\-A\-T\-O\-M\-S}~15}}\label{tpxio_8c_ac6c5d2f8c994bc2a0de64162b67ba4a0}
+\hypertarget{tpxio_8c_a23d6cec46329b9f7ffcadb4acc0e38b2}{\index{tpxio.\-c@{tpxio.\-c}!do\-\_\-section@{do\-\_\-section}}
+\index{do\-\_\-section@{do\-\_\-section}!tpxio.c@{tpxio.\-c}}
+\subsubsection[{do\-\_\-section}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf do\-\_\-section}(
+\begin{DoxyParamCaption}
+\item[{}]{fio, }
+\item[{}]{{\bf key}, }
+\item[{}]{b\-Read}
+\end{DoxyParamCaption}
+)~{\bf \-\_\-do\-\_\-section}(fio, {\bf key}, b\-Read, \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)}}\label{tpxio_8c_a23d6cec46329b9f7ffcadb4acc0e38b2}
+\hypertarget{tpxio_8c_a67e20f094ecf97f08dc9439aa5e5631f}{\index{tpxio.\-c@{tpxio.\-c}!do\-\_\-test@{do\-\_\-test}}
+\index{do\-\_\-test@{do\-\_\-test}!tpxio.c@{tpxio.\-c}}
+\subsubsection[{do\-\_\-test}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf do\-\_\-test}(
+\begin{DoxyParamCaption}
+\item[{}]{fio, }
+\item[{}]{{\bf b}, }
+\item[{}]{p}
+\end{DoxyParamCaption}
+)~if (b\-Read \&\& (p != \-N\-U\-L\-L) \&\& !{\bf b}) {\bf gmx\-\_\-fatal}({\bf \-F\-A\-R\-G\-S}, \char`\"{}\-No \%{\bf s} {\bf in} \%{\bf s}\char`\"{},\#p, {\bf gmx\-\_\-fio\-\_\-getname}(fio))}}\label{tpxio_8c_a67e20f094ecf97f08dc9439aa5e5631f}
+\hypertarget{tpxio_8c_aa3863e37f00f4da9de7455066a83b335}{\index{tpxio.\-c@{tpxio.\-c}!\-M\-A\-X\-N\-O\-D\-E\-S@{\-M\-A\-X\-N\-O\-D\-E\-S}}
+\index{\-M\-A\-X\-N\-O\-D\-E\-S@{\-M\-A\-X\-N\-O\-D\-E\-S}!tpxio.c@{tpxio.\-c}}
+\subsubsection[{\-M\-A\-X\-N\-O\-D\-E\-S}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-M\-A\-X\-N\-O\-D\-E\-S}~256}}\label{tpxio_8c_aa3863e37f00f4da9de7455066a83b335}
+\hypertarget{tpxio_8c_a552bb9e3e31f4b78ac1d738c4eb70254}{\index{tpxio.\-c@{tpxio.\-c}!\-N\-F\-T\-U\-P\-D@{\-N\-F\-T\-U\-P\-D}}
+\index{\-N\-F\-T\-U\-P\-D@{\-N\-F\-T\-U\-P\-D}!tpxio.c@{tpxio.\-c}}
+\subsubsection[{\-N\-F\-T\-U\-P\-D}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-N\-F\-T\-U\-P\-D}~{\bf asize}({\bf ftupd})}}\label{tpxio_8c_a552bb9e3e31f4b78ac1d738c4eb70254}
+\hypertarget{tpxio_8c_a460485504c30d458b97f837d696da388}{\index{tpxio.\-c@{tpxio.\-c}!\-T\-P\-X\-\_\-\-T\-A\-G\-\_\-\-R\-E\-L\-E\-A\-S\-E@{\-T\-P\-X\-\_\-\-T\-A\-G\-\_\-\-R\-E\-L\-E\-A\-S\-E}}
+\index{\-T\-P\-X\-\_\-\-T\-A\-G\-\_\-\-R\-E\-L\-E\-A\-S\-E@{\-T\-P\-X\-\_\-\-T\-A\-G\-\_\-\-R\-E\-L\-E\-A\-S\-E}!tpxio.c@{tpxio.\-c}}
+\subsubsection[{\-T\-P\-X\-\_\-\-T\-A\-G\-\_\-\-R\-E\-L\-E\-A\-S\-E}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-T\-P\-X\-\_\-\-T\-A\-G\-\_\-\-R\-E\-L\-E\-A\-S\-E}~\char`\"{}release\char`\"{}}}\label{tpxio_8c_a460485504c30d458b97f837d696da388}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{tpxio_8c_ae42c9501336615cd639970b0a557a216}{\index{tpxio.\-c@{tpxio.\-c}!\-\_\-do\-\_\-section@{\-\_\-do\-\_\-section}}
+\index{\-\_\-do\-\_\-section@{\-\_\-do\-\_\-section}!tpxio.c@{tpxio.\-c}}
+\subsubsection[{\-\_\-do\-\_\-section}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf \-\_\-do\-\_\-section} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{int}]{key, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Read, }
+\item[{const char $\ast$}]{src, }
+\item[{int}]{line}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{tpxio_8c_ae42c9501336615cd639970b0a557a216}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=282pt]{tpxio_8c_ae42c9501336615cd639970b0a557a216_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{tpxio_8c_a908ed00a5c996ee5d98ff683349291f6}{\index{tpxio.\-c@{tpxio.\-c}!add\-\_\-posres\-\_\-molblock@{add\-\_\-posres\-\_\-molblock}}
+\index{add\-\_\-posres\-\_\-molblock@{add\-\_\-posres\-\_\-molblock}!tpxio.c@{tpxio.\-c}}
+\subsubsection[{add\-\_\-posres\-\_\-molblock}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf add\-\_\-posres\-\_\-molblock} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-mtop\-\_\-t} $\ast$}]{mtop}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{tpxio_8c_a908ed00a5c996ee5d98ff683349291f6}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tpxio_8c_a908ed00a5c996ee5d98ff683349291f6_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{tpxio_8c_a700290c917b4522e5b2791cbe655e910}{\index{tpxio.\-c@{tpxio.\-c}!add\-\_\-settle\-\_\-atoms@{add\-\_\-settle\-\_\-atoms}}
+\index{add\-\_\-settle\-\_\-atoms@{add\-\_\-settle\-\_\-atoms}!tpxio.c@{tpxio.\-c}}
+\subsubsection[{add\-\_\-settle\-\_\-atoms}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf add\-\_\-settle\-\_\-atoms} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-ilist} $\ast$}]{ilist}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{tpxio_8c_a700290c917b4522e5b2791cbe655e910}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tpxio_8c_a700290c917b4522e5b2791cbe655e910_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{tpxio_8c_adf1fd3ae74f240a05bc6b1ab2acaf317}{\index{tpxio.\-c@{tpxio.\-c}!close\-\_\-tpx@{close\-\_\-tpx}}
+\index{close\-\_\-tpx@{close\-\_\-tpx}!tpxio.c@{tpxio.\-c}}
+\subsubsection[{close\-\_\-tpx}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf close\-\_\-tpx} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio}
+\end{DoxyParamCaption}
+)}}\label{tpxio_8c_adf1fd3ae74f240a05bc6b1ab2acaf317}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=256pt]{tpxio_8c_adf1fd3ae74f240a05bc6b1ab2acaf317_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{tpxio_8c_adf1fd3ae74f240a05bc6b1ab2acaf317_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{tpxio_8c_af1cdd37e781e4b72b138a812c0d3b745}{\index{tpxio.\-c@{tpxio.\-c}!do\-\_\-atom@{do\-\_\-atom}}
+\index{do\-\_\-atom@{do\-\_\-atom}!tpxio.c@{tpxio.\-c}}
+\subsubsection[{do\-\_\-atom}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf do\-\_\-atom} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{{\bf t\-\_\-atom} $\ast$}]{atom, }
+\item[{int}]{ngrp, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Read, }
+\item[{int}]{file\-\_\-version, }
+\item[{{\bf gmx\-\_\-groups\-\_\-t} $\ast$}]{groups, }
+\item[{int}]{atnr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{tpxio_8c_af1cdd37e781e4b72b138a812c0d3b745}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tpxio_8c_af1cdd37e781e4b72b138a812c0d3b745_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{tpxio_8c_ad7540e765092f769378f4ac36ee15fc4}{\index{tpxio.\-c@{tpxio.\-c}!do\-\_\-atoms@{do\-\_\-atoms}}
+\index{do\-\_\-atoms@{do\-\_\-atoms}!tpxio.c@{tpxio.\-c}}
+\subsubsection[{do\-\_\-atoms}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf do\-\_\-atoms} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{{\bf t\-\_\-atoms} $\ast$}]{atoms, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Read, }
+\item[{{\bf t\-\_\-symtab} $\ast$}]{symtab, }
+\item[{int}]{file\-\_\-version, }
+\item[{{\bf gmx\-\_\-groups\-\_\-t} $\ast$}]{groups}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{tpxio_8c_ad7540e765092f769378f4ac36ee15fc4}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tpxio_8c_ad7540e765092f769378f4ac36ee15fc4_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tpxio_8c_ad7540e765092f769378f4ac36ee15fc4_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{tpxio_8c_ad1da8a762913c66b6666ec31f095f8a0}{\index{tpxio.\-c@{tpxio.\-c}!do\-\_\-atomtypes@{do\-\_\-atomtypes}}
+\index{do\-\_\-atomtypes@{do\-\_\-atomtypes}!tpxio.c@{tpxio.\-c}}
+\subsubsection[{do\-\_\-atomtypes}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf do\-\_\-atomtypes} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{{\bf t\-\_\-atomtypes} $\ast$}]{atomtypes, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Read, }
+\item[{{\bf t\-\_\-symtab} $\ast$}]{symtab, }
+\item[{int}]{file\-\_\-version}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{tpxio_8c_ad1da8a762913c66b6666ec31f095f8a0}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{tpxio_8c_ad1da8a762913c66b6666ec31f095f8a0_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{tpxio_8c_a26e3938418a3133b633471b92d617abb}{\index{tpxio.\-c@{tpxio.\-c}!do\-\_\-block@{do\-\_\-block}}
+\index{do\-\_\-block@{do\-\_\-block}!tpxio.c@{tpxio.\-c}}
+\subsubsection[{do\-\_\-block}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf do\-\_\-block} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{{\bf t\-\_\-block} $\ast$}]{block, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Read, }
+\item[{int}]{file\-\_\-version}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{tpxio_8c_a26e3938418a3133b633471b92d617abb}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tpxio_8c_a26e3938418a3133b633471b92d617abb_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{tpxio_8c_ac0ec1a93d52d853ce0929bc198c52965}{\index{tpxio.\-c@{tpxio.\-c}!do\-\_\-blocka@{do\-\_\-blocka}}
+\index{do\-\_\-blocka@{do\-\_\-blocka}!tpxio.c@{tpxio.\-c}}
+\subsubsection[{do\-\_\-blocka}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf do\-\_\-blocka} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{{\bf t\-\_\-blocka} $\ast$}]{block, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Read, }
+\item[{int}]{file\-\_\-version}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{tpxio_8c_ac0ec1a93d52d853ce0929bc198c52965}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tpxio_8c_ac0ec1a93d52d853ce0929bc198c52965_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{tpxio_8c_a784037fa6909611650a1c3a3733cc587}{\index{tpxio.\-c@{tpxio.\-c}!do\-\_\-cmap@{do\-\_\-cmap}}
+\index{do\-\_\-cmap@{do\-\_\-cmap}!tpxio.c@{tpxio.\-c}}
+\subsubsection[{do\-\_\-cmap}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf do\-\_\-cmap} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{{\bf gmx\-\_\-cmap\-\_\-t} $\ast$}]{cmap\-\_\-grid, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Read}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{tpxio_8c_a784037fa6909611650a1c3a3733cc587}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{tpxio_8c_a784037fa6909611650a1c3a3733cc587_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{tpxio_8c_a638be4ff2e88528995be040e6c10d392}{\index{tpxio.\-c@{tpxio.\-c}!do\-\_\-expandedvals@{do\-\_\-expandedvals}}
+\index{do\-\_\-expandedvals@{do\-\_\-expandedvals}!tpxio.c@{tpxio.\-c}}
+\subsubsection[{do\-\_\-expandedvals}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf do\-\_\-expandedvals} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{{\bf t\-\_\-expanded} $\ast$}]{expand, }
+\item[{{\bf t\-\_\-lambda} $\ast$}]{fepvals, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Read, }
+\item[{int}]{file\-\_\-version}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{tpxio_8c_a638be4ff2e88528995be040e6c10d392}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tpxio_8c_a638be4ff2e88528995be040e6c10d392_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{tpxio_8c_a6fe4b414843f570c9bbc7ac3342684e7}{\index{tpxio.\-c@{tpxio.\-c}!do\-\_\-fepvals@{do\-\_\-fepvals}}
+\index{do\-\_\-fepvals@{do\-\_\-fepvals}!tpxio.c@{tpxio.\-c}}
+\subsubsection[{do\-\_\-fepvals}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf do\-\_\-fepvals} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{{\bf t\-\_\-lambda} $\ast$}]{fepvals, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Read, }
+\item[{int}]{file\-\_\-version}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{tpxio_8c_a6fe4b414843f570c9bbc7ac3342684e7}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{tpxio_8c_a6fe4b414843f570c9bbc7ac3342684e7_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{tpxio_8c_a6c53c96f6c58c90272616c3f52dbdff9}{\index{tpxio.\-c@{tpxio.\-c}!do\-\_\-ffparams@{do\-\_\-ffparams}}
+\index{do\-\_\-ffparams@{do\-\_\-ffparams}!tpxio.c@{tpxio.\-c}}
+\subsubsection[{do\-\_\-ffparams}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf do\-\_\-ffparams} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{{\bf gmx\-\_\-ffparams\-\_\-t} $\ast$}]{ffparams, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Read, }
+\item[{int}]{file\-\_\-version}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{tpxio_8c_a6c53c96f6c58c90272616c3f52dbdff9}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tpxio_8c_a6c53c96f6c58c90272616c3f52dbdff9_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tpxio_8c_a6c53c96f6c58c90272616c3f52dbdff9_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{tpxio_8c_a1c7abfb14ee6be2592b15dc15e998119}{\index{tpxio.\-c@{tpxio.\-c}!do\-\_\-groups@{do\-\_\-groups}}
+\index{do\-\_\-groups@{do\-\_\-groups}!tpxio.c@{tpxio.\-c}}
+\subsubsection[{do\-\_\-groups}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf do\-\_\-groups} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{{\bf gmx\-\_\-groups\-\_\-t} $\ast$}]{groups, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Read, }
+\item[{{\bf t\-\_\-symtab} $\ast$}]{symtab, }
+\item[{int}]{file\-\_\-version}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{tpxio_8c_a1c7abfb14ee6be2592b15dc15e998119}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tpxio_8c_a1c7abfb14ee6be2592b15dc15e998119_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{tpxio_8c_a1c7abfb14ee6be2592b15dc15e998119_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{tpxio_8c_a395ca3d1973679b008d6793a0f2446a2}{\index{tpxio.\-c@{tpxio.\-c}!do\-\_\-grps@{do\-\_\-grps}}
+\index{do\-\_\-grps@{do\-\_\-grps}!tpxio.c@{tpxio.\-c}}
+\subsubsection[{do\-\_\-grps}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf do\-\_\-grps} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{int}]{ngrp, }
+\item[{{\bf t\-\_\-grps}}]{grps\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Read, }
+\item[{int}]{file\-\_\-version}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{tpxio_8c_a395ca3d1973679b008d6793a0f2446a2}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tpxio_8c_a395ca3d1973679b008d6793a0f2446a2_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{tpxio_8c_a9f7a023340cc65018868b7ff552f24b7}{\index{tpxio.\-c@{tpxio.\-c}!do\-\_\-harm@{do\-\_\-harm}}
+\index{do\-\_\-harm@{do\-\_\-harm}!tpxio.c@{tpxio.\-c}}
+\subsubsection[{do\-\_\-harm}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf do\-\_\-harm} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{{\bf t\-\_\-iparams} $\ast$}]{iparams, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Read}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{tpxio_8c_a9f7a023340cc65018868b7ff552f24b7}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tpxio_8c_a9f7a023340cc65018868b7ff552f24b7_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{tpxio_8c_a1996b8653d75087c2d43842c85f9f84b}{\index{tpxio.\-c@{tpxio.\-c}!do\-\_\-idef@{do\-\_\-idef}}
+\index{do\-\_\-idef@{do\-\_\-idef}!tpxio.c@{tpxio.\-c}}
+\subsubsection[{do\-\_\-idef}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf do\-\_\-idef} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{{\bf gmx\-\_\-ffparams\-\_\-t} $\ast$}]{ffparams, }
+\item[{{\bf gmx\-\_\-moltype\-\_\-t} $\ast$}]{molt, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Read, }
+\item[{int}]{file\-\_\-version}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{tpxio_8c_a1996b8653d75087c2d43842c85f9f84b}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tpxio_8c_a1996b8653d75087c2d43842c85f9f84b_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{tpxio_8c_a1996b8653d75087c2d43842c85f9f84b_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{tpxio_8c_ade7d554c700b11c99876619a3d44026c}{\index{tpxio.\-c@{tpxio.\-c}!do\-\_\-ilist@{do\-\_\-ilist}}
+\index{do\-\_\-ilist@{do\-\_\-ilist}!tpxio.c@{tpxio.\-c}}
+\subsubsection[{do\-\_\-ilist}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf do\-\_\-ilist} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{{\bf t\-\_\-ilist} $\ast$}]{ilist, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Read, }
+\item[{int}]{file\-\_\-version, }
+\item[{int}]{ftype}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{tpxio_8c_ade7d554c700b11c99876619a3d44026c}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=290pt]{tpxio_8c_ade7d554c700b11c99876619a3d44026c_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tpxio_8c_ade7d554c700b11c99876619a3d44026c_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{tpxio_8c_adf1f07c7a37e963f02b50a13ad96f334}{\index{tpxio.\-c@{tpxio.\-c}!do\-\_\-ilists@{do\-\_\-ilists}}
+\index{do\-\_\-ilists@{do\-\_\-ilists}!tpxio.c@{tpxio.\-c}}
+\subsubsection[{do\-\_\-ilists}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf do\-\_\-ilists} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{{\bf t\-\_\-ilist} $\ast$}]{ilist, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Read, }
+\item[{int}]{file\-\_\-version}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{tpxio_8c_adf1f07c7a37e963f02b50a13ad96f334}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tpxio_8c_adf1f07c7a37e963f02b50a13ad96f334_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tpxio_8c_adf1f07c7a37e963f02b50a13ad96f334_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{tpxio_8c_aafd4c1073fd09c4dc7b05f5c4f916cd6}{\index{tpxio.\-c@{tpxio.\-c}!do\-\_\-inputrec@{do\-\_\-inputrec}}
+\index{do\-\_\-inputrec@{do\-\_\-inputrec}!tpxio.c@{tpxio.\-c}}
+\subsubsection[{do\-\_\-inputrec}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf do\-\_\-inputrec} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{{\bf t\-\_\-inputrec} $\ast$}]{ir, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Read, }
+\item[{int}]{file\-\_\-version, }
+\item[{real $\ast$}]{fudge\-Q\-Q}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{tpxio_8c_aafd4c1073fd09c4dc7b05f5c4f916cd6}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tpxio_8c_aafd4c1073fd09c4dc7b05f5c4f916cd6_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{tpxio_8c_aafd4c1073fd09c4dc7b05f5c4f916cd6_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{tpxio_8c_acfeb62112e5c456afdf2c594ec45c652}{\index{tpxio.\-c@{tpxio.\-c}!do\-\_\-iparams@{do\-\_\-iparams}}
+\index{do\-\_\-iparams@{do\-\_\-iparams}!tpxio.c@{tpxio.\-c}}
+\subsubsection[{do\-\_\-iparams}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf do\-\_\-iparams} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{{\bf t\-\_\-functype}}]{ftype, }
+\item[{{\bf t\-\_\-iparams} $\ast$}]{iparams, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Read, }
+\item[{int}]{file\-\_\-version}
+\end{DoxyParamCaption}
+)}}\label{tpxio_8c_acfeb62112e5c456afdf2c594ec45c652}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=310pt]{tpxio_8c_acfeb62112e5c456afdf2c594ec45c652_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tpxio_8c_acfeb62112e5c456afdf2c594ec45c652_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{tpxio_8c_a5ce536672ee816968e324cc75ee6b772}{\index{tpxio.\-c@{tpxio.\-c}!do\-\_\-molblock@{do\-\_\-molblock}}
+\index{do\-\_\-molblock@{do\-\_\-molblock}!tpxio.c@{tpxio.\-c}}
+\subsubsection[{do\-\_\-molblock}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf do\-\_\-molblock} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{{\bf gmx\-\_\-molblock\-\_\-t} $\ast$}]{molb, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Read, }
+\item[{int}]{file\-\_\-version}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{tpxio_8c_a5ce536672ee816968e324cc75ee6b772}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{tpxio_8c_a5ce536672ee816968e324cc75ee6b772_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{tpxio_8c_a95f6e8bc08a545e5d105e6d4aadf98fc}{\index{tpxio.\-c@{tpxio.\-c}!do\-\_\-moltype@{do\-\_\-moltype}}
+\index{do\-\_\-moltype@{do\-\_\-moltype}!tpxio.c@{tpxio.\-c}}
+\subsubsection[{do\-\_\-moltype}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf do\-\_\-moltype} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{{\bf gmx\-\_\-moltype\-\_\-t} $\ast$}]{molt, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Read, }
+\item[{{\bf t\-\_\-symtab} $\ast$}]{symtab, }
+\item[{int}]{file\-\_\-version, }
+\item[{{\bf gmx\-\_\-groups\-\_\-t} $\ast$}]{groups}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{tpxio_8c_a95f6e8bc08a545e5d105e6d4aadf98fc}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tpxio_8c_a95f6e8bc08a545e5d105e6d4aadf98fc_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{tpxio_8c_a95f6e8bc08a545e5d105e6d4aadf98fc_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{tpxio_8c_a5e8feae6a743a46dfb671503f3a7d8f6}{\index{tpxio.\-c@{tpxio.\-c}!do\-\_\-mtop@{do\-\_\-mtop}}
+\index{do\-\_\-mtop@{do\-\_\-mtop}!tpxio.c@{tpxio.\-c}}
+\subsubsection[{do\-\_\-mtop}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf do\-\_\-mtop} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{{\bf gmx\-\_\-mtop\-\_\-t} $\ast$}]{mtop, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Read, }
+\item[{int}]{file\-\_\-version}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{tpxio_8c_a5e8feae6a743a46dfb671503f3a7d8f6}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tpxio_8c_a5e8feae6a743a46dfb671503f3a7d8f6_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{tpxio_8c_a5e8feae6a743a46dfb671503f3a7d8f6_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{tpxio_8c_a7faf51603d29f762ac6fac1c8aa72141}{\index{tpxio.\-c@{tpxio.\-c}!do\-\_\-pull@{do\-\_\-pull}}
+\index{do\-\_\-pull@{do\-\_\-pull}!tpxio.c@{tpxio.\-c}}
+\subsubsection[{do\-\_\-pull}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf do\-\_\-pull} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{{\bf t\-\_\-pull} $\ast$}]{pull, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Read, }
+\item[{int}]{file\-\_\-version}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{tpxio_8c_a7faf51603d29f762ac6fac1c8aa72141}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=226pt]{tpxio_8c_a7faf51603d29f762ac6fac1c8aa72141_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{tpxio_8c_a7faf51603d29f762ac6fac1c8aa72141_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{tpxio_8c_a43bf050f7f0d83f628dd182ecffe9a6c}{\index{tpxio.\-c@{tpxio.\-c}!do\-\_\-pullgrp@{do\-\_\-pullgrp}}
+\index{do\-\_\-pullgrp@{do\-\_\-pullgrp}!tpxio.c@{tpxio.\-c}}
+\subsubsection[{do\-\_\-pullgrp}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf do\-\_\-pullgrp} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{{\bf t\-\_\-pullgrp} $\ast$}]{pgrp, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Read, }
+\item[{int}]{file\-\_\-version}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{tpxio_8c_a43bf050f7f0d83f628dd182ecffe9a6c}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tpxio_8c_a43bf050f7f0d83f628dd182ecffe9a6c_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{tpxio_8c_a017e1683df9f40d58ca96d1406c73a62}{\index{tpxio.\-c@{tpxio.\-c}!do\-\_\-resinfo@{do\-\_\-resinfo}}
+\index{do\-\_\-resinfo@{do\-\_\-resinfo}!tpxio.c@{tpxio.\-c}}
+\subsubsection[{do\-\_\-resinfo}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf do\-\_\-resinfo} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{int}]{n, }
+\item[{{\bf t\-\_\-resinfo} $\ast$}]{ri, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Read, }
+\item[{{\bf t\-\_\-symtab} $\ast$}]{symtab, }
+\item[{int}]{file\-\_\-version}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{tpxio_8c_a017e1683df9f40d58ca96d1406c73a62}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tpxio_8c_a017e1683df9f40d58ca96d1406c73a62_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tpxio_8c_a017e1683df9f40d58ca96d1406c73a62_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{tpxio_8c_a59116319201254327abd3f09c3c2956d}{\index{tpxio.\-c@{tpxio.\-c}!do\-\_\-rot@{do\-\_\-rot}}
+\index{do\-\_\-rot@{do\-\_\-rot}!tpxio.c@{tpxio.\-c}}
+\subsubsection[{do\-\_\-rot}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf do\-\_\-rot} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{{\bf t\-\_\-rot} $\ast$}]{rot, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Read, }
+\item[{int}]{file\-\_\-version}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{tpxio_8c_a59116319201254327abd3f09c3c2956d}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=218pt]{tpxio_8c_a59116319201254327abd3f09c3c2956d_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{tpxio_8c_a59116319201254327abd3f09c3c2956d_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{tpxio_8c_a7287aebfa7add6b24757e4412810b2b0}{\index{tpxio.\-c@{tpxio.\-c}!do\-\_\-rotgrp@{do\-\_\-rotgrp}}
+\index{do\-\_\-rotgrp@{do\-\_\-rotgrp}!tpxio.c@{tpxio.\-c}}
+\subsubsection[{do\-\_\-rotgrp}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf do\-\_\-rotgrp} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{{\bf t\-\_\-rotgrp} $\ast$}]{rotg, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Read, }
+\item[{int}]{file\-\_\-version}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{tpxio_8c_a7287aebfa7add6b24757e4412810b2b0}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tpxio_8c_a7287aebfa7add6b24757e4412810b2b0_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{tpxio_8c_aac2c0cf35931fcf50374d9c66d3ae3be}{\index{tpxio.\-c@{tpxio.\-c}!do\-\_\-simtempvals@{do\-\_\-simtempvals}}
+\index{do\-\_\-simtempvals@{do\-\_\-simtempvals}!tpxio.c@{tpxio.\-c}}
+\subsubsection[{do\-\_\-simtempvals}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf do\-\_\-simtempvals} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{{\bf t\-\_\-simtemp} $\ast$}]{simtemp, }
+\item[{int}]{n\-\_\-lambda, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Read, }
+\item[{int}]{file\-\_\-version}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{tpxio_8c_aac2c0cf35931fcf50374d9c66d3ae3be}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tpxio_8c_aac2c0cf35931fcf50374d9c66d3ae3be_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{tpxio_8c_aa425bb27e0130194494084e18dbd5a76}{\index{tpxio.\-c@{tpxio.\-c}!do\-\_\-strstr@{do\-\_\-strstr}}
+\index{do\-\_\-strstr@{do\-\_\-strstr}!tpxio.c@{tpxio.\-c}}
+\subsubsection[{do\-\_\-strstr}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf do\-\_\-strstr} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{int}]{nstr, }
+\item[{char $\ast$$\ast$$\ast$}]{nm, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Read, }
+\item[{{\bf t\-\_\-symtab} $\ast$}]{symtab}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{tpxio_8c_aa425bb27e0130194494084e18dbd5a76}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tpxio_8c_aa425bb27e0130194494084e18dbd5a76_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tpxio_8c_aa425bb27e0130194494084e18dbd5a76_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{tpxio_8c_a560f8b232a324172a93f4df319ae0976}{\index{tpxio.\-c@{tpxio.\-c}!do\-\_\-symstr@{do\-\_\-symstr}}
+\index{do\-\_\-symstr@{do\-\_\-symstr}!tpxio.c@{tpxio.\-c}}
+\subsubsection[{do\-\_\-symstr}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf do\-\_\-symstr} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{char $\ast$$\ast$$\ast$}]{nm, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Read, }
+\item[{{\bf t\-\_\-symtab} $\ast$}]{symtab}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{tpxio_8c_a560f8b232a324172a93f4df319ae0976}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=280pt]{tpxio_8c_a560f8b232a324172a93f4df319ae0976_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tpxio_8c_a560f8b232a324172a93f4df319ae0976_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{tpxio_8c_ae09e08cc3675704f3a6ee209721264d1}{\index{tpxio.\-c@{tpxio.\-c}!do\-\_\-symtab@{do\-\_\-symtab}}
+\index{do\-\_\-symtab@{do\-\_\-symtab}!tpxio.c@{tpxio.\-c}}
+\subsubsection[{do\-\_\-symtab}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf do\-\_\-symtab} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{{\bf t\-\_\-symtab} $\ast$}]{symtab, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Read}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{tpxio_8c_ae09e08cc3675704f3a6ee209721264d1}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=242pt]{tpxio_8c_ae09e08cc3675704f3a6ee209721264d1_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{tpxio_8c_ae09e08cc3675704f3a6ee209721264d1_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{tpxio_8c_a963bef131ec631a80b0aed255c84f02f}{\index{tpxio.\-c@{tpxio.\-c}!do\-\_\-tpx@{do\-\_\-tpx}}
+\index{do\-\_\-tpx@{do\-\_\-tpx}!tpxio.c@{tpxio.\-c}}
+\subsubsection[{do\-\_\-tpx}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf do\-\_\-tpx} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Read, }
+\item[{{\bf t\-\_\-inputrec} $\ast$}]{ir, }
+\item[{{\bf t\-\_\-state} $\ast$}]{state, }
+\item[{{\bf rvec} $\ast$}]{f, }
+\item[{{\bf gmx\-\_\-mtop\-\_\-t} $\ast$}]{mtop, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-X\-Vallocated}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{tpxio_8c_a963bef131ec631a80b0aed255c84f02f}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{tpxio_8c_a963bef131ec631a80b0aed255c84f02f_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{tpxio_8c_a963bef131ec631a80b0aed255c84f02f_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{tpxio_8c_ab3af589267297911efa83760afef592a}{\index{tpxio.\-c@{tpxio.\-c}!do\-\_\-tpxheader@{do\-\_\-tpxheader}}
+\index{do\-\_\-tpxheader@{do\-\_\-tpxheader}!tpxio.c@{tpxio.\-c}}
+\subsubsection[{do\-\_\-tpxheader}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf do\-\_\-tpxheader} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Read, }
+\item[{{\bf t\-\_\-tpxheader} $\ast$}]{tpx, }
+\item[{{\bf gmx\-\_\-bool}}]{\-Top\-Only\-O\-K, }
+\item[{int $\ast$}]{file\-\_\-version, }
+\item[{int $\ast$}]{file\-\_\-generation}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{tpxio_8c_ab3af589267297911efa83760afef592a}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=302pt]{tpxio_8c_ab3af589267297911efa83760afef592a_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{tpxio_8c_ab3af589267297911efa83760afef592a_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{tpxio_8c_a1688096d7dad2d71d088ca0a80ff1c69}{\index{tpxio.\-c@{tpxio.\-c}!fn2b\-T\-P\-X@{fn2b\-T\-P\-X}}
+\index{fn2b\-T\-P\-X@{fn2b\-T\-P\-X}!tpxio.c@{tpxio.\-c}}
+\subsubsection[{fn2b\-T\-P\-X}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf fn2b\-T\-P\-X} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{file}
+\end{DoxyParamCaption}
+)}}\label{tpxio_8c_a1688096d7dad2d71d088ca0a80ff1c69}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=214pt]{tpxio_8c_a1688096d7dad2d71d088ca0a80ff1c69_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{tpxio_8c_a1688096d7dad2d71d088ca0a80ff1c69_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{tpxio_8c_a025fe464ea3f193a836db9eb1ec3e363}{\index{tpxio.\-c@{tpxio.\-c}!mtop\-\_\-mols@{mtop\-\_\-mols}}
+\index{mtop\-\_\-mols@{mtop\-\_\-mols}!tpxio.c@{tpxio.\-c}}
+\subsubsection[{mtop\-\_\-mols}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf t\-\_\-block} {\bf mtop\-\_\-mols} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-mtop\-\_\-t} $\ast$}]{mtop}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{tpxio_8c_a025fe464ea3f193a836db9eb1ec3e363}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{tpxio_8c_a025fe464ea3f193a836db9eb1ec3e363_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{tpxio_8c_a1cc7dc3592647897201f74b82ba9d1f1}{\index{tpxio.\-c@{tpxio.\-c}!open\-\_\-tpx@{open\-\_\-tpx}}
+\index{open\-\_\-tpx@{open\-\_\-tpx}!tpxio.c@{tpxio.\-c}}
+\subsubsection[{open\-\_\-tpx}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\-\_\-fileio}$\ast$ {\bf open\-\_\-tpx} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{fn, }
+\item[{const char $\ast$}]{mode}
+\end{DoxyParamCaption}
+)}}\label{tpxio_8c_a1cc7dc3592647897201f74b82ba9d1f1}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=250pt]{tpxio_8c_a1cc7dc3592647897201f74b82ba9d1f1_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{tpxio_8c_a1cc7dc3592647897201f74b82ba9d1f1_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{tpxio_8c_a1104bf46e9f289264ce75f98c0922158}{\index{tpxio.\-c@{tpxio.\-c}!read\-\_\-tps\-\_\-conf@{read\-\_\-tps\-\_\-conf}}
+\index{read\-\_\-tps\-\_\-conf@{read\-\_\-tps\-\_\-conf}!tpxio.c@{tpxio.\-c}}
+\subsubsection[{read\-\_\-tps\-\_\-conf}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf read\-\_\-tps\-\_\-conf} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{infile, }
+\item[{char $\ast$}]{title, }
+\item[{{\bf t\-\_\-topology} $\ast$}]{top, }
+\item[{int $\ast$}]{e\-P\-B\-C, }
+\item[{{\bf rvec} $\ast$$\ast$}]{x, }
+\item[{{\bf rvec} $\ast$$\ast$}]{v, }
+\item[{{\bf matrix}}]{box, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Mass}
+\end{DoxyParamCaption}
+)}}\label{tpxio_8c_a1104bf46e9f289264ce75f98c0922158}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=330pt]{tpxio_8c_a1104bf46e9f289264ce75f98c0922158_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{tpxio_8c_a1104bf46e9f289264ce75f98c0922158_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{tpxio_8c_a1787e5a369f77332328bd09df1575ef1}{\index{tpxio.\-c@{tpxio.\-c}!read\-\_\-tpx@{read\-\_\-tpx}}
+\index{read\-\_\-tpx@{read\-\_\-tpx}!tpxio.c@{tpxio.\-c}}
+\subsubsection[{read\-\_\-tpx}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf read\-\_\-tpx} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{fn, }
+\item[{{\bf t\-\_\-inputrec} $\ast$}]{ir, }
+\item[{{\bf matrix}}]{box, }
+\item[{int $\ast$}]{natoms, }
+\item[{{\bf rvec} $\ast$}]{x, }
+\item[{{\bf rvec} $\ast$}]{v, }
+\item[{{\bf rvec} $\ast$}]{f, }
+\item[{{\bf gmx\-\_\-mtop\-\_\-t} $\ast$}]{mtop}
+\end{DoxyParamCaption}
+)}}\label{tpxio_8c_a1787e5a369f77332328bd09df1575ef1}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{tpxio_8c_a1787e5a369f77332328bd09df1575ef1_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{tpxio_8c_a1787e5a369f77332328bd09df1575ef1_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{tpxio_8c_a70625a12145fefca1dafc74c333290eb}{\index{tpxio.\-c@{tpxio.\-c}!read\-\_\-tpx\-\_\-state@{read\-\_\-tpx\-\_\-state}}
+\index{read\-\_\-tpx\-\_\-state@{read\-\_\-tpx\-\_\-state}!tpxio.c@{tpxio.\-c}}
+\subsubsection[{read\-\_\-tpx\-\_\-state}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf read\-\_\-tpx\-\_\-state} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{fn, }
+\item[{{\bf t\-\_\-inputrec} $\ast$}]{ir, }
+\item[{{\bf t\-\_\-state} $\ast$}]{state, }
+\item[{{\bf rvec} $\ast$}]{f, }
+\item[{{\bf gmx\-\_\-mtop\-\_\-t} $\ast$}]{mtop}
+\end{DoxyParamCaption}
+)}}\label{tpxio_8c_a70625a12145fefca1dafc74c333290eb}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{tpxio_8c_a70625a12145fefca1dafc74c333290eb_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tpxio_8c_a70625a12145fefca1dafc74c333290eb_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{tpxio_8c_a05ade2aac84ca357ea6ffb4d601d35f3}{\index{tpxio.\-c@{tpxio.\-c}!read\-\_\-tpx\-\_\-top@{read\-\_\-tpx\-\_\-top}}
+\index{read\-\_\-tpx\-\_\-top@{read\-\_\-tpx\-\_\-top}!tpxio.c@{tpxio.\-c}}
+\subsubsection[{read\-\_\-tpx\-\_\-top}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf read\-\_\-tpx\-\_\-top} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{fn, }
+\item[{{\bf t\-\_\-inputrec} $\ast$}]{ir, }
+\item[{{\bf matrix}}]{box, }
+\item[{int $\ast$}]{natoms, }
+\item[{{\bf rvec} $\ast$}]{x, }
+\item[{{\bf rvec} $\ast$}]{v, }
+\item[{{\bf rvec} $\ast$}]{f, }
+\item[{{\bf t\-\_\-topology} $\ast$}]{top}
+\end{DoxyParamCaption}
+)}}\label{tpxio_8c_a05ade2aac84ca357ea6ffb4d601d35f3}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=324pt]{tpxio_8c_a05ade2aac84ca357ea6ffb4d601d35f3_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tpxio_8c_a05ade2aac84ca357ea6ffb4d601d35f3_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{tpxio_8c_ace4067cc7bf518e7d3d4483368861898}{\index{tpxio.\-c@{tpxio.\-c}!read\-\_\-tpxheader@{read\-\_\-tpxheader}}
+\index{read\-\_\-tpxheader@{read\-\_\-tpxheader}!tpxio.c@{tpxio.\-c}}
+\subsubsection[{read\-\_\-tpxheader}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf read\-\_\-tpxheader} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{fn, }
+\item[{{\bf t\-\_\-tpxheader} $\ast$}]{tpx, }
+\item[{{\bf gmx\-\_\-bool}}]{\-Top\-Only\-O\-K, }
+\item[{int $\ast$}]{file\-\_\-version, }
+\item[{int $\ast$}]{file\-\_\-generation}
+\end{DoxyParamCaption}
+)}}\label{tpxio_8c_ace4067cc7bf518e7d3d4483368861898}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tpxio_8c_ace4067cc7bf518e7d3d4483368861898_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{tpxio_8c_ace4067cc7bf518e7d3d4483368861898_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{tpxio_8c_ac55a939181209177ba8a327496bf6a28}{\index{tpxio.\-c@{tpxio.\-c}!set\-\_\-disres\-\_\-npair@{set\-\_\-disres\-\_\-npair}}
+\index{set\-\_\-disres\-\_\-npair@{set\-\_\-disres\-\_\-npair}!tpxio.c@{tpxio.\-c}}
+\subsubsection[{set\-\_\-disres\-\_\-npair}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf set\-\_\-disres\-\_\-npair} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-mtop\-\_\-t} $\ast$}]{mtop}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{tpxio_8c_ac55a939181209177ba8a327496bf6a28}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{tpxio_8c_ac55a939181209177ba8a327496bf6a28_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{tpxio_8c_a52cfde11ba36ca1d7d3e9f132cb657dd}{\index{tpxio.\-c@{tpxio.\-c}!tpx\-\_\-make\-\_\-chain\-\_\-identifiers@{tpx\-\_\-make\-\_\-chain\-\_\-identifiers}}
+\index{tpx\-\_\-make\-\_\-chain\-\_\-identifiers@{tpx\-\_\-make\-\_\-chain\-\_\-identifiers}!tpxio.c@{tpxio.\-c}}
+\subsubsection[{tpx\-\_\-make\-\_\-chain\-\_\-identifiers}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf tpx\-\_\-make\-\_\-chain\-\_\-identifiers} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-atoms} $\ast$}]{atoms, }
+\item[{{\bf t\-\_\-block} $\ast$}]{mols}
+\end{DoxyParamCaption}
+)}}\label{tpxio_8c_a52cfde11ba36ca1d7d3e9f132cb657dd}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{tpxio_8c_a52cfde11ba36ca1d7d3e9f132cb657dd_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{tpxio_8c_a322a9b09fe78ee00d01f95e3ce957634}{\index{tpxio.\-c@{tpxio.\-c}!write\-\_\-tpx\-\_\-state@{write\-\_\-tpx\-\_\-state}}
+\index{write\-\_\-tpx\-\_\-state@{write\-\_\-tpx\-\_\-state}!tpxio.c@{tpxio.\-c}}
+\subsubsection[{write\-\_\-tpx\-\_\-state}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf write\-\_\-tpx\-\_\-state} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{fn, }
+\item[{{\bf t\-\_\-inputrec} $\ast$}]{ir, }
+\item[{{\bf t\-\_\-state} $\ast$}]{state, }
+\item[{{\bf gmx\-\_\-mtop\-\_\-t} $\ast$}]{mtop}
+\end{DoxyParamCaption}
+)}}\label{tpxio_8c_a322a9b09fe78ee00d01f95e3ce957634}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{tpxio_8c_a322a9b09fe78ee00d01f95e3ce957634_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tpxio_8c_a322a9b09fe78ee00d01f95e3ce957634_icgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{\-Variable \-Documentation}
+\hypertarget{tpxio_8c_ae0eea25df83982c4d170c76ae7afcbf3}{\index{tpxio.\-c@{tpxio.\-c}!ftupd@{ftupd}}
+\index{ftupd@{ftupd}!tpxio.c@{tpxio.\-c}}
+\subsubsection[{ftupd}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf t\-\_\-ftupd} {\bf ftupd}\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{tpxio_8c_ae0eea25df83982c4d170c76ae7afcbf3}
+\hypertarget{tpxio_8c_aecfb4ba7e3ab0ca341d6ae4baf859a33}{\index{tpxio.\-c@{tpxio.\-c}!tpx\-\_\-generation@{tpx\-\_\-generation}}
+\index{tpx\-\_\-generation@{tpx\-\_\-generation}!tpxio.c@{tpxio.\-c}}
+\subsubsection[{tpx\-\_\-generation}]{\setlength{\rightskip}{0pt plus 5cm}const int {\bf tpx\-\_\-generation} = 24\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{tpxio_8c_aecfb4ba7e3ab0ca341d6ae4baf859a33}
+\hypertarget{tpxio_8c_af0e4d1c7bded2c1a92cef8b41716424a}{\index{tpxio.\-c@{tpxio.\-c}!tpx\-\_\-incompatible\-\_\-version@{tpx\-\_\-incompatible\-\_\-version}}
+\index{tpx\-\_\-incompatible\-\_\-version@{tpx\-\_\-incompatible\-\_\-version}!tpxio.c@{tpxio.\-c}}
+\subsubsection[{tpx\-\_\-incompatible\-\_\-version}]{\setlength{\rightskip}{0pt plus 5cm}const int {\bf tpx\-\_\-incompatible\-\_\-version} = 9\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{tpxio_8c_af0e4d1c7bded2c1a92cef8b41716424a}
+\hypertarget{tpxio_8c_aae4996facc70e62754f53a469dc68942}{\index{tpxio.\-c@{tpxio.\-c}!tpx\-\_\-tag@{tpx\-\_\-tag}}
+\index{tpx\-\_\-tag@{tpx\-\_\-tag}!tpxio.c@{tpxio.\-c}}
+\subsubsection[{tpx\-\_\-tag}]{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ {\bf tpx\-\_\-tag} = {\bf \-T\-P\-X\-\_\-\-T\-A\-G\-\_\-\-R\-E\-L\-E\-A\-S\-E}\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{tpxio_8c_aae4996facc70e62754f53a469dc68942}
+\hypertarget{tpxio_8c_ab6015318bdb1712d5753f5d8bfaeed46}{\index{tpxio.\-c@{tpxio.\-c}!tpx\-\_\-version@{tpx\-\_\-version}}
+\index{tpx\-\_\-version@{tpx\-\_\-version}!tpxio.c@{tpxio.\-c}}
+\subsubsection[{tpx\-\_\-version}]{\setlength{\rightskip}{0pt plus 5cm}const int {\bf tpx\-\_\-version} = 83\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{tpxio_8c_ab6015318bdb1712d5753f5d8bfaeed46}

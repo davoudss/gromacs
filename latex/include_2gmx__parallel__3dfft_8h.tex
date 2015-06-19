@@ -1,0 +1,227 @@
+\hypertarget{include_2gmx__parallel__3dfft_8h}{\section{include/gmx\-\_\-parallel\-\_\-3dfft.h \-File \-Reference}
+\label{include_2gmx__parallel__3dfft_8h}\index{include/gmx\-\_\-parallel\-\_\-3dfft.\-h@{include/gmx\-\_\-parallel\-\_\-3dfft.\-h}}
+}
+{\ttfamily \#include \char`\"{}types/simple.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}types/commrec.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmxcomplex.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-fft.\-h\char`\"{}}\*
+\-Include dependency graph for gmx\-\_\-parallel\-\_\-3dfft.\-h\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{include_2gmx__parallel__3dfft_8h__incl}
+\end{center}
+\end{figure}
+\-This graph shows which files directly or indirectly include this file\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=218pt]{include_2gmx__parallel__3dfft_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \hyperlink{structgmx__parallel__3dfft}{gmx\-\_\-parallel\-\_\-3dfft} $\ast$ \hyperlink{include_2gmx__parallel__3dfft_8h_a31a1d8b5840322d92d8f8c41939b7407}{gmx\-\_\-parallel\-\_\-3dfft\-\_\-t}
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{include_2gmx__parallel__3dfft_8h_a369793270bc9e87b0493fd509995cb51}{gmx\-\_\-parallel\-\_\-3dfft\-\_\-init} (\hyperlink{include_2gmx__parallel__3dfft_8h_a31a1d8b5840322d92d8f8c41939b7407}{gmx\-\_\-parallel\-\_\-3dfft\-\_\-t} $\ast$pfft\-\_\-setup, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a74f6ffdb4a9c1764f5293969d8c681b6}{ivec} ndata, real $\ast$$\ast$real\-\_\-data, \hyperlink{structt__complex}{t\-\_\-complex} $\ast$$\ast$complex\-\_\-data, \hyperlink{include_2thread__mpi_2mpi__bindings_8h_a3880364558bd42f832e48ed33e6fafbb}{\-M\-P\-I\-\_\-\-Comm} comm\mbox{[}2\mbox{]}, int $\ast$slab2index\-\_\-major, int $\ast$slab2index\-\_\-minor, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Reproducible, int nthreads)
+\begin{DoxyCompactList}\small\item\em \-Initialize parallel \-M\-P\-I-\/based 3\-D-\/\-F\-F\-T. \end{DoxyCompactList}\item 
+int \hyperlink{include_2gmx__parallel__3dfft_8h_a1fa051a13d6e2c047bef1b5e4ebac65c}{gmx\-\_\-parallel\-\_\-3dfft\-\_\-real\-\_\-limits} (\hyperlink{include_2gmx__parallel__3dfft_8h_a31a1d8b5840322d92d8f8c41939b7407}{gmx\-\_\-parallel\-\_\-3dfft\-\_\-t} pfft\-\_\-setup, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a74f6ffdb4a9c1764f5293969d8c681b6}{ivec} local\-\_\-ndata, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a74f6ffdb4a9c1764f5293969d8c681b6}{ivec} local\-\_\-offset, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a74f6ffdb4a9c1764f5293969d8c681b6}{ivec} local\-\_\-size)
+\begin{DoxyCompactList}\small\item\em \-Get direct space grid index limits. \end{DoxyCompactList}\item 
+int \hyperlink{include_2gmx__parallel__3dfft_8h_a03f6d37582f20700103d69aed3ff501f}{gmx\-\_\-parallel\-\_\-3dfft\-\_\-complex\-\_\-limits} (\hyperlink{include_2gmx__parallel__3dfft_8h_a31a1d8b5840322d92d8f8c41939b7407}{gmx\-\_\-parallel\-\_\-3dfft\-\_\-t} pfft\-\_\-setup, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a74f6ffdb4a9c1764f5293969d8c681b6}{ivec} complex\-\_\-order, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a74f6ffdb4a9c1764f5293969d8c681b6}{ivec} local\-\_\-ndata, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a74f6ffdb4a9c1764f5293969d8c681b6}{ivec} local\-\_\-offset, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a74f6ffdb4a9c1764f5293969d8c681b6}{ivec} local\-\_\-size)
+\begin{DoxyCompactList}\small\item\em \-Get reciprocal space grid index limits. \end{DoxyCompactList}\item 
+int \hyperlink{include_2gmx__parallel__3dfft_8h_ae5d9547d8f9f18a107043f160a7708eb}{gmx\-\_\-parallel\-\_\-3dfft\-\_\-execute} (\hyperlink{include_2gmx__parallel__3dfft_8h_a31a1d8b5840322d92d8f8c41939b7407}{gmx\-\_\-parallel\-\_\-3dfft\-\_\-t} pfft\-\_\-setup, enum \hyperlink{include_2gmx__fft_8h_af2aa0b3a5f3a4339ecb2bd67cb8f8302}{gmx\-\_\-fft\-\_\-direction} dir, \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$\hyperlink{gmx__msd_8c_a724edea1cc9c40e4660d3da81b358872}{in\-\_\-data}, \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$out\-\_\-data, int thread, \hyperlink{include_2types_2nrnb_8h_adc47bf7d40bee1f733f4c00cf76e85d9}{gmx\-\_\-wallcycle\-\_\-t} wcycle)
+\item 
+int \hyperlink{include_2gmx__parallel__3dfft_8h_af61c61ab4ac0d225adf0abf460e68fa8}{gmx\-\_\-parallel\-\_\-3dfft\-\_\-destroy} (\hyperlink{include_2gmx__parallel__3dfft_8h_a31a1d8b5840322d92d8f8c41939b7407}{gmx\-\_\-parallel\-\_\-3dfft\-\_\-t} pfft\-\_\-setup)
+\begin{DoxyCompactList}\small\item\em \-Release all data in parallel fft setup. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{\-Typedef \-Documentation}
+\hypertarget{include_2gmx__parallel__3dfft_8h_a31a1d8b5840322d92d8f8c41939b7407}{\index{include/gmx\-\_\-parallel\-\_\-3dfft.\-h@{include/gmx\-\_\-parallel\-\_\-3dfft.\-h}!gmx\-\_\-parallel\-\_\-3dfft\-\_\-t@{gmx\-\_\-parallel\-\_\-3dfft\-\_\-t}}
+\index{gmx\-\_\-parallel\-\_\-3dfft\-\_\-t@{gmx\-\_\-parallel\-\_\-3dfft\-\_\-t}!include/gmx_parallel_3dfft.h@{include/gmx\-\_\-parallel\-\_\-3dfft.\-h}}
+\subsubsection[{gmx\-\_\-parallel\-\_\-3dfft\-\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf gmx\-\_\-parallel\-\_\-3dfft}$\ast$ {\bf gmx\-\_\-parallel\-\_\-3dfft\-\_\-t}}}\label{include_2gmx__parallel__3dfft_8h_a31a1d8b5840322d92d8f8c41939b7407}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{include_2gmx__parallel__3dfft_8h_a03f6d37582f20700103d69aed3ff501f}{\index{include/gmx\-\_\-parallel\-\_\-3dfft.\-h@{include/gmx\-\_\-parallel\-\_\-3dfft.\-h}!gmx\-\_\-parallel\-\_\-3dfft\-\_\-complex\-\_\-limits@{gmx\-\_\-parallel\-\_\-3dfft\-\_\-complex\-\_\-limits}}
+\index{gmx\-\_\-parallel\-\_\-3dfft\-\_\-complex\-\_\-limits@{gmx\-\_\-parallel\-\_\-3dfft\-\_\-complex\-\_\-limits}!include/gmx_parallel_3dfft.h@{include/gmx\-\_\-parallel\-\_\-3dfft.\-h}}
+\subsubsection[{gmx\-\_\-parallel\-\_\-3dfft\-\_\-complex\-\_\-limits}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-parallel\-\_\-3dfft\-\_\-complex\-\_\-limits} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-parallel\-\_\-3dfft\-\_\-t}}]{pfft\-\_\-setup, }
+\item[{{\bf ivec}}]{complex\-\_\-order, }
+\item[{{\bf ivec}}]{local\-\_\-ndata, }
+\item[{{\bf ivec}}]{local\-\_\-offset, }
+\item[{{\bf ivec}}]{local\-\_\-size}
+\end{DoxyParamCaption}
+)}}\label{include_2gmx__parallel__3dfft_8h_a03f6d37582f20700103d69aed3ff501f}
+
+
+\-Get reciprocal space grid index limits. 
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{include_2gmx__parallel__3dfft_8h_a03f6d37582f20700103d69aed3ff501f_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{include_2gmx__parallel__3dfft_8h_af61c61ab4ac0d225adf0abf460e68fa8}{\index{include/gmx\-\_\-parallel\-\_\-3dfft.\-h@{include/gmx\-\_\-parallel\-\_\-3dfft.\-h}!gmx\-\_\-parallel\-\_\-3dfft\-\_\-destroy@{gmx\-\_\-parallel\-\_\-3dfft\-\_\-destroy}}
+\index{gmx\-\_\-parallel\-\_\-3dfft\-\_\-destroy@{gmx\-\_\-parallel\-\_\-3dfft\-\_\-destroy}!include/gmx_parallel_3dfft.h@{include/gmx\-\_\-parallel\-\_\-3dfft.\-h}}
+\subsubsection[{gmx\-\_\-parallel\-\_\-3dfft\-\_\-destroy}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-parallel\-\_\-3dfft\-\_\-destroy} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-parallel\-\_\-3dfft\-\_\-t}}]{pfft\-\_\-setup}
+\end{DoxyParamCaption}
+)}}\label{include_2gmx__parallel__3dfft_8h_af61c61ab4ac0d225adf0abf460e68fa8}
+
+
+\-Release all data in parallel fft setup. 
+
+\-All temporary storage and \-F\-F\-T plans are released. \-The structure itself is not released, but the contents is invalid after this call.
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em pfft\-\_\-setup} & \-Parallel 3dfft setup. \\
+\hline
+{\em in\-\_\-data} & \-Input data. \\
+\hline
+{\em out\-\_\-data} & \-Output data. \\
+\hline
+{\em thread} & \-Thread index of the calling thread, i.\-e. index to the part of the data operated on last by the calling thread. \-This is needed to start the \-F\-F\-T without an \-Open\-M\-P barrier. \\
+\hline
+{\em wcycle} & \-Wall cycle counters.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+0 or a standard error code. 
+\end{DoxyReturn}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=348pt]{include_2gmx__parallel__3dfft_8h_af61c61ab4ac0d225adf0abf460e68fa8_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{include_2gmx__parallel__3dfft_8h_ae5d9547d8f9f18a107043f160a7708eb}{\index{include/gmx\-\_\-parallel\-\_\-3dfft.\-h@{include/gmx\-\_\-parallel\-\_\-3dfft.\-h}!gmx\-\_\-parallel\-\_\-3dfft\-\_\-execute@{gmx\-\_\-parallel\-\_\-3dfft\-\_\-execute}}
+\index{gmx\-\_\-parallel\-\_\-3dfft\-\_\-execute@{gmx\-\_\-parallel\-\_\-3dfft\-\_\-execute}!include/gmx_parallel_3dfft.h@{include/gmx\-\_\-parallel\-\_\-3dfft.\-h}}
+\subsubsection[{gmx\-\_\-parallel\-\_\-3dfft\-\_\-execute}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-parallel\-\_\-3dfft\-\_\-execute} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-parallel\-\_\-3dfft\-\_\-t}}]{pfft\-\_\-setup, }
+\item[{enum {\bf gmx\-\_\-fft\-\_\-direction}}]{dir, }
+\item[{{\bf void} $\ast$}]{in\-\_\-data, }
+\item[{{\bf void} $\ast$}]{out\-\_\-data, }
+\item[{int}]{thread, }
+\item[{{\bf gmx\-\_\-wallcycle\-\_\-t}}]{wcycle}
+\end{DoxyParamCaption}
+)}}\label{include_2gmx__parallel__3dfft_8h_ae5d9547d8f9f18a107043f160a7708eb}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=328pt]{include_2gmx__parallel__3dfft_8h_ae5d9547d8f9f18a107043f160a7708eb_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{include_2gmx__parallel__3dfft_8h_a369793270bc9e87b0493fd509995cb51}{\index{include/gmx\-\_\-parallel\-\_\-3dfft.\-h@{include/gmx\-\_\-parallel\-\_\-3dfft.\-h}!gmx\-\_\-parallel\-\_\-3dfft\-\_\-init@{gmx\-\_\-parallel\-\_\-3dfft\-\_\-init}}
+\index{gmx\-\_\-parallel\-\_\-3dfft\-\_\-init@{gmx\-\_\-parallel\-\_\-3dfft\-\_\-init}!include/gmx_parallel_3dfft.h@{include/gmx\-\_\-parallel\-\_\-3dfft.\-h}}
+\subsubsection[{gmx\-\_\-parallel\-\_\-3dfft\-\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-parallel\-\_\-3dfft\-\_\-init} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-parallel\-\_\-3dfft\-\_\-t} $\ast$}]{pfft\-\_\-setup, }
+\item[{{\bf ivec}}]{ndata, }
+\item[{real $\ast$$\ast$}]{real\-\_\-data, }
+\item[{{\bf t\-\_\-complex} $\ast$$\ast$}]{complex\-\_\-data, }
+\item[{{\bf \-M\-P\-I\-\_\-\-Comm}}]{comm\mbox{[}2\mbox{]}, }
+\item[{int $\ast$}]{slab2index\-\_\-major, }
+\item[{int $\ast$}]{slab2index\-\_\-minor, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Reproducible, }
+\item[{int}]{nthreads}
+\end{DoxyParamCaption}
+)}}\label{include_2gmx__parallel__3dfft_8h_a369793270bc9e87b0493fd509995cb51}
+
+
+\-Initialize parallel \-M\-P\-I-\/based 3\-D-\/\-F\-F\-T. 
+
+\-This routine performs real-\/to-\/complex and complex-\/to-\/real parallel 3\-D \-F\-F\-Ts, but not complex-\/to-\/complex.
+
+\-The routine is optimized for small-\/to-\/medium size \-F\-F\-Ts used for \-P\-M\-E and \-P\-P\-P\-M algorithms, and do allocate extra workspace whenever it might improve performance.
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em pfft\-\_\-setup} & \-Pointer to parallel 3dfft setup structure, previously allocated or with automatic storage. \\
+\hline
+{\em ngridx} & \-Global number of grid cells in the x direction. \-Must be divisible by the number of nodes. \\
+\hline
+{\em ngridy} & \-Global number of grid cells in the y direction. \-Must be divisible by the number of nodes. \\
+\hline
+{\em ngridz} & \-Global number of grid cells in the z direction. \\
+\hline
+{\em node2slab} & \-Node id to slab index array, can be \-N\-U\-L\-L. \\
+\hline
+{\em slab2grid\-\_\-x} & \-Slab index to grid\-\_\-x array (nnodes+1), can be \-N\-U\-L\-L. \\
+\hline
+{\em comm} & \-M\-P\-I communicator, must have been initialized. \\
+\hline
+{\em b\-Reproducible} & \-Try to avoid \-F\-F\-T timing optimizations and other stuff that could make results differ for two runs with identical input (reproducibility for debugging). \\
+\hline
+{\em nthreads} & \-Run in parallel using n threads\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+0 or a standard error code. 
+\end{DoxyReturn}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{include_2gmx__parallel__3dfft_8h_a369793270bc9e87b0493fd509995cb51_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{include_2gmx__parallel__3dfft_8h_a1fa051a13d6e2c047bef1b5e4ebac65c}{\index{include/gmx\-\_\-parallel\-\_\-3dfft.\-h@{include/gmx\-\_\-parallel\-\_\-3dfft.\-h}!gmx\-\_\-parallel\-\_\-3dfft\-\_\-real\-\_\-limits@{gmx\-\_\-parallel\-\_\-3dfft\-\_\-real\-\_\-limits}}
+\index{gmx\-\_\-parallel\-\_\-3dfft\-\_\-real\-\_\-limits@{gmx\-\_\-parallel\-\_\-3dfft\-\_\-real\-\_\-limits}!include/gmx_parallel_3dfft.h@{include/gmx\-\_\-parallel\-\_\-3dfft.\-h}}
+\subsubsection[{gmx\-\_\-parallel\-\_\-3dfft\-\_\-real\-\_\-limits}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-parallel\-\_\-3dfft\-\_\-real\-\_\-limits} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-parallel\-\_\-3dfft\-\_\-t}}]{pfft\-\_\-setup, }
+\item[{{\bf ivec}}]{local\-\_\-ndata, }
+\item[{{\bf ivec}}]{local\-\_\-offset, }
+\item[{{\bf ivec}}]{local\-\_\-size}
+\end{DoxyParamCaption}
+)}}\label{include_2gmx__parallel__3dfft_8h_a1fa051a13d6e2c047bef1b5e4ebac65c}
+
+
+\-Get direct space grid index limits. 
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{include_2gmx__parallel__3dfft_8h_a1fa051a13d6e2c047bef1b5e4ebac65c_icgraph}
+\end{center}
+\end{figure}
+
+

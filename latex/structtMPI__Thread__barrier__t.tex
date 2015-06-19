@@ -1,0 +1,64 @@
+\hypertarget{structtMPI__Thread__barrier__t}{\section{t\-M\-P\-I\-\_\-\-Thread\-\_\-barrier\-\_\-t \-Struct \-Reference}
+\label{structtMPI__Thread__barrier__t}\index{t\-M\-P\-I\-\_\-\-Thread\-\_\-barrier\-\_\-t@{t\-M\-P\-I\-\_\-\-Thread\-\_\-barrier\-\_\-t}}
+}
+
+
+\-Pthread implementation of barrier type.  
+
+
+
+
+{\ttfamily \#include $<$threads.\-h$>$}
+
+
+
+\-Collaboration diagram for t\-M\-P\-I\-\_\-\-Thread\-\_\-barrier\-\_\-t\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structtMPI__Thread__barrier__t__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{\-Public \-Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{include_2thread__mpi_2atomic_2gcc_8h_a2c33794dc540e3b07cffc1f81a3fe4b4}{t\-M\-P\-I\-\_\-\-Atomic\-\_\-t} \hyperlink{structtMPI__Thread__barrier__t_a56df7eb38ea75c2306d16551f29aca3e}{initialized}
+\item 
+struct \hyperlink{structtMPI__Thread__barrier}{t\-M\-P\-I\-\_\-\-Thread\-\_\-barrier} $\ast$ \hyperlink{structtMPI__Thread__barrier__t_a5ab0b29030c34815aebcf5ffa473da94}{barrierp}
+\item 
+volatile int \hyperlink{structtMPI__Thread__barrier__t_a237aad70c322000adfa99d786590a443}{threshold}
+\item 
+volatile int \hyperlink{structtMPI__Thread__barrier__t_af149a62c5428560120715ee46deaa387}{count}
+\item 
+volatile int \hyperlink{structtMPI__Thread__barrier__t_ab539784dad836102168a2ae13341c9f1}{cycle}
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Detailed \-Description}
+\-Pthread implementation of barrier type. 
+
+\-The contents of this structure depends on the actual threads implementation used. 
+
+\subsection{\-Member \-Data \-Documentation}
+\hypertarget{structtMPI__Thread__barrier__t_a5ab0b29030c34815aebcf5ffa473da94}{\index{t\-M\-P\-I\-\_\-\-Thread\-\_\-barrier\-\_\-t@{t\-M\-P\-I\-\_\-\-Thread\-\_\-barrier\-\_\-t}!barrierp@{barrierp}}
+\index{barrierp@{barrierp}!tMPI_Thread_barrier_t@{t\-M\-P\-I\-\_\-\-Thread\-\_\-barrier\-\_\-t}}
+\subsubsection[{barrierp}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf t\-M\-P\-I\-\_\-\-Thread\-\_\-barrier} $\ast$ {\bf t\-M\-P\-I\-\_\-\-Thread\-\_\-barrier\-\_\-t\-::barrierp}}}\label{structtMPI__Thread__barrier__t_a5ab0b29030c34815aebcf5ffa473da94}
+\-Actual barrier data structure. \hypertarget{structtMPI__Thread__barrier__t_af149a62c5428560120715ee46deaa387}{\index{t\-M\-P\-I\-\_\-\-Thread\-\_\-barrier\-\_\-t@{t\-M\-P\-I\-\_\-\-Thread\-\_\-barrier\-\_\-t}!count@{count}}
+\index{count@{count}!tMPI_Thread_barrier_t@{t\-M\-P\-I\-\_\-\-Thread\-\_\-barrier\-\_\-t}}
+\subsubsection[{count}]{\setlength{\rightskip}{0pt plus 5cm}volatile int {\bf t\-M\-P\-I\-\_\-\-Thread\-\_\-barrier\-\_\-t\-::count}}}\label{structtMPI__Thread__barrier__t_af149a62c5428560120715ee46deaa387}
+\-Remaining count before completion \hypertarget{structtMPI__Thread__barrier__t_ab539784dad836102168a2ae13341c9f1}{\index{t\-M\-P\-I\-\_\-\-Thread\-\_\-barrier\-\_\-t@{t\-M\-P\-I\-\_\-\-Thread\-\_\-barrier\-\_\-t}!cycle@{cycle}}
+\index{cycle@{cycle}!tMPI_Thread_barrier_t@{t\-M\-P\-I\-\_\-\-Thread\-\_\-barrier\-\_\-t}}
+\subsubsection[{cycle}]{\setlength{\rightskip}{0pt plus 5cm}volatile int {\bf t\-M\-P\-I\-\_\-\-Thread\-\_\-barrier\-\_\-t\-::cycle}}}\label{structtMPI__Thread__barrier__t_ab539784dad836102168a2ae13341c9f1}
+\-Alternating 0/1 to indicate round \hypertarget{structtMPI__Thread__barrier__t_a56df7eb38ea75c2306d16551f29aca3e}{\index{t\-M\-P\-I\-\_\-\-Thread\-\_\-barrier\-\_\-t@{t\-M\-P\-I\-\_\-\-Thread\-\_\-barrier\-\_\-t}!initialized@{initialized}}
+\index{initialized@{initialized}!tMPI_Thread_barrier_t@{t\-M\-P\-I\-\_\-\-Thread\-\_\-barrier\-\_\-t}}
+\subsubsection[{initialized}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\-M\-P\-I\-\_\-\-Atomic\-\_\-t} {\bf t\-M\-P\-I\-\_\-\-Thread\-\_\-barrier\-\_\-t\-::initialized}}}\label{structtMPI__Thread__barrier__t_a56df7eb38ea75c2306d16551f29aca3e}
+\-Whether {\itshape barrierp\/} has been initialized. \hypertarget{structtMPI__Thread__barrier__t_a237aad70c322000adfa99d786590a443}{\index{t\-M\-P\-I\-\_\-\-Thread\-\_\-barrier\-\_\-t@{t\-M\-P\-I\-\_\-\-Thread\-\_\-barrier\-\_\-t}!threshold@{threshold}}
+\index{threshold@{threshold}!tMPI_Thread_barrier_t@{t\-M\-P\-I\-\_\-\-Thread\-\_\-barrier\-\_\-t}}
+\subsubsection[{threshold}]{\setlength{\rightskip}{0pt plus 5cm}volatile int {\bf t\-M\-P\-I\-\_\-\-Thread\-\_\-barrier\-\_\-t\-::threshold}}}\label{structtMPI__Thread__barrier__t_a237aad70c322000adfa99d786590a443}
+\-Total number of members in barrier 
+
+\-The documentation for this struct was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+include/thread\-\_\-mpi/\hyperlink{include_2thread__mpi_2threads_8h}{threads.\-h}\item 
+share/template/gromacs/thread\-\_\-mpi/\hyperlink{share_2template_2gromacs_2thread__mpi_2threads_8h}{threads.\-h}\end{DoxyCompactItemize}

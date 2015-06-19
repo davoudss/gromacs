@@ -1,0 +1,868 @@
+\hypertarget{grompp_8c}{\section{src/kernel/grompp.c \-File \-Reference}
+\label{grompp_8c}\index{src/kernel/grompp.\-c@{src/kernel/grompp.\-c}}
+}
+{\ttfamily \#include $<$sys/types.\-h$>$}\*
+{\ttfamily \#include $<$math.\-h$>$}\*
+{\ttfamily \#include $<$string.\-h$>$}\*
+{\ttfamily \#include $<$errno.\-h$>$}\*
+{\ttfamily \#include $<$limits.\-h$>$}\*
+{\ttfamily \#include \char`\"{}sysstuff.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}smalloc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}macros.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}string2.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}readir.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}toputil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}topio.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}confio.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}copyrite.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}symtab.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}names.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}grompp.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}random.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}vec.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}futil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}statutil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}splitter.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}sortwater.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}convparm.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-fatal.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}warninp.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}index.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmxfio.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}trnio.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}tpxio.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}vsite\-\_\-parm.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}txtdump.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}calcgrid.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}add\-\_\-par.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}enxio.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}perf\-\_\-est.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}compute\-\_\-io.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gpp\-\_\-atomtype.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gpp\-\_\-tomorse.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}mtop\-\_\-util.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}genborn.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}calc\-\_\-verletbuf.\-h\char`\"{}}\*
+\-Include dependency graph for grompp.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{grompp_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{grompp_8c_aaeb812b8830bd1c3fa31fbb313c3ae4d}{\-M\-A\-X\-M\-I\-S\-M\-A\-T\-C\-H}~20
+\item 
+\#define \hyperlink{grompp_8c_a8485f4e81de2537e6a0935626167a775}{\-N\-F\-I\-L\-E}~\hyperlink{share_2template_2gromacs_2macros_8h_a0883345a58f8f63aefa249a4f127f707}{asize}(fnm)
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+static int \hyperlink{grompp_8c_a41abbd5e8e1da3e37ab87b7aba07bf6a}{rm\-\_\-interactions} (int ifunc, int nrmols, \hyperlink{structt__molinfo}{t\-\_\-molinfo} mols\mbox{[}$\,$\mbox{]})
+\item 
+static int \hyperlink{grompp_8c_a8878da8fe7357ade68ee407e04578cfe}{check\-\_\-atom\-\_\-names} (const char $\ast$fn1, const char $\ast$fn2, \hyperlink{structgmx__mtop__t}{gmx\-\_\-mtop\-\_\-t} $\ast$mtop, \hyperlink{structt__atoms}{t\-\_\-atoms} $\ast$at)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{grompp_8c_a77852ce9f55ac6df87c20d786b247c08}{check\-\_\-eg\-\_\-vs\-\_\-cg} (\hyperlink{structgmx__mtop__t}{gmx\-\_\-mtop\-\_\-t} $\ast$mtop)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{grompp_8c_a79e812c504e95c93e473e47bf5e358cc}{check\-\_\-cg\-\_\-sizes} (const char $\ast$topfn, \hyperlink{structt__block}{t\-\_\-block} $\ast$cgs, \hyperlink{include_2warninp_8h_a614757abb660467b0be44eeb5d54e5f2}{warninp\-\_\-t} wi)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{grompp_8c_ae15f9f112163b26aed3956fae7da8c23}{check\-\_\-bonds\-\_\-timestep} (\hyperlink{structgmx__mtop__t}{gmx\-\_\-mtop\-\_\-t} $\ast$mtop, double dt, \hyperlink{include_2warninp_8h_a614757abb660467b0be44eeb5d54e5f2}{warninp\-\_\-t} wi)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{grompp_8c_a050457c3f9eaba7eedd3b3ba19b47a13}{check\-\_\-vel} (\hyperlink{structgmx__mtop__t}{gmx\-\_\-mtop\-\_\-t} $\ast$mtop, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a339df93739a405c3e4b0506624fa27a5}{v}\mbox{[}$\,$\mbox{]})
+\item 
+static \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{grompp_8c_ab003d0c9b346f9642efc47bc76b84c8b}{nint\-\_\-ftype} (\hyperlink{structgmx__mtop__t}{gmx\-\_\-mtop\-\_\-t} $\ast$mtop, \hyperlink{structt__molinfo}{t\-\_\-molinfo} $\ast$mi, int ftype)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{grompp_8c_aed1e9b7f8c366a6377d576e25dc6ca3a}{renumber\-\_\-moltypes} (\hyperlink{structgmx__mtop__t}{gmx\-\_\-mtop\-\_\-t} $\ast$sys, int $\ast$nmolinfo, \hyperlink{structt__molinfo}{t\-\_\-molinfo} $\ast$$\ast$molinfo)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{grompp_8c_a24083ba18a5eba157cf76f9271c15841}{molinfo2mtop} (int nmi, \hyperlink{structt__molinfo}{t\-\_\-molinfo} $\ast$mi, \hyperlink{structgmx__mtop__t}{gmx\-\_\-mtop\-\_\-t} $\ast$mtop)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{grompp_8c_ab0faa8e191cdf70eac7e216cff9d5a84}{new\-\_\-status} (const char $\ast$topfile, const char $\ast$topppfile, const char $\ast$confin, \hyperlink{structt__gromppopts}{t\-\_\-gromppopts} $\ast$opts, \hyperlink{structt__inputrec}{t\-\_\-inputrec} $\ast$ir, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Zero, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Gen\-Vel, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Verbose, \hyperlink{structt__state}{t\-\_\-state} $\ast$state, \hyperlink{include_2gpp__atomtype_8h_a140a52ba2b384d9a6483fe65c780f110}{gpp\-\_\-atomtype\-\_\-t} atype, \hyperlink{structgmx__mtop__t}{gmx\-\_\-mtop\-\_\-t} $\ast$sys, int $\ast$nmi, \hyperlink{structt__molinfo}{t\-\_\-molinfo} $\ast$$\ast$mi, \hyperlink{structt__params}{t\-\_\-params} plist\mbox{[}$\,$\mbox{]}, int $\ast$comb, double $\ast$reppow, real $\ast$fudge\-Q\-Q, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Morse, \hyperlink{include_2warninp_8h_a614757abb660467b0be44eeb5d54e5f2}{warninp\-\_\-t} wi)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{grompp_8c_ae079a8257d5f9709a7049500f361007e}{copy\-\_\-state} (const char $\ast$slog, \hyperlink{include_2types_2trx_8h_a206f77137d72a5db1097a457a7144ad5}{t\-\_\-trxframe} $\ast$\hyperlink{addconf_8c_ae8414314f87c5e49503ac0117eb511ad}{fr}, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Read\-Vel, \hyperlink{structt__state}{t\-\_\-state} $\ast$state, double $\ast$use\-\_\-time)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{grompp_8c_a12a8b7fef62271004210251eeb2dad39}{cont\-\_\-status} (const char $\ast$slog, const char $\ast$\hyperlink{optwat_8c_a0af9a624abbf535eeb74358ffc1634b2}{ener}, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Need\-Vel, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Gen\-Vel, real fr\-\_\-time, \hyperlink{structt__inputrec}{t\-\_\-inputrec} $\ast$ir, \hyperlink{structt__state}{t\-\_\-state} $\ast$state, \hyperlink{structgmx__mtop__t}{gmx\-\_\-mtop\-\_\-t} $\ast$sys, const \hyperlink{include_2types_2oenv_8h_a6a48d77d95132d7318780544821da6a5}{output\-\_\-env\-\_\-t} oenv)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{grompp_8c_aeaf564e96b6bc32cc9fa18df950395fe}{read\-\_\-posres} (\hyperlink{structgmx__mtop__t}{gmx\-\_\-mtop\-\_\-t} $\ast$mtop, \hyperlink{structt__molinfo}{t\-\_\-molinfo} $\ast$molinfo, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Top\-B, char $\ast$fn, int rc\-\_\-scaling, int e\-P\-B\-C, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} com, \hyperlink{include_2warninp_8h_a614757abb660467b0be44eeb5d54e5f2}{warninp\-\_\-t} wi)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{grompp_8c_a44b720a4664647dbdefce5504b8cd560}{gen\-\_\-posres} (\hyperlink{structgmx__mtop__t}{gmx\-\_\-mtop\-\_\-t} $\ast$mtop, \hyperlink{structt__molinfo}{t\-\_\-molinfo} $\ast$mi, char $\ast$fn\-A, char $\ast$fn\-B, int rc\-\_\-scaling, int e\-P\-B\-C, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} com, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} com\-B, \hyperlink{include_2warninp_8h_a614757abb660467b0be44eeb5d54e5f2}{warninp\-\_\-t} wi)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{grompp_8c_ac86a7c5c2669ee170d6de5ca94438244}{set\-\_\-wall\-\_\-atomtype} (\hyperlink{include_2gpp__atomtype_8h_a140a52ba2b384d9a6483fe65c780f110}{gpp\-\_\-atomtype\-\_\-t} at, \hyperlink{structt__gromppopts}{t\-\_\-gromppopts} $\ast$opts, \hyperlink{structt__inputrec}{t\-\_\-inputrec} $\ast$ir, \hyperlink{include_2warninp_8h_a614757abb660467b0be44eeb5d54e5f2}{warninp\-\_\-t} wi)
+\item 
+static int \hyperlink{grompp_8c_a58db83d02f926d430ff23ff7edabc34b}{nrdf\-\_\-internal} (\hyperlink{structt__atoms}{t\-\_\-atoms} $\ast$atoms)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{grompp_8c_a199bb98e1e45f43b1ddb3990e18ad77f}{spline1d} (double \hyperlink{share_2template_2gromacs_2gmx__blas_8h_ad5c6c54e1a03f3517ff918d2f18f5f68}{dx}, double $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ad992d70ec70c927046cfc2ab1c79b188}{y}, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, double $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_acabab5105e88b8f6dd648442400ca01c}{u}, double $\ast$y2)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{grompp_8c_a3ed46b9a003677cb73138c73681c76ad}{interpolate1d} (double xmin, double \hyperlink{share_2template_2gromacs_2gmx__blas_8h_ad5c6c54e1a03f3517ff918d2f18f5f68}{dx}, double $\ast$ya, double $\ast$y2a, double \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}, double $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ad992d70ec70c927046cfc2ab1c79b188}{y}, double $\ast$y1)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{grompp_8c_aa2c2ecf114fceeae8aaf19490230628e}{setup\-\_\-cmap} (int grid\-\_\-spacing, int nc, real $\ast$grid, \hyperlink{structgmx__cmap__t}{gmx\-\_\-cmap\-\_\-t} $\ast$cmap\-\_\-grid)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{grompp_8c_aafafd247eab7cb555540e0ae5880f0a7}{init\-\_\-cmap\-\_\-grid} (\hyperlink{structgmx__cmap__t}{gmx\-\_\-cmap\-\_\-t} $\ast$cmap\-\_\-grid, int ngrid, int grid\-\_\-spacing)
+\item 
+static int \hyperlink{grompp_8c_a06440010dc72c6b44af53c24509ef9a8}{count\-\_\-constraints} (\hyperlink{structgmx__mtop__t}{gmx\-\_\-mtop\-\_\-t} $\ast$mtop, \hyperlink{structt__molinfo}{t\-\_\-molinfo} $\ast$mi, \hyperlink{include_2warninp_8h_a614757abb660467b0be44eeb5d54e5f2}{warninp\-\_\-t} wi)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{grompp_8c_a1bcc1609360c337567743bff8f6dd036}{check\-\_\-gbsa\-\_\-params\-\_\-charged} (\hyperlink{structgmx__mtop__t}{gmx\-\_\-mtop\-\_\-t} $\ast$sys, \hyperlink{include_2gpp__atomtype_8h_a140a52ba2b384d9a6483fe65c780f110}{gpp\-\_\-atomtype\-\_\-t} atype)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{grompp_8c_a9673a1e65c302c12cf7275eab2e301bb}{check\-\_\-gbsa\-\_\-params} (\hyperlink{structt__inputrec}{t\-\_\-inputrec} $\ast$ir, \hyperlink{include_2gpp__atomtype_8h_a140a52ba2b384d9a6483fe65c780f110}{gpp\-\_\-atomtype\-\_\-t} atype)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{grompp_8c_a7cf4d40185c48a1e34d7dc7c8e96e802}{set\-\_\-verlet\-\_\-buffer} (const \hyperlink{structgmx__mtop__t}{gmx\-\_\-mtop\-\_\-t} $\ast$mtop, \hyperlink{structt__inputrec}{t\-\_\-inputrec} $\ast$ir, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box, real verletbuf\-\_\-drift, \hyperlink{include_2warninp_8h_a614757abb660467b0be44eeb5d54e5f2}{warninp\-\_\-t} wi)
+\item 
+int \hyperlink{grompp_8c_a5ff88ecd762eab611b378cdf452cb8bb}{cmain} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Define \-Documentation}
+\hypertarget{grompp_8c_aaeb812b8830bd1c3fa31fbb313c3ae4d}{\index{grompp.\-c@{grompp.\-c}!\-M\-A\-X\-M\-I\-S\-M\-A\-T\-C\-H@{\-M\-A\-X\-M\-I\-S\-M\-A\-T\-C\-H}}
+\index{\-M\-A\-X\-M\-I\-S\-M\-A\-T\-C\-H@{\-M\-A\-X\-M\-I\-S\-M\-A\-T\-C\-H}!grompp.c@{grompp.\-c}}
+\subsubsection[{\-M\-A\-X\-M\-I\-S\-M\-A\-T\-C\-H}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-M\-A\-X\-M\-I\-S\-M\-A\-T\-C\-H}~20}}\label{grompp_8c_aaeb812b8830bd1c3fa31fbb313c3ae4d}
+\hypertarget{grompp_8c_a8485f4e81de2537e6a0935626167a775}{\index{grompp.\-c@{grompp.\-c}!\-N\-F\-I\-L\-E@{\-N\-F\-I\-L\-E}}
+\index{\-N\-F\-I\-L\-E@{\-N\-F\-I\-L\-E}!grompp.c@{grompp.\-c}}
+\subsubsection[{\-N\-F\-I\-L\-E}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-N\-F\-I\-L\-E}~{\bf asize}(fnm)}}\label{grompp_8c_a8485f4e81de2537e6a0935626167a775}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{grompp_8c_a8878da8fe7357ade68ee407e04578cfe}{\index{grompp.\-c@{grompp.\-c}!check\-\_\-atom\-\_\-names@{check\-\_\-atom\-\_\-names}}
+\index{check\-\_\-atom\-\_\-names@{check\-\_\-atom\-\_\-names}!grompp.c@{grompp.\-c}}
+\subsubsection[{check\-\_\-atom\-\_\-names}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf check\-\_\-atom\-\_\-names} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{fn1, }
+\item[{const char $\ast$}]{fn2, }
+\item[{{\bf gmx\-\_\-mtop\-\_\-t} $\ast$}]{mtop, }
+\item[{{\bf t\-\_\-atoms} $\ast$}]{at}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{grompp_8c_a8878da8fe7357ade68ee407e04578cfe}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{grompp_8c_a8878da8fe7357ade68ee407e04578cfe_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{grompp_8c_ae15f9f112163b26aed3956fae7da8c23}{\index{grompp.\-c@{grompp.\-c}!check\-\_\-bonds\-\_\-timestep@{check\-\_\-bonds\-\_\-timestep}}
+\index{check\-\_\-bonds\-\_\-timestep@{check\-\_\-bonds\-\_\-timestep}!grompp.c@{grompp.\-c}}
+\subsubsection[{check\-\_\-bonds\-\_\-timestep}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf check\-\_\-bonds\-\_\-timestep} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-mtop\-\_\-t} $\ast$}]{mtop, }
+\item[{double}]{dt, }
+\item[{{\bf warninp\-\_\-t}}]{wi}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{grompp_8c_ae15f9f112163b26aed3956fae7da8c23}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=308pt]{grompp_8c_ae15f9f112163b26aed3956fae7da8c23_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=278pt]{grompp_8c_ae15f9f112163b26aed3956fae7da8c23_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{grompp_8c_a79e812c504e95c93e473e47bf5e358cc}{\index{grompp.\-c@{grompp.\-c}!check\-\_\-cg\-\_\-sizes@{check\-\_\-cg\-\_\-sizes}}
+\index{check\-\_\-cg\-\_\-sizes@{check\-\_\-cg\-\_\-sizes}!grompp.c@{grompp.\-c}}
+\subsubsection[{check\-\_\-cg\-\_\-sizes}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf check\-\_\-cg\-\_\-sizes} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{topfn, }
+\item[{{\bf t\-\_\-block} $\ast$}]{cgs, }
+\item[{{\bf warninp\-\_\-t}}]{wi}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{grompp_8c_a79e812c504e95c93e473e47bf5e358cc}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=294pt]{grompp_8c_a79e812c504e95c93e473e47bf5e358cc_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=248pt]{grompp_8c_a79e812c504e95c93e473e47bf5e358cc_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{grompp_8c_a77852ce9f55ac6df87c20d786b247c08}{\index{grompp.\-c@{grompp.\-c}!check\-\_\-eg\-\_\-vs\-\_\-cg@{check\-\_\-eg\-\_\-vs\-\_\-cg}}
+\index{check\-\_\-eg\-\_\-vs\-\_\-cg@{check\-\_\-eg\-\_\-vs\-\_\-cg}!grompp.c@{grompp.\-c}}
+\subsubsection[{check\-\_\-eg\-\_\-vs\-\_\-cg}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf check\-\_\-eg\-\_\-vs\-\_\-cg} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-mtop\-\_\-t} $\ast$}]{mtop}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{grompp_8c_a77852ce9f55ac6df87c20d786b247c08}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=266pt]{grompp_8c_a77852ce9f55ac6df87c20d786b247c08_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=250pt]{grompp_8c_a77852ce9f55ac6df87c20d786b247c08_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{grompp_8c_a9673a1e65c302c12cf7275eab2e301bb}{\index{grompp.\-c@{grompp.\-c}!check\-\_\-gbsa\-\_\-params@{check\-\_\-gbsa\-\_\-params}}
+\index{check\-\_\-gbsa\-\_\-params@{check\-\_\-gbsa\-\_\-params}!grompp.c@{grompp.\-c}}
+\subsubsection[{check\-\_\-gbsa\-\_\-params}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf check\-\_\-gbsa\-\_\-params} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-inputrec} $\ast$}]{ir, }
+\item[{{\bf gpp\-\_\-atomtype\-\_\-t}}]{atype}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{grompp_8c_a9673a1e65c302c12cf7275eab2e301bb}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=348pt]{grompp_8c_a9673a1e65c302c12cf7275eab2e301bb_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=268pt]{grompp_8c_a9673a1e65c302c12cf7275eab2e301bb_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{grompp_8c_a1bcc1609360c337567743bff8f6dd036}{\index{grompp.\-c@{grompp.\-c}!check\-\_\-gbsa\-\_\-params\-\_\-charged@{check\-\_\-gbsa\-\_\-params\-\_\-charged}}
+\index{check\-\_\-gbsa\-\_\-params\-\_\-charged@{check\-\_\-gbsa\-\_\-params\-\_\-charged}!grompp.c@{grompp.\-c}}
+\subsubsection[{check\-\_\-gbsa\-\_\-params\-\_\-charged}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf check\-\_\-gbsa\-\_\-params\-\_\-charged} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-mtop\-\_\-t} $\ast$}]{sys, }
+\item[{{\bf gpp\-\_\-atomtype\-\_\-t}}]{atype}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{grompp_8c_a1bcc1609360c337567743bff8f6dd036}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{grompp_8c_a1bcc1609360c337567743bff8f6dd036_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=306pt]{grompp_8c_a1bcc1609360c337567743bff8f6dd036_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{grompp_8c_a050457c3f9eaba7eedd3b3ba19b47a13}{\index{grompp.\-c@{grompp.\-c}!check\-\_\-vel@{check\-\_\-vel}}
+\index{check\-\_\-vel@{check\-\_\-vel}!grompp.c@{grompp.\-c}}
+\subsubsection[{check\-\_\-vel}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf check\-\_\-vel} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-mtop\-\_\-t} $\ast$}]{mtop, }
+\item[{{\bf rvec}}]{v\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{grompp_8c_a050457c3f9eaba7eedd3b3ba19b47a13}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=324pt]{grompp_8c_a050457c3f9eaba7eedd3b3ba19b47a13_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=222pt]{grompp_8c_a050457c3f9eaba7eedd3b3ba19b47a13_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{grompp_8c_a5ff88ecd762eab611b378cdf452cb8bb}{\index{grompp.\-c@{grompp.\-c}!cmain@{cmain}}
+\index{cmain@{cmain}!grompp.c@{grompp.\-c}}
+\subsubsection[{cmain}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf cmain} (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{grompp_8c_a5ff88ecd762eab611b378cdf452cb8bb}
+check size of ex+hy width against box size \hypertarget{grompp_8c_a12a8b7fef62271004210251eeb2dad39}{\index{grompp.\-c@{grompp.\-c}!cont\-\_\-status@{cont\-\_\-status}}
+\index{cont\-\_\-status@{cont\-\_\-status}!grompp.c@{grompp.\-c}}
+\subsubsection[{cont\-\_\-status}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf cont\-\_\-status} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{slog, }
+\item[{const char $\ast$}]{ener, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Need\-Vel, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Gen\-Vel, }
+\item[{real}]{fr\-\_\-time, }
+\item[{{\bf t\-\_\-inputrec} $\ast$}]{ir, }
+\item[{{\bf t\-\_\-state} $\ast$}]{state, }
+\item[{{\bf gmx\-\_\-mtop\-\_\-t} $\ast$}]{sys, }
+\item[{const {\bf output\-\_\-env\-\_\-t}}]{oenv}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{grompp_8c_a12a8b7fef62271004210251eeb2dad39}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{grompp_8c_a12a8b7fef62271004210251eeb2dad39_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=228pt]{grompp_8c_a12a8b7fef62271004210251eeb2dad39_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{grompp_8c_ae079a8257d5f9709a7049500f361007e}{\index{grompp.\-c@{grompp.\-c}!copy\-\_\-state@{copy\-\_\-state}}
+\index{copy\-\_\-state@{copy\-\_\-state}!grompp.c@{grompp.\-c}}
+\subsubsection[{copy\-\_\-state}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf copy\-\_\-state} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{slog, }
+\item[{{\bf t\-\_\-trxframe} $\ast$}]{fr, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Read\-Vel, }
+\item[{{\bf t\-\_\-state} $\ast$}]{state, }
+\item[{double $\ast$}]{use\-\_\-time}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{grompp_8c_ae079a8257d5f9709a7049500f361007e}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=340pt]{grompp_8c_ae079a8257d5f9709a7049500f361007e_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=330pt]{grompp_8c_ae079a8257d5f9709a7049500f361007e_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{grompp_8c_a06440010dc72c6b44af53c24509ef9a8}{\index{grompp.\-c@{grompp.\-c}!count\-\_\-constraints@{count\-\_\-constraints}}
+\index{count\-\_\-constraints@{count\-\_\-constraints}!grompp.c@{grompp.\-c}}
+\subsubsection[{count\-\_\-constraints}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf count\-\_\-constraints} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-mtop\-\_\-t} $\ast$}]{mtop, }
+\item[{{\bf t\-\_\-molinfo} $\ast$}]{mi, }
+\item[{{\bf warninp\-\_\-t}}]{wi}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{grompp_8c_a06440010dc72c6b44af53c24509ef9a8}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=280pt]{grompp_8c_a06440010dc72c6b44af53c24509ef9a8_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=254pt]{grompp_8c_a06440010dc72c6b44af53c24509ef9a8_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{grompp_8c_a44b720a4664647dbdefce5504b8cd560}{\index{grompp.\-c@{grompp.\-c}!gen\-\_\-posres@{gen\-\_\-posres}}
+\index{gen\-\_\-posres@{gen\-\_\-posres}!grompp.c@{grompp.\-c}}
+\subsubsection[{gen\-\_\-posres}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf gen\-\_\-posres} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-mtop\-\_\-t} $\ast$}]{mtop, }
+\item[{{\bf t\-\_\-molinfo} $\ast$}]{mi, }
+\item[{char $\ast$}]{fn\-A, }
+\item[{char $\ast$}]{fn\-B, }
+\item[{int}]{rc\-\_\-scaling, }
+\item[{int}]{e\-P\-B\-C, }
+\item[{{\bf rvec}}]{com, }
+\item[{{\bf rvec}}]{com\-B, }
+\item[{{\bf warninp\-\_\-t}}]{wi}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{grompp_8c_a44b720a4664647dbdefce5504b8cd560}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{grompp_8c_a44b720a4664647dbdefce5504b8cd560_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=228pt]{grompp_8c_a44b720a4664647dbdefce5504b8cd560_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{grompp_8c_aafafd247eab7cb555540e0ae5880f0a7}{\index{grompp.\-c@{grompp.\-c}!init\-\_\-cmap\-\_\-grid@{init\-\_\-cmap\-\_\-grid}}
+\index{init\-\_\-cmap\-\_\-grid@{init\-\_\-cmap\-\_\-grid}!grompp.c@{grompp.\-c}}
+\subsubsection[{init\-\_\-cmap\-\_\-grid}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf init\-\_\-cmap\-\_\-grid} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-cmap\-\_\-t} $\ast$}]{cmap\-\_\-grid, }
+\item[{int}]{ngrid, }
+\item[{int}]{grid\-\_\-spacing}
+\end{DoxyParamCaption}
+)}}\label{grompp_8c_aafafd247eab7cb555540e0ae5880f0a7}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=240pt]{grompp_8c_aafafd247eab7cb555540e0ae5880f0a7_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{grompp_8c_a3ed46b9a003677cb73138c73681c76ad}{\index{grompp.\-c@{grompp.\-c}!interpolate1d@{interpolate1d}}
+\index{interpolate1d@{interpolate1d}!grompp.c@{grompp.\-c}}
+\subsubsection[{interpolate1d}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf interpolate1d} (
+\begin{DoxyParamCaption}
+\item[{double}]{xmin, }
+\item[{double}]{dx, }
+\item[{double $\ast$}]{ya, }
+\item[{double $\ast$}]{y2a, }
+\item[{double}]{x, }
+\item[{double $\ast$}]{y, }
+\item[{double $\ast$}]{y1}
+\end{DoxyParamCaption}
+)}}\label{grompp_8c_a3ed46b9a003677cb73138c73681c76ad}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=338pt]{grompp_8c_a3ed46b9a003677cb73138c73681c76ad_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{grompp_8c_a24083ba18a5eba157cf76f9271c15841}{\index{grompp.\-c@{grompp.\-c}!molinfo2mtop@{molinfo2mtop}}
+\index{molinfo2mtop@{molinfo2mtop}!grompp.c@{grompp.\-c}}
+\subsubsection[{molinfo2mtop}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf molinfo2mtop} (
+\begin{DoxyParamCaption}
+\item[{int}]{nmi, }
+\item[{{\bf t\-\_\-molinfo} $\ast$}]{mi, }
+\item[{{\bf gmx\-\_\-mtop\-\_\-t} $\ast$}]{mtop}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{grompp_8c_a24083ba18a5eba157cf76f9271c15841}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=340pt]{grompp_8c_a24083ba18a5eba157cf76f9271c15841_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{grompp_8c_ab0faa8e191cdf70eac7e216cff9d5a84}{\index{grompp.\-c@{grompp.\-c}!new\-\_\-status@{new\-\_\-status}}
+\index{new\-\_\-status@{new\-\_\-status}!grompp.c@{grompp.\-c}}
+\subsubsection[{new\-\_\-status}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf new\-\_\-status} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{topfile, }
+\item[{const char $\ast$}]{topppfile, }
+\item[{const char $\ast$}]{confin, }
+\item[{{\bf t\-\_\-gromppopts} $\ast$}]{opts, }
+\item[{{\bf t\-\_\-inputrec} $\ast$}]{ir, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Zero, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Gen\-Vel, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Verbose, }
+\item[{{\bf t\-\_\-state} $\ast$}]{state, }
+\item[{{\bf gpp\-\_\-atomtype\-\_\-t}}]{atype, }
+\item[{{\bf gmx\-\_\-mtop\-\_\-t} $\ast$}]{sys, }
+\item[{int $\ast$}]{nmi, }
+\item[{{\bf t\-\_\-molinfo} $\ast$$\ast$}]{mi, }
+\item[{{\bf t\-\_\-params}}]{plist\mbox{[}$\,$\mbox{]}, }
+\item[{int $\ast$}]{comb, }
+\item[{double $\ast$}]{reppow, }
+\item[{real $\ast$}]{fudge\-Q\-Q, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Morse, }
+\item[{{\bf warninp\-\_\-t}}]{wi}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{grompp_8c_ab0faa8e191cdf70eac7e216cff9d5a84}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{grompp_8c_ab0faa8e191cdf70eac7e216cff9d5a84_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=228pt]{grompp_8c_ab0faa8e191cdf70eac7e216cff9d5a84_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{grompp_8c_ab003d0c9b346f9642efc47bc76b84c8b}{\index{grompp.\-c@{grompp.\-c}!nint\-\_\-ftype@{nint\-\_\-ftype}}
+\index{nint\-\_\-ftype@{nint\-\_\-ftype}!grompp.c@{grompp.\-c}}
+\subsubsection[{nint\-\_\-ftype}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gmx\-\_\-bool} {\bf nint\-\_\-ftype} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-mtop\-\_\-t} $\ast$}]{mtop, }
+\item[{{\bf t\-\_\-molinfo} $\ast$}]{mi, }
+\item[{int}]{ftype}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{grompp_8c_ab003d0c9b346f9642efc47bc76b84c8b}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=324pt]{grompp_8c_ab003d0c9b346f9642efc47bc76b84c8b_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{grompp_8c_a58db83d02f926d430ff23ff7edabc34b}{\index{grompp.\-c@{grompp.\-c}!nrdf\-\_\-internal@{nrdf\-\_\-internal}}
+\index{nrdf\-\_\-internal@{nrdf\-\_\-internal}!grompp.c@{grompp.\-c}}
+\subsubsection[{nrdf\-\_\-internal}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf nrdf\-\_\-internal} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-atoms} $\ast$}]{atoms}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{grompp_8c_a58db83d02f926d430ff23ff7edabc34b}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{grompp_8c_a58db83d02f926d430ff23ff7edabc34b_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{grompp_8c_aeaf564e96b6bc32cc9fa18df950395fe}{\index{grompp.\-c@{grompp.\-c}!read\-\_\-posres@{read\-\_\-posres}}
+\index{read\-\_\-posres@{read\-\_\-posres}!grompp.c@{grompp.\-c}}
+\subsubsection[{read\-\_\-posres}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf read\-\_\-posres} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-mtop\-\_\-t} $\ast$}]{mtop, }
+\item[{{\bf t\-\_\-molinfo} $\ast$}]{molinfo, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Top\-B, }
+\item[{char $\ast$}]{fn, }
+\item[{int}]{rc\-\_\-scaling, }
+\item[{int}]{e\-P\-B\-C, }
+\item[{{\bf rvec}}]{com, }
+\item[{{\bf warninp\-\_\-t}}]{wi}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{grompp_8c_aeaf564e96b6bc32cc9fa18df950395fe}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{grompp_8c_aeaf564e96b6bc32cc9fa18df950395fe_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=334pt]{grompp_8c_aeaf564e96b6bc32cc9fa18df950395fe_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{grompp_8c_aed1e9b7f8c366a6377d576e25dc6ca3a}{\index{grompp.\-c@{grompp.\-c}!renumber\-\_\-moltypes@{renumber\-\_\-moltypes}}
+\index{renumber\-\_\-moltypes@{renumber\-\_\-moltypes}!grompp.c@{grompp.\-c}}
+\subsubsection[{renumber\-\_\-moltypes}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf renumber\-\_\-moltypes} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-mtop\-\_\-t} $\ast$}]{sys, }
+\item[{int $\ast$}]{nmolinfo, }
+\item[{{\bf t\-\_\-molinfo} $\ast$$\ast$}]{molinfo}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{grompp_8c_aed1e9b7f8c366a6377d576e25dc6ca3a}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=272pt]{grompp_8c_aed1e9b7f8c366a6377d576e25dc6ca3a_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{grompp_8c_aed1e9b7f8c366a6377d576e25dc6ca3a_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{grompp_8c_a41abbd5e8e1da3e37ab87b7aba07bf6a}{\index{grompp.\-c@{grompp.\-c}!rm\-\_\-interactions@{rm\-\_\-interactions}}
+\index{rm\-\_\-interactions@{rm\-\_\-interactions}!grompp.c@{grompp.\-c}}
+\subsubsection[{rm\-\_\-interactions}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf rm\-\_\-interactions} (
+\begin{DoxyParamCaption}
+\item[{int}]{ifunc, }
+\item[{int}]{nrmols, }
+\item[{{\bf t\-\_\-molinfo}}]{mols\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{grompp_8c_a41abbd5e8e1da3e37ab87b7aba07bf6a}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=348pt]{grompp_8c_a41abbd5e8e1da3e37ab87b7aba07bf6a_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{grompp_8c_a7cf4d40185c48a1e34d7dc7c8e96e802}{\index{grompp.\-c@{grompp.\-c}!set\-\_\-verlet\-\_\-buffer@{set\-\_\-verlet\-\_\-buffer}}
+\index{set\-\_\-verlet\-\_\-buffer@{set\-\_\-verlet\-\_\-buffer}!grompp.c@{grompp.\-c}}
+\subsubsection[{set\-\_\-verlet\-\_\-buffer}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf set\-\_\-verlet\-\_\-buffer} (
+\begin{DoxyParamCaption}
+\item[{const {\bf gmx\-\_\-mtop\-\_\-t} $\ast$}]{mtop, }
+\item[{{\bf t\-\_\-inputrec} $\ast$}]{ir, }
+\item[{{\bf matrix}}]{box, }
+\item[{real}]{verletbuf\-\_\-drift, }
+\item[{{\bf warninp\-\_\-t}}]{wi}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{grompp_8c_a7cf4d40185c48a1e34d7dc7c8e96e802}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{grompp_8c_a7cf4d40185c48a1e34d7dc7c8e96e802_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=250pt]{grompp_8c_a7cf4d40185c48a1e34d7dc7c8e96e802_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{grompp_8c_ac86a7c5c2669ee170d6de5ca94438244}{\index{grompp.\-c@{grompp.\-c}!set\-\_\-wall\-\_\-atomtype@{set\-\_\-wall\-\_\-atomtype}}
+\index{set\-\_\-wall\-\_\-atomtype@{set\-\_\-wall\-\_\-atomtype}!grompp.c@{grompp.\-c}}
+\subsubsection[{set\-\_\-wall\-\_\-atomtype}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf set\-\_\-wall\-\_\-atomtype} (
+\begin{DoxyParamCaption}
+\item[{{\bf gpp\-\_\-atomtype\-\_\-t}}]{at, }
+\item[{{\bf t\-\_\-gromppopts} $\ast$}]{opts, }
+\item[{{\bf t\-\_\-inputrec} $\ast$}]{ir, }
+\item[{{\bf warninp\-\_\-t}}]{wi}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{grompp_8c_ac86a7c5c2669ee170d6de5ca94438244}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=314pt]{grompp_8c_ac86a7c5c2669ee170d6de5ca94438244_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=258pt]{grompp_8c_ac86a7c5c2669ee170d6de5ca94438244_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{grompp_8c_aa2c2ecf114fceeae8aaf19490230628e}{\index{grompp.\-c@{grompp.\-c}!setup\-\_\-cmap@{setup\-\_\-cmap}}
+\index{setup\-\_\-cmap@{setup\-\_\-cmap}!grompp.c@{grompp.\-c}}
+\subsubsection[{setup\-\_\-cmap}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf setup\-\_\-cmap} (
+\begin{DoxyParamCaption}
+\item[{int}]{grid\-\_\-spacing, }
+\item[{int}]{nc, }
+\item[{real $\ast$}]{grid, }
+\item[{{\bf gmx\-\_\-cmap\-\_\-t} $\ast$}]{cmap\-\_\-grid}
+\end{DoxyParamCaption}
+)}}\label{grompp_8c_aa2c2ecf114fceeae8aaf19490230628e}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=258pt]{grompp_8c_aa2c2ecf114fceeae8aaf19490230628e_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=230pt]{grompp_8c_aa2c2ecf114fceeae8aaf19490230628e_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{grompp_8c_a199bb98e1e45f43b1ddb3990e18ad77f}{\index{grompp.\-c@{grompp.\-c}!spline1d@{spline1d}}
+\index{spline1d@{spline1d}!grompp.c@{grompp.\-c}}
+\subsubsection[{spline1d}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf spline1d} (
+\begin{DoxyParamCaption}
+\item[{double}]{dx, }
+\item[{double $\ast$}]{y, }
+\item[{int}]{n, }
+\item[{double $\ast$}]{u, }
+\item[{double $\ast$}]{y2}
+\end{DoxyParamCaption}
+)}}\label{grompp_8c_a199bb98e1e45f43b1ddb3990e18ad77f}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=320pt]{grompp_8c_a199bb98e1e45f43b1ddb3990e18ad77f_icgraph}
+\end{center}
+\end{figure}
+
+

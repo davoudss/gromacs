@@ -1,0 +1,146 @@
+\hypertarget{include_2thread__mpi_2numa__malloc_8h}{\section{include/thread\-\_\-mpi/numa\-\_\-malloc.h \-File \-Reference}
+\label{include_2thread__mpi_2numa__malloc_8h}\index{include/thread\-\_\-mpi/numa\-\_\-malloc.\-h@{include/thread\-\_\-mpi/numa\-\_\-malloc.\-h}}
+}
+
+
+\-N\-U\-M\-A aware memory allocators.  
+
+
+{\ttfamily \#include \char`\"{}visibility.\-h\char`\"{}}\*
+\-Include dependency graph for numa\-\_\-malloc.\-h\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=246pt]{include_2thread__mpi_2numa__malloc_8h__incl}
+\end{center}
+\end{figure}
+\-This graph shows which files directly or indirectly include this file\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=280pt]{include_2thread__mpi_2numa__malloc_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{share_2template_2gromacs_2thread__mpi_2visibility_8h_a1b2991140928309c56dcbe825bffb97e}{\-T\-M\-P\-I\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$ \hyperlink{include_2thread__mpi_2numa__malloc_8h_a403014f162039504ff6bf868dec63bbb}{t\-M\-P\-I\-\_\-\-Malloc\-\_\-local} (size\-\_\-t size)
+\begin{DoxyCompactList}\small\item\em \-Allocate local memory by size in bytes. \end{DoxyCompactList}\item 
+\hyperlink{share_2template_2gromacs_2thread__mpi_2visibility_8h_a1b2991140928309c56dcbe825bffb97e}{\-T\-M\-P\-I\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$ \hyperlink{include_2thread__mpi_2numa__malloc_8h_a422926a147f869f43c1afed80abe9700}{t\-M\-P\-I\-\_\-\-Calloc\-\_\-local} (size\-\_\-t nmemb, size\-\_\-t size)
+\begin{DoxyCompactList}\small\item\em \-Allocate local memory by array and element size. \end{DoxyCompactList}\item 
+\hyperlink{share_2template_2gromacs_2thread__mpi_2visibility_8h_a1b2991140928309c56dcbe825bffb97e}{\-T\-M\-P\-I\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$ \hyperlink{include_2thread__mpi_2numa__malloc_8h_ae4e8283ea9a2c94b10ecb3acc6f3c8f9}{t\-M\-P\-I\-\_\-\-Realloc\-\_\-local} (\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$ptr, size\-\_\-t size)
+\begin{DoxyCompactList}\small\item\em \-Re-\/allocate to local memory. \end{DoxyCompactList}\item 
+\hyperlink{share_2template_2gromacs_2thread__mpi_2visibility_8h_a1b2991140928309c56dcbe825bffb97e}{\-T\-M\-P\-I\-\_\-\-E\-X\-P\-O\-R\-T} int \hyperlink{include_2thread__mpi_2numa__malloc_8h_a5ed7d75e684431ba37fabf092e980f4e}{t\-M\-P\-I\-\_\-\-Free\-\_\-numa} (\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$ptr)
+\begin{DoxyCompactList}\small\item\em \-Free memory allocate with any of the \-N\-U\-M\-A-\/aware allocators. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{\-Detailed \-Description}
+\-N\-U\-M\-A aware memory allocators. \-This file provides a \-N\-U\-M\-A aware version of malloc() and friends to force local allocation, preventing expensive 'remote' memory access.
+
+\-Note that memory allocated with \hyperlink{include_2thread__mpi_2numa__malloc_8h_a403014f162039504ff6bf868dec63bbb}{t\-M\-P\-I\-\_\-\-Malloc\-\_\-local()}, etc. \-M\-U\-S\-T be freed with \hyperlink{include_2thread__mpi_2numa__malloc_8h_a5ed7d75e684431ba37fabf092e980f4e}{t\-M\-P\-I\-\_\-\-Free\-\_\-numa()}.
+
+\-Currently this is only implemented on \-Windows. \-Check for the presence of these functions with 
+\begin{DoxyCode}
+   #ifdef TMPI_NUMA_MALLOC
+    ....
+   #endif
+\end{DoxyCode}
+ 
+
+\subsection{\-Function \-Documentation}
+\hypertarget{include_2thread__mpi_2numa__malloc_8h_a422926a147f869f43c1afed80abe9700}{\index{include/thread\-\_\-mpi/numa\-\_\-malloc.\-h@{include/thread\-\_\-mpi/numa\-\_\-malloc.\-h}!t\-M\-P\-I\-\_\-\-Calloc\-\_\-local@{t\-M\-P\-I\-\_\-\-Calloc\-\_\-local}}
+\index{t\-M\-P\-I\-\_\-\-Calloc\-\_\-local@{t\-M\-P\-I\-\_\-\-Calloc\-\_\-local}!include/thread_mpi/numa_malloc.h@{include/thread\-\_\-mpi/numa\-\_\-malloc.\-h}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Calloc\-\_\-local}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-T\-M\-P\-I\-\_\-\-E\-X\-P\-O\-R\-T} {\bf void}$\ast$ {\bf t\-M\-P\-I\-\_\-\-Calloc\-\_\-local} (
+\begin{DoxyParamCaption}
+\item[{size\-\_\-t}]{nmemb, }
+\item[{size\-\_\-t}]{size}
+\end{DoxyParamCaption}
+)}}\label{include_2thread__mpi_2numa__malloc_8h_a422926a147f869f43c1afed80abe9700}
+
+
+\-Allocate local memory by array and element size. 
+
+\begin{DoxySeeAlso}{\-See also}
+calloc()
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em nmemb} & = number of array members \\
+\hline
+\mbox{\tt in}  & {\em size} & = size in units of sizeof() of a single array element\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-Pointer to allocated memory, or \-N\-U\-L\-L in case of failure 
+\end{DoxyReturn}
+\hypertarget{include_2thread__mpi_2numa__malloc_8h_a5ed7d75e684431ba37fabf092e980f4e}{\index{include/thread\-\_\-mpi/numa\-\_\-malloc.\-h@{include/thread\-\_\-mpi/numa\-\_\-malloc.\-h}!t\-M\-P\-I\-\_\-\-Free\-\_\-numa@{t\-M\-P\-I\-\_\-\-Free\-\_\-numa}}
+\index{t\-M\-P\-I\-\_\-\-Free\-\_\-numa@{t\-M\-P\-I\-\_\-\-Free\-\_\-numa}!include/thread_mpi/numa_malloc.h@{include/thread\-\_\-mpi/numa\-\_\-malloc.\-h}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Free\-\_\-numa}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-T\-M\-P\-I\-\_\-\-E\-X\-P\-O\-R\-T} int {\bf t\-M\-P\-I\-\_\-\-Free\-\_\-numa} (
+\begin{DoxyParamCaption}
+\item[{{\bf void} $\ast$}]{ptr}
+\end{DoxyParamCaption}
+)}}\label{include_2thread__mpi_2numa__malloc_8h_a5ed7d75e684431ba37fabf092e980f4e}
+
+
+\-Free memory allocate with any of the \-N\-U\-M\-A-\/aware allocators. 
+
+\begin{DoxySeeAlso}{\-See also}
+calloc()
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em ptr} & = pointer to block of memory allocated with a \-N\-U\-M\-A allocator\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-Returns debug info\-: 0 if the memory was allocated with a \-N\-U\-M\-A allocator, 1 if it was allocated by another allocator. 
+\end{DoxyReturn}
+\hypertarget{include_2thread__mpi_2numa__malloc_8h_a403014f162039504ff6bf868dec63bbb}{\index{include/thread\-\_\-mpi/numa\-\_\-malloc.\-h@{include/thread\-\_\-mpi/numa\-\_\-malloc.\-h}!t\-M\-P\-I\-\_\-\-Malloc\-\_\-local@{t\-M\-P\-I\-\_\-\-Malloc\-\_\-local}}
+\index{t\-M\-P\-I\-\_\-\-Malloc\-\_\-local@{t\-M\-P\-I\-\_\-\-Malloc\-\_\-local}!include/thread_mpi/numa_malloc.h@{include/thread\-\_\-mpi/numa\-\_\-malloc.\-h}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Malloc\-\_\-local}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-T\-M\-P\-I\-\_\-\-E\-X\-P\-O\-R\-T} {\bf void}$\ast$ {\bf t\-M\-P\-I\-\_\-\-Malloc\-\_\-local} (
+\begin{DoxyParamCaption}
+\item[{size\-\_\-t}]{size}
+\end{DoxyParamCaption}
+)}}\label{include_2thread__mpi_2numa__malloc_8h_a403014f162039504ff6bf868dec63bbb}
+
+
+\-Allocate local memory by size in bytes. 
+
+\begin{DoxySeeAlso}{\-See also}
+malloc()
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em size} & = size in units of sizeof() of the memory to be allocated\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-Pointer to allocated memory, or \-N\-U\-L\-L in case of failure 
+\end{DoxyReturn}
+\hypertarget{include_2thread__mpi_2numa__malloc_8h_ae4e8283ea9a2c94b10ecb3acc6f3c8f9}{\index{include/thread\-\_\-mpi/numa\-\_\-malloc.\-h@{include/thread\-\_\-mpi/numa\-\_\-malloc.\-h}!t\-M\-P\-I\-\_\-\-Realloc\-\_\-local@{t\-M\-P\-I\-\_\-\-Realloc\-\_\-local}}
+\index{t\-M\-P\-I\-\_\-\-Realloc\-\_\-local@{t\-M\-P\-I\-\_\-\-Realloc\-\_\-local}!include/thread_mpi/numa_malloc.h@{include/thread\-\_\-mpi/numa\-\_\-malloc.\-h}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Realloc\-\_\-local}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-T\-M\-P\-I\-\_\-\-E\-X\-P\-O\-R\-T} {\bf void}$\ast$ {\bf t\-M\-P\-I\-\_\-\-Realloc\-\_\-local} (
+\begin{DoxyParamCaption}
+\item[{{\bf void} $\ast$}]{ptr, }
+\item[{size\-\_\-t}]{size}
+\end{DoxyParamCaption}
+)}}\label{include_2thread__mpi_2numa__malloc_8h_ae4e8283ea9a2c94b10ecb3acc6f3c8f9}
+
+
+\-Re-\/allocate to local memory. 
+
+\begin{DoxySeeAlso}{\-See also}
+realloc()
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em ptr} & = input pointer of originally allocated memory (can be allocated with \-N\-U\-M\-A or non-\/\-N\-U\-M\-A malloc()) \\
+\hline
+\mbox{\tt in}  & {\em size} & = new size in units of sizeof().\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-Pointer to allocated memory, or \-N\-U\-L\-L in case of failure 
+\end{DoxyReturn}

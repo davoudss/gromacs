@@ -1,0 +1,248 @@
+\hypertarget{nm2type_8c}{\section{src/kernel/nm2type.c \-File \-Reference}
+\label{nm2type_8c}\index{src/kernel/nm2type.\-c@{src/kernel/nm2type.\-c}}
+}
+{\ttfamily \#include \char`\"{}assert.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}maths.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}macros.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}copyrite.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}bondf.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}string2.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}smalloc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}sysstuff.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}confio.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}physics.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}statutil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}vec.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}random.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}3dview.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}txtdump.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}readinp.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}names.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}toppush.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}pdb2top.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gpp\-\_\-nextnb.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gpp\-\_\-atomtype.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}g\-\_\-x2top.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}fflibutil.\-h\char`\"{}}\*
+\-Include dependency graph for nm2type.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nm2type_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{nm2type_8c_a6b07e4871725dde4c716eb22b99d2231}{prev}~(1-\/cur)
+\end{DoxyCompactItemize}
+\subsection*{\-Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \{ \*
+\hyperlink{nm2type_8c_ab7591967a51fc3c9da81a192f2f501c7ac70a0b9c8d5663f635f1f56b56d4dbc6}{ematch\-None}, 
+\hyperlink{nm2type_8c_ab7591967a51fc3c9da81a192f2f501c7a22226c6370789f98bf55aa948410d8fd}{ematch\-Wild}, 
+\hyperlink{nm2type_8c_ab7591967a51fc3c9da81a192f2f501c7a2e16edd49726083b9cdf8808d4146a94}{ematch\-Elem}, 
+\hyperlink{nm2type_8c_ab7591967a51fc3c9da81a192f2f501c7a694a687f46244ac985cf08983fcf9681}{ematch\-Exact}, 
+\*
+\hyperlink{nm2type_8c_ab7591967a51fc3c9da81a192f2f501c7a8ced29b65619bd784ada27b69c3be69b}{ematch\-N\-R}
+ \}
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{nm2type_8c_a2420fe7c208aa866e4ae4d46173bba04}{rd\-\_\-nm2type\-\_\-file} (const char $\ast$fn, int $\ast$nnm, \hyperlink{structt__nm2type}{t\-\_\-nm2type} $\ast$$\ast$nmp)
+\item 
+\hyperlink{structt__nm2type}{t\-\_\-nm2type} $\ast$ \hyperlink{nm2type_8c_a912c6a818f34c630d89e89f99e9a8a3e}{rd\-\_\-nm2type} (const char $\ast$ffdir, int $\ast$nnm)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{nm2type_8c_a6834b1cb31058042632c8891b4f612b2}{dump\-\_\-nm2type} (\-F\-I\-L\-E $\ast$fp, int nnm, \hyperlink{structt__nm2type}{t\-\_\-nm2type} nm2t\mbox{[}$\,$\mbox{]})
+\item 
+static int \hyperlink{nm2type_8c_a8a4a021fa6f1ddcf576d475a07685df9}{match\-\_\-str} (const char $\ast$atom, const char $\ast$template\-\_\-string)
+\item 
+int \hyperlink{nm2type_8c_a01f877592f3ec52f65e3ecb366a00a07}{nm2type} (int nnm, \hyperlink{structt__nm2type}{t\-\_\-nm2type} nm2t\mbox{[}$\,$\mbox{]}, \hyperlink{structt__symtab}{t\-\_\-symtab} $\ast$tab, \hyperlink{structt__atoms}{t\-\_\-atoms} $\ast$atoms, \hyperlink{include_2gpp__atomtype_8h_a140a52ba2b384d9a6483fe65c780f110}{gpp\-\_\-atomtype\-\_\-t} atype, int $\ast$nbonds, \hyperlink{structt__params}{t\-\_\-params} $\ast$\hyperlink{bondfree_8c_a575fd72d984d738fc87692870c0807d0}{bonds})
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Define \-Documentation}
+\hypertarget{nm2type_8c_a6b07e4871725dde4c716eb22b99d2231}{\index{nm2type.\-c@{nm2type.\-c}!prev@{prev}}
+\index{prev@{prev}!nm2type.c@{nm2type.\-c}}
+\subsubsection[{prev}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf prev}~(1-\/cur)}}\label{nm2type_8c_a6b07e4871725dde4c716eb22b99d2231}
+
+
+\subsection{\-Enumeration \-Type \-Documentation}
+\hypertarget{nm2type_8c_ab7591967a51fc3c9da81a192f2f501c7}{\subsubsection[{anonymous enum}]{\setlength{\rightskip}{0pt plus 5cm}anonymous enum}}\label{nm2type_8c_ab7591967a51fc3c9da81a192f2f501c7}
+\begin{Desc}
+\item[\-Enumerator\-: ]\par
+\begin{description}
+\index{ematch\-None@{ematch\-None}!nm2type.\-c@{nm2type.\-c}}\index{nm2type.\-c@{nm2type.\-c}!ematch\-None@{ematch\-None}}\item[{\em 
+\hypertarget{nm2type_8c_ab7591967a51fc3c9da81a192f2f501c7ac70a0b9c8d5663f635f1f56b56d4dbc6}{ematch\-None}\label{nm2type_8c_ab7591967a51fc3c9da81a192f2f501c7ac70a0b9c8d5663f635f1f56b56d4dbc6}
+}]\index{ematch\-Wild@{ematch\-Wild}!nm2type.\-c@{nm2type.\-c}}\index{nm2type.\-c@{nm2type.\-c}!ematch\-Wild@{ematch\-Wild}}\item[{\em 
+\hypertarget{nm2type_8c_ab7591967a51fc3c9da81a192f2f501c7a22226c6370789f98bf55aa948410d8fd}{ematch\-Wild}\label{nm2type_8c_ab7591967a51fc3c9da81a192f2f501c7a22226c6370789f98bf55aa948410d8fd}
+}]\index{ematch\-Elem@{ematch\-Elem}!nm2type.\-c@{nm2type.\-c}}\index{nm2type.\-c@{nm2type.\-c}!ematch\-Elem@{ematch\-Elem}}\item[{\em 
+\hypertarget{nm2type_8c_ab7591967a51fc3c9da81a192f2f501c7a2e16edd49726083b9cdf8808d4146a94}{ematch\-Elem}\label{nm2type_8c_ab7591967a51fc3c9da81a192f2f501c7a2e16edd49726083b9cdf8808d4146a94}
+}]\index{ematch\-Exact@{ematch\-Exact}!nm2type.\-c@{nm2type.\-c}}\index{nm2type.\-c@{nm2type.\-c}!ematch\-Exact@{ematch\-Exact}}\item[{\em 
+\hypertarget{nm2type_8c_ab7591967a51fc3c9da81a192f2f501c7a694a687f46244ac985cf08983fcf9681}{ematch\-Exact}\label{nm2type_8c_ab7591967a51fc3c9da81a192f2f501c7a694a687f46244ac985cf08983fcf9681}
+}]\index{ematch\-N\-R@{ematch\-N\-R}!nm2type.\-c@{nm2type.\-c}}\index{nm2type.\-c@{nm2type.\-c}!ematch\-N\-R@{ematch\-N\-R}}\item[{\em 
+\hypertarget{nm2type_8c_ab7591967a51fc3c9da81a192f2f501c7a8ced29b65619bd784ada27b69c3be69b}{ematch\-N\-R}\label{nm2type_8c_ab7591967a51fc3c9da81a192f2f501c7a8ced29b65619bd784ada27b69c3be69b}
+}]\end{description}
+\end{Desc}
+
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{nm2type_8c_a6834b1cb31058042632c8891b4f612b2}{\index{nm2type.\-c@{nm2type.\-c}!dump\-\_\-nm2type@{dump\-\_\-nm2type}}
+\index{dump\-\_\-nm2type@{dump\-\_\-nm2type}!nm2type.c@{nm2type.\-c}}
+\subsubsection[{dump\-\_\-nm2type}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf dump\-\_\-nm2type} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{int}]{nnm, }
+\item[{{\bf t\-\_\-nm2type}}]{nm2t\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{nm2type_8c_a6834b1cb31058042632c8891b4f612b2}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=244pt]{nm2type_8c_a6834b1cb31058042632c8891b4f612b2_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{nm2type_8c_a8a4a021fa6f1ddcf576d475a07685df9}{\index{nm2type.\-c@{nm2type.\-c}!match\-\_\-str@{match\-\_\-str}}
+\index{match\-\_\-str@{match\-\_\-str}!nm2type.c@{nm2type.\-c}}
+\subsubsection[{match\-\_\-str}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf match\-\_\-str} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{atom, }
+\item[{const char $\ast$}]{template\-\_\-string}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{nm2type_8c_a8a4a021fa6f1ddcf576d475a07685df9}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=268pt]{nm2type_8c_a8a4a021fa6f1ddcf576d475a07685df9_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nm2type_8c_a8a4a021fa6f1ddcf576d475a07685df9_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{nm2type_8c_a01f877592f3ec52f65e3ecb366a00a07}{\index{nm2type.\-c@{nm2type.\-c}!nm2type@{nm2type}}
+\index{nm2type@{nm2type}!nm2type.c@{nm2type.\-c}}
+\subsubsection[{nm2type}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf nm2type} (
+\begin{DoxyParamCaption}
+\item[{int}]{nnm, }
+\item[{{\bf t\-\_\-nm2type}}]{nm2t\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf t\-\_\-symtab} $\ast$}]{tab, }
+\item[{{\bf t\-\_\-atoms} $\ast$}]{atoms, }
+\item[{{\bf gpp\-\_\-atomtype\-\_\-t}}]{atype, }
+\item[{int $\ast$}]{nbonds, }
+\item[{{\bf t\-\_\-params} $\ast$}]{bonds}
+\end{DoxyParamCaption}
+)}}\label{nm2type_8c_a01f877592f3ec52f65e3ecb366a00a07}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nm2type_8c_a01f877592f3ec52f65e3ecb366a00a07_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=332pt]{nm2type_8c_a01f877592f3ec52f65e3ecb366a00a07_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{nm2type_8c_a912c6a818f34c630d89e89f99e9a8a3e}{\index{nm2type.\-c@{nm2type.\-c}!rd\-\_\-nm2type@{rd\-\_\-nm2type}}
+\index{rd\-\_\-nm2type@{rd\-\_\-nm2type}!nm2type.c@{nm2type.\-c}}
+\subsubsection[{rd\-\_\-nm2type}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\-\_\-nm2type}$\ast$ {\bf rd\-\_\-nm2type} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{ffdir, }
+\item[{int $\ast$}]{nnm}
+\end{DoxyParamCaption}
+)}}\label{nm2type_8c_a912c6a818f34c630d89e89f99e9a8a3e}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nm2type_8c_a912c6a818f34c630d89e89f99e9a8a3e_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=228pt]{nm2type_8c_a912c6a818f34c630d89e89f99e9a8a3e_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{nm2type_8c_a2420fe7c208aa866e4ae4d46173bba04}{\index{nm2type.\-c@{nm2type.\-c}!rd\-\_\-nm2type\-\_\-file@{rd\-\_\-nm2type\-\_\-file}}
+\index{rd\-\_\-nm2type\-\_\-file@{rd\-\_\-nm2type\-\_\-file}!nm2type.c@{nm2type.\-c}}
+\subsubsection[{rd\-\_\-nm2type\-\_\-file}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf rd\-\_\-nm2type\-\_\-file} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{fn, }
+\item[{int $\ast$}]{nnm, }
+\item[{{\bf t\-\_\-nm2type} $\ast$$\ast$}]{nmp}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{nm2type_8c_a2420fe7c208aa866e4ae4d46173bba04}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nm2type_8c_a2420fe7c208aa866e4ae4d46173bba04_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nm2type_8c_a2420fe7c208aa866e4ae4d46173bba04_icgraph}
+\end{center}
+\end{figure}
+
+

@@ -1,0 +1,42 @@
+thread\-\_\-mpi is a cross-\/platform threading library for applications in high-\/performance computing. \-It supports\-:
+
+
+\begin{DoxyItemize}
+\item \-Cross-\/platform thread primitives (thread creation, mutexes, spinlocks, barriers, thread-\/local storage, etc.).
+\item \-Cross-\/platform atomic operations (compare-\/and-\/swap, add-\/return, etc) for safe lock-\/free synchronization.
+\item \-An implementation of (currently, much of) \-M\-P\-I, either as a drop-\/in replacement, or for use in conjunction with a networked \-M\-P\-I implementation.
+\item \-Shared-\/memory allocation and memory management (planned, as of now).
+\item \-Basic lock-\/free data structures (planned, as of now).
+\end{DoxyItemize}
+
+\-Because it can be used as a drop-\/in replacement for \-M\-P\-I, existing codes using \-M\-P\-I can start using thread\-\_\-mpi without major changes in the source code, assuming -\/-\/ and this is a big assumption -\/-\/ that the code is thread-\/safe.
+
+\-Alternatively, networked \-M\-P\-I calls can be used in conjunction with thread\-\_\-mpi calls (simply by using \char`\"{}\#include $<$thread\-\_\-mpi.\-h$>$\char`\"{} instead of \char`\"{}\#include $<$tmpi.\-h$>$\char`\"{} and pre-\/fixing all thread\-\_\-mpi \-M\-P\-I-\/like calls with t\-M\-P\-I instead of \-M\-P\-I.
+
+\-The availability of both \-M\-P\-I calls and shared-\/memory constructs makes it possible to transition (relatively) seamlessly from an \-M\-P\-I-\/style code to code that's optimal on multicore \-C\-P\-Us.
+
+\-Although \-M\-P\-I-\/style message passing isn't neccesarily optimal for performance on shared-\/memory systems, the \-M\-P\-I communicator concept and its emphasis on collective operations makes sense even when computing on one machine with multiple cores. \-The communicator forms the basis for the shared-\/memory allocation and lock-\/free data structure implementations in thread\-\_\-mpi.
+
+\-Although usable as a stand-\/alone library, thread\-\_\-mpi is designed to be incorporated in the code tree, eliminating any external build requirements. \-The \-B\-S\-D-\/style license that this library is distributed with reflects this.
+
+\-Thread primitives and the atomic operations are cpu and operating system dependent -\/ thread\-\_\-mpi attempts to make them available with the same interface independently of the platform it's run on. \-Currently the thread primitives are supported on\-:
+\begin{DoxyItemize}
+\item any operating system supporting \-P\-O\-S\-I\-X threads
+\item \-Windows (\-X\-P and later).
+\end{DoxyItemize}
+
+\-The atomic operations (such as compare-\/and-\/swap) are supported on\-:
+\begin{DoxyItemize}
+\item gcc on x86, x86\-\_\-64, \-Power\-P\-C and \-Itanium.
+\item \-Intel compilers on x86, x86\-\_\-64 and \-Itanium.
+\item xlc on \-Power\-P\-C.
+\item (partial) \-H\-P/\-U\-X compilers on \-Itanium.
+\end{DoxyItemize}
+
+\-Detailed descriptions of the parts of the \-A\-P\-I can be found in\-:
+\begin{DoxyItemize}
+\item thread\-\_\-mpi/threads.\-h for threading fundamentals.
+\item thread\-\_\-mpi/atomic.\-h for atomic operations.
+\item thread\-\_\-mpi/tmpi.\-h for the \-M\-P\-I functions as t\-M\-P\-I\-\_\--\/prefixed functions.
+\item thread\-\_\-mpi/mpi\-\_\-bindings.\-h for the \-M\-P\-I bindings. 
+\end{DoxyItemize}

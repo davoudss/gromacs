@@ -1,0 +1,144 @@
+\hypertarget{gmx__thread__affinity_8c}{\section{src/gmxlib/gmx\-\_\-thread\-\_\-affinity.c \-File \-Reference}
+\label{gmx__thread__affinity_8c}\index{src/gmxlib/gmx\-\_\-thread\-\_\-affinity.\-c@{src/gmxlib/gmx\-\_\-thread\-\_\-affinity.\-c}}
+}
+{\ttfamily \#include $<$assert.\-h$>$}\*
+{\ttfamily \#include $<$stdio.\-h$>$}\*
+{\ttfamily \#include \char`\"{}typedefs.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}types/commrec.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}types/hw\-\_\-info.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-cpuid.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-omp.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-omp\-\_\-nthreads.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}mdrun.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}md\-\_\-logging.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}statutil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-thread\-\_\-affinity.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}thread\-\_\-mpi/threads.\-h\char`\"{}}\*
+\-Include dependency graph for gmx\-\_\-thread\-\_\-affinity.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__thread__affinity_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+static int \hyperlink{gmx__thread__affinity_8c_afc3d6d92be01104ccd11b1ce735e5473}{get\-\_\-thread\-\_\-affinity\-\_\-layout} (\-F\-I\-L\-E $\ast$fplog, const \hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr, const \hyperlink{structgmx__hw__info__t}{gmx\-\_\-hw\-\_\-info\-\_\-t} $\ast$hwinfo, int nthreads, int pin\-\_\-offset, int $\ast$pin\-\_\-stride, const int $\ast$$\ast$locality\-\_\-order)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__thread__affinity_8c_a7b105b25423ad0ccd153f550fc777922}{gmx\-\_\-set\-\_\-thread\-\_\-affinity} (\-F\-I\-L\-E $\ast$fplog, const \hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr, \hyperlink{structgmx__hw__opt__t}{gmx\-\_\-hw\-\_\-opt\-\_\-t} $\ast$hw\-\_\-opt, int nthreads\-\_\-pme, const \hyperlink{structgmx__hw__info__t}{gmx\-\_\-hw\-\_\-info\-\_\-t} $\ast$hwinfo, const \hyperlink{structt__inputrec}{t\-\_\-inputrec} $\ast$inputrec)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__thread__affinity_8c_a2e70ea7c73a541766b493f9933eef9eb}{gmx\-\_\-check\-\_\-thread\-\_\-affinity\-\_\-set} (\-F\-I\-L\-E $\ast$fplog, const \hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr, \hyperlink{structgmx__hw__opt__t}{gmx\-\_\-hw\-\_\-opt\-\_\-t} $\ast$hw\-\_\-opt, int ncpus, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-After\-Openmp\-Init)
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{gmx__thread__affinity_8c_afc3d6d92be01104ccd11b1ce735e5473}{\index{gmx\-\_\-thread\-\_\-affinity.\-c@{gmx\-\_\-thread\-\_\-affinity.\-c}!get\-\_\-thread\-\_\-affinity\-\_\-layout@{get\-\_\-thread\-\_\-affinity\-\_\-layout}}
+\index{get\-\_\-thread\-\_\-affinity\-\_\-layout@{get\-\_\-thread\-\_\-affinity\-\_\-layout}!gmx_thread_affinity.c@{gmx\-\_\-thread\-\_\-affinity.\-c}}
+\subsubsection[{get\-\_\-thread\-\_\-affinity\-\_\-layout}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf get\-\_\-thread\-\_\-affinity\-\_\-layout} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fplog, }
+\item[{const {\bf t\-\_\-commrec} $\ast$}]{cr, }
+\item[{const {\bf gmx\-\_\-hw\-\_\-info\-\_\-t} $\ast$}]{hwinfo, }
+\item[{int}]{nthreads, }
+\item[{int}]{pin\-\_\-offset, }
+\item[{int $\ast$}]{pin\-\_\-stride, }
+\item[{const int $\ast$$\ast$}]{locality\-\_\-order}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__thread__affinity_8c_afc3d6d92be01104ccd11b1ce735e5473}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__thread__affinity_8c_afc3d6d92be01104ccd11b1ce735e5473_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__thread__affinity_8c_afc3d6d92be01104ccd11b1ce735e5473_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__thread__affinity_8c_a2e70ea7c73a541766b493f9933eef9eb}{\index{gmx\-\_\-thread\-\_\-affinity.\-c@{gmx\-\_\-thread\-\_\-affinity.\-c}!gmx\-\_\-check\-\_\-thread\-\_\-affinity\-\_\-set@{gmx\-\_\-check\-\_\-thread\-\_\-affinity\-\_\-set}}
+\index{gmx\-\_\-check\-\_\-thread\-\_\-affinity\-\_\-set@{gmx\-\_\-check\-\_\-thread\-\_\-affinity\-\_\-set}!gmx_thread_affinity.c@{gmx\-\_\-thread\-\_\-affinity.\-c}}
+\subsubsection[{gmx\-\_\-check\-\_\-thread\-\_\-affinity\-\_\-set}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-check\-\_\-thread\-\_\-affinity\-\_\-set} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fplog, }
+\item[{const {\bf t\-\_\-commrec} $\ast$}]{cr, }
+\item[{{\bf gmx\-\_\-hw\-\_\-opt\-\_\-t} $\ast$}]{hw\-\_\-opt, }
+\item[{int}]{ncpus, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-After\-Openmp\-Init}
+\end{DoxyParamCaption}
+)}}\label{gmx__thread__affinity_8c_a2e70ea7c73a541766b493f9933eef9eb}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=348pt]{gmx__thread__affinity_8c_a2e70ea7c73a541766b493f9933eef9eb_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__thread__affinity_8c_a2e70ea7c73a541766b493f9933eef9eb_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__thread__affinity_8c_a7b105b25423ad0ccd153f550fc777922}{\index{gmx\-\_\-thread\-\_\-affinity.\-c@{gmx\-\_\-thread\-\_\-affinity.\-c}!gmx\-\_\-set\-\_\-thread\-\_\-affinity@{gmx\-\_\-set\-\_\-thread\-\_\-affinity}}
+\index{gmx\-\_\-set\-\_\-thread\-\_\-affinity@{gmx\-\_\-set\-\_\-thread\-\_\-affinity}!gmx_thread_affinity.c@{gmx\-\_\-thread\-\_\-affinity.\-c}}
+\subsubsection[{gmx\-\_\-set\-\_\-thread\-\_\-affinity}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-set\-\_\-thread\-\_\-affinity} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fplog, }
+\item[{const {\bf t\-\_\-commrec} $\ast$}]{cr, }
+\item[{{\bf gmx\-\_\-hw\-\_\-opt\-\_\-t} $\ast$}]{hw\-\_\-opt, }
+\item[{int}]{nthreads\-\_\-pme, }
+\item[{const {\bf gmx\-\_\-hw\-\_\-info\-\_\-t} $\ast$}]{hwinfo, }
+\item[{const {\bf t\-\_\-inputrec} $\ast$}]{inputrec}
+\end{DoxyParamCaption}
+)}}\label{gmx__thread__affinity_8c_a7b105b25423ad0ccd153f550fc777922}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__thread__affinity_8c_a7b105b25423ad0ccd153f550fc777922_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__thread__affinity_8c_a7b105b25423ad0ccd153f550fc777922_icgraph}
+\end{center}
+\end{figure}
+
+

@@ -1,0 +1,394 @@
+\hypertarget{gmx__densorder_8c}{\section{src/tools/gmx\-\_\-densorder.c \-File \-Reference}
+\label{gmx__densorder_8c}\index{src/tools/gmx\-\_\-densorder.\-c@{src/tools/gmx\-\_\-densorder.\-c}}
+}
+{\ttfamily \#include $<$math.\-h$>$}\*
+{\ttfamily \#include \char`\"{}sysstuff.\-h\char`\"{}}\*
+{\ttfamily \#include $<$string.\-h$>$}\*
+{\ttfamily \#include \char`\"{}string2.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}typedefs.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}smalloc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}macros.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gstat.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}vec.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}xvgr.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}pbc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}copyrite.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}futil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}statutil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}index.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}tpxio.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}physics.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}matio.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}dens\-\_\-filter.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}binsearch.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}powerspect.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-ana.\-h\char`\"{}}\*
+\-Include dependency graph for gmx\-\_\-densorder.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__densorder_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{gmx__densorder_8c_a2f0eecb0f7856721f56faff8f27b0dc1}{\-F\-L\-O\-O\-R}(\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x})~((int) floorf(\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}))
+\item 
+\#define \hyperlink{gmx__densorder_8c_a8485f4e81de2537e6a0935626167a775}{\-N\-F\-I\-L\-E}~\hyperlink{share_2template_2gromacs_2macros_8h_a0883345a58f8f63aefa249a4f127f707}{asize}(fnm)
+\end{DoxyCompactItemize}
+\subsection*{\-Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \{ \hyperlink{gmx__densorder_8c_adb6624c7dc121e8a3fd6bff996afb7e8aee870d4bd92dcd94a5c439d15bba7bb0}{meth\-S\-E\-L}, 
+\hyperlink{gmx__densorder_8c_adb6624c7dc121e8a3fd6bff996afb7e8aa239913982b167e5f25e00ef3a522485}{meth\-B\-I\-S\-E\-C\-T}, 
+\hyperlink{gmx__densorder_8c_adb6624c7dc121e8a3fd6bff996afb7e8a1d3615a77b8b8a0cd5c3e34976ef8fd2}{meth\-F\-U\-N\-C\-F\-I\-T}, 
+\hyperlink{gmx__densorder_8c_adb6624c7dc121e8a3fd6bff996afb7e8af5de9e924b0edda761c05104a8bfd5e6}{meth\-N\-R}
+ \}
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__densorder_8c_a0c4330cc36084b7a45165b85a579e92b}{center\-\_\-coords} (\hyperlink{structt__atoms}{t\-\_\-atoms} $\ast$atoms, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} x0\mbox{[}$\,$\mbox{]}, int axis)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__densorder_8c_aa1fe9e54cd2c9441b8b29085db436990}{density\-\_\-in\-\_\-time} (const char $\ast$fn, \hyperlink{include_2types_2simple_8h_ad3f47cdb48677e516e2049719612c737}{atom\-\_\-id} $\ast$$\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a49fd977001162d7256c8fcd293f9d12a}{index}, int gnx\mbox{[}$\,$\mbox{]}, int grpn, real bw, real bwz, int nsttblock, real $\ast$$\ast$$\ast$$\ast$$\ast$\-Densdevel, int $\ast$xslices, int $\ast$yslices, int $\ast$zslices, int $\ast$tblock, \hyperlink{structt__topology}{t\-\_\-topology} $\ast$\hyperlink{gmx__disre_8c_a1b538a2ce75aba6c346bc03980ffeb28}{top}, int e\-P\-B\-C, int axis, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Center, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} bps1d, const \hyperlink{include_2types_2oenv_8h_a6a48d77d95132d7318780544821da6a5}{output\-\_\-env\-\_\-t} oenv)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__densorder_8c_aee7fbb51817d3756674df0ed8d086f55}{outputfield} (const char $\ast$fldfn, real $\ast$$\ast$$\ast$$\ast$\-Densmap, int xslices, int yslices, int zslices, int tdim)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__densorder_8c_a43baa0260fcc2ba088b871a2f15cc37f}{filterdensmap} (real $\ast$$\ast$$\ast$$\ast$\-Densmap, int xslices, int yslices, int zslices, int tblocks, int ftsize)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__densorder_8c_aac39aa18d6e807be7c7520f9cc53ef37}{interfaces\-\_\-txy} (real $\ast$$\ast$$\ast$$\ast$\-Densmap, int xslices, int yslices, int zslices, int tblocks, real binwidth, int method, real dens1, real dens2, \hyperlink{structt__interf}{t\-\_\-interf} $\ast$$\ast$$\ast$$\ast$intf1, \hyperlink{structt__interf}{t\-\_\-interf} $\ast$$\ast$$\ast$$\ast$intf2, const \hyperlink{include_2types_2oenv_8h_a6a48d77d95132d7318780544821da6a5}{output\-\_\-env\-\_\-t} oenv)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__densorder_8c_af831b9c559c58af7e03bbf2960773aba}{writesurftoxpms} (\hyperlink{structt__interf}{t\-\_\-interf} $\ast$$\ast$$\ast$surf1, \hyperlink{structt__interf}{t\-\_\-interf} $\ast$$\ast$$\ast$surf2, int tblocks, int xbins, int ybins, int zbins, real bw, real bwz, char $\ast$$\ast$outfiles, int maplevels)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__densorder_8c_a2ffcdc32d6fec42e8ee710f961c5a388}{writeraw} (\hyperlink{structt__interf}{t\-\_\-interf} $\ast$$\ast$$\ast$int1, \hyperlink{structt__interf}{t\-\_\-interf} $\ast$$\ast$$\ast$int2, int tblocks, int xbins, int ybins, char $\ast$$\ast$fnms)
+\item 
+int \hyperlink{gmx__densorder_8c_aecf1fb73fd9419cd31ce3e255a5601a2}{gmx\-\_\-densorder} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Define \-Documentation}
+\hypertarget{gmx__densorder_8c_a2f0eecb0f7856721f56faff8f27b0dc1}{\index{gmx\-\_\-densorder.\-c@{gmx\-\_\-densorder.\-c}!\-F\-L\-O\-O\-R@{\-F\-L\-O\-O\-R}}
+\index{\-F\-L\-O\-O\-R@{\-F\-L\-O\-O\-R}!gmx_densorder.c@{gmx\-\_\-densorder.\-c}}
+\subsubsection[{\-F\-L\-O\-O\-R}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-F\-L\-O\-O\-R}(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf x}}
+\end{DoxyParamCaption}
+)~((int) floorf({\bf x}))}}\label{gmx__densorder_8c_a2f0eecb0f7856721f56faff8f27b0dc1}
+\hypertarget{gmx__densorder_8c_a8485f4e81de2537e6a0935626167a775}{\index{gmx\-\_\-densorder.\-c@{gmx\-\_\-densorder.\-c}!\-N\-F\-I\-L\-E@{\-N\-F\-I\-L\-E}}
+\index{\-N\-F\-I\-L\-E@{\-N\-F\-I\-L\-E}!gmx_densorder.c@{gmx\-\_\-densorder.\-c}}
+\subsubsection[{\-N\-F\-I\-L\-E}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-N\-F\-I\-L\-E}~{\bf asize}(fnm)}}\label{gmx__densorder_8c_a8485f4e81de2537e6a0935626167a775}
+
+
+\subsection{\-Enumeration \-Type \-Documentation}
+\hypertarget{gmx__densorder_8c_adb6624c7dc121e8a3fd6bff996afb7e8}{\subsubsection[{anonymous enum}]{\setlength{\rightskip}{0pt plus 5cm}anonymous enum}}\label{gmx__densorder_8c_adb6624c7dc121e8a3fd6bff996afb7e8}
+\begin{Desc}
+\item[\-Enumerator\-: ]\par
+\begin{description}
+\index{meth\-S\-E\-L@{meth\-S\-E\-L}!gmx\-\_\-densorder.\-c@{gmx\-\_\-densorder.\-c}}\index{gmx\-\_\-densorder.\-c@{gmx\-\_\-densorder.\-c}!meth\-S\-E\-L@{meth\-S\-E\-L}}\item[{\em 
+\hypertarget{gmx__densorder_8c_adb6624c7dc121e8a3fd6bff996afb7e8aee870d4bd92dcd94a5c439d15bba7bb0}{meth\-S\-E\-L}\label{gmx__densorder_8c_adb6624c7dc121e8a3fd6bff996afb7e8aee870d4bd92dcd94a5c439d15bba7bb0}
+}]\index{meth\-B\-I\-S\-E\-C\-T@{meth\-B\-I\-S\-E\-C\-T}!gmx\-\_\-densorder.\-c@{gmx\-\_\-densorder.\-c}}\index{gmx\-\_\-densorder.\-c@{gmx\-\_\-densorder.\-c}!meth\-B\-I\-S\-E\-C\-T@{meth\-B\-I\-S\-E\-C\-T}}\item[{\em 
+\hypertarget{gmx__densorder_8c_adb6624c7dc121e8a3fd6bff996afb7e8aa239913982b167e5f25e00ef3a522485}{meth\-B\-I\-S\-E\-C\-T}\label{gmx__densorder_8c_adb6624c7dc121e8a3fd6bff996afb7e8aa239913982b167e5f25e00ef3a522485}
+}]\index{meth\-F\-U\-N\-C\-F\-I\-T@{meth\-F\-U\-N\-C\-F\-I\-T}!gmx\-\_\-densorder.\-c@{gmx\-\_\-densorder.\-c}}\index{gmx\-\_\-densorder.\-c@{gmx\-\_\-densorder.\-c}!meth\-F\-U\-N\-C\-F\-I\-T@{meth\-F\-U\-N\-C\-F\-I\-T}}\item[{\em 
+\hypertarget{gmx__densorder_8c_adb6624c7dc121e8a3fd6bff996afb7e8a1d3615a77b8b8a0cd5c3e34976ef8fd2}{meth\-F\-U\-N\-C\-F\-I\-T}\label{gmx__densorder_8c_adb6624c7dc121e8a3fd6bff996afb7e8a1d3615a77b8b8a0cd5c3e34976ef8fd2}
+}]\index{meth\-N\-R@{meth\-N\-R}!gmx\-\_\-densorder.\-c@{gmx\-\_\-densorder.\-c}}\index{gmx\-\_\-densorder.\-c@{gmx\-\_\-densorder.\-c}!meth\-N\-R@{meth\-N\-R}}\item[{\em 
+\hypertarget{gmx__densorder_8c_adb6624c7dc121e8a3fd6bff996afb7e8af5de9e924b0edda761c05104a8bfd5e6}{meth\-N\-R}\label{gmx__densorder_8c_adb6624c7dc121e8a3fd6bff996afb7e8af5de9e924b0edda761c05104a8bfd5e6}
+}]\end{description}
+\end{Desc}
+
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{gmx__densorder_8c_a0c4330cc36084b7a45165b85a579e92b}{\index{gmx\-\_\-densorder.\-c@{gmx\-\_\-densorder.\-c}!center\-\_\-coords@{center\-\_\-coords}}
+\index{center\-\_\-coords@{center\-\_\-coords}!gmx_densorder.c@{gmx\-\_\-densorder.\-c}}
+\subsubsection[{center\-\_\-coords}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf center\-\_\-coords} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-atoms} $\ast$}]{atoms, }
+\item[{{\bf matrix}}]{box, }
+\item[{{\bf rvec}}]{x0\mbox{[}$\,$\mbox{]}, }
+\item[{int}]{axis}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__densorder_8c_a0c4330cc36084b7a45165b85a579e92b}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=282pt]{gmx__densorder_8c_a0c4330cc36084b7a45165b85a579e92b_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__densorder_8c_aa1fe9e54cd2c9441b8b29085db436990}{\index{gmx\-\_\-densorder.\-c@{gmx\-\_\-densorder.\-c}!density\-\_\-in\-\_\-time@{density\-\_\-in\-\_\-time}}
+\index{density\-\_\-in\-\_\-time@{density\-\_\-in\-\_\-time}!gmx_densorder.c@{gmx\-\_\-densorder.\-c}}
+\subsubsection[{density\-\_\-in\-\_\-time}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf density\-\_\-in\-\_\-time} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{fn, }
+\item[{{\bf atom\-\_\-id} $\ast$$\ast$}]{index, }
+\item[{int}]{gnx\mbox{[}$\,$\mbox{]}, }
+\item[{int}]{grpn, }
+\item[{real}]{bw, }
+\item[{real}]{bwz, }
+\item[{int}]{nsttblock, }
+\item[{real $\ast$$\ast$$\ast$$\ast$$\ast$}]{\-Densdevel, }
+\item[{int $\ast$}]{xslices, }
+\item[{int $\ast$}]{yslices, }
+\item[{int $\ast$}]{zslices, }
+\item[{int $\ast$}]{tblock, }
+\item[{{\bf t\-\_\-topology} $\ast$}]{top, }
+\item[{int}]{e\-P\-B\-C, }
+\item[{int}]{axis, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Center, }
+\item[{{\bf gmx\-\_\-bool}}]{bps1d, }
+\item[{const {\bf output\-\_\-env\-\_\-t}}]{oenv}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__densorder_8c_aa1fe9e54cd2c9441b8b29085db436990}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__densorder_8c_aa1fe9e54cd2c9441b8b29085db436990_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__densorder_8c_aa1fe9e54cd2c9441b8b29085db436990_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__densorder_8c_a43baa0260fcc2ba088b871a2f15cc37f}{\index{gmx\-\_\-densorder.\-c@{gmx\-\_\-densorder.\-c}!filterdensmap@{filterdensmap}}
+\index{filterdensmap@{filterdensmap}!gmx_densorder.c@{gmx\-\_\-densorder.\-c}}
+\subsubsection[{filterdensmap}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf filterdensmap} (
+\begin{DoxyParamCaption}
+\item[{real $\ast$$\ast$$\ast$$\ast$}]{\-Densmap, }
+\item[{int}]{xslices, }
+\item[{int}]{yslices, }
+\item[{int}]{zslices, }
+\item[{int}]{tblocks, }
+\item[{int}]{ftsize}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__densorder_8c_a43baa0260fcc2ba088b871a2f15cc37f}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__densorder_8c_a43baa0260fcc2ba088b871a2f15cc37f_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__densorder_8c_a43baa0260fcc2ba088b871a2f15cc37f_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__densorder_8c_aecf1fb73fd9419cd31ce3e255a5601a2}{\index{gmx\-\_\-densorder.\-c@{gmx\-\_\-densorder.\-c}!gmx\-\_\-densorder@{gmx\-\_\-densorder}}
+\index{gmx\-\_\-densorder@{gmx\-\_\-densorder}!gmx_densorder.c@{gmx\-\_\-densorder.\-c}}
+\subsubsection[{gmx\-\_\-densorder}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-densorder} (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{gmx__densorder_8c_aecf1fb73fd9419cd31ce3e255a5601a2}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{gmx__densorder_8c_aecf1fb73fd9419cd31ce3e255a5601a2_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=238pt]{gmx__densorder_8c_aecf1fb73fd9419cd31ce3e255a5601a2_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__densorder_8c_aac39aa18d6e807be7c7520f9cc53ef37}{\index{gmx\-\_\-densorder.\-c@{gmx\-\_\-densorder.\-c}!interfaces\-\_\-txy@{interfaces\-\_\-txy}}
+\index{interfaces\-\_\-txy@{interfaces\-\_\-txy}!gmx_densorder.c@{gmx\-\_\-densorder.\-c}}
+\subsubsection[{interfaces\-\_\-txy}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf interfaces\-\_\-txy} (
+\begin{DoxyParamCaption}
+\item[{real $\ast$$\ast$$\ast$$\ast$}]{\-Densmap, }
+\item[{int}]{xslices, }
+\item[{int}]{yslices, }
+\item[{int}]{zslices, }
+\item[{int}]{tblocks, }
+\item[{real}]{binwidth, }
+\item[{int}]{method, }
+\item[{real}]{dens1, }
+\item[{real}]{dens2, }
+\item[{{\bf t\-\_\-interf} $\ast$$\ast$$\ast$$\ast$}]{intf1, }
+\item[{{\bf t\-\_\-interf} $\ast$$\ast$$\ast$$\ast$}]{intf2, }
+\item[{const {\bf output\-\_\-env\-\_\-t}}]{oenv}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__densorder_8c_aac39aa18d6e807be7c7520f9cc53ef37}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__densorder_8c_aac39aa18d6e807be7c7520f9cc53ef37_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__densorder_8c_aac39aa18d6e807be7c7520f9cc53ef37_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__densorder_8c_aee7fbb51817d3756674df0ed8d086f55}{\index{gmx\-\_\-densorder.\-c@{gmx\-\_\-densorder.\-c}!outputfield@{outputfield}}
+\index{outputfield@{outputfield}!gmx_densorder.c@{gmx\-\_\-densorder.\-c}}
+\subsubsection[{outputfield}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf outputfield} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{fldfn, }
+\item[{real $\ast$$\ast$$\ast$$\ast$}]{\-Densmap, }
+\item[{int}]{xslices, }
+\item[{int}]{yslices, }
+\item[{int}]{zslices, }
+\item[{int}]{tdim}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__densorder_8c_aee7fbb51817d3756674df0ed8d086f55}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=224pt]{gmx__densorder_8c_aee7fbb51817d3756674df0ed8d086f55_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=336pt]{gmx__densorder_8c_aee7fbb51817d3756674df0ed8d086f55_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__densorder_8c_a2ffcdc32d6fec42e8ee710f961c5a388}{\index{gmx\-\_\-densorder.\-c@{gmx\-\_\-densorder.\-c}!writeraw@{writeraw}}
+\index{writeraw@{writeraw}!gmx_densorder.c@{gmx\-\_\-densorder.\-c}}
+\subsubsection[{writeraw}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf writeraw} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-interf} $\ast$$\ast$$\ast$}]{int1, }
+\item[{{\bf t\-\_\-interf} $\ast$$\ast$$\ast$}]{int2, }
+\item[{int}]{tblocks, }
+\item[{int}]{xbins, }
+\item[{int}]{ybins, }
+\item[{char $\ast$$\ast$}]{fnms}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__densorder_8c_a2ffcdc32d6fec42e8ee710f961c5a388}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=250pt]{gmx__densorder_8c_a2ffcdc32d6fec42e8ee710f961c5a388_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=328pt]{gmx__densorder_8c_a2ffcdc32d6fec42e8ee710f961c5a388_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__densorder_8c_af831b9c559c58af7e03bbf2960773aba}{\index{gmx\-\_\-densorder.\-c@{gmx\-\_\-densorder.\-c}!writesurftoxpms@{writesurftoxpms}}
+\index{writesurftoxpms@{writesurftoxpms}!gmx_densorder.c@{gmx\-\_\-densorder.\-c}}
+\subsubsection[{writesurftoxpms}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf writesurftoxpms} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-interf} $\ast$$\ast$$\ast$}]{surf1, }
+\item[{{\bf t\-\_\-interf} $\ast$$\ast$$\ast$}]{surf2, }
+\item[{int}]{tblocks, }
+\item[{int}]{xbins, }
+\item[{int}]{ybins, }
+\item[{int}]{zbins, }
+\item[{real}]{bw, }
+\item[{real}]{bwz, }
+\item[{char $\ast$$\ast$}]{outfiles, }
+\item[{int}]{maplevels}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__densorder_8c_af831b9c559c58af7e03bbf2960773aba}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=264pt]{gmx__densorder_8c_af831b9c559c58af7e03bbf2960773aba_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__densorder_8c_af831b9c559c58af7e03bbf2960773aba_icgraph}
+\end{center}
+\end{figure}
+
+

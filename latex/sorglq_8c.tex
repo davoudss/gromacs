@@ -1,0 +1,49 @@
+\hypertarget{sorglq_8c}{\section{src/gmxlib/gmx\-\_\-lapack/sorglq.c \-File \-Reference}
+\label{sorglq_8c}\index{src/gmxlib/gmx\-\_\-lapack/sorglq.\-c@{src/gmxlib/gmx\-\_\-lapack/sorglq.\-c}}
+}
+{\ttfamily \#include \char`\"{}gmx\-\_\-lapack.\-h\char`\"{}}\*
+\-Include dependency graph for sorglq.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=234pt]{sorglq_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{sorglq_8c_a5bd6e690d58f461c0214177eefc87f26}{\-S\-O\-R\-G\-L\-Q\-\_\-\-B\-L\-O\-C\-K\-S\-I\-Z\-E}~32
+\item 
+\#define \hyperlink{sorglq_8c_accaa906084eb82b722489ce25537a58e}{\-S\-O\-R\-G\-L\-Q\-\_\-\-M\-I\-N\-B\-L\-O\-C\-K\-S\-I\-Z\-E}~2
+\item 
+\#define \hyperlink{sorglq_8c_a4e8bb18614db8544a6c6e4c27b2cdf1b}{\-S\-O\-R\-G\-L\-Q\-\_\-\-C\-R\-O\-S\-S\-O\-V\-E\-R}~128
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{sorglq_8c_aa6f1276d90d815e980db0ad7cf63cb51}{\-F77\-\_\-\-F\-U\-N\-C} (sorglq, \-S\-O\-R\-G\-L\-Q)
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Define \-Documentation}
+\hypertarget{sorglq_8c_a5bd6e690d58f461c0214177eefc87f26}{\index{sorglq.\-c@{sorglq.\-c}!\-S\-O\-R\-G\-L\-Q\-\_\-\-B\-L\-O\-C\-K\-S\-I\-Z\-E@{\-S\-O\-R\-G\-L\-Q\-\_\-\-B\-L\-O\-C\-K\-S\-I\-Z\-E}}
+\index{\-S\-O\-R\-G\-L\-Q\-\_\-\-B\-L\-O\-C\-K\-S\-I\-Z\-E@{\-S\-O\-R\-G\-L\-Q\-\_\-\-B\-L\-O\-C\-K\-S\-I\-Z\-E}!sorglq.c@{sorglq.\-c}}
+\subsubsection[{\-S\-O\-R\-G\-L\-Q\-\_\-\-B\-L\-O\-C\-K\-S\-I\-Z\-E}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-S\-O\-R\-G\-L\-Q\-\_\-\-B\-L\-O\-C\-K\-S\-I\-Z\-E}~32}}\label{sorglq_8c_a5bd6e690d58f461c0214177eefc87f26}
+\hypertarget{sorglq_8c_a4e8bb18614db8544a6c6e4c27b2cdf1b}{\index{sorglq.\-c@{sorglq.\-c}!\-S\-O\-R\-G\-L\-Q\-\_\-\-C\-R\-O\-S\-S\-O\-V\-E\-R@{\-S\-O\-R\-G\-L\-Q\-\_\-\-C\-R\-O\-S\-S\-O\-V\-E\-R}}
+\index{\-S\-O\-R\-G\-L\-Q\-\_\-\-C\-R\-O\-S\-S\-O\-V\-E\-R@{\-S\-O\-R\-G\-L\-Q\-\_\-\-C\-R\-O\-S\-S\-O\-V\-E\-R}!sorglq.c@{sorglq.\-c}}
+\subsubsection[{\-S\-O\-R\-G\-L\-Q\-\_\-\-C\-R\-O\-S\-S\-O\-V\-E\-R}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-S\-O\-R\-G\-L\-Q\-\_\-\-C\-R\-O\-S\-S\-O\-V\-E\-R}~128}}\label{sorglq_8c_a4e8bb18614db8544a6c6e4c27b2cdf1b}
+\hypertarget{sorglq_8c_accaa906084eb82b722489ce25537a58e}{\index{sorglq.\-c@{sorglq.\-c}!\-S\-O\-R\-G\-L\-Q\-\_\-\-M\-I\-N\-B\-L\-O\-C\-K\-S\-I\-Z\-E@{\-S\-O\-R\-G\-L\-Q\-\_\-\-M\-I\-N\-B\-L\-O\-C\-K\-S\-I\-Z\-E}}
+\index{\-S\-O\-R\-G\-L\-Q\-\_\-\-M\-I\-N\-B\-L\-O\-C\-K\-S\-I\-Z\-E@{\-S\-O\-R\-G\-L\-Q\-\_\-\-M\-I\-N\-B\-L\-O\-C\-K\-S\-I\-Z\-E}!sorglq.c@{sorglq.\-c}}
+\subsubsection[{\-S\-O\-R\-G\-L\-Q\-\_\-\-M\-I\-N\-B\-L\-O\-C\-K\-S\-I\-Z\-E}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-S\-O\-R\-G\-L\-Q\-\_\-\-M\-I\-N\-B\-L\-O\-C\-K\-S\-I\-Z\-E}~2}}\label{sorglq_8c_accaa906084eb82b722489ce25537a58e}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{sorglq_8c_aa6f1276d90d815e980db0ad7cf63cb51}{\index{sorglq.\-c@{sorglq.\-c}!\-F77\-\_\-\-F\-U\-N\-C@{\-F77\-\_\-\-F\-U\-N\-C}}
+\index{\-F77\-\_\-\-F\-U\-N\-C@{\-F77\-\_\-\-F\-U\-N\-C}!sorglq.c@{sorglq.\-c}}
+\subsubsection[{\-F77\-\_\-\-F\-U\-N\-C}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf \-F77\-\_\-\-F\-U\-N\-C} (
+\begin{DoxyParamCaption}
+\item[{sorglq}]{, }
+\item[{\-S\-O\-R\-G\-L\-Q}]{}
+\end{DoxyParamCaption}
+)}}\label{sorglq_8c_aa6f1276d90d815e980db0ad7cf63cb51}

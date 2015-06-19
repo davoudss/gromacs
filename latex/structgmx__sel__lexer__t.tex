@@ -1,0 +1,146 @@
+\hypertarget{structgmx__sel__lexer__t}{\section{gmx\-\_\-sel\-\_\-lexer\-\_\-t \-Struct \-Reference}
+\label{structgmx__sel__lexer__t}\index{gmx\-\_\-sel\-\_\-lexer\-\_\-t@{gmx\-\_\-sel\-\_\-lexer\-\_\-t}}
+}
+
+
+\-Internal data structure for the selection tokenizer state.  
+
+
+
+
+{\ttfamily \#include $<$scanner\-\_\-internal.\-h$>$}
+
+
+
+\-Collaboration diagram for gmx\-\_\-sel\-\_\-lexer\-\_\-t\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structgmx__sel__lexer__t__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{\-Public \-Attributes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structgmx__ana__selcollection__t}{gmx\-\_\-ana\-\_\-selcollection\-\_\-t} $\ast$ \hyperlink{structgmx__sel__lexer__t_a82dc052b54870d8ea2770036c241af08}{sc}
+\item 
+struct \hyperlink{structgmx__ana__indexgrps__t}{gmx\-\_\-ana\-\_\-indexgrps\-\_\-t} $\ast$ \hyperlink{structgmx__sel__lexer__t_aef870a37623dcafbd547da645d16f891}{grps}
+\item 
+int \hyperlink{structgmx__sel__lexer__t_a5695b1b723a0613de0aed182033788bf}{nexpsel}
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{structgmx__sel__lexer__t_a2f3bd0ebb410c8a54f90d42357d68fdf}{b\-Interactive}
+\item 
+char $\ast$ \hyperlink{structgmx__sel__lexer__t_a3d8591710e5e07602dcbc1d2b511661e}{inputstr}
+\item 
+int \hyperlink{structgmx__sel__lexer__t_a9cddfb4c17c03f825cc4ca28befbb02b}{nalloc\-\_\-input}
+\item 
+char $\ast$ \hyperlink{structgmx__sel__lexer__t_aecab18de208e7f67e3122ae29178f560}{pselstr}
+\item 
+int \hyperlink{structgmx__sel__lexer__t_a8a8b8fba445d21818367f101c5253aa1}{pslen}
+\item 
+int \hyperlink{structgmx__sel__lexer__t_a406c46c4363efbb6334142facff6091e}{nalloc\-\_\-psel}
+\item 
+struct \hyperlink{structgmx__ana__selmethod__t}{gmx\-\_\-ana\-\_\-selmethod\-\_\-t} $\ast$$\ast$ \hyperlink{structgmx__sel__lexer__t_a3e71cb042172f69ab46c052232e40366}{mstack}
+\item 
+int \hyperlink{structgmx__sel__lexer__t_aa043cc5fb256982c5cdaf2f73b23c45f}{msp}
+\item 
+int \hyperlink{structgmx__sel__lexer__t_afaa0845d2a641ae5ef0cce5fb34cd8a2}{mstack\-\_\-alloc}
+\item 
+int \hyperlink{structgmx__sel__lexer__t_a5c19cf6e921545d45e0843fc5e29458a}{neom}
+\item 
+struct \hyperlink{structgmx__ana__selparam__t}{gmx\-\_\-ana\-\_\-selparam\-\_\-t} $\ast$ \hyperlink{structgmx__sel__lexer__t_aa5198ac84c3303505202a7b6b6cb17d1}{nextparam}
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{structgmx__sel__lexer__t_a3da7b63f08a0e080f9cf306edb4f6c22}{b\-Bool\-No}
+\item 
+struct \hyperlink{structgmx__ana__selmethod__t}{gmx\-\_\-ana\-\_\-selmethod\-\_\-t} $\ast$ \hyperlink{structgmx__sel__lexer__t_ae2cf4bd2491f89b3f4b2c3da9c11e450}{nextmethod}
+\item 
+int \hyperlink{structgmx__sel__lexer__t_a2d1f374ebc06436e028d3e248c61de94}{prev\-\_\-pos\-\_\-kw}
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{structgmx__sel__lexer__t_a4e7e63780f49f05cf29a6df70971925d}{b\-Match\-Of}
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{structgmx__sel__lexer__t_ac47027c17defa2481ad1ad148e2cc498}{b\-Match\-Bool}
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{structgmx__sel__lexer__t_ad3a6c53cb4666421e0413806f11ecb7c}{b\-Cmd\-Start}
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{structgmx__sel__lexer__t_aa98028f11a209afd3c3fde28c0e0fb90}{b\-Buffer}
+\item 
+\hyperlink{scanner_8c_a4e5bd2d129903df83f3d13effaf8f3e4}{\-Y\-Y\-\_\-\-B\-U\-F\-F\-E\-R\-\_\-\-S\-T\-A\-T\-E} \hyperlink{structgmx__sel__lexer__t_a705f00803cda152ad8a26aebda19b2c2}{buffer}
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Detailed \-Description}
+\-Internal data structure for the selection tokenizer state. 
+
+\subsection{\-Member \-Data \-Documentation}
+\hypertarget{structgmx__sel__lexer__t_a3da7b63f08a0e080f9cf306edb4f6c22}{\index{gmx\-\_\-sel\-\_\-lexer\-\_\-t@{gmx\-\_\-sel\-\_\-lexer\-\_\-t}!b\-Bool\-No@{b\-Bool\-No}}
+\index{b\-Bool\-No@{b\-Bool\-No}!gmx_sel_lexer_t@{gmx\-\_\-sel\-\_\-lexer\-\_\-t}}
+\subsubsection[{b\-Bool\-No}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-sel\-\_\-lexer\-\_\-t\-::b\-Bool\-No}}}\label{structgmx__sel__lexer__t_a3da7b63f08a0e080f9cf306edb4f6c22}
+\hypertarget{structgmx__sel__lexer__t_aa98028f11a209afd3c3fde28c0e0fb90}{\index{gmx\-\_\-sel\-\_\-lexer\-\_\-t@{gmx\-\_\-sel\-\_\-lexer\-\_\-t}!b\-Buffer@{b\-Buffer}}
+\index{b\-Buffer@{b\-Buffer}!gmx_sel_lexer_t@{gmx\-\_\-sel\-\_\-lexer\-\_\-t}}
+\subsubsection[{b\-Buffer}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-sel\-\_\-lexer\-\_\-t\-::b\-Buffer}}}\label{structgmx__sel__lexer__t_aa98028f11a209afd3c3fde28c0e0fb90}
+\hypertarget{structgmx__sel__lexer__t_ad3a6c53cb4666421e0413806f11ecb7c}{\index{gmx\-\_\-sel\-\_\-lexer\-\_\-t@{gmx\-\_\-sel\-\_\-lexer\-\_\-t}!b\-Cmd\-Start@{b\-Cmd\-Start}}
+\index{b\-Cmd\-Start@{b\-Cmd\-Start}!gmx_sel_lexer_t@{gmx\-\_\-sel\-\_\-lexer\-\_\-t}}
+\subsubsection[{b\-Cmd\-Start}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-sel\-\_\-lexer\-\_\-t\-::b\-Cmd\-Start}}}\label{structgmx__sel__lexer__t_ad3a6c53cb4666421e0413806f11ecb7c}
+\hypertarget{structgmx__sel__lexer__t_a2f3bd0ebb410c8a54f90d42357d68fdf}{\index{gmx\-\_\-sel\-\_\-lexer\-\_\-t@{gmx\-\_\-sel\-\_\-lexer\-\_\-t}!b\-Interactive@{b\-Interactive}}
+\index{b\-Interactive@{b\-Interactive}!gmx_sel_lexer_t@{gmx\-\_\-sel\-\_\-lexer\-\_\-t}}
+\subsubsection[{b\-Interactive}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-sel\-\_\-lexer\-\_\-t\-::b\-Interactive}}}\label{structgmx__sel__lexer__t_a2f3bd0ebb410c8a54f90d42357d68fdf}
+\hypertarget{structgmx__sel__lexer__t_ac47027c17defa2481ad1ad148e2cc498}{\index{gmx\-\_\-sel\-\_\-lexer\-\_\-t@{gmx\-\_\-sel\-\_\-lexer\-\_\-t}!b\-Match\-Bool@{b\-Match\-Bool}}
+\index{b\-Match\-Bool@{b\-Match\-Bool}!gmx_sel_lexer_t@{gmx\-\_\-sel\-\_\-lexer\-\_\-t}}
+\subsubsection[{b\-Match\-Bool}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-sel\-\_\-lexer\-\_\-t\-::b\-Match\-Bool}}}\label{structgmx__sel__lexer__t_ac47027c17defa2481ad1ad148e2cc498}
+\hypertarget{structgmx__sel__lexer__t_a4e7e63780f49f05cf29a6df70971925d}{\index{gmx\-\_\-sel\-\_\-lexer\-\_\-t@{gmx\-\_\-sel\-\_\-lexer\-\_\-t}!b\-Match\-Of@{b\-Match\-Of}}
+\index{b\-Match\-Of@{b\-Match\-Of}!gmx_sel_lexer_t@{gmx\-\_\-sel\-\_\-lexer\-\_\-t}}
+\subsubsection[{b\-Match\-Of}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-sel\-\_\-lexer\-\_\-t\-::b\-Match\-Of}}}\label{structgmx__sel__lexer__t_a4e7e63780f49f05cf29a6df70971925d}
+\hypertarget{structgmx__sel__lexer__t_a705f00803cda152ad8a26aebda19b2c2}{\index{gmx\-\_\-sel\-\_\-lexer\-\_\-t@{gmx\-\_\-sel\-\_\-lexer\-\_\-t}!buffer@{buffer}}
+\index{buffer@{buffer}!gmx_sel_lexer_t@{gmx\-\_\-sel\-\_\-lexer\-\_\-t}}
+\subsubsection[{buffer}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-Y\-Y\-\_\-\-B\-U\-F\-F\-E\-R\-\_\-\-S\-T\-A\-T\-E} {\bf gmx\-\_\-sel\-\_\-lexer\-\_\-t\-::buffer}}}\label{structgmx__sel__lexer__t_a705f00803cda152ad8a26aebda19b2c2}
+\hypertarget{structgmx__sel__lexer__t_aef870a37623dcafbd547da645d16f891}{\index{gmx\-\_\-sel\-\_\-lexer\-\_\-t@{gmx\-\_\-sel\-\_\-lexer\-\_\-t}!grps@{grps}}
+\index{grps@{grps}!gmx_sel_lexer_t@{gmx\-\_\-sel\-\_\-lexer\-\_\-t}}
+\subsubsection[{grps}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf gmx\-\_\-ana\-\_\-indexgrps\-\_\-t}$\ast$ {\bf gmx\-\_\-sel\-\_\-lexer\-\_\-t\-::grps}}}\label{structgmx__sel__lexer__t_aef870a37623dcafbd547da645d16f891}
+\hypertarget{structgmx__sel__lexer__t_a3d8591710e5e07602dcbc1d2b511661e}{\index{gmx\-\_\-sel\-\_\-lexer\-\_\-t@{gmx\-\_\-sel\-\_\-lexer\-\_\-t}!inputstr@{inputstr}}
+\index{inputstr@{inputstr}!gmx_sel_lexer_t@{gmx\-\_\-sel\-\_\-lexer\-\_\-t}}
+\subsubsection[{inputstr}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ {\bf gmx\-\_\-sel\-\_\-lexer\-\_\-t\-::inputstr}}}\label{structgmx__sel__lexer__t_a3d8591710e5e07602dcbc1d2b511661e}
+\hypertarget{structgmx__sel__lexer__t_aa043cc5fb256982c5cdaf2f73b23c45f}{\index{gmx\-\_\-sel\-\_\-lexer\-\_\-t@{gmx\-\_\-sel\-\_\-lexer\-\_\-t}!msp@{msp}}
+\index{msp@{msp}!gmx_sel_lexer_t@{gmx\-\_\-sel\-\_\-lexer\-\_\-t}}
+\subsubsection[{msp}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-sel\-\_\-lexer\-\_\-t\-::msp}}}\label{structgmx__sel__lexer__t_aa043cc5fb256982c5cdaf2f73b23c45f}
+\hypertarget{structgmx__sel__lexer__t_a3e71cb042172f69ab46c052232e40366}{\index{gmx\-\_\-sel\-\_\-lexer\-\_\-t@{gmx\-\_\-sel\-\_\-lexer\-\_\-t}!mstack@{mstack}}
+\index{mstack@{mstack}!gmx_sel_lexer_t@{gmx\-\_\-sel\-\_\-lexer\-\_\-t}}
+\subsubsection[{mstack}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf gmx\-\_\-ana\-\_\-selmethod\-\_\-t}$\ast$$\ast$ {\bf gmx\-\_\-sel\-\_\-lexer\-\_\-t\-::mstack}}}\label{structgmx__sel__lexer__t_a3e71cb042172f69ab46c052232e40366}
+\hypertarget{structgmx__sel__lexer__t_afaa0845d2a641ae5ef0cce5fb34cd8a2}{\index{gmx\-\_\-sel\-\_\-lexer\-\_\-t@{gmx\-\_\-sel\-\_\-lexer\-\_\-t}!mstack\-\_\-alloc@{mstack\-\_\-alloc}}
+\index{mstack\-\_\-alloc@{mstack\-\_\-alloc}!gmx_sel_lexer_t@{gmx\-\_\-sel\-\_\-lexer\-\_\-t}}
+\subsubsection[{mstack\-\_\-alloc}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-sel\-\_\-lexer\-\_\-t\-::mstack\-\_\-alloc}}}\label{structgmx__sel__lexer__t_afaa0845d2a641ae5ef0cce5fb34cd8a2}
+\hypertarget{structgmx__sel__lexer__t_a9cddfb4c17c03f825cc4ca28befbb02b}{\index{gmx\-\_\-sel\-\_\-lexer\-\_\-t@{gmx\-\_\-sel\-\_\-lexer\-\_\-t}!nalloc\-\_\-input@{nalloc\-\_\-input}}
+\index{nalloc\-\_\-input@{nalloc\-\_\-input}!gmx_sel_lexer_t@{gmx\-\_\-sel\-\_\-lexer\-\_\-t}}
+\subsubsection[{nalloc\-\_\-input}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-sel\-\_\-lexer\-\_\-t\-::nalloc\-\_\-input}}}\label{structgmx__sel__lexer__t_a9cddfb4c17c03f825cc4ca28befbb02b}
+\hypertarget{structgmx__sel__lexer__t_a406c46c4363efbb6334142facff6091e}{\index{gmx\-\_\-sel\-\_\-lexer\-\_\-t@{gmx\-\_\-sel\-\_\-lexer\-\_\-t}!nalloc\-\_\-psel@{nalloc\-\_\-psel}}
+\index{nalloc\-\_\-psel@{nalloc\-\_\-psel}!gmx_sel_lexer_t@{gmx\-\_\-sel\-\_\-lexer\-\_\-t}}
+\subsubsection[{nalloc\-\_\-psel}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-sel\-\_\-lexer\-\_\-t\-::nalloc\-\_\-psel}}}\label{structgmx__sel__lexer__t_a406c46c4363efbb6334142facff6091e}
+\hypertarget{structgmx__sel__lexer__t_a5c19cf6e921545d45e0843fc5e29458a}{\index{gmx\-\_\-sel\-\_\-lexer\-\_\-t@{gmx\-\_\-sel\-\_\-lexer\-\_\-t}!neom@{neom}}
+\index{neom@{neom}!gmx_sel_lexer_t@{gmx\-\_\-sel\-\_\-lexer\-\_\-t}}
+\subsubsection[{neom}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-sel\-\_\-lexer\-\_\-t\-::neom}}}\label{structgmx__sel__lexer__t_a5c19cf6e921545d45e0843fc5e29458a}
+\hypertarget{structgmx__sel__lexer__t_a5695b1b723a0613de0aed182033788bf}{\index{gmx\-\_\-sel\-\_\-lexer\-\_\-t@{gmx\-\_\-sel\-\_\-lexer\-\_\-t}!nexpsel@{nexpsel}}
+\index{nexpsel@{nexpsel}!gmx_sel_lexer_t@{gmx\-\_\-sel\-\_\-lexer\-\_\-t}}
+\subsubsection[{nexpsel}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-sel\-\_\-lexer\-\_\-t\-::nexpsel}}}\label{structgmx__sel__lexer__t_a5695b1b723a0613de0aed182033788bf}
+\hypertarget{structgmx__sel__lexer__t_ae2cf4bd2491f89b3f4b2c3da9c11e450}{\index{gmx\-\_\-sel\-\_\-lexer\-\_\-t@{gmx\-\_\-sel\-\_\-lexer\-\_\-t}!nextmethod@{nextmethod}}
+\index{nextmethod@{nextmethod}!gmx_sel_lexer_t@{gmx\-\_\-sel\-\_\-lexer\-\_\-t}}
+\subsubsection[{nextmethod}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf gmx\-\_\-ana\-\_\-selmethod\-\_\-t}$\ast$ {\bf gmx\-\_\-sel\-\_\-lexer\-\_\-t\-::nextmethod}}}\label{structgmx__sel__lexer__t_ae2cf4bd2491f89b3f4b2c3da9c11e450}
+\hypertarget{structgmx__sel__lexer__t_aa5198ac84c3303505202a7b6b6cb17d1}{\index{gmx\-\_\-sel\-\_\-lexer\-\_\-t@{gmx\-\_\-sel\-\_\-lexer\-\_\-t}!nextparam@{nextparam}}
+\index{nextparam@{nextparam}!gmx_sel_lexer_t@{gmx\-\_\-sel\-\_\-lexer\-\_\-t}}
+\subsubsection[{nextparam}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf gmx\-\_\-ana\-\_\-selparam\-\_\-t}$\ast$ {\bf gmx\-\_\-sel\-\_\-lexer\-\_\-t\-::nextparam}}}\label{structgmx__sel__lexer__t_aa5198ac84c3303505202a7b6b6cb17d1}
+\hypertarget{structgmx__sel__lexer__t_a2d1f374ebc06436e028d3e248c61de94}{\index{gmx\-\_\-sel\-\_\-lexer\-\_\-t@{gmx\-\_\-sel\-\_\-lexer\-\_\-t}!prev\-\_\-pos\-\_\-kw@{prev\-\_\-pos\-\_\-kw}}
+\index{prev\-\_\-pos\-\_\-kw@{prev\-\_\-pos\-\_\-kw}!gmx_sel_lexer_t@{gmx\-\_\-sel\-\_\-lexer\-\_\-t}}
+\subsubsection[{prev\-\_\-pos\-\_\-kw}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-sel\-\_\-lexer\-\_\-t\-::prev\-\_\-pos\-\_\-kw}}}\label{structgmx__sel__lexer__t_a2d1f374ebc06436e028d3e248c61de94}
+\hypertarget{structgmx__sel__lexer__t_aecab18de208e7f67e3122ae29178f560}{\index{gmx\-\_\-sel\-\_\-lexer\-\_\-t@{gmx\-\_\-sel\-\_\-lexer\-\_\-t}!pselstr@{pselstr}}
+\index{pselstr@{pselstr}!gmx_sel_lexer_t@{gmx\-\_\-sel\-\_\-lexer\-\_\-t}}
+\subsubsection[{pselstr}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ {\bf gmx\-\_\-sel\-\_\-lexer\-\_\-t\-::pselstr}}}\label{structgmx__sel__lexer__t_aecab18de208e7f67e3122ae29178f560}
+\hypertarget{structgmx__sel__lexer__t_a8a8b8fba445d21818367f101c5253aa1}{\index{gmx\-\_\-sel\-\_\-lexer\-\_\-t@{gmx\-\_\-sel\-\_\-lexer\-\_\-t}!pslen@{pslen}}
+\index{pslen@{pslen}!gmx_sel_lexer_t@{gmx\-\_\-sel\-\_\-lexer\-\_\-t}}
+\subsubsection[{pslen}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-sel\-\_\-lexer\-\_\-t\-::pslen}}}\label{structgmx__sel__lexer__t_a8a8b8fba445d21818367f101c5253aa1}
+\hypertarget{structgmx__sel__lexer__t_a82dc052b54870d8ea2770036c241af08}{\index{gmx\-\_\-sel\-\_\-lexer\-\_\-t@{gmx\-\_\-sel\-\_\-lexer\-\_\-t}!sc@{sc}}
+\index{sc@{sc}!gmx_sel_lexer_t@{gmx\-\_\-sel\-\_\-lexer\-\_\-t}}
+\subsubsection[{sc}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf gmx\-\_\-ana\-\_\-selcollection\-\_\-t}$\ast$ {\bf gmx\-\_\-sel\-\_\-lexer\-\_\-t\-::sc}}}\label{structgmx__sel__lexer__t_a82dc052b54870d8ea2770036c241af08}
+
+
+\-The documentation for this struct was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+src/gmxlib/selection/\hyperlink{scanner__internal_8h}{scanner\-\_\-internal.\-h}\end{DoxyCompactItemize}

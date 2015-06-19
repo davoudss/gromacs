@@ -1,0 +1,137 @@
+\hypertarget{share_2template_2gromacs_2tgroup_8h}{\section{share/template/gromacs/tgroup.h \-File \-Reference}
+\label{share_2template_2gromacs_2tgroup_8h}\index{share/template/gromacs/tgroup.\-h@{share/template/gromacs/tgroup.\-h}}
+}
+{\ttfamily \#include \char`\"{}visibility.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}typedefs.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}network.\-h\char`\"{}}\*
+\-Include dependency graph for tgroup.\-h\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{share_2template_2gromacs_2tgroup_8h__incl}
+\end{center}
+\end{figure}
+\-This graph shows which files directly or indirectly include this file\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{share_2template_2gromacs_2tgroup_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_ab80ef94c2b909a1a948639e98e63b612}{\-G\-M\-X\-\_\-\-L\-I\-B\-M\-D\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{share_2template_2gromacs_2tgroup_8h_aa51e78a67e09475f1abbddcb7ce64088}{init\-\_\-ekindata} (\-F\-I\-L\-E $\ast$log, \hyperlink{structgmx__mtop__t}{gmx\-\_\-mtop\-\_\-t} $\ast$mtop, \hyperlink{structt__grpopts}{t\-\_\-grpopts} $\ast$opts, \hyperlink{structgmx__ekindata__t}{gmx\-\_\-ekindata\-\_\-t} $\ast$ekind)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{share_2template_2gromacs_2tgroup_8h_a7952b4135199bc872df75ff7c196d057}{done\-\_\-ekindata} (\hyperlink{structgmx__ekindata__t}{gmx\-\_\-ekindata\-\_\-t} $\ast$ekind)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{share_2template_2gromacs_2tgroup_8h_a1bdde28ec80a57e0a24c8e58e7c5f396}{accumulate\-\_\-u} (\hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr, \hyperlink{structt__grpopts}{t\-\_\-grpopts} $\ast$opts, \hyperlink{structgmx__ekindata__t}{gmx\-\_\-ekindata\-\_\-t} $\ast$ekind)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_ab80ef94c2b909a1a948639e98e63b612}{\-G\-M\-X\-\_\-\-L\-I\-B\-M\-D\-\_\-\-E\-X\-P\-O\-R\-T} real \hyperlink{share_2template_2gromacs_2tgroup_8h_a73e86b8c7dbdae468788b66aeabb3c71}{sum\-\_\-ekin} (\hyperlink{structt__grpopts}{t\-\_\-grpopts} $\ast$opts, \hyperlink{structgmx__ekindata__t}{gmx\-\_\-ekindata\-\_\-t} $\ast$ekind, real $\ast$dekindlambda, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Ekin\-Full\-Step, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Save\-Ekin\-Old, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Scale\-Ekin)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{share_2template_2gromacs_2tgroup_8h_a19766a5e5a84e5b0d9dedead340d69f3}{update\-\_\-ekindata} (int start, int homenr, \hyperlink{structgmx__ekindata__t}{gmx\-\_\-ekindata\-\_\-t} $\ast$ekind, \hyperlink{structt__grpopts}{t\-\_\-grpopts} $\ast$opts, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a339df93739a405c3e4b0506624fa27a5}{v}\mbox{[}$\,$\mbox{]}, \hyperlink{structt__mdatoms}{t\-\_\-mdatoms} $\ast$md, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_aec47b6dda9c386285e755f058a846af8}{lambda})
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{share_2template_2gromacs_2tgroup_8h_a1bdde28ec80a57e0a24c8e58e7c5f396}{\index{share/template/gromacs/tgroup.\-h@{share/template/gromacs/tgroup.\-h}!accumulate\-\_\-u@{accumulate\-\_\-u}}
+\index{accumulate\-\_\-u@{accumulate\-\_\-u}!share/template/gromacs/tgroup.h@{share/template/gromacs/tgroup.\-h}}
+\subsubsection[{accumulate\-\_\-u}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf accumulate\-\_\-u} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-commrec} $\ast$}]{cr, }
+\item[{{\bf t\-\_\-grpopts} $\ast$}]{opts, }
+\item[{{\bf gmx\-\_\-ekindata\-\_\-t} $\ast$}]{ekind}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2tgroup_8h_a1bdde28ec80a57e0a24c8e58e7c5f396}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=262pt]{share_2template_2gromacs_2tgroup_8h_a1bdde28ec80a57e0a24c8e58e7c5f396_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{share_2template_2gromacs_2tgroup_8h_a7952b4135199bc872df75ff7c196d057}{\index{share/template/gromacs/tgroup.\-h@{share/template/gromacs/tgroup.\-h}!done\-\_\-ekindata@{done\-\_\-ekindata}}
+\index{done\-\_\-ekindata@{done\-\_\-ekindata}!share/template/gromacs/tgroup.h@{share/template/gromacs/tgroup.\-h}}
+\subsubsection[{done\-\_\-ekindata}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf done\-\_\-ekindata} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ekindata\-\_\-t} $\ast$}]{ekind}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2tgroup_8h_a7952b4135199bc872df75ff7c196d057}
+\hypertarget{share_2template_2gromacs_2tgroup_8h_aa51e78a67e09475f1abbddcb7ce64088}{\index{share/template/gromacs/tgroup.\-h@{share/template/gromacs/tgroup.\-h}!init\-\_\-ekindata@{init\-\_\-ekindata}}
+\index{init\-\_\-ekindata@{init\-\_\-ekindata}!share/template/gromacs/tgroup.h@{share/template/gromacs/tgroup.\-h}}
+\subsubsection[{init\-\_\-ekindata}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-M\-D\-\_\-\-E\-X\-P\-O\-R\-T} {\bf void} {\bf init\-\_\-ekindata} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{log, }
+\item[{{\bf gmx\-\_\-mtop\-\_\-t} $\ast$}]{mtop, }
+\item[{{\bf t\-\_\-grpopts} $\ast$}]{opts, }
+\item[{{\bf gmx\-\_\-ekindata\-\_\-t} $\ast$}]{ekind}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2tgroup_8h_aa51e78a67e09475f1abbddcb7ce64088}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{share_2template_2gromacs_2tgroup_8h_aa51e78a67e09475f1abbddcb7ce64088_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{share_2template_2gromacs_2tgroup_8h_a73e86b8c7dbdae468788b66aeabb3c71}{\index{share/template/gromacs/tgroup.\-h@{share/template/gromacs/tgroup.\-h}!sum\-\_\-ekin@{sum\-\_\-ekin}}
+\index{sum\-\_\-ekin@{sum\-\_\-ekin}!share/template/gromacs/tgroup.h@{share/template/gromacs/tgroup.\-h}}
+\subsubsection[{sum\-\_\-ekin}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-M\-D\-\_\-\-E\-X\-P\-O\-R\-T} real {\bf sum\-\_\-ekin} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-grpopts} $\ast$}]{opts, }
+\item[{{\bf gmx\-\_\-ekindata\-\_\-t} $\ast$}]{ekind, }
+\item[{real $\ast$}]{dekindlambda, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Ekin\-Full\-Step, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Save\-Ekin\-Old, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Scale\-Ekin}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2tgroup_8h_a73e86b8c7dbdae468788b66aeabb3c71}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=238pt]{share_2template_2gromacs_2tgroup_8h_a73e86b8c7dbdae468788b66aeabb3c71_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{share_2template_2gromacs_2tgroup_8h_a19766a5e5a84e5b0d9dedead340d69f3}{\index{share/template/gromacs/tgroup.\-h@{share/template/gromacs/tgroup.\-h}!update\-\_\-ekindata@{update\-\_\-ekindata}}
+\index{update\-\_\-ekindata@{update\-\_\-ekindata}!share/template/gromacs/tgroup.h@{share/template/gromacs/tgroup.\-h}}
+\subsubsection[{update\-\_\-ekindata}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf update\-\_\-ekindata} (
+\begin{DoxyParamCaption}
+\item[{int}]{start, }
+\item[{int}]{homenr, }
+\item[{{\bf gmx\-\_\-ekindata\-\_\-t} $\ast$}]{ekind, }
+\item[{{\bf t\-\_\-grpopts} $\ast$}]{opts, }
+\item[{{\bf rvec}}]{v\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf t\-\_\-mdatoms} $\ast$}]{md, }
+\item[{real}]{lambda}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2tgroup_8h_a19766a5e5a84e5b0d9dedead340d69f3}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=266pt]{share_2template_2gromacs_2tgroup_8h_a19766a5e5a84e5b0d9dedead340d69f3_cgraph}
+\end{center}
+\end{figure}
+
+

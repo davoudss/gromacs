@@ -1,0 +1,140 @@
+\hypertarget{ewald__util_8c}{\section{src/gmxlib/ewald\-\_\-util.c \-File \-Reference}
+\label{ewald__util_8c}\index{src/gmxlib/ewald\-\_\-util.\-c@{src/gmxlib/ewald\-\_\-util.\-c}}
+}
+{\ttfamily \#include $<$stdio.\-h$>$}\*
+{\ttfamily \#include $<$math.\-h$>$}\*
+{\ttfamily \#include \char`\"{}maths.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}typedefs.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}vec.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}coulomb.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}smalloc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}physics.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}txtdump.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}futil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}names.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}writeps.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}macros.\-h\char`\"{}}\*
+\-Include dependency graph for ewald\-\_\-util.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ewald__util_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{ewald__util_8c_a64eb856d90b06ee680552208823a6cb0}{\-R\-\_\-\-E\-R\-F\-\_\-\-R\-\_\-\-I\-N\-A\-C\-C}~0.\-1
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+real \hyperlink{ewald__util_8c_a2089ee56f77920cf224d19793ef156d1}{calc\-\_\-ewaldcoeff} (real rc, real dtol)
+\item 
+real \hyperlink{ewald__util_8c_ab69f3056ecfd842f35f1dc57ec4012d8}{ewald\-\_\-\-L\-Rcorrection} (\-F\-I\-L\-E $\ast$fplog, int start, int end, \hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr, int thread, \hyperlink{structt__forcerec}{t\-\_\-forcerec} $\ast$\hyperlink{addconf_8c_ae8414314f87c5e49503ac0117eb511ad}{fr}, real $\ast$charge\-A, real $\ast$charge\-B, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} calc\-\_\-excl\-\_\-corr, \hyperlink{structt__blocka}{t\-\_\-blocka} $\ast$excl, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} mu\-\_\-tot\mbox{[}$\,$\mbox{]}, int ewald\-\_\-geometry, real epsilon\-\_\-surface, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$\hyperlink{copyrite_8c_a0757cfb6fe645a02867727255faa4f8b}{f}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aef0bf341f56ce75f09dbb64350488a61}{tensor} vir, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_aec47b6dda9c386285e755f058a846af8}{lambda}, real $\ast$dvdlambda)
+\item 
+real \hyperlink{ewald__util_8c_a6b997c29a857b159af729a6f49358b08}{ewald\-\_\-charge\-\_\-correction} (\hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr, \hyperlink{structt__forcerec}{t\-\_\-forcerec} $\ast$\hyperlink{addconf_8c_ae8414314f87c5e49503ac0117eb511ad}{fr}, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_aec47b6dda9c386285e755f058a846af8}{lambda}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box, real $\ast$dvdlambda, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aef0bf341f56ce75f09dbb64350488a61}{tensor} vir)
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Define \-Documentation}
+\hypertarget{ewald__util_8c_a64eb856d90b06ee680552208823a6cb0}{\index{ewald\-\_\-util.\-c@{ewald\-\_\-util.\-c}!\-R\-\_\-\-E\-R\-F\-\_\-\-R\-\_\-\-I\-N\-A\-C\-C@{\-R\-\_\-\-E\-R\-F\-\_\-\-R\-\_\-\-I\-N\-A\-C\-C}}
+\index{\-R\-\_\-\-E\-R\-F\-\_\-\-R\-\_\-\-I\-N\-A\-C\-C@{\-R\-\_\-\-E\-R\-F\-\_\-\-R\-\_\-\-I\-N\-A\-C\-C}!ewald_util.c@{ewald\-\_\-util.\-c}}
+\subsubsection[{\-R\-\_\-\-E\-R\-F\-\_\-\-R\-\_\-\-I\-N\-A\-C\-C}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-R\-\_\-\-E\-R\-F\-\_\-\-R\-\_\-\-I\-N\-A\-C\-C}~0.\-1}}\label{ewald__util_8c_a64eb856d90b06ee680552208823a6cb0}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{ewald__util_8c_a2089ee56f77920cf224d19793ef156d1}{\index{ewald\-\_\-util.\-c@{ewald\-\_\-util.\-c}!calc\-\_\-ewaldcoeff@{calc\-\_\-ewaldcoeff}}
+\index{calc\-\_\-ewaldcoeff@{calc\-\_\-ewaldcoeff}!ewald_util.c@{ewald\-\_\-util.\-c}}
+\subsubsection[{calc\-\_\-ewaldcoeff}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf calc\-\_\-ewaldcoeff} (
+\begin{DoxyParamCaption}
+\item[{real}]{rc, }
+\item[{real}]{dtol}
+\end{DoxyParamCaption}
+)}}\label{ewald__util_8c_a2089ee56f77920cf224d19793ef156d1}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ewald__util_8c_a2089ee56f77920cf224d19793ef156d1_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{ewald__util_8c_a6b997c29a857b159af729a6f49358b08}{\index{ewald\-\_\-util.\-c@{ewald\-\_\-util.\-c}!ewald\-\_\-charge\-\_\-correction@{ewald\-\_\-charge\-\_\-correction}}
+\index{ewald\-\_\-charge\-\_\-correction@{ewald\-\_\-charge\-\_\-correction}!ewald_util.c@{ewald\-\_\-util.\-c}}
+\subsubsection[{ewald\-\_\-charge\-\_\-correction}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf ewald\-\_\-charge\-\_\-correction} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-commrec} $\ast$}]{cr, }
+\item[{{\bf t\-\_\-forcerec} $\ast$}]{fr, }
+\item[{real}]{lambda, }
+\item[{{\bf matrix}}]{box, }
+\item[{real $\ast$}]{dvdlambda, }
+\item[{{\bf tensor}}]{vir}
+\end{DoxyParamCaption}
+)}}\label{ewald__util_8c_a6b997c29a857b159af729a6f49358b08}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=338pt]{ewald__util_8c_a6b997c29a857b159af729a6f49358b08_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{ewald__util_8c_ab69f3056ecfd842f35f1dc57ec4012d8}{\index{ewald\-\_\-util.\-c@{ewald\-\_\-util.\-c}!ewald\-\_\-\-L\-Rcorrection@{ewald\-\_\-\-L\-Rcorrection}}
+\index{ewald\-\_\-\-L\-Rcorrection@{ewald\-\_\-\-L\-Rcorrection}!ewald_util.c@{ewald\-\_\-util.\-c}}
+\subsubsection[{ewald\-\_\-\-L\-Rcorrection}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf ewald\-\_\-\-L\-Rcorrection} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fplog, }
+\item[{int}]{start, }
+\item[{int}]{end, }
+\item[{{\bf t\-\_\-commrec} $\ast$}]{cr, }
+\item[{int}]{thread, }
+\item[{{\bf t\-\_\-forcerec} $\ast$}]{fr, }
+\item[{real $\ast$}]{charge\-A, }
+\item[{real $\ast$}]{charge\-B, }
+\item[{{\bf gmx\-\_\-bool}}]{calc\-\_\-excl\-\_\-corr, }
+\item[{{\bf t\-\_\-blocka} $\ast$}]{excl, }
+\item[{{\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf matrix}}]{box, }
+\item[{{\bf rvec}}]{mu\-\_\-tot\mbox{[}$\,$\mbox{]}, }
+\item[{int}]{ewald\-\_\-geometry, }
+\item[{real}]{epsilon\-\_\-surface, }
+\item[{{\bf rvec} $\ast$}]{f, }
+\item[{{\bf tensor}}]{vir, }
+\item[{real}]{lambda, }
+\item[{real $\ast$}]{dvdlambda}
+\end{DoxyParamCaption}
+)}}\label{ewald__util_8c_ab69f3056ecfd842f35f1dc57ec4012d8}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=280pt]{ewald__util_8c_ab69f3056ecfd842f35f1dc57ec4012d8_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ewald__util_8c_ab69f3056ecfd842f35f1dc57ec4012d8_icgraph}
+\end{center}
+\end{figure}
+
+

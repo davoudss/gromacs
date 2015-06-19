@@ -1,0 +1,236 @@
+\hypertarget{binsearch_8c}{\section{src/tools/binsearch.c \-File \-Reference}
+\label{binsearch_8c}\index{src/tools/binsearch.\-c@{src/tools/binsearch.\-c}}
+}
+{\ttfamily \#include $<$stdio.\-h$>$}\*
+{\ttfamily \#include \char`\"{}types/simple.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-fatal.\-h\char`\"{}}\*
+\-Include dependency graph for binsearch.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=310pt]{binsearch_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{binsearch_8c_a31fb0d59a389b44b59c0c270faf61d67}{range\-Array} (int $\ast$ar, int size)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{binsearch_8c_a4e8f5790acf3f5800a0516cf7dfc93f9}{pswap} (int $\ast$\hyperlink{gmx__tcaf_8c_a87f952b4a22b76e69a31035f6a12d883}{v1}, int $\ast$\hyperlink{gmx__tcaf_8c_ad3a27fd4cf1320dd23125e881ef0dd97}{v2})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{binsearch_8c_a24b3447b0a33d5e9caca9c667cb88b81}{\-Swap} (real $\ast$\hyperlink{gmx__tcaf_8c_a87f952b4a22b76e69a31035f6a12d883}{v1}, real $\ast$\hyperlink{gmx__tcaf_8c_ad3a27fd4cf1320dd23125e881ef0dd97}{v2})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{binsearch_8c_a0680cb6a476735edff01c4b23e55167d}{insertion\-Sort} (real $\ast$arr, int $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afba281b048f6b156a50c8d4903584cc5}{perm}, int startndx, int endndx, int direction)
+\item 
+int \hyperlink{binsearch_8c_a95cbb91df3eb81c48d88b00947bc546a}{\-Binary\-Search} (real $\ast$array, int low, int high, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_adc11ad865dea0f5b8c4e03061d8a7e58}{key}, int direction)
+\item 
+int \hyperlink{binsearch_8c_a56a74520f9c84bb6e0784ac4c67e6f5e}{start\-\_\-binsearch} (real $\ast$array, int $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afba281b048f6b156a50c8d4903584cc5}{perm}, int low, int high, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_adc11ad865dea0f5b8c4e03061d8a7e58}{key}, int direction)
+\item 
+int \hyperlink{binsearch_8c_a23ca4fdc3cc6935155cb19abc03ccb16}{\-Linear\-Search} (double $\ast$array, int startindx, int stopindx, double \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_adc11ad865dea0f5b8c4e03061d8a7e58}{key}, int $\ast$count, int direction)
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{binsearch_8c_a95cbb91df3eb81c48d88b00947bc546a}{\index{binsearch.\-c@{binsearch.\-c}!\-Binary\-Search@{\-Binary\-Search}}
+\index{\-Binary\-Search@{\-Binary\-Search}!binsearch.c@{binsearch.\-c}}
+\subsubsection[{\-Binary\-Search}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf \-Binary\-Search} (
+\begin{DoxyParamCaption}
+\item[{real $\ast$}]{array, }
+\item[{int}]{low, }
+\item[{int}]{high, }
+\item[{real}]{key, }
+\item[{int}]{direction}
+\end{DoxyParamCaption}
+)}}\label{binsearch_8c_a95cbb91df3eb81c48d88b00947bc546a}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{binsearch_8c_a95cbb91df3eb81c48d88b00947bc546a_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{binsearch_8c_a0680cb6a476735edff01c4b23e55167d}{\index{binsearch.\-c@{binsearch.\-c}!insertion\-Sort@{insertion\-Sort}}
+\index{insertion\-Sort@{insertion\-Sort}!binsearch.c@{binsearch.\-c}}
+\subsubsection[{insertion\-Sort}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf insertion\-Sort} (
+\begin{DoxyParamCaption}
+\item[{real $\ast$}]{arr, }
+\item[{int $\ast$}]{perm, }
+\item[{int}]{startndx, }
+\item[{int}]{endndx, }
+\item[{int}]{direction}
+\end{DoxyParamCaption}
+)}}\label{binsearch_8c_a0680cb6a476735edff01c4b23e55167d}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{binsearch_8c_a0680cb6a476735edff01c4b23e55167d_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{binsearch_8c_a0680cb6a476735edff01c4b23e55167d_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{binsearch_8c_a23ca4fdc3cc6935155cb19abc03ccb16}{\index{binsearch.\-c@{binsearch.\-c}!\-Linear\-Search@{\-Linear\-Search}}
+\index{\-Linear\-Search@{\-Linear\-Search}!binsearch.c@{binsearch.\-c}}
+\subsubsection[{\-Linear\-Search}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf \-Linear\-Search} (
+\begin{DoxyParamCaption}
+\item[{double $\ast$}]{array, }
+\item[{int}]{startindx, }
+\item[{int}]{stopindx, }
+\item[{double}]{key, }
+\item[{int $\ast$}]{count, }
+\item[{int}]{direction}
+\end{DoxyParamCaption}
+)}}\label{binsearch_8c_a23ca4fdc3cc6935155cb19abc03ccb16}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=250pt]{binsearch_8c_a23ca4fdc3cc6935155cb19abc03ccb16_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{binsearch_8c_a4e8f5790acf3f5800a0516cf7dfc93f9}{\index{binsearch.\-c@{binsearch.\-c}!pswap@{pswap}}
+\index{pswap@{pswap}!binsearch.c@{binsearch.\-c}}
+\subsubsection[{pswap}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf pswap} (
+\begin{DoxyParamCaption}
+\item[{int $\ast$}]{v1, }
+\item[{int $\ast$}]{v2}
+\end{DoxyParamCaption}
+)}}\label{binsearch_8c_a4e8f5790acf3f5800a0516cf7dfc93f9}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=280pt]{binsearch_8c_a4e8f5790acf3f5800a0516cf7dfc93f9_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{binsearch_8c_a4e8f5790acf3f5800a0516cf7dfc93f9_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{binsearch_8c_a31fb0d59a389b44b59c0c270faf61d67}{\index{binsearch.\-c@{binsearch.\-c}!range\-Array@{range\-Array}}
+\index{range\-Array@{range\-Array}!binsearch.c@{binsearch.\-c}}
+\subsubsection[{range\-Array}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf range\-Array} (
+\begin{DoxyParamCaption}
+\item[{int $\ast$}]{ar, }
+\item[{int}]{size}
+\end{DoxyParamCaption}
+)}}\label{binsearch_8c_a31fb0d59a389b44b59c0c270faf61d67}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{binsearch_8c_a31fb0d59a389b44b59c0c270faf61d67_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{binsearch_8c_a56a74520f9c84bb6e0784ac4c67e6f5e}{\index{binsearch.\-c@{binsearch.\-c}!start\-\_\-binsearch@{start\-\_\-binsearch}}
+\index{start\-\_\-binsearch@{start\-\_\-binsearch}!binsearch.c@{binsearch.\-c}}
+\subsubsection[{start\-\_\-binsearch}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf start\-\_\-binsearch} (
+\begin{DoxyParamCaption}
+\item[{real $\ast$}]{array, }
+\item[{int $\ast$}]{perm, }
+\item[{int}]{low, }
+\item[{int}]{high, }
+\item[{real}]{key, }
+\item[{int}]{direction}
+\end{DoxyParamCaption}
+)}}\label{binsearch_8c_a56a74520f9c84bb6e0784ac4c67e6f5e}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{binsearch_8c_a56a74520f9c84bb6e0784ac4c67e6f5e_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{binsearch_8c_a56a74520f9c84bb6e0784ac4c67e6f5e_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{binsearch_8c_a24b3447b0a33d5e9caca9c667cb88b81}{\index{binsearch.\-c@{binsearch.\-c}!\-Swap@{\-Swap}}
+\index{\-Swap@{\-Swap}!binsearch.c@{binsearch.\-c}}
+\subsubsection[{\-Swap}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf \-Swap} (
+\begin{DoxyParamCaption}
+\item[{real $\ast$}]{v1, }
+\item[{real $\ast$}]{v2}
+\end{DoxyParamCaption}
+)}}\label{binsearch_8c_a24b3447b0a33d5e9caca9c667cb88b81}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=276pt]{binsearch_8c_a24b3447b0a33d5e9caca9c667cb88b81_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{binsearch_8c_a24b3447b0a33d5e9caca9c667cb88b81_icgraph}
+\end{center}
+\end{figure}
+
+

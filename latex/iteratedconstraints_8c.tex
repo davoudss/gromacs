@@ -1,0 +1,116 @@
+\hypertarget{iteratedconstraints_8c}{\section{src/mdlib/iteratedconstraints.c \-File \-Reference}
+\label{iteratedconstraints_8c}\index{src/mdlib/iteratedconstraints.\-c@{src/mdlib/iteratedconstraints.\-c}}
+}
+{\ttfamily \#include $<$math.\-h$>$}\*
+{\ttfamily \#include \char`\"{}typedefs.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-fatal.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}mdrun.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}md\-\_\-support.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}md\-\_\-logging.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}types/iteratedconstraints.\-h\char`\"{}}\*
+\-Include dependency graph for iteratedconstraints.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{iteratedconstraints_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{iteratedconstraints_8c_ab563899c9d067d1806f280aad5ca4380}{\-C\-O\-N\-V\-E\-R\-G\-E\-I\-T\-E\-R}~0.\-0001
+\item 
+\#define \hyperlink{iteratedconstraints_8c_ac41dcb1b05822ed3d59be274e506e0f1}{\-C\-L\-O\-S\-E\-\_\-\-E\-N\-O\-U\-G\-H}~0.\-0050
+\item 
+\#define \hyperlink{iteratedconstraints_8c_ad7c34ddcaa358ead7dbb300d0dd80999}{\-M\-A\-X\-\_\-\-N\-U\-M\-B\-E\-R\-\_\-\-C\-L\-O\-S\-E}~50
+\item 
+\#define \hyperlink{iteratedconstraints_8c_a66047d0399be6425fefbc020d2983bba}{\-F\-R\-A\-C\-T\-I\-O\-N\-\_\-\-C\-L\-O\-S\-E}~0.\-001
+\item 
+\#define \hyperlink{iteratedconstraints_8c_a75d8cb24218f70d4350ed9fb7b2cbb32}{\-C\-Y\-C\-L\-E\-M\-A\-X}~20
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{iteratedconstraints_8c_a2a8c4853738e59082915d56ee5a96be4}{gmx\-\_\-iterate\-\_\-init} (\hyperlink{structgmx__iterate__t}{gmx\-\_\-iterate\-\_\-t} $\ast$iterate, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Set\-Iteration\-Active)
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{iteratedconstraints_8c_a7d88a331a1d1ac668c0ff4cd086b7040}{done\-\_\-iterating} (const \hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr, \-F\-I\-L\-E $\ast$fplog, int nsteps, \hyperlink{structgmx__iterate__t}{gmx\-\_\-iterate\-\_\-t} $\ast$iterate, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-First\-Iterate, real fom, real $\ast$newf)
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Define \-Documentation}
+\hypertarget{iteratedconstraints_8c_ac41dcb1b05822ed3d59be274e506e0f1}{\index{iteratedconstraints.\-c@{iteratedconstraints.\-c}!\-C\-L\-O\-S\-E\-\_\-\-E\-N\-O\-U\-G\-H@{\-C\-L\-O\-S\-E\-\_\-\-E\-N\-O\-U\-G\-H}}
+\index{\-C\-L\-O\-S\-E\-\_\-\-E\-N\-O\-U\-G\-H@{\-C\-L\-O\-S\-E\-\_\-\-E\-N\-O\-U\-G\-H}!iteratedconstraints.c@{iteratedconstraints.\-c}}
+\subsubsection[{\-C\-L\-O\-S\-E\-\_\-\-E\-N\-O\-U\-G\-H}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-C\-L\-O\-S\-E\-\_\-\-E\-N\-O\-U\-G\-H}~0.\-0050}}\label{iteratedconstraints_8c_ac41dcb1b05822ed3d59be274e506e0f1}
+\hypertarget{iteratedconstraints_8c_ab563899c9d067d1806f280aad5ca4380}{\index{iteratedconstraints.\-c@{iteratedconstraints.\-c}!\-C\-O\-N\-V\-E\-R\-G\-E\-I\-T\-E\-R@{\-C\-O\-N\-V\-E\-R\-G\-E\-I\-T\-E\-R}}
+\index{\-C\-O\-N\-V\-E\-R\-G\-E\-I\-T\-E\-R@{\-C\-O\-N\-V\-E\-R\-G\-E\-I\-T\-E\-R}!iteratedconstraints.c@{iteratedconstraints.\-c}}
+\subsubsection[{\-C\-O\-N\-V\-E\-R\-G\-E\-I\-T\-E\-R}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-C\-O\-N\-V\-E\-R\-G\-E\-I\-T\-E\-R}~0.\-0001}}\label{iteratedconstraints_8c_ab563899c9d067d1806f280aad5ca4380}
+\hypertarget{iteratedconstraints_8c_a75d8cb24218f70d4350ed9fb7b2cbb32}{\index{iteratedconstraints.\-c@{iteratedconstraints.\-c}!\-C\-Y\-C\-L\-E\-M\-A\-X@{\-C\-Y\-C\-L\-E\-M\-A\-X}}
+\index{\-C\-Y\-C\-L\-E\-M\-A\-X@{\-C\-Y\-C\-L\-E\-M\-A\-X}!iteratedconstraints.c@{iteratedconstraints.\-c}}
+\subsubsection[{\-C\-Y\-C\-L\-E\-M\-A\-X}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-C\-Y\-C\-L\-E\-M\-A\-X}~20}}\label{iteratedconstraints_8c_a75d8cb24218f70d4350ed9fb7b2cbb32}
+\hypertarget{iteratedconstraints_8c_a66047d0399be6425fefbc020d2983bba}{\index{iteratedconstraints.\-c@{iteratedconstraints.\-c}!\-F\-R\-A\-C\-T\-I\-O\-N\-\_\-\-C\-L\-O\-S\-E@{\-F\-R\-A\-C\-T\-I\-O\-N\-\_\-\-C\-L\-O\-S\-E}}
+\index{\-F\-R\-A\-C\-T\-I\-O\-N\-\_\-\-C\-L\-O\-S\-E@{\-F\-R\-A\-C\-T\-I\-O\-N\-\_\-\-C\-L\-O\-S\-E}!iteratedconstraints.c@{iteratedconstraints.\-c}}
+\subsubsection[{\-F\-R\-A\-C\-T\-I\-O\-N\-\_\-\-C\-L\-O\-S\-E}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-F\-R\-A\-C\-T\-I\-O\-N\-\_\-\-C\-L\-O\-S\-E}~0.\-001}}\label{iteratedconstraints_8c_a66047d0399be6425fefbc020d2983bba}
+\hypertarget{iteratedconstraints_8c_ad7c34ddcaa358ead7dbb300d0dd80999}{\index{iteratedconstraints.\-c@{iteratedconstraints.\-c}!\-M\-A\-X\-\_\-\-N\-U\-M\-B\-E\-R\-\_\-\-C\-L\-O\-S\-E@{\-M\-A\-X\-\_\-\-N\-U\-M\-B\-E\-R\-\_\-\-C\-L\-O\-S\-E}}
+\index{\-M\-A\-X\-\_\-\-N\-U\-M\-B\-E\-R\-\_\-\-C\-L\-O\-S\-E@{\-M\-A\-X\-\_\-\-N\-U\-M\-B\-E\-R\-\_\-\-C\-L\-O\-S\-E}!iteratedconstraints.c@{iteratedconstraints.\-c}}
+\subsubsection[{\-M\-A\-X\-\_\-\-N\-U\-M\-B\-E\-R\-\_\-\-C\-L\-O\-S\-E}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-M\-A\-X\-\_\-\-N\-U\-M\-B\-E\-R\-\_\-\-C\-L\-O\-S\-E}~50}}\label{iteratedconstraints_8c_ad7c34ddcaa358ead7dbb300d0dd80999}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{iteratedconstraints_8c_a7d88a331a1d1ac668c0ff4cd086b7040}{\index{iteratedconstraints.\-c@{iteratedconstraints.\-c}!done\-\_\-iterating@{done\-\_\-iterating}}
+\index{done\-\_\-iterating@{done\-\_\-iterating}!iteratedconstraints.c@{iteratedconstraints.\-c}}
+\subsubsection[{done\-\_\-iterating}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf done\-\_\-iterating} (
+\begin{DoxyParamCaption}
+\item[{const {\bf t\-\_\-commrec} $\ast$}]{cr, }
+\item[{\-F\-I\-L\-E $\ast$}]{fplog, }
+\item[{int}]{nsteps, }
+\item[{{\bf gmx\-\_\-iterate\-\_\-t} $\ast$}]{iterate, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-First\-Iterate, }
+\item[{real}]{fom, }
+\item[{real $\ast$}]{newf}
+\end{DoxyParamCaption}
+)}}\label{iteratedconstraints_8c_a7d88a331a1d1ac668c0ff4cd086b7040}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=274pt]{iteratedconstraints_8c_a7d88a331a1d1ac668c0ff4cd086b7040_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=240pt]{iteratedconstraints_8c_a7d88a331a1d1ac668c0ff4cd086b7040_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{iteratedconstraints_8c_a2a8c4853738e59082915d56ee5a96be4}{\index{iteratedconstraints.\-c@{iteratedconstraints.\-c}!gmx\-\_\-iterate\-\_\-init@{gmx\-\_\-iterate\-\_\-init}}
+\index{gmx\-\_\-iterate\-\_\-init@{gmx\-\_\-iterate\-\_\-init}!iteratedconstraints.c@{iteratedconstraints.\-c}}
+\subsubsection[{gmx\-\_\-iterate\-\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-iterate\-\_\-init} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-iterate\-\_\-t} $\ast$}]{iterate, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Set\-Iteration\-Active}
+\end{DoxyParamCaption}
+)}}\label{iteratedconstraints_8c_a2a8c4853738e59082915d56ee5a96be4}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=248pt]{iteratedconstraints_8c_a2a8c4853738e59082915d56ee5a96be4_icgraph}
+\end{center}
+\end{figure}
+
+

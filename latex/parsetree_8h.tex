@@ -1,0 +1,1202 @@
+\hypertarget{parsetree_8h}{\section{src/gmxlib/selection/parsetree.h \-File \-Reference}
+\label{parsetree_8h}\index{src/gmxlib/selection/parsetree.\-h@{src/gmxlib/selection/parsetree.\-h}}
+}
+{\ttfamily \#include $<$types/simple.\-h$>$}\*
+{\ttfamily \#include $<$selvalue.\-h$>$}\*
+\-Include dependency graph for parsetree.\-h\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=241pt]{parsetree_8h__incl}
+\end{center}
+\end{figure}
+\-This graph shows which files directly or indirectly include this file\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{parsetree_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structt__selexpr__value}{t\-\_\-selexpr\-\_\-value}
+\item 
+struct \hyperlink{structt__selexpr__param}{t\-\_\-selexpr\-\_\-param}
+\end{DoxyCompactItemize}
+\subsection*{\-Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \hyperlink{structt__selexpr__value}{t\-\_\-selexpr\-\_\-value} \hyperlink{parsetree_8h_a3309e09c92719addee7c35c6eeca546e}{t\-\_\-selexpr\-\_\-value}
+\item 
+typedef struct \hyperlink{structt__selexpr__param}{t\-\_\-selexpr\-\_\-param} \hyperlink{parsetree_8h_aecd24f5ba618b4992af02d88f6df953c}{t\-\_\-selexpr\-\_\-param}
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{parsetree_8h_a137c7741f7e09f0cbd37663fceb11543}{\-\_\-gmx\-\_\-selparser\-\_\-error} (const char $\ast$fmt,...)
+\item 
+\hyperlink{structt__selexpr__value}{t\-\_\-selexpr\-\_\-value} $\ast$ \hyperlink{parsetree_8h_af637eaa2a9af8ca965eb921f72d416f4}{\-\_\-gmx\-\_\-selexpr\-\_\-create\-\_\-value} (\hyperlink{include_2selvalue_8h_a70b42b87d434580bf1493591857b8bec}{e\-\_\-selvalue\-\_\-t} \hyperlink{fgrid_8c_a7f3986ef06a5ebd031c536fbcdce3c49}{type})
+\item 
+\hyperlink{structt__selexpr__value}{t\-\_\-selexpr\-\_\-value} $\ast$ \hyperlink{parsetree_8h_a9ba0eb8d15a6ef272d7d9cb451a372a6}{\-\_\-gmx\-\_\-selexpr\-\_\-create\-\_\-value\-\_\-expr} (struct \hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$expr)
+\item 
+\hyperlink{structt__selexpr__param}{t\-\_\-selexpr\-\_\-param} $\ast$ \hyperlink{parsetree_8h_ac75d3a4858e56f8823169346a85b2ea8}{\-\_\-gmx\-\_\-selexpr\-\_\-create\-\_\-param} (char $\ast$name)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{parsetree_8h_a5f0262c7c4dbf90848c3a5bbd8eb9994}{\-\_\-gmx\-\_\-selexpr\-\_\-free\-\_\-values} (\hyperlink{structt__selexpr__value}{t\-\_\-selexpr\-\_\-value} $\ast$value)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{parsetree_8h_a49add63bf7f6721ad4c229334fbeb571}{\-\_\-gmx\-\_\-selexpr\-\_\-free\-\_\-params} (\hyperlink{structt__selexpr__param}{t\-\_\-selexpr\-\_\-param} $\ast$param)
+\item 
+int \hyperlink{parsetree_8h_a216d4d4e25af43ac45a693d9d512f108}{\-\_\-gmx\-\_\-selelem\-\_\-update\-\_\-flags} (struct \hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$sel)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{parsetree_8h_ad6852657a67a7b620251d4887300b8b6}{\-\_\-gmx\-\_\-selelem\-\_\-init\-\_\-method\-\_\-params} (struct \hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$sel, \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$scanner)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{parsetree_8h_a189512cdb38d57b16789ffad3d8e9014}{\-\_\-gmx\-\_\-selelem\-\_\-set\-\_\-method} (struct \hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$sel, struct \hyperlink{structgmx__ana__selmethod__t}{gmx\-\_\-ana\-\_\-selmethod\-\_\-t} $\ast$method, \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$scanner)
+\item 
+struct \hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$ \hyperlink{parsetree_8h_adff68ebd24832fcad710565cafdde526}{\-\_\-gmx\-\_\-sel\-\_\-init\-\_\-arithmetic} (struct \hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$left, struct \hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$right, char op, \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$scanner)
+\item 
+struct \hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$ \hyperlink{parsetree_8h_a41667a2c8e119f738dca66f177700f01}{\-\_\-gmx\-\_\-sel\-\_\-init\-\_\-comparison} (struct \hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$left, struct \hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$right, char $\ast$cmpop, \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$scanner)
+\item 
+struct \hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$ \hyperlink{parsetree_8h_a095e8aa33a1bd6bbc368e360049a795a}{\-\_\-gmx\-\_\-sel\-\_\-init\-\_\-keyword} (struct \hyperlink{structgmx__ana__selmethod__t}{gmx\-\_\-ana\-\_\-selmethod\-\_\-t} $\ast$method, \hyperlink{structt__selexpr__value}{t\-\_\-selexpr\-\_\-value} $\ast$args, const char $\ast$rpost, \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$scanner)
+\item 
+struct \hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$ \hyperlink{parsetree_8h_a77f060177435ff8f7a5fdbce03840c15}{\-\_\-gmx\-\_\-sel\-\_\-init\-\_\-method} (struct \hyperlink{structgmx__ana__selmethod__t}{gmx\-\_\-ana\-\_\-selmethod\-\_\-t} $\ast$method, \hyperlink{structt__selexpr__param}{t\-\_\-selexpr\-\_\-param} $\ast$params, const char $\ast$rpost, \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$scanner)
+\item 
+struct \hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$ \hyperlink{parsetree_8h_af148573100455d4760d376df3b56c726}{\-\_\-gmx\-\_\-sel\-\_\-init\-\_\-modifier} (struct \hyperlink{structgmx__ana__selmethod__t}{gmx\-\_\-ana\-\_\-selmethod\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2vec_8h_a8effeb3246f2f663f5c53b0a997b4374}{mod}, \hyperlink{structt__selexpr__param}{t\-\_\-selexpr\-\_\-param} $\ast$params, struct \hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$sel, \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$scanner)
+\item 
+struct \hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$ \hyperlink{parsetree_8h_afca056b62c5fbb81e33a352e403e3965}{\-\_\-gmx\-\_\-sel\-\_\-init\-\_\-position} (struct \hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$expr, const char $\ast$\hyperlink{fgrid_8c_a7f3986ef06a5ebd031c536fbcdce3c49}{type}, \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$scanner)
+\item 
+struct \hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$ \hyperlink{parsetree_8h_ad47d7716736ecec3caac6885b31c8883}{\-\_\-gmx\-\_\-sel\-\_\-init\-\_\-const\-\_\-position} (real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ad992d70ec70c927046cfc2ab1c79b188}{y}, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_abf930f675551f29a5e46efa4cb496828}{z})
+\item 
+struct \hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$ \hyperlink{parsetree_8h_a7c99971361173fc196a70d614fe6c0e9}{\-\_\-gmx\-\_\-sel\-\_\-init\-\_\-group\-\_\-by\-\_\-name} (const char $\ast$name, \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$scanner)
+\item 
+struct \hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$ \hyperlink{parsetree_8h_af5197e8cde290866a0ffe808eef194e4}{\-\_\-gmx\-\_\-sel\-\_\-init\-\_\-group\-\_\-by\-\_\-id} (int id, \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$scanner)
+\item 
+struct \hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$ \hyperlink{parsetree_8h_ac27d084edce40fb05be2e9f6b72421de}{\-\_\-gmx\-\_\-sel\-\_\-init\-\_\-variable\-\_\-ref} (struct \hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$sel)
+\item 
+struct \hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$ \hyperlink{parsetree_8h_a7133e1ed4446bffc45e676aa66792392}{\-\_\-gmx\-\_\-sel\-\_\-init\-\_\-selection} (char $\ast$name, struct \hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$sel, \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$scanner)
+\item 
+struct \hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$ \hyperlink{parsetree_8h_a4b7e47899c1c8513c35210fb9109b8ef}{\-\_\-gmx\-\_\-sel\-\_\-assign\-\_\-variable} (char $\ast$name, struct \hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$expr, \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$scanner)
+\item 
+struct \hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$ \hyperlink{parsetree_8h_a03bf35eaeb83fb2bea02567d2fca3d13}{\-\_\-gmx\-\_\-sel\-\_\-append\-\_\-selection} (struct \hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$sel, struct \hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$last, \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$scanner)
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{parsetree_8h_aed15cb550c0739ddfc3a38efb408f047}{\-\_\-gmx\-\_\-sel\-\_\-parser\-\_\-should\-\_\-finish} (\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$scanner)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{parsetree_8h_a9ebcd5c14659854589555f6be702e15c}{\-\_\-gmx\-\_\-sel\-\_\-handle\-\_\-empty\-\_\-cmd} (\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$scanner)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{parsetree_8h_a582f4b9e5dba87274669cb34c11916e5}{\-\_\-gmx\-\_\-sel\-\_\-handle\-\_\-help\-\_\-cmd} (char $\ast$topic, \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$scanner)
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{parsetree_8h_a786eccc56d966edb4e47de94c26e849a}{\-\_\-gmx\-\_\-sel\-\_\-parse\-\_\-params} (\hyperlink{structt__selexpr__param}{t\-\_\-selexpr\-\_\-param} $\ast$pparams, int nparam, struct \hyperlink{structgmx__ana__selparam__t}{gmx\-\_\-ana\-\_\-selparam\-\_\-t} $\ast$param, struct \hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$root, \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$scanner)
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Typedef \-Documentation}
+\hypertarget{parsetree_8h_aecd24f5ba618b4992af02d88f6df953c}{\index{parsetree.\-h@{parsetree.\-h}!t\-\_\-selexpr\-\_\-param@{t\-\_\-selexpr\-\_\-param}}
+\index{t\-\_\-selexpr\-\_\-param@{t\-\_\-selexpr\-\_\-param}!parsetree.h@{parsetree.\-h}}
+\subsubsection[{t\-\_\-selexpr\-\_\-param}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf t\-\_\-selexpr\-\_\-param}  {\bf t\-\_\-selexpr\-\_\-param}}}\label{parsetree_8h_aecd24f5ba618b4992af02d88f6df953c}
+\hypertarget{parsetree_8h_a3309e09c92719addee7c35c6eeca546e}{\index{parsetree.\-h@{parsetree.\-h}!t\-\_\-selexpr\-\_\-value@{t\-\_\-selexpr\-\_\-value}}
+\index{t\-\_\-selexpr\-\_\-value@{t\-\_\-selexpr\-\_\-value}!parsetree.h@{parsetree.\-h}}
+\subsubsection[{t\-\_\-selexpr\-\_\-value}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf t\-\_\-selexpr\-\_\-value}  {\bf t\-\_\-selexpr\-\_\-value}}}\label{parsetree_8h_a3309e09c92719addee7c35c6eeca546e}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{parsetree_8h_a03bf35eaeb83fb2bea02567d2fca3d13}{\index{parsetree.\-h@{parsetree.\-h}!\-\_\-gmx\-\_\-sel\-\_\-append\-\_\-selection@{\-\_\-gmx\-\_\-sel\-\_\-append\-\_\-selection}}
+\index{\-\_\-gmx\-\_\-sel\-\_\-append\-\_\-selection@{\-\_\-gmx\-\_\-sel\-\_\-append\-\_\-selection}!parsetree.h@{parsetree.\-h}}
+\subsubsection[{\-\_\-gmx\-\_\-sel\-\_\-append\-\_\-selection}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf t\-\_\-selelem}$\ast$ {\bf \-\_\-gmx\-\_\-sel\-\_\-append\-\_\-selection} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-selelem} $\ast$}]{sel, }
+\item[{{\bf t\-\_\-selelem} $\ast$}]{last, }
+\item[{{\bf yyscan\-\_\-t}}]{scanner}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}read\mbox{]}}}}\label{parsetree_8h_a03bf35eaeb83fb2bea02567d2fca3d13}
+\-Appends a root {\ttfamily \hyperlink{structt__selelem}{t\-\_\-selelem}} to a selection collection.
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em sel} & \-Selection to append (can be \-N\-U\-L\-L, in which case nothing is done). \\
+\hline
+{\em last} & \-Last selection, or \-N\-U\-L\-L if not present or not known. \\
+\hline
+{\em scanner} & \-Scanner data structure. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-The last selection after the append.
+\end{DoxyReturn}
+\-Appends {\ttfamily sel} after the last root element, and returns either {\ttfamily sel} (if it was non-\/\-N\-U\-L\-L) or the last element (if {\ttfamily sel} was \-N\-U\-L\-L). 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{parsetree_8h_a03bf35eaeb83fb2bea02567d2fca3d13_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=308pt]{parsetree_8h_a03bf35eaeb83fb2bea02567d2fca3d13_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{parsetree_8h_a4b7e47899c1c8513c35210fb9109b8ef}{\index{parsetree.\-h@{parsetree.\-h}!\-\_\-gmx\-\_\-sel\-\_\-assign\-\_\-variable@{\-\_\-gmx\-\_\-sel\-\_\-assign\-\_\-variable}}
+\index{\-\_\-gmx\-\_\-sel\-\_\-assign\-\_\-variable@{\-\_\-gmx\-\_\-sel\-\_\-assign\-\_\-variable}!parsetree.h@{parsetree.\-h}}
+\subsubsection[{\-\_\-gmx\-\_\-sel\-\_\-assign\-\_\-variable}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf t\-\_\-selelem}$\ast$ {\bf \-\_\-gmx\-\_\-sel\-\_\-assign\-\_\-variable} (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{name, }
+\item[{{\bf t\-\_\-selelem} $\ast$}]{expr, }
+\item[{{\bf yyscan\-\_\-t}}]{scanner}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}read\mbox{]}}}}\label{parsetree_8h_a4b7e47899c1c8513c35210fb9109b8ef}
+\-Creates a root {\ttfamily \hyperlink{structt__selelem}{t\-\_\-selelem}} elements for a variable assignment.
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em name} & \-Name of the variable (should not be freed after this function). \\
+\hline
+\mbox{\tt in}  & {\em expr} & \-The selection element that evaluates the variable. \\
+\hline
+ & {\em scanner} & \-Scanner data structure. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-The created root selection element.
+\end{DoxyReturn}
+\-This function handles the creation of root {\ttfamily \hyperlink{structt__selelem}{t\-\_\-selelem}} objects for variable assignments. \-A \hyperlink{selelem_8h_a1f104d5c71b1198ef51acc4ef016ae46a4374c0be00e03bae94a94c4f2d88569d}{\-S\-E\-L\-\_\-\-R\-O\-O\-T} element and a \hyperlink{selelem_8h_a1f104d5c71b1198ef51acc4ef016ae46a4b01539a457afb7dbdf486c2a2e6dafb}{\-S\-E\-L\-\_\-\-S\-U\-B\-E\-X\-P\-R} element are both created. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{parsetree_8h_a4b7e47899c1c8513c35210fb9109b8ef_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=300pt]{parsetree_8h_a4b7e47899c1c8513c35210fb9109b8ef_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{parsetree_8h_a9ebcd5c14659854589555f6be702e15c}{\index{parsetree.\-h@{parsetree.\-h}!\-\_\-gmx\-\_\-sel\-\_\-handle\-\_\-empty\-\_\-cmd@{\-\_\-gmx\-\_\-sel\-\_\-handle\-\_\-empty\-\_\-cmd}}
+\index{\-\_\-gmx\-\_\-sel\-\_\-handle\-\_\-empty\-\_\-cmd@{\-\_\-gmx\-\_\-sel\-\_\-handle\-\_\-empty\-\_\-cmd}!parsetree.h@{parsetree.\-h}}
+\subsubsection[{\-\_\-gmx\-\_\-sel\-\_\-handle\-\_\-empty\-\_\-cmd}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf \-\_\-gmx\-\_\-sel\-\_\-handle\-\_\-empty\-\_\-cmd} (
+\begin{DoxyParamCaption}
+\item[{{\bf yyscan\-\_\-t}}]{scanner}
+\end{DoxyParamCaption}
+)}}\label{parsetree_8h_a9ebcd5c14659854589555f6be702e15c}
+\-Handle empty commands.
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em scanner} & \-Scanner data structure. \\
+\hline
+\end{DoxyParams}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{parsetree_8h_a9ebcd5c14659854589555f6be702e15c_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=318pt]{parsetree_8h_a9ebcd5c14659854589555f6be702e15c_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{parsetree_8h_a582f4b9e5dba87274669cb34c11916e5}{\index{parsetree.\-h@{parsetree.\-h}!\-\_\-gmx\-\_\-sel\-\_\-handle\-\_\-help\-\_\-cmd@{\-\_\-gmx\-\_\-sel\-\_\-handle\-\_\-help\-\_\-cmd}}
+\index{\-\_\-gmx\-\_\-sel\-\_\-handle\-\_\-help\-\_\-cmd@{\-\_\-gmx\-\_\-sel\-\_\-handle\-\_\-help\-\_\-cmd}!parsetree.h@{parsetree.\-h}}
+\subsubsection[{\-\_\-gmx\-\_\-sel\-\_\-handle\-\_\-help\-\_\-cmd}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf \-\_\-gmx\-\_\-sel\-\_\-handle\-\_\-help\-\_\-cmd} (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{topic, }
+\item[{{\bf yyscan\-\_\-t}}]{scanner}
+\end{DoxyParamCaption}
+)}}\label{parsetree_8h_a582f4b9e5dba87274669cb34c11916e5}
+\-Process help commands.
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em topic} & \-Topic for which help was requested, or \-N\-U\-L\-L for general help. \\
+\hline
+\mbox{\tt in}  & {\em scanner} & \-Scanner data structure.\\
+\hline
+\end{DoxyParams}
+{\ttfamily topic} is freed by this function. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{parsetree_8h_a582f4b9e5dba87274669cb34c11916e5_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=308pt]{parsetree_8h_a582f4b9e5dba87274669cb34c11916e5_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{parsetree_8h_adff68ebd24832fcad710565cafdde526}{\index{parsetree.\-h@{parsetree.\-h}!\-\_\-gmx\-\_\-sel\-\_\-init\-\_\-arithmetic@{\-\_\-gmx\-\_\-sel\-\_\-init\-\_\-arithmetic}}
+\index{\-\_\-gmx\-\_\-sel\-\_\-init\-\_\-arithmetic@{\-\_\-gmx\-\_\-sel\-\_\-init\-\_\-arithmetic}!parsetree.h@{parsetree.\-h}}
+\subsubsection[{\-\_\-gmx\-\_\-sel\-\_\-init\-\_\-arithmetic}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf t\-\_\-selelem}$\ast$ {\bf \-\_\-gmx\-\_\-sel\-\_\-init\-\_\-arithmetic} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-selelem} $\ast$}]{left, }
+\item[{{\bf t\-\_\-selelem} $\ast$}]{right, }
+\item[{char}]{op, }
+\item[{{\bf yyscan\-\_\-t}}]{scanner}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}read\mbox{]}}}}\label{parsetree_8h_adff68ebd24832fcad710565cafdde526}
+\-Creates a {\ttfamily \hyperlink{structt__selelem}{t\-\_\-selelem}} for arithmetic expression evaluation.
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em left} & \-Selection element for the left hand side. \\
+\hline
+\mbox{\tt in}  & {\em right} & \-Selection element for the right hand side. \\
+\hline
+\mbox{\tt in}  & {\em op} & \-String representation of the operator. \\
+\hline
+\mbox{\tt in}  & {\em scanner} & \-Scanner data structure. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-The created selection element.
+\end{DoxyReturn}
+\-This function handles the creation of a {\ttfamily \hyperlink{structt__selelem}{t\-\_\-selelem}} object for arithmetic expressions. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{parsetree_8h_adff68ebd24832fcad710565cafdde526_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=294pt]{parsetree_8h_adff68ebd24832fcad710565cafdde526_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{parsetree_8h_a41667a2c8e119f738dca66f177700f01}{\index{parsetree.\-h@{parsetree.\-h}!\-\_\-gmx\-\_\-sel\-\_\-init\-\_\-comparison@{\-\_\-gmx\-\_\-sel\-\_\-init\-\_\-comparison}}
+\index{\-\_\-gmx\-\_\-sel\-\_\-init\-\_\-comparison@{\-\_\-gmx\-\_\-sel\-\_\-init\-\_\-comparison}!parsetree.h@{parsetree.\-h}}
+\subsubsection[{\-\_\-gmx\-\_\-sel\-\_\-init\-\_\-comparison}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf t\-\_\-selelem}$\ast$ {\bf \-\_\-gmx\-\_\-sel\-\_\-init\-\_\-comparison} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-selelem} $\ast$}]{left, }
+\item[{{\bf t\-\_\-selelem} $\ast$}]{right, }
+\item[{char $\ast$}]{cmpop, }
+\item[{{\bf yyscan\-\_\-t}}]{scanner}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}read\mbox{]}}}}\label{parsetree_8h_a41667a2c8e119f738dca66f177700f01}
+\-Creates a {\ttfamily \hyperlink{structt__selelem}{t\-\_\-selelem}} for comparsion expression evaluation.
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em left} & \-Selection element for the left hand side. \\
+\hline
+\mbox{\tt in}  & {\em right} & \-Selection element for the right hand side. \\
+\hline
+\mbox{\tt in}  & {\em cmpop} & \-String representation of the comparison operator. \\
+\hline
+\mbox{\tt in}  & {\em scanner} & \-Scanner data structure. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-The created selection element.
+\end{DoxyReturn}
+\-This function handles the creation of a {\ttfamily \hyperlink{structt__selelem}{t\-\_\-selelem}} object for comparison expressions. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{parsetree_8h_a41667a2c8e119f738dca66f177700f01_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=300pt]{parsetree_8h_a41667a2c8e119f738dca66f177700f01_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{parsetree_8h_ad47d7716736ecec3caac6885b31c8883}{\index{parsetree.\-h@{parsetree.\-h}!\-\_\-gmx\-\_\-sel\-\_\-init\-\_\-const\-\_\-position@{\-\_\-gmx\-\_\-sel\-\_\-init\-\_\-const\-\_\-position}}
+\index{\-\_\-gmx\-\_\-sel\-\_\-init\-\_\-const\-\_\-position@{\-\_\-gmx\-\_\-sel\-\_\-init\-\_\-const\-\_\-position}!parsetree.h@{parsetree.\-h}}
+\subsubsection[{\-\_\-gmx\-\_\-sel\-\_\-init\-\_\-const\-\_\-position}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf t\-\_\-selelem}$\ast$ {\bf \-\_\-gmx\-\_\-sel\-\_\-init\-\_\-const\-\_\-position} (
+\begin{DoxyParamCaption}
+\item[{real}]{x, }
+\item[{real}]{y, }
+\item[{real}]{z}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}read\mbox{]}}}}\label{parsetree_8h_ad47d7716736ecec3caac6885b31c8883}
+\-Creates a {\ttfamily \hyperlink{structt__selelem}{t\-\_\-selelem}} for a constant position.
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em x,y,z} & \-Coordinates for the position. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-The creates selection element. 
+\end{DoxyReturn}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{parsetree_8h_ad47d7716736ecec3caac6885b31c8883_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=314pt]{parsetree_8h_ad47d7716736ecec3caac6885b31c8883_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{parsetree_8h_af5197e8cde290866a0ffe808eef194e4}{\index{parsetree.\-h@{parsetree.\-h}!\-\_\-gmx\-\_\-sel\-\_\-init\-\_\-group\-\_\-by\-\_\-id@{\-\_\-gmx\-\_\-sel\-\_\-init\-\_\-group\-\_\-by\-\_\-id}}
+\index{\-\_\-gmx\-\_\-sel\-\_\-init\-\_\-group\-\_\-by\-\_\-id@{\-\_\-gmx\-\_\-sel\-\_\-init\-\_\-group\-\_\-by\-\_\-id}!parsetree.h@{parsetree.\-h}}
+\subsubsection[{\-\_\-gmx\-\_\-sel\-\_\-init\-\_\-group\-\_\-by\-\_\-id}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf t\-\_\-selelem}$\ast$ {\bf \-\_\-gmx\-\_\-sel\-\_\-init\-\_\-group\-\_\-by\-\_\-id} (
+\begin{DoxyParamCaption}
+\item[{int}]{id, }
+\item[{{\bf yyscan\-\_\-t}}]{scanner}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}read\mbox{]}}}}\label{parsetree_8h_af5197e8cde290866a0ffe808eef194e4}
+\-Creates a {\ttfamily \hyperlink{structt__selelem}{t\-\_\-selelem}} for a index group expression using group index.
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em id} & \-Zero-\/based index number of the group to extract. \\
+\hline
+\mbox{\tt in}  & {\em scanner} & \-Scanner data structure. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-The created constant selection element, or \-N\-U\-L\-L if no matching index group found. 
+\end{DoxyReturn}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{parsetree_8h_af5197e8cde290866a0ffe808eef194e4_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=302pt]{parsetree_8h_af5197e8cde290866a0ffe808eef194e4_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{parsetree_8h_a7c99971361173fc196a70d614fe6c0e9}{\index{parsetree.\-h@{parsetree.\-h}!\-\_\-gmx\-\_\-sel\-\_\-init\-\_\-group\-\_\-by\-\_\-name@{\-\_\-gmx\-\_\-sel\-\_\-init\-\_\-group\-\_\-by\-\_\-name}}
+\index{\-\_\-gmx\-\_\-sel\-\_\-init\-\_\-group\-\_\-by\-\_\-name@{\-\_\-gmx\-\_\-sel\-\_\-init\-\_\-group\-\_\-by\-\_\-name}!parsetree.h@{parsetree.\-h}}
+\subsubsection[{\-\_\-gmx\-\_\-sel\-\_\-init\-\_\-group\-\_\-by\-\_\-name}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf t\-\_\-selelem}$\ast$ {\bf \-\_\-gmx\-\_\-sel\-\_\-init\-\_\-group\-\_\-by\-\_\-name} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{name, }
+\item[{{\bf yyscan\-\_\-t}}]{scanner}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}read\mbox{]}}}}\label{parsetree_8h_a7c99971361173fc196a70d614fe6c0e9}
+\-Creates a {\ttfamily \hyperlink{structt__selelem}{t\-\_\-selelem}} for a index group expression using group name.
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em name} & \-Name of an index group to search for. \\
+\hline
+\mbox{\tt in}  & {\em scanner} & \-Scanner data structure. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-The created constant selection element, or \-N\-U\-L\-L if no matching index group found.
+\end{DoxyReturn}
+\-See \hyperlink{include_2indexutil_8h_a9111d5b869aab02adbcb692d250e48fe}{gmx\-\_\-ana\-\_\-indexgrps\-\_\-find()} for information on how {\ttfamily name} is matched against the index groups. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{parsetree_8h_a7c99971361173fc196a70d614fe6c0e9_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=320pt]{parsetree_8h_a7c99971361173fc196a70d614fe6c0e9_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{parsetree_8h_a095e8aa33a1bd6bbc368e360049a795a}{\index{parsetree.\-h@{parsetree.\-h}!\-\_\-gmx\-\_\-sel\-\_\-init\-\_\-keyword@{\-\_\-gmx\-\_\-sel\-\_\-init\-\_\-keyword}}
+\index{\-\_\-gmx\-\_\-sel\-\_\-init\-\_\-keyword@{\-\_\-gmx\-\_\-sel\-\_\-init\-\_\-keyword}!parsetree.h@{parsetree.\-h}}
+\subsubsection[{\-\_\-gmx\-\_\-sel\-\_\-init\-\_\-keyword}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf t\-\_\-selelem}$\ast$ {\bf \-\_\-gmx\-\_\-sel\-\_\-init\-\_\-keyword} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-selmethod\-\_\-t} $\ast$}]{method, }
+\item[{{\bf t\-\_\-selexpr\-\_\-value} $\ast$}]{args, }
+\item[{const char $\ast$}]{rpost, }
+\item[{{\bf yyscan\-\_\-t}}]{scanner}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}read\mbox{]}}}}\label{parsetree_8h_a095e8aa33a1bd6bbc368e360049a795a}
+\-Creates a {\ttfamily \hyperlink{structt__selelem}{t\-\_\-selelem}} for a keyword expression from the parsed data.
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em method} & \-Method to use. \\
+\hline
+\mbox{\tt in}  & {\em args} & \-Pointer to the first argument. \\
+\hline
+\mbox{\tt in}  & {\em rpost} & \-Reference position type to use (\-N\-U\-L\-L = default). \\
+\hline
+\mbox{\tt in}  & {\em scanner} & \-Scanner data structure. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-The created selection element.
+\end{DoxyReturn}
+\-This function handles the creation of a {\ttfamily \hyperlink{structt__selelem}{t\-\_\-selelem}} object for selection methods that do not take parameters. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{parsetree_8h_a095e8aa33a1bd6bbc368e360049a795a_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=288pt]{parsetree_8h_a095e8aa33a1bd6bbc368e360049a795a_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{parsetree_8h_a77f060177435ff8f7a5fdbce03840c15}{\index{parsetree.\-h@{parsetree.\-h}!\-\_\-gmx\-\_\-sel\-\_\-init\-\_\-method@{\-\_\-gmx\-\_\-sel\-\_\-init\-\_\-method}}
+\index{\-\_\-gmx\-\_\-sel\-\_\-init\-\_\-method@{\-\_\-gmx\-\_\-sel\-\_\-init\-\_\-method}!parsetree.h@{parsetree.\-h}}
+\subsubsection[{\-\_\-gmx\-\_\-sel\-\_\-init\-\_\-method}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf t\-\_\-selelem}$\ast$ {\bf \-\_\-gmx\-\_\-sel\-\_\-init\-\_\-method} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-selmethod\-\_\-t} $\ast$}]{method, }
+\item[{{\bf t\-\_\-selexpr\-\_\-param} $\ast$}]{params, }
+\item[{const char $\ast$}]{rpost, }
+\item[{{\bf yyscan\-\_\-t}}]{scanner}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}read\mbox{]}}}}\label{parsetree_8h_a77f060177435ff8f7a5fdbce03840c15}
+\-Creates a {\ttfamily \hyperlink{structt__selelem}{t\-\_\-selelem}} for a method expression from the parsed data.
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em method} & \-Method to use for initialization. \\
+\hline
+\mbox{\tt in}  & {\em params} & \-Pointer to the first parameter. \\
+\hline
+\mbox{\tt in}  & {\em rpost} & \-Reference position type to use (\-N\-U\-L\-L = default). \\
+\hline
+\mbox{\tt in}  & {\em scanner} & \-Scanner data structure. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-The created selection element.
+\end{DoxyReturn}
+\-This function handles the creation of a {\ttfamily \hyperlink{structt__selelem}{t\-\_\-selelem}} object for selection methods that take parameters.
+
+\-Part of the behavior of the {\ttfamily same} selection keyword is hardcoded into this function (or rather, into \hyperlink{keywords_8h_a29aa6a92bb3a822d03a3cf0c9fab94b1}{\-\_\-gmx\-\_\-selelem\-\_\-custom\-\_\-init\-\_\-same()}) to allow the use of any keyword in {\ttfamily \char`\"{}same K\-E\-Y\-W\-O\-R\-D as\char`\"{}} without requiring special handling somewhere else (or sacrificing the simple syntax). 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{parsetree_8h_a77f060177435ff8f7a5fdbce03840c15_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=282pt]{parsetree_8h_a77f060177435ff8f7a5fdbce03840c15_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{parsetree_8h_af148573100455d4760d376df3b56c726}{\index{parsetree.\-h@{parsetree.\-h}!\-\_\-gmx\-\_\-sel\-\_\-init\-\_\-modifier@{\-\_\-gmx\-\_\-sel\-\_\-init\-\_\-modifier}}
+\index{\-\_\-gmx\-\_\-sel\-\_\-init\-\_\-modifier@{\-\_\-gmx\-\_\-sel\-\_\-init\-\_\-modifier}!parsetree.h@{parsetree.\-h}}
+\subsubsection[{\-\_\-gmx\-\_\-sel\-\_\-init\-\_\-modifier}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf t\-\_\-selelem}$\ast$ {\bf \-\_\-gmx\-\_\-sel\-\_\-init\-\_\-modifier} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-selmethod\-\_\-t} $\ast$}]{method, }
+\item[{{\bf t\-\_\-selexpr\-\_\-param} $\ast$}]{params, }
+\item[{{\bf t\-\_\-selelem} $\ast$}]{sel, }
+\item[{{\bf yyscan\-\_\-t}}]{scanner}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}read\mbox{]}}}}\label{parsetree_8h_af148573100455d4760d376df3b56c726}
+\-Creates a {\ttfamily \hyperlink{structt__selelem}{t\-\_\-selelem}} for a modifier expression from the parsed data.
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em method} & \-Modifier to use for initialization. \\
+\hline
+\mbox{\tt in}  & {\em params} & \-Pointer to the first parameter. \\
+\hline
+\mbox{\tt in}  & {\em sel} & \-Selection element that the modifier should act on. \\
+\hline
+\mbox{\tt in}  & {\em scanner} & \-Scanner data structure. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-The created selection element.
+\end{DoxyReturn}
+\-This function handles the creation of a {\ttfamily \hyperlink{structt__selelem}{t\-\_\-selelem}} object for selection modifiers. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{parsetree_8h_af148573100455d4760d376df3b56c726_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=284pt]{parsetree_8h_af148573100455d4760d376df3b56c726_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{parsetree_8h_afca056b62c5fbb81e33a352e403e3965}{\index{parsetree.\-h@{parsetree.\-h}!\-\_\-gmx\-\_\-sel\-\_\-init\-\_\-position@{\-\_\-gmx\-\_\-sel\-\_\-init\-\_\-position}}
+\index{\-\_\-gmx\-\_\-sel\-\_\-init\-\_\-position@{\-\_\-gmx\-\_\-sel\-\_\-init\-\_\-position}!parsetree.h@{parsetree.\-h}}
+\subsubsection[{\-\_\-gmx\-\_\-sel\-\_\-init\-\_\-position}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf t\-\_\-selelem}$\ast$ {\bf \-\_\-gmx\-\_\-sel\-\_\-init\-\_\-position} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-selelem} $\ast$}]{expr, }
+\item[{const char $\ast$}]{type, }
+\item[{{\bf yyscan\-\_\-t}}]{scanner}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}read\mbox{]}}}}\label{parsetree_8h_afca056b62c5fbb81e33a352e403e3965}
+\-Creates a {\ttfamily \hyperlink{structt__selelem}{t\-\_\-selelem}} for evaluation of reference positions.
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em expr} & \-Input selection element for the position calculation. \\
+\hline
+\mbox{\tt in}  & {\em type} & \-Reference position type or \-N\-U\-L\-L for default. \\
+\hline
+\mbox{\tt in}  & {\em scanner} & \-Scanner data structure. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-The created selection element.
+\end{DoxyReturn}
+\-This function handles the creation of a {\ttfamily \hyperlink{structt__selelem}{t\-\_\-selelem}} object for evaluation of reference positions. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{parsetree_8h_afca056b62c5fbb81e33a352e403e3965_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{parsetree_8h_afca056b62c5fbb81e33a352e403e3965_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{parsetree_8h_a7133e1ed4446bffc45e676aa66792392}{\index{parsetree.\-h@{parsetree.\-h}!\-\_\-gmx\-\_\-sel\-\_\-init\-\_\-selection@{\-\_\-gmx\-\_\-sel\-\_\-init\-\_\-selection}}
+\index{\-\_\-gmx\-\_\-sel\-\_\-init\-\_\-selection@{\-\_\-gmx\-\_\-sel\-\_\-init\-\_\-selection}!parsetree.h@{parsetree.\-h}}
+\subsubsection[{\-\_\-gmx\-\_\-sel\-\_\-init\-\_\-selection}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf t\-\_\-selelem}$\ast$ {\bf \-\_\-gmx\-\_\-sel\-\_\-init\-\_\-selection} (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{name, }
+\item[{{\bf t\-\_\-selelem} $\ast$}]{sel, }
+\item[{{\bf yyscan\-\_\-t}}]{scanner}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}read\mbox{]}}}}\label{parsetree_8h_a7133e1ed4446bffc45e676aa66792392}
+\-Creates a root {\ttfamily \hyperlink{structt__selelem}{t\-\_\-selelem}} for a selection.
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em name} & \-Name for the selection (if \-N\-U\-L\-L, a default name is constructed). \\
+\hline
+\mbox{\tt in}  & {\em sel} & \-The selection element that evaluates the selection. \\
+\hline
+ & {\em scanner} & \-Scanner data structure. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-The created root selection element.
+\end{DoxyReturn}
+\-This function handles the creation of root (\hyperlink{selelem_8h_a1f104d5c71b1198ef51acc4ef016ae46a4374c0be00e03bae94a94c4f2d88569d}{\-S\-E\-L\-\_\-\-R\-O\-O\-T}) {\ttfamily \hyperlink{structt__selelem}{t\-\_\-selelem}} objects for selections. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{parsetree_8h_a7133e1ed4446bffc45e676aa66792392_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=290pt]{parsetree_8h_a7133e1ed4446bffc45e676aa66792392_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{parsetree_8h_ac27d084edce40fb05be2e9f6b72421de}{\index{parsetree.\-h@{parsetree.\-h}!\-\_\-gmx\-\_\-sel\-\_\-init\-\_\-variable\-\_\-ref@{\-\_\-gmx\-\_\-sel\-\_\-init\-\_\-variable\-\_\-ref}}
+\index{\-\_\-gmx\-\_\-sel\-\_\-init\-\_\-variable\-\_\-ref@{\-\_\-gmx\-\_\-sel\-\_\-init\-\_\-variable\-\_\-ref}!parsetree.h@{parsetree.\-h}}
+\subsubsection[{\-\_\-gmx\-\_\-sel\-\_\-init\-\_\-variable\-\_\-ref}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf t\-\_\-selelem}$\ast$ {\bf \-\_\-gmx\-\_\-sel\-\_\-init\-\_\-variable\-\_\-ref} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-selelem} $\ast$}]{sel}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}read\mbox{]}}}}\label{parsetree_8h_ac27d084edce40fb05be2e9f6b72421de}
+\-Creates a {\ttfamily \hyperlink{structt__selelem}{t\-\_\-selelem}} for a variable reference
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in,out}  & {\em sel} & \-Value of the variable. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-The created selection element that references {\ttfamily sel}.
+\end{DoxyReturn}
+\-The reference count of {\ttfamily sel} is updated, but no other modifications are made. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{parsetree_8h_ac27d084edce40fb05be2e9f6b72421de_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=300pt]{parsetree_8h_ac27d084edce40fb05be2e9f6b72421de_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{parsetree_8h_a786eccc56d966edb4e47de94c26e849a}{\index{parsetree.\-h@{parsetree.\-h}!\-\_\-gmx\-\_\-sel\-\_\-parse\-\_\-params@{\-\_\-gmx\-\_\-sel\-\_\-parse\-\_\-params}}
+\index{\-\_\-gmx\-\_\-sel\-\_\-parse\-\_\-params@{\-\_\-gmx\-\_\-sel\-\_\-parse\-\_\-params}!parsetree.h@{parsetree.\-h}}
+\subsubsection[{\-\_\-gmx\-\_\-sel\-\_\-parse\-\_\-params}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf \-\_\-gmx\-\_\-sel\-\_\-parse\-\_\-params} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-selexpr\-\_\-param} $\ast$}]{pparams, }
+\item[{int}]{nparam, }
+\item[{{\bf gmx\-\_\-ana\-\_\-selparam\-\_\-t} $\ast$}]{params, }
+\item[{{\bf t\-\_\-selelem} $\ast$}]{root, }
+\item[{{\bf void} $\ast$}]{scanner}
+\end{DoxyParamCaption}
+)}}\label{parsetree_8h_a786eccc56d966edb4e47de94c26e849a}
+\-Initializes an array of parameters based on input from the selection parser.
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+ & {\em pparams} & \-List of parameters from the selection parser. \\
+\hline
+\mbox{\tt in}  & {\em nparam} & \-Number of parameters in {\ttfamily params}. \\
+\hline
+ & {\em params} & \-Array of parameters to parse. \\
+\hline
+ & {\em root} & \-Selection element to which child expressions are added. \\
+\hline
+\mbox{\tt in}  & {\em scanner} & \-Scanner data structure. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-T\-R\-U\-E if the parameters were parsed successfully, \-F\-A\-L\-S\-E otherwise.
+\end{DoxyReturn}
+\-Initializes the {\ttfamily params} array based on the parameters in {\ttfamily pparams}. \-See the documentation of {\ttfamily \hyperlink{structgmx__ana__selparam__t}{gmx\-\_\-ana\-\_\-selparam\-\_\-t}} for different options available for parsing.
+
+\-The list {\ttfamily pparams} and any associated values are freed after the parameters have been processed, no matter is there was an error or not. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{parsetree_8h_a786eccc56d966edb4e47de94c26e849a_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{parsetree_8h_a786eccc56d966edb4e47de94c26e849a_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{parsetree_8h_aed15cb550c0739ddfc3a38efb408f047}{\index{parsetree.\-h@{parsetree.\-h}!\-\_\-gmx\-\_\-sel\-\_\-parser\-\_\-should\-\_\-finish@{\-\_\-gmx\-\_\-sel\-\_\-parser\-\_\-should\-\_\-finish}}
+\index{\-\_\-gmx\-\_\-sel\-\_\-parser\-\_\-should\-\_\-finish@{\-\_\-gmx\-\_\-sel\-\_\-parser\-\_\-should\-\_\-finish}!parsetree.h@{parsetree.\-h}}
+\subsubsection[{\-\_\-gmx\-\_\-sel\-\_\-parser\-\_\-should\-\_\-finish}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf \-\_\-gmx\-\_\-sel\-\_\-parser\-\_\-should\-\_\-finish} (
+\begin{DoxyParamCaption}
+\item[{{\bf yyscan\-\_\-t}}]{scanner}
+\end{DoxyParamCaption}
+)}}\label{parsetree_8h_aed15cb550c0739ddfc3a38efb408f047}
+\-Check whether the parser should finish.
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em scanner} & \-Scanner data structure. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-T\-R\-U\-E if the parser should finish, \-F\-A\-L\-S\-E if parsing should continue.
+\end{DoxyReturn}
+\-This function is called always after \hyperlink{parsetree_8c_a139fefe262e081555fe835f7f8dbb818}{\-\_\-gmx\-\_\-sel\-\_\-append\-\_\-selection()} to check whether a sufficient number of selections has already been provided. \-This is used to terminate interactive parsers when the correct number of selections has been provided. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{parsetree_8h_aed15cb550c0739ddfc3a38efb408f047_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=322pt]{parsetree_8h_aed15cb550c0739ddfc3a38efb408f047_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{parsetree_8h_ad6852657a67a7b620251d4887300b8b6}{\index{parsetree.\-h@{parsetree.\-h}!\-\_\-gmx\-\_\-selelem\-\_\-init\-\_\-method\-\_\-params@{\-\_\-gmx\-\_\-selelem\-\_\-init\-\_\-method\-\_\-params}}
+\index{\-\_\-gmx\-\_\-selelem\-\_\-init\-\_\-method\-\_\-params@{\-\_\-gmx\-\_\-selelem\-\_\-init\-\_\-method\-\_\-params}!parsetree.h@{parsetree.\-h}}
+\subsubsection[{\-\_\-gmx\-\_\-selelem\-\_\-init\-\_\-method\-\_\-params}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf \-\_\-gmx\-\_\-selelem\-\_\-init\-\_\-method\-\_\-params} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-selelem} $\ast$}]{sel, }
+\item[{{\bf yyscan\-\_\-t}}]{scanner}
+\end{DoxyParamCaption}
+)}}\label{parsetree_8h_ad6852657a67a7b620251d4887300b8b6}
+\-Initializes the method parameter data of \hyperlink{selelem_8h_a1f104d5c71b1198ef51acc4ef016ae46a3d3bb644ace8fdc5beac6feed4911a1f}{\-S\-E\-L\-\_\-\-E\-X\-P\-R\-E\-S\-S\-I\-O\-N} and \hyperlink{selelem_8h_a1f104d5c71b1198ef51acc4ef016ae46a6be1ee895a50c28639608b8b47843422}{\-S\-E\-L\-\_\-\-M\-O\-D\-I\-F\-I\-E\-R} elements.
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in,out}  & {\em sel} & \-Selection element to initialize. \\
+\hline
+\mbox{\tt in}  & {\em scanner} & \-Scanner data structure.\\
+\hline
+\end{DoxyParams}
+\-A deep copy of the parameters is made to allow several expressions with the same method to coexist peacefully. \-Calls \hyperlink{include_2selmethod_8h_a5acbf2d7bead71c4d96f9e69b267df56}{sel\-\_\-datafunc()} if one is specified for the method. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{parsetree_8h_ad6852657a67a7b620251d4887300b8b6_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{parsetree_8h_ad6852657a67a7b620251d4887300b8b6_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{parsetree_8h_a189512cdb38d57b16789ffad3d8e9014}{\index{parsetree.\-h@{parsetree.\-h}!\-\_\-gmx\-\_\-selelem\-\_\-set\-\_\-method@{\-\_\-gmx\-\_\-selelem\-\_\-set\-\_\-method}}
+\index{\-\_\-gmx\-\_\-selelem\-\_\-set\-\_\-method@{\-\_\-gmx\-\_\-selelem\-\_\-set\-\_\-method}!parsetree.h@{parsetree.\-h}}
+\subsubsection[{\-\_\-gmx\-\_\-selelem\-\_\-set\-\_\-method}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf \-\_\-gmx\-\_\-selelem\-\_\-set\-\_\-method} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-selelem} $\ast$}]{sel, }
+\item[{{\bf gmx\-\_\-ana\-\_\-selmethod\-\_\-t} $\ast$}]{method, }
+\item[{{\bf yyscan\-\_\-t}}]{scanner}
+\end{DoxyParamCaption}
+)}}\label{parsetree_8h_a189512cdb38d57b16789ffad3d8e9014}
+\-Initializes the method for a \hyperlink{selelem_8h_a1f104d5c71b1198ef51acc4ef016ae46a3d3bb644ace8fdc5beac6feed4911a1f}{\-S\-E\-L\-\_\-\-E\-X\-P\-R\-E\-S\-S\-I\-O\-N} selection element.
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in,out}  & {\em sel} & \-Selection element to initialize. \\
+\hline
+\mbox{\tt in}  & {\em method} & \-Selection method to set. \\
+\hline
+\mbox{\tt in}  & {\em scanner} & \-Scanner data structure.\\
+\hline
+\end{DoxyParams}
+\-Makes a copy of {\ttfamily method} and stores it in {\ttfamily sel-\/$>$u.\-expr.\-method}, and calls \hyperlink{parsetree_8c_a5aad800ac7bc76f0764c32eed3437fb9}{\-\_\-gmx\-\_\-selelem\-\_\-init\-\_\-method\-\_\-params()}; 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{parsetree_8h_a189512cdb38d57b16789ffad3d8e9014_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{parsetree_8h_a189512cdb38d57b16789ffad3d8e9014_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{parsetree_8h_a216d4d4e25af43ac45a693d9d512f108}{\index{parsetree.\-h@{parsetree.\-h}!\-\_\-gmx\-\_\-selelem\-\_\-update\-\_\-flags@{\-\_\-gmx\-\_\-selelem\-\_\-update\-\_\-flags}}
+\index{\-\_\-gmx\-\_\-selelem\-\_\-update\-\_\-flags@{\-\_\-gmx\-\_\-selelem\-\_\-update\-\_\-flags}!parsetree.h@{parsetree.\-h}}
+\subsubsection[{\-\_\-gmx\-\_\-selelem\-\_\-update\-\_\-flags}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf \-\_\-gmx\-\_\-selelem\-\_\-update\-\_\-flags} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-selelem} $\ast$}]{sel}
+\end{DoxyParamCaption}
+)}}\label{parsetree_8h_a216d4d4e25af43ac45a693d9d512f108}
+\-Propagates the flags for selection elements.
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in,out}  & {\em sel} & \-Root of the selection element tree to initialize. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+0 on success, an error code on error.
+\end{DoxyReturn}
+\-Propagates the \hyperlink{selelem_8h_a7c6372a1eecd845aaaaf60326c9bba16}{\-S\-E\-L\-\_\-\-D\-Y\-N\-A\-M\-I\-C} flag from the children of {\ttfamily sel} to {\ttfamily sel} (if any child of {\ttfamily sel} is dynamic, {\ttfamily sel} is also marked as such). \-The \hyperlink{selelem_8h_a7c6372a1eecd845aaaaf60326c9bba16}{\-S\-E\-L\-\_\-\-D\-Y\-N\-A\-M\-I\-C} flag is also set for \hyperlink{selelem_8h_a1f104d5c71b1198ef51acc4ef016ae46a3d3bb644ace8fdc5beac6feed4911a1f}{\-S\-E\-L\-\_\-\-E\-X\-P\-R\-E\-S\-S\-I\-O\-N} elements with a dynamic method. \-Also, sets one of the \hyperlink{selelem_8h_a3eb6a1727b4d0f928a0e4e8abd01e905}{\-S\-E\-L\-\_\-\-S\-I\-N\-G\-L\-E\-V\-A\-L}, \hyperlink{selelem_8h_a886d77bc80183da9d77a76f40e7e3b73}{\-S\-E\-L\-\_\-\-A\-T\-O\-M\-V\-A\-L}, or \hyperlink{selelem_8h_aa6b7039bec845775c664246914b30d50}{\-S\-E\-L\-\_\-\-V\-A\-R\-N\-U\-M\-V\-A\-L} flags, either based on the children or on the type of the selection method. \-If the types of the children conflict, an error is returned.
+
+\-The flags of the children of {\ttfamily sel} are also updated if not done earlier. \-The flags are initialized only once for any element; if \hyperlink{selelem_8h_ad2cbb3dbf0e2fae4d34065e1d0151163}{\-S\-E\-L\-\_\-\-F\-L\-A\-G\-S\-S\-E\-T} is set for an element, the function returns immediately, and the recursive operation does not descend beyond such elements. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{parsetree_8h_a216d4d4e25af43ac45a693d9d512f108_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{parsetree_8h_a216d4d4e25af43ac45a693d9d512f108_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{parsetree_8h_ac75d3a4858e56f8823169346a85b2ea8}{\index{parsetree.\-h@{parsetree.\-h}!\-\_\-gmx\-\_\-selexpr\-\_\-create\-\_\-param@{\-\_\-gmx\-\_\-selexpr\-\_\-create\-\_\-param}}
+\index{\-\_\-gmx\-\_\-selexpr\-\_\-create\-\_\-param@{\-\_\-gmx\-\_\-selexpr\-\_\-create\-\_\-param}!parsetree.h@{parsetree.\-h}}
+\subsubsection[{\-\_\-gmx\-\_\-selexpr\-\_\-create\-\_\-param}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\-\_\-selexpr\-\_\-param}$\ast$ {\bf \-\_\-gmx\-\_\-selexpr\-\_\-create\-\_\-param} (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{name}
+\end{DoxyParamCaption}
+)}}\label{parsetree_8h_ac75d3a4858e56f8823169346a85b2ea8}
+\-Allocates and initializes a {\ttfamily \hyperlink{structt__selexpr__param}{t\-\_\-selexpr\-\_\-param}}.
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em name} & \-Name for the new parameter. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-Pointer to the newly allocated parameter.
+\end{DoxyReturn}
+\-No copy of {\ttfamily name} is made. 
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{parsetree_8h_ac75d3a4858e56f8823169346a85b2ea8_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{parsetree_8h_af637eaa2a9af8ca965eb921f72d416f4}{\index{parsetree.\-h@{parsetree.\-h}!\-\_\-gmx\-\_\-selexpr\-\_\-create\-\_\-value@{\-\_\-gmx\-\_\-selexpr\-\_\-create\-\_\-value}}
+\index{\-\_\-gmx\-\_\-selexpr\-\_\-create\-\_\-value@{\-\_\-gmx\-\_\-selexpr\-\_\-create\-\_\-value}!parsetree.h@{parsetree.\-h}}
+\subsubsection[{\-\_\-gmx\-\_\-selexpr\-\_\-create\-\_\-value}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\-\_\-selexpr\-\_\-value}$\ast$ {\bf \-\_\-gmx\-\_\-selexpr\-\_\-create\-\_\-value} (
+\begin{DoxyParamCaption}
+\item[{{\bf e\-\_\-selvalue\-\_\-t}}]{type}
+\end{DoxyParamCaption}
+)}}\label{parsetree_8h_af637eaa2a9af8ca965eb921f72d416f4}
+\-Allocates and initializes a constant {\ttfamily \hyperlink{structt__selexpr__value}{t\-\_\-selexpr\-\_\-value}}.
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em type} & \-Type for the new value. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-Pointer to the newly allocated value. 
+\end{DoxyReturn}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{parsetree_8h_af637eaa2a9af8ca965eb921f72d416f4_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{parsetree_8h_a9ba0eb8d15a6ef272d7d9cb451a372a6}{\index{parsetree.\-h@{parsetree.\-h}!\-\_\-gmx\-\_\-selexpr\-\_\-create\-\_\-value\-\_\-expr@{\-\_\-gmx\-\_\-selexpr\-\_\-create\-\_\-value\-\_\-expr}}
+\index{\-\_\-gmx\-\_\-selexpr\-\_\-create\-\_\-value\-\_\-expr@{\-\_\-gmx\-\_\-selexpr\-\_\-create\-\_\-value\-\_\-expr}!parsetree.h@{parsetree.\-h}}
+\subsubsection[{\-\_\-gmx\-\_\-selexpr\-\_\-create\-\_\-value\-\_\-expr}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\-\_\-selexpr\-\_\-value}$\ast$ {\bf \-\_\-gmx\-\_\-selexpr\-\_\-create\-\_\-value\-\_\-expr} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-selelem} $\ast$}]{expr}
+\end{DoxyParamCaption}
+)}}\label{parsetree_8h_a9ba0eb8d15a6ef272d7d9cb451a372a6}
+\-Allocates and initializes an expression {\ttfamily \hyperlink{structt__selexpr__value}{t\-\_\-selexpr\-\_\-value}}.
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em expr} & \-Expression for the value. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-Pointer to the newly allocated value. 
+\end{DoxyReturn}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{parsetree_8h_a9ba0eb8d15a6ef272d7d9cb451a372a6_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{parsetree_8h_a49add63bf7f6721ad4c229334fbeb571}{\index{parsetree.\-h@{parsetree.\-h}!\-\_\-gmx\-\_\-selexpr\-\_\-free\-\_\-params@{\-\_\-gmx\-\_\-selexpr\-\_\-free\-\_\-params}}
+\index{\-\_\-gmx\-\_\-selexpr\-\_\-free\-\_\-params@{\-\_\-gmx\-\_\-selexpr\-\_\-free\-\_\-params}!parsetree.h@{parsetree.\-h}}
+\subsubsection[{\-\_\-gmx\-\_\-selexpr\-\_\-free\-\_\-params}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf \-\_\-gmx\-\_\-selexpr\-\_\-free\-\_\-params} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-selexpr\-\_\-param} $\ast$}]{param}
+\end{DoxyParamCaption}
+)}}\label{parsetree_8h_a49add63bf7f6721ad4c229334fbeb571}
+\-Frees the memory allocated for a chain of parameters.
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em param} & \-Pointer the the beginning of the parameter list to free.\\
+\hline
+\end{DoxyParams}
+\-The values of the parameters are freed with free\-\_\-selexpr\-\_\-values(). 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{parsetree_8h_a49add63bf7f6721ad4c229334fbeb571_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{parsetree_8h_a49add63bf7f6721ad4c229334fbeb571_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{parsetree_8h_a5f0262c7c4dbf90848c3a5bbd8eb9994}{\index{parsetree.\-h@{parsetree.\-h}!\-\_\-gmx\-\_\-selexpr\-\_\-free\-\_\-values@{\-\_\-gmx\-\_\-selexpr\-\_\-free\-\_\-values}}
+\index{\-\_\-gmx\-\_\-selexpr\-\_\-free\-\_\-values@{\-\_\-gmx\-\_\-selexpr\-\_\-free\-\_\-values}!parsetree.h@{parsetree.\-h}}
+\subsubsection[{\-\_\-gmx\-\_\-selexpr\-\_\-free\-\_\-values}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf \-\_\-gmx\-\_\-selexpr\-\_\-free\-\_\-values} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-selexpr\-\_\-value} $\ast$}]{value}
+\end{DoxyParamCaption}
+)}}\label{parsetree_8h_a5f0262c7c4dbf90848c3a5bbd8eb9994}
+\-Frees the memory allocated for a chain of values.
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em value} & \-Pointer to the beginning of the value list to free.\\
+\hline
+\end{DoxyParams}
+\-The expressions referenced by the values are also freed (to prevent this, set the expression to \-N\-U\-L\-L before calling the function). 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{parsetree_8h_a5f0262c7c4dbf90848c3a5bbd8eb9994_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{parsetree_8h_a5f0262c7c4dbf90848c3a5bbd8eb9994_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{parsetree_8h_a137c7741f7e09f0cbd37663fceb11543}{\index{parsetree.\-h@{parsetree.\-h}!\-\_\-gmx\-\_\-selparser\-\_\-error@{\-\_\-gmx\-\_\-selparser\-\_\-error}}
+\index{\-\_\-gmx\-\_\-selparser\-\_\-error@{\-\_\-gmx\-\_\-selparser\-\_\-error}!parsetree.h@{parsetree.\-h}}
+\subsubsection[{\-\_\-gmx\-\_\-selparser\-\_\-error}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf \-\_\-gmx\-\_\-selparser\-\_\-error} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{fmt, }
+\item[{}]{...}
+\end{DoxyParamCaption}
+)}}\label{parsetree_8h_a137c7741f7e09f0cbd37663fceb11543}
+\-Error reporting function for the selection parser.
+
+\-It is a simple wrapper for fprintf(stderr, ...). 
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{parsetree_8h_a137c7741f7e09f0cbd37663fceb11543_icgraph}
+\end{center}
+\end{figure}
+
+

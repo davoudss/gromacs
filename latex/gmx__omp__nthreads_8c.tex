@@ -1,0 +1,219 @@
+\hypertarget{gmx__omp__nthreads_8c}{\section{src/gmxlib/gmx\-\_\-omp\-\_\-nthreads.c \-File \-Reference}
+\label{gmx__omp__nthreads_8c}\index{src/gmxlib/gmx\-\_\-omp\-\_\-nthreads.\-c@{src/gmxlib/gmx\-\_\-omp\-\_\-nthreads.\-c}}
+}
+{\ttfamily \#include $<$stdio.\-h$>$}\*
+{\ttfamily \#include $<$stdlib.\-h$>$}\*
+{\ttfamily \#include $<$string.\-h$>$}\*
+{\ttfamily \#include $<$assert.\-h$>$}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-fatal.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}typedefs.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}macros.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}network.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}statutil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-omp.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-omp\-\_\-nthreads.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}md\-\_\-logging.\-h\char`\"{}}\*
+\-Include dependency graph for gmx\-\_\-omp\-\_\-nthreads.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__omp__nthreads_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structomp__module__nthreads__t}{omp\-\_\-module\-\_\-nthreads\-\_\-t}
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+static int \hyperlink{gmx__omp__nthreads_8c_a6f3f5d3d7530d120d0547cb6968eddf4}{pick\-\_\-module\-\_\-nthreads} (\-F\-I\-L\-E $\ast$fplog, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_aa30cfa61c7e675800f65322a90f8ac96}{m}, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Sim\-Master, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Full\-Omp\-Support, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Sep\-P\-M\-E)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__omp__nthreads_8c_abfa4a294f3267151d4c6b887cd59efba}{gmx\-\_\-omp\-\_\-nthreads\-\_\-read\-\_\-env} (int $\ast$nthreads\-\_\-omp, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Is\-Sim\-Master)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__omp__nthreads_8c_ad4fb77d86b3b8389c21e64a22c275df2}{gmx\-\_\-omp\-\_\-nthreads\-\_\-init} (\-F\-I\-L\-E $\ast$fplog, \hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr, int nthreads\-\_\-hw\-\_\-avail, int omp\-\_\-nthreads\-\_\-req, int omp\-\_\-nthreads\-\_\-pme\-\_\-req, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-This\-Node\-P\-M\-E\-Only, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Full\-Omp\-Support)
+\item 
+int \hyperlink{gmx__omp__nthreads_8c_a99736c95bb0878532f019dbe195ac5cb}{gmx\-\_\-omp\-\_\-nthreads\-\_\-get} (int \hyperlink{share_2template_2gromacs_2vec_8h_a8effeb3246f2f663f5c53b0a997b4374}{mod})
+\end{DoxyCompactItemize}
+\subsection*{\-Variables}
+\begin{DoxyCompactItemize}
+\item 
+static const char $\ast$ \hyperlink{gmx__omp__nthreads_8c_a796f8595e8e4abb558f9a0a175654ece}{modth\-\_\-env\-\_\-var} \mbox{[}\hyperlink{share_2template_2gromacs_2gmx__omp__nthreads_8h_a979a21ff2aa8f71045dbd8e43a339fa6af2d5bb3ba055fe12ede8f63937fd4a34}{emnt\-N\-R}\mbox{]}
+\item 
+static const char $\ast$ \hyperlink{gmx__omp__nthreads_8c_a6b8ebb60dea625e3362ec8faba1cf8e0}{mod\-\_\-name} \mbox{[}\hyperlink{share_2template_2gromacs_2gmx__omp__nthreads_8h_a979a21ff2aa8f71045dbd8e43a339fa6af2d5bb3ba055fe12ede8f63937fd4a34}{emnt\-N\-R}\mbox{]}
+\item 
+static \hyperlink{structomp__module__nthreads__t}{omp\-\_\-module\-\_\-nthreads\-\_\-t} \hyperlink{gmx__omp__nthreads_8c_a50e637fc24b5b017d7a0bff2128cfad4}{modth} = \{ 0, 0, \{0, 0, 0, 0, 0, 0, 0, 0, 0\}, \hyperlink{impl_8h_aa93f0eb578d23995850d61f7d61c55c1}{\-F\-A\-L\-S\-E}\}
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{gmx__omp__nthreads_8c_a99736c95bb0878532f019dbe195ac5cb}{\index{gmx\-\_\-omp\-\_\-nthreads.\-c@{gmx\-\_\-omp\-\_\-nthreads.\-c}!gmx\-\_\-omp\-\_\-nthreads\-\_\-get@{gmx\-\_\-omp\-\_\-nthreads\-\_\-get}}
+\index{gmx\-\_\-omp\-\_\-nthreads\-\_\-get@{gmx\-\_\-omp\-\_\-nthreads\-\_\-get}!gmx_omp_nthreads.c@{gmx\-\_\-omp\-\_\-nthreads.\-c}}
+\subsubsection[{gmx\-\_\-omp\-\_\-nthreads\-\_\-get}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-omp\-\_\-nthreads\-\_\-get} (
+\begin{DoxyParamCaption}
+\item[{int}]{mod}
+\end{DoxyParamCaption}
+)}}\label{gmx__omp__nthreads_8c_a99736c95bb0878532f019dbe195ac5cb}
+\-Returns the number of threads to be used in the given module m. 
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__omp__nthreads_8c_a99736c95bb0878532f019dbe195ac5cb_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__omp__nthreads_8c_ad4fb77d86b3b8389c21e64a22c275df2}{\index{gmx\-\_\-omp\-\_\-nthreads.\-c@{gmx\-\_\-omp\-\_\-nthreads.\-c}!gmx\-\_\-omp\-\_\-nthreads\-\_\-init@{gmx\-\_\-omp\-\_\-nthreads\-\_\-init}}
+\index{gmx\-\_\-omp\-\_\-nthreads\-\_\-init@{gmx\-\_\-omp\-\_\-nthreads\-\_\-init}!gmx_omp_nthreads.c@{gmx\-\_\-omp\-\_\-nthreads.\-c}}
+\subsubsection[{gmx\-\_\-omp\-\_\-nthreads\-\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-omp\-\_\-nthreads\-\_\-init} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fplog, }
+\item[{{\bf t\-\_\-commrec} $\ast$}]{cr, }
+\item[{int}]{nthreads\-\_\-hw\-\_\-avail, }
+\item[{int}]{omp\-\_\-nthreads\-\_\-req, }
+\item[{int}]{omp\-\_\-nthreads\-\_\-pme\-\_\-req, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Curr\-Node\-P\-M\-E\-Only, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Full\-Omp\-Support}
+\end{DoxyParamCaption}
+)}}\label{gmx__omp__nthreads_8c_ad4fb77d86b3b8389c21e64a22c275df2}
+\-Initializes the per-\/module thread count. \-It is compatible with t\-M\-P\-I, thread-\/safety is ensured (for the features available with t\-M\-P\-I). \-This function should caled only once during the initialization of mdrun. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__omp__nthreads_8c_ad4fb77d86b3b8389c21e64a22c275df2_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=294pt]{gmx__omp__nthreads_8c_ad4fb77d86b3b8389c21e64a22c275df2_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__omp__nthreads_8c_abfa4a294f3267151d4c6b887cd59efba}{\index{gmx\-\_\-omp\-\_\-nthreads.\-c@{gmx\-\_\-omp\-\_\-nthreads.\-c}!gmx\-\_\-omp\-\_\-nthreads\-\_\-read\-\_\-env@{gmx\-\_\-omp\-\_\-nthreads\-\_\-read\-\_\-env}}
+\index{gmx\-\_\-omp\-\_\-nthreads\-\_\-read\-\_\-env@{gmx\-\_\-omp\-\_\-nthreads\-\_\-read\-\_\-env}!gmx_omp_nthreads.c@{gmx\-\_\-omp\-\_\-nthreads.\-c}}
+\subsubsection[{gmx\-\_\-omp\-\_\-nthreads\-\_\-read\-\_\-env}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-omp\-\_\-nthreads\-\_\-read\-\_\-env} (
+\begin{DoxyParamCaption}
+\item[{int $\ast$}]{nthreads\-\_\-omp, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Is\-Sim\-Master}
+\end{DoxyParamCaption}
+)}}\label{gmx__omp__nthreads_8c_abfa4a294f3267151d4c6b887cd59efba}
+\-Read the \-O\-M\-P\-\_\-\-N\-U\-M\-\_\-\-T\-H\-R\-E\-A\-D\-S env. var. and check against the value set on the command line. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=324pt]{gmx__omp__nthreads_8c_abfa4a294f3267151d4c6b887cd59efba_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__omp__nthreads_8c_abfa4a294f3267151d4c6b887cd59efba_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__omp__nthreads_8c_a6f3f5d3d7530d120d0547cb6968eddf4}{\index{gmx\-\_\-omp\-\_\-nthreads.\-c@{gmx\-\_\-omp\-\_\-nthreads.\-c}!pick\-\_\-module\-\_\-nthreads@{pick\-\_\-module\-\_\-nthreads}}
+\index{pick\-\_\-module\-\_\-nthreads@{pick\-\_\-module\-\_\-nthreads}!gmx_omp_nthreads.c@{gmx\-\_\-omp\-\_\-nthreads.\-c}}
+\subsubsection[{pick\-\_\-module\-\_\-nthreads}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf pick\-\_\-module\-\_\-nthreads} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fplog, }
+\item[{int}]{m, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Sim\-Master, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Full\-Omp\-Support, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Sep\-P\-M\-E}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__omp__nthreads_8c_a6f3f5d3d7530d120d0547cb6968eddf4}
+\-Determine the number of threads for module .
+
+takes values form the module\-\_\-nth\-\_\-t enum and maps these to the corresponding value in modth\-\_\-env\-\_\-var.
+
+\-Each number of threads per module takes the default value unless \-G\-M\-X\-\_\-$\ast$\-\_\-\-N\-U\-M\-\_\-\-T\-H\-E\-R\-A\-D\-S env var is set, case in which its value overrides the deafult.
+
+\-The \char`\"{}group\char`\"{} scheme supports \-Open\-M\-P only in \-P\-M\-E and in thise case all but the \-P\-M\-E nthread values default to 1. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=308pt]{gmx__omp__nthreads_8c_a6f3f5d3d7530d120d0547cb6968eddf4_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__omp__nthreads_8c_a6f3f5d3d7530d120d0547cb6968eddf4_icgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{\-Variable \-Documentation}
+\hypertarget{gmx__omp__nthreads_8c_a6b8ebb60dea625e3362ec8faba1cf8e0}{\index{gmx\-\_\-omp\-\_\-nthreads.\-c@{gmx\-\_\-omp\-\_\-nthreads.\-c}!mod\-\_\-name@{mod\-\_\-name}}
+\index{mod\-\_\-name@{mod\-\_\-name}!gmx_omp_nthreads.c@{gmx\-\_\-omp\-\_\-nthreads.\-c}}
+\subsubsection[{mod\-\_\-name}]{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ {\bf mod\-\_\-name}\mbox{[}{\bf emnt\-N\-R}\mbox{]}\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__omp__nthreads_8c_a6b8ebb60dea625e3362ec8faba1cf8e0}
+{\bfseries \-Initial value\-:}
+\begin{DoxyCode}
+
+{
+    "default", "domain decomposition", "pair search", "non-bonded",
+    "bonded", "PME", "update", "LINCS", "SETTLE"
+}
+\end{DoxyCode}
+\-Names of the modules. \hypertarget{gmx__omp__nthreads_8c_a50e637fc24b5b017d7a0bff2128cfad4}{\index{gmx\-\_\-omp\-\_\-nthreads.\-c@{gmx\-\_\-omp\-\_\-nthreads.\-c}!modth@{modth}}
+\index{modth@{modth}!gmx_omp_nthreads.c@{gmx\-\_\-omp\-\_\-nthreads.\-c}}
+\subsubsection[{modth}]{\setlength{\rightskip}{0pt plus 5cm}{\bf omp\-\_\-module\-\_\-nthreads\-\_\-t} {\bf modth} = \{ 0, 0, \{0, 0, 0, 0, 0, 0, 0, 0, 0\}, {\bf \-F\-A\-L\-S\-E}\}\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__omp__nthreads_8c_a50e637fc24b5b017d7a0bff2128cfad4}
+\-Number of threads for each algorithmic module.
+
+\-File-\/scope global variable that gets set once in  and queried via gmx\-\_\-omp\-\_\-nthreads\-\_\-get.
+
+\-All fields are initialized to 0 which should result in errors if the init call is omitted. \hypertarget{gmx__omp__nthreads_8c_a796f8595e8e4abb558f9a0a175654ece}{\index{gmx\-\_\-omp\-\_\-nthreads.\-c@{gmx\-\_\-omp\-\_\-nthreads.\-c}!modth\-\_\-env\-\_\-var@{modth\-\_\-env\-\_\-var}}
+\index{modth\-\_\-env\-\_\-var@{modth\-\_\-env\-\_\-var}!gmx_omp_nthreads.c@{gmx\-\_\-omp\-\_\-nthreads.\-c}}
+\subsubsection[{modth\-\_\-env\-\_\-var}]{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ {\bf modth\-\_\-env\-\_\-var}\mbox{[}{\bf emnt\-N\-R}\mbox{]}\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__omp__nthreads_8c_a796f8595e8e4abb558f9a0a175654ece}
+{\bfseries \-Initial value\-:}
+\begin{DoxyCode}
+
+{
+    "GMX_DEFAULT_NUM_THREADS should never be set",
+    "GMX_DOMDEC_NUM_THREADS", "GMX_PAIRSEARCH_NUM_THREADS",
+    "GMX_NONBONDED_NUM_THREADS", "GMX_BONDED_NUM_THREADS",
+    "GMX_PME_NUM_THREADS", "GMX_UPDATE_NUM_THREADS",
+    "GMX_VSITE_NUM_THREADS",
+    "GMX_LINCS_NUM_THREADS", "GMX_SETTLE_NUM_THREADS"
+}
+\end{DoxyCode}
+\-Names of environment variables to set the per module number of threads.
+
+\-Indexed with the values of module\-\_\-nth\-\_\-t. 

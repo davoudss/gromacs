@@ -1,0 +1,154 @@
+\hypertarget{disre_8c}{\section{src/gmxlib/disre.c \-File \-Reference}
+\label{disre_8c}\index{src/gmxlib/disre.\-c@{src/gmxlib/disre.\-c}}
+}
+{\ttfamily \#include $<$math.\-h$>$}\*
+{\ttfamily \#include \char`\"{}typedefs.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}sysstuff.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}smalloc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}macros.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}vec.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}futil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}xvgr.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-fatal.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}bondf.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}copyrite.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}disre.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}main.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}mtop\-\_\-util.\-h\char`\"{}}\*
+\-Include dependency graph for disre.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{disre_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{disre_8c_ab243f3a73ce3e1a20aee971265d8bd29}{init\-\_\-disres} (\-F\-I\-L\-E $\ast$fplog, const \hyperlink{structgmx__mtop__t}{gmx\-\_\-mtop\-\_\-t} $\ast$mtop, \hyperlink{structt__inputrec}{t\-\_\-inputrec} $\ast$ir, const \hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Part\-Decomp, \hyperlink{structt__fcdata}{t\-\_\-fcdata} $\ast$fcd, \hyperlink{structt__state}{t\-\_\-state} $\ast$state, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Is\-R\-E\-M\-D)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{disre_8c_abad65cde58df928bd40d3c4fbbad0174}{calc\-\_\-disres\-\_\-\-R\-\_\-6} (const \hyperlink{structgmx__multisim__t}{gmx\-\_\-multisim\-\_\-t} $\ast$ms, int nfa, const \hyperlink{include_2types_2idef_8h_abb1c069d34f868f1fa980a4c131ba249}{t\-\_\-iatom} forceatoms\mbox{[}$\,$\mbox{]}, const \hyperlink{uniont__iparams}{t\-\_\-iparams} ip\mbox{[}$\,$\mbox{]}, const \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, const \hyperlink{structt__pbc}{t\-\_\-pbc} $\ast$pbc, \hyperlink{structt__fcdata}{t\-\_\-fcdata} $\ast$fcd, \hyperlink{structhistory__t}{history\-\_\-t} $\ast$hist)
+\item 
+real \hyperlink{disre_8c_a346e7e76219395253972ebf4f6ecadc5}{ta\-\_\-disres} (int nfa, const \hyperlink{include_2types_2idef_8h_abb1c069d34f868f1fa980a4c131ba249}{t\-\_\-iatom} forceatoms\mbox{[}$\,$\mbox{]}, const \hyperlink{uniont__iparams}{t\-\_\-iparams} ip\mbox{[}$\,$\mbox{]}, const \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{copyrite_8c_a0757cfb6fe645a02867727255faa4f8b}{f}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} fshift\mbox{[}$\,$\mbox{]}, const \hyperlink{structt__pbc}{t\-\_\-pbc} $\ast$pbc, const \hyperlink{structt__graph}{t\-\_\-graph} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g}, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_aec47b6dda9c386285e755f058a846af8}{lambda}, real $\ast$dvdlambda, const \hyperlink{structt__mdatoms}{t\-\_\-mdatoms} $\ast$md, \hyperlink{structt__fcdata}{t\-\_\-fcdata} $\ast$fcd, int $\ast$global\-\_\-atom\-\_\-index)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{disre_8c_a0fea6b20e6c001961d85301ee8840987}{update\-\_\-disres\-\_\-history} (\hyperlink{structt__fcdata}{t\-\_\-fcdata} $\ast$fcd, \hyperlink{structhistory__t}{history\-\_\-t} $\ast$hist)
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{disre_8c_abad65cde58df928bd40d3c4fbbad0174}{\index{disre.\-c@{disre.\-c}!calc\-\_\-disres\-\_\-\-R\-\_\-6@{calc\-\_\-disres\-\_\-\-R\-\_\-6}}
+\index{calc\-\_\-disres\-\_\-\-R\-\_\-6@{calc\-\_\-disres\-\_\-\-R\-\_\-6}!disre.c@{disre.\-c}}
+\subsubsection[{calc\-\_\-disres\-\_\-\-R\-\_\-6}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf calc\-\_\-disres\-\_\-\-R\-\_\-6} (
+\begin{DoxyParamCaption}
+\item[{const {\bf gmx\-\_\-multisim\-\_\-t} $\ast$}]{ms, }
+\item[{int}]{nfa, }
+\item[{const {\bf t\-\_\-iatom}}]{forceatoms\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf t\-\_\-iparams}}]{ip\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf t\-\_\-pbc} $\ast$}]{pbc, }
+\item[{{\bf t\-\_\-fcdata} $\ast$}]{fcd, }
+\item[{{\bf history\-\_\-t} $\ast$}]{hist}
+\end{DoxyParamCaption}
+)}}\label{disre_8c_abad65cde58df928bd40d3c4fbbad0174}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=278pt]{disre_8c_abad65cde58df928bd40d3c4fbbad0174_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{disre_8c_ab243f3a73ce3e1a20aee971265d8bd29}{\index{disre.\-c@{disre.\-c}!init\-\_\-disres@{init\-\_\-disres}}
+\index{init\-\_\-disres@{init\-\_\-disres}!disre.c@{disre.\-c}}
+\subsubsection[{init\-\_\-disres}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf init\-\_\-disres} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fplog, }
+\item[{const {\bf gmx\-\_\-mtop\-\_\-t} $\ast$}]{mtop, }
+\item[{{\bf t\-\_\-inputrec} $\ast$}]{ir, }
+\item[{const {\bf t\-\_\-commrec} $\ast$}]{cr, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Part\-Decomp, }
+\item[{{\bf t\-\_\-fcdata} $\ast$}]{fcd, }
+\item[{{\bf t\-\_\-state} $\ast$}]{state, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Is\-R\-E\-M\-D}
+\end{DoxyParamCaption}
+)}}\label{disre_8c_ab243f3a73ce3e1a20aee971265d8bd29}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=304pt]{disre_8c_ab243f3a73ce3e1a20aee971265d8bd29_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=314pt]{disre_8c_ab243f3a73ce3e1a20aee971265d8bd29_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{disre_8c_a346e7e76219395253972ebf4f6ecadc5}{\index{disre.\-c@{disre.\-c}!ta\-\_\-disres@{ta\-\_\-disres}}
+\index{ta\-\_\-disres@{ta\-\_\-disres}!disre.c@{disre.\-c}}
+\subsubsection[{ta\-\_\-disres}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf ta\-\_\-disres} (
+\begin{DoxyParamCaption}
+\item[{int}]{nfa, }
+\item[{const {\bf t\-\_\-iatom}}]{forceatoms\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf t\-\_\-iparams}}]{ip\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{f\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{fshift\mbox{[}$\,$\mbox{]}, }
+\item[{const {\bf t\-\_\-pbc} $\ast$}]{pbc, }
+\item[{const {\bf t\-\_\-graph} $\ast$}]{g, }
+\item[{real}]{lambda, }
+\item[{real $\ast$}]{dvdlambda, }
+\item[{const {\bf t\-\_\-mdatoms} $\ast$}]{md, }
+\item[{{\bf t\-\_\-fcdata} $\ast$}]{fcd, }
+\item[{int $\ast$}]{global\-\_\-atom\-\_\-index}
+\end{DoxyParamCaption}
+)}}\label{disre_8c_a346e7e76219395253972ebf4f6ecadc5}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=244pt]{disre_8c_a346e7e76219395253972ebf4f6ecadc5_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{disre_8c_a0fea6b20e6c001961d85301ee8840987}{\index{disre.\-c@{disre.\-c}!update\-\_\-disres\-\_\-history@{update\-\_\-disres\-\_\-history}}
+\index{update\-\_\-disres\-\_\-history@{update\-\_\-disres\-\_\-history}!disre.c@{disre.\-c}}
+\subsubsection[{update\-\_\-disres\-\_\-history}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf update\-\_\-disres\-\_\-history} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fcdata} $\ast$}]{fcd, }
+\item[{{\bf history\-\_\-t} $\ast$}]{hist}
+\end{DoxyParamCaption}
+)}}\label{disre_8c_a0fea6b20e6c001961d85301ee8840987}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{disre_8c_a0fea6b20e6c001961d85301ee8840987_icgraph}
+\end{center}
+\end{figure}
+
+

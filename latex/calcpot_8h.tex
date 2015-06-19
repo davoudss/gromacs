@@ -1,0 +1,142 @@
+\hypertarget{calcpot_8h}{\section{src/tools/calcpot.h \-File \-Reference}
+\label{calcpot_8h}\index{src/tools/calcpot.\-h@{src/tools/calcpot.\-h}}
+}
+\-This graph shows which files directly or indirectly include this file\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=312pt]{calcpot_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\-F\-I\-L\-E $\ast$ \hyperlink{calcpot_8h_a7ed3b4eccb7368889565f8beeaf77bf1}{init\-\_\-calcpot} (const char $\ast$log, const char $\ast$tpx, const char $\ast$table, \hyperlink{structgmx__mtop__t}{gmx\-\_\-mtop\-\_\-t} $\ast$mtop, \hyperlink{structgmx__localtop__t}{gmx\-\_\-localtop\-\_\-t} $\ast$\hyperlink{gmx__disre_8c_a1b538a2ce75aba6c346bc03980ffeb28}{top}, \hyperlink{structt__inputrec}{t\-\_\-inputrec} $\ast$inputrec, \hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$$\ast$cr, \hyperlink{structt__graph}{t\-\_\-graph} $\ast$$\ast$graph, \hyperlink{structt__mdatoms}{t\-\_\-mdatoms} $\ast$$\ast$mdatoms, \hyperlink{structt__forcerec}{t\-\_\-forcerec} $\ast$$\ast$\hyperlink{addconf_8c_ae8414314f87c5e49503ac0117eb511ad}{fr}, \hyperlink{structgmx__enerdata__t}{gmx\-\_\-enerdata\-\_\-t} $\ast$enerdata, real $\ast$$\ast$coulomb, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$$\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}, const \hyperlink{include_2types_2oenv_8h_a6a48d77d95132d7318780544821da6a5}{output\-\_\-env\-\_\-t} oenv)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{calcpot_8h_adec882bbfcc73633ad05aa2a764eb6de}{calc\-\_\-pot} (\-F\-I\-L\-E $\ast$logf, \hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr, \hyperlink{structgmx__mtop__t}{gmx\-\_\-mtop\-\_\-t} $\ast$mtop, \hyperlink{structt__inputrec}{t\-\_\-inputrec} $\ast$inputrec, \hyperlink{structgmx__localtop__t}{gmx\-\_\-localtop\-\_\-t} $\ast$\hyperlink{gmx__disre_8c_a1b538a2ce75aba6c346bc03980ffeb28}{top}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{structt__forcerec}{t\-\_\-forcerec} $\ast$\hyperlink{addconf_8c_ae8414314f87c5e49503ac0117eb511ad}{fr}, \hyperlink{structgmx__enerdata__t}{gmx\-\_\-enerdata\-\_\-t} $\ast$enerd, \hyperlink{structt__mdatoms}{t\-\_\-mdatoms} $\ast$mdatoms, real coulomb\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box, \hyperlink{structt__graph}{t\-\_\-graph} $\ast$graph)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{calcpot_8h_adb05f2f548d9fc990c2c2bbc48a58213}{write\-\_\-pdb\-\_\-coul} ()
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{calcpot_8h_a3623056e256eaeb8c41c775077375081}{delete\-\_\-atom} (\hyperlink{structgmx__localtop__t}{gmx\-\_\-localtop\-\_\-t} $\ast$\hyperlink{gmx__disre_8c_a1b538a2ce75aba6c346bc03980ffeb28}{top}, int inr)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{calcpot_8h_aaf8466f39959f0eea8f8c3469b27fdfb}{replace\-\_\-atom} (\hyperlink{structgmx__localtop__t}{gmx\-\_\-localtop\-\_\-t} $\ast$\hyperlink{gmx__disre_8c_a1b538a2ce75aba6c346bc03980ffeb28}{top}, int inr, char $\ast$anm, char $\ast$resnm, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_abbda725bda8d9be8c9fc2fdb63ea38e2}{q}, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_aa30cfa61c7e675800f65322a90f8ac96}{m}, int \hyperlink{fgrid_8c_a7f3986ef06a5ebd031c536fbcdce3c49}{type})
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{calcpot_8h_adec882bbfcc73633ad05aa2a764eb6de}{\index{calcpot.\-h@{calcpot.\-h}!calc\-\_\-pot@{calc\-\_\-pot}}
+\index{calc\-\_\-pot@{calc\-\_\-pot}!calcpot.h@{calcpot.\-h}}
+\subsubsection[{calc\-\_\-pot}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf calc\-\_\-pot} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{logf, }
+\item[{{\bf t\-\_\-commrec} $\ast$}]{cr, }
+\item[{{\bf gmx\-\_\-mtop\-\_\-t} $\ast$}]{mtop, }
+\item[{{\bf t\-\_\-inputrec} $\ast$}]{inputrec, }
+\item[{{\bf gmx\-\_\-localtop\-\_\-t} $\ast$}]{top, }
+\item[{{\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf t\-\_\-forcerec} $\ast$}]{fr, }
+\item[{{\bf gmx\-\_\-enerdata\-\_\-t} $\ast$}]{enerd, }
+\item[{{\bf t\-\_\-mdatoms} $\ast$}]{mdatoms, }
+\item[{real}]{coulomb\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf matrix}}]{box, }
+\item[{{\bf t\-\_\-graph} $\ast$}]{graph}
+\end{DoxyParamCaption}
+)}}\label{calcpot_8h_adec882bbfcc73633ad05aa2a764eb6de}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{calcpot_8h_adec882bbfcc73633ad05aa2a764eb6de_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=314pt]{calcpot_8h_adec882bbfcc73633ad05aa2a764eb6de_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{calcpot_8h_a3623056e256eaeb8c41c775077375081}{\index{calcpot.\-h@{calcpot.\-h}!delete\-\_\-atom@{delete\-\_\-atom}}
+\index{delete\-\_\-atom@{delete\-\_\-atom}!calcpot.h@{calcpot.\-h}}
+\subsubsection[{delete\-\_\-atom}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf delete\-\_\-atom} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-localtop\-\_\-t} $\ast$}]{top, }
+\item[{int}]{inr}
+\end{DoxyParamCaption}
+)}}\label{calcpot_8h_a3623056e256eaeb8c41c775077375081}
+\hypertarget{calcpot_8h_a7ed3b4eccb7368889565f8beeaf77bf1}{\index{calcpot.\-h@{calcpot.\-h}!init\-\_\-calcpot@{init\-\_\-calcpot}}
+\index{init\-\_\-calcpot@{init\-\_\-calcpot}!calcpot.h@{calcpot.\-h}}
+\subsubsection[{init\-\_\-calcpot}]{\setlength{\rightskip}{0pt plus 5cm}\-F\-I\-L\-E$\ast$ {\bf init\-\_\-calcpot} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{log, }
+\item[{const char $\ast$}]{tpx, }
+\item[{const char $\ast$}]{table, }
+\item[{{\bf gmx\-\_\-mtop\-\_\-t} $\ast$}]{mtop, }
+\item[{{\bf gmx\-\_\-localtop\-\_\-t} $\ast$}]{top, }
+\item[{{\bf t\-\_\-inputrec} $\ast$}]{inputrec, }
+\item[{{\bf t\-\_\-commrec} $\ast$$\ast$}]{cr, }
+\item[{{\bf t\-\_\-graph} $\ast$$\ast$}]{graph, }
+\item[{{\bf t\-\_\-mdatoms} $\ast$$\ast$}]{mdatoms, }
+\item[{{\bf t\-\_\-forcerec} $\ast$$\ast$}]{fr, }
+\item[{{\bf gmx\-\_\-enerdata\-\_\-t} $\ast$}]{enerdata, }
+\item[{real $\ast$$\ast$}]{coulomb, }
+\item[{{\bf matrix}}]{box, }
+\item[{{\bf rvec} $\ast$$\ast$}]{x, }
+\item[{const {\bf output\-\_\-env\-\_\-t}}]{oenv}
+\end{DoxyParamCaption}
+)}}\label{calcpot_8h_a7ed3b4eccb7368889565f8beeaf77bf1}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{calcpot_8h_a7ed3b4eccb7368889565f8beeaf77bf1_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=326pt]{calcpot_8h_a7ed3b4eccb7368889565f8beeaf77bf1_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{calcpot_8h_aaf8466f39959f0eea8f8c3469b27fdfb}{\index{calcpot.\-h@{calcpot.\-h}!replace\-\_\-atom@{replace\-\_\-atom}}
+\index{replace\-\_\-atom@{replace\-\_\-atom}!calcpot.h@{calcpot.\-h}}
+\subsubsection[{replace\-\_\-atom}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf replace\-\_\-atom} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-localtop\-\_\-t} $\ast$}]{top, }
+\item[{int}]{inr, }
+\item[{char $\ast$}]{anm, }
+\item[{char $\ast$}]{resnm, }
+\item[{real}]{q, }
+\item[{real}]{m, }
+\item[{int}]{type}
+\end{DoxyParamCaption}
+)}}\label{calcpot_8h_aaf8466f39959f0eea8f8c3469b27fdfb}
+\hypertarget{calcpot_8h_adb05f2f548d9fc990c2c2bbc48a58213}{\index{calcpot.\-h@{calcpot.\-h}!write\-\_\-pdb\-\_\-coul@{write\-\_\-pdb\-\_\-coul}}
+\index{write\-\_\-pdb\-\_\-coul@{write\-\_\-pdb\-\_\-coul}!calcpot.h@{calcpot.\-h}}
+\subsubsection[{write\-\_\-pdb\-\_\-coul}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf write\-\_\-pdb\-\_\-coul} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{calcpot_8h_adb05f2f548d9fc990c2c2bbc48a58213}

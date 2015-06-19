@@ -1,0 +1,290 @@
+\hypertarget{nsfactor_8h}{\section{src/tools/nsfactor.h \-File \-Reference}
+\label{nsfactor_8h}\index{src/tools/nsfactor.\-h@{src/tools/nsfactor.\-h}}
+}
+{\ttfamily \#include \char`\"{}index.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}types/simple.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmxcomplex.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}oenv.\-h\char`\"{}}\*
+\-Include dependency graph for nsfactor.\-h\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nsfactor_8h__incl}
+\end{center}
+\end{figure}
+\-This graph shows which files directly or indirectly include this file\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=308pt]{nsfactor_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structgmx__neutron__atomic__structurefactors__t}{gmx\-\_\-neutron\-\_\-atomic\-\_\-structurefactors\-\_\-t}
+\item 
+struct \hyperlink{structgmx__sans__t}{gmx\-\_\-sans\-\_\-t}
+\item 
+struct \hyperlink{structgmx__radial__distribution__histogram__t}{gmx\-\_\-radial\-\_\-distribution\-\_\-histogram\-\_\-t}
+\item 
+struct \hyperlink{structgmx__static__structurefactor__t}{gmx\-\_\-static\-\_\-structurefactor\-\_\-t}
+\end{DoxyCompactItemize}
+\subsection*{\-Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \*
+\hyperlink{structgmx__neutron__atomic__structurefactors__t}{gmx\-\_\-neutron\-\_\-atomic\-\_\-structurefactors\-\_\-t} \hyperlink{nsfactor_8h_af4858fc3bdecc763c6abedb6a251925e}{gmx\-\_\-neutron\-\_\-atomic\-\_\-structurefactors\-\_\-t}
+\item 
+typedef struct \hyperlink{structgmx__sans__t}{gmx\-\_\-sans\-\_\-t} \hyperlink{nsfactor_8h_a9b7b047cb9095ee6f6231a0cab5fa9ac}{gmx\-\_\-sans\-\_\-t}
+\item 
+typedef struct \*
+\hyperlink{structgmx__radial__distribution__histogram__t}{gmx\-\_\-radial\-\_\-distribution\-\_\-histogram\-\_\-t} \hyperlink{nsfactor_8h_a2c9d579f679966c5db1b62ec30f85ffa}{gmx\-\_\-radial\-\_\-distribution\-\_\-histogram\-\_\-t}
+\item 
+typedef struct \*
+\hyperlink{structgmx__static__structurefactor__t}{gmx\-\_\-static\-\_\-structurefactor\-\_\-t} \hyperlink{nsfactor_8h_a113d0185f821dc2aab060661b20962e2}{gmx\-\_\-static\-\_\-structurefactor\-\_\-t}
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{nsfactor_8h_ae7b52a7fede838b50a017a2e42502280}{check\-\_\-binwidth} (real binwidth)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{nsfactor_8h_ad37b4e5c7d4eea835fb6e14e44633525}{check\-\_\-mcover} (real mcover)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{nsfactor_8h_acf734f5e23154323fcf3defd507444ec}{normalize\-\_\-probability} (int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, double $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a0880879736d1ab747a972d1942421886}{a})
+\item 
+\hyperlink{structgmx__neutron__atomic__structurefactors__t}{gmx\-\_\-neutron\-\_\-atomic\-\_\-structurefactors\-\_\-t} $\ast$ \hyperlink{nsfactor_8h_aea36682c4a0eee52dd18bb3db368874c}{gmx\-\_\-neutronstructurefactors\-\_\-init} (const char $\ast$datfn)
+\item 
+\hyperlink{structgmx__sans__t}{gmx\-\_\-sans\-\_\-t} $\ast$ \hyperlink{nsfactor_8h_a2eed35a3f56fb14039d5d219b1a90e4f}{gmx\-\_\-sans\-\_\-init} (\hyperlink{structt__topology}{t\-\_\-topology} $\ast$\hyperlink{gmx__disre_8c_a1b538a2ce75aba6c346bc03980ffeb28}{top}, \hyperlink{structgmx__neutron__atomic__structurefactors__t}{gmx\-\_\-neutron\-\_\-atomic\-\_\-structurefactors\-\_\-t} $\ast$gnsf)
+\item 
+\hyperlink{structgmx__radial__distribution__histogram__t}{gmx\-\_\-radial\-\_\-distribution\-\_\-histogram\-\_\-t} $\ast$ \hyperlink{nsfactor_8h_adfaee2d2d44007d2785563b2fe47176b}{calc\-\_\-radial\-\_\-distribution\-\_\-histogram} (\hyperlink{structgmx__sans__t}{gmx\-\_\-sans\-\_\-t} $\ast$gsans, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box, \hyperlink{include_2types_2simple_8h_ad3f47cdb48677e516e2049719612c737}{atom\-\_\-id} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a49fd977001162d7256c8fcd293f9d12a}{index}, int isize, double binwidth, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-M\-C, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-N\-O\-R\-M, real mcover, unsigned int seed)
+\item 
+\hyperlink{structgmx__static__structurefactor__t}{gmx\-\_\-static\-\_\-structurefactor\-\_\-t} $\ast$ \hyperlink{nsfactor_8h_a0af26e06c7fcb4bb719bb88784a199dd}{convert\-\_\-histogram\-\_\-to\-\_\-intensity\-\_\-curve} (\hyperlink{structgmx__radial__distribution__histogram__t}{gmx\-\_\-radial\-\_\-distribution\-\_\-histogram\-\_\-t} $\ast$pr, double start\-\_\-q, double end\-\_\-q, double q\-\_\-step)
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Typedef \-Documentation}
+\hypertarget{nsfactor_8h_af4858fc3bdecc763c6abedb6a251925e}{\index{nsfactor.\-h@{nsfactor.\-h}!gmx\-\_\-neutron\-\_\-atomic\-\_\-structurefactors\-\_\-t@{gmx\-\_\-neutron\-\_\-atomic\-\_\-structurefactors\-\_\-t}}
+\index{gmx\-\_\-neutron\-\_\-atomic\-\_\-structurefactors\-\_\-t@{gmx\-\_\-neutron\-\_\-atomic\-\_\-structurefactors\-\_\-t}!nsfactor.h@{nsfactor.\-h}}
+\subsubsection[{gmx\-\_\-neutron\-\_\-atomic\-\_\-structurefactors\-\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf gmx\-\_\-neutron\-\_\-atomic\-\_\-structurefactors\-\_\-t}  {\bf gmx\-\_\-neutron\-\_\-atomic\-\_\-structurefactors\-\_\-t}}}\label{nsfactor_8h_af4858fc3bdecc763c6abedb6a251925e}
+\hypertarget{nsfactor_8h_a2c9d579f679966c5db1b62ec30f85ffa}{\index{nsfactor.\-h@{nsfactor.\-h}!gmx\-\_\-radial\-\_\-distribution\-\_\-histogram\-\_\-t@{gmx\-\_\-radial\-\_\-distribution\-\_\-histogram\-\_\-t}}
+\index{gmx\-\_\-radial\-\_\-distribution\-\_\-histogram\-\_\-t@{gmx\-\_\-radial\-\_\-distribution\-\_\-histogram\-\_\-t}!nsfactor.h@{nsfactor.\-h}}
+\subsubsection[{gmx\-\_\-radial\-\_\-distribution\-\_\-histogram\-\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf gmx\-\_\-radial\-\_\-distribution\-\_\-histogram\-\_\-t}  {\bf gmx\-\_\-radial\-\_\-distribution\-\_\-histogram\-\_\-t}}}\label{nsfactor_8h_a2c9d579f679966c5db1b62ec30f85ffa}
+\hypertarget{nsfactor_8h_a9b7b047cb9095ee6f6231a0cab5fa9ac}{\index{nsfactor.\-h@{nsfactor.\-h}!gmx\-\_\-sans\-\_\-t@{gmx\-\_\-sans\-\_\-t}}
+\index{gmx\-\_\-sans\-\_\-t@{gmx\-\_\-sans\-\_\-t}!nsfactor.h@{nsfactor.\-h}}
+\subsubsection[{gmx\-\_\-sans\-\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf gmx\-\_\-sans\-\_\-t}  {\bf gmx\-\_\-sans\-\_\-t}}}\label{nsfactor_8h_a9b7b047cb9095ee6f6231a0cab5fa9ac}
+\hypertarget{nsfactor_8h_a113d0185f821dc2aab060661b20962e2}{\index{nsfactor.\-h@{nsfactor.\-h}!gmx\-\_\-static\-\_\-structurefactor\-\_\-t@{gmx\-\_\-static\-\_\-structurefactor\-\_\-t}}
+\index{gmx\-\_\-static\-\_\-structurefactor\-\_\-t@{gmx\-\_\-static\-\_\-structurefactor\-\_\-t}!nsfactor.h@{nsfactor.\-h}}
+\subsubsection[{gmx\-\_\-static\-\_\-structurefactor\-\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf gmx\-\_\-static\-\_\-structurefactor\-\_\-t}  {\bf gmx\-\_\-static\-\_\-structurefactor\-\_\-t}}}\label{nsfactor_8h_a113d0185f821dc2aab060661b20962e2}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{nsfactor_8h_adfaee2d2d44007d2785563b2fe47176b}{\index{nsfactor.\-h@{nsfactor.\-h}!calc\-\_\-radial\-\_\-distribution\-\_\-histogram@{calc\-\_\-radial\-\_\-distribution\-\_\-histogram}}
+\index{calc\-\_\-radial\-\_\-distribution\-\_\-histogram@{calc\-\_\-radial\-\_\-distribution\-\_\-histogram}!nsfactor.h@{nsfactor.\-h}}
+\subsubsection[{calc\-\_\-radial\-\_\-distribution\-\_\-histogram}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-radial\-\_\-distribution\-\_\-histogram\-\_\-t}$\ast$ {\bf calc\-\_\-radial\-\_\-distribution\-\_\-histogram} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-sans\-\_\-t} $\ast$}]{gsans, }
+\item[{{\bf rvec} $\ast$}]{x, }
+\item[{{\bf matrix}}]{box, }
+\item[{{\bf atom\-\_\-id} $\ast$}]{index, }
+\item[{int}]{isize, }
+\item[{double}]{binwidth, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-M\-C, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-N\-O\-R\-M, }
+\item[{real}]{mcover, }
+\item[{unsigned int}]{seed}
+\end{DoxyParamCaption}
+)}}\label{nsfactor_8h_adfaee2d2d44007d2785563b2fe47176b}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nsfactor_8h_adfaee2d2d44007d2785563b2fe47176b_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nsfactor_8h_adfaee2d2d44007d2785563b2fe47176b_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{nsfactor_8h_ae7b52a7fede838b50a017a2e42502280}{\index{nsfactor.\-h@{nsfactor.\-h}!check\-\_\-binwidth@{check\-\_\-binwidth}}
+\index{check\-\_\-binwidth@{check\-\_\-binwidth}!nsfactor.h@{nsfactor.\-h}}
+\subsubsection[{check\-\_\-binwidth}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf check\-\_\-binwidth} (
+\begin{DoxyParamCaption}
+\item[{real}]{binwidth}
+\end{DoxyParamCaption}
+)}}\label{nsfactor_8h_ae7b52a7fede838b50a017a2e42502280}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=260pt]{nsfactor_8h_ae7b52a7fede838b50a017a2e42502280_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=336pt]{nsfactor_8h_ae7b52a7fede838b50a017a2e42502280_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{nsfactor_8h_ad37b4e5c7d4eea835fb6e14e44633525}{\index{nsfactor.\-h@{nsfactor.\-h}!check\-\_\-mcover@{check\-\_\-mcover}}
+\index{check\-\_\-mcover@{check\-\_\-mcover}!nsfactor.h@{nsfactor.\-h}}
+\subsubsection[{check\-\_\-mcover}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf check\-\_\-mcover} (
+\begin{DoxyParamCaption}
+\item[{real}]{mcover}
+\end{DoxyParamCaption}
+)}}\label{nsfactor_8h_ad37b4e5c7d4eea835fb6e14e44633525}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=256pt]{nsfactor_8h_ad37b4e5c7d4eea835fb6e14e44633525_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=332pt]{nsfactor_8h_ad37b4e5c7d4eea835fb6e14e44633525_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{nsfactor_8h_a0af26e06c7fcb4bb719bb88784a199dd}{\index{nsfactor.\-h@{nsfactor.\-h}!convert\-\_\-histogram\-\_\-to\-\_\-intensity\-\_\-curve@{convert\-\_\-histogram\-\_\-to\-\_\-intensity\-\_\-curve}}
+\index{convert\-\_\-histogram\-\_\-to\-\_\-intensity\-\_\-curve@{convert\-\_\-histogram\-\_\-to\-\_\-intensity\-\_\-curve}!nsfactor.h@{nsfactor.\-h}}
+\subsubsection[{convert\-\_\-histogram\-\_\-to\-\_\-intensity\-\_\-curve}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-static\-\_\-structurefactor\-\_\-t}$\ast$ {\bf convert\-\_\-histogram\-\_\-to\-\_\-intensity\-\_\-curve} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-radial\-\_\-distribution\-\_\-histogram\-\_\-t} $\ast$}]{pr, }
+\item[{double}]{start\-\_\-q, }
+\item[{double}]{end\-\_\-q, }
+\item[{double}]{q\-\_\-step}
+\end{DoxyParamCaption}
+)}}\label{nsfactor_8h_a0af26e06c7fcb4bb719bb88784a199dd}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nsfactor_8h_a0af26e06c7fcb4bb719bb88784a199dd_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{nsfactor_8h_aea36682c4a0eee52dd18bb3db368874c}{\index{nsfactor.\-h@{nsfactor.\-h}!gmx\-\_\-neutronstructurefactors\-\_\-init@{gmx\-\_\-neutronstructurefactors\-\_\-init}}
+\index{gmx\-\_\-neutronstructurefactors\-\_\-init@{gmx\-\_\-neutronstructurefactors\-\_\-init}!nsfactor.h@{nsfactor.\-h}}
+\subsubsection[{gmx\-\_\-neutronstructurefactors\-\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-neutron\-\_\-atomic\-\_\-structurefactors\-\_\-t}$\ast$ {\bf gmx\-\_\-neutronstructurefactors\-\_\-init} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{datfn}
+\end{DoxyParamCaption}
+)}}\label{nsfactor_8h_aea36682c4a0eee52dd18bb3db368874c}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nsfactor_8h_aea36682c4a0eee52dd18bb3db368874c_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nsfactor_8h_aea36682c4a0eee52dd18bb3db368874c_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{nsfactor_8h_a2eed35a3f56fb14039d5d219b1a90e4f}{\index{nsfactor.\-h@{nsfactor.\-h}!gmx\-\_\-sans\-\_\-init@{gmx\-\_\-sans\-\_\-init}}
+\index{gmx\-\_\-sans\-\_\-init@{gmx\-\_\-sans\-\_\-init}!nsfactor.h@{nsfactor.\-h}}
+\subsubsection[{gmx\-\_\-sans\-\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-sans\-\_\-t}$\ast$ {\bf gmx\-\_\-sans\-\_\-init} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-topology} $\ast$}]{top, }
+\item[{{\bf gmx\-\_\-neutron\-\_\-atomic\-\_\-structurefactors\-\_\-t} $\ast$}]{gnsf}
+\end{DoxyParamCaption}
+)}}\label{nsfactor_8h_a2eed35a3f56fb14039d5d219b1a90e4f}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=332pt]{nsfactor_8h_a2eed35a3f56fb14039d5d219b1a90e4f_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{nsfactor_8h_acf734f5e23154323fcf3defd507444ec}{\index{nsfactor.\-h@{nsfactor.\-h}!normalize\-\_\-probability@{normalize\-\_\-probability}}
+\index{normalize\-\_\-probability@{normalize\-\_\-probability}!nsfactor.h@{nsfactor.\-h}}
+\subsubsection[{normalize\-\_\-probability}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf normalize\-\_\-probability} (
+\begin{DoxyParamCaption}
+\item[{int}]{n, }
+\item[{double $\ast$}]{a}
+\end{DoxyParamCaption}
+)}}\label{nsfactor_8h_acf734f5e23154323fcf3defd507444ec}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nsfactor_8h_acf734f5e23154323fcf3defd507444ec_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nsfactor_8h_acf734f5e23154323fcf3defd507444ec_icgraph}
+\end{center}
+\end{figure}
+
+

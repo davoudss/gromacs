@@ -1,0 +1,45 @@
+\hypertarget{share_2template_2gromacs_2assert_8h}{\section{share/template/gromacs/assert.h \-File \-Reference}
+\label{share_2template_2gromacs_2assert_8h}\index{share/template/gromacs/assert.\-h@{share/template/gromacs/assert.\-h}}
+}
+{\ttfamily \#include $<$ctype.\-h$>$}\*
+{\ttfamily \#include \char`\"{}sysstuff.\-h\char`\"{}}\*
+\-Include dependency graph for assert.\-h\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{share_2template_2gromacs_2assert_8h__incl}
+\end{center}
+\end{figure}
+\-This graph shows which files directly or indirectly include this file\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{share_2template_2gromacs_2assert_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{share_2template_2gromacs_2assert_8h_afebb1df1d9dc77c4a9bf88e3c7fa5829}{assert}(\-E\-X\-P\-R\-E\-S\-S\-I\-O\-N)
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Define \-Documentation}
+\hypertarget{share_2template_2gromacs_2assert_8h_afebb1df1d9dc77c4a9bf88e3c7fa5829}{\index{share/template/gromacs/assert.\-h@{share/template/gromacs/assert.\-h}!assert@{assert}}
+\index{assert@{assert}!share/template/gromacs/assert.h@{share/template/gromacs/assert.\-h}}
+\subsubsection[{assert}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf assert}(
+\begin{DoxyParamCaption}
+\item[{}]{\-E\-X\-P\-R\-E\-S\-S\-I\-O\-N}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2assert_8h_afebb1df1d9dc77c4a9bf88e3c7fa5829}
+{\bfseries \-Value\-:}
+\begin{DoxyCode}
+if (!(EXPRESSION)) { \
+        fprintf(stderr, "Assertion failed for \"%s\" in file %s, " \
+                "line %d\ndump core ? (y/n):",#EXPRESSION, __FILE__, __LINE__);
+       \
+        fflush(stderr); \
+        if (toupper(getc(stdin)) == 'Y') { \
+            (void) abort(); } else{ exit(-1); } \
+    }
+\end{DoxyCode}

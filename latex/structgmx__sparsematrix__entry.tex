@@ -1,0 +1,61 @@
+\hypertarget{structgmx__sparsematrix__entry}{\section{gmx\-\_\-sparsematrix\-\_\-entry \-Struct \-Reference}
+\label{structgmx__sparsematrix__entry}\index{gmx\-\_\-sparsematrix\-\_\-entry@{gmx\-\_\-sparsematrix\-\_\-entry}}
+}
+
+
+\-Sparse matrix storage format.  
+
+
+
+
+{\ttfamily \#include $<$sparsematrix.\-h$>$}
+
+\subsection*{\-Public \-Attributes}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{structgmx__sparsematrix__entry_a99e6c89426f4795cf6e91d089eb5a457}{col}
+\item 
+real \hyperlink{structgmx__sparsematrix__entry_aa635a46c3f16f7e276c640f28136cdd2}{value}
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Detailed \-Description}
+\-Sparse matrix storage format. 
+
+\-This structure specifies a storage format for a sparse matrix. \-The memory requirements are only proportional to the number of nonzero elements, and it provides a reasonably fast way to perform matrix-\/vector multiplications.
+
+\-The data format is very similar to a neighborlist. \-It is optimized for fast access, but it is difficult to add entries. \-If you are constructing a matrix you should either do it in exactly the order specified here, or use some other more flexible intermediate structure.
+
+\-The index array is of size nrow+1. \-All non-\/zero matrix elements on row i are stored in positions index\mbox{[}i\mbox{]} through index\mbox{[}i+1\mbox{]}-\/1 in the arrays column and value. \-The column array contains the column index for each entry, in ascending order, and the corresponding position in the value array contains the floating point matrix element.
+
+index\mbox{[}nrow\mbox{]} should be equal to the total number of elements stored.
+
+\-Thus, to find the value of matrix element \mbox{[}5,4\mbox{]} you should loop over positions index\mbox{[}5\mbox{]} to index\mbox{[}6\mbox{]}-\/1 in column until you either find the value 4, or a higher value (meaning the element was zero).
+
+\-It is fairly easy to construct the matrix on-\/the-\/fly if you can do it row-\/by-\/row.
+
+\-I\-M\-P\-O\-R\-T\-A\-N\-T\-: \-If compressed\-\_\-symmetric is set to \-T\-R\-U\-E, you should only store \-E\-I\-T\-H\-E\-R the upper \-O\-R lower triangle (and the diagonal), and the other half is assumed to be symmetric. \-Otherwise, if compressed\-\_\-symmetric==\-F\-A\-L\-S\-E, no symmetry is implied and all elements should be stored.
+
+\-The symmetry compression saves us a factor 2 both in storage and matrix multiplication \-C\-P\-U-\/time, which can be very useful for huge eigenproblems.
+
+\-If you are unsure, just set compressed\-\_\-symmetric to \-F\-A\-L\-S\-E and list all elements. \-If you enable it but still list all elements (both upper and lower triangle) you will be sorry...
+
+\-Internally, the sparse data is stored as a separate list for each row, where the list element is a structure with a column and (floating-\/point) data value. \-This makes it possible, although not completely transparent, to update values in random access order. \-The drawback is that the structure will allocate nrow memory regions. \-The matrix data could be stored in a single contiguous array with indices for each row, but then we could only insert elements at the end without copying the entire matrix.
+
+\-After you have
+
+\-In other words\-: \-Not perfect, but it works. 
+
+\subsection{\-Member \-Data \-Documentation}
+\hypertarget{structgmx__sparsematrix__entry_a99e6c89426f4795cf6e91d089eb5a457}{\index{gmx\-\_\-sparsematrix\-\_\-entry@{gmx\-\_\-sparsematrix\-\_\-entry}!col@{col}}
+\index{col@{col}!gmx_sparsematrix_entry@{gmx\-\_\-sparsematrix\-\_\-entry}}
+\subsubsection[{col}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-sparsematrix\-\_\-entry\-::col}}}\label{structgmx__sparsematrix__entry_a99e6c89426f4795cf6e91d089eb5a457}
+\hypertarget{structgmx__sparsematrix__entry_aa635a46c3f16f7e276c640f28136cdd2}{\index{gmx\-\_\-sparsematrix\-\_\-entry@{gmx\-\_\-sparsematrix\-\_\-entry}!value@{value}}
+\index{value@{value}!gmx_sparsematrix_entry@{gmx\-\_\-sparsematrix\-\_\-entry}}
+\subsubsection[{value}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf gmx\-\_\-sparsematrix\-\_\-entry\-::value}}}\label{structgmx__sparsematrix__entry_aa635a46c3f16f7e276c640f28136cdd2}
+
+
+\-The documentation for this struct was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+include/\hyperlink{include_2sparsematrix_8h}{sparsematrix.\-h}\item 
+share/template/gromacs/\hyperlink{share_2template_2gromacs_2sparsematrix_8h}{sparsematrix.\-h}\end{DoxyCompactItemize}

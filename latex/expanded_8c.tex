@@ -1,0 +1,413 @@
+\hypertarget{expanded_8c}{\section{src/mdlib/expanded.c \-File \-Reference}
+\label{expanded_8c}\index{src/mdlib/expanded.\-c@{src/mdlib/expanded.\-c}}
+}
+{\ttfamily \#include $<$stdio.\-h$>$}\*
+{\ttfamily \#include $<$time.\-h$>$}\*
+{\ttfamily \#include $<$math.\-h$>$}\*
+{\ttfamily \#include \char`\"{}typedefs.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}string2.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmxfio.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}smalloc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}names.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}confio.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}mvdata.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}txtdump.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}pbc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}chargegroup.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}vec.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}nrnb.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}mshift.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}mdrun.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}update.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}physics.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}main.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}mdatoms.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}force.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}bondf.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}pme.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}disre.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}orires.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}network.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}calcmu.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}constr.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}xvgr.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}trnio.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}xtcio.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}copyrite.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-random.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}domdec.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}partdec.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-wallcycle.\-h\char`\"{}}\*
+\-Include dependency graph for expanded.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{expanded_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{expanded_8c_a1e1a5e7fe2f092eb5278fb87720f0557}{\-Generate\-Gibbs\-Probabilities} (real $\ast$ene, real $\ast$p\-\_\-k, real $\ast$pks, int minfep, int maxfep)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{expanded_8c_a29298714a59d3fc977e393834fe02aed}{\-Generate\-Weighted\-Gibbs\-Probabilities} (real $\ast$ene, real $\ast$p\-\_\-k, real $\ast$pks, int nlim, real $\ast$nvals, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a929390387fa4bb573c1580fdfc1d761d}{delta})
+\item 
+real \hyperlink{expanded_8c_ab302acf8650e0d3bfaabd457b248e9c0}{do\-\_\-logsum} (int \hyperlink{3dview_8c_a0240ac851181b84ac374872dc5434ee4}{\-N}, real $\ast$a\-\_\-n)
+\item 
+int \hyperlink{expanded_8c_a777585c9b19472bb37d10ca4218bdbe0}{\-Find\-Minimum} (real $\ast$min\-\_\-metric, int \hyperlink{3dview_8c_a0240ac851181b84ac374872dc5434ee4}{\-N})
+\item 
+static \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{expanded_8c_acd7719dce50a872a62f159efea300482}{\-Check\-Histogram\-Ratios} (int nhisto, real $\ast$histo, real ratio)
+\item 
+static \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{expanded_8c_a083a53091cf6334ef93d1ab9f942c30b}{\-Check\-If\-Done\-Equilibrating} (int nlim, \hyperlink{structt__expanded}{t\-\_\-expanded} $\ast$expand, \hyperlink{structdf__history__t}{df\-\_\-history\-\_\-t} $\ast$dfhist, gmx\-\_\-large\-\_\-int\-\_\-t step)
+\item 
+static \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{expanded_8c_ae6b3c84b5a4b3b2942ea1a5fb821a689}{\-Update\-Weights} (int nlim, \hyperlink{structt__expanded}{t\-\_\-expanded} $\ast$expand, \hyperlink{structdf__history__t}{df\-\_\-history\-\_\-t} $\ast$dfhist, int fep\-\_\-state, real $\ast$scaled\-\_\-lamee, real $\ast$weighted\-\_\-lamee, gmx\-\_\-large\-\_\-int\-\_\-t step)
+\item 
+static int \hyperlink{expanded_8c_ae05fb4cd9f719289b8f75ffe704bde60}{\-Choose\-New\-Lambda} (\-F\-I\-L\-E $\ast$log, int nlim, \hyperlink{structt__expanded}{t\-\_\-expanded} $\ast$expand, \hyperlink{structdf__history__t}{df\-\_\-history\-\_\-t} $\ast$dfhist, int fep\-\_\-state, real $\ast$weighted\-\_\-lamee, real $\ast$p\-\_\-k, \hyperlink{include_2gmx__random_8h_ab04e36fe2b56587efc5f5738e432ddee}{gmx\-\_\-rng\-\_\-t} rng)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{expanded_8c_aea7d32f7a0aa48b1c351ed618c70ea1a}{\-Print\-Free\-Energy\-Info\-To\-File} (\-F\-I\-L\-E $\ast$outfile, \hyperlink{structt__lambda}{t\-\_\-lambda} $\ast$fep, \hyperlink{structt__expanded}{t\-\_\-expanded} $\ast$expand, \hyperlink{structt__simtemp}{t\-\_\-simtemp} $\ast$simtemp, \hyperlink{structdf__history__t}{df\-\_\-history\-\_\-t} $\ast$dfhist, int nlam, int frequency, gmx\-\_\-large\-\_\-int\-\_\-t step)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{expanded_8c_af46d6f296430630058c24a1e5ee62d54}{get\-\_\-mc\-\_\-state} (\hyperlink{include_2gmx__random_8h_ab04e36fe2b56587efc5f5738e432ddee}{gmx\-\_\-rng\-\_\-t} rng, \hyperlink{structt__state}{t\-\_\-state} $\ast$state)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{expanded_8c_a0b1f977b254956026221bed70dc6d83c}{set\-\_\-mc\-\_\-state} (\hyperlink{include_2gmx__random_8h_ab04e36fe2b56587efc5f5738e432ddee}{gmx\-\_\-rng\-\_\-t} rng, \hyperlink{structt__state}{t\-\_\-state} $\ast$state)
+\item 
+int \hyperlink{expanded_8c_a6838d6b7e68ba091682ae7995c33616d}{\-Expanded\-Ensemble\-Dynamics} (\-F\-I\-L\-E $\ast$log, \hyperlink{structt__inputrec}{t\-\_\-inputrec} $\ast$ir, \hyperlink{structgmx__enerdata__t}{gmx\-\_\-enerdata\-\_\-t} $\ast$enerd, \hyperlink{structt__state}{t\-\_\-state} $\ast$state, \hyperlink{structt__extmass}{t\-\_\-extmass} $\ast$\-Mass\-Q, \hyperlink{structdf__history__t}{df\-\_\-history\-\_\-t} $\ast$dfhist, gmx\-\_\-large\-\_\-int\-\_\-t step, \hyperlink{include_2gmx__random_8h_ab04e36fe2b56587efc5f5738e432ddee}{gmx\-\_\-rng\-\_\-t} mcrng, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a339df93739a405c3e4b0506624fa27a5}{v}, \hyperlink{structt__mdatoms}{t\-\_\-mdatoms} $\ast$mdatoms)
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{expanded_8c_acd7719dce50a872a62f159efea300482}{\index{expanded.\-c@{expanded.\-c}!\-Check\-Histogram\-Ratios@{\-Check\-Histogram\-Ratios}}
+\index{\-Check\-Histogram\-Ratios@{\-Check\-Histogram\-Ratios}!expanded.c@{expanded.\-c}}
+\subsubsection[{\-Check\-Histogram\-Ratios}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gmx\-\_\-bool} {\bf \-Check\-Histogram\-Ratios} (
+\begin{DoxyParamCaption}
+\item[{int}]{nhisto, }
+\item[{real $\ast$}]{histo, }
+\item[{real}]{ratio}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{expanded_8c_acd7719dce50a872a62f159efea300482}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{expanded_8c_acd7719dce50a872a62f159efea300482_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{expanded_8c_a083a53091cf6334ef93d1ab9f942c30b}{\index{expanded.\-c@{expanded.\-c}!\-Check\-If\-Done\-Equilibrating@{\-Check\-If\-Done\-Equilibrating}}
+\index{\-Check\-If\-Done\-Equilibrating@{\-Check\-If\-Done\-Equilibrating}!expanded.c@{expanded.\-c}}
+\subsubsection[{\-Check\-If\-Done\-Equilibrating}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gmx\-\_\-bool} {\bf \-Check\-If\-Done\-Equilibrating} (
+\begin{DoxyParamCaption}
+\item[{int}]{nlim, }
+\item[{{\bf t\-\_\-expanded} $\ast$}]{expand, }
+\item[{{\bf df\-\_\-history\-\_\-t} $\ast$}]{dfhist, }
+\item[{gmx\-\_\-large\-\_\-int\-\_\-t}]{step}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{expanded_8c_a083a53091cf6334ef93d1ab9f942c30b}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{expanded_8c_a083a53091cf6334ef93d1ab9f942c30b_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{expanded_8c_a083a53091cf6334ef93d1ab9f942c30b_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{expanded_8c_ae05fb4cd9f719289b8f75ffe704bde60}{\index{expanded.\-c@{expanded.\-c}!\-Choose\-New\-Lambda@{\-Choose\-New\-Lambda}}
+\index{\-Choose\-New\-Lambda@{\-Choose\-New\-Lambda}!expanded.c@{expanded.\-c}}
+\subsubsection[{\-Choose\-New\-Lambda}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf \-Choose\-New\-Lambda} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{log, }
+\item[{int}]{nlim, }
+\item[{{\bf t\-\_\-expanded} $\ast$}]{expand, }
+\item[{{\bf df\-\_\-history\-\_\-t} $\ast$}]{dfhist, }
+\item[{int}]{fep\-\_\-state, }
+\item[{real $\ast$}]{weighted\-\_\-lamee, }
+\item[{real $\ast$}]{p\-\_\-k, }
+\item[{{\bf gmx\-\_\-rng\-\_\-t}}]{rng}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{expanded_8c_ae05fb4cd9f719289b8f75ffe704bde60}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{expanded_8c_ae05fb4cd9f719289b8f75ffe704bde60_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{expanded_8c_ae05fb4cd9f719289b8f75ffe704bde60_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{expanded_8c_ab302acf8650e0d3bfaabd457b248e9c0}{\index{expanded.\-c@{expanded.\-c}!do\-\_\-logsum@{do\-\_\-logsum}}
+\index{do\-\_\-logsum@{do\-\_\-logsum}!expanded.c@{expanded.\-c}}
+\subsubsection[{do\-\_\-logsum}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf do\-\_\-logsum} (
+\begin{DoxyParamCaption}
+\item[{int}]{\-N, }
+\item[{real $\ast$}]{a\-\_\-n}
+\end{DoxyParamCaption}
+)}}\label{expanded_8c_ab302acf8650e0d3bfaabd457b248e9c0}
+\hypertarget{expanded_8c_a6838d6b7e68ba091682ae7995c33616d}{\index{expanded.\-c@{expanded.\-c}!\-Expanded\-Ensemble\-Dynamics@{\-Expanded\-Ensemble\-Dynamics}}
+\index{\-Expanded\-Ensemble\-Dynamics@{\-Expanded\-Ensemble\-Dynamics}!expanded.c@{expanded.\-c}}
+\subsubsection[{\-Expanded\-Ensemble\-Dynamics}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf \-Expanded\-Ensemble\-Dynamics} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{log, }
+\item[{{\bf t\-\_\-inputrec} $\ast$}]{ir, }
+\item[{{\bf gmx\-\_\-enerdata\-\_\-t} $\ast$}]{enerd, }
+\item[{{\bf t\-\_\-state} $\ast$}]{state, }
+\item[{{\bf t\-\_\-extmass} $\ast$}]{\-Mass\-Q, }
+\item[{{\bf df\-\_\-history\-\_\-t} $\ast$}]{dfhist, }
+\item[{gmx\-\_\-large\-\_\-int\-\_\-t}]{step, }
+\item[{{\bf gmx\-\_\-rng\-\_\-t}}]{mcrng, }
+\item[{{\bf rvec} $\ast$}]{v, }
+\item[{{\bf t\-\_\-mdatoms} $\ast$}]{mdatoms}
+\end{DoxyParamCaption}
+)}}\label{expanded_8c_a6838d6b7e68ba091682ae7995c33616d}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{expanded_8c_a6838d6b7e68ba091682ae7995c33616d_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=310pt]{expanded_8c_a6838d6b7e68ba091682ae7995c33616d_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{expanded_8c_a777585c9b19472bb37d10ca4218bdbe0}{\index{expanded.\-c@{expanded.\-c}!\-Find\-Minimum@{\-Find\-Minimum}}
+\index{\-Find\-Minimum@{\-Find\-Minimum}!expanded.c@{expanded.\-c}}
+\subsubsection[{\-Find\-Minimum}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf \-Find\-Minimum} (
+\begin{DoxyParamCaption}
+\item[{real $\ast$}]{min\-\_\-metric, }
+\item[{int}]{\-N}
+\end{DoxyParamCaption}
+)}}\label{expanded_8c_a777585c9b19472bb37d10ca4218bdbe0}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{expanded_8c_a777585c9b19472bb37d10ca4218bdbe0_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{expanded_8c_a1e1a5e7fe2f092eb5278fb87720f0557}{\index{expanded.\-c@{expanded.\-c}!\-Generate\-Gibbs\-Probabilities@{\-Generate\-Gibbs\-Probabilities}}
+\index{\-Generate\-Gibbs\-Probabilities@{\-Generate\-Gibbs\-Probabilities}!expanded.c@{expanded.\-c}}
+\subsubsection[{\-Generate\-Gibbs\-Probabilities}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf \-Generate\-Gibbs\-Probabilities} (
+\begin{DoxyParamCaption}
+\item[{real $\ast$}]{ene, }
+\item[{real $\ast$}]{p\-\_\-k, }
+\item[{real $\ast$}]{pks, }
+\item[{int}]{minfep, }
+\item[{int}]{maxfep}
+\end{DoxyParamCaption}
+)}}\label{expanded_8c_a1e1a5e7fe2f092eb5278fb87720f0557}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{expanded_8c_a1e1a5e7fe2f092eb5278fb87720f0557_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{expanded_8c_a29298714a59d3fc977e393834fe02aed}{\index{expanded.\-c@{expanded.\-c}!\-Generate\-Weighted\-Gibbs\-Probabilities@{\-Generate\-Weighted\-Gibbs\-Probabilities}}
+\index{\-Generate\-Weighted\-Gibbs\-Probabilities@{\-Generate\-Weighted\-Gibbs\-Probabilities}!expanded.c@{expanded.\-c}}
+\subsubsection[{\-Generate\-Weighted\-Gibbs\-Probabilities}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf \-Generate\-Weighted\-Gibbs\-Probabilities} (
+\begin{DoxyParamCaption}
+\item[{real $\ast$}]{ene, }
+\item[{real $\ast$}]{p\-\_\-k, }
+\item[{real $\ast$}]{pks, }
+\item[{int}]{nlim, }
+\item[{real $\ast$}]{nvals, }
+\item[{real}]{delta}
+\end{DoxyParamCaption}
+)}}\label{expanded_8c_a29298714a59d3fc977e393834fe02aed}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{expanded_8c_a29298714a59d3fc977e393834fe02aed_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{expanded_8c_af46d6f296430630058c24a1e5ee62d54}{\index{expanded.\-c@{expanded.\-c}!get\-\_\-mc\-\_\-state@{get\-\_\-mc\-\_\-state}}
+\index{get\-\_\-mc\-\_\-state@{get\-\_\-mc\-\_\-state}!expanded.c@{expanded.\-c}}
+\subsubsection[{get\-\_\-mc\-\_\-state}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf get\-\_\-mc\-\_\-state} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-rng\-\_\-t}}]{rng, }
+\item[{{\bf t\-\_\-state} $\ast$}]{state}
+\end{DoxyParamCaption}
+)}}\label{expanded_8c_af46d6f296430630058c24a1e5ee62d54}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=292pt]{expanded_8c_af46d6f296430630058c24a1e5ee62d54_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=238pt]{expanded_8c_af46d6f296430630058c24a1e5ee62d54_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{expanded_8c_aea7d32f7a0aa48b1c351ed618c70ea1a}{\index{expanded.\-c@{expanded.\-c}!\-Print\-Free\-Energy\-Info\-To\-File@{\-Print\-Free\-Energy\-Info\-To\-File}}
+\index{\-Print\-Free\-Energy\-Info\-To\-File@{\-Print\-Free\-Energy\-Info\-To\-File}!expanded.c@{expanded.\-c}}
+\subsubsection[{\-Print\-Free\-Energy\-Info\-To\-File}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf \-Print\-Free\-Energy\-Info\-To\-File} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{outfile, }
+\item[{{\bf t\-\_\-lambda} $\ast$}]{fep, }
+\item[{{\bf t\-\_\-expanded} $\ast$}]{expand, }
+\item[{{\bf t\-\_\-simtemp} $\ast$}]{simtemp, }
+\item[{{\bf df\-\_\-history\-\_\-t} $\ast$}]{dfhist, }
+\item[{int}]{nlam, }
+\item[{int}]{frequency, }
+\item[{gmx\-\_\-large\-\_\-int\-\_\-t}]{step}
+\end{DoxyParamCaption}
+)}}\label{expanded_8c_aea7d32f7a0aa48b1c351ed618c70ea1a}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=294pt]{expanded_8c_aea7d32f7a0aa48b1c351ed618c70ea1a_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{expanded_8c_a0b1f977b254956026221bed70dc6d83c}{\index{expanded.\-c@{expanded.\-c}!set\-\_\-mc\-\_\-state@{set\-\_\-mc\-\_\-state}}
+\index{set\-\_\-mc\-\_\-state@{set\-\_\-mc\-\_\-state}!expanded.c@{expanded.\-c}}
+\subsubsection[{set\-\_\-mc\-\_\-state}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf set\-\_\-mc\-\_\-state} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-rng\-\_\-t}}]{rng, }
+\item[{{\bf t\-\_\-state} $\ast$}]{state}
+\end{DoxyParamCaption}
+)}}\label{expanded_8c_a0b1f977b254956026221bed70dc6d83c}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=292pt]{expanded_8c_a0b1f977b254956026221bed70dc6d83c_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=238pt]{expanded_8c_a0b1f977b254956026221bed70dc6d83c_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{expanded_8c_ae6b3c84b5a4b3b2942ea1a5fb821a689}{\index{expanded.\-c@{expanded.\-c}!\-Update\-Weights@{\-Update\-Weights}}
+\index{\-Update\-Weights@{\-Update\-Weights}!expanded.c@{expanded.\-c}}
+\subsubsection[{\-Update\-Weights}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gmx\-\_\-bool} {\bf \-Update\-Weights} (
+\begin{DoxyParamCaption}
+\item[{int}]{nlim, }
+\item[{{\bf t\-\_\-expanded} $\ast$}]{expand, }
+\item[{{\bf df\-\_\-history\-\_\-t} $\ast$}]{dfhist, }
+\item[{int}]{fep\-\_\-state, }
+\item[{real $\ast$}]{scaled\-\_\-lamee, }
+\item[{real $\ast$}]{weighted\-\_\-lamee, }
+\item[{gmx\-\_\-large\-\_\-int\-\_\-t}]{step}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{expanded_8c_ae6b3c84b5a4b3b2942ea1a5fb821a689}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{expanded_8c_ae6b3c84b5a4b3b2942ea1a5fb821a689_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{expanded_8c_ae6b3c84b5a4b3b2942ea1a5fb821a689_icgraph}
+\end{center}
+\end{figure}
+
+

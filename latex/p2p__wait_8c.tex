@@ -1,0 +1,378 @@
+\hypertarget{p2p__wait_8c}{\section{src/gmxlib/thread\-\_\-mpi/p2p\-\_\-wait.c \-File \-Reference}
+\label{p2p__wait_8c}\index{src/gmxlib/thread\-\_\-mpi/p2p\-\_\-wait.\-c@{src/gmxlib/thread\-\_\-mpi/p2p\-\_\-wait.\-c}}
+}
+{\ttfamily \#include $<$errno.\-h$>$}\*
+{\ttfamily \#include $<$stdlib.\-h$>$}\*
+{\ttfamily \#include $<$stdio.\-h$>$}\*
+{\ttfamily \#include $<$stdarg.\-h$>$}\*
+{\ttfamily \#include $<$string.\-h$>$}\*
+{\ttfamily \#include \char`\"{}impl.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}p2p.\-h\char`\"{}}\*
+\-Include dependency graph for p2p\-\_\-wait.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{p2p__wait_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{p2p__wait_8c_ad70d9de4b1bbf2072d14c53cee326084}{t\-M\-P\-I\-\_\-\-Wait} (\hyperlink{include_2thread__mpi_2tmpi_8h_ad41a753790479407462040a80099c73d}{t\-M\-P\-I\-\_\-\-Request} $\ast$request, \hyperlink{include_2thread__mpi_2tmpi_8h_a531b9d68a797b1d19168df2fd83cb8aa}{t\-M\-P\-I\-\_\-\-Status} $\ast$status)
+\item 
+int \hyperlink{p2p__wait_8c_a5e5e4f0a18df4ef61133c12c78ac57c7}{t\-M\-P\-I\-\_\-\-Test} (\hyperlink{include_2thread__mpi_2tmpi_8h_ad41a753790479407462040a80099c73d}{t\-M\-P\-I\-\_\-\-Request} $\ast$request, int $\ast$flag, \hyperlink{include_2thread__mpi_2tmpi_8h_a531b9d68a797b1d19168df2fd83cb8aa}{t\-M\-P\-I\-\_\-\-Status} $\ast$status)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{p2p__wait_8c_acf4f45fe23ce76d469b6fc780dd7a596}{t\-M\-P\-I\-\_\-\-Test\-\_\-multi\-\_\-req} (struct \hyperlink{structtmpi__thread}{tmpi\-\_\-thread} $\ast$cur, int count, \hyperlink{include_2thread__mpi_2tmpi_8h_ad41a753790479407462040a80099c73d}{t\-M\-P\-I\-\_\-\-Request} $\ast$array\-\_\-of\-\_\-requests, \hyperlink{impl_8h_a1c904605658586a00645b5fc9f6b8479}{tmpi\-\_\-bool} wait, \hyperlink{impl_8h_a1c904605658586a00645b5fc9f6b8479}{tmpi\-\_\-bool} blocking)
+\item 
+int \hyperlink{p2p__wait_8c_af24509f42e040096775d3ef3ea178924}{t\-M\-P\-I\-\_\-\-Waitall} (int count, \hyperlink{include_2thread__mpi_2tmpi_8h_ad41a753790479407462040a80099c73d}{t\-M\-P\-I\-\_\-\-Request} $\ast$array\-\_\-of\-\_\-requests, \hyperlink{include_2thread__mpi_2tmpi_8h_a531b9d68a797b1d19168df2fd83cb8aa}{t\-M\-P\-I\-\_\-\-Status} $\ast$array\-\_\-of\-\_\-statuses)
+\item 
+int \hyperlink{p2p__wait_8c_a6872ea17b4d5eb61abe446dc065280b7}{t\-M\-P\-I\-\_\-\-Testall} (int count, \hyperlink{include_2thread__mpi_2tmpi_8h_ad41a753790479407462040a80099c73d}{t\-M\-P\-I\-\_\-\-Request} $\ast$array\-\_\-of\-\_\-requests, int $\ast$flag, \hyperlink{include_2thread__mpi_2tmpi_8h_a531b9d68a797b1d19168df2fd83cb8aa}{t\-M\-P\-I\-\_\-\-Status} $\ast$array\-\_\-of\-\_\-statuses)
+\item 
+int \hyperlink{p2p__wait_8c_ac93029752596fea23713771bf9e66805}{t\-M\-P\-I\-\_\-\-Waitany} (int count, \hyperlink{include_2thread__mpi_2tmpi_8h_ad41a753790479407462040a80099c73d}{t\-M\-P\-I\-\_\-\-Request} $\ast$array\-\_\-of\-\_\-requests, int $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a49fd977001162d7256c8fcd293f9d12a}{index}, \hyperlink{include_2thread__mpi_2tmpi_8h_a531b9d68a797b1d19168df2fd83cb8aa}{t\-M\-P\-I\-\_\-\-Status} $\ast$status)
+\item 
+int \hyperlink{p2p__wait_8c_a62724cf23724ca0a7f18c123cdd7b47c}{t\-M\-P\-I\-\_\-\-Testany} (int count, \hyperlink{include_2thread__mpi_2tmpi_8h_ad41a753790479407462040a80099c73d}{t\-M\-P\-I\-\_\-\-Request} $\ast$array\-\_\-of\-\_\-requests, int $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a49fd977001162d7256c8fcd293f9d12a}{index}, int $\ast$flag, \hyperlink{include_2thread__mpi_2tmpi_8h_a531b9d68a797b1d19168df2fd83cb8aa}{t\-M\-P\-I\-\_\-\-Status} $\ast$status)
+\item 
+int \hyperlink{p2p__wait_8c_a1479fa1173a92aa0742248a0e494d203}{t\-M\-P\-I\-\_\-\-Waitsome} (int incount, \hyperlink{include_2thread__mpi_2tmpi_8h_ad41a753790479407462040a80099c73d}{t\-M\-P\-I\-\_\-\-Request} $\ast$array\-\_\-of\-\_\-requests, int $\ast$outcount, int $\ast$array\-\_\-of\-\_\-indices, \hyperlink{include_2thread__mpi_2tmpi_8h_a531b9d68a797b1d19168df2fd83cb8aa}{t\-M\-P\-I\-\_\-\-Status} $\ast$array\-\_\-of\-\_\-statuses)
+\item 
+int \hyperlink{p2p__wait_8c_adc9bff10bf8d4f728e67e4d993a00c71}{t\-M\-P\-I\-\_\-\-Testsome} (int incount, \hyperlink{include_2thread__mpi_2tmpi_8h_ad41a753790479407462040a80099c73d}{t\-M\-P\-I\-\_\-\-Request} $\ast$array\-\_\-of\-\_\-requests, int $\ast$outcount, int $\ast$array\-\_\-of\-\_\-indices, \hyperlink{include_2thread__mpi_2tmpi_8h_a531b9d68a797b1d19168df2fd83cb8aa}{t\-M\-P\-I\-\_\-\-Status} $\ast$array\-\_\-of\-\_\-statuses)
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{p2p__wait_8c_a5e5e4f0a18df4ef61133c12c78ac57c7}{\index{p2p\-\_\-wait.\-c@{p2p\-\_\-wait.\-c}!t\-M\-P\-I\-\_\-\-Test@{t\-M\-P\-I\-\_\-\-Test}}
+\index{t\-M\-P\-I\-\_\-\-Test@{t\-M\-P\-I\-\_\-\-Test}!p2p_wait.c@{p2p\-\_\-wait.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Test}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf t\-M\-P\-I\-\_\-\-Test} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-M\-P\-I\-\_\-\-Request} $\ast$}]{request, }
+\item[{int $\ast$}]{flag, }
+\item[{{\bf t\-M\-P\-I\-\_\-\-Status} $\ast$}]{status}
+\end{DoxyParamCaption}
+)}}\label{p2p__wait_8c_a5e5e4f0a18df4ef61133c12c78ac57c7}
+\-Test whether a message is transferred.
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in,out}  & {\em request} & \-The request obtained wit \hyperlink{include_2thread__mpi_2tmpi_8h_ab0bca88631f0b78d284d066100f6975e}{t\-M\-P\-I\-\_\-\-Isend()}/t\-M\-P\-I\-\_\-\-Irecv(). \\
+\hline
+\mbox{\tt out}  & {\em flag} & \-A flag set to \hyperlink{impl_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{\-T\-R\-U\-E(1)} if the request is finished, \hyperlink{impl_8h_aa93f0eb578d23995850d61f7d61c55c1}{\-F\-A\-L\-S\-E(0)} otherwise. \\
+\hline
+\mbox{\tt out}  & {\em status} & \-Message status (can be set to \-T\-M\-P\-I\-\_\-\-S\-T\-A\-T\-U\-S\-\_\-\-I\-G\-N\-O\-R\-E).\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-T\-M\-P\-I\-\_\-\-S\-U\-C\-C\-E\-S\-S on success, \-T\-M\-P\-I\-\_\-\-F\-A\-I\-L\-U\-R\-E on failure. 
+\end{DoxyReturn}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{p2p__wait_8c_a5e5e4f0a18df4ef61133c12c78ac57c7_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{p2p__wait_8c_acf4f45fe23ce76d469b6fc780dd7a596}{\index{p2p\-\_\-wait.\-c@{p2p\-\_\-wait.\-c}!t\-M\-P\-I\-\_\-\-Test\-\_\-multi\-\_\-req@{t\-M\-P\-I\-\_\-\-Test\-\_\-multi\-\_\-req}}
+\index{t\-M\-P\-I\-\_\-\-Test\-\_\-multi\-\_\-req@{t\-M\-P\-I\-\_\-\-Test\-\_\-multi\-\_\-req}!p2p_wait.c@{p2p\-\_\-wait.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Test\-\_\-multi\-\_\-req}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf t\-M\-P\-I\-\_\-\-Test\-\_\-multi\-\_\-req} (
+\begin{DoxyParamCaption}
+\item[{struct {\bf tmpi\-\_\-thread} $\ast$}]{cur, }
+\item[{int}]{count, }
+\item[{{\bf t\-M\-P\-I\-\_\-\-Request} $\ast$}]{array\-\_\-of\-\_\-requests, }
+\item[{{\bf tmpi\-\_\-bool}}]{wait, }
+\item[{{\bf tmpi\-\_\-bool}}]{blocking}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{p2p__wait_8c_acf4f45fe23ce76d469b6fc780dd7a596}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{p2p__wait_8c_acf4f45fe23ce76d469b6fc780dd7a596_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=312pt]{p2p__wait_8c_acf4f45fe23ce76d469b6fc780dd7a596_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{p2p__wait_8c_a6872ea17b4d5eb61abe446dc065280b7}{\index{p2p\-\_\-wait.\-c@{p2p\-\_\-wait.\-c}!t\-M\-P\-I\-\_\-\-Testall@{t\-M\-P\-I\-\_\-\-Testall}}
+\index{t\-M\-P\-I\-\_\-\-Testall@{t\-M\-P\-I\-\_\-\-Testall}!p2p_wait.c@{p2p\-\_\-wait.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Testall}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf t\-M\-P\-I\-\_\-\-Testall} (
+\begin{DoxyParamCaption}
+\item[{int}]{count, }
+\item[{{\bf t\-M\-P\-I\-\_\-\-Request} $\ast$}]{array\-\_\-of\-\_\-requests, }
+\item[{int $\ast$}]{flag, }
+\item[{{\bf t\-M\-P\-I\-\_\-\-Status} $\ast$}]{array\-\_\-of\-\_\-statuses}
+\end{DoxyParamCaption}
+)}}\label{p2p__wait_8c_a6872ea17b4d5eb61abe446dc065280b7}
+\-Test whether several messages are transferred.
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em count} & \-The number of requests \\
+\hline
+\mbox{\tt in,out}  & {\em array\-\_\-of\-\_\-requests} & \-List of count requests obtained with \hyperlink{include_2thread__mpi_2tmpi_8h_ab0bca88631f0b78d284d066100f6975e}{t\-M\-P\-I\-\_\-\-Isend()}/t\-M\-P\-I\-\_\-\-Irecv(). \\
+\hline
+\mbox{\tt out}  & {\em flag} & \-Whether all requests have completed. \\
+\hline
+\mbox{\tt out}  & {\em array\-\_\-of\-\_\-statuses} & \-List of count message statuses (can be set to \-T\-M\-P\-I\-\_\-\-S\-T\-A\-T\-U\-S\-E\-S\-\_\-\-I\-G\-N\-O\-R\-E).\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-T\-M\-P\-I\-\_\-\-S\-U\-C\-C\-E\-S\-S on success, \-T\-M\-P\-I\-\_\-\-F\-A\-I\-L\-U\-R\-E on failure. 
+\end{DoxyReturn}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{p2p__wait_8c_a6872ea17b4d5eb61abe446dc065280b7_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{p2p__wait_8c_a62724cf23724ca0a7f18c123cdd7b47c}{\index{p2p\-\_\-wait.\-c@{p2p\-\_\-wait.\-c}!t\-M\-P\-I\-\_\-\-Testany@{t\-M\-P\-I\-\_\-\-Testany}}
+\index{t\-M\-P\-I\-\_\-\-Testany@{t\-M\-P\-I\-\_\-\-Testany}!p2p_wait.c@{p2p\-\_\-wait.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Testany}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf t\-M\-P\-I\-\_\-\-Testany} (
+\begin{DoxyParamCaption}
+\item[{int}]{count, }
+\item[{{\bf t\-M\-P\-I\-\_\-\-Request} $\ast$}]{array\-\_\-of\-\_\-requests, }
+\item[{int $\ast$}]{index, }
+\item[{int $\ast$}]{flag, }
+\item[{{\bf t\-M\-P\-I\-\_\-\-Status} $\ast$}]{status}
+\end{DoxyParamCaption}
+)}}\label{p2p__wait_8c_a62724cf23724ca0a7f18c123cdd7b47c}
+\-Test whether one of several messages is transferred.
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em count} & \-The number of requests \\
+\hline
+\mbox{\tt in,out}  & {\em array\-\_\-of\-\_\-requests} & \-List of count requests obtained with \hyperlink{include_2thread__mpi_2tmpi_8h_ab0bca88631f0b78d284d066100f6975e}{t\-M\-P\-I\-\_\-\-Isend()}/t\-M\-P\-I\-\_\-\-Irecv(). \\
+\hline
+\mbox{\tt out}  & {\em index} & \-Index of the request that has completed. \\
+\hline
+\mbox{\tt out}  & {\em flag} & \-Whether any request has completed. \\
+\hline
+\mbox{\tt out}  & {\em status} & \-Pointer to t\-M\-P\-I\-\_\-\-Status object associated with completed request.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-T\-M\-P\-I\-\_\-\-S\-U\-C\-C\-E\-S\-S on success, \-T\-M\-P\-I\-\_\-\-F\-A\-I\-L\-U\-R\-E on failure. 
+\end{DoxyReturn}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{p2p__wait_8c_a62724cf23724ca0a7f18c123cdd7b47c_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{p2p__wait_8c_adc9bff10bf8d4f728e67e4d993a00c71}{\index{p2p\-\_\-wait.\-c@{p2p\-\_\-wait.\-c}!t\-M\-P\-I\-\_\-\-Testsome@{t\-M\-P\-I\-\_\-\-Testsome}}
+\index{t\-M\-P\-I\-\_\-\-Testsome@{t\-M\-P\-I\-\_\-\-Testsome}!p2p_wait.c@{p2p\-\_\-wait.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Testsome}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf t\-M\-P\-I\-\_\-\-Testsome} (
+\begin{DoxyParamCaption}
+\item[{int}]{incount, }
+\item[{{\bf t\-M\-P\-I\-\_\-\-Request} $\ast$}]{array\-\_\-of\-\_\-requests, }
+\item[{int $\ast$}]{outcount, }
+\item[{int $\ast$}]{array\-\_\-of\-\_\-indices, }
+\item[{{\bf t\-M\-P\-I\-\_\-\-Status} $\ast$}]{array\-\_\-of\-\_\-statuses}
+\end{DoxyParamCaption}
+)}}\label{p2p__wait_8c_adc9bff10bf8d4f728e67e4d993a00c71}
+\-Test whether some of several messages are transferred.
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em incount} & \-The number of requests \\
+\hline
+\mbox{\tt in,out}  & {\em array\-\_\-of\-\_\-requests} & \-List of count requests obtained with \hyperlink{include_2thread__mpi_2tmpi_8h_ab0bca88631f0b78d284d066100f6975e}{t\-M\-P\-I\-\_\-\-Isend()}/t\-M\-P\-I\-\_\-\-Irecv(). \\
+\hline
+\mbox{\tt out}  & {\em outcount} & \-Number of completed requests \\
+\hline
+\mbox{\tt out}  & {\em array\-\_\-of\-\_\-indices} & \-Array of ints that gets filled with the indices of the completed requests. \\
+\hline
+\mbox{\tt out}  & {\em array\-\_\-of\-\_\-statuses} & \-List of count message statuses (can be set to \-T\-M\-P\-I\-\_\-\-S\-T\-A\-T\-U\-S\-E\-S\-\_\-\-I\-G\-N\-O\-R\-E).\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-T\-M\-P\-I\-\_\-\-S\-U\-C\-C\-E\-S\-S on success, \-T\-M\-P\-I\-\_\-\-F\-A\-I\-L\-U\-R\-E on failure. 
+\end{DoxyReturn}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{p2p__wait_8c_adc9bff10bf8d4f728e67e4d993a00c71_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{p2p__wait_8c_ad70d9de4b1bbf2072d14c53cee326084}{\index{p2p\-\_\-wait.\-c@{p2p\-\_\-wait.\-c}!t\-M\-P\-I\-\_\-\-Wait@{t\-M\-P\-I\-\_\-\-Wait}}
+\index{t\-M\-P\-I\-\_\-\-Wait@{t\-M\-P\-I\-\_\-\-Wait}!p2p_wait.c@{p2p\-\_\-wait.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Wait}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf t\-M\-P\-I\-\_\-\-Wait} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-M\-P\-I\-\_\-\-Request} $\ast$}]{request, }
+\item[{{\bf t\-M\-P\-I\-\_\-\-Status} $\ast$}]{status}
+\end{DoxyParamCaption}
+)}}\label{p2p__wait_8c_ad70d9de4b1bbf2072d14c53cee326084}
+\-Wait until a message is transferred.
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in,out}  & {\em request} & \-The request obtained wit \hyperlink{include_2thread__mpi_2tmpi_8h_ab0bca88631f0b78d284d066100f6975e}{t\-M\-P\-I\-\_\-\-Isend()}/t\-M\-P\-I\-\_\-\-Irecv(). \\
+\hline
+\mbox{\tt out}  & {\em status} & \-Message status.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-T\-M\-P\-I\-\_\-\-S\-U\-C\-C\-E\-S\-S on success, \-T\-M\-P\-I\-\_\-\-F\-A\-I\-L\-U\-R\-E on failure. 
+\end{DoxyReturn}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{p2p__wait_8c_ad70d9de4b1bbf2072d14c53cee326084_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{p2p__wait_8c_af24509f42e040096775d3ef3ea178924}{\index{p2p\-\_\-wait.\-c@{p2p\-\_\-wait.\-c}!t\-M\-P\-I\-\_\-\-Waitall@{t\-M\-P\-I\-\_\-\-Waitall}}
+\index{t\-M\-P\-I\-\_\-\-Waitall@{t\-M\-P\-I\-\_\-\-Waitall}!p2p_wait.c@{p2p\-\_\-wait.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Waitall}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf t\-M\-P\-I\-\_\-\-Waitall} (
+\begin{DoxyParamCaption}
+\item[{int}]{count, }
+\item[{{\bf t\-M\-P\-I\-\_\-\-Request} $\ast$}]{array\-\_\-of\-\_\-requests, }
+\item[{{\bf t\-M\-P\-I\-\_\-\-Status} $\ast$}]{array\-\_\-of\-\_\-statuses}
+\end{DoxyParamCaption}
+)}}\label{p2p__wait_8c_af24509f42e040096775d3ef3ea178924}
+\-Wait until several messages are transferred.
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em count} & \-The number of requests \\
+\hline
+\mbox{\tt in,out}  & {\em array\-\_\-of\-\_\-requests} & \-List of count requests obtained with \hyperlink{include_2thread__mpi_2tmpi_8h_ab0bca88631f0b78d284d066100f6975e}{t\-M\-P\-I\-\_\-\-Isend()}/t\-M\-P\-I\-\_\-\-Irecv(). \\
+\hline
+\mbox{\tt out}  & {\em array\-\_\-of\-\_\-statuses} & \-List of count message statuses (can be set to \-T\-M\-P\-I\-\_\-\-S\-T\-A\-T\-U\-S\-E\-S\-\_\-\-I\-G\-N\-O\-R\-E).\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-T\-M\-P\-I\-\_\-\-S\-U\-C\-C\-E\-S\-S on success, \-T\-M\-P\-I\-\_\-\-F\-A\-I\-L\-U\-R\-E on failure. 
+\end{DoxyReturn}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{p2p__wait_8c_af24509f42e040096775d3ef3ea178924_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{p2p__wait_8c_ac93029752596fea23713771bf9e66805}{\index{p2p\-\_\-wait.\-c@{p2p\-\_\-wait.\-c}!t\-M\-P\-I\-\_\-\-Waitany@{t\-M\-P\-I\-\_\-\-Waitany}}
+\index{t\-M\-P\-I\-\_\-\-Waitany@{t\-M\-P\-I\-\_\-\-Waitany}!p2p_wait.c@{p2p\-\_\-wait.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Waitany}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf t\-M\-P\-I\-\_\-\-Waitany} (
+\begin{DoxyParamCaption}
+\item[{int}]{count, }
+\item[{{\bf t\-M\-P\-I\-\_\-\-Request} $\ast$}]{array\-\_\-of\-\_\-requests, }
+\item[{int $\ast$}]{index, }
+\item[{{\bf t\-M\-P\-I\-\_\-\-Status} $\ast$}]{status}
+\end{DoxyParamCaption}
+)}}\label{p2p__wait_8c_ac93029752596fea23713771bf9e66805}
+\-Wait until one of several messages is transferred.
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em count} & \-The number of requests \\
+\hline
+\mbox{\tt in,out}  & {\em array\-\_\-of\-\_\-requests} & \-List of count requests obtained with \hyperlink{include_2thread__mpi_2tmpi_8h_ab0bca88631f0b78d284d066100f6975e}{t\-M\-P\-I\-\_\-\-Isend()}/t\-M\-P\-I\-\_\-\-Irecv(). \\
+\hline
+\mbox{\tt out}  & {\em index} & \-Index of the request that has completed. \\
+\hline
+\mbox{\tt out}  & {\em status} & \-Pointer to t\-M\-P\-I\-\_\-\-Status object associated with completed request.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-T\-M\-P\-I\-\_\-\-S\-U\-C\-C\-E\-S\-S on success, \-T\-M\-P\-I\-\_\-\-F\-A\-I\-L\-U\-R\-E on failure. 
+\end{DoxyReturn}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{p2p__wait_8c_ac93029752596fea23713771bf9e66805_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{p2p__wait_8c_a1479fa1173a92aa0742248a0e494d203}{\index{p2p\-\_\-wait.\-c@{p2p\-\_\-wait.\-c}!t\-M\-P\-I\-\_\-\-Waitsome@{t\-M\-P\-I\-\_\-\-Waitsome}}
+\index{t\-M\-P\-I\-\_\-\-Waitsome@{t\-M\-P\-I\-\_\-\-Waitsome}!p2p_wait.c@{p2p\-\_\-wait.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Waitsome}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf t\-M\-P\-I\-\_\-\-Waitsome} (
+\begin{DoxyParamCaption}
+\item[{int}]{incount, }
+\item[{{\bf t\-M\-P\-I\-\_\-\-Request} $\ast$}]{array\-\_\-of\-\_\-requests, }
+\item[{int $\ast$}]{outcount, }
+\item[{int $\ast$}]{array\-\_\-of\-\_\-indices, }
+\item[{{\bf t\-M\-P\-I\-\_\-\-Status} $\ast$}]{array\-\_\-of\-\_\-statuses}
+\end{DoxyParamCaption}
+)}}\label{p2p__wait_8c_a1479fa1173a92aa0742248a0e494d203}
+\-Wait until some of several messages are transferred. \-Waits until at least one message is transferred.
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em incount} & \-The number of requests \\
+\hline
+\mbox{\tt in,out}  & {\em array\-\_\-of\-\_\-requests} & \-List of count requests obtained with \hyperlink{include_2thread__mpi_2tmpi_8h_ab0bca88631f0b78d284d066100f6975e}{t\-M\-P\-I\-\_\-\-Isend()}/t\-M\-P\-I\-\_\-\-Irecv(). \\
+\hline
+\mbox{\tt out}  & {\em outcount} & \-Number of completed requests \\
+\hline
+\mbox{\tt out}  & {\em array\-\_\-of\-\_\-indices} & \-Array of ints that gets filled with the indices of the completed requests. \\
+\hline
+\mbox{\tt out}  & {\em array\-\_\-of\-\_\-statuses} & \-List of count message statuses (can be set to \-T\-M\-P\-I\-\_\-\-S\-T\-A\-T\-U\-S\-E\-S\-\_\-\-I\-G\-N\-O\-R\-E).\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-T\-M\-P\-I\-\_\-\-S\-U\-C\-C\-E\-S\-S on success, \-T\-M\-P\-I\-\_\-\-F\-A\-I\-L\-U\-R\-E on failure. 
+\end{DoxyReturn}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{p2p__wait_8c_a1479fa1173a92aa0742248a0e494d203_cgraph}
+\end{center}
+\end{figure}
+
+

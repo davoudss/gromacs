@@ -1,0 +1,804 @@
+\hypertarget{gmx__statistics_8c}{\section{src/gmxlib/statistics/gmx\-\_\-statistics.c \-File \-Reference}
+\label{gmx__statistics_8c}\index{src/gmxlib/statistics/gmx\-\_\-statistics.\-c@{src/gmxlib/statistics/gmx\-\_\-statistics.\-c}}
+}
+{\ttfamily \#include $<$math.\-h$>$}\*
+{\ttfamily \#include \char`\"{}typedefs.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}smalloc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}vec.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-statistics.\-h\char`\"{}}\*
+\-Include dependency graph for gmx\-\_\-statistics.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__statistics_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structgmx__stats}{gmx\-\_\-stats}
+\end{DoxyCompactItemize}
+\subsection*{\-Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \hyperlink{structgmx__stats}{gmx\-\_\-stats} \hyperlink{gmx__statistics_8c_aa1b895245437470ad0535149733c1f01}{gmx\-\_\-stats}
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+static int \hyperlink{gmx__statistics_8c_ac9fa35ece2b04bcf147cee3989bc635b}{gmx\-\_\-dnint} (double \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x})
+\item 
+\hyperlink{include_2gmx__statistics_8h_aa68b9ba721d47f4544247754867b7f92}{gmx\-\_\-stats\-\_\-t} \hyperlink{gmx__statistics_8c_a4b213232f70f95c6dba0174b53dcd8cb}{gmx\-\_\-stats\-\_\-init} ()
+\item 
+int \hyperlink{gmx__statistics_8c_a7fff37784cc6c0dd19dc66c6319d9044}{gmx\-\_\-stats\-\_\-get\-\_\-npoints} (\hyperlink{include_2gmx__statistics_8h_aa68b9ba721d47f4544247754867b7f92}{gmx\-\_\-stats\-\_\-t} gstats, int $\ast$\hyperlink{3dview_8c_a0240ac851181b84ac374872dc5434ee4}{\-N})
+\item 
+int \hyperlink{gmx__statistics_8c_a7c989bf50f59298a79d636486932af63}{gmx\-\_\-stats\-\_\-done} (\hyperlink{include_2gmx__statistics_8h_aa68b9ba721d47f4544247754867b7f92}{gmx\-\_\-stats\-\_\-t} gstats)
+\item 
+int \hyperlink{gmx__statistics_8c_a9af30e37e1e64d85f1fc084b21bfa0c1}{gmx\-\_\-stats\-\_\-add\-\_\-point} (\hyperlink{include_2gmx__statistics_8h_aa68b9ba721d47f4544247754867b7f92}{gmx\-\_\-stats\-\_\-t} gstats, double \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}, double \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ad992d70ec70c927046cfc2ab1c79b188}{y}, double \hyperlink{share_2template_2gromacs_2gmx__blas_8h_ad5c6c54e1a03f3517ff918d2f18f5f68}{dx}, double \hyperlink{share_2template_2gromacs_2gmx__blas_8h_ab22d39b99f8eaf91354f167b9e204e58}{dy})
+\item 
+int \hyperlink{gmx__statistics_8c_ad9e758b7819f3a6744caa7f1620d5b1e}{gmx\-\_\-stats\-\_\-get\-\_\-point} (\hyperlink{include_2gmx__statistics_8h_aa68b9ba721d47f4544247754867b7f92}{gmx\-\_\-stats\-\_\-t} gstats, real $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}, real $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ad992d70ec70c927046cfc2ab1c79b188}{y}, real $\ast$\hyperlink{share_2template_2gromacs_2gmx__blas_8h_ad5c6c54e1a03f3517ff918d2f18f5f68}{dx}, real $\ast$\hyperlink{share_2template_2gromacs_2gmx__blas_8h_ab22d39b99f8eaf91354f167b9e204e58}{dy})
+\item 
+int \hyperlink{gmx__statistics_8c_a169fe58310f3e73eeb9cbe19799db103}{gmx\-\_\-stats\-\_\-add\-\_\-points} (\hyperlink{include_2gmx__statistics_8h_aa68b9ba721d47f4544247754867b7f92}{gmx\-\_\-stats\-\_\-t} gstats, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, real $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}, real $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ad992d70ec70c927046cfc2ab1c79b188}{y}, real $\ast$\hyperlink{share_2template_2gromacs_2gmx__blas_8h_ad5c6c54e1a03f3517ff918d2f18f5f68}{dx}, real $\ast$\hyperlink{share_2template_2gromacs_2gmx__blas_8h_ab22d39b99f8eaf91354f167b9e204e58}{dy})
+\item 
+static int \hyperlink{gmx__statistics_8c_ada9e7ff2b5a1bfdfacc99e3bc9cd248a}{gmx\-\_\-stats\-\_\-compute} (\hyperlink{structgmx__stats}{gmx\-\_\-stats} $\ast$stats, int weight)
+\item 
+int \hyperlink{gmx__statistics_8c_aebbd8f87e979e131f503f6413ad420ab}{gmx\-\_\-stats\-\_\-get\-\_\-ab} (\hyperlink{include_2gmx__statistics_8h_aa68b9ba721d47f4544247754867b7f92}{gmx\-\_\-stats\-\_\-t} gstats, int weight, real $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a0880879736d1ab747a972d1942421886}{a}, real $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afb462a5dea72ae7992f073bfd756fb5f}{b}, real $\ast$\hyperlink{share_2template_2gromacs_2gmx__blas_8h_a26c0a65825e07b3a42c45eb3faad8cbf}{da}, real $\ast$db, real $\ast$chi2, real $\ast$\-Rfit)
+\item 
+int \hyperlink{gmx__statistics_8c_ad8fa3c64ef7acf2212d32c820a6ffbe6}{gmx\-\_\-stats\-\_\-get\-\_\-a} (\hyperlink{include_2gmx__statistics_8h_aa68b9ba721d47f4544247754867b7f92}{gmx\-\_\-stats\-\_\-t} gstats, int weight, real $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a0880879736d1ab747a972d1942421886}{a}, real $\ast$\hyperlink{share_2template_2gromacs_2gmx__blas_8h_a26c0a65825e07b3a42c45eb3faad8cbf}{da}, real $\ast$chi2, real $\ast$\-Rfit)
+\item 
+int \hyperlink{gmx__statistics_8c_ae4c43a53406afb72cb241bc9137ee27d}{gmx\-\_\-stats\-\_\-get\-\_\-average} (\hyperlink{include_2gmx__statistics_8h_aa68b9ba721d47f4544247754867b7f92}{gmx\-\_\-stats\-\_\-t} gstats, real $\ast$aver)
+\item 
+int \hyperlink{gmx__statistics_8c_a1fa7a7a239edd45e60fc082b5a841020}{gmx\-\_\-stats\-\_\-get\-\_\-ase} (\hyperlink{include_2gmx__statistics_8h_aa68b9ba721d47f4544247754867b7f92}{gmx\-\_\-stats\-\_\-t} gstats, real $\ast$aver, real $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_acc578499ab59fa3eb9f98198027d5624}{sigma}, real $\ast$\hyperlink{nsc_8c_ac33c8a42a58a6379397850b60be22028}{error})
+\item 
+int \hyperlink{gmx__statistics_8c_a145c0eac13dd0a0b0f2f633e50800050}{gmx\-\_\-stats\-\_\-get\-\_\-sigma} (\hyperlink{include_2gmx__statistics_8h_aa68b9ba721d47f4544247754867b7f92}{gmx\-\_\-stats\-\_\-t} gstats, real $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_acc578499ab59fa3eb9f98198027d5624}{sigma})
+\item 
+int \hyperlink{gmx__statistics_8c_ab68e7e6e9bebf20d3ac94355cf6d7674}{gmx\-\_\-stats\-\_\-get\-\_\-error} (\hyperlink{include_2gmx__statistics_8h_aa68b9ba721d47f4544247754867b7f92}{gmx\-\_\-stats\-\_\-t} gstats, real $\ast$\hyperlink{nsc_8c_ac33c8a42a58a6379397850b60be22028}{error})
+\item 
+int \hyperlink{gmx__statistics_8c_a05c2d331822d983c4958dc54891ac92e}{gmx\-\_\-stats\-\_\-get\-\_\-corr\-\_\-coeff} (\hyperlink{include_2gmx__statistics_8h_aa68b9ba721d47f4544247754867b7f92}{gmx\-\_\-stats\-\_\-t} gstats, real $\ast$\-R)
+\item 
+int \hyperlink{gmx__statistics_8c_a112fcf35cc69d08126d7d6515b3718cd}{gmx\-\_\-stats\-\_\-get\-\_\-rmsd} (\hyperlink{include_2gmx__statistics_8h_aa68b9ba721d47f4544247754867b7f92}{gmx\-\_\-stats\-\_\-t} gstats, real $\ast$rmsd)
+\item 
+int \hyperlink{gmx__statistics_8c_acecd5e59503647a45996f5fa13fa9858}{gmx\-\_\-stats\-\_\-dump\-\_\-xy} (\hyperlink{include_2gmx__statistics_8h_aa68b9ba721d47f4544247754867b7f92}{gmx\-\_\-stats\-\_\-t} gstats, \-F\-I\-L\-E $\ast$fp)
+\item 
+int \hyperlink{gmx__statistics_8c_aa013e328198954976ededb4b64e28536}{gmx\-\_\-stats\-\_\-remove\-\_\-outliers} (\hyperlink{include_2gmx__statistics_8h_aa68b9ba721d47f4544247754867b7f92}{gmx\-\_\-stats\-\_\-t} gstats, double level)
+\item 
+int \hyperlink{gmx__statistics_8c_a717921bda65328851fab4308d468e8e5}{gmx\-\_\-stats\-\_\-make\-\_\-histogram} (\hyperlink{include_2gmx__statistics_8h_aa68b9ba721d47f4544247754867b7f92}{gmx\-\_\-stats\-\_\-t} gstats, real binwidth, int $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a86b8049133b29aa036248fbc0c64bead}{nb}, int \hyperlink{gmx__sham_8c_a20434abe6132b326b8df16151fb3b55f}{ehisto}, int normalized, real $\ast$$\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}, real $\ast$$\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ad992d70ec70c927046cfc2ab1c79b188}{y})
+\item 
+const char $\ast$ \hyperlink{gmx__statistics_8c_a67ed206dd026c9c7c9d60199eb7b3a2f}{gmx\-\_\-stats\-\_\-message} (int estats)
+\item 
+int \hyperlink{gmx__statistics_8c_af969646432eb0ac94dbfe64efff9f2f8}{lsq\-\_\-y\-\_\-ax} (int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ad992d70ec70c927046cfc2ab1c79b188}{y}\mbox{[}$\,$\mbox{]}, real $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a0880879736d1ab747a972d1942421886}{a})
+\item 
+static int \hyperlink{gmx__statistics_8c_a5744be41665eb08fa7c30d4779a5f5d0}{low\-\_\-lsq\-\_\-y\-\_\-ax\-\_\-b} (int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, real $\ast$xr, double $\ast$xd, real yr\mbox{[}$\,$\mbox{]}, real $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a0880879736d1ab747a972d1942421886}{a}, real $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afb462a5dea72ae7992f073bfd756fb5f}{b}, real $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae039a6f39df62bd858e5e3f5ec77b24b}{r}, real $\ast$chi2)
+\item 
+int \hyperlink{gmx__statistics_8c_a04d03f1ef756062ff6e9275abce1a213}{lsq\-\_\-y\-\_\-ax\-\_\-b} (int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ad992d70ec70c927046cfc2ab1c79b188}{y}\mbox{[}$\,$\mbox{]}, real $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a0880879736d1ab747a972d1942421886}{a}, real $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afb462a5dea72ae7992f073bfd756fb5f}{b}, real $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae039a6f39df62bd858e5e3f5ec77b24b}{r}, real $\ast$chi2)
+\item 
+int \hyperlink{gmx__statistics_8c_a73e4b263186c22db6e33da761a240b30}{lsq\-\_\-y\-\_\-ax\-\_\-b\-\_\-xdouble} (int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, double \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ad992d70ec70c927046cfc2ab1c79b188}{y}\mbox{[}$\,$\mbox{]}, real $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a0880879736d1ab747a972d1942421886}{a}, real $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afb462a5dea72ae7992f073bfd756fb5f}{b}, real $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae039a6f39df62bd858e5e3f5ec77b24b}{r}, real $\ast$chi2)
+\item 
+int \hyperlink{gmx__statistics_8c_a8f1db04d4e277f8922426ea03e71c828}{lsq\-\_\-y\-\_\-ax\-\_\-b\-\_\-error} (int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ad992d70ec70c927046cfc2ab1c79b188}{y}\mbox{[}$\,$\mbox{]}, real \hyperlink{share_2template_2gromacs_2gmx__blas_8h_ab22d39b99f8eaf91354f167b9e204e58}{dy}\mbox{[}$\,$\mbox{]}, real $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a0880879736d1ab747a972d1942421886}{a}, real $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afb462a5dea72ae7992f073bfd756fb5f}{b}, real $\ast$\hyperlink{share_2template_2gromacs_2gmx__blas_8h_a26c0a65825e07b3a42c45eb3faad8cbf}{da}, real $\ast$db, real $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae039a6f39df62bd858e5e3f5ec77b24b}{r}, real $\ast$chi2)
+\end{DoxyCompactItemize}
+\subsection*{\-Variables}
+\begin{DoxyCompactItemize}
+\item 
+static const char $\ast$ \hyperlink{gmx__statistics_8c_aef3ec719790305ecdcffdb4d51f3eea9}{stats\-\_\-error} \mbox{[}\hyperlink{share_2template_2gromacs_2gmx__statistics_8h_a4d29ca5db06e2ae647d1ec22548a9d2aabf5ffcae70994f63c9264c5dce63eecf}{estats\-N\-R}\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Typedef \-Documentation}
+\hypertarget{gmx__statistics_8c_aa1b895245437470ad0535149733c1f01}{\index{gmx\-\_\-statistics.\-c@{gmx\-\_\-statistics.\-c}!gmx\-\_\-stats@{gmx\-\_\-stats}}
+\index{gmx\-\_\-stats@{gmx\-\_\-stats}!gmx_statistics.c@{gmx\-\_\-statistics.\-c}}
+\subsubsection[{gmx\-\_\-stats}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf gmx\-\_\-stats}  {\bf gmx\-\_\-stats}}}\label{gmx__statistics_8c_aa1b895245437470ad0535149733c1f01}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{gmx__statistics_8c_ac9fa35ece2b04bcf147cee3989bc635b}{\index{gmx\-\_\-statistics.\-c@{gmx\-\_\-statistics.\-c}!gmx\-\_\-dnint@{gmx\-\_\-dnint}}
+\index{gmx\-\_\-dnint@{gmx\-\_\-dnint}!gmx_statistics.c@{gmx\-\_\-statistics.\-c}}
+\subsubsection[{gmx\-\_\-dnint}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf gmx\-\_\-dnint} (
+\begin{DoxyParamCaption}
+\item[{double}]{x}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__statistics_8c_ac9fa35ece2b04bcf147cee3989bc635b}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__statistics_8c_ac9fa35ece2b04bcf147cee3989bc635b_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__statistics_8c_a9af30e37e1e64d85f1fc084b21bfa0c1}{\index{gmx\-\_\-statistics.\-c@{gmx\-\_\-statistics.\-c}!gmx\-\_\-stats\-\_\-add\-\_\-point@{gmx\-\_\-stats\-\_\-add\-\_\-point}}
+\index{gmx\-\_\-stats\-\_\-add\-\_\-point@{gmx\-\_\-stats\-\_\-add\-\_\-point}!gmx_statistics.c@{gmx\-\_\-statistics.\-c}}
+\subsubsection[{gmx\-\_\-stats\-\_\-add\-\_\-point}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-stats\-\_\-add\-\_\-point} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-stats\-\_\-t}}]{gstats, }
+\item[{double}]{x, }
+\item[{double}]{y, }
+\item[{double}]{dx, }
+\item[{double}]{dy}
+\end{DoxyParamCaption}
+)}}\label{gmx__statistics_8c_a9af30e37e1e64d85f1fc084b21bfa0c1}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{gmx__statistics_8c_a9af30e37e1e64d85f1fc084b21bfa0c1_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__statistics_8c_a169fe58310f3e73eeb9cbe19799db103}{\index{gmx\-\_\-statistics.\-c@{gmx\-\_\-statistics.\-c}!gmx\-\_\-stats\-\_\-add\-\_\-points@{gmx\-\_\-stats\-\_\-add\-\_\-points}}
+\index{gmx\-\_\-stats\-\_\-add\-\_\-points@{gmx\-\_\-stats\-\_\-add\-\_\-points}!gmx_statistics.c@{gmx\-\_\-statistics.\-c}}
+\subsubsection[{gmx\-\_\-stats\-\_\-add\-\_\-points}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-stats\-\_\-add\-\_\-points} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-stats\-\_\-t}}]{gstats, }
+\item[{int}]{n, }
+\item[{real $\ast$}]{x, }
+\item[{real $\ast$}]{y, }
+\item[{real $\ast$}]{dx, }
+\item[{real $\ast$}]{dy}
+\end{DoxyParamCaption}
+)}}\label{gmx__statistics_8c_a169fe58310f3e73eeb9cbe19799db103}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=342pt]{gmx__statistics_8c_a169fe58310f3e73eeb9cbe19799db103_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=288pt]{gmx__statistics_8c_a169fe58310f3e73eeb9cbe19799db103_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__statistics_8c_ada9e7ff2b5a1bfdfacc99e3bc9cd248a}{\index{gmx\-\_\-statistics.\-c@{gmx\-\_\-statistics.\-c}!gmx\-\_\-stats\-\_\-compute@{gmx\-\_\-stats\-\_\-compute}}
+\index{gmx\-\_\-stats\-\_\-compute@{gmx\-\_\-stats\-\_\-compute}!gmx_statistics.c@{gmx\-\_\-statistics.\-c}}
+\subsubsection[{gmx\-\_\-stats\-\_\-compute}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf gmx\-\_\-stats\-\_\-compute} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-stats} $\ast$}]{stats, }
+\item[{int}]{weight}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__statistics_8c_ada9e7ff2b5a1bfdfacc99e3bc9cd248a}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=258pt]{gmx__statistics_8c_ada9e7ff2b5a1bfdfacc99e3bc9cd248a_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__statistics_8c_ada9e7ff2b5a1bfdfacc99e3bc9cd248a_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__statistics_8c_a7c989bf50f59298a79d636486932af63}{\index{gmx\-\_\-statistics.\-c@{gmx\-\_\-statistics.\-c}!gmx\-\_\-stats\-\_\-done@{gmx\-\_\-stats\-\_\-done}}
+\index{gmx\-\_\-stats\-\_\-done@{gmx\-\_\-stats\-\_\-done}!gmx_statistics.c@{gmx\-\_\-statistics.\-c}}
+\subsubsection[{gmx\-\_\-stats\-\_\-done}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-stats\-\_\-done} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-stats\-\_\-t}}]{gstats}
+\end{DoxyParamCaption}
+)}}\label{gmx__statistics_8c_a7c989bf50f59298a79d636486932af63}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{gmx__statistics_8c_a7c989bf50f59298a79d636486932af63_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__statistics_8c_acecd5e59503647a45996f5fa13fa9858}{\index{gmx\-\_\-statistics.\-c@{gmx\-\_\-statistics.\-c}!gmx\-\_\-stats\-\_\-dump\-\_\-xy@{gmx\-\_\-stats\-\_\-dump\-\_\-xy}}
+\index{gmx\-\_\-stats\-\_\-dump\-\_\-xy@{gmx\-\_\-stats\-\_\-dump\-\_\-xy}!gmx_statistics.c@{gmx\-\_\-statistics.\-c}}
+\subsubsection[{gmx\-\_\-stats\-\_\-dump\-\_\-xy}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-stats\-\_\-dump\-\_\-xy} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-stats\-\_\-t}}]{gstats, }
+\item[{\-F\-I\-L\-E $\ast$}]{fp}
+\end{DoxyParamCaption}
+)}}\label{gmx__statistics_8c_acecd5e59503647a45996f5fa13fa9858}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{gmx__statistics_8c_acecd5e59503647a45996f5fa13fa9858_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__statistics_8c_ad8fa3c64ef7acf2212d32c820a6ffbe6}{\index{gmx\-\_\-statistics.\-c@{gmx\-\_\-statistics.\-c}!gmx\-\_\-stats\-\_\-get\-\_\-a@{gmx\-\_\-stats\-\_\-get\-\_\-a}}
+\index{gmx\-\_\-stats\-\_\-get\-\_\-a@{gmx\-\_\-stats\-\_\-get\-\_\-a}!gmx_statistics.c@{gmx\-\_\-statistics.\-c}}
+\subsubsection[{gmx\-\_\-stats\-\_\-get\-\_\-a}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-stats\-\_\-get\-\_\-a} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-stats\-\_\-t}}]{gstats, }
+\item[{int}]{weight, }
+\item[{real $\ast$}]{a, }
+\item[{real $\ast$}]{da, }
+\item[{real $\ast$}]{chi2, }
+\item[{real $\ast$}]{\-Rfit}
+\end{DoxyParamCaption}
+)}}\label{gmx__statistics_8c_ad8fa3c64ef7acf2212d32c820a6ffbe6}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__statistics_8c_ad8fa3c64ef7acf2212d32c820a6ffbe6_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=264pt]{gmx__statistics_8c_ad8fa3c64ef7acf2212d32c820a6ffbe6_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__statistics_8c_aebbd8f87e979e131f503f6413ad420ab}{\index{gmx\-\_\-statistics.\-c@{gmx\-\_\-statistics.\-c}!gmx\-\_\-stats\-\_\-get\-\_\-ab@{gmx\-\_\-stats\-\_\-get\-\_\-ab}}
+\index{gmx\-\_\-stats\-\_\-get\-\_\-ab@{gmx\-\_\-stats\-\_\-get\-\_\-ab}!gmx_statistics.c@{gmx\-\_\-statistics.\-c}}
+\subsubsection[{gmx\-\_\-stats\-\_\-get\-\_\-ab}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-stats\-\_\-get\-\_\-ab} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-stats\-\_\-t}}]{gstats, }
+\item[{int}]{weight, }
+\item[{real $\ast$}]{a, }
+\item[{real $\ast$}]{b, }
+\item[{real $\ast$}]{da, }
+\item[{real $\ast$}]{db, }
+\item[{real $\ast$}]{chi2, }
+\item[{real $\ast$}]{\-Rfit}
+\end{DoxyParamCaption}
+)}}\label{gmx__statistics_8c_aebbd8f87e979e131f503f6413ad420ab}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__statistics_8c_aebbd8f87e979e131f503f6413ad420ab_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{gmx__statistics_8c_aebbd8f87e979e131f503f6413ad420ab_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__statistics_8c_a1fa7a7a239edd45e60fc082b5a841020}{\index{gmx\-\_\-statistics.\-c@{gmx\-\_\-statistics.\-c}!gmx\-\_\-stats\-\_\-get\-\_\-ase@{gmx\-\_\-stats\-\_\-get\-\_\-ase}}
+\index{gmx\-\_\-stats\-\_\-get\-\_\-ase@{gmx\-\_\-stats\-\_\-get\-\_\-ase}!gmx_statistics.c@{gmx\-\_\-statistics.\-c}}
+\subsubsection[{gmx\-\_\-stats\-\_\-get\-\_\-ase}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-stats\-\_\-get\-\_\-ase} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-stats\-\_\-t}}]{gstats, }
+\item[{real $\ast$}]{aver, }
+\item[{real $\ast$}]{sigma, }
+\item[{real $\ast$}]{error}
+\end{DoxyParamCaption}
+)}}\label{gmx__statistics_8c_a1fa7a7a239edd45e60fc082b5a841020}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__statistics_8c_a1fa7a7a239edd45e60fc082b5a841020_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__statistics_8c_a1fa7a7a239edd45e60fc082b5a841020_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__statistics_8c_ae4c43a53406afb72cb241bc9137ee27d}{\index{gmx\-\_\-statistics.\-c@{gmx\-\_\-statistics.\-c}!gmx\-\_\-stats\-\_\-get\-\_\-average@{gmx\-\_\-stats\-\_\-get\-\_\-average}}
+\index{gmx\-\_\-stats\-\_\-get\-\_\-average@{gmx\-\_\-stats\-\_\-get\-\_\-average}!gmx_statistics.c@{gmx\-\_\-statistics.\-c}}
+\subsubsection[{gmx\-\_\-stats\-\_\-get\-\_\-average}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-stats\-\_\-get\-\_\-average} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-stats\-\_\-t}}]{gstats, }
+\item[{real $\ast$}]{aver}
+\end{DoxyParamCaption}
+)}}\label{gmx__statistics_8c_ae4c43a53406afb72cb241bc9137ee27d}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__statistics_8c_ae4c43a53406afb72cb241bc9137ee27d_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__statistics_8c_ae4c43a53406afb72cb241bc9137ee27d_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__statistics_8c_a05c2d331822d983c4958dc54891ac92e}{\index{gmx\-\_\-statistics.\-c@{gmx\-\_\-statistics.\-c}!gmx\-\_\-stats\-\_\-get\-\_\-corr\-\_\-coeff@{gmx\-\_\-stats\-\_\-get\-\_\-corr\-\_\-coeff}}
+\index{gmx\-\_\-stats\-\_\-get\-\_\-corr\-\_\-coeff@{gmx\-\_\-stats\-\_\-get\-\_\-corr\-\_\-coeff}!gmx_statistics.c@{gmx\-\_\-statistics.\-c}}
+\subsubsection[{gmx\-\_\-stats\-\_\-get\-\_\-corr\-\_\-coeff}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-stats\-\_\-get\-\_\-corr\-\_\-coeff} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-stats\-\_\-t}}]{gstats, }
+\item[{real $\ast$}]{\-R}
+\end{DoxyParamCaption}
+)}}\label{gmx__statistics_8c_a05c2d331822d983c4958dc54891ac92e}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__statistics_8c_a05c2d331822d983c4958dc54891ac92e_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{gmx__statistics_8c_a05c2d331822d983c4958dc54891ac92e_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__statistics_8c_ab68e7e6e9bebf20d3ac94355cf6d7674}{\index{gmx\-\_\-statistics.\-c@{gmx\-\_\-statistics.\-c}!gmx\-\_\-stats\-\_\-get\-\_\-error@{gmx\-\_\-stats\-\_\-get\-\_\-error}}
+\index{gmx\-\_\-stats\-\_\-get\-\_\-error@{gmx\-\_\-stats\-\_\-get\-\_\-error}!gmx_statistics.c@{gmx\-\_\-statistics.\-c}}
+\subsubsection[{gmx\-\_\-stats\-\_\-get\-\_\-error}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-stats\-\_\-get\-\_\-error} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-stats\-\_\-t}}]{gstats, }
+\item[{real $\ast$}]{error}
+\end{DoxyParamCaption}
+)}}\label{gmx__statistics_8c_ab68e7e6e9bebf20d3ac94355cf6d7674}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__statistics_8c_ab68e7e6e9bebf20d3ac94355cf6d7674_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__statistics_8c_a7fff37784cc6c0dd19dc66c6319d9044}{\index{gmx\-\_\-statistics.\-c@{gmx\-\_\-statistics.\-c}!gmx\-\_\-stats\-\_\-get\-\_\-npoints@{gmx\-\_\-stats\-\_\-get\-\_\-npoints}}
+\index{gmx\-\_\-stats\-\_\-get\-\_\-npoints@{gmx\-\_\-stats\-\_\-get\-\_\-npoints}!gmx_statistics.c@{gmx\-\_\-statistics.\-c}}
+\subsubsection[{gmx\-\_\-stats\-\_\-get\-\_\-npoints}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-stats\-\_\-get\-\_\-npoints} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-stats\-\_\-t}}]{gstats, }
+\item[{int $\ast$}]{\-N}
+\end{DoxyParamCaption}
+)}}\label{gmx__statistics_8c_a7fff37784cc6c0dd19dc66c6319d9044}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__statistics_8c_a7fff37784cc6c0dd19dc66c6319d9044_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__statistics_8c_ad9e758b7819f3a6744caa7f1620d5b1e}{\index{gmx\-\_\-statistics.\-c@{gmx\-\_\-statistics.\-c}!gmx\-\_\-stats\-\_\-get\-\_\-point@{gmx\-\_\-stats\-\_\-get\-\_\-point}}
+\index{gmx\-\_\-stats\-\_\-get\-\_\-point@{gmx\-\_\-stats\-\_\-get\-\_\-point}!gmx_statistics.c@{gmx\-\_\-statistics.\-c}}
+\subsubsection[{gmx\-\_\-stats\-\_\-get\-\_\-point}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-stats\-\_\-get\-\_\-point} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-stats\-\_\-t}}]{gstats, }
+\item[{real $\ast$}]{x, }
+\item[{real $\ast$}]{y, }
+\item[{real $\ast$}]{dx, }
+\item[{real $\ast$}]{dy}
+\end{DoxyParamCaption}
+)}}\label{gmx__statistics_8c_ad9e758b7819f3a6744caa7f1620d5b1e}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__statistics_8c_ad9e758b7819f3a6744caa7f1620d5b1e_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__statistics_8c_a112fcf35cc69d08126d7d6515b3718cd}{\index{gmx\-\_\-statistics.\-c@{gmx\-\_\-statistics.\-c}!gmx\-\_\-stats\-\_\-get\-\_\-rmsd@{gmx\-\_\-stats\-\_\-get\-\_\-rmsd}}
+\index{gmx\-\_\-stats\-\_\-get\-\_\-rmsd@{gmx\-\_\-stats\-\_\-get\-\_\-rmsd}!gmx_statistics.c@{gmx\-\_\-statistics.\-c}}
+\subsubsection[{gmx\-\_\-stats\-\_\-get\-\_\-rmsd}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-stats\-\_\-get\-\_\-rmsd} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-stats\-\_\-t}}]{gstats, }
+\item[{real $\ast$}]{rmsd}
+\end{DoxyParamCaption}
+)}}\label{gmx__statistics_8c_a112fcf35cc69d08126d7d6515b3718cd}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__statistics_8c_a112fcf35cc69d08126d7d6515b3718cd_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__statistics_8c_a112fcf35cc69d08126d7d6515b3718cd_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__statistics_8c_a145c0eac13dd0a0b0f2f633e50800050}{\index{gmx\-\_\-statistics.\-c@{gmx\-\_\-statistics.\-c}!gmx\-\_\-stats\-\_\-get\-\_\-sigma@{gmx\-\_\-stats\-\_\-get\-\_\-sigma}}
+\index{gmx\-\_\-stats\-\_\-get\-\_\-sigma@{gmx\-\_\-stats\-\_\-get\-\_\-sigma}!gmx_statistics.c@{gmx\-\_\-statistics.\-c}}
+\subsubsection[{gmx\-\_\-stats\-\_\-get\-\_\-sigma}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-stats\-\_\-get\-\_\-sigma} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-stats\-\_\-t}}]{gstats, }
+\item[{real $\ast$}]{sigma}
+\end{DoxyParamCaption}
+)}}\label{gmx__statistics_8c_a145c0eac13dd0a0b0f2f633e50800050}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__statistics_8c_a145c0eac13dd0a0b0f2f633e50800050_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__statistics_8c_a4b213232f70f95c6dba0174b53dcd8cb}{\index{gmx\-\_\-statistics.\-c@{gmx\-\_\-statistics.\-c}!gmx\-\_\-stats\-\_\-init@{gmx\-\_\-stats\-\_\-init}}
+\index{gmx\-\_\-stats\-\_\-init@{gmx\-\_\-stats\-\_\-init}!gmx_statistics.c@{gmx\-\_\-statistics.\-c}}
+\subsubsection[{gmx\-\_\-stats\-\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-stats\-\_\-t} {\bf gmx\-\_\-stats\-\_\-init} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{gmx__statistics_8c_a4b213232f70f95c6dba0174b53dcd8cb}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{gmx__statistics_8c_a4b213232f70f95c6dba0174b53dcd8cb_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__statistics_8c_a717921bda65328851fab4308d468e8e5}{\index{gmx\-\_\-statistics.\-c@{gmx\-\_\-statistics.\-c}!gmx\-\_\-stats\-\_\-make\-\_\-histogram@{gmx\-\_\-stats\-\_\-make\-\_\-histogram}}
+\index{gmx\-\_\-stats\-\_\-make\-\_\-histogram@{gmx\-\_\-stats\-\_\-make\-\_\-histogram}!gmx_statistics.c@{gmx\-\_\-statistics.\-c}}
+\subsubsection[{gmx\-\_\-stats\-\_\-make\-\_\-histogram}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-stats\-\_\-make\-\_\-histogram} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-stats\-\_\-t}}]{gstats, }
+\item[{real}]{binwidth, }
+\item[{int $\ast$}]{nb, }
+\item[{int}]{ehisto, }
+\item[{int}]{normalized, }
+\item[{real $\ast$$\ast$}]{x, }
+\item[{real $\ast$$\ast$}]{y}
+\end{DoxyParamCaption}
+)}}\label{gmx__statistics_8c_a717921bda65328851fab4308d468e8e5}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=318pt]{gmx__statistics_8c_a717921bda65328851fab4308d468e8e5_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__statistics_8c_a717921bda65328851fab4308d468e8e5_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__statistics_8c_a67ed206dd026c9c7c9d60199eb7b3a2f}{\index{gmx\-\_\-statistics.\-c@{gmx\-\_\-statistics.\-c}!gmx\-\_\-stats\-\_\-message@{gmx\-\_\-stats\-\_\-message}}
+\index{gmx\-\_\-stats\-\_\-message@{gmx\-\_\-stats\-\_\-message}!gmx_statistics.c@{gmx\-\_\-statistics.\-c}}
+\subsubsection[{gmx\-\_\-stats\-\_\-message}]{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ {\bf gmx\-\_\-stats\-\_\-message} (
+\begin{DoxyParamCaption}
+\item[{int}]{estats}
+\end{DoxyParamCaption}
+)}}\label{gmx__statistics_8c_a67ed206dd026c9c7c9d60199eb7b3a2f}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{gmx__statistics_8c_a67ed206dd026c9c7c9d60199eb7b3a2f_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__statistics_8c_aa013e328198954976ededb4b64e28536}{\index{gmx\-\_\-statistics.\-c@{gmx\-\_\-statistics.\-c}!gmx\-\_\-stats\-\_\-remove\-\_\-outliers@{gmx\-\_\-stats\-\_\-remove\-\_\-outliers}}
+\index{gmx\-\_\-stats\-\_\-remove\-\_\-outliers@{gmx\-\_\-stats\-\_\-remove\-\_\-outliers}!gmx_statistics.c@{gmx\-\_\-statistics.\-c}}
+\subsubsection[{gmx\-\_\-stats\-\_\-remove\-\_\-outliers}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-stats\-\_\-remove\-\_\-outliers} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-stats\-\_\-t}}]{gstats, }
+\item[{double}]{level}
+\end{DoxyParamCaption}
+)}}\label{gmx__statistics_8c_aa013e328198954976ededb4b64e28536}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__statistics_8c_aa013e328198954976ededb4b64e28536_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__statistics_8c_a5744be41665eb08fa7c30d4779a5f5d0}{\index{gmx\-\_\-statistics.\-c@{gmx\-\_\-statistics.\-c}!low\-\_\-lsq\-\_\-y\-\_\-ax\-\_\-b@{low\-\_\-lsq\-\_\-y\-\_\-ax\-\_\-b}}
+\index{low\-\_\-lsq\-\_\-y\-\_\-ax\-\_\-b@{low\-\_\-lsq\-\_\-y\-\_\-ax\-\_\-b}!gmx_statistics.c@{gmx\-\_\-statistics.\-c}}
+\subsubsection[{low\-\_\-lsq\-\_\-y\-\_\-ax\-\_\-b}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf low\-\_\-lsq\-\_\-y\-\_\-ax\-\_\-b} (
+\begin{DoxyParamCaption}
+\item[{int}]{n, }
+\item[{real $\ast$}]{xr, }
+\item[{double $\ast$}]{xd, }
+\item[{real}]{yr\mbox{[}$\,$\mbox{]}, }
+\item[{real $\ast$}]{a, }
+\item[{real $\ast$}]{b, }
+\item[{real $\ast$}]{r, }
+\item[{real $\ast$}]{chi2}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__statistics_8c_a5744be41665eb08fa7c30d4779a5f5d0}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=312pt]{gmx__statistics_8c_a5744be41665eb08fa7c30d4779a5f5d0_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__statistics_8c_a5744be41665eb08fa7c30d4779a5f5d0_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__statistics_8c_af969646432eb0ac94dbfe64efff9f2f8}{\index{gmx\-\_\-statistics.\-c@{gmx\-\_\-statistics.\-c}!lsq\-\_\-y\-\_\-ax@{lsq\-\_\-y\-\_\-ax}}
+\index{lsq\-\_\-y\-\_\-ax@{lsq\-\_\-y\-\_\-ax}!gmx_statistics.c@{gmx\-\_\-statistics.\-c}}
+\subsubsection[{lsq\-\_\-y\-\_\-ax}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf lsq\-\_\-y\-\_\-ax} (
+\begin{DoxyParamCaption}
+\item[{int}]{n, }
+\item[{real}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{real}]{y\mbox{[}$\,$\mbox{]}, }
+\item[{real $\ast$}]{a}
+\end{DoxyParamCaption}
+)}}\label{gmx__statistics_8c_af969646432eb0ac94dbfe64efff9f2f8}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=288pt]{gmx__statistics_8c_af969646432eb0ac94dbfe64efff9f2f8_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__statistics_8c_a04d03f1ef756062ff6e9275abce1a213}{\index{gmx\-\_\-statistics.\-c@{gmx\-\_\-statistics.\-c}!lsq\-\_\-y\-\_\-ax\-\_\-b@{lsq\-\_\-y\-\_\-ax\-\_\-b}}
+\index{lsq\-\_\-y\-\_\-ax\-\_\-b@{lsq\-\_\-y\-\_\-ax\-\_\-b}!gmx_statistics.c@{gmx\-\_\-statistics.\-c}}
+\subsubsection[{lsq\-\_\-y\-\_\-ax\-\_\-b}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf lsq\-\_\-y\-\_\-ax\-\_\-b} (
+\begin{DoxyParamCaption}
+\item[{int}]{n, }
+\item[{real}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{real}]{y\mbox{[}$\,$\mbox{]}, }
+\item[{real $\ast$}]{a, }
+\item[{real $\ast$}]{b, }
+\item[{real $\ast$}]{r, }
+\item[{real $\ast$}]{chi2}
+\end{DoxyParamCaption}
+)}}\label{gmx__statistics_8c_a04d03f1ef756062ff6e9275abce1a213}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__statistics_8c_a04d03f1ef756062ff6e9275abce1a213_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__statistics_8c_a04d03f1ef756062ff6e9275abce1a213_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__statistics_8c_a8f1db04d4e277f8922426ea03e71c828}{\index{gmx\-\_\-statistics.\-c@{gmx\-\_\-statistics.\-c}!lsq\-\_\-y\-\_\-ax\-\_\-b\-\_\-error@{lsq\-\_\-y\-\_\-ax\-\_\-b\-\_\-error}}
+\index{lsq\-\_\-y\-\_\-ax\-\_\-b\-\_\-error@{lsq\-\_\-y\-\_\-ax\-\_\-b\-\_\-error}!gmx_statistics.c@{gmx\-\_\-statistics.\-c}}
+\subsubsection[{lsq\-\_\-y\-\_\-ax\-\_\-b\-\_\-error}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf lsq\-\_\-y\-\_\-ax\-\_\-b\-\_\-error} (
+\begin{DoxyParamCaption}
+\item[{int}]{n, }
+\item[{real}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{real}]{y\mbox{[}$\,$\mbox{]}, }
+\item[{real}]{dy\mbox{[}$\,$\mbox{]}, }
+\item[{real $\ast$}]{a, }
+\item[{real $\ast$}]{b, }
+\item[{real $\ast$}]{da, }
+\item[{real $\ast$}]{db, }
+\item[{real $\ast$}]{r, }
+\item[{real $\ast$}]{chi2}
+\end{DoxyParamCaption}
+)}}\label{gmx__statistics_8c_a8f1db04d4e277f8922426ea03e71c828}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=318pt]{gmx__statistics_8c_a8f1db04d4e277f8922426ea03e71c828_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__statistics_8c_a8f1db04d4e277f8922426ea03e71c828_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__statistics_8c_a73e4b263186c22db6e33da761a240b30}{\index{gmx\-\_\-statistics.\-c@{gmx\-\_\-statistics.\-c}!lsq\-\_\-y\-\_\-ax\-\_\-b\-\_\-xdouble@{lsq\-\_\-y\-\_\-ax\-\_\-b\-\_\-xdouble}}
+\index{lsq\-\_\-y\-\_\-ax\-\_\-b\-\_\-xdouble@{lsq\-\_\-y\-\_\-ax\-\_\-b\-\_\-xdouble}!gmx_statistics.c@{gmx\-\_\-statistics.\-c}}
+\subsubsection[{lsq\-\_\-y\-\_\-ax\-\_\-b\-\_\-xdouble}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf lsq\-\_\-y\-\_\-ax\-\_\-b\-\_\-xdouble} (
+\begin{DoxyParamCaption}
+\item[{int}]{n, }
+\item[{double}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{real}]{y\mbox{[}$\,$\mbox{]}, }
+\item[{real $\ast$}]{a, }
+\item[{real $\ast$}]{b, }
+\item[{real $\ast$}]{r, }
+\item[{real $\ast$}]{chi2}
+\end{DoxyParamCaption}
+)}}\label{gmx__statistics_8c_a73e4b263186c22db6e33da761a240b30}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__statistics_8c_a73e4b263186c22db6e33da761a240b30_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{\-Variable \-Documentation}
+\hypertarget{gmx__statistics_8c_aef3ec719790305ecdcffdb4d51f3eea9}{\index{gmx\-\_\-statistics.\-c@{gmx\-\_\-statistics.\-c}!stats\-\_\-error@{stats\-\_\-error}}
+\index{stats\-\_\-error@{stats\-\_\-error}!gmx_statistics.c@{gmx\-\_\-statistics.\-c}}
+\subsubsection[{stats\-\_\-error}]{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ {\bf stats\-\_\-error}\mbox{[}{\bf estats\-N\-R}\mbox{]}\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__statistics_8c_aef3ec719790305ecdcffdb4d51f3eea9}
+{\bfseries \-Initial value\-:}
+\begin{DoxyCode}
+
+{
+    "All well in STATS land",
+    "No points",
+    "Not enough memory",
+    "Invalid histogram input",
+    "Unknown error",
+    "Not implemented yet"
+}
+\end{DoxyCode}

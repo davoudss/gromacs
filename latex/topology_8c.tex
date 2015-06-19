@@ -1,0 +1,418 @@
+\hypertarget{topology_8c}{\section{src/gmxlib/thread\-\_\-mpi/topology.c \-File \-Reference}
+\label{topology_8c}\index{src/gmxlib/thread\-\_\-mpi/topology.\-c@{src/gmxlib/thread\-\_\-mpi/topology.\-c}}
+}
+{\ttfamily \#include $<$errno.\-h$>$}\*
+{\ttfamily \#include $<$stdlib.\-h$>$}\*
+{\ttfamily \#include $<$stdio.\-h$>$}\*
+{\ttfamily \#include $<$stdarg.\-h$>$}\*
+{\ttfamily \#include $<$string.\-h$>$}\*
+{\ttfamily \#include \char`\"{}impl.\-h\char`\"{}}\*
+\-Include dependency graph for topology.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{topology_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{topology_8c_aad60c891c7176c4105429aaf95566f14}{t\-M\-P\-I\-\_\-\-Topo\-\_\-test} (\hyperlink{include_2thread__mpi_2tmpi_8h_ab76dc275b882a1d00a54353fb8dd4cb3}{t\-M\-P\-I\-\_\-\-Comm} comm, int $\ast$status)
+\item 
+int \hyperlink{topology_8c_a2f1126ba55dd28765c4d97edd87f0828}{t\-M\-P\-I\-\_\-\-Cartdim\-\_\-get} (\hyperlink{include_2thread__mpi_2tmpi_8h_ab76dc275b882a1d00a54353fb8dd4cb3}{t\-M\-P\-I\-\_\-\-Comm} comm, int $\ast$ndims)
+\item 
+int \hyperlink{topology_8c_a416c4c1a74b713bc64bffc071d2dd147}{t\-M\-P\-I\-\_\-\-Cart\-\_\-get} (\hyperlink{include_2thread__mpi_2tmpi_8h_ab76dc275b882a1d00a54353fb8dd4cb3}{t\-M\-P\-I\-\_\-\-Comm} comm, int maxdims, int $\ast$dims, int $\ast$periods, int $\ast$coords)
+\item 
+int \hyperlink{topology_8c_ac4613f6c57c983a09622fefabc1e4b08}{t\-M\-P\-I\-\_\-\-Cart\-\_\-rank} (\hyperlink{include_2thread__mpi_2tmpi_8h_ab76dc275b882a1d00a54353fb8dd4cb3}{t\-M\-P\-I\-\_\-\-Comm} comm, int $\ast$coords, int $\ast$rank)
+\item 
+int \hyperlink{topology_8c_a6d1a09456192ed3f4f18c2cf96c484ad}{t\-M\-P\-I\-\_\-\-Cart\-\_\-coords} (\hyperlink{include_2thread__mpi_2tmpi_8h_ab76dc275b882a1d00a54353fb8dd4cb3}{t\-M\-P\-I\-\_\-\-Comm} comm, int rank, int maxdims, int $\ast$coords)
+\item 
+int \hyperlink{topology_8c_a0394bed7b9de460d99270b049a34604f}{t\-M\-P\-I\-\_\-\-Cart\-\_\-map} (\hyperlink{include_2thread__mpi_2tmpi_8h_ab76dc275b882a1d00a54353fb8dd4cb3}{t\-M\-P\-I\-\_\-\-Comm} comm, int ndims, int $\ast$dims, int $\ast$periods, int $\ast$newrank)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{topology_8c_a0ff78e31fc1c7735f1ef965752fedf7c}{t\-M\-P\-I\-\_\-\-Cart\-\_\-init} (\hyperlink{include_2thread__mpi_2tmpi_8h_ab76dc275b882a1d00a54353fb8dd4cb3}{t\-M\-P\-I\-\_\-\-Comm} $\ast$comm\-\_\-cart, int ndims, int $\ast$dims, int $\ast$periods)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{topology_8c_abf0b2a5bbe32ead106a660e06f0f375b}{t\-M\-P\-I\-\_\-\-Cart\-\_\-destroy} (struct \hyperlink{structcart__topol}{cart\-\_\-topol} $\ast$cart)
+\item 
+int \hyperlink{topology_8c_a61723fee3fb6e86cf10073bb7120e772}{t\-M\-P\-I\-\_\-\-Cart\-\_\-create} (\hyperlink{include_2thread__mpi_2tmpi_8h_ab76dc275b882a1d00a54353fb8dd4cb3}{t\-M\-P\-I\-\_\-\-Comm} comm\-\_\-old, int ndims, int $\ast$dims, int $\ast$periods, int reorder, \hyperlink{include_2thread__mpi_2tmpi_8h_ab76dc275b882a1d00a54353fb8dd4cb3}{t\-M\-P\-I\-\_\-\-Comm} $\ast$comm\-\_\-cart)
+\item 
+int \hyperlink{topology_8c_acd158d265c8c430ab0cc5dc19f1d50d7}{t\-M\-P\-I\-\_\-\-Cart\-\_\-sub} (\hyperlink{include_2thread__mpi_2tmpi_8h_ab76dc275b882a1d00a54353fb8dd4cb3}{t\-M\-P\-I\-\_\-\-Comm} comm, int $\ast$remain\-\_\-dims, \hyperlink{include_2thread__mpi_2tmpi_8h_ab76dc275b882a1d00a54353fb8dd4cb3}{t\-M\-P\-I\-\_\-\-Comm} $\ast$newcomm)
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{topology_8c_a6d1a09456192ed3f4f18c2cf96c484ad}{\index{topology.\-c@{topology.\-c}!t\-M\-P\-I\-\_\-\-Cart\-\_\-coords@{t\-M\-P\-I\-\_\-\-Cart\-\_\-coords}}
+\index{t\-M\-P\-I\-\_\-\-Cart\-\_\-coords@{t\-M\-P\-I\-\_\-\-Cart\-\_\-coords}!topology.c@{topology.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Cart\-\_\-coords}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf t\-M\-P\-I\-\_\-\-Cart\-\_\-coords} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-M\-P\-I\-\_\-\-Comm}}]{comm, }
+\item[{int}]{rank, }
+\item[{int}]{maxdims, }
+\item[{int $\ast$}]{coords}
+\end{DoxyParamCaption}
+)}}\label{topology_8c_a6d1a09456192ed3f4f18c2cf96c484ad}
+\-Get coordinates of a process rank in a \-Cartesian topology.
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em comm} & \-The comm to query. \\
+\hline
+\mbox{\tt in}  & {\em rank} & \-The rank associated with the coordinates. \\
+\hline
+\mbox{\tt in}  & {\em maxdims} & \-The maximum number of dimensions in the coords parameter. \\
+\hline
+\mbox{\tt out}  & {\em coords} & \-The coordinates in each dimension.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-T\-M\-P\-I\-\_\-\-S\-U\-C\-C\-E\-S\-S on success, \-T\-M\-P\-I\-\_\-\-F\-A\-I\-L\-U\-R\-E on failure. 
+\end{DoxyReturn}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{topology_8c_a6d1a09456192ed3f4f18c2cf96c484ad_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=296pt]{topology_8c_a6d1a09456192ed3f4f18c2cf96c484ad_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{topology_8c_a61723fee3fb6e86cf10073bb7120e772}{\index{topology.\-c@{topology.\-c}!t\-M\-P\-I\-\_\-\-Cart\-\_\-create@{t\-M\-P\-I\-\_\-\-Cart\-\_\-create}}
+\index{t\-M\-P\-I\-\_\-\-Cart\-\_\-create@{t\-M\-P\-I\-\_\-\-Cart\-\_\-create}!topology.c@{topology.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Cart\-\_\-create}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf t\-M\-P\-I\-\_\-\-Cart\-\_\-create} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-M\-P\-I\-\_\-\-Comm}}]{comm\-\_\-old, }
+\item[{int}]{ndims, }
+\item[{int $\ast$}]{dims, }
+\item[{int $\ast$}]{periods, }
+\item[{int}]{reorder, }
+\item[{{\bf t\-M\-P\-I\-\_\-\-Comm} $\ast$}]{comm\-\_\-cart}
+\end{DoxyParamCaption}
+)}}\label{topology_8c_a61723fee3fb6e86cf10073bb7120e772}
+\-Create a comm with a \-Cartesian topology.
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em comm\-\_\-old} & \-The originating comm. \\
+\hline
+\mbox{\tt in}  & {\em ndims} & \-The number of dimensions. \\
+\hline
+\mbox{\tt in}  & {\em dims} & \-The size in each dimension. \\
+\hline
+\mbox{\tt in}  & {\em periods} & \-The periodicity in each dimension. \\
+\hline
+\mbox{\tt in}  & {\em reorder} & \-Whether to allow reordering of the threads according to \hyperlink{include_2thread__mpi_2tmpi_8h_a3acb3454172305be77410d96741d97d4}{t\-M\-P\-I\-\_\-\-Cart\-\_\-map()}. \\
+\hline
+\mbox{\tt out}  & {\em comm\-\_\-cart} & \-The new comm with \-Cartesian topology.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-T\-M\-P\-I\-\_\-\-S\-U\-C\-C\-E\-S\-S on success, \-T\-M\-P\-I\-\_\-\-F\-A\-I\-L\-U\-R\-E on failure. 
+\end{DoxyReturn}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{topology_8c_a61723fee3fb6e86cf10073bb7120e772_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{topology_8c_abf0b2a5bbe32ead106a660e06f0f375b}{\index{topology.\-c@{topology.\-c}!t\-M\-P\-I\-\_\-\-Cart\-\_\-destroy@{t\-M\-P\-I\-\_\-\-Cart\-\_\-destroy}}
+\index{t\-M\-P\-I\-\_\-\-Cart\-\_\-destroy@{t\-M\-P\-I\-\_\-\-Cart\-\_\-destroy}!topology.c@{topology.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Cart\-\_\-destroy}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf t\-M\-P\-I\-\_\-\-Cart\-\_\-destroy} (
+\begin{DoxyParamCaption}
+\item[{struct {\bf cart\-\_\-topol} $\ast$}]{cart}
+\end{DoxyParamCaption}
+)}}\label{topology_8c_abf0b2a5bbe32ead106a660e06f0f375b}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{topology_8c_abf0b2a5bbe32ead106a660e06f0f375b_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{topology_8c_a416c4c1a74b713bc64bffc071d2dd147}{\index{topology.\-c@{topology.\-c}!t\-M\-P\-I\-\_\-\-Cart\-\_\-get@{t\-M\-P\-I\-\_\-\-Cart\-\_\-get}}
+\index{t\-M\-P\-I\-\_\-\-Cart\-\_\-get@{t\-M\-P\-I\-\_\-\-Cart\-\_\-get}!topology.c@{topology.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Cart\-\_\-get}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf t\-M\-P\-I\-\_\-\-Cart\-\_\-get} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-M\-P\-I\-\_\-\-Comm}}]{comm, }
+\item[{int}]{maxdims, }
+\item[{int $\ast$}]{dims, }
+\item[{int $\ast$}]{periods, }
+\item[{int $\ast$}]{coords}
+\end{DoxyParamCaption}
+)}}\label{topology_8c_a416c4c1a74b713bc64bffc071d2dd147}
+\-Get the size and pbc a of a comm with a \-Cartesian topology has.
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em comm} & \-The comm to query. \\
+\hline
+\mbox{\tt in}  & {\em maxdims} & \-The maximum number of dimensions in the periods and coords parameter. \\
+\hline
+\mbox{\tt out}  & {\em dims} & \-The number of dimensions. \\
+\hline
+\mbox{\tt out}  & {\em periods} & \-The periodicity in each dimension. \\
+\hline
+\mbox{\tt out}  & {\em coords} & \-The number of coordinates in each dimension.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-T\-M\-P\-I\-\_\-\-S\-U\-C\-C\-E\-S\-S on success, \-T\-M\-P\-I\-\_\-\-F\-A\-I\-L\-U\-R\-E on failure. 
+\end{DoxyReturn}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{topology_8c_a416c4c1a74b713bc64bffc071d2dd147_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{topology_8c_a0ff78e31fc1c7735f1ef965752fedf7c}{\index{topology.\-c@{topology.\-c}!t\-M\-P\-I\-\_\-\-Cart\-\_\-init@{t\-M\-P\-I\-\_\-\-Cart\-\_\-init}}
+\index{t\-M\-P\-I\-\_\-\-Cart\-\_\-init@{t\-M\-P\-I\-\_\-\-Cart\-\_\-init}!topology.c@{topology.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Cart\-\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf t\-M\-P\-I\-\_\-\-Cart\-\_\-init} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-M\-P\-I\-\_\-\-Comm} $\ast$}]{comm\-\_\-cart, }
+\item[{int}]{ndims, }
+\item[{int $\ast$}]{dims, }
+\item[{int $\ast$}]{periods}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{topology_8c_a0ff78e31fc1c7735f1ef965752fedf7c}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{topology_8c_a0ff78e31fc1c7735f1ef965752fedf7c_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=290pt]{topology_8c_a0ff78e31fc1c7735f1ef965752fedf7c_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{topology_8c_a0394bed7b9de460d99270b049a34604f}{\index{topology.\-c@{topology.\-c}!t\-M\-P\-I\-\_\-\-Cart\-\_\-map@{t\-M\-P\-I\-\_\-\-Cart\-\_\-map}}
+\index{t\-M\-P\-I\-\_\-\-Cart\-\_\-map@{t\-M\-P\-I\-\_\-\-Cart\-\_\-map}!topology.c@{topology.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Cart\-\_\-map}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf t\-M\-P\-I\-\_\-\-Cart\-\_\-map} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-M\-P\-I\-\_\-\-Comm}}]{comm, }
+\item[{int}]{ndims, }
+\item[{int $\ast$}]{dims, }
+\item[{int $\ast$}]{periods, }
+\item[{int $\ast$}]{newrank}
+\end{DoxyParamCaption}
+)}}\label{topology_8c_a0394bed7b9de460d99270b049a34604f}
+\-Get optimal rank this process would have in a \-Cartesian topology.
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em comm} & \-The comm to query. \\
+\hline
+\mbox{\tt in}  & {\em ndims} & \-The number of dimensions. \\
+\hline
+\mbox{\tt in}  & {\em dims} & \-The size in each dimension. \\
+\hline
+\mbox{\tt in}  & {\em periods} & \-The periodicity in each dimension.\\
+\hline
+\mbox{\tt out}  & {\em newrank} & \-The rank the thread would have given the topology.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-T\-M\-P\-I\-\_\-\-S\-U\-C\-C\-E\-S\-S on success, \-T\-M\-P\-I\-\_\-\-F\-A\-I\-L\-U\-R\-E on failure. 
+\end{DoxyReturn}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{topology_8c_a0394bed7b9de460d99270b049a34604f_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=296pt]{topology_8c_a0394bed7b9de460d99270b049a34604f_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{topology_8c_ac4613f6c57c983a09622fefabc1e4b08}{\index{topology.\-c@{topology.\-c}!t\-M\-P\-I\-\_\-\-Cart\-\_\-rank@{t\-M\-P\-I\-\_\-\-Cart\-\_\-rank}}
+\index{t\-M\-P\-I\-\_\-\-Cart\-\_\-rank@{t\-M\-P\-I\-\_\-\-Cart\-\_\-rank}!topology.c@{topology.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Cart\-\_\-rank}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf t\-M\-P\-I\-\_\-\-Cart\-\_\-rank} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-M\-P\-I\-\_\-\-Comm}}]{comm, }
+\item[{int $\ast$}]{coords, }
+\item[{int $\ast$}]{rank}
+\end{DoxyParamCaption}
+)}}\label{topology_8c_ac4613f6c57c983a09622fefabc1e4b08}
+\-Get rank that a specific set of process coordinates has in a \-Cartesian topology.
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em comm} & \-The comm to query. \\
+\hline
+\mbox{\tt in}  & {\em coords} & \-The coordinates in each dimension. \\
+\hline
+\mbox{\tt out}  & {\em rank} & \-The rank associated with the coordinates.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-T\-M\-P\-I\-\_\-\-S\-U\-C\-C\-E\-S\-S on success, \-T\-M\-P\-I\-\_\-\-F\-A\-I\-L\-U\-R\-E on failure. 
+\end{DoxyReturn}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{topology_8c_ac4613f6c57c983a09622fefabc1e4b08_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{topology_8c_acd158d265c8c430ab0cc5dc19f1d50d7}{\index{topology.\-c@{topology.\-c}!t\-M\-P\-I\-\_\-\-Cart\-\_\-sub@{t\-M\-P\-I\-\_\-\-Cart\-\_\-sub}}
+\index{t\-M\-P\-I\-\_\-\-Cart\-\_\-sub@{t\-M\-P\-I\-\_\-\-Cart\-\_\-sub}!topology.c@{topology.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Cart\-\_\-sub}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf t\-M\-P\-I\-\_\-\-Cart\-\_\-sub} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-M\-P\-I\-\_\-\-Comm}}]{comm, }
+\item[{int $\ast$}]{remain\-\_\-dims, }
+\item[{{\bf t\-M\-P\-I\-\_\-\-Comm} $\ast$}]{newcomm}
+\end{DoxyParamCaption}
+)}}\label{topology_8c_acd158d265c8c430ab0cc5dc19f1d50d7}
+\-Create a comms that are sub-\/spaces of the \-Cartesian topology communicator. \-Works like a \hyperlink{include_2thread__mpi_2mpi__bindings_8h_a28885cdd83075b88153b621972ecfc5c}{\-M\-P\-I\-\_\-\-Comm\-\_\-split()} for the \-Cartesian dimensions specified as false in remain\-\_\-dims.
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em comm} & \-The originating comm with \-Cartesian topology. \\
+\hline
+\mbox{\tt in}  & {\em remain\-\_\-dims} & \-An \-Boolean array that decides whether a specific dimensionality should remain in newcomm (if true), or should be split up (if false). \\
+\hline
+\mbox{\tt out}  & {\em newcomm} & \-The new split communicator\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-T\-M\-P\-I\-\_\-\-S\-U\-C\-C\-E\-S\-S on success, \-T\-M\-P\-I\-\_\-\-F\-A\-I\-L\-U\-R\-E on failure. 
+\end{DoxyReturn}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{topology_8c_acd158d265c8c430ab0cc5dc19f1d50d7_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{topology_8c_a2f1126ba55dd28765c4d97edd87f0828}{\index{topology.\-c@{topology.\-c}!t\-M\-P\-I\-\_\-\-Cartdim\-\_\-get@{t\-M\-P\-I\-\_\-\-Cartdim\-\_\-get}}
+\index{t\-M\-P\-I\-\_\-\-Cartdim\-\_\-get@{t\-M\-P\-I\-\_\-\-Cartdim\-\_\-get}!topology.c@{topology.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Cartdim\-\_\-get}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf t\-M\-P\-I\-\_\-\-Cartdim\-\_\-get} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-M\-P\-I\-\_\-\-Comm}}]{comm, }
+\item[{int $\ast$}]{ndims}
+\end{DoxyParamCaption}
+)}}\label{topology_8c_a2f1126ba55dd28765c4d97edd87f0828}
+\-Get the dimensionality of a comm with a topology.
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em comm} & \-The comm to query. \\
+\hline
+\mbox{\tt out}  & {\em ndims} & \-The number of dimensions.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-T\-M\-P\-I\-\_\-\-S\-U\-C\-C\-E\-S\-S on success, \-T\-M\-P\-I\-\_\-\-F\-A\-I\-L\-U\-R\-E on failure. 
+\end{DoxyReturn}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{topology_8c_a2f1126ba55dd28765c4d97edd87f0828_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{topology_8c_aad60c891c7176c4105429aaf95566f14}{\index{topology.\-c@{topology.\-c}!t\-M\-P\-I\-\_\-\-Topo\-\_\-test@{t\-M\-P\-I\-\_\-\-Topo\-\_\-test}}
+\index{t\-M\-P\-I\-\_\-\-Topo\-\_\-test@{t\-M\-P\-I\-\_\-\-Topo\-\_\-test}!topology.c@{topology.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Topo\-\_\-test}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf t\-M\-P\-I\-\_\-\-Topo\-\_\-test} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-M\-P\-I\-\_\-\-Comm}}]{comm, }
+\item[{int $\ast$}]{status}
+\end{DoxyParamCaption}
+)}}\label{topology_8c_aad60c891c7176c4105429aaf95566f14}
+\-Check what type of topology the comm has.
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em comm} & \-The comm to query \\
+\hline
+\mbox{\tt out}  & {\em status} & \-The type of topology.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-T\-M\-P\-I\-\_\-\-S\-U\-C\-C\-E\-S\-S on success, \-T\-M\-P\-I\-\_\-\-F\-A\-I\-L\-U\-R\-E on failure. 
+\end{DoxyReturn}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{topology_8c_aad60c891c7176c4105429aaf95566f14_cgraph}
+\end{center}
+\end{figure}
+
+

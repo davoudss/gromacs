@@ -1,0 +1,675 @@
+\hypertarget{splitter_8c}{\section{src/gmxlib/splitter.c \-File \-Reference}
+\label{splitter_8c}\index{src/gmxlib/splitter.\-c@{src/gmxlib/splitter.\-c}}
+}
+{\ttfamily \#include $<$stdio.\-h$>$}\*
+{\ttfamily \#include $<$string.\-h$>$}\*
+{\ttfamily \#include \char`\"{}sysstuff.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}macros.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}smalloc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}typedefs.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}mshift.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}invblock.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}txtdump.\-h\char`\"{}}\*
+{\ttfamily \#include $<$math.\-h$>$}\*
+{\ttfamily \#include \char`\"{}assert.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-fatal.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}splitter.\-h\char`\"{}}\*
+\-Include dependency graph for splitter.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{splitter_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structt__sf}{t\-\_\-sf}
+\item 
+struct \hyperlink{structt__border}{t\-\_\-border}
+\item 
+struct \hyperlink{structt__sid}{t\-\_\-sid}
+\item 
+struct \hyperlink{structt__merge__sid}{t\-\_\-merge\-\_\-sid}
+\item 
+struct \hyperlink{structpd__constraintlist__t}{pd\-\_\-constraintlist\-\_\-t}
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{structt__sf}{t\-\_\-sf} $\ast$ \hyperlink{splitter_8c_a06d2772c11398aee7d470a51602cef95}{init\-\_\-sf} (int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a560e4062098f77c2d7e5fe83bf09c394}{nr})
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{splitter_8c_a345d73792b1f20fb6844ef7600af3f04}{done\-\_\-sf} (int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a560e4062098f77c2d7e5fe83bf09c394}{nr}, \hyperlink{structt__sf}{t\-\_\-sf} $\ast$sf)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{splitter_8c_a79e675723049b66572f49e9cbb0c3c85}{push\-\_\-sf} (\hyperlink{structt__sf}{t\-\_\-sf} $\ast$sf, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a560e4062098f77c2d7e5fe83bf09c394}{nr}, \hyperlink{include_2types_2idef_8h_abb1c069d34f868f1fa980a4c131ba249}{t\-\_\-iatom} ia\mbox{[}$\,$\mbox{]})
+\item 
+static int \hyperlink{splitter_8c_a9cb806139e09af3acca3ce3b54c2d051}{min\-\_\-nodeid} (int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a560e4062098f77c2d7e5fe83bf09c394}{nr}, \hyperlink{include_2types_2simple_8h_ad3f47cdb48677e516e2049719612c737}{atom\-\_\-id} list\mbox{[}$\,$\mbox{]}, int hid\mbox{[}$\,$\mbox{]})
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{splitter_8c_a0d8c7a8b6d18f45bd116ecbfd5e0c541}{split\-\_\-force2} (\hyperlink{structt__inputrec}{t\-\_\-inputrec} $\ast$ir, int nnodes, int hid\mbox{[}$\,$\mbox{]}, int ftype, \hyperlink{structt__ilist}{t\-\_\-ilist} $\ast$ilist, int $\ast$multinr, int $\ast$constr\-\_\-min\-\_\-nodeid, int $\ast$constr\-\_\-max\-\_\-nodeid, int $\ast$left\-\_\-range, int $\ast$right\-\_\-range)
+\item 
+static int $\ast$ \hyperlink{splitter_8c_a391d60b3c823151c961d57b452fcda14}{home\-\_\-index} (int nnodes, \hyperlink{structt__block}{t\-\_\-block} $\ast$cgs, int $\ast$multinr)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{splitter_8c_aa4fa4dc47946a169922bd49989042f3a}{set\-\_\-bor} (\hyperlink{structt__border}{t\-\_\-border} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afb462a5dea72ae7992f073bfd756fb5f}{b}, int atom, int \hyperlink{share_2template_2gromacs_2nbnxn__cuda__data__mgmt_8h_a34557b939b10b264adf47e54fc7e7f6c}{ic}, int is)
+\item 
+static \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{splitter_8c_a1bf87c2425a9238f979c971bdcbc38f4}{is\-\_\-bor} (\hyperlink{include_2types_2simple_8h_ad3f47cdb48677e516e2049719612c737}{atom\-\_\-id} ai\mbox{[}$\,$\mbox{]}, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a3c7542401c1cb8bd37ef5e7d9eb0f5a8}{i})
+\item 
+static \hyperlink{structt__border}{t\-\_\-border} $\ast$ \hyperlink{splitter_8c_a69d09d4ec5388ab5e96d585273fd17a2}{mk\-\_\-border} (\-F\-I\-L\-E $\ast$fp, int natom, \hyperlink{include_2types_2simple_8h_ad3f47cdb48677e516e2049719612c737}{atom\-\_\-id} $\ast$invcgs, \hyperlink{include_2types_2simple_8h_ad3f47cdb48677e516e2049719612c737}{atom\-\_\-id} $\ast$invshk, int $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a86b8049133b29aa036248fbc0c64bead}{nb})
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{splitter_8c_a557636fa7f7ee4db133ce705e1c6ed41}{split\-\_\-blocks} (\-F\-I\-L\-E $\ast$fp, \hyperlink{structt__inputrec}{t\-\_\-inputrec} $\ast$ir, int nnodes, \hyperlink{structt__block}{t\-\_\-block} $\ast$cgs, \hyperlink{structt__blocka}{t\-\_\-blocka} $\ast$sblock, real capacity\mbox{[}$\,$\mbox{]}, int $\ast$multinr\-\_\-cgs)
+\item 
+static int \hyperlink{splitter_8c_a9bec63ce5427c9cb544d6c6630e42ceb}{sid\-\_\-comp} (const \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a0880879736d1ab747a972d1942421886}{a}, const \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afb462a5dea72ae7992f073bfd756fb5f}{b})
+\item 
+static int \hyperlink{splitter_8c_adcd1a47d81f7c62d18b714cf3b411b30}{mk\-\_\-grey} (int nnodes, \hyperlink{include_2types_2graph_8h_a3c403810fc841acc2bbf180fd3d4cdef}{eg\-Col} egc\mbox{[}$\,$\mbox{]}, \hyperlink{structt__graph}{t\-\_\-graph} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g}, int $\ast$\-Atom\-I, int maxsid, \hyperlink{structt__sid}{t\-\_\-sid} sid\mbox{[}$\,$\mbox{]})
+\item 
+static int \hyperlink{splitter_8c_a64127b34effc3f8cd8f9b14015feb4b7}{first\-\_\-colour} (int f\-C, \hyperlink{include_2types_2graph_8h_a3c403810fc841acc2bbf180fd3d4cdef}{eg\-Col} \-Col, \hyperlink{structt__graph}{t\-\_\-graph} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g}, \hyperlink{include_2types_2graph_8h_a3c403810fc841acc2bbf180fd3d4cdef}{eg\-Col} egc\mbox{[}$\,$\mbox{]})
+\item 
+static int \hyperlink{splitter_8c_a27fffe1af3509ec76630b86881ead55e}{mk\-\_\-sblocks} (\-F\-I\-L\-E $\ast$fp, \hyperlink{structt__graph}{t\-\_\-graph} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g}, int maxsid, \hyperlink{structt__sid}{t\-\_\-sid} sid\mbox{[}$\,$\mbox{]})
+\item 
+static int \hyperlink{splitter_8c_aff6b1f3da3ba54ea25fd26f21eef46fc}{ms\-\_\-comp} (const \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a0880879736d1ab747a972d1942421886}{a}, const \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afb462a5dea72ae7992f073bfd756fb5f}{b})
+\item 
+static int \hyperlink{splitter_8c_a0eb3eb0688af3164ec47c455a3ce4c57}{merge\-\_\-sid} (int i0, int at\-\_\-start, int at\-\_\-end, int nsid, \hyperlink{structt__sid}{t\-\_\-sid} sid\mbox{[}$\,$\mbox{]}, \hyperlink{structt__blocka}{t\-\_\-blocka} $\ast$sblock)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{splitter_8c_a39f4b7e06ea018a0d2169a01da808b47}{gen\-\_\-sblocks} (\-F\-I\-L\-E $\ast$fp, int at\-\_\-start, int at\-\_\-end, \hyperlink{structt__idef}{t\-\_\-idef} $\ast$idef, \hyperlink{structt__blocka}{t\-\_\-blocka} $\ast$sblock, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Settle)
+\item 
+static \hyperlink{structt__blocka}{t\-\_\-blocka} \hyperlink{splitter_8c_a58bed8a85f82c57a190d94c999891ca1}{block2blocka} (\hyperlink{structt__block}{t\-\_\-block} $\ast$block)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{splitter_8c_ab3524a20a7f5f8a7b0f3dfc52194326c}{find\-\_\-constraint\-\_\-range\-\_\-recursive} (\hyperlink{structpd__constraintlist__t}{pd\-\_\-constraintlist\-\_\-t} $\ast$constraintlist, int thisatom, int depth, int $\ast$min\-\_\-atomid, int $\ast$max\-\_\-atomid)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{splitter_8c_adcd7a6c7e56b6750e9afd55f855e997b}{pd\-\_\-determine\-\_\-constraints\-\_\-range} (\hyperlink{structt__inputrec}{t\-\_\-inputrec} $\ast$ir, int natoms, \hyperlink{structt__ilist}{t\-\_\-ilist} $\ast$ilist, int hid\mbox{[}$\,$\mbox{]}, int $\ast$\hyperlink{splitter_8c_a9cb806139e09af3acca3ce3b54c2d051}{min\-\_\-nodeid}, int $\ast$max\-\_\-nodeid)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{splitter_8c_a27f2ddd0beb9e3e594671bd656eb76a1}{split\-\_\-top} (\-F\-I\-L\-E $\ast$fp, int nnodes, \hyperlink{structgmx__localtop__t}{gmx\-\_\-localtop\-\_\-t} $\ast$\hyperlink{gmx__disre_8c_a1b538a2ce75aba6c346bc03980ffeb28}{top}, \hyperlink{structt__inputrec}{t\-\_\-inputrec} $\ast$ir, \hyperlink{structt__block}{t\-\_\-block} $\ast$mols, real $\ast$capacity, int $\ast$multinr\-\_\-cgs, int $\ast$$\ast$multinr\-\_\-nre, int $\ast$left\-\_\-range, int $\ast$right\-\_\-range)
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{splitter_8c_a58bed8a85f82c57a190d94c999891ca1}{\index{splitter.\-c@{splitter.\-c}!block2blocka@{block2blocka}}
+\index{block2blocka@{block2blocka}!splitter.c@{splitter.\-c}}
+\subsubsection[{block2blocka}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf t\-\_\-blocka} {\bf block2blocka} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-block} $\ast$}]{block}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{splitter_8c_a58bed8a85f82c57a190d94c999891ca1}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{splitter_8c_a58bed8a85f82c57a190d94c999891ca1_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{splitter_8c_a345d73792b1f20fb6844ef7600af3f04}{\index{splitter.\-c@{splitter.\-c}!done\-\_\-sf@{done\-\_\-sf}}
+\index{done\-\_\-sf@{done\-\_\-sf}!splitter.c@{splitter.\-c}}
+\subsubsection[{done\-\_\-sf}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf done\-\_\-sf} (
+\begin{DoxyParamCaption}
+\item[{int}]{nr, }
+\item[{{\bf t\-\_\-sf} $\ast$}]{sf}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{splitter_8c_a345d73792b1f20fb6844ef7600af3f04}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{splitter_8c_a345d73792b1f20fb6844ef7600af3f04_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{splitter_8c_ab3524a20a7f5f8a7b0f3dfc52194326c}{\index{splitter.\-c@{splitter.\-c}!find\-\_\-constraint\-\_\-range\-\_\-recursive@{find\-\_\-constraint\-\_\-range\-\_\-recursive}}
+\index{find\-\_\-constraint\-\_\-range\-\_\-recursive@{find\-\_\-constraint\-\_\-range\-\_\-recursive}!splitter.c@{splitter.\-c}}
+\subsubsection[{find\-\_\-constraint\-\_\-range\-\_\-recursive}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf find\-\_\-constraint\-\_\-range\-\_\-recursive} (
+\begin{DoxyParamCaption}
+\item[{{\bf pd\-\_\-constraintlist\-\_\-t} $\ast$}]{constraintlist, }
+\item[{int}]{thisatom, }
+\item[{int}]{depth, }
+\item[{int $\ast$}]{min\-\_\-atomid, }
+\item[{int $\ast$}]{max\-\_\-atomid}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{splitter_8c_ab3524a20a7f5f8a7b0f3dfc52194326c}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{splitter_8c_ab3524a20a7f5f8a7b0f3dfc52194326c_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{splitter_8c_a64127b34effc3f8cd8f9b14015feb4b7}{\index{splitter.\-c@{splitter.\-c}!first\-\_\-colour@{first\-\_\-colour}}
+\index{first\-\_\-colour@{first\-\_\-colour}!splitter.c@{splitter.\-c}}
+\subsubsection[{first\-\_\-colour}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf first\-\_\-colour} (
+\begin{DoxyParamCaption}
+\item[{int}]{f\-C, }
+\item[{{\bf eg\-Col}}]{\-Col, }
+\item[{{\bf t\-\_\-graph} $\ast$}]{g, }
+\item[{{\bf eg\-Col}}]{egc\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{splitter_8c_a64127b34effc3f8cd8f9b14015feb4b7}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{splitter_8c_a64127b34effc3f8cd8f9b14015feb4b7_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{splitter_8c_a39f4b7e06ea018a0d2169a01da808b47}{\index{splitter.\-c@{splitter.\-c}!gen\-\_\-sblocks@{gen\-\_\-sblocks}}
+\index{gen\-\_\-sblocks@{gen\-\_\-sblocks}!splitter.c@{splitter.\-c}}
+\subsubsection[{gen\-\_\-sblocks}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gen\-\_\-sblocks} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{int}]{at\-\_\-start, }
+\item[{int}]{at\-\_\-end, }
+\item[{{\bf t\-\_\-idef} $\ast$}]{idef, }
+\item[{{\bf t\-\_\-blocka} $\ast$}]{sblock, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Settle}
+\end{DoxyParamCaption}
+)}}\label{splitter_8c_a39f4b7e06ea018a0d2169a01da808b47}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{splitter_8c_a39f4b7e06ea018a0d2169a01da808b47_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{splitter_8c_a39f4b7e06ea018a0d2169a01da808b47_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{splitter_8c_a391d60b3c823151c961d57b452fcda14}{\index{splitter.\-c@{splitter.\-c}!home\-\_\-index@{home\-\_\-index}}
+\index{home\-\_\-index@{home\-\_\-index}!splitter.c@{splitter.\-c}}
+\subsubsection[{home\-\_\-index}]{\setlength{\rightskip}{0pt plus 5cm}static int$\ast$ {\bf home\-\_\-index} (
+\begin{DoxyParamCaption}
+\item[{int}]{nnodes, }
+\item[{{\bf t\-\_\-block} $\ast$}]{cgs, }
+\item[{int $\ast$}]{multinr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{splitter_8c_a391d60b3c823151c961d57b452fcda14}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=246pt]{splitter_8c_a391d60b3c823151c961d57b452fcda14_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{splitter_8c_a391d60b3c823151c961d57b452fcda14_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{splitter_8c_a06d2772c11398aee7d470a51602cef95}{\index{splitter.\-c@{splitter.\-c}!init\-\_\-sf@{init\-\_\-sf}}
+\index{init\-\_\-sf@{init\-\_\-sf}!splitter.c@{splitter.\-c}}
+\subsubsection[{init\-\_\-sf}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf t\-\_\-sf}$\ast$ {\bf init\-\_\-sf} (
+\begin{DoxyParamCaption}
+\item[{int}]{nr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{splitter_8c_a06d2772c11398aee7d470a51602cef95}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{splitter_8c_a06d2772c11398aee7d470a51602cef95_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{splitter_8c_a1bf87c2425a9238f979c971bdcbc38f4}{\index{splitter.\-c@{splitter.\-c}!is\-\_\-bor@{is\-\_\-bor}}
+\index{is\-\_\-bor@{is\-\_\-bor}!splitter.c@{splitter.\-c}}
+\subsubsection[{is\-\_\-bor}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gmx\-\_\-bool} {\bf is\-\_\-bor} (
+\begin{DoxyParamCaption}
+\item[{{\bf atom\-\_\-id}}]{ai\mbox{[}$\,$\mbox{]}, }
+\item[{int}]{i}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{splitter_8c_a1bf87c2425a9238f979c971bdcbc38f4}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{splitter_8c_a1bf87c2425a9238f979c971bdcbc38f4_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{splitter_8c_a0eb3eb0688af3164ec47c455a3ce4c57}{\index{splitter.\-c@{splitter.\-c}!merge\-\_\-sid@{merge\-\_\-sid}}
+\index{merge\-\_\-sid@{merge\-\_\-sid}!splitter.c@{splitter.\-c}}
+\subsubsection[{merge\-\_\-sid}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf merge\-\_\-sid} (
+\begin{DoxyParamCaption}
+\item[{int}]{i0, }
+\item[{int}]{at\-\_\-start, }
+\item[{int}]{at\-\_\-end, }
+\item[{int}]{nsid, }
+\item[{{\bf t\-\_\-sid}}]{sid\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf t\-\_\-blocka} $\ast$}]{sblock}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{splitter_8c_a0eb3eb0688af3164ec47c455a3ce4c57}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=238pt]{splitter_8c_a0eb3eb0688af3164ec47c455a3ce4c57_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{splitter_8c_a0eb3eb0688af3164ec47c455a3ce4c57_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{splitter_8c_a9cb806139e09af3acca3ce3b54c2d051}{\index{splitter.\-c@{splitter.\-c}!min\-\_\-nodeid@{min\-\_\-nodeid}}
+\index{min\-\_\-nodeid@{min\-\_\-nodeid}!splitter.c@{splitter.\-c}}
+\subsubsection[{min\-\_\-nodeid}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf min\-\_\-nodeid} (
+\begin{DoxyParamCaption}
+\item[{int}]{nr, }
+\item[{{\bf atom\-\_\-id}}]{list\mbox{[}$\,$\mbox{]}, }
+\item[{int}]{hid\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{splitter_8c_a9cb806139e09af3acca3ce3b54c2d051}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{splitter_8c_a9cb806139e09af3acca3ce3b54c2d051_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{splitter_8c_a69d09d4ec5388ab5e96d585273fd17a2}{\index{splitter.\-c@{splitter.\-c}!mk\-\_\-border@{mk\-\_\-border}}
+\index{mk\-\_\-border@{mk\-\_\-border}!splitter.c@{splitter.\-c}}
+\subsubsection[{mk\-\_\-border}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf t\-\_\-border}$\ast$ {\bf mk\-\_\-border} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{int}]{natom, }
+\item[{{\bf atom\-\_\-id} $\ast$}]{invcgs, }
+\item[{{\bf atom\-\_\-id} $\ast$}]{invshk, }
+\item[{int $\ast$}]{nb}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{splitter_8c_a69d09d4ec5388ab5e96d585273fd17a2}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=228pt]{splitter_8c_a69d09d4ec5388ab5e96d585273fd17a2_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{splitter_8c_a69d09d4ec5388ab5e96d585273fd17a2_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{splitter_8c_adcd1a47d81f7c62d18b714cf3b411b30}{\index{splitter.\-c@{splitter.\-c}!mk\-\_\-grey@{mk\-\_\-grey}}
+\index{mk\-\_\-grey@{mk\-\_\-grey}!splitter.c@{splitter.\-c}}
+\subsubsection[{mk\-\_\-grey}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf mk\-\_\-grey} (
+\begin{DoxyParamCaption}
+\item[{int}]{nnodes, }
+\item[{{\bf eg\-Col}}]{egc\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf t\-\_\-graph} $\ast$}]{g, }
+\item[{int $\ast$}]{\-Atom\-I, }
+\item[{int}]{maxsid, }
+\item[{{\bf t\-\_\-sid}}]{sid\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{splitter_8c_adcd1a47d81f7c62d18b714cf3b411b30}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=230pt]{splitter_8c_adcd1a47d81f7c62d18b714cf3b411b30_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{splitter_8c_adcd1a47d81f7c62d18b714cf3b411b30_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{splitter_8c_a27fffe1af3509ec76630b86881ead55e}{\index{splitter.\-c@{splitter.\-c}!mk\-\_\-sblocks@{mk\-\_\-sblocks}}
+\index{mk\-\_\-sblocks@{mk\-\_\-sblocks}!splitter.c@{splitter.\-c}}
+\subsubsection[{mk\-\_\-sblocks}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf mk\-\_\-sblocks} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{{\bf t\-\_\-graph} $\ast$}]{g, }
+\item[{int}]{maxsid, }
+\item[{{\bf t\-\_\-sid}}]{sid\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{splitter_8c_a27fffe1af3509ec76630b86881ead55e}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=348pt]{splitter_8c_a27fffe1af3509ec76630b86881ead55e_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{splitter_8c_a27fffe1af3509ec76630b86881ead55e_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{splitter_8c_aff6b1f3da3ba54ea25fd26f21eef46fc}{\index{splitter.\-c@{splitter.\-c}!ms\-\_\-comp@{ms\-\_\-comp}}
+\index{ms\-\_\-comp@{ms\-\_\-comp}!splitter.c@{splitter.\-c}}
+\subsubsection[{ms\-\_\-comp}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf ms\-\_\-comp} (
+\begin{DoxyParamCaption}
+\item[{const {\bf void} $\ast$}]{a, }
+\item[{const {\bf void} $\ast$}]{b}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{splitter_8c_aff6b1f3da3ba54ea25fd26f21eef46fc}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{splitter_8c_aff6b1f3da3ba54ea25fd26f21eef46fc_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{splitter_8c_adcd7a6c7e56b6750e9afd55f855e997b}{\index{splitter.\-c@{splitter.\-c}!pd\-\_\-determine\-\_\-constraints\-\_\-range@{pd\-\_\-determine\-\_\-constraints\-\_\-range}}
+\index{pd\-\_\-determine\-\_\-constraints\-\_\-range@{pd\-\_\-determine\-\_\-constraints\-\_\-range}!splitter.c@{splitter.\-c}}
+\subsubsection[{pd\-\_\-determine\-\_\-constraints\-\_\-range}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf pd\-\_\-determine\-\_\-constraints\-\_\-range} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-inputrec} $\ast$}]{ir, }
+\item[{int}]{natoms, }
+\item[{{\bf t\-\_\-ilist} $\ast$}]{ilist, }
+\item[{int}]{hid\mbox{[}$\,$\mbox{]}, }
+\item[{int $\ast$}]{min\-\_\-nodeid, }
+\item[{int $\ast$}]{max\-\_\-nodeid}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{splitter_8c_adcd7a6c7e56b6750e9afd55f855e997b}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{splitter_8c_adcd7a6c7e56b6750e9afd55f855e997b_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{splitter_8c_adcd7a6c7e56b6750e9afd55f855e997b_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{splitter_8c_a79e675723049b66572f49e9cbb0c3c85}{\index{splitter.\-c@{splitter.\-c}!push\-\_\-sf@{push\-\_\-sf}}
+\index{push\-\_\-sf@{push\-\_\-sf}!splitter.c@{splitter.\-c}}
+\subsubsection[{push\-\_\-sf}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf push\-\_\-sf} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-sf} $\ast$}]{sf, }
+\item[{int}]{nr, }
+\item[{{\bf t\-\_\-iatom}}]{ia\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{splitter_8c_a79e675723049b66572f49e9cbb0c3c85}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{splitter_8c_a79e675723049b66572f49e9cbb0c3c85_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{splitter_8c_aa4fa4dc47946a169922bd49989042f3a}{\index{splitter.\-c@{splitter.\-c}!set\-\_\-bor@{set\-\_\-bor}}
+\index{set\-\_\-bor@{set\-\_\-bor}!splitter.c@{splitter.\-c}}
+\subsubsection[{set\-\_\-bor}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf set\-\_\-bor} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-border} $\ast$}]{b, }
+\item[{int}]{atom, }
+\item[{int}]{ic, }
+\item[{int}]{is}
+\end{DoxyParamCaption}
+)}}\label{splitter_8c_aa4fa4dc47946a169922bd49989042f3a}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{splitter_8c_aa4fa4dc47946a169922bd49989042f3a_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{splitter_8c_a9bec63ce5427c9cb544d6c6630e42ceb}{\index{splitter.\-c@{splitter.\-c}!sid\-\_\-comp@{sid\-\_\-comp}}
+\index{sid\-\_\-comp@{sid\-\_\-comp}!splitter.c@{splitter.\-c}}
+\subsubsection[{sid\-\_\-comp}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf sid\-\_\-comp} (
+\begin{DoxyParamCaption}
+\item[{const {\bf void} $\ast$}]{a, }
+\item[{const {\bf void} $\ast$}]{b}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{splitter_8c_a9bec63ce5427c9cb544d6c6630e42ceb}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{splitter_8c_a9bec63ce5427c9cb544d6c6630e42ceb_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{splitter_8c_a557636fa7f7ee4db133ce705e1c6ed41}{\index{splitter.\-c@{splitter.\-c}!split\-\_\-blocks@{split\-\_\-blocks}}
+\index{split\-\_\-blocks@{split\-\_\-blocks}!splitter.c@{splitter.\-c}}
+\subsubsection[{split\-\_\-blocks}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf split\-\_\-blocks} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{{\bf t\-\_\-inputrec} $\ast$}]{ir, }
+\item[{int}]{nnodes, }
+\item[{{\bf t\-\_\-block} $\ast$}]{cgs, }
+\item[{{\bf t\-\_\-blocka} $\ast$}]{sblock, }
+\item[{real}]{capacity\mbox{[}$\,$\mbox{]}, }
+\item[{int $\ast$}]{multinr\-\_\-cgs}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{splitter_8c_a557636fa7f7ee4db133ce705e1c6ed41}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{splitter_8c_a557636fa7f7ee4db133ce705e1c6ed41_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{splitter_8c_a557636fa7f7ee4db133ce705e1c6ed41_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{splitter_8c_a0d8c7a8b6d18f45bd116ecbfd5e0c541}{\index{splitter.\-c@{splitter.\-c}!split\-\_\-force2@{split\-\_\-force2}}
+\index{split\-\_\-force2@{split\-\_\-force2}!splitter.c@{splitter.\-c}}
+\subsubsection[{split\-\_\-force2}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf split\-\_\-force2} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-inputrec} $\ast$}]{ir, }
+\item[{int}]{nnodes, }
+\item[{int}]{hid\mbox{[}$\,$\mbox{]}, }
+\item[{int}]{ftype, }
+\item[{{\bf t\-\_\-ilist} $\ast$}]{ilist, }
+\item[{int $\ast$}]{multinr, }
+\item[{int $\ast$}]{constr\-\_\-min\-\_\-nodeid, }
+\item[{int $\ast$}]{constr\-\_\-max\-\_\-nodeid, }
+\item[{int $\ast$}]{left\-\_\-range, }
+\item[{int $\ast$}]{right\-\_\-range}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{splitter_8c_a0d8c7a8b6d18f45bd116ecbfd5e0c541}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=250pt]{splitter_8c_a0d8c7a8b6d18f45bd116ecbfd5e0c541_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{splitter_8c_a0d8c7a8b6d18f45bd116ecbfd5e0c541_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{splitter_8c_a27f2ddd0beb9e3e594671bd656eb76a1}{\index{splitter.\-c@{splitter.\-c}!split\-\_\-top@{split\-\_\-top}}
+\index{split\-\_\-top@{split\-\_\-top}!splitter.c@{splitter.\-c}}
+\subsubsection[{split\-\_\-top}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf split\-\_\-top} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{int}]{nnodes, }
+\item[{{\bf gmx\-\_\-localtop\-\_\-t} $\ast$}]{top, }
+\item[{{\bf t\-\_\-inputrec} $\ast$}]{ir, }
+\item[{{\bf t\-\_\-block} $\ast$}]{mols, }
+\item[{real $\ast$}]{capacity, }
+\item[{int $\ast$}]{multinr\-\_\-cgs, }
+\item[{int $\ast$$\ast$}]{multinr\-\_\-nre, }
+\item[{int $\ast$}]{left\-\_\-range, }
+\item[{int $\ast$}]{right\-\_\-range}
+\end{DoxyParamCaption}
+)}}\label{splitter_8c_a27f2ddd0beb9e3e594671bd656eb76a1}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{splitter_8c_a27f2ddd0beb9e3e594671bd656eb76a1_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{splitter_8c_a27f2ddd0beb9e3e594671bd656eb76a1_icgraph}
+\end{center}
+\end{figure}
+
+

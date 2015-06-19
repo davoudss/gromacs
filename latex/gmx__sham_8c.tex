@@ -1,0 +1,528 @@
+\hypertarget{gmx__sham_8c}{\section{src/tools/gmx\-\_\-sham.c \-File \-Reference}
+\label{gmx__sham_8c}\index{src/tools/gmx\-\_\-sham.\-c@{src/tools/gmx\-\_\-sham.\-c}}
+}
+{\ttfamily \#include $<$math.\-h$>$}\*
+{\ttfamily \#include $<$string.\-h$>$}\*
+{\ttfamily \#include \char`\"{}statutil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}sysstuff.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}typedefs.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}smalloc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}macros.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-fatal.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}vec.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}copyrite.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}futil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}readinp.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}txtdump.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gstat.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}xvgr.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}physics.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}pdbio.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}matio.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-ana.\-h\char`\"{}}\*
+\-Include dependency graph for gmx\-\_\-sham.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__sham_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structXplorMap}{\-Xplor\-Map}
+\item 
+struct \hyperlink{structt__minimum}{t\-\_\-minimum}
+\end{DoxyCompactItemize}
+\subsection*{\-Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{gmx__sham_8c_ab70d4725699c0935e4847676027e7820}{\-N\-P\-A}~\hyperlink{share_2template_2gromacs_2macros_8h_a0883345a58f8f63aefa249a4f127f707}{asize}(pa)
+\item 
+\#define \hyperlink{gmx__sham_8c_a8485f4e81de2537e6a0935626167a775}{\-N\-F\-I\-L\-E}~\hyperlink{share_2template_2gromacs_2macros_8h_a0883345a58f8f63aefa249a4f127f707}{asize}(fnm)
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+static int \hyperlink{gmx__sham_8c_afb41df95ee3e56ccb171522e6c549850}{index2} (int $\ast$ibox, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ad992d70ec70c927046cfc2ab1c79b188}{y})
+\item 
+static int \hyperlink{gmx__sham_8c_a9db9a39f557d773bdddf64f725c1e309}{index3} (int $\ast$ibox, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ad992d70ec70c927046cfc2ab1c79b188}{y}, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_abf930f675551f29a5e46efa4cb496828}{z})
+\item 
+static gmx\-\_\-large\-\_\-int\-\_\-t \hyperlink{gmx__sham_8c_af0e2d8e02b746eea5a4e71c3fc266a6f}{indexn} (int ndim, const int $\ast$ibox, const int $\ast$nxyz)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__sham_8c_a0f2bfd905f6d18eeceeaa50d6e97a89f}{lo\-\_\-write\-\_\-xplor} (\hyperlink{structXplorMap}{\-Xplor\-Map} $\ast$map, const char $\ast$file)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__sham_8c_a75f8207182fb890f3f66525f2acef370}{write\-\_\-xplor} (const char $\ast$file, real $\ast$data, int $\ast$ibox, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_af16fd32c79836c04de3412ed5676d992}{dmin}\mbox{[}$\,$\mbox{]}, real dmax\mbox{[}$\,$\mbox{]})
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__sham_8c_aad580e1154e7374c46497a4c78a2ebe1}{normalize\-\_\-p\-\_\-e} (int len, double $\ast$\-P, int $\ast$nbin, real $\ast$\-E, real pmin)
+\item 
+static int \hyperlink{gmx__sham_8c_a21619f86e1e9d626b9a604ecac500ac7}{comp\-\_\-minima} (const \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a0880879736d1ab747a972d1942421886}{a}, const \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afb462a5dea72ae7992f073bfd756fb5f}{b})
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__sham_8c_aa1316ecee8754d770492a8a803ed31d1}{print\-\_\-minimum} (\-F\-I\-L\-E $\ast$fp, int num, const \hyperlink{structt__minimum}{t\-\_\-minimum} $\ast$min)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__sham_8c_ab180ac1896d2a5739d9b2e4f613391a3}{add\-\_\-minimum} (\-F\-I\-L\-E $\ast$fp, int num, const \hyperlink{structt__minimum}{t\-\_\-minimum} $\ast$min, \hyperlink{structt__minimum}{t\-\_\-minimum} $\ast$mm)
+\item 
+static \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{gmx__sham_8c_a11e30d68be4b5633ee5393bc5421d26e}{is\-\_\-local\-\_\-minimum\-\_\-from\-\_\-below} (const \hyperlink{structt__minimum}{t\-\_\-minimum} $\ast$this\-\_\-min, int dimension\-\_\-index, int dimension\-\_\-min, int neighbour\-\_\-index, real $\ast$\-W)
+\item 
+static \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{gmx__sham_8c_a86b7a1444f61990e717b20a2078880a0}{is\-\_\-local\-\_\-minimum\-\_\-from\-\_\-above} (const \hyperlink{structt__minimum}{t\-\_\-minimum} $\ast$this\-\_\-min, int dimension\-\_\-index, int dimension\-\_\-max, int neighbour\-\_\-index, real $\ast$\-W)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__sham_8c_a7e04fdf068ae5ca5ce860ed1db8dddb1}{pick\-\_\-minima} (const char $\ast$logfile, int $\ast$ibox, int ndim, int len, real \-W\mbox{[}$\,$\mbox{]})
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__sham_8c_ab58fa77277d6b75ff2024b074055573a}{do\-\_\-sham} (const char $\ast$fn, const char $\ast$ndx, const char $\ast$xpm\-P, const char $\ast$xpm, const char $\ast$xpm2, const char $\ast$xpm3, const char $\ast$xpm4, const char $\ast$pdb, const char $\ast$logf, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, int neig, real $\ast$$\ast$eig, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-G\-E, int nener\-T, real $\ast$$\ast$ener\-T, int nmap, real $\ast$mapindex, real $\ast$$\ast$map, real \-Tref, real pmax, real gmax, real $\ast$emin, real $\ast$emax, int nlevels, real pmin, const char $\ast$mname, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Sham, int $\ast$idim, int $\ast$ibox, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Xmin, real $\ast$xmin, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Xmax, real $\ast$xmax)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__sham_8c_a20434abe6132b326b8df16151fb3b55f}{ehisto} (const char $\ast$fh, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, real $\ast$$\ast$ener\-T, const \hyperlink{include_2types_2oenv_8h_a6a48d77d95132d7318780544821da6a5}{output\-\_\-env\-\_\-t} oenv)
+\item 
+int \hyperlink{gmx__sham_8c_a098c7e9c8207742402e423caab56fba0}{gmx\-\_\-sham} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Define \-Documentation}
+\hypertarget{gmx__sham_8c_a8485f4e81de2537e6a0935626167a775}{\index{gmx\-\_\-sham.\-c@{gmx\-\_\-sham.\-c}!\-N\-F\-I\-L\-E@{\-N\-F\-I\-L\-E}}
+\index{\-N\-F\-I\-L\-E@{\-N\-F\-I\-L\-E}!gmx_sham.c@{gmx\-\_\-sham.\-c}}
+\subsubsection[{\-N\-F\-I\-L\-E}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-N\-F\-I\-L\-E}~{\bf asize}(fnm)}}\label{gmx__sham_8c_a8485f4e81de2537e6a0935626167a775}
+\hypertarget{gmx__sham_8c_ab70d4725699c0935e4847676027e7820}{\index{gmx\-\_\-sham.\-c@{gmx\-\_\-sham.\-c}!\-N\-P\-A@{\-N\-P\-A}}
+\index{\-N\-P\-A@{\-N\-P\-A}!gmx_sham.c@{gmx\-\_\-sham.\-c}}
+\subsubsection[{\-N\-P\-A}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-N\-P\-A}~{\bf asize}(pa)}}\label{gmx__sham_8c_ab70d4725699c0935e4847676027e7820}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{gmx__sham_8c_ab180ac1896d2a5739d9b2e4f613391a3}{\index{gmx\-\_\-sham.\-c@{gmx\-\_\-sham.\-c}!add\-\_\-minimum@{add\-\_\-minimum}}
+\index{add\-\_\-minimum@{add\-\_\-minimum}!gmx_sham.c@{gmx\-\_\-sham.\-c}}
+\subsubsection[{add\-\_\-minimum}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf add\-\_\-minimum} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{int}]{num, }
+\item[{const {\bf t\-\_\-minimum} $\ast$}]{min, }
+\item[{{\bf t\-\_\-minimum} $\ast$}]{mm}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, static\mbox{]}}}}\label{gmx__sham_8c_ab180ac1896d2a5739d9b2e4f613391a3}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=274pt]{gmx__sham_8c_ab180ac1896d2a5739d9b2e4f613391a3_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__sham_8c_ab180ac1896d2a5739d9b2e4f613391a3_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__sham_8c_a21619f86e1e9d626b9a604ecac500ac7}{\index{gmx\-\_\-sham.\-c@{gmx\-\_\-sham.\-c}!comp\-\_\-minima@{comp\-\_\-minima}}
+\index{comp\-\_\-minima@{comp\-\_\-minima}!gmx_sham.c@{gmx\-\_\-sham.\-c}}
+\subsubsection[{comp\-\_\-minima}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf comp\-\_\-minima} (
+\begin{DoxyParamCaption}
+\item[{const {\bf void} $\ast$}]{a, }
+\item[{const {\bf void} $\ast$}]{b}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__sham_8c_a21619f86e1e9d626b9a604ecac500ac7}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__sham_8c_a21619f86e1e9d626b9a604ecac500ac7_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__sham_8c_ab58fa77277d6b75ff2024b074055573a}{\index{gmx\-\_\-sham.\-c@{gmx\-\_\-sham.\-c}!do\-\_\-sham@{do\-\_\-sham}}
+\index{do\-\_\-sham@{do\-\_\-sham}!gmx_sham.c@{gmx\-\_\-sham.\-c}}
+\subsubsection[{do\-\_\-sham}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf do\-\_\-sham} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{fn, }
+\item[{const char $\ast$}]{ndx, }
+\item[{const char $\ast$}]{xpm\-P, }
+\item[{const char $\ast$}]{xpm, }
+\item[{const char $\ast$}]{xpm2, }
+\item[{const char $\ast$}]{xpm3, }
+\item[{const char $\ast$}]{xpm4, }
+\item[{const char $\ast$}]{pdb, }
+\item[{const char $\ast$}]{logf, }
+\item[{int}]{n, }
+\item[{int}]{neig, }
+\item[{real $\ast$$\ast$}]{eig, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-G\-E, }
+\item[{int}]{nener\-T, }
+\item[{real $\ast$$\ast$}]{ener\-T, }
+\item[{int}]{nmap, }
+\item[{real $\ast$}]{mapindex, }
+\item[{real $\ast$$\ast$}]{map, }
+\item[{real}]{\-Tref, }
+\item[{real}]{pmax, }
+\item[{real}]{gmax, }
+\item[{real $\ast$}]{emin, }
+\item[{real $\ast$}]{emax, }
+\item[{int}]{nlevels, }
+\item[{real}]{pmin, }
+\item[{const char $\ast$}]{mname, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Sham, }
+\item[{int $\ast$}]{idim, }
+\item[{int $\ast$}]{ibox, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Xmin, }
+\item[{real $\ast$}]{xmin, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Xmax, }
+\item[{real $\ast$}]{xmax}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__sham_8c_ab58fa77277d6b75ff2024b074055573a}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__sham_8c_ab58fa77277d6b75ff2024b074055573a_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=312pt]{gmx__sham_8c_ab58fa77277d6b75ff2024b074055573a_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__sham_8c_a20434abe6132b326b8df16151fb3b55f}{\index{gmx\-\_\-sham.\-c@{gmx\-\_\-sham.\-c}!ehisto@{ehisto}}
+\index{ehisto@{ehisto}!gmx_sham.c@{gmx\-\_\-sham.\-c}}
+\subsubsection[{ehisto}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf ehisto} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{fh, }
+\item[{int}]{n, }
+\item[{real $\ast$$\ast$}]{ener\-T, }
+\item[{const {\bf output\-\_\-env\-\_\-t}}]{oenv}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__sham_8c_a20434abe6132b326b8df16151fb3b55f}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=216pt]{gmx__sham_8c_a20434abe6132b326b8df16151fb3b55f_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=300pt]{gmx__sham_8c_a20434abe6132b326b8df16151fb3b55f_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__sham_8c_a098c7e9c8207742402e423caab56fba0}{\index{gmx\-\_\-sham.\-c@{gmx\-\_\-sham.\-c}!gmx\-\_\-sham@{gmx\-\_\-sham}}
+\index{gmx\-\_\-sham@{gmx\-\_\-sham}!gmx_sham.c@{gmx\-\_\-sham.\-c}}
+\subsubsection[{gmx\-\_\-sham}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-sham} (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{gmx__sham_8c_a098c7e9c8207742402e423caab56fba0}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__sham_8c_a098c7e9c8207742402e423caab56fba0_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=220pt]{gmx__sham_8c_a098c7e9c8207742402e423caab56fba0_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__sham_8c_afb41df95ee3e56ccb171522e6c549850}{\index{gmx\-\_\-sham.\-c@{gmx\-\_\-sham.\-c}!index2@{index2}}
+\index{index2@{index2}!gmx_sham.c@{gmx\-\_\-sham.\-c}}
+\subsubsection[{index2}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf index2} (
+\begin{DoxyParamCaption}
+\item[{int $\ast$}]{ibox, }
+\item[{int}]{x, }
+\item[{int}]{y}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__sham_8c_afb41df95ee3e56ccb171522e6c549850}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__sham_8c_afb41df95ee3e56ccb171522e6c549850_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__sham_8c_a9db9a39f557d773bdddf64f725c1e309}{\index{gmx\-\_\-sham.\-c@{gmx\-\_\-sham.\-c}!index3@{index3}}
+\index{index3@{index3}!gmx_sham.c@{gmx\-\_\-sham.\-c}}
+\subsubsection[{index3}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf index3} (
+\begin{DoxyParamCaption}
+\item[{int $\ast$}]{ibox, }
+\item[{int}]{x, }
+\item[{int}]{y, }
+\item[{int}]{z}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__sham_8c_a9db9a39f557d773bdddf64f725c1e309}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__sham_8c_a9db9a39f557d773bdddf64f725c1e309_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__sham_8c_af0e2d8e02b746eea5a4e71c3fc266a6f}{\index{gmx\-\_\-sham.\-c@{gmx\-\_\-sham.\-c}!indexn@{indexn}}
+\index{indexn@{indexn}!gmx_sham.c@{gmx\-\_\-sham.\-c}}
+\subsubsection[{indexn}]{\setlength{\rightskip}{0pt plus 5cm}static gmx\-\_\-large\-\_\-int\-\_\-t {\bf indexn} (
+\begin{DoxyParamCaption}
+\item[{int}]{ndim, }
+\item[{const int $\ast$}]{ibox, }
+\item[{const int $\ast$}]{nxyz}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__sham_8c_af0e2d8e02b746eea5a4e71c3fc266a6f}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__sham_8c_af0e2d8e02b746eea5a4e71c3fc266a6f_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__sham_8c_a86b7a1444f61990e717b20a2078880a0}{\index{gmx\-\_\-sham.\-c@{gmx\-\_\-sham.\-c}!is\-\_\-local\-\_\-minimum\-\_\-from\-\_\-above@{is\-\_\-local\-\_\-minimum\-\_\-from\-\_\-above}}
+\index{is\-\_\-local\-\_\-minimum\-\_\-from\-\_\-above@{is\-\_\-local\-\_\-minimum\-\_\-from\-\_\-above}!gmx_sham.c@{gmx\-\_\-sham.\-c}}
+\subsubsection[{is\-\_\-local\-\_\-minimum\-\_\-from\-\_\-above}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gmx\-\_\-bool} {\bf is\-\_\-local\-\_\-minimum\-\_\-from\-\_\-above} (
+\begin{DoxyParamCaption}
+\item[{const {\bf t\-\_\-minimum} $\ast$}]{this\-\_\-min, }
+\item[{int}]{dimension\-\_\-index, }
+\item[{int}]{dimension\-\_\-max, }
+\item[{int}]{neighbour\-\_\-index, }
+\item[{real $\ast$}]{\-W}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, static\mbox{]}}}}\label{gmx__sham_8c_a86b7a1444f61990e717b20a2078880a0}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__sham_8c_a86b7a1444f61990e717b20a2078880a0_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__sham_8c_a11e30d68be4b5633ee5393bc5421d26e}{\index{gmx\-\_\-sham.\-c@{gmx\-\_\-sham.\-c}!is\-\_\-local\-\_\-minimum\-\_\-from\-\_\-below@{is\-\_\-local\-\_\-minimum\-\_\-from\-\_\-below}}
+\index{is\-\_\-local\-\_\-minimum\-\_\-from\-\_\-below@{is\-\_\-local\-\_\-minimum\-\_\-from\-\_\-below}!gmx_sham.c@{gmx\-\_\-sham.\-c}}
+\subsubsection[{is\-\_\-local\-\_\-minimum\-\_\-from\-\_\-below}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gmx\-\_\-bool} {\bf is\-\_\-local\-\_\-minimum\-\_\-from\-\_\-below} (
+\begin{DoxyParamCaption}
+\item[{const {\bf t\-\_\-minimum} $\ast$}]{this\-\_\-min, }
+\item[{int}]{dimension\-\_\-index, }
+\item[{int}]{dimension\-\_\-min, }
+\item[{int}]{neighbour\-\_\-index, }
+\item[{real $\ast$}]{\-W}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, static\mbox{]}}}}\label{gmx__sham_8c_a11e30d68be4b5633ee5393bc5421d26e}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__sham_8c_a11e30d68be4b5633ee5393bc5421d26e_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__sham_8c_a0f2bfd905f6d18eeceeaa50d6e97a89f}{\index{gmx\-\_\-sham.\-c@{gmx\-\_\-sham.\-c}!lo\-\_\-write\-\_\-xplor@{lo\-\_\-write\-\_\-xplor}}
+\index{lo\-\_\-write\-\_\-xplor@{lo\-\_\-write\-\_\-xplor}!gmx_sham.c@{gmx\-\_\-sham.\-c}}
+\subsubsection[{lo\-\_\-write\-\_\-xplor}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf lo\-\_\-write\-\_\-xplor} (
+\begin{DoxyParamCaption}
+\item[{{\bf \-Xplor\-Map} $\ast$}]{map, }
+\item[{const char $\ast$}]{file}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__sham_8c_a0f2bfd905f6d18eeceeaa50d6e97a89f}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=240pt]{gmx__sham_8c_a0f2bfd905f6d18eeceeaa50d6e97a89f_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__sham_8c_a0f2bfd905f6d18eeceeaa50d6e97a89f_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__sham_8c_aad580e1154e7374c46497a4c78a2ebe1}{\index{gmx\-\_\-sham.\-c@{gmx\-\_\-sham.\-c}!normalize\-\_\-p\-\_\-e@{normalize\-\_\-p\-\_\-e}}
+\index{normalize\-\_\-p\-\_\-e@{normalize\-\_\-p\-\_\-e}!gmx_sham.c@{gmx\-\_\-sham.\-c}}
+\subsubsection[{normalize\-\_\-p\-\_\-e}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf normalize\-\_\-p\-\_\-e} (
+\begin{DoxyParamCaption}
+\item[{int}]{len, }
+\item[{double $\ast$}]{\-P, }
+\item[{int $\ast$}]{nbin, }
+\item[{real $\ast$}]{\-E, }
+\item[{real}]{pmin}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__sham_8c_aad580e1154e7374c46497a4c78a2ebe1}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__sham_8c_aad580e1154e7374c46497a4c78a2ebe1_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__sham_8c_a7e04fdf068ae5ca5ce860ed1db8dddb1}{\index{gmx\-\_\-sham.\-c@{gmx\-\_\-sham.\-c}!pick\-\_\-minima@{pick\-\_\-minima}}
+\index{pick\-\_\-minima@{pick\-\_\-minima}!gmx_sham.c@{gmx\-\_\-sham.\-c}}
+\subsubsection[{pick\-\_\-minima}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf pick\-\_\-minima} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{logfile, }
+\item[{int $\ast$}]{ibox, }
+\item[{int}]{ndim, }
+\item[{int}]{len, }
+\item[{real}]{\-W\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__sham_8c_a7e04fdf068ae5ca5ce860ed1db8dddb1}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__sham_8c_a7e04fdf068ae5ca5ce860ed1db8dddb1_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__sham_8c_a7e04fdf068ae5ca5ce860ed1db8dddb1_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__sham_8c_aa1316ecee8754d770492a8a803ed31d1}{\index{gmx\-\_\-sham.\-c@{gmx\-\_\-sham.\-c}!print\-\_\-minimum@{print\-\_\-minimum}}
+\index{print\-\_\-minimum@{print\-\_\-minimum}!gmx_sham.c@{gmx\-\_\-sham.\-c}}
+\subsubsection[{print\-\_\-minimum}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf print\-\_\-minimum} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{int}]{num, }
+\item[{const {\bf t\-\_\-minimum} $\ast$}]{min}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, static\mbox{]}}}}\label{gmx__sham_8c_aa1316ecee8754d770492a8a803ed31d1}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__sham_8c_aa1316ecee8754d770492a8a803ed31d1_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__sham_8c_a75f8207182fb890f3f66525f2acef370}{\index{gmx\-\_\-sham.\-c@{gmx\-\_\-sham.\-c}!write\-\_\-xplor@{write\-\_\-xplor}}
+\index{write\-\_\-xplor@{write\-\_\-xplor}!gmx_sham.c@{gmx\-\_\-sham.\-c}}
+\subsubsection[{write\-\_\-xplor}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf write\-\_\-xplor} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{file, }
+\item[{real $\ast$}]{data, }
+\item[{int $\ast$}]{ibox, }
+\item[{real}]{dmin\mbox{[}$\,$\mbox{]}, }
+\item[{real}]{dmax\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__sham_8c_a75f8207182fb890f3f66525f2acef370}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=340pt]{gmx__sham_8c_a75f8207182fb890f3f66525f2acef370_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__sham_8c_a75f8207182fb890f3f66525f2acef370_icgraph}
+\end{center}
+\end{figure}
+
+

@@ -1,0 +1,299 @@
+\hypertarget{classmemtestState}{\section{memtest\-State \-Class \-Reference}
+\label{classmemtestState}\index{memtest\-State@{memtest\-State}}
+}
+
+
+{\ttfamily \#include $<$memtest\-G80\-\_\-core.\-h$>$}
+
+\subsection*{\-Public \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classmemtestState_ac687b7e91f0e2cbb3adc8d095100e743}{memtest\-State} ()
+\item 
+\hyperlink{classmemtestState_a8c9ba4225f7a3f177b42c712b9fd57e3}{$\sim$memtest\-State} ()
+\item 
+\hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} \hyperlink{classmemtestState_a3ba3156d9b0bed2c4e0ebf36def92277}{allocate} (\hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} mb\-To\-Test)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{classmemtestState_ad1d72e33e9d26a64213207c8eba8e77f}{deallocate} ()
+\item 
+bool \hyperlink{classmemtestState_a65a2471234d27ed32a4f7078f419444d}{is\-Allocated} () const 
+\item 
+\hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} \hyperlink{classmemtestState_a2723a0266149638900fd1574f7f288b1}{size} () const 
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{classmemtestState_ae466edce59c53993e07707bd9d425b5f}{set\-L\-C\-G\-Period} (int period)
+\item 
+int \hyperlink{classmemtestState_a75ca6fb2c23342e1586e62cd4b31379f}{get\-L\-C\-G\-Period} () const 
+\item 
+bool \hyperlink{classmemtestState_ad2d4cd1e4ec6acc97e7a6325e0636015}{gpu\-Memory\-Bandwidth} (double \&bandwidth, \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} mb\-To\-Test, \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} iters=5)
+\item 
+bool \hyperlink{classmemtestState_a97f452e84760b44060d46bbc37c6f928}{gpu\-Write\-Constant} (const \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} constant) const 
+\item 
+bool \hyperlink{classmemtestState_a42398255d68ed1c278fae6908d375f56}{gpu\-Verify\-Constant} (\hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} \&error\-Count, const \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} constant) const 
+\item 
+bool \hyperlink{classmemtestState_ac57927011fb55dd40c3df0725b726876}{gpu\-Short\-L\-C\-G0} (\hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} \&error\-Count, const \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} repeats) const 
+\item 
+bool \hyperlink{classmemtestState_a96d2cd054a6eb5eae38f8c30066275f0}{gpu\-Short\-L\-C\-G0\-Shmem} (\hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} \&error\-Count, const \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} repeats) const 
+\item 
+bool \hyperlink{classmemtestState_a0c2526f59e6cc19b0054982f6b979157}{gpu\-Moving\-Inversions\-Ones\-Zeros} (\hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} \&error\-Count) const 
+\item 
+bool \hyperlink{classmemtestState_a6a5b2323cec410859a5c0213e5bbc8fe}{gpu\-Walking8\-Bit\-M86} (\hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} \&error\-Count, const \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} shift) const 
+\item 
+bool \hyperlink{classmemtestState_a7f2b0186f6163a45a28bd01595f91c11}{gpu\-Walking8\-Bit} (\hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} \&error\-Count, const bool ones, const \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} shift) const 
+\item 
+bool \hyperlink{classmemtestState_a399b2dab70b2194f2ab678924e8ca8e1}{gpu\-Moving\-Inversions\-Random} (\hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} \&error\-Count) const 
+\item 
+bool \hyperlink{classmemtestState_a2a677a71239f67e502cc98b5f445a6dd}{gpu\-Walking32\-Bit} (\hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} \&error\-Count, const bool ones, const \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} shift) const 
+\item 
+bool \hyperlink{classmemtestState_ad3209dd17f4603e9db5b5a22fc015bfb}{gpu\-Random\-Blocks} (\hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} \&error\-Count, const \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} seed) const 
+\item 
+bool \hyperlink{classmemtestState_aee1981ddbaf7d1f2e5529f52282373cd}{gpu\-Modulo\-X} (\hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} \&error\-Count, const \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} shift, const \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} pattern, const \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} modulus, const \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} overwrite\-Iters) const 
+\end{DoxyCompactItemize}
+\subsection*{\-Public \-Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} \hyperlink{classmemtestState_abc96427b4619546e5458ac5294cc8f2f}{init\-Time}
+\end{DoxyCompactItemize}
+\subsection*{\-Protected \-Attributes}
+\begin{DoxyCompactItemize}
+\item 
+const \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} \hyperlink{classmemtestState_a665bc9994284e440c64f92b9663f0be2}{n\-Blocks}
+\item 
+const \hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} \hyperlink{classmemtestState_a15859b1ffa8a2b2b8008cf9570987c37}{n\-Threads}
+\item 
+\hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} \hyperlink{classmemtestState_a8388ecc3506a28f1efe3ef7cd6062e37}{loop\-Iters}
+\item 
+\hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} \hyperlink{classmemtestState_a4fe7ab54b5238cb94e4e0b7277c4a8fb}{megs\-To\-Test}
+\item 
+int \hyperlink{classmemtestState_a0ff5f92181de32afc19df406ff7d3cdb}{lcg\-Period}
+\item 
+\hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} $\ast$ \hyperlink{classmemtestState_a781ea31469b78772ff8abc4db44b6cbc}{dev\-Test\-Mem}
+\item 
+\hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} $\ast$ \hyperlink{classmemtestState_abea6c99f29b5b87ad9fa98362e0140bf}{dev\-Temp\-Mem}
+\item 
+\hyperlink{memtestG80__core_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} $\ast$ \hyperlink{classmemtestState_a48818d36677ce3b7b8a3d32c78a22691}{host\-Temp\-Mem}
+\item 
+bool \hyperlink{classmemtestState_aa9769c68e173642ff830c7e2e02333b0}{allocated}
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Constructor \& \-Destructor \-Documentation}
+\hypertarget{classmemtestState_ac687b7e91f0e2cbb3adc8d095100e743}{\index{memtest\-State@{memtest\-State}!memtest\-State@{memtest\-State}}
+\index{memtest\-State@{memtest\-State}!memtestState@{memtest\-State}}
+\subsubsection[{memtest\-State}]{\setlength{\rightskip}{0pt plus 5cm}{\bf memtest\-State\-::memtest\-State} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classmemtestState_ac687b7e91f0e2cbb3adc8d095100e743}
+\hypertarget{classmemtestState_a8c9ba4225f7a3f177b42c712b9fd57e3}{\index{memtest\-State@{memtest\-State}!$\sim$memtest\-State@{$\sim$memtest\-State}}
+\index{$\sim$memtest\-State@{$\sim$memtest\-State}!memtestState@{memtest\-State}}
+\subsubsection[{$\sim$memtest\-State}]{\setlength{\rightskip}{0pt plus 5cm}{\bf memtest\-State\-::$\sim$memtest\-State} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classmemtestState_a8c9ba4225f7a3f177b42c712b9fd57e3}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classmemtestState_a8c9ba4225f7a3f177b42c712b9fd57e3_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{\-Member \-Function \-Documentation}
+\hypertarget{classmemtestState_a3ba3156d9b0bed2c4e0ebf36def92277}{\index{memtest\-State@{memtest\-State}!allocate@{allocate}}
+\index{allocate@{allocate}!memtestState@{memtest\-State}}
+\subsubsection[{allocate}]{\setlength{\rightskip}{0pt plus 5cm}{\bf uint} {\bf memtest\-State\-::allocate} (
+\begin{DoxyParamCaption}
+\item[{{\bf uint}}]{mb\-To\-Test}
+\end{DoxyParamCaption}
+)}}\label{classmemtestState_a3ba3156d9b0bed2c4e0ebf36def92277}
+\hypertarget{classmemtestState_ad1d72e33e9d26a64213207c8eba8e77f}{\index{memtest\-State@{memtest\-State}!deallocate@{deallocate}}
+\index{deallocate@{deallocate}!memtestState@{memtest\-State}}
+\subsubsection[{deallocate}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf memtest\-State\-::deallocate} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classmemtestState_ad1d72e33e9d26a64213207c8eba8e77f}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classmemtestState_ad1d72e33e9d26a64213207c8eba8e77f_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{classmemtestState_a75ca6fb2c23342e1586e62cd4b31379f}{\index{memtest\-State@{memtest\-State}!get\-L\-C\-G\-Period@{get\-L\-C\-G\-Period}}
+\index{get\-L\-C\-G\-Period@{get\-L\-C\-G\-Period}!memtestState@{memtest\-State}}
+\subsubsection[{get\-L\-C\-G\-Period}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf memtest\-State\-::get\-L\-C\-G\-Period} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classmemtestState_a75ca6fb2c23342e1586e62cd4b31379f}
+\hypertarget{classmemtestState_ad2d4cd1e4ec6acc97e7a6325e0636015}{\index{memtest\-State@{memtest\-State}!gpu\-Memory\-Bandwidth@{gpu\-Memory\-Bandwidth}}
+\index{gpu\-Memory\-Bandwidth@{gpu\-Memory\-Bandwidth}!memtestState@{memtest\-State}}
+\subsubsection[{gpu\-Memory\-Bandwidth}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf memtest\-State\-::gpu\-Memory\-Bandwidth} (
+\begin{DoxyParamCaption}
+\item[{double \&}]{bandwidth, }
+\item[{{\bf uint}}]{mb\-To\-Test, }
+\item[{{\bf uint}}]{iters = {\ttfamily 5}}
+\end{DoxyParamCaption}
+)}}\label{classmemtestState_ad2d4cd1e4ec6acc97e7a6325e0636015}
+\hypertarget{classmemtestState_aee1981ddbaf7d1f2e5529f52282373cd}{\index{memtest\-State@{memtest\-State}!gpu\-Modulo\-X@{gpu\-Modulo\-X}}
+\index{gpu\-Modulo\-X@{gpu\-Modulo\-X}!memtestState@{memtest\-State}}
+\subsubsection[{gpu\-Modulo\-X}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf memtest\-State\-::gpu\-Modulo\-X} (
+\begin{DoxyParamCaption}
+\item[{{\bf uint} \&}]{error\-Count, }
+\item[{const {\bf uint}}]{shift, }
+\item[{const {\bf uint}}]{pattern, }
+\item[{const {\bf uint}}]{modulus, }
+\item[{const {\bf uint}}]{overwrite\-Iters}
+\end{DoxyParamCaption}
+) const}}\label{classmemtestState_aee1981ddbaf7d1f2e5529f52282373cd}
+\hypertarget{classmemtestState_a0c2526f59e6cc19b0054982f6b979157}{\index{memtest\-State@{memtest\-State}!gpu\-Moving\-Inversions\-Ones\-Zeros@{gpu\-Moving\-Inversions\-Ones\-Zeros}}
+\index{gpu\-Moving\-Inversions\-Ones\-Zeros@{gpu\-Moving\-Inversions\-Ones\-Zeros}!memtestState@{memtest\-State}}
+\subsubsection[{gpu\-Moving\-Inversions\-Ones\-Zeros}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf memtest\-State\-::gpu\-Moving\-Inversions\-Ones\-Zeros} (
+\begin{DoxyParamCaption}
+\item[{{\bf uint} \&}]{error\-Count}
+\end{DoxyParamCaption}
+) const}}\label{classmemtestState_a0c2526f59e6cc19b0054982f6b979157}
+\hypertarget{classmemtestState_a399b2dab70b2194f2ab678924e8ca8e1}{\index{memtest\-State@{memtest\-State}!gpu\-Moving\-Inversions\-Random@{gpu\-Moving\-Inversions\-Random}}
+\index{gpu\-Moving\-Inversions\-Random@{gpu\-Moving\-Inversions\-Random}!memtestState@{memtest\-State}}
+\subsubsection[{gpu\-Moving\-Inversions\-Random}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf memtest\-State\-::gpu\-Moving\-Inversions\-Random} (
+\begin{DoxyParamCaption}
+\item[{{\bf uint} \&}]{error\-Count}
+\end{DoxyParamCaption}
+) const}}\label{classmemtestState_a399b2dab70b2194f2ab678924e8ca8e1}
+\hypertarget{classmemtestState_ad3209dd17f4603e9db5b5a22fc015bfb}{\index{memtest\-State@{memtest\-State}!gpu\-Random\-Blocks@{gpu\-Random\-Blocks}}
+\index{gpu\-Random\-Blocks@{gpu\-Random\-Blocks}!memtestState@{memtest\-State}}
+\subsubsection[{gpu\-Random\-Blocks}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf memtest\-State\-::gpu\-Random\-Blocks} (
+\begin{DoxyParamCaption}
+\item[{{\bf uint} \&}]{error\-Count, }
+\item[{const {\bf uint}}]{seed}
+\end{DoxyParamCaption}
+) const}}\label{classmemtestState_ad3209dd17f4603e9db5b5a22fc015bfb}
+\hypertarget{classmemtestState_ac57927011fb55dd40c3df0725b726876}{\index{memtest\-State@{memtest\-State}!gpu\-Short\-L\-C\-G0@{gpu\-Short\-L\-C\-G0}}
+\index{gpu\-Short\-L\-C\-G0@{gpu\-Short\-L\-C\-G0}!memtestState@{memtest\-State}}
+\subsubsection[{gpu\-Short\-L\-C\-G0}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf memtest\-State\-::gpu\-Short\-L\-C\-G0} (
+\begin{DoxyParamCaption}
+\item[{{\bf uint} \&}]{error\-Count, }
+\item[{const {\bf uint}}]{repeats}
+\end{DoxyParamCaption}
+) const}}\label{classmemtestState_ac57927011fb55dd40c3df0725b726876}
+\hypertarget{classmemtestState_a96d2cd054a6eb5eae38f8c30066275f0}{\index{memtest\-State@{memtest\-State}!gpu\-Short\-L\-C\-G0\-Shmem@{gpu\-Short\-L\-C\-G0\-Shmem}}
+\index{gpu\-Short\-L\-C\-G0\-Shmem@{gpu\-Short\-L\-C\-G0\-Shmem}!memtestState@{memtest\-State}}
+\subsubsection[{gpu\-Short\-L\-C\-G0\-Shmem}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf memtest\-State\-::gpu\-Short\-L\-C\-G0\-Shmem} (
+\begin{DoxyParamCaption}
+\item[{{\bf uint} \&}]{error\-Count, }
+\item[{const {\bf uint}}]{repeats}
+\end{DoxyParamCaption}
+) const}}\label{classmemtestState_a96d2cd054a6eb5eae38f8c30066275f0}
+\hypertarget{classmemtestState_a42398255d68ed1c278fae6908d375f56}{\index{memtest\-State@{memtest\-State}!gpu\-Verify\-Constant@{gpu\-Verify\-Constant}}
+\index{gpu\-Verify\-Constant@{gpu\-Verify\-Constant}!memtestState@{memtest\-State}}
+\subsubsection[{gpu\-Verify\-Constant}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf memtest\-State\-::gpu\-Verify\-Constant} (
+\begin{DoxyParamCaption}
+\item[{{\bf uint} \&}]{error\-Count, }
+\item[{const {\bf uint}}]{constant}
+\end{DoxyParamCaption}
+) const}}\label{classmemtestState_a42398255d68ed1c278fae6908d375f56}
+\hypertarget{classmemtestState_a2a677a71239f67e502cc98b5f445a6dd}{\index{memtest\-State@{memtest\-State}!gpu\-Walking32\-Bit@{gpu\-Walking32\-Bit}}
+\index{gpu\-Walking32\-Bit@{gpu\-Walking32\-Bit}!memtestState@{memtest\-State}}
+\subsubsection[{gpu\-Walking32\-Bit}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf memtest\-State\-::gpu\-Walking32\-Bit} (
+\begin{DoxyParamCaption}
+\item[{{\bf uint} \&}]{error\-Count, }
+\item[{const bool}]{ones, }
+\item[{const {\bf uint}}]{shift}
+\end{DoxyParamCaption}
+) const}}\label{classmemtestState_a2a677a71239f67e502cc98b5f445a6dd}
+\hypertarget{classmemtestState_a7f2b0186f6163a45a28bd01595f91c11}{\index{memtest\-State@{memtest\-State}!gpu\-Walking8\-Bit@{gpu\-Walking8\-Bit}}
+\index{gpu\-Walking8\-Bit@{gpu\-Walking8\-Bit}!memtestState@{memtest\-State}}
+\subsubsection[{gpu\-Walking8\-Bit}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf memtest\-State\-::gpu\-Walking8\-Bit} (
+\begin{DoxyParamCaption}
+\item[{{\bf uint} \&}]{error\-Count, }
+\item[{const bool}]{ones, }
+\item[{const {\bf uint}}]{shift}
+\end{DoxyParamCaption}
+) const}}\label{classmemtestState_a7f2b0186f6163a45a28bd01595f91c11}
+\hypertarget{classmemtestState_a6a5b2323cec410859a5c0213e5bbc8fe}{\index{memtest\-State@{memtest\-State}!gpu\-Walking8\-Bit\-M86@{gpu\-Walking8\-Bit\-M86}}
+\index{gpu\-Walking8\-Bit\-M86@{gpu\-Walking8\-Bit\-M86}!memtestState@{memtest\-State}}
+\subsubsection[{gpu\-Walking8\-Bit\-M86}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf memtest\-State\-::gpu\-Walking8\-Bit\-M86} (
+\begin{DoxyParamCaption}
+\item[{{\bf uint} \&}]{error\-Count, }
+\item[{const {\bf uint}}]{shift}
+\end{DoxyParamCaption}
+) const}}\label{classmemtestState_a6a5b2323cec410859a5c0213e5bbc8fe}
+\hypertarget{classmemtestState_a97f452e84760b44060d46bbc37c6f928}{\index{memtest\-State@{memtest\-State}!gpu\-Write\-Constant@{gpu\-Write\-Constant}}
+\index{gpu\-Write\-Constant@{gpu\-Write\-Constant}!memtestState@{memtest\-State}}
+\subsubsection[{gpu\-Write\-Constant}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf memtest\-State\-::gpu\-Write\-Constant} (
+\begin{DoxyParamCaption}
+\item[{const {\bf uint}}]{constant}
+\end{DoxyParamCaption}
+) const}}\label{classmemtestState_a97f452e84760b44060d46bbc37c6f928}
+\hypertarget{classmemtestState_a65a2471234d27ed32a4f7078f419444d}{\index{memtest\-State@{memtest\-State}!is\-Allocated@{is\-Allocated}}
+\index{is\-Allocated@{is\-Allocated}!memtestState@{memtest\-State}}
+\subsubsection[{is\-Allocated}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf memtest\-State\-::is\-Allocated} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classmemtestState_a65a2471234d27ed32a4f7078f419444d}
+\hypertarget{classmemtestState_ae466edce59c53993e07707bd9d425b5f}{\index{memtest\-State@{memtest\-State}!set\-L\-C\-G\-Period@{set\-L\-C\-G\-Period}}
+\index{set\-L\-C\-G\-Period@{set\-L\-C\-G\-Period}!memtestState@{memtest\-State}}
+\subsubsection[{set\-L\-C\-G\-Period}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf memtest\-State\-::set\-L\-C\-G\-Period} (
+\begin{DoxyParamCaption}
+\item[{int}]{period}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classmemtestState_ae466edce59c53993e07707bd9d425b5f}
+\hypertarget{classmemtestState_a2723a0266149638900fd1574f7f288b1}{\index{memtest\-State@{memtest\-State}!size@{size}}
+\index{size@{size}!memtestState@{memtest\-State}}
+\subsubsection[{size}]{\setlength{\rightskip}{0pt plus 5cm}{\bf uint} {\bf memtest\-State\-::size} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{classmemtestState_a2723a0266149638900fd1574f7f288b1}
+
+
+\subsection{\-Member \-Data \-Documentation}
+\hypertarget{classmemtestState_aa9769c68e173642ff830c7e2e02333b0}{\index{memtest\-State@{memtest\-State}!allocated@{allocated}}
+\index{allocated@{allocated}!memtestState@{memtest\-State}}
+\subsubsection[{allocated}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf memtest\-State\-::allocated}\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}\label{classmemtestState_aa9769c68e173642ff830c7e2e02333b0}
+\hypertarget{classmemtestState_abea6c99f29b5b87ad9fa98362e0140bf}{\index{memtest\-State@{memtest\-State}!dev\-Temp\-Mem@{dev\-Temp\-Mem}}
+\index{dev\-Temp\-Mem@{dev\-Temp\-Mem}!memtestState@{memtest\-State}}
+\subsubsection[{dev\-Temp\-Mem}]{\setlength{\rightskip}{0pt plus 5cm}{\bf uint}$\ast$ {\bf memtest\-State\-::dev\-Temp\-Mem}\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}\label{classmemtestState_abea6c99f29b5b87ad9fa98362e0140bf}
+\hypertarget{classmemtestState_a781ea31469b78772ff8abc4db44b6cbc}{\index{memtest\-State@{memtest\-State}!dev\-Test\-Mem@{dev\-Test\-Mem}}
+\index{dev\-Test\-Mem@{dev\-Test\-Mem}!memtestState@{memtest\-State}}
+\subsubsection[{dev\-Test\-Mem}]{\setlength{\rightskip}{0pt plus 5cm}{\bf uint}$\ast$ {\bf memtest\-State\-::dev\-Test\-Mem}\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}\label{classmemtestState_a781ea31469b78772ff8abc4db44b6cbc}
+\hypertarget{classmemtestState_a48818d36677ce3b7b8a3d32c78a22691}{\index{memtest\-State@{memtest\-State}!host\-Temp\-Mem@{host\-Temp\-Mem}}
+\index{host\-Temp\-Mem@{host\-Temp\-Mem}!memtestState@{memtest\-State}}
+\subsubsection[{host\-Temp\-Mem}]{\setlength{\rightskip}{0pt plus 5cm}{\bf uint}$\ast$ {\bf memtest\-State\-::host\-Temp\-Mem}\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}\label{classmemtestState_a48818d36677ce3b7b8a3d32c78a22691}
+\hypertarget{classmemtestState_abc96427b4619546e5458ac5294cc8f2f}{\index{memtest\-State@{memtest\-State}!init\-Time@{init\-Time}}
+\index{init\-Time@{init\-Time}!memtestState@{memtest\-State}}
+\subsubsection[{init\-Time}]{\setlength{\rightskip}{0pt plus 5cm}{\bf uint} {\bf memtest\-State\-::init\-Time}}}\label{classmemtestState_abc96427b4619546e5458ac5294cc8f2f}
+\hypertarget{classmemtestState_a0ff5f92181de32afc19df406ff7d3cdb}{\index{memtest\-State@{memtest\-State}!lcg\-Period@{lcg\-Period}}
+\index{lcg\-Period@{lcg\-Period}!memtestState@{memtest\-State}}
+\subsubsection[{lcg\-Period}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf memtest\-State\-::lcg\-Period}\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}\label{classmemtestState_a0ff5f92181de32afc19df406ff7d3cdb}
+\hypertarget{classmemtestState_a8388ecc3506a28f1efe3ef7cd6062e37}{\index{memtest\-State@{memtest\-State}!loop\-Iters@{loop\-Iters}}
+\index{loop\-Iters@{loop\-Iters}!memtestState@{memtest\-State}}
+\subsubsection[{loop\-Iters}]{\setlength{\rightskip}{0pt plus 5cm}{\bf uint} {\bf memtest\-State\-::loop\-Iters}\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}\label{classmemtestState_a8388ecc3506a28f1efe3ef7cd6062e37}
+\hypertarget{classmemtestState_a4fe7ab54b5238cb94e4e0b7277c4a8fb}{\index{memtest\-State@{memtest\-State}!megs\-To\-Test@{megs\-To\-Test}}
+\index{megs\-To\-Test@{megs\-To\-Test}!memtestState@{memtest\-State}}
+\subsubsection[{megs\-To\-Test}]{\setlength{\rightskip}{0pt plus 5cm}{\bf uint} {\bf memtest\-State\-::megs\-To\-Test}\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}\label{classmemtestState_a4fe7ab54b5238cb94e4e0b7277c4a8fb}
+\hypertarget{classmemtestState_a665bc9994284e440c64f92b9663f0be2}{\index{memtest\-State@{memtest\-State}!n\-Blocks@{n\-Blocks}}
+\index{n\-Blocks@{n\-Blocks}!memtestState@{memtest\-State}}
+\subsubsection[{n\-Blocks}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf uint} {\bf memtest\-State\-::n\-Blocks}\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}\label{classmemtestState_a665bc9994284e440c64f92b9663f0be2}
+\hypertarget{classmemtestState_a15859b1ffa8a2b2b8008cf9570987c37}{\index{memtest\-State@{memtest\-State}!n\-Threads@{n\-Threads}}
+\index{n\-Threads@{n\-Threads}!memtestState@{memtest\-State}}
+\subsubsection[{n\-Threads}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf uint} {\bf memtest\-State\-::n\-Threads}\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}\label{classmemtestState_a15859b1ffa8a2b2b8008cf9570987c37}
+
+
+\-The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+src/gmxlib/gpu\-\_\-utils/\hyperlink{memtestG80__core_8h}{memtest\-G80\-\_\-core.\-h}\end{DoxyCompactItemize}

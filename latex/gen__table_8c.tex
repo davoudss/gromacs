@@ -1,0 +1,794 @@
+\hypertarget{gen__table_8c}{\section{src/contrib/gen\-\_\-table.c \-File \-Reference}
+\label{gen__table_8c}\index{src/contrib/gen\-\_\-table.\-c@{src/contrib/gen\-\_\-table.\-c}}
+}
+{\ttfamily \#include $<$math.\-h$>$}\*
+{\ttfamily \#include $<$string.\-h$>$}\*
+{\ttfamily \#include $<$stdio.\-h$>$}\*
+{\ttfamily \#include \char`\"{}copyrite.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}typedefs.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}macros.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}vec.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}statutil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}coulomb.\-h\char`\"{}}\*
+\-Include dependency graph for gen\-\_\-table.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gen__table_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{gen__table_8c_ab70d4725699c0935e4847676027e7820}{\-N\-P\-A}~\hyperlink{share_2template_2gromacs_2macros_8h_a0883345a58f8f63aefa249a4f127f707}{asize}(pa)
+\item 
+\#define \hyperlink{gen__table_8c_a8485f4e81de2537e6a0935626167a775}{\-N\-F\-I\-L\-E}~\hyperlink{share_2template_2gromacs_2macros_8h_a0883345a58f8f63aefa249a4f127f707}{asize}(fnm)
+\end{DoxyCompactItemize}
+\subsection*{\-Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \{ \*
+\hyperlink{gen__table_8c_aab690a854cdb56b09edd0bc9e13b744da4d61cd5f6db5d75e3399677a7389a93d}{m\-Guillot2001a}, 
+\hyperlink{gen__table_8c_aab690a854cdb56b09edd0bc9e13b744dad31b08ec03b1ec864b1f124d2e3dc3b6}{m\-A\-B1}, 
+\hyperlink{gen__table_8c_aab690a854cdb56b09edd0bc9e13b744da3c16a13fca99d592d686ee977430223a}{m\-Ljc}, 
+\hyperlink{gen__table_8c_aab690a854cdb56b09edd0bc9e13b744dafe0d67e3c40eb166cb2e06bc0c44df4d}{m\-Maaren}, 
+\*
+\hyperlink{gen__table_8c_aab690a854cdb56b09edd0bc9e13b744da9bac92f3d7349000199bf1a9c6a57223}{m\-Guillot\-\_\-\-Maple}, 
+\hyperlink{gen__table_8c_aab690a854cdb56b09edd0bc9e13b744da761762cef9e8beba5429dc41a97c65b4}{m\-Hard\-\_\-\-Wall}, 
+\hyperlink{gen__table_8c_aab690a854cdb56b09edd0bc9e13b744da5be04d35159c3b20d00827664cfae72a}{m\-G\-G}, 
+\hyperlink{gen__table_8c_aab690a854cdb56b09edd0bc9e13b744dad7f17893cc0f82cbd1c9e4e3b1e18d6a}{m\-G\-G\-\_\-qd\-\_\-q}, 
+\*
+\hyperlink{gen__table_8c_aab690a854cdb56b09edd0bc9e13b744daaaa0f81ec72375226196b12b64cf0b27}{m\-G\-G\-\_\-qd\-\_\-qd}, 
+\hyperlink{gen__table_8c_aab690a854cdb56b09edd0bc9e13b744dafb42bc9cc4b96d4c875665a5e8bf48f6}{m\-G\-G\-\_\-q\-\_\-q}, 
+\hyperlink{gen__table_8c_aab690a854cdb56b09edd0bc9e13b744da7241079fb5972886f6c1ed3d66906e3c}{m\-N\-R}
+ \}
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+static double \hyperlink{gen__table_8c_a09123944b67b039d3b9d6b23c19629d2}{erf2} (double \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x})
+\item 
+static double \hyperlink{gen__table_8c_a4546134f7c8610768de74b4033f0c872}{erf1} (double \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x})
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gen__table_8c_ac5f5432e8ce4d2e9cdc0d79d4eb7b792}{do\-\_\-hard} (\-F\-I\-L\-E $\ast$fp, int pts\-\_\-nm, double efac, double \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a929390387fa4bb573c1580fdfc1d761d}{delta})
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gen__table_8c_a2116d6f96921337efcc51b32f53c3274}{do\-\_\-\-A\-B1} (\-F\-I\-L\-E $\ast$fp, int eel, int pts\-\_\-nm, int ndisp, int nrep)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gen__table_8c_afb48c38549a21add626ecde56e434da9}{lo\-\_\-do\-\_\-ljc} (double \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae039a6f39df62bd858e5e3f5ec77b24b}{r}, double $\ast$vc, double $\ast$fc, double $\ast$vd, double $\ast$fd, double $\ast$vr, double $\ast$\hyperlink{addconf_8c_ae8414314f87c5e49503ac0117eb511ad}{fr})
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gen__table_8c_ae695d9e95e9a170cefeceee62410023a}{lo\-\_\-do\-\_\-ljc\-\_\-pme} (double \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae039a6f39df62bd858e5e3f5ec77b24b}{r}, double rcoulomb, double ewald\-\_\-rtol, double $\ast$vc, double $\ast$fc, double $\ast$vd, double $\ast$fd, double $\ast$vr, double $\ast$\hyperlink{addconf_8c_ae8414314f87c5e49503ac0117eb511ad}{fr})
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gen__table_8c_a3bb2aac70fad5ad270f1347eff5ac445}{lo\-\_\-do\-\_\-guillot} (double \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae039a6f39df62bd858e5e3f5ec77b24b}{r}, double xi, double xir, double $\ast$vc, double $\ast$fc, double $\ast$vd, double $\ast$fd, double $\ast$vr, double $\ast$\hyperlink{addconf_8c_ae8414314f87c5e49503ac0117eb511ad}{fr})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gen__table_8c_a79abc3506cce90d5f6c25a1fe1cc174b}{lo\-\_\-do\-\_\-guillot\-\_\-maple} (double \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae039a6f39df62bd858e5e3f5ec77b24b}{r}, double xi, double xir, double $\ast$vc, double $\ast$vc2, double $\ast$vd, double $\ast$vd2, double $\ast$vr, double $\ast$vr2)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gen__table_8c_a4e951aac574f56f41f676aabec47b5c0}{lo\-\_\-do\-\_\-\-G\-G} (double \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae039a6f39df62bd858e5e3f5ec77b24b}{r}, double xi, double xir, double $\ast$vc, double $\ast$fc, double $\ast$vd, double $\ast$fd, double $\ast$vr, double $\ast$\hyperlink{addconf_8c_ae8414314f87c5e49503ac0117eb511ad}{fr})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gen__table_8c_aad731d8230eda9e74cfce8761c3af8af}{lo\-\_\-do\-\_\-\-G\-G\-\_\-qd\-\_\-qd} (double \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae039a6f39df62bd858e5e3f5ec77b24b}{r}, double xi, double xir, double $\ast$vc, double $\ast$fc, double $\ast$vd, double $\ast$fd, double $\ast$vr, double $\ast$\hyperlink{addconf_8c_ae8414314f87c5e49503ac0117eb511ad}{fr})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gen__table_8c_a0a3d8e8cf8df6d185ba2457076e40b1e}{lo\-\_\-do\-\_\-\-G\-G\-\_\-q\-\_\-qd} (double \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae039a6f39df62bd858e5e3f5ec77b24b}{r}, double xi, double xir, double $\ast$vc, double $\ast$fc, double $\ast$vd, double $\ast$fd, double $\ast$vr, double $\ast$\hyperlink{addconf_8c_ae8414314f87c5e49503ac0117eb511ad}{fr})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gen__table_8c_ac6c6085c19e13839d4a8311b60553d44}{lo\-\_\-do\-\_\-\-G\-G\-\_\-q\-\_\-q} (double \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae039a6f39df62bd858e5e3f5ec77b24b}{r}, double xi, double xir, double $\ast$vc, double $\ast$fc, double $\ast$vd, double $\ast$fd, double $\ast$vr, double $\ast$\hyperlink{addconf_8c_ae8414314f87c5e49503ac0117eb511ad}{fr})
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gen__table_8c_ad4e995a22d459ae1ef429a4165fe9e40}{do\-\_\-guillot} (\-F\-I\-L\-E $\ast$fp, int eel, int pts\-\_\-nm, double rc, double rtol, double xi, double xir)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gen__table_8c_a6485a7a1fb6afdcfafa9a8eca2d1ec74}{do\-\_\-guillot2001a} (const char $\ast$file, int eel, int pts\-\_\-nm, double rc, double rtol, double xi, double xir)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gen__table_8c_a71819ce5d56c1967261ce95e11a89997}{do\-\_\-ljc} (\-F\-I\-L\-E $\ast$fp, int eel, int pts\-\_\-nm, real rc, real rtol)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gen__table_8c_af67604d682a1d5593fbfb43048b18c29}{do\-\_\-guillot\-\_\-maple} (\-F\-I\-L\-E $\ast$fp, int eel, int pts\-\_\-nm, double rc, double rtol, double xi, double xir)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gen__table_8c_ad2684c985bd2f2b34fa1ad8779781cf6}{do\-\_\-\-G\-G} (\-F\-I\-L\-E $\ast$fp, int eel, int pts\-\_\-nm, double rc, double rtol, double xi, double xir)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gen__table_8c_a353655ece6cc46a27f8af748f5ed285d}{do\-\_\-\-G\-G\-\_\-q\-\_\-q} (\-F\-I\-L\-E $\ast$fp, int eel, int pts\-\_\-nm, double rc, double rtol, double xi, double xir)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gen__table_8c_a06b58e340009164ee6a1418bdbc793c0}{do\-\_\-\-G\-G\-\_\-q\-\_\-qd} (\-F\-I\-L\-E $\ast$fp, int eel, int pts\-\_\-nm, double rc, double rtol, double xi, double xir)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gen__table_8c_aeb9908c60d3f2dedfba57f2178513ca5}{do\-\_\-\-G\-G\-\_\-qd\-\_\-qd} (\-F\-I\-L\-E $\ast$fp, int eel, int pts\-\_\-nm, double rc, double rtol, double xi, double xir)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gen__table_8c_a024a7a476a1994997e77b2736ac29c5f}{do\-\_\-maaren} (\-F\-I\-L\-E $\ast$fp, int eel, int pts\-\_\-nm, int npow)
+\item 
+int \hyperlink{gen__table_8c_a0ddf1224851353fc92bfbff6f499fa97}{main} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Define \-Documentation}
+\hypertarget{gen__table_8c_a8485f4e81de2537e6a0935626167a775}{\index{gen\-\_\-table.\-c@{gen\-\_\-table.\-c}!\-N\-F\-I\-L\-E@{\-N\-F\-I\-L\-E}}
+\index{\-N\-F\-I\-L\-E@{\-N\-F\-I\-L\-E}!gen_table.c@{gen\-\_\-table.\-c}}
+\subsubsection[{\-N\-F\-I\-L\-E}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-N\-F\-I\-L\-E}~{\bf asize}(fnm)}}\label{gen__table_8c_a8485f4e81de2537e6a0935626167a775}
+\hypertarget{gen__table_8c_ab70d4725699c0935e4847676027e7820}{\index{gen\-\_\-table.\-c@{gen\-\_\-table.\-c}!\-N\-P\-A@{\-N\-P\-A}}
+\index{\-N\-P\-A@{\-N\-P\-A}!gen_table.c@{gen\-\_\-table.\-c}}
+\subsubsection[{\-N\-P\-A}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-N\-P\-A}~{\bf asize}(pa)}}\label{gen__table_8c_ab70d4725699c0935e4847676027e7820}
+
+
+\subsection{\-Enumeration \-Type \-Documentation}
+\hypertarget{gen__table_8c_aab690a854cdb56b09edd0bc9e13b744d}{\subsubsection[{anonymous enum}]{\setlength{\rightskip}{0pt plus 5cm}anonymous enum}}\label{gen__table_8c_aab690a854cdb56b09edd0bc9e13b744d}
+\begin{Desc}
+\item[\-Enumerator\-: ]\par
+\begin{description}
+\index{m\-Guillot2001a@{m\-Guillot2001a}!gen\-\_\-table.\-c@{gen\-\_\-table.\-c}}\index{gen\-\_\-table.\-c@{gen\-\_\-table.\-c}!m\-Guillot2001a@{m\-Guillot2001a}}\item[{\em 
+\hypertarget{gen__table_8c_aab690a854cdb56b09edd0bc9e13b744da4d61cd5f6db5d75e3399677a7389a93d}{m\-Guillot2001a}\label{gen__table_8c_aab690a854cdb56b09edd0bc9e13b744da4d61cd5f6db5d75e3399677a7389a93d}
+}]\index{m\-A\-B1@{m\-A\-B1}!gen\-\_\-table.\-c@{gen\-\_\-table.\-c}}\index{gen\-\_\-table.\-c@{gen\-\_\-table.\-c}!m\-A\-B1@{m\-A\-B1}}\item[{\em 
+\hypertarget{gen__table_8c_aab690a854cdb56b09edd0bc9e13b744dad31b08ec03b1ec864b1f124d2e3dc3b6}{m\-A\-B1}\label{gen__table_8c_aab690a854cdb56b09edd0bc9e13b744dad31b08ec03b1ec864b1f124d2e3dc3b6}
+}]\index{m\-Ljc@{m\-Ljc}!gen\-\_\-table.\-c@{gen\-\_\-table.\-c}}\index{gen\-\_\-table.\-c@{gen\-\_\-table.\-c}!m\-Ljc@{m\-Ljc}}\item[{\em 
+\hypertarget{gen__table_8c_aab690a854cdb56b09edd0bc9e13b744da3c16a13fca99d592d686ee977430223a}{m\-Ljc}\label{gen__table_8c_aab690a854cdb56b09edd0bc9e13b744da3c16a13fca99d592d686ee977430223a}
+}]\index{m\-Maaren@{m\-Maaren}!gen\-\_\-table.\-c@{gen\-\_\-table.\-c}}\index{gen\-\_\-table.\-c@{gen\-\_\-table.\-c}!m\-Maaren@{m\-Maaren}}\item[{\em 
+\hypertarget{gen__table_8c_aab690a854cdb56b09edd0bc9e13b744dafe0d67e3c40eb166cb2e06bc0c44df4d}{m\-Maaren}\label{gen__table_8c_aab690a854cdb56b09edd0bc9e13b744dafe0d67e3c40eb166cb2e06bc0c44df4d}
+}]\index{m\-Guillot\-\_\-\-Maple@{m\-Guillot\-\_\-\-Maple}!gen\-\_\-table.\-c@{gen\-\_\-table.\-c}}\index{gen\-\_\-table.\-c@{gen\-\_\-table.\-c}!m\-Guillot\-\_\-\-Maple@{m\-Guillot\-\_\-\-Maple}}\item[{\em 
+\hypertarget{gen__table_8c_aab690a854cdb56b09edd0bc9e13b744da9bac92f3d7349000199bf1a9c6a57223}{m\-Guillot\-\_\-\-Maple}\label{gen__table_8c_aab690a854cdb56b09edd0bc9e13b744da9bac92f3d7349000199bf1a9c6a57223}
+}]\index{m\-Hard\-\_\-\-Wall@{m\-Hard\-\_\-\-Wall}!gen\-\_\-table.\-c@{gen\-\_\-table.\-c}}\index{gen\-\_\-table.\-c@{gen\-\_\-table.\-c}!m\-Hard\-\_\-\-Wall@{m\-Hard\-\_\-\-Wall}}\item[{\em 
+\hypertarget{gen__table_8c_aab690a854cdb56b09edd0bc9e13b744da761762cef9e8beba5429dc41a97c65b4}{m\-Hard\-\_\-\-Wall}\label{gen__table_8c_aab690a854cdb56b09edd0bc9e13b744da761762cef9e8beba5429dc41a97c65b4}
+}]\index{m\-G\-G@{m\-G\-G}!gen\-\_\-table.\-c@{gen\-\_\-table.\-c}}\index{gen\-\_\-table.\-c@{gen\-\_\-table.\-c}!m\-G\-G@{m\-G\-G}}\item[{\em 
+\hypertarget{gen__table_8c_aab690a854cdb56b09edd0bc9e13b744da5be04d35159c3b20d00827664cfae72a}{m\-G\-G}\label{gen__table_8c_aab690a854cdb56b09edd0bc9e13b744da5be04d35159c3b20d00827664cfae72a}
+}]\index{m\-G\-G\-\_\-qd\-\_\-q@{m\-G\-G\-\_\-qd\-\_\-q}!gen\-\_\-table.\-c@{gen\-\_\-table.\-c}}\index{gen\-\_\-table.\-c@{gen\-\_\-table.\-c}!m\-G\-G\-\_\-qd\-\_\-q@{m\-G\-G\-\_\-qd\-\_\-q}}\item[{\em 
+\hypertarget{gen__table_8c_aab690a854cdb56b09edd0bc9e13b744dad7f17893cc0f82cbd1c9e4e3b1e18d6a}{m\-G\-G\-\_\-qd\-\_\-q}\label{gen__table_8c_aab690a854cdb56b09edd0bc9e13b744dad7f17893cc0f82cbd1c9e4e3b1e18d6a}
+}]\index{m\-G\-G\-\_\-qd\-\_\-qd@{m\-G\-G\-\_\-qd\-\_\-qd}!gen\-\_\-table.\-c@{gen\-\_\-table.\-c}}\index{gen\-\_\-table.\-c@{gen\-\_\-table.\-c}!m\-G\-G\-\_\-qd\-\_\-qd@{m\-G\-G\-\_\-qd\-\_\-qd}}\item[{\em 
+\hypertarget{gen__table_8c_aab690a854cdb56b09edd0bc9e13b744daaaa0f81ec72375226196b12b64cf0b27}{m\-G\-G\-\_\-qd\-\_\-qd}\label{gen__table_8c_aab690a854cdb56b09edd0bc9e13b744daaaa0f81ec72375226196b12b64cf0b27}
+}]\index{m\-G\-G\-\_\-q\-\_\-q@{m\-G\-G\-\_\-q\-\_\-q}!gen\-\_\-table.\-c@{gen\-\_\-table.\-c}}\index{gen\-\_\-table.\-c@{gen\-\_\-table.\-c}!m\-G\-G\-\_\-q\-\_\-q@{m\-G\-G\-\_\-q\-\_\-q}}\item[{\em 
+\hypertarget{gen__table_8c_aab690a854cdb56b09edd0bc9e13b744dafb42bc9cc4b96d4c875665a5e8bf48f6}{m\-G\-G\-\_\-q\-\_\-q}\label{gen__table_8c_aab690a854cdb56b09edd0bc9e13b744dafb42bc9cc4b96d4c875665a5e8bf48f6}
+}]\index{m\-N\-R@{m\-N\-R}!gen\-\_\-table.\-c@{gen\-\_\-table.\-c}}\index{gen\-\_\-table.\-c@{gen\-\_\-table.\-c}!m\-N\-R@{m\-N\-R}}\item[{\em 
+\hypertarget{gen__table_8c_aab690a854cdb56b09edd0bc9e13b744da7241079fb5972886f6c1ed3d66906e3c}{m\-N\-R}\label{gen__table_8c_aab690a854cdb56b09edd0bc9e13b744da7241079fb5972886f6c1ed3d66906e3c}
+}]\end{description}
+\end{Desc}
+
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{gen__table_8c_a2116d6f96921337efcc51b32f53c3274}{\index{gen\-\_\-table.\-c@{gen\-\_\-table.\-c}!do\-\_\-\-A\-B1@{do\-\_\-\-A\-B1}}
+\index{do\-\_\-\-A\-B1@{do\-\_\-\-A\-B1}!gen_table.c@{gen\-\_\-table.\-c}}
+\subsubsection[{do\-\_\-\-A\-B1}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf do\-\_\-\-A\-B1} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{int}]{eel, }
+\item[{int}]{pts\-\_\-nm, }
+\item[{int}]{ndisp, }
+\item[{int}]{nrep}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gen__table_8c_a2116d6f96921337efcc51b32f53c3274}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=214pt]{gen__table_8c_a2116d6f96921337efcc51b32f53c3274_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=206pt]{gen__table_8c_a2116d6f96921337efcc51b32f53c3274_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gen__table_8c_ad2684c985bd2f2b34fa1ad8779781cf6}{\index{gen\-\_\-table.\-c@{gen\-\_\-table.\-c}!do\-\_\-\-G\-G@{do\-\_\-\-G\-G}}
+\index{do\-\_\-\-G\-G@{do\-\_\-\-G\-G}!gen_table.c@{gen\-\_\-table.\-c}}
+\subsubsection[{do\-\_\-\-G\-G}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf do\-\_\-\-G\-G} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{int}]{eel, }
+\item[{int}]{pts\-\_\-nm, }
+\item[{double}]{rc, }
+\item[{double}]{rtol, }
+\item[{double}]{xi, }
+\item[{double}]{xir}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gen__table_8c_ad2684c985bd2f2b34fa1ad8779781cf6}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=224pt]{gen__table_8c_ad2684c985bd2f2b34fa1ad8779781cf6_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=202pt]{gen__table_8c_ad2684c985bd2f2b34fa1ad8779781cf6_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gen__table_8c_a353655ece6cc46a27f8af748f5ed285d}{\index{gen\-\_\-table.\-c@{gen\-\_\-table.\-c}!do\-\_\-\-G\-G\-\_\-q\-\_\-q@{do\-\_\-\-G\-G\-\_\-q\-\_\-q}}
+\index{do\-\_\-\-G\-G\-\_\-q\-\_\-q@{do\-\_\-\-G\-G\-\_\-q\-\_\-q}!gen_table.c@{gen\-\_\-table.\-c}}
+\subsubsection[{do\-\_\-\-G\-G\-\_\-q\-\_\-q}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf do\-\_\-\-G\-G\-\_\-q\-\_\-q} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{int}]{eel, }
+\item[{int}]{pts\-\_\-nm, }
+\item[{double}]{rc, }
+\item[{double}]{rtol, }
+\item[{double}]{xi, }
+\item[{double}]{xir}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gen__table_8c_a353655ece6cc46a27f8af748f5ed285d}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=266pt]{gen__table_8c_a353655ece6cc46a27f8af748f5ed285d_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=222pt]{gen__table_8c_a353655ece6cc46a27f8af748f5ed285d_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gen__table_8c_a06b58e340009164ee6a1418bdbc793c0}{\index{gen\-\_\-table.\-c@{gen\-\_\-table.\-c}!do\-\_\-\-G\-G\-\_\-q\-\_\-qd@{do\-\_\-\-G\-G\-\_\-q\-\_\-qd}}
+\index{do\-\_\-\-G\-G\-\_\-q\-\_\-qd@{do\-\_\-\-G\-G\-\_\-q\-\_\-qd}!gen_table.c@{gen\-\_\-table.\-c}}
+\subsubsection[{do\-\_\-\-G\-G\-\_\-q\-\_\-qd}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf do\-\_\-\-G\-G\-\_\-q\-\_\-qd} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{int}]{eel, }
+\item[{int}]{pts\-\_\-nm, }
+\item[{double}]{rc, }
+\item[{double}]{rtol, }
+\item[{double}]{xi, }
+\item[{double}]{xir}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gen__table_8c_a06b58e340009164ee6a1418bdbc793c0}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=276pt]{gen__table_8c_a06b58e340009164ee6a1418bdbc793c0_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=228pt]{gen__table_8c_a06b58e340009164ee6a1418bdbc793c0_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gen__table_8c_aeb9908c60d3f2dedfba57f2178513ca5}{\index{gen\-\_\-table.\-c@{gen\-\_\-table.\-c}!do\-\_\-\-G\-G\-\_\-qd\-\_\-qd@{do\-\_\-\-G\-G\-\_\-qd\-\_\-qd}}
+\index{do\-\_\-\-G\-G\-\_\-qd\-\_\-qd@{do\-\_\-\-G\-G\-\_\-qd\-\_\-qd}!gen_table.c@{gen\-\_\-table.\-c}}
+\subsubsection[{do\-\_\-\-G\-G\-\_\-qd\-\_\-qd}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf do\-\_\-\-G\-G\-\_\-qd\-\_\-qd} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{int}]{eel, }
+\item[{int}]{pts\-\_\-nm, }
+\item[{double}]{rc, }
+\item[{double}]{rtol, }
+\item[{double}]{xi, }
+\item[{double}]{xir}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gen__table_8c_aeb9908c60d3f2dedfba57f2178513ca5}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=288pt]{gen__table_8c_aeb9908c60d3f2dedfba57f2178513ca5_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=234pt]{gen__table_8c_aeb9908c60d3f2dedfba57f2178513ca5_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gen__table_8c_ad4e995a22d459ae1ef429a4165fe9e40}{\index{gen\-\_\-table.\-c@{gen\-\_\-table.\-c}!do\-\_\-guillot@{do\-\_\-guillot}}
+\index{do\-\_\-guillot@{do\-\_\-guillot}!gen_table.c@{gen\-\_\-table.\-c}}
+\subsubsection[{do\-\_\-guillot}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf do\-\_\-guillot} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{int}]{eel, }
+\item[{int}]{pts\-\_\-nm, }
+\item[{double}]{rc, }
+\item[{double}]{rtol, }
+\item[{double}]{xi, }
+\item[{double}]{xir}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gen__table_8c_ad4e995a22d459ae1ef429a4165fe9e40}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=246pt]{gen__table_8c_ad4e995a22d459ae1ef429a4165fe9e40_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gen__table_8c_a6485a7a1fb6afdcfafa9a8eca2d1ec74}{\index{gen\-\_\-table.\-c@{gen\-\_\-table.\-c}!do\-\_\-guillot2001a@{do\-\_\-guillot2001a}}
+\index{do\-\_\-guillot2001a@{do\-\_\-guillot2001a}!gen_table.c@{gen\-\_\-table.\-c}}
+\subsubsection[{do\-\_\-guillot2001a}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf do\-\_\-guillot2001a} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{file, }
+\item[{int}]{eel, }
+\item[{int}]{pts\-\_\-nm, }
+\item[{double}]{rc, }
+\item[{double}]{rtol, }
+\item[{double}]{xi, }
+\item[{double}]{xir}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gen__table_8c_a6485a7a1fb6afdcfafa9a8eca2d1ec74}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=292pt]{gen__table_8c_a6485a7a1fb6afdcfafa9a8eca2d1ec74_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=238pt]{gen__table_8c_a6485a7a1fb6afdcfafa9a8eca2d1ec74_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gen__table_8c_af67604d682a1d5593fbfb43048b18c29}{\index{gen\-\_\-table.\-c@{gen\-\_\-table.\-c}!do\-\_\-guillot\-\_\-maple@{do\-\_\-guillot\-\_\-maple}}
+\index{do\-\_\-guillot\-\_\-maple@{do\-\_\-guillot\-\_\-maple}!gen_table.c@{gen\-\_\-table.\-c}}
+\subsubsection[{do\-\_\-guillot\-\_\-maple}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf do\-\_\-guillot\-\_\-maple} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{int}]{eel, }
+\item[{int}]{pts\-\_\-nm, }
+\item[{double}]{rc, }
+\item[{double}]{rtol, }
+\item[{double}]{xi, }
+\item[{double}]{xir}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gen__table_8c_af67604d682a1d5593fbfb43048b18c29}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=308pt]{gen__table_8c_af67604d682a1d5593fbfb43048b18c29_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=244pt]{gen__table_8c_af67604d682a1d5593fbfb43048b18c29_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gen__table_8c_ac5f5432e8ce4d2e9cdc0d79d4eb7b792}{\index{gen\-\_\-table.\-c@{gen\-\_\-table.\-c}!do\-\_\-hard@{do\-\_\-hard}}
+\index{do\-\_\-hard@{do\-\_\-hard}!gen_table.c@{gen\-\_\-table.\-c}}
+\subsubsection[{do\-\_\-hard}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf do\-\_\-hard} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{int}]{pts\-\_\-nm, }
+\item[{double}]{efac, }
+\item[{double}]{delta}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gen__table_8c_ac5f5432e8ce4d2e9cdc0d79d4eb7b792}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=228pt]{gen__table_8c_ac5f5432e8ce4d2e9cdc0d79d4eb7b792_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=206pt]{gen__table_8c_ac5f5432e8ce4d2e9cdc0d79d4eb7b792_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gen__table_8c_a71819ce5d56c1967261ce95e11a89997}{\index{gen\-\_\-table.\-c@{gen\-\_\-table.\-c}!do\-\_\-ljc@{do\-\_\-ljc}}
+\index{do\-\_\-ljc@{do\-\_\-ljc}!gen_table.c@{gen\-\_\-table.\-c}}
+\subsubsection[{do\-\_\-ljc}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf do\-\_\-ljc} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{int}]{eel, }
+\item[{int}]{pts\-\_\-nm, }
+\item[{real}]{rc, }
+\item[{real}]{rtol}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gen__table_8c_a71819ce5d56c1967261ce95e11a89997}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gen__table_8c_a71819ce5d56c1967261ce95e11a89997_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=196pt]{gen__table_8c_a71819ce5d56c1967261ce95e11a89997_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gen__table_8c_a024a7a476a1994997e77b2736ac29c5f}{\index{gen\-\_\-table.\-c@{gen\-\_\-table.\-c}!do\-\_\-maaren@{do\-\_\-maaren}}
+\index{do\-\_\-maaren@{do\-\_\-maaren}!gen_table.c@{gen\-\_\-table.\-c}}
+\subsubsection[{do\-\_\-maaren}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf do\-\_\-maaren} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{int}]{eel, }
+\item[{int}]{pts\-\_\-nm, }
+\item[{int}]{npow}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gen__table_8c_a024a7a476a1994997e77b2736ac29c5f}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=284pt]{gen__table_8c_a024a7a476a1994997e77b2736ac29c5f_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=220pt]{gen__table_8c_a024a7a476a1994997e77b2736ac29c5f_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gen__table_8c_a4546134f7c8610768de74b4033f0c872}{\index{gen\-\_\-table.\-c@{gen\-\_\-table.\-c}!erf1@{erf1}}
+\index{erf1@{erf1}!gen_table.c@{gen\-\_\-table.\-c}}
+\subsubsection[{erf1}]{\setlength{\rightskip}{0pt plus 5cm}static double {\bf erf1} (
+\begin{DoxyParamCaption}
+\item[{double}]{x}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gen__table_8c_a4546134f7c8610768de74b4033f0c872}
+\hypertarget{gen__table_8c_a09123944b67b039d3b9d6b23c19629d2}{\index{gen\-\_\-table.\-c@{gen\-\_\-table.\-c}!erf2@{erf2}}
+\index{erf2@{erf2}!gen_table.c@{gen\-\_\-table.\-c}}
+\subsubsection[{erf2}]{\setlength{\rightskip}{0pt plus 5cm}static double {\bf erf2} (
+\begin{DoxyParamCaption}
+\item[{double}]{x}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gen__table_8c_a09123944b67b039d3b9d6b23c19629d2}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=276pt]{gen__table_8c_a09123944b67b039d3b9d6b23c19629d2_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gen__table_8c_a4e951aac574f56f41f676aabec47b5c0}{\index{gen\-\_\-table.\-c@{gen\-\_\-table.\-c}!lo\-\_\-do\-\_\-\-G\-G@{lo\-\_\-do\-\_\-\-G\-G}}
+\index{lo\-\_\-do\-\_\-\-G\-G@{lo\-\_\-do\-\_\-\-G\-G}!gen_table.c@{gen\-\_\-table.\-c}}
+\subsubsection[{lo\-\_\-do\-\_\-\-G\-G}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf lo\-\_\-do\-\_\-\-G\-G} (
+\begin{DoxyParamCaption}
+\item[{double}]{r, }
+\item[{double}]{xi, }
+\item[{double}]{xir, }
+\item[{double $\ast$}]{vc, }
+\item[{double $\ast$}]{fc, }
+\item[{double $\ast$}]{vd, }
+\item[{double $\ast$}]{fd, }
+\item[{double $\ast$}]{vr, }
+\item[{double $\ast$}]{fr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gen__table_8c_a4e951aac574f56f41f676aabec47b5c0}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=298pt]{gen__table_8c_a4e951aac574f56f41f676aabec47b5c0_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gen__table_8c_ac6c6085c19e13839d4a8311b60553d44}{\index{gen\-\_\-table.\-c@{gen\-\_\-table.\-c}!lo\-\_\-do\-\_\-\-G\-G\-\_\-q\-\_\-q@{lo\-\_\-do\-\_\-\-G\-G\-\_\-q\-\_\-q}}
+\index{lo\-\_\-do\-\_\-\-G\-G\-\_\-q\-\_\-q@{lo\-\_\-do\-\_\-\-G\-G\-\_\-q\-\_\-q}!gen_table.c@{gen\-\_\-table.\-c}}
+\subsubsection[{lo\-\_\-do\-\_\-\-G\-G\-\_\-q\-\_\-q}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf lo\-\_\-do\-\_\-\-G\-G\-\_\-q\-\_\-q} (
+\begin{DoxyParamCaption}
+\item[{double}]{r, }
+\item[{double}]{xi, }
+\item[{double}]{xir, }
+\item[{double $\ast$}]{vc, }
+\item[{double $\ast$}]{fc, }
+\item[{double $\ast$}]{vd, }
+\item[{double $\ast$}]{fd, }
+\item[{double $\ast$}]{vr, }
+\item[{double $\ast$}]{fr}
+\end{DoxyParamCaption}
+)}}\label{gen__table_8c_ac6c6085c19e13839d4a8311b60553d44}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gen__table_8c_ac6c6085c19e13839d4a8311b60553d44_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gen__table_8c_a0a3d8e8cf8df6d185ba2457076e40b1e}{\index{gen\-\_\-table.\-c@{gen\-\_\-table.\-c}!lo\-\_\-do\-\_\-\-G\-G\-\_\-q\-\_\-qd@{lo\-\_\-do\-\_\-\-G\-G\-\_\-q\-\_\-qd}}
+\index{lo\-\_\-do\-\_\-\-G\-G\-\_\-q\-\_\-qd@{lo\-\_\-do\-\_\-\-G\-G\-\_\-q\-\_\-qd}!gen_table.c@{gen\-\_\-table.\-c}}
+\subsubsection[{lo\-\_\-do\-\_\-\-G\-G\-\_\-q\-\_\-qd}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf lo\-\_\-do\-\_\-\-G\-G\-\_\-q\-\_\-qd} (
+\begin{DoxyParamCaption}
+\item[{double}]{r, }
+\item[{double}]{xi, }
+\item[{double}]{xir, }
+\item[{double $\ast$}]{vc, }
+\item[{double $\ast$}]{fc, }
+\item[{double $\ast$}]{vd, }
+\item[{double $\ast$}]{fd, }
+\item[{double $\ast$}]{vr, }
+\item[{double $\ast$}]{fr}
+\end{DoxyParamCaption}
+)}}\label{gen__table_8c_a0a3d8e8cf8df6d185ba2457076e40b1e}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gen__table_8c_a0a3d8e8cf8df6d185ba2457076e40b1e_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gen__table_8c_aad731d8230eda9e74cfce8761c3af8af}{\index{gen\-\_\-table.\-c@{gen\-\_\-table.\-c}!lo\-\_\-do\-\_\-\-G\-G\-\_\-qd\-\_\-qd@{lo\-\_\-do\-\_\-\-G\-G\-\_\-qd\-\_\-qd}}
+\index{lo\-\_\-do\-\_\-\-G\-G\-\_\-qd\-\_\-qd@{lo\-\_\-do\-\_\-\-G\-G\-\_\-qd\-\_\-qd}!gen_table.c@{gen\-\_\-table.\-c}}
+\subsubsection[{lo\-\_\-do\-\_\-\-G\-G\-\_\-qd\-\_\-qd}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf lo\-\_\-do\-\_\-\-G\-G\-\_\-qd\-\_\-qd} (
+\begin{DoxyParamCaption}
+\item[{double}]{r, }
+\item[{double}]{xi, }
+\item[{double}]{xir, }
+\item[{double $\ast$}]{vc, }
+\item[{double $\ast$}]{fc, }
+\item[{double $\ast$}]{vd, }
+\item[{double $\ast$}]{fd, }
+\item[{double $\ast$}]{vr, }
+\item[{double $\ast$}]{fr}
+\end{DoxyParamCaption}
+)}}\label{gen__table_8c_aad731d8230eda9e74cfce8761c3af8af}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gen__table_8c_aad731d8230eda9e74cfce8761c3af8af_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gen__table_8c_a3bb2aac70fad5ad270f1347eff5ac445}{\index{gen\-\_\-table.\-c@{gen\-\_\-table.\-c}!lo\-\_\-do\-\_\-guillot@{lo\-\_\-do\-\_\-guillot}}
+\index{lo\-\_\-do\-\_\-guillot@{lo\-\_\-do\-\_\-guillot}!gen_table.c@{gen\-\_\-table.\-c}}
+\subsubsection[{lo\-\_\-do\-\_\-guillot}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf lo\-\_\-do\-\_\-guillot} (
+\begin{DoxyParamCaption}
+\item[{double}]{r, }
+\item[{double}]{xi, }
+\item[{double}]{xir, }
+\item[{double $\ast$}]{vc, }
+\item[{double $\ast$}]{fc, }
+\item[{double $\ast$}]{vd, }
+\item[{double $\ast$}]{fd, }
+\item[{double $\ast$}]{vr, }
+\item[{double $\ast$}]{fr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gen__table_8c_a3bb2aac70fad5ad270f1347eff5ac445}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=246pt]{gen__table_8c_a3bb2aac70fad5ad270f1347eff5ac445_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gen__table_8c_a79abc3506cce90d5f6c25a1fe1cc174b}{\index{gen\-\_\-table.\-c@{gen\-\_\-table.\-c}!lo\-\_\-do\-\_\-guillot\-\_\-maple@{lo\-\_\-do\-\_\-guillot\-\_\-maple}}
+\index{lo\-\_\-do\-\_\-guillot\-\_\-maple@{lo\-\_\-do\-\_\-guillot\-\_\-maple}!gen_table.c@{gen\-\_\-table.\-c}}
+\subsubsection[{lo\-\_\-do\-\_\-guillot\-\_\-maple}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf lo\-\_\-do\-\_\-guillot\-\_\-maple} (
+\begin{DoxyParamCaption}
+\item[{double}]{r, }
+\item[{double}]{xi, }
+\item[{double}]{xir, }
+\item[{double $\ast$}]{vc, }
+\item[{double $\ast$}]{vc2, }
+\item[{double $\ast$}]{vd, }
+\item[{double $\ast$}]{vd2, }
+\item[{double $\ast$}]{vr, }
+\item[{double $\ast$}]{vr2}
+\end{DoxyParamCaption}
+)}}\label{gen__table_8c_a79abc3506cce90d5f6c25a1fe1cc174b}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gen__table_8c_a79abc3506cce90d5f6c25a1fe1cc174b_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gen__table_8c_afb48c38549a21add626ecde56e434da9}{\index{gen\-\_\-table.\-c@{gen\-\_\-table.\-c}!lo\-\_\-do\-\_\-ljc@{lo\-\_\-do\-\_\-ljc}}
+\index{lo\-\_\-do\-\_\-ljc@{lo\-\_\-do\-\_\-ljc}!gen_table.c@{gen\-\_\-table.\-c}}
+\subsubsection[{lo\-\_\-do\-\_\-ljc}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf lo\-\_\-do\-\_\-ljc} (
+\begin{DoxyParamCaption}
+\item[{double}]{r, }
+\item[{double $\ast$}]{vc, }
+\item[{double $\ast$}]{fc, }
+\item[{double $\ast$}]{vd, }
+\item[{double $\ast$}]{fd, }
+\item[{double $\ast$}]{vr, }
+\item[{double $\ast$}]{fr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gen__table_8c_afb48c38549a21add626ecde56e434da9}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=288pt]{gen__table_8c_afb48c38549a21add626ecde56e434da9_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gen__table_8c_ae695d9e95e9a170cefeceee62410023a}{\index{gen\-\_\-table.\-c@{gen\-\_\-table.\-c}!lo\-\_\-do\-\_\-ljc\-\_\-pme@{lo\-\_\-do\-\_\-ljc\-\_\-pme}}
+\index{lo\-\_\-do\-\_\-ljc\-\_\-pme@{lo\-\_\-do\-\_\-ljc\-\_\-pme}!gen_table.c@{gen\-\_\-table.\-c}}
+\subsubsection[{lo\-\_\-do\-\_\-ljc\-\_\-pme}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf lo\-\_\-do\-\_\-ljc\-\_\-pme} (
+\begin{DoxyParamCaption}
+\item[{double}]{r, }
+\item[{double}]{rcoulomb, }
+\item[{double}]{ewald\-\_\-rtol, }
+\item[{double $\ast$}]{vc, }
+\item[{double $\ast$}]{fc, }
+\item[{double $\ast$}]{vd, }
+\item[{double $\ast$}]{fd, }
+\item[{double $\ast$}]{vr, }
+\item[{double $\ast$}]{fr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gen__table_8c_ae695d9e95e9a170cefeceee62410023a}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=284pt]{gen__table_8c_ae695d9e95e9a170cefeceee62410023a_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=312pt]{gen__table_8c_ae695d9e95e9a170cefeceee62410023a_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gen__table_8c_a0ddf1224851353fc92bfbff6f499fa97}{\index{gen\-\_\-table.\-c@{gen\-\_\-table.\-c}!main@{main}}
+\index{main@{main}!gen_table.c@{gen\-\_\-table.\-c}}
+\subsubsection[{main}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf main} (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{gen__table_8c_a0ddf1224851353fc92bfbff6f499fa97}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gen__table_8c_a0ddf1224851353fc92bfbff6f499fa97_cgraph}
+\end{center}
+\end{figure}
+
+

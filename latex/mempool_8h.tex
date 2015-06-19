@@ -1,0 +1,206 @@
+\hypertarget{mempool_8h}{\section{src/gmxlib/selection/mempool.h \-File \-Reference}
+\label{mempool_8h}\index{src/gmxlib/selection/mempool.\-h@{src/gmxlib/selection/mempool.\-h}}
+}
+\-This graph shows which files directly or indirectly include this file\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mempool_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \hyperlink{structgmx__sel__mempool__t}{gmx\-\_\-sel\-\_\-mempool\-\_\-t} \hyperlink{mempool_8h_a43173c58015040cacf900b4ee186fe2e}{gmx\-\_\-sel\-\_\-mempool\-\_\-t}
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{mempool_8h_a777eb865dceed8d048fdf37d50f724a7}{\-\_\-gmx\-\_\-sel\-\_\-mempool\-\_\-create} (\hyperlink{structgmx__sel__mempool__t}{gmx\-\_\-sel\-\_\-mempool\-\_\-t} $\ast$$\ast$mpp)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{mempool_8h_ae4f6a0301ec4f8f8a7f32974c01b9af9}{\-\_\-gmx\-\_\-sel\-\_\-mempool\-\_\-destroy} (\hyperlink{structgmx__sel__mempool__t}{gmx\-\_\-sel\-\_\-mempool\-\_\-t} $\ast$mp)
+\item 
+int \hyperlink{mempool_8h_ac1b909050fe36a4c7f41f29cd61c42e0}{\-\_\-gmx\-\_\-sel\-\_\-mempool\-\_\-alloc} (\hyperlink{structgmx__sel__mempool__t}{gmx\-\_\-sel\-\_\-mempool\-\_\-t} $\ast$mp, \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$$\ast$ptrp, size\-\_\-t size)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{mempool_8h_abbfee728e0e8eea40182ca7f1d7833c5}{\-\_\-gmx\-\_\-sel\-\_\-mempool\-\_\-free} (\hyperlink{structgmx__sel__mempool__t}{gmx\-\_\-sel\-\_\-mempool\-\_\-t} $\ast$mp, \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$ptr)
+\item 
+int \hyperlink{mempool_8h_a6c9597cba7979dfaa1ee8e701de510b9}{\-\_\-gmx\-\_\-sel\-\_\-mempool\-\_\-reserve} (\hyperlink{structgmx__sel__mempool__t}{gmx\-\_\-sel\-\_\-mempool\-\_\-t} $\ast$mp, size\-\_\-t size)
+\item 
+int \hyperlink{mempool_8h_ac6607c8068a0335b0cee5dca6208e40c}{\-\_\-gmx\-\_\-sel\-\_\-mempool\-\_\-alloc\-\_\-group} (\hyperlink{structgmx__sel__mempool__t}{gmx\-\_\-sel\-\_\-mempool\-\_\-t} $\ast$mp, struct \hyperlink{structgmx__ana__index__t}{gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g}, int isize)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{mempool_8h_a54bee0becd16f45c8fef086741f3c640}{\-\_\-gmx\-\_\-sel\-\_\-mempool\-\_\-free\-\_\-group} (\hyperlink{structgmx__sel__mempool__t}{gmx\-\_\-sel\-\_\-mempool\-\_\-t} $\ast$mp, struct \hyperlink{structgmx__ana__index__t}{gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g})
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Typedef \-Documentation}
+\hypertarget{mempool_8h_a43173c58015040cacf900b4ee186fe2e}{\index{mempool.\-h@{mempool.\-h}!gmx\-\_\-sel\-\_\-mempool\-\_\-t@{gmx\-\_\-sel\-\_\-mempool\-\_\-t}}
+\index{gmx\-\_\-sel\-\_\-mempool\-\_\-t@{gmx\-\_\-sel\-\_\-mempool\-\_\-t}!mempool.h@{mempool.\-h}}
+\subsubsection[{gmx\-\_\-sel\-\_\-mempool\-\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf gmx\-\_\-sel\-\_\-mempool\-\_\-t} {\bf gmx\-\_\-sel\-\_\-mempool\-\_\-t}}}\label{mempool_8h_a43173c58015040cacf900b4ee186fe2e}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{mempool_8h_ac1b909050fe36a4c7f41f29cd61c42e0}{\index{mempool.\-h@{mempool.\-h}!\-\_\-gmx\-\_\-sel\-\_\-mempool\-\_\-alloc@{\-\_\-gmx\-\_\-sel\-\_\-mempool\-\_\-alloc}}
+\index{\-\_\-gmx\-\_\-sel\-\_\-mempool\-\_\-alloc@{\-\_\-gmx\-\_\-sel\-\_\-mempool\-\_\-alloc}!mempool.h@{mempool.\-h}}
+\subsubsection[{\-\_\-gmx\-\_\-sel\-\_\-mempool\-\_\-alloc}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf \-\_\-gmx\-\_\-sel\-\_\-mempool\-\_\-alloc} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-sel\-\_\-mempool\-\_\-t} $\ast$}]{mp, }
+\item[{{\bf void} $\ast$$\ast$}]{ptrp, }
+\item[{size\-\_\-t}]{size}
+\end{DoxyParamCaption}
+)}}\label{mempool_8h_ac1b909050fe36a4c7f41f29cd61c42e0}
+\-Allocate memory from a memory pool. 
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mempool_8h_ac1b909050fe36a4c7f41f29cd61c42e0_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{mempool_8h_ac6607c8068a0335b0cee5dca6208e40c}{\index{mempool.\-h@{mempool.\-h}!\-\_\-gmx\-\_\-sel\-\_\-mempool\-\_\-alloc\-\_\-group@{\-\_\-gmx\-\_\-sel\-\_\-mempool\-\_\-alloc\-\_\-group}}
+\index{\-\_\-gmx\-\_\-sel\-\_\-mempool\-\_\-alloc\-\_\-group@{\-\_\-gmx\-\_\-sel\-\_\-mempool\-\_\-alloc\-\_\-group}!mempool.h@{mempool.\-h}}
+\subsubsection[{\-\_\-gmx\-\_\-sel\-\_\-mempool\-\_\-alloc\-\_\-group}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf \-\_\-gmx\-\_\-sel\-\_\-mempool\-\_\-alloc\-\_\-group} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-sel\-\_\-mempool\-\_\-t} $\ast$}]{mp, }
+\item[{struct {\bf gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$}]{g, }
+\item[{int}]{isize}
+\end{DoxyParamCaption}
+)}}\label{mempool_8h_ac6607c8068a0335b0cee5dca6208e40c}
+\-Convenience function for allocating an index group from a memory pool. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mempool_8h_ac6607c8068a0335b0cee5dca6208e40c_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mempool_8h_ac6607c8068a0335b0cee5dca6208e40c_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{mempool_8h_a777eb865dceed8d048fdf37d50f724a7}{\index{mempool.\-h@{mempool.\-h}!\-\_\-gmx\-\_\-sel\-\_\-mempool\-\_\-create@{\-\_\-gmx\-\_\-sel\-\_\-mempool\-\_\-create}}
+\index{\-\_\-gmx\-\_\-sel\-\_\-mempool\-\_\-create@{\-\_\-gmx\-\_\-sel\-\_\-mempool\-\_\-create}!mempool.h@{mempool.\-h}}
+\subsubsection[{\-\_\-gmx\-\_\-sel\-\_\-mempool\-\_\-create}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf \-\_\-gmx\-\_\-sel\-\_\-mempool\-\_\-create} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-sel\-\_\-mempool\-\_\-t} $\ast$$\ast$}]{mpp}
+\end{DoxyParamCaption}
+)}}\label{mempool_8h_a777eb865dceed8d048fdf37d50f724a7}
+\-Create an empty memory pool. 
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mempool_8h_a777eb865dceed8d048fdf37d50f724a7_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{mempool_8h_ae4f6a0301ec4f8f8a7f32974c01b9af9}{\index{mempool.\-h@{mempool.\-h}!\-\_\-gmx\-\_\-sel\-\_\-mempool\-\_\-destroy@{\-\_\-gmx\-\_\-sel\-\_\-mempool\-\_\-destroy}}
+\index{\-\_\-gmx\-\_\-sel\-\_\-mempool\-\_\-destroy@{\-\_\-gmx\-\_\-sel\-\_\-mempool\-\_\-destroy}!mempool.h@{mempool.\-h}}
+\subsubsection[{\-\_\-gmx\-\_\-sel\-\_\-mempool\-\_\-destroy}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf \-\_\-gmx\-\_\-sel\-\_\-mempool\-\_\-destroy} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-sel\-\_\-mempool\-\_\-t} $\ast$}]{mp}
+\end{DoxyParamCaption}
+)}}\label{mempool_8h_ae4f6a0301ec4f8f8a7f32974c01b9af9}
+\-Destroy a memory pool. 
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mempool_8h_ae4f6a0301ec4f8f8a7f32974c01b9af9_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{mempool_8h_abbfee728e0e8eea40182ca7f1d7833c5}{\index{mempool.\-h@{mempool.\-h}!\-\_\-gmx\-\_\-sel\-\_\-mempool\-\_\-free@{\-\_\-gmx\-\_\-sel\-\_\-mempool\-\_\-free}}
+\index{\-\_\-gmx\-\_\-sel\-\_\-mempool\-\_\-free@{\-\_\-gmx\-\_\-sel\-\_\-mempool\-\_\-free}!mempool.h@{mempool.\-h}}
+\subsubsection[{\-\_\-gmx\-\_\-sel\-\_\-mempool\-\_\-free}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf \-\_\-gmx\-\_\-sel\-\_\-mempool\-\_\-free} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-sel\-\_\-mempool\-\_\-t} $\ast$}]{mp, }
+\item[{{\bf void} $\ast$}]{ptr}
+\end{DoxyParamCaption}
+)}}\label{mempool_8h_abbfee728e0e8eea40182ca7f1d7833c5}
+\-Release memory allocated from a memory pool. 
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mempool_8h_abbfee728e0e8eea40182ca7f1d7833c5_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{mempool_8h_a54bee0becd16f45c8fef086741f3c640}{\index{mempool.\-h@{mempool.\-h}!\-\_\-gmx\-\_\-sel\-\_\-mempool\-\_\-free\-\_\-group@{\-\_\-gmx\-\_\-sel\-\_\-mempool\-\_\-free\-\_\-group}}
+\index{\-\_\-gmx\-\_\-sel\-\_\-mempool\-\_\-free\-\_\-group@{\-\_\-gmx\-\_\-sel\-\_\-mempool\-\_\-free\-\_\-group}!mempool.h@{mempool.\-h}}
+\subsubsection[{\-\_\-gmx\-\_\-sel\-\_\-mempool\-\_\-free\-\_\-group}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf \-\_\-gmx\-\_\-sel\-\_\-mempool\-\_\-free\-\_\-group} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-sel\-\_\-mempool\-\_\-t} $\ast$}]{mp, }
+\item[{struct {\bf gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$}]{g}
+\end{DoxyParamCaption}
+)}}\label{mempool_8h_a54bee0becd16f45c8fef086741f3c640}
+\-Convenience function for freeing an index group from a memory pool. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mempool_8h_a54bee0becd16f45c8fef086741f3c640_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mempool_8h_a54bee0becd16f45c8fef086741f3c640_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{mempool_8h_a6c9597cba7979dfaa1ee8e701de510b9}{\index{mempool.\-h@{mempool.\-h}!\-\_\-gmx\-\_\-sel\-\_\-mempool\-\_\-reserve@{\-\_\-gmx\-\_\-sel\-\_\-mempool\-\_\-reserve}}
+\index{\-\_\-gmx\-\_\-sel\-\_\-mempool\-\_\-reserve@{\-\_\-gmx\-\_\-sel\-\_\-mempool\-\_\-reserve}!mempool.h@{mempool.\-h}}
+\subsubsection[{\-\_\-gmx\-\_\-sel\-\_\-mempool\-\_\-reserve}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf \-\_\-gmx\-\_\-sel\-\_\-mempool\-\_\-reserve} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-sel\-\_\-mempool\-\_\-t} $\ast$}]{mp, }
+\item[{size\-\_\-t}]{size}
+\end{DoxyParamCaption}
+)}}\label{mempool_8h_a6c9597cba7979dfaa1ee8e701de510b9}
+\-Set the size of a memory pool. 
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mempool_8h_a6c9597cba7979dfaa1ee8e701de510b9_icgraph}
+\end{center}
+\end{figure}
+
+

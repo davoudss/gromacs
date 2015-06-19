@@ -1,0 +1,599 @@
+\hypertarget{share_2template_2gromacs_2xvgr_8h}{\section{share/template/gromacs/xvgr.h \-File \-Reference}
+\label{share_2template_2gromacs_2xvgr_8h}\index{share/template/gromacs/xvgr.\-h@{share/template/gromacs/xvgr.\-h}}
+}
+{\ttfamily \#include \char`\"{}visibility.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}sysstuff.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}typedefs.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}viewit.\-h\char`\"{}}\*
+\-Include dependency graph for xvgr.\-h\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{share_2template_2gromacs_2xvgr_8h__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \{ \*
+\hyperlink{share_2template_2gromacs_2xvgr_8h_ad63d52f2a7873cd40a13c4ce18552e27a6e80e9311fc3d68581067ed0a42b988e}{el\-None}, 
+\hyperlink{share_2template_2gromacs_2xvgr_8h_ad63d52f2a7873cd40a13c4ce18552e27a7ce47bb970b689e66453e41a481f69d8}{el\-Solid}, 
+\hyperlink{share_2template_2gromacs_2xvgr_8h_ad63d52f2a7873cd40a13c4ce18552e27ae9aa5b31771eea7fd91c88d9f8b7fd10}{el\-Dotted}, 
+\hyperlink{share_2template_2gromacs_2xvgr_8h_ad63d52f2a7873cd40a13c4ce18552e27a0c902f7930408ff6227446b1e6a458a0}{el\-Dashed}, 
+\*
+\hyperlink{share_2template_2gromacs_2xvgr_8h_ad63d52f2a7873cd40a13c4ce18552e27a3c7be8349eb97ac9880c7d8f3d926645}{el\-Long\-Dashed}, 
+\hyperlink{share_2template_2gromacs_2xvgr_8h_ad63d52f2a7873cd40a13c4ce18552e27a50b395ac65208ee83dba050507aa6905}{el\-Dot\-Dashed}, 
+\hyperlink{share_2template_2gromacs_2xvgr_8h_ad63d52f2a7873cd40a13c4ce18552e27a60d1ab07ada9d67cd02c4f1bdcbbcbe7}{el\-N\-R}
+ \}
+\item 
+enum \{ \*
+\hyperlink{share_2template_2gromacs_2xvgr_8h_a5fb54519fb8dc889cce6aeafd34ab647aafce4d4ef1461b6c14c96658aaccad71}{ec\-White}, 
+\hyperlink{share_2template_2gromacs_2xvgr_8h_a5fb54519fb8dc889cce6aeafd34ab647a3c84487db9f93e57e9698da6efba7227}{ec\-Frank}, 
+\hyperlink{share_2template_2gromacs_2xvgr_8h_a5fb54519fb8dc889cce6aeafd34ab647a5eb244e5977687a89af8385d2d45407b}{ec\-Black} =  ec\-Frank, 
+\hyperlink{share_2template_2gromacs_2xvgr_8h_a5fb54519fb8dc889cce6aeafd34ab647a9b00b15634bf30bb9cc7c1cbfe9e78f2}{ec\-Red}, 
+\*
+\hyperlink{share_2template_2gromacs_2xvgr_8h_a5fb54519fb8dc889cce6aeafd34ab647a1e47224f0ccb1f0d0589057da6fa2c6a}{ec\-Green}, 
+\hyperlink{share_2template_2gromacs_2xvgr_8h_a5fb54519fb8dc889cce6aeafd34ab647a9df03aecb6004d399769fd1619ec9d7d}{ec\-Blue}, 
+\hyperlink{share_2template_2gromacs_2xvgr_8h_a5fb54519fb8dc889cce6aeafd34ab647ae1fa34cd04bff3f3e5663104b09dde13}{ec\-Yellow}, 
+\hyperlink{share_2template_2gromacs_2xvgr_8h_a5fb54519fb8dc889cce6aeafd34ab647aba643dbd951c62299c9f5135bf59df10}{ec\-Brown}, 
+\*
+\hyperlink{share_2template_2gromacs_2xvgr_8h_a5fb54519fb8dc889cce6aeafd34ab647af865f3d53971a8a513d0dc72b4101bb9}{ec\-Gray}, 
+\hyperlink{share_2template_2gromacs_2xvgr_8h_a5fb54519fb8dc889cce6aeafd34ab647a0f0973f29f88f78f572935ec1fd2420d}{ec\-Purple}, 
+\hyperlink{share_2template_2gromacs_2xvgr_8h_a5fb54519fb8dc889cce6aeafd34ab647a489c8047320cae49bfaf91447e295962}{ec\-Light\-Blue}, 
+\hyperlink{share_2template_2gromacs_2xvgr_8h_a5fb54519fb8dc889cce6aeafd34ab647a2c199561929f06c2ab79cd271ef7dad5}{ec\-Violet}, 
+\*
+\hyperlink{share_2template_2gromacs_2xvgr_8h_a5fb54519fb8dc889cce6aeafd34ab647a3d78195a0631c512a576caa8d9859c51}{ec\-Holland}, 
+\hyperlink{share_2template_2gromacs_2xvgr_8h_a5fb54519fb8dc889cce6aeafd34ab647a4cee1ceeaac9ef7b58cc4f399f0aa0c8}{ec\-Lila}, 
+\hyperlink{share_2template_2gromacs_2xvgr_8h_a5fb54519fb8dc889cce6aeafd34ab647a39880c7be01cbd092dec2a14e74f0284}{ec\-Dark\-Gray}, 
+\hyperlink{share_2template_2gromacs_2xvgr_8h_a5fb54519fb8dc889cce6aeafd34ab647a45285a41af65d72337a72c2a1ae6731d}{ec\-Aquamarine}, 
+\*
+\hyperlink{share_2template_2gromacs_2xvgr_8h_a5fb54519fb8dc889cce6aeafd34ab647a84eb0c67befa5e2d5f3fda5cddd601c6}{ec\-Olive}, 
+\hyperlink{share_2template_2gromacs_2xvgr_8h_a5fb54519fb8dc889cce6aeafd34ab647afeb47685db07244475b243818afe75f6}{ec\-N\-R}
+ \}
+\item 
+enum \{ \hyperlink{share_2template_2gromacs_2xvgr_8h_a3b7c5804a12566fee0141f284efcb572ae7157f62381abc96879b4369e81db19d}{epp\-None}, 
+\hyperlink{share_2template_2gromacs_2xvgr_8h_a3b7c5804a12566fee0141f284efcb572abc1ab977520fad58970279cee2da00f6}{epp\-Color}, 
+\hyperlink{share_2template_2gromacs_2xvgr_8h_a3b7c5804a12566fee0141f284efcb572af0ccd2bc564882834af24a76078f0880}{epp\-Pattern}, 
+\hyperlink{share_2template_2gromacs_2xvgr_8h_a3b7c5804a12566fee0141f284efcb572aa60ed5a7ea472ac9c8353e0e4728ff3b}{epp\-N\-R}
+ \}
+\item 
+enum \{ \hyperlink{share_2template_2gromacs_2xvgr_8h_ad89246e8564c62fdd9c7d38de122beb5a5a9aad2320c64284fe96ca434e74c454}{ev\-View}, 
+\hyperlink{share_2template_2gromacs_2xvgr_8h_ad89246e8564c62fdd9c7d38de122beb5a13d8184ebd3a00ae13dbb9d2f0c4d927}{ev\-World}, 
+\hyperlink{share_2template_2gromacs_2xvgr_8h_ad89246e8564c62fdd9c7d38de122beb5a3eda65f7354aa7e76c426c3df0085c30}{ev\-N\-R}
+ \}
+\item 
+enum \{ \*
+\hyperlink{share_2template_2gromacs_2xvgr_8h_a2db06901d03245a790e5571701aba3dfa42d387b92bb00a8a03fa157942eddb60}{exvggt\-N\-O\-N\-E}, 
+\hyperlink{share_2template_2gromacs_2xvgr_8h_a2db06901d03245a790e5571701aba3dfa29758c7c3be82beccc06fe79df03ac27}{exvggt\-X\-N\-Y}, 
+\hyperlink{share_2template_2gromacs_2xvgr_8h_a2db06901d03245a790e5571701aba3dfa25403b915273277df2121226775dfc09}{exvggt\-X\-Y\-D\-Y}, 
+\hyperlink{share_2template_2gromacs_2xvgr_8h_a2db06901d03245a790e5571701aba3dfadbfa1b96929d82705a7b255c90d1178b}{exvggt\-X\-Y\-D\-Y\-D\-Y}, 
+\*
+\hyperlink{share_2template_2gromacs_2xvgr_8h_a2db06901d03245a790e5571701aba3dfa5d9635764996c6815fa67662f407a1d9}{exvggt\-N\-R}
+ \}
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_af6d678ccc5288db95c70b9d9003f11e2}{\-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{share_2template_2gromacs_2xvgr_8h_a3cf355d6b9624ded139b660b729f323a}{output\-\_\-env\-\_\-get\-\_\-print\-\_\-xvgr\-\_\-codes} (const \hyperlink{include_2types_2oenv_8h_a6a48d77d95132d7318780544821da6a5}{output\-\_\-env\-\_\-t} oenv)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_af6d678ccc5288db95c70b9d9003f11e2}{\-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{share_2template_2gromacs_2xvgr_8h_a3748c3922f9015111d79a715eb38d4a3}{xvgr\-\_\-header} (\-F\-I\-L\-E $\ast$fp, const char $\ast$title, const char $\ast$xaxis, const char $\ast$yaxis, int exvg\-\_\-graph\-\_\-type, const \hyperlink{include_2types_2oenv_8h_a6a48d77d95132d7318780544821da6a5}{output\-\_\-env\-\_\-t} oenv)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_af6d678ccc5288db95c70b9d9003f11e2}{\-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} \-F\-I\-L\-E $\ast$ \hyperlink{share_2template_2gromacs_2xvgr_8h_a367f73486f5839915242f431554c3f2a}{xvgropen\-\_\-type} (const char $\ast$fn, const char $\ast$title, const char $\ast$xaxis, const char $\ast$yaxis, int exvg\-\_\-graph\-\_\-type, const \hyperlink{include_2types_2oenv_8h_a6a48d77d95132d7318780544821da6a5}{output\-\_\-env\-\_\-t} oenv)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_af6d678ccc5288db95c70b9d9003f11e2}{\-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} \-F\-I\-L\-E $\ast$ \hyperlink{share_2template_2gromacs_2xvgr_8h_aa90d00b2a47a31b4d2eb4b1f342cf3ee}{xvgropen} (const char $\ast$fn, const char $\ast$title, const char $\ast$xaxis, const char $\ast$yaxis, const \hyperlink{include_2types_2oenv_8h_a6a48d77d95132d7318780544821da6a5}{output\-\_\-env\-\_\-t} oenv)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_af6d678ccc5288db95c70b9d9003f11e2}{\-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{share_2template_2gromacs_2xvgr_8h_ac301fb2c0eec6b6c2077bdc6375ea409}{xvgrclose} (\-F\-I\-L\-E $\ast$fp)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_af6d678ccc5288db95c70b9d9003f11e2}{\-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{share_2template_2gromacs_2xvgr_8h_a3f2641027ed41d176b1426a3a3b290dc}{xvgr\-\_\-subtitle} (\-F\-I\-L\-E $\ast$out, const char $\ast$subtitle, const \hyperlink{include_2types_2oenv_8h_a6a48d77d95132d7318780544821da6a5}{output\-\_\-env\-\_\-t} oenv)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_af6d678ccc5288db95c70b9d9003f11e2}{\-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{share_2template_2gromacs_2xvgr_8h_ac374faac9e9ef25a75b16d4188db39be}{xvgr\-\_\-view} (\-F\-I\-L\-E $\ast$out, real xmin, real ymin, real xmax, real ymax, const \hyperlink{include_2types_2oenv_8h_a6a48d77d95132d7318780544821da6a5}{output\-\_\-env\-\_\-t} oenv)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_af6d678ccc5288db95c70b9d9003f11e2}{\-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{share_2template_2gromacs_2xvgr_8h_a694cdc2035a2ca5a7b4ad74069ae2882}{xvgr\-\_\-world} (\-F\-I\-L\-E $\ast$out, real xmin, real ymin, real xmax, real ymax, const \hyperlink{include_2types_2oenv_8h_a6a48d77d95132d7318780544821da6a5}{output\-\_\-env\-\_\-t} oenv)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_af6d678ccc5288db95c70b9d9003f11e2}{\-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{share_2template_2gromacs_2xvgr_8h_a42acd311763e8aa65599d3d9ba76a364}{xvgr\-\_\-legend} (\-F\-I\-L\-E $\ast$out, int nsets, const char $\ast$$\ast$setnames, const \hyperlink{include_2types_2oenv_8h_a6a48d77d95132d7318780544821da6a5}{output\-\_\-env\-\_\-t} oenv)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_af6d678ccc5288db95c70b9d9003f11e2}{\-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{share_2template_2gromacs_2xvgr_8h_aadc270981cd3bcba7721a199921ad630}{xvgr\-\_\-new\-\_\-dataset} (\-F\-I\-L\-E $\ast$out, int nr\-\_\-first, int nsets, const char $\ast$$\ast$setnames, const \hyperlink{include_2types_2oenv_8h_a6a48d77d95132d7318780544821da6a5}{output\-\_\-env\-\_\-t} oenv)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_af6d678ccc5288db95c70b9d9003f11e2}{\-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{share_2template_2gromacs_2xvgr_8h_a7b9635212096f6879e3fec30a54d1b1f}{xvgr\-\_\-line\-\_\-props} (\-F\-I\-L\-E $\ast$out, int \-Nr\-Set, int \-Line\-Style, int \-Line\-Color, const \hyperlink{include_2types_2oenv_8h_a6a48d77d95132d7318780544821da6a5}{output\-\_\-env\-\_\-t} oenv)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{share_2template_2gromacs_2xvgr_8h_a7a4531832ec2ed2d0f06582a9818caf2}{xvgr\-\_\-box} (\-F\-I\-L\-E $\ast$out, int \-Loc\-Type, real xmin, real ymin, real xmax, real ymax, int \-Line\-Style, int \-Line\-Width, int \-Line\-Color, int \-Box\-Fill, int \-Box\-Color, int \-Box\-Pattern, const \hyperlink{include_2types_2oenv_8h_a6a48d77d95132d7318780544821da6a5}{output\-\_\-env\-\_\-t} oenv)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_af6d678ccc5288db95c70b9d9003f11e2}{\-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} int \hyperlink{share_2template_2gromacs_2xvgr_8h_a17c92791537883378221664a0dda558a}{read\-\_\-xvg\-\_\-legend} (const char $\ast$fn, double $\ast$$\ast$$\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ad992d70ec70c927046cfc2ab1c79b188}{y}, int $\ast$ny, char $\ast$$\ast$subtitle, char $\ast$$\ast$$\ast$legend)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_af6d678ccc5288db95c70b9d9003f11e2}{\-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} int \hyperlink{share_2template_2gromacs_2xvgr_8h_aeabb7f54e03bf1cac790a195f3eb70ff}{read\-\_\-xvg} (const char $\ast$fn, double $\ast$$\ast$$\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ad992d70ec70c927046cfc2ab1c79b188}{y}, int $\ast$ny)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_af6d678ccc5288db95c70b9d9003f11e2}{\-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{share_2template_2gromacs_2xvgr_8h_a9300496f3f3b984d99e381708f632a7b}{write\-\_\-xvg} (const char $\ast$fn, const char $\ast$title, int nx, int ny, real $\ast$$\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ad992d70ec70c927046cfc2ab1c79b188}{y}, const char $\ast$$\ast$leg, const \hyperlink{include_2types_2oenv_8h_a6a48d77d95132d7318780544821da6a5}{output\-\_\-env\-\_\-t} oenv)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_af6d678ccc5288db95c70b9d9003f11e2}{\-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} real $\ast$$\ast$ \hyperlink{share_2template_2gromacs_2xvgr_8h_aaa9d494cda122472cb6a2526179ef398}{read\-\_\-xvg\-\_\-time} (const char $\ast$fn, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Have\-T, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-T\-B, real tb, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-T\-E, real te, int nsets\-\_\-in, int $\ast$nset, int $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a47f9c9a63fbc81ce7d0d3202ffb3c0a8}{nval}, real $\ast$dt, real $\ast$$\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a2b515c84b1293071f7584da32ca336c0}{t})
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Enumeration \-Type \-Documentation}
+\hypertarget{share_2template_2gromacs_2xvgr_8h_ad63d52f2a7873cd40a13c4ce18552e27}{\subsubsection[{anonymous enum}]{\setlength{\rightskip}{0pt plus 5cm}anonymous enum}}\label{share_2template_2gromacs_2xvgr_8h_ad63d52f2a7873cd40a13c4ce18552e27}
+\begin{Desc}
+\item[\-Enumerator\-: ]\par
+\begin{description}
+\index{el\-None@{el\-None}!share/template/gromacs/xvgr.\-h@{share/template/gromacs/xvgr.\-h}}\index{share/template/gromacs/xvgr.\-h@{share/template/gromacs/xvgr.\-h}!el\-None@{el\-None}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2xvgr_8h_ad63d52f2a7873cd40a13c4ce18552e27a6e80e9311fc3d68581067ed0a42b988e}{el\-None}\label{share_2template_2gromacs_2xvgr_8h_ad63d52f2a7873cd40a13c4ce18552e27a6e80e9311fc3d68581067ed0a42b988e}
+}]\index{el\-Solid@{el\-Solid}!share/template/gromacs/xvgr.\-h@{share/template/gromacs/xvgr.\-h}}\index{share/template/gromacs/xvgr.\-h@{share/template/gromacs/xvgr.\-h}!el\-Solid@{el\-Solid}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2xvgr_8h_ad63d52f2a7873cd40a13c4ce18552e27a7ce47bb970b689e66453e41a481f69d8}{el\-Solid}\label{share_2template_2gromacs_2xvgr_8h_ad63d52f2a7873cd40a13c4ce18552e27a7ce47bb970b689e66453e41a481f69d8}
+}]\index{el\-Dotted@{el\-Dotted}!share/template/gromacs/xvgr.\-h@{share/template/gromacs/xvgr.\-h}}\index{share/template/gromacs/xvgr.\-h@{share/template/gromacs/xvgr.\-h}!el\-Dotted@{el\-Dotted}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2xvgr_8h_ad63d52f2a7873cd40a13c4ce18552e27ae9aa5b31771eea7fd91c88d9f8b7fd10}{el\-Dotted}\label{share_2template_2gromacs_2xvgr_8h_ad63d52f2a7873cd40a13c4ce18552e27ae9aa5b31771eea7fd91c88d9f8b7fd10}
+}]\index{el\-Dashed@{el\-Dashed}!share/template/gromacs/xvgr.\-h@{share/template/gromacs/xvgr.\-h}}\index{share/template/gromacs/xvgr.\-h@{share/template/gromacs/xvgr.\-h}!el\-Dashed@{el\-Dashed}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2xvgr_8h_ad63d52f2a7873cd40a13c4ce18552e27a0c902f7930408ff6227446b1e6a458a0}{el\-Dashed}\label{share_2template_2gromacs_2xvgr_8h_ad63d52f2a7873cd40a13c4ce18552e27a0c902f7930408ff6227446b1e6a458a0}
+}]\index{el\-Long\-Dashed@{el\-Long\-Dashed}!share/template/gromacs/xvgr.\-h@{share/template/gromacs/xvgr.\-h}}\index{share/template/gromacs/xvgr.\-h@{share/template/gromacs/xvgr.\-h}!el\-Long\-Dashed@{el\-Long\-Dashed}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2xvgr_8h_ad63d52f2a7873cd40a13c4ce18552e27a3c7be8349eb97ac9880c7d8f3d926645}{el\-Long\-Dashed}\label{share_2template_2gromacs_2xvgr_8h_ad63d52f2a7873cd40a13c4ce18552e27a3c7be8349eb97ac9880c7d8f3d926645}
+}]\index{el\-Dot\-Dashed@{el\-Dot\-Dashed}!share/template/gromacs/xvgr.\-h@{share/template/gromacs/xvgr.\-h}}\index{share/template/gromacs/xvgr.\-h@{share/template/gromacs/xvgr.\-h}!el\-Dot\-Dashed@{el\-Dot\-Dashed}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2xvgr_8h_ad63d52f2a7873cd40a13c4ce18552e27a50b395ac65208ee83dba050507aa6905}{el\-Dot\-Dashed}\label{share_2template_2gromacs_2xvgr_8h_ad63d52f2a7873cd40a13c4ce18552e27a50b395ac65208ee83dba050507aa6905}
+}]\index{el\-N\-R@{el\-N\-R}!share/template/gromacs/xvgr.\-h@{share/template/gromacs/xvgr.\-h}}\index{share/template/gromacs/xvgr.\-h@{share/template/gromacs/xvgr.\-h}!el\-N\-R@{el\-N\-R}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2xvgr_8h_ad63d52f2a7873cd40a13c4ce18552e27a60d1ab07ada9d67cd02c4f1bdcbbcbe7}{el\-N\-R}\label{share_2template_2gromacs_2xvgr_8h_ad63d52f2a7873cd40a13c4ce18552e27a60d1ab07ada9d67cd02c4f1bdcbbcbe7}
+}]\end{description}
+\end{Desc}
+
+\hypertarget{share_2template_2gromacs_2xvgr_8h_a5fb54519fb8dc889cce6aeafd34ab647}{\subsubsection[{anonymous enum}]{\setlength{\rightskip}{0pt plus 5cm}anonymous enum}}\label{share_2template_2gromacs_2xvgr_8h_a5fb54519fb8dc889cce6aeafd34ab647}
+\begin{Desc}
+\item[\-Enumerator\-: ]\par
+\begin{description}
+\index{ec\-White@{ec\-White}!share/template/gromacs/xvgr.\-h@{share/template/gromacs/xvgr.\-h}}\index{share/template/gromacs/xvgr.\-h@{share/template/gromacs/xvgr.\-h}!ec\-White@{ec\-White}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2xvgr_8h_a5fb54519fb8dc889cce6aeafd34ab647aafce4d4ef1461b6c14c96658aaccad71}{ec\-White}\label{share_2template_2gromacs_2xvgr_8h_a5fb54519fb8dc889cce6aeafd34ab647aafce4d4ef1461b6c14c96658aaccad71}
+}]\index{ec\-Frank@{ec\-Frank}!share/template/gromacs/xvgr.\-h@{share/template/gromacs/xvgr.\-h}}\index{share/template/gromacs/xvgr.\-h@{share/template/gromacs/xvgr.\-h}!ec\-Frank@{ec\-Frank}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2xvgr_8h_a5fb54519fb8dc889cce6aeafd34ab647a3c84487db9f93e57e9698da6efba7227}{ec\-Frank}\label{share_2template_2gromacs_2xvgr_8h_a5fb54519fb8dc889cce6aeafd34ab647a3c84487db9f93e57e9698da6efba7227}
+}]\index{ec\-Black@{ec\-Black}!share/template/gromacs/xvgr.\-h@{share/template/gromacs/xvgr.\-h}}\index{share/template/gromacs/xvgr.\-h@{share/template/gromacs/xvgr.\-h}!ec\-Black@{ec\-Black}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2xvgr_8h_a5fb54519fb8dc889cce6aeafd34ab647a5eb244e5977687a89af8385d2d45407b}{ec\-Black}\label{share_2template_2gromacs_2xvgr_8h_a5fb54519fb8dc889cce6aeafd34ab647a5eb244e5977687a89af8385d2d45407b}
+}]\index{ec\-Red@{ec\-Red}!share/template/gromacs/xvgr.\-h@{share/template/gromacs/xvgr.\-h}}\index{share/template/gromacs/xvgr.\-h@{share/template/gromacs/xvgr.\-h}!ec\-Red@{ec\-Red}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2xvgr_8h_a5fb54519fb8dc889cce6aeafd34ab647a9b00b15634bf30bb9cc7c1cbfe9e78f2}{ec\-Red}\label{share_2template_2gromacs_2xvgr_8h_a5fb54519fb8dc889cce6aeafd34ab647a9b00b15634bf30bb9cc7c1cbfe9e78f2}
+}]\index{ec\-Green@{ec\-Green}!share/template/gromacs/xvgr.\-h@{share/template/gromacs/xvgr.\-h}}\index{share/template/gromacs/xvgr.\-h@{share/template/gromacs/xvgr.\-h}!ec\-Green@{ec\-Green}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2xvgr_8h_a5fb54519fb8dc889cce6aeafd34ab647a1e47224f0ccb1f0d0589057da6fa2c6a}{ec\-Green}\label{share_2template_2gromacs_2xvgr_8h_a5fb54519fb8dc889cce6aeafd34ab647a1e47224f0ccb1f0d0589057da6fa2c6a}
+}]\index{ec\-Blue@{ec\-Blue}!share/template/gromacs/xvgr.\-h@{share/template/gromacs/xvgr.\-h}}\index{share/template/gromacs/xvgr.\-h@{share/template/gromacs/xvgr.\-h}!ec\-Blue@{ec\-Blue}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2xvgr_8h_a5fb54519fb8dc889cce6aeafd34ab647a9df03aecb6004d399769fd1619ec9d7d}{ec\-Blue}\label{share_2template_2gromacs_2xvgr_8h_a5fb54519fb8dc889cce6aeafd34ab647a9df03aecb6004d399769fd1619ec9d7d}
+}]\index{ec\-Yellow@{ec\-Yellow}!share/template/gromacs/xvgr.\-h@{share/template/gromacs/xvgr.\-h}}\index{share/template/gromacs/xvgr.\-h@{share/template/gromacs/xvgr.\-h}!ec\-Yellow@{ec\-Yellow}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2xvgr_8h_a5fb54519fb8dc889cce6aeafd34ab647ae1fa34cd04bff3f3e5663104b09dde13}{ec\-Yellow}\label{share_2template_2gromacs_2xvgr_8h_a5fb54519fb8dc889cce6aeafd34ab647ae1fa34cd04bff3f3e5663104b09dde13}
+}]\index{ec\-Brown@{ec\-Brown}!share/template/gromacs/xvgr.\-h@{share/template/gromacs/xvgr.\-h}}\index{share/template/gromacs/xvgr.\-h@{share/template/gromacs/xvgr.\-h}!ec\-Brown@{ec\-Brown}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2xvgr_8h_a5fb54519fb8dc889cce6aeafd34ab647aba643dbd951c62299c9f5135bf59df10}{ec\-Brown}\label{share_2template_2gromacs_2xvgr_8h_a5fb54519fb8dc889cce6aeafd34ab647aba643dbd951c62299c9f5135bf59df10}
+}]\index{ec\-Gray@{ec\-Gray}!share/template/gromacs/xvgr.\-h@{share/template/gromacs/xvgr.\-h}}\index{share/template/gromacs/xvgr.\-h@{share/template/gromacs/xvgr.\-h}!ec\-Gray@{ec\-Gray}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2xvgr_8h_a5fb54519fb8dc889cce6aeafd34ab647af865f3d53971a8a513d0dc72b4101bb9}{ec\-Gray}\label{share_2template_2gromacs_2xvgr_8h_a5fb54519fb8dc889cce6aeafd34ab647af865f3d53971a8a513d0dc72b4101bb9}
+}]\index{ec\-Purple@{ec\-Purple}!share/template/gromacs/xvgr.\-h@{share/template/gromacs/xvgr.\-h}}\index{share/template/gromacs/xvgr.\-h@{share/template/gromacs/xvgr.\-h}!ec\-Purple@{ec\-Purple}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2xvgr_8h_a5fb54519fb8dc889cce6aeafd34ab647a0f0973f29f88f78f572935ec1fd2420d}{ec\-Purple}\label{share_2template_2gromacs_2xvgr_8h_a5fb54519fb8dc889cce6aeafd34ab647a0f0973f29f88f78f572935ec1fd2420d}
+}]\index{ec\-Light\-Blue@{ec\-Light\-Blue}!share/template/gromacs/xvgr.\-h@{share/template/gromacs/xvgr.\-h}}\index{share/template/gromacs/xvgr.\-h@{share/template/gromacs/xvgr.\-h}!ec\-Light\-Blue@{ec\-Light\-Blue}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2xvgr_8h_a5fb54519fb8dc889cce6aeafd34ab647a489c8047320cae49bfaf91447e295962}{ec\-Light\-Blue}\label{share_2template_2gromacs_2xvgr_8h_a5fb54519fb8dc889cce6aeafd34ab647a489c8047320cae49bfaf91447e295962}
+}]\index{ec\-Violet@{ec\-Violet}!share/template/gromacs/xvgr.\-h@{share/template/gromacs/xvgr.\-h}}\index{share/template/gromacs/xvgr.\-h@{share/template/gromacs/xvgr.\-h}!ec\-Violet@{ec\-Violet}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2xvgr_8h_a5fb54519fb8dc889cce6aeafd34ab647a2c199561929f06c2ab79cd271ef7dad5}{ec\-Violet}\label{share_2template_2gromacs_2xvgr_8h_a5fb54519fb8dc889cce6aeafd34ab647a2c199561929f06c2ab79cd271ef7dad5}
+}]\index{ec\-Holland@{ec\-Holland}!share/template/gromacs/xvgr.\-h@{share/template/gromacs/xvgr.\-h}}\index{share/template/gromacs/xvgr.\-h@{share/template/gromacs/xvgr.\-h}!ec\-Holland@{ec\-Holland}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2xvgr_8h_a5fb54519fb8dc889cce6aeafd34ab647a3d78195a0631c512a576caa8d9859c51}{ec\-Holland}\label{share_2template_2gromacs_2xvgr_8h_a5fb54519fb8dc889cce6aeafd34ab647a3d78195a0631c512a576caa8d9859c51}
+}]\index{ec\-Lila@{ec\-Lila}!share/template/gromacs/xvgr.\-h@{share/template/gromacs/xvgr.\-h}}\index{share/template/gromacs/xvgr.\-h@{share/template/gromacs/xvgr.\-h}!ec\-Lila@{ec\-Lila}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2xvgr_8h_a5fb54519fb8dc889cce6aeafd34ab647a4cee1ceeaac9ef7b58cc4f399f0aa0c8}{ec\-Lila}\label{share_2template_2gromacs_2xvgr_8h_a5fb54519fb8dc889cce6aeafd34ab647a4cee1ceeaac9ef7b58cc4f399f0aa0c8}
+}]\index{ec\-Dark\-Gray@{ec\-Dark\-Gray}!share/template/gromacs/xvgr.\-h@{share/template/gromacs/xvgr.\-h}}\index{share/template/gromacs/xvgr.\-h@{share/template/gromacs/xvgr.\-h}!ec\-Dark\-Gray@{ec\-Dark\-Gray}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2xvgr_8h_a5fb54519fb8dc889cce6aeafd34ab647a39880c7be01cbd092dec2a14e74f0284}{ec\-Dark\-Gray}\label{share_2template_2gromacs_2xvgr_8h_a5fb54519fb8dc889cce6aeafd34ab647a39880c7be01cbd092dec2a14e74f0284}
+}]\index{ec\-Aquamarine@{ec\-Aquamarine}!share/template/gromacs/xvgr.\-h@{share/template/gromacs/xvgr.\-h}}\index{share/template/gromacs/xvgr.\-h@{share/template/gromacs/xvgr.\-h}!ec\-Aquamarine@{ec\-Aquamarine}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2xvgr_8h_a5fb54519fb8dc889cce6aeafd34ab647a45285a41af65d72337a72c2a1ae6731d}{ec\-Aquamarine}\label{share_2template_2gromacs_2xvgr_8h_a5fb54519fb8dc889cce6aeafd34ab647a45285a41af65d72337a72c2a1ae6731d}
+}]\index{ec\-Olive@{ec\-Olive}!share/template/gromacs/xvgr.\-h@{share/template/gromacs/xvgr.\-h}}\index{share/template/gromacs/xvgr.\-h@{share/template/gromacs/xvgr.\-h}!ec\-Olive@{ec\-Olive}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2xvgr_8h_a5fb54519fb8dc889cce6aeafd34ab647a84eb0c67befa5e2d5f3fda5cddd601c6}{ec\-Olive}\label{share_2template_2gromacs_2xvgr_8h_a5fb54519fb8dc889cce6aeafd34ab647a84eb0c67befa5e2d5f3fda5cddd601c6}
+}]\index{ec\-N\-R@{ec\-N\-R}!share/template/gromacs/xvgr.\-h@{share/template/gromacs/xvgr.\-h}}\index{share/template/gromacs/xvgr.\-h@{share/template/gromacs/xvgr.\-h}!ec\-N\-R@{ec\-N\-R}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2xvgr_8h_a5fb54519fb8dc889cce6aeafd34ab647afeb47685db07244475b243818afe75f6}{ec\-N\-R}\label{share_2template_2gromacs_2xvgr_8h_a5fb54519fb8dc889cce6aeafd34ab647afeb47685db07244475b243818afe75f6}
+}]\end{description}
+\end{Desc}
+
+\hypertarget{share_2template_2gromacs_2xvgr_8h_a3b7c5804a12566fee0141f284efcb572}{\subsubsection[{anonymous enum}]{\setlength{\rightskip}{0pt plus 5cm}anonymous enum}}\label{share_2template_2gromacs_2xvgr_8h_a3b7c5804a12566fee0141f284efcb572}
+\begin{Desc}
+\item[\-Enumerator\-: ]\par
+\begin{description}
+\index{epp\-None@{epp\-None}!share/template/gromacs/xvgr.\-h@{share/template/gromacs/xvgr.\-h}}\index{share/template/gromacs/xvgr.\-h@{share/template/gromacs/xvgr.\-h}!epp\-None@{epp\-None}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2xvgr_8h_a3b7c5804a12566fee0141f284efcb572ae7157f62381abc96879b4369e81db19d}{epp\-None}\label{share_2template_2gromacs_2xvgr_8h_a3b7c5804a12566fee0141f284efcb572ae7157f62381abc96879b4369e81db19d}
+}]\index{epp\-Color@{epp\-Color}!share/template/gromacs/xvgr.\-h@{share/template/gromacs/xvgr.\-h}}\index{share/template/gromacs/xvgr.\-h@{share/template/gromacs/xvgr.\-h}!epp\-Color@{epp\-Color}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2xvgr_8h_a3b7c5804a12566fee0141f284efcb572abc1ab977520fad58970279cee2da00f6}{epp\-Color}\label{share_2template_2gromacs_2xvgr_8h_a3b7c5804a12566fee0141f284efcb572abc1ab977520fad58970279cee2da00f6}
+}]\index{epp\-Pattern@{epp\-Pattern}!share/template/gromacs/xvgr.\-h@{share/template/gromacs/xvgr.\-h}}\index{share/template/gromacs/xvgr.\-h@{share/template/gromacs/xvgr.\-h}!epp\-Pattern@{epp\-Pattern}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2xvgr_8h_a3b7c5804a12566fee0141f284efcb572af0ccd2bc564882834af24a76078f0880}{epp\-Pattern}\label{share_2template_2gromacs_2xvgr_8h_a3b7c5804a12566fee0141f284efcb572af0ccd2bc564882834af24a76078f0880}
+}]\index{epp\-N\-R@{epp\-N\-R}!share/template/gromacs/xvgr.\-h@{share/template/gromacs/xvgr.\-h}}\index{share/template/gromacs/xvgr.\-h@{share/template/gromacs/xvgr.\-h}!epp\-N\-R@{epp\-N\-R}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2xvgr_8h_a3b7c5804a12566fee0141f284efcb572aa60ed5a7ea472ac9c8353e0e4728ff3b}{epp\-N\-R}\label{share_2template_2gromacs_2xvgr_8h_a3b7c5804a12566fee0141f284efcb572aa60ed5a7ea472ac9c8353e0e4728ff3b}
+}]\end{description}
+\end{Desc}
+
+\hypertarget{share_2template_2gromacs_2xvgr_8h_ad89246e8564c62fdd9c7d38de122beb5}{\subsubsection[{anonymous enum}]{\setlength{\rightskip}{0pt plus 5cm}anonymous enum}}\label{share_2template_2gromacs_2xvgr_8h_ad89246e8564c62fdd9c7d38de122beb5}
+\begin{Desc}
+\item[\-Enumerator\-: ]\par
+\begin{description}
+\index{ev\-View@{ev\-View}!share/template/gromacs/xvgr.\-h@{share/template/gromacs/xvgr.\-h}}\index{share/template/gromacs/xvgr.\-h@{share/template/gromacs/xvgr.\-h}!ev\-View@{ev\-View}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2xvgr_8h_ad89246e8564c62fdd9c7d38de122beb5a5a9aad2320c64284fe96ca434e74c454}{ev\-View}\label{share_2template_2gromacs_2xvgr_8h_ad89246e8564c62fdd9c7d38de122beb5a5a9aad2320c64284fe96ca434e74c454}
+}]\index{ev\-World@{ev\-World}!share/template/gromacs/xvgr.\-h@{share/template/gromacs/xvgr.\-h}}\index{share/template/gromacs/xvgr.\-h@{share/template/gromacs/xvgr.\-h}!ev\-World@{ev\-World}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2xvgr_8h_ad89246e8564c62fdd9c7d38de122beb5a13d8184ebd3a00ae13dbb9d2f0c4d927}{ev\-World}\label{share_2template_2gromacs_2xvgr_8h_ad89246e8564c62fdd9c7d38de122beb5a13d8184ebd3a00ae13dbb9d2f0c4d927}
+}]\index{ev\-N\-R@{ev\-N\-R}!share/template/gromacs/xvgr.\-h@{share/template/gromacs/xvgr.\-h}}\index{share/template/gromacs/xvgr.\-h@{share/template/gromacs/xvgr.\-h}!ev\-N\-R@{ev\-N\-R}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2xvgr_8h_ad89246e8564c62fdd9c7d38de122beb5a3eda65f7354aa7e76c426c3df0085c30}{ev\-N\-R}\label{share_2template_2gromacs_2xvgr_8h_ad89246e8564c62fdd9c7d38de122beb5a3eda65f7354aa7e76c426c3df0085c30}
+}]\end{description}
+\end{Desc}
+
+\hypertarget{share_2template_2gromacs_2xvgr_8h_a2db06901d03245a790e5571701aba3df}{\subsubsection[{anonymous enum}]{\setlength{\rightskip}{0pt plus 5cm}anonymous enum}}\label{share_2template_2gromacs_2xvgr_8h_a2db06901d03245a790e5571701aba3df}
+\begin{Desc}
+\item[\-Enumerator\-: ]\par
+\begin{description}
+\index{exvggt\-N\-O\-N\-E@{exvggt\-N\-O\-N\-E}!share/template/gromacs/xvgr.\-h@{share/template/gromacs/xvgr.\-h}}\index{share/template/gromacs/xvgr.\-h@{share/template/gromacs/xvgr.\-h}!exvggt\-N\-O\-N\-E@{exvggt\-N\-O\-N\-E}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2xvgr_8h_a2db06901d03245a790e5571701aba3dfa42d387b92bb00a8a03fa157942eddb60}{exvggt\-N\-O\-N\-E}\label{share_2template_2gromacs_2xvgr_8h_a2db06901d03245a790e5571701aba3dfa42d387b92bb00a8a03fa157942eddb60}
+}]\index{exvggt\-X\-N\-Y@{exvggt\-X\-N\-Y}!share/template/gromacs/xvgr.\-h@{share/template/gromacs/xvgr.\-h}}\index{share/template/gromacs/xvgr.\-h@{share/template/gromacs/xvgr.\-h}!exvggt\-X\-N\-Y@{exvggt\-X\-N\-Y}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2xvgr_8h_a2db06901d03245a790e5571701aba3dfa29758c7c3be82beccc06fe79df03ac27}{exvggt\-X\-N\-Y}\label{share_2template_2gromacs_2xvgr_8h_a2db06901d03245a790e5571701aba3dfa29758c7c3be82beccc06fe79df03ac27}
+}]\index{exvggt\-X\-Y\-D\-Y@{exvggt\-X\-Y\-D\-Y}!share/template/gromacs/xvgr.\-h@{share/template/gromacs/xvgr.\-h}}\index{share/template/gromacs/xvgr.\-h@{share/template/gromacs/xvgr.\-h}!exvggt\-X\-Y\-D\-Y@{exvggt\-X\-Y\-D\-Y}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2xvgr_8h_a2db06901d03245a790e5571701aba3dfa25403b915273277df2121226775dfc09}{exvggt\-X\-Y\-D\-Y}\label{share_2template_2gromacs_2xvgr_8h_a2db06901d03245a790e5571701aba3dfa25403b915273277df2121226775dfc09}
+}]\index{exvggt\-X\-Y\-D\-Y\-D\-Y@{exvggt\-X\-Y\-D\-Y\-D\-Y}!share/template/gromacs/xvgr.\-h@{share/template/gromacs/xvgr.\-h}}\index{share/template/gromacs/xvgr.\-h@{share/template/gromacs/xvgr.\-h}!exvggt\-X\-Y\-D\-Y\-D\-Y@{exvggt\-X\-Y\-D\-Y\-D\-Y}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2xvgr_8h_a2db06901d03245a790e5571701aba3dfadbfa1b96929d82705a7b255c90d1178b}{exvggt\-X\-Y\-D\-Y\-D\-Y}\label{share_2template_2gromacs_2xvgr_8h_a2db06901d03245a790e5571701aba3dfadbfa1b96929d82705a7b255c90d1178b}
+}]\index{exvggt\-N\-R@{exvggt\-N\-R}!share/template/gromacs/xvgr.\-h@{share/template/gromacs/xvgr.\-h}}\index{share/template/gromacs/xvgr.\-h@{share/template/gromacs/xvgr.\-h}!exvggt\-N\-R@{exvggt\-N\-R}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2xvgr_8h_a2db06901d03245a790e5571701aba3dfa5d9635764996c6815fa67662f407a1d9}{exvggt\-N\-R}\label{share_2template_2gromacs_2xvgr_8h_a2db06901d03245a790e5571701aba3dfa5d9635764996c6815fa67662f407a1d9}
+}]\end{description}
+\end{Desc}
+
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{share_2template_2gromacs_2xvgr_8h_a3cf355d6b9624ded139b660b729f323a}{\index{share/template/gromacs/xvgr.\-h@{share/template/gromacs/xvgr.\-h}!output\-\_\-env\-\_\-get\-\_\-print\-\_\-xvgr\-\_\-codes@{output\-\_\-env\-\_\-get\-\_\-print\-\_\-xvgr\-\_\-codes}}
+\index{output\-\_\-env\-\_\-get\-\_\-print\-\_\-xvgr\-\_\-codes@{output\-\_\-env\-\_\-get\-\_\-print\-\_\-xvgr\-\_\-codes}!share/template/gromacs/xvgr.h@{share/template/gromacs/xvgr.\-h}}
+\subsubsection[{output\-\_\-env\-\_\-get\-\_\-print\-\_\-xvgr\-\_\-codes}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} {\bf gmx\-\_\-bool} {\bf output\-\_\-env\-\_\-get\-\_\-print\-\_\-xvgr\-\_\-codes} (
+\begin{DoxyParamCaption}
+\item[{const {\bf output\-\_\-env\-\_\-t}}]{oenv}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2xvgr_8h_a3cf355d6b9624ded139b660b729f323a}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{share_2template_2gromacs_2xvgr_8h_a3cf355d6b9624ded139b660b729f323a_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{share_2template_2gromacs_2xvgr_8h_aeabb7f54e03bf1cac790a195f3eb70ff}{\index{share/template/gromacs/xvgr.\-h@{share/template/gromacs/xvgr.\-h}!read\-\_\-xvg@{read\-\_\-xvg}}
+\index{read\-\_\-xvg@{read\-\_\-xvg}!share/template/gromacs/xvgr.h@{share/template/gromacs/xvgr.\-h}}
+\subsubsection[{read\-\_\-xvg}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} int {\bf read\-\_\-xvg} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{fn, }
+\item[{double $\ast$$\ast$$\ast$}]{y, }
+\item[{int $\ast$}]{ny}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2xvgr_8h_aeabb7f54e03bf1cac790a195f3eb70ff}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=262pt]{share_2template_2gromacs_2xvgr_8h_aeabb7f54e03bf1cac790a195f3eb70ff_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{share_2template_2gromacs_2xvgr_8h_a17c92791537883378221664a0dda558a}{\index{share/template/gromacs/xvgr.\-h@{share/template/gromacs/xvgr.\-h}!read\-\_\-xvg\-\_\-legend@{read\-\_\-xvg\-\_\-legend}}
+\index{read\-\_\-xvg\-\_\-legend@{read\-\_\-xvg\-\_\-legend}!share/template/gromacs/xvgr.h@{share/template/gromacs/xvgr.\-h}}
+\subsubsection[{read\-\_\-xvg\-\_\-legend}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} int {\bf read\-\_\-xvg\-\_\-legend} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{fn, }
+\item[{double $\ast$$\ast$$\ast$}]{y, }
+\item[{int $\ast$}]{ny, }
+\item[{char $\ast$$\ast$}]{subtitle, }
+\item[{char $\ast$$\ast$$\ast$}]{legend}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2xvgr_8h_a17c92791537883378221664a0dda558a}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{share_2template_2gromacs_2xvgr_8h_a17c92791537883378221664a0dda558a_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{share_2template_2gromacs_2xvgr_8h_aaa9d494cda122472cb6a2526179ef398}{\index{share/template/gromacs/xvgr.\-h@{share/template/gromacs/xvgr.\-h}!read\-\_\-xvg\-\_\-time@{read\-\_\-xvg\-\_\-time}}
+\index{read\-\_\-xvg\-\_\-time@{read\-\_\-xvg\-\_\-time}!share/template/gromacs/xvgr.h@{share/template/gromacs/xvgr.\-h}}
+\subsubsection[{read\-\_\-xvg\-\_\-time}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} real$\ast$$\ast$ {\bf read\-\_\-xvg\-\_\-time} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{fn, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Have\-T, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-T\-B, }
+\item[{real}]{tb, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-T\-E, }
+\item[{real}]{te, }
+\item[{int}]{nsets\-\_\-in, }
+\item[{int $\ast$}]{nset, }
+\item[{int $\ast$}]{nval, }
+\item[{real $\ast$}]{dt, }
+\item[{real $\ast$$\ast$}]{t}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2xvgr_8h_aaa9d494cda122472cb6a2526179ef398}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{share_2template_2gromacs_2xvgr_8h_aaa9d494cda122472cb6a2526179ef398_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{share_2template_2gromacs_2xvgr_8h_a9300496f3f3b984d99e381708f632a7b}{\index{share/template/gromacs/xvgr.\-h@{share/template/gromacs/xvgr.\-h}!write\-\_\-xvg@{write\-\_\-xvg}}
+\index{write\-\_\-xvg@{write\-\_\-xvg}!share/template/gromacs/xvgr.h@{share/template/gromacs/xvgr.\-h}}
+\subsubsection[{write\-\_\-xvg}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} {\bf void} {\bf write\-\_\-xvg} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{fn, }
+\item[{const char $\ast$}]{title, }
+\item[{int}]{nx, }
+\item[{int}]{ny, }
+\item[{real $\ast$$\ast$}]{y, }
+\item[{const char $\ast$$\ast$}]{leg, }
+\item[{const {\bf output\-\_\-env\-\_\-t}}]{oenv}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2xvgr_8h_a9300496f3f3b984d99e381708f632a7b}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=246pt]{share_2template_2gromacs_2xvgr_8h_a9300496f3f3b984d99e381708f632a7b_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{share_2template_2gromacs_2xvgr_8h_a7a4531832ec2ed2d0f06582a9818caf2}{\index{share/template/gromacs/xvgr.\-h@{share/template/gromacs/xvgr.\-h}!xvgr\-\_\-box@{xvgr\-\_\-box}}
+\index{xvgr\-\_\-box@{xvgr\-\_\-box}!share/template/gromacs/xvgr.h@{share/template/gromacs/xvgr.\-h}}
+\subsubsection[{xvgr\-\_\-box}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf xvgr\-\_\-box} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{out, }
+\item[{int}]{\-Loc\-Type, }
+\item[{real}]{xmin, }
+\item[{real}]{ymin, }
+\item[{real}]{xmax, }
+\item[{real}]{ymax, }
+\item[{int}]{\-Line\-Style, }
+\item[{int}]{\-Line\-Width, }
+\item[{int}]{\-Line\-Color, }
+\item[{int}]{\-Box\-Fill, }
+\item[{int}]{\-Box\-Color, }
+\item[{int}]{\-Box\-Pattern, }
+\item[{const {\bf output\-\_\-env\-\_\-t}}]{oenv}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2xvgr_8h_a7a4531832ec2ed2d0f06582a9818caf2}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=336pt]{share_2template_2gromacs_2xvgr_8h_a7a4531832ec2ed2d0f06582a9818caf2_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{share_2template_2gromacs_2xvgr_8h_a3748c3922f9015111d79a715eb38d4a3}{\index{share/template/gromacs/xvgr.\-h@{share/template/gromacs/xvgr.\-h}!xvgr\-\_\-header@{xvgr\-\_\-header}}
+\index{xvgr\-\_\-header@{xvgr\-\_\-header}!share/template/gromacs/xvgr.h@{share/template/gromacs/xvgr.\-h}}
+\subsubsection[{xvgr\-\_\-header}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} {\bf void} {\bf xvgr\-\_\-header} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{const char $\ast$}]{title, }
+\item[{const char $\ast$}]{xaxis, }
+\item[{const char $\ast$}]{yaxis, }
+\item[{int}]{exvg\-\_\-graph\-\_\-type, }
+\item[{const {\bf output\-\_\-env\-\_\-t}}]{oenv}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2xvgr_8h_a3748c3922f9015111d79a715eb38d4a3}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{share_2template_2gromacs_2xvgr_8h_a3748c3922f9015111d79a715eb38d4a3_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{share_2template_2gromacs_2xvgr_8h_a42acd311763e8aa65599d3d9ba76a364}{\index{share/template/gromacs/xvgr.\-h@{share/template/gromacs/xvgr.\-h}!xvgr\-\_\-legend@{xvgr\-\_\-legend}}
+\index{xvgr\-\_\-legend@{xvgr\-\_\-legend}!share/template/gromacs/xvgr.h@{share/template/gromacs/xvgr.\-h}}
+\subsubsection[{xvgr\-\_\-legend}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} {\bf void} {\bf xvgr\-\_\-legend} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{out, }
+\item[{int}]{nsets, }
+\item[{const char $\ast$$\ast$}]{setnames, }
+\item[{const {\bf output\-\_\-env\-\_\-t}}]{oenv}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2xvgr_8h_a42acd311763e8aa65599d3d9ba76a364}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{share_2template_2gromacs_2xvgr_8h_a42acd311763e8aa65599d3d9ba76a364_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{share_2template_2gromacs_2xvgr_8h_a7b9635212096f6879e3fec30a54d1b1f}{\index{share/template/gromacs/xvgr.\-h@{share/template/gromacs/xvgr.\-h}!xvgr\-\_\-line\-\_\-props@{xvgr\-\_\-line\-\_\-props}}
+\index{xvgr\-\_\-line\-\_\-props@{xvgr\-\_\-line\-\_\-props}!share/template/gromacs/xvgr.h@{share/template/gromacs/xvgr.\-h}}
+\subsubsection[{xvgr\-\_\-line\-\_\-props}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} {\bf void} {\bf xvgr\-\_\-line\-\_\-props} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{out, }
+\item[{int}]{\-Nr\-Set, }
+\item[{int}]{\-Line\-Style, }
+\item[{int}]{\-Line\-Color, }
+\item[{const {\bf output\-\_\-env\-\_\-t}}]{oenv}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2xvgr_8h_a7b9635212096f6879e3fec30a54d1b1f}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{share_2template_2gromacs_2xvgr_8h_a7b9635212096f6879e3fec30a54d1b1f_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{share_2template_2gromacs_2xvgr_8h_aadc270981cd3bcba7721a199921ad630}{\index{share/template/gromacs/xvgr.\-h@{share/template/gromacs/xvgr.\-h}!xvgr\-\_\-new\-\_\-dataset@{xvgr\-\_\-new\-\_\-dataset}}
+\index{xvgr\-\_\-new\-\_\-dataset@{xvgr\-\_\-new\-\_\-dataset}!share/template/gromacs/xvgr.h@{share/template/gromacs/xvgr.\-h}}
+\subsubsection[{xvgr\-\_\-new\-\_\-dataset}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} {\bf void} {\bf xvgr\-\_\-new\-\_\-dataset} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{out, }
+\item[{int}]{nr\-\_\-first, }
+\item[{int}]{nsets, }
+\item[{const char $\ast$$\ast$}]{setnames, }
+\item[{const {\bf output\-\_\-env\-\_\-t}}]{oenv}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2xvgr_8h_aadc270981cd3bcba7721a199921ad630}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{share_2template_2gromacs_2xvgr_8h_aadc270981cd3bcba7721a199921ad630_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{share_2template_2gromacs_2xvgr_8h_a3f2641027ed41d176b1426a3a3b290dc}{\index{share/template/gromacs/xvgr.\-h@{share/template/gromacs/xvgr.\-h}!xvgr\-\_\-subtitle@{xvgr\-\_\-subtitle}}
+\index{xvgr\-\_\-subtitle@{xvgr\-\_\-subtitle}!share/template/gromacs/xvgr.h@{share/template/gromacs/xvgr.\-h}}
+\subsubsection[{xvgr\-\_\-subtitle}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} {\bf void} {\bf xvgr\-\_\-subtitle} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{out, }
+\item[{const char $\ast$}]{subtitle, }
+\item[{const {\bf output\-\_\-env\-\_\-t}}]{oenv}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2xvgr_8h_a3f2641027ed41d176b1426a3a3b290dc}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{share_2template_2gromacs_2xvgr_8h_a3f2641027ed41d176b1426a3a3b290dc_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{share_2template_2gromacs_2xvgr_8h_ac374faac9e9ef25a75b16d4188db39be}{\index{share/template/gromacs/xvgr.\-h@{share/template/gromacs/xvgr.\-h}!xvgr\-\_\-view@{xvgr\-\_\-view}}
+\index{xvgr\-\_\-view@{xvgr\-\_\-view}!share/template/gromacs/xvgr.h@{share/template/gromacs/xvgr.\-h}}
+\subsubsection[{xvgr\-\_\-view}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} {\bf void} {\bf xvgr\-\_\-view} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{out, }
+\item[{real}]{xmin, }
+\item[{real}]{ymin, }
+\item[{real}]{xmax, }
+\item[{real}]{ymax, }
+\item[{const {\bf output\-\_\-env\-\_\-t}}]{oenv}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2xvgr_8h_ac374faac9e9ef25a75b16d4188db39be}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=342pt]{share_2template_2gromacs_2xvgr_8h_ac374faac9e9ef25a75b16d4188db39be_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{share_2template_2gromacs_2xvgr_8h_a694cdc2035a2ca5a7b4ad74069ae2882}{\index{share/template/gromacs/xvgr.\-h@{share/template/gromacs/xvgr.\-h}!xvgr\-\_\-world@{xvgr\-\_\-world}}
+\index{xvgr\-\_\-world@{xvgr\-\_\-world}!share/template/gromacs/xvgr.h@{share/template/gromacs/xvgr.\-h}}
+\subsubsection[{xvgr\-\_\-world}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} {\bf void} {\bf xvgr\-\_\-world} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{out, }
+\item[{real}]{xmin, }
+\item[{real}]{ymin, }
+\item[{real}]{xmax, }
+\item[{real}]{ymax, }
+\item[{const {\bf output\-\_\-env\-\_\-t}}]{oenv}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2xvgr_8h_a694cdc2035a2ca5a7b4ad74069ae2882}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=344pt]{share_2template_2gromacs_2xvgr_8h_a694cdc2035a2ca5a7b4ad74069ae2882_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{share_2template_2gromacs_2xvgr_8h_ac301fb2c0eec6b6c2077bdc6375ea409}{\index{share/template/gromacs/xvgr.\-h@{share/template/gromacs/xvgr.\-h}!xvgrclose@{xvgrclose}}
+\index{xvgrclose@{xvgrclose}!share/template/gromacs/xvgr.h@{share/template/gromacs/xvgr.\-h}}
+\subsubsection[{xvgrclose}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} {\bf void} {\bf xvgrclose} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2xvgr_8h_ac301fb2c0eec6b6c2077bdc6375ea409}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=260pt]{share_2template_2gromacs_2xvgr_8h_ac301fb2c0eec6b6c2077bdc6375ea409_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{share_2template_2gromacs_2xvgr_8h_aa90d00b2a47a31b4d2eb4b1f342cf3ee}{\index{share/template/gromacs/xvgr.\-h@{share/template/gromacs/xvgr.\-h}!xvgropen@{xvgropen}}
+\index{xvgropen@{xvgropen}!share/template/gromacs/xvgr.h@{share/template/gromacs/xvgr.\-h}}
+\subsubsection[{xvgropen}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} \-F\-I\-L\-E$\ast$ {\bf xvgropen} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{fn, }
+\item[{const char $\ast$}]{title, }
+\item[{const char $\ast$}]{xaxis, }
+\item[{const char $\ast$}]{yaxis, }
+\item[{const {\bf output\-\_\-env\-\_\-t}}]{oenv}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2xvgr_8h_aa90d00b2a47a31b4d2eb4b1f342cf3ee}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=252pt]{share_2template_2gromacs_2xvgr_8h_aa90d00b2a47a31b4d2eb4b1f342cf3ee_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{share_2template_2gromacs_2xvgr_8h_a367f73486f5839915242f431554c3f2a}{\index{share/template/gromacs/xvgr.\-h@{share/template/gromacs/xvgr.\-h}!xvgropen\-\_\-type@{xvgropen\-\_\-type}}
+\index{xvgropen\-\_\-type@{xvgropen\-\_\-type}!share/template/gromacs/xvgr.h@{share/template/gromacs/xvgr.\-h}}
+\subsubsection[{xvgropen\-\_\-type}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} \-F\-I\-L\-E$\ast$ {\bf xvgropen\-\_\-type} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{fn, }
+\item[{const char $\ast$}]{title, }
+\item[{const char $\ast$}]{xaxis, }
+\item[{const char $\ast$}]{yaxis, }
+\item[{int}]{exvg\-\_\-graph\-\_\-type, }
+\item[{const {\bf output\-\_\-env\-\_\-t}}]{oenv}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2xvgr_8h_a367f73486f5839915242f431554c3f2a}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=276pt]{share_2template_2gromacs_2xvgr_8h_a367f73486f5839915242f431554c3f2a_cgraph}
+\end{center}
+\end{figure}
+
+

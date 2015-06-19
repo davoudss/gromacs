@@ -1,0 +1,479 @@
+\hypertarget{gmx__arpack_8c}{\section{src/gmxlib/gmx\-\_\-arpack.c \-File \-Reference}
+\label{gmx__arpack_8c}\index{src/gmxlib/gmx\-\_\-arpack.\-c@{src/gmxlib/gmx\-\_\-arpack.\-c}}
+}
+{\ttfamily \#include $<$math.\-h$>$}\*
+{\ttfamily \#include $<$string.\-h$>$}\*
+{\ttfamily \#include \char`\"{}types/simple.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-lapack.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-blas.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-arpack.\-h\char`\"{}}\*
+\-Include dependency graph for gmx\-\_\-arpack.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__arpack_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__arpack_8c_a68030d2f2a82f6e6bd6ecd5b0281f23a}{\-F77\-\_\-\-F\-U\-N\-C} (dstqrb, \-D\-S\-T\-Q\-R\-B)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__arpack_8c_a896f47cb89dd7d46d600a787ebd988b4}{\-F77\-\_\-\-F\-U\-N\-C} (dgetv0, \-D\-G\-E\-T\-V0)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__arpack_8c_a13bf3ca7ea50b716068ae50a12b5dfff}{\-F77\-\_\-\-F\-U\-N\-C} (dsapps, \-D\-S\-A\-P\-P\-S)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__arpack_8c_acf0832e8da5bc4bd6ad05ea930dd8d10}{\-F77\-\_\-\-F\-U\-N\-C} (dsortr, \-D\-S\-O\-R\-T\-R) const
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__arpack_8c_a5cd0b64c35c2d2eb617546b44dd13c82}{\-F77\-\_\-\-F\-U\-N\-C} (dsesrt, \-D\-S\-E\-S\-R\-T) const
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__arpack_8c_a633bcf6870068576254559081c6e8bed}{\-F77\-\_\-\-F\-U\-N\-C} (dsgets, \-D\-S\-G\-E\-T\-S)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__arpack_8c_a39413eef8df0549d1fa3f13800776783}{\-F77\-\_\-\-F\-U\-N\-C} (dsconv, \-D\-S\-C\-O\-N\-V)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__arpack_8c_a31ea504500d7e4b7e59cb51254c7b4d1}{\-F77\-\_\-\-F\-U\-N\-C} (dseigt, \-D\-S\-E\-I\-G\-T)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__arpack_8c_a0b9ae1e0dd2cf02a1c5420013210222a}{\-F77\-\_\-\-F\-U\-N\-C} (dsaitr, \-D\-S\-A\-I\-T\-R)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__arpack_8c_a078c7aec49f515dd0ef9e34b3699c053}{\-F77\-\_\-\-F\-U\-N\-C} (dsaup2, \-D\-S\-A\-U\-P2)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__arpack_8c_a71af2509810107856e356267ead69179}{\-F77\-\_\-\-F\-U\-N\-C} (dsaupd, \-D\-S\-A\-U\-P\-D)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__arpack_8c_a59ce6e8154a4d1c680d7311440f8a6be}{\-F77\-\_\-\-F\-U\-N\-C} (dseupd, \-D\-S\-E\-U\-P\-D)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__arpack_8c_a695d75e61151e27b1486825a77d90666}{\-F77\-\_\-\-F\-U\-N\-C} (sstqrb, \-S\-S\-T\-Q\-R\-B)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__arpack_8c_ad058178c62690428462b0bf08b64b04c}{\-F77\-\_\-\-F\-U\-N\-C} (sgetv0, \-S\-G\-E\-T\-V0)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__arpack_8c_ae0b64f5944ab1cf6759c494c206d6afa}{\-F77\-\_\-\-F\-U\-N\-C} (ssapps, \-S\-S\-A\-P\-P\-S)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__arpack_8c_a6518dd1b3657926b91c892ba17724aeb}{\-F77\-\_\-\-F\-U\-N\-C} (ssortr, \-S\-S\-O\-R\-T\-R) const
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__arpack_8c_a75e8617b5a6781e2dc81d6d3bac16201}{\-F77\-\_\-\-F\-U\-N\-C} (ssesrt, \-S\-S\-E\-S\-R\-T) const
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__arpack_8c_a601678648072ebb8d96cabc1700c09ec}{\-F77\-\_\-\-F\-U\-N\-C} (ssgets, \-S\-S\-G\-E\-T\-S)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__arpack_8c_a8876515cad25604e87ae8096791b175a}{\-F77\-\_\-\-F\-U\-N\-C} (ssconv, \-S\-S\-C\-O\-N\-V)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__arpack_8c_aa94b2ad83fba796c14f5dbe2a1607d6a}{\-F77\-\_\-\-F\-U\-N\-C} (sseigt, \-S\-S\-E\-I\-G\-T)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__arpack_8c_a5882f19945a75a85c78f7e26e25fa480}{\-F77\-\_\-\-F\-U\-N\-C} (ssaitr, \-S\-S\-A\-I\-T\-R)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__arpack_8c_ab4fac394bc60edff469b98e1ba8d7da3}{\-F77\-\_\-\-F\-U\-N\-C} (ssaup2, \-S\-S\-A\-U\-P2)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__arpack_8c_acb2d31e107ee1562b91cfb0ea7f1d4b1}{\-F77\-\_\-\-F\-U\-N\-C} (ssaupd, \-S\-S\-A\-U\-P\-D)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__arpack_8c_a56862675197c88b5a24e3bbfaf6785ce}{\-F77\-\_\-\-F\-U\-N\-C} (sseupd, \-S\-S\-E\-U\-P\-D)
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{gmx__arpack_8c_a68030d2f2a82f6e6bd6ecd5b0281f23a}{\index{gmx\-\_\-arpack.\-c@{gmx\-\_\-arpack.\-c}!\-F77\-\_\-\-F\-U\-N\-C@{\-F77\-\_\-\-F\-U\-N\-C}}
+\index{\-F77\-\_\-\-F\-U\-N\-C@{\-F77\-\_\-\-F\-U\-N\-C}!gmx_arpack.c@{gmx\-\_\-arpack.\-c}}
+\subsubsection[{\-F77\-\_\-\-F\-U\-N\-C}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf \-F77\-\_\-\-F\-U\-N\-C} (
+\begin{DoxyParamCaption}
+\item[{dstqrb}]{, }
+\item[{\-D\-S\-T\-Q\-R\-B}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__arpack_8c_a68030d2f2a82f6e6bd6ecd5b0281f23a}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=214pt]{gmx__arpack_8c_a68030d2f2a82f6e6bd6ecd5b0281f23a_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__arpack_8c_a896f47cb89dd7d46d600a787ebd988b4}{\index{gmx\-\_\-arpack.\-c@{gmx\-\_\-arpack.\-c}!\-F77\-\_\-\-F\-U\-N\-C@{\-F77\-\_\-\-F\-U\-N\-C}}
+\index{\-F77\-\_\-\-F\-U\-N\-C@{\-F77\-\_\-\-F\-U\-N\-C}!gmx_arpack.c@{gmx\-\_\-arpack.\-c}}
+\subsubsection[{\-F77\-\_\-\-F\-U\-N\-C}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf \-F77\-\_\-\-F\-U\-N\-C} (
+\begin{DoxyParamCaption}
+\item[{dgetv0}]{, }
+\item[{\-D\-G\-E\-T\-V0}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__arpack_8c_a896f47cb89dd7d46d600a787ebd988b4}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=214pt]{gmx__arpack_8c_a896f47cb89dd7d46d600a787ebd988b4_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__arpack_8c_a13bf3ca7ea50b716068ae50a12b5dfff}{\index{gmx\-\_\-arpack.\-c@{gmx\-\_\-arpack.\-c}!\-F77\-\_\-\-F\-U\-N\-C@{\-F77\-\_\-\-F\-U\-N\-C}}
+\index{\-F77\-\_\-\-F\-U\-N\-C@{\-F77\-\_\-\-F\-U\-N\-C}!gmx_arpack.c@{gmx\-\_\-arpack.\-c}}
+\subsubsection[{\-F77\-\_\-\-F\-U\-N\-C}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf \-F77\-\_\-\-F\-U\-N\-C} (
+\begin{DoxyParamCaption}
+\item[{dsapps}]{, }
+\item[{\-D\-S\-A\-P\-P\-S}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__arpack_8c_a13bf3ca7ea50b716068ae50a12b5dfff}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=214pt]{gmx__arpack_8c_a13bf3ca7ea50b716068ae50a12b5dfff_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__arpack_8c_acf0832e8da5bc4bd6ad05ea930dd8d10}{\index{gmx\-\_\-arpack.\-c@{gmx\-\_\-arpack.\-c}!\-F77\-\_\-\-F\-U\-N\-C@{\-F77\-\_\-\-F\-U\-N\-C}}
+\index{\-F77\-\_\-\-F\-U\-N\-C@{\-F77\-\_\-\-F\-U\-N\-C}!gmx_arpack.c@{gmx\-\_\-arpack.\-c}}
+\subsubsection[{\-F77\-\_\-\-F\-U\-N\-C}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf \-F77\-\_\-\-F\-U\-N\-C} (
+\begin{DoxyParamCaption}
+\item[{dsortr}]{, }
+\item[{\-D\-S\-O\-R\-T\-R}]{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__arpack_8c_acf0832e8da5bc4bd6ad05ea930dd8d10}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=302pt]{gmx__arpack_8c_acf0832e8da5bc4bd6ad05ea930dd8d10_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__arpack_8c_a5cd0b64c35c2d2eb617546b44dd13c82}{\index{gmx\-\_\-arpack.\-c@{gmx\-\_\-arpack.\-c}!\-F77\-\_\-\-F\-U\-N\-C@{\-F77\-\_\-\-F\-U\-N\-C}}
+\index{\-F77\-\_\-\-F\-U\-N\-C@{\-F77\-\_\-\-F\-U\-N\-C}!gmx_arpack.c@{gmx\-\_\-arpack.\-c}}
+\subsubsection[{\-F77\-\_\-\-F\-U\-N\-C}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf \-F77\-\_\-\-F\-U\-N\-C} (
+\begin{DoxyParamCaption}
+\item[{dsesrt}]{, }
+\item[{\-D\-S\-E\-S\-R\-T}]{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__arpack_8c_a5cd0b64c35c2d2eb617546b44dd13c82}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=302pt]{gmx__arpack_8c_a5cd0b64c35c2d2eb617546b44dd13c82_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__arpack_8c_a633bcf6870068576254559081c6e8bed}{\index{gmx\-\_\-arpack.\-c@{gmx\-\_\-arpack.\-c}!\-F77\-\_\-\-F\-U\-N\-C@{\-F77\-\_\-\-F\-U\-N\-C}}
+\index{\-F77\-\_\-\-F\-U\-N\-C@{\-F77\-\_\-\-F\-U\-N\-C}!gmx_arpack.c@{gmx\-\_\-arpack.\-c}}
+\subsubsection[{\-F77\-\_\-\-F\-U\-N\-C}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf \-F77\-\_\-\-F\-U\-N\-C} (
+\begin{DoxyParamCaption}
+\item[{dsgets}]{, }
+\item[{\-D\-S\-G\-E\-T\-S}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__arpack_8c_a633bcf6870068576254559081c6e8bed}
+\hypertarget{gmx__arpack_8c_a39413eef8df0549d1fa3f13800776783}{\index{gmx\-\_\-arpack.\-c@{gmx\-\_\-arpack.\-c}!\-F77\-\_\-\-F\-U\-N\-C@{\-F77\-\_\-\-F\-U\-N\-C}}
+\index{\-F77\-\_\-\-F\-U\-N\-C@{\-F77\-\_\-\-F\-U\-N\-C}!gmx_arpack.c@{gmx\-\_\-arpack.\-c}}
+\subsubsection[{\-F77\-\_\-\-F\-U\-N\-C}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf \-F77\-\_\-\-F\-U\-N\-C} (
+\begin{DoxyParamCaption}
+\item[{dsconv}]{, }
+\item[{\-D\-S\-C\-O\-N\-V}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__arpack_8c_a39413eef8df0549d1fa3f13800776783}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=302pt]{gmx__arpack_8c_a39413eef8df0549d1fa3f13800776783_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__arpack_8c_a31ea504500d7e4b7e59cb51254c7b4d1}{\index{gmx\-\_\-arpack.\-c@{gmx\-\_\-arpack.\-c}!\-F77\-\_\-\-F\-U\-N\-C@{\-F77\-\_\-\-F\-U\-N\-C}}
+\index{\-F77\-\_\-\-F\-U\-N\-C@{\-F77\-\_\-\-F\-U\-N\-C}!gmx_arpack.c@{gmx\-\_\-arpack.\-c}}
+\subsubsection[{\-F77\-\_\-\-F\-U\-N\-C}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf \-F77\-\_\-\-F\-U\-N\-C} (
+\begin{DoxyParamCaption}
+\item[{dseigt}]{, }
+\item[{\-D\-S\-E\-I\-G\-T}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__arpack_8c_a31ea504500d7e4b7e59cb51254c7b4d1}
+\hypertarget{gmx__arpack_8c_a0b9ae1e0dd2cf02a1c5420013210222a}{\index{gmx\-\_\-arpack.\-c@{gmx\-\_\-arpack.\-c}!\-F77\-\_\-\-F\-U\-N\-C@{\-F77\-\_\-\-F\-U\-N\-C}}
+\index{\-F77\-\_\-\-F\-U\-N\-C@{\-F77\-\_\-\-F\-U\-N\-C}!gmx_arpack.c@{gmx\-\_\-arpack.\-c}}
+\subsubsection[{\-F77\-\_\-\-F\-U\-N\-C}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf \-F77\-\_\-\-F\-U\-N\-C} (
+\begin{DoxyParamCaption}
+\item[{dsaitr}]{, }
+\item[{\-D\-S\-A\-I\-T\-R}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__arpack_8c_a0b9ae1e0dd2cf02a1c5420013210222a}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=214pt]{gmx__arpack_8c_a0b9ae1e0dd2cf02a1c5420013210222a_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__arpack_8c_a078c7aec49f515dd0ef9e34b3699c053}{\index{gmx\-\_\-arpack.\-c@{gmx\-\_\-arpack.\-c}!\-F77\-\_\-\-F\-U\-N\-C@{\-F77\-\_\-\-F\-U\-N\-C}}
+\index{\-F77\-\_\-\-F\-U\-N\-C@{\-F77\-\_\-\-F\-U\-N\-C}!gmx_arpack.c@{gmx\-\_\-arpack.\-c}}
+\subsubsection[{\-F77\-\_\-\-F\-U\-N\-C}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf \-F77\-\_\-\-F\-U\-N\-C} (
+\begin{DoxyParamCaption}
+\item[{dsaup2}]{, }
+\item[{\-D\-S\-A\-U\-P2}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__arpack_8c_a078c7aec49f515dd0ef9e34b3699c053}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=302pt]{gmx__arpack_8c_a078c7aec49f515dd0ef9e34b3699c053_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__arpack_8c_a71af2509810107856e356267ead69179}{\index{gmx\-\_\-arpack.\-c@{gmx\-\_\-arpack.\-c}!\-F77\-\_\-\-F\-U\-N\-C@{\-F77\-\_\-\-F\-U\-N\-C}}
+\index{\-F77\-\_\-\-F\-U\-N\-C@{\-F77\-\_\-\-F\-U\-N\-C}!gmx_arpack.c@{gmx\-\_\-arpack.\-c}}
+\subsubsection[{\-F77\-\_\-\-F\-U\-N\-C}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf \-F77\-\_\-\-F\-U\-N\-C} (
+\begin{DoxyParamCaption}
+\item[{dsaupd}]{, }
+\item[{\-D\-S\-A\-U\-P\-D}]{}
+\end{DoxyParamCaption}
+)}}\label{gmx__arpack_8c_a71af2509810107856e356267ead69179}
+\hypertarget{gmx__arpack_8c_a59ce6e8154a4d1c680d7311440f8a6be}{\index{gmx\-\_\-arpack.\-c@{gmx\-\_\-arpack.\-c}!\-F77\-\_\-\-F\-U\-N\-C@{\-F77\-\_\-\-F\-U\-N\-C}}
+\index{\-F77\-\_\-\-F\-U\-N\-C@{\-F77\-\_\-\-F\-U\-N\-C}!gmx_arpack.c@{gmx\-\_\-arpack.\-c}}
+\subsubsection[{\-F77\-\_\-\-F\-U\-N\-C}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf \-F77\-\_\-\-F\-U\-N\-C} (
+\begin{DoxyParamCaption}
+\item[{dseupd}]{, }
+\item[{\-D\-S\-E\-U\-P\-D}]{}
+\end{DoxyParamCaption}
+)}}\label{gmx__arpack_8c_a59ce6e8154a4d1c680d7311440f8a6be}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=302pt]{gmx__arpack_8c_a59ce6e8154a4d1c680d7311440f8a6be_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__arpack_8c_a695d75e61151e27b1486825a77d90666}{\index{gmx\-\_\-arpack.\-c@{gmx\-\_\-arpack.\-c}!\-F77\-\_\-\-F\-U\-N\-C@{\-F77\-\_\-\-F\-U\-N\-C}}
+\index{\-F77\-\_\-\-F\-U\-N\-C@{\-F77\-\_\-\-F\-U\-N\-C}!gmx_arpack.c@{gmx\-\_\-arpack.\-c}}
+\subsubsection[{\-F77\-\_\-\-F\-U\-N\-C}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf \-F77\-\_\-\-F\-U\-N\-C} (
+\begin{DoxyParamCaption}
+\item[{sstqrb}]{, }
+\item[{\-S\-S\-T\-Q\-R\-B}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__arpack_8c_a695d75e61151e27b1486825a77d90666}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=214pt]{gmx__arpack_8c_a695d75e61151e27b1486825a77d90666_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__arpack_8c_ad058178c62690428462b0bf08b64b04c}{\index{gmx\-\_\-arpack.\-c@{gmx\-\_\-arpack.\-c}!\-F77\-\_\-\-F\-U\-N\-C@{\-F77\-\_\-\-F\-U\-N\-C}}
+\index{\-F77\-\_\-\-F\-U\-N\-C@{\-F77\-\_\-\-F\-U\-N\-C}!gmx_arpack.c@{gmx\-\_\-arpack.\-c}}
+\subsubsection[{\-F77\-\_\-\-F\-U\-N\-C}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf \-F77\-\_\-\-F\-U\-N\-C} (
+\begin{DoxyParamCaption}
+\item[{sgetv0}]{, }
+\item[{\-S\-G\-E\-T\-V0}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__arpack_8c_ad058178c62690428462b0bf08b64b04c}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=214pt]{gmx__arpack_8c_ad058178c62690428462b0bf08b64b04c_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__arpack_8c_ae0b64f5944ab1cf6759c494c206d6afa}{\index{gmx\-\_\-arpack.\-c@{gmx\-\_\-arpack.\-c}!\-F77\-\_\-\-F\-U\-N\-C@{\-F77\-\_\-\-F\-U\-N\-C}}
+\index{\-F77\-\_\-\-F\-U\-N\-C@{\-F77\-\_\-\-F\-U\-N\-C}!gmx_arpack.c@{gmx\-\_\-arpack.\-c}}
+\subsubsection[{\-F77\-\_\-\-F\-U\-N\-C}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf \-F77\-\_\-\-F\-U\-N\-C} (
+\begin{DoxyParamCaption}
+\item[{ssapps}]{, }
+\item[{\-S\-S\-A\-P\-P\-S}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__arpack_8c_ae0b64f5944ab1cf6759c494c206d6afa}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=214pt]{gmx__arpack_8c_ae0b64f5944ab1cf6759c494c206d6afa_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__arpack_8c_a6518dd1b3657926b91c892ba17724aeb}{\index{gmx\-\_\-arpack.\-c@{gmx\-\_\-arpack.\-c}!\-F77\-\_\-\-F\-U\-N\-C@{\-F77\-\_\-\-F\-U\-N\-C}}
+\index{\-F77\-\_\-\-F\-U\-N\-C@{\-F77\-\_\-\-F\-U\-N\-C}!gmx_arpack.c@{gmx\-\_\-arpack.\-c}}
+\subsubsection[{\-F77\-\_\-\-F\-U\-N\-C}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf \-F77\-\_\-\-F\-U\-N\-C} (
+\begin{DoxyParamCaption}
+\item[{ssortr}]{, }
+\item[{\-S\-S\-O\-R\-T\-R}]{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__arpack_8c_a6518dd1b3657926b91c892ba17724aeb}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=302pt]{gmx__arpack_8c_a6518dd1b3657926b91c892ba17724aeb_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__arpack_8c_a75e8617b5a6781e2dc81d6d3bac16201}{\index{gmx\-\_\-arpack.\-c@{gmx\-\_\-arpack.\-c}!\-F77\-\_\-\-F\-U\-N\-C@{\-F77\-\_\-\-F\-U\-N\-C}}
+\index{\-F77\-\_\-\-F\-U\-N\-C@{\-F77\-\_\-\-F\-U\-N\-C}!gmx_arpack.c@{gmx\-\_\-arpack.\-c}}
+\subsubsection[{\-F77\-\_\-\-F\-U\-N\-C}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf \-F77\-\_\-\-F\-U\-N\-C} (
+\begin{DoxyParamCaption}
+\item[{ssesrt}]{, }
+\item[{\-S\-S\-E\-S\-R\-T}]{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__arpack_8c_a75e8617b5a6781e2dc81d6d3bac16201}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=302pt]{gmx__arpack_8c_a75e8617b5a6781e2dc81d6d3bac16201_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__arpack_8c_a601678648072ebb8d96cabc1700c09ec}{\index{gmx\-\_\-arpack.\-c@{gmx\-\_\-arpack.\-c}!\-F77\-\_\-\-F\-U\-N\-C@{\-F77\-\_\-\-F\-U\-N\-C}}
+\index{\-F77\-\_\-\-F\-U\-N\-C@{\-F77\-\_\-\-F\-U\-N\-C}!gmx_arpack.c@{gmx\-\_\-arpack.\-c}}
+\subsubsection[{\-F77\-\_\-\-F\-U\-N\-C}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf \-F77\-\_\-\-F\-U\-N\-C} (
+\begin{DoxyParamCaption}
+\item[{ssgets}]{, }
+\item[{\-S\-S\-G\-E\-T\-S}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__arpack_8c_a601678648072ebb8d96cabc1700c09ec}
+\hypertarget{gmx__arpack_8c_a8876515cad25604e87ae8096791b175a}{\index{gmx\-\_\-arpack.\-c@{gmx\-\_\-arpack.\-c}!\-F77\-\_\-\-F\-U\-N\-C@{\-F77\-\_\-\-F\-U\-N\-C}}
+\index{\-F77\-\_\-\-F\-U\-N\-C@{\-F77\-\_\-\-F\-U\-N\-C}!gmx_arpack.c@{gmx\-\_\-arpack.\-c}}
+\subsubsection[{\-F77\-\_\-\-F\-U\-N\-C}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf \-F77\-\_\-\-F\-U\-N\-C} (
+\begin{DoxyParamCaption}
+\item[{ssconv}]{, }
+\item[{\-S\-S\-C\-O\-N\-V}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__arpack_8c_a8876515cad25604e87ae8096791b175a}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=302pt]{gmx__arpack_8c_a8876515cad25604e87ae8096791b175a_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__arpack_8c_aa94b2ad83fba796c14f5dbe2a1607d6a}{\index{gmx\-\_\-arpack.\-c@{gmx\-\_\-arpack.\-c}!\-F77\-\_\-\-F\-U\-N\-C@{\-F77\-\_\-\-F\-U\-N\-C}}
+\index{\-F77\-\_\-\-F\-U\-N\-C@{\-F77\-\_\-\-F\-U\-N\-C}!gmx_arpack.c@{gmx\-\_\-arpack.\-c}}
+\subsubsection[{\-F77\-\_\-\-F\-U\-N\-C}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf \-F77\-\_\-\-F\-U\-N\-C} (
+\begin{DoxyParamCaption}
+\item[{sseigt}]{, }
+\item[{\-S\-S\-E\-I\-G\-T}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__arpack_8c_aa94b2ad83fba796c14f5dbe2a1607d6a}
+\hypertarget{gmx__arpack_8c_a5882f19945a75a85c78f7e26e25fa480}{\index{gmx\-\_\-arpack.\-c@{gmx\-\_\-arpack.\-c}!\-F77\-\_\-\-F\-U\-N\-C@{\-F77\-\_\-\-F\-U\-N\-C}}
+\index{\-F77\-\_\-\-F\-U\-N\-C@{\-F77\-\_\-\-F\-U\-N\-C}!gmx_arpack.c@{gmx\-\_\-arpack.\-c}}
+\subsubsection[{\-F77\-\_\-\-F\-U\-N\-C}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf \-F77\-\_\-\-F\-U\-N\-C} (
+\begin{DoxyParamCaption}
+\item[{ssaitr}]{, }
+\item[{\-S\-S\-A\-I\-T\-R}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__arpack_8c_a5882f19945a75a85c78f7e26e25fa480}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=214pt]{gmx__arpack_8c_a5882f19945a75a85c78f7e26e25fa480_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__arpack_8c_ab4fac394bc60edff469b98e1ba8d7da3}{\index{gmx\-\_\-arpack.\-c@{gmx\-\_\-arpack.\-c}!\-F77\-\_\-\-F\-U\-N\-C@{\-F77\-\_\-\-F\-U\-N\-C}}
+\index{\-F77\-\_\-\-F\-U\-N\-C@{\-F77\-\_\-\-F\-U\-N\-C}!gmx_arpack.c@{gmx\-\_\-arpack.\-c}}
+\subsubsection[{\-F77\-\_\-\-F\-U\-N\-C}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf \-F77\-\_\-\-F\-U\-N\-C} (
+\begin{DoxyParamCaption}
+\item[{ssaup2}]{, }
+\item[{\-S\-S\-A\-U\-P2}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__arpack_8c_ab4fac394bc60edff469b98e1ba8d7da3}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=302pt]{gmx__arpack_8c_ab4fac394bc60edff469b98e1ba8d7da3_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__arpack_8c_acb2d31e107ee1562b91cfb0ea7f1d4b1}{\index{gmx\-\_\-arpack.\-c@{gmx\-\_\-arpack.\-c}!\-F77\-\_\-\-F\-U\-N\-C@{\-F77\-\_\-\-F\-U\-N\-C}}
+\index{\-F77\-\_\-\-F\-U\-N\-C@{\-F77\-\_\-\-F\-U\-N\-C}!gmx_arpack.c@{gmx\-\_\-arpack.\-c}}
+\subsubsection[{\-F77\-\_\-\-F\-U\-N\-C}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf \-F77\-\_\-\-F\-U\-N\-C} (
+\begin{DoxyParamCaption}
+\item[{ssaupd}]{, }
+\item[{\-S\-S\-A\-U\-P\-D}]{}
+\end{DoxyParamCaption}
+)}}\label{gmx__arpack_8c_acb2d31e107ee1562b91cfb0ea7f1d4b1}
+\hypertarget{gmx__arpack_8c_a56862675197c88b5a24e3bbfaf6785ce}{\index{gmx\-\_\-arpack.\-c@{gmx\-\_\-arpack.\-c}!\-F77\-\_\-\-F\-U\-N\-C@{\-F77\-\_\-\-F\-U\-N\-C}}
+\index{\-F77\-\_\-\-F\-U\-N\-C@{\-F77\-\_\-\-F\-U\-N\-C}!gmx_arpack.c@{gmx\-\_\-arpack.\-c}}
+\subsubsection[{\-F77\-\_\-\-F\-U\-N\-C}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf \-F77\-\_\-\-F\-U\-N\-C} (
+\begin{DoxyParamCaption}
+\item[{sseupd}]{, }
+\item[{\-S\-S\-E\-U\-P\-D}]{}
+\end{DoxyParamCaption}
+)}}\label{gmx__arpack_8c_a56862675197c88b5a24e3bbfaf6785ce}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=302pt]{gmx__arpack_8c_a56862675197c88b5a24e3bbfaf6785ce_cgraph}
+\end{center}
+\end{figure}
+
+

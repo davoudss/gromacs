@@ -1,0 +1,958 @@
+\hypertarget{nbsearch_8c}{\section{src/gmxlib/trajana/nbsearch.c \-File \-Reference}
+\label{nbsearch_8c}\index{src/gmxlib/trajana/nbsearch.\-c@{src/gmxlib/trajana/nbsearch.\-c}}
+}
+{\ttfamily \#include $<$math.\-h$>$}\*
+{\ttfamily \#include $<$smalloc.\-h$>$}\*
+{\ttfamily \#include $<$typedefs.\-h$>$}\*
+{\ttfamily \#include $<$pbc.\-h$>$}\*
+{\ttfamily \#include $<$vec.\-h$>$}\*
+{\ttfamily \#include $<$nbsearch.\-h$>$}\*
+{\ttfamily \#include $<$position.\-h$>$}\*
+\-Include dependency graph for nbsearch.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nbsearch_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structgmx__ana__nbsearch__t}{gmx\-\_\-ana\-\_\-nbsearch\-\_\-t}
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{nbsearch_8c_a41fe71cf22f9c6189a389eeb45497a29}{gmx\-\_\-ana\-\_\-nbsearch\-\_\-create} (\hyperlink{structgmx__ana__nbsearch__t}{gmx\-\_\-ana\-\_\-nbsearch\-\_\-t} $\ast$$\ast$data, real cutoff, int maxn)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{nbsearch_8c_a5281d4ee13a86c089b9911b722f3f512}{gmx\-\_\-ana\-\_\-nbsearch\-\_\-free} (\hyperlink{structgmx__ana__nbsearch__t}{gmx\-\_\-ana\-\_\-nbsearch\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae624f265c646670d373e9de0306f184b}{d})
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{nbsearch_8c_a9f13c7bf3efb133d379dd74d893f3edf}{grid\-\_\-init\-\_\-cell\-\_\-nblist} (\hyperlink{structgmx__ana__nbsearch__t}{gmx\-\_\-ana\-\_\-nbsearch\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae624f265c646670d373e9de0306f184b}{d}, \hyperlink{structt__pbc}{t\-\_\-pbc} $\ast$pbc)
+\begin{DoxyCompactList}\small\item\em \-Calculates offsets to neighboring grid cells that should be considered. \end{DoxyCompactList}\item 
+static \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{nbsearch_8c_a7e352a53e66f363d9f9bc10017d4035d}{grid\-\_\-setup\-\_\-cells} (\hyperlink{structgmx__ana__nbsearch__t}{gmx\-\_\-ana\-\_\-nbsearch\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae624f265c646670d373e9de0306f184b}{d}, \hyperlink{structt__pbc}{t\-\_\-pbc} $\ast$pbc)
+\begin{DoxyCompactList}\small\item\em \-Determines a suitable grid size. \end{DoxyCompactList}\item 
+static \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{nbsearch_8c_a347dc57186fdc4642e33877e3015a1d7}{grid\-\_\-set\-\_\-box} (\hyperlink{structgmx__ana__nbsearch__t}{gmx\-\_\-ana\-\_\-nbsearch\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae624f265c646670d373e9de0306f184b}{d}, \hyperlink{structt__pbc}{t\-\_\-pbc} $\ast$pbc)
+\begin{DoxyCompactList}\small\item\em \-Sets ua a search grid for a given box. \end{DoxyCompactList}\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{nbsearch_8c_affb8f0f966aa2a27331a9cc8cd728763}{grid\-\_\-map\-\_\-onto} (\hyperlink{structgmx__ana__nbsearch__t}{gmx\-\_\-ana\-\_\-nbsearch\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae624f265c646670d373e9de0306f184b}{d}, const \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a74f6ffdb4a9c1764f5293969d8c681b6}{ivec} cell)
+\begin{DoxyCompactList}\small\item\em \-Maps a point into a grid cell. \end{DoxyCompactList}\item 
+static int \hyperlink{nbsearch_8c_af530a47a5d68a456f52a605694d876df}{grid\-\_\-index} (\hyperlink{structgmx__ana__nbsearch__t}{gmx\-\_\-ana\-\_\-nbsearch\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae624f265c646670d373e9de0306f184b}{d}, const \hyperlink{share_2template_2gromacs_2types_2simple_8h_a74f6ffdb4a9c1764f5293969d8c681b6}{ivec} cell)
+\begin{DoxyCompactList}\small\item\em \-Calculates linear index of a grid cell. \end{DoxyCompactList}\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{nbsearch_8c_a1951d7cade21bfb29b106e2ddb383bec}{grid\-\_\-clear\-\_\-cells} (\hyperlink{structgmx__ana__nbsearch__t}{gmx\-\_\-ana\-\_\-nbsearch\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae624f265c646670d373e9de0306f184b}{d})
+\begin{DoxyCompactList}\small\item\em \-Clears all grid cells. \end{DoxyCompactList}\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{nbsearch_8c_a79c90a8c4c3444454af4ab115de85ece}{grid\-\_\-add\-\_\-to\-\_\-cell} (\hyperlink{structgmx__ana__nbsearch__t}{gmx\-\_\-ana\-\_\-nbsearch\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae624f265c646670d373e9de0306f184b}{d}, const \hyperlink{share_2template_2gromacs_2types_2simple_8h_a74f6ffdb4a9c1764f5293969d8c681b6}{ivec} cell, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a3c7542401c1cb8bd37ef5e7d9eb0f5a8}{i})
+\begin{DoxyCompactList}\small\item\em \-Adds an index into a grid cell. \end{DoxyCompactList}\item 
+int \hyperlink{nbsearch_8c_adb93d439fb66a65304f545892dc85685}{gmx\-\_\-ana\-\_\-nbsearch\-\_\-init} (\hyperlink{structgmx__ana__nbsearch__t}{gmx\-\_\-ana\-\_\-nbsearch\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae624f265c646670d373e9de0306f184b}{d}, \hyperlink{structt__pbc}{t\-\_\-pbc} $\ast$pbc, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]})
+\item 
+int \hyperlink{nbsearch_8c_aebb3f1f7a118761d8d067960f4da7366}{gmx\-\_\-ana\-\_\-nbsearch\-\_\-pos\-\_\-init} (\hyperlink{structgmx__ana__nbsearch__t}{gmx\-\_\-ana\-\_\-nbsearch\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae624f265c646670d373e9de0306f184b}{d}, \hyperlink{structt__pbc}{t\-\_\-pbc} $\ast$pbc, \hyperlink{structgmx__ana__pos__t}{gmx\-\_\-ana\-\_\-pos\-\_\-t} $\ast$p)
+\item 
+int \hyperlink{nbsearch_8c_a1545e98dd1bd8d4513c0138ec5c2e4e5}{gmx\-\_\-ana\-\_\-nbsearch\-\_\-set\-\_\-excl} (\hyperlink{structgmx__ana__nbsearch__t}{gmx\-\_\-ana\-\_\-nbsearch\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae624f265c646670d373e9de0306f184b}{d}, int nexcl, int excl\mbox{[}$\,$\mbox{]})
+\item 
+static \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{nbsearch_8c_ada5cee73838306981aa1963c2dde4ad3}{is\-\_\-excluded} (\hyperlink{structgmx__ana__nbsearch__t}{gmx\-\_\-ana\-\_\-nbsearch\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae624f265c646670d373e9de0306f184b}{d}, int j)
+\begin{DoxyCompactList}\small\item\em \-Helper function to check whether a reference point should be excluded. \end{DoxyCompactList}\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{nbsearch_8c_a19708628b83bfbbba3026ed9f628982c}{grid\-\_\-search\-\_\-start} (\hyperlink{structgmx__ana__nbsearch__t}{gmx\-\_\-ana\-\_\-nbsearch\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae624f265c646670d373e9de0306f184b}{d}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x})
+\begin{DoxyCompactList}\small\item\em \-Initializes a grid search to find reference positions neighboring {\ttfamily x}. \end{DoxyCompactList}\item 
+static \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{nbsearch_8c_a818cab419b0882f7792962c11031e251}{grid\-\_\-search} (\hyperlink{structgmx__ana__nbsearch__t}{gmx\-\_\-ana\-\_\-nbsearch\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae624f265c646670d373e9de0306f184b}{d}, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool}($\ast$action)(\hyperlink{structgmx__ana__nbsearch__t}{gmx\-\_\-ana\-\_\-nbsearch\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae624f265c646670d373e9de0306f184b}{d}, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a3c7542401c1cb8bd37ef5e7d9eb0f5a8}{i}, real r2))
+\begin{DoxyCompactList}\small\item\em \-Does a grid search. \end{DoxyCompactList}\item 
+static \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{nbsearch_8c_abcb01bdfb48017886228a6e20110aba2}{within\-\_\-action} (\hyperlink{structgmx__ana__nbsearch__t}{gmx\-\_\-ana\-\_\-nbsearch\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae624f265c646670d373e9de0306f184b}{d}, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a3c7542401c1cb8bd37ef5e7d9eb0f5a8}{i}, real r2)
+\begin{DoxyCompactList}\small\item\em \-Helper function to use with \hyperlink{nbsearch_8c_a818cab419b0882f7792962c11031e251}{grid\-\_\-search()} to find the next neighbor. \end{DoxyCompactList}\item 
+static \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{nbsearch_8c_a12d08873ff7753273d5ec9585f863b48}{mindist\-\_\-action} (\hyperlink{structgmx__ana__nbsearch__t}{gmx\-\_\-ana\-\_\-nbsearch\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae624f265c646670d373e9de0306f184b}{d}, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a3c7542401c1cb8bd37ef5e7d9eb0f5a8}{i}, real r2)
+\begin{DoxyCompactList}\small\item\em \-Helper function to use with \hyperlink{nbsearch_8c_a818cab419b0882f7792962c11031e251}{grid\-\_\-search()} to find the minimum distance. \end{DoxyCompactList}\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{nbsearch_8c_a13e06dbe851ea6d7c0903360ffaf569f}{gmx\-\_\-ana\-\_\-nbsearch\-\_\-is\-\_\-within} (\hyperlink{structgmx__ana__nbsearch__t}{gmx\-\_\-ana\-\_\-nbsearch\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae624f265c646670d373e9de0306f184b}{d}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x})
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{nbsearch_8c_a8ac8d75cafbb234abc389a9c8e131891}{gmx\-\_\-ana\-\_\-nbsearch\-\_\-pos\-\_\-is\-\_\-within} (\hyperlink{structgmx__ana__nbsearch__t}{gmx\-\_\-ana\-\_\-nbsearch\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae624f265c646670d373e9de0306f184b}{d}, \hyperlink{structgmx__ana__pos__t}{gmx\-\_\-ana\-\_\-pos\-\_\-t} $\ast$p, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a3c7542401c1cb8bd37ef5e7d9eb0f5a8}{i})
+\item 
+real \hyperlink{nbsearch_8c_a49c541545147457df662c3c3d33718b2}{gmx\-\_\-ana\-\_\-nbsearch\-\_\-mindist} (\hyperlink{structgmx__ana__nbsearch__t}{gmx\-\_\-ana\-\_\-nbsearch\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae624f265c646670d373e9de0306f184b}{d}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x})
+\item 
+real \hyperlink{nbsearch_8c_a60b04c5164af188121d2ab6e8f840a5e}{gmx\-\_\-ana\-\_\-nbsearch\-\_\-pos\-\_\-mindist} (\hyperlink{structgmx__ana__nbsearch__t}{gmx\-\_\-ana\-\_\-nbsearch\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae624f265c646670d373e9de0306f184b}{d}, \hyperlink{structgmx__ana__pos__t}{gmx\-\_\-ana\-\_\-pos\-\_\-t} $\ast$p, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a3c7542401c1cb8bd37ef5e7d9eb0f5a8}{i})
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{nbsearch_8c_a964f7e234609531a00e8087e864a628d}{gmx\-\_\-ana\-\_\-nbsearch\-\_\-first\-\_\-within} (\hyperlink{structgmx__ana__nbsearch__t}{gmx\-\_\-ana\-\_\-nbsearch\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae624f265c646670d373e9de0306f184b}{d}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}, int $\ast$jp)
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{nbsearch_8c_a6308bec751f37f0d583737800a69cd98}{gmx\-\_\-ana\-\_\-nbsearch\-\_\-pos\-\_\-first\-\_\-within} (\hyperlink{structgmx__ana__nbsearch__t}{gmx\-\_\-ana\-\_\-nbsearch\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae624f265c646670d373e9de0306f184b}{d}, \hyperlink{structgmx__ana__pos__t}{gmx\-\_\-ana\-\_\-pos\-\_\-t} $\ast$p, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a3c7542401c1cb8bd37ef5e7d9eb0f5a8}{i}, int $\ast$jp)
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{nbsearch_8c_a724eafbcdf1934f85a8f8bc7480c5b04}{gmx\-\_\-ana\-\_\-nbsearch\-\_\-next\-\_\-within} (\hyperlink{structgmx__ana__nbsearch__t}{gmx\-\_\-ana\-\_\-nbsearch\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae624f265c646670d373e9de0306f184b}{d}, int $\ast$jp)
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{nbsearch_8c_a41fe71cf22f9c6189a389eeb45497a29}{\index{nbsearch.\-c@{nbsearch.\-c}!gmx\-\_\-ana\-\_\-nbsearch\-\_\-create@{gmx\-\_\-ana\-\_\-nbsearch\-\_\-create}}
+\index{gmx\-\_\-ana\-\_\-nbsearch\-\_\-create@{gmx\-\_\-ana\-\_\-nbsearch\-\_\-create}!nbsearch.c@{nbsearch.\-c}}
+\subsubsection[{gmx\-\_\-ana\-\_\-nbsearch\-\_\-create}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-ana\-\_\-nbsearch\-\_\-create} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-nbsearch\-\_\-t} $\ast$$\ast$}]{data, }
+\item[{real}]{cutoff, }
+\item[{int}]{maxn}
+\end{DoxyParamCaption}
+)}}\label{nbsearch_8c_a41fe71cf22f9c6189a389eeb45497a29}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt out}  & {\em data} & \-Neighborhood search data structure pointer to initialize. \\
+\hline
+\mbox{\tt in}  & {\em cutoff} & \-Cutoff distance for the search ($<$=0 stands for no cutoff). \\
+\hline
+\mbox{\tt in}  & {\em maxn} & \-Maximum number of reference particles. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+0 on success. 
+\end{DoxyReturn}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nbsearch_8c_a41fe71cf22f9c6189a389eeb45497a29_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{nbsearch_8c_a964f7e234609531a00e8087e864a628d}{\index{nbsearch.\-c@{nbsearch.\-c}!gmx\-\_\-ana\-\_\-nbsearch\-\_\-first\-\_\-within@{gmx\-\_\-ana\-\_\-nbsearch\-\_\-first\-\_\-within}}
+\index{gmx\-\_\-ana\-\_\-nbsearch\-\_\-first\-\_\-within@{gmx\-\_\-ana\-\_\-nbsearch\-\_\-first\-\_\-within}!nbsearch.c@{nbsearch.\-c}}
+\subsubsection[{gmx\-\_\-ana\-\_\-nbsearch\-\_\-first\-\_\-within}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-ana\-\_\-nbsearch\-\_\-first\-\_\-within} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-nbsearch\-\_\-t} $\ast$}]{d, }
+\item[{{\bf rvec}}]{x, }
+\item[{int $\ast$}]{jp}
+\end{DoxyParamCaption}
+)}}\label{nbsearch_8c_a964f7e234609531a00e8087e864a628d}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em d} & \-Neighborhood search data structure. \\
+\hline
+\mbox{\tt in}  & {\em n} & \-Number of test positions in {\ttfamily x}. \\
+\hline
+\mbox{\tt in}  & {\em x} & \-Test positions. \\
+\hline
+\mbox{\tt out}  & {\em jp} & \-Index of the reference position in the first pair. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-T\-R\-U\-E if there are positions within the cutoff. 
+\end{DoxyReturn}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nbsearch_8c_a964f7e234609531a00e8087e864a628d_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nbsearch_8c_a964f7e234609531a00e8087e864a628d_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{nbsearch_8c_a5281d4ee13a86c089b9911b722f3f512}{\index{nbsearch.\-c@{nbsearch.\-c}!gmx\-\_\-ana\-\_\-nbsearch\-\_\-free@{gmx\-\_\-ana\-\_\-nbsearch\-\_\-free}}
+\index{gmx\-\_\-ana\-\_\-nbsearch\-\_\-free@{gmx\-\_\-ana\-\_\-nbsearch\-\_\-free}!nbsearch.c@{nbsearch.\-c}}
+\subsubsection[{gmx\-\_\-ana\-\_\-nbsearch\-\_\-free}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-ana\-\_\-nbsearch\-\_\-free} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-nbsearch\-\_\-t} $\ast$}]{d}
+\end{DoxyParamCaption}
+)}}\label{nbsearch_8c_a5281d4ee13a86c089b9911b722f3f512}
+
+\begin{DoxyParams}{\-Parameters}
+{\em d} & \-Data structure to free.\\
+\hline
+\end{DoxyParams}
+\-After the call, the pointer {\ttfamily d} is no longer valid. 
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=340pt]{nbsearch_8c_a5281d4ee13a86c089b9911b722f3f512_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{nbsearch_8c_adb93d439fb66a65304f545892dc85685}{\index{nbsearch.\-c@{nbsearch.\-c}!gmx\-\_\-ana\-\_\-nbsearch\-\_\-init@{gmx\-\_\-ana\-\_\-nbsearch\-\_\-init}}
+\index{gmx\-\_\-ana\-\_\-nbsearch\-\_\-init@{gmx\-\_\-ana\-\_\-nbsearch\-\_\-init}!nbsearch.c@{nbsearch.\-c}}
+\subsubsection[{gmx\-\_\-ana\-\_\-nbsearch\-\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-ana\-\_\-nbsearch\-\_\-init} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-nbsearch\-\_\-t} $\ast$}]{d, }
+\item[{{\bf t\-\_\-pbc} $\ast$}]{pbc, }
+\item[{int}]{n, }
+\item[{{\bf rvec}}]{x\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{nbsearch_8c_adb93d439fb66a65304f545892dc85685}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in,out}  & {\em d} & \-Neighborhood search data structure. \\
+\hline
+\mbox{\tt in}  & {\em pbc} & \-P\-B\-C information for the frame. \\
+\hline
+\mbox{\tt in}  & {\em n} & \-Number of reference positions for the frame. \\
+\hline
+\mbox{\tt in}  & {\em x} & {\ttfamily n} reference positions for the frame. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+0 on success.
+\end{DoxyReturn}
+\-Initializes the data structure {\ttfamily d} such that it can be used to search for the neighbors of {\ttfamily x}. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nbsearch_8c_adb93d439fb66a65304f545892dc85685_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nbsearch_8c_adb93d439fb66a65304f545892dc85685_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{nbsearch_8c_a13e06dbe851ea6d7c0903360ffaf569f}{\index{nbsearch.\-c@{nbsearch.\-c}!gmx\-\_\-ana\-\_\-nbsearch\-\_\-is\-\_\-within@{gmx\-\_\-ana\-\_\-nbsearch\-\_\-is\-\_\-within}}
+\index{gmx\-\_\-ana\-\_\-nbsearch\-\_\-is\-\_\-within@{gmx\-\_\-ana\-\_\-nbsearch\-\_\-is\-\_\-within}!nbsearch.c@{nbsearch.\-c}}
+\subsubsection[{gmx\-\_\-ana\-\_\-nbsearch\-\_\-is\-\_\-within}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-ana\-\_\-nbsearch\-\_\-is\-\_\-within} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-nbsearch\-\_\-t} $\ast$}]{d, }
+\item[{{\bf rvec}}]{x}
+\end{DoxyParamCaption}
+)}}\label{nbsearch_8c_a13e06dbe851ea6d7c0903360ffaf569f}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em d} & \-Neighborhood search data structure. \\
+\hline
+\mbox{\tt in}  & {\em x} & \-Test position. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-T\-R\-U\-E if {\ttfamily x} is within the cutoff of any reference position, \-F\-A\-L\-S\-E otherwise. 
+\end{DoxyReturn}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nbsearch_8c_a13e06dbe851ea6d7c0903360ffaf569f_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nbsearch_8c_a13e06dbe851ea6d7c0903360ffaf569f_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{nbsearch_8c_a49c541545147457df662c3c3d33718b2}{\index{nbsearch.\-c@{nbsearch.\-c}!gmx\-\_\-ana\-\_\-nbsearch\-\_\-mindist@{gmx\-\_\-ana\-\_\-nbsearch\-\_\-mindist}}
+\index{gmx\-\_\-ana\-\_\-nbsearch\-\_\-mindist@{gmx\-\_\-ana\-\_\-nbsearch\-\_\-mindist}!nbsearch.c@{nbsearch.\-c}}
+\subsubsection[{gmx\-\_\-ana\-\_\-nbsearch\-\_\-mindist}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf gmx\-\_\-ana\-\_\-nbsearch\-\_\-mindist} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-nbsearch\-\_\-t} $\ast$}]{d, }
+\item[{{\bf rvec}}]{x}
+\end{DoxyParamCaption}
+)}}\label{nbsearch_8c_a49c541545147457df662c3c3d33718b2}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em d} & \-Neighborhood search data structure. \\
+\hline
+\mbox{\tt in}  & {\em x} & \-Test position. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-The distance to the nearest reference position, or the cutoff value if there are no reference positions within the cutoff. 
+\end{DoxyReturn}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nbsearch_8c_a49c541545147457df662c3c3d33718b2_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nbsearch_8c_a49c541545147457df662c3c3d33718b2_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{nbsearch_8c_a724eafbcdf1934f85a8f8bc7480c5b04}{\index{nbsearch.\-c@{nbsearch.\-c}!gmx\-\_\-ana\-\_\-nbsearch\-\_\-next\-\_\-within@{gmx\-\_\-ana\-\_\-nbsearch\-\_\-next\-\_\-within}}
+\index{gmx\-\_\-ana\-\_\-nbsearch\-\_\-next\-\_\-within@{gmx\-\_\-ana\-\_\-nbsearch\-\_\-next\-\_\-within}!nbsearch.c@{nbsearch.\-c}}
+\subsubsection[{gmx\-\_\-ana\-\_\-nbsearch\-\_\-next\-\_\-within}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-ana\-\_\-nbsearch\-\_\-next\-\_\-within} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-nbsearch\-\_\-t} $\ast$}]{d, }
+\item[{int $\ast$}]{jp}
+\end{DoxyParamCaption}
+)}}\label{nbsearch_8c_a724eafbcdf1934f85a8f8bc7480c5b04}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em d} & \-Neighborhood search data structure. \\
+\hline
+\mbox{\tt out}  & {\em jp} & \-Index of the test position in the next pair. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-T\-R\-U\-E if there are positions within the cutoff. 
+\end{DoxyReturn}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nbsearch_8c_a724eafbcdf1934f85a8f8bc7480c5b04_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nbsearch_8c_a724eafbcdf1934f85a8f8bc7480c5b04_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{nbsearch_8c_a6308bec751f37f0d583737800a69cd98}{\index{nbsearch.\-c@{nbsearch.\-c}!gmx\-\_\-ana\-\_\-nbsearch\-\_\-pos\-\_\-first\-\_\-within@{gmx\-\_\-ana\-\_\-nbsearch\-\_\-pos\-\_\-first\-\_\-within}}
+\index{gmx\-\_\-ana\-\_\-nbsearch\-\_\-pos\-\_\-first\-\_\-within@{gmx\-\_\-ana\-\_\-nbsearch\-\_\-pos\-\_\-first\-\_\-within}!nbsearch.c@{nbsearch.\-c}}
+\subsubsection[{gmx\-\_\-ana\-\_\-nbsearch\-\_\-pos\-\_\-first\-\_\-within}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-ana\-\_\-nbsearch\-\_\-pos\-\_\-first\-\_\-within} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-nbsearch\-\_\-t} $\ast$}]{d, }
+\item[{{\bf gmx\-\_\-ana\-\_\-pos\-\_\-t} $\ast$}]{p, }
+\item[{int}]{i, }
+\item[{int $\ast$}]{jp}
+\end{DoxyParamCaption}
+)}}\label{nbsearch_8c_a6308bec751f37f0d583737800a69cd98}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em d} & \-Neighborhood search data structure. \\
+\hline
+\mbox{\tt in}  & {\em p} & \-Test positions. \\
+\hline
+\mbox{\tt in}  & {\em i} & \-Use the i'th position in {\ttfamily p}. \\
+\hline
+\mbox{\tt out}  & {\em jp} & \-Index of the reference position in the first pair. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-T\-R\-U\-E if there are positions within the cutoff. 
+\end{DoxyReturn}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nbsearch_8c_a6308bec751f37f0d583737800a69cd98_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{nbsearch_8c_aebb3f1f7a118761d8d067960f4da7366}{\index{nbsearch.\-c@{nbsearch.\-c}!gmx\-\_\-ana\-\_\-nbsearch\-\_\-pos\-\_\-init@{gmx\-\_\-ana\-\_\-nbsearch\-\_\-pos\-\_\-init}}
+\index{gmx\-\_\-ana\-\_\-nbsearch\-\_\-pos\-\_\-init@{gmx\-\_\-ana\-\_\-nbsearch\-\_\-pos\-\_\-init}!nbsearch.c@{nbsearch.\-c}}
+\subsubsection[{gmx\-\_\-ana\-\_\-nbsearch\-\_\-pos\-\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-ana\-\_\-nbsearch\-\_\-pos\-\_\-init} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-nbsearch\-\_\-t} $\ast$}]{d, }
+\item[{{\bf t\-\_\-pbc} $\ast$}]{pbc, }
+\item[{{\bf gmx\-\_\-ana\-\_\-pos\-\_\-t} $\ast$}]{p}
+\end{DoxyParamCaption}
+)}}\label{nbsearch_8c_aebb3f1f7a118761d8d067960f4da7366}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in,out}  & {\em d} & \-Neighborhood search data structure. \\
+\hline
+\mbox{\tt in}  & {\em pbc} & \-P\-B\-C information for the frame. \\
+\hline
+\mbox{\tt in}  & {\em p} & \-Reference positions for the frame. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+0 on success.
+\end{DoxyReturn}
+\-A convenience wrapper for \hyperlink{include_2nbsearch_8h_adb93d439fb66a65304f545892dc85685}{gmx\-\_\-ana\-\_\-nbsearch\-\_\-init()}. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nbsearch_8c_aebb3f1f7a118761d8d067960f4da7366_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nbsearch_8c_aebb3f1f7a118761d8d067960f4da7366_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{nbsearch_8c_a8ac8d75cafbb234abc389a9c8e131891}{\index{nbsearch.\-c@{nbsearch.\-c}!gmx\-\_\-ana\-\_\-nbsearch\-\_\-pos\-\_\-is\-\_\-within@{gmx\-\_\-ana\-\_\-nbsearch\-\_\-pos\-\_\-is\-\_\-within}}
+\index{gmx\-\_\-ana\-\_\-nbsearch\-\_\-pos\-\_\-is\-\_\-within@{gmx\-\_\-ana\-\_\-nbsearch\-\_\-pos\-\_\-is\-\_\-within}!nbsearch.c@{nbsearch.\-c}}
+\subsubsection[{gmx\-\_\-ana\-\_\-nbsearch\-\_\-pos\-\_\-is\-\_\-within}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-ana\-\_\-nbsearch\-\_\-pos\-\_\-is\-\_\-within} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-nbsearch\-\_\-t} $\ast$}]{d, }
+\item[{{\bf gmx\-\_\-ana\-\_\-pos\-\_\-t} $\ast$}]{p, }
+\item[{int}]{i}
+\end{DoxyParamCaption}
+)}}\label{nbsearch_8c_a8ac8d75cafbb234abc389a9c8e131891}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em d} & \-Neighborhood search data structure. \\
+\hline
+\mbox{\tt in}  & {\em p} & \-Test positions. \\
+\hline
+\mbox{\tt in}  & {\em i} & \-Use the i'th position in {\ttfamily p} for testing. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-T\-R\-U\-E if the test position is within the cutoff of any reference position, \-F\-A\-L\-S\-E otherwise. 
+\end{DoxyReturn}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nbsearch_8c_a8ac8d75cafbb234abc389a9c8e131891_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nbsearch_8c_a8ac8d75cafbb234abc389a9c8e131891_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{nbsearch_8c_a60b04c5164af188121d2ab6e8f840a5e}{\index{nbsearch.\-c@{nbsearch.\-c}!gmx\-\_\-ana\-\_\-nbsearch\-\_\-pos\-\_\-mindist@{gmx\-\_\-ana\-\_\-nbsearch\-\_\-pos\-\_\-mindist}}
+\index{gmx\-\_\-ana\-\_\-nbsearch\-\_\-pos\-\_\-mindist@{gmx\-\_\-ana\-\_\-nbsearch\-\_\-pos\-\_\-mindist}!nbsearch.c@{nbsearch.\-c}}
+\subsubsection[{gmx\-\_\-ana\-\_\-nbsearch\-\_\-pos\-\_\-mindist}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf gmx\-\_\-ana\-\_\-nbsearch\-\_\-pos\-\_\-mindist} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-nbsearch\-\_\-t} $\ast$}]{d, }
+\item[{{\bf gmx\-\_\-ana\-\_\-pos\-\_\-t} $\ast$}]{p, }
+\item[{int}]{i}
+\end{DoxyParamCaption}
+)}}\label{nbsearch_8c_a60b04c5164af188121d2ab6e8f840a5e}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em d} & \-Neighborhood search data structure. \\
+\hline
+\mbox{\tt in}  & {\em p} & \-Test positions. \\
+\hline
+\mbox{\tt in}  & {\em i} & \-Use the i'th position in {\ttfamily p} for testing. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-The distance to the nearest reference position, or the cutoff value if there are no reference positions within the cutoff. 
+\end{DoxyReturn}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nbsearch_8c_a60b04c5164af188121d2ab6e8f840a5e_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nbsearch_8c_a60b04c5164af188121d2ab6e8f840a5e_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{nbsearch_8c_a1545e98dd1bd8d4513c0138ec5c2e4e5}{\index{nbsearch.\-c@{nbsearch.\-c}!gmx\-\_\-ana\-\_\-nbsearch\-\_\-set\-\_\-excl@{gmx\-\_\-ana\-\_\-nbsearch\-\_\-set\-\_\-excl}}
+\index{gmx\-\_\-ana\-\_\-nbsearch\-\_\-set\-\_\-excl@{gmx\-\_\-ana\-\_\-nbsearch\-\_\-set\-\_\-excl}!nbsearch.c@{nbsearch.\-c}}
+\subsubsection[{gmx\-\_\-ana\-\_\-nbsearch\-\_\-set\-\_\-excl}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-ana\-\_\-nbsearch\-\_\-set\-\_\-excl} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-nbsearch\-\_\-t} $\ast$}]{d, }
+\item[{int}]{nexcl, }
+\item[{int}]{excl\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{nbsearch_8c_a1545e98dd1bd8d4513c0138ec5c2e4e5}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in,out}  & {\em d} & \-Neighborhood search data structure. \\
+\hline
+\mbox{\tt in}  & {\em nexcl} & \-Number of reference positions to exclude from next search. \\
+\hline
+\mbox{\tt in}  & {\em excl} & \-Indices of reference positions to exclude. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+0 on success.
+\end{DoxyReturn}
+\-The set exclusions remain in effect until the next call of this function. \hypertarget{nbsearch_8c_a79c90a8c4c3444454af4ab115de85ece}{\index{nbsearch.\-c@{nbsearch.\-c}!grid\-\_\-add\-\_\-to\-\_\-cell@{grid\-\_\-add\-\_\-to\-\_\-cell}}
+\index{grid\-\_\-add\-\_\-to\-\_\-cell@{grid\-\_\-add\-\_\-to\-\_\-cell}!nbsearch.c@{nbsearch.\-c}}
+\subsubsection[{grid\-\_\-add\-\_\-to\-\_\-cell}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf grid\-\_\-add\-\_\-to\-\_\-cell} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-nbsearch\-\_\-t} $\ast$}]{d, }
+\item[{const {\bf ivec}}]{cell, }
+\item[{int}]{i}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{nbsearch_8c_a79c90a8c4c3444454af4ab115de85ece}
+
+
+\-Adds an index into a grid cell. 
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in,out}  & {\em d} & \-Grid information. \\
+\hline
+\mbox{\tt in}  & {\em cell} & \-Cell into which {\ttfamily i} should be added. \\
+\hline
+\mbox{\tt in}  & {\em i} & \-Index to add. \\
+\hline
+\end{DoxyParams}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=266pt]{nbsearch_8c_a79c90a8c4c3444454af4ab115de85ece_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nbsearch_8c_a79c90a8c4c3444454af4ab115de85ece_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{nbsearch_8c_a1951d7cade21bfb29b106e2ddb383bec}{\index{nbsearch.\-c@{nbsearch.\-c}!grid\-\_\-clear\-\_\-cells@{grid\-\_\-clear\-\_\-cells}}
+\index{grid\-\_\-clear\-\_\-cells@{grid\-\_\-clear\-\_\-cells}!nbsearch.c@{nbsearch.\-c}}
+\subsubsection[{grid\-\_\-clear\-\_\-cells}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf grid\-\_\-clear\-\_\-cells} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-nbsearch\-\_\-t} $\ast$}]{d}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{nbsearch_8c_a1951d7cade21bfb29b106e2ddb383bec}
+
+
+\-Clears all grid cells. 
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in,out}  & {\em d} & \-Grid information. \\
+\hline
+\end{DoxyParams}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nbsearch_8c_a1951d7cade21bfb29b106e2ddb383bec_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{nbsearch_8c_af530a47a5d68a456f52a605694d876df}{\index{nbsearch.\-c@{nbsearch.\-c}!grid\-\_\-index@{grid\-\_\-index}}
+\index{grid\-\_\-index@{grid\-\_\-index}!nbsearch.c@{nbsearch.\-c}}
+\subsubsection[{grid\-\_\-index}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf grid\-\_\-index} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-nbsearch\-\_\-t} $\ast$}]{d, }
+\item[{const {\bf ivec}}]{cell}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{nbsearch_8c_af530a47a5d68a456f52a605694d876df}
+
+
+\-Calculates linear index of a grid cell. 
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em d} & \-Grid information. \\
+\hline
+\mbox{\tt in}  & {\em cell} & \-Cell indices. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-Linear index of {\ttfamily cell}. 
+\end{DoxyReturn}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nbsearch_8c_af530a47a5d68a456f52a605694d876df_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{nbsearch_8c_a9f13c7bf3efb133d379dd74d893f3edf}{\index{nbsearch.\-c@{nbsearch.\-c}!grid\-\_\-init\-\_\-cell\-\_\-nblist@{grid\-\_\-init\-\_\-cell\-\_\-nblist}}
+\index{grid\-\_\-init\-\_\-cell\-\_\-nblist@{grid\-\_\-init\-\_\-cell\-\_\-nblist}!nbsearch.c@{nbsearch.\-c}}
+\subsubsection[{grid\-\_\-init\-\_\-cell\-\_\-nblist}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf grid\-\_\-init\-\_\-cell\-\_\-nblist} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-nbsearch\-\_\-t} $\ast$}]{d, }
+\item[{{\bf t\-\_\-pbc} $\ast$}]{pbc}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{nbsearch_8c_a9f13c7bf3efb133d379dd74d893f3edf}
+
+
+\-Calculates offsets to neighboring grid cells that should be considered. 
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in,out}  & {\em d} & \-Grid information. \\
+\hline
+\mbox{\tt in}  & {\em pbc} & \-Information about the box. \\
+\hline
+\end{DoxyParams}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nbsearch_8c_a9f13c7bf3efb133d379dd74d893f3edf_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{nbsearch_8c_affb8f0f966aa2a27331a9cc8cd728763}{\index{nbsearch.\-c@{nbsearch.\-c}!grid\-\_\-map\-\_\-onto@{grid\-\_\-map\-\_\-onto}}
+\index{grid\-\_\-map\-\_\-onto@{grid\-\_\-map\-\_\-onto}!nbsearch.c@{nbsearch.\-c}}
+\subsubsection[{grid\-\_\-map\-\_\-onto}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf grid\-\_\-map\-\_\-onto} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-nbsearch\-\_\-t} $\ast$}]{d, }
+\item[{const {\bf rvec}}]{x, }
+\item[{{\bf ivec}}]{cell}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{nbsearch_8c_affb8f0f966aa2a27331a9cc8cd728763}
+
+
+\-Maps a point into a grid cell. 
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em d} & \-Grid information. \\
+\hline
+\mbox{\tt in}  & {\em x} & \-Point to map. \\
+\hline
+\mbox{\tt out}  & {\em cell} & \-Indices of the grid cell in which {\ttfamily x} lies.\\
+\hline
+\end{DoxyParams}
+{\ttfamily x} should be in the triclinic unit cell. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=264pt]{nbsearch_8c_affb8f0f966aa2a27331a9cc8cd728763_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nbsearch_8c_affb8f0f966aa2a27331a9cc8cd728763_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{nbsearch_8c_a818cab419b0882f7792962c11031e251}{\index{nbsearch.\-c@{nbsearch.\-c}!grid\-\_\-search@{grid\-\_\-search}}
+\index{grid\-\_\-search@{grid\-\_\-search}!nbsearch.c@{nbsearch.\-c}}
+\subsubsection[{grid\-\_\-search}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gmx\-\_\-bool} {\bf grid\-\_\-search} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-nbsearch\-\_\-t} $\ast$}]{d, }
+\item[{{\bf gmx\-\_\-bool}($\ast$)({\bf gmx\-\_\-ana\-\_\-nbsearch\-\_\-t} $\ast${\bf d}, int {\bf i}, real r2)}]{action}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{nbsearch_8c_a818cab419b0882f7792962c11031e251}
+
+
+\-Does a grid search. 
+
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=256pt]{nbsearch_8c_a818cab419b0882f7792962c11031e251_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nbsearch_8c_a818cab419b0882f7792962c11031e251_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{nbsearch_8c_a19708628b83bfbbba3026ed9f628982c}{\index{nbsearch.\-c@{nbsearch.\-c}!grid\-\_\-search\-\_\-start@{grid\-\_\-search\-\_\-start}}
+\index{grid\-\_\-search\-\_\-start@{grid\-\_\-search\-\_\-start}!nbsearch.c@{nbsearch.\-c}}
+\subsubsection[{grid\-\_\-search\-\_\-start}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf grid\-\_\-search\-\_\-start} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-nbsearch\-\_\-t} $\ast$}]{d, }
+\item[{{\bf rvec}}]{x}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{nbsearch_8c_a19708628b83bfbbba3026ed9f628982c}
+
+
+\-Initializes a grid search to find reference positions neighboring {\ttfamily x}. 
+
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nbsearch_8c_a19708628b83bfbbba3026ed9f628982c_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nbsearch_8c_a19708628b83bfbbba3026ed9f628982c_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{nbsearch_8c_a347dc57186fdc4642e33877e3015a1d7}{\index{nbsearch.\-c@{nbsearch.\-c}!grid\-\_\-set\-\_\-box@{grid\-\_\-set\-\_\-box}}
+\index{grid\-\_\-set\-\_\-box@{grid\-\_\-set\-\_\-box}!nbsearch.c@{nbsearch.\-c}}
+\subsubsection[{grid\-\_\-set\-\_\-box}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gmx\-\_\-bool} {\bf grid\-\_\-set\-\_\-box} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-nbsearch\-\_\-t} $\ast$}]{d, }
+\item[{{\bf t\-\_\-pbc} $\ast$}]{pbc}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{nbsearch_8c_a347dc57186fdc4642e33877e3015a1d7}
+
+
+\-Sets ua a search grid for a given box. 
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in,out}  & {\em d} & \-Grid information. \\
+\hline
+\mbox{\tt in}  & {\em pbc} & \-Information about the box. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-F\-A\-L\-S\-E if grid search is not suitable. 
+\end{DoxyReturn}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nbsearch_8c_a347dc57186fdc4642e33877e3015a1d7_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nbsearch_8c_a347dc57186fdc4642e33877e3015a1d7_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{nbsearch_8c_a7e352a53e66f363d9f9bc10017d4035d}{\index{nbsearch.\-c@{nbsearch.\-c}!grid\-\_\-setup\-\_\-cells@{grid\-\_\-setup\-\_\-cells}}
+\index{grid\-\_\-setup\-\_\-cells@{grid\-\_\-setup\-\_\-cells}!nbsearch.c@{nbsearch.\-c}}
+\subsubsection[{grid\-\_\-setup\-\_\-cells}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gmx\-\_\-bool} {\bf grid\-\_\-setup\-\_\-cells} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-nbsearch\-\_\-t} $\ast$}]{d, }
+\item[{{\bf t\-\_\-pbc} $\ast$}]{pbc}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{nbsearch_8c_a7e352a53e66f363d9f9bc10017d4035d}
+
+
+\-Determines a suitable grid size. 
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in,out}  & {\em d} & \-Grid information. \\
+\hline
+\mbox{\tt in}  & {\em pbc} & \-Information about the box. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-F\-A\-L\-S\-E if grid search is not suitable. 
+\end{DoxyReturn}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nbsearch_8c_a7e352a53e66f363d9f9bc10017d4035d_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{nbsearch_8c_ada5cee73838306981aa1963c2dde4ad3}{\index{nbsearch.\-c@{nbsearch.\-c}!is\-\_\-excluded@{is\-\_\-excluded}}
+\index{is\-\_\-excluded@{is\-\_\-excluded}!nbsearch.c@{nbsearch.\-c}}
+\subsubsection[{is\-\_\-excluded}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gmx\-\_\-bool} {\bf is\-\_\-excluded} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-nbsearch\-\_\-t} $\ast$}]{d, }
+\item[{int}]{j}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{nbsearch_8c_ada5cee73838306981aa1963c2dde4ad3}
+
+
+\-Helper function to check whether a reference point should be excluded. 
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nbsearch_8c_ada5cee73838306981aa1963c2dde4ad3_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{nbsearch_8c_a12d08873ff7753273d5ec9585f863b48}{\index{nbsearch.\-c@{nbsearch.\-c}!mindist\-\_\-action@{mindist\-\_\-action}}
+\index{mindist\-\_\-action@{mindist\-\_\-action}!nbsearch.c@{nbsearch.\-c}}
+\subsubsection[{mindist\-\_\-action}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gmx\-\_\-bool} {\bf mindist\-\_\-action} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-nbsearch\-\_\-t} $\ast$}]{d, }
+\item[{int}]{i, }
+\item[{real}]{r2}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{nbsearch_8c_a12d08873ff7753273d5ec9585f863b48}
+
+
+\-Helper function to use with \hyperlink{nbsearch_8c_a818cab419b0882f7792962c11031e251}{grid\-\_\-search()} to find the minimum distance. 
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nbsearch_8c_a12d08873ff7753273d5ec9585f863b48_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{nbsearch_8c_abcb01bdfb48017886228a6e20110aba2}{\index{nbsearch.\-c@{nbsearch.\-c}!within\-\_\-action@{within\-\_\-action}}
+\index{within\-\_\-action@{within\-\_\-action}!nbsearch.c@{nbsearch.\-c}}
+\subsubsection[{within\-\_\-action}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gmx\-\_\-bool} {\bf within\-\_\-action} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-nbsearch\-\_\-t} $\ast$}]{d, }
+\item[{int}]{i, }
+\item[{real}]{r2}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{nbsearch_8c_abcb01bdfb48017886228a6e20110aba2}
+
+
+\-Helper function to use with \hyperlink{nbsearch_8c_a818cab419b0882f7792962c11031e251}{grid\-\_\-search()} to find the next neighbor. 
+
+\-Simply breaks the loop on the first found neighbor. 
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nbsearch_8c_abcb01bdfb48017886228a6e20110aba2_icgraph}
+\end{center}
+\end{figure}
+
+

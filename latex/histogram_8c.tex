@@ -1,0 +1,1068 @@
+\hypertarget{histogram_8c}{\section{src/gmxlib/statistics/histogram.c \-File \-Reference}
+\label{histogram_8c}\index{src/gmxlib/statistics/histogram.\-c@{src/gmxlib/statistics/histogram.\-c}}
+}
+{\ttfamily \#include $<$math.\-h$>$}\*
+{\ttfamily \#include $<$string.\-h$>$}\*
+{\ttfamily \#include $<$smalloc.\-h$>$}\*
+{\ttfamily \#include $<$vec.\-h$>$}\*
+{\ttfamily \#include $<$histogram.\-h$>$}\*
+\-Include dependency graph for histogram.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{histogram_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structgmx__histogram__t}{gmx\-\_\-histogram\-\_\-t}
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{histogram_8c_af8cf6724a2e722b5da46896ef12ffd4d}{gmx\-\_\-histogram\-\_\-create} (\hyperlink{structgmx__histogram__t}{gmx\-\_\-histogram\-\_\-t} $\ast$$\ast$hp, \hyperlink{include_2histogram_8h_ae733abe5734389e4450335504bde8d0c}{e\-\_\-histogram\-\_\-t} \hyperlink{fgrid_8c_a7f3986ef06a5ebd031c536fbcdce3c49}{type}, int nbins)
+\item 
+int \hyperlink{histogram_8c_a30ae34db93935252484c50dc6ace345d}{gmx\-\_\-histogram\-\_\-create\-\_\-range} (\hyperlink{structgmx__histogram__t}{gmx\-\_\-histogram\-\_\-t} $\ast$$\ast$hp, \hyperlink{include_2histogram_8h_ae733abe5734389e4450335504bde8d0c}{e\-\_\-histogram\-\_\-t} \hyperlink{fgrid_8c_a7f3986ef06a5ebd031c536fbcdce3c49}{type}, real start, real end, real binw, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Integer\-Bins)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{histogram_8c_a423b152304dd38f8ade6f88e8260d750}{gmx\-\_\-histogram\-\_\-clear} (\hyperlink{structgmx__histogram__t}{gmx\-\_\-histogram\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a9bcf37986fb7bcbb472454ccb7e7367d}{h})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{histogram_8c_a705814e555fa1ccb2a297903bc47a0f3}{gmx\-\_\-histogram\-\_\-free} (\hyperlink{structgmx__histogram__t}{gmx\-\_\-histogram\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a9bcf37986fb7bcbb472454ccb7e7367d}{h})
+\item 
+int \hyperlink{histogram_8c_aeedf50e7e41ad43592d9a13f59f5e8e2}{gmx\-\_\-histogram\-\_\-set\-\_\-binwidth} (\hyperlink{structgmx__histogram__t}{gmx\-\_\-histogram\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a9bcf37986fb7bcbb472454ccb7e7367d}{h}, real start, real binw)
+\item 
+int \hyperlink{histogram_8c_ab536083f48600485e134db1a810edb5e}{gmx\-\_\-histogram\-\_\-set\-\_\-range} (\hyperlink{structgmx__histogram__t}{gmx\-\_\-histogram\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a9bcf37986fb7bcbb472454ccb7e7367d}{h}, real start, real end)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{histogram_8c_a2613ee595d411e01c5cc67e2ea62d963}{gmx\-\_\-histogram\-\_\-set\-\_\-integerbins} (\hyperlink{structgmx__histogram__t}{gmx\-\_\-histogram\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a9bcf37986fb7bcbb472454ccb7e7367d}{h}, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Integer\-Bins)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{histogram_8c_afadb5475f53de1db1941b233ad58ae1e}{gmx\-\_\-histogram\-\_\-set\-\_\-all} (\hyperlink{structgmx__histogram__t}{gmx\-\_\-histogram\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a9bcf37986fb7bcbb472454ccb7e7367d}{h}, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-All)
+\item 
+int \hyperlink{histogram_8c_a4dc6019d346e922fe3b383b7480bb156}{gmx\-\_\-histogram\-\_\-set\-\_\-blocksize} (\hyperlink{structgmx__histogram__t}{gmx\-\_\-histogram\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a9bcf37986fb7bcbb472454ccb7e7367d}{h}, int bsize)
+\item 
+int \hyperlink{histogram_8c_acf710ff31e487be33a29fe69f9373ff7}{gmx\-\_\-histogram\-\_\-set\-\_\-block\-\_\-output} (\hyperlink{structgmx__histogram__t}{gmx\-\_\-histogram\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a9bcf37986fb7bcbb472454ccb7e7367d}{h}, \-F\-I\-L\-E $\ast$fp)
+\item 
+int \hyperlink{histogram_8c_ab537ee679149545eb6d386c6c9cc7376}{gmx\-\_\-histogram\-\_\-find\-\_\-bin} (\hyperlink{structgmx__histogram__t}{gmx\-\_\-histogram\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a9bcf37986fb7bcbb472454ccb7e7367d}{h}, real pos)
+\item 
+int \hyperlink{histogram_8c_af81328f5edef6cd281f884e26845076f}{gmx\-\_\-histogram\-\_\-get\-\_\-nbins} (\hyperlink{structgmx__histogram__t}{gmx\-\_\-histogram\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a9bcf37986fb7bcbb472454ccb7e7367d}{h})
+\item 
+real \hyperlink{histogram_8c_aff30dc93f050ce11d3e7145072b8a4b3}{gmx\-\_\-histogram\-\_\-get\-\_\-binwidth} (\hyperlink{structgmx__histogram__t}{gmx\-\_\-histogram\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a9bcf37986fb7bcbb472454ccb7e7367d}{h})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{histogram_8c_a09dbe51a5a3701609a894914ec27e0e8}{gmx\-\_\-histogram\-\_\-get\-\_\-value} (\hyperlink{structgmx__histogram__t}{gmx\-\_\-histogram\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a9bcf37986fb7bcbb472454ccb7e7367d}{h}, real pos, double $\ast$value, double $\ast$err)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{histogram_8c_a7877cd07fcb4891e7f3a8e77b793439f}{gmx\-\_\-histogram\-\_\-get\-\_\-bin\-\_\-value} (\hyperlink{structgmx__histogram__t}{gmx\-\_\-histogram\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a9bcf37986fb7bcbb472454ccb7e7367d}{h}, int \hyperlink{gmx__chi_8c_a9e316163aa5608f07e8bce040981a116}{bin}, double $\ast$value, double $\ast$err)
+\item 
+double $\ast$ \hyperlink{histogram_8c_a5dd177892fbb17f9897917180d80e285}{gmx\-\_\-histogram\-\_\-get\-\_\-values} (\hyperlink{structgmx__histogram__t}{gmx\-\_\-histogram\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a9bcf37986fb7bcbb472454ccb7e7367d}{h})
+\item 
+double $\ast$ \hyperlink{histogram_8c_a06d2724d56ff3f8a49af6d946844873e}{gmx\-\_\-histogram\-\_\-get\-\_\-errors} (\hyperlink{structgmx__histogram__t}{gmx\-\_\-histogram\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a9bcf37986fb7bcbb472454ccb7e7367d}{h})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{histogram_8c_abbbe79464f40f6bd54ac16a9835b2722}{gmx\-\_\-histogram\-\_\-increment} (\hyperlink{structgmx__histogram__t}{gmx\-\_\-histogram\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a9bcf37986fb7bcbb472454ccb7e7367d}{h}, real pos)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{histogram_8c_ab7b820270fa5ac5525bc48c497ec78b5}{gmx\-\_\-histogram\-\_\-add} (\hyperlink{structgmx__histogram__t}{gmx\-\_\-histogram\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a9bcf37986fb7bcbb472454ccb7e7367d}{h}, real pos, double value)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{histogram_8c_a29f91ac2ad05731b7c6077e16dbfbad3}{gmx\-\_\-histogram\-\_\-add\-\_\-item} (\hyperlink{structgmx__histogram__t}{gmx\-\_\-histogram\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a9bcf37986fb7bcbb472454ccb7e7367d}{h}, real pos, double value)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{histogram_8c_a457f6c58e1bd221ce1df64166abbfd0a}{gmx\-\_\-histogram\-\_\-increment\-\_\-bin} (\hyperlink{structgmx__histogram__t}{gmx\-\_\-histogram\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a9bcf37986fb7bcbb472454ccb7e7367d}{h}, int \hyperlink{gmx__chi_8c_a9e316163aa5608f07e8bce040981a116}{bin})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{histogram_8c_a07a59d751592617c279ebbfc5f6da9b2}{gmx\-\_\-histogram\-\_\-add\-\_\-to\-\_\-bin} (\hyperlink{structgmx__histogram__t}{gmx\-\_\-histogram\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a9bcf37986fb7bcbb472454ccb7e7367d}{h}, int \hyperlink{gmx__chi_8c_a9e316163aa5608f07e8bce040981a116}{bin}, double value)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{histogram_8c_a200fb89cb070efb95e2467d6e90cc2e5}{gmx\-\_\-histogram\-\_\-add\-\_\-item\-\_\-to\-\_\-bin} (\hyperlink{structgmx__histogram__t}{gmx\-\_\-histogram\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a9bcf37986fb7bcbb472454ccb7e7367d}{h}, int \hyperlink{gmx__chi_8c_a9e316163aa5608f07e8bce040981a116}{bin}, double value)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{histogram_8c_ac1f6715eff02b37283ad3870d9e0c09c}{finish\-\_\-histogram\-\_\-block} (\hyperlink{structgmx__histogram__t}{gmx\-\_\-histogram\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a9bcf37986fb7bcbb472454ccb7e7367d}{h})
+\begin{DoxyCompactList}\small\item\em \-Processes a sampled block histogram. \end{DoxyCompactList}\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{histogram_8c_af2e121043fcfe67917ef4abff2c3d1b3}{gmx\-\_\-histogram\-\_\-finish\-\_\-frame} (\hyperlink{structgmx__histogram__t}{gmx\-\_\-histogram\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a9bcf37986fb7bcbb472454ccb7e7367d}{h})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{histogram_8c_a914cda7c09870610bcb3a83ac52cc709}{gmx\-\_\-histogram\-\_\-finish} (\hyperlink{structgmx__histogram__t}{gmx\-\_\-histogram\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a9bcf37986fb7bcbb472454ccb7e7367d}{h})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{histogram_8c_a8a482ba09bf2d1ee6843b455ecaa0103}{gmx\-\_\-histogram\-\_\-resample\-\_\-dblbw} (\hyperlink{structgmx__histogram__t}{gmx\-\_\-histogram\-\_\-t} $\ast$$\ast$destp, \hyperlink{structgmx__histogram__t}{gmx\-\_\-histogram\-\_\-t} $\ast$src, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Integer\-Bins)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{histogram_8c_a7c81ebd0aa96652005118decc58bbb5e}{gmx\-\_\-histogram\-\_\-clone} (\hyperlink{structgmx__histogram__t}{gmx\-\_\-histogram\-\_\-t} $\ast$$\ast$destp, \hyperlink{structgmx__histogram__t}{gmx\-\_\-histogram\-\_\-t} $\ast$src)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{histogram_8c_a7f22f213dda945f913b246bb6ab32556}{gmx\-\_\-histogram\-\_\-normalize\-\_\-prob} (\hyperlink{structgmx__histogram__t}{gmx\-\_\-histogram\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a9bcf37986fb7bcbb472454ccb7e7367d}{h})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{histogram_8c_a28bbd3fc76c889ae19abb003a81bccf2}{gmx\-\_\-histogram\-\_\-scale} (\hyperlink{structgmx__histogram__t}{gmx\-\_\-histogram\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a9bcf37986fb7bcbb472454ccb7e7367d}{h}, real \hyperlink{share_2template_2gromacs_2vec_8h_a32486aad97ab7a79add6bac0178606e9}{norm})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{histogram_8c_a918cbf6887a3ad0c077d44cbcecf5454}{gmx\-\_\-histogram\-\_\-scale\-\_\-vec} (\hyperlink{structgmx__histogram__t}{gmx\-\_\-histogram\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a9bcf37986fb7bcbb472454ccb7e7367d}{h}, real \hyperlink{share_2template_2gromacs_2vec_8h_a32486aad97ab7a79add6bac0178606e9}{norm}\mbox{[}$\,$\mbox{]})
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{histogram_8c_a12f1549928272822034eeb9fa03748e3}{prepare\-\_\-output} (int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, \hyperlink{structgmx__histogram__t}{gmx\-\_\-histogram\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a9bcf37986fb7bcbb472454ccb7e7367d}{h}\mbox{[}$\,$\mbox{]}, int $\ast$nbins)
+\begin{DoxyCompactList}\small\item\em \-Makes some checks on output histograms and finds the maximum number of bins. \end{DoxyCompactList}\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{histogram_8c_a8afcdc28d6c3e45b4d0dde85f11bdd04}{gmx\-\_\-histogram\-\_\-write} (\-F\-I\-L\-E $\ast$fp, \hyperlink{structgmx__histogram__t}{gmx\-\_\-histogram\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a9bcf37986fb7bcbb472454ccb7e7367d}{h}, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Errors)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{histogram_8c_adf8c712ada3fc9147cd90ddd8ea79f28}{gmx\-\_\-histogram\-\_\-write\-\_\-array} (\-F\-I\-L\-E $\ast$fp, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, \hyperlink{structgmx__histogram__t}{gmx\-\_\-histogram\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a9bcf37986fb7bcbb472454ccb7e7367d}{h}\mbox{[}$\,$\mbox{]}, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Value, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Errors)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{histogram_8c_a4064bbd1c5338583f652e8f9aee24c14}{gmx\-\_\-histogram\-\_\-write\-\_\-cum\-\_\-array} (\-F\-I\-L\-E $\ast$fp, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, \hyperlink{structgmx__histogram__t}{gmx\-\_\-histogram\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a9bcf37986fb7bcbb472454ccb7e7367d}{h}\mbox{[}$\,$\mbox{]}, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Value, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Errors)
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{histogram_8c_ac1f6715eff02b37283ad3870d9e0c09c}{\index{histogram.\-c@{histogram.\-c}!finish\-\_\-histogram\-\_\-block@{finish\-\_\-histogram\-\_\-block}}
+\index{finish\-\_\-histogram\-\_\-block@{finish\-\_\-histogram\-\_\-block}!histogram.c@{histogram.\-c}}
+\subsubsection[{finish\-\_\-histogram\-\_\-block}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf finish\-\_\-histogram\-\_\-block} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-histogram\-\_\-t} $\ast$}]{h}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{histogram_8c_ac1f6715eff02b37283ad3870d9e0c09c}
+
+
+\-Processes a sampled block histogram. 
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in,out}  & {\em h} & \-Histogram data structure. \\
+\hline
+\end{DoxyParams}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{histogram_8c_ac1f6715eff02b37283ad3870d9e0c09c_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{histogram_8c_ab7b820270fa5ac5525bc48c497ec78b5}{\index{histogram.\-c@{histogram.\-c}!gmx\-\_\-histogram\-\_\-add@{gmx\-\_\-histogram\-\_\-add}}
+\index{gmx\-\_\-histogram\-\_\-add@{gmx\-\_\-histogram\-\_\-add}!histogram.c@{histogram.\-c}}
+\subsubsection[{gmx\-\_\-histogram\-\_\-add}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-histogram\-\_\-add} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-histogram\-\_\-t} $\ast$}]{h, }
+\item[{real}]{pos, }
+\item[{double}]{value}
+\end{DoxyParamCaption}
+)}}\label{histogram_8c_ab7b820270fa5ac5525bc48c497ec78b5}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in,out}  & {\em h} & \-Histogram data. \\
+\hline
+\mbox{\tt in}  & {\em pos} & \-Position. \\
+\hline
+\mbox{\tt in}  & {\em value} & \-Value to add. \\
+\hline
+\end{DoxyParams}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=342pt]{histogram_8c_ab7b820270fa5ac5525bc48c497ec78b5_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{histogram_8c_a29f91ac2ad05731b7c6077e16dbfbad3}{\index{histogram.\-c@{histogram.\-c}!gmx\-\_\-histogram\-\_\-add\-\_\-item@{gmx\-\_\-histogram\-\_\-add\-\_\-item}}
+\index{gmx\-\_\-histogram\-\_\-add\-\_\-item@{gmx\-\_\-histogram\-\_\-add\-\_\-item}!histogram.c@{histogram.\-c}}
+\subsubsection[{gmx\-\_\-histogram\-\_\-add\-\_\-item}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-histogram\-\_\-add\-\_\-item} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-histogram\-\_\-t} $\ast$}]{h, }
+\item[{real}]{pos, }
+\item[{double}]{value}
+\end{DoxyParamCaption}
+)}}\label{histogram_8c_a29f91ac2ad05731b7c6077e16dbfbad3}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in,out}  & {\em h} & \-Histogram data. \\
+\hline
+\mbox{\tt in}  & {\em pos} & \-Position. \\
+\hline
+\mbox{\tt in}  & {\em value} & \-Value to add. \\
+\hline
+\end{DoxyParams}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{histogram_8c_a29f91ac2ad05731b7c6077e16dbfbad3_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{histogram_8c_a200fb89cb070efb95e2467d6e90cc2e5}{\index{histogram.\-c@{histogram.\-c}!gmx\-\_\-histogram\-\_\-add\-\_\-item\-\_\-to\-\_\-bin@{gmx\-\_\-histogram\-\_\-add\-\_\-item\-\_\-to\-\_\-bin}}
+\index{gmx\-\_\-histogram\-\_\-add\-\_\-item\-\_\-to\-\_\-bin@{gmx\-\_\-histogram\-\_\-add\-\_\-item\-\_\-to\-\_\-bin}!histogram.c@{histogram.\-c}}
+\subsubsection[{gmx\-\_\-histogram\-\_\-add\-\_\-item\-\_\-to\-\_\-bin}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-histogram\-\_\-add\-\_\-item\-\_\-to\-\_\-bin} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-histogram\-\_\-t} $\ast$}]{h, }
+\item[{int}]{bin, }
+\item[{double}]{value}
+\end{DoxyParamCaption}
+)}}\label{histogram_8c_a200fb89cb070efb95e2467d6e90cc2e5}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in,out}  & {\em h} & \-Histogram data. \\
+\hline
+\mbox{\tt in}  & {\em bin} & \-Bin number. \\
+\hline
+\mbox{\tt in}  & {\em value} & \-Value to add.\\
+\hline
+\end{DoxyParams}
+\-No checks for out-\/of-\/bound errors are done\-: {\ttfamily bin} should be $>$=0 and $<$ {\ttfamily h-\/$>$nbins}. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=306pt]{histogram_8c_a200fb89cb070efb95e2467d6e90cc2e5_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{histogram_8c_a07a59d751592617c279ebbfc5f6da9b2}{\index{histogram.\-c@{histogram.\-c}!gmx\-\_\-histogram\-\_\-add\-\_\-to\-\_\-bin@{gmx\-\_\-histogram\-\_\-add\-\_\-to\-\_\-bin}}
+\index{gmx\-\_\-histogram\-\_\-add\-\_\-to\-\_\-bin@{gmx\-\_\-histogram\-\_\-add\-\_\-to\-\_\-bin}!histogram.c@{histogram.\-c}}
+\subsubsection[{gmx\-\_\-histogram\-\_\-add\-\_\-to\-\_\-bin}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-histogram\-\_\-add\-\_\-to\-\_\-bin} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-histogram\-\_\-t} $\ast$}]{h, }
+\item[{int}]{bin, }
+\item[{double}]{value}
+\end{DoxyParamCaption}
+)}}\label{histogram_8c_a07a59d751592617c279ebbfc5f6da9b2}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in,out}  & {\em h} & \-Histogram data. \\
+\hline
+\mbox{\tt in}  & {\em bin} & \-Bin number. \\
+\hline
+\mbox{\tt in}  & {\em value} & \-Value to add.\\
+\hline
+\end{DoxyParams}
+\-No checks for out-\/of-\/bound errors are done\-: {\ttfamily bin} should be $>$=0 and $<$ {\ttfamily h-\/$>$nbins}. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=282pt]{histogram_8c_a07a59d751592617c279ebbfc5f6da9b2_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{histogram_8c_a423b152304dd38f8ade6f88e8260d750}{\index{histogram.\-c@{histogram.\-c}!gmx\-\_\-histogram\-\_\-clear@{gmx\-\_\-histogram\-\_\-clear}}
+\index{gmx\-\_\-histogram\-\_\-clear@{gmx\-\_\-histogram\-\_\-clear}!histogram.c@{histogram.\-c}}
+\subsubsection[{gmx\-\_\-histogram\-\_\-clear}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-histogram\-\_\-clear} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-histogram\-\_\-t} $\ast$}]{h}
+\end{DoxyParamCaption}
+)}}\label{histogram_8c_a423b152304dd38f8ade6f88e8260d750}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in,out}  & {\em h} & \-Histogram to clear.\\
+\hline
+\end{DoxyParams}
+\-Histograms are automatically cleared when initialized; you only need to call this function if you want to reuse a histogram structure that has already been used for sampling. 
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{histogram_8c_a423b152304dd38f8ade6f88e8260d750_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{histogram_8c_a7c81ebd0aa96652005118decc58bbb5e}{\index{histogram.\-c@{histogram.\-c}!gmx\-\_\-histogram\-\_\-clone@{gmx\-\_\-histogram\-\_\-clone}}
+\index{gmx\-\_\-histogram\-\_\-clone@{gmx\-\_\-histogram\-\_\-clone}!histogram.c@{histogram.\-c}}
+\subsubsection[{gmx\-\_\-histogram\-\_\-clone}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-histogram\-\_\-clone} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-histogram\-\_\-t} $\ast$$\ast$}]{destp, }
+\item[{{\bf gmx\-\_\-histogram\-\_\-t} $\ast$}]{src}
+\end{DoxyParamCaption}
+)}}\label{histogram_8c_a7c81ebd0aa96652005118decc58bbb5e}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt out}  & {\em destp} & \-Destination histogram. \\
+\hline
+\mbox{\tt in}  & {\em src} & \-Source histogram.\\
+\hline
+\end{DoxyParams}
+\-Makes a clone of {\ttfamily src} for post-\/processing. \hypertarget{histogram_8c_af8cf6724a2e722b5da46896ef12ffd4d}{\index{histogram.\-c@{histogram.\-c}!gmx\-\_\-histogram\-\_\-create@{gmx\-\_\-histogram\-\_\-create}}
+\index{gmx\-\_\-histogram\-\_\-create@{gmx\-\_\-histogram\-\_\-create}!histogram.c@{histogram.\-c}}
+\subsubsection[{gmx\-\_\-histogram\-\_\-create}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-histogram\-\_\-create} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-histogram\-\_\-t} $\ast$$\ast$}]{hp, }
+\item[{{\bf e\-\_\-histogram\-\_\-t}}]{type, }
+\item[{int}]{nbins}
+\end{DoxyParamCaption}
+)}}\label{histogram_8c_af8cf6724a2e722b5da46896ef12ffd4d}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt out}  & {\em hp} & \-Histogram to create. \\
+\hline
+\mbox{\tt in}  & {\em type} & \-Histogram type to create; \\
+\hline
+\mbox{\tt in}  & {\em nbins} & \-Number of bins. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+0 on success, a non-\/zero error code on error.
+\end{DoxyReturn}
+\-Initialized the histogram structure {\ttfamily h} with the provided values, allocating the necessary memory. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=342pt]{histogram_8c_af8cf6724a2e722b5da46896ef12ffd4d_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{histogram_8c_af8cf6724a2e722b5da46896ef12ffd4d_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{histogram_8c_a30ae34db93935252484c50dc6ace345d}{\index{histogram.\-c@{histogram.\-c}!gmx\-\_\-histogram\-\_\-create\-\_\-range@{gmx\-\_\-histogram\-\_\-create\-\_\-range}}
+\index{gmx\-\_\-histogram\-\_\-create\-\_\-range@{gmx\-\_\-histogram\-\_\-create\-\_\-range}!histogram.c@{histogram.\-c}}
+\subsubsection[{gmx\-\_\-histogram\-\_\-create\-\_\-range}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-histogram\-\_\-create\-\_\-range} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-histogram\-\_\-t} $\ast$$\ast$}]{hp, }
+\item[{{\bf e\-\_\-histogram\-\_\-t}}]{type, }
+\item[{real}]{start, }
+\item[{real}]{end, }
+\item[{real}]{binw, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Integer\-Bins}
+\end{DoxyParamCaption}
+)}}\label{histogram_8c_a30ae34db93935252484c50dc6ace345d}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt out}  & {\em hp} & \-Histogram to create. \\
+\hline
+\mbox{\tt in}  & {\em type} & \-Histogram type to create; \\
+\hline
+\mbox{\tt in}  & {\em start} & \-Left edge/center of the first bin (depending on {\ttfamily b\-Integer\-Bins}). \\
+\hline
+\mbox{\tt in}  & {\em end} & \-Right edge/center of the last bin (depending on {\ttfamily b\-Integer\-Bins}). \\
+\hline
+\mbox{\tt in}  & {\em binw} & \-Bin width. \\
+\hline
+\mbox{\tt in}  & {\em b\-Integer\-Bins} & \-If true, histogram bins are centered at {\ttfamily start+n$\ast$binwidth}, otherwise the centers are at {\ttfamily start+}(n+0.5)$\ast$binwidth. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+0 on success, a non-\/zero error code on error.
+\end{DoxyReturn}
+\-Initialized the histogram structure {\ttfamily h} with the provided values, allocating the necessary memory. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{histogram_8c_a30ae34db93935252484c50dc6ace345d_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{histogram_8c_ab537ee679149545eb6d386c6c9cc7376}{\index{histogram.\-c@{histogram.\-c}!gmx\-\_\-histogram\-\_\-find\-\_\-bin@{gmx\-\_\-histogram\-\_\-find\-\_\-bin}}
+\index{gmx\-\_\-histogram\-\_\-find\-\_\-bin@{gmx\-\_\-histogram\-\_\-find\-\_\-bin}!histogram.c@{histogram.\-c}}
+\subsubsection[{gmx\-\_\-histogram\-\_\-find\-\_\-bin}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-histogram\-\_\-find\-\_\-bin} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-histogram\-\_\-t} $\ast$}]{h, }
+\item[{real}]{pos}
+\end{DoxyParamCaption}
+)}}\label{histogram_8c_ab537ee679149545eb6d386c6c9cc7376}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em h} & \-Histogram data. \\
+\hline
+\mbox{\tt in}  & {\em pos} & \-Position. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-Bin index in {\ttfamily h} corresponding to {\ttfamily pos}, or -\/1 if there is no such bin.
+\end{DoxyReturn}
+\-If \hyperlink{include_2histogram_8h_afadb5475f53de1db1941b233ad58ae1e}{gmx\-\_\-histogram\-\_\-set\-\_\-all()} has been called with \-T\-R\-U\-E, values outside the histogram are mapped to the bins at the edges. 
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{histogram_8c_ab537ee679149545eb6d386c6c9cc7376_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{histogram_8c_a914cda7c09870610bcb3a83ac52cc709}{\index{histogram.\-c@{histogram.\-c}!gmx\-\_\-histogram\-\_\-finish@{gmx\-\_\-histogram\-\_\-finish}}
+\index{gmx\-\_\-histogram\-\_\-finish@{gmx\-\_\-histogram\-\_\-finish}!histogram.c@{histogram.\-c}}
+\subsubsection[{gmx\-\_\-histogram\-\_\-finish}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-histogram\-\_\-finish} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-histogram\-\_\-t} $\ast$}]{h}
+\end{DoxyParamCaption}
+)}}\label{histogram_8c_a914cda7c09870610bcb3a83ac52cc709}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in,out}  & {\em h} & \-Histogram data structure.\\
+\hline
+\end{DoxyParams}
+\-Normalizes the histogram. \-Should be called after all frames have been sampled and before any post-\/processing of the histogram. \-If block size has not been set with \hyperlink{include_2histogram_8h_a4dc6019d346e922fe3b383b7480bb156}{gmx\-\_\-histogram\-\_\-set\-\_\-blocksize()}, this function does no normalization, but it should still be called, otherwise the {\ttfamily \hyperlink{structgmx__histogram__t_ab24cdf5087598ca2c507dc629e181a4c}{gmx\-\_\-histogram\-\_\-t\-::hist}} array will contain only zeros.
+
+\begin{DoxySeeAlso}{\-See also}
+\hyperlink{include_2histogram_8h_af2e121043fcfe67917ef4abff2c3d1b3}{gmx\-\_\-histogram\-\_\-finish\-\_\-frame()} 
+\end{DoxySeeAlso}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=344pt]{histogram_8c_a914cda7c09870610bcb3a83ac52cc709_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{histogram_8c_af2e121043fcfe67917ef4abff2c3d1b3}{\index{histogram.\-c@{histogram.\-c}!gmx\-\_\-histogram\-\_\-finish\-\_\-frame@{gmx\-\_\-histogram\-\_\-finish\-\_\-frame}}
+\index{gmx\-\_\-histogram\-\_\-finish\-\_\-frame@{gmx\-\_\-histogram\-\_\-finish\-\_\-frame}!histogram.c@{histogram.\-c}}
+\subsubsection[{gmx\-\_\-histogram\-\_\-finish\-\_\-frame}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-histogram\-\_\-finish\-\_\-frame} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-histogram\-\_\-t} $\ast$}]{h}
+\end{DoxyParamCaption}
+)}}\label{histogram_8c_af2e121043fcfe67917ef4abff2c3d1b3}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in,out}  & {\em h} & \-Histogram data structure.\\
+\hline
+\end{DoxyParams}
+\-Should be called after each frame of data.
+
+\begin{DoxySeeAlso}{\-See also}
+\hyperlink{include_2histogram_8h_a914cda7c09870610bcb3a83ac52cc709}{gmx\-\_\-histogram\-\_\-finish()} 
+\end{DoxySeeAlso}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{histogram_8c_af2e121043fcfe67917ef4abff2c3d1b3_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{histogram_8c_a705814e555fa1ccb2a297903bc47a0f3}{\index{histogram.\-c@{histogram.\-c}!gmx\-\_\-histogram\-\_\-free@{gmx\-\_\-histogram\-\_\-free}}
+\index{gmx\-\_\-histogram\-\_\-free@{gmx\-\_\-histogram\-\_\-free}!histogram.c@{histogram.\-c}}
+\subsubsection[{gmx\-\_\-histogram\-\_\-free}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-histogram\-\_\-free} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-histogram\-\_\-t} $\ast$}]{h}
+\end{DoxyParamCaption}
+)}}\label{histogram_8c_a705814e555fa1ccb2a297903bc47a0f3}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em h} & \-Histogram to free.\\
+\hline
+\end{DoxyParams}
+\-The pointer {\ttfamily h} is invalid after the call. \hypertarget{histogram_8c_a7877cd07fcb4891e7f3a8e77b793439f}{\index{histogram.\-c@{histogram.\-c}!gmx\-\_\-histogram\-\_\-get\-\_\-bin\-\_\-value@{gmx\-\_\-histogram\-\_\-get\-\_\-bin\-\_\-value}}
+\index{gmx\-\_\-histogram\-\_\-get\-\_\-bin\-\_\-value@{gmx\-\_\-histogram\-\_\-get\-\_\-bin\-\_\-value}!histogram.c@{histogram.\-c}}
+\subsubsection[{gmx\-\_\-histogram\-\_\-get\-\_\-bin\-\_\-value}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-histogram\-\_\-get\-\_\-bin\-\_\-value} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-histogram\-\_\-t} $\ast$}]{h, }
+\item[{int}]{bin, }
+\item[{double $\ast$}]{value, }
+\item[{double $\ast$}]{err}
+\end{DoxyParamCaption}
+)}}\label{histogram_8c_a7877cd07fcb4891e7f3a8e77b793439f}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em h} & \-Histogram data. \\
+\hline
+\mbox{\tt in}  & {\em bin} & \-Bin number. \\
+\hline
+\mbox{\tt out}  & {\em value} & \-Pointer to receive the value (can be \-N\-U\-L\-L). \\
+\hline
+\mbox{\tt out}  & {\em err} & \-Pointer to receive the value (can be \-N\-U\-L\-L).\\
+\hline
+\end{DoxyParams}
+\-If {\ttfamily bin} is outside the valid range, zeros are returned. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=296pt]{histogram_8c_a7877cd07fcb4891e7f3a8e77b793439f_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{histogram_8c_aff30dc93f050ce11d3e7145072b8a4b3}{\index{histogram.\-c@{histogram.\-c}!gmx\-\_\-histogram\-\_\-get\-\_\-binwidth@{gmx\-\_\-histogram\-\_\-get\-\_\-binwidth}}
+\index{gmx\-\_\-histogram\-\_\-get\-\_\-binwidth@{gmx\-\_\-histogram\-\_\-get\-\_\-binwidth}!histogram.c@{histogram.\-c}}
+\subsubsection[{gmx\-\_\-histogram\-\_\-get\-\_\-binwidth}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf gmx\-\_\-histogram\-\_\-get\-\_\-binwidth} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-histogram\-\_\-t} $\ast$}]{h}
+\end{DoxyParamCaption}
+)}}\label{histogram_8c_aff30dc93f050ce11d3e7145072b8a4b3}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em h} & \-Histogram data. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-Bin width of {\ttfamily h}, 0 if no binwidth has been set. 
+\end{DoxyReturn}
+\hypertarget{histogram_8c_a06d2724d56ff3f8a49af6d946844873e}{\index{histogram.\-c@{histogram.\-c}!gmx\-\_\-histogram\-\_\-get\-\_\-errors@{gmx\-\_\-histogram\-\_\-get\-\_\-errors}}
+\index{gmx\-\_\-histogram\-\_\-get\-\_\-errors@{gmx\-\_\-histogram\-\_\-get\-\_\-errors}!histogram.c@{histogram.\-c}}
+\subsubsection[{gmx\-\_\-histogram\-\_\-get\-\_\-errors}]{\setlength{\rightskip}{0pt plus 5cm}double$\ast$ {\bf gmx\-\_\-histogram\-\_\-get\-\_\-errors} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-histogram\-\_\-t} $\ast$}]{h}
+\end{DoxyParamCaption}
+)}}\label{histogram_8c_a06d2724d56ff3f8a49af6d946844873e}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em h} & \-Histogram data. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-Pointer to an array of errors for {\ttfamily h}.
+\end{DoxyReturn}
+\-The returned array has one element for each bin of {\ttfamily h}. \-The returned pointer should not be freed. \hypertarget{histogram_8c_af81328f5edef6cd281f884e26845076f}{\index{histogram.\-c@{histogram.\-c}!gmx\-\_\-histogram\-\_\-get\-\_\-nbins@{gmx\-\_\-histogram\-\_\-get\-\_\-nbins}}
+\index{gmx\-\_\-histogram\-\_\-get\-\_\-nbins@{gmx\-\_\-histogram\-\_\-get\-\_\-nbins}!histogram.c@{histogram.\-c}}
+\subsubsection[{gmx\-\_\-histogram\-\_\-get\-\_\-nbins}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-histogram\-\_\-get\-\_\-nbins} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-histogram\-\_\-t} $\ast$}]{h}
+\end{DoxyParamCaption}
+)}}\label{histogram_8c_af81328f5edef6cd281f884e26845076f}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em h} & \-Histogram data. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-Number of bins in {\ttfamily h}. 
+\end{DoxyReturn}
+\hypertarget{histogram_8c_a09dbe51a5a3701609a894914ec27e0e8}{\index{histogram.\-c@{histogram.\-c}!gmx\-\_\-histogram\-\_\-get\-\_\-value@{gmx\-\_\-histogram\-\_\-get\-\_\-value}}
+\index{gmx\-\_\-histogram\-\_\-get\-\_\-value@{gmx\-\_\-histogram\-\_\-get\-\_\-value}!histogram.c@{histogram.\-c}}
+\subsubsection[{gmx\-\_\-histogram\-\_\-get\-\_\-value}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-histogram\-\_\-get\-\_\-value} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-histogram\-\_\-t} $\ast$}]{h, }
+\item[{real}]{pos, }
+\item[{double $\ast$}]{value, }
+\item[{double $\ast$}]{err}
+\end{DoxyParamCaption}
+)}}\label{histogram_8c_a09dbe51a5a3701609a894914ec27e0e8}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em h} & \-Histogram data. \\
+\hline
+\mbox{\tt in}  & {\em pos} & \-Position. \\
+\hline
+\mbox{\tt out}  & {\em value} & \-Pointer to receive the value (can be \-N\-U\-L\-L). \\
+\hline
+\mbox{\tt out}  & {\em err} & \-Pointer to receive the value (can be \-N\-U\-L\-L).\\
+\hline
+\end{DoxyParams}
+\-If {\ttfamily pos} is outside the range of the histogram, zeros are returned. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{histogram_8c_a09dbe51a5a3701609a894914ec27e0e8_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{histogram_8c_a5dd177892fbb17f9897917180d80e285}{\index{histogram.\-c@{histogram.\-c}!gmx\-\_\-histogram\-\_\-get\-\_\-values@{gmx\-\_\-histogram\-\_\-get\-\_\-values}}
+\index{gmx\-\_\-histogram\-\_\-get\-\_\-values@{gmx\-\_\-histogram\-\_\-get\-\_\-values}!histogram.c@{histogram.\-c}}
+\subsubsection[{gmx\-\_\-histogram\-\_\-get\-\_\-values}]{\setlength{\rightskip}{0pt plus 5cm}double$\ast$ {\bf gmx\-\_\-histogram\-\_\-get\-\_\-values} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-histogram\-\_\-t} $\ast$}]{h}
+\end{DoxyParamCaption}
+)}}\label{histogram_8c_a5dd177892fbb17f9897917180d80e285}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em h} & \-Histogram data. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-Pointer to an array of values for {\ttfamily h}.
+\end{DoxyReturn}
+\-The returned array has one element for each bin of {\ttfamily h}. \-The returned pointer should not be freed. \hypertarget{histogram_8c_abbbe79464f40f6bd54ac16a9835b2722}{\index{histogram.\-c@{histogram.\-c}!gmx\-\_\-histogram\-\_\-increment@{gmx\-\_\-histogram\-\_\-increment}}
+\index{gmx\-\_\-histogram\-\_\-increment@{gmx\-\_\-histogram\-\_\-increment}!histogram.c@{histogram.\-c}}
+\subsubsection[{gmx\-\_\-histogram\-\_\-increment}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-histogram\-\_\-increment} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-histogram\-\_\-t} $\ast$}]{h, }
+\item[{real}]{pos}
+\end{DoxyParamCaption}
+)}}\label{histogram_8c_abbbe79464f40f6bd54ac16a9835b2722}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in,out}  & {\em h} & \-Histogram data. \\
+\hline
+\mbox{\tt in}  & {\em pos} & \-Position. \\
+\hline
+\end{DoxyParams}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{histogram_8c_abbbe79464f40f6bd54ac16a9835b2722_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{histogram_8c_a457f6c58e1bd221ce1df64166abbfd0a}{\index{histogram.\-c@{histogram.\-c}!gmx\-\_\-histogram\-\_\-increment\-\_\-bin@{gmx\-\_\-histogram\-\_\-increment\-\_\-bin}}
+\index{gmx\-\_\-histogram\-\_\-increment\-\_\-bin@{gmx\-\_\-histogram\-\_\-increment\-\_\-bin}!histogram.c@{histogram.\-c}}
+\subsubsection[{gmx\-\_\-histogram\-\_\-increment\-\_\-bin}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-histogram\-\_\-increment\-\_\-bin} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-histogram\-\_\-t} $\ast$}]{h, }
+\item[{int}]{bin}
+\end{DoxyParamCaption}
+)}}\label{histogram_8c_a457f6c58e1bd221ce1df64166abbfd0a}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in,out}  & {\em h} & \-Histogram data. \\
+\hline
+\mbox{\tt in}  & {\em bin} & \-Bin number.\\
+\hline
+\end{DoxyParams}
+\-No checks for out-\/of-\/bound errors are done\-: {\ttfamily bin} should be $>$=0 and $<$ {\ttfamily h-\/$>$nbins}. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=296pt]{histogram_8c_a457f6c58e1bd221ce1df64166abbfd0a_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{histogram_8c_a7f22f213dda945f913b246bb6ab32556}{\index{histogram.\-c@{histogram.\-c}!gmx\-\_\-histogram\-\_\-normalize\-\_\-prob@{gmx\-\_\-histogram\-\_\-normalize\-\_\-prob}}
+\index{gmx\-\_\-histogram\-\_\-normalize\-\_\-prob@{gmx\-\_\-histogram\-\_\-normalize\-\_\-prob}!histogram.c@{histogram.\-c}}
+\subsubsection[{gmx\-\_\-histogram\-\_\-normalize\-\_\-prob}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-histogram\-\_\-normalize\-\_\-prob} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-histogram\-\_\-t} $\ast$}]{h}
+\end{DoxyParamCaption}
+)}}\label{histogram_8c_a7f22f213dda945f913b246bb6ab32556}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in,out}  & {\em h} & \-Histogram to normalize.\\
+\hline
+\end{DoxyParams}
+\-Normalizes the histogram such that its integral equals one. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{histogram_8c_a7f22f213dda945f913b246bb6ab32556_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{histogram_8c_a8a482ba09bf2d1ee6843b455ecaa0103}{\index{histogram.\-c@{histogram.\-c}!gmx\-\_\-histogram\-\_\-resample\-\_\-dblbw@{gmx\-\_\-histogram\-\_\-resample\-\_\-dblbw}}
+\index{gmx\-\_\-histogram\-\_\-resample\-\_\-dblbw@{gmx\-\_\-histogram\-\_\-resample\-\_\-dblbw}!histogram.c@{histogram.\-c}}
+\subsubsection[{gmx\-\_\-histogram\-\_\-resample\-\_\-dblbw}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-histogram\-\_\-resample\-\_\-dblbw} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-histogram\-\_\-t} $\ast$$\ast$}]{destp, }
+\item[{{\bf gmx\-\_\-histogram\-\_\-t} $\ast$}]{src, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Integer\-Bins}
+\end{DoxyParamCaption}
+)}}\label{histogram_8c_a8a482ba09bf2d1ee6843b455ecaa0103}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt out}  & {\em destp} & \-Destination histogram. \\
+\hline
+\mbox{\tt in}  & {\em src} & \-Source histogram. \\
+\hline
+\mbox{\tt in}  & {\em b\-Integer\-Bins} & \-Control bin center position.\\
+\hline
+\end{DoxyParams}
+\-Uses {\ttfamily src} to create a new histogram that has double the binwidth. \-If {\ttfamily b\-Integer\-Bins} is \-T\-R\-U\-E, the first new bin will be centered at {\ttfamily src-\/$>$start}, otherwise the left edge will be at {\ttfamily src-\/$>$start}.
+
+\-This function is mostly useful if one needs to sample both the histogram and the cumulative histogram at same points. \-To achieve this, first sample a histogram with half the desired binwidth, and then use this function to create two different verions of it with different values of {\ttfamily b\-Integer\-Bins}. \hyperlink{include_2histogram_8h_adf8c712ada3fc9147cd90ddd8ea79f28}{gmx\-\_\-histogram\-\_\-write\-\_\-array()} and \hyperlink{include_2histogram_8h_a4064bbd1c5338583f652e8f9aee24c14}{gmx\-\_\-histogram\-\_\-write\-\_\-cum\-\_\-array()} can now used to write out the values correctly at identical values.
+
+\-Should be called only after \hyperlink{include_2histogram_8h_a914cda7c09870610bcb3a83ac52cc709}{gmx\-\_\-histogram\-\_\-finish()} has been called. {\ttfamily src} should have been sampled without \hyperlink{include_2histogram_8h_a2613ee595d411e01c5cc67e2ea62d963}{gmx\-\_\-histogram\-\_\-set\-\_\-integerbins()}. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{histogram_8c_a8a482ba09bf2d1ee6843b455ecaa0103_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{histogram_8c_a28bbd3fc76c889ae19abb003a81bccf2}{\index{histogram.\-c@{histogram.\-c}!gmx\-\_\-histogram\-\_\-scale@{gmx\-\_\-histogram\-\_\-scale}}
+\index{gmx\-\_\-histogram\-\_\-scale@{gmx\-\_\-histogram\-\_\-scale}!histogram.c@{histogram.\-c}}
+\subsubsection[{gmx\-\_\-histogram\-\_\-scale}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-histogram\-\_\-scale} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-histogram\-\_\-t} $\ast$}]{h, }
+\item[{real}]{norm}
+\end{DoxyParamCaption}
+)}}\label{histogram_8c_a28bbd3fc76c889ae19abb003a81bccf2}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in,out}  & {\em h} & \-Histogram to normalize. \\
+\hline
+\mbox{\tt in}  & {\em norm} & \-Scaling factor.\\
+\hline
+\end{DoxyParams}
+\-All bin values are multiplied by {\ttfamily norm}. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{histogram_8c_a28bbd3fc76c889ae19abb003a81bccf2_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{histogram_8c_a28bbd3fc76c889ae19abb003a81bccf2_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{histogram_8c_a918cbf6887a3ad0c077d44cbcecf5454}{\index{histogram.\-c@{histogram.\-c}!gmx\-\_\-histogram\-\_\-scale\-\_\-vec@{gmx\-\_\-histogram\-\_\-scale\-\_\-vec}}
+\index{gmx\-\_\-histogram\-\_\-scale\-\_\-vec@{gmx\-\_\-histogram\-\_\-scale\-\_\-vec}!histogram.c@{histogram.\-c}}
+\subsubsection[{gmx\-\_\-histogram\-\_\-scale\-\_\-vec}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-histogram\-\_\-scale\-\_\-vec} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-histogram\-\_\-t} $\ast$}]{h, }
+\item[{real}]{norm\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{histogram_8c_a918cbf6887a3ad0c077d44cbcecf5454}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in,out}  & {\em h} & \-Histogram to normalize. \\
+\hline
+\mbox{\tt in}  & {\em norm} & \-Scaling vector.\\
+\hline
+\end{DoxyParams}
+\-The i'th bin is multiplied by {\ttfamily norm}\mbox{[}i\mbox{]}. \hypertarget{histogram_8c_afadb5475f53de1db1941b233ad58ae1e}{\index{histogram.\-c@{histogram.\-c}!gmx\-\_\-histogram\-\_\-set\-\_\-all@{gmx\-\_\-histogram\-\_\-set\-\_\-all}}
+\index{gmx\-\_\-histogram\-\_\-set\-\_\-all@{gmx\-\_\-histogram\-\_\-set\-\_\-all}!histogram.c@{histogram.\-c}}
+\subsubsection[{gmx\-\_\-histogram\-\_\-set\-\_\-all}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-histogram\-\_\-set\-\_\-all} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-histogram\-\_\-t} $\ast$}]{h, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-All}
+\end{DoxyParamCaption}
+)}}\label{histogram_8c_afadb5475f53de1db1941b233ad58ae1e}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in,out}  & {\em h} & \-Histogram data structure. \\
+\hline
+\mbox{\tt in}  & {\em b\-All} & \-If true, values outside the histogram edges are added to the bins at the edges.\\
+\hline
+\end{DoxyParams}
+{\ttfamily b\-All} can be used to avoid rounding errors in cases where the histogram spans the full range of possible values. \-If set, the values that are at the exact maximum are still correctly included. \hypertarget{histogram_8c_aeedf50e7e41ad43592d9a13f59f5e8e2}{\index{histogram.\-c@{histogram.\-c}!gmx\-\_\-histogram\-\_\-set\-\_\-binwidth@{gmx\-\_\-histogram\-\_\-set\-\_\-binwidth}}
+\index{gmx\-\_\-histogram\-\_\-set\-\_\-binwidth@{gmx\-\_\-histogram\-\_\-set\-\_\-binwidth}!histogram.c@{histogram.\-c}}
+\subsubsection[{gmx\-\_\-histogram\-\_\-set\-\_\-binwidth}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-histogram\-\_\-set\-\_\-binwidth} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-histogram\-\_\-t} $\ast$}]{h, }
+\item[{real}]{start, }
+\item[{real}]{binw}
+\end{DoxyParamCaption}
+)}}\label{histogram_8c_aeedf50e7e41ad43592d9a13f59f5e8e2}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in,out}  & {\em h} & \-Histogram data structure. \\
+\hline
+\mbox{\tt in}  & {\em start} & \-Left edge/center of the first bin (depending on \hyperlink{include_2histogram_8h_a2613ee595d411e01c5cc67e2ea62d963}{gmx\-\_\-histogram\-\_\-set\-\_\-integerbins()}). \\
+\hline
+\mbox{\tt in}  & {\em binw} & \-Bin width. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+0 on success, a non-\/zero error code on error. 
+\end{DoxyReturn}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{histogram_8c_aeedf50e7e41ad43592d9a13f59f5e8e2_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{histogram_8c_acf710ff31e487be33a29fe69f9373ff7}{\index{histogram.\-c@{histogram.\-c}!gmx\-\_\-histogram\-\_\-set\-\_\-block\-\_\-output@{gmx\-\_\-histogram\-\_\-set\-\_\-block\-\_\-output}}
+\index{gmx\-\_\-histogram\-\_\-set\-\_\-block\-\_\-output@{gmx\-\_\-histogram\-\_\-set\-\_\-block\-\_\-output}!histogram.c@{histogram.\-c}}
+\subsubsection[{gmx\-\_\-histogram\-\_\-set\-\_\-block\-\_\-output}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-histogram\-\_\-set\-\_\-block\-\_\-output} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-histogram\-\_\-t} $\ast$}]{h, }
+\item[{\-F\-I\-L\-E $\ast$}]{fp}
+\end{DoxyParamCaption}
+)}}\label{histogram_8c_acf710ff31e487be33a29fe69f9373ff7}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in,out}  & {\em h} & \-Histogram data structure. \\
+\hline
+\mbox{\tt in}  & {\em fp} & \-File for block output. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+0 on success, a non-\/zero error code on error.
+\end{DoxyReturn}
+\-Sets a file into which each block histogram (the histogram after each {\ttfamily \hyperlink{structgmx__histogram__t_afd5003c83824d3632eac7fc599b56983}{gmx\-\_\-histogram\-\_\-t\-::bsize}} frames) is written. \-All histograms are written to the same file, separated by empty lines. \-If this function is not called, the block histograms are only used for error estimation, not written to a file. \hypertarget{histogram_8c_a4dc6019d346e922fe3b383b7480bb156}{\index{histogram.\-c@{histogram.\-c}!gmx\-\_\-histogram\-\_\-set\-\_\-blocksize@{gmx\-\_\-histogram\-\_\-set\-\_\-blocksize}}
+\index{gmx\-\_\-histogram\-\_\-set\-\_\-blocksize@{gmx\-\_\-histogram\-\_\-set\-\_\-blocksize}!histogram.c@{histogram.\-c}}
+\subsubsection[{gmx\-\_\-histogram\-\_\-set\-\_\-blocksize}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-histogram\-\_\-set\-\_\-blocksize} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-histogram\-\_\-t} $\ast$}]{h, }
+\item[{int}]{bsize}
+\end{DoxyParamCaption}
+)}}\label{histogram_8c_a4dc6019d346e922fe3b383b7480bb156}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in,out}  & {\em h} & \-Histogram data structure. \\
+\hline
+\mbox{\tt in}  & {\em bsize} & \-Block size for error estimates. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+0 on success, a non-\/zero error code on error.
+\end{DoxyReturn}
+\-If {\ttfamily bsize} is zero, no block averaging or error estimates are done. \-This is also the case if this function is not called. \hypertarget{histogram_8c_a2613ee595d411e01c5cc67e2ea62d963}{\index{histogram.\-c@{histogram.\-c}!gmx\-\_\-histogram\-\_\-set\-\_\-integerbins@{gmx\-\_\-histogram\-\_\-set\-\_\-integerbins}}
+\index{gmx\-\_\-histogram\-\_\-set\-\_\-integerbins@{gmx\-\_\-histogram\-\_\-set\-\_\-integerbins}!histogram.c@{histogram.\-c}}
+\subsubsection[{gmx\-\_\-histogram\-\_\-set\-\_\-integerbins}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-histogram\-\_\-set\-\_\-integerbins} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-histogram\-\_\-t} $\ast$}]{h, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Integer\-Bins}
+\end{DoxyParamCaption}
+)}}\label{histogram_8c_a2613ee595d411e01c5cc67e2ea62d963}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in,out}  & {\em h} & \-Histogram data structure. \\
+\hline
+\mbox{\tt in}  & {\em b\-Integer\-Bins} & \-If true, histogram bins are centered at {\ttfamily start+n$\ast$binwidth}, otherwise the centers are at {\ttfamily start+}(n+0.5)$\ast$binwidth. \\
+\hline
+\end{DoxyParams}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{histogram_8c_a2613ee595d411e01c5cc67e2ea62d963_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{histogram_8c_ab536083f48600485e134db1a810edb5e}{\index{histogram.\-c@{histogram.\-c}!gmx\-\_\-histogram\-\_\-set\-\_\-range@{gmx\-\_\-histogram\-\_\-set\-\_\-range}}
+\index{gmx\-\_\-histogram\-\_\-set\-\_\-range@{gmx\-\_\-histogram\-\_\-set\-\_\-range}!histogram.c@{histogram.\-c}}
+\subsubsection[{gmx\-\_\-histogram\-\_\-set\-\_\-range}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-histogram\-\_\-set\-\_\-range} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-histogram\-\_\-t} $\ast$}]{h, }
+\item[{real}]{start, }
+\item[{real}]{end}
+\end{DoxyParamCaption}
+)}}\label{histogram_8c_ab536083f48600485e134db1a810edb5e}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in,out}  & {\em h} & \-Histogram data structure. \\
+\hline
+\mbox{\tt in}  & {\em start} & \-Left edge/center of the first bin (depending on \hyperlink{include_2histogram_8h_a2613ee595d411e01c5cc67e2ea62d963}{gmx\-\_\-histogram\-\_\-set\-\_\-integerbins()}). \\
+\hline
+\mbox{\tt in}  & {\em end} & \-Right edge/center of the last bin (depending on \hyperlink{include_2histogram_8h_a2613ee595d411e01c5cc67e2ea62d963}{gmx\-\_\-histogram\-\_\-set\-\_\-integerbins()}). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+0 on success, a non-\/zero error code on error. 
+\end{DoxyReturn}
+\hypertarget{histogram_8c_a8afcdc28d6c3e45b4d0dde85f11bdd04}{\index{histogram.\-c@{histogram.\-c}!gmx\-\_\-histogram\-\_\-write@{gmx\-\_\-histogram\-\_\-write}}
+\index{gmx\-\_\-histogram\-\_\-write@{gmx\-\_\-histogram\-\_\-write}!histogram.c@{histogram.\-c}}
+\subsubsection[{gmx\-\_\-histogram\-\_\-write}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-histogram\-\_\-write} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{{\bf gmx\-\_\-histogram\-\_\-t} $\ast$}]{h, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Errors}
+\end{DoxyParamCaption}
+)}}\label{histogram_8c_a8afcdc28d6c3e45b4d0dde85f11bdd04}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em fp} & \-Output file. \\
+\hline
+\mbox{\tt in}  & {\em h} & \-Array of histograms to write. \\
+\hline
+\mbox{\tt in}  & {\em b\-Errors} & \-If \-T\-R\-U\-E, histogram errors are written.\\
+\hline
+\end{DoxyParams}
+\-Convenience wrapper for \hyperlink{include_2histogram_8h_adf8c712ada3fc9147cd90ddd8ea79f28}{gmx\-\_\-histogram\-\_\-write\-\_\-array()} for writing a single histogram.
+
+\begin{DoxySeeAlso}{\-See also}
+\hyperlink{include_2histogram_8h_adf8c712ada3fc9147cd90ddd8ea79f28}{gmx\-\_\-histogram\-\_\-write\-\_\-array()} 
+\end{DoxySeeAlso}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{histogram_8c_a8afcdc28d6c3e45b4d0dde85f11bdd04_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{histogram_8c_adf8c712ada3fc9147cd90ddd8ea79f28}{\index{histogram.\-c@{histogram.\-c}!gmx\-\_\-histogram\-\_\-write\-\_\-array@{gmx\-\_\-histogram\-\_\-write\-\_\-array}}
+\index{gmx\-\_\-histogram\-\_\-write\-\_\-array@{gmx\-\_\-histogram\-\_\-write\-\_\-array}!histogram.c@{histogram.\-c}}
+\subsubsection[{gmx\-\_\-histogram\-\_\-write\-\_\-array}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-histogram\-\_\-write\-\_\-array} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{int}]{n, }
+\item[{{\bf gmx\-\_\-histogram\-\_\-t} $\ast$}]{h\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Value, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Errors}
+\end{DoxyParamCaption}
+)}}\label{histogram_8c_adf8c712ada3fc9147cd90ddd8ea79f28}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em fp} & \-Output file. \\
+\hline
+\mbox{\tt in}  & {\em n} & \-Number of histograms in {\ttfamily h}. \\
+\hline
+\mbox{\tt in}  & {\em h} & \-Array of histograms to write. \\
+\hline
+\mbox{\tt in}  & {\em b\-Value} & \-If \-T\-R\-U\-E, histogram values are written. \\
+\hline
+\mbox{\tt in}  & {\em b\-Errors} & \-If \-T\-R\-U\-E, histogram errors are written.\\
+\hline
+\end{DoxyParams}
+\-All the histograms in the array {\ttfamily h} should have the same bin widths and left edges, otherwise the behavior is undefined. \-The output format is one bin per line. \-The first number on the line is the center of the bin, followed by one or two numbers for each histogram (depending on {\ttfamily b\-Value} and {\ttfamily b\-Errors}). \-If both {\ttfamily b\-Value} and {\ttfamily b\-Errors} are both \-T\-R\-U\-E, the values are written before the errors. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{histogram_8c_adf8c712ada3fc9147cd90ddd8ea79f28_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{histogram_8c_adf8c712ada3fc9147cd90ddd8ea79f28_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{histogram_8c_a4064bbd1c5338583f652e8f9aee24c14}{\index{histogram.\-c@{histogram.\-c}!gmx\-\_\-histogram\-\_\-write\-\_\-cum\-\_\-array@{gmx\-\_\-histogram\-\_\-write\-\_\-cum\-\_\-array}}
+\index{gmx\-\_\-histogram\-\_\-write\-\_\-cum\-\_\-array@{gmx\-\_\-histogram\-\_\-write\-\_\-cum\-\_\-array}!histogram.c@{histogram.\-c}}
+\subsubsection[{gmx\-\_\-histogram\-\_\-write\-\_\-cum\-\_\-array}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-histogram\-\_\-write\-\_\-cum\-\_\-array} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{int}]{n, }
+\item[{{\bf gmx\-\_\-histogram\-\_\-t} $\ast$}]{h\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Value, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Errors}
+\end{DoxyParamCaption}
+)}}\label{histogram_8c_a4064bbd1c5338583f652e8f9aee24c14}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em fp} & \-Output file. \\
+\hline
+\mbox{\tt in}  & {\em n} & \-Number of histograms in {\ttfamily h}. \\
+\hline
+\mbox{\tt in}  & {\em h} & \-Array of histograms to write. \\
+\hline
+\mbox{\tt in}  & {\em b\-Value} & \-If \-T\-R\-U\-E, histogram values are written. \\
+\hline
+\mbox{\tt in}  & {\em b\-Errors} & \-If \-T\-R\-U\-E, histogram errors are written.\\
+\hline
+\end{DoxyParams}
+\-Works as \hyperlink{include_2histogram_8h_adf8c712ada3fc9147cd90ddd8ea79f28}{gmx\-\_\-histogram\-\_\-write\-\_\-array()}, but writes the cumulative histograms. \-The first column in output will be the right edges of the bins.
+
+\begin{DoxyNote}{\-Note}
+\-Error output is not currently supported (zeros will be written if asked).
+\end{DoxyNote}
+\begin{DoxySeeAlso}{\-See also}
+\hyperlink{include_2histogram_8h_adf8c712ada3fc9147cd90ddd8ea79f28}{gmx\-\_\-histogram\-\_\-write\-\_\-array()} 
+\end{DoxySeeAlso}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{histogram_8c_a4064bbd1c5338583f652e8f9aee24c14_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{histogram_8c_a12f1549928272822034eeb9fa03748e3}{\index{histogram.\-c@{histogram.\-c}!prepare\-\_\-output@{prepare\-\_\-output}}
+\index{prepare\-\_\-output@{prepare\-\_\-output}!histogram.c@{histogram.\-c}}
+\subsubsection[{prepare\-\_\-output}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf prepare\-\_\-output} (
+\begin{DoxyParamCaption}
+\item[{int}]{n, }
+\item[{{\bf gmx\-\_\-histogram\-\_\-t} $\ast$}]{h\mbox{[}$\,$\mbox{]}, }
+\item[{int $\ast$}]{nbins}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{histogram_8c_a12f1549928272822034eeb9fa03748e3}
+
+
+\-Makes some checks on output histograms and finds the maximum number of bins. 
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em n} & \-Number of histograms in {\ttfamily h}. \\
+\hline
+\mbox{\tt in}  & {\em h} & \-Array of histograms. \\
+\hline
+\mbox{\tt out}  & {\em nbins} & \-Pointer to a value that will receive the maximum number of bins in {\ttfamily h}. \\
+\hline
+\end{DoxyParams}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=280pt]{histogram_8c_a12f1549928272822034eeb9fa03748e3_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{histogram_8c_a12f1549928272822034eeb9fa03748e3_icgraph}
+\end{center}
+\end{figure}
+
+

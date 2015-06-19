@@ -1,0 +1,149 @@
+\hypertarget{topio_8h}{\section{src/kernel/topio.h \-File \-Reference}
+\label{topio_8h}\index{src/kernel/topio.\-h@{src/kernel/topio.\-h}}
+}
+{\ttfamily \#include \char`\"{}visibility.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}typedefs.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}readir.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}grompp.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gpp\-\_\-atomtype.\-h\char`\"{}}\*
+\-Include dependency graph for topio.\-h\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{topio_8h__incl}
+\end{center}
+\end{figure}
+\-This graph shows which files directly or indirectly include this file\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{topio_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_af70129eba0591d69650a7174c93230d4}{\-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-P\-R\-E\-P\-R\-O\-C\-E\-S\-S\-\_\-\-E\-X\-P\-O\-R\-T} double \hyperlink{topio_8h_af2cead92ef1775d1e9014be8349c7e23}{check\-\_\-mol} (\hyperlink{structgmx__mtop__t}{gmx\-\_\-mtop\-\_\-t} $\ast$mtop, \hyperlink{include_2warninp_8h_a614757abb660467b0be44eeb5d54e5f2}{warninp\-\_\-t} wi)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_af70129eba0591d69650a7174c93230d4}{\-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-P\-R\-E\-P\-R\-O\-C\-E\-S\-S\-\_\-\-E\-X\-P\-O\-R\-T} char $\ast$$\ast$ \hyperlink{topio_8h_ad79fe5fd716bd3303611a5ce1647ee9c}{do\-\_\-top} (\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Verbose, const char $\ast$topfile, const char $\ast$topppfile, \hyperlink{structt__gromppopts}{t\-\_\-gromppopts} $\ast$opts, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Zero, \hyperlink{structt__symtab}{t\-\_\-symtab} $\ast$symtab, \hyperlink{structt__params}{t\-\_\-params} plist\mbox{[}$\,$\mbox{]}, int $\ast$combination\-\_\-rule, double $\ast$repulsion\-\_\-power, real $\ast$fudge\-Q\-Q, \hyperlink{include_2gpp__atomtype_8h_a140a52ba2b384d9a6483fe65c780f110}{gpp\-\_\-atomtype\-\_\-t} atype, int $\ast$nrmols, \hyperlink{structt__molinfo}{t\-\_\-molinfo} $\ast$$\ast$molinfo, \hyperlink{structt__inputrec}{t\-\_\-inputrec} $\ast$ir, int $\ast$nmolblock, \hyperlink{structgmx__molblock__t}{gmx\-\_\-molblock\-\_\-t} $\ast$$\ast$molblock, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-G\-B, \hyperlink{include_2warninp_8h_a614757abb660467b0be44eeb5d54e5f2}{warninp\-\_\-t} wi)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_af70129eba0591d69650a7174c93230d4}{\-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-P\-R\-E\-P\-R\-O\-C\-E\-S\-S\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{topio_8h_ad1553128ef3ab9e7dab4da1e87bd2376}{generate\-\_\-qmexcl} (\hyperlink{structgmx__mtop__t}{gmx\-\_\-mtop\-\_\-t} $\ast$sys, \hyperlink{structt__inputrec}{t\-\_\-inputrec} $\ast$ir, \hyperlink{include_2warninp_8h_a614757abb660467b0be44eeb5d54e5f2}{warninp\-\_\-t} wi)
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{topio_8h_af2cead92ef1775d1e9014be8349c7e23}{\index{topio.\-h@{topio.\-h}!check\-\_\-mol@{check\-\_\-mol}}
+\index{check\-\_\-mol@{check\-\_\-mol}!topio.h@{topio.\-h}}
+\subsubsection[{check\-\_\-mol}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-P\-R\-E\-P\-R\-O\-C\-E\-S\-S\-\_\-\-E\-X\-P\-O\-R\-T} double {\bf check\-\_\-mol} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-mtop\-\_\-t} $\ast$}]{mtop, }
+\item[{{\bf warninp\-\_\-t}}]{wi}
+\end{DoxyParamCaption}
+)}}\label{topio_8h_af2cead92ef1775d1e9014be8349c7e23}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=256pt]{topio_8h_af2cead92ef1775d1e9014be8349c7e23_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=224pt]{topio_8h_af2cead92ef1775d1e9014be8349c7e23_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{topio_8h_ad79fe5fd716bd3303611a5ce1647ee9c}{\index{topio.\-h@{topio.\-h}!do\-\_\-top@{do\-\_\-top}}
+\index{do\-\_\-top@{do\-\_\-top}!topio.h@{topio.\-h}}
+\subsubsection[{do\-\_\-top}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-P\-R\-E\-P\-R\-O\-C\-E\-S\-S\-\_\-\-E\-X\-P\-O\-R\-T} char$\ast$$\ast$ {\bf do\-\_\-top} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-bool}}]{b\-Verbose, }
+\item[{const char $\ast$}]{topfile, }
+\item[{const char $\ast$}]{topppfile, }
+\item[{{\bf t\-\_\-gromppopts} $\ast$}]{opts, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Zero, }
+\item[{{\bf t\-\_\-symtab} $\ast$}]{symtab, }
+\item[{{\bf t\-\_\-params}}]{plist\mbox{[}$\,$\mbox{]}, }
+\item[{int $\ast$}]{combination\-\_\-rule, }
+\item[{double $\ast$}]{repulsion\-\_\-power, }
+\item[{real $\ast$}]{fudge\-Q\-Q, }
+\item[{{\bf gpp\-\_\-atomtype\-\_\-t}}]{atype, }
+\item[{int $\ast$}]{nrmols, }
+\item[{{\bf t\-\_\-molinfo} $\ast$$\ast$}]{molinfo, }
+\item[{{\bf t\-\_\-inputrec} $\ast$}]{ir, }
+\item[{int $\ast$}]{nmolblock, }
+\item[{{\bf gmx\-\_\-molblock\-\_\-t} $\ast$$\ast$}]{molblock, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-G\-B, }
+\item[{{\bf warninp\-\_\-t}}]{wi}
+\end{DoxyParamCaption}
+)}}\label{topio_8h_ad79fe5fd716bd3303611a5ce1647ee9c}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{topio_8h_ad79fe5fd716bd3303611a5ce1647ee9c_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=310pt]{topio_8h_ad79fe5fd716bd3303611a5ce1647ee9c_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{topio_8h_ad1553128ef3ab9e7dab4da1e87bd2376}{\index{topio.\-h@{topio.\-h}!generate\-\_\-qmexcl@{generate\-\_\-qmexcl}}
+\index{generate\-\_\-qmexcl@{generate\-\_\-qmexcl}!topio.h@{topio.\-h}}
+\subsubsection[{generate\-\_\-qmexcl}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-P\-R\-E\-P\-R\-O\-C\-E\-S\-S\-\_\-\-E\-X\-P\-O\-R\-T} {\bf void} {\bf generate\-\_\-qmexcl} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-mtop\-\_\-t} $\ast$}]{sys, }
+\item[{{\bf t\-\_\-inputrec} $\ast$}]{ir, }
+\item[{{\bf warninp\-\_\-t}}]{wi}
+\end{DoxyParamCaption}
+)}}\label{topio_8h_ad1553128ef3ab9e7dab4da1e87bd2376}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{topio_8h_ad1553128ef3ab9e7dab4da1e87bd2376_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=252pt]{topio_8h_ad1553128ef3ab9e7dab4da1e87bd2376_icgraph}
+\end{center}
+\end{figure}
+
+

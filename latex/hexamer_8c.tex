@@ -1,0 +1,195 @@
+\hypertarget{hexamer_8c}{\section{src/contrib/hexamer.c \-File \-Reference}
+\label{hexamer_8c}\index{src/contrib/hexamer.\-c@{src/contrib/hexamer.\-c}}
+}
+{\ttfamily \#include $<$math.\-h$>$}\*
+{\ttfamily \#include $<$string.\-h$>$}\*
+{\ttfamily \#include $<$ctype.\-h$>$}\*
+{\ttfamily \#include \char`\"{}pdbio.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}confio.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}symtab.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}smalloc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}macros.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}copyrite.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}statutil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}string2.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}strdb.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}index.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}vec.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}typedefs.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gbutil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}physics.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}atomprop.\-h\char`\"{}}\*
+\-Include dependency graph for hexamer.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{hexamer_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{hexamer_8c_ab70d4725699c0935e4847676027e7820}{\-N\-P\-A}~\hyperlink{share_2template_2gromacs_2macros_8h_a0883345a58f8f63aefa249a4f127f707}{asize}(pa)
+\item 
+\#define \hyperlink{hexamer_8c_a8485f4e81de2537e6a0935626167a775}{\-N\-F\-I\-L\-E}~\hyperlink{share_2template_2gromacs_2macros_8h_a0883345a58f8f63aefa249a4f127f707}{asize}(fnm)
+\item 
+\#define \hyperlink{hexamer_8c_ab70d4725699c0935e4847676027e7820}{\-N\-P\-A}~\hyperlink{share_2template_2gromacs_2macros_8h_a0883345a58f8f63aefa249a4f127f707}{asize}(pa)
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{hexamer_8c_a9e6f1aba82bd46f879fa3e3594701479}{copy\-\_\-atom} (\hyperlink{structt__symtab}{t\-\_\-symtab} $\ast$tab, \hyperlink{structt__atoms}{t\-\_\-atoms} $\ast$a1, int i1, \hyperlink{structt__atoms}{t\-\_\-atoms} $\ast$a2, int i2, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} xin\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} xout\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} vin\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} vout\mbox{[}$\,$\mbox{]})
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{hexamer_8c_af80f746b1e15f8ba6bb242f95271fe3a}{rotate\-\_\-x} (int natom, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} xin\mbox{[}$\,$\mbox{]}, real \hyperlink{pull__rotation_8c_a46755fae48700fb4e0fb0d7c6a092654}{angle}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} xout\mbox{[}$\,$\mbox{]}, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Z, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Upside\-Down, real dz)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{hexamer_8c_a83cad3058ee19ce070ab2dda7c146be0}{prep\-\_\-x} (int natom, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, real r\-Dist, real r\-Angle\-Z, real r\-Angle\-X)
+\item 
+int \hyperlink{hexamer_8c_a0ddf1224851353fc92bfbff6f499fa97}{main} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Define \-Documentation}
+\hypertarget{hexamer_8c_a8485f4e81de2537e6a0935626167a775}{\index{hexamer.\-c@{hexamer.\-c}!\-N\-F\-I\-L\-E@{\-N\-F\-I\-L\-E}}
+\index{\-N\-F\-I\-L\-E@{\-N\-F\-I\-L\-E}!hexamer.c@{hexamer.\-c}}
+\subsubsection[{\-N\-F\-I\-L\-E}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-N\-F\-I\-L\-E}~{\bf asize}(fnm)}}\label{hexamer_8c_a8485f4e81de2537e6a0935626167a775}
+\hypertarget{hexamer_8c_ab70d4725699c0935e4847676027e7820}{\index{hexamer.\-c@{hexamer.\-c}!\-N\-P\-A@{\-N\-P\-A}}
+\index{\-N\-P\-A@{\-N\-P\-A}!hexamer.c@{hexamer.\-c}}
+\subsubsection[{\-N\-P\-A}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-N\-P\-A}~{\bf asize}(pa)}}\label{hexamer_8c_ab70d4725699c0935e4847676027e7820}
+\hypertarget{hexamer_8c_ab70d4725699c0935e4847676027e7820}{\index{hexamer.\-c@{hexamer.\-c}!\-N\-P\-A@{\-N\-P\-A}}
+\index{\-N\-P\-A@{\-N\-P\-A}!hexamer.c@{hexamer.\-c}}
+\subsubsection[{\-N\-P\-A}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-N\-P\-A}~{\bf asize}(pa)}}\label{hexamer_8c_ab70d4725699c0935e4847676027e7820}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{hexamer_8c_a9e6f1aba82bd46f879fa3e3594701479}{\index{hexamer.\-c@{hexamer.\-c}!copy\-\_\-atom@{copy\-\_\-atom}}
+\index{copy\-\_\-atom@{copy\-\_\-atom}!hexamer.c@{hexamer.\-c}}
+\subsubsection[{copy\-\_\-atom}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf copy\-\_\-atom} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-symtab} $\ast$}]{tab, }
+\item[{{\bf t\-\_\-atoms} $\ast$}]{a1, }
+\item[{int}]{i1, }
+\item[{{\bf t\-\_\-atoms} $\ast$}]{a2, }
+\item[{int}]{i2, }
+\item[{{\bf rvec}}]{xin\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{xout\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{vin\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{vout\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{hexamer_8c_a9e6f1aba82bd46f879fa3e3594701479}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=250pt]{hexamer_8c_a9e6f1aba82bd46f879fa3e3594701479_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{hexamer_8c_a9e6f1aba82bd46f879fa3e3594701479_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{hexamer_8c_a0ddf1224851353fc92bfbff6f499fa97}{\index{hexamer.\-c@{hexamer.\-c}!main@{main}}
+\index{main@{main}!hexamer.c@{hexamer.\-c}}
+\subsubsection[{main}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf main} (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{hexamer_8c_a0ddf1224851353fc92bfbff6f499fa97}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{hexamer_8c_a0ddf1224851353fc92bfbff6f499fa97_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{hexamer_8c_a83cad3058ee19ce070ab2dda7c146be0}{\index{hexamer.\-c@{hexamer.\-c}!prep\-\_\-x@{prep\-\_\-x}}
+\index{prep\-\_\-x@{prep\-\_\-x}!hexamer.c@{hexamer.\-c}}
+\subsubsection[{prep\-\_\-x}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf prep\-\_\-x} (
+\begin{DoxyParamCaption}
+\item[{int}]{natom, }
+\item[{{\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{real}]{r\-Dist, }
+\item[{real}]{r\-Angle\-Z, }
+\item[{real}]{r\-Angle\-X}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{hexamer_8c_a83cad3058ee19ce070ab2dda7c146be0}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=320pt]{hexamer_8c_a83cad3058ee19ce070ab2dda7c146be0_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=200pt]{hexamer_8c_a83cad3058ee19ce070ab2dda7c146be0_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{hexamer_8c_af80f746b1e15f8ba6bb242f95271fe3a}{\index{hexamer.\-c@{hexamer.\-c}!rotate\-\_\-x@{rotate\-\_\-x}}
+\index{rotate\-\_\-x@{rotate\-\_\-x}!hexamer.c@{hexamer.\-c}}
+\subsubsection[{rotate\-\_\-x}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf rotate\-\_\-x} (
+\begin{DoxyParamCaption}
+\item[{int}]{natom, }
+\item[{{\bf rvec}}]{xin\mbox{[}$\,$\mbox{]}, }
+\item[{real}]{angle, }
+\item[{{\bf rvec}}]{xout\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Z, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Upside\-Down, }
+\item[{real}]{dz}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{hexamer_8c_af80f746b1e15f8ba6bb242f95271fe3a}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=228pt]{hexamer_8c_af80f746b1e15f8ba6bb242f95271fe3a_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{hexamer_8c_af80f746b1e15f8ba6bb242f95271fe3a_icgraph}
+\end{center}
+\end{figure}
+
+

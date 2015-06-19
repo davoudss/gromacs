@@ -1,0 +1,105 @@
+\hypertarget{include_2thread__mpi_2atomic_2gcc_8h}{\section{include/thread\-\_\-mpi/atomic/gcc.h \-File \-Reference}
+\label{include_2thread__mpi_2atomic_2gcc_8h}\index{include/thread\-\_\-mpi/atomic/gcc.\-h@{include/thread\-\_\-mpi/atomic/gcc.\-h}}
+}
+{\ttfamily \#include \char`\"{}gcc\-\_\-intrinsics.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gcc\-\_\-spinlock.\-h\char`\"{}}\*
+\-Include dependency graph for gcc.\-h\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=264pt]{include_2thread__mpi_2atomic_2gcc_8h__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structtMPI__Atomic}{t\-M\-P\-I\-\_\-\-Atomic}
+\item 
+struct \hyperlink{structtMPI__Atomic__ptr}{t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr}
+\end{DoxyCompactItemize}
+\subsection*{\-Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{include_2thread__mpi_2atomic_2gcc_8h_a5d2ee17509e3123d1c71d00b02888daa}{t\-M\-P\-I\-\_\-\-Atomic\-\_\-memory\-\_\-barrier}()~\-\_\-\-\_\-sync\-\_\-synchronize()
+\item 
+\#define \hyperlink{include_2thread__mpi_2atomic_2gcc_8h_a7c293860c23f189cdcc22c9d3e5e5aff}{\-\_\-\-\_\-builtin\-\_\-constant\-\_\-p}(\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a3c7542401c1cb8bd37ef5e7d9eb0f5a8}{i})~(1)
+\item 
+\#define \hyperlink{include_2thread__mpi_2atomic_2gcc_8h_a1e5bbd6483e8792893f3a5e8e2bbe510}{\-T\-M\-P\-I\-\_\-\-S\-P\-I\-N\-L\-O\-C\-K\-\_\-\-I\-N\-I\-T\-I\-A\-L\-I\-Z\-E\-R}~\{ 0 \}
+\item 
+\#define \hyperlink{include_2thread__mpi_2atomic_2gcc_8h_ad046655ee56cc30c2a8719f3d1091b8e}{t\-M\-P\-I\-\_\-\-Atomic\-\_\-get}(\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a0880879736d1ab747a972d1942421886}{a})~((int)( (\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a0880879736d1ab747a972d1942421886}{a})-\/$>$value) )
+\item 
+\#define \hyperlink{include_2thread__mpi_2atomic_2gcc_8h_a3e989e8b5935d25fdc5cde21b153482c}{t\-M\-P\-I\-\_\-\-Atomic\-\_\-set}(\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a0880879736d1ab747a972d1942421886}{a}, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a3c7542401c1cb8bd37ef5e7d9eb0f5a8}{i})~(((\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a0880879736d1ab747a972d1942421886}{a})-\/$>$value) = (\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a3c7542401c1cb8bd37ef5e7d9eb0f5a8}{i}))
+\item 
+\#define \hyperlink{include_2thread__mpi_2atomic_2gcc_8h_a0769c59b89bb5ff489110f9de52658cf}{t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-get}(\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a0880879736d1ab747a972d1942421886}{a})~((\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void}$\ast$)((\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a0880879736d1ab747a972d1942421886}{a})-\/$>$value) )
+\item 
+\#define \hyperlink{include_2thread__mpi_2atomic_2gcc_8h_a8b8855344b6d33a7f1e2793056fbf418}{t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-set}(\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a0880879736d1ab747a972d1942421886}{a}, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a3c7542401c1cb8bd37ef5e7d9eb0f5a8}{i})~(((\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a0880879736d1ab747a972d1942421886}{a})-\/$>$value) = (\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void}$\ast$)(\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a3c7542401c1cb8bd37ef5e7d9eb0f5a8}{i}))
+\end{DoxyCompactItemize}
+\subsection*{\-Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \hyperlink{structtMPI__Atomic}{t\-M\-P\-I\-\_\-\-Atomic} \hyperlink{include_2thread__mpi_2atomic_2gcc_8h_a2c33794dc540e3b07cffc1f81a3fe4b4}{t\-M\-P\-I\-\_\-\-Atomic\-\_\-t}
+\item 
+typedef struct \hyperlink{structtMPI__Atomic__ptr}{t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr} \hyperlink{include_2thread__mpi_2atomic_2gcc_8h_a4c91c0105f1c0a5f23bc4239274291eb}{t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-t}
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Define \-Documentation}
+\hypertarget{include_2thread__mpi_2atomic_2gcc_8h_a7c293860c23f189cdcc22c9d3e5e5aff}{\index{include/thread\-\_\-mpi/atomic/gcc.\-h@{include/thread\-\_\-mpi/atomic/gcc.\-h}!\-\_\-\-\_\-builtin\-\_\-constant\-\_\-p@{\-\_\-\-\_\-builtin\-\_\-constant\-\_\-p}}
+\index{\-\_\-\-\_\-builtin\-\_\-constant\-\_\-p@{\-\_\-\-\_\-builtin\-\_\-constant\-\_\-p}!include/thread_mpi/atomic/gcc.h@{include/thread\-\_\-mpi/atomic/gcc.\-h}}
+\subsubsection[{\-\_\-\-\_\-builtin\-\_\-constant\-\_\-p}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-\_\-\-\_\-builtin\-\_\-constant\-\_\-p}(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf i}}
+\end{DoxyParamCaption}
+)~(1)}}\label{include_2thread__mpi_2atomic_2gcc_8h_a7c293860c23f189cdcc22c9d3e5e5aff}
+\hypertarget{include_2thread__mpi_2atomic_2gcc_8h_ad046655ee56cc30c2a8719f3d1091b8e}{\index{include/thread\-\_\-mpi/atomic/gcc.\-h@{include/thread\-\_\-mpi/atomic/gcc.\-h}!t\-M\-P\-I\-\_\-\-Atomic\-\_\-get@{t\-M\-P\-I\-\_\-\-Atomic\-\_\-get}}
+\index{t\-M\-P\-I\-\_\-\-Atomic\-\_\-get@{t\-M\-P\-I\-\_\-\-Atomic\-\_\-get}!include/thread_mpi/atomic/gcc.h@{include/thread\-\_\-mpi/atomic/gcc.\-h}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Atomic\-\_\-get}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf t\-M\-P\-I\-\_\-\-Atomic\-\_\-get}(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf a}}
+\end{DoxyParamCaption}
+)~((int)( ({\bf a})-\/$>$value) )}}\label{include_2thread__mpi_2atomic_2gcc_8h_ad046655ee56cc30c2a8719f3d1091b8e}
+\hypertarget{include_2thread__mpi_2atomic_2gcc_8h_a5d2ee17509e3123d1c71d00b02888daa}{\index{include/thread\-\_\-mpi/atomic/gcc.\-h@{include/thread\-\_\-mpi/atomic/gcc.\-h}!t\-M\-P\-I\-\_\-\-Atomic\-\_\-memory\-\_\-barrier@{t\-M\-P\-I\-\_\-\-Atomic\-\_\-memory\-\_\-barrier}}
+\index{t\-M\-P\-I\-\_\-\-Atomic\-\_\-memory\-\_\-barrier@{t\-M\-P\-I\-\_\-\-Atomic\-\_\-memory\-\_\-barrier}!include/thread_mpi/atomic/gcc.h@{include/thread\-\_\-mpi/atomic/gcc.\-h}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Atomic\-\_\-memory\-\_\-barrier}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf t\-M\-P\-I\-\_\-\-Atomic\-\_\-memory\-\_\-barrier}(
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)~\-\_\-\-\_\-sync\-\_\-synchronize()}}\label{include_2thread__mpi_2atomic_2gcc_8h_a5d2ee17509e3123d1c71d00b02888daa}
+\hypertarget{include_2thread__mpi_2atomic_2gcc_8h_a0769c59b89bb5ff489110f9de52658cf}{\index{include/thread\-\_\-mpi/atomic/gcc.\-h@{include/thread\-\_\-mpi/atomic/gcc.\-h}!t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-get@{t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-get}}
+\index{t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-get@{t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-get}!include/thread_mpi/atomic/gcc.h@{include/thread\-\_\-mpi/atomic/gcc.\-h}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-get}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-get}(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf a}}
+\end{DoxyParamCaption}
+)~(({\bf void}$\ast$)(({\bf a})-\/$>$value) )}}\label{include_2thread__mpi_2atomic_2gcc_8h_a0769c59b89bb5ff489110f9de52658cf}
+\hypertarget{include_2thread__mpi_2atomic_2gcc_8h_a8b8855344b6d33a7f1e2793056fbf418}{\index{include/thread\-\_\-mpi/atomic/gcc.\-h@{include/thread\-\_\-mpi/atomic/gcc.\-h}!t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-set@{t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-set}}
+\index{t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-set@{t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-set}!include/thread_mpi/atomic/gcc.h@{include/thread\-\_\-mpi/atomic/gcc.\-h}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-set}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-set}(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf a}, }
+\item[{}]{{\bf i}}
+\end{DoxyParamCaption}
+)~((({\bf a})-\/$>$value) = ({\bf void}$\ast$)({\bf i}))}}\label{include_2thread__mpi_2atomic_2gcc_8h_a8b8855344b6d33a7f1e2793056fbf418}
+\hypertarget{include_2thread__mpi_2atomic_2gcc_8h_a3e989e8b5935d25fdc5cde21b153482c}{\index{include/thread\-\_\-mpi/atomic/gcc.\-h@{include/thread\-\_\-mpi/atomic/gcc.\-h}!t\-M\-P\-I\-\_\-\-Atomic\-\_\-set@{t\-M\-P\-I\-\_\-\-Atomic\-\_\-set}}
+\index{t\-M\-P\-I\-\_\-\-Atomic\-\_\-set@{t\-M\-P\-I\-\_\-\-Atomic\-\_\-set}!include/thread_mpi/atomic/gcc.h@{include/thread\-\_\-mpi/atomic/gcc.\-h}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Atomic\-\_\-set}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf t\-M\-P\-I\-\_\-\-Atomic\-\_\-set}(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf a}, }
+\item[{}]{{\bf i}}
+\end{DoxyParamCaption}
+)~((({\bf a})-\/$>$value) = ({\bf i}))}}\label{include_2thread__mpi_2atomic_2gcc_8h_a3e989e8b5935d25fdc5cde21b153482c}
+\hypertarget{include_2thread__mpi_2atomic_2gcc_8h_a1e5bbd6483e8792893f3a5e8e2bbe510}{\index{include/thread\-\_\-mpi/atomic/gcc.\-h@{include/thread\-\_\-mpi/atomic/gcc.\-h}!\-T\-M\-P\-I\-\_\-\-S\-P\-I\-N\-L\-O\-C\-K\-\_\-\-I\-N\-I\-T\-I\-A\-L\-I\-Z\-E\-R@{\-T\-M\-P\-I\-\_\-\-S\-P\-I\-N\-L\-O\-C\-K\-\_\-\-I\-N\-I\-T\-I\-A\-L\-I\-Z\-E\-R}}
+\index{\-T\-M\-P\-I\-\_\-\-S\-P\-I\-N\-L\-O\-C\-K\-\_\-\-I\-N\-I\-T\-I\-A\-L\-I\-Z\-E\-R@{\-T\-M\-P\-I\-\_\-\-S\-P\-I\-N\-L\-O\-C\-K\-\_\-\-I\-N\-I\-T\-I\-A\-L\-I\-Z\-E\-R}!include/thread_mpi/atomic/gcc.h@{include/thread\-\_\-mpi/atomic/gcc.\-h}}
+\subsubsection[{\-T\-M\-P\-I\-\_\-\-S\-P\-I\-N\-L\-O\-C\-K\-\_\-\-I\-N\-I\-T\-I\-A\-L\-I\-Z\-E\-R}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-T\-M\-P\-I\-\_\-\-S\-P\-I\-N\-L\-O\-C\-K\-\_\-\-I\-N\-I\-T\-I\-A\-L\-I\-Z\-E\-R}~\{ 0 \}}}\label{include_2thread__mpi_2atomic_2gcc_8h_a1e5bbd6483e8792893f3a5e8e2bbe510}
+
+
+\subsection{\-Typedef \-Documentation}
+\hypertarget{include_2thread__mpi_2atomic_2gcc_8h_a4c91c0105f1c0a5f23bc4239274291eb}{\index{include/thread\-\_\-mpi/atomic/gcc.\-h@{include/thread\-\_\-mpi/atomic/gcc.\-h}!t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-t@{t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-t}}
+\index{t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-t@{t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-t}!include/thread_mpi/atomic/gcc.h@{include/thread\-\_\-mpi/atomic/gcc.\-h}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr}
+ {\bf t\-M\-P\-I\-\_\-\-Atomic\-\_\-ptr\-\_\-t}}}\label{include_2thread__mpi_2atomic_2gcc_8h_a4c91c0105f1c0a5f23bc4239274291eb}
+\hypertarget{include_2thread__mpi_2atomic_2gcc_8h_a2c33794dc540e3b07cffc1f81a3fe4b4}{\index{include/thread\-\_\-mpi/atomic/gcc.\-h@{include/thread\-\_\-mpi/atomic/gcc.\-h}!t\-M\-P\-I\-\_\-\-Atomic\-\_\-t@{t\-M\-P\-I\-\_\-\-Atomic\-\_\-t}}
+\index{t\-M\-P\-I\-\_\-\-Atomic\-\_\-t@{t\-M\-P\-I\-\_\-\-Atomic\-\_\-t}!include/thread_mpi/atomic/gcc.h@{include/thread\-\_\-mpi/atomic/gcc.\-h}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Atomic\-\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf t\-M\-P\-I\-\_\-\-Atomic}
+ {\bf t\-M\-P\-I\-\_\-\-Atomic\-\_\-t}}}\label{include_2thread__mpi_2atomic_2gcc_8h_a2c33794dc540e3b07cffc1f81a3fe4b4}

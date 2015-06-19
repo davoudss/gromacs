@@ -1,0 +1,227 @@
+\hypertarget{reduce_8c}{\section{src/gmxlib/thread\-\_\-mpi/reduce.c \-File \-Reference}
+\label{reduce_8c}\index{src/gmxlib/thread\-\_\-mpi/reduce.\-c@{src/gmxlib/thread\-\_\-mpi/reduce.\-c}}
+}
+{\ttfamily \#include $<$errno.\-h$>$}\*
+{\ttfamily \#include $<$stdlib.\-h$>$}\*
+{\ttfamily \#include $<$stdio.\-h$>$}\*
+{\ttfamily \#include $<$stdarg.\-h$>$}\*
+{\ttfamily \#include $<$string.\-h$>$}\*
+{\ttfamily \#include \char`\"{}impl.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}collective.\-h\char`\"{}}\*
+\-Include dependency graph for reduce.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{reduce_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{reduce_8c_a2819e8347b50777f053713b2358b084c}{t\-M\-P\-I\-\_\-\-Reduce\-\_\-run\-\_\-op} (\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$dest, \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$src\-\_\-a, \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$src\-\_\-b, \hyperlink{include_2thread__mpi_2tmpi_8h_a5dfe10378be22fca9362e52f6abdf503}{t\-M\-P\-I\-\_\-\-Datatype} datatype, int count, \hyperlink{include_2thread__mpi_2tmpi_8h_a6a1e2af1db474f9eae10bcef50822567}{t\-M\-P\-I\-\_\-\-Op} op, \hyperlink{include_2thread__mpi_2tmpi_8h_ab76dc275b882a1d00a54353fb8dd4cb3}{t\-M\-P\-I\-\_\-\-Comm} comm)
+\item 
+int \hyperlink{reduce_8c_af7faecbb9ed0f62d1ee279da5ac1e13a}{t\-M\-P\-I\-\_\-\-Reduce\-\_\-fast} (\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$sendbuf, \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$recvbuf, int count, \hyperlink{include_2thread__mpi_2tmpi_8h_a5dfe10378be22fca9362e52f6abdf503}{t\-M\-P\-I\-\_\-\-Datatype} datatype, \hyperlink{include_2thread__mpi_2tmpi_8h_a6a1e2af1db474f9eae10bcef50822567}{t\-M\-P\-I\-\_\-\-Op} op, int root, \hyperlink{include_2thread__mpi_2tmpi_8h_ab76dc275b882a1d00a54353fb8dd4cb3}{t\-M\-P\-I\-\_\-\-Comm} comm)
+\item 
+int \hyperlink{reduce_8c_a183033dbfe47d426c5ae955fd095503d}{t\-M\-P\-I\-\_\-\-Reduce} (\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$sendbuf, \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$recvbuf, int count, \hyperlink{include_2thread__mpi_2tmpi_8h_a5dfe10378be22fca9362e52f6abdf503}{t\-M\-P\-I\-\_\-\-Datatype} datatype, \hyperlink{include_2thread__mpi_2tmpi_8h_a6a1e2af1db474f9eae10bcef50822567}{t\-M\-P\-I\-\_\-\-Op} op, int root, \hyperlink{include_2thread__mpi_2tmpi_8h_ab76dc275b882a1d00a54353fb8dd4cb3}{t\-M\-P\-I\-\_\-\-Comm} comm)
+\item 
+int \hyperlink{reduce_8c_a7afcb90a3013ce69b43a771349d5b8ef}{t\-M\-P\-I\-\_\-\-Allreduce} (\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$sendbuf, \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$recvbuf, int count, \hyperlink{include_2thread__mpi_2tmpi_8h_a5dfe10378be22fca9362e52f6abdf503}{t\-M\-P\-I\-\_\-\-Datatype} datatype, \hyperlink{include_2thread__mpi_2tmpi_8h_a6a1e2af1db474f9eae10bcef50822567}{t\-M\-P\-I\-\_\-\-Op} op, \hyperlink{include_2thread__mpi_2tmpi_8h_ab76dc275b882a1d00a54353fb8dd4cb3}{t\-M\-P\-I\-\_\-\-Comm} comm)
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{reduce_8c_a7afcb90a3013ce69b43a771349d5b8ef}{\index{reduce.\-c@{reduce.\-c}!t\-M\-P\-I\-\_\-\-Allreduce@{t\-M\-P\-I\-\_\-\-Allreduce}}
+\index{t\-M\-P\-I\-\_\-\-Allreduce@{t\-M\-P\-I\-\_\-\-Allreduce}!reduce.c@{reduce.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Allreduce}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf t\-M\-P\-I\-\_\-\-Allreduce} (
+\begin{DoxyParamCaption}
+\item[{{\bf void} $\ast$}]{sendbuf, }
+\item[{{\bf void} $\ast$}]{recvbuf, }
+\item[{int}]{count, }
+\item[{{\bf t\-M\-P\-I\-\_\-\-Datatype}}]{datatype, }
+\item[{{\bf t\-M\-P\-I\-\_\-\-Op}}]{op, }
+\item[{{\bf t\-M\-P\-I\-\_\-\-Comm}}]{comm}
+\end{DoxyParamCaption}
+)}}\label{reduce_8c_a7afcb90a3013ce69b43a771349d5b8ef}
+\-Do an operation between all locally held buffers on all items in the buffers and broadcast the results.
+
+\-Collective function.
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em sendbuf} & \-The operand parameters. \-Any process may specify \-T\-M\-P\-I\-\_\-\-I\-N\-\_\-\-P\-L\-A\-C\-E, in which case recvbuf will hold the operand parameters for that process. \\
+\hline
+\mbox{\tt in,out}  & {\em recvbuf} & \-The result buffer. \\
+\hline
+\mbox{\tt in}  & {\em count} & \-The number of items to do operation on. \\
+\hline
+\mbox{\tt in}  & {\em datatype} & \-The data type of the items. \\
+\hline
+\mbox{\tt in}  & {\em op} & \-The operation to perform. \\
+\hline
+\mbox{\tt in}  & {\em comm} & \-The communicator.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-T\-M\-P\-I\-\_\-\-S\-U\-C\-C\-E\-S\-S on success, \-T\-M\-P\-I\-\_\-\-F\-A\-I\-L\-U\-R\-E on failure. 
+\end{DoxyReturn}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{reduce_8c_a7afcb90a3013ce69b43a771349d5b8ef_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{reduce_8c_a183033dbfe47d426c5ae955fd095503d}{\index{reduce.\-c@{reduce.\-c}!t\-M\-P\-I\-\_\-\-Reduce@{t\-M\-P\-I\-\_\-\-Reduce}}
+\index{t\-M\-P\-I\-\_\-\-Reduce@{t\-M\-P\-I\-\_\-\-Reduce}!reduce.c@{reduce.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Reduce}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf t\-M\-P\-I\-\_\-\-Reduce} (
+\begin{DoxyParamCaption}
+\item[{{\bf void} $\ast$}]{sendbuf, }
+\item[{{\bf void} $\ast$}]{recvbuf, }
+\item[{int}]{count, }
+\item[{{\bf t\-M\-P\-I\-\_\-\-Datatype}}]{datatype, }
+\item[{{\bf t\-M\-P\-I\-\_\-\-Op}}]{op, }
+\item[{int}]{root, }
+\item[{{\bf t\-M\-P\-I\-\_\-\-Comm}}]{comm}
+\end{DoxyParamCaption}
+)}}\label{reduce_8c_a183033dbfe47d426c5ae955fd095503d}
+\-Do an operation between all locally held buffers on all items in the buffers, and send the results to root.
+
+\-Collective function.
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em sendbuf} & \-The operand parameters. \-Root may specify \-T\-M\-P\-I\-\_\-\-I\-N\-\_\-\-P\-L\-A\-C\-E, in which case recvbuf will hold the operand parameters. \\
+\hline
+\mbox{\tt out}  & {\em recvbuf} & \-The result buffer at root. \\
+\hline
+\mbox{\tt in}  & {\em count} & \-The number of items to do operation on. \\
+\hline
+\mbox{\tt in}  & {\em datatype} & \-The data type of the items. \\
+\hline
+\mbox{\tt in}  & {\em op} & \-The operation to perform. \\
+\hline
+\mbox{\tt in}  & {\em root} & \-The root thread (which is to receive the results). \\
+\hline
+\mbox{\tt in}  & {\em comm} & \-The communicator.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-T\-M\-P\-I\-\_\-\-S\-U\-C\-C\-E\-S\-S on success, \-T\-M\-P\-I\-\_\-\-F\-A\-I\-L\-U\-R\-E on failure. 
+\end{DoxyReturn}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{reduce_8c_a183033dbfe47d426c5ae955fd095503d_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{reduce_8c_af7faecbb9ed0f62d1ee279da5ac1e13a}{\index{reduce.\-c@{reduce.\-c}!t\-M\-P\-I\-\_\-\-Reduce\-\_\-fast@{t\-M\-P\-I\-\_\-\-Reduce\-\_\-fast}}
+\index{t\-M\-P\-I\-\_\-\-Reduce\-\_\-fast@{t\-M\-P\-I\-\_\-\-Reduce\-\_\-fast}!reduce.c@{reduce.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Reduce\-\_\-fast}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf t\-M\-P\-I\-\_\-\-Reduce\-\_\-fast} (
+\begin{DoxyParamCaption}
+\item[{{\bf void} $\ast$}]{sendbuf, }
+\item[{{\bf void} $\ast$}]{recvbuf, }
+\item[{int}]{count, }
+\item[{{\bf t\-M\-P\-I\-\_\-\-Datatype}}]{datatype, }
+\item[{{\bf t\-M\-P\-I\-\_\-\-Op}}]{op, }
+\item[{int}]{root, }
+\item[{{\bf t\-M\-P\-I\-\_\-\-Comm}}]{comm}
+\end{DoxyParamCaption}
+)}}\label{reduce_8c_af7faecbb9ed0f62d1ee279da5ac1e13a}
+\-Do an t\-M\-P\-I\-\_\-\-Reduce, but with the following assumption\-: recvbuf points to a valid buffer in all calling threads, or sendbuf has the value \-T\-M\-P\-I\-\_\-\-I\-N\-\_\-\-P\-L\-A\-C\-E (in which case the values of sendbuf may be changed in that thread).
+
+\-This avoids unnecesary memory allocations associated with the normal t\-M\-P\-I\-\_\-\-Reduce.
+
+\-Collective function.
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em sendbuf} & \-The operand parameters (or \-T\-M\-P\-I\-\_\-\-I\-N\-\_\-\-P\-L\-A\-C\-E, in which case the operand parameters will be in recvbuf). \\
+\hline
+\mbox{\tt in,out}  & {\em recvbuf} & \-The result buffer. \\
+\hline
+\mbox{\tt in}  & {\em count} & \-The number of items to do operation on. \\
+\hline
+\mbox{\tt in}  & {\em datatype} & \-The data type of the items. \\
+\hline
+\mbox{\tt in}  & {\em op} & \-The operation to perform. \\
+\hline
+\mbox{\tt in}  & {\em root} & \-The root thread (which is to receive the final results). \\
+\hline
+\mbox{\tt in}  & {\em comm} & \-The communicator.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-T\-M\-P\-I\-\_\-\-S\-U\-C\-C\-E\-S\-S on success, \-T\-M\-P\-I\-\_\-\-F\-A\-I\-L\-U\-R\-E on failure. 
+\end{DoxyReturn}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{reduce_8c_af7faecbb9ed0f62d1ee279da5ac1e13a_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=298pt]{reduce_8c_af7faecbb9ed0f62d1ee279da5ac1e13a_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{reduce_8c_a2819e8347b50777f053713b2358b084c}{\index{reduce.\-c@{reduce.\-c}!t\-M\-P\-I\-\_\-\-Reduce\-\_\-run\-\_\-op@{t\-M\-P\-I\-\_\-\-Reduce\-\_\-run\-\_\-op}}
+\index{t\-M\-P\-I\-\_\-\-Reduce\-\_\-run\-\_\-op@{t\-M\-P\-I\-\_\-\-Reduce\-\_\-run\-\_\-op}!reduce.c@{reduce.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Reduce\-\_\-run\-\_\-op}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf t\-M\-P\-I\-\_\-\-Reduce\-\_\-run\-\_\-op} (
+\begin{DoxyParamCaption}
+\item[{{\bf void} $\ast$}]{dest, }
+\item[{{\bf void} $\ast$}]{src\-\_\-a, }
+\item[{{\bf void} $\ast$}]{src\-\_\-b, }
+\item[{{\bf t\-M\-P\-I\-\_\-\-Datatype}}]{datatype, }
+\item[{int}]{count, }
+\item[{{\bf t\-M\-P\-I\-\_\-\-Op}}]{op, }
+\item[{{\bf t\-M\-P\-I\-\_\-\-Comm}}]{comm}
+\end{DoxyParamCaption}
+)}}\label{reduce_8c_a2819e8347b50777f053713b2358b084c}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{reduce_8c_a2819e8347b50777f053713b2358b084c_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{reduce_8c_a2819e8347b50777f053713b2358b084c_icgraph}
+\end{center}
+\end{figure}
+
+

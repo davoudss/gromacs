@@ -1,0 +1,932 @@
+\hypertarget{gmx__make__ndx_8c}{\section{src/tools/gmx\-\_\-make\-\_\-ndx.c \-File \-Reference}
+\label{gmx__make__ndx_8c}\index{src/tools/gmx\-\_\-make\-\_\-ndx.\-c@{src/tools/gmx\-\_\-make\-\_\-ndx.\-c}}
+}
+{\ttfamily \#include $<$ctype.\-h$>$}\*
+{\ttfamily \#include \char`\"{}sysstuff.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}strdb.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}futil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}macros.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}string2.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}statutil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}confio.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}copyrite.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}typedefs.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}index.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}smalloc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}vec.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-ana.\-h\char`\"{}}\*
+\-Include dependency graph for gmx\-\_\-make\-\_\-ndx.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__make__ndx_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{gmx__make__ndx_8c_aa647bd959b8a3f6d4254e1e2c2295d44}{\-M\-A\-X\-N\-A\-M\-E\-S}~30
+\item 
+\#define \hyperlink{gmx__make__ndx_8c_a4853f6c25c8394fd57c4d99f61d5cd89}{\-N\-A\-M\-E\-\_\-\-L\-E\-N}~30
+\item 
+\#define \hyperlink{gmx__make__ndx_8c_ab70d4725699c0935e4847676027e7820}{\-N\-P\-A}~\hyperlink{share_2template_2gromacs_2macros_8h_a0883345a58f8f63aefa249a4f127f707}{asize}(pa)
+\item 
+\#define \hyperlink{gmx__make__ndx_8c_a8485f4e81de2537e6a0935626167a775}{\-N\-F\-I\-L\-E}~\hyperlink{share_2template_2gromacs_2macros_8h_a0883345a58f8f63aefa249a4f127f707}{asize}(fnm)
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+static int \hyperlink{gmx__make__ndx_8c_ad4ad809fd03ac5bd31a9091fce19f89e}{or\-\_\-groups} (\hyperlink{include_2types_2simple_8h_ad3f47cdb48677e516e2049719612c737}{atom\-\_\-id} nr1, \hyperlink{include_2types_2simple_8h_ad3f47cdb48677e516e2049719612c737}{atom\-\_\-id} $\ast$at1, \hyperlink{include_2types_2simple_8h_ad3f47cdb48677e516e2049719612c737}{atom\-\_\-id} nr2, \hyperlink{include_2types_2simple_8h_ad3f47cdb48677e516e2049719612c737}{atom\-\_\-id} $\ast$at2, \hyperlink{include_2types_2simple_8h_ad3f47cdb48677e516e2049719612c737}{atom\-\_\-id} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a560e4062098f77c2d7e5fe83bf09c394}{nr}, \hyperlink{include_2types_2simple_8h_ad3f47cdb48677e516e2049719612c737}{atom\-\_\-id} $\ast$at)
+\item 
+static int \hyperlink{gmx__make__ndx_8c_a158e3e428963ab0b380858d415a51af4}{and\-\_\-groups} (\hyperlink{include_2types_2simple_8h_ad3f47cdb48677e516e2049719612c737}{atom\-\_\-id} nr1, \hyperlink{include_2types_2simple_8h_ad3f47cdb48677e516e2049719612c737}{atom\-\_\-id} $\ast$at1, \hyperlink{include_2types_2simple_8h_ad3f47cdb48677e516e2049719612c737}{atom\-\_\-id} nr2, \hyperlink{include_2types_2simple_8h_ad3f47cdb48677e516e2049719612c737}{atom\-\_\-id} $\ast$at2, \hyperlink{include_2types_2simple_8h_ad3f47cdb48677e516e2049719612c737}{atom\-\_\-id} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a560e4062098f77c2d7e5fe83bf09c394}{nr}, \hyperlink{include_2types_2simple_8h_ad3f47cdb48677e516e2049719612c737}{atom\-\_\-id} $\ast$at)
+\item 
+static \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{gmx__make__ndx_8c_a7e3424609415600e7a64f30fbb455e9a}{is\-\_\-name\-\_\-char} (char \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae4f482ada992ba1e6b96026c14729ffe}{c})
+\item 
+static int \hyperlink{gmx__make__ndx_8c_ab1a32311d8a91d36199521bef54765e7}{parse\-\_\-names} (char $\ast$$\ast$string, int $\ast$n\-\_\-names, char $\ast$$\ast$names)
+\item 
+static \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{gmx__make__ndx_8c_ac95de6296db6662ac9bc8102d4128ddc}{parse\-\_\-int\-\_\-char} (char $\ast$$\ast$string, int $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a560e4062098f77c2d7e5fe83bf09c394}{nr}, char $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae4f482ada992ba1e6b96026c14729ffe}{c})
+\item 
+static \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{gmx__make__ndx_8c_a21dc87f18c94dacc9b03bd7dfba6dc8b}{parse\-\_\-int} (char $\ast$$\ast$string, int $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a560e4062098f77c2d7e5fe83bf09c394}{nr})
+\item 
+static \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{gmx__make__ndx_8c_a1fc6e7329ec7bc4ed1952c5ba93fb2a8}{isquote} (char \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae4f482ada992ba1e6b96026c14729ffe}{c})
+\item 
+static \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{gmx__make__ndx_8c_a7097ce37066550092070e53eb4724f33}{parse\-\_\-string} (char $\ast$$\ast$string, int $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a560e4062098f77c2d7e5fe83bf09c394}{nr}, int ngrps, char $\ast$$\ast$grpname)
+\item 
+static int \hyperlink{gmx__make__ndx_8c_aa8276d46b9b8a438872905940c8818e5}{select\-\_\-atomnumbers} (char $\ast$$\ast$string, \hyperlink{structt__atoms}{t\-\_\-atoms} $\ast$atoms, \hyperlink{include_2types_2simple_8h_ad3f47cdb48677e516e2049719612c737}{atom\-\_\-id} n1, \hyperlink{include_2types_2simple_8h_ad3f47cdb48677e516e2049719612c737}{atom\-\_\-id} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a560e4062098f77c2d7e5fe83bf09c394}{nr}, \hyperlink{include_2types_2simple_8h_ad3f47cdb48677e516e2049719612c737}{atom\-\_\-id} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a49fd977001162d7256c8fcd293f9d12a}{index}, char $\ast$gname)
+\item 
+static int \hyperlink{gmx__make__ndx_8c_af1615985fbc390bbdb75e6dd77610955}{select\-\_\-residuenumbers} (char $\ast$$\ast$string, \hyperlink{structt__atoms}{t\-\_\-atoms} $\ast$atoms, \hyperlink{include_2types_2simple_8h_ad3f47cdb48677e516e2049719612c737}{atom\-\_\-id} n1, char \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae4f482ada992ba1e6b96026c14729ffe}{c}, \hyperlink{include_2types_2simple_8h_ad3f47cdb48677e516e2049719612c737}{atom\-\_\-id} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a560e4062098f77c2d7e5fe83bf09c394}{nr}, \hyperlink{include_2types_2simple_8h_ad3f47cdb48677e516e2049719612c737}{atom\-\_\-id} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a49fd977001162d7256c8fcd293f9d12a}{index}, char $\ast$gname)
+\item 
+static int \hyperlink{gmx__make__ndx_8c_afdf9387efce1177d9352415df67daef4}{select\-\_\-residueindices} (char $\ast$$\ast$string, \hyperlink{structt__atoms}{t\-\_\-atoms} $\ast$atoms, \hyperlink{include_2types_2simple_8h_ad3f47cdb48677e516e2049719612c737}{atom\-\_\-id} n1, char \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae4f482ada992ba1e6b96026c14729ffe}{c}, \hyperlink{include_2types_2simple_8h_ad3f47cdb48677e516e2049719612c737}{atom\-\_\-id} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a560e4062098f77c2d7e5fe83bf09c394}{nr}, \hyperlink{include_2types_2simple_8h_ad3f47cdb48677e516e2049719612c737}{atom\-\_\-id} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a49fd977001162d7256c8fcd293f9d12a}{index}, char $\ast$gname)
+\item 
+static \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{gmx__make__ndx_8c_ac26a98c6fea31b75e94773b17f23ad3c}{atoms\-\_\-from\-\_\-residuenumbers} (\hyperlink{structt__atoms}{t\-\_\-atoms} $\ast$atoms, int group, \hyperlink{structt__blocka}{t\-\_\-blocka} $\ast$block, \hyperlink{include_2types_2simple_8h_ad3f47cdb48677e516e2049719612c737}{atom\-\_\-id} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a560e4062098f77c2d7e5fe83bf09c394}{nr}, \hyperlink{include_2types_2simple_8h_ad3f47cdb48677e516e2049719612c737}{atom\-\_\-id} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a49fd977001162d7256c8fcd293f9d12a}{index}, char $\ast$gname)
+\item 
+static \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{gmx__make__ndx_8c_a0875eb17777d9f6fdc5a52be9d3cf628}{comp\-\_\-name} (char $\ast$name, char $\ast$search)
+\item 
+static int \hyperlink{gmx__make__ndx_8c_a15fef41f45fa2bb8155681207a8d40c6}{select\-\_\-chainnames} (\hyperlink{structt__atoms}{t\-\_\-atoms} $\ast$atoms, int n\-\_\-names, char $\ast$$\ast$names, \hyperlink{include_2types_2simple_8h_ad3f47cdb48677e516e2049719612c737}{atom\-\_\-id} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a560e4062098f77c2d7e5fe83bf09c394}{nr}, \hyperlink{include_2types_2simple_8h_ad3f47cdb48677e516e2049719612c737}{atom\-\_\-id} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a49fd977001162d7256c8fcd293f9d12a}{index})
+\item 
+static int \hyperlink{gmx__make__ndx_8c_a12b589d8e3b50ac553af003fd93bc452}{select\-\_\-atomnames} (\hyperlink{structt__atoms}{t\-\_\-atoms} $\ast$atoms, int n\-\_\-names, char $\ast$$\ast$names, \hyperlink{include_2types_2simple_8h_ad3f47cdb48677e516e2049719612c737}{atom\-\_\-id} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a560e4062098f77c2d7e5fe83bf09c394}{nr}, \hyperlink{include_2types_2simple_8h_ad3f47cdb48677e516e2049719612c737}{atom\-\_\-id} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a49fd977001162d7256c8fcd293f9d12a}{index}, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Type)
+\item 
+static int \hyperlink{gmx__make__ndx_8c_af655521706455b9f906a175c7a6560af}{select\-\_\-residuenames} (\hyperlink{structt__atoms}{t\-\_\-atoms} $\ast$atoms, int n\-\_\-names, char $\ast$$\ast$names, \hyperlink{include_2types_2simple_8h_ad3f47cdb48677e516e2049719612c737}{atom\-\_\-id} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a560e4062098f77c2d7e5fe83bf09c394}{nr}, \hyperlink{include_2types_2simple_8h_ad3f47cdb48677e516e2049719612c737}{atom\-\_\-id} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a49fd977001162d7256c8fcd293f9d12a}{index})
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__make__ndx_8c_ac9b314c0911d0f6b7a1edb6515c10e62}{copy2block} (int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, \hyperlink{include_2types_2simple_8h_ad3f47cdb48677e516e2049719612c737}{atom\-\_\-id} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a49fd977001162d7256c8fcd293f9d12a}{index}, \hyperlink{structt__blocka}{t\-\_\-blocka} $\ast$block)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__make__ndx_8c_aca8c210c844c1269d94b16d3df1b75ac}{make\-\_\-gname} (int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, char $\ast$$\ast$names, char $\ast$gname)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__make__ndx_8c_a1ce269f36b9a18c9e20e6bb8144bb170}{copy\-\_\-group} (int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g}, \hyperlink{structt__blocka}{t\-\_\-blocka} $\ast$block, \hyperlink{include_2types_2simple_8h_ad3f47cdb48677e516e2049719612c737}{atom\-\_\-id} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a560e4062098f77c2d7e5fe83bf09c394}{nr}, \hyperlink{include_2types_2simple_8h_ad3f47cdb48677e516e2049719612c737}{atom\-\_\-id} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a49fd977001162d7256c8fcd293f9d12a}{index})
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__make__ndx_8c_a03719f819013bde831b89545c55331ff}{remove\-\_\-group} (int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a560e4062098f77c2d7e5fe83bf09c394}{nr}, int nr2, \hyperlink{structt__blocka}{t\-\_\-blocka} $\ast$block, char $\ast$$\ast$$\ast$gn)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__make__ndx_8c_a4f8a9b2416c78c27f04237fd5d78f75c}{split\-\_\-group} (\hyperlink{structt__atoms}{t\-\_\-atoms} $\ast$atoms, int sel\-\_\-nr, \hyperlink{structt__blocka}{t\-\_\-blocka} $\ast$block, char $\ast$$\ast$$\ast$gn, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Atom)
+\item 
+static int \hyperlink{gmx__make__ndx_8c_a8f819c6c1659fc8bbc070b8d61a2c4d5}{split\-\_\-chain} (\hyperlink{structt__atoms}{t\-\_\-atoms} $\ast$atoms, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}, int sel\-\_\-nr, \hyperlink{structt__blocka}{t\-\_\-blocka} $\ast$block, char $\ast$$\ast$$\ast$gn)
+\item 
+static \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{gmx__make__ndx_8c_a86ef37b6a7f1c75dd6d725990c626405}{check\-\_\-have\-\_\-atoms} (\hyperlink{structt__atoms}{t\-\_\-atoms} $\ast$atoms, char $\ast$string)
+\item 
+static \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{gmx__make__ndx_8c_ad8cb26dd927a09f268f03c3ec7b65b91}{parse\-\_\-entry} (char $\ast$$\ast$string, int natoms, \hyperlink{structt__atoms}{t\-\_\-atoms} $\ast$atoms, \hyperlink{structt__blocka}{t\-\_\-blocka} $\ast$block, char $\ast$$\ast$$\ast$gn, \hyperlink{include_2types_2simple_8h_ad3f47cdb48677e516e2049719612c737}{atom\-\_\-id} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a560e4062098f77c2d7e5fe83bf09c394}{nr}, \hyperlink{include_2types_2simple_8h_ad3f47cdb48677e516e2049719612c737}{atom\-\_\-id} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a49fd977001162d7256c8fcd293f9d12a}{index}, char $\ast$gname)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__make__ndx_8c_aaffd569cdb52e4eb8a131325441fb807}{list\-\_\-residues} (\hyperlink{structt__atoms}{t\-\_\-atoms} $\ast$atoms)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__make__ndx_8c_ae38efc132a118d52f72d6447d169a7d1}{edit\-\_\-index} (int natoms, \hyperlink{structt__atoms}{t\-\_\-atoms} $\ast$atoms, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}, \hyperlink{structt__blocka}{t\-\_\-blocka} $\ast$block, char $\ast$$\ast$$\ast$gn, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Verbose)
+\item 
+static int \hyperlink{gmx__make__ndx_8c_a94fa86225fca431a666bc33d0368e98d}{block2natoms} (\hyperlink{structt__blocka}{t\-\_\-blocka} $\ast$block)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__make__ndx_8c_a0739fe5c7d7fac4c629bb3c62bb26130}{merge\-\_\-blocks} (\hyperlink{structt__blocka}{t\-\_\-blocka} $\ast$dest, \hyperlink{structt__blocka}{t\-\_\-blocka} $\ast$source)
+\item 
+int \hyperlink{gmx__make__ndx_8c_ae152e83bae7af9b36641e457dfd6656e}{gmx\-\_\-make\-\_\-ndx} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+\subsection*{\-Variables}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{gmx__make__ndx_8c_aa9fe26cc1ed1bf8e5b19f4e492381ffd}{b\-Case} = \hyperlink{impl_8h_aa93f0eb578d23995850d61f7d61c55c1}{\-F\-A\-L\-S\-E}
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Define \-Documentation}
+\hypertarget{gmx__make__ndx_8c_aa647bd959b8a3f6d4254e1e2c2295d44}{\index{gmx\-\_\-make\-\_\-ndx.\-c@{gmx\-\_\-make\-\_\-ndx.\-c}!\-M\-A\-X\-N\-A\-M\-E\-S@{\-M\-A\-X\-N\-A\-M\-E\-S}}
+\index{\-M\-A\-X\-N\-A\-M\-E\-S@{\-M\-A\-X\-N\-A\-M\-E\-S}!gmx_make_ndx.c@{gmx\-\_\-make\-\_\-ndx.\-c}}
+\subsubsection[{\-M\-A\-X\-N\-A\-M\-E\-S}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-M\-A\-X\-N\-A\-M\-E\-S}~30}}\label{gmx__make__ndx_8c_aa647bd959b8a3f6d4254e1e2c2295d44}
+\hypertarget{gmx__make__ndx_8c_a4853f6c25c8394fd57c4d99f61d5cd89}{\index{gmx\-\_\-make\-\_\-ndx.\-c@{gmx\-\_\-make\-\_\-ndx.\-c}!\-N\-A\-M\-E\-\_\-\-L\-E\-N@{\-N\-A\-M\-E\-\_\-\-L\-E\-N}}
+\index{\-N\-A\-M\-E\-\_\-\-L\-E\-N@{\-N\-A\-M\-E\-\_\-\-L\-E\-N}!gmx_make_ndx.c@{gmx\-\_\-make\-\_\-ndx.\-c}}
+\subsubsection[{\-N\-A\-M\-E\-\_\-\-L\-E\-N}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-N\-A\-M\-E\-\_\-\-L\-E\-N}~30}}\label{gmx__make__ndx_8c_a4853f6c25c8394fd57c4d99f61d5cd89}
+\hypertarget{gmx__make__ndx_8c_a8485f4e81de2537e6a0935626167a775}{\index{gmx\-\_\-make\-\_\-ndx.\-c@{gmx\-\_\-make\-\_\-ndx.\-c}!\-N\-F\-I\-L\-E@{\-N\-F\-I\-L\-E}}
+\index{\-N\-F\-I\-L\-E@{\-N\-F\-I\-L\-E}!gmx_make_ndx.c@{gmx\-\_\-make\-\_\-ndx.\-c}}
+\subsubsection[{\-N\-F\-I\-L\-E}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-N\-F\-I\-L\-E}~{\bf asize}(fnm)}}\label{gmx__make__ndx_8c_a8485f4e81de2537e6a0935626167a775}
+\hypertarget{gmx__make__ndx_8c_ab70d4725699c0935e4847676027e7820}{\index{gmx\-\_\-make\-\_\-ndx.\-c@{gmx\-\_\-make\-\_\-ndx.\-c}!\-N\-P\-A@{\-N\-P\-A}}
+\index{\-N\-P\-A@{\-N\-P\-A}!gmx_make_ndx.c@{gmx\-\_\-make\-\_\-ndx.\-c}}
+\subsubsection[{\-N\-P\-A}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-N\-P\-A}~{\bf asize}(pa)}}\label{gmx__make__ndx_8c_ab70d4725699c0935e4847676027e7820}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{gmx__make__ndx_8c_a158e3e428963ab0b380858d415a51af4}{\index{gmx\-\_\-make\-\_\-ndx.\-c@{gmx\-\_\-make\-\_\-ndx.\-c}!and\-\_\-groups@{and\-\_\-groups}}
+\index{and\-\_\-groups@{and\-\_\-groups}!gmx_make_ndx.c@{gmx\-\_\-make\-\_\-ndx.\-c}}
+\subsubsection[{and\-\_\-groups}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf and\-\_\-groups} (
+\begin{DoxyParamCaption}
+\item[{{\bf atom\-\_\-id}}]{nr1, }
+\item[{{\bf atom\-\_\-id} $\ast$}]{at1, }
+\item[{{\bf atom\-\_\-id}}]{nr2, }
+\item[{{\bf atom\-\_\-id} $\ast$}]{at2, }
+\item[{{\bf atom\-\_\-id} $\ast$}]{nr, }
+\item[{{\bf atom\-\_\-id} $\ast$}]{at}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__make__ndx_8c_a158e3e428963ab0b380858d415a51af4}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__make__ndx_8c_a158e3e428963ab0b380858d415a51af4_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__make__ndx_8c_ac26a98c6fea31b75e94773b17f23ad3c}{\index{gmx\-\_\-make\-\_\-ndx.\-c@{gmx\-\_\-make\-\_\-ndx.\-c}!atoms\-\_\-from\-\_\-residuenumbers@{atoms\-\_\-from\-\_\-residuenumbers}}
+\index{atoms\-\_\-from\-\_\-residuenumbers@{atoms\-\_\-from\-\_\-residuenumbers}!gmx_make_ndx.c@{gmx\-\_\-make\-\_\-ndx.\-c}}
+\subsubsection[{atoms\-\_\-from\-\_\-residuenumbers}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gmx\-\_\-bool} {\bf atoms\-\_\-from\-\_\-residuenumbers} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-atoms} $\ast$}]{atoms, }
+\item[{int}]{group, }
+\item[{{\bf t\-\_\-blocka} $\ast$}]{block, }
+\item[{{\bf atom\-\_\-id} $\ast$}]{nr, }
+\item[{{\bf atom\-\_\-id} $\ast$}]{index, }
+\item[{char $\ast$}]{gname}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__make__ndx_8c_ac26a98c6fea31b75e94773b17f23ad3c}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__make__ndx_8c_ac26a98c6fea31b75e94773b17f23ad3c_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__make__ndx_8c_a94fa86225fca431a666bc33d0368e98d}{\index{gmx\-\_\-make\-\_\-ndx.\-c@{gmx\-\_\-make\-\_\-ndx.\-c}!block2natoms@{block2natoms}}
+\index{block2natoms@{block2natoms}!gmx_make_ndx.c@{gmx\-\_\-make\-\_\-ndx.\-c}}
+\subsubsection[{block2natoms}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf block2natoms} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-blocka} $\ast$}]{block}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__make__ndx_8c_a94fa86225fca431a666bc33d0368e98d}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__make__ndx_8c_a94fa86225fca431a666bc33d0368e98d_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__make__ndx_8c_a86ef37b6a7f1c75dd6d725990c626405}{\index{gmx\-\_\-make\-\_\-ndx.\-c@{gmx\-\_\-make\-\_\-ndx.\-c}!check\-\_\-have\-\_\-atoms@{check\-\_\-have\-\_\-atoms}}
+\index{check\-\_\-have\-\_\-atoms@{check\-\_\-have\-\_\-atoms}!gmx_make_ndx.c@{gmx\-\_\-make\-\_\-ndx.\-c}}
+\subsubsection[{check\-\_\-have\-\_\-atoms}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gmx\-\_\-bool} {\bf check\-\_\-have\-\_\-atoms} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-atoms} $\ast$}]{atoms, }
+\item[{char $\ast$}]{string}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__make__ndx_8c_a86ef37b6a7f1c75dd6d725990c626405}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__make__ndx_8c_a86ef37b6a7f1c75dd6d725990c626405_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__make__ndx_8c_a0875eb17777d9f6fdc5a52be9d3cf628}{\index{gmx\-\_\-make\-\_\-ndx.\-c@{gmx\-\_\-make\-\_\-ndx.\-c}!comp\-\_\-name@{comp\-\_\-name}}
+\index{comp\-\_\-name@{comp\-\_\-name}!gmx_make_ndx.c@{gmx\-\_\-make\-\_\-ndx.\-c}}
+\subsubsection[{comp\-\_\-name}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gmx\-\_\-bool} {\bf comp\-\_\-name} (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{name, }
+\item[{char $\ast$}]{search}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__make__ndx_8c_a0875eb17777d9f6fdc5a52be9d3cf628}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=284pt]{gmx__make__ndx_8c_a0875eb17777d9f6fdc5a52be9d3cf628_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__make__ndx_8c_a0875eb17777d9f6fdc5a52be9d3cf628_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__make__ndx_8c_ac9b314c0911d0f6b7a1edb6515c10e62}{\index{gmx\-\_\-make\-\_\-ndx.\-c@{gmx\-\_\-make\-\_\-ndx.\-c}!copy2block@{copy2block}}
+\index{copy2block@{copy2block}!gmx_make_ndx.c@{gmx\-\_\-make\-\_\-ndx.\-c}}
+\subsubsection[{copy2block}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf copy2block} (
+\begin{DoxyParamCaption}
+\item[{int}]{n, }
+\item[{{\bf atom\-\_\-id} $\ast$}]{index, }
+\item[{{\bf t\-\_\-blocka} $\ast$}]{block}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__make__ndx_8c_ac9b314c0911d0f6b7a1edb6515c10e62}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__make__ndx_8c_ac9b314c0911d0f6b7a1edb6515c10e62_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__make__ndx_8c_a1ce269f36b9a18c9e20e6bb8144bb170}{\index{gmx\-\_\-make\-\_\-ndx.\-c@{gmx\-\_\-make\-\_\-ndx.\-c}!copy\-\_\-group@{copy\-\_\-group}}
+\index{copy\-\_\-group@{copy\-\_\-group}!gmx_make_ndx.c@{gmx\-\_\-make\-\_\-ndx.\-c}}
+\subsubsection[{copy\-\_\-group}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf copy\-\_\-group} (
+\begin{DoxyParamCaption}
+\item[{int}]{g, }
+\item[{{\bf t\-\_\-blocka} $\ast$}]{block, }
+\item[{{\bf atom\-\_\-id} $\ast$}]{nr, }
+\item[{{\bf atom\-\_\-id} $\ast$}]{index}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__make__ndx_8c_a1ce269f36b9a18c9e20e6bb8144bb170}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__make__ndx_8c_a1ce269f36b9a18c9e20e6bb8144bb170_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__make__ndx_8c_ae38efc132a118d52f72d6447d169a7d1}{\index{gmx\-\_\-make\-\_\-ndx.\-c@{gmx\-\_\-make\-\_\-ndx.\-c}!edit\-\_\-index@{edit\-\_\-index}}
+\index{edit\-\_\-index@{edit\-\_\-index}!gmx_make_ndx.c@{gmx\-\_\-make\-\_\-ndx.\-c}}
+\subsubsection[{edit\-\_\-index}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf edit\-\_\-index} (
+\begin{DoxyParamCaption}
+\item[{int}]{natoms, }
+\item[{{\bf t\-\_\-atoms} $\ast$}]{atoms, }
+\item[{{\bf rvec} $\ast$}]{x, }
+\item[{{\bf t\-\_\-blocka} $\ast$}]{block, }
+\item[{char $\ast$$\ast$$\ast$}]{gn, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Verbose}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__make__ndx_8c_ae38efc132a118d52f72d6447d169a7d1}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__make__ndx_8c_ae38efc132a118d52f72d6447d169a7d1_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=338pt]{gmx__make__ndx_8c_ae38efc132a118d52f72d6447d169a7d1_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__make__ndx_8c_ae152e83bae7af9b36641e457dfd6656e}{\index{gmx\-\_\-make\-\_\-ndx.\-c@{gmx\-\_\-make\-\_\-ndx.\-c}!gmx\-\_\-make\-\_\-ndx@{gmx\-\_\-make\-\_\-ndx}}
+\index{gmx\-\_\-make\-\_\-ndx@{gmx\-\_\-make\-\_\-ndx}!gmx_make_ndx.c@{gmx\-\_\-make\-\_\-ndx.\-c}}
+\subsubsection[{gmx\-\_\-make\-\_\-ndx}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-make\-\_\-ndx} (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{gmx__make__ndx_8c_ae152e83bae7af9b36641e457dfd6656e}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__make__ndx_8c_ae152e83bae7af9b36641e457dfd6656e_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=240pt]{gmx__make__ndx_8c_ae152e83bae7af9b36641e457dfd6656e_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__make__ndx_8c_a7e3424609415600e7a64f30fbb455e9a}{\index{gmx\-\_\-make\-\_\-ndx.\-c@{gmx\-\_\-make\-\_\-ndx.\-c}!is\-\_\-name\-\_\-char@{is\-\_\-name\-\_\-char}}
+\index{is\-\_\-name\-\_\-char@{is\-\_\-name\-\_\-char}!gmx_make_ndx.c@{gmx\-\_\-make\-\_\-ndx.\-c}}
+\subsubsection[{is\-\_\-name\-\_\-char}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gmx\-\_\-bool} {\bf is\-\_\-name\-\_\-char} (
+\begin{DoxyParamCaption}
+\item[{char}]{c}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__make__ndx_8c_a7e3424609415600e7a64f30fbb455e9a}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__make__ndx_8c_a7e3424609415600e7a64f30fbb455e9a_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__make__ndx_8c_a1fc6e7329ec7bc4ed1952c5ba93fb2a8}{\index{gmx\-\_\-make\-\_\-ndx.\-c@{gmx\-\_\-make\-\_\-ndx.\-c}!isquote@{isquote}}
+\index{isquote@{isquote}!gmx_make_ndx.c@{gmx\-\_\-make\-\_\-ndx.\-c}}
+\subsubsection[{isquote}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gmx\-\_\-bool} {\bf isquote} (
+\begin{DoxyParamCaption}
+\item[{char}]{c}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__make__ndx_8c_a1fc6e7329ec7bc4ed1952c5ba93fb2a8}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__make__ndx_8c_a1fc6e7329ec7bc4ed1952c5ba93fb2a8_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__make__ndx_8c_aaffd569cdb52e4eb8a131325441fb807}{\index{gmx\-\_\-make\-\_\-ndx.\-c@{gmx\-\_\-make\-\_\-ndx.\-c}!list\-\_\-residues@{list\-\_\-residues}}
+\index{list\-\_\-residues@{list\-\_\-residues}!gmx_make_ndx.c@{gmx\-\_\-make\-\_\-ndx.\-c}}
+\subsubsection[{list\-\_\-residues}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf list\-\_\-residues} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-atoms} $\ast$}]{atoms}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__make__ndx_8c_aaffd569cdb52e4eb8a131325441fb807}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__make__ndx_8c_aaffd569cdb52e4eb8a131325441fb807_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__make__ndx_8c_aca8c210c844c1269d94b16d3df1b75ac}{\index{gmx\-\_\-make\-\_\-ndx.\-c@{gmx\-\_\-make\-\_\-ndx.\-c}!make\-\_\-gname@{make\-\_\-gname}}
+\index{make\-\_\-gname@{make\-\_\-gname}!gmx_make_ndx.c@{gmx\-\_\-make\-\_\-ndx.\-c}}
+\subsubsection[{make\-\_\-gname}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf make\-\_\-gname} (
+\begin{DoxyParamCaption}
+\item[{int}]{n, }
+\item[{char $\ast$$\ast$}]{names, }
+\item[{char $\ast$}]{gname}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__make__ndx_8c_aca8c210c844c1269d94b16d3df1b75ac}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__make__ndx_8c_aca8c210c844c1269d94b16d3df1b75ac_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__make__ndx_8c_a0739fe5c7d7fac4c629bb3c62bb26130}{\index{gmx\-\_\-make\-\_\-ndx.\-c@{gmx\-\_\-make\-\_\-ndx.\-c}!merge\-\_\-blocks@{merge\-\_\-blocks}}
+\index{merge\-\_\-blocks@{merge\-\_\-blocks}!gmx_make_ndx.c@{gmx\-\_\-make\-\_\-ndx.\-c}}
+\subsubsection[{merge\-\_\-blocks}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf merge\-\_\-blocks} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-blocka} $\ast$}]{dest, }
+\item[{{\bf t\-\_\-blocka} $\ast$}]{source}
+\end{DoxyParamCaption}
+)}}\label{gmx__make__ndx_8c_a0739fe5c7d7fac4c629bb3c62bb26130}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__make__ndx_8c_a0739fe5c7d7fac4c629bb3c62bb26130_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__make__ndx_8c_ad4ad809fd03ac5bd31a9091fce19f89e}{\index{gmx\-\_\-make\-\_\-ndx.\-c@{gmx\-\_\-make\-\_\-ndx.\-c}!or\-\_\-groups@{or\-\_\-groups}}
+\index{or\-\_\-groups@{or\-\_\-groups}!gmx_make_ndx.c@{gmx\-\_\-make\-\_\-ndx.\-c}}
+\subsubsection[{or\-\_\-groups}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf or\-\_\-groups} (
+\begin{DoxyParamCaption}
+\item[{{\bf atom\-\_\-id}}]{nr1, }
+\item[{{\bf atom\-\_\-id} $\ast$}]{at1, }
+\item[{{\bf atom\-\_\-id}}]{nr2, }
+\item[{{\bf atom\-\_\-id} $\ast$}]{at2, }
+\item[{{\bf atom\-\_\-id} $\ast$}]{nr, }
+\item[{{\bf atom\-\_\-id} $\ast$}]{at}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__make__ndx_8c_ad4ad809fd03ac5bd31a9091fce19f89e}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__make__ndx_8c_ad4ad809fd03ac5bd31a9091fce19f89e_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__make__ndx_8c_ad8cb26dd927a09f268f03c3ec7b65b91}{\index{gmx\-\_\-make\-\_\-ndx.\-c@{gmx\-\_\-make\-\_\-ndx.\-c}!parse\-\_\-entry@{parse\-\_\-entry}}
+\index{parse\-\_\-entry@{parse\-\_\-entry}!gmx_make_ndx.c@{gmx\-\_\-make\-\_\-ndx.\-c}}
+\subsubsection[{parse\-\_\-entry}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gmx\-\_\-bool} {\bf parse\-\_\-entry} (
+\begin{DoxyParamCaption}
+\item[{char $\ast$$\ast$}]{string, }
+\item[{int}]{natoms, }
+\item[{{\bf t\-\_\-atoms} $\ast$}]{atoms, }
+\item[{{\bf t\-\_\-blocka} $\ast$}]{block, }
+\item[{char $\ast$$\ast$$\ast$}]{gn, }
+\item[{{\bf atom\-\_\-id} $\ast$}]{nr, }
+\item[{{\bf atom\-\_\-id} $\ast$}]{index, }
+\item[{char $\ast$}]{gname}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__make__ndx_8c_ad8cb26dd927a09f268f03c3ec7b65b91}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__make__ndx_8c_ad8cb26dd927a09f268f03c3ec7b65b91_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__make__ndx_8c_ad8cb26dd927a09f268f03c3ec7b65b91_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__make__ndx_8c_a21dc87f18c94dacc9b03bd7dfba6dc8b}{\index{gmx\-\_\-make\-\_\-ndx.\-c@{gmx\-\_\-make\-\_\-ndx.\-c}!parse\-\_\-int@{parse\-\_\-int}}
+\index{parse\-\_\-int@{parse\-\_\-int}!gmx_make_ndx.c@{gmx\-\_\-make\-\_\-ndx.\-c}}
+\subsubsection[{parse\-\_\-int}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gmx\-\_\-bool} {\bf parse\-\_\-int} (
+\begin{DoxyParamCaption}
+\item[{char $\ast$$\ast$}]{string, }
+\item[{int $\ast$}]{nr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__make__ndx_8c_a21dc87f18c94dacc9b03bd7dfba6dc8b}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=252pt]{gmx__make__ndx_8c_a21dc87f18c94dacc9b03bd7dfba6dc8b_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__make__ndx_8c_a21dc87f18c94dacc9b03bd7dfba6dc8b_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__make__ndx_8c_ac95de6296db6662ac9bc8102d4128ddc}{\index{gmx\-\_\-make\-\_\-ndx.\-c@{gmx\-\_\-make\-\_\-ndx.\-c}!parse\-\_\-int\-\_\-char@{parse\-\_\-int\-\_\-char}}
+\index{parse\-\_\-int\-\_\-char@{parse\-\_\-int\-\_\-char}!gmx_make_ndx.c@{gmx\-\_\-make\-\_\-ndx.\-c}}
+\subsubsection[{parse\-\_\-int\-\_\-char}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gmx\-\_\-bool} {\bf parse\-\_\-int\-\_\-char} (
+\begin{DoxyParamCaption}
+\item[{char $\ast$$\ast$}]{string, }
+\item[{int $\ast$}]{nr, }
+\item[{char $\ast$}]{c}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__make__ndx_8c_ac95de6296db6662ac9bc8102d4128ddc}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__make__ndx_8c_ac95de6296db6662ac9bc8102d4128ddc_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__make__ndx_8c_ab1a32311d8a91d36199521bef54765e7}{\index{gmx\-\_\-make\-\_\-ndx.\-c@{gmx\-\_\-make\-\_\-ndx.\-c}!parse\-\_\-names@{parse\-\_\-names}}
+\index{parse\-\_\-names@{parse\-\_\-names}!gmx_make_ndx.c@{gmx\-\_\-make\-\_\-ndx.\-c}}
+\subsubsection[{parse\-\_\-names}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf parse\-\_\-names} (
+\begin{DoxyParamCaption}
+\item[{char $\ast$$\ast$}]{string, }
+\item[{int $\ast$}]{n\-\_\-names, }
+\item[{char $\ast$$\ast$}]{names}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__make__ndx_8c_ab1a32311d8a91d36199521bef54765e7}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=270pt]{gmx__make__ndx_8c_ab1a32311d8a91d36199521bef54765e7_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__make__ndx_8c_ab1a32311d8a91d36199521bef54765e7_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__make__ndx_8c_a7097ce37066550092070e53eb4724f33}{\index{gmx\-\_\-make\-\_\-ndx.\-c@{gmx\-\_\-make\-\_\-ndx.\-c}!parse\-\_\-string@{parse\-\_\-string}}
+\index{parse\-\_\-string@{parse\-\_\-string}!gmx_make_ndx.c@{gmx\-\_\-make\-\_\-ndx.\-c}}
+\subsubsection[{parse\-\_\-string}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gmx\-\_\-bool} {\bf parse\-\_\-string} (
+\begin{DoxyParamCaption}
+\item[{char $\ast$$\ast$}]{string, }
+\item[{int $\ast$}]{nr, }
+\item[{int}]{ngrps, }
+\item[{char $\ast$$\ast$}]{grpname}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__make__ndx_8c_a7097ce37066550092070e53eb4724f33}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=248pt]{gmx__make__ndx_8c_a7097ce37066550092070e53eb4724f33_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__make__ndx_8c_a7097ce37066550092070e53eb4724f33_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__make__ndx_8c_a03719f819013bde831b89545c55331ff}{\index{gmx\-\_\-make\-\_\-ndx.\-c@{gmx\-\_\-make\-\_\-ndx.\-c}!remove\-\_\-group@{remove\-\_\-group}}
+\index{remove\-\_\-group@{remove\-\_\-group}!gmx_make_ndx.c@{gmx\-\_\-make\-\_\-ndx.\-c}}
+\subsubsection[{remove\-\_\-group}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf remove\-\_\-group} (
+\begin{DoxyParamCaption}
+\item[{int}]{nr, }
+\item[{int}]{nr2, }
+\item[{{\bf t\-\_\-blocka} $\ast$}]{block, }
+\item[{char $\ast$$\ast$$\ast$}]{gn}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__make__ndx_8c_a03719f819013bde831b89545c55331ff}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__make__ndx_8c_a03719f819013bde831b89545c55331ff_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__make__ndx_8c_a12b589d8e3b50ac553af003fd93bc452}{\index{gmx\-\_\-make\-\_\-ndx.\-c@{gmx\-\_\-make\-\_\-ndx.\-c}!select\-\_\-atomnames@{select\-\_\-atomnames}}
+\index{select\-\_\-atomnames@{select\-\_\-atomnames}!gmx_make_ndx.c@{gmx\-\_\-make\-\_\-ndx.\-c}}
+\subsubsection[{select\-\_\-atomnames}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf select\-\_\-atomnames} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-atoms} $\ast$}]{atoms, }
+\item[{int}]{n\-\_\-names, }
+\item[{char $\ast$$\ast$}]{names, }
+\item[{{\bf atom\-\_\-id} $\ast$}]{nr, }
+\item[{{\bf atom\-\_\-id} $\ast$}]{index, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Type}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__make__ndx_8c_a12b589d8e3b50ac553af003fd93bc452}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__make__ndx_8c_a12b589d8e3b50ac553af003fd93bc452_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__make__ndx_8c_a12b589d8e3b50ac553af003fd93bc452_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__make__ndx_8c_aa8276d46b9b8a438872905940c8818e5}{\index{gmx\-\_\-make\-\_\-ndx.\-c@{gmx\-\_\-make\-\_\-ndx.\-c}!select\-\_\-atomnumbers@{select\-\_\-atomnumbers}}
+\index{select\-\_\-atomnumbers@{select\-\_\-atomnumbers}!gmx_make_ndx.c@{gmx\-\_\-make\-\_\-ndx.\-c}}
+\subsubsection[{select\-\_\-atomnumbers}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf select\-\_\-atomnumbers} (
+\begin{DoxyParamCaption}
+\item[{char $\ast$$\ast$}]{string, }
+\item[{{\bf t\-\_\-atoms} $\ast$}]{atoms, }
+\item[{{\bf atom\-\_\-id}}]{n1, }
+\item[{{\bf atom\-\_\-id} $\ast$}]{nr, }
+\item[{{\bf atom\-\_\-id} $\ast$}]{index, }
+\item[{char $\ast$}]{gname}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__make__ndx_8c_aa8276d46b9b8a438872905940c8818e5}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__make__ndx_8c_aa8276d46b9b8a438872905940c8818e5_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__make__ndx_8c_aa8276d46b9b8a438872905940c8818e5_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__make__ndx_8c_a15fef41f45fa2bb8155681207a8d40c6}{\index{gmx\-\_\-make\-\_\-ndx.\-c@{gmx\-\_\-make\-\_\-ndx.\-c}!select\-\_\-chainnames@{select\-\_\-chainnames}}
+\index{select\-\_\-chainnames@{select\-\_\-chainnames}!gmx_make_ndx.c@{gmx\-\_\-make\-\_\-ndx.\-c}}
+\subsubsection[{select\-\_\-chainnames}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf select\-\_\-chainnames} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-atoms} $\ast$}]{atoms, }
+\item[{int}]{n\-\_\-names, }
+\item[{char $\ast$$\ast$}]{names, }
+\item[{{\bf atom\-\_\-id} $\ast$}]{nr, }
+\item[{{\bf atom\-\_\-id} $\ast$}]{index}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__make__ndx_8c_a15fef41f45fa2bb8155681207a8d40c6}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__make__ndx_8c_a15fef41f45fa2bb8155681207a8d40c6_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__make__ndx_8c_a15fef41f45fa2bb8155681207a8d40c6_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__make__ndx_8c_afdf9387efce1177d9352415df67daef4}{\index{gmx\-\_\-make\-\_\-ndx.\-c@{gmx\-\_\-make\-\_\-ndx.\-c}!select\-\_\-residueindices@{select\-\_\-residueindices}}
+\index{select\-\_\-residueindices@{select\-\_\-residueindices}!gmx_make_ndx.c@{gmx\-\_\-make\-\_\-ndx.\-c}}
+\subsubsection[{select\-\_\-residueindices}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf select\-\_\-residueindices} (
+\begin{DoxyParamCaption}
+\item[{char $\ast$$\ast$}]{string, }
+\item[{{\bf t\-\_\-atoms} $\ast$}]{atoms, }
+\item[{{\bf atom\-\_\-id}}]{n1, }
+\item[{char}]{c, }
+\item[{{\bf atom\-\_\-id} $\ast$}]{nr, }
+\item[{{\bf atom\-\_\-id} $\ast$}]{index, }
+\item[{char $\ast$}]{gname}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__make__ndx_8c_afdf9387efce1177d9352415df67daef4}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__make__ndx_8c_afdf9387efce1177d9352415df67daef4_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__make__ndx_8c_afdf9387efce1177d9352415df67daef4_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__make__ndx_8c_af655521706455b9f906a175c7a6560af}{\index{gmx\-\_\-make\-\_\-ndx.\-c@{gmx\-\_\-make\-\_\-ndx.\-c}!select\-\_\-residuenames@{select\-\_\-residuenames}}
+\index{select\-\_\-residuenames@{select\-\_\-residuenames}!gmx_make_ndx.c@{gmx\-\_\-make\-\_\-ndx.\-c}}
+\subsubsection[{select\-\_\-residuenames}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf select\-\_\-residuenames} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-atoms} $\ast$}]{atoms, }
+\item[{int}]{n\-\_\-names, }
+\item[{char $\ast$$\ast$}]{names, }
+\item[{{\bf atom\-\_\-id} $\ast$}]{nr, }
+\item[{{\bf atom\-\_\-id} $\ast$}]{index}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__make__ndx_8c_af655521706455b9f906a175c7a6560af}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__make__ndx_8c_af655521706455b9f906a175c7a6560af_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__make__ndx_8c_af655521706455b9f906a175c7a6560af_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__make__ndx_8c_af1615985fbc390bbdb75e6dd77610955}{\index{gmx\-\_\-make\-\_\-ndx.\-c@{gmx\-\_\-make\-\_\-ndx.\-c}!select\-\_\-residuenumbers@{select\-\_\-residuenumbers}}
+\index{select\-\_\-residuenumbers@{select\-\_\-residuenumbers}!gmx_make_ndx.c@{gmx\-\_\-make\-\_\-ndx.\-c}}
+\subsubsection[{select\-\_\-residuenumbers}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf select\-\_\-residuenumbers} (
+\begin{DoxyParamCaption}
+\item[{char $\ast$$\ast$}]{string, }
+\item[{{\bf t\-\_\-atoms} $\ast$}]{atoms, }
+\item[{{\bf atom\-\_\-id}}]{n1, }
+\item[{char}]{c, }
+\item[{{\bf atom\-\_\-id} $\ast$}]{nr, }
+\item[{{\bf atom\-\_\-id} $\ast$}]{index, }
+\item[{char $\ast$}]{gname}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__make__ndx_8c_af1615985fbc390bbdb75e6dd77610955}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__make__ndx_8c_af1615985fbc390bbdb75e6dd77610955_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__make__ndx_8c_af1615985fbc390bbdb75e6dd77610955_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__make__ndx_8c_a8f819c6c1659fc8bbc070b8d61a2c4d5}{\index{gmx\-\_\-make\-\_\-ndx.\-c@{gmx\-\_\-make\-\_\-ndx.\-c}!split\-\_\-chain@{split\-\_\-chain}}
+\index{split\-\_\-chain@{split\-\_\-chain}!gmx_make_ndx.c@{gmx\-\_\-make\-\_\-ndx.\-c}}
+\subsubsection[{split\-\_\-chain}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf split\-\_\-chain} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-atoms} $\ast$}]{atoms, }
+\item[{{\bf rvec} $\ast$}]{x, }
+\item[{int}]{sel\-\_\-nr, }
+\item[{{\bf t\-\_\-blocka} $\ast$}]{block, }
+\item[{char $\ast$$\ast$$\ast$}]{gn}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__make__ndx_8c_a8f819c6c1659fc8bbc070b8d61a2c4d5}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__make__ndx_8c_a8f819c6c1659fc8bbc070b8d61a2c4d5_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__make__ndx_8c_a8f819c6c1659fc8bbc070b8d61a2c4d5_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__make__ndx_8c_a4f8a9b2416c78c27f04237fd5d78f75c}{\index{gmx\-\_\-make\-\_\-ndx.\-c@{gmx\-\_\-make\-\_\-ndx.\-c}!split\-\_\-group@{split\-\_\-group}}
+\index{split\-\_\-group@{split\-\_\-group}!gmx_make_ndx.c@{gmx\-\_\-make\-\_\-ndx.\-c}}
+\subsubsection[{split\-\_\-group}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf split\-\_\-group} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-atoms} $\ast$}]{atoms, }
+\item[{int}]{sel\-\_\-nr, }
+\item[{{\bf t\-\_\-blocka} $\ast$}]{block, }
+\item[{char $\ast$$\ast$$\ast$}]{gn, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Atom}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__make__ndx_8c_a4f8a9b2416c78c27f04237fd5d78f75c}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__make__ndx_8c_a4f8a9b2416c78c27f04237fd5d78f75c_icgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{\-Variable \-Documentation}
+\hypertarget{gmx__make__ndx_8c_aa9fe26cc1ed1bf8e5b19f4e492381ffd}{\index{gmx\-\_\-make\-\_\-ndx.\-c@{gmx\-\_\-make\-\_\-ndx.\-c}!b\-Case@{b\-Case}}
+\index{b\-Case@{b\-Case}!gmx_make_ndx.c@{gmx\-\_\-make\-\_\-ndx.\-c}}
+\subsubsection[{b\-Case}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf b\-Case} = {\bf \-F\-A\-L\-S\-E}}}\label{gmx__make__ndx_8c_aa9fe26cc1ed1bf8e5b19f4e492381ffd}

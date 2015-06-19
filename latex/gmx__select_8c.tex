@@ -1,0 +1,123 @@
+\hypertarget{gmx__select_8c}{\section{src/tools/gmx\-\_\-select.c \-File \-Reference}
+\label{gmx__select_8c}\index{src/tools/gmx\-\_\-select.\-c@{src/tools/gmx\-\_\-select.\-c}}
+}
+
+
+\-Utility program for writing out basic data for selections.  
+
+
+{\ttfamily \#include $<$copyrite.\-h$>$}\*
+{\ttfamily \#include $<$index.\-h$>$}\*
+{\ttfamily \#include $<$macros.\-h$>$}\*
+{\ttfamily \#include $<$smalloc.\-h$>$}\*
+{\ttfamily \#include $<$statutil.\-h$>$}\*
+{\ttfamily \#include $<$xvgr.\-h$>$}\*
+{\ttfamily \#include $<$string2.\-h$>$}\*
+{\ttfamily \#include $<$trajana.\-h$>$}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-ana.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-fatal.\-h\char`\"{}}\*
+\-Include dependency graph for gmx\-\_\-select.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__select_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structt__dsdata}{t\-\_\-dsdata}
+\end{DoxyCompactItemize}
+\subsection*{\-Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{gmx__select_8c_a8485f4e81de2537e6a0935626167a775}{\-N\-F\-I\-L\-E}~\hyperlink{share_2template_2gromacs_2macros_8h_a0883345a58f8f63aefa249a4f127f707}{asize}(fnm)
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+static int \hyperlink{gmx__select_8c_ac49028a725a0845e3aab55971ae548d4}{print\-\_\-data} (\hyperlink{structt__topology}{t\-\_\-topology} $\ast$\hyperlink{gmx__disre_8c_a1b538a2ce75aba6c346bc03980ffeb28}{top}, \hyperlink{include_2types_2trx_8h_a206f77137d72a5db1097a457a7144ad5}{t\-\_\-trxframe} $\ast$\hyperlink{addconf_8c_ae8414314f87c5e49503ac0117eb511ad}{fr}, \hyperlink{structt__pbc}{t\-\_\-pbc} $\ast$pbc, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a560e4062098f77c2d7e5fe83bf09c394}{nr}, \hyperlink{structgmx__ana__selection__t}{gmx\-\_\-ana\-\_\-selection\-\_\-t} $\ast$sel\mbox{[}$\,$\mbox{]}, \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$data)
+\item 
+int \hyperlink{gmx__select_8c_ac505578b9f0db29083c462e21ee18fdd}{gmx\-\_\-select} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Detailed \-Description}
+\-Utility program for writing out basic data for selections. 
+
+\subsection{\-Define \-Documentation}
+\hypertarget{gmx__select_8c_a8485f4e81de2537e6a0935626167a775}{\index{gmx\-\_\-select.\-c@{gmx\-\_\-select.\-c}!\-N\-F\-I\-L\-E@{\-N\-F\-I\-L\-E}}
+\index{\-N\-F\-I\-L\-E@{\-N\-F\-I\-L\-E}!gmx_select.c@{gmx\-\_\-select.\-c}}
+\subsubsection[{\-N\-F\-I\-L\-E}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-N\-F\-I\-L\-E}~{\bf asize}(fnm)}}\label{gmx__select_8c_a8485f4e81de2537e6a0935626167a775}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{gmx__select_8c_ac505578b9f0db29083c462e21ee18fdd}{\index{gmx\-\_\-select.\-c@{gmx\-\_\-select.\-c}!gmx\-\_\-select@{gmx\-\_\-select}}
+\index{gmx\-\_\-select@{gmx\-\_\-select}!gmx_select.c@{gmx\-\_\-select.\-c}}
+\subsubsection[{gmx\-\_\-select}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-select} (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{gmx__select_8c_ac505578b9f0db29083c462e21ee18fdd}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{gmx__select_8c_ac505578b9f0db29083c462e21ee18fdd_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=222pt]{gmx__select_8c_ac505578b9f0db29083c462e21ee18fdd_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__select_8c_ac49028a725a0845e3aab55971ae548d4}{\index{gmx\-\_\-select.\-c@{gmx\-\_\-select.\-c}!print\-\_\-data@{print\-\_\-data}}
+\index{print\-\_\-data@{print\-\_\-data}!gmx_select.c@{gmx\-\_\-select.\-c}}
+\subsubsection[{print\-\_\-data}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf print\-\_\-data} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-topology} $\ast$}]{top, }
+\item[{{\bf t\-\_\-trxframe} $\ast$}]{fr, }
+\item[{{\bf t\-\_\-pbc} $\ast$}]{pbc, }
+\item[{int}]{nr, }
+\item[{{\bf gmx\-\_\-ana\-\_\-selection\-\_\-t} $\ast$}]{sel\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf void} $\ast$}]{data}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__select_8c_ac49028a725a0845e3aab55971ae548d4}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=314pt]{gmx__select_8c_ac49028a725a0845e3aab55971ae548d4_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=318pt]{gmx__select_8c_ac49028a725a0845e3aab55971ae548d4_icgraph}
+\end{center}
+\end{figure}
+
+

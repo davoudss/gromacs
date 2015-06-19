@@ -1,0 +1,760 @@
+\hypertarget{genborn_8c}{\section{src/mdlib/genborn.c \-File \-Reference}
+\label{genborn_8c}\index{src/mdlib/genborn.\-c@{src/mdlib/genborn.\-c}}
+}
+{\ttfamily \#include $<$math.\-h$>$}\*
+{\ttfamily \#include $<$string.\-h$>$}\*
+{\ttfamily \#include \char`\"{}typedefs.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}smalloc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}genborn.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}vec.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}grompp.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}pdbio.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}names.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}physics.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}partdec.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}domdec.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}network.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-fatal.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}mtop\-\_\-util.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}pbc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}nrnb.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}bondf.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}genborn\-\_\-allvsall.\-h\char`\"{}}\*
+\-Include dependency graph for genborn.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{genborn_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structgbtmpnbl__t}{gbtmpnbl\-\_\-t}
+\item 
+struct \hyperlink{structgbtmpnbls}{gbtmpnbls}
+\end{DoxyCompactItemize}
+\subsection*{\-Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \hyperlink{structgbtmpnbls}{gbtmpnbls} \hyperlink{genborn_8c_a18747d4a35c3cc162ea63ec3d96e403c}{t\-\_\-gbtmpnbls}
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+static int \hyperlink{genborn_8c_a0b5b07882ef47de8bab88e30660c593b}{pbc\-\_\-rvec\-\_\-sub} (const \hyperlink{structt__pbc}{t\-\_\-pbc} $\ast$pbc, const \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} xi, const \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} xj, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__blas_8h_ad5c6c54e1a03f3517ff918d2f18f5f68}{dx})
+\item 
+int \hyperlink{genborn_8c_a9ee204c63290388cb8d97d2937e749b9}{init\-\_\-gb\-\_\-nblist} (int natoms, \hyperlink{structt__nblist}{t\-\_\-nblist} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a5ca86f648d683ca392b98983da1698f0}{nl})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{genborn_8c_a4f787349e1b8ddd494167e008d8c61e5}{gb\-\_\-pd\-\_\-send} (\hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr, real $\ast$send\-\_\-data, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a560e4062098f77c2d7e5fe83bf09c394}{nr})
+\item 
+int \hyperlink{genborn_8c_ad0ef79310cc56546010fd5bf1c2d7c65}{init\-\_\-gb\-\_\-plist} (\hyperlink{structt__params}{t\-\_\-params} $\ast$p\-\_\-list)
+\item 
+int \hyperlink{genborn_8c_aca35635cc1dc0df16b988abaf0105c94}{init\-\_\-gb\-\_\-still} (const \hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr, \hyperlink{structt__forcerec}{t\-\_\-forcerec} $\ast$\hyperlink{addconf_8c_ae8414314f87c5e49503ac0117eb511ad}{fr}, const \hyperlink{structt__atomtypes}{t\-\_\-atomtypes} $\ast$atype, \hyperlink{structt__idef}{t\-\_\-idef} $\ast$idef, \hyperlink{structt__atoms}{t\-\_\-atoms} $\ast$atoms, \hyperlink{structgmx__genborn__t}{gmx\-\_\-genborn\-\_\-t} $\ast$born, int natoms)
+\item 
+int \hyperlink{genborn_8c_a979fdba9aba8447616b54c9afe09bcf5}{init\-\_\-gb} (\hyperlink{structgmx__genborn__t}{gmx\-\_\-genborn\-\_\-t} $\ast$$\ast$p\-\_\-born, const \hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr, \hyperlink{structt__forcerec}{t\-\_\-forcerec} $\ast$\hyperlink{addconf_8c_ae8414314f87c5e49503ac0117eb511ad}{fr}, const \hyperlink{structt__inputrec}{t\-\_\-inputrec} $\ast$ir, const \hyperlink{structgmx__mtop__t}{gmx\-\_\-mtop\-\_\-t} $\ast$mtop, real rgbradii, int gb\-\_\-algorithm)
+\item 
+static int \hyperlink{genborn_8c_a5f244afad258d3f553364fce6817c633}{calc\-\_\-gb\-\_\-rad\-\_\-still} (\hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr, \hyperlink{structt__forcerec}{t\-\_\-forcerec} $\ast$\hyperlink{addconf_8c_ae8414314f87c5e49503ac0117eb511ad}{fr}, int natoms, \hyperlink{structgmx__localtop__t}{gmx\-\_\-localtop\-\_\-t} $\ast$\hyperlink{gmx__disre_8c_a1b538a2ce75aba6c346bc03980ffeb28}{top}, const \hyperlink{structt__atomtypes}{t\-\_\-atomtypes} $\ast$atype, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{structt__nblist}{t\-\_\-nblist} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a5ca86f648d683ca392b98983da1698f0}{nl}, \hyperlink{structgmx__genborn__t}{gmx\-\_\-genborn\-\_\-t} $\ast$born, \hyperlink{structt__mdatoms}{t\-\_\-mdatoms} $\ast$md)
+\item 
+static int \hyperlink{genborn_8c_a4ae25bf15c1a9be094305045d3e5afc0}{calc\-\_\-gb\-\_\-rad\-\_\-hct} (\hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr, \hyperlink{structt__forcerec}{t\-\_\-forcerec} $\ast$\hyperlink{addconf_8c_ae8414314f87c5e49503ac0117eb511ad}{fr}, int natoms, \hyperlink{structgmx__localtop__t}{gmx\-\_\-localtop\-\_\-t} $\ast$\hyperlink{gmx__disre_8c_a1b538a2ce75aba6c346bc03980ffeb28}{top}, const \hyperlink{structt__atomtypes}{t\-\_\-atomtypes} $\ast$atype, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{structt__nblist}{t\-\_\-nblist} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a5ca86f648d683ca392b98983da1698f0}{nl}, \hyperlink{structgmx__genborn__t}{gmx\-\_\-genborn\-\_\-t} $\ast$born, \hyperlink{structt__mdatoms}{t\-\_\-mdatoms} $\ast$md)
+\item 
+static int \hyperlink{genborn_8c_a38591c96f89e7044734a6b2e63ab302f}{calc\-\_\-gb\-\_\-rad\-\_\-obc} (\hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr, \hyperlink{structt__forcerec}{t\-\_\-forcerec} $\ast$\hyperlink{addconf_8c_ae8414314f87c5e49503ac0117eb511ad}{fr}, int natoms, \hyperlink{structgmx__localtop__t}{gmx\-\_\-localtop\-\_\-t} $\ast$\hyperlink{gmx__disre_8c_a1b538a2ce75aba6c346bc03980ffeb28}{top}, const \hyperlink{structt__atomtypes}{t\-\_\-atomtypes} $\ast$atype, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{structt__nblist}{t\-\_\-nblist} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a5ca86f648d683ca392b98983da1698f0}{nl}, \hyperlink{structgmx__genborn__t}{gmx\-\_\-genborn\-\_\-t} $\ast$born, \hyperlink{structt__mdatoms}{t\-\_\-mdatoms} $\ast$md)
+\item 
+int \hyperlink{genborn_8c_ad0f566012015ebc813b402c4980d375a}{calc\-\_\-gb\-\_\-rad} (\hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr, \hyperlink{structt__forcerec}{t\-\_\-forcerec} $\ast$\hyperlink{addconf_8c_ae8414314f87c5e49503ac0117eb511ad}{fr}, \hyperlink{structt__inputrec}{t\-\_\-inputrec} $\ast$ir, \hyperlink{structgmx__localtop__t}{gmx\-\_\-localtop\-\_\-t} $\ast$\hyperlink{gmx__disre_8c_a1b538a2ce75aba6c346bc03980ffeb28}{top}, const \hyperlink{structt__atomtypes}{t\-\_\-atomtypes} $\ast$atype, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{structt__nblist}{t\-\_\-nblist} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a5ca86f648d683ca392b98983da1698f0}{nl}, \hyperlink{structgmx__genborn__t}{gmx\-\_\-genborn\-\_\-t} $\ast$born, \hyperlink{structt__mdatoms}{t\-\_\-mdatoms} $\ast$md, \hyperlink{structt__nrnb}{t\-\_\-nrnb} $\ast$nrnb)
+\item 
+real \hyperlink{genborn_8c_a752b41ad3db447e50b56adfcd7b96516}{gb\-\_\-bonds\-\_\-tab} (\hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{copyrite_8c_a0757cfb6fe645a02867727255faa4f8b}{f}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} fshift\mbox{[}$\,$\mbox{]}, real $\ast$charge, real $\ast$p\-\_\-gbtabscale, real $\ast$invsqrta, real $\ast$dvda, real $\ast$\-G\-Btab, \hyperlink{structt__idef}{t\-\_\-idef} $\ast$idef, real epsilon\-\_\-r, real gb\-\_\-epsilon\-\_\-solvent, real facel, const \hyperlink{structt__pbc}{t\-\_\-pbc} $\ast$pbc, const \hyperlink{structt__graph}{t\-\_\-graph} $\ast$graph)
+\item 
+real \hyperlink{genborn_8c_a7e24a492634bf90b3dbd7770b1d61a15}{calc\-\_\-gb\-\_\-selfcorrections} (\hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr, int natoms, real $\ast$charge, \hyperlink{structgmx__genborn__t}{gmx\-\_\-genborn\-\_\-t} $\ast$born, real $\ast$dvda, \hyperlink{structt__mdatoms}{t\-\_\-mdatoms} $\ast$md, double facel)
+\item 
+real \hyperlink{genborn_8c_a919ddd9221c97140a859c7d07f77d051}{calc\-\_\-gb\-\_\-nonpolar} (\hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr, \hyperlink{structt__forcerec}{t\-\_\-forcerec} $\ast$\hyperlink{addconf_8c_ae8414314f87c5e49503ac0117eb511ad}{fr}, int natoms, \hyperlink{structgmx__genborn__t}{gmx\-\_\-genborn\-\_\-t} $\ast$born, \hyperlink{structgmx__localtop__t}{gmx\-\_\-localtop\-\_\-t} $\ast$\hyperlink{gmx__disre_8c_a1b538a2ce75aba6c346bc03980ffeb28}{top}, const \hyperlink{structt__atomtypes}{t\-\_\-atomtypes} $\ast$atype, real $\ast$dvda, int gb\-\_\-algorithm, \hyperlink{structt__mdatoms}{t\-\_\-mdatoms} $\ast$md)
+\item 
+real \hyperlink{genborn_8c_a3b88d08c1b240e305d00c5cf14562fbe}{calc\-\_\-gb\-\_\-chainrule} (int natoms, \hyperlink{structt__nblist}{t\-\_\-nblist} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a5ca86f648d683ca392b98983da1698f0}{nl}, real $\ast$dadx, real $\ast$dvda, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a2b515c84b1293071f7584da32ca336c0}{t}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} fshift\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} shift\-\_\-vec\mbox{[}$\,$\mbox{]}, int gb\-\_\-algorithm, \hyperlink{structgmx__genborn__t}{gmx\-\_\-genborn\-\_\-t} $\ast$born, \hyperlink{structt__mdatoms}{t\-\_\-mdatoms} $\ast$md)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{genborn_8c_a92697e4d9432dbc04ef057a27b720b5f}{calc\-\_\-gb\-\_\-forces} (\hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr, \hyperlink{structt__mdatoms}{t\-\_\-mdatoms} $\ast$md, \hyperlink{structgmx__genborn__t}{gmx\-\_\-genborn\-\_\-t} $\ast$born, \hyperlink{structgmx__localtop__t}{gmx\-\_\-localtop\-\_\-t} $\ast$\hyperlink{gmx__disre_8c_a1b538a2ce75aba6c346bc03980ffeb28}{top}, const \hyperlink{structt__atomtypes}{t\-\_\-atomtypes} $\ast$atype, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{copyrite_8c_a0757cfb6fe645a02867727255faa4f8b}{f}\mbox{[}$\,$\mbox{]}, \hyperlink{structt__forcerec}{t\-\_\-forcerec} $\ast$\hyperlink{addconf_8c_ae8414314f87c5e49503ac0117eb511ad}{fr}, \hyperlink{structt__idef}{t\-\_\-idef} $\ast$idef, int gb\-\_\-algorithm, int sa\-\_\-algorithm, \hyperlink{structt__nrnb}{t\-\_\-nrnb} $\ast$nrnb, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Rad, const \hyperlink{structt__pbc}{t\-\_\-pbc} $\ast$pbc, const \hyperlink{structt__graph}{t\-\_\-graph} $\ast$graph, \hyperlink{structgmx__enerdata__t}{gmx\-\_\-enerdata\-\_\-t} $\ast$enerd)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{genborn_8c_a2cf056d45542b2f1a16a2bcec6c21248}{add\-\_\-j\-\_\-to\-\_\-gblist} (\hyperlink{structgbtmpnbl__t}{gbtmpnbl\-\_\-t} $\ast$list, int aj)
+\item 
+static \hyperlink{structgbtmpnbl__t}{gbtmpnbl\-\_\-t} $\ast$ \hyperlink{genborn_8c_a15387a68b320c46b57dd846098f81a50}{find\-\_\-gbtmplist} (struct \hyperlink{structgbtmpnbls}{gbtmpnbls} $\ast$lists, int shift)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{genborn_8c_a6f87facc3b8b0f9d8540f86636150e96}{add\-\_\-bondeds\-\_\-to\-\_\-gblist} (\hyperlink{structt__ilist}{t\-\_\-ilist} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a22a047c2a4dad9e4fc29922457c9697b}{il}, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Mol\-P\-B\-C, \hyperlink{structt__pbc}{t\-\_\-pbc} $\ast$pbc, \hyperlink{structt__graph}{t\-\_\-graph} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}, struct \hyperlink{structgbtmpnbls}{gbtmpnbls} $\ast$nls)
+\item 
+static int \hyperlink{genborn_8c_ad2e2b78b51803c8f47344d67f16cefdc}{compare\-\_\-int} (const \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a0880879736d1ab747a972d1942421886}{a}, const \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afb462a5dea72ae7992f073bfd756fb5f}{b})
+\item 
+int \hyperlink{genborn_8c_af54c2308097a630241209162e137bdb5}{make\-\_\-gb\-\_\-nblist} (\hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr, int gb\-\_\-algorithm, real gbcut, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box, \hyperlink{structt__forcerec}{t\-\_\-forcerec} $\ast$\hyperlink{addconf_8c_ae8414314f87c5e49503ac0117eb511ad}{fr}, \hyperlink{structt__idef}{t\-\_\-idef} $\ast$idef, \hyperlink{structt__graph}{t\-\_\-graph} $\ast$graph, \hyperlink{structgmx__genborn__t}{gmx\-\_\-genborn\-\_\-t} $\ast$born)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{genborn_8c_ac03a0416d49cdc1790070f9aa106a3dc}{make\-\_\-local\-\_\-gb} (const \hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr, \hyperlink{structgmx__genborn__t}{gmx\-\_\-genborn\-\_\-t} $\ast$born, int gb\-\_\-algorithm)
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Typedef \-Documentation}
+\hypertarget{genborn_8c_a18747d4a35c3cc162ea63ec3d96e403c}{\index{genborn.\-c@{genborn.\-c}!t\-\_\-gbtmpnbls@{t\-\_\-gbtmpnbls}}
+\index{t\-\_\-gbtmpnbls@{t\-\_\-gbtmpnbls}!genborn.c@{genborn.\-c}}
+\subsubsection[{t\-\_\-gbtmpnbls}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf gbtmpnbls}  {\bf t\-\_\-gbtmpnbls}}}\label{genborn_8c_a18747d4a35c3cc162ea63ec3d96e403c}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{genborn_8c_a6f87facc3b8b0f9d8540f86636150e96}{\index{genborn.\-c@{genborn.\-c}!add\-\_\-bondeds\-\_\-to\-\_\-gblist@{add\-\_\-bondeds\-\_\-to\-\_\-gblist}}
+\index{add\-\_\-bondeds\-\_\-to\-\_\-gblist@{add\-\_\-bondeds\-\_\-to\-\_\-gblist}!genborn.c@{genborn.\-c}}
+\subsubsection[{add\-\_\-bondeds\-\_\-to\-\_\-gblist}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf add\-\_\-bondeds\-\_\-to\-\_\-gblist} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-ilist} $\ast$}]{il, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Mol\-P\-B\-C, }
+\item[{{\bf t\-\_\-pbc} $\ast$}]{pbc, }
+\item[{{\bf t\-\_\-graph} $\ast$}]{g, }
+\item[{{\bf rvec} $\ast$}]{x, }
+\item[{struct {\bf gbtmpnbls} $\ast$}]{nls}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{genborn_8c_a6f87facc3b8b0f9d8540f86636150e96}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=314pt]{genborn_8c_a6f87facc3b8b0f9d8540f86636150e96_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{genborn_8c_a6f87facc3b8b0f9d8540f86636150e96_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{genborn_8c_a2cf056d45542b2f1a16a2bcec6c21248}{\index{genborn.\-c@{genborn.\-c}!add\-\_\-j\-\_\-to\-\_\-gblist@{add\-\_\-j\-\_\-to\-\_\-gblist}}
+\index{add\-\_\-j\-\_\-to\-\_\-gblist@{add\-\_\-j\-\_\-to\-\_\-gblist}!genborn.c@{genborn.\-c}}
+\subsubsection[{add\-\_\-j\-\_\-to\-\_\-gblist}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf add\-\_\-j\-\_\-to\-\_\-gblist} (
+\begin{DoxyParamCaption}
+\item[{{\bf gbtmpnbl\-\_\-t} $\ast$}]{list, }
+\item[{int}]{aj}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{genborn_8c_a2cf056d45542b2f1a16a2bcec6c21248}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{genborn_8c_a2cf056d45542b2f1a16a2bcec6c21248_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{genborn_8c_a3b88d08c1b240e305d00c5cf14562fbe}{\index{genborn.\-c@{genborn.\-c}!calc\-\_\-gb\-\_\-chainrule@{calc\-\_\-gb\-\_\-chainrule}}
+\index{calc\-\_\-gb\-\_\-chainrule@{calc\-\_\-gb\-\_\-chainrule}!genborn.c@{genborn.\-c}}
+\subsubsection[{calc\-\_\-gb\-\_\-chainrule}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf calc\-\_\-gb\-\_\-chainrule} (
+\begin{DoxyParamCaption}
+\item[{int}]{natoms, }
+\item[{{\bf t\-\_\-nblist} $\ast$}]{nl, }
+\item[{real $\ast$}]{dadx, }
+\item[{real $\ast$}]{dvda, }
+\item[{{\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{t\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{fshift\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{shift\-\_\-vec\mbox{[}$\,$\mbox{]}, }
+\item[{int}]{gb\-\_\-algorithm, }
+\item[{{\bf gmx\-\_\-genborn\-\_\-t} $\ast$}]{born, }
+\item[{{\bf t\-\_\-mdatoms} $\ast$}]{md}
+\end{DoxyParamCaption}
+)}}\label{genborn_8c_a3b88d08c1b240e305d00c5cf14562fbe}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{genborn_8c_a3b88d08c1b240e305d00c5cf14562fbe_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{genborn_8c_a92697e4d9432dbc04ef057a27b720b5f}{\index{genborn.\-c@{genborn.\-c}!calc\-\_\-gb\-\_\-forces@{calc\-\_\-gb\-\_\-forces}}
+\index{calc\-\_\-gb\-\_\-forces@{calc\-\_\-gb\-\_\-forces}!genborn.c@{genborn.\-c}}
+\subsubsection[{calc\-\_\-gb\-\_\-forces}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf calc\-\_\-gb\-\_\-forces} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-commrec} $\ast$}]{cr, }
+\item[{{\bf t\-\_\-mdatoms} $\ast$}]{md, }
+\item[{{\bf gmx\-\_\-genborn\-\_\-t} $\ast$}]{born, }
+\item[{{\bf gmx\-\_\-localtop\-\_\-t} $\ast$}]{top, }
+\item[{const {\bf t\-\_\-atomtypes} $\ast$}]{atype, }
+\item[{{\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{f\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf t\-\_\-forcerec} $\ast$}]{fr, }
+\item[{{\bf t\-\_\-idef} $\ast$}]{idef, }
+\item[{int}]{gb\-\_\-algorithm, }
+\item[{int}]{sa\-\_\-algorithm, }
+\item[{{\bf t\-\_\-nrnb} $\ast$}]{nrnb, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Rad, }
+\item[{const {\bf t\-\_\-pbc} $\ast$}]{pbc, }
+\item[{const {\bf t\-\_\-graph} $\ast$}]{graph, }
+\item[{{\bf gmx\-\_\-enerdata\-\_\-t} $\ast$}]{enerd}
+\end{DoxyParamCaption}
+)}}\label{genborn_8c_a92697e4d9432dbc04ef057a27b720b5f}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{genborn_8c_a92697e4d9432dbc04ef057a27b720b5f_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=296pt]{genborn_8c_a92697e4d9432dbc04ef057a27b720b5f_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{genborn_8c_a919ddd9221c97140a859c7d07f77d051}{\index{genborn.\-c@{genborn.\-c}!calc\-\_\-gb\-\_\-nonpolar@{calc\-\_\-gb\-\_\-nonpolar}}
+\index{calc\-\_\-gb\-\_\-nonpolar@{calc\-\_\-gb\-\_\-nonpolar}!genborn.c@{genborn.\-c}}
+\subsubsection[{calc\-\_\-gb\-\_\-nonpolar}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf calc\-\_\-gb\-\_\-nonpolar} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-commrec} $\ast$}]{cr, }
+\item[{{\bf t\-\_\-forcerec} $\ast$}]{fr, }
+\item[{int}]{natoms, }
+\item[{{\bf gmx\-\_\-genborn\-\_\-t} $\ast$}]{born, }
+\item[{{\bf gmx\-\_\-localtop\-\_\-t} $\ast$}]{top, }
+\item[{const {\bf t\-\_\-atomtypes} $\ast$}]{atype, }
+\item[{real $\ast$}]{dvda, }
+\item[{int}]{gb\-\_\-algorithm, }
+\item[{{\bf t\-\_\-mdatoms} $\ast$}]{md}
+\end{DoxyParamCaption}
+)}}\label{genborn_8c_a919ddd9221c97140a859c7d07f77d051}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=278pt]{genborn_8c_a919ddd9221c97140a859c7d07f77d051_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{genborn_8c_a919ddd9221c97140a859c7d07f77d051_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{genborn_8c_ad0f566012015ebc813b402c4980d375a}{\index{genborn.\-c@{genborn.\-c}!calc\-\_\-gb\-\_\-rad@{calc\-\_\-gb\-\_\-rad}}
+\index{calc\-\_\-gb\-\_\-rad@{calc\-\_\-gb\-\_\-rad}!genborn.c@{genborn.\-c}}
+\subsubsection[{calc\-\_\-gb\-\_\-rad}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf calc\-\_\-gb\-\_\-rad} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-commrec} $\ast$}]{cr, }
+\item[{{\bf t\-\_\-forcerec} $\ast$}]{fr, }
+\item[{{\bf t\-\_\-inputrec} $\ast$}]{ir, }
+\item[{{\bf gmx\-\_\-localtop\-\_\-t} $\ast$}]{top, }
+\item[{const {\bf t\-\_\-atomtypes} $\ast$}]{atype, }
+\item[{{\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf t\-\_\-nblist} $\ast$}]{nl, }
+\item[{{\bf gmx\-\_\-genborn\-\_\-t} $\ast$}]{born, }
+\item[{{\bf t\-\_\-mdatoms} $\ast$}]{md, }
+\item[{{\bf t\-\_\-nrnb} $\ast$}]{nrnb}
+\end{DoxyParamCaption}
+)}}\label{genborn_8c_ad0f566012015ebc813b402c4980d375a}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{genborn_8c_ad0f566012015ebc813b402c4980d375a_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=282pt]{genborn_8c_ad0f566012015ebc813b402c4980d375a_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{genborn_8c_a4ae25bf15c1a9be094305045d3e5afc0}{\index{genborn.\-c@{genborn.\-c}!calc\-\_\-gb\-\_\-rad\-\_\-hct@{calc\-\_\-gb\-\_\-rad\-\_\-hct}}
+\index{calc\-\_\-gb\-\_\-rad\-\_\-hct@{calc\-\_\-gb\-\_\-rad\-\_\-hct}!genborn.c@{genborn.\-c}}
+\subsubsection[{calc\-\_\-gb\-\_\-rad\-\_\-hct}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf calc\-\_\-gb\-\_\-rad\-\_\-hct} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-commrec} $\ast$}]{cr, }
+\item[{{\bf t\-\_\-forcerec} $\ast$}]{fr, }
+\item[{int}]{natoms, }
+\item[{{\bf gmx\-\_\-localtop\-\_\-t} $\ast$}]{top, }
+\item[{const {\bf t\-\_\-atomtypes} $\ast$}]{atype, }
+\item[{{\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf t\-\_\-nblist} $\ast$}]{nl, }
+\item[{{\bf gmx\-\_\-genborn\-\_\-t} $\ast$}]{born, }
+\item[{{\bf t\-\_\-mdatoms} $\ast$}]{md}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{genborn_8c_a4ae25bf15c1a9be094305045d3e5afc0}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=314pt]{genborn_8c_a4ae25bf15c1a9be094305045d3e5afc0_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{genborn_8c_a4ae25bf15c1a9be094305045d3e5afc0_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{genborn_8c_a38591c96f89e7044734a6b2e63ab302f}{\index{genborn.\-c@{genborn.\-c}!calc\-\_\-gb\-\_\-rad\-\_\-obc@{calc\-\_\-gb\-\_\-rad\-\_\-obc}}
+\index{calc\-\_\-gb\-\_\-rad\-\_\-obc@{calc\-\_\-gb\-\_\-rad\-\_\-obc}!genborn.c@{genborn.\-c}}
+\subsubsection[{calc\-\_\-gb\-\_\-rad\-\_\-obc}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf calc\-\_\-gb\-\_\-rad\-\_\-obc} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-commrec} $\ast$}]{cr, }
+\item[{{\bf t\-\_\-forcerec} $\ast$}]{fr, }
+\item[{int}]{natoms, }
+\item[{{\bf gmx\-\_\-localtop\-\_\-t} $\ast$}]{top, }
+\item[{const {\bf t\-\_\-atomtypes} $\ast$}]{atype, }
+\item[{{\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf t\-\_\-nblist} $\ast$}]{nl, }
+\item[{{\bf gmx\-\_\-genborn\-\_\-t} $\ast$}]{born, }
+\item[{{\bf t\-\_\-mdatoms} $\ast$}]{md}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{genborn_8c_a38591c96f89e7044734a6b2e63ab302f}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=316pt]{genborn_8c_a38591c96f89e7044734a6b2e63ab302f_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{genborn_8c_a38591c96f89e7044734a6b2e63ab302f_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{genborn_8c_a5f244afad258d3f553364fce6817c633}{\index{genborn.\-c@{genborn.\-c}!calc\-\_\-gb\-\_\-rad\-\_\-still@{calc\-\_\-gb\-\_\-rad\-\_\-still}}
+\index{calc\-\_\-gb\-\_\-rad\-\_\-still@{calc\-\_\-gb\-\_\-rad\-\_\-still}!genborn.c@{genborn.\-c}}
+\subsubsection[{calc\-\_\-gb\-\_\-rad\-\_\-still}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf calc\-\_\-gb\-\_\-rad\-\_\-still} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-commrec} $\ast$}]{cr, }
+\item[{{\bf t\-\_\-forcerec} $\ast$}]{fr, }
+\item[{int}]{natoms, }
+\item[{{\bf gmx\-\_\-localtop\-\_\-t} $\ast$}]{top, }
+\item[{const {\bf t\-\_\-atomtypes} $\ast$}]{atype, }
+\item[{{\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf t\-\_\-nblist} $\ast$}]{nl, }
+\item[{{\bf gmx\-\_\-genborn\-\_\-t} $\ast$}]{born, }
+\item[{{\bf t\-\_\-mdatoms} $\ast$}]{md}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{genborn_8c_a5f244afad258d3f553364fce6817c633}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=316pt]{genborn_8c_a5f244afad258d3f553364fce6817c633_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{genborn_8c_a5f244afad258d3f553364fce6817c633_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{genborn_8c_a7e24a492634bf90b3dbd7770b1d61a15}{\index{genborn.\-c@{genborn.\-c}!calc\-\_\-gb\-\_\-selfcorrections@{calc\-\_\-gb\-\_\-selfcorrections}}
+\index{calc\-\_\-gb\-\_\-selfcorrections@{calc\-\_\-gb\-\_\-selfcorrections}!genborn.c@{genborn.\-c}}
+\subsubsection[{calc\-\_\-gb\-\_\-selfcorrections}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf calc\-\_\-gb\-\_\-selfcorrections} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-commrec} $\ast$}]{cr, }
+\item[{int}]{natoms, }
+\item[{real $\ast$}]{charge, }
+\item[{{\bf gmx\-\_\-genborn\-\_\-t} $\ast$}]{born, }
+\item[{real $\ast$}]{dvda, }
+\item[{{\bf t\-\_\-mdatoms} $\ast$}]{md, }
+\item[{double}]{facel}
+\end{DoxyParamCaption}
+)}}\label{genborn_8c_a7e24a492634bf90b3dbd7770b1d61a15}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=306pt]{genborn_8c_a7e24a492634bf90b3dbd7770b1d61a15_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{genborn_8c_a7e24a492634bf90b3dbd7770b1d61a15_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{genborn_8c_ad2e2b78b51803c8f47344d67f16cefdc}{\index{genborn.\-c@{genborn.\-c}!compare\-\_\-int@{compare\-\_\-int}}
+\index{compare\-\_\-int@{compare\-\_\-int}!genborn.c@{genborn.\-c}}
+\subsubsection[{compare\-\_\-int}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf compare\-\_\-int} (
+\begin{DoxyParamCaption}
+\item[{const {\bf void} $\ast$}]{a, }
+\item[{const {\bf void} $\ast$}]{b}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{genborn_8c_ad2e2b78b51803c8f47344d67f16cefdc}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{genborn_8c_ad2e2b78b51803c8f47344d67f16cefdc_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{genborn_8c_a15387a68b320c46b57dd846098f81a50}{\index{genborn.\-c@{genborn.\-c}!find\-\_\-gbtmplist@{find\-\_\-gbtmplist}}
+\index{find\-\_\-gbtmplist@{find\-\_\-gbtmplist}!genborn.c@{genborn.\-c}}
+\subsubsection[{find\-\_\-gbtmplist}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gbtmpnbl\-\_\-t}$\ast$ {\bf find\-\_\-gbtmplist} (
+\begin{DoxyParamCaption}
+\item[{struct {\bf gbtmpnbls} $\ast$}]{lists, }
+\item[{int}]{shift}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{genborn_8c_a15387a68b320c46b57dd846098f81a50}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{genborn_8c_a15387a68b320c46b57dd846098f81a50_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{genborn_8c_a752b41ad3db447e50b56adfcd7b96516}{\index{genborn.\-c@{genborn.\-c}!gb\-\_\-bonds\-\_\-tab@{gb\-\_\-bonds\-\_\-tab}}
+\index{gb\-\_\-bonds\-\_\-tab@{gb\-\_\-bonds\-\_\-tab}!genborn.c@{genborn.\-c}}
+\subsubsection[{gb\-\_\-bonds\-\_\-tab}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf gb\-\_\-bonds\-\_\-tab} (
+\begin{DoxyParamCaption}
+\item[{{\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{f\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{fshift\mbox{[}$\,$\mbox{]}, }
+\item[{real $\ast$}]{charge, }
+\item[{real $\ast$}]{p\-\_\-gbtabscale, }
+\item[{real $\ast$}]{invsqrta, }
+\item[{real $\ast$}]{dvda, }
+\item[{real $\ast$}]{\-G\-Btab, }
+\item[{{\bf t\-\_\-idef} $\ast$}]{idef, }
+\item[{real}]{epsilon\-\_\-r, }
+\item[{real}]{gb\-\_\-epsilon\-\_\-solvent, }
+\item[{real}]{facel, }
+\item[{const {\bf t\-\_\-pbc} $\ast$}]{pbc, }
+\item[{const {\bf t\-\_\-graph} $\ast$}]{graph}
+\end{DoxyParamCaption}
+)}}\label{genborn_8c_a752b41ad3db447e50b56adfcd7b96516}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{genborn_8c_a752b41ad3db447e50b56adfcd7b96516_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{genborn_8c_a752b41ad3db447e50b56adfcd7b96516_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{genborn_8c_a4f787349e1b8ddd494167e008d8c61e5}{\index{genborn.\-c@{genborn.\-c}!gb\-\_\-pd\-\_\-send@{gb\-\_\-pd\-\_\-send}}
+\index{gb\-\_\-pd\-\_\-send@{gb\-\_\-pd\-\_\-send}!genborn.c@{genborn.\-c}}
+\subsubsection[{gb\-\_\-pd\-\_\-send}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gb\-\_\-pd\-\_\-send} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-commrec} $\ast$}]{cr, }
+\item[{real $\ast$}]{send\-\_\-data, }
+\item[{int}]{nr}
+\end{DoxyParamCaption}
+)}}\label{genborn_8c_a4f787349e1b8ddd494167e008d8c61e5}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=242pt]{genborn_8c_a4f787349e1b8ddd494167e008d8c61e5_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{genborn_8c_a979fdba9aba8447616b54c9afe09bcf5}{\index{genborn.\-c@{genborn.\-c}!init\-\_\-gb@{init\-\_\-gb}}
+\index{init\-\_\-gb@{init\-\_\-gb}!genborn.c@{genborn.\-c}}
+\subsubsection[{init\-\_\-gb}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf init\-\_\-gb} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-genborn\-\_\-t} $\ast$$\ast$}]{p\-\_\-born, }
+\item[{const {\bf t\-\_\-commrec} $\ast$}]{cr, }
+\item[{{\bf t\-\_\-forcerec} $\ast$}]{fr, }
+\item[{const {\bf t\-\_\-inputrec} $\ast$}]{ir, }
+\item[{const {\bf gmx\-\_\-mtop\-\_\-t} $\ast$}]{mtop, }
+\item[{real}]{rgbradii, }
+\item[{int}]{gb\-\_\-algorithm}
+\end{DoxyParamCaption}
+)}}\label{genborn_8c_a979fdba9aba8447616b54c9afe09bcf5}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{genborn_8c_a979fdba9aba8447616b54c9afe09bcf5_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{genborn_8c_a979fdba9aba8447616b54c9afe09bcf5_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{genborn_8c_a9ee204c63290388cb8d97d2937e749b9}{\index{genborn.\-c@{genborn.\-c}!init\-\_\-gb\-\_\-nblist@{init\-\_\-gb\-\_\-nblist}}
+\index{init\-\_\-gb\-\_\-nblist@{init\-\_\-gb\-\_\-nblist}!genborn.c@{genborn.\-c}}
+\subsubsection[{init\-\_\-gb\-\_\-nblist}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf init\-\_\-gb\-\_\-nblist} (
+\begin{DoxyParamCaption}
+\item[{int}]{natoms, }
+\item[{{\bf t\-\_\-nblist} $\ast$}]{nl}
+\end{DoxyParamCaption}
+)}}\label{genborn_8c_a9ee204c63290388cb8d97d2937e749b9}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{genborn_8c_a9ee204c63290388cb8d97d2937e749b9_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{genborn_8c_ad0ef79310cc56546010fd5bf1c2d7c65}{\index{genborn.\-c@{genborn.\-c}!init\-\_\-gb\-\_\-plist@{init\-\_\-gb\-\_\-plist}}
+\index{init\-\_\-gb\-\_\-plist@{init\-\_\-gb\-\_\-plist}!genborn.c@{genborn.\-c}}
+\subsubsection[{init\-\_\-gb\-\_\-plist}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf init\-\_\-gb\-\_\-plist} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-params} $\ast$}]{p\-\_\-list}
+\end{DoxyParamCaption}
+)}}\label{genborn_8c_ad0ef79310cc56546010fd5bf1c2d7c65}
+\hypertarget{genborn_8c_aca35635cc1dc0df16b988abaf0105c94}{\index{genborn.\-c@{genborn.\-c}!init\-\_\-gb\-\_\-still@{init\-\_\-gb\-\_\-still}}
+\index{init\-\_\-gb\-\_\-still@{init\-\_\-gb\-\_\-still}!genborn.c@{genborn.\-c}}
+\subsubsection[{init\-\_\-gb\-\_\-still}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf init\-\_\-gb\-\_\-still} (
+\begin{DoxyParamCaption}
+\item[{const {\bf t\-\_\-commrec} $\ast$}]{cr, }
+\item[{{\bf t\-\_\-forcerec} $\ast$}]{fr, }
+\item[{const {\bf t\-\_\-atomtypes} $\ast$}]{atype, }
+\item[{{\bf t\-\_\-idef} $\ast$}]{idef, }
+\item[{{\bf t\-\_\-atoms} $\ast$}]{atoms, }
+\item[{{\bf gmx\-\_\-genborn\-\_\-t} $\ast$}]{born, }
+\item[{int}]{natoms}
+\end{DoxyParamCaption}
+)}}\label{genborn_8c_aca35635cc1dc0df16b988abaf0105c94}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{genborn_8c_aca35635cc1dc0df16b988abaf0105c94_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{genborn_8c_aca35635cc1dc0df16b988abaf0105c94_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{genborn_8c_af54c2308097a630241209162e137bdb5}{\index{genborn.\-c@{genborn.\-c}!make\-\_\-gb\-\_\-nblist@{make\-\_\-gb\-\_\-nblist}}
+\index{make\-\_\-gb\-\_\-nblist@{make\-\_\-gb\-\_\-nblist}!genborn.c@{genborn.\-c}}
+\subsubsection[{make\-\_\-gb\-\_\-nblist}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf make\-\_\-gb\-\_\-nblist} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-commrec} $\ast$}]{cr, }
+\item[{int}]{gb\-\_\-algorithm, }
+\item[{real}]{gbcut, }
+\item[{{\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf matrix}}]{box, }
+\item[{{\bf t\-\_\-forcerec} $\ast$}]{fr, }
+\item[{{\bf t\-\_\-idef} $\ast$}]{idef, }
+\item[{{\bf t\-\_\-graph} $\ast$}]{graph, }
+\item[{{\bf gmx\-\_\-genborn\-\_\-t} $\ast$}]{born}
+\end{DoxyParamCaption}
+)}}\label{genborn_8c_af54c2308097a630241209162e137bdb5}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{genborn_8c_af54c2308097a630241209162e137bdb5_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{genborn_8c_af54c2308097a630241209162e137bdb5_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{genborn_8c_ac03a0416d49cdc1790070f9aa106a3dc}{\index{genborn.\-c@{genborn.\-c}!make\-\_\-local\-\_\-gb@{make\-\_\-local\-\_\-gb}}
+\index{make\-\_\-local\-\_\-gb@{make\-\_\-local\-\_\-gb}!genborn.c@{genborn.\-c}}
+\subsubsection[{make\-\_\-local\-\_\-gb}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf make\-\_\-local\-\_\-gb} (
+\begin{DoxyParamCaption}
+\item[{const {\bf t\-\_\-commrec} $\ast$}]{cr, }
+\item[{{\bf gmx\-\_\-genborn\-\_\-t} $\ast$}]{born, }
+\item[{int}]{gb\-\_\-algorithm}
+\end{DoxyParamCaption}
+)}}\label{genborn_8c_ac03a0416d49cdc1790070f9aa106a3dc}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{genborn_8c_ac03a0416d49cdc1790070f9aa106a3dc_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{genborn_8c_a0b5b07882ef47de8bab88e30660c593b}{\index{genborn.\-c@{genborn.\-c}!pbc\-\_\-rvec\-\_\-sub@{pbc\-\_\-rvec\-\_\-sub}}
+\index{pbc\-\_\-rvec\-\_\-sub@{pbc\-\_\-rvec\-\_\-sub}!genborn.c@{genborn.\-c}}
+\subsubsection[{pbc\-\_\-rvec\-\_\-sub}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf pbc\-\_\-rvec\-\_\-sub} (
+\begin{DoxyParamCaption}
+\item[{const {\bf t\-\_\-pbc} $\ast$}]{pbc, }
+\item[{const {\bf rvec}}]{xi, }
+\item[{const {\bf rvec}}]{xj, }
+\item[{{\bf rvec}}]{dx}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{genborn_8c_a0b5b07882ef47de8bab88e30660c593b}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=266pt]{genborn_8c_a0b5b07882ef47de8bab88e30660c593b_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{genborn_8c_a0b5b07882ef47de8bab88e30660c593b_icgraph}
+\end{center}
+\end{figure}
+
+

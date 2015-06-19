@@ -1,0 +1,365 @@
+\hypertarget{topexcl_8c}{\section{src/kernel/topexcl.c \-File \-Reference}
+\label{topexcl_8c}\index{src/kernel/topexcl.\-c@{src/kernel/topexcl.\-c}}
+}
+{\ttfamily \#include \char`\"{}sysstuff.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}smalloc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}macros.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gpp\-\_\-nextnb.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-fatal.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}toputil.\-h\char`\"{}}\*
+\-Include dependency graph for topexcl.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{topexcl_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structsortable}{sortable}
+\end{DoxyCompactItemize}
+\subsection*{\-Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{topexcl_8c_a03602cf42d3a33820255abef54f2fb69}{prints}(str, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a6dd0d3574865c5458827c47f2cfd02b8}{s})
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+static int \hyperlink{topexcl_8c_a00ca790c818e6c599497cef168959f18}{bond\-\_\-sort} (const \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a0880879736d1ab747a972d1942421886}{a}, const \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afb462a5dea72ae7992f073bfd756fb5f}{b})
+\item 
+static int \hyperlink{topexcl_8c_ad2e2b78b51803c8f47344d67f16cefdc}{compare\-\_\-int} (const \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a0880879736d1ab747a972d1942421886}{a}, const \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afb462a5dea72ae7992f073bfd756fb5f}{b})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{topexcl_8c_a0faa86e66e22308b4ed9d5a62b090479}{init\-\_\-nnb} (\hyperlink{structt__nextnb}{t\-\_\-nextnb} $\ast$nnb, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a560e4062098f77c2d7e5fe83bf09c394}{nr}, int nrex)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{topexcl_8c_a506fd14c84130461e33b9333eb50eb28}{add\-\_\-nnb} (\hyperlink{structt__nextnb}{t\-\_\-nextnb} $\ast$nnb, int nre, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a3c7542401c1cb8bd37ef5e7d9eb0f5a8}{i}, int j)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{topexcl_8c_ad1b647847f2bb87577a5dc30388134f0}{done\-\_\-nnb} (\hyperlink{structt__nextnb}{t\-\_\-nextnb} $\ast$nnb)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{topexcl_8c_a32af432a93a7cfc4b911065004c3fc67}{nnb2excl} (\hyperlink{structt__nextnb}{t\-\_\-nextnb} $\ast$nnb, \hyperlink{structt__blocka}{t\-\_\-blocka} $\ast$excl)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{topexcl_8c_aff8074d5cee5f28061f20668761b528a}{do\-\_\-gen} (int nrbonds, \hyperlink{structsortable}{sortable} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a6dd0d3574865c5458827c47f2cfd02b8}{s}, \hyperlink{structt__nextnb}{t\-\_\-nextnb} $\ast$nnb)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{topexcl_8c_afd9d62321ff917e6ce5286f4eb5b9804}{add\-\_\-b} (\hyperlink{structt__params}{t\-\_\-params} $\ast$\hyperlink{bondfree_8c_a575fd72d984d738fc87692870c0807d0}{bonds}, int $\ast$nrf, \hyperlink{structsortable}{sortable} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a6dd0d3574865c5458827c47f2cfd02b8}{s})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{topexcl_8c_a57f0323c553bd13db84c0c5755d97bc5}{gen\-\_\-nnb} (\hyperlink{structt__nextnb}{t\-\_\-nextnb} $\ast$nnb, \hyperlink{structt__params}{t\-\_\-params} plist\mbox{[}$\,$\mbox{]})
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{topexcl_8c_a67576fb31545bde460733fd53bedbcaf}{sort\-\_\-and\-\_\-purge\-\_\-nnb} (\hyperlink{structt__nextnb}{t\-\_\-nextnb} $\ast$nnb)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{topexcl_8c_af8aaf7ba5f1f824eb45fcd6ee828e121}{generate\-\_\-excl} (int nrexcl, int nratoms, \hyperlink{structt__params}{t\-\_\-params} plist\mbox{[}$\,$\mbox{]}, \hyperlink{structt__nextnb}{t\-\_\-nextnb} $\ast$nnb, \hyperlink{structt__blocka}{t\-\_\-blocka} $\ast$excl)
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Define \-Documentation}
+\hypertarget{topexcl_8c_a03602cf42d3a33820255abef54f2fb69}{\index{topexcl.\-c@{topexcl.\-c}!prints@{prints}}
+\index{prints@{prints}!topexcl.c@{topexcl.\-c}}
+\subsubsection[{prints}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf prints}(
+\begin{DoxyParamCaption}
+\item[{}]{str, }
+\item[{}]{{\bf n}, }
+\item[{}]{{\bf s}}
+\end{DoxyParamCaption}
+)}}\label{topexcl_8c_a03602cf42d3a33820255abef54f2fb69}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{topexcl_8c_afd9d62321ff917e6ce5286f4eb5b9804}{\index{topexcl.\-c@{topexcl.\-c}!add\-\_\-b@{add\-\_\-b}}
+\index{add\-\_\-b@{add\-\_\-b}!topexcl.c@{topexcl.\-c}}
+\subsubsection[{add\-\_\-b}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf add\-\_\-b} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-params} $\ast$}]{bonds, }
+\item[{int $\ast$}]{nrf, }
+\item[{{\bf sortable} $\ast$}]{s}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{topexcl_8c_afd9d62321ff917e6ce5286f4eb5b9804}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=220pt]{topexcl_8c_afd9d62321ff917e6ce5286f4eb5b9804_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=214pt]{topexcl_8c_afd9d62321ff917e6ce5286f4eb5b9804_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{topexcl_8c_a506fd14c84130461e33b9333eb50eb28}{\index{topexcl.\-c@{topexcl.\-c}!add\-\_\-nnb@{add\-\_\-nnb}}
+\index{add\-\_\-nnb@{add\-\_\-nnb}!topexcl.c@{topexcl.\-c}}
+\subsubsection[{add\-\_\-nnb}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf add\-\_\-nnb} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-nextnb} $\ast$}]{nnb, }
+\item[{int}]{nre, }
+\item[{int}]{i, }
+\item[{int}]{j}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{topexcl_8c_a506fd14c84130461e33b9333eb50eb28}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=308pt]{topexcl_8c_a506fd14c84130461e33b9333eb50eb28_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{topexcl_8c_a00ca790c818e6c599497cef168959f18}{\index{topexcl.\-c@{topexcl.\-c}!bond\-\_\-sort@{bond\-\_\-sort}}
+\index{bond\-\_\-sort@{bond\-\_\-sort}!topexcl.c@{topexcl.\-c}}
+\subsubsection[{bond\-\_\-sort}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf bond\-\_\-sort} (
+\begin{DoxyParamCaption}
+\item[{const {\bf void} $\ast$}]{a, }
+\item[{const {\bf void} $\ast$}]{b}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{topexcl_8c_a00ca790c818e6c599497cef168959f18}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=232pt]{topexcl_8c_a00ca790c818e6c599497cef168959f18_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{topexcl_8c_ad2e2b78b51803c8f47344d67f16cefdc}{\index{topexcl.\-c@{topexcl.\-c}!compare\-\_\-int@{compare\-\_\-int}}
+\index{compare\-\_\-int@{compare\-\_\-int}!topexcl.c@{topexcl.\-c}}
+\subsubsection[{compare\-\_\-int}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf compare\-\_\-int} (
+\begin{DoxyParamCaption}
+\item[{const {\bf void} $\ast$}]{a, }
+\item[{const {\bf void} $\ast$}]{b}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{topexcl_8c_ad2e2b78b51803c8f47344d67f16cefdc}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{topexcl_8c_ad2e2b78b51803c8f47344d67f16cefdc_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{topexcl_8c_aff8074d5cee5f28061f20668761b528a}{\index{topexcl.\-c@{topexcl.\-c}!do\-\_\-gen@{do\-\_\-gen}}
+\index{do\-\_\-gen@{do\-\_\-gen}!topexcl.c@{topexcl.\-c}}
+\subsubsection[{do\-\_\-gen}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf do\-\_\-gen} (
+\begin{DoxyParamCaption}
+\item[{int}]{nrbonds, }
+\item[{{\bf sortable} $\ast$}]{s, }
+\item[{{\bf t\-\_\-nextnb} $\ast$}]{nnb}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{topexcl_8c_aff8074d5cee5f28061f20668761b528a}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=218pt]{topexcl_8c_aff8074d5cee5f28061f20668761b528a_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=218pt]{topexcl_8c_aff8074d5cee5f28061f20668761b528a_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{topexcl_8c_ad1b647847f2bb87577a5dc30388134f0}{\index{topexcl.\-c@{topexcl.\-c}!done\-\_\-nnb@{done\-\_\-nnb}}
+\index{done\-\_\-nnb@{done\-\_\-nnb}!topexcl.c@{topexcl.\-c}}
+\subsubsection[{done\-\_\-nnb}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf done\-\_\-nnb} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-nextnb} $\ast$}]{nnb}
+\end{DoxyParamCaption}
+)}}\label{topexcl_8c_ad1b647847f2bb87577a5dc30388134f0}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{topexcl_8c_ad1b647847f2bb87577a5dc30388134f0_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{topexcl_8c_a57f0323c553bd13db84c0c5755d97bc5}{\index{topexcl.\-c@{topexcl.\-c}!gen\-\_\-nnb@{gen\-\_\-nnb}}
+\index{gen\-\_\-nnb@{gen\-\_\-nnb}!topexcl.c@{topexcl.\-c}}
+\subsubsection[{gen\-\_\-nnb}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gen\-\_\-nnb} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-nextnb} $\ast$}]{nnb, }
+\item[{{\bf t\-\_\-params}}]{plist\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{topexcl_8c_a57f0323c553bd13db84c0c5755d97bc5}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=326pt]{topexcl_8c_a57f0323c553bd13db84c0c5755d97bc5_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{topexcl_8c_a57f0323c553bd13db84c0c5755d97bc5_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{topexcl_8c_af8aaf7ba5f1f824eb45fcd6ee828e121}{\index{topexcl.\-c@{topexcl.\-c}!generate\-\_\-excl@{generate\-\_\-excl}}
+\index{generate\-\_\-excl@{generate\-\_\-excl}!topexcl.c@{topexcl.\-c}}
+\subsubsection[{generate\-\_\-excl}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf generate\-\_\-excl} (
+\begin{DoxyParamCaption}
+\item[{int}]{nrexcl, }
+\item[{int}]{nratoms, }
+\item[{{\bf t\-\_\-params}}]{plist\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf t\-\_\-nextnb} $\ast$}]{nnb, }
+\item[{{\bf t\-\_\-blocka} $\ast$}]{excl}
+\end{DoxyParamCaption}
+)}}\label{topexcl_8c_af8aaf7ba5f1f824eb45fcd6ee828e121}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{topexcl_8c_af8aaf7ba5f1f824eb45fcd6ee828e121_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{topexcl_8c_af8aaf7ba5f1f824eb45fcd6ee828e121_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{topexcl_8c_a0faa86e66e22308b4ed9d5a62b090479}{\index{topexcl.\-c@{topexcl.\-c}!init\-\_\-nnb@{init\-\_\-nnb}}
+\index{init\-\_\-nnb@{init\-\_\-nnb}!topexcl.c@{topexcl.\-c}}
+\subsubsection[{init\-\_\-nnb}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf init\-\_\-nnb} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-nextnb} $\ast$}]{nnb, }
+\item[{int}]{nr, }
+\item[{int}]{nrex}
+\end{DoxyParamCaption}
+)}}\label{topexcl_8c_a0faa86e66e22308b4ed9d5a62b090479}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{topexcl_8c_a0faa86e66e22308b4ed9d5a62b090479_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{topexcl_8c_a32af432a93a7cfc4b911065004c3fc67}{\index{topexcl.\-c@{topexcl.\-c}!nnb2excl@{nnb2excl}}
+\index{nnb2excl@{nnb2excl}!topexcl.c@{topexcl.\-c}}
+\subsubsection[{nnb2excl}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf nnb2excl} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-nextnb} $\ast$}]{nnb, }
+\item[{{\bf t\-\_\-blocka} $\ast$}]{excl}
+\end{DoxyParamCaption}
+)}}\label{topexcl_8c_a32af432a93a7cfc4b911065004c3fc67}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=242pt]{topexcl_8c_a32af432a93a7cfc4b911065004c3fc67_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{topexcl_8c_a32af432a93a7cfc4b911065004c3fc67_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{topexcl_8c_a67576fb31545bde460733fd53bedbcaf}{\index{topexcl.\-c@{topexcl.\-c}!sort\-\_\-and\-\_\-purge\-\_\-nnb@{sort\-\_\-and\-\_\-purge\-\_\-nnb}}
+\index{sort\-\_\-and\-\_\-purge\-\_\-nnb@{sort\-\_\-and\-\_\-purge\-\_\-nnb}!topexcl.c@{topexcl.\-c}}
+\subsubsection[{sort\-\_\-and\-\_\-purge\-\_\-nnb}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf sort\-\_\-and\-\_\-purge\-\_\-nnb} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-nextnb} $\ast$}]{nnb}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{topexcl_8c_a67576fb31545bde460733fd53bedbcaf}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=290pt]{topexcl_8c_a67576fb31545bde460733fd53bedbcaf_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{topexcl_8c_a67576fb31545bde460733fd53bedbcaf_icgraph}
+\end{center}
+\end{figure}
+
+

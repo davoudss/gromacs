@@ -1,0 +1,194 @@
+\hypertarget{gmx__dielectric_8c}{\section{src/tools/gmx\-\_\-dielectric.c \-File \-Reference}
+\label{gmx__dielectric_8c}\index{src/tools/gmx\-\_\-dielectric.\-c@{src/tools/gmx\-\_\-dielectric.\-c}}
+}
+{\ttfamily \#include $<$stdio.\-h$>$}\*
+{\ttfamily \#include $<$stdlib.\-h$>$}\*
+{\ttfamily \#include $<$ctype.\-h$>$}\*
+{\ttfamily \#include $<$math.\-h$>$}\*
+{\ttfamily \#include \char`\"{}copyrite.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}typedefs.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}string2.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gstat.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}smalloc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}futil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}macros.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}maths.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}xvgr.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmxcomplex.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}correl.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-ana.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-fatal.\-h\char`\"{}}\*
+\-Include dependency graph for gmx\-\_\-dielectric.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__dielectric_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{gmx__dielectric_8c_a8485f4e81de2537e6a0935626167a775}{\-N\-F\-I\-L\-E}~\hyperlink{share_2template_2gromacs_2macros_8h_a0883345a58f8f63aefa249a4f127f707}{asize}(fnm)
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{gmx__dielectric_8c_a28dd1f9abe1dbd1fb8668185a0b74972}{calc\-\_\-nbegin} (int nx, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, real tbegin)
+\item 
+real \hyperlink{gmx__dielectric_8c_aebfb573573cdfaab700c295d2a54b47d}{numerical\-\_\-deriv} (int nx, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ad992d70ec70c927046cfc2ab1c79b188}{y}\mbox{[}$\,$\mbox{]}, real fity\mbox{[}$\,$\mbox{]}, real combined\mbox{[}$\,$\mbox{]}, real \hyperlink{share_2template_2gromacs_2gmx__blas_8h_ab22d39b99f8eaf91354f167b9e204e58}{dy}\mbox{[}$\,$\mbox{]}, real tend\-Int, int nsmooth)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__dielectric_8c_aea1939880db1cf536e26b6863c55236a}{do\-\_\-four} (const char $\ast$fn, const char $\ast$cn, int nx, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, real \hyperlink{share_2template_2gromacs_2gmx__blas_8h_ab22d39b99f8eaf91354f167b9e204e58}{dy}\mbox{[}$\,$\mbox{]}, real eps0, real eps\-R\-F, const \hyperlink{include_2types_2oenv_8h_a6a48d77d95132d7318780544821da6a5}{output\-\_\-env\-\_\-t} oenv)
+\item 
+int \hyperlink{gmx__dielectric_8c_a6bc3295de64e26c108327fd61ad71ae3}{gmx\-\_\-dielectric} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Define \-Documentation}
+\hypertarget{gmx__dielectric_8c_a8485f4e81de2537e6a0935626167a775}{\index{gmx\-\_\-dielectric.\-c@{gmx\-\_\-dielectric.\-c}!\-N\-F\-I\-L\-E@{\-N\-F\-I\-L\-E}}
+\index{\-N\-F\-I\-L\-E@{\-N\-F\-I\-L\-E}!gmx_dielectric.c@{gmx\-\_\-dielectric.\-c}}
+\subsubsection[{\-N\-F\-I\-L\-E}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-N\-F\-I\-L\-E}~{\bf asize}(fnm)}}\label{gmx__dielectric_8c_a8485f4e81de2537e6a0935626167a775}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{gmx__dielectric_8c_a28dd1f9abe1dbd1fb8668185a0b74972}{\index{gmx\-\_\-dielectric.\-c@{gmx\-\_\-dielectric.\-c}!calc\-\_\-nbegin@{calc\-\_\-nbegin}}
+\index{calc\-\_\-nbegin@{calc\-\_\-nbegin}!gmx_dielectric.c@{gmx\-\_\-dielectric.\-c}}
+\subsubsection[{calc\-\_\-nbegin}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf calc\-\_\-nbegin} (
+\begin{DoxyParamCaption}
+\item[{int}]{nx, }
+\item[{real}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{real}]{tbegin}
+\end{DoxyParamCaption}
+)}}\label{gmx__dielectric_8c_a28dd1f9abe1dbd1fb8668185a0b74972}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=244pt]{gmx__dielectric_8c_a28dd1f9abe1dbd1fb8668185a0b74972_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__dielectric_8c_a28dd1f9abe1dbd1fb8668185a0b74972_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__dielectric_8c_aea1939880db1cf536e26b6863c55236a}{\index{gmx\-\_\-dielectric.\-c@{gmx\-\_\-dielectric.\-c}!do\-\_\-four@{do\-\_\-four}}
+\index{do\-\_\-four@{do\-\_\-four}!gmx_dielectric.c@{gmx\-\_\-dielectric.\-c}}
+\subsubsection[{do\-\_\-four}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf do\-\_\-four} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{fn, }
+\item[{const char $\ast$}]{cn, }
+\item[{int}]{nx, }
+\item[{real}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{real}]{dy\mbox{[}$\,$\mbox{]}, }
+\item[{real}]{eps0, }
+\item[{real}]{eps\-R\-F, }
+\item[{const {\bf output\-\_\-env\-\_\-t}}]{oenv}
+\end{DoxyParamCaption}
+)}}\label{gmx__dielectric_8c_aea1939880db1cf536e26b6863c55236a}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=322pt]{gmx__dielectric_8c_aea1939880db1cf536e26b6863c55236a_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=320pt]{gmx__dielectric_8c_aea1939880db1cf536e26b6863c55236a_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__dielectric_8c_a6bc3295de64e26c108327fd61ad71ae3}{\index{gmx\-\_\-dielectric.\-c@{gmx\-\_\-dielectric.\-c}!gmx\-\_\-dielectric@{gmx\-\_\-dielectric}}
+\index{gmx\-\_\-dielectric@{gmx\-\_\-dielectric}!gmx_dielectric.c@{gmx\-\_\-dielectric.\-c}}
+\subsubsection[{gmx\-\_\-dielectric}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-dielectric} (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{gmx__dielectric_8c_a6bc3295de64e26c108327fd61ad71ae3}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__dielectric_8c_a6bc3295de64e26c108327fd61ad71ae3_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=234pt]{gmx__dielectric_8c_a6bc3295de64e26c108327fd61ad71ae3_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__dielectric_8c_aebfb573573cdfaab700c295d2a54b47d}{\index{gmx\-\_\-dielectric.\-c@{gmx\-\_\-dielectric.\-c}!numerical\-\_\-deriv@{numerical\-\_\-deriv}}
+\index{numerical\-\_\-deriv@{numerical\-\_\-deriv}!gmx_dielectric.c@{gmx\-\_\-dielectric.\-c}}
+\subsubsection[{numerical\-\_\-deriv}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf numerical\-\_\-deriv} (
+\begin{DoxyParamCaption}
+\item[{int}]{nx, }
+\item[{real}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{real}]{y\mbox{[}$\,$\mbox{]}, }
+\item[{real}]{fity\mbox{[}$\,$\mbox{]}, }
+\item[{real}]{combined\mbox{[}$\,$\mbox{]}, }
+\item[{real}]{dy\mbox{[}$\,$\mbox{]}, }
+\item[{real}]{tend\-Int, }
+\item[{int}]{nsmooth}
+\end{DoxyParamCaption}
+)}}\label{gmx__dielectric_8c_aebfb573573cdfaab700c295d2a54b47d}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__dielectric_8c_aebfb573573cdfaab700c295d2a54b47d_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__dielectric_8c_aebfb573573cdfaab700c295d2a54b47d_icgraph}
+\end{center}
+\end{figure}
+
+

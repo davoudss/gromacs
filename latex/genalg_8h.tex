@@ -1,0 +1,237 @@
+\hypertarget{genalg_8h}{\section{src/kernel/genalg.h \-File \-Reference}
+\label{genalg_8h}\index{src/kernel/genalg.\-h@{src/kernel/genalg.\-h}}
+}
+\-This graph shows which files directly or indirectly include this file\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=290pt]{genalg_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structt__range}{t\-\_\-range}
+\item 
+struct \hyperlink{structt__genalg}{t\-\_\-genalg}
+\end{DoxyCompactItemize}
+\subsection*{\-Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \{ \*
+\hyperlink{genalg_8h_a91208fef98a8e6a0f21eddcb9c5a8b78af685913f1f33222c403cf45fb9b4cfd7}{ese\-S\-I\-G\-M\-A}, 
+\hyperlink{genalg_8h_a91208fef98a8e6a0f21eddcb9c5a8b78a42485ca93bdef42f50d9ce2d3382e999}{ese\-E\-P\-S\-I\-L\-O\-N}, 
+\hyperlink{genalg_8h_a91208fef98a8e6a0f21eddcb9c5a8b78af0b8987ce7b1c3a4a453929a4bf22f65}{ese\-B\-H\-A\-M\-A}, 
+\hyperlink{genalg_8h_a91208fef98a8e6a0f21eddcb9c5a8b78a8b844b08027f01d2d207917abc58f54e}{ese\-B\-H\-A\-M\-B}, 
+\*
+\hyperlink{genalg_8h_a91208fef98a8e6a0f21eddcb9c5a8b78a9c22007883005ba49e2077ee131e08b6}{ese\-B\-H\-A\-M\-C}, 
+\hyperlink{genalg_8h_a91208fef98a8e6a0f21eddcb9c5a8b78aa2052ebc1f39b4c65a5f487e1cc77723}{ese\-C\-E\-L\-L\-X}, 
+\hyperlink{genalg_8h_a91208fef98a8e6a0f21eddcb9c5a8b78a672bf66de6cc981de467ba725201cf13}{ese\-C\-E\-L\-L\-Y}, 
+\hyperlink{genalg_8h_a91208fef98a8e6a0f21eddcb9c5a8b78aa35e810928d116374836e4425542fe0b}{ese\-C\-E\-L\-L\-Z}, 
+\*
+\hyperlink{genalg_8h_a91208fef98a8e6a0f21eddcb9c5a8b78a483ae9d6b2a19bf50ed360ea939d11c8}{ese\-N\-R}
+ \}
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+real \hyperlink{genalg_8h_a7a565e3a9aa8a55d648e8d3735df050a}{value\-\_\-rand} (\hyperlink{structt__range}{t\-\_\-range} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae039a6f39df62bd858e5e3f5ec77b24b}{r}, int $\ast$seed)
+\item 
+\hyperlink{structt__genalg}{t\-\_\-genalg} $\ast$ \hyperlink{genalg_8h_a0c5668c0acc85c8c650c62580ad955d4}{init\-\_\-ga} (\-F\-I\-L\-E $\ast$fplog, const char $\ast$infile, int \-D, \hyperlink{structt__range}{t\-\_\-range} \hyperlink{xutils_8c_a7a0ed82b89da2a4d9d11d60e1dcdd161}{range}\mbox{[}$\,$\mbox{]})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{genalg_8h_ad52ec16d18c83a6c6ad99d15769319de}{update\-\_\-ga} (\-F\-I\-L\-E $\ast$fpout\-\_\-ptr, \hyperlink{structt__range}{t\-\_\-range} \hyperlink{xutils_8c_a7a0ed82b89da2a4d9d11d60e1dcdd161}{range}\mbox{[}$\,$\mbox{]}, \hyperlink{structt__genalg}{t\-\_\-genalg} $\ast$\hyperlink{xutils_8c_affbb368aa211dd03252e5979be77c661}{ga})
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{genalg_8h_a269e4cfc1b046827bca28070bdfaa126}{print\-\_\-ga} (\-F\-I\-L\-E $\ast$fp, \hyperlink{structt__genalg}{t\-\_\-genalg} $\ast$\hyperlink{xutils_8c_affbb368aa211dd03252e5979be77c661}{ga}, real \hyperlink{xutils_8c_ac40e748ec26bbfa13603d1312f188226}{msf}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aef0bf341f56ce75f09dbb64350488a61}{tensor} pres, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{xutils_8c_a607ca2df317b12be697d235a52300149}{scale}, real \hyperlink{readir_8c_a5a06e50a13385093bb93cbf7458759a0}{energy}, \hyperlink{structt__range}{t\-\_\-range} \hyperlink{xutils_8c_a7a0ed82b89da2a4d9d11d60e1dcdd161}{range}\mbox{[}$\,$\mbox{]}, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a14e3d892a79c77cb27fce4c087e5f4b4}{tol})
+\item 
+real \hyperlink{genalg_8h_afed9ecbadc47ecf507e312796aa7305f}{cost} (\hyperlink{share_2template_2gromacs_2types_2simple_8h_aef0bf341f56ce75f09dbb64350488a61}{tensor} \-P, real \-M\-S\-F, real \hyperlink{readir_8c_a5a06e50a13385093bb93cbf7458759a0}{energy})
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Enumeration \-Type \-Documentation}
+\hypertarget{genalg_8h_a91208fef98a8e6a0f21eddcb9c5a8b78}{\subsubsection[{anonymous enum}]{\setlength{\rightskip}{0pt plus 5cm}anonymous enum}}\label{genalg_8h_a91208fef98a8e6a0f21eddcb9c5a8b78}
+\begin{Desc}
+\item[\-Enumerator\-: ]\par
+\begin{description}
+\index{ese\-S\-I\-G\-M\-A@{ese\-S\-I\-G\-M\-A}!genalg.\-h@{genalg.\-h}}\index{genalg.\-h@{genalg.\-h}!ese\-S\-I\-G\-M\-A@{ese\-S\-I\-G\-M\-A}}\item[{\em 
+\hypertarget{genalg_8h_a91208fef98a8e6a0f21eddcb9c5a8b78af685913f1f33222c403cf45fb9b4cfd7}{ese\-S\-I\-G\-M\-A}\label{genalg_8h_a91208fef98a8e6a0f21eddcb9c5a8b78af685913f1f33222c403cf45fb9b4cfd7}
+}]\index{ese\-E\-P\-S\-I\-L\-O\-N@{ese\-E\-P\-S\-I\-L\-O\-N}!genalg.\-h@{genalg.\-h}}\index{genalg.\-h@{genalg.\-h}!ese\-E\-P\-S\-I\-L\-O\-N@{ese\-E\-P\-S\-I\-L\-O\-N}}\item[{\em 
+\hypertarget{genalg_8h_a91208fef98a8e6a0f21eddcb9c5a8b78a42485ca93bdef42f50d9ce2d3382e999}{ese\-E\-P\-S\-I\-L\-O\-N}\label{genalg_8h_a91208fef98a8e6a0f21eddcb9c5a8b78a42485ca93bdef42f50d9ce2d3382e999}
+}]\index{ese\-B\-H\-A\-M\-A@{ese\-B\-H\-A\-M\-A}!genalg.\-h@{genalg.\-h}}\index{genalg.\-h@{genalg.\-h}!ese\-B\-H\-A\-M\-A@{ese\-B\-H\-A\-M\-A}}\item[{\em 
+\hypertarget{genalg_8h_a91208fef98a8e6a0f21eddcb9c5a8b78af0b8987ce7b1c3a4a453929a4bf22f65}{ese\-B\-H\-A\-M\-A}\label{genalg_8h_a91208fef98a8e6a0f21eddcb9c5a8b78af0b8987ce7b1c3a4a453929a4bf22f65}
+}]\index{ese\-B\-H\-A\-M\-B@{ese\-B\-H\-A\-M\-B}!genalg.\-h@{genalg.\-h}}\index{genalg.\-h@{genalg.\-h}!ese\-B\-H\-A\-M\-B@{ese\-B\-H\-A\-M\-B}}\item[{\em 
+\hypertarget{genalg_8h_a91208fef98a8e6a0f21eddcb9c5a8b78a8b844b08027f01d2d207917abc58f54e}{ese\-B\-H\-A\-M\-B}\label{genalg_8h_a91208fef98a8e6a0f21eddcb9c5a8b78a8b844b08027f01d2d207917abc58f54e}
+}]\index{ese\-B\-H\-A\-M\-C@{ese\-B\-H\-A\-M\-C}!genalg.\-h@{genalg.\-h}}\index{genalg.\-h@{genalg.\-h}!ese\-B\-H\-A\-M\-C@{ese\-B\-H\-A\-M\-C}}\item[{\em 
+\hypertarget{genalg_8h_a91208fef98a8e6a0f21eddcb9c5a8b78a9c22007883005ba49e2077ee131e08b6}{ese\-B\-H\-A\-M\-C}\label{genalg_8h_a91208fef98a8e6a0f21eddcb9c5a8b78a9c22007883005ba49e2077ee131e08b6}
+}]\index{ese\-C\-E\-L\-L\-X@{ese\-C\-E\-L\-L\-X}!genalg.\-h@{genalg.\-h}}\index{genalg.\-h@{genalg.\-h}!ese\-C\-E\-L\-L\-X@{ese\-C\-E\-L\-L\-X}}\item[{\em 
+\hypertarget{genalg_8h_a91208fef98a8e6a0f21eddcb9c5a8b78aa2052ebc1f39b4c65a5f487e1cc77723}{ese\-C\-E\-L\-L\-X}\label{genalg_8h_a91208fef98a8e6a0f21eddcb9c5a8b78aa2052ebc1f39b4c65a5f487e1cc77723}
+}]\index{ese\-C\-E\-L\-L\-Y@{ese\-C\-E\-L\-L\-Y}!genalg.\-h@{genalg.\-h}}\index{genalg.\-h@{genalg.\-h}!ese\-C\-E\-L\-L\-Y@{ese\-C\-E\-L\-L\-Y}}\item[{\em 
+\hypertarget{genalg_8h_a91208fef98a8e6a0f21eddcb9c5a8b78a672bf66de6cc981de467ba725201cf13}{ese\-C\-E\-L\-L\-Y}\label{genalg_8h_a91208fef98a8e6a0f21eddcb9c5a8b78a672bf66de6cc981de467ba725201cf13}
+}]\index{ese\-C\-E\-L\-L\-Z@{ese\-C\-E\-L\-L\-Z}!genalg.\-h@{genalg.\-h}}\index{genalg.\-h@{genalg.\-h}!ese\-C\-E\-L\-L\-Z@{ese\-C\-E\-L\-L\-Z}}\item[{\em 
+\hypertarget{genalg_8h_a91208fef98a8e6a0f21eddcb9c5a8b78aa35e810928d116374836e4425542fe0b}{ese\-C\-E\-L\-L\-Z}\label{genalg_8h_a91208fef98a8e6a0f21eddcb9c5a8b78aa35e810928d116374836e4425542fe0b}
+}]\index{ese\-N\-R@{ese\-N\-R}!genalg.\-h@{genalg.\-h}}\index{genalg.\-h@{genalg.\-h}!ese\-N\-R@{ese\-N\-R}}\item[{\em 
+\hypertarget{genalg_8h_a91208fef98a8e6a0f21eddcb9c5a8b78a483ae9d6b2a19bf50ed360ea939d11c8}{ese\-N\-R}\label{genalg_8h_a91208fef98a8e6a0f21eddcb9c5a8b78a483ae9d6b2a19bf50ed360ea939d11c8}
+}]\end{description}
+\end{Desc}
+
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{genalg_8h_afed9ecbadc47ecf507e312796aa7305f}{\index{genalg.\-h@{genalg.\-h}!cost@{cost}}
+\index{cost@{cost}!genalg.h@{genalg.\-h}}
+\subsubsection[{cost}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf cost} (
+\begin{DoxyParamCaption}
+\item[{{\bf tensor}}]{\-P, }
+\item[{real}]{\-M\-S\-F, }
+\item[{real}]{energy}
+\end{DoxyParamCaption}
+)}}\label{genalg_8h_afed9ecbadc47ecf507e312796aa7305f}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{genalg_8h_afed9ecbadc47ecf507e312796aa7305f_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{genalg_8h_a0c5668c0acc85c8c650c62580ad955d4}{\index{genalg.\-h@{genalg.\-h}!init\-\_\-ga@{init\-\_\-ga}}
+\index{init\-\_\-ga@{init\-\_\-ga}!genalg.h@{genalg.\-h}}
+\subsubsection[{init\-\_\-ga}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\-\_\-genalg}$\ast$ {\bf init\-\_\-ga} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fplog, }
+\item[{const char $\ast$}]{infile, }
+\item[{int}]{\-D, }
+\item[{{\bf t\-\_\-range}}]{range\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{genalg_8h_a0c5668c0acc85c8c650c62580ad955d4}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=324pt]{genalg_8h_a0c5668c0acc85c8c650c62580ad955d4_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=336pt]{genalg_8h_a0c5668c0acc85c8c650c62580ad955d4_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{genalg_8h_a269e4cfc1b046827bca28070bdfaa126}{\index{genalg.\-h@{genalg.\-h}!print\-\_\-ga@{print\-\_\-ga}}
+\index{print\-\_\-ga@{print\-\_\-ga}!genalg.h@{genalg.\-h}}
+\subsubsection[{print\-\_\-ga}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf print\-\_\-ga} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{{\bf t\-\_\-genalg} $\ast$}]{ga, }
+\item[{real}]{msf, }
+\item[{{\bf tensor}}]{pres, }
+\item[{{\bf rvec}}]{scale, }
+\item[{real}]{energy, }
+\item[{{\bf t\-\_\-range}}]{range\mbox{[}$\,$\mbox{]}, }
+\item[{real}]{tol}
+\end{DoxyParamCaption}
+)}}\label{genalg_8h_a269e4cfc1b046827bca28070bdfaa126}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{genalg_8h_a269e4cfc1b046827bca28070bdfaa126_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=330pt]{genalg_8h_a269e4cfc1b046827bca28070bdfaa126_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{genalg_8h_ad52ec16d18c83a6c6ad99d15769319de}{\index{genalg.\-h@{genalg.\-h}!update\-\_\-ga@{update\-\_\-ga}}
+\index{update\-\_\-ga@{update\-\_\-ga}!genalg.h@{genalg.\-h}}
+\subsubsection[{update\-\_\-ga}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf update\-\_\-ga} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fpout\-\_\-ptr, }
+\item[{{\bf t\-\_\-range}}]{range\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf t\-\_\-genalg} $\ast$}]{ga}
+\end{DoxyParamCaption}
+)}}\label{genalg_8h_ad52ec16d18c83a6c6ad99d15769319de}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=246pt]{genalg_8h_ad52ec16d18c83a6c6ad99d15769319de_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{genalg_8h_ad52ec16d18c83a6c6ad99d15769319de_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{genalg_8h_a7a565e3a9aa8a55d648e8d3735df050a}{\index{genalg.\-h@{genalg.\-h}!value\-\_\-rand@{value\-\_\-rand}}
+\index{value\-\_\-rand@{value\-\_\-rand}!genalg.h@{genalg.\-h}}
+\subsubsection[{value\-\_\-rand}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf value\-\_\-rand} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-range} $\ast$}]{r, }
+\item[{int $\ast$}]{seed}
+\end{DoxyParamCaption}
+)}}\label{genalg_8h_a7a565e3a9aa8a55d648e8d3735df050a}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=222pt]{genalg_8h_a7a565e3a9aa8a55d648e8d3735df050a_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{genalg_8h_a7a565e3a9aa8a55d648e8d3735df050a_icgraph}
+\end{center}
+\end{figure}
+
+

@@ -1,0 +1,300 @@
+\hypertarget{errhandler_8c}{\section{src/gmxlib/thread\-\_\-mpi/errhandler.c \-File \-Reference}
+\label{errhandler_8c}\index{src/gmxlib/thread\-\_\-mpi/errhandler.\-c@{src/gmxlib/thread\-\_\-mpi/errhandler.\-c}}
+}
+{\ttfamily \#include $<$errno.\-h$>$}\*
+{\ttfamily \#include $<$stdlib.\-h$>$}\*
+{\ttfamily \#include $<$stdio.\-h$>$}\*
+{\ttfamily \#include $<$string.\-h$>$}\*
+{\ttfamily \#include $<$sys/time.\-h$>$}\*
+{\ttfamily \#include \char`\"{}impl.\-h\char`\"{}}\*
+\-Include dependency graph for errhandler.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{errhandler_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{errhandler_8c_aad3a3f99576e5f68e29016e8c6ead9cf}{t\-M\-P\-I\-\_\-\-Error} (\hyperlink{include_2thread__mpi_2tmpi_8h_ab76dc275b882a1d00a54353fb8dd4cb3}{t\-M\-P\-I\-\_\-\-Comm} comm, int tmpi\-\_\-errno)
+\item 
+int \hyperlink{errhandler_8c_aa29cb545f05ee3faf0f824ef7845aed9}{t\-M\-P\-I\-\_\-\-Error\-\_\-string} (int errorcode, char $\ast$strn, size\-\_\-t $\ast$resultlen)
+\item 
+int \hyperlink{errhandler_8c_af66eb6bb72561c8898f4efd0286ede38}{t\-M\-P\-I\-\_\-\-Create\-\_\-errhandler} (\hyperlink{share_2template_2gromacs_2thread__mpi_2tmpi_8h_acd8df331b236188474679949d02810e5}{t\-M\-P\-I\-\_\-\-Errhandler\-\_\-fn} $\ast$function, \hyperlink{include_2thread__mpi_2tmpi_8h_aa6b92ed5dbd6790548aa170a864d87db}{t\-M\-P\-I\-\_\-\-Errhandler} $\ast$errhandler)
+\item 
+int \hyperlink{errhandler_8c_aced398504881f1462402f007f75c83e4}{t\-M\-P\-I\-\_\-\-Errhandler\-\_\-free} (\hyperlink{include_2thread__mpi_2tmpi_8h_aa6b92ed5dbd6790548aa170a864d87db}{t\-M\-P\-I\-\_\-\-Errhandler} $\ast$errhandler)
+\item 
+int \hyperlink{errhandler_8c_a20a081d3ecfb438d1059720b84cb44dc}{t\-M\-P\-I\-\_\-\-Comm\-\_\-set\-\_\-errhandler} (\hyperlink{include_2thread__mpi_2tmpi_8h_ab76dc275b882a1d00a54353fb8dd4cb3}{t\-M\-P\-I\-\_\-\-Comm} comm, \hyperlink{include_2thread__mpi_2tmpi_8h_aa6b92ed5dbd6790548aa170a864d87db}{t\-M\-P\-I\-\_\-\-Errhandler} errhandler)
+\item 
+int \hyperlink{errhandler_8c_a044e40c8c1848a57e2ca8a02d09297d0}{t\-M\-P\-I\-\_\-\-Comm\-\_\-get\-\_\-errhandler} (\hyperlink{include_2thread__mpi_2tmpi_8h_ab76dc275b882a1d00a54353fb8dd4cb3}{t\-M\-P\-I\-\_\-\-Comm} comm, \hyperlink{include_2thread__mpi_2tmpi_8h_aa6b92ed5dbd6790548aa170a864d87db}{t\-M\-P\-I\-\_\-\-Errhandler} $\ast$errhandler)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{errhandler_8c_a321cdfec97590278b8129c3e7af8d02c}{tmpi\-\_\-errors\-\_\-are\-\_\-fatal\-\_\-fn} (\hyperlink{include_2thread__mpi_2tmpi_8h_ab76dc275b882a1d00a54353fb8dd4cb3}{t\-M\-P\-I\-\_\-\-Comm} $\ast$comm, int $\ast$err)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{errhandler_8c_ab9a01ba6c1c92507145bb34b17943993}{tmpi\-\_\-errors\-\_\-return\-\_\-fn} (\hyperlink{include_2thread__mpi_2tmpi_8h_ab76dc275b882a1d00a54353fb8dd4cb3}{t\-M\-P\-I\-\_\-\-Comm} $\ast$comm, int $\ast$err)
+\end{DoxyCompactItemize}
+\subsection*{\-Variables}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structtmpi__errhandler__}{tmpi\-\_\-errhandler\-\_\-} \hyperlink{errhandler_8c_abd5e6021b729aab9060bf8a9d28f78d4}{tmpi\-\_\-errors\-\_\-are\-\_\-fatal} = \{ 0, \hyperlink{impl_8h_a321cdfec97590278b8129c3e7af8d02c}{tmpi\-\_\-errors\-\_\-are\-\_\-fatal\-\_\-fn} \}
+\item 
+struct \hyperlink{structtmpi__errhandler__}{tmpi\-\_\-errhandler\-\_\-} \hyperlink{errhandler_8c_acd8383cb608b109f4834b2d761a74386}{tmpi\-\_\-errors\-\_\-return} = \{ 0, \hyperlink{impl_8h_ab9a01ba6c1c92507145bb34b17943993}{tmpi\-\_\-errors\-\_\-return\-\_\-fn} \}
+\item 
+\hyperlink{include_2thread__mpi_2tmpi_8h_aa6b92ed5dbd6790548aa170a864d87db}{t\-M\-P\-I\-\_\-\-Errhandler} \hyperlink{errhandler_8c_ad0e5e2913e971ef5767773a7ed02c5af}{\-T\-M\-P\-I\-\_\-\-E\-R\-R\-O\-R\-S\-\_\-\-A\-R\-E\-\_\-\-F\-A\-T\-A\-L} = \&\hyperlink{errhandler_8c_abd5e6021b729aab9060bf8a9d28f78d4}{tmpi\-\_\-errors\-\_\-are\-\_\-fatal}
+\item 
+\hyperlink{include_2thread__mpi_2tmpi_8h_aa6b92ed5dbd6790548aa170a864d87db}{t\-M\-P\-I\-\_\-\-Errhandler} \hyperlink{errhandler_8c_a1864a20728d47827aeba589e9524007c}{\-T\-M\-P\-I\-\_\-\-E\-R\-R\-O\-R\-S\-\_\-\-R\-E\-T\-U\-R\-N} = \&\hyperlink{errhandler_8c_acd8383cb608b109f4834b2d761a74386}{tmpi\-\_\-errors\-\_\-return}
+\item 
+static const char $\ast$ \hyperlink{errhandler_8c_a72526dd6ce374dcbb3ae866048302a7f}{tmpi\-\_\-errmsg} \mbox{[}$\,$\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{errhandler_8c_a044e40c8c1848a57e2ca8a02d09297d0}{\index{errhandler.\-c@{errhandler.\-c}!t\-M\-P\-I\-\_\-\-Comm\-\_\-get\-\_\-errhandler@{t\-M\-P\-I\-\_\-\-Comm\-\_\-get\-\_\-errhandler}}
+\index{t\-M\-P\-I\-\_\-\-Comm\-\_\-get\-\_\-errhandler@{t\-M\-P\-I\-\_\-\-Comm\-\_\-get\-\_\-errhandler}!errhandler.c@{errhandler.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Comm\-\_\-get\-\_\-errhandler}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf t\-M\-P\-I\-\_\-\-Comm\-\_\-get\-\_\-errhandler} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-M\-P\-I\-\_\-\-Comm}}]{comm, }
+\item[{{\bf t\-M\-P\-I\-\_\-\-Errhandler} $\ast$}]{errhandler}
+\end{DoxyParamCaption}
+)}}\label{errhandler_8c_a044e40c8c1848a57e2ca8a02d09297d0}
+get the error handler.
+
+\-Gets the error handler associated with a comm
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em comm} & the communicator to get the error handler for. \\
+\hline
+\mbox{\tt out}  & {\em errhandler} & the error handler.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-T\-M\-P\-I\-\_\-\-S\-U\-C\-C\-E\-S\-S on success, \-T\-M\-P\-I\-\_\-\-F\-A\-I\-L\-U\-R\-E on failure. 
+\end{DoxyReturn}
+\hypertarget{errhandler_8c_a20a081d3ecfb438d1059720b84cb44dc}{\index{errhandler.\-c@{errhandler.\-c}!t\-M\-P\-I\-\_\-\-Comm\-\_\-set\-\_\-errhandler@{t\-M\-P\-I\-\_\-\-Comm\-\_\-set\-\_\-errhandler}}
+\index{t\-M\-P\-I\-\_\-\-Comm\-\_\-set\-\_\-errhandler@{t\-M\-P\-I\-\_\-\-Comm\-\_\-set\-\_\-errhandler}!errhandler.c@{errhandler.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Comm\-\_\-set\-\_\-errhandler}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf t\-M\-P\-I\-\_\-\-Comm\-\_\-set\-\_\-errhandler} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-M\-P\-I\-\_\-\-Comm}}]{comm, }
+\item[{{\bf t\-M\-P\-I\-\_\-\-Errhandler}}]{errhandler}
+\end{DoxyParamCaption}
+)}}\label{errhandler_8c_a20a081d3ecfb438d1059720b84cb44dc}
+\-Set the error handler.
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em comm} & the communicator to set the error handler for. \\
+\hline
+\mbox{\tt in}  & {\em errhandler} & the error handler.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-T\-M\-P\-I\-\_\-\-S\-U\-C\-C\-E\-S\-S on success, \-T\-M\-P\-I\-\_\-\-F\-A\-I\-L\-U\-R\-E on failure. 
+\end{DoxyReturn}
+\hypertarget{errhandler_8c_af66eb6bb72561c8898f4efd0286ede38}{\index{errhandler.\-c@{errhandler.\-c}!t\-M\-P\-I\-\_\-\-Create\-\_\-errhandler@{t\-M\-P\-I\-\_\-\-Create\-\_\-errhandler}}
+\index{t\-M\-P\-I\-\_\-\-Create\-\_\-errhandler@{t\-M\-P\-I\-\_\-\-Create\-\_\-errhandler}!errhandler.c@{errhandler.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Create\-\_\-errhandler}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf t\-M\-P\-I\-\_\-\-Create\-\_\-errhandler} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-M\-P\-I\-\_\-\-Errhandler\-\_\-fn} $\ast$}]{function, }
+\item[{{\bf t\-M\-P\-I\-\_\-\-Errhandler} $\ast$}]{errhandler}
+\end{DoxyParamCaption}
+)}}\label{errhandler_8c_af66eb6bb72561c8898f4efd0286ede38}
+\-Create an error handler object from a function.
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em function} & \-The function to make an error handler of. \\
+\hline
+\mbox{\tt out}  & {\em errhandler} & \-The error handler.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-T\-M\-P\-I\-\_\-\-S\-U\-C\-C\-E\-S\-S on success, \-T\-M\-P\-I\-\_\-\-F\-A\-I\-L\-U\-R\-E on failure. 
+\end{DoxyReturn}
+\hypertarget{errhandler_8c_aced398504881f1462402f007f75c83e4}{\index{errhandler.\-c@{errhandler.\-c}!t\-M\-P\-I\-\_\-\-Errhandler\-\_\-free@{t\-M\-P\-I\-\_\-\-Errhandler\-\_\-free}}
+\index{t\-M\-P\-I\-\_\-\-Errhandler\-\_\-free@{t\-M\-P\-I\-\_\-\-Errhandler\-\_\-free}!errhandler.c@{errhandler.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Errhandler\-\_\-free}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf t\-M\-P\-I\-\_\-\-Errhandler\-\_\-free} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-M\-P\-I\-\_\-\-Errhandler} $\ast$}]{errhandler}
+\end{DoxyParamCaption}
+)}}\label{errhandler_8c_aced398504881f1462402f007f75c83e4}
+\-Free the error handler object.
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em errhandler} & \-The error handler. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-T\-M\-P\-I\-\_\-\-S\-U\-C\-C\-E\-S\-S on success, \-T\-M\-P\-I\-\_\-\-F\-A\-I\-L\-U\-R\-E on failure. 
+\end{DoxyReturn}
+\hypertarget{errhandler_8c_aad3a3f99576e5f68e29016e8c6ead9cf}{\index{errhandler.\-c@{errhandler.\-c}!t\-M\-P\-I\-\_\-\-Error@{t\-M\-P\-I\-\_\-\-Error}}
+\index{t\-M\-P\-I\-\_\-\-Error@{t\-M\-P\-I\-\_\-\-Error}!errhandler.c@{errhandler.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Error}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf t\-M\-P\-I\-\_\-\-Error} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-M\-P\-I\-\_\-\-Comm}}]{comm, }
+\item[{int}]{tmpi\-\_\-errno}
+\end{DoxyParamCaption}
+)}}\label{errhandler_8c_aad3a3f99576e5f68e29016e8c6ead9cf}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{errhandler_8c_aad3a3f99576e5f68e29016e8c6ead9cf_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{errhandler_8c_aad3a3f99576e5f68e29016e8c6ead9cf_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{errhandler_8c_aa29cb545f05ee3faf0f824ef7845aed9}{\index{errhandler.\-c@{errhandler.\-c}!t\-M\-P\-I\-\_\-\-Error\-\_\-string@{t\-M\-P\-I\-\_\-\-Error\-\_\-string}}
+\index{t\-M\-P\-I\-\_\-\-Error\-\_\-string@{t\-M\-P\-I\-\_\-\-Error\-\_\-string}!errhandler.c@{errhandler.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Error\-\_\-string}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf t\-M\-P\-I\-\_\-\-Error\-\_\-string} (
+\begin{DoxyParamCaption}
+\item[{int}]{errorcode, }
+\item[{char $\ast$}]{string, }
+\item[{size\-\_\-t $\ast$}]{resultlen}
+\end{DoxyParamCaption}
+)}}\label{errhandler_8c_aa29cb545f05ee3faf0f824ef7845aed9}
+get the error string associated with an error code.
+
+\-The length of the error string will never exceed \-T\-M\-P\-I\-\_\-\-M\-A\-X\-\_\-\-E\-R\-R\-O\-R\-\_\-\-S\-T\-R\-I\-N\-G.
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em errorcode} & \-The error code. \\
+\hline
+\mbox{\tt out}  & {\em string} & \-The pre-\/allocated char pointer to output to. \\
+\hline
+\mbox{\tt out}  & {\em resultlen} & \-The length of the error string. \-Will never be longer than \-T\-M\-P\-I\-\_\-\-M\-A\-X\-\_\-\-E\-R\-R\-O\-R\-\_\-\-S\-T\-R\-I\-N\-G.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-T\-M\-P\-I\-\_\-\-S\-U\-C\-C\-E\-S\-S on success, \-T\-M\-P\-I\-\_\-\-F\-A\-I\-L\-U\-R\-E on failure. 
+\end{DoxyReturn}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{errhandler_8c_aa29cb545f05ee3faf0f824ef7845aed9_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{errhandler_8c_a321cdfec97590278b8129c3e7af8d02c}{\index{errhandler.\-c@{errhandler.\-c}!tmpi\-\_\-errors\-\_\-are\-\_\-fatal\-\_\-fn@{tmpi\-\_\-errors\-\_\-are\-\_\-fatal\-\_\-fn}}
+\index{tmpi\-\_\-errors\-\_\-are\-\_\-fatal\-\_\-fn@{tmpi\-\_\-errors\-\_\-are\-\_\-fatal\-\_\-fn}!errhandler.c@{errhandler.\-c}}
+\subsubsection[{tmpi\-\_\-errors\-\_\-are\-\_\-fatal\-\_\-fn}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf tmpi\-\_\-errors\-\_\-are\-\_\-fatal\-\_\-fn} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-M\-P\-I\-\_\-\-Comm} $\ast$}]{comm, }
+\item[{int $\ast$}]{err}
+\end{DoxyParamCaption}
+)}}\label{errhandler_8c_a321cdfec97590278b8129c3e7af8d02c}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=332pt]{errhandler_8c_a321cdfec97590278b8129c3e7af8d02c_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{errhandler_8c_a321cdfec97590278b8129c3e7af8d02c_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{errhandler_8c_ab9a01ba6c1c92507145bb34b17943993}{\index{errhandler.\-c@{errhandler.\-c}!tmpi\-\_\-errors\-\_\-return\-\_\-fn@{tmpi\-\_\-errors\-\_\-return\-\_\-fn}}
+\index{tmpi\-\_\-errors\-\_\-return\-\_\-fn@{tmpi\-\_\-errors\-\_\-return\-\_\-fn}!errhandler.c@{errhandler.\-c}}
+\subsubsection[{tmpi\-\_\-errors\-\_\-return\-\_\-fn}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf tmpi\-\_\-errors\-\_\-return\-\_\-fn} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-M\-P\-I\-\_\-\-Comm} $\ast$}]{comm, }
+\item[{int $\ast$}]{err}
+\end{DoxyParamCaption}
+)}}\label{errhandler_8c_ab9a01ba6c1c92507145bb34b17943993}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=320pt]{errhandler_8c_ab9a01ba6c1c92507145bb34b17943993_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{\-Variable \-Documentation}
+\hypertarget{errhandler_8c_a72526dd6ce374dcbb3ae866048302a7f}{\index{errhandler.\-c@{errhandler.\-c}!tmpi\-\_\-errmsg@{tmpi\-\_\-errmsg}}
+\index{tmpi\-\_\-errmsg@{tmpi\-\_\-errmsg}!errhandler.c@{errhandler.\-c}}
+\subsubsection[{tmpi\-\_\-errmsg}]{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ {\bf tmpi\-\_\-errmsg}\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{errhandler_8c_a72526dd6ce374dcbb3ae866048302a7f}
+{\bfseries \-Initial value\-:}
+\begin{DoxyCode}
+
+{
+    "No error",
+    "malloc failure in tMPI (out of memory)",
+    "tMPI Initialization error",
+    "tMPI Finalize error",
+    "Invalid tMPI_Group",
+    "Invalid tMPI_Comm",
+    "Invalid tMPI_Status",
+    "Invalid tMPI_Group rank",
+    "Invalid Cartesian topology dimensions",
+    "Invalid Cartesian topology coordinates",
+    "Insufficient number processes for Cartesian topology",
+    "Invalid counterpart for MPI transfer",
+    "Receive buffer size too small for transmission",
+    "Overlapping send/receive buffers: probably due to thread-unsafe code.",
+    "Invalid send destination",
+    "Invalid receive source",
+    "Invalid buffer (null pointer in send or receive buffer)",
+    "Multicast operation mismatch (multicast not collective across comm)",
+    "Invalid reduce operator",
+    "Out of receive envelopes: this shouldn't happen (probably a bug).",
+    "Out of receive requests: this shouldn't happen (probably a bug).",
+    "Transmission failure",
+    "Unknown tMPI error"
+}
+\end{DoxyCode}
+\hypertarget{errhandler_8c_abd5e6021b729aab9060bf8a9d28f78d4}{\index{errhandler.\-c@{errhandler.\-c}!tmpi\-\_\-errors\-\_\-are\-\_\-fatal@{tmpi\-\_\-errors\-\_\-are\-\_\-fatal}}
+\index{tmpi\-\_\-errors\-\_\-are\-\_\-fatal@{tmpi\-\_\-errors\-\_\-are\-\_\-fatal}!errhandler.c@{errhandler.\-c}}
+\subsubsection[{tmpi\-\_\-errors\-\_\-are\-\_\-fatal}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf tmpi\-\_\-errhandler\-\_\-} {\bf tmpi\-\_\-errors\-\_\-are\-\_\-fatal} = \{ 0, {\bf tmpi\-\_\-errors\-\_\-are\-\_\-fatal\-\_\-fn} \}}}\label{errhandler_8c_abd5e6021b729aab9060bf8a9d28f78d4}
+\hypertarget{errhandler_8c_ad0e5e2913e971ef5767773a7ed02c5af}{\index{errhandler.\-c@{errhandler.\-c}!\-T\-M\-P\-I\-\_\-\-E\-R\-R\-O\-R\-S\-\_\-\-A\-R\-E\-\_\-\-F\-A\-T\-A\-L@{\-T\-M\-P\-I\-\_\-\-E\-R\-R\-O\-R\-S\-\_\-\-A\-R\-E\-\_\-\-F\-A\-T\-A\-L}}
+\index{\-T\-M\-P\-I\-\_\-\-E\-R\-R\-O\-R\-S\-\_\-\-A\-R\-E\-\_\-\-F\-A\-T\-A\-L@{\-T\-M\-P\-I\-\_\-\-E\-R\-R\-O\-R\-S\-\_\-\-A\-R\-E\-\_\-\-F\-A\-T\-A\-L}!errhandler.c@{errhandler.\-c}}
+\subsubsection[{\-T\-M\-P\-I\-\_\-\-E\-R\-R\-O\-R\-S\-\_\-\-A\-R\-E\-\_\-\-F\-A\-T\-A\-L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\-M\-P\-I\-\_\-\-Errhandler} {\bf \-T\-M\-P\-I\-\_\-\-E\-R\-R\-O\-R\-S\-\_\-\-A\-R\-E\-\_\-\-F\-A\-T\-A\-L} = \&{\bf tmpi\-\_\-errors\-\_\-are\-\_\-fatal}}}\label{errhandler_8c_ad0e5e2913e971ef5767773a7ed02c5af}
+pre-\/defined error handler that abort()s on every error \hypertarget{errhandler_8c_acd8383cb608b109f4834b2d761a74386}{\index{errhandler.\-c@{errhandler.\-c}!tmpi\-\_\-errors\-\_\-return@{tmpi\-\_\-errors\-\_\-return}}
+\index{tmpi\-\_\-errors\-\_\-return@{tmpi\-\_\-errors\-\_\-return}!errhandler.c@{errhandler.\-c}}
+\subsubsection[{tmpi\-\_\-errors\-\_\-return}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf tmpi\-\_\-errhandler\-\_\-} {\bf tmpi\-\_\-errors\-\_\-return} = \{ 0, {\bf tmpi\-\_\-errors\-\_\-return\-\_\-fn} \}}}\label{errhandler_8c_acd8383cb608b109f4834b2d761a74386}
+\hypertarget{errhandler_8c_a1864a20728d47827aeba589e9524007c}{\index{errhandler.\-c@{errhandler.\-c}!\-T\-M\-P\-I\-\_\-\-E\-R\-R\-O\-R\-S\-\_\-\-R\-E\-T\-U\-R\-N@{\-T\-M\-P\-I\-\_\-\-E\-R\-R\-O\-R\-S\-\_\-\-R\-E\-T\-U\-R\-N}}
+\index{\-T\-M\-P\-I\-\_\-\-E\-R\-R\-O\-R\-S\-\_\-\-R\-E\-T\-U\-R\-N@{\-T\-M\-P\-I\-\_\-\-E\-R\-R\-O\-R\-S\-\_\-\-R\-E\-T\-U\-R\-N}!errhandler.c@{errhandler.\-c}}
+\subsubsection[{\-T\-M\-P\-I\-\_\-\-E\-R\-R\-O\-R\-S\-\_\-\-R\-E\-T\-U\-R\-N}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\-M\-P\-I\-\_\-\-Errhandler} {\bf \-T\-M\-P\-I\-\_\-\-E\-R\-R\-O\-R\-S\-\_\-\-R\-E\-T\-U\-R\-N} = \&{\bf tmpi\-\_\-errors\-\_\-return}}}\label{errhandler_8c_a1864a20728d47827aeba589e9524007c}
+pre-\/defined error handler that tries to continue on every error 

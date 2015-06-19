@@ -1,0 +1,501 @@
+\hypertarget{gmx__anaeig_8c}{\section{src/tools/gmx\-\_\-anaeig.c \-File \-Reference}
+\label{gmx__anaeig_8c}\index{src/tools/gmx\-\_\-anaeig.\-c@{src/tools/gmx\-\_\-anaeig.\-c}}
+}
+{\ttfamily \#include $<$math.\-h$>$}\*
+{\ttfamily \#include $<$string.\-h$>$}\*
+{\ttfamily \#include \char`\"{}statutil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}sysstuff.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}typedefs.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}smalloc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}macros.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-fatal.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}vec.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}pbc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}copyrite.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}futil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}index.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}pdbio.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}confio.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}tpxio.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}matio.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}mshift.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}xvgr.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}do\-\_\-fit.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}rmpbc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}txtdump.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}eigio.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}physics.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-ana.\-h\char`\"{}}\*
+\-Include dependency graph for gmx\-\_\-anaeig.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__anaeig_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{gmx__anaeig_8c_ab70d4725699c0935e4847676027e7820}{\-N\-P\-A}~\hyperlink{share_2template_2gromacs_2macros_8h_a0883345a58f8f63aefa249a4f127f707}{asize}(pa)
+\item 
+\#define \hyperlink{gmx__anaeig_8c_a8485f4e81de2537e6a0935626167a775}{\-N\-F\-I\-L\-E}~\hyperlink{share_2template_2gromacs_2macros_8h_a0883345a58f8f63aefa249a4f127f707}{asize}(fnm)
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__anaeig_8c_a182569e148a01435a5c466cbdb976ca1}{calc\-\_\-entropy\-\_\-qh} (\-F\-I\-L\-E $\ast$fp, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, real eigval\mbox{[}$\,$\mbox{]}, real \hyperlink{gmx__traj_8c_af8e82fafd78dc8db04fe532a01cdce3a}{temp}, int nskip)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__anaeig_8c_ab6eac10aa449cb22a5cf64860f64c3f9}{calc\-\_\-entropy\-\_\-schlitter} (\-F\-I\-L\-E $\ast$fp, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, int nskip, real $\ast$eigval, real \hyperlink{gmx__traj_8c_af8e82fafd78dc8db04fe532a01cdce3a}{temp})
+\item 
+static real \hyperlink{gmx__anaeig_8c_acf00d2ba6a49cd89957ddce2682fe4b6}{tick\-\_\-spacing} (real \hyperlink{xutils_8c_a7a0ed82b89da2a4d9d11d60e1dcdd161}{range}, int minticks)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__anaeig_8c_a1f0315bed948184acd392027a6ad94c8}{write\-\_\-xvgr\-\_\-graphs} (const char $\ast$file, int ngraphs, int nsetspergraph, const char $\ast$title, const char $\ast$subtitle, const char $\ast$xlabel, const char $\ast$$\ast$ylabel, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, real $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}, real $\ast$$\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ad992d70ec70c927046cfc2ab1c79b188}{y}, real $\ast$$\ast$$\ast$sy, real scale\-\_\-x, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Zero, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Split, const \hyperlink{include_2types_2oenv_8h_a6a48d77d95132d7318780544821da6a5}{output\-\_\-env\-\_\-t} oenv)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__anaeig_8c_af5583c19aa859bad4ddeadd823ffcf1d}{compare} (int natoms, int n1, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$$\ast$eigvec1, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a9cb1f8deec6ef9c5c07756803462c113}{n2}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$$\ast$eigvec2, real $\ast$eigval1, int neig1, real $\ast$eigval2, int neig2)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__anaeig_8c_a1716b282aefd688bd776d77e5b6490fa}{inprod\-\_\-matrix} (const char $\ast$matfile, int natoms, int nvec1, int $\ast$eignr1, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$$\ast$eigvec1, int nvec2, int $\ast$eignr2, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$$\ast$eigvec2, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Select, int noutvec, int $\ast$outvec)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__anaeig_8c_a396309d2248ee5e5cd7913dc92af4292}{overlap} (const char $\ast$outfile, int natoms, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$$\ast$eigvec1, int nvec2, int $\ast$eignr2, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$$\ast$eigvec2, int noutvec, int $\ast$outvec, const \hyperlink{include_2types_2oenv_8h_a6a48d77d95132d7318780544821da6a5}{output\-\_\-env\-\_\-t} oenv)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__anaeig_8c_a0d5af35d15787ce67f965456dc921eeb}{project} (const char $\ast$trajfile, \hyperlink{structt__topology}{t\-\_\-topology} $\ast$\hyperlink{gmx__disre_8c_a1b538a2ce75aba6c346bc03980ffeb28}{top}, int e\-P\-B\-C, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} topbox, const char $\ast$projfile, const char $\ast$twodplotfile, const char $\ast$threedplotfile, const char $\ast$filterfile, int skip, const char $\ast$extremefile, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Extr\-All, real extreme, int nextr, \hyperlink{structt__atoms}{t\-\_\-atoms} $\ast$atoms, int natoms, \hyperlink{include_2types_2simple_8h_ad3f47cdb48677e516e2049719612c737}{atom\-\_\-id} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a49fd977001162d7256c8fcd293f9d12a}{index}, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Fit, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$xref, int nfit, \hyperlink{include_2types_2simple_8h_ad3f47cdb48677e516e2049719612c737}{atom\-\_\-id} $\ast$ifit, real $\ast$w\-\_\-rls, real $\ast$sqrtm, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$xav, int $\ast$eignr, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$$\ast$eigvec, int noutvec, int $\ast$outvec, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Split, const \hyperlink{include_2types_2oenv_8h_a6a48d77d95132d7318780544821da6a5}{output\-\_\-env\-\_\-t} oenv)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__anaeig_8c_a9ab0378eeb03cb9137e1e965de81aa80}{components} (const char $\ast$outfile, int natoms, int $\ast$eignr, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$$\ast$eigvec, int noutvec, int $\ast$outvec, const \hyperlink{include_2types_2oenv_8h_a6a48d77d95132d7318780544821da6a5}{output\-\_\-env\-\_\-t} oenv)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__anaeig_8c_a3da519e9216f0e192be179d31610d539}{rmsf} (const char $\ast$outfile, int natoms, real $\ast$sqrtm, int $\ast$eignr, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$$\ast$eigvec, int noutvec, int $\ast$outvec, real $\ast$eigval, int neig, const \hyperlink{include_2types_2oenv_8h_a6a48d77d95132d7318780544821da6a5}{output\-\_\-env\-\_\-t} oenv)
+\item 
+int \hyperlink{gmx__anaeig_8c_aff2724c955e840a370bf3c4c7aa1c027}{gmx\-\_\-anaeig} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+\subsection*{\-Variables}
+\begin{DoxyCompactItemize}
+\item 
+const char $\ast$ \hyperlink{gmx__anaeig_8c_af03d4af20c65b968f43c057560a5d924}{proj\-\_\-unit}
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Define \-Documentation}
+\hypertarget{gmx__anaeig_8c_a8485f4e81de2537e6a0935626167a775}{\index{gmx\-\_\-anaeig.\-c@{gmx\-\_\-anaeig.\-c}!\-N\-F\-I\-L\-E@{\-N\-F\-I\-L\-E}}
+\index{\-N\-F\-I\-L\-E@{\-N\-F\-I\-L\-E}!gmx_anaeig.c@{gmx\-\_\-anaeig.\-c}}
+\subsubsection[{\-N\-F\-I\-L\-E}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-N\-F\-I\-L\-E}~{\bf asize}(fnm)}}\label{gmx__anaeig_8c_a8485f4e81de2537e6a0935626167a775}
+\hypertarget{gmx__anaeig_8c_ab70d4725699c0935e4847676027e7820}{\index{gmx\-\_\-anaeig.\-c@{gmx\-\_\-anaeig.\-c}!\-N\-P\-A@{\-N\-P\-A}}
+\index{\-N\-P\-A@{\-N\-P\-A}!gmx_anaeig.c@{gmx\-\_\-anaeig.\-c}}
+\subsubsection[{\-N\-P\-A}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-N\-P\-A}~{\bf asize}(pa)}}\label{gmx__anaeig_8c_ab70d4725699c0935e4847676027e7820}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{gmx__anaeig_8c_a182569e148a01435a5c466cbdb976ca1}{\index{gmx\-\_\-anaeig.\-c@{gmx\-\_\-anaeig.\-c}!calc\-\_\-entropy\-\_\-qh@{calc\-\_\-entropy\-\_\-qh}}
+\index{calc\-\_\-entropy\-\_\-qh@{calc\-\_\-entropy\-\_\-qh}!gmx_anaeig.c@{gmx\-\_\-anaeig.\-c}}
+\subsubsection[{calc\-\_\-entropy\-\_\-qh}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf calc\-\_\-entropy\-\_\-qh} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{int}]{n, }
+\item[{real}]{eigval\mbox{[}$\,$\mbox{]}, }
+\item[{real}]{temp, }
+\item[{int}]{nskip}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__anaeig_8c_a182569e148a01435a5c466cbdb976ca1}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=348pt]{gmx__anaeig_8c_a182569e148a01435a5c466cbdb976ca1_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__anaeig_8c_ab6eac10aa449cb22a5cf64860f64c3f9}{\index{gmx\-\_\-anaeig.\-c@{gmx\-\_\-anaeig.\-c}!calc\-\_\-entropy\-\_\-schlitter@{calc\-\_\-entropy\-\_\-schlitter}}
+\index{calc\-\_\-entropy\-\_\-schlitter@{calc\-\_\-entropy\-\_\-schlitter}!gmx_anaeig.c@{gmx\-\_\-anaeig.\-c}}
+\subsubsection[{calc\-\_\-entropy\-\_\-schlitter}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf calc\-\_\-entropy\-\_\-schlitter} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{int}]{n, }
+\item[{int}]{nskip, }
+\item[{real $\ast$}]{eigval, }
+\item[{real}]{temp}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__anaeig_8c_ab6eac10aa449cb22a5cf64860f64c3f9}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=346pt]{gmx__anaeig_8c_ab6eac10aa449cb22a5cf64860f64c3f9_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__anaeig_8c_ab6eac10aa449cb22a5cf64860f64c3f9_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__anaeig_8c_af5583c19aa859bad4ddeadd823ffcf1d}{\index{gmx\-\_\-anaeig.\-c@{gmx\-\_\-anaeig.\-c}!compare@{compare}}
+\index{compare@{compare}!gmx_anaeig.c@{gmx\-\_\-anaeig.\-c}}
+\subsubsection[{compare}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf compare} (
+\begin{DoxyParamCaption}
+\item[{int}]{natoms, }
+\item[{int}]{n1, }
+\item[{{\bf rvec} $\ast$$\ast$}]{eigvec1, }
+\item[{int}]{n2, }
+\item[{{\bf rvec} $\ast$$\ast$}]{eigvec2, }
+\item[{real $\ast$}]{eigval1, }
+\item[{int}]{neig1, }
+\item[{real $\ast$}]{eigval2, }
+\item[{int}]{neig2}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__anaeig_8c_af5583c19aa859bad4ddeadd823ffcf1d}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=208pt]{gmx__anaeig_8c_af5583c19aa859bad4ddeadd823ffcf1d_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=314pt]{gmx__anaeig_8c_af5583c19aa859bad4ddeadd823ffcf1d_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__anaeig_8c_a9ab0378eeb03cb9137e1e965de81aa80}{\index{gmx\-\_\-anaeig.\-c@{gmx\-\_\-anaeig.\-c}!components@{components}}
+\index{components@{components}!gmx_anaeig.c@{gmx\-\_\-anaeig.\-c}}
+\subsubsection[{components}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf components} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{outfile, }
+\item[{int}]{natoms, }
+\item[{int $\ast$}]{eignr, }
+\item[{{\bf rvec} $\ast$$\ast$}]{eigvec, }
+\item[{int}]{noutvec, }
+\item[{int $\ast$}]{outvec, }
+\item[{const {\bf output\-\_\-env\-\_\-t}}]{oenv}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__anaeig_8c_a9ab0378eeb03cb9137e1e965de81aa80}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__anaeig_8c_a9ab0378eeb03cb9137e1e965de81aa80_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=330pt]{gmx__anaeig_8c_a9ab0378eeb03cb9137e1e965de81aa80_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__anaeig_8c_aff2724c955e840a370bf3c4c7aa1c027}{\index{gmx\-\_\-anaeig.\-c@{gmx\-\_\-anaeig.\-c}!gmx\-\_\-anaeig@{gmx\-\_\-anaeig}}
+\index{gmx\-\_\-anaeig@{gmx\-\_\-anaeig}!gmx_anaeig.c@{gmx\-\_\-anaeig.\-c}}
+\subsubsection[{gmx\-\_\-anaeig}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-anaeig} (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{gmx__anaeig_8c_aff2724c955e840a370bf3c4c7aa1c027}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{gmx__anaeig_8c_aff2724c955e840a370bf3c4c7aa1c027_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=224pt]{gmx__anaeig_8c_aff2724c955e840a370bf3c4c7aa1c027_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__anaeig_8c_a1716b282aefd688bd776d77e5b6490fa}{\index{gmx\-\_\-anaeig.\-c@{gmx\-\_\-anaeig.\-c}!inprod\-\_\-matrix@{inprod\-\_\-matrix}}
+\index{inprod\-\_\-matrix@{inprod\-\_\-matrix}!gmx_anaeig.c@{gmx\-\_\-anaeig.\-c}}
+\subsubsection[{inprod\-\_\-matrix}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf inprod\-\_\-matrix} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{matfile, }
+\item[{int}]{natoms, }
+\item[{int}]{nvec1, }
+\item[{int $\ast$}]{eignr1, }
+\item[{{\bf rvec} $\ast$$\ast$}]{eigvec1, }
+\item[{int}]{nvec2, }
+\item[{int $\ast$}]{eignr2, }
+\item[{{\bf rvec} $\ast$$\ast$}]{eigvec2, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Select, }
+\item[{int}]{noutvec, }
+\item[{int $\ast$}]{outvec}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__anaeig_8c_a1716b282aefd688bd776d77e5b6490fa}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=254pt]{gmx__anaeig_8c_a1716b282aefd688bd776d77e5b6490fa_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=336pt]{gmx__anaeig_8c_a1716b282aefd688bd776d77e5b6490fa_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__anaeig_8c_a396309d2248ee5e5cd7913dc92af4292}{\index{gmx\-\_\-anaeig.\-c@{gmx\-\_\-anaeig.\-c}!overlap@{overlap}}
+\index{overlap@{overlap}!gmx_anaeig.c@{gmx\-\_\-anaeig.\-c}}
+\subsubsection[{overlap}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf overlap} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{outfile, }
+\item[{int}]{natoms, }
+\item[{{\bf rvec} $\ast$$\ast$}]{eigvec1, }
+\item[{int}]{nvec2, }
+\item[{int $\ast$}]{eignr2, }
+\item[{{\bf rvec} $\ast$$\ast$}]{eigvec2, }
+\item[{int}]{noutvec, }
+\item[{int $\ast$}]{outvec, }
+\item[{const {\bf output\-\_\-env\-\_\-t}}]{oenv}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__anaeig_8c_a396309d2248ee5e5cd7913dc92af4292}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=220pt]{gmx__anaeig_8c_a396309d2248ee5e5cd7913dc92af4292_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__anaeig_8c_a396309d2248ee5e5cd7913dc92af4292_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__anaeig_8c_a0d5af35d15787ce67f965456dc921eeb}{\index{gmx\-\_\-anaeig.\-c@{gmx\-\_\-anaeig.\-c}!project@{project}}
+\index{project@{project}!gmx_anaeig.c@{gmx\-\_\-anaeig.\-c}}
+\subsubsection[{project}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf project} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{trajfile, }
+\item[{{\bf t\-\_\-topology} $\ast$}]{top, }
+\item[{int}]{e\-P\-B\-C, }
+\item[{{\bf matrix}}]{topbox, }
+\item[{const char $\ast$}]{projfile, }
+\item[{const char $\ast$}]{twodplotfile, }
+\item[{const char $\ast$}]{threedplotfile, }
+\item[{const char $\ast$}]{filterfile, }
+\item[{int}]{skip, }
+\item[{const char $\ast$}]{extremefile, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Extr\-All, }
+\item[{real}]{extreme, }
+\item[{int}]{nextr, }
+\item[{{\bf t\-\_\-atoms} $\ast$}]{atoms, }
+\item[{int}]{natoms, }
+\item[{{\bf atom\-\_\-id} $\ast$}]{index, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Fit, }
+\item[{{\bf rvec} $\ast$}]{xref, }
+\item[{int}]{nfit, }
+\item[{{\bf atom\-\_\-id} $\ast$}]{ifit, }
+\item[{real $\ast$}]{w\-\_\-rls, }
+\item[{real $\ast$}]{sqrtm, }
+\item[{{\bf rvec} $\ast$}]{xav, }
+\item[{int $\ast$}]{eignr, }
+\item[{{\bf rvec} $\ast$$\ast$}]{eigvec, }
+\item[{int}]{noutvec, }
+\item[{int $\ast$}]{outvec, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Split, }
+\item[{const {\bf output\-\_\-env\-\_\-t}}]{oenv}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__anaeig_8c_a0d5af35d15787ce67f965456dc921eeb}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{gmx__anaeig_8c_a0d5af35d15787ce67f965456dc921eeb_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=306pt]{gmx__anaeig_8c_a0d5af35d15787ce67f965456dc921eeb_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__anaeig_8c_a3da519e9216f0e192be179d31610d539}{\index{gmx\-\_\-anaeig.\-c@{gmx\-\_\-anaeig.\-c}!rmsf@{rmsf}}
+\index{rmsf@{rmsf}!gmx_anaeig.c@{gmx\-\_\-anaeig.\-c}}
+\subsubsection[{rmsf}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf rmsf} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{outfile, }
+\item[{int}]{natoms, }
+\item[{real $\ast$}]{sqrtm, }
+\item[{int $\ast$}]{eignr, }
+\item[{{\bf rvec} $\ast$$\ast$}]{eigvec, }
+\item[{int}]{noutvec, }
+\item[{int $\ast$}]{outvec, }
+\item[{real $\ast$}]{eigval, }
+\item[{int}]{neig, }
+\item[{const {\bf output\-\_\-env\-\_\-t}}]{oenv}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__anaeig_8c_a3da519e9216f0e192be179d31610d539}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__anaeig_8c_a3da519e9216f0e192be179d31610d539_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=304pt]{gmx__anaeig_8c_a3da519e9216f0e192be179d31610d539_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__anaeig_8c_acf00d2ba6a49cd89957ddce2682fe4b6}{\index{gmx\-\_\-anaeig.\-c@{gmx\-\_\-anaeig.\-c}!tick\-\_\-spacing@{tick\-\_\-spacing}}
+\index{tick\-\_\-spacing@{tick\-\_\-spacing}!gmx_anaeig.c@{gmx\-\_\-anaeig.\-c}}
+\subsubsection[{tick\-\_\-spacing}]{\setlength{\rightskip}{0pt plus 5cm}static real {\bf tick\-\_\-spacing} (
+\begin{DoxyParamCaption}
+\item[{real}]{range, }
+\item[{int}]{minticks}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__anaeig_8c_acf00d2ba6a49cd89957ddce2682fe4b6}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__anaeig_8c_acf00d2ba6a49cd89957ddce2682fe4b6_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__anaeig_8c_a1f0315bed948184acd392027a6ad94c8}{\index{gmx\-\_\-anaeig.\-c@{gmx\-\_\-anaeig.\-c}!write\-\_\-xvgr\-\_\-graphs@{write\-\_\-xvgr\-\_\-graphs}}
+\index{write\-\_\-xvgr\-\_\-graphs@{write\-\_\-xvgr\-\_\-graphs}!gmx_anaeig.c@{gmx\-\_\-anaeig.\-c}}
+\subsubsection[{write\-\_\-xvgr\-\_\-graphs}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf write\-\_\-xvgr\-\_\-graphs} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{file, }
+\item[{int}]{ngraphs, }
+\item[{int}]{nsetspergraph, }
+\item[{const char $\ast$}]{title, }
+\item[{const char $\ast$}]{subtitle, }
+\item[{const char $\ast$}]{xlabel, }
+\item[{const char $\ast$$\ast$}]{ylabel, }
+\item[{int}]{n, }
+\item[{real $\ast$}]{x, }
+\item[{real $\ast$$\ast$}]{y, }
+\item[{real $\ast$$\ast$$\ast$}]{sy, }
+\item[{real}]{scale\-\_\-x, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Zero, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Split, }
+\item[{const {\bf output\-\_\-env\-\_\-t}}]{oenv}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__anaeig_8c_a1f0315bed948184acd392027a6ad94c8}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__anaeig_8c_a1f0315bed948184acd392027a6ad94c8_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__anaeig_8c_a1f0315bed948184acd392027a6ad94c8_icgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{\-Variable \-Documentation}
+\hypertarget{gmx__anaeig_8c_af03d4af20c65b968f43c057560a5d924}{\index{gmx\-\_\-anaeig.\-c@{gmx\-\_\-anaeig.\-c}!proj\-\_\-unit@{proj\-\_\-unit}}
+\index{proj\-\_\-unit@{proj\-\_\-unit}!gmx_anaeig.c@{gmx\-\_\-anaeig.\-c}}
+\subsubsection[{proj\-\_\-unit}]{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ {\bf proj\-\_\-unit}}}\label{gmx__anaeig_8c_af03d4af20c65b968f43c057560a5d924}

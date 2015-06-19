@@ -1,0 +1,434 @@
+\hypertarget{adress_8h}{\section{src/mdlib/adress.h \-File \-Reference}
+\label{adress_8h}\index{src/mdlib/adress.\-h@{src/mdlib/adress.\-h}}
+}
+
+
+\-Implementation of the \-Ad\-Res\-S method.  
+
+
+{\ttfamily \#include \char`\"{}types/simple.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}typedefs.\-h\char`\"{}}\*
+\-Include dependency graph for adress.\-h\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=240pt]{adress_8h__incl}
+\end{center}
+\end{figure}
+\-This graph shows which files directly or indirectly include this file\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{adress_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+real \hyperlink{adress_8h_ae445f32c05db28a88773bf94d440baba}{adress\-\_\-weight} (\hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}, int adresstype, real adressr, real adressw, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$\hyperlink{fftpack_8c_a57dec261ae8d707837a32a7f92476a21}{ref}, \hyperlink{structt__pbc}{t\-\_\-pbc} $\ast$pbc, \hyperlink{structt__forcerec}{t\-\_\-forcerec} $\ast$\hyperlink{addconf_8c_ae8414314f87c5e49503ac0117eb511ad}{fr})
+\begin{DoxyCompactList}\small\item\em calculates the \-Ad\-Res\-S weight of a particle \end{DoxyCompactList}\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{adress_8h_a82a7767f8f8cf592394bd2368e2a912b}{update\-\_\-adress\-\_\-weights\-\_\-com} (\-F\-I\-L\-E $\ast$fplog, int cg0, int cg1, \hyperlink{structt__block}{t\-\_\-block} $\ast$cgs, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{structt__forcerec}{t\-\_\-forcerec} $\ast$\hyperlink{addconf_8c_ae8414314f87c5e49503ac0117eb511ad}{fr}, \hyperlink{structt__mdatoms}{t\-\_\-mdatoms} $\ast$mdatoms, \hyperlink{structt__pbc}{t\-\_\-pbc} $\ast$pbc)
+\begin{DoxyCompactList}\small\item\em update the weight of all coarse-\/grained particles in several charge groups for com vsites \end{DoxyCompactList}\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{adress_8h_a0f6d84888a5d9f969f6df7cee57b03f2}{update\-\_\-adress\-\_\-weights\-\_\-cog} (\hyperlink{uniont__iparams}{t\-\_\-iparams} ip\mbox{[}$\,$\mbox{]}, \hyperlink{structt__ilist}{t\-\_\-ilist} ilist\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{structt__forcerec}{t\-\_\-forcerec} $\ast$\hyperlink{addconf_8c_ae8414314f87c5e49503ac0117eb511ad}{fr}, \hyperlink{structt__mdatoms}{t\-\_\-mdatoms} $\ast$mdatoms, \hyperlink{structt__pbc}{t\-\_\-pbc} $\ast$pbc)
+\begin{DoxyCompactList}\small\item\em update the weight of all coarse-\/grained particles for cog vsites \end{DoxyCompactList}\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{adress_8h_afa78a25d131415abbf41f83075ba38b5}{update\-\_\-adress\-\_\-weights\-\_\-atom} (int cg0, int cg1, \hyperlink{structt__block}{t\-\_\-block} $\ast$cgs, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{structt__forcerec}{t\-\_\-forcerec} $\ast$\hyperlink{addconf_8c_ae8414314f87c5e49503ac0117eb511ad}{fr}, \hyperlink{structt__mdatoms}{t\-\_\-mdatoms} $\ast$mdatoms, \hyperlink{structt__pbc}{t\-\_\-pbc} $\ast$pbc)
+\begin{DoxyCompactList}\small\item\em update the weight of all coarse-\/grained particles in several charge groups for atom vsites \end{DoxyCompactList}\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{adress_8h_aed70962ddb5cf56b2e5344d8f9ed257d}{update\-\_\-adress\-\_\-weights\-\_\-atom\-\_\-per\-\_\-atom} (int cg0, int cg1, \hyperlink{structt__block}{t\-\_\-block} $\ast$cgs, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{structt__forcerec}{t\-\_\-forcerec} $\ast$\hyperlink{addconf_8c_ae8414314f87c5e49503ac0117eb511ad}{fr}, \hyperlink{structt__mdatoms}{t\-\_\-mdatoms} $\ast$mdatoms, \hyperlink{structt__pbc}{t\-\_\-pbc} $\ast$pbc)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{adress_8h_aafba90f58ba0bc3c9f513a171647d7bf}{adress\-\_\-thermo\-\_\-force} (int cg0, int cg1, \hyperlink{structt__block}{t\-\_\-block} $\ast$cgs, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{copyrite_8c_a0757cfb6fe645a02867727255faa4f8b}{f}\mbox{[}$\,$\mbox{]}, \hyperlink{structt__forcerec}{t\-\_\-forcerec} $\ast$\hyperlink{addconf_8c_ae8414314f87c5e49503ac0117eb511ad}{fr}, \hyperlink{structt__mdatoms}{t\-\_\-mdatoms} $\ast$mdatoms, \hyperlink{structt__pbc}{t\-\_\-pbc} $\ast$pbc)
+\begin{DoxyCompactList}\small\item\em add \-Ad\-Res\-S \-I\-C thermodynamic force to f\-\_\-novirsum \end{DoxyCompactList}\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{adress_8h_ab476485087a1ae7b65f307eb0c044dc4}{adress\-\_\-set\-\_\-kernel\-\_\-flags} (int n\-\_\-ex, int n\-\_\-hyb, int n\-\_\-cg, \hyperlink{structt__mdatoms}{t\-\_\-mdatoms} $\ast$mdatoms)
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{adress_8h_ae48dce3a4531367fbe57ed661d8b0d39}{egp\-\_\-explicit} (\hyperlink{structt__forcerec}{t\-\_\-forcerec} $\ast$\hyperlink{addconf_8c_ae8414314f87c5e49503ac0117eb511ad}{fr}, int egp\-\_\-nr)
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{adress_8h_a8f4be28cc2e232389b18c883c62558c1}{egp\-\_\-coarsegrained} (\hyperlink{structt__forcerec}{t\-\_\-forcerec} $\ast$\hyperlink{addconf_8c_ae8414314f87c5e49503ac0117eb511ad}{fr}, int egp\-\_\-nr)
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Detailed \-Description}
+\-Implementation of the \-Ad\-Res\-S method. 
+
+\subsection{\-Function \-Documentation}
+\hypertarget{adress_8h_ab476485087a1ae7b65f307eb0c044dc4}{\index{adress.\-h@{adress.\-h}!adress\-\_\-set\-\_\-kernel\-\_\-flags@{adress\-\_\-set\-\_\-kernel\-\_\-flags}}
+\index{adress\-\_\-set\-\_\-kernel\-\_\-flags@{adress\-\_\-set\-\_\-kernel\-\_\-flags}!adress.h@{adress.\-h}}
+\subsubsection[{adress\-\_\-set\-\_\-kernel\-\_\-flags}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf adress\-\_\-set\-\_\-kernel\-\_\-flags} (
+\begin{DoxyParamCaption}
+\item[{int}]{n\-\_\-ex, }
+\item[{int}]{n\-\_\-hyb, }
+\item[{int}]{n\-\_\-cg, }
+\item[{{\bf t\-\_\-mdatoms} $\ast$}]{mdatoms}
+\end{DoxyParamCaption}
+)}}\label{adress_8h_ab476485087a1ae7b65f307eb0c044dc4}
+\hypertarget{adress_8h_aafba90f58ba0bc3c9f513a171647d7bf}{\index{adress.\-h@{adress.\-h}!adress\-\_\-thermo\-\_\-force@{adress\-\_\-thermo\-\_\-force}}
+\index{adress\-\_\-thermo\-\_\-force@{adress\-\_\-thermo\-\_\-force}!adress.h@{adress.\-h}}
+\subsubsection[{adress\-\_\-thermo\-\_\-force}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf adress\-\_\-thermo\-\_\-force} (
+\begin{DoxyParamCaption}
+\item[{int}]{cg0, }
+\item[{int}]{cg1, }
+\item[{{\bf t\-\_\-block} $\ast$}]{cgs, }
+\item[{{\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{f\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf t\-\_\-forcerec} $\ast$}]{fr, }
+\item[{{\bf t\-\_\-mdatoms} $\ast$}]{mdatoms, }
+\item[{{\bf t\-\_\-pbc} $\ast$}]{pbc}
+\end{DoxyParamCaption}
+)}}\label{adress_8h_aafba90f58ba0bc3c9f513a171647d7bf}
+
+
+add \-Ad\-Res\-S \-I\-C thermodynamic force to f\-\_\-novirsum 
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em cg0} & first charge group to update \\
+\hline
+\mbox{\tt in}  & {\em cg1} & last+1 charge group to update \\
+\hline
+\mbox{\tt in}  & {\em cgs} & block containing the cg index \\
+\hline
+\mbox{\tt in}  & {\em x} & array with all the particle positions \\
+\hline
+\mbox{\tt in,out}  & {\em f} & the force array pointing at f\-\_\-novirsum from sim\-\_\-util.\-c \\
+\hline
+\mbox{\tt in}  & {\em fr} & the forcerec containing all the parameters \\
+\hline
+\mbox{\tt in}  & {\em mdatoms} & the struct containing all the atoms properties \\
+\hline
+\mbox{\tt in}  & {\em pbc} & for shortest distance to fr-\/$>$adress\-\_\-refs \\
+\hline
+\end{DoxyParams}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=322pt]{adress_8h_aafba90f58ba0bc3c9f513a171647d7bf_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{adress_8h_aafba90f58ba0bc3c9f513a171647d7bf_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{adress_8h_ae445f32c05db28a88773bf94d440baba}{\index{adress.\-h@{adress.\-h}!adress\-\_\-weight@{adress\-\_\-weight}}
+\index{adress\-\_\-weight@{adress\-\_\-weight}!adress.h@{adress.\-h}}
+\subsubsection[{adress\-\_\-weight}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf adress\-\_\-weight} (
+\begin{DoxyParamCaption}
+\item[{{\bf rvec}}]{x, }
+\item[{int}]{adresstype, }
+\item[{real}]{adressr, }
+\item[{real}]{adressw, }
+\item[{{\bf rvec} $\ast$}]{ref, }
+\item[{{\bf t\-\_\-pbc} $\ast$}]{pbc, }
+\item[{{\bf t\-\_\-forcerec} $\ast$}]{fr}
+\end{DoxyParamCaption}
+)}}\label{adress_8h_ae445f32c05db28a88773bf94d440baba}
+
+
+calculates the \-Ad\-Res\-S weight of a particle 
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em x} & position of the particle \\
+\hline
+\mbox{\tt in}  & {\em adresstype} & type of address weight function e\-Adress\-Off -\/ explicit simulation e\-Adress\-Const -\/ constant weight all over the box e\-Adress\-X\-Split -\/ split in x direction with ref as center e\-Adress\-Sphere -\/ spherical splitting with ref as center else -\/ weight = 1 -\/ explicit simulation \\
+\hline
+\mbox{\tt in}  & {\em adressr} & radius/size of the explicit zone \\
+\hline
+\mbox{\tt in}  & {\em adressw} & size of the hybrid zone \\
+\hline
+\mbox{\tt in}  & {\em ref} & center of the explicit zone for adresstype 1 -\/ unused for adresstype 2 -\/ only ref\mbox{[}0\mbox{]} is used \\
+\hline
+\mbox{\tt in}  & {\em pbc} & for calculating shortest distance to ref\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+weight of the particle 
+\end{DoxyReturn}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=252pt]{adress_8h_ae445f32c05db28a88773bf94d440baba_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{adress_8h_ae445f32c05db28a88773bf94d440baba_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{adress_8h_a8f4be28cc2e232389b18c883c62558c1}{\index{adress.\-h@{adress.\-h}!egp\-\_\-coarsegrained@{egp\-\_\-coarsegrained}}
+\index{egp\-\_\-coarsegrained@{egp\-\_\-coarsegrained}!adress.h@{adress.\-h}}
+\subsubsection[{egp\-\_\-coarsegrained}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf egp\-\_\-coarsegrained} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-forcerec} $\ast$}]{fr, }
+\item[{int}]{egp\-\_\-nr}
+\end{DoxyParamCaption}
+)}}\label{adress_8h_a8f4be28cc2e232389b18c883c62558c1}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{adress_8h_a8f4be28cc2e232389b18c883c62558c1_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{adress_8h_ae48dce3a4531367fbe57ed661d8b0d39}{\index{adress.\-h@{adress.\-h}!egp\-\_\-explicit@{egp\-\_\-explicit}}
+\index{egp\-\_\-explicit@{egp\-\_\-explicit}!adress.h@{adress.\-h}}
+\subsubsection[{egp\-\_\-explicit}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf egp\-\_\-explicit} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-forcerec} $\ast$}]{fr, }
+\item[{int}]{egp\-\_\-nr}
+\end{DoxyParamCaption}
+)}}\label{adress_8h_ae48dce3a4531367fbe57ed661d8b0d39}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{adress_8h_ae48dce3a4531367fbe57ed661d8b0d39_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{adress_8h_afa78a25d131415abbf41f83075ba38b5}{\index{adress.\-h@{adress.\-h}!update\-\_\-adress\-\_\-weights\-\_\-atom@{update\-\_\-adress\-\_\-weights\-\_\-atom}}
+\index{update\-\_\-adress\-\_\-weights\-\_\-atom@{update\-\_\-adress\-\_\-weights\-\_\-atom}!adress.h@{adress.\-h}}
+\subsubsection[{update\-\_\-adress\-\_\-weights\-\_\-atom}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf update\-\_\-adress\-\_\-weights\-\_\-atom} (
+\begin{DoxyParamCaption}
+\item[{int}]{cg0, }
+\item[{int}]{cg1, }
+\item[{{\bf t\-\_\-block} $\ast$}]{cgs, }
+\item[{{\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf t\-\_\-forcerec} $\ast$}]{fr, }
+\item[{{\bf t\-\_\-mdatoms} $\ast$}]{mdatoms, }
+\item[{{\bf t\-\_\-pbc} $\ast$}]{pbc}
+\end{DoxyParamCaption}
+)}}\label{adress_8h_afa78a25d131415abbf41f83075ba38b5}
+
+
+update the weight of all coarse-\/grained particles in several charge groups for atom vsites 
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em cg0} & first charge group to update \\
+\hline
+\mbox{\tt in}  & {\em cg1} & last+1 charge group to update \\
+\hline
+\mbox{\tt in}  & {\em cgs} & block containing the cg index \\
+\hline
+\mbox{\tt in}  & {\em x} & array with all the particle positions \\
+\hline
+\mbox{\tt in}  & {\em fr} & the forcerec containing all the parameters \\
+\hline
+\mbox{\tt in,out}  & {\em mdatoms} & the struct containing all the atoms properties \\
+\hline
+\mbox{\tt in}  & {\em pbc} & for shortest distance in adress\-\_\-weight \\
+\hline
+\end{DoxyParams}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{adress_8h_afa78a25d131415abbf41f83075ba38b5_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{adress_8h_afa78a25d131415abbf41f83075ba38b5_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{adress_8h_aed70962ddb5cf56b2e5344d8f9ed257d}{\index{adress.\-h@{adress.\-h}!update\-\_\-adress\-\_\-weights\-\_\-atom\-\_\-per\-\_\-atom@{update\-\_\-adress\-\_\-weights\-\_\-atom\-\_\-per\-\_\-atom}}
+\index{update\-\_\-adress\-\_\-weights\-\_\-atom\-\_\-per\-\_\-atom@{update\-\_\-adress\-\_\-weights\-\_\-atom\-\_\-per\-\_\-atom}!adress.h@{adress.\-h}}
+\subsubsection[{update\-\_\-adress\-\_\-weights\-\_\-atom\-\_\-per\-\_\-atom}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf update\-\_\-adress\-\_\-weights\-\_\-atom\-\_\-per\-\_\-atom} (
+\begin{DoxyParamCaption}
+\item[{int}]{cg0, }
+\item[{int}]{cg1, }
+\item[{{\bf t\-\_\-block} $\ast$}]{cgs, }
+\item[{{\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf t\-\_\-forcerec} $\ast$}]{fr, }
+\item[{{\bf t\-\_\-mdatoms} $\ast$}]{mdatoms, }
+\item[{{\bf t\-\_\-pbc} $\ast$}]{pbc}
+\end{DoxyParamCaption}
+)}}\label{adress_8h_aed70962ddb5cf56b2e5344d8f9ed257d}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{adress_8h_aed70962ddb5cf56b2e5344d8f9ed257d_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{adress_8h_aed70962ddb5cf56b2e5344d8f9ed257d_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{adress_8h_a0f6d84888a5d9f969f6df7cee57b03f2}{\index{adress.\-h@{adress.\-h}!update\-\_\-adress\-\_\-weights\-\_\-cog@{update\-\_\-adress\-\_\-weights\-\_\-cog}}
+\index{update\-\_\-adress\-\_\-weights\-\_\-cog@{update\-\_\-adress\-\_\-weights\-\_\-cog}!adress.h@{adress.\-h}}
+\subsubsection[{update\-\_\-adress\-\_\-weights\-\_\-cog}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf update\-\_\-adress\-\_\-weights\-\_\-cog} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-iparams}}]{ip\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf t\-\_\-ilist}}]{ilist\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf t\-\_\-forcerec} $\ast$}]{fr, }
+\item[{{\bf t\-\_\-mdatoms} $\ast$}]{mdatoms, }
+\item[{{\bf t\-\_\-pbc} $\ast$}]{pbc}
+\end{DoxyParamCaption}
+)}}\label{adress_8h_a0f6d84888a5d9f969f6df7cee57b03f2}
+
+
+update the weight of all coarse-\/grained particles for cog vsites 
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em ip} & contains interaction parameters, in this case the number of constructing atoms n for vsitesn \\
+\hline
+\mbox{\tt in}  & {\em ilist} & list of interaction types, in this case the virtual site types are what's important \\
+\hline
+\mbox{\tt in}  & {\em x} & array with all the particle positions \\
+\hline
+\mbox{\tt in}  & {\em fr} & the forcerec containing all the parameters \\
+\hline
+\mbox{\tt in,out}  & {\em mdatoms} & the struct containing all the atoms properties \\
+\hline
+\mbox{\tt in}  & {\em pbc} & for shortest distance in adress\-\_\-weight \\
+\hline
+\end{DoxyParams}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{adress_8h_a0f6d84888a5d9f969f6df7cee57b03f2_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{adress_8h_a0f6d84888a5d9f969f6df7cee57b03f2_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{adress_8h_a82a7767f8f8cf592394bd2368e2a912b}{\index{adress.\-h@{adress.\-h}!update\-\_\-adress\-\_\-weights\-\_\-com@{update\-\_\-adress\-\_\-weights\-\_\-com}}
+\index{update\-\_\-adress\-\_\-weights\-\_\-com@{update\-\_\-adress\-\_\-weights\-\_\-com}!adress.h@{adress.\-h}}
+\subsubsection[{update\-\_\-adress\-\_\-weights\-\_\-com}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf update\-\_\-adress\-\_\-weights\-\_\-com} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fplog, }
+\item[{int}]{cg0, }
+\item[{int}]{cg1, }
+\item[{{\bf t\-\_\-block} $\ast$}]{cgs, }
+\item[{{\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf t\-\_\-forcerec} $\ast$}]{fr, }
+\item[{{\bf t\-\_\-mdatoms} $\ast$}]{mdatoms, }
+\item[{{\bf t\-\_\-pbc} $\ast$}]{pbc}
+\end{DoxyParamCaption}
+)}}\label{adress_8h_a82a7767f8f8cf592394bd2368e2a912b}
+
+
+update the weight of all coarse-\/grained particles in several charge groups for com vsites 
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in,out}  & {\em fplog} & log file in case of debug \\
+\hline
+\mbox{\tt in}  & {\em cg0} & first charge group to update \\
+\hline
+\mbox{\tt in}  & {\em cg1} & last+1 charge group to update \\
+\hline
+\mbox{\tt in}  & {\em cgs} & block containing the cg index \\
+\hline
+\mbox{\tt in}  & {\em x} & array with all the particle positions \\
+\hline
+\mbox{\tt in}  & {\em fr} & the forcerec containing all the parameters \\
+\hline
+\mbox{\tt in,out}  & {\em mdatoms} & the struct containing all the atoms properties \\
+\hline
+\mbox{\tt in}  & {\em pbc} & for shortest distance in adress\-\_\-weight \\
+\hline
+\end{DoxyParams}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{adress_8h_a82a7767f8f8cf592394bd2368e2a912b_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{adress_8h_a82a7767f8f8cf592394bd2368e2a912b_icgraph}
+\end{center}
+\end{figure}
+
+

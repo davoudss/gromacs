@@ -1,0 +1,107 @@
+\hypertarget{share_2template_2gromacs_2types_2topology_8h}{\section{share/template/gromacs/types/topology.h \-File \-Reference}
+\label{share_2template_2gromacs_2types_2topology_8h}\index{share/template/gromacs/types/topology.\-h@{share/template/gromacs/types/topology.\-h}}
+}
+{\ttfamily \#include \char`\"{}atoms.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}idef.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}block.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}simple.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}symtab.\-h\char`\"{}}\*
+\-Include dependency graph for topology.\-h\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=348pt]{share_2template_2gromacs_2types_2topology_8h__incl}
+\end{center}
+\end{figure}
+\-This graph shows which files directly or indirectly include this file\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{share_2template_2gromacs_2types_2topology_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structgmx__moltype__t}{gmx\-\_\-moltype\-\_\-t}
+\item 
+struct \hyperlink{structgmx__molblock__t}{gmx\-\_\-molblock\-\_\-t}
+\item 
+struct \hyperlink{structgmx__groups__t}{gmx\-\_\-groups\-\_\-t}
+\item 
+struct \hyperlink{structgmx__mtop__t}{gmx\-\_\-mtop\-\_\-t}
+\item 
+struct \hyperlink{structgmx__localtop__t}{gmx\-\_\-localtop\-\_\-t}
+\item 
+struct \hyperlink{structt__topology}{t\-\_\-topology}
+\end{DoxyCompactItemize}
+\subsection*{\-Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{share_2template_2gromacs_2types_2topology_8h_a723b955622d373fc02b3cb1795b325f2}{ggrpnr}(groups, egc, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a3c7542401c1cb8bd37ef5e7d9eb0f5a8}{i})~((groups)-\/$>$grpnr\mbox{[}egc\mbox{]} ? (groups)-\/$>$grpnr\mbox{[}egc\mbox{]}\mbox{[}\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a3c7542401c1cb8bd37ef5e7d9eb0f5a8}{i}\mbox{]} \-: 0)
+\end{DoxyCompactItemize}
+\subsection*{\-Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \{ \*
+\hyperlink{share_2template_2gromacs_2types_2topology_8h_ad86178b9def692404403c1e6ef728ceda1fd1e9258819d1388c080d158d336a57}{egc\-T\-C}, 
+\hyperlink{share_2template_2gromacs_2types_2topology_8h_ad86178b9def692404403c1e6ef728ceda16a08f1c34366d87ca4daab44ec78522}{egc\-E\-N\-E\-R}, 
+\hyperlink{share_2template_2gromacs_2types_2topology_8h_ad86178b9def692404403c1e6ef728cedad42bfc7295656fa6ba702437fdc27e8c}{egc\-A\-C\-C}, 
+\hyperlink{share_2template_2gromacs_2types_2topology_8h_ad86178b9def692404403c1e6ef728cedad878412fad49117ca788544026e7e1d4}{egc\-F\-R\-E\-E\-Z\-E}, 
+\*
+\hyperlink{share_2template_2gromacs_2types_2topology_8h_ad86178b9def692404403c1e6ef728ceda475ca22526f67177dfbbda3a86312253}{egc\-User1}, 
+\hyperlink{share_2template_2gromacs_2types_2topology_8h_ad86178b9def692404403c1e6ef728cedad3ae16ba7578cc6a2b96a760f35c8cad}{egc\-User2}, 
+\hyperlink{share_2template_2gromacs_2types_2topology_8h_ad86178b9def692404403c1e6ef728ceda1c5337a03738a848beb26bc8f81c1a08}{egc\-V\-C\-M}, 
+\hyperlink{share_2template_2gromacs_2types_2topology_8h_ad86178b9def692404403c1e6ef728ceda0858ea0ff125f58d432813494cbe25e3}{egc\-X\-T\-C}, 
+\*
+\hyperlink{share_2template_2gromacs_2types_2topology_8h_ad86178b9def692404403c1e6ef728ceda5a9e56047a8da1ab38dab518b36c06d7}{egc\-O\-R\-F\-I\-T}, 
+\hyperlink{share_2template_2gromacs_2types_2topology_8h_ad86178b9def692404403c1e6ef728cedac2ad643ccc167d8c8237ea3589bac77e}{egc\-Q\-M\-M\-M}, 
+\hyperlink{share_2template_2gromacs_2types_2topology_8h_ad86178b9def692404403c1e6ef728ceda1091dba7908e48216b1a7974e4748031}{egc\-N\-R}
+ \}
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Define \-Documentation}
+\hypertarget{share_2template_2gromacs_2types_2topology_8h_a723b955622d373fc02b3cb1795b325f2}{\index{share/template/gromacs/types/topology.\-h@{share/template/gromacs/types/topology.\-h}!ggrpnr@{ggrpnr}}
+\index{ggrpnr@{ggrpnr}!share/template/gromacs/types/topology.h@{share/template/gromacs/types/topology.\-h}}
+\subsubsection[{ggrpnr}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf ggrpnr}(
+\begin{DoxyParamCaption}
+\item[{}]{groups, }
+\item[{}]{egc, }
+\item[{}]{{\bf i}}
+\end{DoxyParamCaption}
+)~((groups)-\/$>$grpnr\mbox{[}egc\mbox{]} ? (groups)-\/$>$grpnr\mbox{[}egc\mbox{]}\mbox{[}{\bf i}\mbox{]} \-: 0)}}\label{share_2template_2gromacs_2types_2topology_8h_a723b955622d373fc02b3cb1795b325f2}
+
+
+\subsection{\-Enumeration \-Type \-Documentation}
+\hypertarget{share_2template_2gromacs_2types_2topology_8h_ad86178b9def692404403c1e6ef728ced}{\subsubsection[{anonymous enum}]{\setlength{\rightskip}{0pt plus 5cm}anonymous enum}}\label{share_2template_2gromacs_2types_2topology_8h_ad86178b9def692404403c1e6ef728ced}
+\begin{Desc}
+\item[\-Enumerator\-: ]\par
+\begin{description}
+\index{egc\-T\-C@{egc\-T\-C}!share/template/gromacs/types/topology.\-h@{share/template/gromacs/types/topology.\-h}}\index{share/template/gromacs/types/topology.\-h@{share/template/gromacs/types/topology.\-h}!egc\-T\-C@{egc\-T\-C}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2types_2topology_8h_ad86178b9def692404403c1e6ef728ceda1fd1e9258819d1388c080d158d336a57}{egc\-T\-C}\label{share_2template_2gromacs_2types_2topology_8h_ad86178b9def692404403c1e6ef728ceda1fd1e9258819d1388c080d158d336a57}
+}]\index{egc\-E\-N\-E\-R@{egc\-E\-N\-E\-R}!share/template/gromacs/types/topology.\-h@{share/template/gromacs/types/topology.\-h}}\index{share/template/gromacs/types/topology.\-h@{share/template/gromacs/types/topology.\-h}!egc\-E\-N\-E\-R@{egc\-E\-N\-E\-R}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2types_2topology_8h_ad86178b9def692404403c1e6ef728ceda16a08f1c34366d87ca4daab44ec78522}{egc\-E\-N\-E\-R}\label{share_2template_2gromacs_2types_2topology_8h_ad86178b9def692404403c1e6ef728ceda16a08f1c34366d87ca4daab44ec78522}
+}]\index{egc\-A\-C\-C@{egc\-A\-C\-C}!share/template/gromacs/types/topology.\-h@{share/template/gromacs/types/topology.\-h}}\index{share/template/gromacs/types/topology.\-h@{share/template/gromacs/types/topology.\-h}!egc\-A\-C\-C@{egc\-A\-C\-C}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2types_2topology_8h_ad86178b9def692404403c1e6ef728cedad42bfc7295656fa6ba702437fdc27e8c}{egc\-A\-C\-C}\label{share_2template_2gromacs_2types_2topology_8h_ad86178b9def692404403c1e6ef728cedad42bfc7295656fa6ba702437fdc27e8c}
+}]\index{egc\-F\-R\-E\-E\-Z\-E@{egc\-F\-R\-E\-E\-Z\-E}!share/template/gromacs/types/topology.\-h@{share/template/gromacs/types/topology.\-h}}\index{share/template/gromacs/types/topology.\-h@{share/template/gromacs/types/topology.\-h}!egc\-F\-R\-E\-E\-Z\-E@{egc\-F\-R\-E\-E\-Z\-E}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2types_2topology_8h_ad86178b9def692404403c1e6ef728cedad878412fad49117ca788544026e7e1d4}{egc\-F\-R\-E\-E\-Z\-E}\label{share_2template_2gromacs_2types_2topology_8h_ad86178b9def692404403c1e6ef728cedad878412fad49117ca788544026e7e1d4}
+}]\index{egc\-User1@{egc\-User1}!share/template/gromacs/types/topology.\-h@{share/template/gromacs/types/topology.\-h}}\index{share/template/gromacs/types/topology.\-h@{share/template/gromacs/types/topology.\-h}!egc\-User1@{egc\-User1}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2types_2topology_8h_ad86178b9def692404403c1e6ef728ceda475ca22526f67177dfbbda3a86312253}{egc\-User1}\label{share_2template_2gromacs_2types_2topology_8h_ad86178b9def692404403c1e6ef728ceda475ca22526f67177dfbbda3a86312253}
+}]\index{egc\-User2@{egc\-User2}!share/template/gromacs/types/topology.\-h@{share/template/gromacs/types/topology.\-h}}\index{share/template/gromacs/types/topology.\-h@{share/template/gromacs/types/topology.\-h}!egc\-User2@{egc\-User2}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2types_2topology_8h_ad86178b9def692404403c1e6ef728cedad3ae16ba7578cc6a2b96a760f35c8cad}{egc\-User2}\label{share_2template_2gromacs_2types_2topology_8h_ad86178b9def692404403c1e6ef728cedad3ae16ba7578cc6a2b96a760f35c8cad}
+}]\index{egc\-V\-C\-M@{egc\-V\-C\-M}!share/template/gromacs/types/topology.\-h@{share/template/gromacs/types/topology.\-h}}\index{share/template/gromacs/types/topology.\-h@{share/template/gromacs/types/topology.\-h}!egc\-V\-C\-M@{egc\-V\-C\-M}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2types_2topology_8h_ad86178b9def692404403c1e6ef728ceda1c5337a03738a848beb26bc8f81c1a08}{egc\-V\-C\-M}\label{share_2template_2gromacs_2types_2topology_8h_ad86178b9def692404403c1e6ef728ceda1c5337a03738a848beb26bc8f81c1a08}
+}]\index{egc\-X\-T\-C@{egc\-X\-T\-C}!share/template/gromacs/types/topology.\-h@{share/template/gromacs/types/topology.\-h}}\index{share/template/gromacs/types/topology.\-h@{share/template/gromacs/types/topology.\-h}!egc\-X\-T\-C@{egc\-X\-T\-C}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2types_2topology_8h_ad86178b9def692404403c1e6ef728ceda0858ea0ff125f58d432813494cbe25e3}{egc\-X\-T\-C}\label{share_2template_2gromacs_2types_2topology_8h_ad86178b9def692404403c1e6ef728ceda0858ea0ff125f58d432813494cbe25e3}
+}]\index{egc\-O\-R\-F\-I\-T@{egc\-O\-R\-F\-I\-T}!share/template/gromacs/types/topology.\-h@{share/template/gromacs/types/topology.\-h}}\index{share/template/gromacs/types/topology.\-h@{share/template/gromacs/types/topology.\-h}!egc\-O\-R\-F\-I\-T@{egc\-O\-R\-F\-I\-T}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2types_2topology_8h_ad86178b9def692404403c1e6ef728ceda5a9e56047a8da1ab38dab518b36c06d7}{egc\-O\-R\-F\-I\-T}\label{share_2template_2gromacs_2types_2topology_8h_ad86178b9def692404403c1e6ef728ceda5a9e56047a8da1ab38dab518b36c06d7}
+}]\index{egc\-Q\-M\-M\-M@{egc\-Q\-M\-M\-M}!share/template/gromacs/types/topology.\-h@{share/template/gromacs/types/topology.\-h}}\index{share/template/gromacs/types/topology.\-h@{share/template/gromacs/types/topology.\-h}!egc\-Q\-M\-M\-M@{egc\-Q\-M\-M\-M}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2types_2topology_8h_ad86178b9def692404403c1e6ef728cedac2ad643ccc167d8c8237ea3589bac77e}{egc\-Q\-M\-M\-M}\label{share_2template_2gromacs_2types_2topology_8h_ad86178b9def692404403c1e6ef728cedac2ad643ccc167d8c8237ea3589bac77e}
+}]\index{egc\-N\-R@{egc\-N\-R}!share/template/gromacs/types/topology.\-h@{share/template/gromacs/types/topology.\-h}}\index{share/template/gromacs/types/topology.\-h@{share/template/gromacs/types/topology.\-h}!egc\-N\-R@{egc\-N\-R}}\item[{\em 
+\hypertarget{share_2template_2gromacs_2types_2topology_8h_ad86178b9def692404403c1e6ef728ceda1091dba7908e48216b1a7974e4748031}{egc\-N\-R}\label{share_2template_2gromacs_2types_2topology_8h_ad86178b9def692404403c1e6ef728ceda1091dba7908e48216b1a7974e4748031}
+}]\end{description}
+\end{Desc}
+

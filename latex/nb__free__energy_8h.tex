@@ -1,0 +1,112 @@
+\hypertarget{nb__free__energy_8h}{\section{src/gmxlib/nonbonded/nb\-\_\-free\-\_\-energy.h \-File \-Reference}
+\label{nb__free__energy_8h}\index{src/gmxlib/nonbonded/nb\-\_\-free\-\_\-energy.\-h@{src/gmxlib/nonbonded/nb\-\_\-free\-\_\-energy.\-h}}
+}
+{\ttfamily \#include \char`\"{}nb\-\_\-kernel.\-h\char`\"{}}\*
+{\ttfamily \#include $<$typedefs.\-h$>$}\*
+\-Include dependency graph for nb\-\_\-free\-\_\-energy.\-h\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=273pt]{nb__free__energy_8h__incl}
+\end{center}
+\end{figure}
+\-This graph shows which files directly or indirectly include this file\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=270pt]{nb__free__energy_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{nb__free__energy_8h_ac95dc63c3fa74c180c4bfc8619827e8d}{gmx\-\_\-nb\-\_\-free\-\_\-energy\-\_\-kernel} (\hyperlink{structt__nblist}{t\-\_\-nblist} $\ast$nlist, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$\hyperlink{copyrite_8c_a0757cfb6fe645a02867727255faa4f8b}{f}, \hyperlink{structt__forcerec}{t\-\_\-forcerec} $\ast$\hyperlink{addconf_8c_ae8414314f87c5e49503ac0117eb511ad}{fr}, \hyperlink{structt__mdatoms}{t\-\_\-mdatoms} $\ast$mdatoms, \hyperlink{structnb__kernel__data__t}{nb\-\_\-kernel\-\_\-data\-\_\-t} $\ast$kernel\-\_\-data, \hyperlink{structt__nrnb}{t\-\_\-nrnb} $\ast$nrnb)
+\item 
+real \hyperlink{nb__free__energy_8h_aae215db79b6e64e451d81fecf9953c40}{nb\-\_\-free\-\_\-energy\-\_\-evaluate\-\_\-single} (real r2, real sc\-\_\-r\-\_\-power, real alpha\-\_\-coul, real alpha\-\_\-vdw, real tabscale, real $\ast$vftab, real qq\-A, real c6\-A, real c12\-A, real qq\-B, real c6\-B, real c12\-B, real \-L\-F\-C\mbox{[}2\mbox{]}, real \-L\-F\-V\mbox{[}2\mbox{]}, real \-D\-L\-F\mbox{[}2\mbox{]}, real lfac\-\_\-coul\mbox{[}2\mbox{]}, real lfac\-\_\-vdw\mbox{[}2\mbox{]}, real dlfac\-\_\-coul\mbox{[}2\mbox{]}, real dlfac\-\_\-vdw\mbox{[}2\mbox{]}, real sigma6\-\_\-def, real sigma6\-\_\-min, real sigma2\-\_\-def, real sigma2\-\_\-min, real $\ast$velectot, real $\ast$vvdwtot, real $\ast$dvdl)
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{nb__free__energy_8h_ac95dc63c3fa74c180c4bfc8619827e8d}{\index{nb\-\_\-free\-\_\-energy.\-h@{nb\-\_\-free\-\_\-energy.\-h}!gmx\-\_\-nb\-\_\-free\-\_\-energy\-\_\-kernel@{gmx\-\_\-nb\-\_\-free\-\_\-energy\-\_\-kernel}}
+\index{gmx\-\_\-nb\-\_\-free\-\_\-energy\-\_\-kernel@{gmx\-\_\-nb\-\_\-free\-\_\-energy\-\_\-kernel}!nb_free_energy.h@{nb\-\_\-free\-\_\-energy.\-h}}
+\subsubsection[{gmx\-\_\-nb\-\_\-free\-\_\-energy\-\_\-kernel}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-nb\-\_\-free\-\_\-energy\-\_\-kernel} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-nblist} $\ast$}]{nlist, }
+\item[{{\bf rvec} $\ast$}]{x, }
+\item[{{\bf rvec} $\ast$}]{f, }
+\item[{{\bf t\-\_\-forcerec} $\ast$}]{fr, }
+\item[{{\bf t\-\_\-mdatoms} $\ast$}]{mdatoms, }
+\item[{{\bf nb\-\_\-kernel\-\_\-data\-\_\-t} $\ast$}]{kernel\-\_\-data, }
+\item[{{\bf t\-\_\-nrnb} $\ast$}]{nrnb}
+\end{DoxyParamCaption}
+)}}\label{nb__free__energy_8h_ac95dc63c3fa74c180c4bfc8619827e8d}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=316pt]{nb__free__energy_8h_ac95dc63c3fa74c180c4bfc8619827e8d_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nb__free__energy_8h_ac95dc63c3fa74c180c4bfc8619827e8d_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{nb__free__energy_8h_aae215db79b6e64e451d81fecf9953c40}{\index{nb\-\_\-free\-\_\-energy.\-h@{nb\-\_\-free\-\_\-energy.\-h}!nb\-\_\-free\-\_\-energy\-\_\-evaluate\-\_\-single@{nb\-\_\-free\-\_\-energy\-\_\-evaluate\-\_\-single}}
+\index{nb\-\_\-free\-\_\-energy\-\_\-evaluate\-\_\-single@{nb\-\_\-free\-\_\-energy\-\_\-evaluate\-\_\-single}!nb_free_energy.h@{nb\-\_\-free\-\_\-energy.\-h}}
+\subsubsection[{nb\-\_\-free\-\_\-energy\-\_\-evaluate\-\_\-single}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf nb\-\_\-free\-\_\-energy\-\_\-evaluate\-\_\-single} (
+\begin{DoxyParamCaption}
+\item[{real}]{r2, }
+\item[{real}]{sc\-\_\-r\-\_\-power, }
+\item[{real}]{alpha\-\_\-coul, }
+\item[{real}]{alpha\-\_\-vdw, }
+\item[{real}]{tabscale, }
+\item[{real $\ast$}]{vftab, }
+\item[{real}]{qq\-A, }
+\item[{real}]{c6\-A, }
+\item[{real}]{c12\-A, }
+\item[{real}]{qq\-B, }
+\item[{real}]{c6\-B, }
+\item[{real}]{c12\-B, }
+\item[{real}]{\-L\-F\-C\mbox{[}2\mbox{]}, }
+\item[{real}]{\-L\-F\-V\mbox{[}2\mbox{]}, }
+\item[{real}]{\-D\-L\-F\mbox{[}2\mbox{]}, }
+\item[{real}]{lfac\-\_\-coul\mbox{[}2\mbox{]}, }
+\item[{real}]{lfac\-\_\-vdw\mbox{[}2\mbox{]}, }
+\item[{real}]{dlfac\-\_\-coul\mbox{[}2\mbox{]}, }
+\item[{real}]{dlfac\-\_\-vdw\mbox{[}2\mbox{]}, }
+\item[{real}]{sigma6\-\_\-def, }
+\item[{real}]{sigma6\-\_\-min, }
+\item[{real}]{sigma2\-\_\-def, }
+\item[{real}]{sigma2\-\_\-min, }
+\item[{real $\ast$}]{velectot, }
+\item[{real $\ast$}]{vvdwtot, }
+\item[{real $\ast$}]{dvdl}
+\end{DoxyParamCaption}
+)}}\label{nb__free__energy_8h_aae215db79b6e64e451d81fecf9953c40}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nb__free__energy_8h_aae215db79b6e64e451d81fecf9953c40_icgraph}
+\end{center}
+\end{figure}
+
+

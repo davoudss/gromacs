@@ -1,0 +1,170 @@
+\hypertarget{gmx__gyrate_8c}{\section{src/tools/gmx\-\_\-gyrate.c \-File \-Reference}
+\label{gmx__gyrate_8c}\index{src/tools/gmx\-\_\-gyrate.\-c@{src/tools/gmx\-\_\-gyrate.\-c}}
+}
+{\ttfamily \#include $<$math.\-h$>$}\*
+{\ttfamily \#include $<$string.\-h$>$}\*
+{\ttfamily \#include \char`\"{}statutil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}sysstuff.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}typedefs.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}smalloc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}macros.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}vec.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}pbc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}copyrite.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}futil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}index.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}mshift.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}xvgr.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}princ.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}rmpbc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}txtdump.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}tpxio.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gstat.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-ana.\-h\char`\"{}}\*
+\-Include dependency graph for gmx\-\_\-gyrate.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__gyrate_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{gmx__gyrate_8c_a9fb1d82db119e585aeab609317f87f01}{\-N\-L\-E\-G}~\hyperlink{share_2template_2gromacs_2macros_8h_a0883345a58f8f63aefa249a4f127f707}{asize}(leg)
+\item 
+\#define \hyperlink{gmx__gyrate_8c_a8485f4e81de2537e6a0935626167a775}{\-N\-F\-I\-L\-E}~\hyperlink{share_2template_2gromacs_2macros_8h_a0883345a58f8f63aefa249a4f127f707}{asize}(fnm)
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+real \hyperlink{gmx__gyrate_8c_aab6ceb7aea41cd7076930cce78da3b05}{calc\-\_\-gyro} (\hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, int gnx, \hyperlink{include_2types_2simple_8h_ad3f47cdb48677e516e2049719612c737}{atom\-\_\-id} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a49fd977001162d7256c8fcd293f9d12a}{index}\mbox{[}$\,$\mbox{]}, \hyperlink{structt__atom}{t\-\_\-atom} atom\mbox{[}$\,$\mbox{]}, real tm, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} gvec, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae624f265c646670d373e9de0306f184b}{d}, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Q, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Rot, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-M\-O\-I, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afaf570bd8980ebd7a0b208f49353f5f7}{trans})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__gyrate_8c_a3b997d1dea3b2a3b33824c4b1c25c9f4}{calc\-\_\-gyro\-\_\-z} (\hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box, int gnx, \hyperlink{include_2types_2simple_8h_ad3f47cdb48677e516e2049719612c737}{atom\-\_\-id} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a49fd977001162d7256c8fcd293f9d12a}{index}\mbox{[}$\,$\mbox{]}, \hyperlink{structt__atom}{t\-\_\-atom} atom\mbox{[}$\,$\mbox{]}, int nz, real time, \-F\-I\-L\-E $\ast$out)
+\item 
+int \hyperlink{gmx__gyrate_8c_adeada9bd333af40c26ab73095a77c188}{gmx\-\_\-gyrate} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Define \-Documentation}
+\hypertarget{gmx__gyrate_8c_a8485f4e81de2537e6a0935626167a775}{\index{gmx\-\_\-gyrate.\-c@{gmx\-\_\-gyrate.\-c}!\-N\-F\-I\-L\-E@{\-N\-F\-I\-L\-E}}
+\index{\-N\-F\-I\-L\-E@{\-N\-F\-I\-L\-E}!gmx_gyrate.c@{gmx\-\_\-gyrate.\-c}}
+\subsubsection[{\-N\-F\-I\-L\-E}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-N\-F\-I\-L\-E}~{\bf asize}(fnm)}}\label{gmx__gyrate_8c_a8485f4e81de2537e6a0935626167a775}
+\hypertarget{gmx__gyrate_8c_a9fb1d82db119e585aeab609317f87f01}{\index{gmx\-\_\-gyrate.\-c@{gmx\-\_\-gyrate.\-c}!\-N\-L\-E\-G@{\-N\-L\-E\-G}}
+\index{\-N\-L\-E\-G@{\-N\-L\-E\-G}!gmx_gyrate.c@{gmx\-\_\-gyrate.\-c}}
+\subsubsection[{\-N\-L\-E\-G}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-N\-L\-E\-G}~{\bf asize}(leg)}}\label{gmx__gyrate_8c_a9fb1d82db119e585aeab609317f87f01}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{gmx__gyrate_8c_aab6ceb7aea41cd7076930cce78da3b05}{\index{gmx\-\_\-gyrate.\-c@{gmx\-\_\-gyrate.\-c}!calc\-\_\-gyro@{calc\-\_\-gyro}}
+\index{calc\-\_\-gyro@{calc\-\_\-gyro}!gmx_gyrate.c@{gmx\-\_\-gyrate.\-c}}
+\subsubsection[{calc\-\_\-gyro}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf calc\-\_\-gyro} (
+\begin{DoxyParamCaption}
+\item[{{\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{int}]{gnx, }
+\item[{{\bf atom\-\_\-id}}]{index\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf t\-\_\-atom}}]{atom\mbox{[}$\,$\mbox{]}, }
+\item[{real}]{tm, }
+\item[{{\bf rvec}}]{gvec, }
+\item[{{\bf rvec}}]{d, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Q, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Rot, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-M\-O\-I, }
+\item[{{\bf matrix}}]{trans}
+\end{DoxyParamCaption}
+)}}\label{gmx__gyrate_8c_aab6ceb7aea41cd7076930cce78da3b05}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__gyrate_8c_aab6ceb7aea41cd7076930cce78da3b05_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=318pt]{gmx__gyrate_8c_aab6ceb7aea41cd7076930cce78da3b05_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__gyrate_8c_a3b997d1dea3b2a3b33824c4b1c25c9f4}{\index{gmx\-\_\-gyrate.\-c@{gmx\-\_\-gyrate.\-c}!calc\-\_\-gyro\-\_\-z@{calc\-\_\-gyro\-\_\-z}}
+\index{calc\-\_\-gyro\-\_\-z@{calc\-\_\-gyro\-\_\-z}!gmx_gyrate.c@{gmx\-\_\-gyrate.\-c}}
+\subsubsection[{calc\-\_\-gyro\-\_\-z}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf calc\-\_\-gyro\-\_\-z} (
+\begin{DoxyParamCaption}
+\item[{{\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf matrix}}]{box, }
+\item[{int}]{gnx, }
+\item[{{\bf atom\-\_\-id}}]{index\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf t\-\_\-atom}}]{atom\mbox{[}$\,$\mbox{]}, }
+\item[{int}]{nz, }
+\item[{real}]{time, }
+\item[{\-F\-I\-L\-E $\ast$}]{out}
+\end{DoxyParamCaption}
+)}}\label{gmx__gyrate_8c_a3b997d1dea3b2a3b33824c4b1c25c9f4}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=250pt]{gmx__gyrate_8c_a3b997d1dea3b2a3b33824c4b1c25c9f4_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=328pt]{gmx__gyrate_8c_a3b997d1dea3b2a3b33824c4b1c25c9f4_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__gyrate_8c_adeada9bd333af40c26ab73095a77c188}{\index{gmx\-\_\-gyrate.\-c@{gmx\-\_\-gyrate.\-c}!gmx\-\_\-gyrate@{gmx\-\_\-gyrate}}
+\index{gmx\-\_\-gyrate@{gmx\-\_\-gyrate}!gmx_gyrate.c@{gmx\-\_\-gyrate.\-c}}
+\subsubsection[{gmx\-\_\-gyrate}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-gyrate} (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{gmx__gyrate_8c_adeada9bd333af40c26ab73095a77c188}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{gmx__gyrate_8c_adeada9bd333af40c26ab73095a77c188_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=222pt]{gmx__gyrate_8c_adeada9bd333af40c26ab73095a77c188_icgraph}
+\end{center}
+\end{figure}
+
+

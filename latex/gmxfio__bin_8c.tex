@@ -1,0 +1,94 @@
+\hypertarget{gmxfio__bin_8c}{\section{src/gmxlib/gmxfio\-\_\-bin.c \-File \-Reference}
+\label{gmxfio__bin_8c}\index{src/gmxlib/gmxfio\-\_\-bin.\-c@{src/gmxlib/gmxfio\-\_\-bin.\-c}}
+}
+{\ttfamily \#include $<$ctype.\-h$>$}\*
+{\ttfamily \#include $<$stdio.\-h$>$}\*
+{\ttfamily \#include $<$errno.\-h$>$}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-fatal.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}macros.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}smalloc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}futil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}filenm.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}string2.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmxfio.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}md5.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmxfio\-\_\-int.\-h\char`\"{}}\*
+\-Include dependency graph for gmxfio\-\_\-bin.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmxfio__bin_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{gmxfio__bin_8c_a6507d3fd798dad799a6e7f685f846c51}{do\-\_\-binread} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$item, int nitem, int eio, const char $\ast$desc, const char $\ast$srcfile, int \hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line})
+\item 
+static \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{gmxfio__bin_8c_a8121af5674198099e8133b053dede183}{do\-\_\-binwrite} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, const \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$item, int nitem, int eio, const char $\ast$desc, const char $\ast$srcfile, int \hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line})
+\end{DoxyCompactItemize}
+\subsection*{\-Variables}
+\begin{DoxyCompactItemize}
+\item 
+const \hyperlink{structt__iotype}{t\-\_\-iotype} \hyperlink{gmxfio__bin_8c_a789ddd0d4531ac490d3ed06b2890b61e}{bin\-\_\-iotype} = \{\hyperlink{gmxfio__bin_8c_a6507d3fd798dad799a6e7f685f846c51}{do\-\_\-binread}, \hyperlink{gmxfio__bin_8c_a8121af5674198099e8133b053dede183}{do\-\_\-binwrite}\}
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{gmxfio__bin_8c_a6507d3fd798dad799a6e7f685f846c51}{\index{gmxfio\-\_\-bin.\-c@{gmxfio\-\_\-bin.\-c}!do\-\_\-binread@{do\-\_\-binread}}
+\index{do\-\_\-binread@{do\-\_\-binread}!gmxfio_bin.c@{gmxfio\-\_\-bin.\-c}}
+\subsubsection[{do\-\_\-binread}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gmx\-\_\-bool} {\bf do\-\_\-binread} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{{\bf void} $\ast$}]{item, }
+\item[{int}]{nitem, }
+\item[{int}]{eio, }
+\item[{const char $\ast$}]{desc, }
+\item[{const char $\ast$}]{srcfile, }
+\item[{int}]{line}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmxfio__bin_8c_a6507d3fd798dad799a6e7f685f846c51}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmxfio__bin_8c_a6507d3fd798dad799a6e7f685f846c51_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmxfio__bin_8c_a8121af5674198099e8133b053dede183}{\index{gmxfio\-\_\-bin.\-c@{gmxfio\-\_\-bin.\-c}!do\-\_\-binwrite@{do\-\_\-binwrite}}
+\index{do\-\_\-binwrite@{do\-\_\-binwrite}!gmxfio_bin.c@{gmxfio\-\_\-bin.\-c}}
+\subsubsection[{do\-\_\-binwrite}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gmx\-\_\-bool} {\bf do\-\_\-binwrite} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{const {\bf void} $\ast$}]{item, }
+\item[{int}]{nitem, }
+\item[{int}]{eio, }
+\item[{const char $\ast$}]{desc, }
+\item[{const char $\ast$}]{srcfile, }
+\item[{int}]{line}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmxfio__bin_8c_a8121af5674198099e8133b053dede183}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmxfio__bin_8c_a8121af5674198099e8133b053dede183_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{\-Variable \-Documentation}
+\hypertarget{gmxfio__bin_8c_a789ddd0d4531ac490d3ed06b2890b61e}{\index{gmxfio\-\_\-bin.\-c@{gmxfio\-\_\-bin.\-c}!bin\-\_\-iotype@{bin\-\_\-iotype}}
+\index{bin\-\_\-iotype@{bin\-\_\-iotype}!gmxfio_bin.c@{gmxfio\-\_\-bin.\-c}}
+\subsubsection[{bin\-\_\-iotype}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf t\-\_\-iotype} {\bf bin\-\_\-iotype} = \{{\bf do\-\_\-binread}, {\bf do\-\_\-binwrite}\}}}\label{gmxfio__bin_8c_a789ddd0d4531ac490d3ed06b2890b61e}

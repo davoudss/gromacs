@@ -1,0 +1,270 @@
+\hypertarget{gbutil_8c}{\section{src/gmxlib/gbutil.c \-File \-Reference}
+\label{gbutil_8c}\index{src/gmxlib/gbutil.\-c@{src/gmxlib/gbutil.\-c}}
+}
+{\ttfamily \#include $<$math.\-h$>$}\*
+{\ttfamily \#include \char`\"{}macros.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}vec.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-fatal.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gstat.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}pbc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gbutil.\-h\char`\"{}}\*
+\-Include dependency graph for gbutil.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gbutil_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+static real \hyperlink{gbutil_8c_a33a50b89dfd9a47c38221674ed582d0a}{dist2} (\hyperlink{structt__pbc}{t\-\_\-pbc} $\ast$pbc, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ad992d70ec70c927046cfc2ab1c79b188}{y})
+\item 
+real \hyperlink{gbutil_8c_a4ae3c1104d2cfb5dc447c7886dbe537b}{distance\-\_\-to\-\_\-z} (\hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x})
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gbutil_8c_ae8a30fe036f6fb4fb4023591aa0b3e2d}{low\-\_\-rotate\-\_\-conf} (int natom, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}, real alfa, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ac59ea1392baa6902e6c013a4a02a2291}{beta}, real gamma)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gbutil_8c_aeecfe60c8f15266a4f0ccbe1004bc7ca}{low\-\_\-rotate\-\_\-conf\-\_\-indexed} (int nindex, \hyperlink{include_2types_2simple_8h_ad3f47cdb48677e516e2049719612c737}{atom\-\_\-id} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a49fd977001162d7256c8fcd293f9d12a}{index}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}, real alfa, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ac59ea1392baa6902e6c013a4a02a2291}{beta}, real gamma)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gbutil_8c_af91a47ee7e66dc1be137f337d1c9a1f9}{rotate\-\_\-conf} (int natom, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a339df93739a405c3e4b0506624fa27a5}{v}, real alfa, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ac59ea1392baa6902e6c013a4a02a2291}{beta}, real gamma)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gbutil_8c_a297c21d940207db46f4a58fc7889c6f1}{orient} (int natom, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a339df93739a405c3e4b0506624fa27a5}{v}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{pull__rotation_8c_a46755fae48700fb4e0fb0d7c6a092654}{angle}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gbutil_8c_a6eda48698cea80c5e725e617d2caa4e6}{genconf} (\hyperlink{structt__atoms}{t\-\_\-atoms} $\ast$atoms, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a339df93739a405c3e4b0506624fa27a5}{v}, real $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae039a6f39df62bd858e5e3f5ec77b24b}{r}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a74f6ffdb4a9c1764f5293969d8c681b6}{ivec} n\-\_\-box)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gbutil_8c_aaeb2cf9557de409d85a05e950a41e084}{gen\-\_\-box} (int \-N\-T\-B, int natoms, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} box\-\_\-space, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Center)
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{gbutil_8c_a33a50b89dfd9a47c38221674ed582d0a}{\index{gbutil.\-c@{gbutil.\-c}!dist2@{dist2}}
+\index{dist2@{dist2}!gbutil.c@{gbutil.\-c}}
+\subsubsection[{dist2}]{\setlength{\rightskip}{0pt plus 5cm}static real {\bf dist2} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-pbc} $\ast$}]{pbc, }
+\item[{{\bf rvec}}]{x, }
+\item[{{\bf rvec}}]{y}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gbutil_8c_a33a50b89dfd9a47c38221674ed582d0a}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=202pt]{gbutil_8c_a33a50b89dfd9a47c38221674ed582d0a_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gbutil_8c_a33a50b89dfd9a47c38221674ed582d0a_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gbutil_8c_a4ae3c1104d2cfb5dc447c7886dbe537b}{\index{gbutil.\-c@{gbutil.\-c}!distance\-\_\-to\-\_\-z@{distance\-\_\-to\-\_\-z}}
+\index{distance\-\_\-to\-\_\-z@{distance\-\_\-to\-\_\-z}!gbutil.c@{gbutil.\-c}}
+\subsubsection[{distance\-\_\-to\-\_\-z}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf distance\-\_\-to\-\_\-z} (
+\begin{DoxyParamCaption}
+\item[{{\bf rvec}}]{x}
+\end{DoxyParamCaption}
+)}}\label{gbutil_8c_a4ae3c1104d2cfb5dc447c7886dbe537b}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gbutil_8c_a4ae3c1104d2cfb5dc447c7886dbe537b_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gbutil_8c_aaeb2cf9557de409d85a05e950a41e084}{\index{gbutil.\-c@{gbutil.\-c}!gen\-\_\-box@{gen\-\_\-box}}
+\index{gen\-\_\-box@{gen\-\_\-box}!gbutil.c@{gbutil.\-c}}
+\subsubsection[{gen\-\_\-box}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gen\-\_\-box} (
+\begin{DoxyParamCaption}
+\item[{int}]{\-N\-T\-B, }
+\item[{int}]{natoms, }
+\item[{{\bf rvec} $\ast$}]{x, }
+\item[{{\bf matrix}}]{box, }
+\item[{{\bf rvec}}]{box\-\_\-space, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Center}
+\end{DoxyParamCaption}
+)}}\label{gbutil_8c_aaeb2cf9557de409d85a05e950a41e084}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gbutil_8c_aaeb2cf9557de409d85a05e950a41e084_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gbutil_8c_a6eda48698cea80c5e725e617d2caa4e6}{\index{gbutil.\-c@{gbutil.\-c}!genconf@{genconf}}
+\index{genconf@{genconf}!gbutil.c@{gbutil.\-c}}
+\subsubsection[{genconf}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf genconf} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-atoms} $\ast$}]{atoms, }
+\item[{{\bf rvec} $\ast$}]{x, }
+\item[{{\bf rvec} $\ast$}]{v, }
+\item[{real $\ast$}]{r, }
+\item[{{\bf matrix}}]{box, }
+\item[{{\bf ivec}}]{n\-\_\-box}
+\end{DoxyParamCaption}
+)}}\label{gbutil_8c_a6eda48698cea80c5e725e617d2caa4e6}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gbutil_8c_a6eda48698cea80c5e725e617d2caa4e6_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gbutil_8c_ae8a30fe036f6fb4fb4023591aa0b3e2d}{\index{gbutil.\-c@{gbutil.\-c}!low\-\_\-rotate\-\_\-conf@{low\-\_\-rotate\-\_\-conf}}
+\index{low\-\_\-rotate\-\_\-conf@{low\-\_\-rotate\-\_\-conf}!gbutil.c@{gbutil.\-c}}
+\subsubsection[{low\-\_\-rotate\-\_\-conf}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf low\-\_\-rotate\-\_\-conf} (
+\begin{DoxyParamCaption}
+\item[{int}]{natom, }
+\item[{{\bf rvec} $\ast$}]{x, }
+\item[{real}]{alfa, }
+\item[{real}]{beta, }
+\item[{real}]{gamma}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gbutil_8c_ae8a30fe036f6fb4fb4023591aa0b3e2d}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=264pt]{gbutil_8c_ae8a30fe036f6fb4fb4023591aa0b3e2d_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gbutil_8c_ae8a30fe036f6fb4fb4023591aa0b3e2d_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gbutil_8c_aeecfe60c8f15266a4f0ccbe1004bc7ca}{\index{gbutil.\-c@{gbutil.\-c}!low\-\_\-rotate\-\_\-conf\-\_\-indexed@{low\-\_\-rotate\-\_\-conf\-\_\-indexed}}
+\index{low\-\_\-rotate\-\_\-conf\-\_\-indexed@{low\-\_\-rotate\-\_\-conf\-\_\-indexed}!gbutil.c@{gbutil.\-c}}
+\subsubsection[{low\-\_\-rotate\-\_\-conf\-\_\-indexed}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf low\-\_\-rotate\-\_\-conf\-\_\-indexed} (
+\begin{DoxyParamCaption}
+\item[{int}]{nindex, }
+\item[{{\bf atom\-\_\-id} $\ast$}]{index, }
+\item[{{\bf rvec} $\ast$}]{x, }
+\item[{real}]{alfa, }
+\item[{real}]{beta, }
+\item[{real}]{gamma}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gbutil_8c_aeecfe60c8f15266a4f0ccbe1004bc7ca}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=304pt]{gbutil_8c_aeecfe60c8f15266a4f0ccbe1004bc7ca_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gbutil_8c_a297c21d940207db46f4a58fc7889c6f1}{\index{gbutil.\-c@{gbutil.\-c}!orient@{orient}}
+\index{orient@{orient}!gbutil.c@{gbutil.\-c}}
+\subsubsection[{orient}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf orient} (
+\begin{DoxyParamCaption}
+\item[{int}]{natom, }
+\item[{{\bf rvec} $\ast$}]{x, }
+\item[{{\bf rvec} $\ast$}]{v, }
+\item[{{\bf rvec}}]{angle, }
+\item[{{\bf matrix}}]{box}
+\end{DoxyParamCaption}
+)}}\label{gbutil_8c_a297c21d940207db46f4a58fc7889c6f1}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=320pt]{gbutil_8c_a297c21d940207db46f4a58fc7889c6f1_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=302pt]{gbutil_8c_a297c21d940207db46f4a58fc7889c6f1_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gbutil_8c_af91a47ee7e66dc1be137f337d1c9a1f9}{\index{gbutil.\-c@{gbutil.\-c}!rotate\-\_\-conf@{rotate\-\_\-conf}}
+\index{rotate\-\_\-conf@{rotate\-\_\-conf}!gbutil.c@{gbutil.\-c}}
+\subsubsection[{rotate\-\_\-conf}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf rotate\-\_\-conf} (
+\begin{DoxyParamCaption}
+\item[{int}]{natom, }
+\item[{{\bf rvec} $\ast$}]{x, }
+\item[{{\bf rvec} $\ast$}]{v, }
+\item[{real}]{alfa, }
+\item[{real}]{beta, }
+\item[{real}]{gamma}
+\end{DoxyParamCaption}
+)}}\label{gbutil_8c_af91a47ee7e66dc1be137f337d1c9a1f9}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gbutil_8c_af91a47ee7e66dc1be137f337d1c9a1f9_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gbutil_8c_af91a47ee7e66dc1be137f337d1c9a1f9_icgraph}
+\end{center}
+\end{figure}
+
+

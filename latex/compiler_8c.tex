@@ -1,0 +1,1608 @@
+\hypertarget{compiler_8c}{\section{src/gmxlib/selection/compiler.c \-File \-Reference}
+\label{compiler_8c}\index{src/gmxlib/selection/compiler.\-c@{src/gmxlib/selection/compiler.\-c}}
+}
+{\ttfamily \#include $<$math.\-h$>$}\*
+{\ttfamily \#include $<$stdarg.\-h$>$}\*
+{\ttfamily \#include $<$smalloc.\-h$>$}\*
+{\ttfamily \#include $<$string2.\-h$>$}\*
+{\ttfamily \#include $<$vec.\-h$>$}\*
+{\ttfamily \#include $<$assert.\-h$>$}\*
+{\ttfamily \#include $<$indexutil.\-h$>$}\*
+{\ttfamily \#include $<$poscalc.\-h$>$}\*
+{\ttfamily \#include $<$selection.\-h$>$}\*
+{\ttfamily \#include $<$selmethod.\-h$>$}\*
+{\ttfamily \#include \char`\"{}evaluate.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}keywords.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}mempool.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}selcollection.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}selelem.\-h\char`\"{}}\*
+\-Include dependency graph for compiler.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{compiler_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structt__compiler__data}{t\-\_\-compiler\-\_\-data}
+\end{DoxyCompactItemize}
+\subsection*{\-Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \hyperlink{structt__compiler__data}{t\-\_\-compiler\-\_\-data} \hyperlink{compiler_8c_a31c256933da795acf9f5017d2694e9cd}{t\-\_\-compiler\-\_\-data}
+\end{DoxyCompactItemize}
+\subsection*{\-Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \{ \*
+\hyperlink{compiler_8c_ae45c876c4ac09382bcbbec9ee085ac6baabd1ecaeb7bb8fd5f92acd03d8b1cce3}{\-S\-E\-L\-\_\-\-C\-D\-A\-T\-A\-\_\-\-F\-U\-L\-L\-E\-V\-A\-L} =  1, 
+\hyperlink{compiler_8c_ae45c876c4ac09382bcbbec9ee085ac6ba6d0cb69264496c5e7ba6b3e07a3f6432}{\-S\-E\-L\-\_\-\-C\-D\-A\-T\-A\-\_\-\-S\-T\-A\-T\-I\-C} =  2, 
+\hyperlink{compiler_8c_ae45c876c4ac09382bcbbec9ee085ac6bac177b607ec93d6abfd2bbf87c20806aa}{\-S\-E\-L\-\_\-\-C\-D\-A\-T\-A\-\_\-\-S\-T\-A\-T\-I\-C\-E\-V\-A\-L} =  4, 
+\hyperlink{compiler_8c_ae45c876c4ac09382bcbbec9ee085ac6ba79f5dc2e4f9b949749f09195f126712e}{\-S\-E\-L\-\_\-\-C\-D\-A\-T\-A\-\_\-\-E\-V\-A\-L\-M\-A\-X} =  8, 
+\*
+\hyperlink{compiler_8c_ae45c876c4ac09382bcbbec9ee085ac6bafd5a34e897d04d53b4087fd1308d54bf}{\-S\-E\-L\-\_\-\-C\-D\-A\-T\-A\-\_\-\-M\-I\-N\-M\-A\-X\-A\-L\-L\-O\-C} =  16, 
+\hyperlink{compiler_8c_ae45c876c4ac09382bcbbec9ee085ac6ba747da5bf2b0169daf9261da345c5b5c6}{\-S\-E\-L\-\_\-\-C\-D\-A\-T\-A\-\_\-\-S\-I\-M\-P\-L\-E\-S\-U\-B\-E\-X\-P\-R} =  32, 
+\hyperlink{compiler_8c_ae45c876c4ac09382bcbbec9ee085ac6ba6f054eb53eb7aad552ddfdbe2e47c36a}{\-S\-E\-L\-\_\-\-C\-D\-A\-T\-A\-\_\-\-C\-O\-M\-M\-O\-N\-S\-U\-B\-E\-X\-P\-R} =  64
+ \}
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{compiler_8c_af97a2e6373bd7cbaa59ecde7edc20417}{print\-\_\-group\-\_\-info} (\-F\-I\-L\-E $\ast$fp, const char $\ast$name, \hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$sel, \hyperlink{structgmx__ana__index__t}{gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{compiler_8c_a8cfd39b23120ad711a11873de3b97a8f}{\-\_\-gmx\-\_\-selelem\-\_\-print\-\_\-compiler\-\_\-info} (\-F\-I\-L\-E $\ast$fp, \hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$sel, int level)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{compiler_8c_a4d6c1609ee35760d2540145afa5d1657}{\-\_\-gmx\-\_\-selelem\-\_\-free\-\_\-compiler\-\_\-data} (\hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$sel)
+\item 
+static \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{compiler_8c_af95ea8823b112d693126cb3d2d97096e}{alloc\-\_\-selection\-\_\-data} (\hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$sel, int isize, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Child\-Eval)
+\begin{DoxyCompactList}\small\item\em \-Allocates memory for storing the evaluated value of a selection element. \end{DoxyCompactList}\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{compiler_8c_a6503c178b2c93fea6551024a85d0dabf}{alloc\-\_\-selection\-\_\-pos\-\_\-data} (\hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$sel)
+\begin{DoxyCompactList}\small\item\em \-Allocates memory for storing the evaluated value of a selection element. \end{DoxyCompactList}\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{compiler_8c_a819e06c7ea82ad857dd9cbaea9141c7f}{set\-\_\-evaluation\-\_\-function} (\hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$sel, \hyperlink{selelem_8h_a69c287b69b10372680bbecd6e49a1d9f}{sel\-\_\-evalfunc} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a00bbea95d121dd1acb3aa8b702b9c681}{eval})
+\begin{DoxyCompactList}\small\item\em \-Replace the evaluation function of each element in the subtree. \end{DoxyCompactList}\item 
+static \hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$ \hyperlink{compiler_8c_a778e68cd4681aecc9eb60380f43e8d24}{reverse\-\_\-selelem\-\_\-chain} (\hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$root)
+\begin{DoxyCompactList}\small\item\em \-Reverses the chain of selection elements starting at {\ttfamily root}. \end{DoxyCompactList}\item 
+static \hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$ \hyperlink{compiler_8c_aac2492978d5212f8731eb103d209d9a3}{remove\-\_\-unused\-\_\-subexpressions} (\hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$root)
+\begin{DoxyCompactList}\small\item\em \-Removes subexpressions that don't have any references. \end{DoxyCompactList}\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{compiler_8c_a6332e0b37351bbd27e432fe72634fc54}{create\-\_\-subexpression\-\_\-name} (\hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$sel, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a3c7542401c1cb8bd37ef5e7d9eb0f5a8}{i})
+\begin{DoxyCompactList}\small\item\em \-Creates a name with a running number for a subexpression. \end{DoxyCompactList}\item 
+static \hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$ \hyperlink{compiler_8c_a5c14c46967521f174487be565bd10c8e}{extract\-\_\-item\-\_\-subselections} (\hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$sel, int $\ast$subexprn)
+\begin{DoxyCompactList}\small\item\em \-Processes and extracts subexpressions from a given selection subtree. \end{DoxyCompactList}\item 
+static \hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$ \hyperlink{compiler_8c_aeff4e070cf17e5c86326856432a8c8ed}{extract\-\_\-subexpressions} (\hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$sel)
+\begin{DoxyCompactList}\small\item\em \-Extracts subexpressions of the selection chain. \end{DoxyCompactList}\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{compiler_8c_a29ae812b174591a6718aaf337b8db545}{optimize\-\_\-gmx\-\_\-boolean\-\_\-expressions} (\hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$sel)
+\begin{DoxyCompactList}\small\item\em \-Removes redundant gmx\-\_\-boolean selection elements. \end{DoxyCompactList}\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{compiler_8c_ab2c56961569e4e458ceea12d8a1ebd60}{reorder\-\_\-gmx\-\_\-boolean\-\_\-static\-\_\-children} (\hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$sel)
+\begin{DoxyCompactList}\small\item\em \-Reorders children of gmx\-\_\-boolean expressions such that static selections come first. \end{DoxyCompactList}\item 
+static \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{compiler_8c_a920bfc4c9bc4b61067ca488a2325dd6b}{optimize\-\_\-arithmetic\-\_\-expressions} (\hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$sel)
+\begin{DoxyCompactList}\small\item\em \-Processes arithmetic expressions to simplify and speed up evaluation. \end{DoxyCompactList}\item 
+static \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{compiler_8c_aead7a1f7761ad729f9489ea1acdb4fde}{init\-\_\-item\-\_\-evalfunc} (\hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$sel)
+\begin{DoxyCompactList}\small\item\em \-Sets the evaluation functions for the selection (sub)tree. \end{DoxyCompactList}\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{compiler_8c_a8d848ba533a9603991869477ba2019a5}{setup\-\_\-memory\-\_\-pooling} (\hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$sel, \hyperlink{structgmx__sel__mempool__t}{gmx\-\_\-sel\-\_\-mempool\-\_\-t} $\ast$mempool)
+\begin{DoxyCompactList}\small\item\em \-Sets the memory pool for selection elements that can use it. \end{DoxyCompactList}\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{compiler_8c_aa514db0bcecd9bb50fd43df909e85417}{init\-\_\-item\-\_\-evaloutput} (\hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$sel)
+\begin{DoxyCompactList}\small\item\em \-Prepares the selection (sub)tree for evaluation. \end{DoxyCompactList}\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{compiler_8c_aec666516e6b070cb98e2bc5afeb7a5c9}{init\-\_\-item\-\_\-compilerdata} (\hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$sel)
+\begin{DoxyCompactList}\small\item\em \-Allocates memory for the compiler data and initializes the structure. \end{DoxyCompactList}\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{compiler_8c_a0a9b520e08bd125e62742468cf0fd3c9}{init\-\_\-item\-\_\-staticeval} (\hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$sel)
+\begin{DoxyCompactList}\small\item\em \-Initializes the static evaluation flag for a selection subtree. \end{DoxyCompactList}\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{compiler_8c_a13d4eb1102c99dbbe2d107f0a39a4b55}{init\-\_\-item\-\_\-subexpr\-\_\-flags} (\hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$sel)
+\begin{DoxyCompactList}\small\item\em \-Initializes compiler flags for subexpressions. \end{DoxyCompactList}\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{compiler_8c_a926cb6814a925f8558302d33984b3105}{init\-\_\-item\-\_\-minmax\-\_\-groups} (\hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$sel)
+\begin{DoxyCompactList}\small\item\em \-Initializes the gmin and gmax fields of the compiler data structure. \end{DoxyCompactList}\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{compiler_8c_a8180e9255f0c8cf57f865523d1537607}{initialize\-\_\-evalgrps} (\hyperlink{structgmx__ana__selcollection__t}{gmx\-\_\-ana\-\_\-selcollection\-\_\-t} $\ast$sc)
+\begin{DoxyCompactList}\small\item\em \-Initializes evaluation groups for root items. \end{DoxyCompactList}\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{compiler_8c_a121ef52add69281e76d1495b671e0953}{mark\-\_\-subexpr\-\_\-dynamic} (\hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$sel, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Dynamic)
+\begin{DoxyCompactList}\small\item\em \-Marks a subtree completely dynamic or undoes such a change. \end{DoxyCompactList}\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{compiler_8c_a84f9c615092486fc2358269f81b659cd}{release\-\_\-subexpr\-\_\-memory} (\hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$sel)
+\begin{DoxyCompactList}\small\item\em \-Frees memory for subexpressions that are no longer needed. \end{DoxyCompactList}\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{compiler_8c_a1c5c2e2109bb236d97aba5b9e15e9388}{make\-\_\-static} (\hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$sel)
+\begin{DoxyCompactList}\small\item\em \-Makes an evaluated selection element static. \end{DoxyCompactList}\item 
+static int \hyperlink{compiler_8c_aa7b57d36666cb61b991a7c6bc20713b3}{process\-\_\-const} (\hyperlink{structgmx__sel__evaluate__t}{gmx\-\_\-sel\-\_\-evaluate\-\_\-t} $\ast$data, \hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$sel, \hyperlink{structgmx__ana__index__t}{gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g})
+\begin{DoxyCompactList}\small\item\em \-Evaluates a constant expression during \hyperlink{compiler_8c_a09735ae8eb0bc552e39ff450c1e1c157}{analyze\-\_\-static()}. \end{DoxyCompactList}\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{compiler_8c_a570c143f77f0485a94ca9923fc330469}{store\-\_\-param\-\_\-val} (\hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$sel)
+\begin{DoxyCompactList}\small\item\em \-Sets the parameter value pointer for \hyperlink{selelem_8h_a1f104d5c71b1198ef51acc4ef016ae46af3e44c019a776df8511a73457f9b32b4}{\-S\-E\-L\-\_\-\-S\-U\-B\-E\-X\-P\-R\-R\-E\-F} params. \end{DoxyCompactList}\item 
+static int \hyperlink{compiler_8c_a9c6e6dc0c9c723231f30fc3388467d96}{init\-\_\-method} (\hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$sel, \hyperlink{structt__topology}{t\-\_\-topology} $\ast$\hyperlink{gmx__disre_8c_a1b538a2ce75aba6c346bc03980ffeb28}{top}, int isize)
+\begin{DoxyCompactList}\small\item\em \-Handles the initialization of a selection method during \hyperlink{compiler_8c_a09735ae8eb0bc552e39ff450c1e1c157}{analyze\-\_\-static()} pass. \end{DoxyCompactList}\item 
+static int \hyperlink{compiler_8c_a81b6b0d69b09c58733c3e97a639ea90b}{evaluate\-\_\-gmx\-\_\-boolean\-\_\-static\-\_\-part} (\hyperlink{structgmx__sel__evaluate__t}{gmx\-\_\-sel\-\_\-evaluate\-\_\-t} $\ast$data, \hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$sel, \hyperlink{structgmx__ana__index__t}{gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g})
+\begin{DoxyCompactList}\small\item\em \-Evaluates the static part of a gmx\-\_\-boolean expression. \end{DoxyCompactList}\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{compiler_8c_affa0980dee87f3900eff44899399920d}{evaluate\-\_\-gmx\-\_\-boolean\-\_\-minmax\-\_\-grps} (\hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$sel, \hyperlink{structgmx__ana__index__t}{gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g}, \hyperlink{structgmx__ana__index__t}{gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$gmin, \hyperlink{structgmx__ana__index__t}{gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$gmax)
+\begin{DoxyCompactList}\small\item\em \-Evaluates the minimum and maximum groups for a gmx\-\_\-boolean expression. \end{DoxyCompactList}\item 
+static int \hyperlink{compiler_8c_a09735ae8eb0bc552e39ff450c1e1c157}{analyze\-\_\-static} (\hyperlink{structgmx__sel__evaluate__t}{gmx\-\_\-sel\-\_\-evaluate\-\_\-t} $\ast$data, \hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$sel, \hyperlink{structgmx__ana__index__t}{gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g})
+\begin{DoxyCompactList}\small\item\em \-Evaluates the static parts of {\ttfamily sel} and analyzes the structure. \end{DoxyCompactList}\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{compiler_8c_a6a7cabfc4237b37e0d55b83eafad2434}{init\-\_\-root\-\_\-item} (\hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$root, \hyperlink{structgmx__ana__index__t}{gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$gall)
+\begin{DoxyCompactList}\small\item\em \-Initializes the evaluation group for a \hyperlink{selelem_8h_a1f104d5c71b1198ef51acc4ef016ae46a4374c0be00e03bae94a94c4f2d88569d}{\-S\-E\-L\-\_\-\-R\-O\-O\-T} element. \end{DoxyCompactList}\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{compiler_8c_a1528bd54b715bc45a33b828aae75c55b}{postprocess\-\_\-item\-\_\-subexpressions} (\hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$sel)
+\begin{DoxyCompactList}\small\item\em \-Optimizes subexpression evaluation. \end{DoxyCompactList}\item 
+static int \hyperlink{compiler_8c_aefc9823a24a9e25ae1dcbc6c4c1cacaf}{init\-\_\-item\-\_\-comg} (\hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$sel, \hyperlink{structgmx__ana__poscalc__coll__t}{gmx\-\_\-ana\-\_\-poscalc\-\_\-coll\-\_\-t} $\ast$pcc, \hyperlink{include_2poscalc_8h_abda45ad4bf42febbe957a08c4ee291c2}{e\-\_\-poscalc\-\_\-t} \hyperlink{fgrid_8c_a7f3986ef06a5ebd031c536fbcdce3c49}{type}, int \hyperlink{nbnxn__cuda_8h_a04d8e308e05daeaa5002e3a3c983a14f}{flags})
+\begin{DoxyCompactList}\small\item\em \-Initializes \-C\-O\-M/\-C\-O\-G calculation for method expressions that require it. \end{DoxyCompactList}\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{compiler_8c_aab051f07253214f9cf2dc2bd2fc03dc1}{free\-\_\-item\-\_\-compilerdata} (\hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$sel)
+\begin{DoxyCompactList}\small\item\em \-Frees the allocated compiler data recursively. \end{DoxyCompactList}\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{compiler_8c_af07e126f3d670b1bdfe640b17553993b}{calculate\-\_\-mass\-\_\-charge} (\hyperlink{structt__topology}{t\-\_\-topology} $\ast$\hyperlink{gmx__disre_8c_a1b538a2ce75aba6c346bc03980ffeb28}{top}, int ngrps, \hyperlink{structgmx__ana__selection__t}{gmx\-\_\-ana\-\_\-selection\-\_\-t} $\ast$sel\mbox{[}$\,$\mbox{]}, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Mask\-Only)
+\begin{DoxyCompactList}\small\item\em \-Initializes total masses and charges for selections. \end{DoxyCompactList}\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{compiler_8c_aad2140c5479c2e6c125c6c79fe02fb0c}{gmx\-\_\-ana\-\_\-selcollection\-\_\-set\-\_\-compile\-\_\-debug} (\hyperlink{structgmx__ana__selcollection__t}{gmx\-\_\-ana\-\_\-selcollection\-\_\-t} $\ast$sc, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{gmx__hbond_8c_a2874e80b491bf0a7e261feaa8baaf701}{b\-Debug})
+\item 
+int \hyperlink{compiler_8c_a1561ef3c1aff347b13d9b05bd8dbd20f}{gmx\-\_\-ana\-\_\-selcollection\-\_\-compile} (\hyperlink{structgmx__ana__selcollection__t}{gmx\-\_\-ana\-\_\-selcollection\-\_\-t} $\ast$sc)
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Typedef \-Documentation}
+\hypertarget{compiler_8c_a31c256933da795acf9f5017d2694e9cd}{\index{compiler.\-c@{compiler.\-c}!t\-\_\-compiler\-\_\-data@{t\-\_\-compiler\-\_\-data}}
+\index{t\-\_\-compiler\-\_\-data@{t\-\_\-compiler\-\_\-data}!compiler.c@{compiler.\-c}}
+\subsubsection[{t\-\_\-compiler\-\_\-data}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf t\-\_\-compiler\-\_\-data}  {\bf t\-\_\-compiler\-\_\-data}}}\label{compiler_8c_a31c256933da795acf9f5017d2694e9cd}
+
+
+\subsection{\-Enumeration \-Type \-Documentation}
+\hypertarget{compiler_8c_ae45c876c4ac09382bcbbec9ee085ac6b}{\subsubsection[{anonymous enum}]{\setlength{\rightskip}{0pt plus 5cm}anonymous enum}}\label{compiler_8c_ae45c876c4ac09382bcbbec9ee085ac6b}
+\begin{Desc}
+\item[\-Enumerator\-: ]\par
+\begin{description}
+\index{\-S\-E\-L\-\_\-\-C\-D\-A\-T\-A\-\_\-\-F\-U\-L\-L\-E\-V\-A\-L@{\-S\-E\-L\-\_\-\-C\-D\-A\-T\-A\-\_\-\-F\-U\-L\-L\-E\-V\-A\-L}!compiler.\-c@{compiler.\-c}}\index{compiler.\-c@{compiler.\-c}!\-S\-E\-L\-\_\-\-C\-D\-A\-T\-A\-\_\-\-F\-U\-L\-L\-E\-V\-A\-L@{\-S\-E\-L\-\_\-\-C\-D\-A\-T\-A\-\_\-\-F\-U\-L\-L\-E\-V\-A\-L}}\item[{\em 
+\hypertarget{compiler_8c_ae45c876c4ac09382bcbbec9ee085ac6baabd1ecaeb7bb8fd5f92acd03d8b1cce3}{\-S\-E\-L\-\_\-\-C\-D\-A\-T\-A\-\_\-\-F\-U\-L\-L\-E\-V\-A\-L}\label{compiler_8c_ae45c876c4ac09382bcbbec9ee085ac6baabd1ecaeb7bb8fd5f92acd03d8b1cce3}
+}]\-Whether a subexpression needs to evaluated for all atoms. \-This flag is set for \hyperlink{selelem_8h_a1f104d5c71b1198ef51acc4ef016ae46a4b01539a457afb7dbdf486c2a2e6dafb}{\-S\-E\-L\-\_\-\-S\-U\-B\-E\-X\-P\-R} elements that are used to evaluate non-\/atom-\/valued selection method parameters, as well as those that are used directly as values of selections. \index{\-S\-E\-L\-\_\-\-C\-D\-A\-T\-A\-\_\-\-S\-T\-A\-T\-I\-C@{\-S\-E\-L\-\_\-\-C\-D\-A\-T\-A\-\_\-\-S\-T\-A\-T\-I\-C}!compiler.\-c@{compiler.\-c}}\index{compiler.\-c@{compiler.\-c}!\-S\-E\-L\-\_\-\-C\-D\-A\-T\-A\-\_\-\-S\-T\-A\-T\-I\-C@{\-S\-E\-L\-\_\-\-C\-D\-A\-T\-A\-\_\-\-S\-T\-A\-T\-I\-C}}\item[{\em 
+\hypertarget{compiler_8c_ae45c876c4ac09382bcbbec9ee085ac6ba6d0cb69264496c5e7ba6b3e07a3f6432}{\-S\-E\-L\-\_\-\-C\-D\-A\-T\-A\-\_\-\-S\-T\-A\-T\-I\-C}\label{compiler_8c_ae45c876c4ac09382bcbbec9ee085ac6ba6d0cb69264496c5e7ba6b3e07a3f6432}
+}]\-Whether the whole subexpression should be treated as static. \-This flag is always \-F\-A\-L\-S\-E if \hyperlink{selelem_8h_a7c6372a1eecd845aaaaf60326c9bba16}{\-S\-E\-L\-\_\-\-D\-Y\-N\-A\-M\-I\-C} is set for the element, but it is also \-F\-A\-L\-S\-E for static elements within common subexpressions. \index{\-S\-E\-L\-\_\-\-C\-D\-A\-T\-A\-\_\-\-S\-T\-A\-T\-I\-C\-E\-V\-A\-L@{\-S\-E\-L\-\_\-\-C\-D\-A\-T\-A\-\_\-\-S\-T\-A\-T\-I\-C\-E\-V\-A\-L}!compiler.\-c@{compiler.\-c}}\index{compiler.\-c@{compiler.\-c}!\-S\-E\-L\-\_\-\-C\-D\-A\-T\-A\-\_\-\-S\-T\-A\-T\-I\-C\-E\-V\-A\-L@{\-S\-E\-L\-\_\-\-C\-D\-A\-T\-A\-\_\-\-S\-T\-A\-T\-I\-C\-E\-V\-A\-L}}\item[{\em 
+\hypertarget{compiler_8c_ae45c876c4ac09382bcbbec9ee085ac6bac177b607ec93d6abfd2bbf87c20806aa}{\-S\-E\-L\-\_\-\-C\-D\-A\-T\-A\-\_\-\-S\-T\-A\-T\-I\-C\-E\-V\-A\-L}\label{compiler_8c_ae45c876c4ac09382bcbbec9ee085ac6bac177b607ec93d6abfd2bbf87c20806aa}
+}]\-Whether the subexpression will always be evaluated in the same group. \index{\-S\-E\-L\-\_\-\-C\-D\-A\-T\-A\-\_\-\-E\-V\-A\-L\-M\-A\-X@{\-S\-E\-L\-\_\-\-C\-D\-A\-T\-A\-\_\-\-E\-V\-A\-L\-M\-A\-X}!compiler.\-c@{compiler.\-c}}\index{compiler.\-c@{compiler.\-c}!\-S\-E\-L\-\_\-\-C\-D\-A\-T\-A\-\_\-\-E\-V\-A\-L\-M\-A\-X@{\-S\-E\-L\-\_\-\-C\-D\-A\-T\-A\-\_\-\-E\-V\-A\-L\-M\-A\-X}}\item[{\em 
+\hypertarget{compiler_8c_ae45c876c4ac09382bcbbec9ee085ac6ba79f5dc2e4f9b949749f09195f126712e}{\-S\-E\-L\-\_\-\-C\-D\-A\-T\-A\-\_\-\-E\-V\-A\-L\-M\-A\-X}\label{compiler_8c_ae45c876c4ac09382bcbbec9ee085ac6ba79f5dc2e4f9b949749f09195f126712e}
+}]\-Whether the compiler evaluation routine should return the maximal selection. \index{\-S\-E\-L\-\_\-\-C\-D\-A\-T\-A\-\_\-\-M\-I\-N\-M\-A\-X\-A\-L\-L\-O\-C@{\-S\-E\-L\-\_\-\-C\-D\-A\-T\-A\-\_\-\-M\-I\-N\-M\-A\-X\-A\-L\-L\-O\-C}!compiler.\-c@{compiler.\-c}}\index{compiler.\-c@{compiler.\-c}!\-S\-E\-L\-\_\-\-C\-D\-A\-T\-A\-\_\-\-M\-I\-N\-M\-A\-X\-A\-L\-L\-O\-C@{\-S\-E\-L\-\_\-\-C\-D\-A\-T\-A\-\_\-\-M\-I\-N\-M\-A\-X\-A\-L\-L\-O\-C}}\item[{\em 
+\hypertarget{compiler_8c_ae45c876c4ac09382bcbbec9ee085ac6bafd5a34e897d04d53b4087fd1308d54bf}{\-S\-E\-L\-\_\-\-C\-D\-A\-T\-A\-\_\-\-M\-I\-N\-M\-A\-X\-A\-L\-L\-O\-C}\label{compiler_8c_ae45c876c4ac09382bcbbec9ee085ac6bafd5a34e897d04d53b4087fd1308d54bf}
+}]\-Whether memory has been allocated for {\ttfamily gmin} and {\ttfamily gmax}. \index{\-S\-E\-L\-\_\-\-C\-D\-A\-T\-A\-\_\-\-S\-I\-M\-P\-L\-E\-S\-U\-B\-E\-X\-P\-R@{\-S\-E\-L\-\_\-\-C\-D\-A\-T\-A\-\_\-\-S\-I\-M\-P\-L\-E\-S\-U\-B\-E\-X\-P\-R}!compiler.\-c@{compiler.\-c}}\index{compiler.\-c@{compiler.\-c}!\-S\-E\-L\-\_\-\-C\-D\-A\-T\-A\-\_\-\-S\-I\-M\-P\-L\-E\-S\-U\-B\-E\-X\-P\-R@{\-S\-E\-L\-\_\-\-C\-D\-A\-T\-A\-\_\-\-S\-I\-M\-P\-L\-E\-S\-U\-B\-E\-X\-P\-R}}\item[{\em 
+\hypertarget{compiler_8c_ae45c876c4ac09382bcbbec9ee085ac6ba747da5bf2b0169daf9261da345c5b5c6}{\-S\-E\-L\-\_\-\-C\-D\-A\-T\-A\-\_\-\-S\-I\-M\-P\-L\-E\-S\-U\-B\-E\-X\-P\-R}\label{compiler_8c_ae45c876c4ac09382bcbbec9ee085ac6ba747da5bf2b0169daf9261da345c5b5c6}
+}]\-Whether subexpressions use simple pass evaluation functions. \index{\-S\-E\-L\-\_\-\-C\-D\-A\-T\-A\-\_\-\-C\-O\-M\-M\-O\-N\-S\-U\-B\-E\-X\-P\-R@{\-S\-E\-L\-\_\-\-C\-D\-A\-T\-A\-\_\-\-C\-O\-M\-M\-O\-N\-S\-U\-B\-E\-X\-P\-R}!compiler.\-c@{compiler.\-c}}\index{compiler.\-c@{compiler.\-c}!\-S\-E\-L\-\_\-\-C\-D\-A\-T\-A\-\_\-\-C\-O\-M\-M\-O\-N\-S\-U\-B\-E\-X\-P\-R@{\-S\-E\-L\-\_\-\-C\-D\-A\-T\-A\-\_\-\-C\-O\-M\-M\-O\-N\-S\-U\-B\-E\-X\-P\-R}}\item[{\em 
+\hypertarget{compiler_8c_ae45c876c4ac09382bcbbec9ee085ac6ba6f054eb53eb7aad552ddfdbe2e47c36a}{\-S\-E\-L\-\_\-\-C\-D\-A\-T\-A\-\_\-\-C\-O\-M\-M\-O\-N\-S\-U\-B\-E\-X\-P\-R}\label{compiler_8c_ae45c876c4ac09382bcbbec9ee085ac6ba6f054eb53eb7aad552ddfdbe2e47c36a}
+}]\-Whether this expressions is a part of a common subexpression. \end{description}
+\end{Desc}
+
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{compiler_8c_a4d6c1609ee35760d2540145afa5d1657}{\index{compiler.\-c@{compiler.\-c}!\-\_\-gmx\-\_\-selelem\-\_\-free\-\_\-compiler\-\_\-data@{\-\_\-gmx\-\_\-selelem\-\_\-free\-\_\-compiler\-\_\-data}}
+\index{\-\_\-gmx\-\_\-selelem\-\_\-free\-\_\-compiler\-\_\-data@{\-\_\-gmx\-\_\-selelem\-\_\-free\-\_\-compiler\-\_\-data}!compiler.c@{compiler.\-c}}
+\subsubsection[{\-\_\-gmx\-\_\-selelem\-\_\-free\-\_\-compiler\-\_\-data}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf \-\_\-gmx\-\_\-selelem\-\_\-free\-\_\-compiler\-\_\-data} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-selelem} $\ast$}]{sel}
+\end{DoxyParamCaption}
+)}}\label{compiler_8c_a4d6c1609ee35760d2540145afa5d1657}
+
+\begin{DoxyParams}{\-Parameters}
+{\em sel} & \-Selection to free.\\
+\hline
+\end{DoxyParams}
+\-This function only frees the data for the given selection, not its children. \-It is safe to call the function when compiler data has not been allocated or has already been freed; in such a case, nothing is done. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{compiler_8c_a4d6c1609ee35760d2540145afa5d1657_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{compiler_8c_a4d6c1609ee35760d2540145afa5d1657_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{compiler_8c_a8cfd39b23120ad711a11873de3b97a8f}{\index{compiler.\-c@{compiler.\-c}!\-\_\-gmx\-\_\-selelem\-\_\-print\-\_\-compiler\-\_\-info@{\-\_\-gmx\-\_\-selelem\-\_\-print\-\_\-compiler\-\_\-info}}
+\index{\-\_\-gmx\-\_\-selelem\-\_\-print\-\_\-compiler\-\_\-info@{\-\_\-gmx\-\_\-selelem\-\_\-print\-\_\-compiler\-\_\-info}!compiler.c@{compiler.\-c}}
+\subsubsection[{\-\_\-gmx\-\_\-selelem\-\_\-print\-\_\-compiler\-\_\-info}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf \-\_\-gmx\-\_\-selelem\-\_\-print\-\_\-compiler\-\_\-info} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{{\bf t\-\_\-selelem} $\ast$}]{sel, }
+\item[{int}]{level}
+\end{DoxyParamCaption}
+)}}\label{compiler_8c_a8cfd39b23120ad711a11873de3b97a8f}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em fp} & \-File handle to receive the output. \\
+\hline
+\mbox{\tt in}  & {\em sel} & \-Selection element to print. \\
+\hline
+\mbox{\tt in}  & {\em level} & \-Indentation level, starting from zero. \\
+\hline
+\end{DoxyParams}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{compiler_8c_a8cfd39b23120ad711a11873de3b97a8f_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{compiler_8c_a8cfd39b23120ad711a11873de3b97a8f_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{compiler_8c_af95ea8823b112d693126cb3d2d97096e}{\index{compiler.\-c@{compiler.\-c}!alloc\-\_\-selection\-\_\-data@{alloc\-\_\-selection\-\_\-data}}
+\index{alloc\-\_\-selection\-\_\-data@{alloc\-\_\-selection\-\_\-data}!compiler.c@{compiler.\-c}}
+\subsubsection[{alloc\-\_\-selection\-\_\-data}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gmx\-\_\-bool} {\bf alloc\-\_\-selection\-\_\-data} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-selelem} $\ast$}]{sel, }
+\item[{int}]{isize, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Child\-Eval}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{compiler_8c_af95ea8823b112d693126cb3d2d97096e}
+
+
+\-Allocates memory for storing the evaluated value of a selection element. 
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+ & {\em sel} & \-Selection element to initialize \\
+\hline
+\mbox{\tt in}  & {\em isize} & \-Maximum evaluation group size. \\
+\hline
+\mbox{\tt in}  & {\em b\-Child\-Eval} & \-T\-R\-U\-E if children have already been processed. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-T\-R\-U\-E if the memory was allocated, \-F\-A\-L\-S\-E if children need to be processed first.
+\end{DoxyReturn}
+\-If called more than once, memory is (re)allocated to ensure that the maximum of the {\ttfamily isize} values can be stored.
+
+\-Allocation of \-P\-O\-S\-\_\-\-V\-A\-L\-U\-E selection elements is a special case, and is handled by \hyperlink{compiler_8c_a6503c178b2c93fea6551024a85d0dabf}{alloc\-\_\-selection\-\_\-pos\-\_\-data()}. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=344pt]{compiler_8c_af95ea8823b112d693126cb3d2d97096e_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{compiler_8c_af95ea8823b112d693126cb3d2d97096e_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{compiler_8c_a6503c178b2c93fea6551024a85d0dabf}{\index{compiler.\-c@{compiler.\-c}!alloc\-\_\-selection\-\_\-pos\-\_\-data@{alloc\-\_\-selection\-\_\-pos\-\_\-data}}
+\index{alloc\-\_\-selection\-\_\-pos\-\_\-data@{alloc\-\_\-selection\-\_\-pos\-\_\-data}!compiler.c@{compiler.\-c}}
+\subsubsection[{alloc\-\_\-selection\-\_\-pos\-\_\-data}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf alloc\-\_\-selection\-\_\-pos\-\_\-data} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-selelem} $\ast$}]{sel}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{compiler_8c_a6503c178b2c93fea6551024a85d0dabf}
+
+
+\-Allocates memory for storing the evaluated value of a selection element. 
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em sel} & \-Selection element to initialize.\\
+\hline
+\end{DoxyParams}
+\-Allocation of \-P\-O\-S\-\_\-\-V\-A\-L\-U\-E selection elements is a special case, and is handled by this function instead of by \hyperlink{compiler_8c_af95ea8823b112d693126cb3d2d97096e}{alloc\-\_\-selection\-\_\-data()}. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{compiler_8c_a6503c178b2c93fea6551024a85d0dabf_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{compiler_8c_a6503c178b2c93fea6551024a85d0dabf_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{compiler_8c_a09735ae8eb0bc552e39ff450c1e1c157}{\index{compiler.\-c@{compiler.\-c}!analyze\-\_\-static@{analyze\-\_\-static}}
+\index{analyze\-\_\-static@{analyze\-\_\-static}!compiler.c@{compiler.\-c}}
+\subsubsection[{analyze\-\_\-static}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf analyze\-\_\-static} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-sel\-\_\-evaluate\-\_\-t} $\ast$}]{data, }
+\item[{{\bf t\-\_\-selelem} $\ast$}]{sel, }
+\item[{{\bf gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$}]{g}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{compiler_8c_a09735ae8eb0bc552e39ff450c1e1c157}
+
+
+\-Evaluates the static parts of {\ttfamily sel} and analyzes the structure. 
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em data} & \-Evaluation data. \\
+\hline
+\mbox{\tt in,out}  & {\em sel} & \-Selection currently being evaluated. \\
+\hline
+\mbox{\tt in}  & {\em g} & \-Group for which {\ttfamily sel} should be evaluated. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+0 on success, a non-\/zero error code on error.
+\end{DoxyReturn}
+\-This function is used as the replacement for the {\ttfamily \hyperlink{structt__selelem_a5e0082a02a156c2d010414490f94d227}{t\-\_\-selelem\-::evaluate}} function pointer. \-It does the single most complex task in the compiler\-: after all elements have been processed, the {\ttfamily gmin} and {\ttfamily gmax} fields of {\ttfamily \hyperlink{structt__compiler__data}{t\-\_\-compiler\-\_\-data}} have been properly initialized, enough memory has been allocated for storing the value of each expression, and the static parts of the expressions have been evaluated. \-The above is exactly true only for elements other than subexpressions\-: another pass is required for subexpressions that are referred to more than once and whose evaluation group is not known in advance. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{compiler_8c_a09735ae8eb0bc552e39ff450c1e1c157_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{compiler_8c_a09735ae8eb0bc552e39ff450c1e1c157_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{compiler_8c_af07e126f3d670b1bdfe640b17553993b}{\index{compiler.\-c@{compiler.\-c}!calculate\-\_\-mass\-\_\-charge@{calculate\-\_\-mass\-\_\-charge}}
+\index{calculate\-\_\-mass\-\_\-charge@{calculate\-\_\-mass\-\_\-charge}!compiler.c@{compiler.\-c}}
+\subsubsection[{calculate\-\_\-mass\-\_\-charge}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf calculate\-\_\-mass\-\_\-charge} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-topology} $\ast$}]{top, }
+\item[{int}]{ngrps, }
+\item[{{\bf gmx\-\_\-ana\-\_\-selection\-\_\-t} $\ast$}]{sel\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Mask\-Only}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{compiler_8c_af07e126f3d670b1bdfe640b17553993b}
+
+
+\-Initializes total masses and charges for selections. 
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em top} & \-Topology information. \\
+\hline
+\mbox{\tt in}  & {\em ngrps} & \-Number of elements in the {\ttfamily sel} array. \\
+\hline
+\mbox{\tt in,out}  & {\em sel} & \-Array of selections to update. \\
+\hline
+\mbox{\tt in}  & {\em b\-Mask\-Only} & \-T\-R\-U\-E if the positions will always be calculated for all atoms, i.\-e., the masses/charges do not change. \\
+\hline
+\end{DoxyParams}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{compiler_8c_af07e126f3d670b1bdfe640b17553993b_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{compiler_8c_a6332e0b37351bbd27e432fe72634fc54}{\index{compiler.\-c@{compiler.\-c}!create\-\_\-subexpression\-\_\-name@{create\-\_\-subexpression\-\_\-name}}
+\index{create\-\_\-subexpression\-\_\-name@{create\-\_\-subexpression\-\_\-name}!compiler.c@{compiler.\-c}}
+\subsubsection[{create\-\_\-subexpression\-\_\-name}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf create\-\_\-subexpression\-\_\-name} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-selelem} $\ast$}]{sel, }
+\item[{int}]{i}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{compiler_8c_a6332e0b37351bbd27e432fe72634fc54}
+
+
+\-Creates a name with a running number for a subexpression. 
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in,out}  & {\em sel} & \-The subexpression to be named. \\
+\hline
+\mbox{\tt in}  & {\em i} & \-Running number for the subexpression.\\
+\hline
+\end{DoxyParams}
+\-The name of the selection becomes \char`\"{}\-Sub\-Expr N\char`\"{}, where \-N is {\ttfamily i}; \-Memory is allocated for the name and the name is stored both in {\ttfamily \hyperlink{structt__selelem_aea908029a2d5c85e438afb11451be9ba}{t\-\_\-selelem\-::name}} and {\ttfamily t\-\_\-selelem\-::u\-::cgrp\-::name}; the latter is freed by \hyperlink{selelem_8c_aaed6ed0ba5861b38dd522ce18f8b2538}{\-\_\-gmx\-\_\-selelem\-\_\-free()}. 
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{compiler_8c_a6332e0b37351bbd27e432fe72634fc54_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{compiler_8c_affa0980dee87f3900eff44899399920d}{\index{compiler.\-c@{compiler.\-c}!evaluate\-\_\-gmx\-\_\-boolean\-\_\-minmax\-\_\-grps@{evaluate\-\_\-gmx\-\_\-boolean\-\_\-minmax\-\_\-grps}}
+\index{evaluate\-\_\-gmx\-\_\-boolean\-\_\-minmax\-\_\-grps@{evaluate\-\_\-gmx\-\_\-boolean\-\_\-minmax\-\_\-grps}!compiler.c@{compiler.\-c}}
+\subsubsection[{evaluate\-\_\-gmx\-\_\-boolean\-\_\-minmax\-\_\-grps}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf evaluate\-\_\-gmx\-\_\-boolean\-\_\-minmax\-\_\-grps} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-selelem} $\ast$}]{sel, }
+\item[{{\bf gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$}]{g, }
+\item[{{\bf gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$}]{gmin, }
+\item[{{\bf gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$}]{gmax}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{compiler_8c_affa0980dee87f3900eff44899399920d}
+
+
+\-Evaluates the minimum and maximum groups for a gmx\-\_\-boolean expression. 
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em sel} & \hyperlink{selelem_8h_a1f104d5c71b1198ef51acc4ef016ae46ae886c4e170c3abd5527de0af74ba4a45}{\-S\-E\-L\-\_\-\-B\-O\-O\-L\-E\-A\-N} element currently being evaluated. \\
+\hline
+\mbox{\tt in}  & {\em g} & \-Group for which {\ttfamily sel} has been evaluated. \\
+\hline
+\mbox{\tt out}  & {\em gmin} & \-Largest subset of the possible values of {\ttfamily sel}. \\
+\hline
+\mbox{\tt out}  & {\em gmax} & \-Smallest superset of the possible values of {\ttfamily sel}.\\
+\hline
+\end{DoxyParams}
+\-This is a helper function for \hyperlink{compiler_8c_a09735ae8eb0bc552e39ff450c1e1c157}{analyze\-\_\-static()} that is called for dynamic \hyperlink{selelem_8h_a1f104d5c71b1198ef51acc4ef016ae46ae886c4e170c3abd5527de0af74ba4a45}{\-S\-E\-L\-\_\-\-B\-O\-O\-L\-E\-A\-N} elements after they have been evaluated. \-It uses the minimum and maximum groups of the children to calculate the minimum and maximum groups for {\ttfamily sel}, and also updates the static part of {\ttfamily sel} (which is in the first child) if the children give cause for this.
+
+\-This function may allocate some extra memory for {\ttfamily gmin} and {\ttfamily gmax}, but as these groups are freed at the end of \hyperlink{compiler_8c_a09735ae8eb0bc552e39ff450c1e1c157}{analyze\-\_\-static()} (which is reached shortly after this function returns), this should not be a major problem. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{compiler_8c_affa0980dee87f3900eff44899399920d_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{compiler_8c_affa0980dee87f3900eff44899399920d_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{compiler_8c_a81b6b0d69b09c58733c3e97a639ea90b}{\index{compiler.\-c@{compiler.\-c}!evaluate\-\_\-gmx\-\_\-boolean\-\_\-static\-\_\-part@{evaluate\-\_\-gmx\-\_\-boolean\-\_\-static\-\_\-part}}
+\index{evaluate\-\_\-gmx\-\_\-boolean\-\_\-static\-\_\-part@{evaluate\-\_\-gmx\-\_\-boolean\-\_\-static\-\_\-part}!compiler.c@{compiler.\-c}}
+\subsubsection[{evaluate\-\_\-gmx\-\_\-boolean\-\_\-static\-\_\-part}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf evaluate\-\_\-gmx\-\_\-boolean\-\_\-static\-\_\-part} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-sel\-\_\-evaluate\-\_\-t} $\ast$}]{data, }
+\item[{{\bf t\-\_\-selelem} $\ast$}]{sel, }
+\item[{{\bf gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$}]{g}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{compiler_8c_a81b6b0d69b09c58733c3e97a639ea90b}
+
+
+\-Evaluates the static part of a gmx\-\_\-boolean expression. 
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em data} & \-Evaluation data. \\
+\hline
+\mbox{\tt in,out}  & {\em sel} & \-Boolean selection element whose children should be processed. \\
+\hline
+\mbox{\tt in}  & {\em g} & \-The evaluation group. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+0 on success, a non-\/zero error code on error.
+\end{DoxyReturn}
+reorder\-\_\-item\-\_\-static\-\_\-children() should have been called. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{compiler_8c_a81b6b0d69b09c58733c3e97a639ea90b_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{compiler_8c_a81b6b0d69b09c58733c3e97a639ea90b_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{compiler_8c_a5c14c46967521f174487be565bd10c8e}{\index{compiler.\-c@{compiler.\-c}!extract\-\_\-item\-\_\-subselections@{extract\-\_\-item\-\_\-subselections}}
+\index{extract\-\_\-item\-\_\-subselections@{extract\-\_\-item\-\_\-subselections}!compiler.c@{compiler.\-c}}
+\subsubsection[{extract\-\_\-item\-\_\-subselections}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf t\-\_\-selelem}$\ast$ {\bf extract\-\_\-item\-\_\-subselections} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-selelem} $\ast$}]{sel, }
+\item[{int $\ast$}]{subexprn}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{compiler_8c_a5c14c46967521f174487be565bd10c8e}
+
+
+\-Processes and extracts subexpressions from a given selection subtree. 
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em sel} & \-Root of the subtree to process. \\
+\hline
+{\em subexprn} & \-Pointer to a subexpression counter. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-Pointer to a chain of subselections, or \-N\-U\-L\-L if none were found.
+\end{DoxyReturn}
+\-This function finds recursively all \hyperlink{selelem_8h_a1f104d5c71b1198ef51acc4ef016ae46af3e44c019a776df8511a73457f9b32b4}{\-S\-E\-L\-\_\-\-S\-U\-B\-E\-X\-P\-R\-R\-E\-F} elements below the given root element and ensures that their children are within \hyperlink{selelem_8h_a1f104d5c71b1198ef51acc4ef016ae46a4b01539a457afb7dbdf486c2a2e6dafb}{\-S\-E\-L\-\_\-\-S\-U\-B\-E\-X\-P\-R} elements. \-It also creates a chain of \hyperlink{selelem_8h_a1f104d5c71b1198ef51acc4ef016ae46a4374c0be00e03bae94a94c4f2d88569d}{\-S\-E\-L\-\_\-\-R\-O\-O\-T} elements that contain the subexpression as their children and returns the first of these root elements. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{compiler_8c_a5c14c46967521f174487be565bd10c8e_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{compiler_8c_a5c14c46967521f174487be565bd10c8e_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{compiler_8c_aeff4e070cf17e5c86326856432a8c8ed}{\index{compiler.\-c@{compiler.\-c}!extract\-\_\-subexpressions@{extract\-\_\-subexpressions}}
+\index{extract\-\_\-subexpressions@{extract\-\_\-subexpressions}!compiler.c@{compiler.\-c}}
+\subsubsection[{extract\-\_\-subexpressions}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf t\-\_\-selelem}$\ast$ {\bf extract\-\_\-subexpressions} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-selelem} $\ast$}]{sel}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{compiler_8c_aeff4e070cf17e5c86326856432a8c8ed}
+
+
+\-Extracts subexpressions of the selection chain. 
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em sel} & \-First selection in the whole selection chain. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-The new first element for the chain.
+\end{DoxyReturn}
+\-Finds all the subexpressions (and their subexpressions) in the selection chain starting from {\ttfamily sel} and creates \hyperlink{selelem_8h_a1f104d5c71b1198ef51acc4ef016ae46a4b01539a457afb7dbdf486c2a2e6dafb}{\-S\-E\-L\-\_\-\-S\-U\-B\-E\-X\-P\-R} elements for them. \hyperlink{selelem_8h_a1f104d5c71b1198ef51acc4ef016ae46a4374c0be00e03bae94a94c4f2d88569d}{\-S\-E\-L\-\_\-\-R\-O\-O\-T} elements are also created for each subexpression and inserted into the selection chain before the expressions that refer to them. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{compiler_8c_aeff4e070cf17e5c86326856432a8c8ed_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{compiler_8c_aeff4e070cf17e5c86326856432a8c8ed_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{compiler_8c_aab051f07253214f9cf2dc2bd2fc03dc1}{\index{compiler.\-c@{compiler.\-c}!free\-\_\-item\-\_\-compilerdata@{free\-\_\-item\-\_\-compilerdata}}
+\index{free\-\_\-item\-\_\-compilerdata@{free\-\_\-item\-\_\-compilerdata}!compiler.c@{compiler.\-c}}
+\subsubsection[{free\-\_\-item\-\_\-compilerdata}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf free\-\_\-item\-\_\-compilerdata} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-selelem} $\ast$}]{sel}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{compiler_8c_aab051f07253214f9cf2dc2bd2fc03dc1}
+
+
+\-Frees the allocated compiler data recursively. 
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em sel} & \-Root of the selection subtree to process.\\
+\hline
+\end{DoxyParams}
+\-Frees the data allocated for the compilation process. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{compiler_8c_aab051f07253214f9cf2dc2bd2fc03dc1_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{compiler_8c_aab051f07253214f9cf2dc2bd2fc03dc1_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{compiler_8c_a1561ef3c1aff347b13d9b05bd8dbd20f}{\index{compiler.\-c@{compiler.\-c}!gmx\-\_\-ana\-\_\-selcollection\-\_\-compile@{gmx\-\_\-ana\-\_\-selcollection\-\_\-compile}}
+\index{gmx\-\_\-ana\-\_\-selcollection\-\_\-compile@{gmx\-\_\-ana\-\_\-selcollection\-\_\-compile}!compiler.c@{compiler.\-c}}
+\subsubsection[{gmx\-\_\-ana\-\_\-selcollection\-\_\-compile}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-ana\-\_\-selcollection\-\_\-compile} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-selcollection\-\_\-t} $\ast$}]{sc}
+\end{DoxyParamCaption}
+)}}\label{compiler_8c_a1561ef3c1aff347b13d9b05bd8dbd20f}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in,out}  & {\em sc} & \-Selection collection to be compiled. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+0 on successful compilation, a non-\/zero error code on error.
+\end{DoxyReturn}
+\-Before compilation, the selection collection should have been initialized with gmx\-\_\-ana\-\_\-selcollection\-\_\-parse\-\_\-$\ast$(). \-The compiled selection collection can be passed to \hyperlink{include_2selection_8h_ab2834fffa55aef9dde3dffb7bb1d8542}{gmx\-\_\-ana\-\_\-selcollection\-\_\-evaluate()} to evaluate the selection for a frame. \-If an error occurs, {\ttfamily sc} is cleared.
+
+\-The covered fraction information in {\ttfamily sc} is initialized to \hyperlink{share_2template_2gromacs_2selection_8h_a3586467b9eaf1c08160c5fef7377e622a48c3d0ece765fef64dd56d6cf87daf47}{\-C\-F\-R\-A\-C\-\_\-\-N\-O\-N\-E}. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{compiler_8c_a1561ef3c1aff347b13d9b05bd8dbd20f_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{compiler_8c_a1561ef3c1aff347b13d9b05bd8dbd20f_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{compiler_8c_aad2140c5479c2e6c125c6c79fe02fb0c}{\index{compiler.\-c@{compiler.\-c}!gmx\-\_\-ana\-\_\-selcollection\-\_\-set\-\_\-compile\-\_\-debug@{gmx\-\_\-ana\-\_\-selcollection\-\_\-set\-\_\-compile\-\_\-debug}}
+\index{gmx\-\_\-ana\-\_\-selcollection\-\_\-set\-\_\-compile\-\_\-debug@{gmx\-\_\-ana\-\_\-selcollection\-\_\-set\-\_\-compile\-\_\-debug}!compiler.c@{compiler.\-c}}
+\subsubsection[{gmx\-\_\-ana\-\_\-selcollection\-\_\-set\-\_\-compile\-\_\-debug}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-ana\-\_\-selcollection\-\_\-set\-\_\-compile\-\_\-debug} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-selcollection\-\_\-t} $\ast$}]{sc, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Debug}
+\end{DoxyParamCaption}
+)}}\label{compiler_8c_aad2140c5479c2e6c125c6c79fe02fb0c}
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in,out}  & {\em sc} & \-Selection collection to debug. \\
+\hline
+\mbox{\tt in}  & {\em b\-Debug} & \-If \-T\-R\-U\-E, later call to \hyperlink{include_2selection_8h_a1561ef3c1aff347b13d9b05bd8dbd20f}{gmx\-\_\-ana\-\_\-selcollection\-\_\-compile()} will print out intermediate selection trees. \\
+\hline
+\end{DoxyParams}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{compiler_8c_aad2140c5479c2e6c125c6c79fe02fb0c_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{compiler_8c_aefc9823a24a9e25ae1dcbc6c4c1cacaf}{\index{compiler.\-c@{compiler.\-c}!init\-\_\-item\-\_\-comg@{init\-\_\-item\-\_\-comg}}
+\index{init\-\_\-item\-\_\-comg@{init\-\_\-item\-\_\-comg}!compiler.c@{compiler.\-c}}
+\subsubsection[{init\-\_\-item\-\_\-comg}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf init\-\_\-item\-\_\-comg} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-selelem} $\ast$}]{sel, }
+\item[{{\bf gmx\-\_\-ana\-\_\-poscalc\-\_\-coll\-\_\-t} $\ast$}]{pcc, }
+\item[{{\bf e\-\_\-poscalc\-\_\-t}}]{type, }
+\item[{int}]{flags}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{compiler_8c_aefc9823a24a9e25ae1dcbc6c4c1cacaf}
+
+
+\-Initializes \-C\-O\-M/\-C\-O\-G calculation for method expressions that require it. 
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+ & {\em sel} & \-Selection subtree to process. \\
+\hline
+\mbox{\tt in,out}  & {\em pcc} & \-Position calculation collection to use. \\
+\hline
+\mbox{\tt in}  & {\em type} & \-Default position calculation type. \\
+\hline
+\mbox{\tt in}  & {\em flags} & \-Flags for default position calculation. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+0 on success, a non-\/zero error code on error.
+\end{DoxyReturn}
+\-Searches recursively through the selection tree for dynamic \hyperlink{selelem_8h_a1f104d5c71b1198ef51acc4ef016ae46a3d3bb644ace8fdc5beac6feed4911a1f}{\-S\-E\-L\-\_\-\-E\-X\-P\-R\-E\-S\-S\-I\-O\-N} elements that define the {\ttfamily \hyperlink{structgmx__ana__selmethod__t_a1c5c0b8aa5193ea0b329a649a9e166e7}{gmx\-\_\-ana\-\_\-selmethod\-\_\-t\-::pupdate}} function. \-For each such element found, position calculation is initialized for the maximal evaluation group. \-The type of the calculation is determined by {\ttfamily type} and {\ttfamily flags}. \-No calculation is initialized if {\ttfamily type} equals \hyperlink{share_2template_2gromacs_2poscalc_8h_abda45ad4bf42febbe957a08c4ee291c2a91ffdb6964763d88b5a784de222833d8}{\-P\-O\-S\-\_\-\-A\-T\-O\-M} and the method also defines the {\ttfamily \hyperlink{structgmx__ana__selmethod__t_a18d9fe0bff35116b4e12cc63c381fb47}{gmx\-\_\-ana\-\_\-selmethod\-\_\-t\-::update}} method. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{compiler_8c_aefc9823a24a9e25ae1dcbc6c4c1cacaf_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{compiler_8c_aefc9823a24a9e25ae1dcbc6c4c1cacaf_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{compiler_8c_aec666516e6b070cb98e2bc5afeb7a5c9}{\index{compiler.\-c@{compiler.\-c}!init\-\_\-item\-\_\-compilerdata@{init\-\_\-item\-\_\-compilerdata}}
+\index{init\-\_\-item\-\_\-compilerdata@{init\-\_\-item\-\_\-compilerdata}!compiler.c@{compiler.\-c}}
+\subsubsection[{init\-\_\-item\-\_\-compilerdata}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf init\-\_\-item\-\_\-compilerdata} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-selelem} $\ast$}]{sel}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{compiler_8c_aec666516e6b070cb98e2bc5afeb7a5c9}
+
+
+\-Allocates memory for the compiler data and initializes the structure. 
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em sel} & \-Root of the selection subtree to process. \\
+\hline
+\end{DoxyParams}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{compiler_8c_aec666516e6b070cb98e2bc5afeb7a5c9_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{compiler_8c_aead7a1f7761ad729f9489ea1acdb4fde}{\index{compiler.\-c@{compiler.\-c}!init\-\_\-item\-\_\-evalfunc@{init\-\_\-item\-\_\-evalfunc}}
+\index{init\-\_\-item\-\_\-evalfunc@{init\-\_\-item\-\_\-evalfunc}!compiler.c@{compiler.\-c}}
+\subsubsection[{init\-\_\-item\-\_\-evalfunc}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gmx\-\_\-bool} {\bf init\-\_\-item\-\_\-evalfunc} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-selelem} $\ast$}]{sel}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{compiler_8c_aead7a1f7761ad729f9489ea1acdb4fde}
+
+
+\-Sets the evaluation functions for the selection (sub)tree. 
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in,out}  & {\em sel} & \-Root of the selection subtree to process. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-T\-R\-U\-E on success, \-F\-A\-L\-S\-E if any subexpression fails.
+\end{DoxyReturn}
+\-This function sets the evaluation function ({\ttfamily \hyperlink{structt__selelem_a5e0082a02a156c2d010414490f94d227}{t\-\_\-selelem\-::evaluate}}) for the selection elements. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{compiler_8c_aead7a1f7761ad729f9489ea1acdb4fde_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{compiler_8c_aead7a1f7761ad729f9489ea1acdb4fde_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{compiler_8c_aa514db0bcecd9bb50fd43df909e85417}{\index{compiler.\-c@{compiler.\-c}!init\-\_\-item\-\_\-evaloutput@{init\-\_\-item\-\_\-evaloutput}}
+\index{init\-\_\-item\-\_\-evaloutput@{init\-\_\-item\-\_\-evaloutput}!compiler.c@{compiler.\-c}}
+\subsubsection[{init\-\_\-item\-\_\-evaloutput}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf init\-\_\-item\-\_\-evaloutput} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-selelem} $\ast$}]{sel}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{compiler_8c_aa514db0bcecd9bb50fd43df909e85417}
+
+
+\-Prepares the selection (sub)tree for evaluation. 
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in,out}  & {\em sel} & \-Root of the selection subtree to prepare.\\
+\hline
+\end{DoxyParams}
+\-It also allocates memory for the {\ttfamily sel-\/$>$v.\-u.\-g} or {\ttfamily sel-\/$>$v.\-u.\-p} structure if required. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{compiler_8c_aa514db0bcecd9bb50fd43df909e85417_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{compiler_8c_aa514db0bcecd9bb50fd43df909e85417_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{compiler_8c_a926cb6814a925f8558302d33984b3105}{\index{compiler.\-c@{compiler.\-c}!init\-\_\-item\-\_\-minmax\-\_\-groups@{init\-\_\-item\-\_\-minmax\-\_\-groups}}
+\index{init\-\_\-item\-\_\-minmax\-\_\-groups@{init\-\_\-item\-\_\-minmax\-\_\-groups}!compiler.c@{compiler.\-c}}
+\subsubsection[{init\-\_\-item\-\_\-minmax\-\_\-groups}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf init\-\_\-item\-\_\-minmax\-\_\-groups} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-selelem} $\ast$}]{sel}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{compiler_8c_a926cb6814a925f8558302d33984b3105}
+
+
+\-Initializes the gmin and gmax fields of the compiler data structure. 
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em sel} & \-Root of the selection subtree to process. \\
+\hline
+\end{DoxyParams}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{compiler_8c_a926cb6814a925f8558302d33984b3105_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{compiler_8c_a0a9b520e08bd125e62742468cf0fd3c9}{\index{compiler.\-c@{compiler.\-c}!init\-\_\-item\-\_\-staticeval@{init\-\_\-item\-\_\-staticeval}}
+\index{init\-\_\-item\-\_\-staticeval@{init\-\_\-item\-\_\-staticeval}!compiler.c@{compiler.\-c}}
+\subsubsection[{init\-\_\-item\-\_\-staticeval}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf init\-\_\-item\-\_\-staticeval} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-selelem} $\ast$}]{sel}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{compiler_8c_a0a9b520e08bd125e62742468cf0fd3c9}
+
+
+\-Initializes the static evaluation flag for a selection subtree. 
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in,out}  & {\em sel} & \-Root of the selection subtree to process.\\
+\hline
+\end{DoxyParams}
+\-Sets the {\ttfamily b\-Static\-Eval} in the compiler data structure\-: for any element for which the evaluation group may depend on the trajectory frame, the flag is cleared.
+
+\hyperlink{compiler_8c_ab2c56961569e4e458ceea12d8a1ebd60}{reorder\-\_\-gmx\-\_\-boolean\-\_\-static\-\_\-children()} should have been called. 
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{compiler_8c_a0a9b520e08bd125e62742468cf0fd3c9_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{compiler_8c_a13d4eb1102c99dbbe2d107f0a39a4b55}{\index{compiler.\-c@{compiler.\-c}!init\-\_\-item\-\_\-subexpr\-\_\-flags@{init\-\_\-item\-\_\-subexpr\-\_\-flags}}
+\index{init\-\_\-item\-\_\-subexpr\-\_\-flags@{init\-\_\-item\-\_\-subexpr\-\_\-flags}!compiler.c@{compiler.\-c}}
+\subsubsection[{init\-\_\-item\-\_\-subexpr\-\_\-flags}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf init\-\_\-item\-\_\-subexpr\-\_\-flags} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-selelem} $\ast$}]{sel}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{compiler_8c_a13d4eb1102c99dbbe2d107f0a39a4b55}
+
+
+\-Initializes compiler flags for subexpressions. 
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em sel} & \-Root of the selection subtree to process. \\
+\hline
+\end{DoxyParams}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{compiler_8c_a13d4eb1102c99dbbe2d107f0a39a4b55_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{compiler_8c_a9c6e6dc0c9c723231f30fc3388467d96}{\index{compiler.\-c@{compiler.\-c}!init\-\_\-method@{init\-\_\-method}}
+\index{init\-\_\-method@{init\-\_\-method}!compiler.c@{compiler.\-c}}
+\subsubsection[{init\-\_\-method}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf init\-\_\-method} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-selelem} $\ast$}]{sel, }
+\item[{{\bf t\-\_\-topology} $\ast$}]{top, }
+\item[{int}]{isize}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{compiler_8c_a9c6e6dc0c9c723231f30fc3388467d96}
+
+
+\-Handles the initialization of a selection method during \hyperlink{compiler_8c_a09735ae8eb0bc552e39ff450c1e1c157}{analyze\-\_\-static()} pass. 
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in,out}  & {\em sel} & \-Selection element to process. \\
+\hline
+\mbox{\tt in}  & {\em top} & \-Topology structure. \\
+\hline
+\mbox{\tt in}  & {\em isize} & \-Size of the evaluation group for the element. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+0 on success, a non-\/zero error code on return.
+\end{DoxyReturn}
+\-Calls \hyperlink{include_2selmethod_8h_a112e5ec6891c5963a59384cf41f0cc89}{sel\-\_\-initfunc()} (and possibly \hyperlink{include_2selmethod_8h_a682279959b047d5bf8a540b00196332b}{sel\-\_\-outinitfunc()}) to initialize the method. \-If no \hyperlink{share_2template_2gromacs_2selparam_8h_ababaf52ada40922bb660a4949e1e52f0}{\-S\-P\-A\-R\-\_\-\-A\-T\-O\-M\-V\-A\-L} parameters are present, multiple initialization is prevented by using \hyperlink{selelem_8h_a817ef15e26829604cd54829b532f73dd}{\-S\-E\-L\-\_\-\-M\-E\-T\-H\-O\-D\-I\-N\-I\-T} and \hyperlink{selelem_8h_a65325c14d19726cb92041743c37a06b8}{\-S\-E\-L\-\_\-\-O\-U\-T\-I\-N\-I\-T} flags. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{compiler_8c_a9c6e6dc0c9c723231f30fc3388467d96_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{compiler_8c_a9c6e6dc0c9c723231f30fc3388467d96_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{compiler_8c_a6a7cabfc4237b37e0d55b83eafad2434}{\index{compiler.\-c@{compiler.\-c}!init\-\_\-root\-\_\-item@{init\-\_\-root\-\_\-item}}
+\index{init\-\_\-root\-\_\-item@{init\-\_\-root\-\_\-item}!compiler.c@{compiler.\-c}}
+\subsubsection[{init\-\_\-root\-\_\-item}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf init\-\_\-root\-\_\-item} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-selelem} $\ast$}]{root, }
+\item[{{\bf gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$}]{gall}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{compiler_8c_a6a7cabfc4237b37e0d55b83eafad2434}
+
+
+\-Initializes the evaluation group for a \hyperlink{selelem_8h_a1f104d5c71b1198ef51acc4ef016ae46a4374c0be00e03bae94a94c4f2d88569d}{\-S\-E\-L\-\_\-\-R\-O\-O\-T} element. 
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+ & {\em root} & \-Root element to initialize. \\
+\hline
+\mbox{\tt in}  & {\em gall} & \-Group of all atoms.\\
+\hline
+\end{DoxyParams}
+\-Checks whether it is necessary to evaluate anything through the root element, and either clears the evaluation function or initializes the evaluation group. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=320pt]{compiler_8c_a6a7cabfc4237b37e0d55b83eafad2434_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{compiler_8c_a6a7cabfc4237b37e0d55b83eafad2434_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{compiler_8c_a8180e9255f0c8cf57f865523d1537607}{\index{compiler.\-c@{compiler.\-c}!initialize\-\_\-evalgrps@{initialize\-\_\-evalgrps}}
+\index{initialize\-\_\-evalgrps@{initialize\-\_\-evalgrps}!compiler.c@{compiler.\-c}}
+\subsubsection[{initialize\-\_\-evalgrps}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf initialize\-\_\-evalgrps} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ana\-\_\-selcollection\-\_\-t} $\ast$}]{sc}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{compiler_8c_a8180e9255f0c8cf57f865523d1537607}
+
+
+\-Initializes evaluation groups for root items. 
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in,out}  & {\em sc} & \-Selection collection data.\\
+\hline
+\end{DoxyParams}
+\-The evaluation group of each \hyperlink{selelem_8h_a1f104d5c71b1198ef51acc4ef016ae46a4374c0be00e03bae94a94c4f2d88569d}{\-S\-E\-L\-\_\-\-R\-O\-O\-T} element corresponding to a selection in {\ttfamily sc} is set to \-N\-U\-L\-L. \-The evaluation grop for \hyperlink{selelem_8h_a1f104d5c71b1198ef51acc4ef016ae46a4374c0be00e03bae94a94c4f2d88569d}{\-S\-E\-L\-\_\-\-R\-O\-O\-T} elements corresponding to subexpressions that need full evaluation is set to {\ttfamily sc-\/$>$gall}. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=314pt]{compiler_8c_a8180e9255f0c8cf57f865523d1537607_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{compiler_8c_a8180e9255f0c8cf57f865523d1537607_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{compiler_8c_a1c5c2e2109bb236d97aba5b9e15e9388}{\index{compiler.\-c@{compiler.\-c}!make\-\_\-static@{make\-\_\-static}}
+\index{make\-\_\-static@{make\-\_\-static}!compiler.c@{compiler.\-c}}
+\subsubsection[{make\-\_\-static}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf make\-\_\-static} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-selelem} $\ast$}]{sel}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{compiler_8c_a1c5c2e2109bb236d97aba5b9e15e9388}
+
+
+\-Makes an evaluated selection element static. 
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em sel} & \-Selection element to make static.\\
+\hline
+\end{DoxyParams}
+\-The evaluated value becomes the value of the static element. \-The element type is changed to \-S\-E\-L\-\_\-\-C\-O\-N\-S\-T and the children are deleted. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{compiler_8c_a1c5c2e2109bb236d97aba5b9e15e9388_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{compiler_8c_a1c5c2e2109bb236d97aba5b9e15e9388_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{compiler_8c_a121ef52add69281e76d1495b671e0953}{\index{compiler.\-c@{compiler.\-c}!mark\-\_\-subexpr\-\_\-dynamic@{mark\-\_\-subexpr\-\_\-dynamic}}
+\index{mark\-\_\-subexpr\-\_\-dynamic@{mark\-\_\-subexpr\-\_\-dynamic}!compiler.c@{compiler.\-c}}
+\subsubsection[{mark\-\_\-subexpr\-\_\-dynamic}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf mark\-\_\-subexpr\-\_\-dynamic} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-selelem} $\ast$}]{sel, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Dynamic}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{compiler_8c_a121ef52add69281e76d1495b671e0953}
+
+
+\-Marks a subtree completely dynamic or undoes such a change. 
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+ & {\em sel} & \-Selection subtree to mark. \\
+\hline
+\mbox{\tt in}  & {\em b\-Dynamic} & \-If \-T\-R\-U\-E, the {\ttfamily b\-Static} flag of the whole selection subtree is cleared. \-If \-F\-A\-L\-S\-E, the flag is restored to using \hyperlink{selelem_8h_a7c6372a1eecd845aaaaf60326c9bba16}{\-S\-E\-L\-\_\-\-D\-Y\-N\-A\-M\-I\-C}.\\
+\hline
+\end{DoxyParams}
+\-Does not descend into parameters of methods unless the parameters are evaluated for each atom. 
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{compiler_8c_a121ef52add69281e76d1495b671e0953_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{compiler_8c_a920bfc4c9bc4b61067ca488a2325dd6b}{\index{compiler.\-c@{compiler.\-c}!optimize\-\_\-arithmetic\-\_\-expressions@{optimize\-\_\-arithmetic\-\_\-expressions}}
+\index{optimize\-\_\-arithmetic\-\_\-expressions@{optimize\-\_\-arithmetic\-\_\-expressions}!compiler.c@{compiler.\-c}}
+\subsubsection[{optimize\-\_\-arithmetic\-\_\-expressions}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gmx\-\_\-bool} {\bf optimize\-\_\-arithmetic\-\_\-expressions} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-selelem} $\ast$}]{sel}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{compiler_8c_a920bfc4c9bc4b61067ca488a2325dd6b}
+
+
+\-Processes arithmetic expressions to simplify and speed up evaluation. 
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em sel} & \-Root of the selection subtree to process.\\
+\hline
+\end{DoxyParams}
+\-Currently, this function only converts integer constants to reals within arithmetic expressions. 
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{compiler_8c_a920bfc4c9bc4b61067ca488a2325dd6b_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{compiler_8c_a29ae812b174591a6718aaf337b8db545}{\index{compiler.\-c@{compiler.\-c}!optimize\-\_\-gmx\-\_\-boolean\-\_\-expressions@{optimize\-\_\-gmx\-\_\-boolean\-\_\-expressions}}
+\index{optimize\-\_\-gmx\-\_\-boolean\-\_\-expressions@{optimize\-\_\-gmx\-\_\-boolean\-\_\-expressions}!compiler.c@{compiler.\-c}}
+\subsubsection[{optimize\-\_\-gmx\-\_\-boolean\-\_\-expressions}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf optimize\-\_\-gmx\-\_\-boolean\-\_\-expressions} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-selelem} $\ast$}]{sel}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{compiler_8c_a29ae812b174591a6718aaf337b8db545}
+
+
+\-Removes redundant gmx\-\_\-boolean selection elements. 
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em sel} & \-Root of the selection subtree to optimize.\\
+\hline
+\end{DoxyParams}
+\-This function merges similar gmx\-\_\-boolean operations (e.\-g., (\-A or \-B) or \-C becomes a single \-O\-R operation with three operands). 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{compiler_8c_a29ae812b174591a6718aaf337b8db545_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{compiler_8c_a29ae812b174591a6718aaf337b8db545_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{compiler_8c_a1528bd54b715bc45a33b828aae75c55b}{\index{compiler.\-c@{compiler.\-c}!postprocess\-\_\-item\-\_\-subexpressions@{postprocess\-\_\-item\-\_\-subexpressions}}
+\index{postprocess\-\_\-item\-\_\-subexpressions@{postprocess\-\_\-item\-\_\-subexpressions}!compiler.c@{compiler.\-c}}
+\subsubsection[{postprocess\-\_\-item\-\_\-subexpressions}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf postprocess\-\_\-item\-\_\-subexpressions} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-selelem} $\ast$}]{sel}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{compiler_8c_a1528bd54b715bc45a33b828aae75c55b}
+
+
+\-Optimizes subexpression evaluation. 
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em sel} & \-Root of the selection subtree to process.\\
+\hline
+\end{DoxyParams}
+\-Optimizes away some unnecessary evaluation of subexpressions that are only referenced once. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{compiler_8c_a1528bd54b715bc45a33b828aae75c55b_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{compiler_8c_a1528bd54b715bc45a33b828aae75c55b_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{compiler_8c_af97a2e6373bd7cbaa59ecde7edc20417}{\index{compiler.\-c@{compiler.\-c}!print\-\_\-group\-\_\-info@{print\-\_\-group\-\_\-info}}
+\index{print\-\_\-group\-\_\-info@{print\-\_\-group\-\_\-info}!compiler.c@{compiler.\-c}}
+\subsubsection[{print\-\_\-group\-\_\-info}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf print\-\_\-group\-\_\-info} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{const char $\ast$}]{name, }
+\item[{{\bf t\-\_\-selelem} $\ast$}]{sel, }
+\item[{{\bf gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$}]{g}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{compiler_8c_af97a2e6373bd7cbaa59ecde7edc20417}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{compiler_8c_af97a2e6373bd7cbaa59ecde7edc20417_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{compiler_8c_aa7b57d36666cb61b991a7c6bc20713b3}{\index{compiler.\-c@{compiler.\-c}!process\-\_\-const@{process\-\_\-const}}
+\index{process\-\_\-const@{process\-\_\-const}!compiler.c@{compiler.\-c}}
+\subsubsection[{process\-\_\-const}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf process\-\_\-const} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-sel\-\_\-evaluate\-\_\-t} $\ast$}]{data, }
+\item[{{\bf t\-\_\-selelem} $\ast$}]{sel, }
+\item[{{\bf gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$}]{g}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{compiler_8c_aa7b57d36666cb61b991a7c6bc20713b3}
+
+
+\-Evaluates a constant expression during \hyperlink{compiler_8c_a09735ae8eb0bc552e39ff450c1e1c157}{analyze\-\_\-static()}. 
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em data} & \-Evaluation data. \\
+\hline
+\mbox{\tt in,out}  & {\em sel} & \-Selection to process. \\
+\hline
+\mbox{\tt in}  & {\em g} & \-The evaluation group. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+0 on success, a non-\/zero error code on error. 
+\end{DoxyReturn}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{compiler_8c_aa7b57d36666cb61b991a7c6bc20713b3_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{compiler_8c_a84f9c615092486fc2358269f81b659cd}{\index{compiler.\-c@{compiler.\-c}!release\-\_\-subexpr\-\_\-memory@{release\-\_\-subexpr\-\_\-memory}}
+\index{release\-\_\-subexpr\-\_\-memory@{release\-\_\-subexpr\-\_\-memory}!compiler.c@{compiler.\-c}}
+\subsubsection[{release\-\_\-subexpr\-\_\-memory}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf release\-\_\-subexpr\-\_\-memory} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-selelem} $\ast$}]{sel}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{compiler_8c_a84f9c615092486fc2358269f81b659cd}
+
+
+\-Frees memory for subexpressions that are no longer needed. 
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em sel} & \-Selection subtree to check.\\
+\hline
+\end{DoxyParams}
+\-Checks whether the subtree rooted at {\ttfamily sel} refers to any \hyperlink{selelem_8h_a1f104d5c71b1198ef51acc4ef016ae46a4b01539a457afb7dbdf486c2a2e6dafb}{\-S\-E\-L\-\_\-\-S\-U\-B\-E\-X\-P\-R} elements that are not referred to by anything else except their own root element. \-If such elements are found, all memory allocated for them is freed except the actual element. \-The element is left because otherwise a dangling pointer would be left at the root element, which is not traversed by this function. \-Later compilation passes remove the stub elements. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{compiler_8c_a84f9c615092486fc2358269f81b659cd_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{compiler_8c_a84f9c615092486fc2358269f81b659cd_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{compiler_8c_aac2492978d5212f8731eb103d209d9a3}{\index{compiler.\-c@{compiler.\-c}!remove\-\_\-unused\-\_\-subexpressions@{remove\-\_\-unused\-\_\-subexpressions}}
+\index{remove\-\_\-unused\-\_\-subexpressions@{remove\-\_\-unused\-\_\-subexpressions}!compiler.c@{compiler.\-c}}
+\subsubsection[{remove\-\_\-unused\-\_\-subexpressions}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf t\-\_\-selelem}$\ast$ {\bf remove\-\_\-unused\-\_\-subexpressions} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-selelem} $\ast$}]{root}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{compiler_8c_aac2492978d5212f8731eb103d209d9a3}
+
+
+\-Removes subexpressions that don't have any references. 
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em root} & \-First selection in the whole selection chain. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-The new first element for the chain.
+\end{DoxyReturn}
+\-The elements are processed in reverse order to correctly detect subexpressions only referred to by other subexpressions. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{compiler_8c_aac2492978d5212f8731eb103d209d9a3_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{compiler_8c_aac2492978d5212f8731eb103d209d9a3_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{compiler_8c_ab2c56961569e4e458ceea12d8a1ebd60}{\index{compiler.\-c@{compiler.\-c}!reorder\-\_\-gmx\-\_\-boolean\-\_\-static\-\_\-children@{reorder\-\_\-gmx\-\_\-boolean\-\_\-static\-\_\-children}}
+\index{reorder\-\_\-gmx\-\_\-boolean\-\_\-static\-\_\-children@{reorder\-\_\-gmx\-\_\-boolean\-\_\-static\-\_\-children}!compiler.c@{compiler.\-c}}
+\subsubsection[{reorder\-\_\-gmx\-\_\-boolean\-\_\-static\-\_\-children}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf reorder\-\_\-gmx\-\_\-boolean\-\_\-static\-\_\-children} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-selelem} $\ast$}]{sel}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{compiler_8c_ab2c56961569e4e458ceea12d8a1ebd60}
+
+
+\-Reorders children of gmx\-\_\-boolean expressions such that static selections come first. 
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em sel} & \-Root of the selection subtree to reorder.\\
+\hline
+\end{DoxyParams}
+\-The relative order of static expressions does not change. \-The same is true for the dynamic expressions. 
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{compiler_8c_ab2c56961569e4e458ceea12d8a1ebd60_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{compiler_8c_a778e68cd4681aecc9eb60380f43e8d24}{\index{compiler.\-c@{compiler.\-c}!reverse\-\_\-selelem\-\_\-chain@{reverse\-\_\-selelem\-\_\-chain}}
+\index{reverse\-\_\-selelem\-\_\-chain@{reverse\-\_\-selelem\-\_\-chain}!compiler.c@{compiler.\-c}}
+\subsubsection[{reverse\-\_\-selelem\-\_\-chain}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf t\-\_\-selelem}$\ast$ {\bf reverse\-\_\-selelem\-\_\-chain} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-selelem} $\ast$}]{root}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{compiler_8c_a778e68cd4681aecc9eb60380f43e8d24}
+
+
+\-Reverses the chain of selection elements starting at {\ttfamily root}. 
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em root} & \-First selection in the whole selection chain. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-The new first element for the chain. 
+\end{DoxyReturn}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{compiler_8c_a778e68cd4681aecc9eb60380f43e8d24_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{compiler_8c_a819e06c7ea82ad857dd9cbaea9141c7f}{\index{compiler.\-c@{compiler.\-c}!set\-\_\-evaluation\-\_\-function@{set\-\_\-evaluation\-\_\-function}}
+\index{set\-\_\-evaluation\-\_\-function@{set\-\_\-evaluation\-\_\-function}!compiler.c@{compiler.\-c}}
+\subsubsection[{set\-\_\-evaluation\-\_\-function}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf set\-\_\-evaluation\-\_\-function} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-selelem} $\ast$}]{sel, }
+\item[{{\bf sel\-\_\-evalfunc}}]{eval}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{compiler_8c_a819e06c7ea82ad857dd9cbaea9141c7f}
+
+
+\-Replace the evaluation function of each element in the subtree. 
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+ & {\em sel} & \-Root of the selection subtree to process. \\
+\hline
+\mbox{\tt in}  & {\em eval} & \-The new evaluation function. \\
+\hline
+\end{DoxyParams}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{compiler_8c_a819e06c7ea82ad857dd9cbaea9141c7f_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{compiler_8c_a8d848ba533a9603991869477ba2019a5}{\index{compiler.\-c@{compiler.\-c}!setup\-\_\-memory\-\_\-pooling@{setup\-\_\-memory\-\_\-pooling}}
+\index{setup\-\_\-memory\-\_\-pooling@{setup\-\_\-memory\-\_\-pooling}!compiler.c@{compiler.\-c}}
+\subsubsection[{setup\-\_\-memory\-\_\-pooling}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf setup\-\_\-memory\-\_\-pooling} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-selelem} $\ast$}]{sel, }
+\item[{{\bf gmx\-\_\-sel\-\_\-mempool\-\_\-t} $\ast$}]{mempool}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{compiler_8c_a8d848ba533a9603991869477ba2019a5}
+
+
+\-Sets the memory pool for selection elements that can use it. 
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+ & {\em sel} & \-Root of the selection subtree to process. \\
+\hline
+\mbox{\tt in}  & {\em mempool} & \-Memory pool to use. \\
+\hline
+\end{DoxyParams}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{compiler_8c_a8d848ba533a9603991869477ba2019a5_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{compiler_8c_a570c143f77f0485a94ca9923fc330469}{\index{compiler.\-c@{compiler.\-c}!store\-\_\-param\-\_\-val@{store\-\_\-param\-\_\-val}}
+\index{store\-\_\-param\-\_\-val@{store\-\_\-param\-\_\-val}!compiler.c@{compiler.\-c}}
+\subsubsection[{store\-\_\-param\-\_\-val}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf store\-\_\-param\-\_\-val} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-selelem} $\ast$}]{sel}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{compiler_8c_a570c143f77f0485a94ca9923fc330469}
+
+
+\-Sets the parameter value pointer for \hyperlink{selelem_8h_a1f104d5c71b1198ef51acc4ef016ae46af3e44c019a776df8511a73457f9b32b4}{\-S\-E\-L\-\_\-\-S\-U\-B\-E\-X\-P\-R\-R\-E\-F} params. 
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in,out}  & {\em sel} & \-Selection to process.\\
+\hline
+\end{DoxyParams}
+\-Copies the value pointer of {\ttfamily sel} to {\ttfamily sel-\/$>$u.\-param} if one is present and should receive the value from the compiler (most parameter values are handled during parsing). \-If {\ttfamily sel} is not of type \hyperlink{selelem_8h_a1f104d5c71b1198ef51acc4ef016ae46af3e44c019a776df8511a73457f9b32b4}{\-S\-E\-L\-\_\-\-S\-U\-B\-E\-X\-P\-R\-R\-E\-F}, or if {\ttfamily sel-\/$>$u.\-param} is \-N\-U\-L\-L, the function does nothing. \-Also, if the {\ttfamily sel-\/$>$u.\-param} does not have \hyperlink{share_2template_2gromacs_2selparam_8h_a400330277d7e17cdfef1610cc37838ea}{\-S\-P\-A\-R\-\_\-\-V\-A\-R\-N\-U\-M} or \hyperlink{share_2template_2gromacs_2selparam_8h_ababaf52ada40922bb660a4949e1e52f0}{\-S\-P\-A\-R\-\_\-\-A\-T\-O\-M\-V\-A\-L}, the function returns immediately. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=328pt]{compiler_8c_a570c143f77f0485a94ca9923fc330469_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{compiler_8c_a570c143f77f0485a94ca9923fc330469_icgraph}
+\end{center}
+\end{figure}
+
+

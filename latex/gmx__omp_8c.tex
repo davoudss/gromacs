@@ -1,0 +1,148 @@
+\hypertarget{gmx__omp_8c}{\section{src/gmxlib/gmx\-\_\-omp.c \-File \-Reference}
+\label{gmx__omp_8c}\index{src/gmxlib/gmx\-\_\-omp.\-c@{src/gmxlib/gmx\-\_\-omp.\-c}}
+}
+{\ttfamily \#include $<$stdio.\-h$>$}\*
+{\ttfamily \#include \char`\"{}md\-\_\-logging.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-fatal.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}statutil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}string2.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-omp.\-h\char`\"{}}\*
+\-Include dependency graph for gmx\-\_\-omp.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__omp_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{gmx__omp_8c_a29a756d1573d36b702845f21700bd12f}{gmx\-\_\-omp\-\_\-get\-\_\-max\-\_\-threads} (\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void})
+\item 
+int \hyperlink{gmx__omp_8c_a1397b58c16c60a0349d9e4aa1df2349e}{gmx\-\_\-omp\-\_\-get\-\_\-num\-\_\-procs} (\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void})
+\item 
+int \hyperlink{gmx__omp_8c_a04383c3cc48de75f41acbcd8de33b78f}{gmx\-\_\-omp\-\_\-get\-\_\-thread\-\_\-num} (\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__omp_8c_a7a75b2bb561a45da2abede8709ae5339}{gmx\-\_\-omp\-\_\-set\-\_\-num\-\_\-threads} (int num\-\_\-threads)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__omp_8c_a6e4d237ee3d155142de13e614b87bc84}{gmx\-\_\-omp\-\_\-check\-\_\-thread\-\_\-affinity} (\-F\-I\-L\-E $\ast$fplog, const \hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr, \hyperlink{structgmx__hw__opt__t}{gmx\-\_\-hw\-\_\-opt\-\_\-t} $\ast$hw\-\_\-opt)
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{gmx__omp_8c_a6e4d237ee3d155142de13e614b87bc84}{\index{gmx\-\_\-omp.\-c@{gmx\-\_\-omp.\-c}!gmx\-\_\-omp\-\_\-check\-\_\-thread\-\_\-affinity@{gmx\-\_\-omp\-\_\-check\-\_\-thread\-\_\-affinity}}
+\index{gmx\-\_\-omp\-\_\-check\-\_\-thread\-\_\-affinity@{gmx\-\_\-omp\-\_\-check\-\_\-thread\-\_\-affinity}!gmx_omp.c@{gmx\-\_\-omp.\-c}}
+\subsubsection[{gmx\-\_\-omp\-\_\-check\-\_\-thread\-\_\-affinity}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-omp\-\_\-check\-\_\-thread\-\_\-affinity} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fplog, }
+\item[{const {\bf t\-\_\-commrec} $\ast$}]{cr, }
+\item[{{\bf gmx\-\_\-hw\-\_\-opt\-\_\-t} $\ast$}]{hw\-\_\-opt}
+\end{DoxyParamCaption}
+)}}\label{gmx__omp_8c_a6e4d237ee3d155142de13e614b87bc84}
+\-Thread affinity set by the \-Open\-M\-P library can conflict with the \-G\-R\-O\-M\-A\-C\-S internal affinity setting.
+
+\-While \-G\-N\-U \-Open\-M\-P does not set affinity by default, the \-Intel \-Open\-M\-P library does. \-This conflicts with the internal affinity (especially thread-\/\-M\-P\-I) setting, results in incorrectly locked threads, and causes dreadful performance.
+
+\-The \-K\-M\-P\-\_\-\-A\-F\-F\-I\-N\-I\-T\-Y environment variable is used by \-Intel, \-G\-O\-M\-P\-\_\-\-C\-P\-U\-\_\-\-A\-F\-F\-I\-N\-I\-T\-Y by the \-G\-N\-U compilers (\-Intel also honors it well). \-If any of the variables is set, we honor it, disable the internal pinning, and warn the user. \-When using \-Intel \-Open\-M\-P, we will disable affinity if the user did not set it anually through one of the aforementioned environment variables.
+
+\-Note that the \-Intel \-Open\-M\-P affinity disabling iwll only take effect if this function is called before the \-Open\-M\-P library gets initialized which happens when the first call is made into a compilation unit that contains \-Open\-M\-P pragmas. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__omp_8c_a6e4d237ee3d155142de13e614b87bc84_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=332pt]{gmx__omp_8c_a6e4d237ee3d155142de13e614b87bc84_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__omp_8c_a29a756d1573d36b702845f21700bd12f}{\index{gmx\-\_\-omp.\-c@{gmx\-\_\-omp.\-c}!gmx\-\_\-omp\-\_\-get\-\_\-max\-\_\-threads@{gmx\-\_\-omp\-\_\-get\-\_\-max\-\_\-threads}}
+\index{gmx\-\_\-omp\-\_\-get\-\_\-max\-\_\-threads@{gmx\-\_\-omp\-\_\-get\-\_\-max\-\_\-threads}!gmx_omp.c@{gmx\-\_\-omp.\-c}}
+\subsubsection[{gmx\-\_\-omp\-\_\-get\-\_\-max\-\_\-threads}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-omp\-\_\-get\-\_\-max\-\_\-threads} (
+\begin{DoxyParamCaption}
+\item[{{\bf void}}]{}
+\end{DoxyParamCaption}
+)}}\label{gmx__omp_8c_a29a756d1573d36b702845f21700bd12f}
+\-Returns an integer equal to or greater than the number of threads that would be available if a parallel region without num\-\_\-threads were defined at that point in the code. \-Acts as a wrapper for omp\-\_\-set\-\_\-num\-\_\-threads(void). 
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__omp_8c_a29a756d1573d36b702845f21700bd12f_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__omp_8c_a1397b58c16c60a0349d9e4aa1df2349e}{\index{gmx\-\_\-omp.\-c@{gmx\-\_\-omp.\-c}!gmx\-\_\-omp\-\_\-get\-\_\-num\-\_\-procs@{gmx\-\_\-omp\-\_\-get\-\_\-num\-\_\-procs}}
+\index{gmx\-\_\-omp\-\_\-get\-\_\-num\-\_\-procs@{gmx\-\_\-omp\-\_\-get\-\_\-num\-\_\-procs}!gmx_omp.c@{gmx\-\_\-omp.\-c}}
+\subsubsection[{gmx\-\_\-omp\-\_\-get\-\_\-num\-\_\-procs}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-omp\-\_\-get\-\_\-num\-\_\-procs} (
+\begin{DoxyParamCaption}
+\item[{{\bf void}}]{}
+\end{DoxyParamCaption}
+)}}\label{gmx__omp_8c_a1397b58c16c60a0349d9e4aa1df2349e}
+\-Returns the number of processors available when the function is called. \-Acts as a wrapper around omp\-\_\-get\-\_\-num\-\_\-procs() 
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__omp_8c_a1397b58c16c60a0349d9e4aa1df2349e_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__omp_8c_a04383c3cc48de75f41acbcd8de33b78f}{\index{gmx\-\_\-omp.\-c@{gmx\-\_\-omp.\-c}!gmx\-\_\-omp\-\_\-get\-\_\-thread\-\_\-num@{gmx\-\_\-omp\-\_\-get\-\_\-thread\-\_\-num}}
+\index{gmx\-\_\-omp\-\_\-get\-\_\-thread\-\_\-num@{gmx\-\_\-omp\-\_\-get\-\_\-thread\-\_\-num}!gmx_omp.c@{gmx\-\_\-omp.\-c}}
+\subsubsection[{gmx\-\_\-omp\-\_\-get\-\_\-thread\-\_\-num}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-omp\-\_\-get\-\_\-thread\-\_\-num} (
+\begin{DoxyParamCaption}
+\item[{{\bf void}}]{}
+\end{DoxyParamCaption}
+)}}\label{gmx__omp_8c_a04383c3cc48de75f41acbcd8de33b78f}
+\-Returns the thread number of the thread executing within its thread team. \-Acts as a wrapper for omp\-\_\-get\-\_\-thread\-\_\-num(void). 
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__omp_8c_a04383c3cc48de75f41acbcd8de33b78f_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__omp_8c_a7a75b2bb561a45da2abede8709ae5339}{\index{gmx\-\_\-omp.\-c@{gmx\-\_\-omp.\-c}!gmx\-\_\-omp\-\_\-set\-\_\-num\-\_\-threads@{gmx\-\_\-omp\-\_\-set\-\_\-num\-\_\-threads}}
+\index{gmx\-\_\-omp\-\_\-set\-\_\-num\-\_\-threads@{gmx\-\_\-omp\-\_\-set\-\_\-num\-\_\-threads}!gmx_omp.c@{gmx\-\_\-omp.\-c}}
+\subsubsection[{gmx\-\_\-omp\-\_\-set\-\_\-num\-\_\-threads}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-omp\-\_\-set\-\_\-num\-\_\-threads} (
+\begin{DoxyParamCaption}
+\item[{int}]{num\-\_\-threads}
+\end{DoxyParamCaption}
+)}}\label{gmx__omp_8c_a7a75b2bb561a45da2abede8709ae5339}
+\-Sets the number of threads in subsequent parallel regions, unless overridden by a num\-\_\-threads clause. \-Acts as a wrapper for omp\-\_\-get\-\_\-max\-\_\-threads(void). 
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__omp_8c_a7a75b2bb561a45da2abede8709ae5339_icgraph}
+\end{center}
+\end{figure}
+
+

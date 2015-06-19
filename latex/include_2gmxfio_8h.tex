@@ -1,0 +1,2183 @@
+\hypertarget{include_2gmxfio_8h}{\section{include/gmxfio.h \-File \-Reference}
+\label{include_2gmxfio_8h}\index{include/gmxfio.\-h@{include/gmxfio.\-h}}
+}
+{\ttfamily \#include $<$stdio.\-h$>$}\*
+{\ttfamily \#include \char`\"{}visibility.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}sysstuff.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}typedefs.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}xdrf.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}futil.\-h\char`\"{}}\*
+\-Include dependency graph for gmxfio.\-h\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{include_2gmxfio_8h__incl}
+\end{center}
+\end{figure}
+\-This graph shows which files directly or indirectly include this file\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{include_2gmxfio_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structgmx__file__position__t}{gmx\-\_\-file\-\_\-position\-\_\-t}
+\end{DoxyCompactItemize}
+\subsection*{\-Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{include_2gmxfio_8h_ad4cf5eca82042e0ecf1b338eacc34133}{gmx\-\_\-fio\-\_\-read\-\_\-real}(fio, item)~\hyperlink{gmxfio__rw_8c_a828e2651c0ce91bd526939f8229e548d}{gmx\-\_\-fio\-\_\-reade\-\_\-real}(fio, \&item, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)
+\item 
+\#define \hyperlink{include_2gmxfio_8h_a5118150a8d783c2de361e2045f1d384f}{gmx\-\_\-fio\-\_\-read\-\_\-float}(fio, item)~\hyperlink{gmxfio__rw_8c_acf585886ee15132a6167224aaa5a118d}{gmx\-\_\-fio\-\_\-reade\-\_\-float}(fio, \&item, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)
+\item 
+\#define \hyperlink{include_2gmxfio_8h_a964309c5da36986dab2c8520d5a48c21}{gmx\-\_\-fio\-\_\-read\-\_\-double}(fio, item)~\hyperlink{gmxfio__rw_8c_aa7d8c5d02ab7ec70d843688303ea43fc}{gmx\-\_\-fio\-\_\-reade\-\_\-double}(fio, \&item, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)
+\item 
+\#define \hyperlink{include_2gmxfio_8h_acdc41a19bd49b03dd8b6689c6bdf818e}{gmx\-\_\-fio\-\_\-read\-\_\-int}(fio, item)~\hyperlink{gmxfio__rw_8c_a2c056cb1ce8a232a76fddf7ae935d7b6}{gmx\-\_\-fio\-\_\-reade\-\_\-int}(fio, \&item, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)
+\item 
+\#define \hyperlink{include_2gmxfio_8h_a5f89fce555bab0e604b1c4d38ebaa559}{gmx\-\_\-fio\-\_\-read\-\_\-gmx\-\_\-large\-\_\-int}(fio, item)~\hyperlink{gmxfio__rw_8c_a5ecaecf3bc38a499734c3cc64edfe8fa}{gmx\-\_\-fio\-\_\-reade\-\_\-gmx\-\_\-large\-\_\-int}(fio, \&item, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)
+\item 
+\#define \hyperlink{include_2gmxfio_8h_a6a6b5bf7252679187da14fee49ad4b35}{gmx\-\_\-fio\-\_\-read\-\_\-uchar}(fio, item)~\hyperlink{gmxfio__rw_8c_ac4d42079cbe5d094f326f5fb36aab682}{gmx\-\_\-fio\-\_\-reade\-\_\-uchar}(fio, \&item, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)
+\item 
+\#define \hyperlink{include_2gmxfio_8h_a58a41eebb2af372c3d5fa5283886c288}{gmx\-\_\-fio\-\_\-read\-\_\-ushort}(fio, item)~\hyperlink{gmxfio__rw_8c_a5f6873e915828742a2aa1fa74f350abf}{gmx\-\_\-fio\-\_\-reade\-\_\-ushort}(fio, \&item, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)
+\item 
+\#define \hyperlink{include_2gmxfio_8h_ad21846f857833add39b262b87be96f41}{gmx\-\_\-fio\-\_\-read\-\_\-rvec}(fio, item)~\hyperlink{gmxfio__rw_8c_ab4d51c1cc5afe9c870f52bb4db2d05f4}{gmx\-\_\-fio\-\_\-reade\-\_\-rvec}(fio, item, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)
+\item 
+\#define \hyperlink{include_2gmxfio_8h_acad480aaadcab0555666e3383f10f30d}{gmx\-\_\-fio\-\_\-read\-\_\-ivec}(fio, item)~\hyperlink{gmxfio__rw_8c_aa8aa048849d64f2bf825d9e0a2c55901}{gmx\-\_\-fio\-\_\-reade\-\_\-ivec}(fio, item, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)
+\item 
+\#define \hyperlink{include_2gmxfio_8h_a93375ddfb7691fd6dd1f27ff4879f3f9}{gmx\-\_\-fio\-\_\-read\-\_\-string}(fio, item)~\hyperlink{gmxfio__rw_8c_a7aa978de4b97ce8616d6a19a7ac89812}{gmx\-\_\-fio\-\_\-reade\-\_\-string}(fio, item, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)
+\item 
+\#define \hyperlink{include_2gmxfio_8h_a278f5dc943babdaccdd2a614077d87de}{gmx\-\_\-fio\-\_\-write\-\_\-real}(fio, item)~\hyperlink{gmxfio__rw_8c_a8d58f16cd63a24725c2e9b758e5fdf30}{gmx\-\_\-fio\-\_\-writee\-\_\-real}(fio, item, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)
+\item 
+\#define \hyperlink{include_2gmxfio_8h_a84f5df7a7dc00f0997e093f6c590439c}{gmx\-\_\-fio\-\_\-write\-\_\-float}(fio, item)~\hyperlink{gmxfio__rw_8c_ad689fa41323ee4f811fa1c2c65cccd52}{gmx\-\_\-fio\-\_\-writee\-\_\-float}(fio, item, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)
+\item 
+\#define \hyperlink{include_2gmxfio_8h_aa430b880a49df47fcfe602a803e3456b}{gmx\-\_\-fio\-\_\-write\-\_\-double}(fio, item)~\hyperlink{gmxfio__rw_8c_af2cc68d6c4b567db0af29e55948eaf60}{gmx\-\_\-fio\-\_\-writee\-\_\-double}(fio, item, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)
+\item 
+\#define \hyperlink{include_2gmxfio_8h_ad31b7472aeb2b52a5311a1bc1290b886}{gmx\-\_\-fio\-\_\-write\-\_\-int}(fio, item)~\hyperlink{gmxfio__rw_8c_aff22a8327ba7b7178e176a5ee85dc82e}{gmx\-\_\-fio\-\_\-writee\-\_\-int}(fio, item, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)
+\item 
+\#define \hyperlink{include_2gmxfio_8h_a867109a17ab5c4c6b1ab1ff3acb75d66}{gmx\-\_\-fio\-\_\-write\-\_\-gmx\-\_\-large\-\_\-int}(fio, item)~\hyperlink{gmxfio__rw_8c_a9cc05b6464d72874ac13817bb44ae708}{gmx\-\_\-fio\-\_\-writee\-\_\-gmx\-\_\-large\-\_\-int}(fio, item, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)
+\item 
+\#define \hyperlink{include_2gmxfio_8h_a17aad8c896ac9003578aaba9f5d090ca}{gmx\-\_\-fio\-\_\-write\-\_\-uchar}(fio, item)~\hyperlink{gmxfio__rw_8c_a0c848a0a42283b423dd57ff7331ec3ca}{gmx\-\_\-fio\-\_\-writee\-\_\-uchar}(fio, item, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)
+\item 
+\#define \hyperlink{include_2gmxfio_8h_a9af9f56020f7b376f873f026a7d6becd}{gmx\-\_\-fio\-\_\-write\-\_\-ushort}(fio, item)~\hyperlink{gmxfio__rw_8c_a0bc3000d648ba7b3ebff442f7f7b3951}{gmx\-\_\-fio\-\_\-writee\-\_\-ushort}(fio, item, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)
+\item 
+\#define \hyperlink{include_2gmxfio_8h_a8e423d2cccc491f72ace439d8b2ee7fe}{gmx\-\_\-fio\-\_\-write\-\_\-rvec}(fio, item)~\hyperlink{gmxfio__rw_8c_a925fdcc9f253d105f8a5893902d2f5f6}{gmx\-\_\-fio\-\_\-writee\-\_\-rvec}(fio, item, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)
+\item 
+\#define \hyperlink{include_2gmxfio_8h_ac18b26d9440e1e07296cb909cb58d522}{gmx\-\_\-fio\-\_\-write\-\_\-ivec}(fio, item)~\hyperlink{gmxfio__rw_8c_ad230e35ab5a8b601696456ffffdfd2b1}{gmx\-\_\-fio\-\_\-writee\-\_\-ivec}(fio, item, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)
+\item 
+\#define \hyperlink{include_2gmxfio_8h_a1f4b005ee0b093f98b29ab625dba085e}{gmx\-\_\-fio\-\_\-write\-\_\-string}(fio, item)~\hyperlink{gmxfio__rw_8c_acaadb25bc6ecb693483bad36a5a5d123}{gmx\-\_\-fio\-\_\-writee\-\_\-string}(fio, item, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)
+\item 
+\#define \hyperlink{include_2gmxfio_8h_a9d9f196286f1e7205236a8c262dc332e}{gmx\-\_\-fio\-\_\-do\-\_\-real}(fio, item)~\hyperlink{gmxfio__rw_8c_ad34cbc73860767c57871939a9a2830e7}{gmx\-\_\-fio\-\_\-doe\-\_\-real}(fio, \&item, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)
+\item 
+\#define \hyperlink{include_2gmxfio_8h_a610ae5760e7f52a12596eed26cfc6097}{gmx\-\_\-fio\-\_\-do\-\_\-float}(fio, item)~\hyperlink{gmxfio__rw_8c_a865bf9c05f61076b0000737901a994e2}{gmx\-\_\-fio\-\_\-doe\-\_\-float}(fio, \&item, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)
+\item 
+\#define \hyperlink{include_2gmxfio_8h_a60e72ba32c1541eae31e07e9a835cedb}{gmx\-\_\-fio\-\_\-do\-\_\-double}(fio, item)~\hyperlink{gmxfio__rw_8c_a36b09ac722b3e7dc3db80b3713c0338c}{gmx\-\_\-fio\-\_\-doe\-\_\-double}(fio, \&item, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)
+\item 
+\#define \hyperlink{include_2gmxfio_8h_aa2b0d8bb6917a7530ef38ae42d52236e}{gmx\-\_\-fio\-\_\-do\-\_\-gmx\-\_\-bool}(fio, item)~\hyperlink{gmxfio__rw_8c_a005fa33966f60042ffcc02273a1c21e0}{gmx\-\_\-fio\-\_\-doe\-\_\-gmx\-\_\-bool}(fio, \&item, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)
+\item 
+\#define \hyperlink{include_2gmxfio_8h_a9427ea35472e6850cc8c0dae17394bf8}{gmx\-\_\-fio\-\_\-do\-\_\-int}(fio, item)~\hyperlink{gmxfio__rw_8c_aceca2629ce7c92be743390e9c49e0831}{gmx\-\_\-fio\-\_\-doe\-\_\-int}(fio, \&item, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)
+\item 
+\#define \hyperlink{include_2gmxfio_8h_ab4e01491a1f8c8f42f25d7e3b6b289e3}{gmx\-\_\-fio\-\_\-do\-\_\-gmx\-\_\-large\-\_\-int}(fio, item)~\hyperlink{gmxfio__rw_8c_a6026e31899f16f5f4b64aef27764092c}{gmx\-\_\-fio\-\_\-doe\-\_\-gmx\-\_\-large\-\_\-int}(fio, \&item, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)
+\item 
+\#define \hyperlink{include_2gmxfio_8h_a35681a2e05a8b406f2da77e03223e813}{gmx\-\_\-fio\-\_\-do\-\_\-uchar}(fio, item)~\hyperlink{gmxfio__rw_8c_a1e43a25f2ad5f1a8f423a659cccba91c}{gmx\-\_\-fio\-\_\-doe\-\_\-uchar}(fio, \&item, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)
+\item 
+\#define \hyperlink{include_2gmxfio_8h_a3b61bc8e608e9b9d92484596af97d036}{gmx\-\_\-fio\-\_\-do\-\_\-ushort}(fio, item)~\hyperlink{gmxfio__rw_8c_a72cc49187f8e999b8c9dd3d78ad70f1d}{gmx\-\_\-fio\-\_\-doe\-\_\-ushort}(fio, \&item, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)
+\item 
+\#define \hyperlink{include_2gmxfio_8h_a9fec8e5d880addff97120fa916e7c963}{gmx\-\_\-fio\-\_\-do\-\_\-rvec}(fio, item)~\hyperlink{gmxfio__rw_8c_a976c927fa446506f147b10a4d7d9e915}{gmx\-\_\-fio\-\_\-doe\-\_\-rvec}(fio, \&item, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)
+\item 
+\#define \hyperlink{include_2gmxfio_8h_a91fc2e4ae14494171bde5aa2aa8e6e5b}{gmx\-\_\-fio\-\_\-do\-\_\-ivec}(fio, item)~\hyperlink{gmxfio__rw_8c_a91ecf9f28bc328e3e14d2293e6b4ad86}{gmx\-\_\-fio\-\_\-doe\-\_\-ivec}(fio, \&item, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)
+\item 
+\#define \hyperlink{include_2gmxfio_8h_a54da6c4546289b0e0fb730e858fc6145}{gmx\-\_\-fio\-\_\-do\-\_\-string}(fio, item)~\hyperlink{gmxfio__rw_8c_ae8dd972567f288f4211ea706c28ed363}{gmx\-\_\-fio\-\_\-doe\-\_\-string}(fio, item, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)
+\item 
+\#define \hyperlink{include_2gmxfio_8h_a0b7e712dcd884b736ba14fe476c06239}{gmx\-\_\-fio\-\_\-nread\-\_\-real}(fio, item, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n})~\hyperlink{gmxfio__rw_8c_a1d15d7e899626416af2b25d80691b5cf}{gmx\-\_\-fio\-\_\-nreade\-\_\-real}(fio, item, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)
+\item 
+\#define \hyperlink{include_2gmxfio_8h_a1cbff63bbd9690b244f5d4600b7dc024}{gmx\-\_\-fio\-\_\-nread\-\_\-float}(fio, item, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n})~\hyperlink{gmxfio__rw_8c_a931645ffdcdce79a36f6de247fb7a675}{gmx\-\_\-fio\-\_\-nreade\-\_\-float}(fio, item, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)
+\item 
+\#define \hyperlink{include_2gmxfio_8h_a0341cac7b38d3c869842309e674258c8}{gmx\-\_\-fio\-\_\-nread\-\_\-double}(fio, item, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n})~\hyperlink{gmxfio__rw_8c_ad0c4645024c10a5e415f49acb8fe8a15}{gmx\-\_\-fio\-\_\-nreade\-\_\-double}(fio, item, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)
+\item 
+\#define \hyperlink{include_2gmxfio_8h_adbd9393e0b0737fe7b5397c6a390acec}{gmx\-\_\-fio\-\_\-nread\-\_\-int}(fio, item, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n})~\hyperlink{gmxfio__rw_8c_a58a34665c20703358ecd08e11b16c476}{gmx\-\_\-fio\-\_\-nreade\-\_\-int}(fio, item, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)
+\item 
+\#define \hyperlink{include_2gmxfio_8h_a924b5468940951a86caa3a729d550b0e}{gmx\-\_\-fio\-\_\-nread\-\_\-gmx\-\_\-large\-\_\-int}(fio, item, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n})~\hyperlink{gmxfio__rw_8c_a4f1bcb2c3dceb3f92d82a28df73eb15b}{gmx\-\_\-fio\-\_\-nreade\-\_\-gmx\-\_\-large\-\_\-int}(fio, item, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)
+\item 
+\#define \hyperlink{include_2gmxfio_8h_ab4db430596b8d404da348c88cb8920ec}{gmx\-\_\-fio\-\_\-nread\-\_\-uchar}(fio, item, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n})~\hyperlink{gmxfio__rw_8c_a650be4e8a79f90bb253f50b161e7b7c7}{gmx\-\_\-fio\-\_\-nreade\-\_\-uchar}(fio, item, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)
+\item 
+\#define \hyperlink{include_2gmxfio_8h_ab89c105c029ab622009e931702c26d59}{gmx\-\_\-fio\-\_\-nread\-\_\-ushort}(fio, item, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n})~\hyperlink{gmxfio__rw_8c_a5943c3689932fd0cbce86541578e7903}{gmx\-\_\-fio\-\_\-nreade\-\_\-ushort}(fio, item, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)
+\item 
+\#define \hyperlink{include_2gmxfio_8h_aea99feed6a871f769e97ab4ae5f3b195}{gmx\-\_\-fio\-\_\-nread\-\_\-rvec}(fio, item, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n})~\hyperlink{gmxfio__rw_8c_a46d26f8885369d12cf633baadbb01ef3}{gmx\-\_\-fio\-\_\-nreade\-\_\-rvec}(fio, item, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)
+\item 
+\#define \hyperlink{include_2gmxfio_8h_ad1b4e824585ea03f7ac4b540aad447e5}{gmx\-\_\-fio\-\_\-nread\-\_\-ivec}(fio, item, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n})~\hyperlink{gmxfio__rw_8c_a1de3e445e58d5f5bbc2b8210d1a4764e}{gmx\-\_\-fio\-\_\-nreade\-\_\-ivec}(fio, item, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)
+\item 
+\#define \hyperlink{include_2gmxfio_8h_a6a02363796e9f2d50c17ff52fda79077}{gmx\-\_\-fio\-\_\-nread\-\_\-string}(fio, item, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n})~\hyperlink{gmxfio__rw_8c_a109a17e0163e750b906d0cd94321c247}{gmx\-\_\-fio\-\_\-nreade\-\_\-string}(fio, item, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)
+\item 
+\#define \hyperlink{include_2gmxfio_8h_a4b6f0363328efa2a5a93f30d830680a9}{gmx\-\_\-fio\-\_\-nwrite\-\_\-real}(fio, item, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n})~\hyperlink{gmxfio__rw_8c_ae2aaf504a021edfa156e57492ca4fe2c}{gmx\-\_\-fio\-\_\-nwritee\-\_\-real}(fio, item, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)
+\item 
+\#define \hyperlink{include_2gmxfio_8h_acc37e20104a9d9e058ddb25c124eb61c}{gmx\-\_\-fio\-\_\-nwrite\-\_\-float}(fio, item, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n})~\hyperlink{gmxfio__rw_8c_adadce31449fbc46384e8840cca315439}{gmx\-\_\-fio\-\_\-nwritee\-\_\-float}(fio, item, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)
+\item 
+\#define \hyperlink{include_2gmxfio_8h_af12ce262e08587e288639bb6fcc0cf6f}{gmx\-\_\-fio\-\_\-nwrite\-\_\-double}(fio, item, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n})~\hyperlink{gmxfio__rw_8c_a4f0a97b690a298b9f146afe916fee7c3}{gmx\-\_\-fio\-\_\-nwritee\-\_\-double}(fio, item, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)
+\item 
+\#define \hyperlink{include_2gmxfio_8h_a6499c8798b51e4505131339e672818e4}{gmx\-\_\-fio\-\_\-nwrite\-\_\-int}(fio, item, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n})~\hyperlink{gmxfio__rw_8c_aecdb597417a81bd5248710d8a991e2eb}{gmx\-\_\-fio\-\_\-nwritee\-\_\-int}(fio, item, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)
+\item 
+\#define \hyperlink{include_2gmxfio_8h_ae3cf4a3d76959170a1473f4a82c581d6}{gmx\-\_\-fio\-\_\-nwrite\-\_\-gmx\-\_\-large\-\_\-int}(fio, item, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n})~\hyperlink{gmxfio__rw_8c_a6d514a3b8e6cb7b79536e3e744f62ce8}{gmx\-\_\-fio\-\_\-nwritee\-\_\-gmx\-\_\-large\-\_\-int}(fio, item, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)
+\item 
+\#define \hyperlink{include_2gmxfio_8h_a76d4c2db374b06316692186773c4565b}{gmx\-\_\-fio\-\_\-nwrite\-\_\-uchar}(fio, item, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n})~\hyperlink{gmxfio__rw_8c_a5e369f8cbc8591f678098fe5d87526c7}{gmx\-\_\-fio\-\_\-nwritee\-\_\-uchar}(fio, item, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)
+\item 
+\#define \hyperlink{include_2gmxfio_8h_a53b2acd62f51f09a3a968cd1be6db82a}{gmx\-\_\-fio\-\_\-nwrite\-\_\-ushort}(fio, item, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n})~\hyperlink{gmxfio__rw_8c_a9efab7a6afb0fe04beb718e579c8e7b5}{gmx\-\_\-fio\-\_\-nwritee\-\_\-ushort}(fio, item, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)
+\item 
+\#define \hyperlink{include_2gmxfio_8h_a4cbc856a7a1cf137c4f0e68c1d824915}{gmx\-\_\-fio\-\_\-nwrite\-\_\-rvec}(fio, item, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n})~\hyperlink{gmxfio__rw_8c_aca9b94b8fa43b932c06ec07a383730a0}{gmx\-\_\-fio\-\_\-nwritee\-\_\-rvec}(fio, item, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)
+\item 
+\#define \hyperlink{include_2gmxfio_8h_aa69ea1f2f085fcc9d33a7de78228a683}{gmx\-\_\-fio\-\_\-nwrite\-\_\-ivec}(fio, item, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n})~\hyperlink{gmxfio__rw_8c_a3385e68afbbc396ed6d643b1ff670176}{gmx\-\_\-fio\-\_\-nwritee\-\_\-ivec}(fio, item, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)
+\item 
+\#define \hyperlink{include_2gmxfio_8h_a8b48b6e3b6d116b540975433b8d07049}{gmx\-\_\-fio\-\_\-nwrite\-\_\-string}(fio, item, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n})~\hyperlink{gmxfio__rw_8c_a7a7a8fa1c299c71a7d07534bcf67f0c7}{gmx\-\_\-fio\-\_\-nwritee\-\_\-string}(fio, item, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)
+\item 
+\#define \hyperlink{include_2gmxfio_8h_aa0e53b96fd3bf6b51a6a18ac1eba4bd9}{gmx\-\_\-fio\-\_\-ndo\-\_\-real}(fio, item, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n})~\hyperlink{gmxfio__rw_8c_a8bb218c879db769ab22661706f959d0f}{gmx\-\_\-fio\-\_\-ndoe\-\_\-real}(fio, item, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)
+\item 
+\#define \hyperlink{include_2gmxfio_8h_a0425768d1d676062e49224544eafb0c8}{gmx\-\_\-fio\-\_\-ndo\-\_\-float}(fio, item, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n})~\hyperlink{gmxfio__rw_8c_a2e5ce6cce144d7bff5f23a83a730332e}{gmx\-\_\-fio\-\_\-ndoe\-\_\-float}(fio, item, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)
+\item 
+\#define \hyperlink{include_2gmxfio_8h_a86dbb2a10a3304ebd9e4f2db8564dc3a}{gmx\-\_\-fio\-\_\-ndo\-\_\-double}(fio, item, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n})~\hyperlink{gmxfio__rw_8c_aefe245f2a4c62c7561d07a63fabf3bdd}{gmx\-\_\-fio\-\_\-ndoe\-\_\-double}(fio, item, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)
+\item 
+\#define \hyperlink{include_2gmxfio_8h_ac392c10e782e4b147121ccc49d997c66}{gmx\-\_\-fio\-\_\-ndo\-\_\-gmx\-\_\-bool}(fio, item, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n})~\hyperlink{gmxfio__rw_8c_a3cb50b8b16c9873bc13db635deb6683d}{gmx\-\_\-fio\-\_\-ndoe\-\_\-gmx\-\_\-bool}(fio, item, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)
+\item 
+\#define \hyperlink{include_2gmxfio_8h_a53137d61229137ee1fb422730ab7bdbe}{gmx\-\_\-fio\-\_\-ndo\-\_\-int}(fio, item, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n})~\hyperlink{gmxfio__rw_8c_a9d293a5aa9dd68e5da4bb682f5203d04}{gmx\-\_\-fio\-\_\-ndoe\-\_\-int}(fio, item, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)
+\item 
+\#define \hyperlink{include_2gmxfio_8h_a15dc1195d3efe2ffd3ce5e24dcdac95f}{gmx\-\_\-fio\-\_\-ndo\-\_\-gmx\-\_\-large\-\_\-int}(fio, item, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n})~\hyperlink{gmxfio__rw_8c_a56fdf85da65121cee29a09918a9c2f8f}{gmx\-\_\-fio\-\_\-ndoe\-\_\-gmx\-\_\-large\-\_\-int}(fio, item, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)
+\item 
+\#define \hyperlink{include_2gmxfio_8h_afe310da8fbe99ded888ed7aed21e6adb}{gmx\-\_\-fio\-\_\-ndo\-\_\-uchar}(fio, item, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n})~\hyperlink{gmxfio__rw_8c_a08788d7f02d39568afba7e8915a915f2}{gmx\-\_\-fio\-\_\-ndoe\-\_\-uchar}(fio, item, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)
+\item 
+\#define \hyperlink{include_2gmxfio_8h_a83213b3fb01186f3b264b6cebb456f67}{gmx\-\_\-fio\-\_\-ndo\-\_\-ushort}(fio, item, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n})~\hyperlink{gmxfio__rw_8c_a203c8cb54d6d3e21f109c25e1e0d41ac}{gmx\-\_\-fio\-\_\-ndoe\-\_\-ushort}(fio, item, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)
+\item 
+\#define \hyperlink{include_2gmxfio_8h_a83babd5a696f4c7035bc818960d0503b}{gmx\-\_\-fio\-\_\-ndo\-\_\-rvec}(fio, item, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n})~\hyperlink{gmxfio__rw_8c_aca54c0c9c6ec2d26557047c8954a53c5}{gmx\-\_\-fio\-\_\-ndoe\-\_\-rvec}(fio, item, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)
+\item 
+\#define \hyperlink{include_2gmxfio_8h_a9701b350d45484bb5b84e572a3c8bf03}{gmx\-\_\-fio\-\_\-ndo\-\_\-ivec}(fio, item, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n})~\hyperlink{gmxfio__rw_8c_a9c4c3d53b8371dcf137aa00aaa2da03f}{gmx\-\_\-fio\-\_\-ndoe\-\_\-ivec}(fio, item, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)
+\item 
+\#define \hyperlink{include_2gmxfio_8h_ad24fc9649e82830a9297edffa94b9591}{gmx\-\_\-fio\-\_\-ndo\-\_\-string}(fio, item, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n})~\hyperlink{gmxfio__rw_8c_a302a66649968a58b5bc4ff7ccf2f803b}{gmx\-\_\-fio\-\_\-ndoe\-\_\-string}(fio, item, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)
+\end{DoxyCompactItemize}
+\subsection*{\-Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \hyperlink{structt__fileio}{t\-\_\-fileio} \hyperlink{include_2gmxfio_8h_ac4334d11a19d9bdef02d4d9a59da22e3}{t\-\_\-fileio}
+\end{DoxyCompactItemize}
+\subsection*{\-Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \{ \*
+\hyperlink{include_2gmxfio_8h_a05589fbab0657f08285ebdfe93f5ec9ea708581dd685b8f4e38342c5b797b8aeb}{eitem\-H\-E\-A\-D\-E\-R}, 
+\hyperlink{include_2gmxfio_8h_a05589fbab0657f08285ebdfe93f5ec9eae2b66174c6015fa9b36e3ebd2faa634b}{eitem\-I\-R}, 
+\hyperlink{include_2gmxfio_8h_a05589fbab0657f08285ebdfe93f5ec9ea9dc5811af67a6874bf77459d2f9d9d7d}{eitem\-B\-O\-X}, 
+\hyperlink{include_2gmxfio_8h_a05589fbab0657f08285ebdfe93f5ec9ea484f01d07968a55ea77e76d3763a4aaa}{eitem\-T\-O\-P}, 
+\*
+\hyperlink{include_2gmxfio_8h_a05589fbab0657f08285ebdfe93f5ec9ea15588156551a830435e33c41c555ed77}{eitem\-X}, 
+\hyperlink{include_2gmxfio_8h_a05589fbab0657f08285ebdfe93f5ec9ea49fb94c470476df1953219bebe571a12}{eitem\-V}, 
+\hyperlink{include_2gmxfio_8h_a05589fbab0657f08285ebdfe93f5ec9ea9d98b79249344b5cef9f232bad5a92c2}{eitem\-F}, 
+\hyperlink{include_2gmxfio_8h_a05589fbab0657f08285ebdfe93f5ec9ea32696a6ab8aa09bb4209abb48aea6724}{eitem\-N\-R}
+ \}
+\item 
+enum \{ \*
+\hyperlink{include_2gmxfio_8h_a16af7b253440dadd46a80a4b9fddba4da1d589365979e83328f319825a409974c}{eio\-R\-E\-A\-L}, 
+\hyperlink{include_2gmxfio_8h_a16af7b253440dadd46a80a4b9fddba4da4cc6730f310a05eac7396430d8dc7f1d}{eio\-F\-L\-O\-A\-T}, 
+\hyperlink{include_2gmxfio_8h_a16af7b253440dadd46a80a4b9fddba4dac4d2c35d309957fad3eae623a1e4348d}{eio\-D\-O\-U\-B\-L\-E}, 
+\hyperlink{include_2gmxfio_8h_a16af7b253440dadd46a80a4b9fddba4daadf050aabc561fc96980d8d8209667c6}{eio\-I\-N\-T}, 
+\*
+\hyperlink{include_2gmxfio_8h_a16af7b253440dadd46a80a4b9fddba4da6826e4c8a6c15aa30027306d69c0d2cb}{eio\-G\-M\-X\-\_\-\-L\-A\-R\-G\-E\-\_\-\-I\-N\-T}, 
+\hyperlink{include_2gmxfio_8h_a16af7b253440dadd46a80a4b9fddba4dac6722ac916c90d636872206dd2b6323e}{eio\-U\-C\-H\-A\-R}, 
+\hyperlink{include_2gmxfio_8h_a16af7b253440dadd46a80a4b9fddba4da5759febaf5b77564e13afdc873bf845e}{eio\-N\-U\-C\-H\-A\-R}, 
+\hyperlink{include_2gmxfio_8h_a16af7b253440dadd46a80a4b9fddba4da784c3b7afadde6a816fb843275edd74d}{eio\-U\-S\-H\-O\-R\-T}, 
+\*
+\hyperlink{include_2gmxfio_8h_a16af7b253440dadd46a80a4b9fddba4da0aa07b21cf1ee9d95a91507cae65a2ba}{eio\-R\-V\-E\-C}, 
+\hyperlink{include_2gmxfio_8h_a16af7b253440dadd46a80a4b9fddba4da2bfb7fed428e03edfef5f48ed35e90a5}{eio\-N\-R\-V\-E\-C}, 
+\hyperlink{include_2gmxfio_8h_a16af7b253440dadd46a80a4b9fddba4da0b90a7a2082e58be485bfa3744daf7dc}{eio\-I\-V\-E\-C}, 
+\hyperlink{include_2gmxfio_8h_a16af7b253440dadd46a80a4b9fddba4daffa62e71358e69e8f63425d013d333ab}{eio\-S\-T\-R\-I\-N\-G}, 
+\*
+\hyperlink{include_2gmxfio_8h_a16af7b253440dadd46a80a4b9fddba4da82030b7bffcfe70e52efcf41467805fb}{eio\-N\-R}
+ \}
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$ \hyperlink{include_2gmxfio_8h_a3d6f5bd4e86ec17ed43c055fa9d76cc0}{gmx\-\_\-fio\-\_\-open} (const char $\ast$fn, const char $\ast$mode)
+\item 
+int \hyperlink{include_2gmxfio_8h_a5122aaa86cdae8172df6423fc358406f}{gmx\-\_\-fio\-\_\-close} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fp)
+\item 
+int \hyperlink{include_2gmxfio_8h_a30618a9681e6495f41d8a1a27c8dc331}{gmx\-\_\-fio\-\_\-fp\-\_\-close} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fp)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_af6d678ccc5288db95c70b9d9003f11e2}{\-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} \-F\-I\-L\-E $\ast$ \hyperlink{include_2gmxfio_8h_aa3aaf3a38f1b575695d0b57dcd54b006}{gmx\-\_\-fio\-\_\-fopen} (const char $\ast$fn, const char $\ast$mode)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_af6d678ccc5288db95c70b9d9003f11e2}{\-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} int \hyperlink{include_2gmxfio_8h_a3843344bec9081e8390308c9945a7dbe}{gmx\-\_\-fio\-\_\-fclose} (\-F\-I\-L\-E $\ast$fp)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{include_2gmxfio_8h_a941cfbebd1a14859fa3a649940481916}{gmx\-\_\-fio\-\_\-setprecision} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Double)
+\item 
+char $\ast$ \hyperlink{include_2gmxfio_8h_ada79f779c70a3d456615e5396b6edf76}{gmx\-\_\-fio\-\_\-getname} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_af6d678ccc5288db95c70b9d9003f11e2}{\-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} int \hyperlink{include_2gmxfio_8h_a4c3730586dd4f9687a5a4a87218eb7d1}{gmx\-\_\-fio\-\_\-getftp} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_af6d678ccc5288db95c70b9d9003f11e2}{\-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{include_2gmxfio_8h_af27e242bb8b6dcbf0e8c23c11b5a6a25}{gmx\-\_\-fio\-\_\-setdebug} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{gmx__hbond_8c_a2874e80b491bf0a7e261feaa8baaf701}{b\-Debug})
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{include_2gmxfio_8h_a34918cbc5b24eb00cf693a3eac5c41a6}{gmx\-\_\-fio\-\_\-getdebug} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio)
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{include_2gmxfio_8h_a07c491f426eadf7ba2209af89f337c73}{gmx\-\_\-fio\-\_\-getread} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{include_2gmxfio_8h_afc804525beb8376e0b961b0792178c7d}{gmx\-\_\-fio\-\_\-checktype} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{include_2gmxfio_8h_ad08c704fdf20a26d1f5b2a2e3f506a62}{gmx\-\_\-fio\-\_\-rewind} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_af6d678ccc5288db95c70b9d9003f11e2}{\-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} int \hyperlink{include_2gmxfio_8h_a75b496da9b063d09221897ce759a1c56}{gmx\-\_\-fio\-\_\-flush} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio)
+\item 
+int \hyperlink{include_2gmxfio_8h_a241a621f9891dae1d28d19618baf5ad3}{gmx\-\_\-fio\-\_\-fsync} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_af6d678ccc5288db95c70b9d9003f11e2}{\-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{include_2futil_8h_a62ca72cb29d851d8f5bcbe6809d3786d}{gmx\-\_\-off\-\_\-t} \hyperlink{include_2gmxfio_8h_a0399a7b9f7390c1fced72bed46d33eb2}{gmx\-\_\-fio\-\_\-ftell} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_af6d678ccc5288db95c70b9d9003f11e2}{\-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} int \hyperlink{include_2gmxfio_8h_a7a8c2e32d5db90fa3e3fd04ca15bd7dd}{gmx\-\_\-fio\-\_\-seek} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, \hyperlink{include_2futil_8h_a62ca72cb29d851d8f5bcbe6809d3786d}{gmx\-\_\-off\-\_\-t} fpos)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_af6d678ccc5288db95c70b9d9003f11e2}{\-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} \-F\-I\-L\-E $\ast$ \hyperlink{include_2gmxfio_8h_ab8dcd9528681bda58bbd7f814f040577}{gmx\-\_\-fio\-\_\-getfp} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_af6d678ccc5288db95c70b9d9003f11e2}{\-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{structXDR}{\-X\-D\-R} $\ast$ \hyperlink{include_2gmxfio_8h_a612145dda657210c1c271a7207199d6d}{gmx\-\_\-fio\-\_\-getxdr} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_af6d678ccc5288db95c70b9d9003f11e2}{\-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} int \hyperlink{include_2gmxfio_8h_af4388769bd4de352ef77150bf18e795d}{gmx\-\_\-fio\-\_\-check\-\_\-file\-\_\-position} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio)
+\item 
+int \hyperlink{include_2gmxfio_8h_ad84e0146406e578ae4f698bf3b79b6f7}{gmx\-\_\-fio\-\_\-get\-\_\-output\-\_\-file\-\_\-positions} (\hyperlink{structgmx__file__position__t}{gmx\-\_\-file\-\_\-position\-\_\-t} $\ast$$\ast$outputfiles, int $\ast$nfiles)
+\item 
+\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$ \hyperlink{include_2gmxfio_8h_a544cf588e47716cbb8ab6f4c312b10e3}{gmx\-\_\-fio\-\_\-all\-\_\-output\-\_\-fsync} (\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void})
+\item 
+int \hyperlink{include_2gmxfio_8h_a1f94d3805ea429c5ba274fd980208248}{gmx\-\_\-fio\-\_\-get\-\_\-file\-\_\-md5} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, \hyperlink{include_2futil_8h_a62ca72cb29d851d8f5bcbe6809d3786d}{gmx\-\_\-off\-\_\-t} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_acad7bd957065e1f895ebb1017eba166d}{offset}, unsigned char digest\mbox{[}$\,$\mbox{]})
+\item 
+int \hyperlink{include_2gmxfio_8h_ac08e6ac0d03e023c8e3b52ca288691c1}{xtc\-\_\-seek\-\_\-frame} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, int frame, int natoms)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_af6d678ccc5288db95c70b9d9003f11e2}{\-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} int \hyperlink{include_2gmxfio_8h_a9b1e912277cb58297225b224829ad779}{xtc\-\_\-seek\-\_\-time} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, real time, int natoms, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Seek\-Forward\-Only)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{include_2gmxfio_8h_ab6186791846a4fcb2713c58abdb65ea2}{gmx\-\_\-fio\-\_\-set\-\_\-comment} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, const char $\ast$comment)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{include_2gmxfio_8h_a97c3bb94f708d44a92834fea40c3451c}{gmx\-\_\-fio\-\_\-unset\-\_\-comment} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio)
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{include_2gmxfio_8h_a828e2651c0ce91bd526939f8229e548d}{gmx\-\_\-fio\-\_\-reade\-\_\-real} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, real $\ast$item, const char $\ast$desc, const char $\ast$srcfile, int \hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line})
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{include_2gmxfio_8h_acf585886ee15132a6167224aaa5a118d}{gmx\-\_\-fio\-\_\-reade\-\_\-float} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, float $\ast$item, const char $\ast$desc, const char $\ast$srcfile, int \hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line})
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{include_2gmxfio_8h_aa7d8c5d02ab7ec70d843688303ea43fc}{gmx\-\_\-fio\-\_\-reade\-\_\-double} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, double $\ast$item, const char $\ast$desc, const char $\ast$srcfile, int \hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line})
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{include_2gmxfio_8h_a2c056cb1ce8a232a76fddf7ae935d7b6}{gmx\-\_\-fio\-\_\-reade\-\_\-int} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, int $\ast$item, const char $\ast$desc, const char $\ast$srcfile, int \hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line})
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{include_2gmxfio_8h_a5ecaecf3bc38a499734c3cc64edfe8fa}{gmx\-\_\-fio\-\_\-reade\-\_\-gmx\-\_\-large\-\_\-int} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, gmx\-\_\-large\-\_\-int\-\_\-t $\ast$item, const char $\ast$desc, const char $\ast$srcfile, int \hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line})
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{include_2gmxfio_8h_ac4d42079cbe5d094f326f5fb36aab682}{gmx\-\_\-fio\-\_\-reade\-\_\-uchar} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, unsigned char $\ast$item, const char $\ast$desc, const char $\ast$srcfile, int \hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line})
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{include_2gmxfio_8h_a5f6873e915828742a2aa1fa74f350abf}{gmx\-\_\-fio\-\_\-reade\-\_\-ushort} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, unsigned short $\ast$item, const char $\ast$desc, const char $\ast$srcfile, int \hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line})
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{include_2gmxfio_8h_ab4d51c1cc5afe9c870f52bb4db2d05f4}{gmx\-\_\-fio\-\_\-reade\-\_\-rvec} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$item, const char $\ast$desc, const char $\ast$srcfile, int \hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line})
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{include_2gmxfio_8h_aa8aa048849d64f2bf825d9e0a2c55901}{gmx\-\_\-fio\-\_\-reade\-\_\-ivec} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a74f6ffdb4a9c1764f5293969d8c681b6}{ivec} $\ast$item, const char $\ast$desc, const char $\ast$srcfile, int \hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line})
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{include_2gmxfio_8h_a7aa978de4b97ce8616d6a19a7ac89812}{gmx\-\_\-fio\-\_\-reade\-\_\-string} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, char $\ast$item, const char $\ast$desc, const char $\ast$srcfile, int \hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line})
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{include_2gmxfio_8h_a8d58f16cd63a24725c2e9b758e5fdf30}{gmx\-\_\-fio\-\_\-writee\-\_\-real} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, real item, const char $\ast$desc, const char $\ast$srcfile, int \hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line})
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{include_2gmxfio_8h_ad689fa41323ee4f811fa1c2c65cccd52}{gmx\-\_\-fio\-\_\-writee\-\_\-float} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, float item, const char $\ast$desc, const char $\ast$srcfile, int \hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line})
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{include_2gmxfio_8h_af2cc68d6c4b567db0af29e55948eaf60}{gmx\-\_\-fio\-\_\-writee\-\_\-double} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, double item, const char $\ast$desc, const char $\ast$srcfile, int \hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line})
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{include_2gmxfio_8h_aff22a8327ba7b7178e176a5ee85dc82e}{gmx\-\_\-fio\-\_\-writee\-\_\-int} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, int item, const char $\ast$desc, const char $\ast$srcfile, int \hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line})
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{include_2gmxfio_8h_a9cc05b6464d72874ac13817bb44ae708}{gmx\-\_\-fio\-\_\-writee\-\_\-gmx\-\_\-large\-\_\-int} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, gmx\-\_\-large\-\_\-int\-\_\-t item, const char $\ast$desc, const char $\ast$srcfile, int \hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line})
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{include_2gmxfio_8h_a0c848a0a42283b423dd57ff7331ec3ca}{gmx\-\_\-fio\-\_\-writee\-\_\-uchar} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, unsigned char item, const char $\ast$desc, const char $\ast$srcfile, int \hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line})
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{include_2gmxfio_8h_a0bc3000d648ba7b3ebff442f7f7b3951}{gmx\-\_\-fio\-\_\-writee\-\_\-ushort} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, unsigned short item, const char $\ast$desc, const char $\ast$srcfile, int \hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line})
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{include_2gmxfio_8h_a925fdcc9f253d105f8a5893902d2f5f6}{gmx\-\_\-fio\-\_\-writee\-\_\-rvec} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$item, const char $\ast$desc, const char $\ast$srcfile, int \hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line})
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{include_2gmxfio_8h_ad230e35ab5a8b601696456ffffdfd2b1}{gmx\-\_\-fio\-\_\-writee\-\_\-ivec} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a74f6ffdb4a9c1764f5293969d8c681b6}{ivec} $\ast$item, const char $\ast$desc, const char $\ast$srcfile, int \hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line})
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{include_2gmxfio_8h_acaadb25bc6ecb693483bad36a5a5d123}{gmx\-\_\-fio\-\_\-writee\-\_\-string} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, const char $\ast$item, const char $\ast$desc, const char $\ast$srcfile, int \hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line})
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{include_2gmxfio_8h_ad34cbc73860767c57871939a9a2830e7}{gmx\-\_\-fio\-\_\-doe\-\_\-real} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, real $\ast$item, const char $\ast$desc, const char $\ast$srcfile, int \hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line})
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{include_2gmxfio_8h_a865bf9c05f61076b0000737901a994e2}{gmx\-\_\-fio\-\_\-doe\-\_\-float} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, float $\ast$item, const char $\ast$desc, const char $\ast$srcfile, int \hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line})
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{include_2gmxfio_8h_a36b09ac722b3e7dc3db80b3713c0338c}{gmx\-\_\-fio\-\_\-doe\-\_\-double} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, double $\ast$item, const char $\ast$desc, const char $\ast$srcfile, int \hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line})
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{include_2gmxfio_8h_a005fa33966f60042ffcc02273a1c21e0}{gmx\-\_\-fio\-\_\-doe\-\_\-gmx\-\_\-bool} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} $\ast$item, const char $\ast$desc, const char $\ast$srcfile, int \hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line})
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{include_2gmxfio_8h_aceca2629ce7c92be743390e9c49e0831}{gmx\-\_\-fio\-\_\-doe\-\_\-int} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, int $\ast$item, const char $\ast$desc, const char $\ast$srcfile, int \hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line})
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{include_2gmxfio_8h_a6026e31899f16f5f4b64aef27764092c}{gmx\-\_\-fio\-\_\-doe\-\_\-gmx\-\_\-large\-\_\-int} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, gmx\-\_\-large\-\_\-int\-\_\-t $\ast$item, const char $\ast$desc, const char $\ast$srcfile, int \hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line})
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{include_2gmxfio_8h_a1e43a25f2ad5f1a8f423a659cccba91c}{gmx\-\_\-fio\-\_\-doe\-\_\-uchar} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, unsigned char $\ast$item, const char $\ast$desc, const char $\ast$srcfile, int \hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line})
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{include_2gmxfio_8h_a72cc49187f8e999b8c9dd3d78ad70f1d}{gmx\-\_\-fio\-\_\-doe\-\_\-ushort} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, unsigned short $\ast$item, const char $\ast$desc, const char $\ast$srcfile, int \hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line})
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{include_2gmxfio_8h_a976c927fa446506f147b10a4d7d9e915}{gmx\-\_\-fio\-\_\-doe\-\_\-rvec} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$item, const char $\ast$desc, const char $\ast$srcfile, int \hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line})
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{include_2gmxfio_8h_a91ecf9f28bc328e3e14d2293e6b4ad86}{gmx\-\_\-fio\-\_\-doe\-\_\-ivec} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a74f6ffdb4a9c1764f5293969d8c681b6}{ivec} $\ast$item, const char $\ast$desc, const char $\ast$srcfile, int \hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line})
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{include_2gmxfio_8h_ae8dd972567f288f4211ea706c28ed363}{gmx\-\_\-fio\-\_\-doe\-\_\-string} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, char $\ast$item, const char $\ast$desc, const char $\ast$srcfile, int \hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line})
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{include_2gmxfio_8h_a1d15d7e899626416af2b25d80691b5cf}{gmx\-\_\-fio\-\_\-nreade\-\_\-real} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, real $\ast$item, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, const char $\ast$desc, const char $\ast$srcfile, int \hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line})
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{include_2gmxfio_8h_a931645ffdcdce79a36f6de247fb7a675}{gmx\-\_\-fio\-\_\-nreade\-\_\-float} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, float $\ast$item, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, const char $\ast$desc, const char $\ast$srcfile, int \hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line})
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{include_2gmxfio_8h_ad0c4645024c10a5e415f49acb8fe8a15}{gmx\-\_\-fio\-\_\-nreade\-\_\-double} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, double $\ast$item, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, const char $\ast$desc, const char $\ast$srcfile, int \hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line})
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{include_2gmxfio_8h_a58a34665c20703358ecd08e11b16c476}{gmx\-\_\-fio\-\_\-nreade\-\_\-int} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, int $\ast$item, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, const char $\ast$desc, const char $\ast$srcfile, int \hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line})
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{include_2gmxfio_8h_a4f1bcb2c3dceb3f92d82a28df73eb15b}{gmx\-\_\-fio\-\_\-nreade\-\_\-gmx\-\_\-large\-\_\-int} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, gmx\-\_\-large\-\_\-int\-\_\-t $\ast$item, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, const char $\ast$desc, const char $\ast$srcfile, int \hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line})
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{include_2gmxfio_8h_a650be4e8a79f90bb253f50b161e7b7c7}{gmx\-\_\-fio\-\_\-nreade\-\_\-uchar} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, unsigned char $\ast$item, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, const char $\ast$desc, const char $\ast$srcfile, int \hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line})
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{include_2gmxfio_8h_a5943c3689932fd0cbce86541578e7903}{gmx\-\_\-fio\-\_\-nreade\-\_\-ushort} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, unsigned short $\ast$item, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, const char $\ast$desc, const char $\ast$srcfile, int \hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line})
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{include_2gmxfio_8h_a46d26f8885369d12cf633baadbb01ef3}{gmx\-\_\-fio\-\_\-nreade\-\_\-rvec} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$item, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, const char $\ast$desc, const char $\ast$srcfile, int \hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line})
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{include_2gmxfio_8h_a1de3e445e58d5f5bbc2b8210d1a4764e}{gmx\-\_\-fio\-\_\-nreade\-\_\-ivec} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a74f6ffdb4a9c1764f5293969d8c681b6}{ivec} $\ast$item, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, const char $\ast$desc, const char $\ast$srcfile, int \hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line})
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{include_2gmxfio_8h_a109a17e0163e750b906d0cd94321c247}{gmx\-\_\-fio\-\_\-nreade\-\_\-string} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, char $\ast$item\mbox{[}$\,$\mbox{]}, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, const char $\ast$desc, const char $\ast$srcfile, int \hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line})
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{include_2gmxfio_8h_ae2aaf504a021edfa156e57492ca4fe2c}{gmx\-\_\-fio\-\_\-nwritee\-\_\-real} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, const real $\ast$item, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, const char $\ast$desc, const char $\ast$srcfile, int \hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line})
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{include_2gmxfio_8h_adadce31449fbc46384e8840cca315439}{gmx\-\_\-fio\-\_\-nwritee\-\_\-float} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, const float $\ast$item, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, const char $\ast$desc, const char $\ast$srcfile, int \hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line})
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{include_2gmxfio_8h_a4f0a97b690a298b9f146afe916fee7c3}{gmx\-\_\-fio\-\_\-nwritee\-\_\-double} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, const double $\ast$item, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, const char $\ast$desc, const char $\ast$srcfile, int \hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line})
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{include_2gmxfio_8h_aecdb597417a81bd5248710d8a991e2eb}{gmx\-\_\-fio\-\_\-nwritee\-\_\-int} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, const int $\ast$item, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, const char $\ast$desc, const char $\ast$srcfile, int \hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line})
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{include_2gmxfio_8h_a6d514a3b8e6cb7b79536e3e744f62ce8}{gmx\-\_\-fio\-\_\-nwritee\-\_\-gmx\-\_\-large\-\_\-int} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, const gmx\-\_\-large\-\_\-int\-\_\-t $\ast$item, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, const char $\ast$desc, const char $\ast$srcfile, int \hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line})
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{include_2gmxfio_8h_a5e369f8cbc8591f678098fe5d87526c7}{gmx\-\_\-fio\-\_\-nwritee\-\_\-uchar} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, const unsigned char $\ast$item, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, const char $\ast$desc, const char $\ast$srcfile, int \hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line})
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{include_2gmxfio_8h_a9efab7a6afb0fe04beb718e579c8e7b5}{gmx\-\_\-fio\-\_\-nwritee\-\_\-ushort} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, const unsigned short $\ast$item, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, const char $\ast$desc, const char $\ast$srcfile, int \hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line})
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{include_2gmxfio_8h_aca9b94b8fa43b932c06ec07a383730a0}{gmx\-\_\-fio\-\_\-nwritee\-\_\-rvec} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, const \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$item, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, const char $\ast$desc, const char $\ast$srcfile, int \hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line})
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{include_2gmxfio_8h_a3385e68afbbc396ed6d643b1ff670176}{gmx\-\_\-fio\-\_\-nwritee\-\_\-ivec} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, const \hyperlink{share_2template_2gromacs_2types_2simple_8h_a74f6ffdb4a9c1764f5293969d8c681b6}{ivec} $\ast$item, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, const char $\ast$desc, const char $\ast$srcfile, int \hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line})
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{include_2gmxfio_8h_a7a7a8fa1c299c71a7d07534bcf67f0c7}{gmx\-\_\-fio\-\_\-nwritee\-\_\-string} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, const char $\ast$item\mbox{[}$\,$\mbox{]}, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, const char $\ast$desc, const char $\ast$srcfile, int \hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line})
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{include_2gmxfio_8h_a8bb218c879db769ab22661706f959d0f}{gmx\-\_\-fio\-\_\-ndoe\-\_\-real} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, real $\ast$item, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, const char $\ast$desc, const char $\ast$srcfile, int \hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line})
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{include_2gmxfio_8h_a2e5ce6cce144d7bff5f23a83a730332e}{gmx\-\_\-fio\-\_\-ndoe\-\_\-float} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, float $\ast$item, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, const char $\ast$desc, const char $\ast$srcfile, int \hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line})
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{include_2gmxfio_8h_aefe245f2a4c62c7561d07a63fabf3bdd}{gmx\-\_\-fio\-\_\-ndoe\-\_\-double} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, double $\ast$item, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, const char $\ast$desc, const char $\ast$srcfile, int \hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line})
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{include_2gmxfio_8h_a3cb50b8b16c9873bc13db635deb6683d}{gmx\-\_\-fio\-\_\-ndoe\-\_\-gmx\-\_\-bool} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} $\ast$item, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, const char $\ast$desc, const char $\ast$srcfile, int \hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line})
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{include_2gmxfio_8h_a9d293a5aa9dd68e5da4bb682f5203d04}{gmx\-\_\-fio\-\_\-ndoe\-\_\-int} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, int $\ast$item, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, const char $\ast$desc, const char $\ast$srcfile, int \hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line})
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{include_2gmxfio_8h_a56fdf85da65121cee29a09918a9c2f8f}{gmx\-\_\-fio\-\_\-ndoe\-\_\-gmx\-\_\-large\-\_\-int} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, gmx\-\_\-large\-\_\-int\-\_\-t $\ast$item, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, const char $\ast$desc, const char $\ast$srcfile, int \hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line})
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{include_2gmxfio_8h_a08788d7f02d39568afba7e8915a915f2}{gmx\-\_\-fio\-\_\-ndoe\-\_\-uchar} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, unsigned char $\ast$item, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, const char $\ast$desc, const char $\ast$srcfile, int \hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line})
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{include_2gmxfio_8h_a203c8cb54d6d3e21f109c25e1e0d41ac}{gmx\-\_\-fio\-\_\-ndoe\-\_\-ushort} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, unsigned short $\ast$item, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, const char $\ast$desc, const char $\ast$srcfile, int \hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line})
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{include_2gmxfio_8h_aca54c0c9c6ec2d26557047c8954a53c5}{gmx\-\_\-fio\-\_\-ndoe\-\_\-rvec} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$item, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, const char $\ast$desc, const char $\ast$srcfile, int \hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line})
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{include_2gmxfio_8h_a9c4c3d53b8371dcf137aa00aaa2da03f}{gmx\-\_\-fio\-\_\-ndoe\-\_\-ivec} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a74f6ffdb4a9c1764f5293969d8c681b6}{ivec} $\ast$item, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, const char $\ast$desc, const char $\ast$srcfile, int \hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line})
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{include_2gmxfio_8h_a302a66649968a58b5bc4ff7ccf2f803b}{gmx\-\_\-fio\-\_\-ndoe\-\_\-string} (\hyperlink{structt__fileio}{t\-\_\-fileio} $\ast$fio, char $\ast$item\mbox{[}$\,$\mbox{]}, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, const char $\ast$desc, const char $\ast$srcfile, int \hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line})
+\end{DoxyCompactItemize}
+\subsection*{\-Variables}
+\begin{DoxyCompactItemize}
+\item 
+const char $\ast$ \hyperlink{include_2gmxfio_8h_a9747a1e7497ca8483a36869091b9ecb0}{itemstr} \mbox{[}\hyperlink{share_2template_2gromacs_2gmxfio_8h_ac6bfa7273251ec8fc11ef21ca645ad90a32696a6ab8aa09bb4209abb48aea6724}{eitem\-N\-R}\mbox{]}
+\item 
+const char $\ast$ \hyperlink{include_2gmxfio_8h_af921e81673488d0b68fc9f0d3d314057}{comment\-\_\-str} \mbox{[}\hyperlink{share_2template_2gromacs_2gmxfio_8h_ac6bfa7273251ec8fc11ef21ca645ad90a32696a6ab8aa09bb4209abb48aea6724}{eitem\-N\-R}\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Define \-Documentation}
+\hypertarget{include_2gmxfio_8h_a60e72ba32c1541eae31e07e9a835cedb}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-do\-\_\-double@{gmx\-\_\-fio\-\_\-do\-\_\-double}}
+\index{gmx\-\_\-fio\-\_\-do\-\_\-double@{gmx\-\_\-fio\-\_\-do\-\_\-double}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-do\-\_\-double}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf gmx\-\_\-fio\-\_\-do\-\_\-double}(
+\begin{DoxyParamCaption}
+\item[{}]{fio, }
+\item[{}]{item}
+\end{DoxyParamCaption}
+)~{\bf gmx\-\_\-fio\-\_\-doe\-\_\-double}(fio, \&item, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)}}\label{include_2gmxfio_8h_a60e72ba32c1541eae31e07e9a835cedb}
+\hypertarget{include_2gmxfio_8h_a610ae5760e7f52a12596eed26cfc6097}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-do\-\_\-float@{gmx\-\_\-fio\-\_\-do\-\_\-float}}
+\index{gmx\-\_\-fio\-\_\-do\-\_\-float@{gmx\-\_\-fio\-\_\-do\-\_\-float}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-do\-\_\-float}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf gmx\-\_\-fio\-\_\-do\-\_\-float}(
+\begin{DoxyParamCaption}
+\item[{}]{fio, }
+\item[{}]{item}
+\end{DoxyParamCaption}
+)~{\bf gmx\-\_\-fio\-\_\-doe\-\_\-float}(fio, \&item, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)}}\label{include_2gmxfio_8h_a610ae5760e7f52a12596eed26cfc6097}
+\hypertarget{include_2gmxfio_8h_aa2b0d8bb6917a7530ef38ae42d52236e}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-do\-\_\-gmx\-\_\-bool@{gmx\-\_\-fio\-\_\-do\-\_\-gmx\-\_\-bool}}
+\index{gmx\-\_\-fio\-\_\-do\-\_\-gmx\-\_\-bool@{gmx\-\_\-fio\-\_\-do\-\_\-gmx\-\_\-bool}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-do\-\_\-gmx\-\_\-bool}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf gmx\-\_\-fio\-\_\-do\-\_\-gmx\-\_\-bool}(
+\begin{DoxyParamCaption}
+\item[{}]{fio, }
+\item[{}]{item}
+\end{DoxyParamCaption}
+)~{\bf gmx\-\_\-fio\-\_\-doe\-\_\-gmx\-\_\-bool}(fio, \&item, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)}}\label{include_2gmxfio_8h_aa2b0d8bb6917a7530ef38ae42d52236e}
+\hypertarget{include_2gmxfio_8h_ab4e01491a1f8c8f42f25d7e3b6b289e3}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-do\-\_\-gmx\-\_\-large\-\_\-int@{gmx\-\_\-fio\-\_\-do\-\_\-gmx\-\_\-large\-\_\-int}}
+\index{gmx\-\_\-fio\-\_\-do\-\_\-gmx\-\_\-large\-\_\-int@{gmx\-\_\-fio\-\_\-do\-\_\-gmx\-\_\-large\-\_\-int}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-do\-\_\-gmx\-\_\-large\-\_\-int}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf gmx\-\_\-fio\-\_\-do\-\_\-gmx\-\_\-large\-\_\-int}(
+\begin{DoxyParamCaption}
+\item[{}]{fio, }
+\item[{}]{item}
+\end{DoxyParamCaption}
+)~{\bf gmx\-\_\-fio\-\_\-doe\-\_\-gmx\-\_\-large\-\_\-int}(fio, \&item, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)}}\label{include_2gmxfio_8h_ab4e01491a1f8c8f42f25d7e3b6b289e3}
+\hypertarget{include_2gmxfio_8h_a9427ea35472e6850cc8c0dae17394bf8}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-do\-\_\-int@{gmx\-\_\-fio\-\_\-do\-\_\-int}}
+\index{gmx\-\_\-fio\-\_\-do\-\_\-int@{gmx\-\_\-fio\-\_\-do\-\_\-int}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-do\-\_\-int}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf gmx\-\_\-fio\-\_\-do\-\_\-int}(
+\begin{DoxyParamCaption}
+\item[{}]{fio, }
+\item[{}]{item}
+\end{DoxyParamCaption}
+)~{\bf gmx\-\_\-fio\-\_\-doe\-\_\-int}(fio, \&item, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)}}\label{include_2gmxfio_8h_a9427ea35472e6850cc8c0dae17394bf8}
+\hypertarget{include_2gmxfio_8h_a91fc2e4ae14494171bde5aa2aa8e6e5b}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-do\-\_\-ivec@{gmx\-\_\-fio\-\_\-do\-\_\-ivec}}
+\index{gmx\-\_\-fio\-\_\-do\-\_\-ivec@{gmx\-\_\-fio\-\_\-do\-\_\-ivec}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-do\-\_\-ivec}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf gmx\-\_\-fio\-\_\-do\-\_\-ivec}(
+\begin{DoxyParamCaption}
+\item[{}]{fio, }
+\item[{}]{item}
+\end{DoxyParamCaption}
+)~{\bf gmx\-\_\-fio\-\_\-doe\-\_\-ivec}(fio, \&item, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)}}\label{include_2gmxfio_8h_a91fc2e4ae14494171bde5aa2aa8e6e5b}
+\hypertarget{include_2gmxfio_8h_a9d9f196286f1e7205236a8c262dc332e}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-do\-\_\-real@{gmx\-\_\-fio\-\_\-do\-\_\-real}}
+\index{gmx\-\_\-fio\-\_\-do\-\_\-real@{gmx\-\_\-fio\-\_\-do\-\_\-real}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-do\-\_\-real}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf gmx\-\_\-fio\-\_\-do\-\_\-real}(
+\begin{DoxyParamCaption}
+\item[{}]{fio, }
+\item[{}]{item}
+\end{DoxyParamCaption}
+)~{\bf gmx\-\_\-fio\-\_\-doe\-\_\-real}(fio, \&item, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)}}\label{include_2gmxfio_8h_a9d9f196286f1e7205236a8c262dc332e}
+\hypertarget{include_2gmxfio_8h_a9fec8e5d880addff97120fa916e7c963}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-do\-\_\-rvec@{gmx\-\_\-fio\-\_\-do\-\_\-rvec}}
+\index{gmx\-\_\-fio\-\_\-do\-\_\-rvec@{gmx\-\_\-fio\-\_\-do\-\_\-rvec}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-do\-\_\-rvec}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf gmx\-\_\-fio\-\_\-do\-\_\-rvec}(
+\begin{DoxyParamCaption}
+\item[{}]{fio, }
+\item[{}]{item}
+\end{DoxyParamCaption}
+)~{\bf gmx\-\_\-fio\-\_\-doe\-\_\-rvec}(fio, \&item, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)}}\label{include_2gmxfio_8h_a9fec8e5d880addff97120fa916e7c963}
+\hypertarget{include_2gmxfio_8h_a54da6c4546289b0e0fb730e858fc6145}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-do\-\_\-string@{gmx\-\_\-fio\-\_\-do\-\_\-string}}
+\index{gmx\-\_\-fio\-\_\-do\-\_\-string@{gmx\-\_\-fio\-\_\-do\-\_\-string}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-do\-\_\-string}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf gmx\-\_\-fio\-\_\-do\-\_\-string}(
+\begin{DoxyParamCaption}
+\item[{}]{fio, }
+\item[{}]{item}
+\end{DoxyParamCaption}
+)~{\bf gmx\-\_\-fio\-\_\-doe\-\_\-string}(fio, item, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)}}\label{include_2gmxfio_8h_a54da6c4546289b0e0fb730e858fc6145}
+\hypertarget{include_2gmxfio_8h_a35681a2e05a8b406f2da77e03223e813}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-do\-\_\-uchar@{gmx\-\_\-fio\-\_\-do\-\_\-uchar}}
+\index{gmx\-\_\-fio\-\_\-do\-\_\-uchar@{gmx\-\_\-fio\-\_\-do\-\_\-uchar}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-do\-\_\-uchar}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf gmx\-\_\-fio\-\_\-do\-\_\-uchar}(
+\begin{DoxyParamCaption}
+\item[{}]{fio, }
+\item[{}]{item}
+\end{DoxyParamCaption}
+)~{\bf gmx\-\_\-fio\-\_\-doe\-\_\-uchar}(fio, \&item, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)}}\label{include_2gmxfio_8h_a35681a2e05a8b406f2da77e03223e813}
+\hypertarget{include_2gmxfio_8h_a3b61bc8e608e9b9d92484596af97d036}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-do\-\_\-ushort@{gmx\-\_\-fio\-\_\-do\-\_\-ushort}}
+\index{gmx\-\_\-fio\-\_\-do\-\_\-ushort@{gmx\-\_\-fio\-\_\-do\-\_\-ushort}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-do\-\_\-ushort}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf gmx\-\_\-fio\-\_\-do\-\_\-ushort}(
+\begin{DoxyParamCaption}
+\item[{}]{fio, }
+\item[{}]{item}
+\end{DoxyParamCaption}
+)~{\bf gmx\-\_\-fio\-\_\-doe\-\_\-ushort}(fio, \&item, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)}}\label{include_2gmxfio_8h_a3b61bc8e608e9b9d92484596af97d036}
+\hypertarget{include_2gmxfio_8h_a86dbb2a10a3304ebd9e4f2db8564dc3a}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-ndo\-\_\-double@{gmx\-\_\-fio\-\_\-ndo\-\_\-double}}
+\index{gmx\-\_\-fio\-\_\-ndo\-\_\-double@{gmx\-\_\-fio\-\_\-ndo\-\_\-double}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-ndo\-\_\-double}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf gmx\-\_\-fio\-\_\-ndo\-\_\-double}(
+\begin{DoxyParamCaption}
+\item[{}]{fio, }
+\item[{}]{item, }
+\item[{}]{{\bf n}}
+\end{DoxyParamCaption}
+)~{\bf gmx\-\_\-fio\-\_\-ndoe\-\_\-double}(fio, item, {\bf n}, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)}}\label{include_2gmxfio_8h_a86dbb2a10a3304ebd9e4f2db8564dc3a}
+\hypertarget{include_2gmxfio_8h_a0425768d1d676062e49224544eafb0c8}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-ndo\-\_\-float@{gmx\-\_\-fio\-\_\-ndo\-\_\-float}}
+\index{gmx\-\_\-fio\-\_\-ndo\-\_\-float@{gmx\-\_\-fio\-\_\-ndo\-\_\-float}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-ndo\-\_\-float}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf gmx\-\_\-fio\-\_\-ndo\-\_\-float}(
+\begin{DoxyParamCaption}
+\item[{}]{fio, }
+\item[{}]{item, }
+\item[{}]{{\bf n}}
+\end{DoxyParamCaption}
+)~{\bf gmx\-\_\-fio\-\_\-ndoe\-\_\-float}(fio, item, {\bf n}, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)}}\label{include_2gmxfio_8h_a0425768d1d676062e49224544eafb0c8}
+\hypertarget{include_2gmxfio_8h_ac392c10e782e4b147121ccc49d997c66}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-ndo\-\_\-gmx\-\_\-bool@{gmx\-\_\-fio\-\_\-ndo\-\_\-gmx\-\_\-bool}}
+\index{gmx\-\_\-fio\-\_\-ndo\-\_\-gmx\-\_\-bool@{gmx\-\_\-fio\-\_\-ndo\-\_\-gmx\-\_\-bool}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-ndo\-\_\-gmx\-\_\-bool}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf gmx\-\_\-fio\-\_\-ndo\-\_\-gmx\-\_\-bool}(
+\begin{DoxyParamCaption}
+\item[{}]{fio, }
+\item[{}]{item, }
+\item[{}]{{\bf n}}
+\end{DoxyParamCaption}
+)~{\bf gmx\-\_\-fio\-\_\-ndoe\-\_\-gmx\-\_\-bool}(fio, item, {\bf n}, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)}}\label{include_2gmxfio_8h_ac392c10e782e4b147121ccc49d997c66}
+\hypertarget{include_2gmxfio_8h_a15dc1195d3efe2ffd3ce5e24dcdac95f}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-ndo\-\_\-gmx\-\_\-large\-\_\-int@{gmx\-\_\-fio\-\_\-ndo\-\_\-gmx\-\_\-large\-\_\-int}}
+\index{gmx\-\_\-fio\-\_\-ndo\-\_\-gmx\-\_\-large\-\_\-int@{gmx\-\_\-fio\-\_\-ndo\-\_\-gmx\-\_\-large\-\_\-int}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-ndo\-\_\-gmx\-\_\-large\-\_\-int}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf gmx\-\_\-fio\-\_\-ndo\-\_\-gmx\-\_\-large\-\_\-int}(
+\begin{DoxyParamCaption}
+\item[{}]{fio, }
+\item[{}]{item, }
+\item[{}]{{\bf n}}
+\end{DoxyParamCaption}
+)~{\bf gmx\-\_\-fio\-\_\-ndoe\-\_\-gmx\-\_\-large\-\_\-int}(fio, item, {\bf n}, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)}}\label{include_2gmxfio_8h_a15dc1195d3efe2ffd3ce5e24dcdac95f}
+\hypertarget{include_2gmxfio_8h_a53137d61229137ee1fb422730ab7bdbe}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-ndo\-\_\-int@{gmx\-\_\-fio\-\_\-ndo\-\_\-int}}
+\index{gmx\-\_\-fio\-\_\-ndo\-\_\-int@{gmx\-\_\-fio\-\_\-ndo\-\_\-int}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-ndo\-\_\-int}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf gmx\-\_\-fio\-\_\-ndo\-\_\-int}(
+\begin{DoxyParamCaption}
+\item[{}]{fio, }
+\item[{}]{item, }
+\item[{}]{{\bf n}}
+\end{DoxyParamCaption}
+)~{\bf gmx\-\_\-fio\-\_\-ndoe\-\_\-int}(fio, item, {\bf n}, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)}}\label{include_2gmxfio_8h_a53137d61229137ee1fb422730ab7bdbe}
+\hypertarget{include_2gmxfio_8h_a9701b350d45484bb5b84e572a3c8bf03}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-ndo\-\_\-ivec@{gmx\-\_\-fio\-\_\-ndo\-\_\-ivec}}
+\index{gmx\-\_\-fio\-\_\-ndo\-\_\-ivec@{gmx\-\_\-fio\-\_\-ndo\-\_\-ivec}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-ndo\-\_\-ivec}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf gmx\-\_\-fio\-\_\-ndo\-\_\-ivec}(
+\begin{DoxyParamCaption}
+\item[{}]{fio, }
+\item[{}]{item, }
+\item[{}]{{\bf n}}
+\end{DoxyParamCaption}
+)~{\bf gmx\-\_\-fio\-\_\-ndoe\-\_\-ivec}(fio, item, {\bf n}, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)}}\label{include_2gmxfio_8h_a9701b350d45484bb5b84e572a3c8bf03}
+\hypertarget{include_2gmxfio_8h_aa0e53b96fd3bf6b51a6a18ac1eba4bd9}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-ndo\-\_\-real@{gmx\-\_\-fio\-\_\-ndo\-\_\-real}}
+\index{gmx\-\_\-fio\-\_\-ndo\-\_\-real@{gmx\-\_\-fio\-\_\-ndo\-\_\-real}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-ndo\-\_\-real}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf gmx\-\_\-fio\-\_\-ndo\-\_\-real}(
+\begin{DoxyParamCaption}
+\item[{}]{fio, }
+\item[{}]{item, }
+\item[{}]{{\bf n}}
+\end{DoxyParamCaption}
+)~{\bf gmx\-\_\-fio\-\_\-ndoe\-\_\-real}(fio, item, {\bf n}, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)}}\label{include_2gmxfio_8h_aa0e53b96fd3bf6b51a6a18ac1eba4bd9}
+\hypertarget{include_2gmxfio_8h_a83babd5a696f4c7035bc818960d0503b}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-ndo\-\_\-rvec@{gmx\-\_\-fio\-\_\-ndo\-\_\-rvec}}
+\index{gmx\-\_\-fio\-\_\-ndo\-\_\-rvec@{gmx\-\_\-fio\-\_\-ndo\-\_\-rvec}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-ndo\-\_\-rvec}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf gmx\-\_\-fio\-\_\-ndo\-\_\-rvec}(
+\begin{DoxyParamCaption}
+\item[{}]{fio, }
+\item[{}]{item, }
+\item[{}]{{\bf n}}
+\end{DoxyParamCaption}
+)~{\bf gmx\-\_\-fio\-\_\-ndoe\-\_\-rvec}(fio, item, {\bf n}, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)}}\label{include_2gmxfio_8h_a83babd5a696f4c7035bc818960d0503b}
+\hypertarget{include_2gmxfio_8h_ad24fc9649e82830a9297edffa94b9591}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-ndo\-\_\-string@{gmx\-\_\-fio\-\_\-ndo\-\_\-string}}
+\index{gmx\-\_\-fio\-\_\-ndo\-\_\-string@{gmx\-\_\-fio\-\_\-ndo\-\_\-string}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-ndo\-\_\-string}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf gmx\-\_\-fio\-\_\-ndo\-\_\-string}(
+\begin{DoxyParamCaption}
+\item[{}]{fio, }
+\item[{}]{item, }
+\item[{}]{{\bf n}}
+\end{DoxyParamCaption}
+)~{\bf gmx\-\_\-fio\-\_\-ndoe\-\_\-string}(fio, item, {\bf n}, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)}}\label{include_2gmxfio_8h_ad24fc9649e82830a9297edffa94b9591}
+\hypertarget{include_2gmxfio_8h_afe310da8fbe99ded888ed7aed21e6adb}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-ndo\-\_\-uchar@{gmx\-\_\-fio\-\_\-ndo\-\_\-uchar}}
+\index{gmx\-\_\-fio\-\_\-ndo\-\_\-uchar@{gmx\-\_\-fio\-\_\-ndo\-\_\-uchar}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-ndo\-\_\-uchar}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf gmx\-\_\-fio\-\_\-ndo\-\_\-uchar}(
+\begin{DoxyParamCaption}
+\item[{}]{fio, }
+\item[{}]{item, }
+\item[{}]{{\bf n}}
+\end{DoxyParamCaption}
+)~{\bf gmx\-\_\-fio\-\_\-ndoe\-\_\-uchar}(fio, item, {\bf n}, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)}}\label{include_2gmxfio_8h_afe310da8fbe99ded888ed7aed21e6adb}
+\hypertarget{include_2gmxfio_8h_a83213b3fb01186f3b264b6cebb456f67}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-ndo\-\_\-ushort@{gmx\-\_\-fio\-\_\-ndo\-\_\-ushort}}
+\index{gmx\-\_\-fio\-\_\-ndo\-\_\-ushort@{gmx\-\_\-fio\-\_\-ndo\-\_\-ushort}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-ndo\-\_\-ushort}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf gmx\-\_\-fio\-\_\-ndo\-\_\-ushort}(
+\begin{DoxyParamCaption}
+\item[{}]{fio, }
+\item[{}]{item, }
+\item[{}]{{\bf n}}
+\end{DoxyParamCaption}
+)~{\bf gmx\-\_\-fio\-\_\-ndoe\-\_\-ushort}(fio, item, {\bf n}, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)}}\label{include_2gmxfio_8h_a83213b3fb01186f3b264b6cebb456f67}
+\hypertarget{include_2gmxfio_8h_a0341cac7b38d3c869842309e674258c8}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-nread\-\_\-double@{gmx\-\_\-fio\-\_\-nread\-\_\-double}}
+\index{gmx\-\_\-fio\-\_\-nread\-\_\-double@{gmx\-\_\-fio\-\_\-nread\-\_\-double}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-nread\-\_\-double}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf gmx\-\_\-fio\-\_\-nread\-\_\-double}(
+\begin{DoxyParamCaption}
+\item[{}]{fio, }
+\item[{}]{item, }
+\item[{}]{{\bf n}}
+\end{DoxyParamCaption}
+)~{\bf gmx\-\_\-fio\-\_\-nreade\-\_\-double}(fio, item, {\bf n}, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)}}\label{include_2gmxfio_8h_a0341cac7b38d3c869842309e674258c8}
+\hypertarget{include_2gmxfio_8h_a1cbff63bbd9690b244f5d4600b7dc024}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-nread\-\_\-float@{gmx\-\_\-fio\-\_\-nread\-\_\-float}}
+\index{gmx\-\_\-fio\-\_\-nread\-\_\-float@{gmx\-\_\-fio\-\_\-nread\-\_\-float}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-nread\-\_\-float}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf gmx\-\_\-fio\-\_\-nread\-\_\-float}(
+\begin{DoxyParamCaption}
+\item[{}]{fio, }
+\item[{}]{item, }
+\item[{}]{{\bf n}}
+\end{DoxyParamCaption}
+)~{\bf gmx\-\_\-fio\-\_\-nreade\-\_\-float}(fio, item, {\bf n}, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)}}\label{include_2gmxfio_8h_a1cbff63bbd9690b244f5d4600b7dc024}
+\hypertarget{include_2gmxfio_8h_a924b5468940951a86caa3a729d550b0e}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-nread\-\_\-gmx\-\_\-large\-\_\-int@{gmx\-\_\-fio\-\_\-nread\-\_\-gmx\-\_\-large\-\_\-int}}
+\index{gmx\-\_\-fio\-\_\-nread\-\_\-gmx\-\_\-large\-\_\-int@{gmx\-\_\-fio\-\_\-nread\-\_\-gmx\-\_\-large\-\_\-int}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-nread\-\_\-gmx\-\_\-large\-\_\-int}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf gmx\-\_\-fio\-\_\-nread\-\_\-gmx\-\_\-large\-\_\-int}(
+\begin{DoxyParamCaption}
+\item[{}]{fio, }
+\item[{}]{item, }
+\item[{}]{{\bf n}}
+\end{DoxyParamCaption}
+)~{\bf gmx\-\_\-fio\-\_\-nreade\-\_\-gmx\-\_\-large\-\_\-int}(fio, item, {\bf n}, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)}}\label{include_2gmxfio_8h_a924b5468940951a86caa3a729d550b0e}
+\hypertarget{include_2gmxfio_8h_adbd9393e0b0737fe7b5397c6a390acec}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-nread\-\_\-int@{gmx\-\_\-fio\-\_\-nread\-\_\-int}}
+\index{gmx\-\_\-fio\-\_\-nread\-\_\-int@{gmx\-\_\-fio\-\_\-nread\-\_\-int}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-nread\-\_\-int}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf gmx\-\_\-fio\-\_\-nread\-\_\-int}(
+\begin{DoxyParamCaption}
+\item[{}]{fio, }
+\item[{}]{item, }
+\item[{}]{{\bf n}}
+\end{DoxyParamCaption}
+)~{\bf gmx\-\_\-fio\-\_\-nreade\-\_\-int}(fio, item, {\bf n}, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)}}\label{include_2gmxfio_8h_adbd9393e0b0737fe7b5397c6a390acec}
+\hypertarget{include_2gmxfio_8h_ad1b4e824585ea03f7ac4b540aad447e5}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-nread\-\_\-ivec@{gmx\-\_\-fio\-\_\-nread\-\_\-ivec}}
+\index{gmx\-\_\-fio\-\_\-nread\-\_\-ivec@{gmx\-\_\-fio\-\_\-nread\-\_\-ivec}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-nread\-\_\-ivec}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf gmx\-\_\-fio\-\_\-nread\-\_\-ivec}(
+\begin{DoxyParamCaption}
+\item[{}]{fio, }
+\item[{}]{item, }
+\item[{}]{{\bf n}}
+\end{DoxyParamCaption}
+)~{\bf gmx\-\_\-fio\-\_\-nreade\-\_\-ivec}(fio, item, {\bf n}, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)}}\label{include_2gmxfio_8h_ad1b4e824585ea03f7ac4b540aad447e5}
+\hypertarget{include_2gmxfio_8h_a0b7e712dcd884b736ba14fe476c06239}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-nread\-\_\-real@{gmx\-\_\-fio\-\_\-nread\-\_\-real}}
+\index{gmx\-\_\-fio\-\_\-nread\-\_\-real@{gmx\-\_\-fio\-\_\-nread\-\_\-real}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-nread\-\_\-real}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf gmx\-\_\-fio\-\_\-nread\-\_\-real}(
+\begin{DoxyParamCaption}
+\item[{}]{fio, }
+\item[{}]{item, }
+\item[{}]{{\bf n}}
+\end{DoxyParamCaption}
+)~{\bf gmx\-\_\-fio\-\_\-nreade\-\_\-real}(fio, item, {\bf n}, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)}}\label{include_2gmxfio_8h_a0b7e712dcd884b736ba14fe476c06239}
+\hypertarget{include_2gmxfio_8h_aea99feed6a871f769e97ab4ae5f3b195}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-nread\-\_\-rvec@{gmx\-\_\-fio\-\_\-nread\-\_\-rvec}}
+\index{gmx\-\_\-fio\-\_\-nread\-\_\-rvec@{gmx\-\_\-fio\-\_\-nread\-\_\-rvec}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-nread\-\_\-rvec}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf gmx\-\_\-fio\-\_\-nread\-\_\-rvec}(
+\begin{DoxyParamCaption}
+\item[{}]{fio, }
+\item[{}]{item, }
+\item[{}]{{\bf n}}
+\end{DoxyParamCaption}
+)~{\bf gmx\-\_\-fio\-\_\-nreade\-\_\-rvec}(fio, item, {\bf n}, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)}}\label{include_2gmxfio_8h_aea99feed6a871f769e97ab4ae5f3b195}
+\hypertarget{include_2gmxfio_8h_a6a02363796e9f2d50c17ff52fda79077}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-nread\-\_\-string@{gmx\-\_\-fio\-\_\-nread\-\_\-string}}
+\index{gmx\-\_\-fio\-\_\-nread\-\_\-string@{gmx\-\_\-fio\-\_\-nread\-\_\-string}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-nread\-\_\-string}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf gmx\-\_\-fio\-\_\-nread\-\_\-string}(
+\begin{DoxyParamCaption}
+\item[{}]{fio, }
+\item[{}]{item, }
+\item[{}]{{\bf n}}
+\end{DoxyParamCaption}
+)~{\bf gmx\-\_\-fio\-\_\-nreade\-\_\-string}(fio, item, {\bf n}, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)}}\label{include_2gmxfio_8h_a6a02363796e9f2d50c17ff52fda79077}
+\hypertarget{include_2gmxfio_8h_ab4db430596b8d404da348c88cb8920ec}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-nread\-\_\-uchar@{gmx\-\_\-fio\-\_\-nread\-\_\-uchar}}
+\index{gmx\-\_\-fio\-\_\-nread\-\_\-uchar@{gmx\-\_\-fio\-\_\-nread\-\_\-uchar}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-nread\-\_\-uchar}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf gmx\-\_\-fio\-\_\-nread\-\_\-uchar}(
+\begin{DoxyParamCaption}
+\item[{}]{fio, }
+\item[{}]{item, }
+\item[{}]{{\bf n}}
+\end{DoxyParamCaption}
+)~{\bf gmx\-\_\-fio\-\_\-nreade\-\_\-uchar}(fio, item, {\bf n}, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)}}\label{include_2gmxfio_8h_ab4db430596b8d404da348c88cb8920ec}
+\hypertarget{include_2gmxfio_8h_ab89c105c029ab622009e931702c26d59}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-nread\-\_\-ushort@{gmx\-\_\-fio\-\_\-nread\-\_\-ushort}}
+\index{gmx\-\_\-fio\-\_\-nread\-\_\-ushort@{gmx\-\_\-fio\-\_\-nread\-\_\-ushort}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-nread\-\_\-ushort}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf gmx\-\_\-fio\-\_\-nread\-\_\-ushort}(
+\begin{DoxyParamCaption}
+\item[{}]{fio, }
+\item[{}]{item, }
+\item[{}]{{\bf n}}
+\end{DoxyParamCaption}
+)~{\bf gmx\-\_\-fio\-\_\-nreade\-\_\-ushort}(fio, item, {\bf n}, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)}}\label{include_2gmxfio_8h_ab89c105c029ab622009e931702c26d59}
+\hypertarget{include_2gmxfio_8h_af12ce262e08587e288639bb6fcc0cf6f}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-nwrite\-\_\-double@{gmx\-\_\-fio\-\_\-nwrite\-\_\-double}}
+\index{gmx\-\_\-fio\-\_\-nwrite\-\_\-double@{gmx\-\_\-fio\-\_\-nwrite\-\_\-double}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-nwrite\-\_\-double}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf gmx\-\_\-fio\-\_\-nwrite\-\_\-double}(
+\begin{DoxyParamCaption}
+\item[{}]{fio, }
+\item[{}]{item, }
+\item[{}]{{\bf n}}
+\end{DoxyParamCaption}
+)~{\bf gmx\-\_\-fio\-\_\-nwritee\-\_\-double}(fio, item, {\bf n}, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)}}\label{include_2gmxfio_8h_af12ce262e08587e288639bb6fcc0cf6f}
+\hypertarget{include_2gmxfio_8h_acc37e20104a9d9e058ddb25c124eb61c}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-nwrite\-\_\-float@{gmx\-\_\-fio\-\_\-nwrite\-\_\-float}}
+\index{gmx\-\_\-fio\-\_\-nwrite\-\_\-float@{gmx\-\_\-fio\-\_\-nwrite\-\_\-float}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-nwrite\-\_\-float}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf gmx\-\_\-fio\-\_\-nwrite\-\_\-float}(
+\begin{DoxyParamCaption}
+\item[{}]{fio, }
+\item[{}]{item, }
+\item[{}]{{\bf n}}
+\end{DoxyParamCaption}
+)~{\bf gmx\-\_\-fio\-\_\-nwritee\-\_\-float}(fio, item, {\bf n}, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)}}\label{include_2gmxfio_8h_acc37e20104a9d9e058ddb25c124eb61c}
+\hypertarget{include_2gmxfio_8h_ae3cf4a3d76959170a1473f4a82c581d6}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-nwrite\-\_\-gmx\-\_\-large\-\_\-int@{gmx\-\_\-fio\-\_\-nwrite\-\_\-gmx\-\_\-large\-\_\-int}}
+\index{gmx\-\_\-fio\-\_\-nwrite\-\_\-gmx\-\_\-large\-\_\-int@{gmx\-\_\-fio\-\_\-nwrite\-\_\-gmx\-\_\-large\-\_\-int}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-nwrite\-\_\-gmx\-\_\-large\-\_\-int}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf gmx\-\_\-fio\-\_\-nwrite\-\_\-gmx\-\_\-large\-\_\-int}(
+\begin{DoxyParamCaption}
+\item[{}]{fio, }
+\item[{}]{item, }
+\item[{}]{{\bf n}}
+\end{DoxyParamCaption}
+)~{\bf gmx\-\_\-fio\-\_\-nwritee\-\_\-gmx\-\_\-large\-\_\-int}(fio, item, {\bf n}, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)}}\label{include_2gmxfio_8h_ae3cf4a3d76959170a1473f4a82c581d6}
+\hypertarget{include_2gmxfio_8h_a6499c8798b51e4505131339e672818e4}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-nwrite\-\_\-int@{gmx\-\_\-fio\-\_\-nwrite\-\_\-int}}
+\index{gmx\-\_\-fio\-\_\-nwrite\-\_\-int@{gmx\-\_\-fio\-\_\-nwrite\-\_\-int}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-nwrite\-\_\-int}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf gmx\-\_\-fio\-\_\-nwrite\-\_\-int}(
+\begin{DoxyParamCaption}
+\item[{}]{fio, }
+\item[{}]{item, }
+\item[{}]{{\bf n}}
+\end{DoxyParamCaption}
+)~{\bf gmx\-\_\-fio\-\_\-nwritee\-\_\-int}(fio, item, {\bf n}, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)}}\label{include_2gmxfio_8h_a6499c8798b51e4505131339e672818e4}
+\hypertarget{include_2gmxfio_8h_aa69ea1f2f085fcc9d33a7de78228a683}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-nwrite\-\_\-ivec@{gmx\-\_\-fio\-\_\-nwrite\-\_\-ivec}}
+\index{gmx\-\_\-fio\-\_\-nwrite\-\_\-ivec@{gmx\-\_\-fio\-\_\-nwrite\-\_\-ivec}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-nwrite\-\_\-ivec}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf gmx\-\_\-fio\-\_\-nwrite\-\_\-ivec}(
+\begin{DoxyParamCaption}
+\item[{}]{fio, }
+\item[{}]{item, }
+\item[{}]{{\bf n}}
+\end{DoxyParamCaption}
+)~{\bf gmx\-\_\-fio\-\_\-nwritee\-\_\-ivec}(fio, item, {\bf n}, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)}}\label{include_2gmxfio_8h_aa69ea1f2f085fcc9d33a7de78228a683}
+\hypertarget{include_2gmxfio_8h_a4b6f0363328efa2a5a93f30d830680a9}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-nwrite\-\_\-real@{gmx\-\_\-fio\-\_\-nwrite\-\_\-real}}
+\index{gmx\-\_\-fio\-\_\-nwrite\-\_\-real@{gmx\-\_\-fio\-\_\-nwrite\-\_\-real}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-nwrite\-\_\-real}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf gmx\-\_\-fio\-\_\-nwrite\-\_\-real}(
+\begin{DoxyParamCaption}
+\item[{}]{fio, }
+\item[{}]{item, }
+\item[{}]{{\bf n}}
+\end{DoxyParamCaption}
+)~{\bf gmx\-\_\-fio\-\_\-nwritee\-\_\-real}(fio, item, {\bf n}, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)}}\label{include_2gmxfio_8h_a4b6f0363328efa2a5a93f30d830680a9}
+\hypertarget{include_2gmxfio_8h_a4cbc856a7a1cf137c4f0e68c1d824915}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-nwrite\-\_\-rvec@{gmx\-\_\-fio\-\_\-nwrite\-\_\-rvec}}
+\index{gmx\-\_\-fio\-\_\-nwrite\-\_\-rvec@{gmx\-\_\-fio\-\_\-nwrite\-\_\-rvec}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-nwrite\-\_\-rvec}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf gmx\-\_\-fio\-\_\-nwrite\-\_\-rvec}(
+\begin{DoxyParamCaption}
+\item[{}]{fio, }
+\item[{}]{item, }
+\item[{}]{{\bf n}}
+\end{DoxyParamCaption}
+)~{\bf gmx\-\_\-fio\-\_\-nwritee\-\_\-rvec}(fio, item, {\bf n}, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)}}\label{include_2gmxfio_8h_a4cbc856a7a1cf137c4f0e68c1d824915}
+\hypertarget{include_2gmxfio_8h_a8b48b6e3b6d116b540975433b8d07049}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-nwrite\-\_\-string@{gmx\-\_\-fio\-\_\-nwrite\-\_\-string}}
+\index{gmx\-\_\-fio\-\_\-nwrite\-\_\-string@{gmx\-\_\-fio\-\_\-nwrite\-\_\-string}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-nwrite\-\_\-string}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf gmx\-\_\-fio\-\_\-nwrite\-\_\-string}(
+\begin{DoxyParamCaption}
+\item[{}]{fio, }
+\item[{}]{item, }
+\item[{}]{{\bf n}}
+\end{DoxyParamCaption}
+)~{\bf gmx\-\_\-fio\-\_\-nwritee\-\_\-string}(fio, item, {\bf n}, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)}}\label{include_2gmxfio_8h_a8b48b6e3b6d116b540975433b8d07049}
+\hypertarget{include_2gmxfio_8h_a76d4c2db374b06316692186773c4565b}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-nwrite\-\_\-uchar@{gmx\-\_\-fio\-\_\-nwrite\-\_\-uchar}}
+\index{gmx\-\_\-fio\-\_\-nwrite\-\_\-uchar@{gmx\-\_\-fio\-\_\-nwrite\-\_\-uchar}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-nwrite\-\_\-uchar}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf gmx\-\_\-fio\-\_\-nwrite\-\_\-uchar}(
+\begin{DoxyParamCaption}
+\item[{}]{fio, }
+\item[{}]{item, }
+\item[{}]{{\bf n}}
+\end{DoxyParamCaption}
+)~{\bf gmx\-\_\-fio\-\_\-nwritee\-\_\-uchar}(fio, item, {\bf n}, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)}}\label{include_2gmxfio_8h_a76d4c2db374b06316692186773c4565b}
+\hypertarget{include_2gmxfio_8h_a53b2acd62f51f09a3a968cd1be6db82a}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-nwrite\-\_\-ushort@{gmx\-\_\-fio\-\_\-nwrite\-\_\-ushort}}
+\index{gmx\-\_\-fio\-\_\-nwrite\-\_\-ushort@{gmx\-\_\-fio\-\_\-nwrite\-\_\-ushort}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-nwrite\-\_\-ushort}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf gmx\-\_\-fio\-\_\-nwrite\-\_\-ushort}(
+\begin{DoxyParamCaption}
+\item[{}]{fio, }
+\item[{}]{item, }
+\item[{}]{{\bf n}}
+\end{DoxyParamCaption}
+)~{\bf gmx\-\_\-fio\-\_\-nwritee\-\_\-ushort}(fio, item, {\bf n}, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)}}\label{include_2gmxfio_8h_a53b2acd62f51f09a3a968cd1be6db82a}
+\hypertarget{include_2gmxfio_8h_a964309c5da36986dab2c8520d5a48c21}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-read\-\_\-double@{gmx\-\_\-fio\-\_\-read\-\_\-double}}
+\index{gmx\-\_\-fio\-\_\-read\-\_\-double@{gmx\-\_\-fio\-\_\-read\-\_\-double}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-read\-\_\-double}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf gmx\-\_\-fio\-\_\-read\-\_\-double}(
+\begin{DoxyParamCaption}
+\item[{}]{fio, }
+\item[{}]{item}
+\end{DoxyParamCaption}
+)~{\bf gmx\-\_\-fio\-\_\-reade\-\_\-double}(fio, \&item, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)}}\label{include_2gmxfio_8h_a964309c5da36986dab2c8520d5a48c21}
+\hypertarget{include_2gmxfio_8h_a5118150a8d783c2de361e2045f1d384f}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-read\-\_\-float@{gmx\-\_\-fio\-\_\-read\-\_\-float}}
+\index{gmx\-\_\-fio\-\_\-read\-\_\-float@{gmx\-\_\-fio\-\_\-read\-\_\-float}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-read\-\_\-float}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf gmx\-\_\-fio\-\_\-read\-\_\-float}(
+\begin{DoxyParamCaption}
+\item[{}]{fio, }
+\item[{}]{item}
+\end{DoxyParamCaption}
+)~{\bf gmx\-\_\-fio\-\_\-reade\-\_\-float}(fio, \&item, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)}}\label{include_2gmxfio_8h_a5118150a8d783c2de361e2045f1d384f}
+\hypertarget{include_2gmxfio_8h_a5f89fce555bab0e604b1c4d38ebaa559}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-read\-\_\-gmx\-\_\-large\-\_\-int@{gmx\-\_\-fio\-\_\-read\-\_\-gmx\-\_\-large\-\_\-int}}
+\index{gmx\-\_\-fio\-\_\-read\-\_\-gmx\-\_\-large\-\_\-int@{gmx\-\_\-fio\-\_\-read\-\_\-gmx\-\_\-large\-\_\-int}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-read\-\_\-gmx\-\_\-large\-\_\-int}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf gmx\-\_\-fio\-\_\-read\-\_\-gmx\-\_\-large\-\_\-int}(
+\begin{DoxyParamCaption}
+\item[{}]{fio, }
+\item[{}]{item}
+\end{DoxyParamCaption}
+)~{\bf gmx\-\_\-fio\-\_\-reade\-\_\-gmx\-\_\-large\-\_\-int}(fio, \&item, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)}}\label{include_2gmxfio_8h_a5f89fce555bab0e604b1c4d38ebaa559}
+\hypertarget{include_2gmxfio_8h_acdc41a19bd49b03dd8b6689c6bdf818e}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-read\-\_\-int@{gmx\-\_\-fio\-\_\-read\-\_\-int}}
+\index{gmx\-\_\-fio\-\_\-read\-\_\-int@{gmx\-\_\-fio\-\_\-read\-\_\-int}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-read\-\_\-int}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf gmx\-\_\-fio\-\_\-read\-\_\-int}(
+\begin{DoxyParamCaption}
+\item[{}]{fio, }
+\item[{}]{item}
+\end{DoxyParamCaption}
+)~{\bf gmx\-\_\-fio\-\_\-reade\-\_\-int}(fio, \&item, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)}}\label{include_2gmxfio_8h_acdc41a19bd49b03dd8b6689c6bdf818e}
+\hypertarget{include_2gmxfio_8h_acad480aaadcab0555666e3383f10f30d}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-read\-\_\-ivec@{gmx\-\_\-fio\-\_\-read\-\_\-ivec}}
+\index{gmx\-\_\-fio\-\_\-read\-\_\-ivec@{gmx\-\_\-fio\-\_\-read\-\_\-ivec}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-read\-\_\-ivec}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf gmx\-\_\-fio\-\_\-read\-\_\-ivec}(
+\begin{DoxyParamCaption}
+\item[{}]{fio, }
+\item[{}]{item}
+\end{DoxyParamCaption}
+)~{\bf gmx\-\_\-fio\-\_\-reade\-\_\-ivec}(fio, item, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)}}\label{include_2gmxfio_8h_acad480aaadcab0555666e3383f10f30d}
+\hypertarget{include_2gmxfio_8h_ad4cf5eca82042e0ecf1b338eacc34133}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-read\-\_\-real@{gmx\-\_\-fio\-\_\-read\-\_\-real}}
+\index{gmx\-\_\-fio\-\_\-read\-\_\-real@{gmx\-\_\-fio\-\_\-read\-\_\-real}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-read\-\_\-real}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf gmx\-\_\-fio\-\_\-read\-\_\-real}(
+\begin{DoxyParamCaption}
+\item[{}]{fio, }
+\item[{}]{item}
+\end{DoxyParamCaption}
+)~{\bf gmx\-\_\-fio\-\_\-reade\-\_\-real}(fio, \&item, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)}}\label{include_2gmxfio_8h_ad4cf5eca82042e0ecf1b338eacc34133}
+\hypertarget{include_2gmxfio_8h_ad21846f857833add39b262b87be96f41}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-read\-\_\-rvec@{gmx\-\_\-fio\-\_\-read\-\_\-rvec}}
+\index{gmx\-\_\-fio\-\_\-read\-\_\-rvec@{gmx\-\_\-fio\-\_\-read\-\_\-rvec}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-read\-\_\-rvec}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf gmx\-\_\-fio\-\_\-read\-\_\-rvec}(
+\begin{DoxyParamCaption}
+\item[{}]{fio, }
+\item[{}]{item}
+\end{DoxyParamCaption}
+)~{\bf gmx\-\_\-fio\-\_\-reade\-\_\-rvec}(fio, item, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)}}\label{include_2gmxfio_8h_ad21846f857833add39b262b87be96f41}
+\hypertarget{include_2gmxfio_8h_a93375ddfb7691fd6dd1f27ff4879f3f9}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-read\-\_\-string@{gmx\-\_\-fio\-\_\-read\-\_\-string}}
+\index{gmx\-\_\-fio\-\_\-read\-\_\-string@{gmx\-\_\-fio\-\_\-read\-\_\-string}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-read\-\_\-string}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf gmx\-\_\-fio\-\_\-read\-\_\-string}(
+\begin{DoxyParamCaption}
+\item[{}]{fio, }
+\item[{}]{item}
+\end{DoxyParamCaption}
+)~{\bf gmx\-\_\-fio\-\_\-reade\-\_\-string}(fio, item, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)}}\label{include_2gmxfio_8h_a93375ddfb7691fd6dd1f27ff4879f3f9}
+\hypertarget{include_2gmxfio_8h_a6a6b5bf7252679187da14fee49ad4b35}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-read\-\_\-uchar@{gmx\-\_\-fio\-\_\-read\-\_\-uchar}}
+\index{gmx\-\_\-fio\-\_\-read\-\_\-uchar@{gmx\-\_\-fio\-\_\-read\-\_\-uchar}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-read\-\_\-uchar}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf gmx\-\_\-fio\-\_\-read\-\_\-uchar}(
+\begin{DoxyParamCaption}
+\item[{}]{fio, }
+\item[{}]{item}
+\end{DoxyParamCaption}
+)~{\bf gmx\-\_\-fio\-\_\-reade\-\_\-uchar}(fio, \&item, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)}}\label{include_2gmxfio_8h_a6a6b5bf7252679187da14fee49ad4b35}
+\hypertarget{include_2gmxfio_8h_a58a41eebb2af372c3d5fa5283886c288}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-read\-\_\-ushort@{gmx\-\_\-fio\-\_\-read\-\_\-ushort}}
+\index{gmx\-\_\-fio\-\_\-read\-\_\-ushort@{gmx\-\_\-fio\-\_\-read\-\_\-ushort}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-read\-\_\-ushort}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf gmx\-\_\-fio\-\_\-read\-\_\-ushort}(
+\begin{DoxyParamCaption}
+\item[{}]{fio, }
+\item[{}]{item}
+\end{DoxyParamCaption}
+)~{\bf gmx\-\_\-fio\-\_\-reade\-\_\-ushort}(fio, \&item, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)}}\label{include_2gmxfio_8h_a58a41eebb2af372c3d5fa5283886c288}
+\hypertarget{include_2gmxfio_8h_aa430b880a49df47fcfe602a803e3456b}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-write\-\_\-double@{gmx\-\_\-fio\-\_\-write\-\_\-double}}
+\index{gmx\-\_\-fio\-\_\-write\-\_\-double@{gmx\-\_\-fio\-\_\-write\-\_\-double}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-write\-\_\-double}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf gmx\-\_\-fio\-\_\-write\-\_\-double}(
+\begin{DoxyParamCaption}
+\item[{}]{fio, }
+\item[{}]{item}
+\end{DoxyParamCaption}
+)~{\bf gmx\-\_\-fio\-\_\-writee\-\_\-double}(fio, item, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)}}\label{include_2gmxfio_8h_aa430b880a49df47fcfe602a803e3456b}
+\hypertarget{include_2gmxfio_8h_a84f5df7a7dc00f0997e093f6c590439c}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-write\-\_\-float@{gmx\-\_\-fio\-\_\-write\-\_\-float}}
+\index{gmx\-\_\-fio\-\_\-write\-\_\-float@{gmx\-\_\-fio\-\_\-write\-\_\-float}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-write\-\_\-float}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf gmx\-\_\-fio\-\_\-write\-\_\-float}(
+\begin{DoxyParamCaption}
+\item[{}]{fio, }
+\item[{}]{item}
+\end{DoxyParamCaption}
+)~{\bf gmx\-\_\-fio\-\_\-writee\-\_\-float}(fio, item, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)}}\label{include_2gmxfio_8h_a84f5df7a7dc00f0997e093f6c590439c}
+\hypertarget{include_2gmxfio_8h_a867109a17ab5c4c6b1ab1ff3acb75d66}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-write\-\_\-gmx\-\_\-large\-\_\-int@{gmx\-\_\-fio\-\_\-write\-\_\-gmx\-\_\-large\-\_\-int}}
+\index{gmx\-\_\-fio\-\_\-write\-\_\-gmx\-\_\-large\-\_\-int@{gmx\-\_\-fio\-\_\-write\-\_\-gmx\-\_\-large\-\_\-int}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-write\-\_\-gmx\-\_\-large\-\_\-int}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf gmx\-\_\-fio\-\_\-write\-\_\-gmx\-\_\-large\-\_\-int}(
+\begin{DoxyParamCaption}
+\item[{}]{fio, }
+\item[{}]{item}
+\end{DoxyParamCaption}
+)~{\bf gmx\-\_\-fio\-\_\-writee\-\_\-gmx\-\_\-large\-\_\-int}(fio, item, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)}}\label{include_2gmxfio_8h_a867109a17ab5c4c6b1ab1ff3acb75d66}
+\hypertarget{include_2gmxfio_8h_ad31b7472aeb2b52a5311a1bc1290b886}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-write\-\_\-int@{gmx\-\_\-fio\-\_\-write\-\_\-int}}
+\index{gmx\-\_\-fio\-\_\-write\-\_\-int@{gmx\-\_\-fio\-\_\-write\-\_\-int}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-write\-\_\-int}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf gmx\-\_\-fio\-\_\-write\-\_\-int}(
+\begin{DoxyParamCaption}
+\item[{}]{fio, }
+\item[{}]{item}
+\end{DoxyParamCaption}
+)~{\bf gmx\-\_\-fio\-\_\-writee\-\_\-int}(fio, item, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)}}\label{include_2gmxfio_8h_ad31b7472aeb2b52a5311a1bc1290b886}
+\hypertarget{include_2gmxfio_8h_ac18b26d9440e1e07296cb909cb58d522}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-write\-\_\-ivec@{gmx\-\_\-fio\-\_\-write\-\_\-ivec}}
+\index{gmx\-\_\-fio\-\_\-write\-\_\-ivec@{gmx\-\_\-fio\-\_\-write\-\_\-ivec}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-write\-\_\-ivec}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf gmx\-\_\-fio\-\_\-write\-\_\-ivec}(
+\begin{DoxyParamCaption}
+\item[{}]{fio, }
+\item[{}]{item}
+\end{DoxyParamCaption}
+)~{\bf gmx\-\_\-fio\-\_\-writee\-\_\-ivec}(fio, item, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)}}\label{include_2gmxfio_8h_ac18b26d9440e1e07296cb909cb58d522}
+\hypertarget{include_2gmxfio_8h_a278f5dc943babdaccdd2a614077d87de}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-write\-\_\-real@{gmx\-\_\-fio\-\_\-write\-\_\-real}}
+\index{gmx\-\_\-fio\-\_\-write\-\_\-real@{gmx\-\_\-fio\-\_\-write\-\_\-real}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-write\-\_\-real}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf gmx\-\_\-fio\-\_\-write\-\_\-real}(
+\begin{DoxyParamCaption}
+\item[{}]{fio, }
+\item[{}]{item}
+\end{DoxyParamCaption}
+)~{\bf gmx\-\_\-fio\-\_\-writee\-\_\-real}(fio, item, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)}}\label{include_2gmxfio_8h_a278f5dc943babdaccdd2a614077d87de}
+\hypertarget{include_2gmxfio_8h_a8e423d2cccc491f72ace439d8b2ee7fe}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-write\-\_\-rvec@{gmx\-\_\-fio\-\_\-write\-\_\-rvec}}
+\index{gmx\-\_\-fio\-\_\-write\-\_\-rvec@{gmx\-\_\-fio\-\_\-write\-\_\-rvec}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-write\-\_\-rvec}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf gmx\-\_\-fio\-\_\-write\-\_\-rvec}(
+\begin{DoxyParamCaption}
+\item[{}]{fio, }
+\item[{}]{item}
+\end{DoxyParamCaption}
+)~{\bf gmx\-\_\-fio\-\_\-writee\-\_\-rvec}(fio, item, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)}}\label{include_2gmxfio_8h_a8e423d2cccc491f72ace439d8b2ee7fe}
+\hypertarget{include_2gmxfio_8h_a1f4b005ee0b093f98b29ab625dba085e}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-write\-\_\-string@{gmx\-\_\-fio\-\_\-write\-\_\-string}}
+\index{gmx\-\_\-fio\-\_\-write\-\_\-string@{gmx\-\_\-fio\-\_\-write\-\_\-string}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-write\-\_\-string}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf gmx\-\_\-fio\-\_\-write\-\_\-string}(
+\begin{DoxyParamCaption}
+\item[{}]{fio, }
+\item[{}]{item}
+\end{DoxyParamCaption}
+)~{\bf gmx\-\_\-fio\-\_\-writee\-\_\-string}(fio, item, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)}}\label{include_2gmxfio_8h_a1f4b005ee0b093f98b29ab625dba085e}
+\hypertarget{include_2gmxfio_8h_a17aad8c896ac9003578aaba9f5d090ca}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-write\-\_\-uchar@{gmx\-\_\-fio\-\_\-write\-\_\-uchar}}
+\index{gmx\-\_\-fio\-\_\-write\-\_\-uchar@{gmx\-\_\-fio\-\_\-write\-\_\-uchar}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-write\-\_\-uchar}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf gmx\-\_\-fio\-\_\-write\-\_\-uchar}(
+\begin{DoxyParamCaption}
+\item[{}]{fio, }
+\item[{}]{item}
+\end{DoxyParamCaption}
+)~{\bf gmx\-\_\-fio\-\_\-writee\-\_\-uchar}(fio, item, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)}}\label{include_2gmxfio_8h_a17aad8c896ac9003578aaba9f5d090ca}
+\hypertarget{include_2gmxfio_8h_a9af9f56020f7b376f873f026a7d6becd}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-write\-\_\-ushort@{gmx\-\_\-fio\-\_\-write\-\_\-ushort}}
+\index{gmx\-\_\-fio\-\_\-write\-\_\-ushort@{gmx\-\_\-fio\-\_\-write\-\_\-ushort}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-write\-\_\-ushort}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf gmx\-\_\-fio\-\_\-write\-\_\-ushort}(
+\begin{DoxyParamCaption}
+\item[{}]{fio, }
+\item[{}]{item}
+\end{DoxyParamCaption}
+)~{\bf gmx\-\_\-fio\-\_\-writee\-\_\-ushort}(fio, item, (\#item), \-\_\-\-\_\-\-F\-I\-L\-E\-\_\-\-\_\-, \-\_\-\-\_\-\-L\-I\-N\-E\-\_\-\-\_\-)}}\label{include_2gmxfio_8h_a9af9f56020f7b376f873f026a7d6becd}
+
+
+\subsection{\-Typedef \-Documentation}
+\hypertarget{include_2gmxfio_8h_ac4334d11a19d9bdef02d4d9a59da22e3}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!t\-\_\-fileio@{t\-\_\-fileio}}
+\index{t\-\_\-fileio@{t\-\_\-fileio}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{t\-\_\-fileio}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf t\-\_\-fileio} {\bf t\-\_\-fileio}}}\label{include_2gmxfio_8h_ac4334d11a19d9bdef02d4d9a59da22e3}
+
+
+\subsection{\-Enumeration \-Type \-Documentation}
+\hypertarget{include_2gmxfio_8h_a05589fbab0657f08285ebdfe93f5ec9e}{\subsubsection[{anonymous enum}]{\setlength{\rightskip}{0pt plus 5cm}anonymous enum}}\label{include_2gmxfio_8h_a05589fbab0657f08285ebdfe93f5ec9e}
+\begin{Desc}
+\item[\-Enumerator\-: ]\par
+\begin{description}
+\index{eitem\-H\-E\-A\-D\-E\-R@{eitem\-H\-E\-A\-D\-E\-R}!include/gmxfio.\-h@{include/gmxfio.\-h}}\index{include/gmxfio.\-h@{include/gmxfio.\-h}!eitem\-H\-E\-A\-D\-E\-R@{eitem\-H\-E\-A\-D\-E\-R}}\item[{\em 
+\hypertarget{include_2gmxfio_8h_a05589fbab0657f08285ebdfe93f5ec9ea708581dd685b8f4e38342c5b797b8aeb}{eitem\-H\-E\-A\-D\-E\-R}\label{include_2gmxfio_8h_a05589fbab0657f08285ebdfe93f5ec9ea708581dd685b8f4e38342c5b797b8aeb}
+}]\index{eitem\-I\-R@{eitem\-I\-R}!include/gmxfio.\-h@{include/gmxfio.\-h}}\index{include/gmxfio.\-h@{include/gmxfio.\-h}!eitem\-I\-R@{eitem\-I\-R}}\item[{\em 
+\hypertarget{include_2gmxfio_8h_a05589fbab0657f08285ebdfe93f5ec9eae2b66174c6015fa9b36e3ebd2faa634b}{eitem\-I\-R}\label{include_2gmxfio_8h_a05589fbab0657f08285ebdfe93f5ec9eae2b66174c6015fa9b36e3ebd2faa634b}
+}]\index{eitem\-B\-O\-X@{eitem\-B\-O\-X}!include/gmxfio.\-h@{include/gmxfio.\-h}}\index{include/gmxfio.\-h@{include/gmxfio.\-h}!eitem\-B\-O\-X@{eitem\-B\-O\-X}}\item[{\em 
+\hypertarget{include_2gmxfio_8h_a05589fbab0657f08285ebdfe93f5ec9ea9dc5811af67a6874bf77459d2f9d9d7d}{eitem\-B\-O\-X}\label{include_2gmxfio_8h_a05589fbab0657f08285ebdfe93f5ec9ea9dc5811af67a6874bf77459d2f9d9d7d}
+}]\index{eitem\-T\-O\-P@{eitem\-T\-O\-P}!include/gmxfio.\-h@{include/gmxfio.\-h}}\index{include/gmxfio.\-h@{include/gmxfio.\-h}!eitem\-T\-O\-P@{eitem\-T\-O\-P}}\item[{\em 
+\hypertarget{include_2gmxfio_8h_a05589fbab0657f08285ebdfe93f5ec9ea484f01d07968a55ea77e76d3763a4aaa}{eitem\-T\-O\-P}\label{include_2gmxfio_8h_a05589fbab0657f08285ebdfe93f5ec9ea484f01d07968a55ea77e76d3763a4aaa}
+}]\index{eitem\-X@{eitem\-X}!include/gmxfio.\-h@{include/gmxfio.\-h}}\index{include/gmxfio.\-h@{include/gmxfio.\-h}!eitem\-X@{eitem\-X}}\item[{\em 
+\hypertarget{include_2gmxfio_8h_a05589fbab0657f08285ebdfe93f5ec9ea15588156551a830435e33c41c555ed77}{eitem\-X}\label{include_2gmxfio_8h_a05589fbab0657f08285ebdfe93f5ec9ea15588156551a830435e33c41c555ed77}
+}]\index{eitem\-V@{eitem\-V}!include/gmxfio.\-h@{include/gmxfio.\-h}}\index{include/gmxfio.\-h@{include/gmxfio.\-h}!eitem\-V@{eitem\-V}}\item[{\em 
+\hypertarget{include_2gmxfio_8h_a05589fbab0657f08285ebdfe93f5ec9ea49fb94c470476df1953219bebe571a12}{eitem\-V}\label{include_2gmxfio_8h_a05589fbab0657f08285ebdfe93f5ec9ea49fb94c470476df1953219bebe571a12}
+}]\index{eitem\-F@{eitem\-F}!include/gmxfio.\-h@{include/gmxfio.\-h}}\index{include/gmxfio.\-h@{include/gmxfio.\-h}!eitem\-F@{eitem\-F}}\item[{\em 
+\hypertarget{include_2gmxfio_8h_a05589fbab0657f08285ebdfe93f5ec9ea9d98b79249344b5cef9f232bad5a92c2}{eitem\-F}\label{include_2gmxfio_8h_a05589fbab0657f08285ebdfe93f5ec9ea9d98b79249344b5cef9f232bad5a92c2}
+}]\index{eitem\-N\-R@{eitem\-N\-R}!include/gmxfio.\-h@{include/gmxfio.\-h}}\index{include/gmxfio.\-h@{include/gmxfio.\-h}!eitem\-N\-R@{eitem\-N\-R}}\item[{\em 
+\hypertarget{include_2gmxfio_8h_a05589fbab0657f08285ebdfe93f5ec9ea32696a6ab8aa09bb4209abb48aea6724}{eitem\-N\-R}\label{include_2gmxfio_8h_a05589fbab0657f08285ebdfe93f5ec9ea32696a6ab8aa09bb4209abb48aea6724}
+}]\end{description}
+\end{Desc}
+
+\hypertarget{include_2gmxfio_8h_a16af7b253440dadd46a80a4b9fddba4d}{\subsubsection[{anonymous enum}]{\setlength{\rightskip}{0pt plus 5cm}anonymous enum}}\label{include_2gmxfio_8h_a16af7b253440dadd46a80a4b9fddba4d}
+\begin{Desc}
+\item[\-Enumerator\-: ]\par
+\begin{description}
+\index{eio\-R\-E\-A\-L@{eio\-R\-E\-A\-L}!include/gmxfio.\-h@{include/gmxfio.\-h}}\index{include/gmxfio.\-h@{include/gmxfio.\-h}!eio\-R\-E\-A\-L@{eio\-R\-E\-A\-L}}\item[{\em 
+\hypertarget{include_2gmxfio_8h_a16af7b253440dadd46a80a4b9fddba4da1d589365979e83328f319825a409974c}{eio\-R\-E\-A\-L}\label{include_2gmxfio_8h_a16af7b253440dadd46a80a4b9fddba4da1d589365979e83328f319825a409974c}
+}]\index{eio\-F\-L\-O\-A\-T@{eio\-F\-L\-O\-A\-T}!include/gmxfio.\-h@{include/gmxfio.\-h}}\index{include/gmxfio.\-h@{include/gmxfio.\-h}!eio\-F\-L\-O\-A\-T@{eio\-F\-L\-O\-A\-T}}\item[{\em 
+\hypertarget{include_2gmxfio_8h_a16af7b253440dadd46a80a4b9fddba4da4cc6730f310a05eac7396430d8dc7f1d}{eio\-F\-L\-O\-A\-T}\label{include_2gmxfio_8h_a16af7b253440dadd46a80a4b9fddba4da4cc6730f310a05eac7396430d8dc7f1d}
+}]\index{eio\-D\-O\-U\-B\-L\-E@{eio\-D\-O\-U\-B\-L\-E}!include/gmxfio.\-h@{include/gmxfio.\-h}}\index{include/gmxfio.\-h@{include/gmxfio.\-h}!eio\-D\-O\-U\-B\-L\-E@{eio\-D\-O\-U\-B\-L\-E}}\item[{\em 
+\hypertarget{include_2gmxfio_8h_a16af7b253440dadd46a80a4b9fddba4dac4d2c35d309957fad3eae623a1e4348d}{eio\-D\-O\-U\-B\-L\-E}\label{include_2gmxfio_8h_a16af7b253440dadd46a80a4b9fddba4dac4d2c35d309957fad3eae623a1e4348d}
+}]\index{eio\-I\-N\-T@{eio\-I\-N\-T}!include/gmxfio.\-h@{include/gmxfio.\-h}}\index{include/gmxfio.\-h@{include/gmxfio.\-h}!eio\-I\-N\-T@{eio\-I\-N\-T}}\item[{\em 
+\hypertarget{include_2gmxfio_8h_a16af7b253440dadd46a80a4b9fddba4daadf050aabc561fc96980d8d8209667c6}{eio\-I\-N\-T}\label{include_2gmxfio_8h_a16af7b253440dadd46a80a4b9fddba4daadf050aabc561fc96980d8d8209667c6}
+}]\index{eio\-G\-M\-X\-\_\-\-L\-A\-R\-G\-E\-\_\-\-I\-N\-T@{eio\-G\-M\-X\-\_\-\-L\-A\-R\-G\-E\-\_\-\-I\-N\-T}!include/gmxfio.\-h@{include/gmxfio.\-h}}\index{include/gmxfio.\-h@{include/gmxfio.\-h}!eio\-G\-M\-X\-\_\-\-L\-A\-R\-G\-E\-\_\-\-I\-N\-T@{eio\-G\-M\-X\-\_\-\-L\-A\-R\-G\-E\-\_\-\-I\-N\-T}}\item[{\em 
+\hypertarget{include_2gmxfio_8h_a16af7b253440dadd46a80a4b9fddba4da6826e4c8a6c15aa30027306d69c0d2cb}{eio\-G\-M\-X\-\_\-\-L\-A\-R\-G\-E\-\_\-\-I\-N\-T}\label{include_2gmxfio_8h_a16af7b253440dadd46a80a4b9fddba4da6826e4c8a6c15aa30027306d69c0d2cb}
+}]\index{eio\-U\-C\-H\-A\-R@{eio\-U\-C\-H\-A\-R}!include/gmxfio.\-h@{include/gmxfio.\-h}}\index{include/gmxfio.\-h@{include/gmxfio.\-h}!eio\-U\-C\-H\-A\-R@{eio\-U\-C\-H\-A\-R}}\item[{\em 
+\hypertarget{include_2gmxfio_8h_a16af7b253440dadd46a80a4b9fddba4dac6722ac916c90d636872206dd2b6323e}{eio\-U\-C\-H\-A\-R}\label{include_2gmxfio_8h_a16af7b253440dadd46a80a4b9fddba4dac6722ac916c90d636872206dd2b6323e}
+}]\index{eio\-N\-U\-C\-H\-A\-R@{eio\-N\-U\-C\-H\-A\-R}!include/gmxfio.\-h@{include/gmxfio.\-h}}\index{include/gmxfio.\-h@{include/gmxfio.\-h}!eio\-N\-U\-C\-H\-A\-R@{eio\-N\-U\-C\-H\-A\-R}}\item[{\em 
+\hypertarget{include_2gmxfio_8h_a16af7b253440dadd46a80a4b9fddba4da5759febaf5b77564e13afdc873bf845e}{eio\-N\-U\-C\-H\-A\-R}\label{include_2gmxfio_8h_a16af7b253440dadd46a80a4b9fddba4da5759febaf5b77564e13afdc873bf845e}
+}]\index{eio\-U\-S\-H\-O\-R\-T@{eio\-U\-S\-H\-O\-R\-T}!include/gmxfio.\-h@{include/gmxfio.\-h}}\index{include/gmxfio.\-h@{include/gmxfio.\-h}!eio\-U\-S\-H\-O\-R\-T@{eio\-U\-S\-H\-O\-R\-T}}\item[{\em 
+\hypertarget{include_2gmxfio_8h_a16af7b253440dadd46a80a4b9fddba4da784c3b7afadde6a816fb843275edd74d}{eio\-U\-S\-H\-O\-R\-T}\label{include_2gmxfio_8h_a16af7b253440dadd46a80a4b9fddba4da784c3b7afadde6a816fb843275edd74d}
+}]\index{eio\-R\-V\-E\-C@{eio\-R\-V\-E\-C}!include/gmxfio.\-h@{include/gmxfio.\-h}}\index{include/gmxfio.\-h@{include/gmxfio.\-h}!eio\-R\-V\-E\-C@{eio\-R\-V\-E\-C}}\item[{\em 
+\hypertarget{include_2gmxfio_8h_a16af7b253440dadd46a80a4b9fddba4da0aa07b21cf1ee9d95a91507cae65a2ba}{eio\-R\-V\-E\-C}\label{include_2gmxfio_8h_a16af7b253440dadd46a80a4b9fddba4da0aa07b21cf1ee9d95a91507cae65a2ba}
+}]\index{eio\-N\-R\-V\-E\-C@{eio\-N\-R\-V\-E\-C}!include/gmxfio.\-h@{include/gmxfio.\-h}}\index{include/gmxfio.\-h@{include/gmxfio.\-h}!eio\-N\-R\-V\-E\-C@{eio\-N\-R\-V\-E\-C}}\item[{\em 
+\hypertarget{include_2gmxfio_8h_a16af7b253440dadd46a80a4b9fddba4da2bfb7fed428e03edfef5f48ed35e90a5}{eio\-N\-R\-V\-E\-C}\label{include_2gmxfio_8h_a16af7b253440dadd46a80a4b9fddba4da2bfb7fed428e03edfef5f48ed35e90a5}
+}]\index{eio\-I\-V\-E\-C@{eio\-I\-V\-E\-C}!include/gmxfio.\-h@{include/gmxfio.\-h}}\index{include/gmxfio.\-h@{include/gmxfio.\-h}!eio\-I\-V\-E\-C@{eio\-I\-V\-E\-C}}\item[{\em 
+\hypertarget{include_2gmxfio_8h_a16af7b253440dadd46a80a4b9fddba4da0b90a7a2082e58be485bfa3744daf7dc}{eio\-I\-V\-E\-C}\label{include_2gmxfio_8h_a16af7b253440dadd46a80a4b9fddba4da0b90a7a2082e58be485bfa3744daf7dc}
+}]\index{eio\-S\-T\-R\-I\-N\-G@{eio\-S\-T\-R\-I\-N\-G}!include/gmxfio.\-h@{include/gmxfio.\-h}}\index{include/gmxfio.\-h@{include/gmxfio.\-h}!eio\-S\-T\-R\-I\-N\-G@{eio\-S\-T\-R\-I\-N\-G}}\item[{\em 
+\hypertarget{include_2gmxfio_8h_a16af7b253440dadd46a80a4b9fddba4daffa62e71358e69e8f63425d013d333ab}{eio\-S\-T\-R\-I\-N\-G}\label{include_2gmxfio_8h_a16af7b253440dadd46a80a4b9fddba4daffa62e71358e69e8f63425d013d333ab}
+}]\index{eio\-N\-R@{eio\-N\-R}!include/gmxfio.\-h@{include/gmxfio.\-h}}\index{include/gmxfio.\-h@{include/gmxfio.\-h}!eio\-N\-R@{eio\-N\-R}}\item[{\em 
+\hypertarget{include_2gmxfio_8h_a16af7b253440dadd46a80a4b9fddba4da82030b7bffcfe70e52efcf41467805fb}{eio\-N\-R}\label{include_2gmxfio_8h_a16af7b253440dadd46a80a4b9fddba4da82030b7bffcfe70e52efcf41467805fb}
+}]\end{description}
+\end{Desc}
+
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{include_2gmxfio_8h_a544cf588e47716cbb8ab6f4c312b10e3}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-all\-\_\-output\-\_\-fsync@{gmx\-\_\-fio\-\_\-all\-\_\-output\-\_\-fsync}}
+\index{gmx\-\_\-fio\-\_\-all\-\_\-output\-\_\-fsync@{gmx\-\_\-fio\-\_\-all\-\_\-output\-\_\-fsync}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-all\-\_\-output\-\_\-fsync}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\-\_\-fileio}$\ast$ {\bf gmx\-\_\-fio\-\_\-all\-\_\-output\-\_\-fsync} (
+\begin{DoxyParamCaption}
+\item[{{\bf void}}]{}
+\end{DoxyParamCaption}
+)}}\label{include_2gmxfio_8h_a544cf588e47716cbb8ab6f4c312b10e3}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{include_2gmxfio_8h_a544cf588e47716cbb8ab6f4c312b10e3_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{include_2gmxfio_8h_af4388769bd4de352ef77150bf18e795d}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-check\-\_\-file\-\_\-position@{gmx\-\_\-fio\-\_\-check\-\_\-file\-\_\-position}}
+\index{gmx\-\_\-fio\-\_\-check\-\_\-file\-\_\-position@{gmx\-\_\-fio\-\_\-check\-\_\-file\-\_\-position}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-check\-\_\-file\-\_\-position}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} int {\bf gmx\-\_\-fio\-\_\-check\-\_\-file\-\_\-position} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio}
+\end{DoxyParamCaption}
+)}}\label{include_2gmxfio_8h_af4388769bd4de352ef77150bf18e795d}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{include_2gmxfio_8h_af4388769bd4de352ef77150bf18e795d_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{include_2gmxfio_8h_afc804525beb8376e0b961b0792178c7d}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-checktype@{gmx\-\_\-fio\-\_\-checktype}}
+\index{gmx\-\_\-fio\-\_\-checktype@{gmx\-\_\-fio\-\_\-checktype}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-checktype}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-fio\-\_\-checktype} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio}
+\end{DoxyParamCaption}
+)}}\label{include_2gmxfio_8h_afc804525beb8376e0b961b0792178c7d}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{include_2gmxfio_8h_afc804525beb8376e0b961b0792178c7d_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{include_2gmxfio_8h_a5122aaa86cdae8172df6423fc358406f}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-close@{gmx\-\_\-fio\-\_\-close}}
+\index{gmx\-\_\-fio\-\_\-close@{gmx\-\_\-fio\-\_\-close}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-close}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-fio\-\_\-close} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fp}
+\end{DoxyParamCaption}
+)}}\label{include_2gmxfio_8h_a5122aaa86cdae8172df6423fc358406f}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{include_2gmxfio_8h_a5122aaa86cdae8172df6423fc358406f_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{include_2gmxfio_8h_a36b09ac722b3e7dc3db80b3713c0338c}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-doe\-\_\-double@{gmx\-\_\-fio\-\_\-doe\-\_\-double}}
+\index{gmx\-\_\-fio\-\_\-doe\-\_\-double@{gmx\-\_\-fio\-\_\-doe\-\_\-double}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-doe\-\_\-double}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-fio\-\_\-doe\-\_\-double} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{double $\ast$}]{item, }
+\item[{const char $\ast$}]{desc, }
+\item[{const char $\ast$}]{srcfile, }
+\item[{int}]{line}
+\end{DoxyParamCaption}
+)}}\label{include_2gmxfio_8h_a36b09ac722b3e7dc3db80b3713c0338c}
+\hypertarget{include_2gmxfio_8h_a865bf9c05f61076b0000737901a994e2}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-doe\-\_\-float@{gmx\-\_\-fio\-\_\-doe\-\_\-float}}
+\index{gmx\-\_\-fio\-\_\-doe\-\_\-float@{gmx\-\_\-fio\-\_\-doe\-\_\-float}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-doe\-\_\-float}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-fio\-\_\-doe\-\_\-float} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{float $\ast$}]{item, }
+\item[{const char $\ast$}]{desc, }
+\item[{const char $\ast$}]{srcfile, }
+\item[{int}]{line}
+\end{DoxyParamCaption}
+)}}\label{include_2gmxfio_8h_a865bf9c05f61076b0000737901a994e2}
+\hypertarget{include_2gmxfio_8h_a005fa33966f60042ffcc02273a1c21e0}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-doe\-\_\-gmx\-\_\-bool@{gmx\-\_\-fio\-\_\-doe\-\_\-gmx\-\_\-bool}}
+\index{gmx\-\_\-fio\-\_\-doe\-\_\-gmx\-\_\-bool@{gmx\-\_\-fio\-\_\-doe\-\_\-gmx\-\_\-bool}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-doe\-\_\-gmx\-\_\-bool}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-fio\-\_\-doe\-\_\-gmx\-\_\-bool} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{{\bf gmx\-\_\-bool} $\ast$}]{item, }
+\item[{const char $\ast$}]{desc, }
+\item[{const char $\ast$}]{srcfile, }
+\item[{int}]{line}
+\end{DoxyParamCaption}
+)}}\label{include_2gmxfio_8h_a005fa33966f60042ffcc02273a1c21e0}
+\hypertarget{include_2gmxfio_8h_a6026e31899f16f5f4b64aef27764092c}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-doe\-\_\-gmx\-\_\-large\-\_\-int@{gmx\-\_\-fio\-\_\-doe\-\_\-gmx\-\_\-large\-\_\-int}}
+\index{gmx\-\_\-fio\-\_\-doe\-\_\-gmx\-\_\-large\-\_\-int@{gmx\-\_\-fio\-\_\-doe\-\_\-gmx\-\_\-large\-\_\-int}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-doe\-\_\-gmx\-\_\-large\-\_\-int}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-fio\-\_\-doe\-\_\-gmx\-\_\-large\-\_\-int} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{gmx\-\_\-large\-\_\-int\-\_\-t $\ast$}]{item, }
+\item[{const char $\ast$}]{desc, }
+\item[{const char $\ast$}]{srcfile, }
+\item[{int}]{line}
+\end{DoxyParamCaption}
+)}}\label{include_2gmxfio_8h_a6026e31899f16f5f4b64aef27764092c}
+\hypertarget{include_2gmxfio_8h_aceca2629ce7c92be743390e9c49e0831}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-doe\-\_\-int@{gmx\-\_\-fio\-\_\-doe\-\_\-int}}
+\index{gmx\-\_\-fio\-\_\-doe\-\_\-int@{gmx\-\_\-fio\-\_\-doe\-\_\-int}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-doe\-\_\-int}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-fio\-\_\-doe\-\_\-int} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{int $\ast$}]{item, }
+\item[{const char $\ast$}]{desc, }
+\item[{const char $\ast$}]{srcfile, }
+\item[{int}]{line}
+\end{DoxyParamCaption}
+)}}\label{include_2gmxfio_8h_aceca2629ce7c92be743390e9c49e0831}
+\hypertarget{include_2gmxfio_8h_a91ecf9f28bc328e3e14d2293e6b4ad86}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-doe\-\_\-ivec@{gmx\-\_\-fio\-\_\-doe\-\_\-ivec}}
+\index{gmx\-\_\-fio\-\_\-doe\-\_\-ivec@{gmx\-\_\-fio\-\_\-doe\-\_\-ivec}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-doe\-\_\-ivec}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-fio\-\_\-doe\-\_\-ivec} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{{\bf ivec} $\ast$}]{item, }
+\item[{const char $\ast$}]{desc, }
+\item[{const char $\ast$}]{srcfile, }
+\item[{int}]{line}
+\end{DoxyParamCaption}
+)}}\label{include_2gmxfio_8h_a91ecf9f28bc328e3e14d2293e6b4ad86}
+\hypertarget{include_2gmxfio_8h_ad34cbc73860767c57871939a9a2830e7}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-doe\-\_\-real@{gmx\-\_\-fio\-\_\-doe\-\_\-real}}
+\index{gmx\-\_\-fio\-\_\-doe\-\_\-real@{gmx\-\_\-fio\-\_\-doe\-\_\-real}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-doe\-\_\-real}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-fio\-\_\-doe\-\_\-real} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{real $\ast$}]{item, }
+\item[{const char $\ast$}]{desc, }
+\item[{const char $\ast$}]{srcfile, }
+\item[{int}]{line}
+\end{DoxyParamCaption}
+)}}\label{include_2gmxfio_8h_ad34cbc73860767c57871939a9a2830e7}
+\hypertarget{include_2gmxfio_8h_a976c927fa446506f147b10a4d7d9e915}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-doe\-\_\-rvec@{gmx\-\_\-fio\-\_\-doe\-\_\-rvec}}
+\index{gmx\-\_\-fio\-\_\-doe\-\_\-rvec@{gmx\-\_\-fio\-\_\-doe\-\_\-rvec}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-doe\-\_\-rvec}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-fio\-\_\-doe\-\_\-rvec} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{{\bf rvec} $\ast$}]{item, }
+\item[{const char $\ast$}]{desc, }
+\item[{const char $\ast$}]{srcfile, }
+\item[{int}]{line}
+\end{DoxyParamCaption}
+)}}\label{include_2gmxfio_8h_a976c927fa446506f147b10a4d7d9e915}
+\hypertarget{include_2gmxfio_8h_ae8dd972567f288f4211ea706c28ed363}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-doe\-\_\-string@{gmx\-\_\-fio\-\_\-doe\-\_\-string}}
+\index{gmx\-\_\-fio\-\_\-doe\-\_\-string@{gmx\-\_\-fio\-\_\-doe\-\_\-string}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-doe\-\_\-string}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-fio\-\_\-doe\-\_\-string} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{char $\ast$}]{item, }
+\item[{const char $\ast$}]{desc, }
+\item[{const char $\ast$}]{srcfile, }
+\item[{int}]{line}
+\end{DoxyParamCaption}
+)}}\label{include_2gmxfio_8h_ae8dd972567f288f4211ea706c28ed363}
+\hypertarget{include_2gmxfio_8h_a1e43a25f2ad5f1a8f423a659cccba91c}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-doe\-\_\-uchar@{gmx\-\_\-fio\-\_\-doe\-\_\-uchar}}
+\index{gmx\-\_\-fio\-\_\-doe\-\_\-uchar@{gmx\-\_\-fio\-\_\-doe\-\_\-uchar}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-doe\-\_\-uchar}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-fio\-\_\-doe\-\_\-uchar} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{unsigned char $\ast$}]{item, }
+\item[{const char $\ast$}]{desc, }
+\item[{const char $\ast$}]{srcfile, }
+\item[{int}]{line}
+\end{DoxyParamCaption}
+)}}\label{include_2gmxfio_8h_a1e43a25f2ad5f1a8f423a659cccba91c}
+\hypertarget{include_2gmxfio_8h_a72cc49187f8e999b8c9dd3d78ad70f1d}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-doe\-\_\-ushort@{gmx\-\_\-fio\-\_\-doe\-\_\-ushort}}
+\index{gmx\-\_\-fio\-\_\-doe\-\_\-ushort@{gmx\-\_\-fio\-\_\-doe\-\_\-ushort}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-doe\-\_\-ushort}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-fio\-\_\-doe\-\_\-ushort} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{unsigned short $\ast$}]{item, }
+\item[{const char $\ast$}]{desc, }
+\item[{const char $\ast$}]{srcfile, }
+\item[{int}]{line}
+\end{DoxyParamCaption}
+)}}\label{include_2gmxfio_8h_a72cc49187f8e999b8c9dd3d78ad70f1d}
+\hypertarget{include_2gmxfio_8h_a3843344bec9081e8390308c9945a7dbe}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-fclose@{gmx\-\_\-fio\-\_\-fclose}}
+\index{gmx\-\_\-fio\-\_\-fclose@{gmx\-\_\-fio\-\_\-fclose}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-fclose}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} int {\bf gmx\-\_\-fio\-\_\-fclose} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp}
+\end{DoxyParamCaption}
+)}}\label{include_2gmxfio_8h_a3843344bec9081e8390308c9945a7dbe}
+\hypertarget{include_2gmxfio_8h_a75b496da9b063d09221897ce759a1c56}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-flush@{gmx\-\_\-fio\-\_\-flush}}
+\index{gmx\-\_\-fio\-\_\-flush@{gmx\-\_\-fio\-\_\-flush}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-flush}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} int {\bf gmx\-\_\-fio\-\_\-flush} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio}
+\end{DoxyParamCaption}
+)}}\label{include_2gmxfio_8h_a75b496da9b063d09221897ce759a1c56}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{include_2gmxfio_8h_a75b496da9b063d09221897ce759a1c56_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{include_2gmxfio_8h_aa3aaf3a38f1b575695d0b57dcd54b006}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-fopen@{gmx\-\_\-fio\-\_\-fopen}}
+\index{gmx\-\_\-fio\-\_\-fopen@{gmx\-\_\-fio\-\_\-fopen}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-fopen}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} \-F\-I\-L\-E$\ast$ {\bf gmx\-\_\-fio\-\_\-fopen} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{fn, }
+\item[{const char $\ast$}]{mode}
+\end{DoxyParamCaption}
+)}}\label{include_2gmxfio_8h_aa3aaf3a38f1b575695d0b57dcd54b006}
+\hypertarget{include_2gmxfio_8h_a30618a9681e6495f41d8a1a27c8dc331}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-fp\-\_\-close@{gmx\-\_\-fio\-\_\-fp\-\_\-close}}
+\index{gmx\-\_\-fio\-\_\-fp\-\_\-close@{gmx\-\_\-fio\-\_\-fp\-\_\-close}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-fp\-\_\-close}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-fio\-\_\-fp\-\_\-close} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fp}
+\end{DoxyParamCaption}
+)}}\label{include_2gmxfio_8h_a30618a9681e6495f41d8a1a27c8dc331}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{include_2gmxfio_8h_a30618a9681e6495f41d8a1a27c8dc331_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{include_2gmxfio_8h_a241a621f9891dae1d28d19618baf5ad3}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-fsync@{gmx\-\_\-fio\-\_\-fsync}}
+\index{gmx\-\_\-fio\-\_\-fsync@{gmx\-\_\-fio\-\_\-fsync}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-fsync}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-fio\-\_\-fsync} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio}
+\end{DoxyParamCaption}
+)}}\label{include_2gmxfio_8h_a241a621f9891dae1d28d19618baf5ad3}
+\hypertarget{include_2gmxfio_8h_a0399a7b9f7390c1fced72bed46d33eb2}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-ftell@{gmx\-\_\-fio\-\_\-ftell}}
+\index{gmx\-\_\-fio\-\_\-ftell@{gmx\-\_\-fio\-\_\-ftell}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-ftell}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} {\bf gmx\-\_\-off\-\_\-t} {\bf gmx\-\_\-fio\-\_\-ftell} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio}
+\end{DoxyParamCaption}
+)}}\label{include_2gmxfio_8h_a0399a7b9f7390c1fced72bed46d33eb2}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{include_2gmxfio_8h_a0399a7b9f7390c1fced72bed46d33eb2_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{include_2gmxfio_8h_a1f94d3805ea429c5ba274fd980208248}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-get\-\_\-file\-\_\-md5@{gmx\-\_\-fio\-\_\-get\-\_\-file\-\_\-md5}}
+\index{gmx\-\_\-fio\-\_\-get\-\_\-file\-\_\-md5@{gmx\-\_\-fio\-\_\-get\-\_\-file\-\_\-md5}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-get\-\_\-file\-\_\-md5}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-fio\-\_\-get\-\_\-file\-\_\-md5} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{{\bf gmx\-\_\-off\-\_\-t}}]{offset, }
+\item[{unsigned char}]{digest\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{include_2gmxfio_8h_a1f94d3805ea429c5ba274fd980208248}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{include_2gmxfio_8h_a1f94d3805ea429c5ba274fd980208248_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{include_2gmxfio_8h_ad84e0146406e578ae4f698bf3b79b6f7}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-get\-\_\-output\-\_\-file\-\_\-positions@{gmx\-\_\-fio\-\_\-get\-\_\-output\-\_\-file\-\_\-positions}}
+\index{gmx\-\_\-fio\-\_\-get\-\_\-output\-\_\-file\-\_\-positions@{gmx\-\_\-fio\-\_\-get\-\_\-output\-\_\-file\-\_\-positions}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-get\-\_\-output\-\_\-file\-\_\-positions}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-fio\-\_\-get\-\_\-output\-\_\-file\-\_\-positions} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-file\-\_\-position\-\_\-t} $\ast$$\ast$}]{outputfiles, }
+\item[{int $\ast$}]{nfiles}
+\end{DoxyParamCaption}
+)}}\label{include_2gmxfio_8h_ad84e0146406e578ae4f698bf3b79b6f7}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{include_2gmxfio_8h_ad84e0146406e578ae4f698bf3b79b6f7_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{include_2gmxfio_8h_a34918cbc5b24eb00cf693a3eac5c41a6}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-getdebug@{gmx\-\_\-fio\-\_\-getdebug}}
+\index{gmx\-\_\-fio\-\_\-getdebug@{gmx\-\_\-fio\-\_\-getdebug}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-getdebug}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-fio\-\_\-getdebug} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio}
+\end{DoxyParamCaption}
+)}}\label{include_2gmxfio_8h_a34918cbc5b24eb00cf693a3eac5c41a6}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=282pt]{include_2gmxfio_8h_a34918cbc5b24eb00cf693a3eac5c41a6_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{include_2gmxfio_8h_ab8dcd9528681bda58bbd7f814f040577}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-getfp@{gmx\-\_\-fio\-\_\-getfp}}
+\index{gmx\-\_\-fio\-\_\-getfp@{gmx\-\_\-fio\-\_\-getfp}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-getfp}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} \-F\-I\-L\-E$\ast$ {\bf gmx\-\_\-fio\-\_\-getfp} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio}
+\end{DoxyParamCaption}
+)}}\label{include_2gmxfio_8h_ab8dcd9528681bda58bbd7f814f040577}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{include_2gmxfio_8h_ab8dcd9528681bda58bbd7f814f040577_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{include_2gmxfio_8h_a4c3730586dd4f9687a5a4a87218eb7d1}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-getftp@{gmx\-\_\-fio\-\_\-getftp}}
+\index{gmx\-\_\-fio\-\_\-getftp@{gmx\-\_\-fio\-\_\-getftp}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-getftp}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} int {\bf gmx\-\_\-fio\-\_\-getftp} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio}
+\end{DoxyParamCaption}
+)}}\label{include_2gmxfio_8h_a4c3730586dd4f9687a5a4a87218eb7d1}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{include_2gmxfio_8h_a4c3730586dd4f9687a5a4a87218eb7d1_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{include_2gmxfio_8h_ada79f779c70a3d456615e5396b6edf76}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-getname@{gmx\-\_\-fio\-\_\-getname}}
+\index{gmx\-\_\-fio\-\_\-getname@{gmx\-\_\-fio\-\_\-getname}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-getname}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ {\bf gmx\-\_\-fio\-\_\-getname} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio}
+\end{DoxyParamCaption}
+)}}\label{include_2gmxfio_8h_ada79f779c70a3d456615e5396b6edf76}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{include_2gmxfio_8h_ada79f779c70a3d456615e5396b6edf76_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{include_2gmxfio_8h_a07c491f426eadf7ba2209af89f337c73}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-getread@{gmx\-\_\-fio\-\_\-getread}}
+\index{gmx\-\_\-fio\-\_\-getread@{gmx\-\_\-fio\-\_\-getread}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-getread}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-fio\-\_\-getread} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio}
+\end{DoxyParamCaption}
+)}}\label{include_2gmxfio_8h_a07c491f426eadf7ba2209af89f337c73}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{include_2gmxfio_8h_a07c491f426eadf7ba2209af89f337c73_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{include_2gmxfio_8h_a612145dda657210c1c271a7207199d6d}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-getxdr@{gmx\-\_\-fio\-\_\-getxdr}}
+\index{gmx\-\_\-fio\-\_\-getxdr@{gmx\-\_\-fio\-\_\-getxdr}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-getxdr}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} {\bf \-X\-D\-R}$\ast$ {\bf gmx\-\_\-fio\-\_\-getxdr} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio}
+\end{DoxyParamCaption}
+)}}\label{include_2gmxfio_8h_a612145dda657210c1c271a7207199d6d}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{include_2gmxfio_8h_a612145dda657210c1c271a7207199d6d_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{include_2gmxfio_8h_aefe245f2a4c62c7561d07a63fabf3bdd}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-ndoe\-\_\-double@{gmx\-\_\-fio\-\_\-ndoe\-\_\-double}}
+\index{gmx\-\_\-fio\-\_\-ndoe\-\_\-double@{gmx\-\_\-fio\-\_\-ndoe\-\_\-double}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-ndoe\-\_\-double}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-fio\-\_\-ndoe\-\_\-double} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{double $\ast$}]{item, }
+\item[{int}]{n, }
+\item[{const char $\ast$}]{desc, }
+\item[{const char $\ast$}]{srcfile, }
+\item[{int}]{line}
+\end{DoxyParamCaption}
+)}}\label{include_2gmxfio_8h_aefe245f2a4c62c7561d07a63fabf3bdd}
+\hypertarget{include_2gmxfio_8h_a2e5ce6cce144d7bff5f23a83a730332e}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-ndoe\-\_\-float@{gmx\-\_\-fio\-\_\-ndoe\-\_\-float}}
+\index{gmx\-\_\-fio\-\_\-ndoe\-\_\-float@{gmx\-\_\-fio\-\_\-ndoe\-\_\-float}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-ndoe\-\_\-float}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-fio\-\_\-ndoe\-\_\-float} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{float $\ast$}]{item, }
+\item[{int}]{n, }
+\item[{const char $\ast$}]{desc, }
+\item[{const char $\ast$}]{srcfile, }
+\item[{int}]{line}
+\end{DoxyParamCaption}
+)}}\label{include_2gmxfio_8h_a2e5ce6cce144d7bff5f23a83a730332e}
+\hypertarget{include_2gmxfio_8h_a3cb50b8b16c9873bc13db635deb6683d}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-ndoe\-\_\-gmx\-\_\-bool@{gmx\-\_\-fio\-\_\-ndoe\-\_\-gmx\-\_\-bool}}
+\index{gmx\-\_\-fio\-\_\-ndoe\-\_\-gmx\-\_\-bool@{gmx\-\_\-fio\-\_\-ndoe\-\_\-gmx\-\_\-bool}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-ndoe\-\_\-gmx\-\_\-bool}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-fio\-\_\-ndoe\-\_\-gmx\-\_\-bool} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{{\bf gmx\-\_\-bool} $\ast$}]{item, }
+\item[{int}]{n, }
+\item[{const char $\ast$}]{desc, }
+\item[{const char $\ast$}]{srcfile, }
+\item[{int}]{line}
+\end{DoxyParamCaption}
+)}}\label{include_2gmxfio_8h_a3cb50b8b16c9873bc13db635deb6683d}
+\hypertarget{include_2gmxfio_8h_a56fdf85da65121cee29a09918a9c2f8f}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-ndoe\-\_\-gmx\-\_\-large\-\_\-int@{gmx\-\_\-fio\-\_\-ndoe\-\_\-gmx\-\_\-large\-\_\-int}}
+\index{gmx\-\_\-fio\-\_\-ndoe\-\_\-gmx\-\_\-large\-\_\-int@{gmx\-\_\-fio\-\_\-ndoe\-\_\-gmx\-\_\-large\-\_\-int}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-ndoe\-\_\-gmx\-\_\-large\-\_\-int}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-fio\-\_\-ndoe\-\_\-gmx\-\_\-large\-\_\-int} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{gmx\-\_\-large\-\_\-int\-\_\-t $\ast$}]{item, }
+\item[{int}]{n, }
+\item[{const char $\ast$}]{desc, }
+\item[{const char $\ast$}]{srcfile, }
+\item[{int}]{line}
+\end{DoxyParamCaption}
+)}}\label{include_2gmxfio_8h_a56fdf85da65121cee29a09918a9c2f8f}
+\hypertarget{include_2gmxfio_8h_a9d293a5aa9dd68e5da4bb682f5203d04}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-ndoe\-\_\-int@{gmx\-\_\-fio\-\_\-ndoe\-\_\-int}}
+\index{gmx\-\_\-fio\-\_\-ndoe\-\_\-int@{gmx\-\_\-fio\-\_\-ndoe\-\_\-int}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-ndoe\-\_\-int}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-fio\-\_\-ndoe\-\_\-int} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{int $\ast$}]{item, }
+\item[{int}]{n, }
+\item[{const char $\ast$}]{desc, }
+\item[{const char $\ast$}]{srcfile, }
+\item[{int}]{line}
+\end{DoxyParamCaption}
+)}}\label{include_2gmxfio_8h_a9d293a5aa9dd68e5da4bb682f5203d04}
+\hypertarget{include_2gmxfio_8h_a9c4c3d53b8371dcf137aa00aaa2da03f}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-ndoe\-\_\-ivec@{gmx\-\_\-fio\-\_\-ndoe\-\_\-ivec}}
+\index{gmx\-\_\-fio\-\_\-ndoe\-\_\-ivec@{gmx\-\_\-fio\-\_\-ndoe\-\_\-ivec}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-ndoe\-\_\-ivec}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-fio\-\_\-ndoe\-\_\-ivec} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{{\bf ivec} $\ast$}]{item, }
+\item[{int}]{n, }
+\item[{const char $\ast$}]{desc, }
+\item[{const char $\ast$}]{srcfile, }
+\item[{int}]{line}
+\end{DoxyParamCaption}
+)}}\label{include_2gmxfio_8h_a9c4c3d53b8371dcf137aa00aaa2da03f}
+\hypertarget{include_2gmxfio_8h_a8bb218c879db769ab22661706f959d0f}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-ndoe\-\_\-real@{gmx\-\_\-fio\-\_\-ndoe\-\_\-real}}
+\index{gmx\-\_\-fio\-\_\-ndoe\-\_\-real@{gmx\-\_\-fio\-\_\-ndoe\-\_\-real}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-ndoe\-\_\-real}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-fio\-\_\-ndoe\-\_\-real} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{real $\ast$}]{item, }
+\item[{int}]{n, }
+\item[{const char $\ast$}]{desc, }
+\item[{const char $\ast$}]{srcfile, }
+\item[{int}]{line}
+\end{DoxyParamCaption}
+)}}\label{include_2gmxfio_8h_a8bb218c879db769ab22661706f959d0f}
+\hypertarget{include_2gmxfio_8h_aca54c0c9c6ec2d26557047c8954a53c5}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-ndoe\-\_\-rvec@{gmx\-\_\-fio\-\_\-ndoe\-\_\-rvec}}
+\index{gmx\-\_\-fio\-\_\-ndoe\-\_\-rvec@{gmx\-\_\-fio\-\_\-ndoe\-\_\-rvec}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-ndoe\-\_\-rvec}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-fio\-\_\-ndoe\-\_\-rvec} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{{\bf rvec} $\ast$}]{item, }
+\item[{int}]{n, }
+\item[{const char $\ast$}]{desc, }
+\item[{const char $\ast$}]{srcfile, }
+\item[{int}]{line}
+\end{DoxyParamCaption}
+)}}\label{include_2gmxfio_8h_aca54c0c9c6ec2d26557047c8954a53c5}
+\hypertarget{include_2gmxfio_8h_a302a66649968a58b5bc4ff7ccf2f803b}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-ndoe\-\_\-string@{gmx\-\_\-fio\-\_\-ndoe\-\_\-string}}
+\index{gmx\-\_\-fio\-\_\-ndoe\-\_\-string@{gmx\-\_\-fio\-\_\-ndoe\-\_\-string}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-ndoe\-\_\-string}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-fio\-\_\-ndoe\-\_\-string} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{char $\ast$}]{item\mbox{[}$\,$\mbox{]}, }
+\item[{int}]{n, }
+\item[{const char $\ast$}]{desc, }
+\item[{const char $\ast$}]{srcfile, }
+\item[{int}]{line}
+\end{DoxyParamCaption}
+)}}\label{include_2gmxfio_8h_a302a66649968a58b5bc4ff7ccf2f803b}
+\hypertarget{include_2gmxfio_8h_a08788d7f02d39568afba7e8915a915f2}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-ndoe\-\_\-uchar@{gmx\-\_\-fio\-\_\-ndoe\-\_\-uchar}}
+\index{gmx\-\_\-fio\-\_\-ndoe\-\_\-uchar@{gmx\-\_\-fio\-\_\-ndoe\-\_\-uchar}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-ndoe\-\_\-uchar}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-fio\-\_\-ndoe\-\_\-uchar} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{unsigned char $\ast$}]{item, }
+\item[{int}]{n, }
+\item[{const char $\ast$}]{desc, }
+\item[{const char $\ast$}]{srcfile, }
+\item[{int}]{line}
+\end{DoxyParamCaption}
+)}}\label{include_2gmxfio_8h_a08788d7f02d39568afba7e8915a915f2}
+\hypertarget{include_2gmxfio_8h_a203c8cb54d6d3e21f109c25e1e0d41ac}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-ndoe\-\_\-ushort@{gmx\-\_\-fio\-\_\-ndoe\-\_\-ushort}}
+\index{gmx\-\_\-fio\-\_\-ndoe\-\_\-ushort@{gmx\-\_\-fio\-\_\-ndoe\-\_\-ushort}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-ndoe\-\_\-ushort}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-fio\-\_\-ndoe\-\_\-ushort} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{unsigned short $\ast$}]{item, }
+\item[{int}]{n, }
+\item[{const char $\ast$}]{desc, }
+\item[{const char $\ast$}]{srcfile, }
+\item[{int}]{line}
+\end{DoxyParamCaption}
+)}}\label{include_2gmxfio_8h_a203c8cb54d6d3e21f109c25e1e0d41ac}
+\hypertarget{include_2gmxfio_8h_ad0c4645024c10a5e415f49acb8fe8a15}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-nreade\-\_\-double@{gmx\-\_\-fio\-\_\-nreade\-\_\-double}}
+\index{gmx\-\_\-fio\-\_\-nreade\-\_\-double@{gmx\-\_\-fio\-\_\-nreade\-\_\-double}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-nreade\-\_\-double}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-fio\-\_\-nreade\-\_\-double} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{double $\ast$}]{item, }
+\item[{int}]{n, }
+\item[{const char $\ast$}]{desc, }
+\item[{const char $\ast$}]{srcfile, }
+\item[{int}]{line}
+\end{DoxyParamCaption}
+)}}\label{include_2gmxfio_8h_ad0c4645024c10a5e415f49acb8fe8a15}
+\hypertarget{include_2gmxfio_8h_a931645ffdcdce79a36f6de247fb7a675}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-nreade\-\_\-float@{gmx\-\_\-fio\-\_\-nreade\-\_\-float}}
+\index{gmx\-\_\-fio\-\_\-nreade\-\_\-float@{gmx\-\_\-fio\-\_\-nreade\-\_\-float}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-nreade\-\_\-float}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-fio\-\_\-nreade\-\_\-float} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{float $\ast$}]{item, }
+\item[{int}]{n, }
+\item[{const char $\ast$}]{desc, }
+\item[{const char $\ast$}]{srcfile, }
+\item[{int}]{line}
+\end{DoxyParamCaption}
+)}}\label{include_2gmxfio_8h_a931645ffdcdce79a36f6de247fb7a675}
+\hypertarget{include_2gmxfio_8h_a4f1bcb2c3dceb3f92d82a28df73eb15b}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-nreade\-\_\-gmx\-\_\-large\-\_\-int@{gmx\-\_\-fio\-\_\-nreade\-\_\-gmx\-\_\-large\-\_\-int}}
+\index{gmx\-\_\-fio\-\_\-nreade\-\_\-gmx\-\_\-large\-\_\-int@{gmx\-\_\-fio\-\_\-nreade\-\_\-gmx\-\_\-large\-\_\-int}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-nreade\-\_\-gmx\-\_\-large\-\_\-int}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-fio\-\_\-nreade\-\_\-gmx\-\_\-large\-\_\-int} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{gmx\-\_\-large\-\_\-int\-\_\-t $\ast$}]{item, }
+\item[{int}]{n, }
+\item[{const char $\ast$}]{desc, }
+\item[{const char $\ast$}]{srcfile, }
+\item[{int}]{line}
+\end{DoxyParamCaption}
+)}}\label{include_2gmxfio_8h_a4f1bcb2c3dceb3f92d82a28df73eb15b}
+\hypertarget{include_2gmxfio_8h_a58a34665c20703358ecd08e11b16c476}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-nreade\-\_\-int@{gmx\-\_\-fio\-\_\-nreade\-\_\-int}}
+\index{gmx\-\_\-fio\-\_\-nreade\-\_\-int@{gmx\-\_\-fio\-\_\-nreade\-\_\-int}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-nreade\-\_\-int}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-fio\-\_\-nreade\-\_\-int} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{int $\ast$}]{item, }
+\item[{int}]{n, }
+\item[{const char $\ast$}]{desc, }
+\item[{const char $\ast$}]{srcfile, }
+\item[{int}]{line}
+\end{DoxyParamCaption}
+)}}\label{include_2gmxfio_8h_a58a34665c20703358ecd08e11b16c476}
+\hypertarget{include_2gmxfio_8h_a1de3e445e58d5f5bbc2b8210d1a4764e}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-nreade\-\_\-ivec@{gmx\-\_\-fio\-\_\-nreade\-\_\-ivec}}
+\index{gmx\-\_\-fio\-\_\-nreade\-\_\-ivec@{gmx\-\_\-fio\-\_\-nreade\-\_\-ivec}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-nreade\-\_\-ivec}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-fio\-\_\-nreade\-\_\-ivec} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{{\bf ivec} $\ast$}]{item, }
+\item[{int}]{n, }
+\item[{const char $\ast$}]{desc, }
+\item[{const char $\ast$}]{srcfile, }
+\item[{int}]{line}
+\end{DoxyParamCaption}
+)}}\label{include_2gmxfio_8h_a1de3e445e58d5f5bbc2b8210d1a4764e}
+\hypertarget{include_2gmxfio_8h_a1d15d7e899626416af2b25d80691b5cf}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-nreade\-\_\-real@{gmx\-\_\-fio\-\_\-nreade\-\_\-real}}
+\index{gmx\-\_\-fio\-\_\-nreade\-\_\-real@{gmx\-\_\-fio\-\_\-nreade\-\_\-real}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-nreade\-\_\-real}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-fio\-\_\-nreade\-\_\-real} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{real $\ast$}]{item, }
+\item[{int}]{n, }
+\item[{const char $\ast$}]{desc, }
+\item[{const char $\ast$}]{srcfile, }
+\item[{int}]{line}
+\end{DoxyParamCaption}
+)}}\label{include_2gmxfio_8h_a1d15d7e899626416af2b25d80691b5cf}
+\hypertarget{include_2gmxfio_8h_a46d26f8885369d12cf633baadbb01ef3}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-nreade\-\_\-rvec@{gmx\-\_\-fio\-\_\-nreade\-\_\-rvec}}
+\index{gmx\-\_\-fio\-\_\-nreade\-\_\-rvec@{gmx\-\_\-fio\-\_\-nreade\-\_\-rvec}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-nreade\-\_\-rvec}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-fio\-\_\-nreade\-\_\-rvec} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{{\bf rvec} $\ast$}]{item, }
+\item[{int}]{n, }
+\item[{const char $\ast$}]{desc, }
+\item[{const char $\ast$}]{srcfile, }
+\item[{int}]{line}
+\end{DoxyParamCaption}
+)}}\label{include_2gmxfio_8h_a46d26f8885369d12cf633baadbb01ef3}
+\hypertarget{include_2gmxfio_8h_a109a17e0163e750b906d0cd94321c247}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-nreade\-\_\-string@{gmx\-\_\-fio\-\_\-nreade\-\_\-string}}
+\index{gmx\-\_\-fio\-\_\-nreade\-\_\-string@{gmx\-\_\-fio\-\_\-nreade\-\_\-string}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-nreade\-\_\-string}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-fio\-\_\-nreade\-\_\-string} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{char $\ast$}]{item\mbox{[}$\,$\mbox{]}, }
+\item[{int}]{n, }
+\item[{const char $\ast$}]{desc, }
+\item[{const char $\ast$}]{srcfile, }
+\item[{int}]{line}
+\end{DoxyParamCaption}
+)}}\label{include_2gmxfio_8h_a109a17e0163e750b906d0cd94321c247}
+\hypertarget{include_2gmxfio_8h_a650be4e8a79f90bb253f50b161e7b7c7}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-nreade\-\_\-uchar@{gmx\-\_\-fio\-\_\-nreade\-\_\-uchar}}
+\index{gmx\-\_\-fio\-\_\-nreade\-\_\-uchar@{gmx\-\_\-fio\-\_\-nreade\-\_\-uchar}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-nreade\-\_\-uchar}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-fio\-\_\-nreade\-\_\-uchar} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{unsigned char $\ast$}]{item, }
+\item[{int}]{n, }
+\item[{const char $\ast$}]{desc, }
+\item[{const char $\ast$}]{srcfile, }
+\item[{int}]{line}
+\end{DoxyParamCaption}
+)}}\label{include_2gmxfio_8h_a650be4e8a79f90bb253f50b161e7b7c7}
+\hypertarget{include_2gmxfio_8h_a5943c3689932fd0cbce86541578e7903}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-nreade\-\_\-ushort@{gmx\-\_\-fio\-\_\-nreade\-\_\-ushort}}
+\index{gmx\-\_\-fio\-\_\-nreade\-\_\-ushort@{gmx\-\_\-fio\-\_\-nreade\-\_\-ushort}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-nreade\-\_\-ushort}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-fio\-\_\-nreade\-\_\-ushort} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{unsigned short $\ast$}]{item, }
+\item[{int}]{n, }
+\item[{const char $\ast$}]{desc, }
+\item[{const char $\ast$}]{srcfile, }
+\item[{int}]{line}
+\end{DoxyParamCaption}
+)}}\label{include_2gmxfio_8h_a5943c3689932fd0cbce86541578e7903}
+\hypertarget{include_2gmxfio_8h_a4f0a97b690a298b9f146afe916fee7c3}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-nwritee\-\_\-double@{gmx\-\_\-fio\-\_\-nwritee\-\_\-double}}
+\index{gmx\-\_\-fio\-\_\-nwritee\-\_\-double@{gmx\-\_\-fio\-\_\-nwritee\-\_\-double}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-nwritee\-\_\-double}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-fio\-\_\-nwritee\-\_\-double} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{const double $\ast$}]{item, }
+\item[{int}]{n, }
+\item[{const char $\ast$}]{desc, }
+\item[{const char $\ast$}]{srcfile, }
+\item[{int}]{line}
+\end{DoxyParamCaption}
+)}}\label{include_2gmxfio_8h_a4f0a97b690a298b9f146afe916fee7c3}
+\hypertarget{include_2gmxfio_8h_adadce31449fbc46384e8840cca315439}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-nwritee\-\_\-float@{gmx\-\_\-fio\-\_\-nwritee\-\_\-float}}
+\index{gmx\-\_\-fio\-\_\-nwritee\-\_\-float@{gmx\-\_\-fio\-\_\-nwritee\-\_\-float}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-nwritee\-\_\-float}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-fio\-\_\-nwritee\-\_\-float} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{const float $\ast$}]{item, }
+\item[{int}]{n, }
+\item[{const char $\ast$}]{desc, }
+\item[{const char $\ast$}]{srcfile, }
+\item[{int}]{line}
+\end{DoxyParamCaption}
+)}}\label{include_2gmxfio_8h_adadce31449fbc46384e8840cca315439}
+\hypertarget{include_2gmxfio_8h_a6d514a3b8e6cb7b79536e3e744f62ce8}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-nwritee\-\_\-gmx\-\_\-large\-\_\-int@{gmx\-\_\-fio\-\_\-nwritee\-\_\-gmx\-\_\-large\-\_\-int}}
+\index{gmx\-\_\-fio\-\_\-nwritee\-\_\-gmx\-\_\-large\-\_\-int@{gmx\-\_\-fio\-\_\-nwritee\-\_\-gmx\-\_\-large\-\_\-int}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-nwritee\-\_\-gmx\-\_\-large\-\_\-int}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-fio\-\_\-nwritee\-\_\-gmx\-\_\-large\-\_\-int} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{const gmx\-\_\-large\-\_\-int\-\_\-t $\ast$}]{item, }
+\item[{int}]{n, }
+\item[{const char $\ast$}]{desc, }
+\item[{const char $\ast$}]{srcfile, }
+\item[{int}]{line}
+\end{DoxyParamCaption}
+)}}\label{include_2gmxfio_8h_a6d514a3b8e6cb7b79536e3e744f62ce8}
+\hypertarget{include_2gmxfio_8h_aecdb597417a81bd5248710d8a991e2eb}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-nwritee\-\_\-int@{gmx\-\_\-fio\-\_\-nwritee\-\_\-int}}
+\index{gmx\-\_\-fio\-\_\-nwritee\-\_\-int@{gmx\-\_\-fio\-\_\-nwritee\-\_\-int}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-nwritee\-\_\-int}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-fio\-\_\-nwritee\-\_\-int} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{const int $\ast$}]{item, }
+\item[{int}]{n, }
+\item[{const char $\ast$}]{desc, }
+\item[{const char $\ast$}]{srcfile, }
+\item[{int}]{line}
+\end{DoxyParamCaption}
+)}}\label{include_2gmxfio_8h_aecdb597417a81bd5248710d8a991e2eb}
+\hypertarget{include_2gmxfio_8h_a3385e68afbbc396ed6d643b1ff670176}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-nwritee\-\_\-ivec@{gmx\-\_\-fio\-\_\-nwritee\-\_\-ivec}}
+\index{gmx\-\_\-fio\-\_\-nwritee\-\_\-ivec@{gmx\-\_\-fio\-\_\-nwritee\-\_\-ivec}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-nwritee\-\_\-ivec}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-fio\-\_\-nwritee\-\_\-ivec} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{const {\bf ivec} $\ast$}]{item, }
+\item[{int}]{n, }
+\item[{const char $\ast$}]{desc, }
+\item[{const char $\ast$}]{srcfile, }
+\item[{int}]{line}
+\end{DoxyParamCaption}
+)}}\label{include_2gmxfio_8h_a3385e68afbbc396ed6d643b1ff670176}
+\hypertarget{include_2gmxfio_8h_ae2aaf504a021edfa156e57492ca4fe2c}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-nwritee\-\_\-real@{gmx\-\_\-fio\-\_\-nwritee\-\_\-real}}
+\index{gmx\-\_\-fio\-\_\-nwritee\-\_\-real@{gmx\-\_\-fio\-\_\-nwritee\-\_\-real}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-nwritee\-\_\-real}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-fio\-\_\-nwritee\-\_\-real} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{const real $\ast$}]{item, }
+\item[{int}]{n, }
+\item[{const char $\ast$}]{desc, }
+\item[{const char $\ast$}]{srcfile, }
+\item[{int}]{line}
+\end{DoxyParamCaption}
+)}}\label{include_2gmxfio_8h_ae2aaf504a021edfa156e57492ca4fe2c}
+\hypertarget{include_2gmxfio_8h_aca9b94b8fa43b932c06ec07a383730a0}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-nwritee\-\_\-rvec@{gmx\-\_\-fio\-\_\-nwritee\-\_\-rvec}}
+\index{gmx\-\_\-fio\-\_\-nwritee\-\_\-rvec@{gmx\-\_\-fio\-\_\-nwritee\-\_\-rvec}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-nwritee\-\_\-rvec}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-fio\-\_\-nwritee\-\_\-rvec} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{const {\bf rvec} $\ast$}]{item, }
+\item[{int}]{n, }
+\item[{const char $\ast$}]{desc, }
+\item[{const char $\ast$}]{srcfile, }
+\item[{int}]{line}
+\end{DoxyParamCaption}
+)}}\label{include_2gmxfio_8h_aca9b94b8fa43b932c06ec07a383730a0}
+\hypertarget{include_2gmxfio_8h_a7a7a8fa1c299c71a7d07534bcf67f0c7}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-nwritee\-\_\-string@{gmx\-\_\-fio\-\_\-nwritee\-\_\-string}}
+\index{gmx\-\_\-fio\-\_\-nwritee\-\_\-string@{gmx\-\_\-fio\-\_\-nwritee\-\_\-string}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-nwritee\-\_\-string}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-fio\-\_\-nwritee\-\_\-string} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{const char $\ast$}]{item\mbox{[}$\,$\mbox{]}, }
+\item[{int}]{n, }
+\item[{const char $\ast$}]{desc, }
+\item[{const char $\ast$}]{srcfile, }
+\item[{int}]{line}
+\end{DoxyParamCaption}
+)}}\label{include_2gmxfio_8h_a7a7a8fa1c299c71a7d07534bcf67f0c7}
+\hypertarget{include_2gmxfio_8h_a5e369f8cbc8591f678098fe5d87526c7}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-nwritee\-\_\-uchar@{gmx\-\_\-fio\-\_\-nwritee\-\_\-uchar}}
+\index{gmx\-\_\-fio\-\_\-nwritee\-\_\-uchar@{gmx\-\_\-fio\-\_\-nwritee\-\_\-uchar}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-nwritee\-\_\-uchar}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-fio\-\_\-nwritee\-\_\-uchar} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{const unsigned char $\ast$}]{item, }
+\item[{int}]{n, }
+\item[{const char $\ast$}]{desc, }
+\item[{const char $\ast$}]{srcfile, }
+\item[{int}]{line}
+\end{DoxyParamCaption}
+)}}\label{include_2gmxfio_8h_a5e369f8cbc8591f678098fe5d87526c7}
+\hypertarget{include_2gmxfio_8h_a9efab7a6afb0fe04beb718e579c8e7b5}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-nwritee\-\_\-ushort@{gmx\-\_\-fio\-\_\-nwritee\-\_\-ushort}}
+\index{gmx\-\_\-fio\-\_\-nwritee\-\_\-ushort@{gmx\-\_\-fio\-\_\-nwritee\-\_\-ushort}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-nwritee\-\_\-ushort}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-fio\-\_\-nwritee\-\_\-ushort} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{const unsigned short $\ast$}]{item, }
+\item[{int}]{n, }
+\item[{const char $\ast$}]{desc, }
+\item[{const char $\ast$}]{srcfile, }
+\item[{int}]{line}
+\end{DoxyParamCaption}
+)}}\label{include_2gmxfio_8h_a9efab7a6afb0fe04beb718e579c8e7b5}
+\hypertarget{include_2gmxfio_8h_a3d6f5bd4e86ec17ed43c055fa9d76cc0}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-open@{gmx\-\_\-fio\-\_\-open}}
+\index{gmx\-\_\-fio\-\_\-open@{gmx\-\_\-fio\-\_\-open}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-open}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\-\_\-fileio}$\ast$ {\bf gmx\-\_\-fio\-\_\-open} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{fn, }
+\item[{const char $\ast$}]{mode}
+\end{DoxyParamCaption}
+)}}\label{include_2gmxfio_8h_a3d6f5bd4e86ec17ed43c055fa9d76cc0}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{include_2gmxfio_8h_a3d6f5bd4e86ec17ed43c055fa9d76cc0_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{include_2gmxfio_8h_aa7d8c5d02ab7ec70d843688303ea43fc}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-reade\-\_\-double@{gmx\-\_\-fio\-\_\-reade\-\_\-double}}
+\index{gmx\-\_\-fio\-\_\-reade\-\_\-double@{gmx\-\_\-fio\-\_\-reade\-\_\-double}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-reade\-\_\-double}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-fio\-\_\-reade\-\_\-double} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{double $\ast$}]{item, }
+\item[{const char $\ast$}]{desc, }
+\item[{const char $\ast$}]{srcfile, }
+\item[{int}]{line}
+\end{DoxyParamCaption}
+)}}\label{include_2gmxfio_8h_aa7d8c5d02ab7ec70d843688303ea43fc}
+\hypertarget{include_2gmxfio_8h_acf585886ee15132a6167224aaa5a118d}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-reade\-\_\-float@{gmx\-\_\-fio\-\_\-reade\-\_\-float}}
+\index{gmx\-\_\-fio\-\_\-reade\-\_\-float@{gmx\-\_\-fio\-\_\-reade\-\_\-float}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-reade\-\_\-float}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-fio\-\_\-reade\-\_\-float} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{float $\ast$}]{item, }
+\item[{const char $\ast$}]{desc, }
+\item[{const char $\ast$}]{srcfile, }
+\item[{int}]{line}
+\end{DoxyParamCaption}
+)}}\label{include_2gmxfio_8h_acf585886ee15132a6167224aaa5a118d}
+\hypertarget{include_2gmxfio_8h_a5ecaecf3bc38a499734c3cc64edfe8fa}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-reade\-\_\-gmx\-\_\-large\-\_\-int@{gmx\-\_\-fio\-\_\-reade\-\_\-gmx\-\_\-large\-\_\-int}}
+\index{gmx\-\_\-fio\-\_\-reade\-\_\-gmx\-\_\-large\-\_\-int@{gmx\-\_\-fio\-\_\-reade\-\_\-gmx\-\_\-large\-\_\-int}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-reade\-\_\-gmx\-\_\-large\-\_\-int}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-fio\-\_\-reade\-\_\-gmx\-\_\-large\-\_\-int} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{gmx\-\_\-large\-\_\-int\-\_\-t $\ast$}]{item, }
+\item[{const char $\ast$}]{desc, }
+\item[{const char $\ast$}]{srcfile, }
+\item[{int}]{line}
+\end{DoxyParamCaption}
+)}}\label{include_2gmxfio_8h_a5ecaecf3bc38a499734c3cc64edfe8fa}
+\hypertarget{include_2gmxfio_8h_a2c056cb1ce8a232a76fddf7ae935d7b6}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-reade\-\_\-int@{gmx\-\_\-fio\-\_\-reade\-\_\-int}}
+\index{gmx\-\_\-fio\-\_\-reade\-\_\-int@{gmx\-\_\-fio\-\_\-reade\-\_\-int}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-reade\-\_\-int}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-fio\-\_\-reade\-\_\-int} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{int $\ast$}]{item, }
+\item[{const char $\ast$}]{desc, }
+\item[{const char $\ast$}]{srcfile, }
+\item[{int}]{line}
+\end{DoxyParamCaption}
+)}}\label{include_2gmxfio_8h_a2c056cb1ce8a232a76fddf7ae935d7b6}
+\hypertarget{include_2gmxfio_8h_aa8aa048849d64f2bf825d9e0a2c55901}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-reade\-\_\-ivec@{gmx\-\_\-fio\-\_\-reade\-\_\-ivec}}
+\index{gmx\-\_\-fio\-\_\-reade\-\_\-ivec@{gmx\-\_\-fio\-\_\-reade\-\_\-ivec}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-reade\-\_\-ivec}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-fio\-\_\-reade\-\_\-ivec} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{{\bf ivec} $\ast$}]{item, }
+\item[{const char $\ast$}]{desc, }
+\item[{const char $\ast$}]{srcfile, }
+\item[{int}]{line}
+\end{DoxyParamCaption}
+)}}\label{include_2gmxfio_8h_aa8aa048849d64f2bf825d9e0a2c55901}
+\hypertarget{include_2gmxfio_8h_a828e2651c0ce91bd526939f8229e548d}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-reade\-\_\-real@{gmx\-\_\-fio\-\_\-reade\-\_\-real}}
+\index{gmx\-\_\-fio\-\_\-reade\-\_\-real@{gmx\-\_\-fio\-\_\-reade\-\_\-real}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-reade\-\_\-real}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-fio\-\_\-reade\-\_\-real} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{real $\ast$}]{item, }
+\item[{const char $\ast$}]{desc, }
+\item[{const char $\ast$}]{srcfile, }
+\item[{int}]{line}
+\end{DoxyParamCaption}
+)}}\label{include_2gmxfio_8h_a828e2651c0ce91bd526939f8229e548d}
+\hypertarget{include_2gmxfio_8h_ab4d51c1cc5afe9c870f52bb4db2d05f4}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-reade\-\_\-rvec@{gmx\-\_\-fio\-\_\-reade\-\_\-rvec}}
+\index{gmx\-\_\-fio\-\_\-reade\-\_\-rvec@{gmx\-\_\-fio\-\_\-reade\-\_\-rvec}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-reade\-\_\-rvec}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-fio\-\_\-reade\-\_\-rvec} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{{\bf rvec} $\ast$}]{item, }
+\item[{const char $\ast$}]{desc, }
+\item[{const char $\ast$}]{srcfile, }
+\item[{int}]{line}
+\end{DoxyParamCaption}
+)}}\label{include_2gmxfio_8h_ab4d51c1cc5afe9c870f52bb4db2d05f4}
+\hypertarget{include_2gmxfio_8h_a7aa978de4b97ce8616d6a19a7ac89812}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-reade\-\_\-string@{gmx\-\_\-fio\-\_\-reade\-\_\-string}}
+\index{gmx\-\_\-fio\-\_\-reade\-\_\-string@{gmx\-\_\-fio\-\_\-reade\-\_\-string}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-reade\-\_\-string}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-fio\-\_\-reade\-\_\-string} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{char $\ast$}]{item, }
+\item[{const char $\ast$}]{desc, }
+\item[{const char $\ast$}]{srcfile, }
+\item[{int}]{line}
+\end{DoxyParamCaption}
+)}}\label{include_2gmxfio_8h_a7aa978de4b97ce8616d6a19a7ac89812}
+\hypertarget{include_2gmxfio_8h_ac4d42079cbe5d094f326f5fb36aab682}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-reade\-\_\-uchar@{gmx\-\_\-fio\-\_\-reade\-\_\-uchar}}
+\index{gmx\-\_\-fio\-\_\-reade\-\_\-uchar@{gmx\-\_\-fio\-\_\-reade\-\_\-uchar}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-reade\-\_\-uchar}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-fio\-\_\-reade\-\_\-uchar} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{unsigned char $\ast$}]{item, }
+\item[{const char $\ast$}]{desc, }
+\item[{const char $\ast$}]{srcfile, }
+\item[{int}]{line}
+\end{DoxyParamCaption}
+)}}\label{include_2gmxfio_8h_ac4d42079cbe5d094f326f5fb36aab682}
+\hypertarget{include_2gmxfio_8h_a5f6873e915828742a2aa1fa74f350abf}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-reade\-\_\-ushort@{gmx\-\_\-fio\-\_\-reade\-\_\-ushort}}
+\index{gmx\-\_\-fio\-\_\-reade\-\_\-ushort@{gmx\-\_\-fio\-\_\-reade\-\_\-ushort}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-reade\-\_\-ushort}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-fio\-\_\-reade\-\_\-ushort} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{unsigned short $\ast$}]{item, }
+\item[{const char $\ast$}]{desc, }
+\item[{const char $\ast$}]{srcfile, }
+\item[{int}]{line}
+\end{DoxyParamCaption}
+)}}\label{include_2gmxfio_8h_a5f6873e915828742a2aa1fa74f350abf}
+\hypertarget{include_2gmxfio_8h_ad08c704fdf20a26d1f5b2a2e3f506a62}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-rewind@{gmx\-\_\-fio\-\_\-rewind}}
+\index{gmx\-\_\-fio\-\_\-rewind@{gmx\-\_\-fio\-\_\-rewind}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-rewind}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-fio\-\_\-rewind} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio}
+\end{DoxyParamCaption}
+)}}\label{include_2gmxfio_8h_ad08c704fdf20a26d1f5b2a2e3f506a62}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{include_2gmxfio_8h_ad08c704fdf20a26d1f5b2a2e3f506a62_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{include_2gmxfio_8h_a7a8c2e32d5db90fa3e3fd04ca15bd7dd}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-seek@{gmx\-\_\-fio\-\_\-seek}}
+\index{gmx\-\_\-fio\-\_\-seek@{gmx\-\_\-fio\-\_\-seek}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-seek}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} int {\bf gmx\-\_\-fio\-\_\-seek} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{{\bf gmx\-\_\-off\-\_\-t}}]{fpos}
+\end{DoxyParamCaption}
+)}}\label{include_2gmxfio_8h_a7a8c2e32d5db90fa3e3fd04ca15bd7dd}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{include_2gmxfio_8h_a7a8c2e32d5db90fa3e3fd04ca15bd7dd_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{include_2gmxfio_8h_ab6186791846a4fcb2713c58abdb65ea2}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-set\-\_\-comment@{gmx\-\_\-fio\-\_\-set\-\_\-comment}}
+\index{gmx\-\_\-fio\-\_\-set\-\_\-comment@{gmx\-\_\-fio\-\_\-set\-\_\-comment}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-set\-\_\-comment}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-fio\-\_\-set\-\_\-comment} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{const char $\ast$}]{comment}
+\end{DoxyParamCaption}
+)}}\label{include_2gmxfio_8h_ab6186791846a4fcb2713c58abdb65ea2}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{include_2gmxfio_8h_ab6186791846a4fcb2713c58abdb65ea2_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{include_2gmxfio_8h_af27e242bb8b6dcbf0e8c23c11b5a6a25}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-setdebug@{gmx\-\_\-fio\-\_\-setdebug}}
+\index{gmx\-\_\-fio\-\_\-setdebug@{gmx\-\_\-fio\-\_\-setdebug}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-setdebug}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} {\bf void} {\bf gmx\-\_\-fio\-\_\-setdebug} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Debug}
+\end{DoxyParamCaption}
+)}}\label{include_2gmxfio_8h_af27e242bb8b6dcbf0e8c23c11b5a6a25}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{include_2gmxfio_8h_af27e242bb8b6dcbf0e8c23c11b5a6a25_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{include_2gmxfio_8h_a941cfbebd1a14859fa3a649940481916}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-setprecision@{gmx\-\_\-fio\-\_\-setprecision}}
+\index{gmx\-\_\-fio\-\_\-setprecision@{gmx\-\_\-fio\-\_\-setprecision}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-setprecision}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-fio\-\_\-setprecision} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Double}
+\end{DoxyParamCaption}
+)}}\label{include_2gmxfio_8h_a941cfbebd1a14859fa3a649940481916}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{include_2gmxfio_8h_a941cfbebd1a14859fa3a649940481916_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{include_2gmxfio_8h_a97c3bb94f708d44a92834fea40c3451c}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-unset\-\_\-comment@{gmx\-\_\-fio\-\_\-unset\-\_\-comment}}
+\index{gmx\-\_\-fio\-\_\-unset\-\_\-comment@{gmx\-\_\-fio\-\_\-unset\-\_\-comment}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-unset\-\_\-comment}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-fio\-\_\-unset\-\_\-comment} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio}
+\end{DoxyParamCaption}
+)}}\label{include_2gmxfio_8h_a97c3bb94f708d44a92834fea40c3451c}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{include_2gmxfio_8h_a97c3bb94f708d44a92834fea40c3451c_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{include_2gmxfio_8h_af2cc68d6c4b567db0af29e55948eaf60}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-writee\-\_\-double@{gmx\-\_\-fio\-\_\-writee\-\_\-double}}
+\index{gmx\-\_\-fio\-\_\-writee\-\_\-double@{gmx\-\_\-fio\-\_\-writee\-\_\-double}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-writee\-\_\-double}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-fio\-\_\-writee\-\_\-double} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{double}]{item, }
+\item[{const char $\ast$}]{desc, }
+\item[{const char $\ast$}]{srcfile, }
+\item[{int}]{line}
+\end{DoxyParamCaption}
+)}}\label{include_2gmxfio_8h_af2cc68d6c4b567db0af29e55948eaf60}
+\hypertarget{include_2gmxfio_8h_ad689fa41323ee4f811fa1c2c65cccd52}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-writee\-\_\-float@{gmx\-\_\-fio\-\_\-writee\-\_\-float}}
+\index{gmx\-\_\-fio\-\_\-writee\-\_\-float@{gmx\-\_\-fio\-\_\-writee\-\_\-float}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-writee\-\_\-float}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-fio\-\_\-writee\-\_\-float} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{float}]{item, }
+\item[{const char $\ast$}]{desc, }
+\item[{const char $\ast$}]{srcfile, }
+\item[{int}]{line}
+\end{DoxyParamCaption}
+)}}\label{include_2gmxfio_8h_ad689fa41323ee4f811fa1c2c65cccd52}
+\hypertarget{include_2gmxfio_8h_a9cc05b6464d72874ac13817bb44ae708}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-writee\-\_\-gmx\-\_\-large\-\_\-int@{gmx\-\_\-fio\-\_\-writee\-\_\-gmx\-\_\-large\-\_\-int}}
+\index{gmx\-\_\-fio\-\_\-writee\-\_\-gmx\-\_\-large\-\_\-int@{gmx\-\_\-fio\-\_\-writee\-\_\-gmx\-\_\-large\-\_\-int}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-writee\-\_\-gmx\-\_\-large\-\_\-int}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-fio\-\_\-writee\-\_\-gmx\-\_\-large\-\_\-int} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{gmx\-\_\-large\-\_\-int\-\_\-t}]{item, }
+\item[{const char $\ast$}]{desc, }
+\item[{const char $\ast$}]{srcfile, }
+\item[{int}]{line}
+\end{DoxyParamCaption}
+)}}\label{include_2gmxfio_8h_a9cc05b6464d72874ac13817bb44ae708}
+\hypertarget{include_2gmxfio_8h_aff22a8327ba7b7178e176a5ee85dc82e}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-writee\-\_\-int@{gmx\-\_\-fio\-\_\-writee\-\_\-int}}
+\index{gmx\-\_\-fio\-\_\-writee\-\_\-int@{gmx\-\_\-fio\-\_\-writee\-\_\-int}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-writee\-\_\-int}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-fio\-\_\-writee\-\_\-int} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{int}]{item, }
+\item[{const char $\ast$}]{desc, }
+\item[{const char $\ast$}]{srcfile, }
+\item[{int}]{line}
+\end{DoxyParamCaption}
+)}}\label{include_2gmxfio_8h_aff22a8327ba7b7178e176a5ee85dc82e}
+\hypertarget{include_2gmxfio_8h_ad230e35ab5a8b601696456ffffdfd2b1}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-writee\-\_\-ivec@{gmx\-\_\-fio\-\_\-writee\-\_\-ivec}}
+\index{gmx\-\_\-fio\-\_\-writee\-\_\-ivec@{gmx\-\_\-fio\-\_\-writee\-\_\-ivec}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-writee\-\_\-ivec}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-fio\-\_\-writee\-\_\-ivec} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{{\bf ivec} $\ast$}]{item, }
+\item[{const char $\ast$}]{desc, }
+\item[{const char $\ast$}]{srcfile, }
+\item[{int}]{line}
+\end{DoxyParamCaption}
+)}}\label{include_2gmxfio_8h_ad230e35ab5a8b601696456ffffdfd2b1}
+\hypertarget{include_2gmxfio_8h_a8d58f16cd63a24725c2e9b758e5fdf30}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-writee\-\_\-real@{gmx\-\_\-fio\-\_\-writee\-\_\-real}}
+\index{gmx\-\_\-fio\-\_\-writee\-\_\-real@{gmx\-\_\-fio\-\_\-writee\-\_\-real}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-writee\-\_\-real}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-fio\-\_\-writee\-\_\-real} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{real}]{item, }
+\item[{const char $\ast$}]{desc, }
+\item[{const char $\ast$}]{srcfile, }
+\item[{int}]{line}
+\end{DoxyParamCaption}
+)}}\label{include_2gmxfio_8h_a8d58f16cd63a24725c2e9b758e5fdf30}
+\hypertarget{include_2gmxfio_8h_a925fdcc9f253d105f8a5893902d2f5f6}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-writee\-\_\-rvec@{gmx\-\_\-fio\-\_\-writee\-\_\-rvec}}
+\index{gmx\-\_\-fio\-\_\-writee\-\_\-rvec@{gmx\-\_\-fio\-\_\-writee\-\_\-rvec}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-writee\-\_\-rvec}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-fio\-\_\-writee\-\_\-rvec} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{{\bf rvec} $\ast$}]{item, }
+\item[{const char $\ast$}]{desc, }
+\item[{const char $\ast$}]{srcfile, }
+\item[{int}]{line}
+\end{DoxyParamCaption}
+)}}\label{include_2gmxfio_8h_a925fdcc9f253d105f8a5893902d2f5f6}
+\hypertarget{include_2gmxfio_8h_acaadb25bc6ecb693483bad36a5a5d123}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-writee\-\_\-string@{gmx\-\_\-fio\-\_\-writee\-\_\-string}}
+\index{gmx\-\_\-fio\-\_\-writee\-\_\-string@{gmx\-\_\-fio\-\_\-writee\-\_\-string}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-writee\-\_\-string}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-fio\-\_\-writee\-\_\-string} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{const char $\ast$}]{item, }
+\item[{const char $\ast$}]{desc, }
+\item[{const char $\ast$}]{srcfile, }
+\item[{int}]{line}
+\end{DoxyParamCaption}
+)}}\label{include_2gmxfio_8h_acaadb25bc6ecb693483bad36a5a5d123}
+\hypertarget{include_2gmxfio_8h_a0c848a0a42283b423dd57ff7331ec3ca}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-writee\-\_\-uchar@{gmx\-\_\-fio\-\_\-writee\-\_\-uchar}}
+\index{gmx\-\_\-fio\-\_\-writee\-\_\-uchar@{gmx\-\_\-fio\-\_\-writee\-\_\-uchar}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-writee\-\_\-uchar}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-fio\-\_\-writee\-\_\-uchar} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{unsigned char}]{item, }
+\item[{const char $\ast$}]{desc, }
+\item[{const char $\ast$}]{srcfile, }
+\item[{int}]{line}
+\end{DoxyParamCaption}
+)}}\label{include_2gmxfio_8h_a0c848a0a42283b423dd57ff7331ec3ca}
+\hypertarget{include_2gmxfio_8h_a0bc3000d648ba7b3ebff442f7f7b3951}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!gmx\-\_\-fio\-\_\-writee\-\_\-ushort@{gmx\-\_\-fio\-\_\-writee\-\_\-ushort}}
+\index{gmx\-\_\-fio\-\_\-writee\-\_\-ushort@{gmx\-\_\-fio\-\_\-writee\-\_\-ushort}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{gmx\-\_\-fio\-\_\-writee\-\_\-ushort}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-fio\-\_\-writee\-\_\-ushort} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{unsigned short}]{item, }
+\item[{const char $\ast$}]{desc, }
+\item[{const char $\ast$}]{srcfile, }
+\item[{int}]{line}
+\end{DoxyParamCaption}
+)}}\label{include_2gmxfio_8h_a0bc3000d648ba7b3ebff442f7f7b3951}
+\hypertarget{include_2gmxfio_8h_ac08e6ac0d03e023c8e3b52ca288691c1}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!xtc\-\_\-seek\-\_\-frame@{xtc\-\_\-seek\-\_\-frame}}
+\index{xtc\-\_\-seek\-\_\-frame@{xtc\-\_\-seek\-\_\-frame}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{xtc\-\_\-seek\-\_\-frame}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf xtc\-\_\-seek\-\_\-frame} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{int}]{frame, }
+\item[{int}]{natoms}
+\end{DoxyParamCaption}
+)}}\label{include_2gmxfio_8h_ac08e6ac0d03e023c8e3b52ca288691c1}
+\hypertarget{include_2gmxfio_8h_a9b1e912277cb58297225b224829ad779}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!xtc\-\_\-seek\-\_\-time@{xtc\-\_\-seek\-\_\-time}}
+\index{xtc\-\_\-seek\-\_\-time@{xtc\-\_\-seek\-\_\-time}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{xtc\-\_\-seek\-\_\-time}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-G\-M\-X\-\_\-\-E\-X\-P\-O\-R\-T} int {\bf xtc\-\_\-seek\-\_\-time} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-fileio} $\ast$}]{fio, }
+\item[{real}]{time, }
+\item[{int}]{natoms, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Seek\-Forward\-Only}
+\end{DoxyParamCaption}
+)}}\label{include_2gmxfio_8h_a9b1e912277cb58297225b224829ad779}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{include_2gmxfio_8h_a9b1e912277cb58297225b224829ad779_icgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{\-Variable \-Documentation}
+\hypertarget{include_2gmxfio_8h_af921e81673488d0b68fc9f0d3d314057}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!comment\-\_\-str@{comment\-\_\-str}}
+\index{comment\-\_\-str@{comment\-\_\-str}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{comment\-\_\-str}]{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ {\bf comment\-\_\-str}\mbox{[}{\bf eitem\-N\-R}\mbox{]}}}\label{include_2gmxfio_8h_af921e81673488d0b68fc9f0d3d314057}
+\hypertarget{include_2gmxfio_8h_a9747a1e7497ca8483a36869091b9ecb0}{\index{include/gmxfio.\-h@{include/gmxfio.\-h}!itemstr@{itemstr}}
+\index{itemstr@{itemstr}!include/gmxfio.h@{include/gmxfio.\-h}}
+\subsubsection[{itemstr}]{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ {\bf itemstr}\mbox{[}{\bf eitem\-N\-R}\mbox{]}}}\label{include_2gmxfio_8h_a9747a1e7497ca8483a36869091b9ecb0}

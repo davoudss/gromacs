@@ -1,0 +1,54 @@
+\hypertarget{gmx__cyclecounter_8c}{\section{src/gmxlib/gmx\-\_\-cyclecounter.c \-File \-Reference}
+\label{gmx__cyclecounter_8c}\index{src/gmxlib/gmx\-\_\-cyclecounter.\-c@{src/gmxlib/gmx\-\_\-cyclecounter.\-c}}
+}
+{\ttfamily \#include $<$time.\-h$>$}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-cyclecounter.\-h\char`\"{}}\*
+\-Include dependency graph for gmx\-\_\-cyclecounter.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=254pt]{gmx__cyclecounter_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+double \hyperlink{gmx__cyclecounter_8c_a15e94a5a32400864b027b6d54c7963e7}{gmx\-\_\-cycles\-\_\-calibrate} (double sampletime)
+\begin{DoxyCompactList}\small\item\em \-Calculate number of seconds per cycle tick on host. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{gmx__cyclecounter_8c_a15e94a5a32400864b027b6d54c7963e7}{\index{gmx\-\_\-cyclecounter.\-c@{gmx\-\_\-cyclecounter.\-c}!gmx\-\_\-cycles\-\_\-calibrate@{gmx\-\_\-cycles\-\_\-calibrate}}
+\index{gmx\-\_\-cycles\-\_\-calibrate@{gmx\-\_\-cycles\-\_\-calibrate}!gmx_cyclecounter.c@{gmx\-\_\-cyclecounter.\-c}}
+\subsubsection[{gmx\-\_\-cycles\-\_\-calibrate}]{\setlength{\rightskip}{0pt plus 5cm}double {\bf gmx\-\_\-cycles\-\_\-calibrate} (
+\begin{DoxyParamCaption}
+\item[{double}]{sampletime}
+\end{DoxyParamCaption}
+)}}\label{gmx__cyclecounter_8c_a15e94a5a32400864b027b6d54c7963e7}
+
+
+\-Calculate number of seconds per cycle tick on host. 
+
+\-This routine runs a timer loop to calibrate the number of seconds per the units returned fro \hyperlink{include_2gmx__cyclecounter_8h_a44eb37a6a439c565976b7c14c2bdae00}{gmx\-\_\-cycles\-\_\-read()}.
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em sampletime} & \-Minimum real sample time. \-It takes some trial-\/and-\/error to find the correct delay loop size, so the total runtime of this routine is about twice this time. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-Number of seconds per cycle unit. \-If it is not possible to calculate on this system (for whatever reason) the return value will be -\/1, so check that it is positive before using it. 
+\end{DoxyReturn}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__cyclecounter_8c_a15e94a5a32400864b027b6d54c7963e7_cgraph}
+\end{center}
+\end{figure}
+
+

@@ -1,0 +1,251 @@
+\hypertarget{share_2template_2gromacs_2pull__rotation_8h}{\section{share/template/gromacs/pull\-\_\-rotation.h \-File \-Reference}
+\label{share_2template_2gromacs_2pull__rotation_8h}\index{share/template/gromacs/pull\-\_\-rotation.\-h@{share/template/gromacs/pull\-\_\-rotation.\-h}}
+}
+{\ttfamily \#include \char`\"{}visibility.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}vec.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}typedefs.\-h\char`\"{}}\*
+\-Include dependency graph for pull\-\_\-rotation.\-h\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{share_2template_2gromacs_2pull__rotation_8h__incl}
+\end{center}
+\end{figure}
+\-This graph shows which files directly or indirectly include this file\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{share_2template_2gromacs_2pull__rotation_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_ab80ef94c2b909a1a948639e98e63b612}{\-G\-M\-X\-\_\-\-L\-I\-B\-M\-D\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{share_2template_2gromacs_2pull__rotation_8h_aa078f96c50103aec325b6a554c5f0eb5}{init\-\_\-rot} (\-F\-I\-L\-E $\ast$fplog, \hyperlink{structt__inputrec}{t\-\_\-inputrec} $\ast$ir, int nfile, const \hyperlink{structt__filenm}{t\-\_\-filenm} fnm\mbox{[}$\,$\mbox{]}, \hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box, \hyperlink{structgmx__mtop__t}{gmx\-\_\-mtop\-\_\-t} $\ast$mtop, const \hyperlink{include_2types_2oenv_8h_a6a48d77d95132d7318780544821da6a5}{output\-\_\-env\-\_\-t} oenv, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Verbose, unsigned long \-Flags)
+\begin{DoxyCompactList}\small\item\em \-Initialize the enforced rotation groups. \end{DoxyCompactList}\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{share_2template_2gromacs_2pull__rotation_8h_aa4961bfc9547fb230b5c746a96d46967}{dd\-\_\-make\-\_\-local\-\_\-rotation\-\_\-groups} (\hyperlink{structgmx__domdec__t}{gmx\-\_\-domdec\-\_\-t} $\ast$dd, \hyperlink{structt__rot}{t\-\_\-rot} $\ast$\hyperlink{hxprops_8c_adb6a00314ae684ae974fcce76dea126f}{rot})
+\begin{DoxyCompactList}\small\item\em \-Make a selection of the home atoms for all enforced rotation groups. \end{DoxyCompactList}\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{share_2template_2gromacs_2pull__rotation_8h_a697bc400e3ddbdf1cbfc0037e03cbdca}{do\-\_\-rotation} (\hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr, \hyperlink{structt__inputrec}{t\-\_\-inputrec} $\ast$ir, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a2b515c84b1293071f7584da32ca336c0}{t}, gmx\-\_\-large\-\_\-int\-\_\-t step, \hyperlink{include_2types_2nrnb_8h_adc47bf7d40bee1f733f4c00cf76e85d9}{gmx\-\_\-wallcycle\-\_\-t} wcycle, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-N\-S)
+\begin{DoxyCompactList}\small\item\em \-Calculation of the enforced rotation potential. \end{DoxyCompactList}\item 
+real \hyperlink{share_2template_2gromacs_2pull__rotation_8h_ac990bfdb352481759957710aa3993a31}{add\-\_\-rot\-\_\-forces} (\hyperlink{structt__rot}{t\-\_\-rot} $\ast$\hyperlink{hxprops_8c_adb6a00314ae684ae974fcce76dea126f}{rot}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{copyrite_8c_a0757cfb6fe645a02867727255faa4f8b}{f}\mbox{[}$\,$\mbox{]}, \hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr, gmx\-\_\-large\-\_\-int\-\_\-t step, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a2b515c84b1293071f7584da32ca336c0}{t})
+\begin{DoxyCompactList}\small\item\em \-Add the enforced rotation forces to the official force array. \end{DoxyCompactList}\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_ab80ef94c2b909a1a948639e98e63b612}{\-G\-M\-X\-\_\-\-L\-I\-B\-M\-D\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{share_2template_2gromacs_2pull__rotation_8h_a47520e0126d56a023bfb5a42c12f5403}{finish\-\_\-rot} (\-F\-I\-L\-E $\ast$fplog, \hyperlink{structt__rot}{t\-\_\-rot} $\ast$\hyperlink{hxprops_8c_adb6a00314ae684ae974fcce76dea126f}{rot})
+\begin{DoxyCompactList}\small\item\em \-Close the enforced rotation output files. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{share_2template_2gromacs_2pull__rotation_8h_ac990bfdb352481759957710aa3993a31}{\index{share/template/gromacs/pull\-\_\-rotation.\-h@{share/template/gromacs/pull\-\_\-rotation.\-h}!add\-\_\-rot\-\_\-forces@{add\-\_\-rot\-\_\-forces}}
+\index{add\-\_\-rot\-\_\-forces@{add\-\_\-rot\-\_\-forces}!share/template/gromacs/pull_rotation.h@{share/template/gromacs/pull\-\_\-rotation.\-h}}
+\subsubsection[{add\-\_\-rot\-\_\-forces}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf add\-\_\-rot\-\_\-forces} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-rot} $\ast$}]{rot, }
+\item[{{\bf rvec}}]{f\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf t\-\_\-commrec} $\ast$}]{cr, }
+\item[{gmx\-\_\-large\-\_\-int\-\_\-t}]{step, }
+\item[{real}]{t}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2pull__rotation_8h_ac990bfdb352481759957710aa3993a31}
+
+
+\-Add the enforced rotation forces to the official force array. 
+
+\-Adds the forces from enforced rotation potential to the local forces and sums up the contributions to the rotation potential from all the nodes. \-Since this needs communication, this routine should be called after the \-S\-R forces have been evaluated (in order not to spoil cycle counts). \-This routine also outputs data to the various rotation output files (e.\-g. the potential, the angle of the group, torques and more).
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em rot} & \-Pointer to all the enforced rotation data. \\
+\hline
+{\em f} & \-The local forces to which the rotational forces have to be added. \\
+\hline
+{\em cr} & \-Pointer to \-M\-P\-I communication data. \\
+\hline
+{\em step} & \-The time step, used for output. \\
+\hline
+{\em t} & \-Time, used for output. \\
+\hline
+\end{DoxyParams}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{share_2template_2gromacs_2pull__rotation_8h_ac990bfdb352481759957710aa3993a31_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{share_2template_2gromacs_2pull__rotation_8h_aa4961bfc9547fb230b5c746a96d46967}{\index{share/template/gromacs/pull\-\_\-rotation.\-h@{share/template/gromacs/pull\-\_\-rotation.\-h}!dd\-\_\-make\-\_\-local\-\_\-rotation\-\_\-groups@{dd\-\_\-make\-\_\-local\-\_\-rotation\-\_\-groups}}
+\index{dd\-\_\-make\-\_\-local\-\_\-rotation\-\_\-groups@{dd\-\_\-make\-\_\-local\-\_\-rotation\-\_\-groups}!share/template/gromacs/pull_rotation.h@{share/template/gromacs/pull\-\_\-rotation.\-h}}
+\subsubsection[{dd\-\_\-make\-\_\-local\-\_\-rotation\-\_\-groups}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf dd\-\_\-make\-\_\-local\-\_\-rotation\-\_\-groups} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-domdec\-\_\-t} $\ast$}]{dd, }
+\item[{{\bf t\-\_\-rot} $\ast$}]{rot}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2pull__rotation_8h_aa4961bfc9547fb230b5c746a96d46967}
+
+
+\-Make a selection of the home atoms for all enforced rotation groups. 
+
+\-This routine is similar to dd\-\_\-make\-\_\-local\-\_\-pull\-\_\-groups, but works only with domain decomposition. \-It should be called at every domain decomposition.
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em dd} & \-Structure containing domain decomposition data. \\
+\hline
+{\em rot} & \-Pointer to all the enforced rotation data. \\
+\hline
+\end{DoxyParams}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{share_2template_2gromacs_2pull__rotation_8h_aa4961bfc9547fb230b5c746a96d46967_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{share_2template_2gromacs_2pull__rotation_8h_a697bc400e3ddbdf1cbfc0037e03cbdca}{\index{share/template/gromacs/pull\-\_\-rotation.\-h@{share/template/gromacs/pull\-\_\-rotation.\-h}!do\-\_\-rotation@{do\-\_\-rotation}}
+\index{do\-\_\-rotation@{do\-\_\-rotation}!share/template/gromacs/pull_rotation.h@{share/template/gromacs/pull\-\_\-rotation.\-h}}
+\subsubsection[{do\-\_\-rotation}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf do\-\_\-rotation} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-commrec} $\ast$}]{cr, }
+\item[{{\bf t\-\_\-inputrec} $\ast$}]{ir, }
+\item[{{\bf matrix}}]{box, }
+\item[{{\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{real}]{t, }
+\item[{gmx\-\_\-large\-\_\-int\-\_\-t}]{step, }
+\item[{{\bf gmx\-\_\-wallcycle\-\_\-t}}]{wcycle, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-N\-S}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2pull__rotation_8h_a697bc400e3ddbdf1cbfc0037e03cbdca}
+
+
+\-Calculation of the enforced rotation potential. 
+
+\-This is the main enforced rotation module which is called during every time step. \-Here the rotation potential as well as the resulting forces are calculated.
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em cr} & \-Pointer to \-M\-P\-I communication data. \\
+\hline
+{\em ir} & \-Struct containing \-M\-D input parameters, among those \\
+\hline
+{\em box} & \-Simulation box, needed to make group whole. \\
+\hline
+{\em x} & \-The positions of all the local particles. \\
+\hline
+{\em t} & \-Time. \\
+\hline
+{\em step} & \-The time step. \\
+\hline
+{\em wcycle} & \-During the potential calculation the wallcycles are counted. \-Later they enter the dynamic load balancing. \\
+\hline
+{\em b\-N\-S} & \-After domain decomposition / neighborsearching several local arrays have to be updated (masses, shifts) \\
+\hline
+\end{DoxyParams}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{share_2template_2gromacs_2pull__rotation_8h_a697bc400e3ddbdf1cbfc0037e03cbdca_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{share_2template_2gromacs_2pull__rotation_8h_a47520e0126d56a023bfb5a42c12f5403}{\index{share/template/gromacs/pull\-\_\-rotation.\-h@{share/template/gromacs/pull\-\_\-rotation.\-h}!finish\-\_\-rot@{finish\-\_\-rot}}
+\index{finish\-\_\-rot@{finish\-\_\-rot}!share/template/gromacs/pull_rotation.h@{share/template/gromacs/pull\-\_\-rotation.\-h}}
+\subsubsection[{finish\-\_\-rot}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-M\-D\-\_\-\-E\-X\-P\-O\-R\-T} {\bf void} {\bf finish\-\_\-rot} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fplog, }
+\item[{{\bf t\-\_\-rot} $\ast$}]{rot}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2pull__rotation_8h_a47520e0126d56a023bfb5a42c12f5403}
+
+
+\-Close the enforced rotation output files. 
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em fplog} & \-General output file, normally md.\-log. \\
+\hline
+{\em rot} & \-Pointer to all the enforced rotation data. \\
+\hline
+\end{DoxyParams}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=256pt]{share_2template_2gromacs_2pull__rotation_8h_a47520e0126d56a023bfb5a42c12f5403_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{share_2template_2gromacs_2pull__rotation_8h_aa078f96c50103aec325b6a554c5f0eb5}{\index{share/template/gromacs/pull\-\_\-rotation.\-h@{share/template/gromacs/pull\-\_\-rotation.\-h}!init\-\_\-rot@{init\-\_\-rot}}
+\index{init\-\_\-rot@{init\-\_\-rot}!share/template/gromacs/pull_rotation.h@{share/template/gromacs/pull\-\_\-rotation.\-h}}
+\subsubsection[{init\-\_\-rot}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-M\-D\-\_\-\-E\-X\-P\-O\-R\-T} {\bf void} {\bf init\-\_\-rot} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fplog, }
+\item[{{\bf t\-\_\-inputrec} $\ast$}]{ir, }
+\item[{int}]{nfile, }
+\item[{const {\bf t\-\_\-filenm}}]{fnm\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf t\-\_\-commrec} $\ast$}]{cr, }
+\item[{{\bf rvec} $\ast$}]{x, }
+\item[{{\bf matrix}}]{box, }
+\item[{{\bf gmx\-\_\-mtop\-\_\-t} $\ast$}]{mtop, }
+\item[{const {\bf output\-\_\-env\-\_\-t}}]{oenv, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Verbose, }
+\item[{unsigned long}]{\-Flags}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2pull__rotation_8h_aa078f96c50103aec325b6a554c5f0eb5}
+
+
+\-Initialize the enforced rotation groups. 
+
+\-This routine does the memory allocation for various helper arrays, opens the output files etc.
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em fplog} & \-General output file, normally md.\-log. \\
+\hline
+{\em ir} & \-Struct containing \-M\-D input parameters, among those also the enforced rotation parameters. \\
+\hline
+{\em nfile} & \-Number of entries in the fnm structure. \\
+\hline
+{\em fnm} & \-The filenames struct containing also the names of the rotation output files. \\
+\hline
+{\em cr} & \-Pointer to \-M\-P\-I communication data. \\
+\hline
+{\em x} & \-The positions of all \-M\-D particles. \\
+\hline
+{\em mtop} & \-Molecular topology. \\
+\hline
+{\em oenv} & \-Needed to open the rotation output xvgr file. \\
+\hline
+{\em \-Flags} & \-Flags passed over from main, used to determine whether or not we are doing a rerun. \\
+\hline
+\end{DoxyParams}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{share_2template_2gromacs_2pull__rotation_8h_aa078f96c50103aec325b6a554c5f0eb5_cgraph}
+\end{center}
+\end{figure}
+
+

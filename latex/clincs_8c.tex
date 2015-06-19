@@ -1,0 +1,611 @@
+\hypertarget{clincs_8c}{\section{src/mdlib/clincs.c \-File \-Reference}
+\label{clincs_8c}\index{src/mdlib/clincs.\-c@{src/mdlib/clincs.\-c}}
+}
+{\ttfamily \#include $<$math.\-h$>$}\*
+{\ttfamily \#include \char`\"{}main.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}constr.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}copyrite.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}physics.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}vec.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}pbc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}smalloc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}mdrun.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}nrnb.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}domdec.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}partdec.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}mtop\-\_\-util.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmxfio.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-omp\-\_\-nthreads.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-omp.\-h\char`\"{}}\*
+\-Include dependency graph for clincs.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{clincs_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structlincs__thread__t}{lincs\-\_\-thread\-\_\-t}
+\item 
+struct \hyperlink{structgmx__lincsdata}{gmx\-\_\-lincsdata}
+\end{DoxyCompactItemize}
+\subsection*{\-Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \hyperlink{structgmx__lincsdata}{gmx\-\_\-lincsdata} \hyperlink{clincs_8c_a16da22b4db362d0234c89bc39d4afae2}{t\-\_\-gmx\-\_\-lincsdata}
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+real $\ast$ \hyperlink{clincs_8c_a1aa0bb6d74521d57705bc27e82664f5f}{lincs\-\_\-rmsd\-\_\-data} (struct \hyperlink{structgmx__lincsdata}{gmx\-\_\-lincsdata} $\ast$lincsd)
+\item 
+real \hyperlink{clincs_8c_ac47c9e7823b458a167c893873ca81227}{lincs\-\_\-rmsd} (struct \hyperlink{structgmx__lincsdata}{gmx\-\_\-lincsdata} $\ast$lincsd, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-S\-D2)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{clincs_8c_a622215520da062a4dd0e2207b0bc0d61}{lincs\-\_\-matrix\-\_\-expand} (const struct \hyperlink{structgmx__lincsdata}{gmx\-\_\-lincsdata} $\ast$lincsd, int b0, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a8d962cfb8604351c10d22a52e1c1782c}{b1}, const real $\ast$blcc, real $\ast$rhs1, real $\ast$rhs2, real $\ast$sol)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{clincs_8c_a820e4205943f464dbf947117790021df}{lincs\-\_\-update\-\_\-atoms\-\_\-noind} (int ncons, const int $\ast$bla, real prefac, const real $\ast$fac, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae039a6f39df62bd858e5e3f5ec77b24b}{r}, const real $\ast$invmass, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x})
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{clincs_8c_a28925231cf61ecf584248f2f5507e4cb}{lincs\-\_\-update\-\_\-atoms\-\_\-ind} (int ncons, const int $\ast$ind, const int $\ast$bla, real prefac, const real $\ast$fac, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae039a6f39df62bd858e5e3f5ec77b24b}{r}, const real $\ast$invmass, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x})
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{clincs_8c_ad05c1d44cc26f85cceb10d787cb6f5ca}{lincs\-\_\-update\-\_\-atoms} (struct \hyperlink{structgmx__lincsdata}{gmx\-\_\-lincsdata} $\ast$li, int th, real prefac, const real $\ast$fac, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae039a6f39df62bd858e5e3f5ec77b24b}{r}, const real $\ast$invmass, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x})
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{clincs_8c_a8119461e80606b9075b03d7f47ba87fb}{do\-\_\-lincsp} (\hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$\hyperlink{copyrite_8c_a0757cfb6fe645a02867727255faa4f8b}{f}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$fp, \hyperlink{structt__pbc}{t\-\_\-pbc} $\ast$pbc, struct \hyperlink{structgmx__lincsdata}{gmx\-\_\-lincsdata} $\ast$lincsd, int th, real $\ast$invmass, int econq, real $\ast$dvdlambda, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Calc\-Vir, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aef0bf341f56ce75f09dbb64350488a61}{tensor} rmdf)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{clincs_8c_a9193f2ef1ff3364367ad3efb13098613}{do\-\_\-lincs} (\hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$xp, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box, \hyperlink{structt__pbc}{t\-\_\-pbc} $\ast$pbc, struct \hyperlink{structgmx__lincsdata}{gmx\-\_\-lincsdata} $\ast$lincsd, int th, real $\ast$invmass, \hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Calc\-Lambda, real wangle, int $\ast$warn, real invdt, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a339df93739a405c3e4b0506624fa27a5}{v}, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Calc\-Vir, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aef0bf341f56ce75f09dbb64350488a61}{tensor} vir\-\_\-r\-\_\-m\-\_\-dr)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{clincs_8c_a8c15b348a10b04f32f85aa55d80b06c4}{set\-\_\-lincs\-\_\-matrix} (struct \hyperlink{structgmx__lincsdata}{gmx\-\_\-lincsdata} $\ast$li, real $\ast$invmass, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_aec47b6dda9c386285e755f058a846af8}{lambda})
+\item 
+static int \hyperlink{clincs_8c_a4a5b874d11ec24e1ffbaadba6a4dca35}{count\-\_\-triangle\-\_\-constraints} (\hyperlink{structt__ilist}{t\-\_\-ilist} $\ast$ilist, \hyperlink{structt__blocka}{t\-\_\-blocka} $\ast$at2con)
+\item 
+static \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{clincs_8c_a7112f08c8ac20ceab9d64242ce36e456}{more\-\_\-than\-\_\-two\-\_\-sequential\-\_\-constraints} (const \hyperlink{structt__ilist}{t\-\_\-ilist} $\ast$ilist, const \hyperlink{structt__blocka}{t\-\_\-blocka} $\ast$at2con)
+\item 
+static int \hyperlink{clincs_8c_ab6208952da57cda9af5866150e7d0546}{int\-\_\-comp} (const \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a0880879736d1ab747a972d1942421886}{a}, const \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afb462a5dea72ae7992f073bfd756fb5f}{b})
+\item 
+\hyperlink{include_2types_2constr_8h_a0884037cdae56885954083814a99d970}{gmx\-\_\-lincsdata\-\_\-t} \hyperlink{clincs_8c_a5dd370f48bace19d6c1eb1a8f9aa9646}{init\-\_\-lincs} (\-F\-I\-L\-E $\ast$fplog, \hyperlink{structgmx__mtop__t}{gmx\-\_\-mtop\-\_\-t} $\ast$mtop, int nflexcon\-\_\-global, \hyperlink{structt__blocka}{t\-\_\-blocka} $\ast$at2con, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-P\-L\-I\-N\-C\-S, int n\-Iter, int n\-Proj\-Order)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{clincs_8c_a2c6701a6526b3708531bb02cb915c1eb}{lincs\-\_\-thread\-\_\-setup} (struct \hyperlink{structgmx__lincsdata}{gmx\-\_\-lincsdata} $\ast$li, int natoms)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{clincs_8c_a00fca7d82294baa73239e743b5ac24db}{set\-\_\-lincs} (\hyperlink{structt__idef}{t\-\_\-idef} $\ast$idef, \hyperlink{structt__mdatoms}{t\-\_\-mdatoms} $\ast$md, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Dynamics, \hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr, struct \hyperlink{structgmx__lincsdata}{gmx\-\_\-lincsdata} $\ast$li)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{clincs_8c_ad9868145db49b894cb2e3ec3ab41cd34}{lincs\-\_\-warning} (\-F\-I\-L\-E $\ast$fplog, \hyperlink{structgmx__domdec__t}{gmx\-\_\-domdec\-\_\-t} $\ast$dd, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$xprime, \hyperlink{structt__pbc}{t\-\_\-pbc} $\ast$pbc, int ncons, int $\ast$bla, real $\ast$bllen, real wangle, int maxwarn, int $\ast$warncount)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{clincs_8c_a0e5c69b5d2694839aaeb911f35bbe3fd}{cconerr} (\hyperlink{structgmx__domdec__t}{gmx\-\_\-domdec\-\_\-t} $\ast$dd, int ncons, int $\ast$bla, real $\ast$bllen, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}, \hyperlink{structt__pbc}{t\-\_\-pbc} $\ast$pbc, real $\ast$ncons\-\_\-loc, real $\ast$ssd, real $\ast$max, int $\ast$imax)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{clincs_8c_a784eb6c0c06b2d38dbde9e3e3e601ec8}{dump\-\_\-conf} (\hyperlink{structgmx__domdec__t}{gmx\-\_\-domdec\-\_\-t} $\ast$dd, struct \hyperlink{structgmx__lincsdata}{gmx\-\_\-lincsdata} $\ast$li, \hyperlink{structt__blocka}{t\-\_\-blocka} $\ast$at2con, char $\ast$name, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-All, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box)
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{clincs_8c_ad85312774793236befe54276c9e99a8b}{constrain\-\_\-lincs} (\-F\-I\-L\-E $\ast$fplog, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Log, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Ener, \hyperlink{structt__inputrec}{t\-\_\-inputrec} $\ast$ir, gmx\-\_\-large\-\_\-int\-\_\-t step, struct \hyperlink{structgmx__lincsdata}{gmx\-\_\-lincsdata} $\ast$lincsd, \hyperlink{structt__mdatoms}{t\-\_\-mdatoms} $\ast$md, \hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$xprime, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$min\-\_\-proj, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box, \hyperlink{structt__pbc}{t\-\_\-pbc} $\ast$pbc, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_aec47b6dda9c386285e755f058a846af8}{lambda}, real $\ast$dvdlambda, real invdt, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a339df93739a405c3e4b0506624fa27a5}{v}, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Calc\-Vir, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aef0bf341f56ce75f09dbb64350488a61}{tensor} vir\-\_\-r\-\_\-m\-\_\-dr, int econq, \hyperlink{structt__nrnb}{t\-\_\-nrnb} $\ast$nrnb, int maxwarn, int $\ast$warncount)
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Typedef \-Documentation}
+\hypertarget{clincs_8c_a16da22b4db362d0234c89bc39d4afae2}{\index{clincs.\-c@{clincs.\-c}!t\-\_\-gmx\-\_\-lincsdata@{t\-\_\-gmx\-\_\-lincsdata}}
+\index{t\-\_\-gmx\-\_\-lincsdata@{t\-\_\-gmx\-\_\-lincsdata}!clincs.c@{clincs.\-c}}
+\subsubsection[{t\-\_\-gmx\-\_\-lincsdata}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf gmx\-\_\-lincsdata}  {\bf t\-\_\-gmx\-\_\-lincsdata}}}\label{clincs_8c_a16da22b4db362d0234c89bc39d4afae2}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{clincs_8c_a0e5c69b5d2694839aaeb911f35bbe3fd}{\index{clincs.\-c@{clincs.\-c}!cconerr@{cconerr}}
+\index{cconerr@{cconerr}!clincs.c@{clincs.\-c}}
+\subsubsection[{cconerr}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf cconerr} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-domdec\-\_\-t} $\ast$}]{dd, }
+\item[{int}]{ncons, }
+\item[{int $\ast$}]{bla, }
+\item[{real $\ast$}]{bllen, }
+\item[{{\bf rvec} $\ast$}]{x, }
+\item[{{\bf t\-\_\-pbc} $\ast$}]{pbc, }
+\item[{real $\ast$}]{ncons\-\_\-loc, }
+\item[{real $\ast$}]{ssd, }
+\item[{real $\ast$}]{max, }
+\item[{int $\ast$}]{imax}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{clincs_8c_a0e5c69b5d2694839aaeb911f35bbe3fd}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=304pt]{clincs_8c_a0e5c69b5d2694839aaeb911f35bbe3fd_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=248pt]{clincs_8c_a0e5c69b5d2694839aaeb911f35bbe3fd_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{clincs_8c_ad85312774793236befe54276c9e99a8b}{\index{clincs.\-c@{clincs.\-c}!constrain\-\_\-lincs@{constrain\-\_\-lincs}}
+\index{constrain\-\_\-lincs@{constrain\-\_\-lincs}!clincs.c@{clincs.\-c}}
+\subsubsection[{constrain\-\_\-lincs}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf constrain\-\_\-lincs} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fplog, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Log, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Ener, }
+\item[{{\bf t\-\_\-inputrec} $\ast$}]{ir, }
+\item[{gmx\-\_\-large\-\_\-int\-\_\-t}]{step, }
+\item[{struct {\bf gmx\-\_\-lincsdata} $\ast$}]{lincsd, }
+\item[{{\bf t\-\_\-mdatoms} $\ast$}]{md, }
+\item[{{\bf t\-\_\-commrec} $\ast$}]{cr, }
+\item[{{\bf rvec} $\ast$}]{x, }
+\item[{{\bf rvec} $\ast$}]{xprime, }
+\item[{{\bf rvec} $\ast$}]{min\-\_\-proj, }
+\item[{{\bf matrix}}]{box, }
+\item[{{\bf t\-\_\-pbc} $\ast$}]{pbc, }
+\item[{real}]{lambda, }
+\item[{real $\ast$}]{dvdlambda, }
+\item[{real}]{invdt, }
+\item[{{\bf rvec} $\ast$}]{v, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Calc\-Vir, }
+\item[{{\bf tensor}}]{vir\-\_\-r\-\_\-m\-\_\-dr, }
+\item[{int}]{econq, }
+\item[{{\bf t\-\_\-nrnb} $\ast$}]{nrnb, }
+\item[{int}]{maxwarn, }
+\item[{int $\ast$}]{warncount}
+\end{DoxyParamCaption}
+)}}\label{clincs_8c_ad85312774793236befe54276c9e99a8b}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{clincs_8c_ad85312774793236befe54276c9e99a8b_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{clincs_8c_a4a5b874d11ec24e1ffbaadba6a4dca35}{\index{clincs.\-c@{clincs.\-c}!count\-\_\-triangle\-\_\-constraints@{count\-\_\-triangle\-\_\-constraints}}
+\index{count\-\_\-triangle\-\_\-constraints@{count\-\_\-triangle\-\_\-constraints}!clincs.c@{clincs.\-c}}
+\subsubsection[{count\-\_\-triangle\-\_\-constraints}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf count\-\_\-triangle\-\_\-constraints} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-ilist} $\ast$}]{ilist, }
+\item[{{\bf t\-\_\-blocka} $\ast$}]{at2con}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{clincs_8c_a4a5b874d11ec24e1ffbaadba6a4dca35}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{clincs_8c_a4a5b874d11ec24e1ffbaadba6a4dca35_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{clincs_8c_a9193f2ef1ff3364367ad3efb13098613}{\index{clincs.\-c@{clincs.\-c}!do\-\_\-lincs@{do\-\_\-lincs}}
+\index{do\-\_\-lincs@{do\-\_\-lincs}!clincs.c@{clincs.\-c}}
+\subsubsection[{do\-\_\-lincs}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf do\-\_\-lincs} (
+\begin{DoxyParamCaption}
+\item[{{\bf rvec} $\ast$}]{x, }
+\item[{{\bf rvec} $\ast$}]{xp, }
+\item[{{\bf matrix}}]{box, }
+\item[{{\bf t\-\_\-pbc} $\ast$}]{pbc, }
+\item[{struct {\bf gmx\-\_\-lincsdata} $\ast$}]{lincsd, }
+\item[{int}]{th, }
+\item[{real $\ast$}]{invmass, }
+\item[{{\bf t\-\_\-commrec} $\ast$}]{cr, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Calc\-Lambda, }
+\item[{real}]{wangle, }
+\item[{int $\ast$}]{warn, }
+\item[{real}]{invdt, }
+\item[{{\bf rvec} $\ast$}]{v, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Calc\-Vir, }
+\item[{{\bf tensor}}]{vir\-\_\-r\-\_\-m\-\_\-dr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{clincs_8c_a9193f2ef1ff3364367ad3efb13098613}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{clincs_8c_a9193f2ef1ff3364367ad3efb13098613_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=252pt]{clincs_8c_a9193f2ef1ff3364367ad3efb13098613_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{clincs_8c_a8119461e80606b9075b03d7f47ba87fb}{\index{clincs.\-c@{clincs.\-c}!do\-\_\-lincsp@{do\-\_\-lincsp}}
+\index{do\-\_\-lincsp@{do\-\_\-lincsp}!clincs.c@{clincs.\-c}}
+\subsubsection[{do\-\_\-lincsp}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf do\-\_\-lincsp} (
+\begin{DoxyParamCaption}
+\item[{{\bf rvec} $\ast$}]{x, }
+\item[{{\bf rvec} $\ast$}]{f, }
+\item[{{\bf rvec} $\ast$}]{fp, }
+\item[{{\bf t\-\_\-pbc} $\ast$}]{pbc, }
+\item[{struct {\bf gmx\-\_\-lincsdata} $\ast$}]{lincsd, }
+\item[{int}]{th, }
+\item[{real $\ast$}]{invmass, }
+\item[{int}]{econq, }
+\item[{real $\ast$}]{dvdlambda, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Calc\-Vir, }
+\item[{{\bf tensor}}]{rmdf}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{clincs_8c_a8119461e80606b9075b03d7f47ba87fb}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{clincs_8c_a8119461e80606b9075b03d7f47ba87fb_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=256pt]{clincs_8c_a8119461e80606b9075b03d7f47ba87fb_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{clincs_8c_a784eb6c0c06b2d38dbde9e3e3e601ec8}{\index{clincs.\-c@{clincs.\-c}!dump\-\_\-conf@{dump\-\_\-conf}}
+\index{dump\-\_\-conf@{dump\-\_\-conf}!clincs.c@{clincs.\-c}}
+\subsubsection[{dump\-\_\-conf}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf dump\-\_\-conf} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-domdec\-\_\-t} $\ast$}]{dd, }
+\item[{struct {\bf gmx\-\_\-lincsdata} $\ast$}]{li, }
+\item[{{\bf t\-\_\-blocka} $\ast$}]{at2con, }
+\item[{char $\ast$}]{name, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-All, }
+\item[{{\bf rvec} $\ast$}]{x, }
+\item[{{\bf matrix}}]{box}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{clincs_8c_a784eb6c0c06b2d38dbde9e3e3e601ec8}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{clincs_8c_a784eb6c0c06b2d38dbde9e3e3e601ec8_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{clincs_8c_a5dd370f48bace19d6c1eb1a8f9aa9646}{\index{clincs.\-c@{clincs.\-c}!init\-\_\-lincs@{init\-\_\-lincs}}
+\index{init\-\_\-lincs@{init\-\_\-lincs}!clincs.c@{clincs.\-c}}
+\subsubsection[{init\-\_\-lincs}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-lincsdata\-\_\-t} {\bf init\-\_\-lincs} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fplog, }
+\item[{{\bf gmx\-\_\-mtop\-\_\-t} $\ast$}]{mtop, }
+\item[{int}]{nflexcon\-\_\-global, }
+\item[{{\bf t\-\_\-blocka} $\ast$}]{at2con, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-P\-L\-I\-N\-C\-S, }
+\item[{int}]{n\-Iter, }
+\item[{int}]{n\-Proj\-Order}
+\end{DoxyParamCaption}
+)}}\label{clincs_8c_a5dd370f48bace19d6c1eb1a8f9aa9646}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{clincs_8c_a5dd370f48bace19d6c1eb1a8f9aa9646_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{clincs_8c_a5dd370f48bace19d6c1eb1a8f9aa9646_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{clincs_8c_ab6208952da57cda9af5866150e7d0546}{\index{clincs.\-c@{clincs.\-c}!int\-\_\-comp@{int\-\_\-comp}}
+\index{int\-\_\-comp@{int\-\_\-comp}!clincs.c@{clincs.\-c}}
+\subsubsection[{int\-\_\-comp}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf int\-\_\-comp} (
+\begin{DoxyParamCaption}
+\item[{const {\bf void} $\ast$}]{a, }
+\item[{const {\bf void} $\ast$}]{b}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{clincs_8c_ab6208952da57cda9af5866150e7d0546}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=228pt]{clincs_8c_ab6208952da57cda9af5866150e7d0546_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{clincs_8c_a622215520da062a4dd0e2207b0bc0d61}{\index{clincs.\-c@{clincs.\-c}!lincs\-\_\-matrix\-\_\-expand@{lincs\-\_\-matrix\-\_\-expand}}
+\index{lincs\-\_\-matrix\-\_\-expand@{lincs\-\_\-matrix\-\_\-expand}!clincs.c@{clincs.\-c}}
+\subsubsection[{lincs\-\_\-matrix\-\_\-expand}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf lincs\-\_\-matrix\-\_\-expand} (
+\begin{DoxyParamCaption}
+\item[{const struct {\bf gmx\-\_\-lincsdata} $\ast$}]{lincsd, }
+\item[{int}]{b0, }
+\item[{int}]{b1, }
+\item[{const real $\ast$}]{blcc, }
+\item[{real $\ast$}]{rhs1, }
+\item[{real $\ast$}]{rhs2, }
+\item[{real $\ast$}]{sol}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{clincs_8c_a622215520da062a4dd0e2207b0bc0d61}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{clincs_8c_a622215520da062a4dd0e2207b0bc0d61_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{clincs_8c_ac47c9e7823b458a167c893873ca81227}{\index{clincs.\-c@{clincs.\-c}!lincs\-\_\-rmsd@{lincs\-\_\-rmsd}}
+\index{lincs\-\_\-rmsd@{lincs\-\_\-rmsd}!clincs.c@{clincs.\-c}}
+\subsubsection[{lincs\-\_\-rmsd}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf lincs\-\_\-rmsd} (
+\begin{DoxyParamCaption}
+\item[{struct {\bf gmx\-\_\-lincsdata} $\ast$}]{lincsd, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-S\-D2}
+\end{DoxyParamCaption}
+)}}\label{clincs_8c_ac47c9e7823b458a167c893873ca81227}
+\hypertarget{clincs_8c_a1aa0bb6d74521d57705bc27e82664f5f}{\index{clincs.\-c@{clincs.\-c}!lincs\-\_\-rmsd\-\_\-data@{lincs\-\_\-rmsd\-\_\-data}}
+\index{lincs\-\_\-rmsd\-\_\-data@{lincs\-\_\-rmsd\-\_\-data}!clincs.c@{clincs.\-c}}
+\subsubsection[{lincs\-\_\-rmsd\-\_\-data}]{\setlength{\rightskip}{0pt plus 5cm}real$\ast$ {\bf lincs\-\_\-rmsd\-\_\-data} (
+\begin{DoxyParamCaption}
+\item[{struct {\bf gmx\-\_\-lincsdata} $\ast$}]{lincsd}
+\end{DoxyParamCaption}
+)}}\label{clincs_8c_a1aa0bb6d74521d57705bc27e82664f5f}
+\hypertarget{clincs_8c_a2c6701a6526b3708531bb02cb915c1eb}{\index{clincs.\-c@{clincs.\-c}!lincs\-\_\-thread\-\_\-setup@{lincs\-\_\-thread\-\_\-setup}}
+\index{lincs\-\_\-thread\-\_\-setup@{lincs\-\_\-thread\-\_\-setup}!clincs.c@{clincs.\-c}}
+\subsubsection[{lincs\-\_\-thread\-\_\-setup}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf lincs\-\_\-thread\-\_\-setup} (
+\begin{DoxyParamCaption}
+\item[{struct {\bf gmx\-\_\-lincsdata} $\ast$}]{li, }
+\item[{int}]{natoms}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{clincs_8c_a2c6701a6526b3708531bb02cb915c1eb}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=270pt]{clincs_8c_a2c6701a6526b3708531bb02cb915c1eb_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{clincs_8c_ad05c1d44cc26f85cceb10d787cb6f5ca}{\index{clincs.\-c@{clincs.\-c}!lincs\-\_\-update\-\_\-atoms@{lincs\-\_\-update\-\_\-atoms}}
+\index{lincs\-\_\-update\-\_\-atoms@{lincs\-\_\-update\-\_\-atoms}!clincs.c@{clincs.\-c}}
+\subsubsection[{lincs\-\_\-update\-\_\-atoms}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf lincs\-\_\-update\-\_\-atoms} (
+\begin{DoxyParamCaption}
+\item[{struct {\bf gmx\-\_\-lincsdata} $\ast$}]{li, }
+\item[{int}]{th, }
+\item[{real}]{prefac, }
+\item[{const real $\ast$}]{fac, }
+\item[{{\bf rvec} $\ast$}]{r, }
+\item[{const real $\ast$}]{invmass, }
+\item[{{\bf rvec} $\ast$}]{x}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{clincs_8c_ad05c1d44cc26f85cceb10d787cb6f5ca}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{clincs_8c_ad05c1d44cc26f85cceb10d787cb6f5ca_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{clincs_8c_ad05c1d44cc26f85cceb10d787cb6f5ca_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{clincs_8c_a28925231cf61ecf584248f2f5507e4cb}{\index{clincs.\-c@{clincs.\-c}!lincs\-\_\-update\-\_\-atoms\-\_\-ind@{lincs\-\_\-update\-\_\-atoms\-\_\-ind}}
+\index{lincs\-\_\-update\-\_\-atoms\-\_\-ind@{lincs\-\_\-update\-\_\-atoms\-\_\-ind}!clincs.c@{clincs.\-c}}
+\subsubsection[{lincs\-\_\-update\-\_\-atoms\-\_\-ind}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf lincs\-\_\-update\-\_\-atoms\-\_\-ind} (
+\begin{DoxyParamCaption}
+\item[{int}]{ncons, }
+\item[{const int $\ast$}]{ind, }
+\item[{const int $\ast$}]{bla, }
+\item[{real}]{prefac, }
+\item[{const real $\ast$}]{fac, }
+\item[{{\bf rvec} $\ast$}]{r, }
+\item[{const real $\ast$}]{invmass, }
+\item[{{\bf rvec} $\ast$}]{x}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{clincs_8c_a28925231cf61ecf584248f2f5507e4cb}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{clincs_8c_a28925231cf61ecf584248f2f5507e4cb_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{clincs_8c_a820e4205943f464dbf947117790021df}{\index{clincs.\-c@{clincs.\-c}!lincs\-\_\-update\-\_\-atoms\-\_\-noind@{lincs\-\_\-update\-\_\-atoms\-\_\-noind}}
+\index{lincs\-\_\-update\-\_\-atoms\-\_\-noind@{lincs\-\_\-update\-\_\-atoms\-\_\-noind}!clincs.c@{clincs.\-c}}
+\subsubsection[{lincs\-\_\-update\-\_\-atoms\-\_\-noind}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf lincs\-\_\-update\-\_\-atoms\-\_\-noind} (
+\begin{DoxyParamCaption}
+\item[{int}]{ncons, }
+\item[{const int $\ast$}]{bla, }
+\item[{real}]{prefac, }
+\item[{const real $\ast$}]{fac, }
+\item[{{\bf rvec} $\ast$}]{r, }
+\item[{const real $\ast$}]{invmass, }
+\item[{{\bf rvec} $\ast$}]{x}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{clincs_8c_a820e4205943f464dbf947117790021df}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{clincs_8c_a820e4205943f464dbf947117790021df_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{clincs_8c_ad9868145db49b894cb2e3ec3ab41cd34}{\index{clincs.\-c@{clincs.\-c}!lincs\-\_\-warning@{lincs\-\_\-warning}}
+\index{lincs\-\_\-warning@{lincs\-\_\-warning}!clincs.c@{clincs.\-c}}
+\subsubsection[{lincs\-\_\-warning}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf lincs\-\_\-warning} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fplog, }
+\item[{{\bf gmx\-\_\-domdec\-\_\-t} $\ast$}]{dd, }
+\item[{{\bf rvec} $\ast$}]{x, }
+\item[{{\bf rvec} $\ast$}]{xprime, }
+\item[{{\bf t\-\_\-pbc} $\ast$}]{pbc, }
+\item[{int}]{ncons, }
+\item[{int $\ast$}]{bla, }
+\item[{real $\ast$}]{bllen, }
+\item[{real}]{wangle, }
+\item[{int}]{maxwarn, }
+\item[{int $\ast$}]{warncount}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{clincs_8c_ad9868145db49b894cb2e3ec3ab41cd34}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{clincs_8c_ad9868145db49b894cb2e3ec3ab41cd34_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=274pt]{clincs_8c_ad9868145db49b894cb2e3ec3ab41cd34_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{clincs_8c_a7112f08c8ac20ceab9d64242ce36e456}{\index{clincs.\-c@{clincs.\-c}!more\-\_\-than\-\_\-two\-\_\-sequential\-\_\-constraints@{more\-\_\-than\-\_\-two\-\_\-sequential\-\_\-constraints}}
+\index{more\-\_\-than\-\_\-two\-\_\-sequential\-\_\-constraints@{more\-\_\-than\-\_\-two\-\_\-sequential\-\_\-constraints}!clincs.c@{clincs.\-c}}
+\subsubsection[{more\-\_\-than\-\_\-two\-\_\-sequential\-\_\-constraints}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gmx\-\_\-bool} {\bf more\-\_\-than\-\_\-two\-\_\-sequential\-\_\-constraints} (
+\begin{DoxyParamCaption}
+\item[{const {\bf t\-\_\-ilist} $\ast$}]{ilist, }
+\item[{const {\bf t\-\_\-blocka} $\ast$}]{at2con}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{clincs_8c_a7112f08c8ac20ceab9d64242ce36e456}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{clincs_8c_a7112f08c8ac20ceab9d64242ce36e456_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{clincs_8c_a00fca7d82294baa73239e743b5ac24db}{\index{clincs.\-c@{clincs.\-c}!set\-\_\-lincs@{set\-\_\-lincs}}
+\index{set\-\_\-lincs@{set\-\_\-lincs}!clincs.c@{clincs.\-c}}
+\subsubsection[{set\-\_\-lincs}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf set\-\_\-lincs} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-idef} $\ast$}]{idef, }
+\item[{{\bf t\-\_\-mdatoms} $\ast$}]{md, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Dynamics, }
+\item[{{\bf t\-\_\-commrec} $\ast$}]{cr, }
+\item[{struct {\bf gmx\-\_\-lincsdata} $\ast$}]{li}
+\end{DoxyParamCaption}
+)}}\label{clincs_8c_a00fca7d82294baa73239e743b5ac24db}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=296pt]{clincs_8c_a00fca7d82294baa73239e743b5ac24db_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{clincs_8c_a8c15b348a10b04f32f85aa55d80b06c4}{\index{clincs.\-c@{clincs.\-c}!set\-\_\-lincs\-\_\-matrix@{set\-\_\-lincs\-\_\-matrix}}
+\index{set\-\_\-lincs\-\_\-matrix@{set\-\_\-lincs\-\_\-matrix}!clincs.c@{clincs.\-c}}
+\subsubsection[{set\-\_\-lincs\-\_\-matrix}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf set\-\_\-lincs\-\_\-matrix} (
+\begin{DoxyParamCaption}
+\item[{struct {\bf gmx\-\_\-lincsdata} $\ast$}]{li, }
+\item[{real $\ast$}]{invmass, }
+\item[{real}]{lambda}
+\end{DoxyParamCaption}
+)}}\label{clincs_8c_a8c15b348a10b04f32f85aa55d80b06c4}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=264pt]{clincs_8c_a8c15b348a10b04f32f85aa55d80b06c4_cgraph}
+\end{center}
+\end{figure}
+
+

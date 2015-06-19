@@ -1,0 +1,331 @@
+\hypertarget{tpbconv_8c}{\section{src/kernel/tpbconv.c \-File \-Reference}
+\label{tpbconv_8c}\index{src/kernel/tpbconv.\-c@{src/kernel/tpbconv.\-c}}
+}
+{\ttfamily \#include $<$math.\-h$>$}\*
+{\ttfamily \#include \char`\"{}index.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-fatal.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}string2.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}sysstuff.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}smalloc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}macros.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}names.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}typedefs.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}tpxio.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}trnio.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}enxio.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}readir.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}statutil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}copyrite.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}futil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}vec.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}mtop\-\_\-util.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}random.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}checkpoint.\-h\char`\"{}}\*
+\-Include dependency graph for tpbconv.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tpbconv_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{tpbconv_8c_a7f5d08308b93bec2fad11b973f971047}{\-R\-A\-N\-G\-E\-C\-H\-K}(\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a3c7542401c1cb8bd37ef5e7d9eb0f5a8}{i}, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n})~if ((\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a3c7542401c1cb8bd37ef5e7d9eb0f5a8}{i}) $>$= (\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n})) \hyperlink{gmx__fatal_8c_a11dd5c494ab8edb3c42d2bd1c73dc5b4}{gmx\-\_\-fatal}(\hyperlink{share_2template_2gromacs_2gmx__fatal_8h_ad420b10b269f0310c1ace73100fb5aad}{\-F\-A\-R\-G\-S}, \char`\"{}\-Your \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a49fd977001162d7256c8fcd293f9d12a}{index} file contains atomnumbers (e.\-g. \%\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae624f265c646670d373e9de0306f184b}{d})$\backslash$nthat are larger than the number of atoms \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a5ac1e96244316833544f4a5edc3edfc9}{in} the tpr file (\%\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae624f265c646670d373e9de0306f184b}{d})\char`\"{}, (i), (\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}))
+\item 
+\#define \hyperlink{tpbconv_8c_a8485f4e81de2537e6a0935626167a775}{\-N\-F\-I\-L\-E}~\hyperlink{share_2template_2gromacs_2macros_8h_a0883345a58f8f63aefa249a4f127f707}{asize}(fnm)
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} $\ast$ \hyperlink{tpbconv_8c_ac0c4653d282a597a2bb196556c603016}{b\-Keep\-It} (int gnx, int natoms, \hyperlink{include_2types_2simple_8h_ad3f47cdb48677e516e2049719612c737}{atom\-\_\-id} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a49fd977001162d7256c8fcd293f9d12a}{index}\mbox{[}$\,$\mbox{]})
+\item 
+static \hyperlink{include_2types_2simple_8h_ad3f47cdb48677e516e2049719612c737}{atom\-\_\-id} $\ast$ \hyperlink{tpbconv_8c_a29e2c46c6390f1a47104f3bcacd7946d}{invind} (int gnx, int natoms, \hyperlink{include_2types_2simple_8h_ad3f47cdb48677e516e2049719612c737}{atom\-\_\-id} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a49fd977001162d7256c8fcd293f9d12a}{index}\mbox{[}$\,$\mbox{]})
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{tpbconv_8c_a8d0cf25f7e0bef1687c115219fca8176}{reduce\-\_\-block} (\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Keep\mbox{[}$\,$\mbox{]}, \hyperlink{structt__block}{t\-\_\-block} $\ast$block, const char $\ast$name)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{tpbconv_8c_a8b9544d4704db3edb919dc37cde07c42}{reduce\-\_\-blocka} (\hyperlink{include_2types_2simple_8h_ad3f47cdb48677e516e2049719612c737}{atom\-\_\-id} invindex\mbox{[}$\,$\mbox{]}, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Keep\mbox{[}$\,$\mbox{]}, \hyperlink{structt__blocka}{t\-\_\-blocka} $\ast$block, const char $\ast$name)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{tpbconv_8c_a2ea75a44bc56505c20b593c4091e1488}{reduce\-\_\-rvec} (int gnx, \hyperlink{include_2types_2simple_8h_ad3f47cdb48677e516e2049719612c737}{atom\-\_\-id} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a49fd977001162d7256c8fcd293f9d12a}{index}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} vv\mbox{[}$\,$\mbox{]})
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{tpbconv_8c_a352b8650ec4ad3d6915c1e3a6d84beb4}{reduce\-\_\-atom} (int gnx, \hyperlink{include_2types_2simple_8h_ad3f47cdb48677e516e2049719612c737}{atom\-\_\-id} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a49fd977001162d7256c8fcd293f9d12a}{index}\mbox{[}$\,$\mbox{]}, \hyperlink{structt__atom}{t\-\_\-atom} atom\mbox{[}$\,$\mbox{]}, char $\ast$$\ast$$\ast$atomname, int $\ast$nres, \hyperlink{structt__resinfo}{t\-\_\-resinfo} $\ast$resinfo)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{tpbconv_8c_afb92645220888dca271a5806ae3fd719}{reduce\-\_\-ilist} (\hyperlink{include_2types_2simple_8h_ad3f47cdb48677e516e2049719612c737}{atom\-\_\-id} invindex\mbox{[}$\,$\mbox{]}, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Keep\mbox{[}$\,$\mbox{]}, \hyperlink{structt__ilist}{t\-\_\-ilist} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a22a047c2a4dad9e4fc29922457c9697b}{il}, int nratoms, const char $\ast$name)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{tpbconv_8c_aaedef4169214bf6209b3cc6d11b0ec16}{reduce\-\_\-topology\-\_\-x} (int gnx, \hyperlink{include_2types_2simple_8h_ad3f47cdb48677e516e2049719612c737}{atom\-\_\-id} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a49fd977001162d7256c8fcd293f9d12a}{index}\mbox{[}$\,$\mbox{]}, \hyperlink{structgmx__mtop__t}{gmx\-\_\-mtop\-\_\-t} $\ast$mtop, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a339df93739a405c3e4b0506624fa27a5}{v}\mbox{[}$\,$\mbox{]})
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{tpbconv_8c_ad8f561a7f3abbb79a273f83a9987f4cd}{zeroq} (int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, \hyperlink{include_2types_2simple_8h_ad3f47cdb48677e516e2049719612c737}{atom\-\_\-id} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a49fd977001162d7256c8fcd293f9d12a}{index}\mbox{[}$\,$\mbox{]}, \hyperlink{structgmx__mtop__t}{gmx\-\_\-mtop\-\_\-t} $\ast$mtop)
+\item 
+int \hyperlink{tpbconv_8c_a5ff88ecd762eab611b378cdf452cb8bb}{cmain} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Define \-Documentation}
+\hypertarget{tpbconv_8c_a8485f4e81de2537e6a0935626167a775}{\index{tpbconv.\-c@{tpbconv.\-c}!\-N\-F\-I\-L\-E@{\-N\-F\-I\-L\-E}}
+\index{\-N\-F\-I\-L\-E@{\-N\-F\-I\-L\-E}!tpbconv.c@{tpbconv.\-c}}
+\subsubsection[{\-N\-F\-I\-L\-E}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-N\-F\-I\-L\-E}~{\bf asize}(fnm)}}\label{tpbconv_8c_a8485f4e81de2537e6a0935626167a775}
+\hypertarget{tpbconv_8c_a7f5d08308b93bec2fad11b973f971047}{\index{tpbconv.\-c@{tpbconv.\-c}!\-R\-A\-N\-G\-E\-C\-H\-K@{\-R\-A\-N\-G\-E\-C\-H\-K}}
+\index{\-R\-A\-N\-G\-E\-C\-H\-K@{\-R\-A\-N\-G\-E\-C\-H\-K}!tpbconv.c@{tpbconv.\-c}}
+\subsubsection[{\-R\-A\-N\-G\-E\-C\-H\-K}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-R\-A\-N\-G\-E\-C\-H\-K}(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf i}, }
+\item[{}]{{\bf n}}
+\end{DoxyParamCaption}
+)~if (({\bf i}) $>$= ({\bf n})) {\bf gmx\-\_\-fatal}({\bf \-F\-A\-R\-G\-S}, \char`\"{}\-Your {\bf index} file contains atomnumbers (e.\-g. \%{\bf d})$\backslash$nthat are larger than the number of atoms {\bf in} the tpr file (\%{\bf d})\char`\"{}, (i), ({\bf n}))}}\label{tpbconv_8c_a7f5d08308b93bec2fad11b973f971047}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{tpbconv_8c_ac0c4653d282a597a2bb196556c603016}{\index{tpbconv.\-c@{tpbconv.\-c}!b\-Keep\-It@{b\-Keep\-It}}
+\index{b\-Keep\-It@{b\-Keep\-It}!tpbconv.c@{tpbconv.\-c}}
+\subsubsection[{b\-Keep\-It}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gmx\-\_\-bool}$\ast$ {\bf b\-Keep\-It} (
+\begin{DoxyParamCaption}
+\item[{int}]{gnx, }
+\item[{int}]{natoms, }
+\item[{{\bf atom\-\_\-id}}]{index\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{tpbconv_8c_ac0c4653d282a597a2bb196556c603016}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=344pt]{tpbconv_8c_ac0c4653d282a597a2bb196556c603016_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{tpbconv_8c_a5ff88ecd762eab611b378cdf452cb8bb}{\index{tpbconv.\-c@{tpbconv.\-c}!cmain@{cmain}}
+\index{cmain@{cmain}!tpbconv.c@{tpbconv.\-c}}
+\subsubsection[{cmain}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf cmain} (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{tpbconv_8c_a5ff88ecd762eab611b378cdf452cb8bb}
+check size of ex+hy width against box size 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{tpbconv_8c_a5ff88ecd762eab611b378cdf452cb8bb_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{tpbconv_8c_a29e2c46c6390f1a47104f3bcacd7946d}{\index{tpbconv.\-c@{tpbconv.\-c}!invind@{invind}}
+\index{invind@{invind}!tpbconv.c@{tpbconv.\-c}}
+\subsubsection[{invind}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf atom\-\_\-id}$\ast$ {\bf invind} (
+\begin{DoxyParamCaption}
+\item[{int}]{gnx, }
+\item[{int}]{natoms, }
+\item[{{\bf atom\-\_\-id}}]{index\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{tpbconv_8c_a29e2c46c6390f1a47104f3bcacd7946d}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=336pt]{tpbconv_8c_a29e2c46c6390f1a47104f3bcacd7946d_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{tpbconv_8c_a352b8650ec4ad3d6915c1e3a6d84beb4}{\index{tpbconv.\-c@{tpbconv.\-c}!reduce\-\_\-atom@{reduce\-\_\-atom}}
+\index{reduce\-\_\-atom@{reduce\-\_\-atom}!tpbconv.c@{tpbconv.\-c}}
+\subsubsection[{reduce\-\_\-atom}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf reduce\-\_\-atom} (
+\begin{DoxyParamCaption}
+\item[{int}]{gnx, }
+\item[{{\bf atom\-\_\-id}}]{index\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf t\-\_\-atom}}]{atom\mbox{[}$\,$\mbox{]}, }
+\item[{char $\ast$$\ast$$\ast$}]{atomname, }
+\item[{int $\ast$}]{nres, }
+\item[{{\bf t\-\_\-resinfo} $\ast$}]{resinfo}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{tpbconv_8c_a352b8650ec4ad3d6915c1e3a6d84beb4}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=236pt]{tpbconv_8c_a352b8650ec4ad3d6915c1e3a6d84beb4_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tpbconv_8c_a352b8650ec4ad3d6915c1e3a6d84beb4_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{tpbconv_8c_a8d0cf25f7e0bef1687c115219fca8176}{\index{tpbconv.\-c@{tpbconv.\-c}!reduce\-\_\-block@{reduce\-\_\-block}}
+\index{reduce\-\_\-block@{reduce\-\_\-block}!tpbconv.c@{tpbconv.\-c}}
+\subsubsection[{reduce\-\_\-block}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf reduce\-\_\-block} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-bool}}]{b\-Keep\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf t\-\_\-block} $\ast$}]{block, }
+\item[{const char $\ast$}]{name}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{tpbconv_8c_a8d0cf25f7e0bef1687c115219fca8176}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tpbconv_8c_a8d0cf25f7e0bef1687c115219fca8176_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{tpbconv_8c_a8b9544d4704db3edb919dc37cde07c42}{\index{tpbconv.\-c@{tpbconv.\-c}!reduce\-\_\-blocka@{reduce\-\_\-blocka}}
+\index{reduce\-\_\-blocka@{reduce\-\_\-blocka}!tpbconv.c@{tpbconv.\-c}}
+\subsubsection[{reduce\-\_\-blocka}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf reduce\-\_\-blocka} (
+\begin{DoxyParamCaption}
+\item[{{\bf atom\-\_\-id}}]{invindex\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Keep\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf t\-\_\-blocka} $\ast$}]{block, }
+\item[{const char $\ast$}]{name}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{tpbconv_8c_a8b9544d4704db3edb919dc37cde07c42}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tpbconv_8c_a8b9544d4704db3edb919dc37cde07c42_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{tpbconv_8c_afb92645220888dca271a5806ae3fd719}{\index{tpbconv.\-c@{tpbconv.\-c}!reduce\-\_\-ilist@{reduce\-\_\-ilist}}
+\index{reduce\-\_\-ilist@{reduce\-\_\-ilist}!tpbconv.c@{tpbconv.\-c}}
+\subsubsection[{reduce\-\_\-ilist}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf reduce\-\_\-ilist} (
+\begin{DoxyParamCaption}
+\item[{{\bf atom\-\_\-id}}]{invindex\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Keep\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf t\-\_\-ilist} $\ast$}]{il, }
+\item[{int}]{nratoms, }
+\item[{const char $\ast$}]{name}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{tpbconv_8c_afb92645220888dca271a5806ae3fd719}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tpbconv_8c_afb92645220888dca271a5806ae3fd719_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{tpbconv_8c_a2ea75a44bc56505c20b593c4091e1488}{\index{tpbconv.\-c@{tpbconv.\-c}!reduce\-\_\-rvec@{reduce\-\_\-rvec}}
+\index{reduce\-\_\-rvec@{reduce\-\_\-rvec}!tpbconv.c@{tpbconv.\-c}}
+\subsubsection[{reduce\-\_\-rvec}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf reduce\-\_\-rvec} (
+\begin{DoxyParamCaption}
+\item[{int}]{gnx, }
+\item[{{\bf atom\-\_\-id}}]{index\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{vv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{tpbconv_8c_a2ea75a44bc56505c20b593c4091e1488}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=248pt]{tpbconv_8c_a2ea75a44bc56505c20b593c4091e1488_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tpbconv_8c_a2ea75a44bc56505c20b593c4091e1488_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{tpbconv_8c_aaedef4169214bf6209b3cc6d11b0ec16}{\index{tpbconv.\-c@{tpbconv.\-c}!reduce\-\_\-topology\-\_\-x@{reduce\-\_\-topology\-\_\-x}}
+\index{reduce\-\_\-topology\-\_\-x@{reduce\-\_\-topology\-\_\-x}!tpbconv.c@{tpbconv.\-c}}
+\subsubsection[{reduce\-\_\-topology\-\_\-x}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf reduce\-\_\-topology\-\_\-x} (
+\begin{DoxyParamCaption}
+\item[{int}]{gnx, }
+\item[{{\bf atom\-\_\-id}}]{index\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf gmx\-\_\-mtop\-\_\-t} $\ast$}]{mtop, }
+\item[{{\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{v\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{tpbconv_8c_aaedef4169214bf6209b3cc6d11b0ec16}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tpbconv_8c_aaedef4169214bf6209b3cc6d11b0ec16_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=258pt]{tpbconv_8c_aaedef4169214bf6209b3cc6d11b0ec16_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{tpbconv_8c_ad8f561a7f3abbb79a273f83a9987f4cd}{\index{tpbconv.\-c@{tpbconv.\-c}!zeroq@{zeroq}}
+\index{zeroq@{zeroq}!tpbconv.c@{tpbconv.\-c}}
+\subsubsection[{zeroq}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf zeroq} (
+\begin{DoxyParamCaption}
+\item[{int}]{n, }
+\item[{{\bf atom\-\_\-id}}]{index\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf gmx\-\_\-mtop\-\_\-t} $\ast$}]{mtop}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{tpbconv_8c_ad8f561a7f3abbb79a273f83a9987f4cd}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=202pt]{tpbconv_8c_ad8f561a7f3abbb79a273f83a9987f4cd_icgraph}
+\end{center}
+\end{figure}
+
+

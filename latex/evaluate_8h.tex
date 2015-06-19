@@ -1,0 +1,828 @@
+\hypertarget{evaluate_8h}{\section{src/gmxlib/selection/evaluate.h \-File \-Reference}
+\label{evaluate_8h}\index{src/gmxlib/selection/evaluate.\-h@{src/gmxlib/selection/evaluate.\-h}}
+}
+{\ttfamily \#include $<$typedefs.\-h$>$}\*
+{\ttfamily \#include $<$indexutil.\-h$>$}\*
+{\ttfamily \#include \char`\"{}selelem.\-h\char`\"{}}\*
+\-Include dependency graph for evaluate.\-h\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{evaluate_8h__incl}
+\end{center}
+\end{figure}
+\-This graph shows which files directly or indirectly include this file\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{evaluate_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structgmx__sel__evaluate__t}{gmx\-\_\-sel\-\_\-evaluate\-\_\-t}
+\end{DoxyCompactItemize}
+\subsection*{\-Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \hyperlink{structgmx__sel__evaluate__t}{gmx\-\_\-sel\-\_\-evaluate\-\_\-t} \hyperlink{evaluate_8h_a8148ff647fdf358fc38d72ad729efdfc}{gmx\-\_\-sel\-\_\-evaluate\-\_\-t}
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{Indent}{\bf \-Utility functions}\par
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{evaluate_8h_aecc332275031d68b1394daa619b302fe}{\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-init} (\hyperlink{structgmx__sel__evaluate__t}{gmx\-\_\-sel\-\_\-evaluate\-\_\-t} $\ast$data, struct \hyperlink{structgmx__sel__mempool__t}{gmx\-\_\-sel\-\_\-mempool\-\_\-t} $\ast$mp, \hyperlink{structgmx__ana__index__t}{gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$gall, \hyperlink{structt__topology}{t\-\_\-topology} $\ast$\hyperlink{gmx__disre_8c_a1b538a2ce75aba6c346bc03980ffeb28}{top}, \hyperlink{include_2types_2trx_8h_a206f77137d72a5db1097a457a7144ad5}{t\-\_\-trxframe} $\ast$\hyperlink{addconf_8c_ae8414314f87c5e49503ac0117eb511ad}{fr}, \hyperlink{structt__pbc}{t\-\_\-pbc} $\ast$pbc)
+\item 
+int \hyperlink{evaluate_8h_a60598492cf16ef573d09c2759753e130}{\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-children} (\hyperlink{structgmx__sel__evaluate__t}{gmx\-\_\-sel\-\_\-evaluate\-\_\-t} $\ast$data, \hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$sel, \hyperlink{structgmx__ana__index__t}{gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g})
+\item 
+int \hyperlink{evaluate_8h_ae77547bfb1c1118be4b2fba5d2ff3567}{\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-method\-\_\-params} (\hyperlink{structgmx__sel__evaluate__t}{gmx\-\_\-sel\-\_\-evaluate\-\_\-t} $\ast$data, \hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$sel, \hyperlink{structgmx__ana__index__t}{gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g})
+\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}{\bf \-Misc. evaluation functions}\par
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{evaluate_8h_a2d74d5c99ee8be55887654d2c7c9b971}{\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-root} (\hyperlink{structgmx__sel__evaluate__t}{gmx\-\_\-sel\-\_\-evaluate\-\_\-t} $\ast$data, \hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$sel, \hyperlink{structgmx__ana__index__t}{gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g})
+\item 
+int \hyperlink{evaluate_8h_a8f69426fe90bbb288a4a6fbb6b0708bb}{\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-static} (\hyperlink{structgmx__sel__evaluate__t}{gmx\-\_\-sel\-\_\-evaluate\-\_\-t} $\ast$data, \hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$sel, \hyperlink{structgmx__ana__index__t}{gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g})
+\item 
+int \hyperlink{evaluate_8h_a50843a384bd8f53085e0dd1b80e7d91f}{\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-arithmetic} (\hyperlink{structgmx__sel__evaluate__t}{gmx\-\_\-sel\-\_\-evaluate\-\_\-t} $\ast$data, \hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$sel, \hyperlink{structgmx__ana__index__t}{gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g})
+\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}{\bf \-Subexpression evaluation functions}\par
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{evaluate_8h_a1c214a26ee19ef7f2e3c4e97068c1bf7}{\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-subexpr\-\_\-simple} (\hyperlink{structgmx__sel__evaluate__t}{gmx\-\_\-sel\-\_\-evaluate\-\_\-t} $\ast$data, \hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$sel, \hyperlink{structgmx__ana__index__t}{gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g})
+\item 
+int \hyperlink{evaluate_8h_a4f113a86ee0dfa0ec3f7ba3ad70661b6}{\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-subexpr\-\_\-staticeval} (\hyperlink{structgmx__sel__evaluate__t}{gmx\-\_\-sel\-\_\-evaluate\-\_\-t} $\ast$data, \hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$sel, \hyperlink{structgmx__ana__index__t}{gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g})
+\item 
+int \hyperlink{evaluate_8h_ad4649d8e25fbf50a6b917ee188f849ff}{\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-subexpr} (\hyperlink{structgmx__sel__evaluate__t}{gmx\-\_\-sel\-\_\-evaluate\-\_\-t} $\ast$data, \hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$sel, \hyperlink{structgmx__ana__index__t}{gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g})
+\item 
+int \hyperlink{evaluate_8h_a8a5812fbfb2df43b6cbb8fd3aa8552ea}{\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-subexprref\-\_\-simple} (\hyperlink{structgmx__sel__evaluate__t}{gmx\-\_\-sel\-\_\-evaluate\-\_\-t} $\ast$data, \hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$sel, \hyperlink{structgmx__ana__index__t}{gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g})
+\item 
+int \hyperlink{evaluate_8h_a3fc80d1306c3feaeb8ae8ca04a58d182}{\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-subexprref} (\hyperlink{structgmx__sel__evaluate__t}{gmx\-\_\-sel\-\_\-evaluate\-\_\-t} $\ast$data, \hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$sel, \hyperlink{structgmx__ana__index__t}{gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g})
+\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}{\bf \-Method evaluation functions}\par
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{evaluate_8h_a141b059453636eccd913835cdc40aded}{\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-method} (\hyperlink{structgmx__sel__evaluate__t}{gmx\-\_\-sel\-\_\-evaluate\-\_\-t} $\ast$data, \hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$sel, \hyperlink{structgmx__ana__index__t}{gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g})
+\item 
+int \hyperlink{evaluate_8h_aea46e6bc1551e2f3ab9bde259a2f4cf7}{\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-modifier} (\hyperlink{structgmx__sel__evaluate__t}{gmx\-\_\-sel\-\_\-evaluate\-\_\-t} $\ast$data, \hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$sel, \hyperlink{structgmx__ana__index__t}{gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g})
+\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}{\bf \-Boolean evaluation functions}\par
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{evaluate_8h_a8cc9b7dcfa3803d4322fe8d924d468e7}{\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-not} (\hyperlink{structgmx__sel__evaluate__t}{gmx\-\_\-sel\-\_\-evaluate\-\_\-t} $\ast$data, \hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$sel, \hyperlink{structgmx__ana__index__t}{gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g})
+\item 
+int \hyperlink{evaluate_8h_ac039c5961a47f8f34f5d1f5b4235f70b}{\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-and} (\hyperlink{structgmx__sel__evaluate__t}{gmx\-\_\-sel\-\_\-evaluate\-\_\-t} $\ast$data, \hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$sel, \hyperlink{structgmx__ana__index__t}{gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g})
+\item 
+int \hyperlink{evaluate_8h_a164fdc0043742c45194c3624fdfd71d8}{\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-or} (\hyperlink{structgmx__sel__evaluate__t}{gmx\-\_\-sel\-\_\-evaluate\-\_\-t} $\ast$data, \hyperlink{structt__selelem}{t\-\_\-selelem} $\ast$sel, \hyperlink{structgmx__ana__index__t}{gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g})
+\end{DoxyCompactItemize}
+\end{Indent}
+
+
+\subsection{\-Typedef \-Documentation}
+\hypertarget{evaluate_8h_a8148ff647fdf358fc38d72ad729efdfc}{\index{evaluate.\-h@{evaluate.\-h}!gmx\-\_\-sel\-\_\-evaluate\-\_\-t@{gmx\-\_\-sel\-\_\-evaluate\-\_\-t}}
+\index{gmx\-\_\-sel\-\_\-evaluate\-\_\-t@{gmx\-\_\-sel\-\_\-evaluate\-\_\-t}!evaluate.h@{evaluate.\-h}}
+\subsubsection[{gmx\-\_\-sel\-\_\-evaluate\-\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf gmx\-\_\-sel\-\_\-evaluate\-\_\-t}  {\bf gmx\-\_\-sel\-\_\-evaluate\-\_\-t}}}\label{evaluate_8h_a8148ff647fdf358fc38d72ad729efdfc}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{evaluate_8h_ac039c5961a47f8f34f5d1f5b4235f70b}{\index{evaluate.\-h@{evaluate.\-h}!\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-and@{\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-and}}
+\index{\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-and@{\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-and}!evaluate.h@{evaluate.\-h}}
+\subsubsection[{\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-and}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf \-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-and} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-sel\-\_\-evaluate\-\_\-t} $\ast$}]{data, }
+\item[{{\bf t\-\_\-selelem} $\ast$}]{sel, }
+\item[{{\bf gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$}]{g}
+\end{DoxyParamCaption}
+)}}\label{evaluate_8h_ac039c5961a47f8f34f5d1f5b4235f70b}
+\-Evaluates a boolean \-A\-N\-D element with short-\/circuiting.
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em data} & \-Data for the current frame. \\
+\hline
+\mbox{\tt in}  & {\em sel} & \-Selection element being evaluated. \\
+\hline
+\mbox{\tt in}  & {\em g} & \-Group for which {\ttfamily sel} should be evaluated. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+0 on success, a non-\/zero error code on error.
+\end{DoxyReturn}
+\-Short-\/circuiting evaluation of logical \-A\-N\-D expressions.
+
+\-Starts by evaluating the first child element in the group {\ttfamily g}. \-The each following child element is evaluated in the intersection of all the previous values until all children have been evaluated or the intersection becomes empty. \-The value of {\ttfamily sel} is set to the intersection of all the (evaluated) child values.
+
+\-If the first child does not have an evaluation function, it is skipped and the evaluation is started at the second child. \-This happens if the first child is a constant expression and during compilation it was detected that the evaluation group is always a subset of the constant group (currently, the compiler never detects this).
+
+\-This function is used as {\ttfamily \hyperlink{structt__selelem_a5e0082a02a156c2d010414490f94d227}{t\-\_\-selelem\-::evaluate}} for \hyperlink{selelem_8h_a1f104d5c71b1198ef51acc4ef016ae46ae886c4e170c3abd5527de0af74ba4a45}{\-S\-E\-L\-\_\-\-B\-O\-O\-L\-E\-A\-N} elements with \hyperlink{selelem_8h_ad24657d98854e03c3d6c46c37022a446a3663c8941f6519e97a7a734d3b29b865}{\-B\-O\-O\-L\-\_\-\-A\-N\-D}. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{evaluate_8h_ac039c5961a47f8f34f5d1f5b4235f70b_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{evaluate_8h_ac039c5961a47f8f34f5d1f5b4235f70b_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{evaluate_8h_a50843a384bd8f53085e0dd1b80e7d91f}{\index{evaluate.\-h@{evaluate.\-h}!\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-arithmetic@{\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-arithmetic}}
+\index{\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-arithmetic@{\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-arithmetic}!evaluate.h@{evaluate.\-h}}
+\subsubsection[{\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-arithmetic}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf \-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-arithmetic} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-sel\-\_\-evaluate\-\_\-t} $\ast$}]{data, }
+\item[{{\bf t\-\_\-selelem} $\ast$}]{sel, }
+\item[{{\bf gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$}]{g}
+\end{DoxyParamCaption}
+)}}\label{evaluate_8h_a50843a384bd8f53085e0dd1b80e7d91f}
+\-Evaluates an arithmetic expression element.
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em data} & \-Data for the current frame. \\
+\hline
+\mbox{\tt in}  & {\em sel} & \-Selection element being evaluated. \\
+\hline
+\mbox{\tt in}  & {\em g} & \-Group for which {\ttfamily sel} should be evaluated. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+0 on success, a non-\/zero error code on error. 
+\end{DoxyReturn}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{evaluate_8h_a50843a384bd8f53085e0dd1b80e7d91f_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{evaluate_8h_a50843a384bd8f53085e0dd1b80e7d91f_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{evaluate_8h_a60598492cf16ef573d09c2759753e130}{\index{evaluate.\-h@{evaluate.\-h}!\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-children@{\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-children}}
+\index{\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-children@{\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-children}!evaluate.h@{evaluate.\-h}}
+\subsubsection[{\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-children}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf \-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-children} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-sel\-\_\-evaluate\-\_\-t} $\ast$}]{data, }
+\item[{{\bf t\-\_\-selelem} $\ast$}]{sel, }
+\item[{{\bf gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$}]{g}
+\end{DoxyParamCaption}
+)}}\label{evaluate_8h_a60598492cf16ef573d09c2759753e130}
+\-Evaluates the children of a general selection element.
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em data} & \-Data for the current frame. \\
+\hline
+\mbox{\tt in}  & {\em sel} & \-Selection element being evaluated. \\
+\hline
+\mbox{\tt in}  & {\em g} & \-Group for which {\ttfamily sel} should be evaluated. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+0 on success, a non-\/zero error code on error.
+\end{DoxyReturn}
+\-Evaluates each child of {\ttfamily sel} in {\ttfamily g}. 
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{evaluate_8h_a60598492cf16ef573d09c2759753e130_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{evaluate_8h_aecc332275031d68b1394daa619b302fe}{\index{evaluate.\-h@{evaluate.\-h}!\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-init@{\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-init}}
+\index{\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-init@{\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-init}!evaluate.h@{evaluate.\-h}}
+\subsubsection[{\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf \-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-init} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-sel\-\_\-evaluate\-\_\-t} $\ast$}]{data, }
+\item[{{\bf gmx\-\_\-sel\-\_\-mempool\-\_\-t} $\ast$}]{mp, }
+\item[{{\bf gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$}]{gall, }
+\item[{{\bf t\-\_\-topology} $\ast$}]{top, }
+\item[{{\bf t\-\_\-trxframe} $\ast$}]{fr, }
+\item[{{\bf t\-\_\-pbc} $\ast$}]{pbc}
+\end{DoxyParamCaption}
+)}}\label{evaluate_8h_aecc332275031d68b1394daa619b302fe}
+\-Initializes an evaluation data structure.
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt out}  & {\em data} & \-Evaluation data structure to initialize. \\
+\hline
+\mbox{\tt in}  & {\em mp} & \-Memory pool for intermediate evaluation values. \\
+\hline
+\mbox{\tt in}  & {\em gall} & \-Index group with all the atoms. \\
+\hline
+\mbox{\tt in}  & {\em top} & \-Topology structure for evaluation. \\
+\hline
+\mbox{\tt in}  & {\em fr} & \-New frame for evaluation. \\
+\hline
+\mbox{\tt in}  & {\em pbc} & \-New \-P\-B\-C information for evaluation. \\
+\hline
+\end{DoxyParams}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{evaluate_8h_aecc332275031d68b1394daa619b302fe_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{evaluate_8h_a141b059453636eccd913835cdc40aded}{\index{evaluate.\-h@{evaluate.\-h}!\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-method@{\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-method}}
+\index{\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-method@{\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-method}!evaluate.h@{evaluate.\-h}}
+\subsubsection[{\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-method}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf \-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-method} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-sel\-\_\-evaluate\-\_\-t} $\ast$}]{data, }
+\item[{{\bf t\-\_\-selelem} $\ast$}]{sel, }
+\item[{{\bf gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$}]{g}
+\end{DoxyParamCaption}
+)}}\label{evaluate_8h_a141b059453636eccd913835cdc40aded}
+\-Evaluates a method expression.
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em data} & \-Data for the current frame. \\
+\hline
+\mbox{\tt in}  & {\em sel} & \-Selection element being evaluated. \\
+\hline
+\mbox{\tt in}  & {\em g} & \-Group for which {\ttfamily sel} should be evaluated. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+0 on success, a non-\/zero error code on error.
+\end{DoxyReturn}
+\-Evaluates all child selections (using \hyperlink{evaluate_8c_ae77547bfb1c1118be4b2fba5d2ff3567}{\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-method\-\_\-params()}) to evaluate any parameter values. \-If this is the first time this expression is evaluated for the frame, \hyperlink{include_2selmethod_8h_a62eee18354ffce940f10c7dd9ff1c34b}{sel\-\_\-framefunc()} callback is called if one is provided. \-If a reference position calculation has been initialized for this element, the positions are also updated, and \hyperlink{include_2selmethod_8h_a47bfb381e8df48bddd7ca78abff224bf}{sel\-\_\-updatefunc\-\_\-pos()} is used to evaluate the value. \-Otherwise, \hyperlink{include_2selmethod_8h_a8492a3e2b034f195b558030d2bcecb18}{sel\-\_\-updatefunc()} is used.
+
+\-This function is used as {\ttfamily \hyperlink{structt__selelem_a5e0082a02a156c2d010414490f94d227}{t\-\_\-selelem\-::evaluate}} for \hyperlink{selelem_8h_a1f104d5c71b1198ef51acc4ef016ae46a3d3bb644ace8fdc5beac6feed4911a1f}{\-S\-E\-L\-\_\-\-E\-X\-P\-R\-E\-S\-S\-I\-O\-N} elements. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{evaluate_8h_a141b059453636eccd913835cdc40aded_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{evaluate_8h_a141b059453636eccd913835cdc40aded_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{evaluate_8h_ae77547bfb1c1118be4b2fba5d2ff3567}{\index{evaluate.\-h@{evaluate.\-h}!\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-method\-\_\-params@{\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-method\-\_\-params}}
+\index{\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-method\-\_\-params@{\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-method\-\_\-params}!evaluate.h@{evaluate.\-h}}
+\subsubsection[{\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-method\-\_\-params}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf \-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-method\-\_\-params} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-sel\-\_\-evaluate\-\_\-t} $\ast$}]{data, }
+\item[{{\bf t\-\_\-selelem} $\ast$}]{sel, }
+\item[{{\bf gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$}]{g}
+\end{DoxyParamCaption}
+)}}\label{evaluate_8h_ae77547bfb1c1118be4b2fba5d2ff3567}
+\-Evaluates the children of a \hyperlink{selelem_8h_a1f104d5c71b1198ef51acc4ef016ae46a3d3bb644ace8fdc5beac6feed4911a1f}{\-S\-E\-L\-\_\-\-E\-X\-P\-R\-E\-S\-S\-I\-O\-N} element.
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em data} & \-Data for the current frame. \\
+\hline
+\mbox{\tt in}  & {\em sel} & \-Selection element being evaluated. \\
+\hline
+\mbox{\tt in}  & {\em g} & \-Group for which {\ttfamily sel} should be evaluated. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+0 on success, a non-\/zero error code on error.
+\end{DoxyReturn}
+\-Evaluates each child of a \hyperlink{selelem_8h_a1f104d5c71b1198ef51acc4ef016ae46a3d3bb644ace8fdc5beac6feed4911a1f}{\-S\-E\-L\-\_\-\-E\-X\-P\-R\-E\-S\-S\-I\-O\-N} element. \-The value of {\ttfamily sel} is not touched.
+
+\-This function is not used as {\ttfamily \hyperlink{structt__selelem_a5e0082a02a156c2d010414490f94d227}{t\-\_\-selelem\-::evaluate}}, but is used internally. 
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{evaluate_8h_ae77547bfb1c1118be4b2fba5d2ff3567_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{evaluate_8h_aea46e6bc1551e2f3ab9bde259a2f4cf7}{\index{evaluate.\-h@{evaluate.\-h}!\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-modifier@{\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-modifier}}
+\index{\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-modifier@{\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-modifier}!evaluate.h@{evaluate.\-h}}
+\subsubsection[{\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-modifier}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf \-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-modifier} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-sel\-\_\-evaluate\-\_\-t} $\ast$}]{data, }
+\item[{{\bf t\-\_\-selelem} $\ast$}]{sel, }
+\item[{{\bf gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$}]{g}
+\end{DoxyParamCaption}
+)}}\label{evaluate_8h_aea46e6bc1551e2f3ab9bde259a2f4cf7}
+\-Evaluates a modifier expression.
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em data} & \-Data for the current frame. \\
+\hline
+\mbox{\tt in}  & {\em sel} & \-Selection element being evaluated. \\
+\hline
+\mbox{\tt in}  & {\em g} & \-Group for which {\ttfamily sel} should be evaluated. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+0 on success, a non-\/zero error code on error.
+\end{DoxyReturn}
+\-Evaluates all child selections (using \hyperlink{evaluate_8c_ae77547bfb1c1118be4b2fba5d2ff3567}{\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-method\-\_\-params()}) to evaluate any parameter values. \-If this is the first time this expression is evaluated for the frame, \hyperlink{include_2selmethod_8h_a62eee18354ffce940f10c7dd9ff1c34b}{sel\-\_\-framefunc()} callback is called if one is provided. \-The modifier is then evaluated using \hyperlink{include_2selmethod_8h_a47bfb381e8df48bddd7ca78abff224bf}{sel\-\_\-updatefunc\-\_\-pos()}.
+
+\-This function is used as {\ttfamily \hyperlink{structt__selelem_a5e0082a02a156c2d010414490f94d227}{t\-\_\-selelem\-::evaluate}} for \hyperlink{selelem_8h_a1f104d5c71b1198ef51acc4ef016ae46a6be1ee895a50c28639608b8b47843422}{\-S\-E\-L\-\_\-\-M\-O\-D\-I\-F\-I\-E\-R} elements. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{evaluate_8h_aea46e6bc1551e2f3ab9bde259a2f4cf7_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{evaluate_8h_aea46e6bc1551e2f3ab9bde259a2f4cf7_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{evaluate_8h_a8cc9b7dcfa3803d4322fe8d924d468e7}{\index{evaluate.\-h@{evaluate.\-h}!\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-not@{\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-not}}
+\index{\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-not@{\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-not}!evaluate.h@{evaluate.\-h}}
+\subsubsection[{\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-not}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf \-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-not} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-sel\-\_\-evaluate\-\_\-t} $\ast$}]{data, }
+\item[{{\bf t\-\_\-selelem} $\ast$}]{sel, }
+\item[{{\bf gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$}]{g}
+\end{DoxyParamCaption}
+)}}\label{evaluate_8h_a8cc9b7dcfa3803d4322fe8d924d468e7}
+\-Evaluates a boolean \-N\-O\-T element.
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em data} & \-Data for the current frame. \\
+\hline
+\mbox{\tt in}  & {\em sel} & \-Selection element being evaluated. \\
+\hline
+\mbox{\tt in}  & {\em g} & \-Group for which {\ttfamily sel} should be evaluated. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+0 on success, a non-\/zero error code on error.
+\end{DoxyReturn}
+\-Evaluates the child element (there should be only one) in the group {\ttfamily g}, and then sets the value of {\ttfamily sel} to the complement of the child value.
+
+\-This function is used as {\ttfamily \hyperlink{structt__selelem_a5e0082a02a156c2d010414490f94d227}{t\-\_\-selelem\-::evaluate}} for \hyperlink{selelem_8h_a1f104d5c71b1198ef51acc4ef016ae46ae886c4e170c3abd5527de0af74ba4a45}{\-S\-E\-L\-\_\-\-B\-O\-O\-L\-E\-A\-N} elements with \hyperlink{selelem_8h_ad24657d98854e03c3d6c46c37022a446a1a54e3beb472c1dc0a37a631f979f8ce}{\-B\-O\-O\-L\-\_\-\-N\-O\-T}. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{evaluate_8h_a8cc9b7dcfa3803d4322fe8d924d468e7_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{evaluate_8h_a8cc9b7dcfa3803d4322fe8d924d468e7_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{evaluate_8h_a164fdc0043742c45194c3624fdfd71d8}{\index{evaluate.\-h@{evaluate.\-h}!\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-or@{\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-or}}
+\index{\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-or@{\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-or}!evaluate.h@{evaluate.\-h}}
+\subsubsection[{\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-or}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf \-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-or} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-sel\-\_\-evaluate\-\_\-t} $\ast$}]{data, }
+\item[{{\bf t\-\_\-selelem} $\ast$}]{sel, }
+\item[{{\bf gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$}]{g}
+\end{DoxyParamCaption}
+)}}\label{evaluate_8h_a164fdc0043742c45194c3624fdfd71d8}
+\-Evaluates a boolean \-O\-R element with short-\/circuiting.
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em data} & \-Data for the current frame. \\
+\hline
+\mbox{\tt in}  & {\em sel} & \-Selection element being evaluated. \\
+\hline
+\mbox{\tt in}  & {\em g} & \-Group for which {\ttfamily sel} should be evaluated. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+0 on success, a non-\/zero error code on error.
+\end{DoxyReturn}
+\-Short-\/circuiting evaluation of logical \-O\-R expressions.
+
+\-Starts by evaluating the first child element in the group {\ttfamily g}. \-For each subsequent child, finds the part of {\ttfamily g} that is not included the value of any previous child, and evaluates the child in that group until the last child is evaluated or all of {\ttfamily g} is included in some child value. \-The value of {\ttfamily sel} is set to the union of all the (evaluated) child values.
+
+\-If the first child does not have an evaluation function, its value is used without evaluation. \-This happens if the first child is a constant expression, the selection has been compiled, and the evaluation group is the same for each frame. \-In this case, the compiler has taken care of that the child value is a subset of {\ttfamily g}, making it unnecessary to evaluate it.
+
+\-This function is used as {\ttfamily \hyperlink{structt__selelem_a5e0082a02a156c2d010414490f94d227}{t\-\_\-selelem\-::evaluate}} for \hyperlink{selelem_8h_a1f104d5c71b1198ef51acc4ef016ae46ae886c4e170c3abd5527de0af74ba4a45}{\-S\-E\-L\-\_\-\-B\-O\-O\-L\-E\-A\-N} elements with \hyperlink{selelem_8h_ad24657d98854e03c3d6c46c37022a446a8c0bc1b3b7b2d3182a79286aaec0d13e}{\-B\-O\-O\-L\-\_\-\-O\-R}. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{evaluate_8h_a164fdc0043742c45194c3624fdfd71d8_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{evaluate_8h_a164fdc0043742c45194c3624fdfd71d8_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{evaluate_8h_a2d74d5c99ee8be55887654d2c7c9b971}{\index{evaluate.\-h@{evaluate.\-h}!\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-root@{\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-root}}
+\index{\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-root@{\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-root}!evaluate.h@{evaluate.\-h}}
+\subsubsection[{\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-root}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf \-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-root} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-sel\-\_\-evaluate\-\_\-t} $\ast$}]{data, }
+\item[{{\bf t\-\_\-selelem} $\ast$}]{sel, }
+\item[{{\bf gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$}]{g}
+\end{DoxyParamCaption}
+)}}\label{evaluate_8h_a2d74d5c99ee8be55887654d2c7c9b971}
+\-Evaluates a root selection element.
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em data} & \-Data for the current frame. \\
+\hline
+\mbox{\tt in}  & {\em sel} & \-Selection element being evaluated. \\
+\hline
+\mbox{\tt in}  & {\em g} & \-Group for which {\ttfamily sel} should be evaluated (not used, can be \-N\-U\-L\-L). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+0 on success, a non-\/zero error code on error.
+\end{DoxyReturn}
+\-Evaluates the first child element in the group defined by {\ttfamily sel-\/$>$u.\-cgrp}. \-If {\ttfamily sel-\/$>$u.\-cgrp} is empty, nothing is done. \-The value of {\ttfamily sel} is not touched (root elements do not evaluate to values).
+
+\-This function can be used as {\ttfamily \hyperlink{structt__selelem_a5e0082a02a156c2d010414490f94d227}{t\-\_\-selelem\-::evaluate}} for \hyperlink{selelem_8h_a1f104d5c71b1198ef51acc4ef016ae46a4374c0be00e03bae94a94c4f2d88569d}{\-S\-E\-L\-\_\-\-R\-O\-O\-T} elements. 
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{evaluate_8h_a2d74d5c99ee8be55887654d2c7c9b971_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{evaluate_8h_a8f69426fe90bbb288a4a6fbb6b0708bb}{\index{evaluate.\-h@{evaluate.\-h}!\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-static@{\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-static}}
+\index{\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-static@{\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-static}!evaluate.h@{evaluate.\-h}}
+\subsubsection[{\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-static}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf \-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-static} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-sel\-\_\-evaluate\-\_\-t} $\ast$}]{data, }
+\item[{{\bf t\-\_\-selelem} $\ast$}]{sel, }
+\item[{{\bf gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$}]{g}
+\end{DoxyParamCaption}
+)}}\label{evaluate_8h_a8f69426fe90bbb288a4a6fbb6b0708bb}
+\-Evaluates a static group selection element.
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em data} & \-Data for the current frame. \\
+\hline
+\mbox{\tt in}  & {\em sel} & \-Selection element being evaluated. \\
+\hline
+\mbox{\tt in}  & {\em g} & \-Group for which {\ttfamily sel} should be evaluated. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+0 for success.
+\end{DoxyReturn}
+\-Sets the value of {\ttfamily sel} to the intersection of {\ttfamily g} and {\ttfamily sel-\/$>$u.\-cgrp}.
+
+\-This function can be used as {\ttfamily \hyperlink{structt__selelem_a5e0082a02a156c2d010414490f94d227}{t\-\_\-selelem\-::evaluate}} for \hyperlink{selelem_8h_a1f104d5c71b1198ef51acc4ef016ae46afae2ba2c065f70efcda76e4b7a7d17d0}{\-S\-E\-L\-\_\-\-C\-O\-N\-S\-T} elements with value type \hyperlink{share_2template_2gromacs_2selvalue_8h_a70b42b87d434580bf1493591857b8beca70a2af6eafa48adfab506ceee60471f6}{\-G\-R\-O\-U\-P\-\_\-\-V\-A\-L\-U\-E}. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{evaluate_8h_a8f69426fe90bbb288a4a6fbb6b0708bb_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{evaluate_8h_a8f69426fe90bbb288a4a6fbb6b0708bb_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{evaluate_8h_ad4649d8e25fbf50a6b917ee188f849ff}{\index{evaluate.\-h@{evaluate.\-h}!\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-subexpr@{\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-subexpr}}
+\index{\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-subexpr@{\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-subexpr}!evaluate.h@{evaluate.\-h}}
+\subsubsection[{\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-subexpr}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf \-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-subexpr} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-sel\-\_\-evaluate\-\_\-t} $\ast$}]{data, }
+\item[{{\bf t\-\_\-selelem} $\ast$}]{sel, }
+\item[{{\bf gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$}]{g}
+\end{DoxyParamCaption}
+)}}\label{evaluate_8h_ad4649d8e25fbf50a6b917ee188f849ff}
+\-Evaluates a subexpression.
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em data} & \-Data for the current frame. \\
+\hline
+\mbox{\tt in}  & {\em sel} & \-Selection element being evaluated. \\
+\hline
+\mbox{\tt in}  & {\em g} & \-Group for which {\ttfamily sel} should be evaluated. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+0 on success, a non-\/zero error code on error.
+\end{DoxyReturn}
+\-Finds the part of {\ttfamily g} for which the subexpression has not yet been evaluated by comparing {\ttfamily g} to {\ttfamily sel-\/$>$u.\-cgrp}. \-If the part is not empty, the child expression is evaluated for this part, and the results merged to the old values of the child. \-The value of {\ttfamily sel} itself is undefined after the call.
+
+\begin{DoxyRefDesc}{\-Todo}
+\item[\hyperlink{todo__todo000005}{\-Todo}]\-The call to \hyperlink{include_2indexutil_8h_a36418762a1d83eed47840281d779e312}{gmx\-\_\-ana\-\_\-index\-\_\-difference()} can take quite a lot of unnecessary time if the subexpression is evaluated either several times for the same group or for completely distinct groups. \-However, in the majority of cases, these situations occur when \hyperlink{evaluate_8c_a4f113a86ee0dfa0ec3f7ba3ad70661b6}{\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-subexpr\-\_\-staticeval()} can be used, so this should not be a major problem. \end{DoxyRefDesc}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{evaluate_8h_ad4649d8e25fbf50a6b917ee188f849ff_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{evaluate_8h_ad4649d8e25fbf50a6b917ee188f849ff_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{evaluate_8h_a1c214a26ee19ef7f2e3c4e97068c1bf7}{\index{evaluate.\-h@{evaluate.\-h}!\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-subexpr\-\_\-simple@{\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-subexpr\-\_\-simple}}
+\index{\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-subexpr\-\_\-simple@{\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-subexpr\-\_\-simple}!evaluate.h@{evaluate.\-h}}
+\subsubsection[{\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-subexpr\-\_\-simple}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf \-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-subexpr\-\_\-simple} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-sel\-\_\-evaluate\-\_\-t} $\ast$}]{data, }
+\item[{{\bf t\-\_\-selelem} $\ast$}]{sel, }
+\item[{{\bf gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$}]{g}
+\end{DoxyParamCaption}
+)}}\label{evaluate_8h_a1c214a26ee19ef7f2e3c4e97068c1bf7}
+\-Evaluates a subexpression when there is only one reference.
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em data} & \-Data for the current frame. \\
+\hline
+\mbox{\tt in}  & {\em sel} & \-Selection element being evaluated. \\
+\hline
+\mbox{\tt in}  & {\em g} & \-Group for which {\ttfamily sel} should be evaluated. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+0 on success, a non-\/zero error code on error.
+\end{DoxyReturn}
+\-Evaluates the child element (there should be exactly one) in {\ttfamily g}. \-The compiler has taken care that the child actually stores the evaluated value in the value pointer of this element.
+
+\-This function is used as {\ttfamily \hyperlink{structt__selelem_a5e0082a02a156c2d010414490f94d227}{t\-\_\-selelem\-::evaluate}} for \hyperlink{selelem_8h_a1f104d5c71b1198ef51acc4ef016ae46a4b01539a457afb7dbdf486c2a2e6dafb}{\-S\-E\-L\-\_\-\-S\-U\-B\-E\-X\-P\-R} elements that are used only once, and hence do not need full subexpression handling. 
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{evaluate_8h_a1c214a26ee19ef7f2e3c4e97068c1bf7_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{evaluate_8h_a4f113a86ee0dfa0ec3f7ba3ad70661b6}{\index{evaluate.\-h@{evaluate.\-h}!\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-subexpr\-\_\-staticeval@{\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-subexpr\-\_\-staticeval}}
+\index{\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-subexpr\-\_\-staticeval@{\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-subexpr\-\_\-staticeval}!evaluate.h@{evaluate.\-h}}
+\subsubsection[{\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-subexpr\-\_\-staticeval}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf \-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-subexpr\-\_\-staticeval} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-sel\-\_\-evaluate\-\_\-t} $\ast$}]{data, }
+\item[{{\bf t\-\_\-selelem} $\ast$}]{sel, }
+\item[{{\bf gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$}]{g}
+\end{DoxyParamCaption}
+)}}\label{evaluate_8h_a4f113a86ee0dfa0ec3f7ba3ad70661b6}
+\-Evaluates a subexpression when the evaluation group is static.
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em data} & \-Data for the current frame. \\
+\hline
+\mbox{\tt in}  & {\em sel} & \-Selection element being evaluated. \\
+\hline
+\mbox{\tt in}  & {\em g} & \-Group for which {\ttfamily sel} should be evaluated. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+0 on success, a non-\/zero error code on error.
+\end{DoxyReturn}
+\-If this is the first call for this frame, evaluates the child element there should be exactly one in {\ttfamily g}. \-The compiler has taken care that the child actually stores the evaluated value in the value pointer of this element. \-Assumes that {\ttfamily g} is persistent for the duration of the whole evaluation.
+
+\-This function is used as {\ttfamily \hyperlink{structt__selelem_a5e0082a02a156c2d010414490f94d227}{t\-\_\-selelem\-::evaluate}} for \hyperlink{selelem_8h_a1f104d5c71b1198ef51acc4ef016ae46a4b01539a457afb7dbdf486c2a2e6dafb}{\-S\-E\-L\-\_\-\-S\-U\-B\-E\-X\-P\-R} elements that have a static evaluation group, and hence do not need full subexpression handling. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{evaluate_8h_a4f113a86ee0dfa0ec3f7ba3ad70661b6_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{evaluate_8h_a4f113a86ee0dfa0ec3f7ba3ad70661b6_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{evaluate_8h_a3fc80d1306c3feaeb8ae8ca04a58d182}{\index{evaluate.\-h@{evaluate.\-h}!\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-subexprref@{\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-subexprref}}
+\index{\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-subexprref@{\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-subexprref}!evaluate.h@{evaluate.\-h}}
+\subsubsection[{\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-subexprref}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf \-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-subexprref} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-sel\-\_\-evaluate\-\_\-t} $\ast$}]{data, }
+\item[{{\bf t\-\_\-selelem} $\ast$}]{sel, }
+\item[{{\bf gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$}]{g}
+\end{DoxyParamCaption}
+)}}\label{evaluate_8h_a3fc80d1306c3feaeb8ae8ca04a58d182}
+\-Evaluates a subexpression reference.
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em data} & \-Data for the current frame. \\
+\hline
+\mbox{\tt in}  & {\em sel} & \-Selection element being evaluated. \\
+\hline
+\mbox{\tt in}  & {\em g} & \-Group for which {\ttfamily sel} should be evaluated. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+0 on success, a non-\/zero error code on error.
+\end{DoxyReturn}
+\-If the value type is \hyperlink{share_2template_2gromacs_2selvalue_8h_a70b42b87d434580bf1493591857b8beca31a47fbfbc85ad1472ce3d2a168fd1ec}{\-P\-O\-S\-\_\-\-V\-A\-L\-U\-E}, the value of the child is simply copied to set the value of {\ttfamily sel} (the child subexpression should already have been evaluated by its root). \-If the value type is something else, the child is evaluated for the group {\ttfamily g}, and the value of the child is then copied. \-There should be only one child element.
+
+\-This function is used as {\ttfamily \hyperlink{structt__selelem_a5e0082a02a156c2d010414490f94d227}{t\-\_\-selelem\-::evaluate}} for \hyperlink{selelem_8h_a1f104d5c71b1198ef51acc4ef016ae46af3e44c019a776df8511a73457f9b32b4}{\-S\-E\-L\-\_\-\-S\-U\-B\-E\-X\-P\-R\-R\-E\-F} elements. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{evaluate_8h_a3fc80d1306c3feaeb8ae8ca04a58d182_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{evaluate_8h_a3fc80d1306c3feaeb8ae8ca04a58d182_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{evaluate_8h_a8a5812fbfb2df43b6cbb8fd3aa8552ea}{\index{evaluate.\-h@{evaluate.\-h}!\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-subexprref\-\_\-simple@{\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-subexprref\-\_\-simple}}
+\index{\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-subexprref\-\_\-simple@{\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-subexprref\-\_\-simple}!evaluate.h@{evaluate.\-h}}
+\subsubsection[{\-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-subexprref\-\_\-simple}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf \-\_\-gmx\-\_\-sel\-\_\-evaluate\-\_\-subexprref\-\_\-simple} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-sel\-\_\-evaluate\-\_\-t} $\ast$}]{data, }
+\item[{{\bf t\-\_\-selelem} $\ast$}]{sel, }
+\item[{{\bf gmx\-\_\-ana\-\_\-index\-\_\-t} $\ast$}]{g}
+\end{DoxyParamCaption}
+)}}\label{evaluate_8h_a8a5812fbfb2df43b6cbb8fd3aa8552ea}
+\-Evaluates a subexpression reference when there are no other references.
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em data} & \-Data for the current frame. \\
+\hline
+\mbox{\tt in}  & {\em sel} & \-Selection element being evaluated. \\
+\hline
+\mbox{\tt in}  & {\em g} & \-Group for which {\ttfamily sel} should be evaluated. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+0 for success.
+\end{DoxyReturn}
+\-Sets the value pointers of the child and its child to point to the same memory as the value pointer of this element to avoid copying, and then evaluates evaluates the child.
+
+\-This function is used as {\ttfamily \hyperlink{structt__selelem}{t\-\_\-selelem}\-:evaluate} for \hyperlink{selelem_8h_a1f104d5c71b1198ef51acc4ef016ae46af3e44c019a776df8511a73457f9b32b4}{\-S\-E\-L\-\_\-\-S\-U\-B\-E\-X\-P\-R\-R\-E\-F} elements for which the \hyperlink{selelem_8h_a1f104d5c71b1198ef51acc4ef016ae46a4b01539a457afb7dbdf486c2a2e6dafb}{\-S\-E\-L\-\_\-\-S\-U\-B\-E\-X\-P\-R} does not have other references. 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{evaluate_8h_a8a5812fbfb2df43b6cbb8fd3aa8552ea_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{evaluate_8h_a8a5812fbfb2df43b6cbb8fd3aa8552ea_icgraph}
+\end{center}
+\end{figure}
+
+

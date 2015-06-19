@@ -1,0 +1,246 @@
+\hypertarget{sighandler_8c}{\section{src/gmxlib/sighandler.c \-File \-Reference}
+\label{sighandler_8c}\index{src/gmxlib/sighandler.\-c@{src/gmxlib/sighandler.\-c}}
+}
+{\ttfamily \#include \char`\"{}typedefs.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-fatal.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}sighandler.\-h\char`\"{}}\*
+\-Include dependency graph for sighandler.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=314pt]{sighandler_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{sighandler_8c_a9be86ee5d7d7722d1d4d7c210b74a78b}{signal\-\_\-handler} (int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n})
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{sighandler_8c_a84b25e749a714ba8d7486918810d88c2}{gmx\-\_\-signal} (int signum)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{sighandler_8c_aa5a09d3eb8897a790dd312153ee6478e}{signal\-\_\-handler\-\_\-install} (\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void})
+\item 
+\hyperlink{include_2sighandler_8h_ab3c8210482f8a8f46ed9279749697932}{gmx\-\_\-stop\-\_\-cond\-\_\-t} \hyperlink{sighandler_8c_aa02a8aab4c38b0df4701a2ddc482fd02}{gmx\-\_\-get\-\_\-stop\-\_\-condition} (\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{sighandler_8c_a8e328d03b0dd391b864f74a112e60307}{gmx\-\_\-set\-\_\-stop\-\_\-condition} (\hyperlink{include_2sighandler_8h_ab3c8210482f8a8f46ed9279749697932}{gmx\-\_\-stop\-\_\-cond\-\_\-t} recvd\-\_\-stop\-\_\-cond)
+\item 
+const char $\ast$ \hyperlink{sighandler_8c_a178f7bebc65d23a192610024515230ce}{gmx\-\_\-get\-\_\-signal\-\_\-name} (\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void})
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{sighandler_8c_a2d0d6a735bb792dc6c4caae5bb3bf4fb}{gmx\-\_\-got\-\_\-usr\-\_\-signal} (\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void})
+\end{DoxyCompactItemize}
+\subsection*{\-Variables}
+\begin{DoxyCompactItemize}
+\item 
+const char $\ast$ \hyperlink{sighandler_8c_af037a5fb167fa8e3236e2ad6db0a037d}{gmx\-\_\-stop\-\_\-cond\-\_\-name} \mbox{[}$\,$\mbox{]}
+\item 
+const char $\ast$ \hyperlink{sighandler_8c_aa02956e9d4e64395083c67e5ca5a326b}{gmx\-\_\-signal\-\_\-name} \mbox{[}$\,$\mbox{]}
+\item 
+static volatile sig\-\_\-atomic\-\_\-t \hyperlink{sighandler_8c_aa25c8ace6e7e4f092e83d7b78b85719b}{stop\-\_\-condition} = \hyperlink{share_2template_2gromacs_2sighandler_8h_ab3c8210482f8a8f46ed9279749697932a01ad8b98a22d47318bf551bccf52818a}{gmx\-\_\-stop\-\_\-cond\-\_\-none}
+\item 
+static volatile sig\-\_\-atomic\-\_\-t \hyperlink{sighandler_8c_aef8f01f63a5748bcda761ac3389413d7}{last\-\_\-signal\-\_\-name} = 0
+\item 
+static volatile sig\-\_\-atomic\-\_\-t \hyperlink{sighandler_8c_a745867cc2fdb37dc4acc265dd4576306}{usr\-\_\-condition} = 0
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{sighandler_8c_a178f7bebc65d23a192610024515230ce}{\index{sighandler.\-c@{sighandler.\-c}!gmx\-\_\-get\-\_\-signal\-\_\-name@{gmx\-\_\-get\-\_\-signal\-\_\-name}}
+\index{gmx\-\_\-get\-\_\-signal\-\_\-name@{gmx\-\_\-get\-\_\-signal\-\_\-name}!sighandler.c@{sighandler.\-c}}
+\subsubsection[{gmx\-\_\-get\-\_\-signal\-\_\-name}]{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ {\bf gmx\-\_\-get\-\_\-signal\-\_\-name} (
+\begin{DoxyParamCaption}
+\item[{{\bf void}}]{}
+\end{DoxyParamCaption}
+)}}\label{sighandler_8c_a178f7bebc65d23a192610024515230ce}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{sighandler_8c_a178f7bebc65d23a192610024515230ce_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{sighandler_8c_aa02a8aab4c38b0df4701a2ddc482fd02}{\index{sighandler.\-c@{sighandler.\-c}!gmx\-\_\-get\-\_\-stop\-\_\-condition@{gmx\-\_\-get\-\_\-stop\-\_\-condition}}
+\index{gmx\-\_\-get\-\_\-stop\-\_\-condition@{gmx\-\_\-get\-\_\-stop\-\_\-condition}!sighandler.c@{sighandler.\-c}}
+\subsubsection[{gmx\-\_\-get\-\_\-stop\-\_\-condition}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-stop\-\_\-cond\-\_\-t} {\bf gmx\-\_\-get\-\_\-stop\-\_\-condition} (
+\begin{DoxyParamCaption}
+\item[{{\bf void}}]{}
+\end{DoxyParamCaption}
+)}}\label{sighandler_8c_aa02a8aab4c38b0df4701a2ddc482fd02}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{sighandler_8c_aa02a8aab4c38b0df4701a2ddc482fd02_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{sighandler_8c_a2d0d6a735bb792dc6c4caae5bb3bf4fb}{\index{sighandler.\-c@{sighandler.\-c}!gmx\-\_\-got\-\_\-usr\-\_\-signal@{gmx\-\_\-got\-\_\-usr\-\_\-signal}}
+\index{gmx\-\_\-got\-\_\-usr\-\_\-signal@{gmx\-\_\-got\-\_\-usr\-\_\-signal}!sighandler.c@{sighandler.\-c}}
+\subsubsection[{gmx\-\_\-got\-\_\-usr\-\_\-signal}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf gmx\-\_\-got\-\_\-usr\-\_\-signal} (
+\begin{DoxyParamCaption}
+\item[{{\bf void}}]{}
+\end{DoxyParamCaption}
+)}}\label{sighandler_8c_a2d0d6a735bb792dc6c4caae5bb3bf4fb}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{sighandler_8c_a2d0d6a735bb792dc6c4caae5bb3bf4fb_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{sighandler_8c_a8e328d03b0dd391b864f74a112e60307}{\index{sighandler.\-c@{sighandler.\-c}!gmx\-\_\-set\-\_\-stop\-\_\-condition@{gmx\-\_\-set\-\_\-stop\-\_\-condition}}
+\index{gmx\-\_\-set\-\_\-stop\-\_\-condition@{gmx\-\_\-set\-\_\-stop\-\_\-condition}!sighandler.c@{sighandler.\-c}}
+\subsubsection[{gmx\-\_\-set\-\_\-stop\-\_\-condition}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-set\-\_\-stop\-\_\-condition} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-stop\-\_\-cond\-\_\-t}}]{recvd\-\_\-stop\-\_\-cond}
+\end{DoxyParamCaption}
+)}}\label{sighandler_8c_a8e328d03b0dd391b864f74a112e60307}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{sighandler_8c_a8e328d03b0dd391b864f74a112e60307_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{sighandler_8c_a84b25e749a714ba8d7486918810d88c2}{\index{sighandler.\-c@{sighandler.\-c}!gmx\-\_\-signal@{gmx\-\_\-signal}}
+\index{gmx\-\_\-signal@{gmx\-\_\-signal}!sighandler.c@{sighandler.\-c}}
+\subsubsection[{gmx\-\_\-signal}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf gmx\-\_\-signal} (
+\begin{DoxyParamCaption}
+\item[{int}]{signum}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{sighandler_8c_a84b25e749a714ba8d7486918810d88c2}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=262pt]{sighandler_8c_a84b25e749a714ba8d7486918810d88c2_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{sighandler_8c_a84b25e749a714ba8d7486918810d88c2_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{sighandler_8c_a9be86ee5d7d7722d1d4d7c210b74a78b}{\index{sighandler.\-c@{sighandler.\-c}!signal\-\_\-handler@{signal\-\_\-handler}}
+\index{signal\-\_\-handler@{signal\-\_\-handler}!sighandler.c@{sighandler.\-c}}
+\subsubsection[{signal\-\_\-handler}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf signal\-\_\-handler} (
+\begin{DoxyParamCaption}
+\item[{int}]{n}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{sighandler_8c_a9be86ee5d7d7722d1d4d7c210b74a78b}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{sighandler_8c_a9be86ee5d7d7722d1d4d7c210b74a78b_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{sighandler_8c_aa5a09d3eb8897a790dd312153ee6478e}{\index{sighandler.\-c@{sighandler.\-c}!signal\-\_\-handler\-\_\-install@{signal\-\_\-handler\-\_\-install}}
+\index{signal\-\_\-handler\-\_\-install@{signal\-\_\-handler\-\_\-install}!sighandler.c@{sighandler.\-c}}
+\subsubsection[{signal\-\_\-handler\-\_\-install}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf signal\-\_\-handler\-\_\-install} (
+\begin{DoxyParamCaption}
+\item[{{\bf void}}]{}
+\end{DoxyParamCaption}
+)}}\label{sighandler_8c_aa5a09d3eb8897a790dd312153ee6478e}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{sighandler_8c_aa5a09d3eb8897a790dd312153ee6478e_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=284pt]{sighandler_8c_aa5a09d3eb8897a790dd312153ee6478e_icgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{\-Variable \-Documentation}
+\hypertarget{sighandler_8c_aa02956e9d4e64395083c67e5ca5a326b}{\index{sighandler.\-c@{sighandler.\-c}!gmx\-\_\-signal\-\_\-name@{gmx\-\_\-signal\-\_\-name}}
+\index{gmx\-\_\-signal\-\_\-name@{gmx\-\_\-signal\-\_\-name}!sighandler.c@{sighandler.\-c}}
+\subsubsection[{gmx\-\_\-signal\-\_\-name}]{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ {\bf gmx\-\_\-signal\-\_\-name}\mbox{[}$\,$\mbox{]}}}\label{sighandler_8c_aa02956e9d4e64395083c67e5ca5a326b}
+{\bfseries \-Initial value\-:}
+\begin{DoxyCode}
+
+{
+    "None",
+    "INT",
+    "TERM",
+    "second INT/TERM",
+    "remote INT/TERM",
+    "remote second INT/TERM",
+    "USR1",
+    "Abort"
+}
+\end{DoxyCode}
+\hypertarget{sighandler_8c_af037a5fb167fa8e3236e2ad6db0a037d}{\index{sighandler.\-c@{sighandler.\-c}!gmx\-\_\-stop\-\_\-cond\-\_\-name@{gmx\-\_\-stop\-\_\-cond\-\_\-name}}
+\index{gmx\-\_\-stop\-\_\-cond\-\_\-name@{gmx\-\_\-stop\-\_\-cond\-\_\-name}!sighandler.c@{sighandler.\-c}}
+\subsubsection[{gmx\-\_\-stop\-\_\-cond\-\_\-name}]{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ {\bf gmx\-\_\-stop\-\_\-cond\-\_\-name}\mbox{[}$\,$\mbox{]}}}\label{sighandler_8c_af037a5fb167fa8e3236e2ad6db0a037d}
+{\bfseries \-Initial value\-:}
+\begin{DoxyCode}
+
+{
+    "None",
+    "Stop at the next neighbor search step",
+    "Stop at the next step",
+    "Abort"
+}
+\end{DoxyCode}
+\hypertarget{sighandler_8c_aef8f01f63a5748bcda761ac3389413d7}{\index{sighandler.\-c@{sighandler.\-c}!last\-\_\-signal\-\_\-name@{last\-\_\-signal\-\_\-name}}
+\index{last\-\_\-signal\-\_\-name@{last\-\_\-signal\-\_\-name}!sighandler.c@{sighandler.\-c}}
+\subsubsection[{last\-\_\-signal\-\_\-name}]{\setlength{\rightskip}{0pt plus 5cm}volatile sig\-\_\-atomic\-\_\-t {\bf last\-\_\-signal\-\_\-name} = 0\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{sighandler_8c_aef8f01f63a5748bcda761ac3389413d7}
+\hypertarget{sighandler_8c_aa25c8ace6e7e4f092e83d7b78b85719b}{\index{sighandler.\-c@{sighandler.\-c}!stop\-\_\-condition@{stop\-\_\-condition}}
+\index{stop\-\_\-condition@{stop\-\_\-condition}!sighandler.c@{sighandler.\-c}}
+\subsubsection[{stop\-\_\-condition}]{\setlength{\rightskip}{0pt plus 5cm}volatile sig\-\_\-atomic\-\_\-t {\bf stop\-\_\-condition} = {\bf gmx\-\_\-stop\-\_\-cond\-\_\-none}\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{sighandler_8c_aa25c8ace6e7e4f092e83d7b78b85719b}
+\hypertarget{sighandler_8c_a745867cc2fdb37dc4acc265dd4576306}{\index{sighandler.\-c@{sighandler.\-c}!usr\-\_\-condition@{usr\-\_\-condition}}
+\index{usr\-\_\-condition@{usr\-\_\-condition}!sighandler.c@{sighandler.\-c}}
+\subsubsection[{usr\-\_\-condition}]{\setlength{\rightskip}{0pt plus 5cm}volatile sig\-\_\-atomic\-\_\-t {\bf usr\-\_\-condition} = 0\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{sighandler_8c_a745867cc2fdb37dc4acc265dd4576306}

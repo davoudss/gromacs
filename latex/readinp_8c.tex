@@ -1,0 +1,413 @@
+\hypertarget{readinp_8c}{\section{src/gmxlib/readinp.c \-File \-Reference}
+\label{readinp_8c}\index{src/gmxlib/readinp.\-c@{src/gmxlib/readinp.\-c}}
+}
+{\ttfamily \#include $<$stdio.\-h$>$}\*
+{\ttfamily \#include $<$stdlib.\-h$>$}\*
+{\ttfamily \#include \char`\"{}typedefs.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}string2.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}futil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}smalloc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}readinp.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}macros.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}statutil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmxfio.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}names.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}warninp.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-fatal.\-h\char`\"{}}\*
+\-Include dependency graph for readinp.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{readinp_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+static int \hyperlink{readinp_8c_a7bf2da98eb9022198bb89aa5c1ee9fa3}{search\-\_\-einp} (int ninp, const \hyperlink{structt__inpfile}{t\-\_\-inpfile} $\ast$inp, const char $\ast$name)
+\item 
+\hyperlink{structt__inpfile}{t\-\_\-inpfile} $\ast$ \hyperlink{readinp_8c_aaeb82ac7022e70b04695abd1ee84c359}{read\-\_\-inpfile} (const char $\ast$fn, int $\ast$ninp, char $\ast$$\ast$cppopts, \hyperlink{include_2warninp_8h_a614757abb660467b0be44eeb5d54e5f2}{warninp\-\_\-t} wi)
+\item 
+static int \hyperlink{readinp_8c_a1feefa634f4a92fca771ea73715a13af}{inp\-\_\-comp} (const \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a0880879736d1ab747a972d1942421886}{a}, const \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afb462a5dea72ae7992f073bfd756fb5f}{b})
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{readinp_8c_af5c0152dec089a7d15e1bcb484687225}{sort\-\_\-inp} (int ninp, \hyperlink{structt__inpfile}{t\-\_\-inpfile} inp\mbox{[}$\,$\mbox{]})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{readinp_8c_a53a9476f2c94c2001cc07a10c1a3cdce}{write\-\_\-inpfile} (const char $\ast$fn, int ninp, \hyperlink{structt__inpfile}{t\-\_\-inpfile} inp\mbox{[}$\,$\mbox{]}, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Halt\-On\-Unknown, \hyperlink{include_2warninp_8h_a614757abb660467b0be44eeb5d54e5f2}{warninp\-\_\-t} wi)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{readinp_8c_a5a9f551f69070461e99f75c5b82fca94}{replace\-\_\-inp\-\_\-entry} (int ninp, \hyperlink{structt__inpfile}{t\-\_\-inpfile} $\ast$inp, const char $\ast$old\-\_\-entry, const char $\ast$new\-\_\-entry)
+\item 
+static int \hyperlink{readinp_8c_a55bb4adddf25c258b74092877ce38dd1}{get\-\_\-einp} (int $\ast$ninp, \hyperlink{structt__inpfile}{t\-\_\-inpfile} $\ast$$\ast$inp, const char $\ast$name)
+\item 
+int \hyperlink{readinp_8c_aa32b3108ffe6f1878a30d2948a150753}{get\-\_\-eint} (int $\ast$ninp, \hyperlink{structt__inpfile}{t\-\_\-inpfile} $\ast$$\ast$inp, const char $\ast$name, int def, \hyperlink{include_2warninp_8h_a614757abb660467b0be44eeb5d54e5f2}{warninp\-\_\-t} wi)
+\item 
+gmx\-\_\-large\-\_\-int\-\_\-t \hyperlink{readinp_8c_a800e5a7ae5cc60d7bfb5fdcd46c5cb50}{get\-\_\-egmx\-\_\-large\-\_\-int} (int $\ast$ninp, \hyperlink{structt__inpfile}{t\-\_\-inpfile} $\ast$$\ast$inp, const char $\ast$name, gmx\-\_\-large\-\_\-int\-\_\-t def, \hyperlink{include_2warninp_8h_a614757abb660467b0be44eeb5d54e5f2}{warninp\-\_\-t} wi)
+\item 
+double \hyperlink{readinp_8c_a33874dc57c199d0728b9a9d3329160b1}{get\-\_\-ereal} (int $\ast$ninp, \hyperlink{structt__inpfile}{t\-\_\-inpfile} $\ast$$\ast$inp, const char $\ast$name, double def, \hyperlink{include_2warninp_8h_a614757abb660467b0be44eeb5d54e5f2}{warninp\-\_\-t} wi)
+\item 
+const char $\ast$ \hyperlink{readinp_8c_a770e6172c3ffd5cf946a82ed4cbc69b0}{get\-\_\-estr} (int $\ast$ninp, \hyperlink{structt__inpfile}{t\-\_\-inpfile} $\ast$$\ast$inp, const char $\ast$name, const char $\ast$def)
+\item 
+int \hyperlink{readinp_8c_a709f9fda655f56783b6ffdf90b1b3be2}{get\-\_\-eeenum} (int $\ast$ninp, \hyperlink{structt__inpfile}{t\-\_\-inpfile} $\ast$$\ast$inp, const char $\ast$name, const char $\ast$$\ast$\hyperlink{gmxcpp_8c_a2b6f3b51edc5722dc47dbdfbca20b1bb}{defs}, \hyperlink{include_2warninp_8h_a614757abb660467b0be44eeb5d54e5f2}{warninp\-\_\-t} wi)
+\item 
+int \hyperlink{readinp_8c_a2bc5f01194a43be38fb381cbba1c84dd}{get\-\_\-eenum} (int $\ast$ninp, \hyperlink{structt__inpfile}{t\-\_\-inpfile} $\ast$$\ast$inp, const char $\ast$name, const char $\ast$$\ast$\hyperlink{gmxcpp_8c_a2b6f3b51edc5722dc47dbdfbca20b1bb}{defs})
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{readinp_8c_a709f9fda655f56783b6ffdf90b1b3be2}{\index{readinp.\-c@{readinp.\-c}!get\-\_\-eeenum@{get\-\_\-eeenum}}
+\index{get\-\_\-eeenum@{get\-\_\-eeenum}!readinp.c@{readinp.\-c}}
+\subsubsection[{get\-\_\-eeenum}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf get\-\_\-eeenum} (
+\begin{DoxyParamCaption}
+\item[{int $\ast$}]{ninp, }
+\item[{{\bf t\-\_\-inpfile} $\ast$$\ast$}]{inp, }
+\item[{const char $\ast$}]{name, }
+\item[{const char $\ast$$\ast$}]{defs, }
+\item[{{\bf warninp\-\_\-t}}]{wi}
+\end{DoxyParamCaption}
+)}}\label{readinp_8c_a709f9fda655f56783b6ffdf90b1b3be2}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{readinp_8c_a709f9fda655f56783b6ffdf90b1b3be2_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=252pt]{readinp_8c_a709f9fda655f56783b6ffdf90b1b3be2_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{readinp_8c_a2bc5f01194a43be38fb381cbba1c84dd}{\index{readinp.\-c@{readinp.\-c}!get\-\_\-eenum@{get\-\_\-eenum}}
+\index{get\-\_\-eenum@{get\-\_\-eenum}!readinp.c@{readinp.\-c}}
+\subsubsection[{get\-\_\-eenum}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf get\-\_\-eenum} (
+\begin{DoxyParamCaption}
+\item[{int $\ast$}]{ninp, }
+\item[{{\bf t\-\_\-inpfile} $\ast$$\ast$}]{inp, }
+\item[{const char $\ast$}]{name, }
+\item[{const char $\ast$$\ast$}]{defs}
+\end{DoxyParamCaption}
+)}}\label{readinp_8c_a2bc5f01194a43be38fb381cbba1c84dd}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=252pt]{readinp_8c_a2bc5f01194a43be38fb381cbba1c84dd_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{readinp_8c_a800e5a7ae5cc60d7bfb5fdcd46c5cb50}{\index{readinp.\-c@{readinp.\-c}!get\-\_\-egmx\-\_\-large\-\_\-int@{get\-\_\-egmx\-\_\-large\-\_\-int}}
+\index{get\-\_\-egmx\-\_\-large\-\_\-int@{get\-\_\-egmx\-\_\-large\-\_\-int}!readinp.c@{readinp.\-c}}
+\subsubsection[{get\-\_\-egmx\-\_\-large\-\_\-int}]{\setlength{\rightskip}{0pt plus 5cm}gmx\-\_\-large\-\_\-int\-\_\-t {\bf get\-\_\-egmx\-\_\-large\-\_\-int} (
+\begin{DoxyParamCaption}
+\item[{int $\ast$}]{ninp, }
+\item[{{\bf t\-\_\-inpfile} $\ast$$\ast$}]{inp, }
+\item[{const char $\ast$}]{name, }
+\item[{gmx\-\_\-large\-\_\-int\-\_\-t}]{def, }
+\item[{{\bf warninp\-\_\-t}}]{wi}
+\end{DoxyParamCaption}
+)}}\label{readinp_8c_a800e5a7ae5cc60d7bfb5fdcd46c5cb50}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{readinp_8c_a800e5a7ae5cc60d7bfb5fdcd46c5cb50_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{readinp_8c_a55bb4adddf25c258b74092877ce38dd1}{\index{readinp.\-c@{readinp.\-c}!get\-\_\-einp@{get\-\_\-einp}}
+\index{get\-\_\-einp@{get\-\_\-einp}!readinp.c@{readinp.\-c}}
+\subsubsection[{get\-\_\-einp}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf get\-\_\-einp} (
+\begin{DoxyParamCaption}
+\item[{int $\ast$}]{ninp, }
+\item[{{\bf t\-\_\-inpfile} $\ast$$\ast$}]{inp, }
+\item[{const char $\ast$}]{name}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{readinp_8c_a55bb4adddf25c258b74092877ce38dd1}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{readinp_8c_a55bb4adddf25c258b74092877ce38dd1_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{readinp_8c_a55bb4adddf25c258b74092877ce38dd1_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{readinp_8c_aa32b3108ffe6f1878a30d2948a150753}{\index{readinp.\-c@{readinp.\-c}!get\-\_\-eint@{get\-\_\-eint}}
+\index{get\-\_\-eint@{get\-\_\-eint}!readinp.c@{readinp.\-c}}
+\subsubsection[{get\-\_\-eint}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf get\-\_\-eint} (
+\begin{DoxyParamCaption}
+\item[{int $\ast$}]{ninp, }
+\item[{{\bf t\-\_\-inpfile} $\ast$$\ast$}]{inp, }
+\item[{const char $\ast$}]{name, }
+\item[{int}]{def, }
+\item[{{\bf warninp\-\_\-t}}]{wi}
+\end{DoxyParamCaption}
+)}}\label{readinp_8c_aa32b3108ffe6f1878a30d2948a150753}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{readinp_8c_aa32b3108ffe6f1878a30d2948a150753_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{readinp_8c_a33874dc57c199d0728b9a9d3329160b1}{\index{readinp.\-c@{readinp.\-c}!get\-\_\-ereal@{get\-\_\-ereal}}
+\index{get\-\_\-ereal@{get\-\_\-ereal}!readinp.c@{readinp.\-c}}
+\subsubsection[{get\-\_\-ereal}]{\setlength{\rightskip}{0pt plus 5cm}double {\bf get\-\_\-ereal} (
+\begin{DoxyParamCaption}
+\item[{int $\ast$}]{ninp, }
+\item[{{\bf t\-\_\-inpfile} $\ast$$\ast$}]{inp, }
+\item[{const char $\ast$}]{name, }
+\item[{double}]{def, }
+\item[{{\bf warninp\-\_\-t}}]{wi}
+\end{DoxyParamCaption}
+)}}\label{readinp_8c_a33874dc57c199d0728b9a9d3329160b1}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{readinp_8c_a33874dc57c199d0728b9a9d3329160b1_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{readinp_8c_a770e6172c3ffd5cf946a82ed4cbc69b0}{\index{readinp.\-c@{readinp.\-c}!get\-\_\-estr@{get\-\_\-estr}}
+\index{get\-\_\-estr@{get\-\_\-estr}!readinp.c@{readinp.\-c}}
+\subsubsection[{get\-\_\-estr}]{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ {\bf get\-\_\-estr} (
+\begin{DoxyParamCaption}
+\item[{int $\ast$}]{ninp, }
+\item[{{\bf t\-\_\-inpfile} $\ast$$\ast$}]{inp, }
+\item[{const char $\ast$}]{name, }
+\item[{const char $\ast$}]{def}
+\end{DoxyParamCaption}
+)}}\label{readinp_8c_a770e6172c3ffd5cf946a82ed4cbc69b0}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{readinp_8c_a770e6172c3ffd5cf946a82ed4cbc69b0_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{readinp_8c_a1feefa634f4a92fca771ea73715a13af}{\index{readinp.\-c@{readinp.\-c}!inp\-\_\-comp@{inp\-\_\-comp}}
+\index{inp\-\_\-comp@{inp\-\_\-comp}!readinp.c@{readinp.\-c}}
+\subsubsection[{inp\-\_\-comp}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf inp\-\_\-comp} (
+\begin{DoxyParamCaption}
+\item[{const {\bf void} $\ast$}]{a, }
+\item[{const {\bf void} $\ast$}]{b}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{readinp_8c_a1feefa634f4a92fca771ea73715a13af}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{readinp_8c_a1feefa634f4a92fca771ea73715a13af_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{readinp_8c_aaeb82ac7022e70b04695abd1ee84c359}{\index{readinp.\-c@{readinp.\-c}!read\-\_\-inpfile@{read\-\_\-inpfile}}
+\index{read\-\_\-inpfile@{read\-\_\-inpfile}!readinp.c@{readinp.\-c}}
+\subsubsection[{read\-\_\-inpfile}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\-\_\-inpfile}$\ast$ {\bf read\-\_\-inpfile} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{fn, }
+\item[{int $\ast$}]{ninp, }
+\item[{char $\ast$$\ast$}]{cppopts, }
+\item[{{\bf warninp\-\_\-t}}]{wi}
+\end{DoxyParamCaption}
+)}}\label{readinp_8c_aaeb82ac7022e70b04695abd1ee84c359}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{readinp_8c_aaeb82ac7022e70b04695abd1ee84c359_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{readinp_8c_aaeb82ac7022e70b04695abd1ee84c359_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{readinp_8c_a5a9f551f69070461e99f75c5b82fca94}{\index{readinp.\-c@{readinp.\-c}!replace\-\_\-inp\-\_\-entry@{replace\-\_\-inp\-\_\-entry}}
+\index{replace\-\_\-inp\-\_\-entry@{replace\-\_\-inp\-\_\-entry}!readinp.c@{readinp.\-c}}
+\subsubsection[{replace\-\_\-inp\-\_\-entry}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf replace\-\_\-inp\-\_\-entry} (
+\begin{DoxyParamCaption}
+\item[{int}]{ninp, }
+\item[{{\bf t\-\_\-inpfile} $\ast$}]{inp, }
+\item[{const char $\ast$}]{old\-\_\-entry, }
+\item[{const char $\ast$}]{new\-\_\-entry}
+\end{DoxyParamCaption}
+)}}\label{readinp_8c_a5a9f551f69070461e99f75c5b82fca94}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=324pt]{readinp_8c_a5a9f551f69070461e99f75c5b82fca94_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{readinp_8c_a7bf2da98eb9022198bb89aa5c1ee9fa3}{\index{readinp.\-c@{readinp.\-c}!search\-\_\-einp@{search\-\_\-einp}}
+\index{search\-\_\-einp@{search\-\_\-einp}!readinp.c@{readinp.\-c}}
+\subsubsection[{search\-\_\-einp}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf search\-\_\-einp} (
+\begin{DoxyParamCaption}
+\item[{int}]{ninp, }
+\item[{const {\bf t\-\_\-inpfile} $\ast$}]{inp, }
+\item[{const char $\ast$}]{name}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{readinp_8c_a7bf2da98eb9022198bb89aa5c1ee9fa3}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=300pt]{readinp_8c_a7bf2da98eb9022198bb89aa5c1ee9fa3_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{readinp_8c_a7bf2da98eb9022198bb89aa5c1ee9fa3_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{readinp_8c_af5c0152dec089a7d15e1bcb484687225}{\index{readinp.\-c@{readinp.\-c}!sort\-\_\-inp@{sort\-\_\-inp}}
+\index{sort\-\_\-inp@{sort\-\_\-inp}!readinp.c@{readinp.\-c}}
+\subsubsection[{sort\-\_\-inp}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf sort\-\_\-inp} (
+\begin{DoxyParamCaption}
+\item[{int}]{ninp, }
+\item[{{\bf t\-\_\-inpfile}}]{inp\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{readinp_8c_af5c0152dec089a7d15e1bcb484687225}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=228pt]{readinp_8c_af5c0152dec089a7d15e1bcb484687225_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{readinp_8c_af5c0152dec089a7d15e1bcb484687225_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{readinp_8c_a53a9476f2c94c2001cc07a10c1a3cdce}{\index{readinp.\-c@{readinp.\-c}!write\-\_\-inpfile@{write\-\_\-inpfile}}
+\index{write\-\_\-inpfile@{write\-\_\-inpfile}!readinp.c@{readinp.\-c}}
+\subsubsection[{write\-\_\-inpfile}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf write\-\_\-inpfile} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{fn, }
+\item[{int}]{ninp, }
+\item[{{\bf t\-\_\-inpfile}}]{inp\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Halt\-On\-Unknown, }
+\item[{{\bf warninp\-\_\-t}}]{wi}
+\end{DoxyParamCaption}
+)}}\label{readinp_8c_a53a9476f2c94c2001cc07a10c1a3cdce}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{readinp_8c_a53a9476f2c94c2001cc07a10c1a3cdce_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{readinp_8c_a53a9476f2c94c2001cc07a10c1a3cdce_icgraph}
+\end{center}
+\end{figure}
+
+

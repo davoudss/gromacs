@@ -1,0 +1,69 @@
+\hypertarget{structtMPI__Thread__barrier}{\section{t\-M\-P\-I\-\_\-\-Thread\-\_\-barrier \-Struct \-Reference}
+\label{structtMPI__Thread__barrier}\index{t\-M\-P\-I\-\_\-\-Thread\-\_\-barrier@{t\-M\-P\-I\-\_\-\-Thread\-\_\-barrier}}
+}
+
+
+{\ttfamily \#include $<$pthreads.\-h$>$}
+
+
+
+\-Collaboration diagram for t\-M\-P\-I\-\_\-\-Thread\-\_\-barrier\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structtMPI__Thread__barrier__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{\-Public \-Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{include_2thread__mpi_2atomic_2gcc_8h_a2c33794dc540e3b07cffc1f81a3fe4b4}{t\-M\-P\-I\-\_\-\-Atomic\-\_\-t} \hyperlink{structtMPI__Thread__barrier_a312e78b6d376c05247b52d3689c53144}{initialized}
+\item 
+pthread\-\_\-mutex\-\_\-t \hyperlink{structtMPI__Thread__barrier_a58cb4561b37cc6e66d18e308e15eab36}{mutex}
+\item 
+pthread\-\_\-cond\-\_\-t \hyperlink{structtMPI__Thread__barrier_aebf974065e952a130515fae5d86598a3}{cv}
+\item 
+int \hyperlink{structtMPI__Thread__barrier_afd7dba8362370830114a00e04f1d6897}{threshold}
+\item 
+int \hyperlink{structtMPI__Thread__barrier_a48eaa41e8bb9f42bf287f75f66acbf3f}{count}
+\item 
+int \hyperlink{structtMPI__Thread__barrier_a40a3ce799420fdf21e5efadd5f035f84}{cycle}
+\item 
+\hyperlink{structtMPI__Thread__mutex__t}{t\-M\-P\-I\-\_\-\-Thread\-\_\-mutex\-\_\-t} \hyperlink{structtMPI__Thread__barrier_adacc4aafae56bf3a787ab3434cd327ae}{cs}
+\item 
+\hyperlink{structtMPI__Thread__cond__t}{t\-M\-P\-I\-\_\-\-Thread\-\_\-cond\-\_\-t} \hyperlink{structtMPI__Thread__barrier_a36808c4fc06160450a84e5eeb8d008e9}{cv}
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Member \-Data \-Documentation}
+\hypertarget{structtMPI__Thread__barrier_a48eaa41e8bb9f42bf287f75f66acbf3f}{\index{t\-M\-P\-I\-\_\-\-Thread\-\_\-barrier@{t\-M\-P\-I\-\_\-\-Thread\-\_\-barrier}!count@{count}}
+\index{count@{count}!tMPI_Thread_barrier@{t\-M\-P\-I\-\_\-\-Thread\-\_\-barrier}}
+\subsubsection[{count}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf t\-M\-P\-I\-\_\-\-Thread\-\_\-barrier\-::count}}}\label{structtMPI__Thread__barrier_a48eaa41e8bb9f42bf287f75f66acbf3f}
+\-Remaining count before completion \hypertarget{structtMPI__Thread__barrier_adacc4aafae56bf3a787ab3434cd327ae}{\index{t\-M\-P\-I\-\_\-\-Thread\-\_\-barrier@{t\-M\-P\-I\-\_\-\-Thread\-\_\-barrier}!cs@{cs}}
+\index{cs@{cs}!tMPI_Thread_barrier@{t\-M\-P\-I\-\_\-\-Thread\-\_\-barrier}}
+\subsubsection[{cs}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\-M\-P\-I\-\_\-\-Thread\-\_\-mutex\-\_\-t} {\bf t\-M\-P\-I\-\_\-\-Thread\-\_\-barrier\-::cs}}}\label{structtMPI__Thread__barrier_adacc4aafae56bf3a787ab3434cd327ae}
+\-Lock for the barrier contents \hypertarget{structtMPI__Thread__barrier_aebf974065e952a130515fae5d86598a3}{\index{t\-M\-P\-I\-\_\-\-Thread\-\_\-barrier@{t\-M\-P\-I\-\_\-\-Thread\-\_\-barrier}!cv@{cv}}
+\index{cv@{cv}!tMPI_Thread_barrier@{t\-M\-P\-I\-\_\-\-Thread\-\_\-barrier}}
+\subsubsection[{cv}]{\setlength{\rightskip}{0pt plus 5cm}pthread\-\_\-cond\-\_\-t {\bf t\-M\-P\-I\-\_\-\-Thread\-\_\-barrier\-::cv}}}\label{structtMPI__Thread__barrier_aebf974065e952a130515fae5d86598a3}
+\-Condition to signal barrier completion \hypertarget{structtMPI__Thread__barrier_a36808c4fc06160450a84e5eeb8d008e9}{\index{t\-M\-P\-I\-\_\-\-Thread\-\_\-barrier@{t\-M\-P\-I\-\_\-\-Thread\-\_\-barrier}!cv@{cv}}
+\index{cv@{cv}!tMPI_Thread_barrier@{t\-M\-P\-I\-\_\-\-Thread\-\_\-barrier}}
+\subsubsection[{cv}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\-M\-P\-I\-\_\-\-Thread\-\_\-cond\-\_\-t} {\bf t\-M\-P\-I\-\_\-\-Thread\-\_\-barrier\-::cv}}}\label{structtMPI__Thread__barrier_a36808c4fc06160450a84e5eeb8d008e9}
+\-Condition to signal barrier completion \hypertarget{structtMPI__Thread__barrier_a40a3ce799420fdf21e5efadd5f035f84}{\index{t\-M\-P\-I\-\_\-\-Thread\-\_\-barrier@{t\-M\-P\-I\-\_\-\-Thread\-\_\-barrier}!cycle@{cycle}}
+\index{cycle@{cycle}!tMPI_Thread_barrier@{t\-M\-P\-I\-\_\-\-Thread\-\_\-barrier}}
+\subsubsection[{cycle}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf t\-M\-P\-I\-\_\-\-Thread\-\_\-barrier\-::cycle}}}\label{structtMPI__Thread__barrier_a40a3ce799420fdf21e5efadd5f035f84}
+\-Alternating 0/1 to indicate round \hypertarget{structtMPI__Thread__barrier_a312e78b6d376c05247b52d3689c53144}{\index{t\-M\-P\-I\-\_\-\-Thread\-\_\-barrier@{t\-M\-P\-I\-\_\-\-Thread\-\_\-barrier}!initialized@{initialized}}
+\index{initialized@{initialized}!tMPI_Thread_barrier@{t\-M\-P\-I\-\_\-\-Thread\-\_\-barrier}}
+\subsubsection[{initialized}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\-M\-P\-I\-\_\-\-Atomic\-\_\-t} {\bf t\-M\-P\-I\-\_\-\-Thread\-\_\-barrier\-::initialized}}}\label{structtMPI__Thread__barrier_a312e78b6d376c05247b52d3689c53144}
+\hypertarget{structtMPI__Thread__barrier_a58cb4561b37cc6e66d18e308e15eab36}{\index{t\-M\-P\-I\-\_\-\-Thread\-\_\-barrier@{t\-M\-P\-I\-\_\-\-Thread\-\_\-barrier}!mutex@{mutex}}
+\index{mutex@{mutex}!tMPI_Thread_barrier@{t\-M\-P\-I\-\_\-\-Thread\-\_\-barrier}}
+\subsubsection[{mutex}]{\setlength{\rightskip}{0pt plus 5cm}pthread\-\_\-mutex\-\_\-t {\bf t\-M\-P\-I\-\_\-\-Thread\-\_\-barrier\-::mutex}}}\label{structtMPI__Thread__barrier_a58cb4561b37cc6e66d18e308e15eab36}
+\-Lock for the barrier contents \hypertarget{structtMPI__Thread__barrier_afd7dba8362370830114a00e04f1d6897}{\index{t\-M\-P\-I\-\_\-\-Thread\-\_\-barrier@{t\-M\-P\-I\-\_\-\-Thread\-\_\-barrier}!threshold@{threshold}}
+\index{threshold@{threshold}!tMPI_Thread_barrier@{t\-M\-P\-I\-\_\-\-Thread\-\_\-barrier}}
+\subsubsection[{threshold}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf t\-M\-P\-I\-\_\-\-Thread\-\_\-barrier\-::threshold}}}\label{structtMPI__Thread__barrier_afd7dba8362370830114a00e04f1d6897}
+\-Total number of members in barrier 
+
+\-The documentation for this struct was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+src/gmxlib/thread\-\_\-mpi/\hyperlink{pthreads_8h}{pthreads.\-h}\item 
+src/gmxlib/thread\-\_\-mpi/\hyperlink{winthreads_8h}{winthreads.\-h}\end{DoxyCompactItemize}

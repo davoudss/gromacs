@@ -1,0 +1,869 @@
+\hypertarget{coupling_8c}{\section{src/mdlib/coupling.c \-File \-Reference}
+\label{coupling_8c}\index{src/mdlib/coupling.\-c@{src/mdlib/coupling.\-c}}
+}
+{\ttfamily \#include $<$assert.\-h$>$}\*
+{\ttfamily \#include \char`\"{}typedefs.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}smalloc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}update.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}vec.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}macros.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}physics.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}names.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-fatal.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}txtdump.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}nrnb.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-random.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}mdrun.\-h\char`\"{}}\*
+\-Include dependency graph for coupling.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{coupling_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{coupling_8c_aa6f13f8435e0cb34f8c7f41e2ef7a043}{\-N\-T\-R\-O\-T\-T\-E\-R\-P\-A\-R\-T\-S}~3
+\item 
+\#define \hyperlink{coupling_8c_a9fa6cb6aeef8e03a280001b320eb3dc1}{factor}(\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae624f265c646670d373e9de0306f184b}{d}, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_aa30cfa61c7e675800f65322a90f8ac96}{m})~(ir-\/$>$compress\mbox{[}\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae624f265c646670d373e9de0306f184b}{d}\mbox{]}\mbox{[}\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_aa30cfa61c7e675800f65322a90f8ac96}{m}\mbox{]}$\ast$dt/ir-\/$>$tau\-\_\-p)
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{coupling_8c_af92f5dadc9603ecfb68b165ab7473ae0}{\-N\-H\-C\-\_\-trotter} (\hyperlink{structt__grpopts}{t\-\_\-grpopts} $\ast$opts, int nvar, \hyperlink{structgmx__ekindata__t}{gmx\-\_\-ekindata\-\_\-t} $\ast$ekind, real dtfull, double xi\mbox{[}$\,$\mbox{]}, double vxi\mbox{[}$\,$\mbox{]}, double scalefac\mbox{[}$\,$\mbox{]}, real $\ast$veta, \hyperlink{structt__extmass}{t\-\_\-extmass} $\ast$\-Mass\-Q, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Ekin\-Ave\-Vel)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{coupling_8c_ac221e0c11f15fc2c2e4755d73162e4c4}{boxv\-\_\-trotter} (\hyperlink{structt__inputrec}{t\-\_\-inputrec} $\ast$ir, real $\ast$veta, real dt, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aef0bf341f56ce75f09dbb64350488a61}{tensor} box, \hyperlink{structgmx__ekindata__t}{gmx\-\_\-ekindata\-\_\-t} $\ast$ekind, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aef0bf341f56ce75f09dbb64350488a61}{tensor} vir, real pcorr, \hyperlink{structt__extmass}{t\-\_\-extmass} $\ast$\-Mass\-Q)
+\item 
+real \hyperlink{coupling_8c_ad259427e905c1e264157a885667735b5}{calc\-\_\-pres} (int e\-P\-B\-C, int nwall, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aef0bf341f56ce75f09dbb64350488a61}{tensor} ekin, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aef0bf341f56ce75f09dbb64350488a61}{tensor} vir, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aef0bf341f56ce75f09dbb64350488a61}{tensor} pres)
+\item 
+real \hyperlink{coupling_8c_a73bab8ff27e65d4cec9125f5558da421}{calc\-\_\-temp} (real ekin, real nrdf)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{coupling_8c_aad09e1d34cdeaecd31ae34496f9534cc}{parrinellorahman\-\_\-pcoupl} (\-F\-I\-L\-E $\ast$fplog, gmx\-\_\-large\-\_\-int\-\_\-t step, \hyperlink{structt__inputrec}{t\-\_\-inputrec} $\ast$ir, real dt, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aef0bf341f56ce75f09dbb64350488a61}{tensor} pres, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aef0bf341f56ce75f09dbb64350488a61}{tensor} box, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aef0bf341f56ce75f09dbb64350488a61}{tensor} box\-\_\-rel, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aef0bf341f56ce75f09dbb64350488a61}{tensor} boxv, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aef0bf341f56ce75f09dbb64350488a61}{tensor} \-M, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} mu, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-First\-Step)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{coupling_8c_a130c1ac5ee8065f0754e60f09b56aad0}{berendsen\-\_\-pcoupl} (\-F\-I\-L\-E $\ast$fplog, gmx\-\_\-large\-\_\-int\-\_\-t step, \hyperlink{structt__inputrec}{t\-\_\-inputrec} $\ast$ir, real dt, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aef0bf341f56ce75f09dbb64350488a61}{tensor} pres, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} mu)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{coupling_8c_a23f5eb92d37fb460dc70c8202137b110}{berendsen\-\_\-pscale} (\hyperlink{structt__inputrec}{t\-\_\-inputrec} $\ast$ir, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} mu, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box\-\_\-rel, int start, int nr\-\_\-atoms, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, unsigned short c\-F\-R\-E\-E\-Z\-E\mbox{[}$\,$\mbox{]}, \hyperlink{structt__nrnb}{t\-\_\-nrnb} $\ast$nrnb)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{coupling_8c_ab47f6bac8b3d6fcbab594923581f2c79}{berendsen\-\_\-tcoupl} (\hyperlink{structt__inputrec}{t\-\_\-inputrec} $\ast$ir, \hyperlink{structgmx__ekindata__t}{gmx\-\_\-ekindata\-\_\-t} $\ast$ekind, real dt)
+\item 
+static int \hyperlink{coupling_8c_a684c71cf7fc9382560dec2c3d95255ff}{poisson\-\_\-variate} (real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_aec47b6dda9c386285e755f058a846af8}{lambda}, \hyperlink{include_2gmx__random_8h_ab04e36fe2b56587efc5f5738e432ddee}{gmx\-\_\-rng\-\_\-t} rng)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{coupling_8c_a20a54a2b92b5c836f94dc3957c7f8864}{andersen\-\_\-tcoupl} (\hyperlink{structt__inputrec}{t\-\_\-inputrec} $\ast$ir, \hyperlink{structt__mdatoms}{t\-\_\-mdatoms} $\ast$md, \hyperlink{structt__state}{t\-\_\-state} $\ast$state, \hyperlink{include_2gmx__random_8h_ab04e36fe2b56587efc5f5738e432ddee}{gmx\-\_\-rng\-\_\-t} rng, real rate, \hyperlink{structt__idef}{t\-\_\-idef} $\ast$idef, int nblocks, int $\ast$sblock, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} $\ast$randatom, int $\ast$randatom\-\_\-list, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} $\ast$randomize, real $\ast$boltzfac)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{coupling_8c_aafc5b6041923824411d144180b1d0ca2}{nosehoover\-\_\-tcoupl} (\hyperlink{structt__grpopts}{t\-\_\-grpopts} $\ast$opts, \hyperlink{structgmx__ekindata__t}{gmx\-\_\-ekindata\-\_\-t} $\ast$ekind, real dt, double xi\mbox{[}$\,$\mbox{]}, double vxi\mbox{[}$\,$\mbox{]}, \hyperlink{structt__extmass}{t\-\_\-extmass} $\ast$\-Mass\-Q)
+\item 
+\hyperlink{structt__state}{t\-\_\-state} $\ast$ \hyperlink{coupling_8c_a8b798dba042359fd898617043154686f}{init\-\_\-bufstate} (const \hyperlink{structt__state}{t\-\_\-state} $\ast$template\-\_\-state)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{coupling_8c_a82d11f399fa4a20685c2507c0662af58}{destroy\-\_\-bufstate} (\hyperlink{structt__state}{t\-\_\-state} $\ast$state)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{coupling_8c_a9346021147a30fe72f9948331c0e5afb}{trotter\-\_\-update} (\hyperlink{structt__inputrec}{t\-\_\-inputrec} $\ast$ir, gmx\-\_\-large\-\_\-int\-\_\-t step, \hyperlink{structgmx__ekindata__t}{gmx\-\_\-ekindata\-\_\-t} $\ast$ekind, \hyperlink{structgmx__enerdata__t}{gmx\-\_\-enerdata\-\_\-t} $\ast$enerd, \hyperlink{structt__state}{t\-\_\-state} $\ast$state, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aef0bf341f56ce75f09dbb64350488a61}{tensor} vir, \hyperlink{structt__mdatoms}{t\-\_\-mdatoms} $\ast$md, \hyperlink{structt__extmass}{t\-\_\-extmass} $\ast$\-Mass\-Q, int $\ast$$\ast$trotter\-\_\-seqlist, int trotter\-\_\-seqno)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{coupling_8c_a06ea012bd9ac6fdfb5909b0f8d470d06}{init\-\_\-npt\-\_\-masses} (\hyperlink{structt__inputrec}{t\-\_\-inputrec} $\ast$ir, \hyperlink{structt__state}{t\-\_\-state} $\ast$state, \hyperlink{structt__extmass}{t\-\_\-extmass} $\ast$\-Mass\-Q, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Init)
+\item 
+int $\ast$$\ast$ \hyperlink{coupling_8c_adf282691a935ee1c9c09105470207fd6}{init\-\_\-npt\-\_\-vars} (\hyperlink{structt__inputrec}{t\-\_\-inputrec} $\ast$ir, \hyperlink{structt__state}{t\-\_\-state} $\ast$state, \hyperlink{structt__extmass}{t\-\_\-extmass} $\ast$\-Mass\-Q, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Trotter)
+\item 
+real \hyperlink{coupling_8c_aa2393225e3542dae5a52afc0794fd683}{\-N\-P\-T\-\_\-energy} (\hyperlink{structt__inputrec}{t\-\_\-inputrec} $\ast$ir, \hyperlink{structt__state}{t\-\_\-state} $\ast$state, \hyperlink{structt__extmass}{t\-\_\-extmass} $\ast$\-Mass\-Q)
+\item 
+static real \hyperlink{coupling_8c_a56c8664faa926c0546394a1bf7ee151f}{vrescale\-\_\-gamdev} (int ia, \hyperlink{include_2gmx__random_8h_ab04e36fe2b56587efc5f5738e432ddee}{gmx\-\_\-rng\-\_\-t} rng)
+\item 
+static real \hyperlink{coupling_8c_a72c56a1c8bee26fac934bef8bc1257d7}{vrescale\-\_\-sumnoises} (int nn, \hyperlink{include_2gmx__random_8h_ab04e36fe2b56587efc5f5738e432ddee}{gmx\-\_\-rng\-\_\-t} rng)
+\item 
+static real \hyperlink{coupling_8c_a5b6609f2b6dcfb5c3f15d28acb09663a}{vrescale\-\_\-resamplekin} (real kk, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_acc578499ab59fa3eb9f98198027d5624}{sigma}, int ndeg, real taut, \hyperlink{include_2gmx__random_8h_ab04e36fe2b56587efc5f5738e432ddee}{gmx\-\_\-rng\-\_\-t} rng)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{coupling_8c_a4475053adf83e29d7ab8da728e79d95d}{vrescale\-\_\-tcoupl} (\hyperlink{structt__inputrec}{t\-\_\-inputrec} $\ast$ir, \hyperlink{structgmx__ekindata__t}{gmx\-\_\-ekindata\-\_\-t} $\ast$ekind, real dt, double therm\-\_\-integral\mbox{[}$\,$\mbox{]}, \hyperlink{include_2gmx__random_8h_ab04e36fe2b56587efc5f5738e432ddee}{gmx\-\_\-rng\-\_\-t} rng)
+\item 
+real \hyperlink{coupling_8c_a47526d6013bde1b9b17d77abf39445ca}{vrescale\-\_\-energy} (\hyperlink{structt__grpopts}{t\-\_\-grpopts} $\ast$opts, double therm\-\_\-integral\mbox{[}$\,$\mbox{]})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{coupling_8c_a1acea884355f066c3e7cd90a2149b2a2}{rescale\-\_\-velocities} (\hyperlink{structgmx__ekindata__t}{gmx\-\_\-ekindata\-\_\-t} $\ast$ekind, \hyperlink{structt__mdatoms}{t\-\_\-mdatoms} $\ast$mdatoms, int start, int end, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a339df93739a405c3e4b0506624fa27a5}{v}\mbox{[}$\,$\mbox{]})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{coupling_8c_aba7ac6005aeaf0fd4bc09b19f47ddf0b}{update\-\_\-annealing\-\_\-target\-\_\-temp} (\hyperlink{structt__grpopts}{t\-\_\-grpopts} $\ast$opts, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a2b515c84b1293071f7584da32ca336c0}{t})
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Define \-Documentation}
+\hypertarget{coupling_8c_a9fa6cb6aeef8e03a280001b320eb3dc1}{\index{coupling.\-c@{coupling.\-c}!factor@{factor}}
+\index{factor@{factor}!coupling.c@{coupling.\-c}}
+\subsubsection[{factor}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf factor}(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf d}, }
+\item[{}]{{\bf m}}
+\end{DoxyParamCaption}
+)~(ir-\/$>$compress\mbox{[}{\bf d}\mbox{]}\mbox{[}{\bf m}\mbox{]}$\ast$dt/ir-\/$>$tau\-\_\-p)}}\label{coupling_8c_a9fa6cb6aeef8e03a280001b320eb3dc1}
+\hypertarget{coupling_8c_aa6f13f8435e0cb34f8c7f41e2ef7a043}{\index{coupling.\-c@{coupling.\-c}!\-N\-T\-R\-O\-T\-T\-E\-R\-P\-A\-R\-T\-S@{\-N\-T\-R\-O\-T\-T\-E\-R\-P\-A\-R\-T\-S}}
+\index{\-N\-T\-R\-O\-T\-T\-E\-R\-P\-A\-R\-T\-S@{\-N\-T\-R\-O\-T\-T\-E\-R\-P\-A\-R\-T\-S}!coupling.c@{coupling.\-c}}
+\subsubsection[{\-N\-T\-R\-O\-T\-T\-E\-R\-P\-A\-R\-T\-S}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-N\-T\-R\-O\-T\-T\-E\-R\-P\-A\-R\-T\-S}~3}}\label{coupling_8c_aa6f13f8435e0cb34f8c7f41e2ef7a043}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{coupling_8c_a20a54a2b92b5c836f94dc3957c7f8864}{\index{coupling.\-c@{coupling.\-c}!andersen\-\_\-tcoupl@{andersen\-\_\-tcoupl}}
+\index{andersen\-\_\-tcoupl@{andersen\-\_\-tcoupl}!coupling.c@{coupling.\-c}}
+\subsubsection[{andersen\-\_\-tcoupl}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf andersen\-\_\-tcoupl} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-inputrec} $\ast$}]{ir, }
+\item[{{\bf t\-\_\-mdatoms} $\ast$}]{md, }
+\item[{{\bf t\-\_\-state} $\ast$}]{state, }
+\item[{{\bf gmx\-\_\-rng\-\_\-t}}]{rng, }
+\item[{real}]{rate, }
+\item[{{\bf t\-\_\-idef} $\ast$}]{idef, }
+\item[{int}]{nblocks, }
+\item[{int $\ast$}]{sblock, }
+\item[{{\bf gmx\-\_\-bool} $\ast$}]{randatom, }
+\item[{int $\ast$}]{randatom\-\_\-list, }
+\item[{{\bf gmx\-\_\-bool} $\ast$}]{randomize, }
+\item[{real $\ast$}]{boltzfac}
+\end{DoxyParamCaption}
+)}}\label{coupling_8c_a20a54a2b92b5c836f94dc3957c7f8864}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{coupling_8c_a20a54a2b92b5c836f94dc3957c7f8864_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{coupling_8c_a20a54a2b92b5c836f94dc3957c7f8864_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{coupling_8c_a130c1ac5ee8065f0754e60f09b56aad0}{\index{coupling.\-c@{coupling.\-c}!berendsen\-\_\-pcoupl@{berendsen\-\_\-pcoupl}}
+\index{berendsen\-\_\-pcoupl@{berendsen\-\_\-pcoupl}!coupling.c@{coupling.\-c}}
+\subsubsection[{berendsen\-\_\-pcoupl}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf berendsen\-\_\-pcoupl} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fplog, }
+\item[{gmx\-\_\-large\-\_\-int\-\_\-t}]{step, }
+\item[{{\bf t\-\_\-inputrec} $\ast$}]{ir, }
+\item[{real}]{dt, }
+\item[{{\bf tensor}}]{pres, }
+\item[{{\bf matrix}}]{box, }
+\item[{{\bf matrix}}]{mu}
+\end{DoxyParamCaption}
+)}}\label{coupling_8c_a130c1ac5ee8065f0754e60f09b56aad0}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=288pt]{coupling_8c_a130c1ac5ee8065f0754e60f09b56aad0_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{coupling_8c_a130c1ac5ee8065f0754e60f09b56aad0_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{coupling_8c_a23f5eb92d37fb460dc70c8202137b110}{\index{coupling.\-c@{coupling.\-c}!berendsen\-\_\-pscale@{berendsen\-\_\-pscale}}
+\index{berendsen\-\_\-pscale@{berendsen\-\_\-pscale}!coupling.c@{coupling.\-c}}
+\subsubsection[{berendsen\-\_\-pscale}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf berendsen\-\_\-pscale} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-inputrec} $\ast$}]{ir, }
+\item[{{\bf matrix}}]{mu, }
+\item[{{\bf matrix}}]{box, }
+\item[{{\bf matrix}}]{box\-\_\-rel, }
+\item[{int}]{start, }
+\item[{int}]{nr\-\_\-atoms, }
+\item[{{\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{unsigned short}]{c\-F\-R\-E\-E\-Z\-E\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf t\-\_\-nrnb} $\ast$}]{nrnb}
+\end{DoxyParamCaption}
+)}}\label{coupling_8c_a23f5eb92d37fb460dc70c8202137b110}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=320pt]{coupling_8c_a23f5eb92d37fb460dc70c8202137b110_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{coupling_8c_a23f5eb92d37fb460dc70c8202137b110_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{coupling_8c_ab47f6bac8b3d6fcbab594923581f2c79}{\index{coupling.\-c@{coupling.\-c}!berendsen\-\_\-tcoupl@{berendsen\-\_\-tcoupl}}
+\index{berendsen\-\_\-tcoupl@{berendsen\-\_\-tcoupl}!coupling.c@{coupling.\-c}}
+\subsubsection[{berendsen\-\_\-tcoupl}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf berendsen\-\_\-tcoupl} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-inputrec} $\ast$}]{ir, }
+\item[{{\bf gmx\-\_\-ekindata\-\_\-t} $\ast$}]{ekind, }
+\item[{real}]{dt}
+\end{DoxyParamCaption}
+)}}\label{coupling_8c_ab47f6bac8b3d6fcbab594923581f2c79}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{coupling_8c_ab47f6bac8b3d6fcbab594923581f2c79_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{coupling_8c_ac221e0c11f15fc2c2e4755d73162e4c4}{\index{coupling.\-c@{coupling.\-c}!boxv\-\_\-trotter@{boxv\-\_\-trotter}}
+\index{boxv\-\_\-trotter@{boxv\-\_\-trotter}!coupling.c@{coupling.\-c}}
+\subsubsection[{boxv\-\_\-trotter}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf boxv\-\_\-trotter} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-inputrec} $\ast$}]{ir, }
+\item[{real $\ast$}]{veta, }
+\item[{real}]{dt, }
+\item[{{\bf tensor}}]{box, }
+\item[{{\bf gmx\-\_\-ekindata\-\_\-t} $\ast$}]{ekind, }
+\item[{{\bf tensor}}]{vir, }
+\item[{real}]{pcorr, }
+\item[{{\bf t\-\_\-extmass} $\ast$}]{\-Mass\-Q}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{coupling_8c_ac221e0c11f15fc2c2e4755d73162e4c4}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=244pt]{coupling_8c_ac221e0c11f15fc2c2e4755d73162e4c4_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=344pt]{coupling_8c_ac221e0c11f15fc2c2e4755d73162e4c4_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{coupling_8c_ad259427e905c1e264157a885667735b5}{\index{coupling.\-c@{coupling.\-c}!calc\-\_\-pres@{calc\-\_\-pres}}
+\index{calc\-\_\-pres@{calc\-\_\-pres}!coupling.c@{coupling.\-c}}
+\subsubsection[{calc\-\_\-pres}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf calc\-\_\-pres} (
+\begin{DoxyParamCaption}
+\item[{int}]{e\-P\-B\-C, }
+\item[{int}]{nwall, }
+\item[{{\bf matrix}}]{box, }
+\item[{{\bf tensor}}]{ekin, }
+\item[{{\bf tensor}}]{vir, }
+\item[{{\bf tensor}}]{pres}
+\end{DoxyParamCaption}
+)}}\label{coupling_8c_ad259427e905c1e264157a885667735b5}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=236pt]{coupling_8c_ad259427e905c1e264157a885667735b5_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{coupling_8c_ad259427e905c1e264157a885667735b5_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{coupling_8c_a73bab8ff27e65d4cec9125f5558da421}{\index{coupling.\-c@{coupling.\-c}!calc\-\_\-temp@{calc\-\_\-temp}}
+\index{calc\-\_\-temp@{calc\-\_\-temp}!coupling.c@{coupling.\-c}}
+\subsubsection[{calc\-\_\-temp}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf calc\-\_\-temp} (
+\begin{DoxyParamCaption}
+\item[{real}]{ekin, }
+\item[{real}]{nrdf}
+\end{DoxyParamCaption}
+)}}\label{coupling_8c_a73bab8ff27e65d4cec9125f5558da421}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{coupling_8c_a73bab8ff27e65d4cec9125f5558da421_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{coupling_8c_a82d11f399fa4a20685c2507c0662af58}{\index{coupling.\-c@{coupling.\-c}!destroy\-\_\-bufstate@{destroy\-\_\-bufstate}}
+\index{destroy\-\_\-bufstate@{destroy\-\_\-bufstate}!coupling.c@{coupling.\-c}}
+\subsubsection[{destroy\-\_\-bufstate}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf destroy\-\_\-bufstate} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-state} $\ast$}]{state}
+\end{DoxyParamCaption}
+)}}\label{coupling_8c_a82d11f399fa4a20685c2507c0662af58}
+\hypertarget{coupling_8c_a8b798dba042359fd898617043154686f}{\index{coupling.\-c@{coupling.\-c}!init\-\_\-bufstate@{init\-\_\-bufstate}}
+\index{init\-\_\-bufstate@{init\-\_\-bufstate}!coupling.c@{coupling.\-c}}
+\subsubsection[{init\-\_\-bufstate}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\-\_\-state}$\ast$ {\bf init\-\_\-bufstate} (
+\begin{DoxyParamCaption}
+\item[{const {\bf t\-\_\-state} $\ast$}]{template\-\_\-state}
+\end{DoxyParamCaption}
+)}}\label{coupling_8c_a8b798dba042359fd898617043154686f}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=232pt]{coupling_8c_a8b798dba042359fd898617043154686f_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{coupling_8c_a06ea012bd9ac6fdfb5909b0f8d470d06}{\index{coupling.\-c@{coupling.\-c}!init\-\_\-npt\-\_\-masses@{init\-\_\-npt\-\_\-masses}}
+\index{init\-\_\-npt\-\_\-masses@{init\-\_\-npt\-\_\-masses}!coupling.c@{coupling.\-c}}
+\subsubsection[{init\-\_\-npt\-\_\-masses}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf init\-\_\-npt\-\_\-masses} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-inputrec} $\ast$}]{ir, }
+\item[{{\bf t\-\_\-state} $\ast$}]{state, }
+\item[{{\bf t\-\_\-extmass} $\ast$}]{\-Mass\-Q, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Init}
+\end{DoxyParamCaption}
+)}}\label{coupling_8c_a06ea012bd9ac6fdfb5909b0f8d470d06}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=242pt]{coupling_8c_a06ea012bd9ac6fdfb5909b0f8d470d06_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{coupling_8c_a06ea012bd9ac6fdfb5909b0f8d470d06_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{coupling_8c_adf282691a935ee1c9c09105470207fd6}{\index{coupling.\-c@{coupling.\-c}!init\-\_\-npt\-\_\-vars@{init\-\_\-npt\-\_\-vars}}
+\index{init\-\_\-npt\-\_\-vars@{init\-\_\-npt\-\_\-vars}!coupling.c@{coupling.\-c}}
+\subsubsection[{init\-\_\-npt\-\_\-vars}]{\setlength{\rightskip}{0pt plus 5cm}int$\ast$$\ast$ {\bf init\-\_\-npt\-\_\-vars} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-inputrec} $\ast$}]{ir, }
+\item[{{\bf t\-\_\-state} $\ast$}]{state, }
+\item[{{\bf t\-\_\-extmass} $\ast$}]{\-Mass\-Q, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Trotter}
+\end{DoxyParamCaption}
+)}}\label{coupling_8c_adf282691a935ee1c9c09105470207fd6}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=276pt]{coupling_8c_adf282691a935ee1c9c09105470207fd6_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=234pt]{coupling_8c_adf282691a935ee1c9c09105470207fd6_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{coupling_8c_af92f5dadc9603ecfb68b165ab7473ae0}{\index{coupling.\-c@{coupling.\-c}!\-N\-H\-C\-\_\-trotter@{\-N\-H\-C\-\_\-trotter}}
+\index{\-N\-H\-C\-\_\-trotter@{\-N\-H\-C\-\_\-trotter}!coupling.c@{coupling.\-c}}
+\subsubsection[{\-N\-H\-C\-\_\-trotter}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf \-N\-H\-C\-\_\-trotter} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-grpopts} $\ast$}]{opts, }
+\item[{int}]{nvar, }
+\item[{{\bf gmx\-\_\-ekindata\-\_\-t} $\ast$}]{ekind, }
+\item[{real}]{dtfull, }
+\item[{double}]{xi\mbox{[}$\,$\mbox{]}, }
+\item[{double}]{vxi\mbox{[}$\,$\mbox{]}, }
+\item[{double}]{scalefac\mbox{[}$\,$\mbox{]}, }
+\item[{real $\ast$}]{veta, }
+\item[{{\bf t\-\_\-extmass} $\ast$}]{\-Mass\-Q, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Ekin\-Ave\-Vel}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{coupling_8c_af92f5dadc9603ecfb68b165ab7473ae0}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=224pt]{coupling_8c_af92f5dadc9603ecfb68b165ab7473ae0_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=346pt]{coupling_8c_af92f5dadc9603ecfb68b165ab7473ae0_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{coupling_8c_aafc5b6041923824411d144180b1d0ca2}{\index{coupling.\-c@{coupling.\-c}!nosehoover\-\_\-tcoupl@{nosehoover\-\_\-tcoupl}}
+\index{nosehoover\-\_\-tcoupl@{nosehoover\-\_\-tcoupl}!coupling.c@{coupling.\-c}}
+\subsubsection[{nosehoover\-\_\-tcoupl}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf nosehoover\-\_\-tcoupl} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-grpopts} $\ast$}]{opts, }
+\item[{{\bf gmx\-\_\-ekindata\-\_\-t} $\ast$}]{ekind, }
+\item[{real}]{dt, }
+\item[{double}]{xi\mbox{[}$\,$\mbox{]}, }
+\item[{double}]{vxi\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf t\-\_\-extmass} $\ast$}]{\-Mass\-Q}
+\end{DoxyParamCaption}
+)}}\label{coupling_8c_aafc5b6041923824411d144180b1d0ca2}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{coupling_8c_aafc5b6041923824411d144180b1d0ca2_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{coupling_8c_aa2393225e3542dae5a52afc0794fd683}{\index{coupling.\-c@{coupling.\-c}!\-N\-P\-T\-\_\-energy@{\-N\-P\-T\-\_\-energy}}
+\index{\-N\-P\-T\-\_\-energy@{\-N\-P\-T\-\_\-energy}!coupling.c@{coupling.\-c}}
+\subsubsection[{\-N\-P\-T\-\_\-energy}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf \-N\-P\-T\-\_\-energy} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-inputrec} $\ast$}]{ir, }
+\item[{{\bf t\-\_\-state} $\ast$}]{state, }
+\item[{{\bf t\-\_\-extmass} $\ast$}]{\-Mass\-Q}
+\end{DoxyParamCaption}
+)}}\label{coupling_8c_aa2393225e3542dae5a52afc0794fd683}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=226pt]{coupling_8c_aa2393225e3542dae5a52afc0794fd683_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{coupling_8c_aa2393225e3542dae5a52afc0794fd683_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{coupling_8c_aad09e1d34cdeaecd31ae34496f9534cc}{\index{coupling.\-c@{coupling.\-c}!parrinellorahman\-\_\-pcoupl@{parrinellorahman\-\_\-pcoupl}}
+\index{parrinellorahman\-\_\-pcoupl@{parrinellorahman\-\_\-pcoupl}!coupling.c@{coupling.\-c}}
+\subsubsection[{parrinellorahman\-\_\-pcoupl}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf parrinellorahman\-\_\-pcoupl} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fplog, }
+\item[{gmx\-\_\-large\-\_\-int\-\_\-t}]{step, }
+\item[{{\bf t\-\_\-inputrec} $\ast$}]{ir, }
+\item[{real}]{dt, }
+\item[{{\bf tensor}}]{pres, }
+\item[{{\bf tensor}}]{box, }
+\item[{{\bf tensor}}]{box\-\_\-rel, }
+\item[{{\bf tensor}}]{boxv, }
+\item[{{\bf tensor}}]{\-M, }
+\item[{{\bf matrix}}]{mu, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-First\-Step}
+\end{DoxyParamCaption}
+)}}\label{coupling_8c_aad09e1d34cdeaecd31ae34496f9534cc}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{coupling_8c_aad09e1d34cdeaecd31ae34496f9534cc_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{coupling_8c_aad09e1d34cdeaecd31ae34496f9534cc_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{coupling_8c_a684c71cf7fc9382560dec2c3d95255ff}{\index{coupling.\-c@{coupling.\-c}!poisson\-\_\-variate@{poisson\-\_\-variate}}
+\index{poisson\-\_\-variate@{poisson\-\_\-variate}!coupling.c@{coupling.\-c}}
+\subsubsection[{poisson\-\_\-variate}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf poisson\-\_\-variate} (
+\begin{DoxyParamCaption}
+\item[{real}]{lambda, }
+\item[{{\bf gmx\-\_\-rng\-\_\-t}}]{rng}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{coupling_8c_a684c71cf7fc9382560dec2c3d95255ff}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=316pt]{coupling_8c_a684c71cf7fc9382560dec2c3d95255ff_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{coupling_8c_a684c71cf7fc9382560dec2c3d95255ff_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{coupling_8c_a1acea884355f066c3e7cd90a2149b2a2}{\index{coupling.\-c@{coupling.\-c}!rescale\-\_\-velocities@{rescale\-\_\-velocities}}
+\index{rescale\-\_\-velocities@{rescale\-\_\-velocities}!coupling.c@{coupling.\-c}}
+\subsubsection[{rescale\-\_\-velocities}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf rescale\-\_\-velocities} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ekindata\-\_\-t} $\ast$}]{ekind, }
+\item[{{\bf t\-\_\-mdatoms} $\ast$}]{mdatoms, }
+\item[{int}]{start, }
+\item[{int}]{end, }
+\item[{{\bf rvec}}]{v\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{coupling_8c_a1acea884355f066c3e7cd90a2149b2a2}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=268pt]{coupling_8c_a1acea884355f066c3e7cd90a2149b2a2_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{coupling_8c_a1acea884355f066c3e7cd90a2149b2a2_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{coupling_8c_a9346021147a30fe72f9948331c0e5afb}{\index{coupling.\-c@{coupling.\-c}!trotter\-\_\-update@{trotter\-\_\-update}}
+\index{trotter\-\_\-update@{trotter\-\_\-update}!coupling.c@{coupling.\-c}}
+\subsubsection[{trotter\-\_\-update}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf trotter\-\_\-update} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-inputrec} $\ast$}]{ir, }
+\item[{gmx\-\_\-large\-\_\-int\-\_\-t}]{step, }
+\item[{{\bf gmx\-\_\-ekindata\-\_\-t} $\ast$}]{ekind, }
+\item[{{\bf gmx\-\_\-enerdata\-\_\-t} $\ast$}]{enerd, }
+\item[{{\bf t\-\_\-state} $\ast$}]{state, }
+\item[{{\bf tensor}}]{vir, }
+\item[{{\bf t\-\_\-mdatoms} $\ast$}]{md, }
+\item[{{\bf t\-\_\-extmass} $\ast$}]{\-Mass\-Q, }
+\item[{int $\ast$$\ast$}]{trotter\-\_\-seqlist, }
+\item[{int}]{trotter\-\_\-seqno}
+\end{DoxyParamCaption}
+)}}\label{coupling_8c_a9346021147a30fe72f9948331c0e5afb}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{coupling_8c_a9346021147a30fe72f9948331c0e5afb_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=240pt]{coupling_8c_a9346021147a30fe72f9948331c0e5afb_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{coupling_8c_aba7ac6005aeaf0fd4bc09b19f47ddf0b}{\index{coupling.\-c@{coupling.\-c}!update\-\_\-annealing\-\_\-target\-\_\-temp@{update\-\_\-annealing\-\_\-target\-\_\-temp}}
+\index{update\-\_\-annealing\-\_\-target\-\_\-temp@{update\-\_\-annealing\-\_\-target\-\_\-temp}!coupling.c@{coupling.\-c}}
+\subsubsection[{update\-\_\-annealing\-\_\-target\-\_\-temp}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf update\-\_\-annealing\-\_\-target\-\_\-temp} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-grpopts} $\ast$}]{opts, }
+\item[{real}]{t}
+\end{DoxyParamCaption}
+)}}\label{coupling_8c_aba7ac6005aeaf0fd4bc09b19f47ddf0b}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=326pt]{coupling_8c_aba7ac6005aeaf0fd4bc09b19f47ddf0b_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{coupling_8c_aba7ac6005aeaf0fd4bc09b19f47ddf0b_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{coupling_8c_a47526d6013bde1b9b17d77abf39445ca}{\index{coupling.\-c@{coupling.\-c}!vrescale\-\_\-energy@{vrescale\-\_\-energy}}
+\index{vrescale\-\_\-energy@{vrescale\-\_\-energy}!coupling.c@{coupling.\-c}}
+\subsubsection[{vrescale\-\_\-energy}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf vrescale\-\_\-energy} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-grpopts} $\ast$}]{opts, }
+\item[{double}]{therm\-\_\-integral\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{coupling_8c_a47526d6013bde1b9b17d77abf39445ca}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=240pt]{coupling_8c_a47526d6013bde1b9b17d77abf39445ca_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{coupling_8c_a47526d6013bde1b9b17d77abf39445ca_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{coupling_8c_a56c8664faa926c0546394a1bf7ee151f}{\index{coupling.\-c@{coupling.\-c}!vrescale\-\_\-gamdev@{vrescale\-\_\-gamdev}}
+\index{vrescale\-\_\-gamdev@{vrescale\-\_\-gamdev}!coupling.c@{coupling.\-c}}
+\subsubsection[{vrescale\-\_\-gamdev}]{\setlength{\rightskip}{0pt plus 5cm}static real {\bf vrescale\-\_\-gamdev} (
+\begin{DoxyParamCaption}
+\item[{int}]{ia, }
+\item[{{\bf gmx\-\_\-rng\-\_\-t}}]{rng}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{coupling_8c_a56c8664faa926c0546394a1bf7ee151f}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=324pt]{coupling_8c_a56c8664faa926c0546394a1bf7ee151f_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{coupling_8c_a56c8664faa926c0546394a1bf7ee151f_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{coupling_8c_a5b6609f2b6dcfb5c3f15d28acb09663a}{\index{coupling.\-c@{coupling.\-c}!vrescale\-\_\-resamplekin@{vrescale\-\_\-resamplekin}}
+\index{vrescale\-\_\-resamplekin@{vrescale\-\_\-resamplekin}!coupling.c@{coupling.\-c}}
+\subsubsection[{vrescale\-\_\-resamplekin}]{\setlength{\rightskip}{0pt plus 5cm}static real {\bf vrescale\-\_\-resamplekin} (
+\begin{DoxyParamCaption}
+\item[{real}]{kk, }
+\item[{real}]{sigma, }
+\item[{int}]{ndeg, }
+\item[{real}]{taut, }
+\item[{{\bf gmx\-\_\-rng\-\_\-t}}]{rng}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{coupling_8c_a5b6609f2b6dcfb5c3f15d28acb09663a}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{coupling_8c_a5b6609f2b6dcfb5c3f15d28acb09663a_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{coupling_8c_a5b6609f2b6dcfb5c3f15d28acb09663a_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{coupling_8c_a72c56a1c8bee26fac934bef8bc1257d7}{\index{coupling.\-c@{coupling.\-c}!vrescale\-\_\-sumnoises@{vrescale\-\_\-sumnoises}}
+\index{vrescale\-\_\-sumnoises@{vrescale\-\_\-sumnoises}!coupling.c@{coupling.\-c}}
+\subsubsection[{vrescale\-\_\-sumnoises}]{\setlength{\rightskip}{0pt plus 5cm}static real {\bf vrescale\-\_\-sumnoises} (
+\begin{DoxyParamCaption}
+\item[{int}]{nn, }
+\item[{{\bf gmx\-\_\-rng\-\_\-t}}]{rng}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{coupling_8c_a72c56a1c8bee26fac934bef8bc1257d7}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{coupling_8c_a72c56a1c8bee26fac934bef8bc1257d7_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{coupling_8c_a72c56a1c8bee26fac934bef8bc1257d7_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{coupling_8c_a4475053adf83e29d7ab8da728e79d95d}{\index{coupling.\-c@{coupling.\-c}!vrescale\-\_\-tcoupl@{vrescale\-\_\-tcoupl}}
+\index{vrescale\-\_\-tcoupl@{vrescale\-\_\-tcoupl}!coupling.c@{coupling.\-c}}
+\subsubsection[{vrescale\-\_\-tcoupl}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf vrescale\-\_\-tcoupl} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-inputrec} $\ast$}]{ir, }
+\item[{{\bf gmx\-\_\-ekindata\-\_\-t} $\ast$}]{ekind, }
+\item[{real}]{dt, }
+\item[{double}]{therm\-\_\-integral\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf gmx\-\_\-rng\-\_\-t}}]{rng}
+\end{DoxyParamCaption}
+)}}\label{coupling_8c_a4475053adf83e29d7ab8da728e79d95d}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{coupling_8c_a4475053adf83e29d7ab8da728e79d95d_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{coupling_8c_a4475053adf83e29d7ab8da728e79d95d_icgraph}
+\end{center}
+\end{figure}
+
+

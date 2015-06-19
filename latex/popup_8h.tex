@@ -1,0 +1,209 @@
+\hypertarget{popup_8h}{\section{src/ngmx/popup.h \-File \-Reference}
+\label{popup_8h}\index{src/ngmx/popup.\-h@{src/ngmx/popup.\-h}}
+}
+{\ttfamily \#include \char`\"{}x11.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}xutil.\-h\char`\"{}}\*
+\-Include dependency graph for popup.\-h\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{popup_8h__incl}
+\end{center}
+\end{figure}
+\-This graph shows which files directly or indirectly include this file\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{popup_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structt__mentry}{t\-\_\-mentry}
+\item 
+struct \hyperlink{structt__child}{t\-\_\-child}
+\item 
+struct \hyperlink{structt__menu}{t\-\_\-menu}
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structt__menu}{t\-\_\-menu} $\ast$ \hyperlink{popup_8h_ac9d19260680d290527e41a28869420f6}{init\-\_\-menu} (\hyperlink{structt__x11}{t\-\_\-x11} $\ast$x11, \-Window \-Parent, unsigned long fg, unsigned long bg, int nent, \hyperlink{structt__mentry}{t\-\_\-mentry} ent\mbox{[}$\,$\mbox{]}, int ncol)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{popup_8h_a9c0cf6b62ab4e177485b6c8dd15f7900}{show\-\_\-menu} (\hyperlink{structt__x11}{t\-\_\-x11} $\ast$x11, \hyperlink{structt__menu}{t\-\_\-menu} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_aa30cfa61c7e675800f65322a90f8ac96}{m}, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ad992d70ec70c927046cfc2ab1c79b188}{y}, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Grab)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{popup_8h_a54bf77a33677d44001a6ce9397f2f204}{hide\-\_\-menu} (\hyperlink{structt__x11}{t\-\_\-x11} $\ast$x11, \hyperlink{structt__menu}{t\-\_\-menu} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_aa30cfa61c7e675800f65322a90f8ac96}{m})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{popup_8h_a3f31901ee51583699b68dee101c77d97}{check\-\_\-menu\-\_\-item} (\hyperlink{structt__menu}{t\-\_\-menu} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_aa30cfa61c7e675800f65322a90f8ac96}{m}, int nreturn, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Status)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{popup_8h_a6166201e8555de09a158255a487f0572}{done\-\_\-menu} (\hyperlink{structt__x11}{t\-\_\-x11} $\ast$x11, \hyperlink{structt__menu}{t\-\_\-menu} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_aa30cfa61c7e675800f65322a90f8ac96}{m})
+\item 
+int \hyperlink{popup_8h_af75cb7a30f847d5647ea83640bc209b4}{menu\-\_\-width} (\hyperlink{structt__menu}{t\-\_\-menu} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_aa30cfa61c7e675800f65322a90f8ac96}{m})
+\item 
+int \hyperlink{popup_8h_abf5e9b1662e942f45363d57102cab4bb}{menu\-\_\-height} (\hyperlink{structt__menu}{t\-\_\-menu} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_aa30cfa61c7e675800f65322a90f8ac96}{m})
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{popup_8h_a3f31901ee51583699b68dee101c77d97}{\index{popup.\-h@{popup.\-h}!check\-\_\-menu\-\_\-item@{check\-\_\-menu\-\_\-item}}
+\index{check\-\_\-menu\-\_\-item@{check\-\_\-menu\-\_\-item}!popup.h@{popup.\-h}}
+\subsubsection[{check\-\_\-menu\-\_\-item}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf check\-\_\-menu\-\_\-item} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-menu} $\ast$}]{m, }
+\item[{int}]{nreturn, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Status}
+\end{DoxyParamCaption}
+)}}\label{popup_8h_a3f31901ee51583699b68dee101c77d97}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{popup_8h_a3f31901ee51583699b68dee101c77d97_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{popup_8h_a6166201e8555de09a158255a487f0572}{\index{popup.\-h@{popup.\-h}!done\-\_\-menu@{done\-\_\-menu}}
+\index{done\-\_\-menu@{done\-\_\-menu}!popup.h@{popup.\-h}}
+\subsubsection[{done\-\_\-menu}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf done\-\_\-menu} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-x11} $\ast$}]{x11, }
+\item[{{\bf t\-\_\-menu} $\ast$}]{m}
+\end{DoxyParamCaption}
+)}}\label{popup_8h_a6166201e8555de09a158255a487f0572}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{popup_8h_a6166201e8555de09a158255a487f0572_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{popup_8h_a54bf77a33677d44001a6ce9397f2f204}{\index{popup.\-h@{popup.\-h}!hide\-\_\-menu@{hide\-\_\-menu}}
+\index{hide\-\_\-menu@{hide\-\_\-menu}!popup.h@{popup.\-h}}
+\subsubsection[{hide\-\_\-menu}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf hide\-\_\-menu} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-x11} $\ast$}]{x11, }
+\item[{{\bf t\-\_\-menu} $\ast$}]{m}
+\end{DoxyParamCaption}
+)}}\label{popup_8h_a54bf77a33677d44001a6ce9397f2f204}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{popup_8h_a54bf77a33677d44001a6ce9397f2f204_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{popup_8h_ac9d19260680d290527e41a28869420f6}{\index{popup.\-h@{popup.\-h}!init\-\_\-menu@{init\-\_\-menu}}
+\index{init\-\_\-menu@{init\-\_\-menu}!popup.h@{popup.\-h}}
+\subsubsection[{init\-\_\-menu}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\-\_\-menu}$\ast$ {\bf init\-\_\-menu} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-x11} $\ast$}]{x11, }
+\item[{\-Window}]{\-Parent, }
+\item[{unsigned long}]{fg, }
+\item[{unsigned long}]{bg, }
+\item[{int}]{nent, }
+\item[{{\bf t\-\_\-mentry}}]{ent\mbox{[}$\,$\mbox{]}, }
+\item[{int}]{ncol}
+\end{DoxyParamCaption}
+)}}\label{popup_8h_ac9d19260680d290527e41a28869420f6}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{popup_8h_ac9d19260680d290527e41a28869420f6_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{popup_8h_ac9d19260680d290527e41a28869420f6_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{popup_8h_abf5e9b1662e942f45363d57102cab4bb}{\index{popup.\-h@{popup.\-h}!menu\-\_\-height@{menu\-\_\-height}}
+\index{menu\-\_\-height@{menu\-\_\-height}!popup.h@{popup.\-h}}
+\subsubsection[{menu\-\_\-height}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf menu\-\_\-height} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-menu} $\ast$}]{m}
+\end{DoxyParamCaption}
+)}}\label{popup_8h_abf5e9b1662e942f45363d57102cab4bb}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=248pt]{popup_8h_abf5e9b1662e942f45363d57102cab4bb_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{popup_8h_af75cb7a30f847d5647ea83640bc209b4}{\index{popup.\-h@{popup.\-h}!menu\-\_\-width@{menu\-\_\-width}}
+\index{menu\-\_\-width@{menu\-\_\-width}!popup.h@{popup.\-h}}
+\subsubsection[{menu\-\_\-width}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf menu\-\_\-width} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-menu} $\ast$}]{m}
+\end{DoxyParamCaption}
+)}}\label{popup_8h_af75cb7a30f847d5647ea83640bc209b4}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{popup_8h_af75cb7a30f847d5647ea83640bc209b4_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{popup_8h_a9c0cf6b62ab4e177485b6c8dd15f7900}{\index{popup.\-h@{popup.\-h}!show\-\_\-menu@{show\-\_\-menu}}
+\index{show\-\_\-menu@{show\-\_\-menu}!popup.h@{popup.\-h}}
+\subsubsection[{show\-\_\-menu}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf show\-\_\-menu} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-x11} $\ast$}]{x11, }
+\item[{{\bf t\-\_\-menu} $\ast$}]{m, }
+\item[{int}]{x, }
+\item[{int}]{y, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Grab}
+\end{DoxyParamCaption}
+)}}\label{popup_8h_a9c0cf6b62ab4e177485b6c8dd15f7900}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{popup_8h_a9c0cf6b62ab4e177485b6c8dd15f7900_icgraph}
+\end{center}
+\end{figure}
+
+

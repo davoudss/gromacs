@@ -1,0 +1,834 @@
+\hypertarget{gmx__dipoles_8c}{\section{src/tools/gmx\-\_\-dipoles.c \-File \-Reference}
+\label{gmx__dipoles_8c}\index{src/tools/gmx\-\_\-dipoles.\-c@{src/tools/gmx\-\_\-dipoles.\-c}}
+}
+{\ttfamily \#include $<$string.\-h$>$}\*
+{\ttfamily \#include $<$math.\-h$>$}\*
+{\ttfamily \#include \char`\"{}macros.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}statutil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}sysstuff.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}smalloc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}vec.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}pbc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}bondf.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}copyrite.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}futil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}xvgr.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}txtdump.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-statistics.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gstat.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}index.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}random.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}names.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}physics.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}calcmu.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}enxio.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}nrjac.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}matio.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-ana.\-h\char`\"{}}\*
+\-Include dependency graph for gmx\-\_\-dipoles.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__dipoles_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structt__gkrbin}{t\-\_\-gkrbin}
+\end{DoxyCompactItemize}
+\subsection*{\-Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{gmx__dipoles_8c_ac49711ab0f600087df629c4c38b65ecd}{e2d}(\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x})~\hyperlink{share_2template_2gromacs_2physics_8h_a114aac15f21079264b3fcc508300c658}{\-E\-N\-M2\-D\-E\-B\-Y\-E}$\ast$(\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x})
+\item 
+\#define \hyperlink{gmx__dipoles_8c_a41114f982120b4596979aa79f2f45197}{\-E\-A\-N\-G2\-C\-M}~\hyperlink{share_2template_2gromacs_2physics_8h_a68cb4f4908d8f9fd57f1ac556847a08d}{\-E\-\_\-\-C\-H\-A\-R\-G\-E}$\ast$1.\-0e-\/10       /$\ast$ e Angstrom to Coulomb meter $\ast$/
+\item 
+\#define \hyperlink{gmx__dipoles_8c_a8746e42584e2068e15ba6e5b03eae1fa}{\-C\-M2\-D}~\hyperlink{share_2template_2gromacs_2physics_8h_a7b5cb503d827fae6b26874e21254d68f}{\-S\-P\-E\-E\-D\-\_\-\-O\-F\-\_\-\-L\-I\-G\-H\-T}$\ast$1.\-0e+24    /$\ast$ Coulomb meter to Debye $\ast$/
+\item 
+\#define \hyperlink{gmx__dipoles_8c_a9e79de7fdf810ec348156e901f70fa44}{delta}(\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a0880879736d1ab747a972d1942421886}{a}, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afb462a5dea72ae7992f073bfd756fb5f}{b})~(( \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a0880879736d1ab747a972d1942421886}{a} == \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afb462a5dea72ae7992f073bfd756fb5f}{b} ) ? 1.\-0 \-: 0.\-0)
+\item 
+\#define \hyperlink{gmx__dipoles_8c_aee4008cb3396a9a4d726a0173d179f0a}{\-S\-W\-A\-P}(\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a3c7542401c1cb8bd37ef5e7d9eb0f5a8}{i})
+\item 
+\#define \hyperlink{gmx__dipoles_8c_af8a4c65f3c395029259adc02f38eab10}{\-N\-L\-E\-G\-M\-T\-O\-T}~\hyperlink{share_2template_2gromacs_2macros_8h_a0883345a58f8f63aefa249a4f127f707}{asize}(leg\-\_\-mtot)
+\item 
+\#define \hyperlink{gmx__dipoles_8c_af268a2f0e78dc30d51099426f3bd34de}{\-N\-L\-E\-G\-E\-P\-S}~\hyperlink{share_2template_2gromacs_2macros_8h_a0883345a58f8f63aefa249a4f127f707}{asize}(leg\-\_\-eps)
+\item 
+\#define \hyperlink{gmx__dipoles_8c_a35f56c764c663cc72acfe564ef64bbf4}{\-N\-L\-E\-G\-A\-V\-E\-R}~\hyperlink{share_2template_2gromacs_2macros_8h_a0883345a58f8f63aefa249a4f127f707}{asize}(leg\-\_\-aver)
+\item 
+\#define \hyperlink{gmx__dipoles_8c_aa8c9b9e26924a8aabae233c1a7cfdaf3}{\-N\-L\-E\-G\-C\-O\-S\-A\-V\-E\-R}~\hyperlink{share_2template_2gromacs_2macros_8h_a0883345a58f8f63aefa249a4f127f707}{asize}(leg\-\_\-cosaver)
+\item 
+\#define \hyperlink{gmx__dipoles_8c_ae1b2277b0fb8cbd414ac6a61c087783f}{\-N\-L\-E\-G\-A\-D\-I\-P}~\hyperlink{share_2template_2gromacs_2macros_8h_a0883345a58f8f63aefa249a4f127f707}{asize}(leg\-\_\-adip)
+\item 
+\#define \hyperlink{gmx__dipoles_8c_a8485f4e81de2537e6a0935626167a775}{\-N\-F\-I\-L\-E}~\hyperlink{share_2template_2gromacs_2macros_8h_a0883345a58f8f63aefa249a4f127f707}{asize}(fnm)
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{structt__gkrbin}{t\-\_\-gkrbin} $\ast$ \hyperlink{gmx__dipoles_8c_a3c8d7eaacb7754961c806cb7d0969638}{mk\-\_\-gkrbin} (real \hyperlink{hxprops_8h_a8c51b1b7a99a2b72ddb860dce59df577}{radius}, real rcmax, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Phi, int ndegrees)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__dipoles_8c_a0c514df66f64928445b03f5b7fe24909}{done\-\_\-gkrbin} (\hyperlink{structt__gkrbin}{t\-\_\-gkrbin} $\ast$$\ast$gb)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__dipoles_8c_a62d5130c7426429a9439185bd3a53eae}{add2gkr} (\hyperlink{structt__gkrbin}{t\-\_\-gkrbin} $\ast$gb, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae039a6f39df62bd858e5e3f5ec77b24b}{r}, real cosa, real phi)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__dipoles_8c_afe337846a8f27b3e000c9c9141b2a30b}{rvec2sprvec} (\hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} dipcart, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} dipsp)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__dipoles_8c_a311400dee0f635f502f7dd9fe7fe662d}{do\-\_\-gkr} (\hyperlink{structt__gkrbin}{t\-\_\-gkrbin} $\ast$gb, int ncos, int $\ast$ngrp, int $\ast$molindex\mbox{[}$\,$\mbox{]}, int mindex\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} mu\mbox{[}$\,$\mbox{]}, int e\-P\-B\-C, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box, \hyperlink{structt__atom}{t\-\_\-atom} $\ast$atom, int $\ast$n\-Atom)
+\item 
+static real \hyperlink{gmx__dipoles_8c_a9e0eb1860071103acc082df542165c5a}{normalize\-\_\-cmap} (\hyperlink{structt__gkrbin}{t\-\_\-gkrbin} $\ast$gb)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__dipoles_8c_a89e6e536d61f68abc566d53220a18e1b}{print\-\_\-cmap} (const char $\ast$cmap, \hyperlink{structt__gkrbin}{t\-\_\-gkrbin} $\ast$gb, int $\ast$nlevels)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__dipoles_8c_afadb0a9ef885a7673a21fefb93674728}{print\-\_\-gkrbin} (const char $\ast$fn, \hyperlink{structt__gkrbin}{t\-\_\-gkrbin} $\ast$gb, int ngrp, int nframes, real volume, const \hyperlink{include_2types_2oenv_8h_a6a48d77d95132d7318780544821da6a5}{output\-\_\-env\-\_\-t} oenv)
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{gmx__dipoles_8c_a9a4778de02bfc87f03ace2523a0f895e}{read\-\_\-mu\-\_\-from\-\_\-enx} (\hyperlink{include_2enxio_8h_a349ec360f67c80515a64c99c76d84c50}{ener\-\_\-file\-\_\-t} fmu, int \hyperlink{shift__util_8c_a3f789d97bda3e75cb06214f686a03bd1}{\-Vol}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a74f6ffdb4a9c1764f5293969d8c681b6}{ivec} i\-Mu, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} mu, real $\ast$vol, real $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a2b515c84b1293071f7584da32ca336c0}{t}, int nre, \hyperlink{structt__enxframe}{t\-\_\-enxframe} $\ast$\hyperlink{addconf_8c_ae8414314f87c5e49503ac0117eb511ad}{fr})
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__dipoles_8c_a2ddce365182597fa5aace5e239d72c9d}{neutralize\-\_\-mols} (int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, int $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a49fd977001162d7256c8fcd293f9d12a}{index}, \hyperlink{structt__block}{t\-\_\-block} $\ast$mols, \hyperlink{structt__atom}{t\-\_\-atom} $\ast$atom)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__dipoles_8c_a93589529daa49753669192747a7be4fa}{mol\-\_\-dip} (int k0, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ad9c2a7fe51882403b5ed15233864e052}{k1}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{structt__atom}{t\-\_\-atom} atom\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} mu)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__dipoles_8c_a66738ab3c95d29d92716f5e42821c08d}{mol\-\_\-quad} (int k0, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ad9c2a7fe51882403b5ed15233864e052}{k1}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{structt__atom}{t\-\_\-atom} atom\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} quad)
+\item 
+real \hyperlink{gmx__dipoles_8c_a171ae00cd55f49a55dd0e1548acebfaa}{calc\-\_\-eps} (double \-M\-\_\-diff, double volume, double eps\-R\-F, double \hyperlink{gmx__traj_8c_af8e82fafd78dc8db04fe532a01cdce3a}{temp})
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__dipoles_8c_af2b18ea6db25b895cee1d331c6475a75}{update\-\_\-slab\-\_\-dipoles} (int k0, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ad9c2a7fe51882403b5ed15233864e052}{k1}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} mu, int idim, int nslice, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} slab\-\_\-dipole\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__dipoles_8c_ad71772d225357f453d9b8f3ad6db2012}{dump\-\_\-slab\-\_\-dipoles} (const char $\ast$fn, int idim, int nslice, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} slab\-\_\-dipole\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box, int nframes, const \hyperlink{include_2types_2oenv_8h_a6a48d77d95132d7318780544821da6a5}{output\-\_\-env\-\_\-t} oenv)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__dipoles_8c_a99a13cad7c96bbd1ce467024d6201c2e}{compute\-\_\-avercos} (int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{hxprops_8h_adc239af3ff081b121997a58b261aa47b}{dip}\mbox{[}$\,$\mbox{]}, real $\ast$dd, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} axis, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Pairs)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__dipoles_8c_ac0e5b6e7cd03fa7d5246d88652539408}{do\-\_\-dip} (\hyperlink{structt__topology}{t\-\_\-topology} $\ast$\hyperlink{gmx__disre_8c_a1b538a2ce75aba6c346bc03980ffeb28}{top}, int e\-P\-B\-C, real volume, const char $\ast$fn, const char $\ast$out\-\_\-mtot, const char $\ast$out\-\_\-eps, const char $\ast$out\-\_\-aver, const char $\ast$dipdist, const char $\ast$cosaver, const char $\ast$fndip3d, const char $\ast$fnadip, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Pairs, const char $\ast$corrtype, const char $\ast$corf, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Gkr, const char $\ast$gkrfn, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Phi, int $\ast$nlevels, int ndegrees, int ncos, const char $\ast$cmap, real rcmax, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Quad, const char $\ast$quadfn, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-M\-U, const char $\ast$mufn, int $\ast$gnx, int $\ast$molindex\mbox{[}$\,$\mbox{]}, real mu\-\_\-max, real mu\-\_\-aver, real epsilon\-R\-F, real \hyperlink{gmx__traj_8c_af8e82fafd78dc8db04fe532a01cdce3a}{temp}, int $\ast$gkatom, int skip, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Slab, int nslices, const char $\ast$axtitle, const char $\ast$slabfn, const \hyperlink{include_2types_2oenv_8h_a6a48d77d95132d7318780544821da6a5}{output\-\_\-env\-\_\-t} oenv)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__dipoles_8c_aa02a096cedcdc87082ee9fc0e1906cea}{dipole\-\_\-atom2molindex} (int $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, int $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a49fd977001162d7256c8fcd293f9d12a}{index}, \hyperlink{structt__block}{t\-\_\-block} $\ast$mols)
+\item 
+int \hyperlink{gmx__dipoles_8c_a4d88c7b703849037594901be7b92c446}{gmx\-\_\-dipoles} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Define \-Documentation}
+\hypertarget{gmx__dipoles_8c_a8746e42584e2068e15ba6e5b03eae1fa}{\index{gmx\-\_\-dipoles.\-c@{gmx\-\_\-dipoles.\-c}!\-C\-M2\-D@{\-C\-M2\-D}}
+\index{\-C\-M2\-D@{\-C\-M2\-D}!gmx_dipoles.c@{gmx\-\_\-dipoles.\-c}}
+\subsubsection[{\-C\-M2\-D}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-C\-M2\-D}~{\bf \-S\-P\-E\-E\-D\-\_\-\-O\-F\-\_\-\-L\-I\-G\-H\-T}$\ast$1.\-0e+24    /$\ast$ Coulomb meter to Debye $\ast$/}}\label{gmx__dipoles_8c_a8746e42584e2068e15ba6e5b03eae1fa}
+\hypertarget{gmx__dipoles_8c_a9e79de7fdf810ec348156e901f70fa44}{\index{gmx\-\_\-dipoles.\-c@{gmx\-\_\-dipoles.\-c}!delta@{delta}}
+\index{delta@{delta}!gmx_dipoles.c@{gmx\-\_\-dipoles.\-c}}
+\subsubsection[{delta}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf delta}(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf a}, }
+\item[{}]{{\bf b}}
+\end{DoxyParamCaption}
+)~(( {\bf a} == {\bf b} ) ? 1.\-0 \-: 0.\-0)}}\label{gmx__dipoles_8c_a9e79de7fdf810ec348156e901f70fa44}
+\hypertarget{gmx__dipoles_8c_ac49711ab0f600087df629c4c38b65ecd}{\index{gmx\-\_\-dipoles.\-c@{gmx\-\_\-dipoles.\-c}!e2d@{e2d}}
+\index{e2d@{e2d}!gmx_dipoles.c@{gmx\-\_\-dipoles.\-c}}
+\subsubsection[{e2d}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf e2d}(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf x}}
+\end{DoxyParamCaption}
+)~{\bf \-E\-N\-M2\-D\-E\-B\-Y\-E}$\ast$({\bf x})}}\label{gmx__dipoles_8c_ac49711ab0f600087df629c4c38b65ecd}
+\hypertarget{gmx__dipoles_8c_a41114f982120b4596979aa79f2f45197}{\index{gmx\-\_\-dipoles.\-c@{gmx\-\_\-dipoles.\-c}!\-E\-A\-N\-G2\-C\-M@{\-E\-A\-N\-G2\-C\-M}}
+\index{\-E\-A\-N\-G2\-C\-M@{\-E\-A\-N\-G2\-C\-M}!gmx_dipoles.c@{gmx\-\_\-dipoles.\-c}}
+\subsubsection[{\-E\-A\-N\-G2\-C\-M}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-E\-A\-N\-G2\-C\-M}~{\bf \-E\-\_\-\-C\-H\-A\-R\-G\-E}$\ast$1.\-0e-\/10       /$\ast$ e Angstrom to Coulomb meter $\ast$/}}\label{gmx__dipoles_8c_a41114f982120b4596979aa79f2f45197}
+\hypertarget{gmx__dipoles_8c_a8485f4e81de2537e6a0935626167a775}{\index{gmx\-\_\-dipoles.\-c@{gmx\-\_\-dipoles.\-c}!\-N\-F\-I\-L\-E@{\-N\-F\-I\-L\-E}}
+\index{\-N\-F\-I\-L\-E@{\-N\-F\-I\-L\-E}!gmx_dipoles.c@{gmx\-\_\-dipoles.\-c}}
+\subsubsection[{\-N\-F\-I\-L\-E}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-N\-F\-I\-L\-E}~{\bf asize}(fnm)}}\label{gmx__dipoles_8c_a8485f4e81de2537e6a0935626167a775}
+\hypertarget{gmx__dipoles_8c_ae1b2277b0fb8cbd414ac6a61c087783f}{\index{gmx\-\_\-dipoles.\-c@{gmx\-\_\-dipoles.\-c}!\-N\-L\-E\-G\-A\-D\-I\-P@{\-N\-L\-E\-G\-A\-D\-I\-P}}
+\index{\-N\-L\-E\-G\-A\-D\-I\-P@{\-N\-L\-E\-G\-A\-D\-I\-P}!gmx_dipoles.c@{gmx\-\_\-dipoles.\-c}}
+\subsubsection[{\-N\-L\-E\-G\-A\-D\-I\-P}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-N\-L\-E\-G\-A\-D\-I\-P}~{\bf asize}(leg\-\_\-adip)}}\label{gmx__dipoles_8c_ae1b2277b0fb8cbd414ac6a61c087783f}
+\hypertarget{gmx__dipoles_8c_a35f56c764c663cc72acfe564ef64bbf4}{\index{gmx\-\_\-dipoles.\-c@{gmx\-\_\-dipoles.\-c}!\-N\-L\-E\-G\-A\-V\-E\-R@{\-N\-L\-E\-G\-A\-V\-E\-R}}
+\index{\-N\-L\-E\-G\-A\-V\-E\-R@{\-N\-L\-E\-G\-A\-V\-E\-R}!gmx_dipoles.c@{gmx\-\_\-dipoles.\-c}}
+\subsubsection[{\-N\-L\-E\-G\-A\-V\-E\-R}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-N\-L\-E\-G\-A\-V\-E\-R}~{\bf asize}(leg\-\_\-aver)}}\label{gmx__dipoles_8c_a35f56c764c663cc72acfe564ef64bbf4}
+\hypertarget{gmx__dipoles_8c_aa8c9b9e26924a8aabae233c1a7cfdaf3}{\index{gmx\-\_\-dipoles.\-c@{gmx\-\_\-dipoles.\-c}!\-N\-L\-E\-G\-C\-O\-S\-A\-V\-E\-R@{\-N\-L\-E\-G\-C\-O\-S\-A\-V\-E\-R}}
+\index{\-N\-L\-E\-G\-C\-O\-S\-A\-V\-E\-R@{\-N\-L\-E\-G\-C\-O\-S\-A\-V\-E\-R}!gmx_dipoles.c@{gmx\-\_\-dipoles.\-c}}
+\subsubsection[{\-N\-L\-E\-G\-C\-O\-S\-A\-V\-E\-R}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-N\-L\-E\-G\-C\-O\-S\-A\-V\-E\-R}~{\bf asize}(leg\-\_\-cosaver)}}\label{gmx__dipoles_8c_aa8c9b9e26924a8aabae233c1a7cfdaf3}
+\hypertarget{gmx__dipoles_8c_af268a2f0e78dc30d51099426f3bd34de}{\index{gmx\-\_\-dipoles.\-c@{gmx\-\_\-dipoles.\-c}!\-N\-L\-E\-G\-E\-P\-S@{\-N\-L\-E\-G\-E\-P\-S}}
+\index{\-N\-L\-E\-G\-E\-P\-S@{\-N\-L\-E\-G\-E\-P\-S}!gmx_dipoles.c@{gmx\-\_\-dipoles.\-c}}
+\subsubsection[{\-N\-L\-E\-G\-E\-P\-S}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-N\-L\-E\-G\-E\-P\-S}~{\bf asize}(leg\-\_\-eps)}}\label{gmx__dipoles_8c_af268a2f0e78dc30d51099426f3bd34de}
+\hypertarget{gmx__dipoles_8c_af8a4c65f3c395029259adc02f38eab10}{\index{gmx\-\_\-dipoles.\-c@{gmx\-\_\-dipoles.\-c}!\-N\-L\-E\-G\-M\-T\-O\-T@{\-N\-L\-E\-G\-M\-T\-O\-T}}
+\index{\-N\-L\-E\-G\-M\-T\-O\-T@{\-N\-L\-E\-G\-M\-T\-O\-T}!gmx_dipoles.c@{gmx\-\_\-dipoles.\-c}}
+\subsubsection[{\-N\-L\-E\-G\-M\-T\-O\-T}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-N\-L\-E\-G\-M\-T\-O\-T}~{\bf asize}(leg\-\_\-mtot)}}\label{gmx__dipoles_8c_af8a4c65f3c395029259adc02f38eab10}
+\hypertarget{gmx__dipoles_8c_aee4008cb3396a9a4d726a0173d179f0a}{\index{gmx\-\_\-dipoles.\-c@{gmx\-\_\-dipoles.\-c}!\-S\-W\-A\-P@{\-S\-W\-A\-P}}
+\index{\-S\-W\-A\-P@{\-S\-W\-A\-P}!gmx_dipoles.c@{gmx\-\_\-dipoles.\-c}}
+\subsubsection[{\-S\-W\-A\-P}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-S\-W\-A\-P}(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf i}}
+\end{DoxyParamCaption}
+)}}\label{gmx__dipoles_8c_aee4008cb3396a9a4d726a0173d179f0a}
+{\bfseries \-Value\-:}
+\begin{DoxyCode}
+if (dd[i+1] > dd[i]) {                      \
+        tmp     = dd[i];                              \
+        dd[i]   = dd[i+1];                          \
+        dd[i+1] = tmp;                            \
+    }
+\end{DoxyCode}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{gmx__dipoles_8c_a62d5130c7426429a9439185bd3a53eae}{\index{gmx\-\_\-dipoles.\-c@{gmx\-\_\-dipoles.\-c}!add2gkr@{add2gkr}}
+\index{add2gkr@{add2gkr}!gmx_dipoles.c@{gmx\-\_\-dipoles.\-c}}
+\subsubsection[{add2gkr}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf add2gkr} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-gkrbin} $\ast$}]{gb, }
+\item[{real}]{r, }
+\item[{real}]{cosa, }
+\item[{real}]{phi}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__dipoles_8c_a62d5130c7426429a9439185bd3a53eae}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=224pt]{gmx__dipoles_8c_a62d5130c7426429a9439185bd3a53eae_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__dipoles_8c_a62d5130c7426429a9439185bd3a53eae_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__dipoles_8c_a171ae00cd55f49a55dd0e1548acebfaa}{\index{gmx\-\_\-dipoles.\-c@{gmx\-\_\-dipoles.\-c}!calc\-\_\-eps@{calc\-\_\-eps}}
+\index{calc\-\_\-eps@{calc\-\_\-eps}!gmx_dipoles.c@{gmx\-\_\-dipoles.\-c}}
+\subsubsection[{calc\-\_\-eps}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf calc\-\_\-eps} (
+\begin{DoxyParamCaption}
+\item[{double}]{\-M\-\_\-diff, }
+\item[{double}]{volume, }
+\item[{double}]{eps\-R\-F, }
+\item[{double}]{temp}
+\end{DoxyParamCaption}
+)}}\label{gmx__dipoles_8c_a171ae00cd55f49a55dd0e1548acebfaa}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=290pt]{gmx__dipoles_8c_a171ae00cd55f49a55dd0e1548acebfaa_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__dipoles_8c_a171ae00cd55f49a55dd0e1548acebfaa_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__dipoles_8c_a99a13cad7c96bbd1ce467024d6201c2e}{\index{gmx\-\_\-dipoles.\-c@{gmx\-\_\-dipoles.\-c}!compute\-\_\-avercos@{compute\-\_\-avercos}}
+\index{compute\-\_\-avercos@{compute\-\_\-avercos}!gmx_dipoles.c@{gmx\-\_\-dipoles.\-c}}
+\subsubsection[{compute\-\_\-avercos}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf compute\-\_\-avercos} (
+\begin{DoxyParamCaption}
+\item[{int}]{n, }
+\item[{{\bf rvec}}]{dip\mbox{[}$\,$\mbox{]}, }
+\item[{real $\ast$}]{dd, }
+\item[{{\bf rvec}}]{axis, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Pairs}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__dipoles_8c_a99a13cad7c96bbd1ce467024d6201c2e}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=272pt]{gmx__dipoles_8c_a99a13cad7c96bbd1ce467024d6201c2e_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__dipoles_8c_a99a13cad7c96bbd1ce467024d6201c2e_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__dipoles_8c_aa02a096cedcdc87082ee9fc0e1906cea}{\index{gmx\-\_\-dipoles.\-c@{gmx\-\_\-dipoles.\-c}!dipole\-\_\-atom2molindex@{dipole\-\_\-atom2molindex}}
+\index{dipole\-\_\-atom2molindex@{dipole\-\_\-atom2molindex}!gmx_dipoles.c@{gmx\-\_\-dipoles.\-c}}
+\subsubsection[{dipole\-\_\-atom2molindex}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf dipole\-\_\-atom2molindex} (
+\begin{DoxyParamCaption}
+\item[{int $\ast$}]{n, }
+\item[{int $\ast$}]{index, }
+\item[{{\bf t\-\_\-block} $\ast$}]{mols}
+\end{DoxyParamCaption}
+)}}\label{gmx__dipoles_8c_aa02a096cedcdc87082ee9fc0e1906cea}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=290pt]{gmx__dipoles_8c_aa02a096cedcdc87082ee9fc0e1906cea_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__dipoles_8c_aa02a096cedcdc87082ee9fc0e1906cea_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__dipoles_8c_ac0e5b6e7cd03fa7d5246d88652539408}{\index{gmx\-\_\-dipoles.\-c@{gmx\-\_\-dipoles.\-c}!do\-\_\-dip@{do\-\_\-dip}}
+\index{do\-\_\-dip@{do\-\_\-dip}!gmx_dipoles.c@{gmx\-\_\-dipoles.\-c}}
+\subsubsection[{do\-\_\-dip}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf do\-\_\-dip} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-topology} $\ast$}]{top, }
+\item[{int}]{e\-P\-B\-C, }
+\item[{real}]{volume, }
+\item[{const char $\ast$}]{fn, }
+\item[{const char $\ast$}]{out\-\_\-mtot, }
+\item[{const char $\ast$}]{out\-\_\-eps, }
+\item[{const char $\ast$}]{out\-\_\-aver, }
+\item[{const char $\ast$}]{dipdist, }
+\item[{const char $\ast$}]{cosaver, }
+\item[{const char $\ast$}]{fndip3d, }
+\item[{const char $\ast$}]{fnadip, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Pairs, }
+\item[{const char $\ast$}]{corrtype, }
+\item[{const char $\ast$}]{corf, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Gkr, }
+\item[{const char $\ast$}]{gkrfn, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Phi, }
+\item[{int $\ast$}]{nlevels, }
+\item[{int}]{ndegrees, }
+\item[{int}]{ncos, }
+\item[{const char $\ast$}]{cmap, }
+\item[{real}]{rcmax, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Quad, }
+\item[{const char $\ast$}]{quadfn, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-M\-U, }
+\item[{const char $\ast$}]{mufn, }
+\item[{int $\ast$}]{gnx, }
+\item[{int $\ast$}]{molindex\mbox{[}$\,$\mbox{]}, }
+\item[{real}]{mu\-\_\-max, }
+\item[{real}]{mu\-\_\-aver, }
+\item[{real}]{epsilon\-R\-F, }
+\item[{real}]{temp, }
+\item[{int $\ast$}]{gkatom, }
+\item[{int}]{skip, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Slab, }
+\item[{int}]{nslices, }
+\item[{const char $\ast$}]{axtitle, }
+\item[{const char $\ast$}]{slabfn, }
+\item[{const {\bf output\-\_\-env\-\_\-t}}]{oenv}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__dipoles_8c_ac0e5b6e7cd03fa7d5246d88652539408}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{gmx__dipoles_8c_ac0e5b6e7cd03fa7d5246d88652539408_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=308pt]{gmx__dipoles_8c_ac0e5b6e7cd03fa7d5246d88652539408_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__dipoles_8c_a311400dee0f635f502f7dd9fe7fe662d}{\index{gmx\-\_\-dipoles.\-c@{gmx\-\_\-dipoles.\-c}!do\-\_\-gkr@{do\-\_\-gkr}}
+\index{do\-\_\-gkr@{do\-\_\-gkr}!gmx_dipoles.c@{gmx\-\_\-dipoles.\-c}}
+\subsubsection[{do\-\_\-gkr}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf do\-\_\-gkr} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-gkrbin} $\ast$}]{gb, }
+\item[{int}]{ncos, }
+\item[{int $\ast$}]{ngrp, }
+\item[{int $\ast$}]{molindex\mbox{[}$\,$\mbox{]}, }
+\item[{int}]{mindex\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{mu\mbox{[}$\,$\mbox{]}, }
+\item[{int}]{e\-P\-B\-C, }
+\item[{{\bf matrix}}]{box, }
+\item[{{\bf t\-\_\-atom} $\ast$}]{atom, }
+\item[{int $\ast$}]{n\-Atom}
+\end{DoxyParamCaption}
+)}}\label{gmx__dipoles_8c_a311400dee0f635f502f7dd9fe7fe662d}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__dipoles_8c_a311400dee0f635f502f7dd9fe7fe662d_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__dipoles_8c_a311400dee0f635f502f7dd9fe7fe662d_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__dipoles_8c_a0c514df66f64928445b03f5b7fe24909}{\index{gmx\-\_\-dipoles.\-c@{gmx\-\_\-dipoles.\-c}!done\-\_\-gkrbin@{done\-\_\-gkrbin}}
+\index{done\-\_\-gkrbin@{done\-\_\-gkrbin}!gmx_dipoles.c@{gmx\-\_\-dipoles.\-c}}
+\subsubsection[{done\-\_\-gkrbin}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf done\-\_\-gkrbin} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-gkrbin} $\ast$$\ast$}]{gb}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__dipoles_8c_a0c514df66f64928445b03f5b7fe24909}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__dipoles_8c_a0c514df66f64928445b03f5b7fe24909_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__dipoles_8c_ad71772d225357f453d9b8f3ad6db2012}{\index{gmx\-\_\-dipoles.\-c@{gmx\-\_\-dipoles.\-c}!dump\-\_\-slab\-\_\-dipoles@{dump\-\_\-slab\-\_\-dipoles}}
+\index{dump\-\_\-slab\-\_\-dipoles@{dump\-\_\-slab\-\_\-dipoles}!gmx_dipoles.c@{gmx\-\_\-dipoles.\-c}}
+\subsubsection[{dump\-\_\-slab\-\_\-dipoles}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf dump\-\_\-slab\-\_\-dipoles} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{fn, }
+\item[{int}]{idim, }
+\item[{int}]{nslice, }
+\item[{{\bf rvec}}]{slab\-\_\-dipole\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf matrix}}]{box, }
+\item[{int}]{nframes, }
+\item[{const {\bf output\-\_\-env\-\_\-t}}]{oenv}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__dipoles_8c_ad71772d225357f453d9b8f3ad6db2012}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__dipoles_8c_ad71772d225357f453d9b8f3ad6db2012_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__dipoles_8c_ad71772d225357f453d9b8f3ad6db2012_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__dipoles_8c_a4d88c7b703849037594901be7b92c446}{\index{gmx\-\_\-dipoles.\-c@{gmx\-\_\-dipoles.\-c}!gmx\-\_\-dipoles@{gmx\-\_\-dipoles}}
+\index{gmx\-\_\-dipoles@{gmx\-\_\-dipoles}!gmx_dipoles.c@{gmx\-\_\-dipoles.\-c}}
+\subsubsection[{gmx\-\_\-dipoles}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-dipoles} (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{gmx__dipoles_8c_a4d88c7b703849037594901be7b92c446}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{gmx__dipoles_8c_a4d88c7b703849037594901be7b92c446_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=226pt]{gmx__dipoles_8c_a4d88c7b703849037594901be7b92c446_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__dipoles_8c_a3c8d7eaacb7754961c806cb7d0969638}{\index{gmx\-\_\-dipoles.\-c@{gmx\-\_\-dipoles.\-c}!mk\-\_\-gkrbin@{mk\-\_\-gkrbin}}
+\index{mk\-\_\-gkrbin@{mk\-\_\-gkrbin}!gmx_dipoles.c@{gmx\-\_\-dipoles.\-c}}
+\subsubsection[{mk\-\_\-gkrbin}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf t\-\_\-gkrbin}$\ast$ {\bf mk\-\_\-gkrbin} (
+\begin{DoxyParamCaption}
+\item[{real}]{radius, }
+\item[{real}]{rcmax, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Phi, }
+\item[{int}]{ndegrees}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__dipoles_8c_a3c8d7eaacb7754961c806cb7d0969638}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=222pt]{gmx__dipoles_8c_a3c8d7eaacb7754961c806cb7d0969638_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__dipoles_8c_a3c8d7eaacb7754961c806cb7d0969638_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__dipoles_8c_a93589529daa49753669192747a7be4fa}{\index{gmx\-\_\-dipoles.\-c@{gmx\-\_\-dipoles.\-c}!mol\-\_\-dip@{mol\-\_\-dip}}
+\index{mol\-\_\-dip@{mol\-\_\-dip}!gmx_dipoles.c@{gmx\-\_\-dipoles.\-c}}
+\subsubsection[{mol\-\_\-dip}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf mol\-\_\-dip} (
+\begin{DoxyParamCaption}
+\item[{int}]{k0, }
+\item[{int}]{k1, }
+\item[{{\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf t\-\_\-atom}}]{atom\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{mu}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__dipoles_8c_a93589529daa49753669192747a7be4fa}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=228pt]{gmx__dipoles_8c_a93589529daa49753669192747a7be4fa_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__dipoles_8c_a93589529daa49753669192747a7be4fa_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__dipoles_8c_a66738ab3c95d29d92716f5e42821c08d}{\index{gmx\-\_\-dipoles.\-c@{gmx\-\_\-dipoles.\-c}!mol\-\_\-quad@{mol\-\_\-quad}}
+\index{mol\-\_\-quad@{mol\-\_\-quad}!gmx_dipoles.c@{gmx\-\_\-dipoles.\-c}}
+\subsubsection[{mol\-\_\-quad}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf mol\-\_\-quad} (
+\begin{DoxyParamCaption}
+\item[{int}]{k0, }
+\item[{int}]{k1, }
+\item[{{\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf t\-\_\-atom}}]{atom\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{quad}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__dipoles_8c_a66738ab3c95d29d92716f5e42821c08d}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=238pt]{gmx__dipoles_8c_a66738ab3c95d29d92716f5e42821c08d_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__dipoles_8c_a66738ab3c95d29d92716f5e42821c08d_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__dipoles_8c_a2ddce365182597fa5aace5e239d72c9d}{\index{gmx\-\_\-dipoles.\-c@{gmx\-\_\-dipoles.\-c}!neutralize\-\_\-mols@{neutralize\-\_\-mols}}
+\index{neutralize\-\_\-mols@{neutralize\-\_\-mols}!gmx_dipoles.c@{gmx\-\_\-dipoles.\-c}}
+\subsubsection[{neutralize\-\_\-mols}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf neutralize\-\_\-mols} (
+\begin{DoxyParamCaption}
+\item[{int}]{n, }
+\item[{int $\ast$}]{index, }
+\item[{{\bf t\-\_\-block} $\ast$}]{mols, }
+\item[{{\bf t\-\_\-atom} $\ast$}]{atom}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__dipoles_8c_a2ddce365182597fa5aace5e239d72c9d}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=348pt]{gmx__dipoles_8c_a2ddce365182597fa5aace5e239d72c9d_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__dipoles_8c_a9e0eb1860071103acc082df542165c5a}{\index{gmx\-\_\-dipoles.\-c@{gmx\-\_\-dipoles.\-c}!normalize\-\_\-cmap@{normalize\-\_\-cmap}}
+\index{normalize\-\_\-cmap@{normalize\-\_\-cmap}!gmx_dipoles.c@{gmx\-\_\-dipoles.\-c}}
+\subsubsection[{normalize\-\_\-cmap}]{\setlength{\rightskip}{0pt plus 5cm}static real {\bf normalize\-\_\-cmap} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-gkrbin} $\ast$}]{gb}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__dipoles_8c_a9e0eb1860071103acc082df542165c5a}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=264pt]{gmx__dipoles_8c_a9e0eb1860071103acc082df542165c5a_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__dipoles_8c_a9e0eb1860071103acc082df542165c5a_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__dipoles_8c_a89e6e536d61f68abc566d53220a18e1b}{\index{gmx\-\_\-dipoles.\-c@{gmx\-\_\-dipoles.\-c}!print\-\_\-cmap@{print\-\_\-cmap}}
+\index{print\-\_\-cmap@{print\-\_\-cmap}!gmx_dipoles.c@{gmx\-\_\-dipoles.\-c}}
+\subsubsection[{print\-\_\-cmap}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf print\-\_\-cmap} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{cmap, }
+\item[{{\bf t\-\_\-gkrbin} $\ast$}]{gb, }
+\item[{int $\ast$}]{nlevels}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__dipoles_8c_a89e6e536d61f68abc566d53220a18e1b}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__dipoles_8c_a89e6e536d61f68abc566d53220a18e1b_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__dipoles_8c_a89e6e536d61f68abc566d53220a18e1b_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__dipoles_8c_afadb0a9ef885a7673a21fefb93674728}{\index{gmx\-\_\-dipoles.\-c@{gmx\-\_\-dipoles.\-c}!print\-\_\-gkrbin@{print\-\_\-gkrbin}}
+\index{print\-\_\-gkrbin@{print\-\_\-gkrbin}!gmx_dipoles.c@{gmx\-\_\-dipoles.\-c}}
+\subsubsection[{print\-\_\-gkrbin}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf print\-\_\-gkrbin} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{fn, }
+\item[{{\bf t\-\_\-gkrbin} $\ast$}]{gb, }
+\item[{int}]{ngrp, }
+\item[{int}]{nframes, }
+\item[{real}]{volume, }
+\item[{const {\bf output\-\_\-env\-\_\-t}}]{oenv}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__dipoles_8c_afadb0a9ef885a7673a21fefb93674728}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=254pt]{gmx__dipoles_8c_afadb0a9ef885a7673a21fefb93674728_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__dipoles_8c_afadb0a9ef885a7673a21fefb93674728_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__dipoles_8c_a9a4778de02bfc87f03ace2523a0f895e}{\index{gmx\-\_\-dipoles.\-c@{gmx\-\_\-dipoles.\-c}!read\-\_\-mu\-\_\-from\-\_\-enx@{read\-\_\-mu\-\_\-from\-\_\-enx}}
+\index{read\-\_\-mu\-\_\-from\-\_\-enx@{read\-\_\-mu\-\_\-from\-\_\-enx}!gmx_dipoles.c@{gmx\-\_\-dipoles.\-c}}
+\subsubsection[{read\-\_\-mu\-\_\-from\-\_\-enx}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf read\-\_\-mu\-\_\-from\-\_\-enx} (
+\begin{DoxyParamCaption}
+\item[{{\bf ener\-\_\-file\-\_\-t}}]{fmu, }
+\item[{int}]{\-Vol, }
+\item[{{\bf ivec}}]{i\-Mu, }
+\item[{{\bf rvec}}]{mu, }
+\item[{real $\ast$}]{vol, }
+\item[{real $\ast$}]{t, }
+\item[{int}]{nre, }
+\item[{{\bf t\-\_\-enxframe} $\ast$}]{fr}
+\end{DoxyParamCaption}
+)}}\label{gmx__dipoles_8c_a9a4778de02bfc87f03ace2523a0f895e}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=292pt]{gmx__dipoles_8c_a9a4778de02bfc87f03ace2523a0f895e_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__dipoles_8c_a9a4778de02bfc87f03ace2523a0f895e_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__dipoles_8c_afe337846a8f27b3e000c9c9141b2a30b}{\index{gmx\-\_\-dipoles.\-c@{gmx\-\_\-dipoles.\-c}!rvec2sprvec@{rvec2sprvec}}
+\index{rvec2sprvec@{rvec2sprvec}!gmx_dipoles.c@{gmx\-\_\-dipoles.\-c}}
+\subsubsection[{rvec2sprvec}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf rvec2sprvec} (
+\begin{DoxyParamCaption}
+\item[{{\bf rvec}}]{dipcart, }
+\item[{{\bf rvec}}]{dipsp}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__dipoles_8c_afe337846a8f27b3e000c9c9141b2a30b}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=248pt]{gmx__dipoles_8c_afe337846a8f27b3e000c9c9141b2a30b_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__dipoles_8c_afe337846a8f27b3e000c9c9141b2a30b_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__dipoles_8c_af2b18ea6db25b895cee1d331c6475a75}{\index{gmx\-\_\-dipoles.\-c@{gmx\-\_\-dipoles.\-c}!update\-\_\-slab\-\_\-dipoles@{update\-\_\-slab\-\_\-dipoles}}
+\index{update\-\_\-slab\-\_\-dipoles@{update\-\_\-slab\-\_\-dipoles}!gmx_dipoles.c@{gmx\-\_\-dipoles.\-c}}
+\subsubsection[{update\-\_\-slab\-\_\-dipoles}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf update\-\_\-slab\-\_\-dipoles} (
+\begin{DoxyParamCaption}
+\item[{int}]{k0, }
+\item[{int}]{k1, }
+\item[{{\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{mu, }
+\item[{int}]{idim, }
+\item[{int}]{nslice, }
+\item[{{\bf rvec}}]{slab\-\_\-dipole\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf matrix}}]{box}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__dipoles_8c_af2b18ea6db25b895cee1d331c6475a75}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=276pt]{gmx__dipoles_8c_af2b18ea6db25b895cee1d331c6475a75_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__dipoles_8c_af2b18ea6db25b895cee1d331c6475a75_icgraph}
+\end{center}
+\end{figure}
+
+

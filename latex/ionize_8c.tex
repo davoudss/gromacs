@@ -1,0 +1,766 @@
+\hypertarget{ionize_8c}{\section{src/kernel/ionize.c \-File \-Reference}
+\label{ionize_8c}\index{src/kernel/ionize.\-c@{src/kernel/ionize.\-c}}
+}
+{\ttfamily \#include $<$string.\-h$>$}\*
+{\ttfamily \#include \char`\"{}smalloc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}typedefs.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}macros.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}random.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-random.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}physics.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}xvgr.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}vec.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}pbc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}txtdump.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}ionize.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}names.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}futil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}network.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}mtop\-\_\-util.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmxfio.\-h\char`\"{}}\*
+\-Include dependency graph for ionize.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ionize_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structt__cross}{t\-\_\-cross}
+\item 
+struct \hyperlink{structt__element}{t\-\_\-element}
+\item 
+struct \hyperlink{structt__recoil}{t\-\_\-recoil}
+\item 
+struct \hyperlink{structt__cross__atom}{t\-\_\-cross\-\_\-atom}
+\end{DoxyCompactItemize}
+\subsection*{\-Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{ionize_8c_a2d466dfb97c748a7c782ea0629f33964}{\-N\-E\-L\-E\-M}~\hyperlink{share_2template_2gromacs_2macros_8h_a0883345a58f8f63aefa249a4f127f707}{asize}(\hyperlink{ionize_8c_a86a54b5a360fa06ad79cff7528f9d7aa}{element})
+\item 
+\#define \hyperlink{ionize_8c_add51b53e8b628f95078327028dccb20c}{\-P\-R\-E\-F\-I\-X}~\char`\"{}\-I\-O\-N\-I\-Z\-E\-: \char`\"{}
+\item 
+\#define \hyperlink{ionize_8c_abd56e6057430f2d694f45f27c9a3b497}{\-N\-E\-N\-E\-R}~\hyperlink{share_2template_2gromacs_2macros_8h_a0883345a58f8f63aefa249a4f127f707}{asize}(\hyperlink{ionize_8c_a814c3477763cfde3a8b1b7f87489b097}{\-Energies})
+\item 
+\#define \hyperlink{ionize_8c_ae0c647fd2d24b83780fcc18882b33470}{\-N\-I\-N\-T\-P}~450
+\item 
+\#define \hyperlink{ionize_8c_a6b07e4871725dde4c716eb22b99d2231}{prev}~(1-\/cur)
+\end{DoxyCompactItemize}
+\subsection*{\-Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \{ \hyperlink{ionize_8c_a828846a8d8fe2996c6aec3680dcdbbdda6d0c4a6e680cbe3eab9010f86cd670ec}{eion\-C\-Y\-L}, 
+\hyperlink{ionize_8c_a828846a8d8fe2996c6aec3680dcdbbdda362bb0340f1d6e09f42b5b281d37d90e}{eion\-S\-U\-R\-F}, 
+\hyperlink{ionize_8c_a828846a8d8fe2996c6aec3680dcdbbdda67994cbe6c49e6b998274be7fa03b0ca}{eion\-G\-A\-U\-S\-S}, 
+\hyperlink{ionize_8c_a828846a8d8fe2996c6aec3680dcdbbdda4efcc4f6536880345711372db771e6de}{eion\-N\-R}
+ \}
+\item 
+enum \{ \hyperlink{ionize_8c_a16a85e2bc30b7d629e4a3cf3cc573559a9f87b2e4e0feadfaba56236d5b3a7646}{ecoll\-P\-H\-O\-T\-O}, 
+\hyperlink{ionize_8c_a16a85e2bc30b7d629e4a3cf3cc573559ab3089585eeb717b0725db7340c8eae84}{ecoll\-I\-N\-E\-L\-A\-S\-T\-I\-C}, 
+\hyperlink{ionize_8c_a16a85e2bc30b7d629e4a3cf3cc573559a28cb6fb2aae90266e3d3042c7740ee58}{ecoll\-N\-R}
+ \}
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{ionize_8c_a101fd0c32ce292a58192fc5801397379}{dump\-\_\-ca} (\-F\-I\-L\-E $\ast$fp, \hyperlink{structt__cross__atom}{t\-\_\-cross\-\_\-atom} $\ast$ca, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a3c7542401c1cb8bd37ef5e7d9eb0f5a8}{i}, const char $\ast$file, int \hyperlink{gmx__anadock_8c_ac1d512d44c9fd5f0229af015290fc264}{line})
+\item 
+\hyperlink{structt__cross__atom}{t\-\_\-cross\-\_\-atom} $\ast$ \hyperlink{ionize_8c_a06a3babe35fa3ed71da3ec38d08d3d70}{mk\-\_\-cross\-\_\-atom} (\-F\-I\-L\-E $\ast$log, \hyperlink{structt__mdatoms}{t\-\_\-mdatoms} $\ast$md, \hyperlink{structgmx__mtop__t}{gmx\-\_\-mtop\-\_\-t} $\ast$mtop, int \-Eindex)
+\item 
+int \hyperlink{ionize_8c_a3a6c39d4494f46f5b4fafe28a703627c}{number\-\_\-\-K} (\hyperlink{structt__cross__atom}{t\-\_\-cross\-\_\-atom} $\ast$ca)
+\item 
+int \hyperlink{ionize_8c_a73b4bd264a84e72a80bf92eab8877cec}{number\-\_\-\-L} (\hyperlink{structt__cross__atom}{t\-\_\-cross\-\_\-atom} $\ast$ca)
+\item 
+real \hyperlink{ionize_8c_a24a67a82beda6dc037cf4347089eece2}{xray\-\_\-cross\-\_\-section} (int e\-Coll, \hyperlink{structt__cross__atom}{t\-\_\-cross\-\_\-atom} $\ast$ca)
+\item 
+real \hyperlink{ionize_8c_af973610058d19417abc0dfdbc882833a}{prob\-\_\-\-K} (int e\-Coll, \hyperlink{structt__cross__atom}{t\-\_\-cross\-\_\-atom} $\ast$ca)
+\item 
+double \hyperlink{ionize_8c_a23a1ef73271802fbcbc9999ae53003b7}{myexp} (double \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x})
+\item 
+real \hyperlink{ionize_8c_a616c3879d6455cb6c3893ce336883415}{ptheta\-\_\-incoh} (int \-Eindex, real theta)
+\item 
+real \hyperlink{ionize_8c_a3c4521de84a72c77dc1d6c85b8c7f57c}{rand\-\_\-theta\-\_\-incoh} (int \-Eindex, int $\ast$seed)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{ionize_8c_af66c1f4ed4d52f1a4f1990da350efcd2}{polar2cart} (real phi, real theta, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a339df93739a405c3e4b0506624fa27a5}{v})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{ionize_8c_a6d8f70e915e4948ab839d9df784e603e}{rand\-\_\-vector} (\hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a339df93739a405c3e4b0506624fa27a5}{v}, int $\ast$seed)
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{ionize_8c_aac735bb8455300f43954bd2754897092}{khole\-\_\-decay} (\-F\-I\-L\-E $\ast$fp, \hyperlink{structt__cross__atom}{t\-\_\-cross\-\_\-atom} $\ast$ca, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a339df93739a405c3e4b0506624fa27a5}{v}\mbox{[}$\,$\mbox{]}, int ion, int $\ast$seed, real dt)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{ionize_8c_ad03ef73d9b3bba76909b7e7bcd1dbe9c}{ionize} (\-F\-I\-L\-E $\ast$fp, const \hyperlink{include_2types_2oenv_8h_a6a48d77d95132d7318780544821da6a5}{output\-\_\-env\-\_\-t} oenv, \hyperlink{structt__mdatoms}{t\-\_\-mdatoms} $\ast$md, \hyperlink{structgmx__mtop__t}{gmx\-\_\-mtop\-\_\-t} $\ast$mtop, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a2b515c84b1293071f7584da32ca336c0}{t}, \hyperlink{structt__inputrec}{t\-\_\-inputrec} $\ast$ir, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a339df93739a405c3e4b0506624fa27a5}{v}\mbox{[}$\,$\mbox{]}, int start, int end, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box, \hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr)
+\end{DoxyCompactItemize}
+\subsection*{\-Variables}
+\begin{DoxyCompactItemize}
+\item 
+static const \hyperlink{structt__cross}{t\-\_\-cross} \hyperlink{ionize_8c_a50655fa009ea0adcab24a1dfc26c92be}{cross\-\_\-sec\-\_\-h} \mbox{[}$\,$\mbox{]}
+\item 
+static const \hyperlink{structt__cross}{t\-\_\-cross} \hyperlink{ionize_8c_ad54d2dcd649b083f848d3927c977230e}{cross\-\_\-sec\-\_\-c} \mbox{[}$\,$\mbox{]}
+\item 
+static const \hyperlink{structt__cross}{t\-\_\-cross} \hyperlink{ionize_8c_afc7d1c872979e7744cb9c54b6a09e82f}{cross\-\_\-sec\-\_\-n} \mbox{[}$\,$\mbox{]}
+\item 
+static const \hyperlink{structt__cross}{t\-\_\-cross} \hyperlink{ionize_8c_ad64e615c80ccec09ace426f3e7b87957}{cross\-\_\-sec\-\_\-o} \mbox{[}$\,$\mbox{]}
+\item 
+static const \hyperlink{structt__cross}{t\-\_\-cross} \hyperlink{ionize_8c_a635ce0ab4b5d6628ce6284afd52e917b}{cross\-\_\-sec\-\_\-s} \mbox{[}$\,$\mbox{]}
+\item 
+static const \hyperlink{structt__cross}{t\-\_\-cross} \hyperlink{ionize_8c_a06f03759d50453ad423be483020102a9}{cross\-\_\-sec\-\_\-mg} \mbox{[}$\,$\mbox{]}
+\item 
+static const \hyperlink{structt__cross}{t\-\_\-cross} \hyperlink{ionize_8c_a18c7685f144281d720db397b0022371b}{cross\-\_\-sec\-\_\-al} \mbox{[}$\,$\mbox{]}
+\item 
+static const \hyperlink{structt__cross}{t\-\_\-cross} \hyperlink{ionize_8c_a4c89f17e44cc5c29961509cf50351083}{cross\-\_\-sec\-\_\-b} \mbox{[}$\,$\mbox{]}
+\item 
+static const \hyperlink{structt__cross}{t\-\_\-cross} \hyperlink{ionize_8c_a34f15d5b8ce8f6013cc76c2bd6b7c881}{cross\-\_\-sec\-\_\-na} \mbox{[}$\,$\mbox{]}
+\item 
+static const \hyperlink{structt__cross}{t\-\_\-cross} \hyperlink{ionize_8c_a0a6bbfafc61e32e5a63b836c6da7f3c9}{cross\-\_\-sec\-\_\-li} \mbox{[}$\,$\mbox{]}
+\item 
+static const \hyperlink{structt__element}{t\-\_\-element} \hyperlink{ionize_8c_a86a54b5a360fa06ad79cff7528f9d7aa}{element} \mbox{[}$\,$\mbox{]}
+\item 
+const \hyperlink{structt__recoil}{t\-\_\-recoil} \hyperlink{ionize_8c_a6b99e5dbc5d0aadfc87080e9f5bb8a19}{recoil} \mbox{[}$\,$\mbox{]}
+\item 
+static int \hyperlink{ionize_8c_a814c3477763cfde3a8b1b7f87489b097}{\-Energies} \mbox{[}$\,$\mbox{]} = \{ 2, 6, 8, 10, 12, 15, 20 \}
+\item 
+static int \hyperlink{ionize_8c_a76218853f6b4c8238deeacfe5f132b37}{ionize\-\_\-seed} = 1993
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Define \-Documentation}
+\hypertarget{ionize_8c_a2d466dfb97c748a7c782ea0629f33964}{\index{ionize.\-c@{ionize.\-c}!\-N\-E\-L\-E\-M@{\-N\-E\-L\-E\-M}}
+\index{\-N\-E\-L\-E\-M@{\-N\-E\-L\-E\-M}!ionize.c@{ionize.\-c}}
+\subsubsection[{\-N\-E\-L\-E\-M}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-N\-E\-L\-E\-M}~{\bf asize}({\bf element})}}\label{ionize_8c_a2d466dfb97c748a7c782ea0629f33964}
+\hypertarget{ionize_8c_abd56e6057430f2d694f45f27c9a3b497}{\index{ionize.\-c@{ionize.\-c}!\-N\-E\-N\-E\-R@{\-N\-E\-N\-E\-R}}
+\index{\-N\-E\-N\-E\-R@{\-N\-E\-N\-E\-R}!ionize.c@{ionize.\-c}}
+\subsubsection[{\-N\-E\-N\-E\-R}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-N\-E\-N\-E\-R}~{\bf asize}({\bf \-Energies})}}\label{ionize_8c_abd56e6057430f2d694f45f27c9a3b497}
+\hypertarget{ionize_8c_ae0c647fd2d24b83780fcc18882b33470}{\index{ionize.\-c@{ionize.\-c}!\-N\-I\-N\-T\-P@{\-N\-I\-N\-T\-P}}
+\index{\-N\-I\-N\-T\-P@{\-N\-I\-N\-T\-P}!ionize.c@{ionize.\-c}}
+\subsubsection[{\-N\-I\-N\-T\-P}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-N\-I\-N\-T\-P}~450}}\label{ionize_8c_ae0c647fd2d24b83780fcc18882b33470}
+\hypertarget{ionize_8c_add51b53e8b628f95078327028dccb20c}{\index{ionize.\-c@{ionize.\-c}!\-P\-R\-E\-F\-I\-X@{\-P\-R\-E\-F\-I\-X}}
+\index{\-P\-R\-E\-F\-I\-X@{\-P\-R\-E\-F\-I\-X}!ionize.c@{ionize.\-c}}
+\subsubsection[{\-P\-R\-E\-F\-I\-X}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-P\-R\-E\-F\-I\-X}~\char`\"{}\-I\-O\-N\-I\-Z\-E\-: \char`\"{}}}\label{ionize_8c_add51b53e8b628f95078327028dccb20c}
+\hypertarget{ionize_8c_a6b07e4871725dde4c716eb22b99d2231}{\index{ionize.\-c@{ionize.\-c}!prev@{prev}}
+\index{prev@{prev}!ionize.c@{ionize.\-c}}
+\subsubsection[{prev}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf prev}~(1-\/cur)}}\label{ionize_8c_a6b07e4871725dde4c716eb22b99d2231}
+
+
+\subsection{\-Enumeration \-Type \-Documentation}
+\hypertarget{ionize_8c_a828846a8d8fe2996c6aec3680dcdbbdd}{\subsubsection[{anonymous enum}]{\setlength{\rightskip}{0pt plus 5cm}anonymous enum}}\label{ionize_8c_a828846a8d8fe2996c6aec3680dcdbbdd}
+\begin{Desc}
+\item[\-Enumerator\-: ]\par
+\begin{description}
+\index{eion\-C\-Y\-L@{eion\-C\-Y\-L}!ionize.\-c@{ionize.\-c}}\index{ionize.\-c@{ionize.\-c}!eion\-C\-Y\-L@{eion\-C\-Y\-L}}\item[{\em 
+\hypertarget{ionize_8c_a828846a8d8fe2996c6aec3680dcdbbdda6d0c4a6e680cbe3eab9010f86cd670ec}{eion\-C\-Y\-L}\label{ionize_8c_a828846a8d8fe2996c6aec3680dcdbbdda6d0c4a6e680cbe3eab9010f86cd670ec}
+}]\index{eion\-S\-U\-R\-F@{eion\-S\-U\-R\-F}!ionize.\-c@{ionize.\-c}}\index{ionize.\-c@{ionize.\-c}!eion\-S\-U\-R\-F@{eion\-S\-U\-R\-F}}\item[{\em 
+\hypertarget{ionize_8c_a828846a8d8fe2996c6aec3680dcdbbdda362bb0340f1d6e09f42b5b281d37d90e}{eion\-S\-U\-R\-F}\label{ionize_8c_a828846a8d8fe2996c6aec3680dcdbbdda362bb0340f1d6e09f42b5b281d37d90e}
+}]\index{eion\-G\-A\-U\-S\-S@{eion\-G\-A\-U\-S\-S}!ionize.\-c@{ionize.\-c}}\index{ionize.\-c@{ionize.\-c}!eion\-G\-A\-U\-S\-S@{eion\-G\-A\-U\-S\-S}}\item[{\em 
+\hypertarget{ionize_8c_a828846a8d8fe2996c6aec3680dcdbbdda67994cbe6c49e6b998274be7fa03b0ca}{eion\-G\-A\-U\-S\-S}\label{ionize_8c_a828846a8d8fe2996c6aec3680dcdbbdda67994cbe6c49e6b998274be7fa03b0ca}
+}]\index{eion\-N\-R@{eion\-N\-R}!ionize.\-c@{ionize.\-c}}\index{ionize.\-c@{ionize.\-c}!eion\-N\-R@{eion\-N\-R}}\item[{\em 
+\hypertarget{ionize_8c_a828846a8d8fe2996c6aec3680dcdbbdda4efcc4f6536880345711372db771e6de}{eion\-N\-R}\label{ionize_8c_a828846a8d8fe2996c6aec3680dcdbbdda4efcc4f6536880345711372db771e6de}
+}]\end{description}
+\end{Desc}
+
+\hypertarget{ionize_8c_a16a85e2bc30b7d629e4a3cf3cc573559}{\subsubsection[{anonymous enum}]{\setlength{\rightskip}{0pt plus 5cm}anonymous enum}}\label{ionize_8c_a16a85e2bc30b7d629e4a3cf3cc573559}
+\begin{Desc}
+\item[\-Enumerator\-: ]\par
+\begin{description}
+\index{ecoll\-P\-H\-O\-T\-O@{ecoll\-P\-H\-O\-T\-O}!ionize.\-c@{ionize.\-c}}\index{ionize.\-c@{ionize.\-c}!ecoll\-P\-H\-O\-T\-O@{ecoll\-P\-H\-O\-T\-O}}\item[{\em 
+\hypertarget{ionize_8c_a16a85e2bc30b7d629e4a3cf3cc573559a9f87b2e4e0feadfaba56236d5b3a7646}{ecoll\-P\-H\-O\-T\-O}\label{ionize_8c_a16a85e2bc30b7d629e4a3cf3cc573559a9f87b2e4e0feadfaba56236d5b3a7646}
+}]\index{ecoll\-I\-N\-E\-L\-A\-S\-T\-I\-C@{ecoll\-I\-N\-E\-L\-A\-S\-T\-I\-C}!ionize.\-c@{ionize.\-c}}\index{ionize.\-c@{ionize.\-c}!ecoll\-I\-N\-E\-L\-A\-S\-T\-I\-C@{ecoll\-I\-N\-E\-L\-A\-S\-T\-I\-C}}\item[{\em 
+\hypertarget{ionize_8c_a16a85e2bc30b7d629e4a3cf3cc573559ab3089585eeb717b0725db7340c8eae84}{ecoll\-I\-N\-E\-L\-A\-S\-T\-I\-C}\label{ionize_8c_a16a85e2bc30b7d629e4a3cf3cc573559ab3089585eeb717b0725db7340c8eae84}
+}]\index{ecoll\-N\-R@{ecoll\-N\-R}!ionize.\-c@{ionize.\-c}}\index{ionize.\-c@{ionize.\-c}!ecoll\-N\-R@{ecoll\-N\-R}}\item[{\em 
+\hypertarget{ionize_8c_a16a85e2bc30b7d629e4a3cf3cc573559a28cb6fb2aae90266e3d3042c7740ee58}{ecoll\-N\-R}\label{ionize_8c_a16a85e2bc30b7d629e4a3cf3cc573559a28cb6fb2aae90266e3d3042c7740ee58}
+}]\end{description}
+\end{Desc}
+
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{ionize_8c_a101fd0c32ce292a58192fc5801397379}{\index{ionize.\-c@{ionize.\-c}!dump\-\_\-ca@{dump\-\_\-ca}}
+\index{dump\-\_\-ca@{dump\-\_\-ca}!ionize.c@{ionize.\-c}}
+\subsubsection[{dump\-\_\-ca}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf dump\-\_\-ca} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{{\bf t\-\_\-cross\-\_\-atom} $\ast$}]{ca, }
+\item[{int}]{i, }
+\item[{const char $\ast$}]{file, }
+\item[{int}]{line}
+\end{DoxyParamCaption}
+)}}\label{ionize_8c_a101fd0c32ce292a58192fc5801397379}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ionize_8c_a101fd0c32ce292a58192fc5801397379_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{ionize_8c_ad03ef73d9b3bba76909b7e7bcd1dbe9c}{\index{ionize.\-c@{ionize.\-c}!ionize@{ionize}}
+\index{ionize@{ionize}!ionize.c@{ionize.\-c}}
+\subsubsection[{ionize}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf ionize} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{const {\bf output\-\_\-env\-\_\-t}}]{oenv, }
+\item[{{\bf t\-\_\-mdatoms} $\ast$}]{md, }
+\item[{{\bf gmx\-\_\-mtop\-\_\-t} $\ast$}]{mtop, }
+\item[{real}]{t, }
+\item[{{\bf t\-\_\-inputrec} $\ast$}]{ir, }
+\item[{{\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{v\mbox{[}$\,$\mbox{]}, }
+\item[{int}]{start, }
+\item[{int}]{end, }
+\item[{{\bf matrix}}]{box, }
+\item[{{\bf t\-\_\-commrec} $\ast$}]{cr}
+\end{DoxyParamCaption}
+)}}\label{ionize_8c_ad03ef73d9b3bba76909b7e7bcd1dbe9c}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ionize_8c_ad03ef73d9b3bba76909b7e7bcd1dbe9c_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=204pt]{ionize_8c_ad03ef73d9b3bba76909b7e7bcd1dbe9c_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{ionize_8c_aac735bb8455300f43954bd2754897092}{\index{ionize.\-c@{ionize.\-c}!khole\-\_\-decay@{khole\-\_\-decay}}
+\index{khole\-\_\-decay@{khole\-\_\-decay}!ionize.c@{ionize.\-c}}
+\subsubsection[{khole\-\_\-decay}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf khole\-\_\-decay} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{{\bf t\-\_\-cross\-\_\-atom} $\ast$}]{ca, }
+\item[{{\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{v\mbox{[}$\,$\mbox{]}, }
+\item[{int}]{ion, }
+\item[{int $\ast$}]{seed, }
+\item[{real}]{dt}
+\end{DoxyParamCaption}
+)}}\label{ionize_8c_aac735bb8455300f43954bd2754897092}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ionize_8c_aac735bb8455300f43954bd2754897092_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=312pt]{ionize_8c_aac735bb8455300f43954bd2754897092_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{ionize_8c_a06a3babe35fa3ed71da3ec38d08d3d70}{\index{ionize.\-c@{ionize.\-c}!mk\-\_\-cross\-\_\-atom@{mk\-\_\-cross\-\_\-atom}}
+\index{mk\-\_\-cross\-\_\-atom@{mk\-\_\-cross\-\_\-atom}!ionize.c@{ionize.\-c}}
+\subsubsection[{mk\-\_\-cross\-\_\-atom}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\-\_\-cross\-\_\-atom}$\ast$ {\bf mk\-\_\-cross\-\_\-atom} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{log, }
+\item[{{\bf t\-\_\-mdatoms} $\ast$}]{md, }
+\item[{{\bf gmx\-\_\-mtop\-\_\-t} $\ast$}]{mtop, }
+\item[{int}]{\-Eindex}
+\end{DoxyParamCaption}
+)}}\label{ionize_8c_a06a3babe35fa3ed71da3ec38d08d3d70}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=338pt]{ionize_8c_a06a3babe35fa3ed71da3ec38d08d3d70_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=326pt]{ionize_8c_a06a3babe35fa3ed71da3ec38d08d3d70_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{ionize_8c_a23a1ef73271802fbcbc9999ae53003b7}{\index{ionize.\-c@{ionize.\-c}!myexp@{myexp}}
+\index{myexp@{myexp}!ionize.c@{ionize.\-c}}
+\subsubsection[{myexp}]{\setlength{\rightskip}{0pt plus 5cm}double {\bf myexp} (
+\begin{DoxyParamCaption}
+\item[{double}]{x}
+\end{DoxyParamCaption}
+)}}\label{ionize_8c_a23a1ef73271802fbcbc9999ae53003b7}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ionize_8c_a23a1ef73271802fbcbc9999ae53003b7_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{ionize_8c_a3a6c39d4494f46f5b4fafe28a703627c}{\index{ionize.\-c@{ionize.\-c}!number\-\_\-\-K@{number\-\_\-\-K}}
+\index{number\-\_\-\-K@{number\-\_\-\-K}!ionize.c@{ionize.\-c}}
+\subsubsection[{number\-\_\-\-K}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf number\-\_\-\-K} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-cross\-\_\-atom} $\ast$}]{ca}
+\end{DoxyParamCaption}
+)}}\label{ionize_8c_a3a6c39d4494f46f5b4fafe28a703627c}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ionize_8c_a3a6c39d4494f46f5b4fafe28a703627c_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{ionize_8c_a73b4bd264a84e72a80bf92eab8877cec}{\index{ionize.\-c@{ionize.\-c}!number\-\_\-\-L@{number\-\_\-\-L}}
+\index{number\-\_\-\-L@{number\-\_\-\-L}!ionize.c@{ionize.\-c}}
+\subsubsection[{number\-\_\-\-L}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf number\-\_\-\-L} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-cross\-\_\-atom} $\ast$}]{ca}
+\end{DoxyParamCaption}
+)}}\label{ionize_8c_a73b4bd264a84e72a80bf92eab8877cec}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ionize_8c_a73b4bd264a84e72a80bf92eab8877cec_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{ionize_8c_af66c1f4ed4d52f1a4f1990da350efcd2}{\index{ionize.\-c@{ionize.\-c}!polar2cart@{polar2cart}}
+\index{polar2cart@{polar2cart}!ionize.c@{ionize.\-c}}
+\subsubsection[{polar2cart}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf polar2cart} (
+\begin{DoxyParamCaption}
+\item[{real}]{phi, }
+\item[{real}]{theta, }
+\item[{{\bf rvec}}]{v}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{ionize_8c_af66c1f4ed4d52f1a4f1990da350efcd2}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ionize_8c_af66c1f4ed4d52f1a4f1990da350efcd2_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{ionize_8c_af973610058d19417abc0dfdbc882833a}{\index{ionize.\-c@{ionize.\-c}!prob\-\_\-\-K@{prob\-\_\-\-K}}
+\index{prob\-\_\-\-K@{prob\-\_\-\-K}!ionize.c@{ionize.\-c}}
+\subsubsection[{prob\-\_\-\-K}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf prob\-\_\-\-K} (
+\begin{DoxyParamCaption}
+\item[{int}]{e\-Coll, }
+\item[{{\bf t\-\_\-cross\-\_\-atom} $\ast$}]{ca}
+\end{DoxyParamCaption}
+)}}\label{ionize_8c_af973610058d19417abc0dfdbc882833a}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=224pt]{ionize_8c_af973610058d19417abc0dfdbc882833a_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=288pt]{ionize_8c_af973610058d19417abc0dfdbc882833a_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{ionize_8c_a616c3879d6455cb6c3893ce336883415}{\index{ionize.\-c@{ionize.\-c}!ptheta\-\_\-incoh@{ptheta\-\_\-incoh}}
+\index{ptheta\-\_\-incoh@{ptheta\-\_\-incoh}!ionize.c@{ionize.\-c}}
+\subsubsection[{ptheta\-\_\-incoh}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf ptheta\-\_\-incoh} (
+\begin{DoxyParamCaption}
+\item[{int}]{\-Eindex, }
+\item[{real}]{theta}
+\end{DoxyParamCaption}
+)}}\label{ionize_8c_a616c3879d6455cb6c3893ce336883415}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=234pt]{ionize_8c_a616c3879d6455cb6c3893ce336883415_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ionize_8c_a616c3879d6455cb6c3893ce336883415_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{ionize_8c_a3c4521de84a72c77dc1d6c85b8c7f57c}{\index{ionize.\-c@{ionize.\-c}!rand\-\_\-theta\-\_\-incoh@{rand\-\_\-theta\-\_\-incoh}}
+\index{rand\-\_\-theta\-\_\-incoh@{rand\-\_\-theta\-\_\-incoh}!ionize.c@{ionize.\-c}}
+\subsubsection[{rand\-\_\-theta\-\_\-incoh}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf rand\-\_\-theta\-\_\-incoh} (
+\begin{DoxyParamCaption}
+\item[{int}]{\-Eindex, }
+\item[{int $\ast$}]{seed}
+\end{DoxyParamCaption}
+)}}\label{ionize_8c_a3c4521de84a72c77dc1d6c85b8c7f57c}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ionize_8c_a3c4521de84a72c77dc1d6c85b8c7f57c_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=332pt]{ionize_8c_a3c4521de84a72c77dc1d6c85b8c7f57c_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{ionize_8c_a6d8f70e915e4948ab839d9df784e603e}{\index{ionize.\-c@{ionize.\-c}!rand\-\_\-vector@{rand\-\_\-vector}}
+\index{rand\-\_\-vector@{rand\-\_\-vector}!ionize.c@{ionize.\-c}}
+\subsubsection[{rand\-\_\-vector}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf rand\-\_\-vector} (
+\begin{DoxyParamCaption}
+\item[{{\bf rvec}}]{v, }
+\item[{int $\ast$}]{seed}
+\end{DoxyParamCaption}
+)}}\label{ionize_8c_a6d8f70e915e4948ab839d9df784e603e}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=244pt]{ionize_8c_a6d8f70e915e4948ab839d9df784e603e_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ionize_8c_a6d8f70e915e4948ab839d9df784e603e_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{ionize_8c_a24a67a82beda6dc037cf4347089eece2}{\index{ionize.\-c@{ionize.\-c}!xray\-\_\-cross\-\_\-section@{xray\-\_\-cross\-\_\-section}}
+\index{xray\-\_\-cross\-\_\-section@{xray\-\_\-cross\-\_\-section}!ionize.c@{ionize.\-c}}
+\subsubsection[{xray\-\_\-cross\-\_\-section}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf xray\-\_\-cross\-\_\-section} (
+\begin{DoxyParamCaption}
+\item[{int}]{e\-Coll, }
+\item[{{\bf t\-\_\-cross\-\_\-atom} $\ast$}]{ca}
+\end{DoxyParamCaption}
+)}}\label{ionize_8c_a24a67a82beda6dc037cf4347089eece2}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=280pt]{ionize_8c_a24a67a82beda6dc037cf4347089eece2_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=342pt]{ionize_8c_a24a67a82beda6dc037cf4347089eece2_icgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{\-Variable \-Documentation}
+\hypertarget{ionize_8c_a18c7685f144281d720db397b0022371b}{\index{ionize.\-c@{ionize.\-c}!cross\-\_\-sec\-\_\-al@{cross\-\_\-sec\-\_\-al}}
+\index{cross\-\_\-sec\-\_\-al@{cross\-\_\-sec\-\_\-al}!ionize.c@{ionize.\-c}}
+\subsubsection[{cross\-\_\-sec\-\_\-al}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf t\-\_\-cross} {\bf cross\-\_\-sec\-\_\-al}\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{ionize_8c_a18c7685f144281d720db397b0022371b}
+{\bfseries \-Initial value\-:}
+\begin{DoxyCode}
+ {
+    { 1.01E+5,      8.24E+1,     1.51E+0,         -1 },
+    { 5.12E+3,      4.32E+1,     3.45E+0,         -1 },
+    { 2.22E+3,      3.24E+1,     4.16E+0,         -1 },
+    { 1.14E+3,      2.47E+1,     4.74E+0,         -1 },
+    { 6.63E+2,      1.93E+1,     5.19E+0,         -1 },
+    { 3.37E+2,      1.41E+1,     5.67E+0,         -1 },
+    { 1.39E+2,      9.17E+0,     6.14E+0,         -1 }
+}
+\end{DoxyCode}
+\hypertarget{ionize_8c_a4c89f17e44cc5c29961509cf50351083}{\index{ionize.\-c@{ionize.\-c}!cross\-\_\-sec\-\_\-b@{cross\-\_\-sec\-\_\-b}}
+\index{cross\-\_\-sec\-\_\-b@{cross\-\_\-sec\-\_\-b}!ionize.c@{ionize.\-c}}
+\subsubsection[{cross\-\_\-sec\-\_\-b}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf t\-\_\-cross} {\bf cross\-\_\-sec\-\_\-b}\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{ionize_8c_a4c89f17e44cc5c29961509cf50351083}
+{\bfseries \-Initial value\-:}
+\begin{DoxyCode}
+ {
+    { 2.86E+3,      1.05E+1,     8.20E-1,         -1 },
+    { 9.38E+1,      3.76E+0,     1.92E+0,         -1 },
+    { 3.72E+1,      2.81E+0,     2.15E+0,         -1 },
+    { 1.80E+1,      2.20E+0,     2.31E+0,         -1 },
+    { 9.92E+0,      1.77E+0,     2.44E+0,         -1 },
+    { 4.77E+0,      1.32E+0,     2.58E+0,         -1 },
+    { 1.84E+0,      8.56E-1,     2.71E+0,         -1 }
+}
+\end{DoxyCode}
+\hypertarget{ionize_8c_ad54d2dcd649b083f848d3927c977230e}{\index{ionize.\-c@{ionize.\-c}!cross\-\_\-sec\-\_\-c@{cross\-\_\-sec\-\_\-c}}
+\index{cross\-\_\-sec\-\_\-c@{cross\-\_\-sec\-\_\-c}!ionize.c@{ionize.\-c}}
+\subsubsection[{cross\-\_\-sec\-\_\-c}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf t\-\_\-cross} {\bf cross\-\_\-sec\-\_\-c}\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{ionize_8c_ad54d2dcd649b083f848d3927c977230e}
+{\bfseries \-Initial value\-:}
+\begin{DoxyCode}
+ {
+    { 3.10E+3,     1.42E+1,      1.03E+0,         -1 },
+    { 1.99e+2,     5.88e+0,      2.29e+0,         3.06e-2 },
+    { 8.01e+1,     4.22e+0,      2.56e+0,         4.38e-2 },
+    { 3.92e+1,     3.26e+0,      2.74e+0,         5.72e-2 },
+    { 2.19e+1,     2.55e+0,      2.88e+0,         7.07e-2 },
+    { 1.06e+1,     1.97e+0,      3.04e+0,         9.15e-2 },
+    { 4.15e+0,     1.30e+0,      3.20e+0,         1.24e-1 }
+}
+\end{DoxyCode}
+\hypertarget{ionize_8c_a50655fa009ea0adcab24a1dfc26c92be}{\index{ionize.\-c@{ionize.\-c}!cross\-\_\-sec\-\_\-h@{cross\-\_\-sec\-\_\-h}}
+\index{cross\-\_\-sec\-\_\-h@{cross\-\_\-sec\-\_\-h}!ionize.c@{ionize.\-c}}
+\subsubsection[{cross\-\_\-sec\-\_\-h}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf t\-\_\-cross} {\bf cross\-\_\-sec\-\_\-h}\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{ionize_8c_a50655fa009ea0adcab24a1dfc26c92be}
+{\bfseries \-Initial value\-:}
+\begin{DoxyCode}
+ {
+    { 5.21E-01,    3.39E-01,     3.21E-01,        -1 },
+    { 2.63e-2,     1.01e-1,      5.49e-1,         7.12e-3 },
+    { 9.79e-3,     6.18e-2,      5.83e-1,         9.60e-3 },
+    { 4.55e-3,     4.16e-2,      5.99e-1,         1.19e-2 },
+    { 1.52e-3,     2.79e-2,      6.08e-1,         1.41e-2 },
+    { 1.12e-3,     1.96e-2,      6.09e-1,         1.73e-2 },
+    { 4.16e-4,     1.13e-2,      6.07e-1,         2.23e-2 }
+}
+\end{DoxyCode}
+\hypertarget{ionize_8c_a0a6bbfafc61e32e5a63b836c6da7f3c9}{\index{ionize.\-c@{ionize.\-c}!cross\-\_\-sec\-\_\-li@{cross\-\_\-sec\-\_\-li}}
+\index{cross\-\_\-sec\-\_\-li@{cross\-\_\-sec\-\_\-li}!ionize.c@{ionize.\-c}}
+\subsubsection[{cross\-\_\-sec\-\_\-li}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf t\-\_\-cross} {\bf cross\-\_\-sec\-\_\-li}\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{ionize_8c_a0a6bbfafc61e32e5a63b836c6da7f3c9}
+{\bfseries \-Initial value\-:}
+\begin{DoxyCode}
+ {
+    { 3.08E+2,      3.37E+0,     6.38E-1,         -1 },
+    { 8.60E+0,      1.60E+0,     1.18E+0,         -1 },
+    { 3.31E+0,      1.16E+0,     1.36E+0,         -1 },
+    { 1.57E+0,      8.63E-1,     1.48E+0,         -1 },
+    { 8.50E-1,      6.59E-1,     1.57E+0,         -1 },
+    { 4.01E-1,      4.63E-1,     1.64E+0,         -1 },
+    { 1.52E-1,      2.85E-1,     1.70E+0,         -1 }
+}
+\end{DoxyCode}
+\hypertarget{ionize_8c_a06f03759d50453ad423be483020102a9}{\index{ionize.\-c@{ionize.\-c}!cross\-\_\-sec\-\_\-mg@{cross\-\_\-sec\-\_\-mg}}
+\index{cross\-\_\-sec\-\_\-mg@{cross\-\_\-sec\-\_\-mg}!ionize.c@{ionize.\-c}}
+\subsubsection[{cross\-\_\-sec\-\_\-mg}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf t\-\_\-cross} {\bf cross\-\_\-sec\-\_\-mg}\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{ionize_8c_a06f03759d50453ad423be483020102a9}
+{\bfseries \-Initial value\-:}
+\begin{DoxyCode}
+ {
+    { 7.79E+4,      7.19E+1,     1.34E+0,         -1 },
+    { 3.75E+3,      3.75E+1,     3.18E+0,         -1 },
+    { 1.61E+3,      2.75E+1,     3.91E+0,         -1 },
+    { 8.25E+2,      2.06E+1,     4.47E+0,         -1 },
+    { 4.75E+2,      1.61E+1,     4.88E+0,         -1 },
+    { 2.40E+2,      1.16E+1,     5.32E+0,         -1 },
+    { 9.82E+1,      7.59E+0,     5.74E+0,         -1 }
+}
+\end{DoxyCode}
+\hypertarget{ionize_8c_afc7d1c872979e7744cb9c54b6a09e82f}{\index{ionize.\-c@{ionize.\-c}!cross\-\_\-sec\-\_\-n@{cross\-\_\-sec\-\_\-n}}
+\index{cross\-\_\-sec\-\_\-n@{cross\-\_\-sec\-\_\-n}!ionize.c@{ionize.\-c}}
+\subsubsection[{cross\-\_\-sec\-\_\-n}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf t\-\_\-cross} {\bf cross\-\_\-sec\-\_\-n}\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{ionize_8c_afc7d1c872979e7744cb9c54b6a09e82f}
+{\bfseries \-Initial value\-:}
+\begin{DoxyCode}
+ {
+    { 5.78E+3,     2.13E+1,      1.11E+0,         -1 },
+    { 3.91e+2,     8.99e+0,      2.49e+0,         3.43e-2 },
+    { 1.59e+2,     6.29e+0,      2.86e+0,         5.01e-2 },
+    { 7.88e+1,     4.76e+0,      3.10e+0,         6.57e-2 },
+    { 4.42e+1,     3.66e+0,      3.28e+0,         8.13e-2 },
+    { 2.16e+1,     2.82e+0,      3.46e+0,         1.05e-1 },
+    { 8.52e+0,     1.88e+0,      3.65e+0,         1.43e-1 }
+}
+\end{DoxyCode}
+\hypertarget{ionize_8c_a34f15d5b8ce8f6013cc76c2bd6b7c881}{\index{ionize.\-c@{ionize.\-c}!cross\-\_\-sec\-\_\-na@{cross\-\_\-sec\-\_\-na}}
+\index{cross\-\_\-sec\-\_\-na@{cross\-\_\-sec\-\_\-na}!ionize.c@{ionize.\-c}}
+\subsubsection[{cross\-\_\-sec\-\_\-na}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf t\-\_\-cross} {\bf cross\-\_\-sec\-\_\-na}\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{ionize_8c_a34f15d5b8ce8f6013cc76c2bd6b7c881}
+{\bfseries \-Initial value\-:}
+\begin{DoxyCode}
+ {
+    { 5.80E+4,      6.27E+1,     1.01E+0,         -1 },
+    { 2.65E+3,      3.17E+1,     2.95E+0,         -1 },
+    { 1.13E+3,      2.26E+1,     3.67E+0,         -1 },
+    { 5.74E+2,      1.68E+1,     4.20E+0,         -1 },
+    { 3.28E+2,      1.30E+1,     4.58E+0,         -1 },
+    { 1.65E+2,      9.43E+0,     4.96E+0,         -1 },
+    { 6.71E+1,      6.16E+0,     5.34E+0,         -1 }
+}
+\end{DoxyCode}
+\hypertarget{ionize_8c_ad64e615c80ccec09ace426f3e7b87957}{\index{ionize.\-c@{ionize.\-c}!cross\-\_\-sec\-\_\-o@{cross\-\_\-sec\-\_\-o}}
+\index{cross\-\_\-sec\-\_\-o@{cross\-\_\-sec\-\_\-o}!ionize.c@{ionize.\-c}}
+\subsubsection[{cross\-\_\-sec\-\_\-o}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf t\-\_\-cross} {\bf cross\-\_\-sec\-\_\-o}\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{ionize_8c_ad64e615c80ccec09ace426f3e7b87957}
+{\bfseries \-Initial value\-:}
+\begin{DoxyCode}
+ {
+    { 9.74E+3,     3.00E+1,      1.06E+0,         -1 },
+    { 6.90e+2,     1.33e+1,      2.66e+0,         3.75e-2 },
+    { 2.84e+2,     9.21e+0,      3.14e+0,         5.62e-2 },
+    { 1.42e+2,     6.85e+0,      3.44e+0,         7.43e-2 },
+    { 8.01e+1,     5.18e+0,      3.66e+0,         9.20e-2 },
+    { 3.95e+1,     3.97e+0,      3.87e+0,         1.18e-1 },
+    { 1.57e+1,     2.64e+0,      4.10e+0,         1.61e-1 }
+}
+\end{DoxyCode}
+\hypertarget{ionize_8c_a635ce0ab4b5d6628ce6284afd52e917b}{\index{ionize.\-c@{ionize.\-c}!cross\-\_\-sec\-\_\-s@{cross\-\_\-sec\-\_\-s}}
+\index{cross\-\_\-sec\-\_\-s@{cross\-\_\-sec\-\_\-s}!ionize.c@{ionize.\-c}}
+\subsubsection[{cross\-\_\-sec\-\_\-s}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf t\-\_\-cross} {\bf cross\-\_\-sec\-\_\-s}\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{ionize_8c_a635ce0ab4b5d6628ce6284afd52e917b}
+{\bfseries \-Initial value\-:}
+\begin{DoxyCode}
+ {
+    { 1.07E+5,      1.15E+2,     2.03E+0,         -1 },
+    { 1.10e+4,      5.54e+1,     3.98e+0,         5.42e-2 },
+    { 4.91e+3,      4.29e+1,     4.71e+0,         8.38e-2 },
+    { 2.58e+3,      3.36e+1,     5.32e+0,         1.16e-1 },
+    { 1.52e+3,      2.64e+1,     5.81e+0,         1.48e-1 },
+    { 7.82e+2,      1.97e+1,     6.36e+0,         2.00e-1 },
+    { 3.29e+2,      1.29e+1,     6.94e+0,         2.80e-1 }
+}
+\end{DoxyCode}
+\hypertarget{ionize_8c_a86a54b5a360fa06ad79cff7528f9d7aa}{\index{ionize.\-c@{ionize.\-c}!element@{element}}
+\index{element@{element}!ionize.c@{ionize.\-c}}
+\subsubsection[{element}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf t\-\_\-element} {\bf element}\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{ionize_8c_a86a54b5a360fa06ad79cff7528f9d7aa}
+{\bfseries \-Initial value\-:}
+\begin{DoxyCode}
+ {
+    { "H",   1, cross_sec_h },
+    { "C",   6, cross_sec_c },
+    { "N",   7, cross_sec_n },
+    { "O",   8, cross_sec_o },
+    { "S",  16, cross_sec_s },
+    { "LI",  3, cross_sec_li },
+    { "B",   5, cross_sec_b },
+    { "NA",  11, cross_sec_na },
+    { "MG",  12, cross_sec_mg },
+    { "AL",  13, cross_sec_al },
+    { "AR", 20, cross_sec_s }, 
+    { "EL",  1, cross_sec_h }  
+}
+\end{DoxyCode}
+\hypertarget{ionize_8c_a814c3477763cfde3a8b1b7f87489b097}{\index{ionize.\-c@{ionize.\-c}!\-Energies@{\-Energies}}
+\index{\-Energies@{\-Energies}!ionize.c@{ionize.\-c}}
+\subsubsection[{\-Energies}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf \-Energies}\mbox{[}$\,$\mbox{]} = \{ 2, 6, 8, 10, 12, 15, 20 \}\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{ionize_8c_a814c3477763cfde3a8b1b7f87489b097}
+\hypertarget{ionize_8c_a76218853f6b4c8238deeacfe5f132b37}{\index{ionize.\-c@{ionize.\-c}!ionize\-\_\-seed@{ionize\-\_\-seed}}
+\index{ionize\-\_\-seed@{ionize\-\_\-seed}!ionize.c@{ionize.\-c}}
+\subsubsection[{ionize\-\_\-seed}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf ionize\-\_\-seed} = 1993\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{ionize_8c_a76218853f6b4c8238deeacfe5f132b37}
+\hypertarget{ionize_8c_a6b99e5dbc5d0aadfc87080e9f5bb8a19}{\index{ionize.\-c@{ionize.\-c}!recoil@{recoil}}
+\index{recoil@{recoil}!ionize.c@{ionize.\-c}}
+\subsubsection[{recoil}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf t\-\_\-recoil} {\bf recoil}\mbox{[}$\,$\mbox{]}}}\label{ionize_8c_a6b99e5dbc5d0aadfc87080e9f5bb8a19}
+{\bfseries \-Initial value\-:}
+\begin{DoxyCode}
+ {
+    { 0.0,    0.0,   0.0,   0},
+    { 0.0136, 0.0,   0.0,   0},
+    { 0.0246, 0.0,   0.0,   0},
+    { 0.055,  0.005, 0.960, 0.012},
+    { 0.117,  0.009, 0.956, 0.012},
+    { 0.192,  0.008, 0.952, 0.012},
+    { 0.284,  0.011, 0.950, 0.0113},
+    { 0.402,  0.015, 0.950, 0.0083},
+    { 0.532,  0.014, 0.936, 0.0066},
+    { 0.687,  0.017, 0.928, 0.0045},
+    { 0.874,  0.031, 0.922, 0.0033},
+    { 1.072,  0.041, 0.933, 0.0028},
+    { 1.305,  0.054, 0.927, 0.0022},
+    { 1.560,  0.077, 0.922, 0.0019},
+    { 1.839,  0.105, 0.918, 0.00165},
+    { 2.146,  0.133, 0.921, 0.00145},
+    { 2.472,  0.166, 0.908, 0.00130},
+    { 2.822,  0.212, 0.902, 0.0012},
+    { 3.203,  0.247, 0.902, 0.0010},
+    { 3.607,  0.298, 0.894, 0.00095},
+    { 4.038,  0.348, 0.890, 0.00085},
+    { 4.490,  0.404, 0.886, 0.00078},
+    { 4.966,  0.458, 0.882, 0.00073},
+    { 5.465,  0.516, 0.885, 0.00062},
+    { 5.989,  0.578, 0.883, 0.00055},
+    { 6.539,  0.645, 0.880, 0.00049},
+    { 7.112,  0.713, 0.877, 0.00044}
+}
+\end{DoxyCode}

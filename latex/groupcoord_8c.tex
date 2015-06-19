@@ -1,0 +1,485 @@
+\hypertarget{groupcoord_8c}{\section{src/mdlib/groupcoord.c \-File \-Reference}
+\label{groupcoord_8c}\index{src/mdlib/groupcoord.\-c@{src/mdlib/groupcoord.\-c}}
+}
+{\ttfamily \#include \char`\"{}groupcoord.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}mpelogging.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}network.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}pbc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}vec.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}smalloc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-ga2la.\-h\char`\"{}}\*
+\-Include dependency graph for groupcoord.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{groupcoord_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{groupcoord_8c_a3acffbd305ee72dcd4593c0d8af64a4f}{\-M\-I\-N}(\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a0880879736d1ab747a972d1942421886}{a}, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afb462a5dea72ae7992f073bfd756fb5f}{b})~(((\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a0880879736d1ab747a972d1942421886}{a}) $<$ (\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afb462a5dea72ae7992f073bfd756fb5f}{b})) ? (\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a0880879736d1ab747a972d1942421886}{a}) \-: (\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afb462a5dea72ae7992f073bfd756fb5f}{b}))
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{groupcoord_8c_ad02da958f7cd0f75e0533dc5052b277b}{dd\-\_\-make\-\_\-local\-\_\-group\-\_\-indices} (\hyperlink{include_2types_2commrec_8h_afc231fdc02683c223ce94b6dee2a0e46}{gmx\-\_\-ga2la\-\_\-t} ga2la, const int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a560e4062098f77c2d7e5fe83bf09c394}{nr}, int anrs\mbox{[}$\,$\mbox{]}, int $\ast$nr\-\_\-loc, int $\ast$anrs\-\_\-loc\mbox{[}$\,$\mbox{]}, int $\ast$nalloc\-\_\-loc, int coll\-\_\-ind\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em \-Select local atoms of a group. \end{DoxyCompactList}\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{groupcoord_8c_ae4d8f19f2b5baff3f20e5468be29aae7}{get\-\_\-shifts\-\_\-group} (int npbcdim, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$xcoll, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a560e4062098f77c2d7e5fe83bf09c394}{nr}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$xcoll\-\_\-old, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a74f6ffdb4a9c1764f5293969d8c681b6}{ivec} $\ast$shifts)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{groupcoord_8c_a08f7a4658a4501a76617e3f09adf843b}{shift\-\_\-positions\-\_\-group} (\hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a74f6ffdb4a9c1764f5293969d8c681b6}{ivec} $\ast$is, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a560e4062098f77c2d7e5fe83bf09c394}{nr})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{groupcoord_8c_a20467c38340aadf3f059e16f12670109}{communicate\-\_\-group\-\_\-positions} (\hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$xcoll, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a74f6ffdb4a9c1764f5293969d8c681b6}{ivec} $\ast$shifts, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a74f6ffdb4a9c1764f5293969d8c681b6}{ivec} $\ast$extra\-\_\-shifts, const \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-N\-S, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$x\-\_\-loc, const int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a560e4062098f77c2d7e5fe83bf09c394}{nr}, const int nr\-\_\-loc, int $\ast$anrs\-\_\-loc, int $\ast$coll\-\_\-ind, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$xcoll\-\_\-old, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box)
+\begin{DoxyCompactList}\small\item\em \-Assemble local positions into a collective array present on all nodes. \end{DoxyCompactList}\item 
+double \hyperlink{groupcoord_8c_a19f3fb1e455ae9fb5fa23da901968911}{get\-\_\-sum\-\_\-of\-\_\-positions} (\hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, real weight\mbox{[}$\,$\mbox{]}, const int nat, \hyperlink{share_2template_2gromacs_2types_2simple_8h_ac3f526097e99b43b9962d8676756017d}{dvec} dsumvec)
+\begin{DoxyCompactList}\small\item\em \-Calculates the sum of the positions x locally. \end{DoxyCompactList}\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{groupcoord_8c_a277a68eb302c01b8c2eb185d1a98c8fc}{get\-\_\-center} (\hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, real weight\mbox{[}$\,$\mbox{]}, const int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a560e4062098f77c2d7e5fe83bf09c394}{nr}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} rcenter)
+\begin{DoxyCompactList}\small\item\em \-Calculates the center of the positions x locally. \end{DoxyCompactList}\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{groupcoord_8c_a05a0f3b223b46ce34e8470d5e13a4e5c}{get\-\_\-center\-\_\-comm} (\hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} x\-\_\-loc\mbox{[}$\,$\mbox{]}, real weight\-\_\-loc\mbox{[}$\,$\mbox{]}, int nr\-\_\-loc, int nr\-\_\-group, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} center)
+\begin{DoxyCompactList}\small\item\em \-Calculates the global center of all local arrays x. \end{DoxyCompactList}\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{groupcoord_8c_aa739dbdc71986caa8bcbcda9009778ff}{translate\-\_\-x} (\hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, const int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a560e4062098f77c2d7e5fe83bf09c394}{nr}, const \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} transvec)
+\begin{DoxyCompactList}\small\item\em \-Translate positions. \end{DoxyCompactList}\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{groupcoord_8c_a918543f4782aca4196ce2a5cc6a3272a}{rotate\-\_\-x} (\hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, const int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a560e4062098f77c2d7e5fe83bf09c394}{nr}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} rmat)
+\begin{DoxyCompactList}\small\item\em \-Rotate positions. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{\-Define \-Documentation}
+\hypertarget{groupcoord_8c_a3acffbd305ee72dcd4593c0d8af64a4f}{\index{groupcoord.\-c@{groupcoord.\-c}!\-M\-I\-N@{\-M\-I\-N}}
+\index{\-M\-I\-N@{\-M\-I\-N}!groupcoord.c@{groupcoord.\-c}}
+\subsubsection[{\-M\-I\-N}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-M\-I\-N}(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf a}, }
+\item[{}]{{\bf b}}
+\end{DoxyParamCaption}
+)~((({\bf a}) $<$ ({\bf b})) ? ({\bf a}) \-: ({\bf b}))}}\label{groupcoord_8c_a3acffbd305ee72dcd4593c0d8af64a4f}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{groupcoord_8c_a20467c38340aadf3f059e16f12670109}{\index{groupcoord.\-c@{groupcoord.\-c}!communicate\-\_\-group\-\_\-positions@{communicate\-\_\-group\-\_\-positions}}
+\index{communicate\-\_\-group\-\_\-positions@{communicate\-\_\-group\-\_\-positions}!groupcoord.c@{groupcoord.\-c}}
+\subsubsection[{communicate\-\_\-group\-\_\-positions}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf communicate\-\_\-group\-\_\-positions} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-commrec} $\ast$}]{cr, }
+\item[{{\bf rvec} $\ast$}]{xcoll, }
+\item[{{\bf ivec} $\ast$}]{shifts, }
+\item[{{\bf ivec} $\ast$}]{extra\-\_\-shifts, }
+\item[{const {\bf gmx\-\_\-bool}}]{b\-N\-S, }
+\item[{{\bf rvec} $\ast$}]{x\-\_\-loc, }
+\item[{const int}]{nr, }
+\item[{const int}]{nr\-\_\-loc, }
+\item[{int $\ast$}]{anrs\-\_\-loc, }
+\item[{int $\ast$}]{coll\-\_\-ind, }
+\item[{{\bf rvec} $\ast$}]{xcoll\-\_\-old, }
+\item[{{\bf matrix}}]{box}
+\end{DoxyParamCaption}
+)}}\label{groupcoord_8c_a20467c38340aadf3f059e16f12670109}
+
+
+\-Assemble local positions into a collective array present on all nodes. 
+
+\-Communicate the positions of the group's atoms such that every node has all of them. \-Unless running on huge number of cores, this is not a big performance impact as long as the collective subset \mbox{[}0..nr\mbox{]} is kept small. \-The atom indices are retrieved from anrs\-\_\-loc\mbox{[}0..nr\-\_\-loc\mbox{]}. \-If you call the routine for the serial case, provide an array coll\-\_\-ind\mbox{[}i\mbox{]} = i for i in 1..nr.
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em cr\mbox{[}in\mbox{]}} & \-Pointer to \-M\-P\-I communication data. \\
+\hline
+{\em xcoll\mbox{[}out\mbox{]}} & \-Collective array of positions, idential on all nodes after this routine has been called. \\
+\hline
+{\em shifts\mbox{[}inout\mbox{]}} & \-Collective array of shifts for xcoll, needed to make the group whole. \-This array remembers the shifts since the start of the simulation (where the group is whole) and must therefore not be changed outside of this routine! \\
+\hline
+{\em extra\-\_\-shifts\mbox{[}buf\mbox{]}} & \-Extra shifts since last time step, only needed as buffer variable \mbox{[}0..nr\mbox{]}. \\
+\hline
+{\em b\-N\-S\mbox{[}in\mbox{]}} & \-Neighborsearching/domain redecomposition has been performed at the begin of this time step such that the shifts have changed and need to be updated. \\
+\hline
+{\em x\-\_\-loc\mbox{[}in\mbox{]}} & \-Pointer to the local atom positions this node has. \\
+\hline
+{\em nr\mbox{[}in\mbox{]}} & \-Total number of atoms in the group. \\
+\hline
+{\em nr\-\_\-loc\mbox{[}in\mbox{]}} & \-Number of group atoms on the local node. \\
+\hline
+{\em anrs\-\_\-loc\mbox{[}in\mbox{]}} & \-Array of the local atom indices. \\
+\hline
+{\em coll\-\_\-ind\mbox{[}in\mbox{]}} & \-This array of size nr stores for each local atom where it belongs in the collective array so that the local contributions can be gmx\-\_\-summed. \-It is provided by dd\-\_\-make\-\_\-local\-\_\-group\-\_\-indices. \\
+\hline
+{\em xcoll\-\_\-old\mbox{[}inout\mbox{]}} & \-Positions from the last time step, used to make the group whole. \\
+\hline
+{\em box\mbox{[}in\mbox{]}} & \-Simulation box matrix, needed to shift xcoll such that the group becomes whole. \\
+\hline
+\end{DoxyParams}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{groupcoord_8c_a20467c38340aadf3f059e16f12670109_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{groupcoord_8c_a20467c38340aadf3f059e16f12670109_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{groupcoord_8c_ad02da958f7cd0f75e0533dc5052b277b}{\index{groupcoord.\-c@{groupcoord.\-c}!dd\-\_\-make\-\_\-local\-\_\-group\-\_\-indices@{dd\-\_\-make\-\_\-local\-\_\-group\-\_\-indices}}
+\index{dd\-\_\-make\-\_\-local\-\_\-group\-\_\-indices@{dd\-\_\-make\-\_\-local\-\_\-group\-\_\-indices}!groupcoord.c@{groupcoord.\-c}}
+\subsubsection[{dd\-\_\-make\-\_\-local\-\_\-group\-\_\-indices}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf dd\-\_\-make\-\_\-local\-\_\-group\-\_\-indices} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ga2la\-\_\-t}}]{ga2la, }
+\item[{const int}]{nr, }
+\item[{int}]{anrs\mbox{[}$\,$\mbox{]}, }
+\item[{int $\ast$}]{nr\-\_\-loc, }
+\item[{int $\ast$}]{anrs\-\_\-loc\mbox{[}$\,$\mbox{]}, }
+\item[{int $\ast$}]{nalloc\-\_\-loc, }
+\item[{int}]{coll\-\_\-ind\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{groupcoord_8c_ad02da958f7cd0f75e0533dc5052b277b}
+
+
+\-Select local atoms of a group. 
+
+\-Selects the indices of local atoms of a group and stores them in anrs\-\_\-loc\mbox{[}0..nr\-\_\-loc\mbox{]}. \-If you need the positions of the group's atoms on all nodes, provide a coll\-\_\-ind\mbox{[}0..nr\mbox{]} array and pass it on to communicate\-\_\-group\-\_\-positions. \-Thus the collective array will always have the same atom order (ascending indices).
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em ga2la\mbox{[}in\mbox{]}} & \-Global to local atom index conversion data. \\
+\hline
+{\em nr\mbox{[}in\mbox{]}} & \-The total number of atoms that the group contains. \\
+\hline
+{\em anrs\mbox{[}in\mbox{]}} & \-The global atom number of the group's atoms. \\
+\hline
+{\em nr\-\_\-loc\mbox{[}out\mbox{]}} & \-The number of group atoms present on the local node. \\
+\hline
+{\em anrs\-\_\-loc\mbox{[}out\mbox{]}} & \-The local atom numbers of the group. \\
+\hline
+{\em nalloc\-\_\-loc\mbox{[}inout\mbox{]}} & \-Local allocation size of anrs\-\_\-loc array. \\
+\hline
+{\em coll\-\_\-ind\mbox{[}opt\mbox{]}} & \-If not \-N\-U\-L\-L this array must be of size nr. \-It stores for each local atom where it belongs in the global (collective) array such that it can be gmx\-\_\-summed in the communicate\-\_\-group\-\_\-positions routine. \\
+\hline
+\end{DoxyParams}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{groupcoord_8c_ad02da958f7cd0f75e0533dc5052b277b_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{groupcoord_8c_ad02da958f7cd0f75e0533dc5052b277b_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{groupcoord_8c_a277a68eb302c01b8c2eb185d1a98c8fc}{\index{groupcoord.\-c@{groupcoord.\-c}!get\-\_\-center@{get\-\_\-center}}
+\index{get\-\_\-center@{get\-\_\-center}!groupcoord.c@{groupcoord.\-c}}
+\subsubsection[{get\-\_\-center}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf get\-\_\-center} (
+\begin{DoxyParamCaption}
+\item[{{\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{real}]{weight\mbox{[}$\,$\mbox{]}, }
+\item[{const int}]{nr, }
+\item[{{\bf rvec}}]{center}
+\end{DoxyParamCaption}
+)}}\label{groupcoord_8c_a277a68eb302c01b8c2eb185d1a98c8fc}
+
+
+\-Calculates the center of the positions x locally. 
+
+\-Calculates the center of mass (if masses are given in the weight array) or the geometrical center (if \-N\-U\-L\-L is passed as weight).
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em x\mbox{[}in\mbox{]}} & \-Positions. \\
+\hline
+{\em weight\mbox{[}in\mbox{]}} & \-Can be \-N\-U\-L\-L or an array of weights. \-If masses are given as weights, the \-C\-O\-M is calculated. \\
+\hline
+{\em nr\mbox{[}in\mbox{]}} & \-Number of positions and weights if present. \\
+\hline
+{\em center\mbox{[}out\mbox{]}} & \-The (weighted) center of the positions. \\
+\hline
+\end{DoxyParams}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{groupcoord_8c_a277a68eb302c01b8c2eb185d1a98c8fc_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{groupcoord_8c_a277a68eb302c01b8c2eb185d1a98c8fc_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{groupcoord_8c_a05a0f3b223b46ce34e8470d5e13a4e5c}{\index{groupcoord.\-c@{groupcoord.\-c}!get\-\_\-center\-\_\-comm@{get\-\_\-center\-\_\-comm}}
+\index{get\-\_\-center\-\_\-comm@{get\-\_\-center\-\_\-comm}!groupcoord.c@{groupcoord.\-c}}
+\subsubsection[{get\-\_\-center\-\_\-comm}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf get\-\_\-center\-\_\-comm} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-commrec} $\ast$}]{cr, }
+\item[{{\bf rvec}}]{x\-\_\-loc\mbox{[}$\,$\mbox{]}, }
+\item[{real}]{weight\-\_\-loc\mbox{[}$\,$\mbox{]}, }
+\item[{int}]{nr\-\_\-loc, }
+\item[{int}]{nr\-\_\-group, }
+\item[{{\bf rvec}}]{center}
+\end{DoxyParamCaption}
+)}}\label{groupcoord_8c_a05a0f3b223b46ce34e8470d5e13a4e5c}
+
+
+\-Calculates the global center of all local arrays x. 
+
+\-Get the center from local positions \mbox{[}0..nr\-\_\-loc\mbox{]}, this involves communication. \-Not that the positions must already have the correct \-P\-B\-C representation. \-Use this routine if no collective coordinates are assembled from which the center could be calculated without communication.
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em cr\mbox{[}in\mbox{]}} & \-Pointer to \-M\-P\-I communication data. \\
+\hline
+{\em x\-\_\-loc\mbox{[}in\mbox{]}} & \-Array of local positions \mbox{[}0..nr\-\_\-loc\mbox{]}. \\
+\hline
+{\em weight\-\_\-loc\mbox{[}in\mbox{]}} & \-Array of local weights, these are the masses if the center of mass is to be calculated. \\
+\hline
+{\em nr\-\_\-loc\mbox{[}in\mbox{]}} & \-The number of positions on the local node. \\
+\hline
+{\em nr\-\_\-group\mbox{[}in\mbox{]}} & \-The number of positions in the whole group. \-Since this is known anyway, we do not need to communicate and sum nr\-\_\-loc if we pass it over. \\
+\hline
+{\em center\mbox{[}out\mbox{]}} & \-The (weighted) center of all x\-\_\-loc from all the nodes. \\
+\hline
+\end{DoxyParams}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{groupcoord_8c_a05a0f3b223b46ce34e8470d5e13a4e5c_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{groupcoord_8c_a05a0f3b223b46ce34e8470d5e13a4e5c_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{groupcoord_8c_ae4d8f19f2b5baff3f20e5468be29aae7}{\index{groupcoord.\-c@{groupcoord.\-c}!get\-\_\-shifts\-\_\-group@{get\-\_\-shifts\-\_\-group}}
+\index{get\-\_\-shifts\-\_\-group@{get\-\_\-shifts\-\_\-group}!groupcoord.c@{groupcoord.\-c}}
+\subsubsection[{get\-\_\-shifts\-\_\-group}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf get\-\_\-shifts\-\_\-group} (
+\begin{DoxyParamCaption}
+\item[{int}]{npbcdim, }
+\item[{{\bf matrix}}]{box, }
+\item[{{\bf rvec} $\ast$}]{xcoll, }
+\item[{int}]{nr, }
+\item[{{\bf rvec} $\ast$}]{xcoll\-\_\-old, }
+\item[{{\bf ivec} $\ast$}]{shifts}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{groupcoord_8c_ae4d8f19f2b5baff3f20e5468be29aae7}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=268pt]{groupcoord_8c_ae4d8f19f2b5baff3f20e5468be29aae7_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{groupcoord_8c_ae4d8f19f2b5baff3f20e5468be29aae7_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{groupcoord_8c_a19f3fb1e455ae9fb5fa23da901968911}{\index{groupcoord.\-c@{groupcoord.\-c}!get\-\_\-sum\-\_\-of\-\_\-positions@{get\-\_\-sum\-\_\-of\-\_\-positions}}
+\index{get\-\_\-sum\-\_\-of\-\_\-positions@{get\-\_\-sum\-\_\-of\-\_\-positions}!groupcoord.c@{groupcoord.\-c}}
+\subsubsection[{get\-\_\-sum\-\_\-of\-\_\-positions}]{\setlength{\rightskip}{0pt plus 5cm}double {\bf get\-\_\-sum\-\_\-of\-\_\-positions} (
+\begin{DoxyParamCaption}
+\item[{{\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{real}]{weight\mbox{[}$\,$\mbox{]}, }
+\item[{const int}]{nr, }
+\item[{{\bf dvec}}]{dsumvec}
+\end{DoxyParamCaption}
+)}}\label{groupcoord_8c_a19f3fb1e455ae9fb5fa23da901968911}
+
+
+\-Calculates the sum of the positions x locally. 
+
+\-Calculates the (weighted) sum of position vectors and returns the sum of weights, which is needed when local contributions shall be summed to a global weighted center.
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em x\mbox{[}in\mbox{]}} & \-Array of positions. \\
+\hline
+{\em weight\mbox{[}in\mbox{]}} & \-Can be \-N\-U\-L\-L or an array of weights. \\
+\hline
+{\em nr\mbox{[}in\mbox{]}} & \-Number of positions and weights if present. \\
+\hline
+{\em dsumvec\mbox{[}out\mbox{]}} & \-The (weighted) sum of the positions. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-Sum of weights. 
+\end{DoxyReturn}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=292pt]{groupcoord_8c_a19f3fb1e455ae9fb5fa23da901968911_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{groupcoord_8c_a19f3fb1e455ae9fb5fa23da901968911_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{groupcoord_8c_a918543f4782aca4196ce2a5cc6a3272a}{\index{groupcoord.\-c@{groupcoord.\-c}!rotate\-\_\-x@{rotate\-\_\-x}}
+\index{rotate\-\_\-x@{rotate\-\_\-x}!groupcoord.c@{groupcoord.\-c}}
+\subsubsection[{rotate\-\_\-x}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf rotate\-\_\-x} (
+\begin{DoxyParamCaption}
+\item[{{\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{const int}]{nr, }
+\item[{{\bf matrix}}]{rmat}
+\end{DoxyParamCaption}
+)}}\label{groupcoord_8c_a918543f4782aca4196ce2a5cc6a3272a}
+
+
+\-Rotate positions. 
+
+\-Rotate the positions with the rotation matrix.
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em x\mbox{[}inout\mbox{]}} & \-Array of positions. \\
+\hline
+{\em nr\mbox{[}in\mbox{]}} & \-Number of entries in the position array. \\
+\hline
+{\em rmat\mbox{[}in\mbox{]}} & \-Rotation matrix to operate on all positions. \\
+\hline
+\end{DoxyParams}
+\hypertarget{groupcoord_8c_a08f7a4658a4501a76617e3f09adf843b}{\index{groupcoord.\-c@{groupcoord.\-c}!shift\-\_\-positions\-\_\-group@{shift\-\_\-positions\-\_\-group}}
+\index{shift\-\_\-positions\-\_\-group@{shift\-\_\-positions\-\_\-group}!groupcoord.c@{groupcoord.\-c}}
+\subsubsection[{shift\-\_\-positions\-\_\-group}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf shift\-\_\-positions\-\_\-group} (
+\begin{DoxyParamCaption}
+\item[{{\bf matrix}}]{box, }
+\item[{{\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf ivec} $\ast$}]{is, }
+\item[{int}]{nr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{groupcoord_8c_a08f7a4658a4501a76617e3f09adf843b}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{groupcoord_8c_a08f7a4658a4501a76617e3f09adf843b_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{groupcoord_8c_aa739dbdc71986caa8bcbcda9009778ff}{\index{groupcoord.\-c@{groupcoord.\-c}!translate\-\_\-x@{translate\-\_\-x}}
+\index{translate\-\_\-x@{translate\-\_\-x}!groupcoord.c@{groupcoord.\-c}}
+\subsubsection[{translate\-\_\-x}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf translate\-\_\-x} (
+\begin{DoxyParamCaption}
+\item[{{\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{const int}]{nr, }
+\item[{const {\bf rvec}}]{transvec}
+\end{DoxyParamCaption}
+)}}\label{groupcoord_8c_aa739dbdc71986caa8bcbcda9009778ff}
+
+
+\-Translate positions. 
+
+\-Add a translation vector to the positions x.
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em x\mbox{[}inout\mbox{]}} & \-Array of positions. \\
+\hline
+{\em nr\mbox{[}in\mbox{]}} & \-Number of entries in the position array. \\
+\hline
+{\em transvec\mbox{[}in\mbox{]}} & \-Translation vector to be added to all positions. \\
+\hline
+\end{DoxyParams}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=236pt]{groupcoord_8c_aa739dbdc71986caa8bcbcda9009778ff_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{groupcoord_8c_aa739dbdc71986caa8bcbcda9009778ff_icgraph}
+\end{center}
+\end{figure}
+
+

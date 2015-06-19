@@ -1,0 +1,624 @@
+\hypertarget{gmx__pme__error_8c}{\section{src/tools/gmx\-\_\-pme\-\_\-error.c \-File \-Reference}
+\label{gmx__pme__error_8c}\index{src/tools/gmx\-\_\-pme\-\_\-error.\-c@{src/tools/gmx\-\_\-pme\-\_\-error.\-c}}
+}
+{\ttfamily \#include \char`\"{}statutil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}typedefs.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}smalloc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}vec.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}copyrite.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}tpxio.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}string2.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}readinp.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}calcgrid.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}checkpoint.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-ana.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-random.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}physics.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}mdatoms.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}coulomb.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}mtop\-\_\-util.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}network.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}main.\-h\char`\"{}}\*
+\-Include dependency graph for gmx\-\_\-pme\-\_\-error.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__pme__error_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structt__perf}{t\-\_\-perf}
+\item 
+struct \hyperlink{structt__inputinfo}{t\-\_\-inputinfo}
+\end{DoxyCompactItemize}
+\subsection*{\-Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{gmx__pme__error_8c_ab81e569dd03439ce66dd63e92f71b97e}{block\-\_\-bc}(cr,\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae624f265c646670d373e9de0306f184b}{d})~\hyperlink{network_8c_aeed1d7baa0935bd08551aababc3d4e44}{gmx\-\_\-bcast}(     sizeof(\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae624f265c646670d373e9de0306f184b}{d}),     \&(\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae624f265c646670d373e9de0306f184b}{d}), (cr))
+\item 
+\#define \hyperlink{gmx__pme__error_8c_aa6d3a8c594fbbb636421577ed3721fba}{nblock\-\_\-bc}(cr, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a560e4062098f77c2d7e5fe83bf09c394}{nr}, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae624f265c646670d373e9de0306f184b}{d})~\hyperlink{network_8c_aeed1d7baa0935bd08551aababc3d4e44}{gmx\-\_\-bcast}((\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a560e4062098f77c2d7e5fe83bf09c394}{nr})$\ast$sizeof((\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae624f265c646670d373e9de0306f184b}{d})\mbox{[}0\mbox{]}), (\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae624f265c646670d373e9de0306f184b}{d}), (cr))
+\item 
+\#define \hyperlink{gmx__pme__error_8c_a691bc415f6af86a0184197c790f87aec}{snew\-\_\-bc}(cr, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae624f265c646670d373e9de0306f184b}{d}, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a560e4062098f77c2d7e5fe83bf09c394}{nr})~\{ if (!\hyperlink{share_2template_2gromacs_2types_2commrec_8h_a3abc02e7ef1e2615a54b5c2baf85d742}{\-M\-A\-S\-T\-E\-R}(cr)) \{\hyperlink{share_2template_2gromacs_2smalloc_8h_a11f5e6d285a313414a895fb84c8c7194}{snew}((\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae624f265c646670d373e9de0306f184b}{d}), (\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a560e4062098f77c2d7e5fe83bf09c394}{nr})); \}\}
+\item 
+\#define \hyperlink{gmx__pme__error_8c_a35d7eb3c8b109d7dfa85d99560753f1e}{\-S\-U\-M\-O\-R\-D\-E\-R}~6
+\item 
+\#define \hyperlink{gmx__pme__error_8c_a8485f4e81de2537e6a0935626167a775}{\-N\-F\-I\-L\-E}~\hyperlink{share_2template_2gromacs_2macros_8h_a0883345a58f8f63aefa249a4f127f707}{asize}(fnm)
+\end{DoxyCompactItemize}
+\subsection*{\-Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \{ \*
+\hyperlink{gmx__pme__error_8c_a2a5937706f1724c8f06a0396bdc87855aed6d22f1fc255f29b8e63390e9fa77f5}{ddno\-S\-E\-L}, 
+\hyperlink{gmx__pme__error_8c_a2a5937706f1724c8f06a0396bdc87855ac5443a8229d4b2ba694d48507a50a3b7}{ddno\-I\-N\-T\-E\-R\-L\-E\-A\-V\-E}, 
+\hyperlink{gmx__pme__error_8c_a2a5937706f1724c8f06a0396bdc87855ae0b817fc66919410a2ef45dba756c592}{ddno\-P\-P\-\_\-\-P\-M\-E}, 
+\hyperlink{gmx__pme__error_8c_a2a5937706f1724c8f06a0396bdc87855a321ec552ae90ca7c9348bd71b1b7e895}{ddno\-C\-A\-R\-T\-E\-S\-I\-A\-N}, 
+\*
+\hyperlink{gmx__pme__error_8c_a2a5937706f1724c8f06a0396bdc87855a7d108defeaf4b79d62243eb0b549a557}{ddno\-N\-R}
+ \}
+\item 
+enum \{ \*
+\hyperlink{gmx__pme__error_8c_ad559b3ed307be626eacea8b56942de61a290d205d3adcfed76d1b6a5a95ffeb63}{e\-Parselog\-O\-K}, 
+\hyperlink{gmx__pme__error_8c_ad559b3ed307be626eacea8b56942de61a92d490983224174f522773a07fd21f68}{e\-Parselog\-Not\-Found}, 
+\hyperlink{gmx__pme__error_8c_ad559b3ed307be626eacea8b56942de61a8efed75c74aecd8e6c4cc11d0024dd73}{e\-Parselog\-No\-Perf\-Data}, 
+\hyperlink{gmx__pme__error_8c_ad559b3ed307be626eacea8b56942de61aa7fe9673129947584c10b15288eb9c06}{e\-Parselog\-Term}, 
+\*
+\hyperlink{gmx__pme__error_8c_ad559b3ed307be626eacea8b56942de61acc40bf33b34e9afe8822916783cb8940}{e\-Parselog\-Reset\-Problem}, 
+\hyperlink{gmx__pme__error_8c_ad559b3ed307be626eacea8b56942de61ad6510b49006b3d53d646655a83c26215}{e\-Parselog\-Nr}
+ \}
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{gmx__pme__error_8c_afd1f4d733cde64c65d95d5e6c116d5c2}{is\-\_\-charge} (real charge)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__pme__error_8c_a1920bb365d488bebd3907d24c68ab43e}{calc\-\_\-q2all} (\hyperlink{structgmx__mtop__t}{gmx\-\_\-mtop\-\_\-t} $\ast$mtop, real $\ast$q2all, real $\ast$q2allnr)
+\item 
+static real \hyperlink{gmx__pme__error_8c_aa3039e31369835303d3cdae846763b6f}{estimate\-\_\-direct} (\hyperlink{structt__inputinfo}{t\-\_\-inputinfo} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a47bea09cf210ca07abe3946fbf2bb35c}{info})
+\item 
+static real \hyperlink{gmx__pme__error_8c_addb547206e5bcf770be59211e0f2f3f3}{eps\-\_\-poly1} (real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_aa30cfa61c7e675800f65322a90f8ac96}{m}, real \-K, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n})
+\item 
+static real \hyperlink{gmx__pme__error_8c_a1e9deb3f6cc395285717af16b58cf3ef}{eps\-\_\-poly2} (real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_aa30cfa61c7e675800f65322a90f8ac96}{m}, real \-K, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n})
+\item 
+static real \hyperlink{gmx__pme__error_8c_ac588e827081c771d4ca74c4fba804b85}{eps\-\_\-poly3} (real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_aa30cfa61c7e675800f65322a90f8ac96}{m}, real \-K, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n})
+\item 
+static real \hyperlink{gmx__pme__error_8c_ab00a07bb3702f995bba2c15b8a6353b3}{eps\-\_\-poly4} (real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_aa30cfa61c7e675800f65322a90f8ac96}{m}, real \-K, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n})
+\item 
+static real \hyperlink{gmx__pme__error_8c_a2b5de6c4a6d4c26adfbd084d35f7d72b}{eps\-\_\-self} (real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_aa30cfa61c7e675800f65322a90f8ac96}{m}, real \-K, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} rboxv, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x})
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__pme__error_8c_a6f0d65a8329b8899fa410faa6bbe1417}{calc\-\_\-recipbox} (\hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} recipbox)
+\item 
+static real \hyperlink{gmx__pme__error_8c_ac2a8365eaf41fc480f57a403d389811b}{estimate\-\_\-reciprocal} (\hyperlink{structt__inputinfo}{t\-\_\-inputinfo} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a47bea09cf210ca07abe3946fbf2bb35c}{info}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_abbda725bda8d9be8c9fc2fdb63ea38e2}{q}\mbox{[}$\,$\mbox{]}, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a560e4062098f77c2d7e5fe83bf09c394}{nr}, \-F\-I\-L\-E $\ast$fp\-\_\-out, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Verbose, unsigned int seed, int $\ast$nsamples, \hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__pme__error_8c_a39e61f8da94ac18c181a7a8b7c6ab27f}{create\-\_\-info} (\hyperlink{structt__inputinfo}{t\-\_\-inputinfo} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a47bea09cf210ca07abe3946fbf2bb35c}{info})
+\item 
+static int \hyperlink{gmx__pme__error_8c_a682ebae043bad112fb95c64873df6f2c}{prepare\-\_\-x\-\_\-q} (real $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_abbda725bda8d9be8c9fc2fdb63ea38e2}{q}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{structgmx__mtop__t}{gmx\-\_\-mtop\-\_\-t} $\ast$mtop, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} x\-\_\-orig\mbox{[}$\,$\mbox{]}, \hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__pme__error_8c_ace90270060cc80396c47b505562a862e}{read\-\_\-tpr\-\_\-file} (const char $\ast$fn\-\_\-sim\-\_\-tpr, \hyperlink{structt__inputinfo}{t\-\_\-inputinfo} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a47bea09cf210ca07abe3946fbf2bb35c}{info}, \hyperlink{structt__state}{t\-\_\-state} $\ast$state, \hyperlink{structgmx__mtop__t}{gmx\-\_\-mtop\-\_\-t} $\ast$mtop, \hyperlink{structt__inputrec}{t\-\_\-inputrec} $\ast$ir, real user\-\_\-beta, real fracself)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__pme__error_8c_af679e646bd5af712eb46b008a2702ad7}{bcast\-\_\-info} (\hyperlink{structt__inputinfo}{t\-\_\-inputinfo} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a47bea09cf210ca07abe3946fbf2bb35c}{info}, \hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{gmx__pme__error_8c_a1b86469eedf50847259ebabc32df1942}{estimate\-\_\-\-P\-M\-E\-\_\-error} (\hyperlink{structt__inputinfo}{t\-\_\-inputinfo} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a47bea09cf210ca07abe3946fbf2bb35c}{info}, \hyperlink{structt__state}{t\-\_\-state} $\ast$state, \hyperlink{structgmx__mtop__t}{gmx\-\_\-mtop\-\_\-t} $\ast$mtop, \-F\-I\-L\-E $\ast$fp\-\_\-out, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Verbose, unsigned int seed, \hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr)
+\item 
+int \hyperlink{gmx__pme__error_8c_a42920a62354c32b1fb15a43415ae13c1}{gmx\-\_\-pme\-\_\-error} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Define \-Documentation}
+\hypertarget{gmx__pme__error_8c_ab81e569dd03439ce66dd63e92f71b97e}{\index{gmx\-\_\-pme\-\_\-error.\-c@{gmx\-\_\-pme\-\_\-error.\-c}!block\-\_\-bc@{block\-\_\-bc}}
+\index{block\-\_\-bc@{block\-\_\-bc}!gmx_pme_error.c@{gmx\-\_\-pme\-\_\-error.\-c}}
+\subsubsection[{block\-\_\-bc}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf block\-\_\-bc}(
+\begin{DoxyParamCaption}
+\item[{}]{cr, }
+\item[{}]{{\bf d}}
+\end{DoxyParamCaption}
+)~{\bf gmx\-\_\-bcast}(     sizeof({\bf d}),     \&({\bf d}), (cr))}}\label{gmx__pme__error_8c_ab81e569dd03439ce66dd63e92f71b97e}
+\hypertarget{gmx__pme__error_8c_aa6d3a8c594fbbb636421577ed3721fba}{\index{gmx\-\_\-pme\-\_\-error.\-c@{gmx\-\_\-pme\-\_\-error.\-c}!nblock\-\_\-bc@{nblock\-\_\-bc}}
+\index{nblock\-\_\-bc@{nblock\-\_\-bc}!gmx_pme_error.c@{gmx\-\_\-pme\-\_\-error.\-c}}
+\subsubsection[{nblock\-\_\-bc}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf nblock\-\_\-bc}(
+\begin{DoxyParamCaption}
+\item[{}]{cr, }
+\item[{}]{{\bf nr}, }
+\item[{}]{{\bf d}}
+\end{DoxyParamCaption}
+)~{\bf gmx\-\_\-bcast}(({\bf nr})$\ast$sizeof(({\bf d})\mbox{[}0\mbox{]}), ({\bf d}), (cr))}}\label{gmx__pme__error_8c_aa6d3a8c594fbbb636421577ed3721fba}
+\hypertarget{gmx__pme__error_8c_a8485f4e81de2537e6a0935626167a775}{\index{gmx\-\_\-pme\-\_\-error.\-c@{gmx\-\_\-pme\-\_\-error.\-c}!\-N\-F\-I\-L\-E@{\-N\-F\-I\-L\-E}}
+\index{\-N\-F\-I\-L\-E@{\-N\-F\-I\-L\-E}!gmx_pme_error.c@{gmx\-\_\-pme\-\_\-error.\-c}}
+\subsubsection[{\-N\-F\-I\-L\-E}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-N\-F\-I\-L\-E}~{\bf asize}(fnm)}}\label{gmx__pme__error_8c_a8485f4e81de2537e6a0935626167a775}
+\hypertarget{gmx__pme__error_8c_a691bc415f6af86a0184197c790f87aec}{\index{gmx\-\_\-pme\-\_\-error.\-c@{gmx\-\_\-pme\-\_\-error.\-c}!snew\-\_\-bc@{snew\-\_\-bc}}
+\index{snew\-\_\-bc@{snew\-\_\-bc}!gmx_pme_error.c@{gmx\-\_\-pme\-\_\-error.\-c}}
+\subsubsection[{snew\-\_\-bc}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf snew\-\_\-bc}(
+\begin{DoxyParamCaption}
+\item[{}]{cr, }
+\item[{}]{{\bf d}, }
+\item[{}]{{\bf nr}}
+\end{DoxyParamCaption}
+)~\{ if (!{\bf \-M\-A\-S\-T\-E\-R}(cr)) \{{\bf snew}(({\bf d}), ({\bf nr})); \}\}}}\label{gmx__pme__error_8c_a691bc415f6af86a0184197c790f87aec}
+\hypertarget{gmx__pme__error_8c_a35d7eb3c8b109d7dfa85d99560753f1e}{\index{gmx\-\_\-pme\-\_\-error.\-c@{gmx\-\_\-pme\-\_\-error.\-c}!\-S\-U\-M\-O\-R\-D\-E\-R@{\-S\-U\-M\-O\-R\-D\-E\-R}}
+\index{\-S\-U\-M\-O\-R\-D\-E\-R@{\-S\-U\-M\-O\-R\-D\-E\-R}!gmx_pme_error.c@{gmx\-\_\-pme\-\_\-error.\-c}}
+\subsubsection[{\-S\-U\-M\-O\-R\-D\-E\-R}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-S\-U\-M\-O\-R\-D\-E\-R}~6}}\label{gmx__pme__error_8c_a35d7eb3c8b109d7dfa85d99560753f1e}
+
+
+\subsection{\-Enumeration \-Type \-Documentation}
+\hypertarget{gmx__pme__error_8c_a2a5937706f1724c8f06a0396bdc87855}{\subsubsection[{anonymous enum}]{\setlength{\rightskip}{0pt plus 5cm}anonymous enum}}\label{gmx__pme__error_8c_a2a5937706f1724c8f06a0396bdc87855}
+\begin{Desc}
+\item[\-Enumerator\-: ]\par
+\begin{description}
+\index{ddno\-S\-E\-L@{ddno\-S\-E\-L}!gmx\-\_\-pme\-\_\-error.\-c@{gmx\-\_\-pme\-\_\-error.\-c}}\index{gmx\-\_\-pme\-\_\-error.\-c@{gmx\-\_\-pme\-\_\-error.\-c}!ddno\-S\-E\-L@{ddno\-S\-E\-L}}\item[{\em 
+\hypertarget{gmx__pme__error_8c_a2a5937706f1724c8f06a0396bdc87855aed6d22f1fc255f29b8e63390e9fa77f5}{ddno\-S\-E\-L}\label{gmx__pme__error_8c_a2a5937706f1724c8f06a0396bdc87855aed6d22f1fc255f29b8e63390e9fa77f5}
+}]\index{ddno\-I\-N\-T\-E\-R\-L\-E\-A\-V\-E@{ddno\-I\-N\-T\-E\-R\-L\-E\-A\-V\-E}!gmx\-\_\-pme\-\_\-error.\-c@{gmx\-\_\-pme\-\_\-error.\-c}}\index{gmx\-\_\-pme\-\_\-error.\-c@{gmx\-\_\-pme\-\_\-error.\-c}!ddno\-I\-N\-T\-E\-R\-L\-E\-A\-V\-E@{ddno\-I\-N\-T\-E\-R\-L\-E\-A\-V\-E}}\item[{\em 
+\hypertarget{gmx__pme__error_8c_a2a5937706f1724c8f06a0396bdc87855ac5443a8229d4b2ba694d48507a50a3b7}{ddno\-I\-N\-T\-E\-R\-L\-E\-A\-V\-E}\label{gmx__pme__error_8c_a2a5937706f1724c8f06a0396bdc87855ac5443a8229d4b2ba694d48507a50a3b7}
+}]\index{ddno\-P\-P\-\_\-\-P\-M\-E@{ddno\-P\-P\-\_\-\-P\-M\-E}!gmx\-\_\-pme\-\_\-error.\-c@{gmx\-\_\-pme\-\_\-error.\-c}}\index{gmx\-\_\-pme\-\_\-error.\-c@{gmx\-\_\-pme\-\_\-error.\-c}!ddno\-P\-P\-\_\-\-P\-M\-E@{ddno\-P\-P\-\_\-\-P\-M\-E}}\item[{\em 
+\hypertarget{gmx__pme__error_8c_a2a5937706f1724c8f06a0396bdc87855ae0b817fc66919410a2ef45dba756c592}{ddno\-P\-P\-\_\-\-P\-M\-E}\label{gmx__pme__error_8c_a2a5937706f1724c8f06a0396bdc87855ae0b817fc66919410a2ef45dba756c592}
+}]\index{ddno\-C\-A\-R\-T\-E\-S\-I\-A\-N@{ddno\-C\-A\-R\-T\-E\-S\-I\-A\-N}!gmx\-\_\-pme\-\_\-error.\-c@{gmx\-\_\-pme\-\_\-error.\-c}}\index{gmx\-\_\-pme\-\_\-error.\-c@{gmx\-\_\-pme\-\_\-error.\-c}!ddno\-C\-A\-R\-T\-E\-S\-I\-A\-N@{ddno\-C\-A\-R\-T\-E\-S\-I\-A\-N}}\item[{\em 
+\hypertarget{gmx__pme__error_8c_a2a5937706f1724c8f06a0396bdc87855a321ec552ae90ca7c9348bd71b1b7e895}{ddno\-C\-A\-R\-T\-E\-S\-I\-A\-N}\label{gmx__pme__error_8c_a2a5937706f1724c8f06a0396bdc87855a321ec552ae90ca7c9348bd71b1b7e895}
+}]\index{ddno\-N\-R@{ddno\-N\-R}!gmx\-\_\-pme\-\_\-error.\-c@{gmx\-\_\-pme\-\_\-error.\-c}}\index{gmx\-\_\-pme\-\_\-error.\-c@{gmx\-\_\-pme\-\_\-error.\-c}!ddno\-N\-R@{ddno\-N\-R}}\item[{\em 
+\hypertarget{gmx__pme__error_8c_a2a5937706f1724c8f06a0396bdc87855a7d108defeaf4b79d62243eb0b549a557}{ddno\-N\-R}\label{gmx__pme__error_8c_a2a5937706f1724c8f06a0396bdc87855a7d108defeaf4b79d62243eb0b549a557}
+}]\end{description}
+\end{Desc}
+
+\hypertarget{gmx__pme__error_8c_ad559b3ed307be626eacea8b56942de61}{\subsubsection[{anonymous enum}]{\setlength{\rightskip}{0pt plus 5cm}anonymous enum}}\label{gmx__pme__error_8c_ad559b3ed307be626eacea8b56942de61}
+\begin{Desc}
+\item[\-Enumerator\-: ]\par
+\begin{description}
+\index{e\-Parselog\-O\-K@{e\-Parselog\-O\-K}!gmx\-\_\-pme\-\_\-error.\-c@{gmx\-\_\-pme\-\_\-error.\-c}}\index{gmx\-\_\-pme\-\_\-error.\-c@{gmx\-\_\-pme\-\_\-error.\-c}!e\-Parselog\-O\-K@{e\-Parselog\-O\-K}}\item[{\em 
+\hypertarget{gmx__pme__error_8c_ad559b3ed307be626eacea8b56942de61a290d205d3adcfed76d1b6a5a95ffeb63}{e\-Parselog\-O\-K}\label{gmx__pme__error_8c_ad559b3ed307be626eacea8b56942de61a290d205d3adcfed76d1b6a5a95ffeb63}
+}]\index{e\-Parselog\-Not\-Found@{e\-Parselog\-Not\-Found}!gmx\-\_\-pme\-\_\-error.\-c@{gmx\-\_\-pme\-\_\-error.\-c}}\index{gmx\-\_\-pme\-\_\-error.\-c@{gmx\-\_\-pme\-\_\-error.\-c}!e\-Parselog\-Not\-Found@{e\-Parselog\-Not\-Found}}\item[{\em 
+\hypertarget{gmx__pme__error_8c_ad559b3ed307be626eacea8b56942de61a92d490983224174f522773a07fd21f68}{e\-Parselog\-Not\-Found}\label{gmx__pme__error_8c_ad559b3ed307be626eacea8b56942de61a92d490983224174f522773a07fd21f68}
+}]\index{e\-Parselog\-No\-Perf\-Data@{e\-Parselog\-No\-Perf\-Data}!gmx\-\_\-pme\-\_\-error.\-c@{gmx\-\_\-pme\-\_\-error.\-c}}\index{gmx\-\_\-pme\-\_\-error.\-c@{gmx\-\_\-pme\-\_\-error.\-c}!e\-Parselog\-No\-Perf\-Data@{e\-Parselog\-No\-Perf\-Data}}\item[{\em 
+\hypertarget{gmx__pme__error_8c_ad559b3ed307be626eacea8b56942de61a8efed75c74aecd8e6c4cc11d0024dd73}{e\-Parselog\-No\-Perf\-Data}\label{gmx__pme__error_8c_ad559b3ed307be626eacea8b56942de61a8efed75c74aecd8e6c4cc11d0024dd73}
+}]\index{e\-Parselog\-Term@{e\-Parselog\-Term}!gmx\-\_\-pme\-\_\-error.\-c@{gmx\-\_\-pme\-\_\-error.\-c}}\index{gmx\-\_\-pme\-\_\-error.\-c@{gmx\-\_\-pme\-\_\-error.\-c}!e\-Parselog\-Term@{e\-Parselog\-Term}}\item[{\em 
+\hypertarget{gmx__pme__error_8c_ad559b3ed307be626eacea8b56942de61aa7fe9673129947584c10b15288eb9c06}{e\-Parselog\-Term}\label{gmx__pme__error_8c_ad559b3ed307be626eacea8b56942de61aa7fe9673129947584c10b15288eb9c06}
+}]\index{e\-Parselog\-Reset\-Problem@{e\-Parselog\-Reset\-Problem}!gmx\-\_\-pme\-\_\-error.\-c@{gmx\-\_\-pme\-\_\-error.\-c}}\index{gmx\-\_\-pme\-\_\-error.\-c@{gmx\-\_\-pme\-\_\-error.\-c}!e\-Parselog\-Reset\-Problem@{e\-Parselog\-Reset\-Problem}}\item[{\em 
+\hypertarget{gmx__pme__error_8c_ad559b3ed307be626eacea8b56942de61acc40bf33b34e9afe8822916783cb8940}{e\-Parselog\-Reset\-Problem}\label{gmx__pme__error_8c_ad559b3ed307be626eacea8b56942de61acc40bf33b34e9afe8822916783cb8940}
+}]\index{e\-Parselog\-Nr@{e\-Parselog\-Nr}!gmx\-\_\-pme\-\_\-error.\-c@{gmx\-\_\-pme\-\_\-error.\-c}}\index{gmx\-\_\-pme\-\_\-error.\-c@{gmx\-\_\-pme\-\_\-error.\-c}!e\-Parselog\-Nr@{e\-Parselog\-Nr}}\item[{\em 
+\hypertarget{gmx__pme__error_8c_ad559b3ed307be626eacea8b56942de61ad6510b49006b3d53d646655a83c26215}{e\-Parselog\-Nr}\label{gmx__pme__error_8c_ad559b3ed307be626eacea8b56942de61ad6510b49006b3d53d646655a83c26215}
+}]\end{description}
+\end{Desc}
+
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{gmx__pme__error_8c_af679e646bd5af712eb46b008a2702ad7}{\index{gmx\-\_\-pme\-\_\-error.\-c@{gmx\-\_\-pme\-\_\-error.\-c}!bcast\-\_\-info@{bcast\-\_\-info}}
+\index{bcast\-\_\-info@{bcast\-\_\-info}!gmx_pme_error.c@{gmx\-\_\-pme\-\_\-error.\-c}}
+\subsubsection[{bcast\-\_\-info}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf bcast\-\_\-info} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-inputinfo} $\ast$}]{info, }
+\item[{{\bf t\-\_\-commrec} $\ast$}]{cr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__pme__error_8c_af679e646bd5af712eb46b008a2702ad7}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__pme__error_8c_af679e646bd5af712eb46b008a2702ad7_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__pme__error_8c_a1920bb365d488bebd3907d24c68ab43e}{\index{gmx\-\_\-pme\-\_\-error.\-c@{gmx\-\_\-pme\-\_\-error.\-c}!calc\-\_\-q2all@{calc\-\_\-q2all}}
+\index{calc\-\_\-q2all@{calc\-\_\-q2all}!gmx_pme_error.c@{gmx\-\_\-pme\-\_\-error.\-c}}
+\subsubsection[{calc\-\_\-q2all}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf calc\-\_\-q2all} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-mtop\-\_\-t} $\ast$}]{mtop, }
+\item[{real $\ast$}]{q2all, }
+\item[{real $\ast$}]{q2allnr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__pme__error_8c_a1920bb365d488bebd3907d24c68ab43e}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=236pt]{gmx__pme__error_8c_a1920bb365d488bebd3907d24c68ab43e_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__pme__error_8c_a1920bb365d488bebd3907d24c68ab43e_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__pme__error_8c_a6f0d65a8329b8899fa410faa6bbe1417}{\index{gmx\-\_\-pme\-\_\-error.\-c@{gmx\-\_\-pme\-\_\-error.\-c}!calc\-\_\-recipbox@{calc\-\_\-recipbox}}
+\index{calc\-\_\-recipbox@{calc\-\_\-recipbox}!gmx_pme_error.c@{gmx\-\_\-pme\-\_\-error.\-c}}
+\subsubsection[{calc\-\_\-recipbox}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf calc\-\_\-recipbox} (
+\begin{DoxyParamCaption}
+\item[{{\bf matrix}}]{box, }
+\item[{{\bf matrix}}]{recipbox}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__pme__error_8c_a6f0d65a8329b8899fa410faa6bbe1417}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__pme__error_8c_a6f0d65a8329b8899fa410faa6bbe1417_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__pme__error_8c_a39e61f8da94ac18c181a7a8b7c6ab27f}{\index{gmx\-\_\-pme\-\_\-error.\-c@{gmx\-\_\-pme\-\_\-error.\-c}!create\-\_\-info@{create\-\_\-info}}
+\index{create\-\_\-info@{create\-\_\-info}!gmx_pme_error.c@{gmx\-\_\-pme\-\_\-error.\-c}}
+\subsubsection[{create\-\_\-info}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf create\-\_\-info} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-inputinfo} $\ast$}]{info}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__pme__error_8c_a39e61f8da94ac18c181a7a8b7c6ab27f}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=340pt]{gmx__pme__error_8c_a39e61f8da94ac18c181a7a8b7c6ab27f_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__pme__error_8c_addb547206e5bcf770be59211e0f2f3f3}{\index{gmx\-\_\-pme\-\_\-error.\-c@{gmx\-\_\-pme\-\_\-error.\-c}!eps\-\_\-poly1@{eps\-\_\-poly1}}
+\index{eps\-\_\-poly1@{eps\-\_\-poly1}!gmx_pme_error.c@{gmx\-\_\-pme\-\_\-error.\-c}}
+\subsubsection[{eps\-\_\-poly1}]{\setlength{\rightskip}{0pt plus 5cm}static real {\bf eps\-\_\-poly1} (
+\begin{DoxyParamCaption}
+\item[{real}]{m, }
+\item[{real}]{\-K, }
+\item[{real}]{n}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, static\mbox{]}}}}\label{gmx__pme__error_8c_addb547206e5bcf770be59211e0f2f3f3}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__pme__error_8c_addb547206e5bcf770be59211e0f2f3f3_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__pme__error_8c_a1e9deb3f6cc395285717af16b58cf3ef}{\index{gmx\-\_\-pme\-\_\-error.\-c@{gmx\-\_\-pme\-\_\-error.\-c}!eps\-\_\-poly2@{eps\-\_\-poly2}}
+\index{eps\-\_\-poly2@{eps\-\_\-poly2}!gmx_pme_error.c@{gmx\-\_\-pme\-\_\-error.\-c}}
+\subsubsection[{eps\-\_\-poly2}]{\setlength{\rightskip}{0pt plus 5cm}static real {\bf eps\-\_\-poly2} (
+\begin{DoxyParamCaption}
+\item[{real}]{m, }
+\item[{real}]{\-K, }
+\item[{real}]{n}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, static\mbox{]}}}}\label{gmx__pme__error_8c_a1e9deb3f6cc395285717af16b58cf3ef}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=240pt]{gmx__pme__error_8c_a1e9deb3f6cc395285717af16b58cf3ef_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__pme__error_8c_a1e9deb3f6cc395285717af16b58cf3ef_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__pme__error_8c_ac588e827081c771d4ca74c4fba804b85}{\index{gmx\-\_\-pme\-\_\-error.\-c@{gmx\-\_\-pme\-\_\-error.\-c}!eps\-\_\-poly3@{eps\-\_\-poly3}}
+\index{eps\-\_\-poly3@{eps\-\_\-poly3}!gmx_pme_error.c@{gmx\-\_\-pme\-\_\-error.\-c}}
+\subsubsection[{eps\-\_\-poly3}]{\setlength{\rightskip}{0pt plus 5cm}static real {\bf eps\-\_\-poly3} (
+\begin{DoxyParamCaption}
+\item[{real}]{m, }
+\item[{real}]{\-K, }
+\item[{real}]{n}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, static\mbox{]}}}}\label{gmx__pme__error_8c_ac588e827081c771d4ca74c4fba804b85}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__pme__error_8c_ac588e827081c771d4ca74c4fba804b85_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__pme__error_8c_ab00a07bb3702f995bba2c15b8a6353b3}{\index{gmx\-\_\-pme\-\_\-error.\-c@{gmx\-\_\-pme\-\_\-error.\-c}!eps\-\_\-poly4@{eps\-\_\-poly4}}
+\index{eps\-\_\-poly4@{eps\-\_\-poly4}!gmx_pme_error.c@{gmx\-\_\-pme\-\_\-error.\-c}}
+\subsubsection[{eps\-\_\-poly4}]{\setlength{\rightskip}{0pt plus 5cm}static real {\bf eps\-\_\-poly4} (
+\begin{DoxyParamCaption}
+\item[{real}]{m, }
+\item[{real}]{\-K, }
+\item[{real}]{n}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, static\mbox{]}}}}\label{gmx__pme__error_8c_ab00a07bb3702f995bba2c15b8a6353b3}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__pme__error_8c_ab00a07bb3702f995bba2c15b8a6353b3_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__pme__error_8c_a2b5de6c4a6d4c26adfbd084d35f7d72b}{\index{gmx\-\_\-pme\-\_\-error.\-c@{gmx\-\_\-pme\-\_\-error.\-c}!eps\-\_\-self@{eps\-\_\-self}}
+\index{eps\-\_\-self@{eps\-\_\-self}!gmx_pme_error.c@{gmx\-\_\-pme\-\_\-error.\-c}}
+\subsubsection[{eps\-\_\-self}]{\setlength{\rightskip}{0pt plus 5cm}static real {\bf eps\-\_\-self} (
+\begin{DoxyParamCaption}
+\item[{real}]{m, }
+\item[{real}]{\-K, }
+\item[{{\bf rvec}}]{rboxv, }
+\item[{real}]{n, }
+\item[{{\bf rvec}}]{x}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, static\mbox{]}}}}\label{gmx__pme__error_8c_a2b5de6c4a6d4c26adfbd084d35f7d72b}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=208pt]{gmx__pme__error_8c_a2b5de6c4a6d4c26adfbd084d35f7d72b_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__pme__error_8c_a2b5de6c4a6d4c26adfbd084d35f7d72b_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__pme__error_8c_aa3039e31369835303d3cdae846763b6f}{\index{gmx\-\_\-pme\-\_\-error.\-c@{gmx\-\_\-pme\-\_\-error.\-c}!estimate\-\_\-direct@{estimate\-\_\-direct}}
+\index{estimate\-\_\-direct@{estimate\-\_\-direct}!gmx_pme_error.c@{gmx\-\_\-pme\-\_\-error.\-c}}
+\subsubsection[{estimate\-\_\-direct}]{\setlength{\rightskip}{0pt plus 5cm}static real {\bf estimate\-\_\-direct} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-inputinfo} $\ast$}]{info}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__pme__error_8c_aa3039e31369835303d3cdae846763b6f}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__pme__error_8c_aa3039e31369835303d3cdae846763b6f_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__pme__error_8c_a1b86469eedf50847259ebabc32df1942}{\index{gmx\-\_\-pme\-\_\-error.\-c@{gmx\-\_\-pme\-\_\-error.\-c}!estimate\-\_\-\-P\-M\-E\-\_\-error@{estimate\-\_\-\-P\-M\-E\-\_\-error}}
+\index{estimate\-\_\-\-P\-M\-E\-\_\-error@{estimate\-\_\-\-P\-M\-E\-\_\-error}!gmx_pme_error.c@{gmx\-\_\-pme\-\_\-error.\-c}}
+\subsubsection[{estimate\-\_\-\-P\-M\-E\-\_\-error}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf estimate\-\_\-\-P\-M\-E\-\_\-error} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-inputinfo} $\ast$}]{info, }
+\item[{{\bf t\-\_\-state} $\ast$}]{state, }
+\item[{{\bf gmx\-\_\-mtop\-\_\-t} $\ast$}]{mtop, }
+\item[{\-F\-I\-L\-E $\ast$}]{fp\-\_\-out, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Verbose, }
+\item[{unsigned int}]{seed, }
+\item[{{\bf t\-\_\-commrec} $\ast$}]{cr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__pme__error_8c_a1b86469eedf50847259ebabc32df1942}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__pme__error_8c_a1b86469eedf50847259ebabc32df1942_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__pme__error_8c_a1b86469eedf50847259ebabc32df1942_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__pme__error_8c_ac2a8365eaf41fc480f57a403d389811b}{\index{gmx\-\_\-pme\-\_\-error.\-c@{gmx\-\_\-pme\-\_\-error.\-c}!estimate\-\_\-reciprocal@{estimate\-\_\-reciprocal}}
+\index{estimate\-\_\-reciprocal@{estimate\-\_\-reciprocal}!gmx_pme_error.c@{gmx\-\_\-pme\-\_\-error.\-c}}
+\subsubsection[{estimate\-\_\-reciprocal}]{\setlength{\rightskip}{0pt plus 5cm}static real {\bf estimate\-\_\-reciprocal} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-inputinfo} $\ast$}]{info, }
+\item[{{\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{real}]{q\mbox{[}$\,$\mbox{]}, }
+\item[{int}]{nr, }
+\item[{\-F\-I\-L\-E $\ast$}]{fp\-\_\-out, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Verbose, }
+\item[{unsigned int}]{seed, }
+\item[{int $\ast$}]{nsamples, }
+\item[{{\bf t\-\_\-commrec} $\ast$}]{cr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__pme__error_8c_ac2a8365eaf41fc480f57a403d389811b}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__pme__error_8c_ac2a8365eaf41fc480f57a403d389811b_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__pme__error_8c_ac2a8365eaf41fc480f57a403d389811b_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__pme__error_8c_a42920a62354c32b1fb15a43415ae13c1}{\index{gmx\-\_\-pme\-\_\-error.\-c@{gmx\-\_\-pme\-\_\-error.\-c}!gmx\-\_\-pme\-\_\-error@{gmx\-\_\-pme\-\_\-error}}
+\index{gmx\-\_\-pme\-\_\-error@{gmx\-\_\-pme\-\_\-error}!gmx_pme_error.c@{gmx\-\_\-pme\-\_\-error.\-c}}
+\subsubsection[{gmx\-\_\-pme\-\_\-error}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-pme\-\_\-error} (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{gmx__pme__error_8c_a42920a62354c32b1fb15a43415ae13c1}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__pme__error_8c_a42920a62354c32b1fb15a43415ae13c1_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=238pt]{gmx__pme__error_8c_a42920a62354c32b1fb15a43415ae13c1_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__pme__error_8c_afd1f4d733cde64c65d95d5e6c116d5c2}{\index{gmx\-\_\-pme\-\_\-error.\-c@{gmx\-\_\-pme\-\_\-error.\-c}!is\-\_\-charge@{is\-\_\-charge}}
+\index{is\-\_\-charge@{is\-\_\-charge}!gmx_pme_error.c@{gmx\-\_\-pme\-\_\-error.\-c}}
+\subsubsection[{is\-\_\-charge}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf gmx\-\_\-bool} {\bf is\-\_\-charge} (
+\begin{DoxyParamCaption}
+\item[{real}]{charge}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__pme__error_8c_afd1f4d733cde64c65d95d5e6c116d5c2}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__pme__error_8c_afd1f4d733cde64c65d95d5e6c116d5c2_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__pme__error_8c_a682ebae043bad112fb95c64873df6f2c}{\index{gmx\-\_\-pme\-\_\-error.\-c@{gmx\-\_\-pme\-\_\-error.\-c}!prepare\-\_\-x\-\_\-q@{prepare\-\_\-x\-\_\-q}}
+\index{prepare\-\_\-x\-\_\-q@{prepare\-\_\-x\-\_\-q}!gmx_pme_error.c@{gmx\-\_\-pme\-\_\-error.\-c}}
+\subsubsection[{prepare\-\_\-x\-\_\-q}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf prepare\-\_\-x\-\_\-q} (
+\begin{DoxyParamCaption}
+\item[{real $\ast$}]{q\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec} $\ast$}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf gmx\-\_\-mtop\-\_\-t} $\ast$}]{mtop, }
+\item[{{\bf rvec}}]{x\-\_\-orig\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf t\-\_\-commrec} $\ast$}]{cr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__pme__error_8c_a682ebae043bad112fb95c64873df6f2c}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=332pt]{gmx__pme__error_8c_a682ebae043bad112fb95c64873df6f2c_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__pme__error_8c_a682ebae043bad112fb95c64873df6f2c_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__pme__error_8c_ace90270060cc80396c47b505562a862e}{\index{gmx\-\_\-pme\-\_\-error.\-c@{gmx\-\_\-pme\-\_\-error.\-c}!read\-\_\-tpr\-\_\-file@{read\-\_\-tpr\-\_\-file}}
+\index{read\-\_\-tpr\-\_\-file@{read\-\_\-tpr\-\_\-file}!gmx_pme_error.c@{gmx\-\_\-pme\-\_\-error.\-c}}
+\subsubsection[{read\-\_\-tpr\-\_\-file}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf read\-\_\-tpr\-\_\-file} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{fn\-\_\-sim\-\_\-tpr, }
+\item[{{\bf t\-\_\-inputinfo} $\ast$}]{info, }
+\item[{{\bf t\-\_\-state} $\ast$}]{state, }
+\item[{{\bf gmx\-\_\-mtop\-\_\-t} $\ast$}]{mtop, }
+\item[{{\bf t\-\_\-inputrec} $\ast$}]{ir, }
+\item[{real}]{user\-\_\-beta, }
+\item[{real}]{fracself}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__pme__error_8c_ace90270060cc80396c47b505562a862e}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=274pt]{gmx__pme__error_8c_ace90270060cc80396c47b505562a862e_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=344pt]{gmx__pme__error_8c_ace90270060cc80396c47b505562a862e_icgraph}
+\end{center}
+\end{figure}
+
+

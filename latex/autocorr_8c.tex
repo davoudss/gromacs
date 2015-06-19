@@ -1,0 +1,672 @@
+\hypertarget{autocorr_8c}{\section{src/tools/autocorr.c \-File \-Reference}
+\label{autocorr_8c}\index{src/tools/autocorr.\-c@{src/tools/autocorr.\-c}}
+}
+{\ttfamily \#include $<$stdio.\-h$>$}\*
+{\ttfamily \#include $<$math.\-h$>$}\*
+{\ttfamily \#include \char`\"{}macros.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}typedefs.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}physics.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}smalloc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}xvgr.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}futil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gstat.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}names.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-fatal.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}vec.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}string2.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}correl.\-h\char`\"{}}\*
+\-Include dependency graph for autocorr.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{autocorr_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structt__acf}{t\-\_\-acf}
+\end{DoxyCompactItemize}
+\subsection*{\-Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{autocorr_8c_a605dbdf5c9c7c6edbb25ad8981e471d6}{\-M\-O\-D\-E}(\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x})~((mode \& (\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x})) == (\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}))
+\item 
+\#define \hyperlink{autocorr_8c_ab70d4725699c0935e4847676027e7820}{\-N\-P\-A}~\hyperlink{share_2template_2gromacs_2macros_8h_a0883345a58f8f63aefa249a4f127f707}{asize}(acfpa)
+\end{DoxyCompactItemize}
+\subsection*{\-Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \{ \hyperlink{autocorr_8c_a3cf72ed4749da6539b6eb4c6fc18e392a6b76e7c24363b381b6ce46760fa5d05e}{en\-Norm}, 
+\hyperlink{autocorr_8c_a3cf72ed4749da6539b6eb4c6fc18e392a33afc5230a7ca178fd16be2e8d0c79e1}{en\-Cos}, 
+\hyperlink{autocorr_8c_a3cf72ed4749da6539b6eb4c6fc18e392ab47113ce25642de9b603d0b19ada90b0}{en\-Sin}
+ \}
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{autocorr_8c_a7f2f7deddf6696f3eebe0f5605808b63}{sffn2effn} (const char $\ast$$\ast$sffn)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{autocorr_8c_a0ed3ab0c8a20ff3db9c343c3a1f46509}{low\-\_\-do\-\_\-four\-\_\-core} (int nfour, int nframes, real \hyperlink{shift__util_8c_a997667b1a965470e127395a7c91293d0}{c1}\mbox{[}$\,$\mbox{]}, real cfour\mbox{[}$\,$\mbox{]}, int n\-Cos, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Padding)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{autocorr_8c_a31962f60a4cacc06d974905180d537f2}{do\-\_\-ac\-\_\-core} (int nframes, int nout, real corr\mbox{[}$\,$\mbox{]}, real \hyperlink{shift__util_8c_a997667b1a965470e127395a7c91293d0}{c1}\mbox{[}$\,$\mbox{]}, int nrestart, unsigned long mode)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{autocorr_8c_ac8090869cd03e22d2704f6a0cccfdd86}{normalize\-\_\-acf} (int nout, real corr\mbox{[}$\,$\mbox{]})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{autocorr_8c_a329ff6e946285b819f7e3ff2aa9597a0}{average\-\_\-acf} (\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Verbose, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, int nitem, real $\ast$$\ast$\hyperlink{shift__util_8c_a997667b1a965470e127395a7c91293d0}{c1})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{autocorr_8c_a3718a055115043d8aa941b103c4c3b1e}{norm\-\_\-and\-\_\-scale\-\_\-vectors} (int nframes, real \hyperlink{shift__util_8c_a997667b1a965470e127395a7c91293d0}{c1}\mbox{[}$\,$\mbox{]}, real \hyperlink{xutils_8c_a607ca2df317b12be697d235a52300149}{scale})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{autocorr_8c_a99cf2fe3db39752f7f4404c28d529526}{dump\-\_\-tmp} (char $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a6dd0d3574865c5458827c47f2cfd02b8}{s}, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae4f482ada992ba1e6b96026c14729ffe}{c}\mbox{[}$\,$\mbox{]})
+\item 
+real \hyperlink{autocorr_8c_ab9dd609b709f7f61b0d16d97d9b30bf2}{print\-\_\-and\-\_\-integrate} (\-F\-I\-L\-E $\ast$fp, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, real dt, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae4f482ada992ba1e6b96026c14729ffe}{c}\mbox{[}$\,$\mbox{]}, real $\ast$fit, int nskip)
+\item 
+real \hyperlink{autocorr_8c_ae87137ff66edfd07ae557aa9ab69c596}{evaluate\-\_\-integral} (int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ad992d70ec70c927046cfc2ab1c79b188}{y}\mbox{[}$\,$\mbox{]}, real \hyperlink{share_2template_2gromacs_2gmx__blas_8h_ab22d39b99f8eaf91354f167b9e204e58}{dy}\mbox{[}$\,$\mbox{]}, real aver\-\_\-start, real $\ast$stddev)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{autocorr_8c_af3cf1cfdd8d13001ec75bf2d24b94fb4}{do\-\_\-four\-\_\-core} (unsigned long mode, int nfour, int nf2, int nframes, real \hyperlink{shift__util_8c_a997667b1a965470e127395a7c91293d0}{c1}\mbox{[}$\,$\mbox{]}, real csum\mbox{[}$\,$\mbox{]}, real ctmp\mbox{[}$\,$\mbox{]})
+\item 
+real \hyperlink{autocorr_8c_ad53cb1b97f3baa06a2b337d00a820402}{fit\-\_\-acf} (int ncorr, int fitfn, const \hyperlink{include_2types_2oenv_8h_a6a48d77d95132d7318780544821da6a5}{output\-\_\-env\-\_\-t} oenv, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Verbose, real tbeginfit, real tendfit, real dt, real \hyperlink{shift__util_8c_a997667b1a965470e127395a7c91293d0}{c1}\mbox{[}$\,$\mbox{]}, real $\ast$fit)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{autocorr_8c_adaf94902e7120d83eaceade62dcc598b}{low\-\_\-do\-\_\-autocorr} (const char $\ast$fn, const \hyperlink{include_2types_2oenv_8h_a6a48d77d95132d7318780544821da6a5}{output\-\_\-env\-\_\-t} oenv, const char $\ast$title, int nframes, int nitem, int nout, real $\ast$$\ast$\hyperlink{shift__util_8c_a997667b1a965470e127395a7c91293d0}{c1}, real dt, unsigned long mode, int nrestart, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Aver, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Normalize, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Verbose, real tbeginfit, real tendfit, int e\-Fit\-Fn, int nskip)
+\item 
+\hyperlink{structt__pargs}{t\-\_\-pargs} $\ast$ \hyperlink{autocorr_8c_abeb896c90190137b0cc92570f7f45a54}{add\-\_\-acf\-\_\-pargs} (int $\ast$\hyperlink{gmx__trjcat_8c_a991ca54733f8b2ab497f259dece78179}{npargs}, \hyperlink{structt__pargs}{t\-\_\-pargs} $\ast$pa)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{autocorr_8c_a320895dc6014e16b2f86a6e919b0c520}{do\-\_\-autocorr} (const char $\ast$fn, const \hyperlink{include_2types_2oenv_8h_a6a48d77d95132d7318780544821da6a5}{output\-\_\-env\-\_\-t} oenv, const char $\ast$title, int nframes, int nitem, real $\ast$$\ast$\hyperlink{shift__util_8c_a997667b1a965470e127395a7c91293d0}{c1}, real dt, unsigned long mode, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Aver)
+\item 
+int \hyperlink{autocorr_8c_a5f368b34d1fe4b2c912c80f46bfce2cc}{get\-\_\-acfnout} (\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void})
+\item 
+int \hyperlink{autocorr_8c_a8dbba195574cb083f12c75b0d5e78bf4}{get\-\_\-acffitfn} (\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{autocorr_8c_a642ec39b43d47cb5eed157de811c96ee}{cross\-\_\-corr} (int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, real \hyperlink{copyrite_8c_a0757cfb6fe645a02867727255faa4f8b}{f}\mbox{[}$\,$\mbox{]}, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afdd7da340e49bbc36fea66db0c5ca8a0}{g}\mbox{[}$\,$\mbox{]}, real corr\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+\subsection*{\-Variables}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{autocorr_8c_aa37e36f81330624944fe74dbf2fae518}{b\-A\-C\-Finit} = \hyperlink{impl_8h_aa93f0eb578d23995850d61f7d61c55c1}{\-F\-A\-L\-S\-E}
+\item 
+static \hyperlink{structt__acf}{t\-\_\-acf} \hyperlink{autocorr_8c_a5b7826027fef61b286a2a6c6e7e02615}{acf}
+\item 
+static const char $\ast$ \hyperlink{autocorr_8c_ae902094ccffe99ee5e65f18316a45c0b}{\-Leg} \mbox{[}$\,$\mbox{]} = \{ \-N\-U\-L\-L, \char`\"{}0\char`\"{}, \char`\"{}1\char`\"{}, \char`\"{}2\char`\"{}, \char`\"{}3\char`\"{}, \-N\-U\-L\-L \}
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Define \-Documentation}
+\hypertarget{autocorr_8c_a605dbdf5c9c7c6edbb25ad8981e471d6}{\index{autocorr.\-c@{autocorr.\-c}!\-M\-O\-D\-E@{\-M\-O\-D\-E}}
+\index{\-M\-O\-D\-E@{\-M\-O\-D\-E}!autocorr.c@{autocorr.\-c}}
+\subsubsection[{\-M\-O\-D\-E}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-M\-O\-D\-E}(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf x}}
+\end{DoxyParamCaption}
+)~((mode \& ({\bf x})) == ({\bf x}))}}\label{autocorr_8c_a605dbdf5c9c7c6edbb25ad8981e471d6}
+\hypertarget{autocorr_8c_ab70d4725699c0935e4847676027e7820}{\index{autocorr.\-c@{autocorr.\-c}!\-N\-P\-A@{\-N\-P\-A}}
+\index{\-N\-P\-A@{\-N\-P\-A}!autocorr.c@{autocorr.\-c}}
+\subsubsection[{\-N\-P\-A}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-N\-P\-A}~{\bf asize}(acfpa)}}\label{autocorr_8c_ab70d4725699c0935e4847676027e7820}
+
+
+\subsection{\-Enumeration \-Type \-Documentation}
+\hypertarget{autocorr_8c_a3cf72ed4749da6539b6eb4c6fc18e392}{\subsubsection[{anonymous enum}]{\setlength{\rightskip}{0pt plus 5cm}anonymous enum}}\label{autocorr_8c_a3cf72ed4749da6539b6eb4c6fc18e392}
+\begin{Desc}
+\item[\-Enumerator\-: ]\par
+\begin{description}
+\index{en\-Norm@{en\-Norm}!autocorr.\-c@{autocorr.\-c}}\index{autocorr.\-c@{autocorr.\-c}!en\-Norm@{en\-Norm}}\item[{\em 
+\hypertarget{autocorr_8c_a3cf72ed4749da6539b6eb4c6fc18e392a6b76e7c24363b381b6ce46760fa5d05e}{en\-Norm}\label{autocorr_8c_a3cf72ed4749da6539b6eb4c6fc18e392a6b76e7c24363b381b6ce46760fa5d05e}
+}]\index{en\-Cos@{en\-Cos}!autocorr.\-c@{autocorr.\-c}}\index{autocorr.\-c@{autocorr.\-c}!en\-Cos@{en\-Cos}}\item[{\em 
+\hypertarget{autocorr_8c_a3cf72ed4749da6539b6eb4c6fc18e392a33afc5230a7ca178fd16be2e8d0c79e1}{en\-Cos}\label{autocorr_8c_a3cf72ed4749da6539b6eb4c6fc18e392a33afc5230a7ca178fd16be2e8d0c79e1}
+}]\index{en\-Sin@{en\-Sin}!autocorr.\-c@{autocorr.\-c}}\index{autocorr.\-c@{autocorr.\-c}!en\-Sin@{en\-Sin}}\item[{\em 
+\hypertarget{autocorr_8c_a3cf72ed4749da6539b6eb4c6fc18e392ab47113ce25642de9b603d0b19ada90b0}{en\-Sin}\label{autocorr_8c_a3cf72ed4749da6539b6eb4c6fc18e392ab47113ce25642de9b603d0b19ada90b0}
+}]\end{description}
+\end{Desc}
+
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{autocorr_8c_abeb896c90190137b0cc92570f7f45a54}{\index{autocorr.\-c@{autocorr.\-c}!add\-\_\-acf\-\_\-pargs@{add\-\_\-acf\-\_\-pargs}}
+\index{add\-\_\-acf\-\_\-pargs@{add\-\_\-acf\-\_\-pargs}!autocorr.c@{autocorr.\-c}}
+\subsubsection[{add\-\_\-acf\-\_\-pargs}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\-\_\-pargs}$\ast$ {\bf add\-\_\-acf\-\_\-pargs} (
+\begin{DoxyParamCaption}
+\item[{int $\ast$}]{npargs, }
+\item[{{\bf t\-\_\-pargs} $\ast$}]{pa}
+\end{DoxyParamCaption}
+)}}\label{autocorr_8c_abeb896c90190137b0cc92570f7f45a54}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=344pt]{autocorr_8c_abeb896c90190137b0cc92570f7f45a54_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{autocorr_8c_a329ff6e946285b819f7e3ff2aa9597a0}{\index{autocorr.\-c@{autocorr.\-c}!average\-\_\-acf@{average\-\_\-acf}}
+\index{average\-\_\-acf@{average\-\_\-acf}!autocorr.c@{autocorr.\-c}}
+\subsubsection[{average\-\_\-acf}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf average\-\_\-acf} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-bool}}]{b\-Verbose, }
+\item[{int}]{n, }
+\item[{int}]{nitem, }
+\item[{real $\ast$$\ast$}]{c1}
+\end{DoxyParamCaption}
+)}}\label{autocorr_8c_a329ff6e946285b819f7e3ff2aa9597a0}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{autocorr_8c_a329ff6e946285b819f7e3ff2aa9597a0_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{autocorr_8c_a642ec39b43d47cb5eed157de811c96ee}{\index{autocorr.\-c@{autocorr.\-c}!cross\-\_\-corr@{cross\-\_\-corr}}
+\index{cross\-\_\-corr@{cross\-\_\-corr}!autocorr.c@{autocorr.\-c}}
+\subsubsection[{cross\-\_\-corr}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf cross\-\_\-corr} (
+\begin{DoxyParamCaption}
+\item[{int}]{n, }
+\item[{real}]{f\mbox{[}$\,$\mbox{]}, }
+\item[{real}]{g\mbox{[}$\,$\mbox{]}, }
+\item[{real}]{corr\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{autocorr_8c_a642ec39b43d47cb5eed157de811c96ee}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{autocorr_8c_a642ec39b43d47cb5eed157de811c96ee_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{autocorr_8c_a642ec39b43d47cb5eed157de811c96ee_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{autocorr_8c_a31962f60a4cacc06d974905180d537f2}{\index{autocorr.\-c@{autocorr.\-c}!do\-\_\-ac\-\_\-core@{do\-\_\-ac\-\_\-core}}
+\index{do\-\_\-ac\-\_\-core@{do\-\_\-ac\-\_\-core}!autocorr.c@{autocorr.\-c}}
+\subsubsection[{do\-\_\-ac\-\_\-core}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf do\-\_\-ac\-\_\-core} (
+\begin{DoxyParamCaption}
+\item[{int}]{nframes, }
+\item[{int}]{nout, }
+\item[{real}]{corr\mbox{[}$\,$\mbox{]}, }
+\item[{real}]{c1\mbox{[}$\,$\mbox{]}, }
+\item[{int}]{nrestart, }
+\item[{unsigned long}]{mode}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{autocorr_8c_a31962f60a4cacc06d974905180d537f2}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=248pt]{autocorr_8c_a31962f60a4cacc06d974905180d537f2_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{autocorr_8c_a31962f60a4cacc06d974905180d537f2_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{autocorr_8c_a320895dc6014e16b2f86a6e919b0c520}{\index{autocorr.\-c@{autocorr.\-c}!do\-\_\-autocorr@{do\-\_\-autocorr}}
+\index{do\-\_\-autocorr@{do\-\_\-autocorr}!autocorr.c@{autocorr.\-c}}
+\subsubsection[{do\-\_\-autocorr}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf do\-\_\-autocorr} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{fn, }
+\item[{const {\bf output\-\_\-env\-\_\-t}}]{oenv, }
+\item[{const char $\ast$}]{title, }
+\item[{int}]{nframes, }
+\item[{int}]{nitem, }
+\item[{real $\ast$$\ast$}]{c1, }
+\item[{real}]{dt, }
+\item[{unsigned long}]{mode, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Aver}
+\end{DoxyParamCaption}
+)}}\label{autocorr_8c_a320895dc6014e16b2f86a6e919b0c520}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=272pt]{autocorr_8c_a320895dc6014e16b2f86a6e919b0c520_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{autocorr_8c_a320895dc6014e16b2f86a6e919b0c520_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{autocorr_8c_af3cf1cfdd8d13001ec75bf2d24b94fb4}{\index{autocorr.\-c@{autocorr.\-c}!do\-\_\-four\-\_\-core@{do\-\_\-four\-\_\-core}}
+\index{do\-\_\-four\-\_\-core@{do\-\_\-four\-\_\-core}!autocorr.c@{autocorr.\-c}}
+\subsubsection[{do\-\_\-four\-\_\-core}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf do\-\_\-four\-\_\-core} (
+\begin{DoxyParamCaption}
+\item[{unsigned long}]{mode, }
+\item[{int}]{nfour, }
+\item[{int}]{nf2, }
+\item[{int}]{nframes, }
+\item[{real}]{c1\mbox{[}$\,$\mbox{]}, }
+\item[{real}]{csum\mbox{[}$\,$\mbox{]}, }
+\item[{real}]{ctmp\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{autocorr_8c_af3cf1cfdd8d13001ec75bf2d24b94fb4}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{autocorr_8c_af3cf1cfdd8d13001ec75bf2d24b94fb4_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{autocorr_8c_af3cf1cfdd8d13001ec75bf2d24b94fb4_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{autocorr_8c_a99cf2fe3db39752f7f4404c28d529526}{\index{autocorr.\-c@{autocorr.\-c}!dump\-\_\-tmp@{dump\-\_\-tmp}}
+\index{dump\-\_\-tmp@{dump\-\_\-tmp}!autocorr.c@{autocorr.\-c}}
+\subsubsection[{dump\-\_\-tmp}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf dump\-\_\-tmp} (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{s, }
+\item[{int}]{n, }
+\item[{real}]{c\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{autocorr_8c_a99cf2fe3db39752f7f4404c28d529526}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=224pt]{autocorr_8c_a99cf2fe3db39752f7f4404c28d529526_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{autocorr_8c_a99cf2fe3db39752f7f4404c28d529526_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{autocorr_8c_ae87137ff66edfd07ae557aa9ab69c596}{\index{autocorr.\-c@{autocorr.\-c}!evaluate\-\_\-integral@{evaluate\-\_\-integral}}
+\index{evaluate\-\_\-integral@{evaluate\-\_\-integral}!autocorr.c@{autocorr.\-c}}
+\subsubsection[{evaluate\-\_\-integral}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf evaluate\-\_\-integral} (
+\begin{DoxyParamCaption}
+\item[{int}]{n, }
+\item[{real}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{real}]{y\mbox{[}$\,$\mbox{]}, }
+\item[{real}]{dy\mbox{[}$\,$\mbox{]}, }
+\item[{real}]{aver\-\_\-start, }
+\item[{real $\ast$}]{stddev}
+\end{DoxyParamCaption}
+)}}\label{autocorr_8c_ae87137ff66edfd07ae557aa9ab69c596}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=266pt]{autocorr_8c_ae87137ff66edfd07ae557aa9ab69c596_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{autocorr_8c_ae87137ff66edfd07ae557aa9ab69c596_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{autocorr_8c_ad53cb1b97f3baa06a2b337d00a820402}{\index{autocorr.\-c@{autocorr.\-c}!fit\-\_\-acf@{fit\-\_\-acf}}
+\index{fit\-\_\-acf@{fit\-\_\-acf}!autocorr.c@{autocorr.\-c}}
+\subsubsection[{fit\-\_\-acf}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf fit\-\_\-acf} (
+\begin{DoxyParamCaption}
+\item[{int}]{ncorr, }
+\item[{int}]{fitfn, }
+\item[{const {\bf output\-\_\-env\-\_\-t}}]{oenv, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Verbose, }
+\item[{real}]{tbeginfit, }
+\item[{real}]{tendfit, }
+\item[{real}]{dt, }
+\item[{real}]{c1\mbox{[}$\,$\mbox{]}, }
+\item[{real $\ast$}]{fit}
+\end{DoxyParamCaption}
+)}}\label{autocorr_8c_ad53cb1b97f3baa06a2b337d00a820402}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=260pt]{autocorr_8c_ad53cb1b97f3baa06a2b337d00a820402_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{autocorr_8c_ad53cb1b97f3baa06a2b337d00a820402_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{autocorr_8c_a8dbba195574cb083f12c75b0d5e78bf4}{\index{autocorr.\-c@{autocorr.\-c}!get\-\_\-acffitfn@{get\-\_\-acffitfn}}
+\index{get\-\_\-acffitfn@{get\-\_\-acffitfn}!autocorr.c@{autocorr.\-c}}
+\subsubsection[{get\-\_\-acffitfn}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf get\-\_\-acffitfn} (
+\begin{DoxyParamCaption}
+\item[{{\bf void}}]{}
+\end{DoxyParamCaption}
+)}}\label{autocorr_8c_a8dbba195574cb083f12c75b0d5e78bf4}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=242pt]{autocorr_8c_a8dbba195574cb083f12c75b0d5e78bf4_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=224pt]{autocorr_8c_a8dbba195574cb083f12c75b0d5e78bf4_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{autocorr_8c_a5f368b34d1fe4b2c912c80f46bfce2cc}{\index{autocorr.\-c@{autocorr.\-c}!get\-\_\-acfnout@{get\-\_\-acfnout}}
+\index{get\-\_\-acfnout@{get\-\_\-acfnout}!autocorr.c@{autocorr.\-c}}
+\subsubsection[{get\-\_\-acfnout}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf get\-\_\-acfnout} (
+\begin{DoxyParamCaption}
+\item[{{\bf void}}]{}
+\end{DoxyParamCaption}
+)}}\label{autocorr_8c_a5f368b34d1fe4b2c912c80f46bfce2cc}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=244pt]{autocorr_8c_a5f368b34d1fe4b2c912c80f46bfce2cc_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{autocorr_8c_a5f368b34d1fe4b2c912c80f46bfce2cc_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{autocorr_8c_adaf94902e7120d83eaceade62dcc598b}{\index{autocorr.\-c@{autocorr.\-c}!low\-\_\-do\-\_\-autocorr@{low\-\_\-do\-\_\-autocorr}}
+\index{low\-\_\-do\-\_\-autocorr@{low\-\_\-do\-\_\-autocorr}!autocorr.c@{autocorr.\-c}}
+\subsubsection[{low\-\_\-do\-\_\-autocorr}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf low\-\_\-do\-\_\-autocorr} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{fn, }
+\item[{const {\bf output\-\_\-env\-\_\-t}}]{oenv, }
+\item[{const char $\ast$}]{title, }
+\item[{int}]{nframes, }
+\item[{int}]{nitem, }
+\item[{int}]{nout, }
+\item[{real $\ast$$\ast$}]{c1, }
+\item[{real}]{dt, }
+\item[{unsigned long}]{mode, }
+\item[{int}]{nrestart, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Aver, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Normalize, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Verbose, }
+\item[{real}]{tbeginfit, }
+\item[{real}]{tendfit, }
+\item[{int}]{e\-Fit\-Fn, }
+\item[{int}]{nskip}
+\end{DoxyParamCaption}
+)}}\label{autocorr_8c_adaf94902e7120d83eaceade62dcc598b}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{autocorr_8c_adaf94902e7120d83eaceade62dcc598b_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{autocorr_8c_adaf94902e7120d83eaceade62dcc598b_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{autocorr_8c_a0ed3ab0c8a20ff3db9c343c3a1f46509}{\index{autocorr.\-c@{autocorr.\-c}!low\-\_\-do\-\_\-four\-\_\-core@{low\-\_\-do\-\_\-four\-\_\-core}}
+\index{low\-\_\-do\-\_\-four\-\_\-core@{low\-\_\-do\-\_\-four\-\_\-core}!autocorr.c@{autocorr.\-c}}
+\subsubsection[{low\-\_\-do\-\_\-four\-\_\-core}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf low\-\_\-do\-\_\-four\-\_\-core} (
+\begin{DoxyParamCaption}
+\item[{int}]{nfour, }
+\item[{int}]{nframes, }
+\item[{real}]{c1\mbox{[}$\,$\mbox{]}, }
+\item[{real}]{cfour\mbox{[}$\,$\mbox{]}, }
+\item[{int}]{n\-Cos, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Padding}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{autocorr_8c_a0ed3ab0c8a20ff3db9c343c3a1f46509}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{autocorr_8c_a0ed3ab0c8a20ff3db9c343c3a1f46509_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{autocorr_8c_a0ed3ab0c8a20ff3db9c343c3a1f46509_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{autocorr_8c_a3718a055115043d8aa941b103c4c3b1e}{\index{autocorr.\-c@{autocorr.\-c}!norm\-\_\-and\-\_\-scale\-\_\-vectors@{norm\-\_\-and\-\_\-scale\-\_\-vectors}}
+\index{norm\-\_\-and\-\_\-scale\-\_\-vectors@{norm\-\_\-and\-\_\-scale\-\_\-vectors}!autocorr.c@{autocorr.\-c}}
+\subsubsection[{norm\-\_\-and\-\_\-scale\-\_\-vectors}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf norm\-\_\-and\-\_\-scale\-\_\-vectors} (
+\begin{DoxyParamCaption}
+\item[{int}]{nframes, }
+\item[{real}]{c1\mbox{[}$\,$\mbox{]}, }
+\item[{real}]{scale}
+\end{DoxyParamCaption}
+)}}\label{autocorr_8c_a3718a055115043d8aa941b103c4c3b1e}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{autocorr_8c_a3718a055115043d8aa941b103c4c3b1e_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{autocorr_8c_a3718a055115043d8aa941b103c4c3b1e_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{autocorr_8c_ac8090869cd03e22d2704f6a0cccfdd86}{\index{autocorr.\-c@{autocorr.\-c}!normalize\-\_\-acf@{normalize\-\_\-acf}}
+\index{normalize\-\_\-acf@{normalize\-\_\-acf}!autocorr.c@{autocorr.\-c}}
+\subsubsection[{normalize\-\_\-acf}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf normalize\-\_\-acf} (
+\begin{DoxyParamCaption}
+\item[{int}]{nout, }
+\item[{real}]{corr\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{autocorr_8c_ac8090869cd03e22d2704f6a0cccfdd86}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{autocorr_8c_ac8090869cd03e22d2704f6a0cccfdd86_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{autocorr_8c_ab9dd609b709f7f61b0d16d97d9b30bf2}{\index{autocorr.\-c@{autocorr.\-c}!print\-\_\-and\-\_\-integrate@{print\-\_\-and\-\_\-integrate}}
+\index{print\-\_\-and\-\_\-integrate@{print\-\_\-and\-\_\-integrate}!autocorr.c@{autocorr.\-c}}
+\subsubsection[{print\-\_\-and\-\_\-integrate}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf print\-\_\-and\-\_\-integrate} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{int}]{n, }
+\item[{real}]{dt, }
+\item[{real}]{c\mbox{[}$\,$\mbox{]}, }
+\item[{real $\ast$}]{fit, }
+\item[{int}]{nskip}
+\end{DoxyParamCaption}
+)}}\label{autocorr_8c_ab9dd609b709f7f61b0d16d97d9b30bf2}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{autocorr_8c_ab9dd609b709f7f61b0d16d97d9b30bf2_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{autocorr_8c_a7f2f7deddf6696f3eebe0f5605808b63}{\index{autocorr.\-c@{autocorr.\-c}!sffn2effn@{sffn2effn}}
+\index{sffn2effn@{sffn2effn}!autocorr.c@{autocorr.\-c}}
+\subsubsection[{sffn2effn}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf sffn2effn} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$$\ast$}]{sffn}
+\end{DoxyParamCaption}
+)}}\label{autocorr_8c_a7f2f7deddf6696f3eebe0f5605808b63}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{autocorr_8c_a7f2f7deddf6696f3eebe0f5605808b63_icgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{\-Variable \-Documentation}
+\hypertarget{autocorr_8c_a5b7826027fef61b286a2a6c6e7e02615}{\index{autocorr.\-c@{autocorr.\-c}!acf@{acf}}
+\index{acf@{acf}!autocorr.c@{autocorr.\-c}}
+\subsubsection[{acf}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\-\_\-acf} {\bf acf}\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{autocorr_8c_a5b7826027fef61b286a2a6c6e7e02615}
+\hypertarget{autocorr_8c_aa37e36f81330624944fe74dbf2fae518}{\index{autocorr.\-c@{autocorr.\-c}!b\-A\-C\-Finit@{b\-A\-C\-Finit}}
+\index{b\-A\-C\-Finit@{b\-A\-C\-Finit}!autocorr.c@{autocorr.\-c}}
+\subsubsection[{b\-A\-C\-Finit}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf b\-A\-C\-Finit} = {\bf \-F\-A\-L\-S\-E}\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{autocorr_8c_aa37e36f81330624944fe74dbf2fae518}
+\hypertarget{autocorr_8c_ae902094ccffe99ee5e65f18316a45c0b}{\index{autocorr.\-c@{autocorr.\-c}!\-Leg@{\-Leg}}
+\index{\-Leg@{\-Leg}!autocorr.c@{autocorr.\-c}}
+\subsubsection[{\-Leg}]{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ {\bf \-Leg}\mbox{[}$\,$\mbox{]} = \{ \-N\-U\-L\-L, \char`\"{}0\char`\"{}, \char`\"{}1\char`\"{}, \char`\"{}2\char`\"{}, \char`\"{}3\char`\"{}, \-N\-U\-L\-L \}\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{autocorr_8c_ae902094ccffe99ee5e65f18316a45c0b}

@@ -1,0 +1,888 @@
+\hypertarget{include_2update_8h}{\section{include/update.h \-File \-Reference}
+\label{include_2update_8h}\index{include/update.\-h@{include/update.\-h}}
+}
+{\ttfamily \#include \char`\"{}visibility.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}typedefs.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}mshift.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}tgroup.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}network.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}force.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}pull.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-random.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}maths.\-h\char`\"{}}\*
+\-Include dependency graph for update.\-h\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{include_2update_8h__incl}
+\end{center}
+\end{figure}
+\-This graph shows which files directly or indirectly include this file\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=301pt]{include_2update_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \hyperlink{structgmx__update}{gmx\-\_\-update} $\ast$ \hyperlink{include_2update_8h_add535555d61bff3b590f95a33c60ab04}{gmx\-\_\-update\-\_\-t}
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{include_2update_8h_add535555d61bff3b590f95a33c60ab04}{gmx\-\_\-update\-\_\-t} \hyperlink{include_2update_8h_a2a7d75c6191694aea630011770d408bd}{init\-\_\-update} (\-F\-I\-L\-E $\ast$fplog, \hyperlink{structt__inputrec}{t\-\_\-inputrec} $\ast$ir)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_ab80ef94c2b909a1a948639e98e63b612}{\-G\-M\-X\-\_\-\-L\-I\-B\-M\-D\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{include_2update_8h_a750fb09f21e15556b8621b28808f594e}{get\-\_\-stochd\-\_\-state} (\hyperlink{include_2update_8h_add535555d61bff3b590f95a33c60ab04}{gmx\-\_\-update\-\_\-t} sd, \hyperlink{structt__state}{t\-\_\-state} $\ast$state)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_ab80ef94c2b909a1a948639e98e63b612}{\-G\-M\-X\-\_\-\-L\-I\-B\-M\-D\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{include_2update_8h_a3093f68496e354eaaf5c21df65cd241d}{set\-\_\-stochd\-\_\-state} (\hyperlink{include_2update_8h_add535555d61bff3b590f95a33c60ab04}{gmx\-\_\-update\-\_\-t} sd, \hyperlink{structt__state}{t\-\_\-state} $\ast$state)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_ab80ef94c2b909a1a948639e98e63b612}{\-G\-M\-X\-\_\-\-L\-I\-B\-M\-D\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{include_2update_8h_a58f61831996b22908c8f4904333f30f2}{set\-\_\-deform\-\_\-reference\-\_\-box} (\hyperlink{include_2update_8h_add535555d61bff3b590f95a33c60ab04}{gmx\-\_\-update\-\_\-t} upd, gmx\-\_\-large\-\_\-int\-\_\-t step, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_ab80ef94c2b909a1a948639e98e63b612}{\-G\-M\-X\-\_\-\-L\-I\-B\-M\-D\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{include_2update_8h_a718c972bc92bdb16d7c82b58dc295548}{update\-\_\-tcouple} (\-F\-I\-L\-E $\ast$fplog, gmx\-\_\-large\-\_\-int\-\_\-t step, \hyperlink{structt__inputrec}{t\-\_\-inputrec} $\ast$inputrec, \hyperlink{structt__state}{t\-\_\-state} $\ast$state, \hyperlink{structgmx__ekindata__t}{gmx\-\_\-ekindata\-\_\-t} $\ast$ekind, \hyperlink{include_2types_2nrnb_8h_adc47bf7d40bee1f733f4c00cf76e85d9}{gmx\-\_\-wallcycle\-\_\-t} wcycle, \hyperlink{include_2update_8h_add535555d61bff3b590f95a33c60ab04}{gmx\-\_\-update\-\_\-t} upd, \hyperlink{structt__extmass}{t\-\_\-extmass} $\ast$\-Mass\-Q, \hyperlink{structt__mdatoms}{t\-\_\-mdatoms} $\ast$md)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_ab80ef94c2b909a1a948639e98e63b612}{\-G\-M\-X\-\_\-\-L\-I\-B\-M\-D\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{include_2update_8h_a9be0b2017afb44a01906b20cbf4aa8f3}{update\-\_\-pcouple} (\-F\-I\-L\-E $\ast$fplog, gmx\-\_\-large\-\_\-int\-\_\-t step, \hyperlink{structt__inputrec}{t\-\_\-inputrec} $\ast$inputrec, \hyperlink{structt__state}{t\-\_\-state} $\ast$state, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} pcoupl\-\_\-mu, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} \-M, \hyperlink{include_2types_2nrnb_8h_adc47bf7d40bee1f733f4c00cf76e85d9}{gmx\-\_\-wallcycle\-\_\-t} wcycle, \hyperlink{include_2update_8h_add535555d61bff3b590f95a33c60ab04}{gmx\-\_\-update\-\_\-t} upd, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Init\-Step)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_ab80ef94c2b909a1a948639e98e63b612}{\-G\-M\-X\-\_\-\-L\-I\-B\-M\-D\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{include_2update_8h_ae85b4be25d5d384e87a50e39c2db6e5a}{update\-\_\-coords} (\-F\-I\-L\-E $\ast$fplog, gmx\-\_\-large\-\_\-int\-\_\-t step, \hyperlink{structt__inputrec}{t\-\_\-inputrec} $\ast$inputrec, \hyperlink{structt__mdatoms}{t\-\_\-mdatoms} $\ast$md, \hyperlink{structt__state}{t\-\_\-state} $\ast$state, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Mol\-P\-B\-C, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$\hyperlink{copyrite_8c_a0757cfb6fe645a02867727255faa4f8b}{f}, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Do\-L\-R, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$f\-\_\-lr, \hyperlink{structt__fcdata}{t\-\_\-fcdata} $\ast$fcd, \hyperlink{structgmx__ekindata__t}{gmx\-\_\-ekindata\-\_\-t} $\ast$ekind, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} \-M, \hyperlink{include_2types_2nrnb_8h_adc47bf7d40bee1f733f4c00cf76e85d9}{gmx\-\_\-wallcycle\-\_\-t} wcycle, \hyperlink{include_2update_8h_add535555d61bff3b590f95a33c60ab04}{gmx\-\_\-update\-\_\-t} upd, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Init\-Step, int b\-Update\-Part, \hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr, \hyperlink{structt__nrnb}{t\-\_\-nrnb} $\ast$nrnb, \hyperlink{include_2types_2constr_8h_a9a1b11c17f111aab2d5d34a80d6cfcae}{gmx\-\_\-constr\-\_\-t} constr, \hyperlink{structt__idef}{t\-\_\-idef} $\ast$idef)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_ab80ef94c2b909a1a948639e98e63b612}{\-G\-M\-X\-\_\-\-L\-I\-B\-M\-D\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{include_2update_8h_a875f7119cf1a2b77d1fd50df3ed5b373}{update\-\_\-randomize\-\_\-velocities} (\hyperlink{structt__inputrec}{t\-\_\-inputrec} $\ast$ir, gmx\-\_\-large\-\_\-int\-\_\-t step, \hyperlink{structt__mdatoms}{t\-\_\-mdatoms} $\ast$md, \hyperlink{structt__state}{t\-\_\-state} $\ast$state, \hyperlink{include_2update_8h_add535555d61bff3b590f95a33c60ab04}{gmx\-\_\-update\-\_\-t} upd, \hyperlink{structt__idef}{t\-\_\-idef} $\ast$idef, \hyperlink{include_2types_2constr_8h_a9a1b11c17f111aab2d5d34a80d6cfcae}{gmx\-\_\-constr\-\_\-t} constr)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_ab80ef94c2b909a1a948639e98e63b612}{\-G\-M\-X\-\_\-\-L\-I\-B\-M\-D\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{include_2update_8h_a8e2d6559de996836ec8e9e5f9b1093c5}{update\-\_\-constraints} (\-F\-I\-L\-E $\ast$fplog, gmx\-\_\-large\-\_\-int\-\_\-t step, real $\ast$dvdlambda, \hyperlink{structt__inputrec}{t\-\_\-inputrec} $\ast$inputrec, \hyperlink{structgmx__ekindata__t}{gmx\-\_\-ekindata\-\_\-t} $\ast$ekind, \hyperlink{structt__mdatoms}{t\-\_\-mdatoms} $\ast$md, \hyperlink{structt__state}{t\-\_\-state} $\ast$state, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Mol\-P\-B\-C, \hyperlink{structt__graph}{t\-\_\-graph} $\ast$graph, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} force\mbox{[}$\,$\mbox{]}, \hyperlink{structt__idef}{t\-\_\-idef} $\ast$idef, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aef0bf341f56ce75f09dbb64350488a61}{tensor} vir\-\_\-part, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aef0bf341f56ce75f09dbb64350488a61}{tensor} vir, \hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr, \hyperlink{structt__nrnb}{t\-\_\-nrnb} $\ast$nrnb, \hyperlink{include_2types_2nrnb_8h_adc47bf7d40bee1f733f4c00cf76e85d9}{gmx\-\_\-wallcycle\-\_\-t} wcycle, \hyperlink{include_2update_8h_add535555d61bff3b590f95a33c60ab04}{gmx\-\_\-update\-\_\-t} upd, \hyperlink{include_2types_2constr_8h_a9a1b11c17f111aab2d5d34a80d6cfcae}{gmx\-\_\-constr\-\_\-t} constr, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Init\-Step, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-First\-Half, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Calc\-Vir, real vetanew)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_ab80ef94c2b909a1a948639e98e63b612}{\-G\-M\-X\-\_\-\-L\-I\-B\-M\-D\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{include_2update_8h_ab6d53ec18d1eacaf1c29f553f29fc6b0}{update\-\_\-box} (\-F\-I\-L\-E $\ast$fplog, gmx\-\_\-large\-\_\-int\-\_\-t step, \hyperlink{structt__inputrec}{t\-\_\-inputrec} $\ast$inputrec, \hyperlink{structt__mdatoms}{t\-\_\-mdatoms} $\ast$md, \hyperlink{structt__state}{t\-\_\-state} $\ast$state, \hyperlink{structt__graph}{t\-\_\-graph} $\ast$graph, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} force\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} $\ast$scale\-\_\-tot, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} pcoupl\-\_\-mu, \hyperlink{structt__nrnb}{t\-\_\-nrnb} $\ast$nrnb, \hyperlink{include_2types_2nrnb_8h_adc47bf7d40bee1f733f4c00cf76e85d9}{gmx\-\_\-wallcycle\-\_\-t} wcycle, \hyperlink{include_2update_8h_add535555d61bff3b590f95a33c60ab04}{gmx\-\_\-update\-\_\-t} upd, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Init\-Step, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-First\-Half)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{include_2update_8h_abbc02c82bc19449f121289e787345d8b}{calc\-\_\-ke\-\_\-part} (\hyperlink{structt__state}{t\-\_\-state} $\ast$state, \hyperlink{structt__grpopts}{t\-\_\-grpopts} $\ast$opts, \hyperlink{structt__mdatoms}{t\-\_\-mdatoms} $\ast$md, \hyperlink{structgmx__ekindata__t}{gmx\-\_\-ekindata\-\_\-t} $\ast$ekind, \hyperlink{structt__nrnb}{t\-\_\-nrnb} $\ast$nrnb, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Ekin\-Ave\-Vel, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Save\-Old)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{include_2update_8h_a0d23ee03ba9ff36026dddf07c307b08d}{init\-\_\-ekinstate} (\hyperlink{structekinstate__t}{ekinstate\-\_\-t} $\ast$ekinstate, const \hyperlink{structt__inputrec}{t\-\_\-inputrec} $\ast$ir)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_ab80ef94c2b909a1a948639e98e63b612}{\-G\-M\-X\-\_\-\-L\-I\-B\-M\-D\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{include_2update_8h_a2470dc14aa3c254e39ee54ef2c86feb6}{update\-\_\-ekinstate} (\hyperlink{structekinstate__t}{ekinstate\-\_\-t} $\ast$ekinstate, \hyperlink{structgmx__ekindata__t}{gmx\-\_\-ekindata\-\_\-t} $\ast$ekind)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{include_2update_8h_adf0030c1826b01f660edae09daf58f59}{restore\-\_\-ekinstate\-\_\-from\-\_\-state} (\hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr, \hyperlink{structgmx__ekindata__t}{gmx\-\_\-ekindata\-\_\-t} $\ast$ekind, \hyperlink{structekinstate__t}{ekinstate\-\_\-t} $\ast$ekinstate)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{include_2update_8h_ab47f6bac8b3d6fcbab594923581f2c79}{berendsen\-\_\-tcoupl} (\hyperlink{structt__inputrec}{t\-\_\-inputrec} $\ast$ir, \hyperlink{structgmx__ekindata__t}{gmx\-\_\-ekindata\-\_\-t} $\ast$ekind, real dt)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{include_2update_8h_a20a54a2b92b5c836f94dc3957c7f8864}{andersen\-\_\-tcoupl} (\hyperlink{structt__inputrec}{t\-\_\-inputrec} $\ast$ir, \hyperlink{structt__mdatoms}{t\-\_\-mdatoms} $\ast$md, \hyperlink{structt__state}{t\-\_\-state} $\ast$state, \hyperlink{include_2gmx__random_8h_ab04e36fe2b56587efc5f5738e432ddee}{gmx\-\_\-rng\-\_\-t} rng, real rate, \hyperlink{structt__idef}{t\-\_\-idef} $\ast$idef, int nblocks, int $\ast$sblock, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} $\ast$randatom, int $\ast$randatom\-\_\-list, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} $\ast$randomize, real $\ast$boltzfac)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{include_2update_8h_aafc5b6041923824411d144180b1d0ca2}{nosehoover\-\_\-tcoupl} (\hyperlink{structt__grpopts}{t\-\_\-grpopts} $\ast$opts, \hyperlink{structgmx__ekindata__t}{gmx\-\_\-ekindata\-\_\-t} $\ast$ekind, real dt, double xi\mbox{[}$\,$\mbox{]}, double vxi\mbox{[}$\,$\mbox{]}, \hyperlink{structt__extmass}{t\-\_\-extmass} $\ast$\-Mass\-Q)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_ab80ef94c2b909a1a948639e98e63b612}{\-G\-M\-X\-\_\-\-L\-I\-B\-M\-D\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{structt__state}{t\-\_\-state} $\ast$ \hyperlink{include_2update_8h_ae31c4346699eb5f24b27aad16a33bd05}{init\-\_\-bufstate} (const \hyperlink{structt__state}{t\-\_\-state} $\ast$template\-\_\-state)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{include_2update_8h_a82d11f399fa4a20685c2507c0662af58}{destroy\-\_\-bufstate} (\hyperlink{structt__state}{t\-\_\-state} $\ast$state)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_ab80ef94c2b909a1a948639e98e63b612}{\-G\-M\-X\-\_\-\-L\-I\-B\-M\-D\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{include_2update_8h_a4ceba2181f1cf1857d86301362ffe3cc}{trotter\-\_\-update} (\hyperlink{structt__inputrec}{t\-\_\-inputrec} $\ast$ir, gmx\-\_\-large\-\_\-int\-\_\-t step, \hyperlink{structgmx__ekindata__t}{gmx\-\_\-ekindata\-\_\-t} $\ast$ekind, \hyperlink{structgmx__enerdata__t}{gmx\-\_\-enerdata\-\_\-t} $\ast$enerd, \hyperlink{structt__state}{t\-\_\-state} $\ast$state, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aef0bf341f56ce75f09dbb64350488a61}{tensor} vir, \hyperlink{structt__mdatoms}{t\-\_\-mdatoms} $\ast$md, \hyperlink{structt__extmass}{t\-\_\-extmass} $\ast$\-Mass\-Q, int $\ast$$\ast$trotter\-\_\-seqlist, int trotter\-\_\-seqno)
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_ab80ef94c2b909a1a948639e98e63b612}{\-G\-M\-X\-\_\-\-L\-I\-B\-M\-D\-\_\-\-E\-X\-P\-O\-R\-T} int $\ast$$\ast$ \hyperlink{include_2update_8h_a435c8c63905d364107e6db3282f56d44}{init\-\_\-npt\-\_\-vars} (\hyperlink{structt__inputrec}{t\-\_\-inputrec} $\ast$ir, \hyperlink{structt__state}{t\-\_\-state} $\ast$state, \hyperlink{structt__extmass}{t\-\_\-extmass} $\ast$\-Mass, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Trotter)
+\item 
+real \hyperlink{include_2update_8h_aa2393225e3542dae5a52afc0794fd683}{\-N\-P\-T\-\_\-energy} (\hyperlink{structt__inputrec}{t\-\_\-inputrec} $\ast$ir, \hyperlink{structt__state}{t\-\_\-state} $\ast$state, \hyperlink{structt__extmass}{t\-\_\-extmass} $\ast$\-Mass\-Q)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{include_2update_8h_af14d9ddd748804f706b9f9bc76e3413b}{\-N\-Baro\-T\-\_\-trotter} (\hyperlink{structt__grpopts}{t\-\_\-grpopts} $\ast$opts, real dt, double xi\mbox{[}$\,$\mbox{]}, double vxi\mbox{[}$\,$\mbox{]}, real $\ast$veta, \hyperlink{structt__extmass}{t\-\_\-extmass} $\ast$\-Mass\-Q)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{include_2update_8h_a4475053adf83e29d7ab8da728e79d95d}{vrescale\-\_\-tcoupl} (\hyperlink{structt__inputrec}{t\-\_\-inputrec} $\ast$ir, \hyperlink{structgmx__ekindata__t}{gmx\-\_\-ekindata\-\_\-t} $\ast$ekind, real dt, double therm\-\_\-integral\mbox{[}$\,$\mbox{]}, \hyperlink{include_2gmx__random_8h_ab04e36fe2b56587efc5f5738e432ddee}{gmx\-\_\-rng\-\_\-t} rng)
+\item 
+real \hyperlink{include_2update_8h_a47526d6013bde1b9b17d77abf39445ca}{vrescale\-\_\-energy} (\hyperlink{structt__grpopts}{t\-\_\-grpopts} $\ast$opts, double therm\-\_\-integral\mbox{[}$\,$\mbox{]})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{include_2update_8h_a1acea884355f066c3e7cd90a2149b2a2}{rescale\-\_\-velocities} (\hyperlink{structgmx__ekindata__t}{gmx\-\_\-ekindata\-\_\-t} $\ast$ekind, \hyperlink{structt__mdatoms}{t\-\_\-mdatoms} $\ast$mdatoms, int start, int end, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a339df93739a405c3e4b0506624fa27a5}{v}\mbox{[}$\,$\mbox{]})
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_ab80ef94c2b909a1a948639e98e63b612}{\-G\-M\-X\-\_\-\-L\-I\-B\-M\-D\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{include_2update_8h_ab6860c9659e9419ed4297cabcd3d681e}{update\-\_\-annealing\-\_\-target\-\_\-temp} (\hyperlink{structt__grpopts}{t\-\_\-grpopts} $\ast$opts, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a2b515c84b1293071f7584da32ca336c0}{t})
+\item 
+real \hyperlink{include_2update_8h_a73bab8ff27e65d4cec9125f5558da421}{calc\-\_\-temp} (real ekin, real nrdf)
+\item 
+real \hyperlink{include_2update_8h_ad259427e905c1e264157a885667735b5}{calc\-\_\-pres} (int e\-P\-B\-C, int nwall, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aef0bf341f56ce75f09dbb64350488a61}{tensor} ekin, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aef0bf341f56ce75f09dbb64350488a61}{tensor} vir, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aef0bf341f56ce75f09dbb64350488a61}{tensor} pres)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{include_2update_8h_aad09e1d34cdeaecd31ae34496f9534cc}{parrinellorahman\-\_\-pcoupl} (\-F\-I\-L\-E $\ast$fplog, gmx\-\_\-large\-\_\-int\-\_\-t step, \hyperlink{structt__inputrec}{t\-\_\-inputrec} $\ast$ir, real dt, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aef0bf341f56ce75f09dbb64350488a61}{tensor} pres, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aef0bf341f56ce75f09dbb64350488a61}{tensor} box, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aef0bf341f56ce75f09dbb64350488a61}{tensor} box\-\_\-rel, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aef0bf341f56ce75f09dbb64350488a61}{tensor} boxv, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aef0bf341f56ce75f09dbb64350488a61}{tensor} \-M, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} mu, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-First\-Step)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{include_2update_8h_a130c1ac5ee8065f0754e60f09b56aad0}{berendsen\-\_\-pcoupl} (\-F\-I\-L\-E $\ast$fplog, gmx\-\_\-large\-\_\-int\-\_\-t step, \hyperlink{structt__inputrec}{t\-\_\-inputrec} $\ast$ir, real dt, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aef0bf341f56ce75f09dbb64350488a61}{tensor} pres, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} mu)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{include_2update_8h_a23f5eb92d37fb460dc70c8202137b110}{berendsen\-\_\-pscale} (\hyperlink{structt__inputrec}{t\-\_\-inputrec} $\ast$ir, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} mu, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box\-\_\-rel, int start, int nr\-\_\-atoms, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, unsigned short c\-F\-R\-E\-E\-Z\-E\mbox{[}$\,$\mbox{]}, \hyperlink{structt__nrnb}{t\-\_\-nrnb} $\ast$nrnb)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{include_2update_8h_ab43b019569c8e018ce68db6786279832}{correct\-\_\-ekin} (\-F\-I\-L\-E $\ast$log, int start, int end, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a339df93739a405c3e4b0506624fa27a5}{v}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{readir_8c_ac67964a37fb5161462f7d3657e8303e4}{vcm}, real mass\mbox{[}$\,$\mbox{]}, real tmass, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aef0bf341f56ce75f09dbb64350488a61}{tensor} ekin)
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Typedef \-Documentation}
+\hypertarget{include_2update_8h_add535555d61bff3b590f95a33c60ab04}{\index{include/update.\-h@{include/update.\-h}!gmx\-\_\-update\-\_\-t@{gmx\-\_\-update\-\_\-t}}
+\index{gmx\-\_\-update\-\_\-t@{gmx\-\_\-update\-\_\-t}!include/update.h@{include/update.\-h}}
+\subsubsection[{gmx\-\_\-update\-\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf gmx\-\_\-update}$\ast$ {\bf gmx\-\_\-update\-\_\-t}}}\label{include_2update_8h_add535555d61bff3b590f95a33c60ab04}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{include_2update_8h_a20a54a2b92b5c836f94dc3957c7f8864}{\index{include/update.\-h@{include/update.\-h}!andersen\-\_\-tcoupl@{andersen\-\_\-tcoupl}}
+\index{andersen\-\_\-tcoupl@{andersen\-\_\-tcoupl}!include/update.h@{include/update.\-h}}
+\subsubsection[{andersen\-\_\-tcoupl}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf andersen\-\_\-tcoupl} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-inputrec} $\ast$}]{ir, }
+\item[{{\bf t\-\_\-mdatoms} $\ast$}]{md, }
+\item[{{\bf t\-\_\-state} $\ast$}]{state, }
+\item[{{\bf gmx\-\_\-rng\-\_\-t}}]{rng, }
+\item[{real}]{rate, }
+\item[{{\bf t\-\_\-idef} $\ast$}]{idef, }
+\item[{int}]{nblocks, }
+\item[{int $\ast$}]{sblock, }
+\item[{{\bf gmx\-\_\-bool} $\ast$}]{randatom, }
+\item[{int $\ast$}]{randatom\-\_\-list, }
+\item[{{\bf gmx\-\_\-bool} $\ast$}]{randomize, }
+\item[{real $\ast$}]{boltzfac}
+\end{DoxyParamCaption}
+)}}\label{include_2update_8h_a20a54a2b92b5c836f94dc3957c7f8864}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{include_2update_8h_a20a54a2b92b5c836f94dc3957c7f8864_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{include_2update_8h_a130c1ac5ee8065f0754e60f09b56aad0}{\index{include/update.\-h@{include/update.\-h}!berendsen\-\_\-pcoupl@{berendsen\-\_\-pcoupl}}
+\index{berendsen\-\_\-pcoupl@{berendsen\-\_\-pcoupl}!include/update.h@{include/update.\-h}}
+\subsubsection[{berendsen\-\_\-pcoupl}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf berendsen\-\_\-pcoupl} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fplog, }
+\item[{gmx\-\_\-large\-\_\-int\-\_\-t}]{step, }
+\item[{{\bf t\-\_\-inputrec} $\ast$}]{ir, }
+\item[{real}]{dt, }
+\item[{{\bf tensor}}]{pres, }
+\item[{{\bf matrix}}]{box, }
+\item[{{\bf matrix}}]{mu}
+\end{DoxyParamCaption}
+)}}\label{include_2update_8h_a130c1ac5ee8065f0754e60f09b56aad0}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{include_2update_8h_a130c1ac5ee8065f0754e60f09b56aad0_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{include_2update_8h_a23f5eb92d37fb460dc70c8202137b110}{\index{include/update.\-h@{include/update.\-h}!berendsen\-\_\-pscale@{berendsen\-\_\-pscale}}
+\index{berendsen\-\_\-pscale@{berendsen\-\_\-pscale}!include/update.h@{include/update.\-h}}
+\subsubsection[{berendsen\-\_\-pscale}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf berendsen\-\_\-pscale} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-inputrec} $\ast$}]{ir, }
+\item[{{\bf matrix}}]{mu, }
+\item[{{\bf matrix}}]{box, }
+\item[{{\bf matrix}}]{box\-\_\-rel, }
+\item[{int}]{start, }
+\item[{int}]{nr\-\_\-atoms, }
+\item[{{\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{unsigned short}]{c\-F\-R\-E\-E\-Z\-E\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf t\-\_\-nrnb} $\ast$}]{nrnb}
+\end{DoxyParamCaption}
+)}}\label{include_2update_8h_a23f5eb92d37fb460dc70c8202137b110}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{include_2update_8h_a23f5eb92d37fb460dc70c8202137b110_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{include_2update_8h_ab47f6bac8b3d6fcbab594923581f2c79}{\index{include/update.\-h@{include/update.\-h}!berendsen\-\_\-tcoupl@{berendsen\-\_\-tcoupl}}
+\index{berendsen\-\_\-tcoupl@{berendsen\-\_\-tcoupl}!include/update.h@{include/update.\-h}}
+\subsubsection[{berendsen\-\_\-tcoupl}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf berendsen\-\_\-tcoupl} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-inputrec} $\ast$}]{ir, }
+\item[{{\bf gmx\-\_\-ekindata\-\_\-t} $\ast$}]{ekind, }
+\item[{real}]{dt}
+\end{DoxyParamCaption}
+)}}\label{include_2update_8h_ab47f6bac8b3d6fcbab594923581f2c79}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{include_2update_8h_ab47f6bac8b3d6fcbab594923581f2c79_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{include_2update_8h_abbc02c82bc19449f121289e787345d8b}{\index{include/update.\-h@{include/update.\-h}!calc\-\_\-ke\-\_\-part@{calc\-\_\-ke\-\_\-part}}
+\index{calc\-\_\-ke\-\_\-part@{calc\-\_\-ke\-\_\-part}!include/update.h@{include/update.\-h}}
+\subsubsection[{calc\-\_\-ke\-\_\-part}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf calc\-\_\-ke\-\_\-part} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-state} $\ast$}]{state, }
+\item[{{\bf t\-\_\-grpopts} $\ast$}]{opts, }
+\item[{{\bf t\-\_\-mdatoms} $\ast$}]{md, }
+\item[{{\bf gmx\-\_\-ekindata\-\_\-t} $\ast$}]{ekind, }
+\item[{{\bf t\-\_\-nrnb} $\ast$}]{nrnb, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Ekin\-Ave\-Vel, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Save\-Old}
+\end{DoxyParamCaption}
+)}}\label{include_2update_8h_abbc02c82bc19449f121289e787345d8b}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{include_2update_8h_abbc02c82bc19449f121289e787345d8b_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{include_2update_8h_ad259427e905c1e264157a885667735b5}{\index{include/update.\-h@{include/update.\-h}!calc\-\_\-pres@{calc\-\_\-pres}}
+\index{calc\-\_\-pres@{calc\-\_\-pres}!include/update.h@{include/update.\-h}}
+\subsubsection[{calc\-\_\-pres}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf calc\-\_\-pres} (
+\begin{DoxyParamCaption}
+\item[{int}]{e\-P\-B\-C, }
+\item[{int}]{nwall, }
+\item[{{\bf matrix}}]{box, }
+\item[{{\bf tensor}}]{ekin, }
+\item[{{\bf tensor}}]{vir, }
+\item[{{\bf tensor}}]{pres}
+\end{DoxyParamCaption}
+)}}\label{include_2update_8h_ad259427e905c1e264157a885667735b5}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{include_2update_8h_ad259427e905c1e264157a885667735b5_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{include_2update_8h_a73bab8ff27e65d4cec9125f5558da421}{\index{include/update.\-h@{include/update.\-h}!calc\-\_\-temp@{calc\-\_\-temp}}
+\index{calc\-\_\-temp@{calc\-\_\-temp}!include/update.h@{include/update.\-h}}
+\subsubsection[{calc\-\_\-temp}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf calc\-\_\-temp} (
+\begin{DoxyParamCaption}
+\item[{real}]{ekin, }
+\item[{real}]{nrdf}
+\end{DoxyParamCaption}
+)}}\label{include_2update_8h_a73bab8ff27e65d4cec9125f5558da421}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{include_2update_8h_a73bab8ff27e65d4cec9125f5558da421_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{include_2update_8h_ab43b019569c8e018ce68db6786279832}{\index{include/update.\-h@{include/update.\-h}!correct\-\_\-ekin@{correct\-\_\-ekin}}
+\index{correct\-\_\-ekin@{correct\-\_\-ekin}!include/update.h@{include/update.\-h}}
+\subsubsection[{correct\-\_\-ekin}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf correct\-\_\-ekin} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{log, }
+\item[{int}]{start, }
+\item[{int}]{end, }
+\item[{{\bf rvec}}]{v\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{vcm, }
+\item[{real}]{mass\mbox{[}$\,$\mbox{]}, }
+\item[{real}]{tmass, }
+\item[{{\bf tensor}}]{ekin}
+\end{DoxyParamCaption}
+)}}\label{include_2update_8h_ab43b019569c8e018ce68db6786279832}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{include_2update_8h_ab43b019569c8e018ce68db6786279832_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{include_2update_8h_a82d11f399fa4a20685c2507c0662af58}{\index{include/update.\-h@{include/update.\-h}!destroy\-\_\-bufstate@{destroy\-\_\-bufstate}}
+\index{destroy\-\_\-bufstate@{destroy\-\_\-bufstate}!include/update.h@{include/update.\-h}}
+\subsubsection[{destroy\-\_\-bufstate}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf destroy\-\_\-bufstate} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-state} $\ast$}]{state}
+\end{DoxyParamCaption}
+)}}\label{include_2update_8h_a82d11f399fa4a20685c2507c0662af58}
+\hypertarget{include_2update_8h_a750fb09f21e15556b8621b28808f594e}{\index{include/update.\-h@{include/update.\-h}!get\-\_\-stochd\-\_\-state@{get\-\_\-stochd\-\_\-state}}
+\index{get\-\_\-stochd\-\_\-state@{get\-\_\-stochd\-\_\-state}!include/update.h@{include/update.\-h}}
+\subsubsection[{get\-\_\-stochd\-\_\-state}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-M\-D\-\_\-\-E\-X\-P\-O\-R\-T} {\bf void} {\bf get\-\_\-stochd\-\_\-state} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-update\-\_\-t}}]{sd, }
+\item[{{\bf t\-\_\-state} $\ast$}]{state}
+\end{DoxyParamCaption}
+)}}\label{include_2update_8h_a750fb09f21e15556b8621b28808f594e}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=254pt]{include_2update_8h_a750fb09f21e15556b8621b28808f594e_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{include_2update_8h_ae31c4346699eb5f24b27aad16a33bd05}{\index{include/update.\-h@{include/update.\-h}!init\-\_\-bufstate@{init\-\_\-bufstate}}
+\index{init\-\_\-bufstate@{init\-\_\-bufstate}!include/update.h@{include/update.\-h}}
+\subsubsection[{init\-\_\-bufstate}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-M\-D\-\_\-\-E\-X\-P\-O\-R\-T} {\bf t\-\_\-state}$\ast$ {\bf init\-\_\-bufstate} (
+\begin{DoxyParamCaption}
+\item[{const {\bf t\-\_\-state} $\ast$}]{template\-\_\-state}
+\end{DoxyParamCaption}
+)}}\label{include_2update_8h_ae31c4346699eb5f24b27aad16a33bd05}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=232pt]{include_2update_8h_ae31c4346699eb5f24b27aad16a33bd05_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{include_2update_8h_a0d23ee03ba9ff36026dddf07c307b08d}{\index{include/update.\-h@{include/update.\-h}!init\-\_\-ekinstate@{init\-\_\-ekinstate}}
+\index{init\-\_\-ekinstate@{init\-\_\-ekinstate}!include/update.h@{include/update.\-h}}
+\subsubsection[{init\-\_\-ekinstate}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf init\-\_\-ekinstate} (
+\begin{DoxyParamCaption}
+\item[{{\bf ekinstate\-\_\-t} $\ast$}]{ekinstate, }
+\item[{const {\bf t\-\_\-inputrec} $\ast$}]{ir}
+\end{DoxyParamCaption}
+)}}\label{include_2update_8h_a0d23ee03ba9ff36026dddf07c307b08d}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{include_2update_8h_a0d23ee03ba9ff36026dddf07c307b08d_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{include_2update_8h_a435c8c63905d364107e6db3282f56d44}{\index{include/update.\-h@{include/update.\-h}!init\-\_\-npt\-\_\-vars@{init\-\_\-npt\-\_\-vars}}
+\index{init\-\_\-npt\-\_\-vars@{init\-\_\-npt\-\_\-vars}!include/update.h@{include/update.\-h}}
+\subsubsection[{init\-\_\-npt\-\_\-vars}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-M\-D\-\_\-\-E\-X\-P\-O\-R\-T} int$\ast$$\ast$ {\bf init\-\_\-npt\-\_\-vars} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-inputrec} $\ast$}]{ir, }
+\item[{{\bf t\-\_\-state} $\ast$}]{state, }
+\item[{{\bf t\-\_\-extmass} $\ast$}]{\-Mass, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Trotter}
+\end{DoxyParamCaption}
+)}}\label{include_2update_8h_a435c8c63905d364107e6db3282f56d44}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=234pt]{include_2update_8h_a435c8c63905d364107e6db3282f56d44_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{include_2update_8h_a2a7d75c6191694aea630011770d408bd}{\index{include/update.\-h@{include/update.\-h}!init\-\_\-update@{init\-\_\-update}}
+\index{init\-\_\-update@{init\-\_\-update}!include/update.h@{include/update.\-h}}
+\subsubsection[{init\-\_\-update}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-update\-\_\-t} {\bf init\-\_\-update} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fplog, }
+\item[{{\bf t\-\_\-inputrec} $\ast$}]{ir}
+\end{DoxyParamCaption}
+)}}\label{include_2update_8h_a2a7d75c6191694aea630011770d408bd}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{include_2update_8h_a2a7d75c6191694aea630011770d408bd_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{include_2update_8h_af14d9ddd748804f706b9f9bc76e3413b}{\index{include/update.\-h@{include/update.\-h}!\-N\-Baro\-T\-\_\-trotter@{\-N\-Baro\-T\-\_\-trotter}}
+\index{\-N\-Baro\-T\-\_\-trotter@{\-N\-Baro\-T\-\_\-trotter}!include/update.h@{include/update.\-h}}
+\subsubsection[{\-N\-Baro\-T\-\_\-trotter}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf \-N\-Baro\-T\-\_\-trotter} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-grpopts} $\ast$}]{opts, }
+\item[{real}]{dt, }
+\item[{double}]{xi\mbox{[}$\,$\mbox{]}, }
+\item[{double}]{vxi\mbox{[}$\,$\mbox{]}, }
+\item[{real $\ast$}]{veta, }
+\item[{{\bf t\-\_\-extmass} $\ast$}]{\-Mass\-Q}
+\end{DoxyParamCaption}
+)}}\label{include_2update_8h_af14d9ddd748804f706b9f9bc76e3413b}
+\hypertarget{include_2update_8h_aafc5b6041923824411d144180b1d0ca2}{\index{include/update.\-h@{include/update.\-h}!nosehoover\-\_\-tcoupl@{nosehoover\-\_\-tcoupl}}
+\index{nosehoover\-\_\-tcoupl@{nosehoover\-\_\-tcoupl}!include/update.h@{include/update.\-h}}
+\subsubsection[{nosehoover\-\_\-tcoupl}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf nosehoover\-\_\-tcoupl} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-grpopts} $\ast$}]{opts, }
+\item[{{\bf gmx\-\_\-ekindata\-\_\-t} $\ast$}]{ekind, }
+\item[{real}]{dt, }
+\item[{double}]{xi\mbox{[}$\,$\mbox{]}, }
+\item[{double}]{vxi\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf t\-\_\-extmass} $\ast$}]{\-Mass\-Q}
+\end{DoxyParamCaption}
+)}}\label{include_2update_8h_aafc5b6041923824411d144180b1d0ca2}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{include_2update_8h_aafc5b6041923824411d144180b1d0ca2_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{include_2update_8h_aa2393225e3542dae5a52afc0794fd683}{\index{include/update.\-h@{include/update.\-h}!\-N\-P\-T\-\_\-energy@{\-N\-P\-T\-\_\-energy}}
+\index{\-N\-P\-T\-\_\-energy@{\-N\-P\-T\-\_\-energy}!include/update.h@{include/update.\-h}}
+\subsubsection[{\-N\-P\-T\-\_\-energy}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf \-N\-P\-T\-\_\-energy} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-inputrec} $\ast$}]{ir, }
+\item[{{\bf t\-\_\-state} $\ast$}]{state, }
+\item[{{\bf t\-\_\-extmass} $\ast$}]{\-Mass\-Q}
+\end{DoxyParamCaption}
+)}}\label{include_2update_8h_aa2393225e3542dae5a52afc0794fd683}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{include_2update_8h_aa2393225e3542dae5a52afc0794fd683_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{include_2update_8h_aad09e1d34cdeaecd31ae34496f9534cc}{\index{include/update.\-h@{include/update.\-h}!parrinellorahman\-\_\-pcoupl@{parrinellorahman\-\_\-pcoupl}}
+\index{parrinellorahman\-\_\-pcoupl@{parrinellorahman\-\_\-pcoupl}!include/update.h@{include/update.\-h}}
+\subsubsection[{parrinellorahman\-\_\-pcoupl}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf parrinellorahman\-\_\-pcoupl} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fplog, }
+\item[{gmx\-\_\-large\-\_\-int\-\_\-t}]{step, }
+\item[{{\bf t\-\_\-inputrec} $\ast$}]{ir, }
+\item[{real}]{dt, }
+\item[{{\bf tensor}}]{pres, }
+\item[{{\bf tensor}}]{box, }
+\item[{{\bf tensor}}]{box\-\_\-rel, }
+\item[{{\bf tensor}}]{boxv, }
+\item[{{\bf tensor}}]{\-M, }
+\item[{{\bf matrix}}]{mu, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-First\-Step}
+\end{DoxyParamCaption}
+)}}\label{include_2update_8h_aad09e1d34cdeaecd31ae34496f9534cc}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{include_2update_8h_aad09e1d34cdeaecd31ae34496f9534cc_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{include_2update_8h_a1acea884355f066c3e7cd90a2149b2a2}{\index{include/update.\-h@{include/update.\-h}!rescale\-\_\-velocities@{rescale\-\_\-velocities}}
+\index{rescale\-\_\-velocities@{rescale\-\_\-velocities}!include/update.h@{include/update.\-h}}
+\subsubsection[{rescale\-\_\-velocities}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf rescale\-\_\-velocities} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-ekindata\-\_\-t} $\ast$}]{ekind, }
+\item[{{\bf t\-\_\-mdatoms} $\ast$}]{mdatoms, }
+\item[{int}]{start, }
+\item[{int}]{end, }
+\item[{{\bf rvec}}]{v\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{include_2update_8h_a1acea884355f066c3e7cd90a2149b2a2}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{include_2update_8h_a1acea884355f066c3e7cd90a2149b2a2_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{include_2update_8h_adf0030c1826b01f660edae09daf58f59}{\index{include/update.\-h@{include/update.\-h}!restore\-\_\-ekinstate\-\_\-from\-\_\-state@{restore\-\_\-ekinstate\-\_\-from\-\_\-state}}
+\index{restore\-\_\-ekinstate\-\_\-from\-\_\-state@{restore\-\_\-ekinstate\-\_\-from\-\_\-state}!include/update.h@{include/update.\-h}}
+\subsubsection[{restore\-\_\-ekinstate\-\_\-from\-\_\-state}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf restore\-\_\-ekinstate\-\_\-from\-\_\-state} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-commrec} $\ast$}]{cr, }
+\item[{{\bf gmx\-\_\-ekindata\-\_\-t} $\ast$}]{ekind, }
+\item[{{\bf ekinstate\-\_\-t} $\ast$}]{ekinstate}
+\end{DoxyParamCaption}
+)}}\label{include_2update_8h_adf0030c1826b01f660edae09daf58f59}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{include_2update_8h_adf0030c1826b01f660edae09daf58f59_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{include_2update_8h_a58f61831996b22908c8f4904333f30f2}{\index{include/update.\-h@{include/update.\-h}!set\-\_\-deform\-\_\-reference\-\_\-box@{set\-\_\-deform\-\_\-reference\-\_\-box}}
+\index{set\-\_\-deform\-\_\-reference\-\_\-box@{set\-\_\-deform\-\_\-reference\-\_\-box}!include/update.h@{include/update.\-h}}
+\subsubsection[{set\-\_\-deform\-\_\-reference\-\_\-box}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-M\-D\-\_\-\-E\-X\-P\-O\-R\-T} {\bf void} {\bf set\-\_\-deform\-\_\-reference\-\_\-box} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-update\-\_\-t}}]{upd, }
+\item[{gmx\-\_\-large\-\_\-int\-\_\-t}]{step, }
+\item[{{\bf matrix}}]{box}
+\end{DoxyParamCaption}
+)}}\label{include_2update_8h_a58f61831996b22908c8f4904333f30f2}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=294pt]{include_2update_8h_a58f61831996b22908c8f4904333f30f2_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{include_2update_8h_a3093f68496e354eaaf5c21df65cd241d}{\index{include/update.\-h@{include/update.\-h}!set\-\_\-stochd\-\_\-state@{set\-\_\-stochd\-\_\-state}}
+\index{set\-\_\-stochd\-\_\-state@{set\-\_\-stochd\-\_\-state}!include/update.h@{include/update.\-h}}
+\subsubsection[{set\-\_\-stochd\-\_\-state}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-M\-D\-\_\-\-E\-X\-P\-O\-R\-T} {\bf void} {\bf set\-\_\-stochd\-\_\-state} (
+\begin{DoxyParamCaption}
+\item[{{\bf gmx\-\_\-update\-\_\-t}}]{sd, }
+\item[{{\bf t\-\_\-state} $\ast$}]{state}
+\end{DoxyParamCaption}
+)}}\label{include_2update_8h_a3093f68496e354eaaf5c21df65cd241d}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=254pt]{include_2update_8h_a3093f68496e354eaaf5c21df65cd241d_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{include_2update_8h_a4ceba2181f1cf1857d86301362ffe3cc}{\index{include/update.\-h@{include/update.\-h}!trotter\-\_\-update@{trotter\-\_\-update}}
+\index{trotter\-\_\-update@{trotter\-\_\-update}!include/update.h@{include/update.\-h}}
+\subsubsection[{trotter\-\_\-update}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-M\-D\-\_\-\-E\-X\-P\-O\-R\-T} {\bf void} {\bf trotter\-\_\-update} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-inputrec} $\ast$}]{ir, }
+\item[{gmx\-\_\-large\-\_\-int\-\_\-t}]{step, }
+\item[{{\bf gmx\-\_\-ekindata\-\_\-t} $\ast$}]{ekind, }
+\item[{{\bf gmx\-\_\-enerdata\-\_\-t} $\ast$}]{enerd, }
+\item[{{\bf t\-\_\-state} $\ast$}]{state, }
+\item[{{\bf tensor}}]{vir, }
+\item[{{\bf t\-\_\-mdatoms} $\ast$}]{md, }
+\item[{{\bf t\-\_\-extmass} $\ast$}]{\-Mass\-Q, }
+\item[{int $\ast$$\ast$}]{trotter\-\_\-seqlist, }
+\item[{int}]{trotter\-\_\-seqno}
+\end{DoxyParamCaption}
+)}}\label{include_2update_8h_a4ceba2181f1cf1857d86301362ffe3cc}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=240pt]{include_2update_8h_a4ceba2181f1cf1857d86301362ffe3cc_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{include_2update_8h_ab6860c9659e9419ed4297cabcd3d681e}{\index{include/update.\-h@{include/update.\-h}!update\-\_\-annealing\-\_\-target\-\_\-temp@{update\-\_\-annealing\-\_\-target\-\_\-temp}}
+\index{update\-\_\-annealing\-\_\-target\-\_\-temp@{update\-\_\-annealing\-\_\-target\-\_\-temp}!include/update.h@{include/update.\-h}}
+\subsubsection[{update\-\_\-annealing\-\_\-target\-\_\-temp}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-M\-D\-\_\-\-E\-X\-P\-O\-R\-T} {\bf void} {\bf update\-\_\-annealing\-\_\-target\-\_\-temp} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-grpopts} $\ast$}]{opts, }
+\item[{real}]{t}
+\end{DoxyParamCaption}
+)}}\label{include_2update_8h_ab6860c9659e9419ed4297cabcd3d681e}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{include_2update_8h_ab6860c9659e9419ed4297cabcd3d681e_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{include_2update_8h_ab6d53ec18d1eacaf1c29f553f29fc6b0}{\index{include/update.\-h@{include/update.\-h}!update\-\_\-box@{update\-\_\-box}}
+\index{update\-\_\-box@{update\-\_\-box}!include/update.h@{include/update.\-h}}
+\subsubsection[{update\-\_\-box}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-M\-D\-\_\-\-E\-X\-P\-O\-R\-T} {\bf void} {\bf update\-\_\-box} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fplog, }
+\item[{gmx\-\_\-large\-\_\-int\-\_\-t}]{step, }
+\item[{{\bf t\-\_\-inputrec} $\ast$}]{inputrec, }
+\item[{{\bf t\-\_\-mdatoms} $\ast$}]{md, }
+\item[{{\bf t\-\_\-state} $\ast$}]{state, }
+\item[{{\bf t\-\_\-graph} $\ast$}]{graph, }
+\item[{{\bf rvec}}]{force\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf matrix} $\ast$}]{scale\-\_\-tot, }
+\item[{{\bf matrix}}]{pcoupl\-\_\-mu, }
+\item[{{\bf t\-\_\-nrnb} $\ast$}]{nrnb, }
+\item[{{\bf gmx\-\_\-wallcycle\-\_\-t}}]{wcycle, }
+\item[{{\bf gmx\-\_\-update\-\_\-t}}]{upd, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Init\-Step, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-First\-Half}
+\end{DoxyParamCaption}
+)}}\label{include_2update_8h_ab6d53ec18d1eacaf1c29f553f29fc6b0}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=230pt]{include_2update_8h_ab6d53ec18d1eacaf1c29f553f29fc6b0_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{include_2update_8h_a8e2d6559de996836ec8e9e5f9b1093c5}{\index{include/update.\-h@{include/update.\-h}!update\-\_\-constraints@{update\-\_\-constraints}}
+\index{update\-\_\-constraints@{update\-\_\-constraints}!include/update.h@{include/update.\-h}}
+\subsubsection[{update\-\_\-constraints}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-M\-D\-\_\-\-E\-X\-P\-O\-R\-T} {\bf void} {\bf update\-\_\-constraints} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fplog, }
+\item[{gmx\-\_\-large\-\_\-int\-\_\-t}]{step, }
+\item[{real $\ast$}]{dvdlambda, }
+\item[{{\bf t\-\_\-inputrec} $\ast$}]{inputrec, }
+\item[{{\bf gmx\-\_\-ekindata\-\_\-t} $\ast$}]{ekind, }
+\item[{{\bf t\-\_\-mdatoms} $\ast$}]{md, }
+\item[{{\bf t\-\_\-state} $\ast$}]{state, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Mol\-P\-B\-C, }
+\item[{{\bf t\-\_\-graph} $\ast$}]{graph, }
+\item[{{\bf rvec}}]{force\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf t\-\_\-idef} $\ast$}]{idef, }
+\item[{{\bf tensor}}]{vir\-\_\-part, }
+\item[{{\bf tensor}}]{vir, }
+\item[{{\bf t\-\_\-commrec} $\ast$}]{cr, }
+\item[{{\bf t\-\_\-nrnb} $\ast$}]{nrnb, }
+\item[{{\bf gmx\-\_\-wallcycle\-\_\-t}}]{wcycle, }
+\item[{{\bf gmx\-\_\-update\-\_\-t}}]{upd, }
+\item[{{\bf gmx\-\_\-constr\-\_\-t}}]{constr, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Init\-Step, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-First\-Half, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Calc\-Vir, }
+\item[{real}]{vetanew}
+\end{DoxyParamCaption}
+)}}\label{include_2update_8h_a8e2d6559de996836ec8e9e5f9b1093c5}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=262pt]{include_2update_8h_a8e2d6559de996836ec8e9e5f9b1093c5_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{include_2update_8h_ae85b4be25d5d384e87a50e39c2db6e5a}{\index{include/update.\-h@{include/update.\-h}!update\-\_\-coords@{update\-\_\-coords}}
+\index{update\-\_\-coords@{update\-\_\-coords}!include/update.h@{include/update.\-h}}
+\subsubsection[{update\-\_\-coords}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-M\-D\-\_\-\-E\-X\-P\-O\-R\-T} {\bf void} {\bf update\-\_\-coords} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fplog, }
+\item[{gmx\-\_\-large\-\_\-int\-\_\-t}]{step, }
+\item[{{\bf t\-\_\-inputrec} $\ast$}]{inputrec, }
+\item[{{\bf t\-\_\-mdatoms} $\ast$}]{md, }
+\item[{{\bf t\-\_\-state} $\ast$}]{state, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Mol\-P\-B\-C, }
+\item[{{\bf rvec} $\ast$}]{f, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Do\-L\-R, }
+\item[{{\bf rvec} $\ast$}]{f\-\_\-lr, }
+\item[{{\bf t\-\_\-fcdata} $\ast$}]{fcd, }
+\item[{{\bf gmx\-\_\-ekindata\-\_\-t} $\ast$}]{ekind, }
+\item[{{\bf matrix}}]{\-M, }
+\item[{{\bf gmx\-\_\-wallcycle\-\_\-t}}]{wcycle, }
+\item[{{\bf gmx\-\_\-update\-\_\-t}}]{upd, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Init\-Step, }
+\item[{int}]{b\-Update\-Part, }
+\item[{{\bf t\-\_\-commrec} $\ast$}]{cr, }
+\item[{{\bf t\-\_\-nrnb} $\ast$}]{nrnb, }
+\item[{{\bf gmx\-\_\-constr\-\_\-t}}]{constr, }
+\item[{{\bf t\-\_\-idef} $\ast$}]{idef}
+\end{DoxyParamCaption}
+)}}\label{include_2update_8h_ae85b4be25d5d384e87a50e39c2db6e5a}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=242pt]{include_2update_8h_ae85b4be25d5d384e87a50e39c2db6e5a_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{include_2update_8h_a2470dc14aa3c254e39ee54ef2c86feb6}{\index{include/update.\-h@{include/update.\-h}!update\-\_\-ekinstate@{update\-\_\-ekinstate}}
+\index{update\-\_\-ekinstate@{update\-\_\-ekinstate}!include/update.h@{include/update.\-h}}
+\subsubsection[{update\-\_\-ekinstate}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-M\-D\-\_\-\-E\-X\-P\-O\-R\-T} {\bf void} {\bf update\-\_\-ekinstate} (
+\begin{DoxyParamCaption}
+\item[{{\bf ekinstate\-\_\-t} $\ast$}]{ekinstate, }
+\item[{{\bf gmx\-\_\-ekindata\-\_\-t} $\ast$}]{ekind}
+\end{DoxyParamCaption}
+)}}\label{include_2update_8h_a2470dc14aa3c254e39ee54ef2c86feb6}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=254pt]{include_2update_8h_a2470dc14aa3c254e39ee54ef2c86feb6_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{include_2update_8h_a9be0b2017afb44a01906b20cbf4aa8f3}{\index{include/update.\-h@{include/update.\-h}!update\-\_\-pcouple@{update\-\_\-pcouple}}
+\index{update\-\_\-pcouple@{update\-\_\-pcouple}!include/update.h@{include/update.\-h}}
+\subsubsection[{update\-\_\-pcouple}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-M\-D\-\_\-\-E\-X\-P\-O\-R\-T} {\bf void} {\bf update\-\_\-pcouple} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fplog, }
+\item[{gmx\-\_\-large\-\_\-int\-\_\-t}]{step, }
+\item[{{\bf t\-\_\-inputrec} $\ast$}]{inputrec, }
+\item[{{\bf t\-\_\-state} $\ast$}]{state, }
+\item[{{\bf matrix}}]{pcoupl\-\_\-mu, }
+\item[{{\bf matrix}}]{\-M, }
+\item[{{\bf gmx\-\_\-wallcycle\-\_\-t}}]{wcycle, }
+\item[{{\bf gmx\-\_\-update\-\_\-t}}]{upd, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Init\-Step}
+\end{DoxyParamCaption}
+)}}\label{include_2update_8h_a9be0b2017afb44a01906b20cbf4aa8f3}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=248pt]{include_2update_8h_a9be0b2017afb44a01906b20cbf4aa8f3_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{include_2update_8h_a875f7119cf1a2b77d1fd50df3ed5b373}{\index{include/update.\-h@{include/update.\-h}!update\-\_\-randomize\-\_\-velocities@{update\-\_\-randomize\-\_\-velocities}}
+\index{update\-\_\-randomize\-\_\-velocities@{update\-\_\-randomize\-\_\-velocities}!include/update.h@{include/update.\-h}}
+\subsubsection[{update\-\_\-randomize\-\_\-velocities}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-M\-D\-\_\-\-E\-X\-P\-O\-R\-T} {\bf gmx\-\_\-bool} {\bf update\-\_\-randomize\-\_\-velocities} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-inputrec} $\ast$}]{ir, }
+\item[{gmx\-\_\-large\-\_\-int\-\_\-t}]{step, }
+\item[{{\bf t\-\_\-mdatoms} $\ast$}]{md, }
+\item[{{\bf t\-\_\-state} $\ast$}]{state, }
+\item[{{\bf gmx\-\_\-update\-\_\-t}}]{upd, }
+\item[{{\bf t\-\_\-idef} $\ast$}]{idef, }
+\item[{{\bf gmx\-\_\-constr\-\_\-t}}]{constr}
+\end{DoxyParamCaption}
+)}}\label{include_2update_8h_a875f7119cf1a2b77d1fd50df3ed5b373}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=306pt]{include_2update_8h_a875f7119cf1a2b77d1fd50df3ed5b373_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{include_2update_8h_a718c972bc92bdb16d7c82b58dc295548}{\index{include/update.\-h@{include/update.\-h}!update\-\_\-tcouple@{update\-\_\-tcouple}}
+\index{update\-\_\-tcouple@{update\-\_\-tcouple}!include/update.h@{include/update.\-h}}
+\subsubsection[{update\-\_\-tcouple}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-M\-D\-\_\-\-E\-X\-P\-O\-R\-T} {\bf void} {\bf update\-\_\-tcouple} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fplog, }
+\item[{gmx\-\_\-large\-\_\-int\-\_\-t}]{step, }
+\item[{{\bf t\-\_\-inputrec} $\ast$}]{inputrec, }
+\item[{{\bf t\-\_\-state} $\ast$}]{state, }
+\item[{{\bf gmx\-\_\-ekindata\-\_\-t} $\ast$}]{ekind, }
+\item[{{\bf gmx\-\_\-wallcycle\-\_\-t}}]{wcycle, }
+\item[{{\bf gmx\-\_\-update\-\_\-t}}]{upd, }
+\item[{{\bf t\-\_\-extmass} $\ast$}]{\-Mass\-Q, }
+\item[{{\bf t\-\_\-mdatoms} $\ast$}]{md}
+\end{DoxyParamCaption}
+)}}\label{include_2update_8h_a718c972bc92bdb16d7c82b58dc295548}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=246pt]{include_2update_8h_a718c972bc92bdb16d7c82b58dc295548_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{include_2update_8h_a47526d6013bde1b9b17d77abf39445ca}{\index{include/update.\-h@{include/update.\-h}!vrescale\-\_\-energy@{vrescale\-\_\-energy}}
+\index{vrescale\-\_\-energy@{vrescale\-\_\-energy}!include/update.h@{include/update.\-h}}
+\subsubsection[{vrescale\-\_\-energy}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf vrescale\-\_\-energy} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-grpopts} $\ast$}]{opts, }
+\item[{double}]{therm\-\_\-integral\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{include_2update_8h_a47526d6013bde1b9b17d77abf39445ca}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{include_2update_8h_a47526d6013bde1b9b17d77abf39445ca_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{include_2update_8h_a4475053adf83e29d7ab8da728e79d95d}{\index{include/update.\-h@{include/update.\-h}!vrescale\-\_\-tcoupl@{vrescale\-\_\-tcoupl}}
+\index{vrescale\-\_\-tcoupl@{vrescale\-\_\-tcoupl}!include/update.h@{include/update.\-h}}
+\subsubsection[{vrescale\-\_\-tcoupl}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf vrescale\-\_\-tcoupl} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-inputrec} $\ast$}]{ir, }
+\item[{{\bf gmx\-\_\-ekindata\-\_\-t} $\ast$}]{ekind, }
+\item[{real}]{dt, }
+\item[{double}]{therm\-\_\-integral\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf gmx\-\_\-rng\-\_\-t}}]{rng}
+\end{DoxyParamCaption}
+)}}\label{include_2update_8h_a4475053adf83e29d7ab8da728e79d95d}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{include_2update_8h_a4475053adf83e29d7ab8da728e79d95d_icgraph}
+\end{center}
+\end{figure}
+
+

@@ -1,0 +1,554 @@
+\hypertarget{xutils_8c}{\section{src/kernel/xutils.c \-File \-Reference}
+\label{xutils_8c}\index{src/kernel/xutils.\-c@{src/kernel/xutils.\-c}}
+}
+{\ttfamily \#include $<$assert.\-h$>$}\*
+{\ttfamily \#include \char`\"{}typedefs.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}smalloc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}strdb.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}string2.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}xmdrun.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}vec.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}genalg.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}random.\-h\char`\"{}}\*
+\-Include dependency graph for xutils.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{xutils_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+real \hyperlink{xutils_8c_a1ada4be1e94538f4e3a01bb36a011623}{mol\-\_\-dipole} (int k0, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ad9c2a7fe51882403b5ed15233864e052}{k1}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_abbda725bda8d9be8c9fc2fdb63ea38e2}{q}\mbox{[}$\,$\mbox{]})
+\item 
+real \hyperlink{xutils_8c_a70acae949115390bed968880ef92e670}{calc\-\_\-mu\-\_\-aver} (\hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, real \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_abbda725bda8d9be8c9fc2fdb63ea38e2}{q}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} mu, \hyperlink{structt__block}{t\-\_\-block} $\ast$mols, \hyperlink{structt__mdatoms}{t\-\_\-mdatoms} $\ast$md, int gnx, \hyperlink{include_2types_2simple_8h_ad3f47cdb48677e516e2049719612c737}{atom\-\_\-id} grpindex\mbox{[}$\,$\mbox{]})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{xutils_8c_a1610152d4dd1731a948a65b6ce1ee44b}{set\-\_\-ffvars} (\hyperlink{structt__ffscan}{t\-\_\-ffscan} $\ast$fff)
+\item 
+real \hyperlink{xutils_8c_a20081555f836f3c6dff42c0c19aec5ba}{cost} (\hyperlink{share_2template_2gromacs_2types_2simple_8h_aef0bf341f56ce75f09dbb64350488a61}{tensor} \-P, real \-M\-S\-F, real \-E)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{xutils_8c_a3e591dd844381d9240f876f166800c68}{init\-\_\-range} (\hyperlink{structt__range}{t\-\_\-range} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae039a6f39df62bd858e5e3f5ec77b24b}{r}, int np, int atype, int ptype, real rmin, real rmax)
+\item 
+static \hyperlink{structt__range}{t\-\_\-range} $\ast$ \hyperlink{xutils_8c_a16f8319bedd3dbed8d273c79509071ce}{read\-\_\-range} (const char $\ast$db, int $\ast$nrange)
+\item 
+static real \hyperlink{xutils_8c_acdfc25a1b805507aecf627c8a3dd83f5}{value\-\_\-range} (\hyperlink{structt__range}{t\-\_\-range} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae039a6f39df62bd858e5e3f5ec77b24b}{r}, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n})
+\item 
+real \hyperlink{xutils_8c_a7a565e3a9aa8a55d648e8d3735df050a}{value\-\_\-rand} (\hyperlink{structt__range}{t\-\_\-range} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae039a6f39df62bd858e5e3f5ec77b24b}{r}, int $\ast$seed)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{xutils_8c_a0eda7123ad34a5bc8a4b00af942366c2}{update\-\_\-ff} (\hyperlink{structt__forcerec}{t\-\_\-forcerec} $\ast$\hyperlink{addconf_8c_ae8414314f87c5e49503ac0117eb511ad}{fr}, int \hyperlink{xutils_8c_a83a125e5078027799969224ee5d7198d}{nparm}, \hyperlink{structt__range}{t\-\_\-range} \hyperlink{xutils_8c_a7a0ed82b89da2a4d9d11d60e1dcdd161}{range}\mbox{[}$\,$\mbox{]}, int \hyperlink{xutils_8c_a483b585684aad281304dd551e9b19a18}{param\-\_\-val}\mbox{[}$\,$\mbox{]})
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{xutils_8c_a56ef5a12dcf52d438d64b2daa2b56cc2}{scale\-\_\-box} (int natoms, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box)
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{xutils_8c_ae18ba2a5aa292293cf3e5269cf935090}{update\-\_\-forcefield} (\-F\-I\-L\-E $\ast$fplog, int nfile, const \hyperlink{structt__filenm}{t\-\_\-filenm} fnm\mbox{[}$\,$\mbox{]}, \hyperlink{structt__forcerec}{t\-\_\-forcerec} $\ast$\hyperlink{addconf_8c_ae8414314f87c5e49503ac0117eb511ad}{fr}, int natoms, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box)
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{xutils_8c_adb4be0d8d3640d6daf4562e9ba173676}{print\-\_\-range} (\-F\-I\-L\-E $\ast$fp, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aef0bf341f56ce75f09dbb64350488a61}{tensor} \-P, real \-M\-S\-F, real \hyperlink{readir_8c_a5a06e50a13385093bb93cbf7458759a0}{energy})
+\item 
+static real \hyperlink{xutils_8c_ac40e748ec26bbfa13603d1312f188226}{msf} (int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a82736b60ddc8f6ec6c9591b0d6fcb394}{n}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} f1\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} f2\mbox{[}$\,$\mbox{]})
+\item 
+static \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{xutils_8c_a049da43c0bbe7928df3006cbd8cb6a96}{print\-\_\-grid} (\-F\-I\-L\-E $\ast$fp, real \hyperlink{optwat_8c_a0af9a624abbf535eeb74358ffc1634b2}{ener}\mbox{[}$\,$\mbox{]}, int natoms, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{copyrite_8c_a0757cfb6fe645a02867727255faa4f8b}{f}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} fshake\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{structt__block}{t\-\_\-block} $\ast$mols, real mass\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aef0bf341f56ce75f09dbb64350488a61}{tensor} pres)
+\item 
+\hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} \hyperlink{xutils_8c_a9659a6879323a9cdc928bb8998b5ea0a}{print\-\_\-forcefield} (\-F\-I\-L\-E $\ast$fp, real \hyperlink{optwat_8c_a0af9a624abbf535eeb74358ffc1634b2}{ener}\mbox{[}$\,$\mbox{]}, int natoms, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{copyrite_8c_a0757cfb6fe645a02867727255faa4f8b}{f}\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} fshake\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, \hyperlink{structt__block}{t\-\_\-block} $\ast$mols, real mass\mbox{[}$\,$\mbox{]}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aef0bf341f56ce75f09dbb64350488a61}{tensor} pres)
+\end{DoxyCompactItemize}
+\subsection*{\-Variables}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{structt__ffscan}{t\-\_\-ffscan} \hyperlink{xutils_8c_a535bdffef2ec705f343bfb4e7f2ea4fb}{ff}
+\item 
+static const char $\ast$ \hyperlink{xutils_8c_a1ca5d14da9e7988942a5b4b23701f01f}{esenm} \mbox{[}\hyperlink{genalg_8h_a91208fef98a8e6a0f21eddcb9c5a8b78a483ae9d6b2a19bf50ed360ea939d11c8}{ese\-N\-R}\mbox{]} = \{ \char`\"{}\-S\-I\-G\char`\"{}, \char`\"{}\hyperlink{do__fit_8c_a6ebf6899d6c1c8b7b9d09be872c05aae}{\-E\-P\-S}\char`\"{}, \char`\"{}\hyperlink{share_2template_2gromacs_2types_2forcerec_8h_a918ce62f3b1ff5871fc8e1c319113861}{\-B\-H\-A\-M\-A}\char`\"{}, \char`\"{}\hyperlink{share_2template_2gromacs_2types_2forcerec_8h_a4d2d7382889f102ba1d95a1682f75743}{\-B\-H\-A\-M\-B}\char`\"{}, \char`\"{}\hyperlink{share_2template_2gromacs_2types_2forcerec_8h_adf04f95ffc1466411b3ce28490b26aea}{\-B\-H\-A\-M\-C}\char`\"{}, \char`\"{}\-C\-E\-Ll\-X\char`\"{}, \char`\"{}\-C\-E\-L\-L\-Y\char`\"{}, \char`\"{}\-C\-E\-L\-L\-Z\char`\"{} \}
+\item 
+static int \hyperlink{xutils_8c_a83a125e5078027799969224ee5d7198d}{nparm} = 0
+\item 
+static int $\ast$ \hyperlink{xutils_8c_a483b585684aad281304dd551e9b19a18}{param\-\_\-val} = \-N\-U\-L\-L
+\item 
+static \hyperlink{structt__range}{t\-\_\-range} $\ast$ \hyperlink{xutils_8c_a7a0ed82b89da2a4d9d11d60e1dcdd161}{range} = \-N\-U\-L\-L
+\item 
+static \hyperlink{structt__genalg}{t\-\_\-genalg} $\ast$ \hyperlink{xutils_8c_affbb368aa211dd03252e5979be77c661}{ga} = \-N\-U\-L\-L
+\item 
+static \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{xutils_8c_a607ca2df317b12be697d235a52300149}{scale} = \{ 1, 1, 1 \}
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{xutils_8c_a70acae949115390bed968880ef92e670}{\index{xutils.\-c@{xutils.\-c}!calc\-\_\-mu\-\_\-aver@{calc\-\_\-mu\-\_\-aver}}
+\index{calc\-\_\-mu\-\_\-aver@{calc\-\_\-mu\-\_\-aver}!xutils.c@{xutils.\-c}}
+\subsubsection[{calc\-\_\-mu\-\_\-aver}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf calc\-\_\-mu\-\_\-aver} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-commrec} $\ast$}]{cr, }
+\item[{{\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{real}]{q\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{mu, }
+\item[{{\bf t\-\_\-block} $\ast$}]{mols, }
+\item[{{\bf t\-\_\-mdatoms} $\ast$}]{md, }
+\item[{int}]{gnx, }
+\item[{{\bf atom\-\_\-id}}]{grpindex\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{xutils_8c_a70acae949115390bed968880ef92e670}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{xutils_8c_a70acae949115390bed968880ef92e670_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=240pt]{xutils_8c_a70acae949115390bed968880ef92e670_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{xutils_8c_a20081555f836f3c6dff42c0c19aec5ba}{\index{xutils.\-c@{xutils.\-c}!cost@{cost}}
+\index{cost@{cost}!xutils.c@{xutils.\-c}}
+\subsubsection[{cost}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf cost} (
+\begin{DoxyParamCaption}
+\item[{{\bf tensor}}]{\-P, }
+\item[{real}]{\-M\-S\-F, }
+\item[{real}]{\-E}
+\end{DoxyParamCaption}
+)}}\label{xutils_8c_a20081555f836f3c6dff42c0c19aec5ba}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{xutils_8c_a20081555f836f3c6dff42c0c19aec5ba_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{xutils_8c_a3e591dd844381d9240f876f166800c68}{\index{xutils.\-c@{xutils.\-c}!init\-\_\-range@{init\-\_\-range}}
+\index{init\-\_\-range@{init\-\_\-range}!xutils.c@{xutils.\-c}}
+\subsubsection[{init\-\_\-range}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf init\-\_\-range} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-range} $\ast$}]{r, }
+\item[{int}]{np, }
+\item[{int}]{atype, }
+\item[{int}]{ptype, }
+\item[{real}]{rmin, }
+\item[{real}]{rmax}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{xutils_8c_a3e591dd844381d9240f876f166800c68}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=236pt]{xutils_8c_a3e591dd844381d9240f876f166800c68_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{xutils_8c_a3e591dd844381d9240f876f166800c68_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{xutils_8c_a1ada4be1e94538f4e3a01bb36a011623}{\index{xutils.\-c@{xutils.\-c}!mol\-\_\-dipole@{mol\-\_\-dipole}}
+\index{mol\-\_\-dipole@{mol\-\_\-dipole}!xutils.c@{xutils.\-c}}
+\subsubsection[{mol\-\_\-dipole}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf mol\-\_\-dipole} (
+\begin{DoxyParamCaption}
+\item[{int}]{k0, }
+\item[{int}]{k1, }
+\item[{{\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{real}]{q\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{xutils_8c_a1ada4be1e94538f4e3a01bb36a011623}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{xutils_8c_a1ada4be1e94538f4e3a01bb36a011623_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=340pt]{xutils_8c_a1ada4be1e94538f4e3a01bb36a011623_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{xutils_8c_ac40e748ec26bbfa13603d1312f188226}{\index{xutils.\-c@{xutils.\-c}!msf@{msf}}
+\index{msf@{msf}!xutils.c@{xutils.\-c}}
+\subsubsection[{msf}]{\setlength{\rightskip}{0pt plus 5cm}static real {\bf msf} (
+\begin{DoxyParamCaption}
+\item[{int}]{n, }
+\item[{{\bf rvec}}]{f1\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{f2\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{xutils_8c_ac40e748ec26bbfa13603d1312f188226}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=212pt]{xutils_8c_ac40e748ec26bbfa13603d1312f188226_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{xutils_8c_ac40e748ec26bbfa13603d1312f188226_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{xutils_8c_a9659a6879323a9cdc928bb8998b5ea0a}{\index{xutils.\-c@{xutils.\-c}!print\-\_\-forcefield@{print\-\_\-forcefield}}
+\index{print\-\_\-forcefield@{print\-\_\-forcefield}!xutils.c@{xutils.\-c}}
+\subsubsection[{print\-\_\-forcefield}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf print\-\_\-forcefield} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{real}]{ener\mbox{[}$\,$\mbox{]}, }
+\item[{int}]{natoms, }
+\item[{{\bf rvec}}]{f\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{fshake\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf t\-\_\-block} $\ast$}]{mols, }
+\item[{real}]{mass\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf tensor}}]{pres}
+\end{DoxyParamCaption}
+)}}\label{xutils_8c_a9659a6879323a9cdc928bb8998b5ea0a}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{xutils_8c_a9659a6879323a9cdc928bb8998b5ea0a_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=242pt]{xutils_8c_a9659a6879323a9cdc928bb8998b5ea0a_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{xutils_8c_a049da43c0bbe7928df3006cbd8cb6a96}{\index{xutils.\-c@{xutils.\-c}!print\-\_\-grid@{print\-\_\-grid}}
+\index{print\-\_\-grid@{print\-\_\-grid}!xutils.c@{xutils.\-c}}
+\subsubsection[{print\-\_\-grid}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf print\-\_\-grid} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{real}]{ener\mbox{[}$\,$\mbox{]}, }
+\item[{int}]{natoms, }
+\item[{{\bf rvec}}]{f\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{fshake\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf t\-\_\-block} $\ast$}]{mols, }
+\item[{real}]{mass\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf tensor}}]{pres}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{xutils_8c_a049da43c0bbe7928df3006cbd8cb6a96}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=336pt]{xutils_8c_a049da43c0bbe7928df3006cbd8cb6a96_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{xutils_8c_adb4be0d8d3640d6daf4562e9ba173676}{\index{xutils.\-c@{xutils.\-c}!print\-\_\-range@{print\-\_\-range}}
+\index{print\-\_\-range@{print\-\_\-range}!xutils.c@{xutils.\-c}}
+\subsubsection[{print\-\_\-range}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf print\-\_\-range} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fp, }
+\item[{{\bf tensor}}]{\-P, }
+\item[{real}]{\-M\-S\-F, }
+\item[{real}]{energy}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{xutils_8c_adb4be0d8d3640d6daf4562e9ba173676}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=220pt]{xutils_8c_adb4be0d8d3640d6daf4562e9ba173676_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=238pt]{xutils_8c_adb4be0d8d3640d6daf4562e9ba173676_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{xutils_8c_a16f8319bedd3dbed8d273c79509071ce}{\index{xutils.\-c@{xutils.\-c}!read\-\_\-range@{read\-\_\-range}}
+\index{read\-\_\-range@{read\-\_\-range}!xutils.c@{xutils.\-c}}
+\subsubsection[{read\-\_\-range}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf t\-\_\-range}$\ast$ {\bf read\-\_\-range} (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{db, }
+\item[{int $\ast$}]{nrange}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{xutils_8c_a16f8319bedd3dbed8d273c79509071ce}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{xutils_8c_a16f8319bedd3dbed8d273c79509071ce_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{xutils_8c_a16f8319bedd3dbed8d273c79509071ce_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{xutils_8c_a56ef5a12dcf52d438d64b2daa2b56cc2}{\index{xutils.\-c@{xutils.\-c}!scale\-\_\-box@{scale\-\_\-box}}
+\index{scale\-\_\-box@{scale\-\_\-box}!xutils.c@{xutils.\-c}}
+\subsubsection[{scale\-\_\-box}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf scale\-\_\-box} (
+\begin{DoxyParamCaption}
+\item[{int}]{natoms, }
+\item[{{\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf matrix}}]{box}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{xutils_8c_a56ef5a12dcf52d438d64b2daa2b56cc2}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{xutils_8c_a56ef5a12dcf52d438d64b2daa2b56cc2_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{xutils_8c_a1610152d4dd1731a948a65b6ce1ee44b}{\index{xutils.\-c@{xutils.\-c}!set\-\_\-ffvars@{set\-\_\-ffvars}}
+\index{set\-\_\-ffvars@{set\-\_\-ffvars}!xutils.c@{xutils.\-c}}
+\subsubsection[{set\-\_\-ffvars}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf set\-\_\-ffvars} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-ffscan} $\ast$}]{fff}
+\end{DoxyParamCaption}
+)}}\label{xutils_8c_a1610152d4dd1731a948a65b6ce1ee44b}
+\hypertarget{xutils_8c_a0eda7123ad34a5bc8a4b00af942366c2}{\index{xutils.\-c@{xutils.\-c}!update\-\_\-ff@{update\-\_\-ff}}
+\index{update\-\_\-ff@{update\-\_\-ff}!xutils.c@{xutils.\-c}}
+\subsubsection[{update\-\_\-ff}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf void} {\bf update\-\_\-ff} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-forcerec} $\ast$}]{fr, }
+\item[{int}]{nparm, }
+\item[{{\bf t\-\_\-range}}]{range\mbox{[}$\,$\mbox{]}, }
+\item[{int}]{param\-\_\-val\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{xutils_8c_a0eda7123ad34a5bc8a4b00af942366c2}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=340pt]{xutils_8c_a0eda7123ad34a5bc8a4b00af942366c2_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=348pt]{xutils_8c_a0eda7123ad34a5bc8a4b00af942366c2_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{xutils_8c_ae18ba2a5aa292293cf3e5269cf935090}{\index{xutils.\-c@{xutils.\-c}!update\-\_\-forcefield@{update\-\_\-forcefield}}
+\index{update\-\_\-forcefield@{update\-\_\-forcefield}!xutils.c@{xutils.\-c}}
+\subsubsection[{update\-\_\-forcefield}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gmx\-\_\-bool} {\bf update\-\_\-forcefield} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fplog, }
+\item[{int}]{nfile, }
+\item[{const {\bf t\-\_\-filenm}}]{fnm\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf t\-\_\-forcerec} $\ast$}]{fr, }
+\item[{int}]{natoms, }
+\item[{{\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf matrix}}]{box}
+\end{DoxyParamCaption}
+)}}\label{xutils_8c_ae18ba2a5aa292293cf3e5269cf935090}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{xutils_8c_ae18ba2a5aa292293cf3e5269cf935090_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=254pt]{xutils_8c_ae18ba2a5aa292293cf3e5269cf935090_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{xutils_8c_a7a565e3a9aa8a55d648e8d3735df050a}{\index{xutils.\-c@{xutils.\-c}!value\-\_\-rand@{value\-\_\-rand}}
+\index{value\-\_\-rand@{value\-\_\-rand}!xutils.c@{xutils.\-c}}
+\subsubsection[{value\-\_\-rand}]{\setlength{\rightskip}{0pt plus 5cm}real {\bf value\-\_\-rand} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-range} $\ast$}]{r, }
+\item[{int $\ast$}]{seed}
+\end{DoxyParamCaption}
+)}}\label{xutils_8c_a7a565e3a9aa8a55d648e8d3735df050a}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=222pt]{xutils_8c_a7a565e3a9aa8a55d648e8d3735df050a_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{xutils_8c_a7a565e3a9aa8a55d648e8d3735df050a_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{xutils_8c_acdfc25a1b805507aecf627c8a3dd83f5}{\index{xutils.\-c@{xutils.\-c}!value\-\_\-range@{value\-\_\-range}}
+\index{value\-\_\-range@{value\-\_\-range}!xutils.c@{xutils.\-c}}
+\subsubsection[{value\-\_\-range}]{\setlength{\rightskip}{0pt plus 5cm}static real {\bf value\-\_\-range} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-range} $\ast$}]{r, }
+\item[{int}]{n}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{xutils_8c_acdfc25a1b805507aecf627c8a3dd83f5}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=246pt]{xutils_8c_acdfc25a1b805507aecf627c8a3dd83f5_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{xutils_8c_acdfc25a1b805507aecf627c8a3dd83f5_icgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{\-Variable \-Documentation}
+\hypertarget{xutils_8c_a1ca5d14da9e7988942a5b4b23701f01f}{\index{xutils.\-c@{xutils.\-c}!esenm@{esenm}}
+\index{esenm@{esenm}!xutils.c@{xutils.\-c}}
+\subsubsection[{esenm}]{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ {\bf esenm}\mbox{[}{\bf ese\-N\-R}\mbox{]} = \{ \char`\"{}\-S\-I\-G\char`\"{}, \char`\"{}{\bf \-E\-P\-S}\char`\"{}, \char`\"{}{\bf \-B\-H\-A\-M\-A}\char`\"{}, \char`\"{}{\bf \-B\-H\-A\-M\-B}\char`\"{}, \char`\"{}{\bf \-B\-H\-A\-M\-C}\char`\"{}, \char`\"{}\-C\-E\-Ll\-X\char`\"{}, \char`\"{}\-C\-E\-L\-L\-Y\char`\"{}, \char`\"{}\-C\-E\-L\-L\-Z\char`\"{} \}\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{xutils_8c_a1ca5d14da9e7988942a5b4b23701f01f}
+\hypertarget{xutils_8c_a535bdffef2ec705f343bfb4e7f2ea4fb}{\index{xutils.\-c@{xutils.\-c}!ff@{ff}}
+\index{ff@{ff}!xutils.c@{xutils.\-c}}
+\subsubsection[{ff}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\-\_\-ffscan} {\bf ff}\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{xutils_8c_a535bdffef2ec705f343bfb4e7f2ea4fb}
+\hypertarget{xutils_8c_affbb368aa211dd03252e5979be77c661}{\index{xutils.\-c@{xutils.\-c}!ga@{ga}}
+\index{ga@{ga}!xutils.c@{xutils.\-c}}
+\subsubsection[{ga}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\-\_\-genalg}$\ast$ {\bf ga} = \-N\-U\-L\-L\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{xutils_8c_affbb368aa211dd03252e5979be77c661}
+\hypertarget{xutils_8c_a83a125e5078027799969224ee5d7198d}{\index{xutils.\-c@{xutils.\-c}!nparm@{nparm}}
+\index{nparm@{nparm}!xutils.c@{xutils.\-c}}
+\subsubsection[{nparm}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf nparm} = 0\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{xutils_8c_a83a125e5078027799969224ee5d7198d}
+\hypertarget{xutils_8c_a483b585684aad281304dd551e9b19a18}{\index{xutils.\-c@{xutils.\-c}!param\-\_\-val@{param\-\_\-val}}
+\index{param\-\_\-val@{param\-\_\-val}!xutils.c@{xutils.\-c}}
+\subsubsection[{param\-\_\-val}]{\setlength{\rightskip}{0pt plus 5cm}int $\ast$ {\bf param\-\_\-val} = \-N\-U\-L\-L\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{xutils_8c_a483b585684aad281304dd551e9b19a18}
+\hypertarget{xutils_8c_a7a0ed82b89da2a4d9d11d60e1dcdd161}{\index{xutils.\-c@{xutils.\-c}!range@{range}}
+\index{range@{range}!xutils.c@{xutils.\-c}}
+\subsubsection[{range}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\-\_\-range}$\ast$ {\bf range} = \-N\-U\-L\-L\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{xutils_8c_a7a0ed82b89da2a4d9d11d60e1dcdd161}
+\hypertarget{xutils_8c_a607ca2df317b12be697d235a52300149}{\index{xutils.\-c@{xutils.\-c}!scale@{scale}}
+\index{scale@{scale}!xutils.c@{xutils.\-c}}
+\subsubsection[{scale}]{\setlength{\rightskip}{0pt plus 5cm}{\bf rvec} {\bf scale} = \{ 1, 1, 1 \}\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{xutils_8c_a607ca2df317b12be697d235a52300149}

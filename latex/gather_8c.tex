@@ -1,0 +1,135 @@
+\hypertarget{gather_8c}{\section{src/gmxlib/thread\-\_\-mpi/gather.c \-File \-Reference}
+\label{gather_8c}\index{src/gmxlib/thread\-\_\-mpi/gather.\-c@{src/gmxlib/thread\-\_\-mpi/gather.\-c}}
+}
+{\ttfamily \#include $<$errno.\-h$>$}\*
+{\ttfamily \#include $<$stdlib.\-h$>$}\*
+{\ttfamily \#include $<$stdio.\-h$>$}\*
+{\ttfamily \#include $<$stdarg.\-h$>$}\*
+{\ttfamily \#include $<$string.\-h$>$}\*
+{\ttfamily \#include \char`\"{}impl.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}collective.\-h\char`\"{}}\*
+\-Include dependency graph for gather.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gather_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{gather_8c_a95d91eb3622d877499e0aafe5de1b579}{t\-M\-P\-I\-\_\-\-Gather} (\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$sendbuf, int sendcount, \hyperlink{include_2thread__mpi_2tmpi_8h_a5dfe10378be22fca9362e52f6abdf503}{t\-M\-P\-I\-\_\-\-Datatype} sendtype, \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$recvbuf, int recvcount, \hyperlink{include_2thread__mpi_2tmpi_8h_a5dfe10378be22fca9362e52f6abdf503}{t\-M\-P\-I\-\_\-\-Datatype} recvtype, int root, \hyperlink{include_2thread__mpi_2tmpi_8h_ab76dc275b882a1d00a54353fb8dd4cb3}{t\-M\-P\-I\-\_\-\-Comm} comm)
+\item 
+int \hyperlink{gather_8c_a9a4af260da5a90f12257b0ed43d9b7fc}{t\-M\-P\-I\-\_\-\-Gatherv} (\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$sendbuf, int sendcount, \hyperlink{include_2thread__mpi_2tmpi_8h_a5dfe10378be22fca9362e52f6abdf503}{t\-M\-P\-I\-\_\-\-Datatype} sendtype, \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$recvbuf, int $\ast$recvcounts, int $\ast$displs, \hyperlink{include_2thread__mpi_2tmpi_8h_a5dfe10378be22fca9362e52f6abdf503}{t\-M\-P\-I\-\_\-\-Datatype} recvtype, int root, \hyperlink{include_2thread__mpi_2tmpi_8h_ab76dc275b882a1d00a54353fb8dd4cb3}{t\-M\-P\-I\-\_\-\-Comm} comm)
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{gather_8c_a95d91eb3622d877499e0aafe5de1b579}{\index{gather.\-c@{gather.\-c}!t\-M\-P\-I\-\_\-\-Gather@{t\-M\-P\-I\-\_\-\-Gather}}
+\index{t\-M\-P\-I\-\_\-\-Gather@{t\-M\-P\-I\-\_\-\-Gather}!gather.c@{gather.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Gather}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf t\-M\-P\-I\-\_\-\-Gather} (
+\begin{DoxyParamCaption}
+\item[{{\bf void} $\ast$}]{sendbuf, }
+\item[{int}]{sendcount, }
+\item[{{\bf t\-M\-P\-I\-\_\-\-Datatype}}]{sendtype, }
+\item[{{\bf void} $\ast$}]{recvbuf, }
+\item[{int}]{recvcount, }
+\item[{{\bf t\-M\-P\-I\-\_\-\-Datatype}}]{recvtype, }
+\item[{int}]{root, }
+\item[{{\bf t\-M\-P\-I\-\_\-\-Comm}}]{comm}
+\end{DoxyParamCaption}
+)}}\label{gather_8c_a95d91eb3622d877499e0aafe5de1b579}
+\-Gather data from all threads in comm to root.
+
+\-Collective function; assumes that all data is received in blocks of recvcount.
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em sendbuf} & \-The send buffer for all threads (root may specify \-T\-M\-P\-I\-\_\-\-I\-N\-\_\-\-P\-L\-A\-C\-E, in which case it transfers nothing to itself). \\
+\hline
+\mbox{\tt in}  & {\em sendcount} & \-The number of items to send for all threads. \\
+\hline
+\mbox{\tt in}  & {\em sendtype} & \-The type of the items to send. \\
+\hline
+\mbox{\tt out}  & {\em recvbuf} & \-The receiving buffer (for root thread). \\
+\hline
+\mbox{\tt in}  & {\em recvcount} & \-The number of items to receive (for root). \\
+\hline
+\mbox{\tt in}  & {\em recvtype} & \-The type of the items to receive (for root). \\
+\hline
+\mbox{\tt in}  & {\em root} & \-The rank of root. \\
+\hline
+\mbox{\tt in}  & {\em comm} & \-The communicator.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-T\-M\-P\-I\-\_\-\-S\-U\-C\-C\-E\-S\-S on success, \-T\-M\-P\-I\-\_\-\-F\-A\-I\-L\-U\-R\-E on failure. 
+\end{DoxyReturn}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gather_8c_a95d91eb3622d877499e0aafe5de1b579_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gather_8c_a9a4af260da5a90f12257b0ed43d9b7fc}{\index{gather.\-c@{gather.\-c}!t\-M\-P\-I\-\_\-\-Gatherv@{t\-M\-P\-I\-\_\-\-Gatherv}}
+\index{t\-M\-P\-I\-\_\-\-Gatherv@{t\-M\-P\-I\-\_\-\-Gatherv}!gather.c@{gather.\-c}}
+\subsubsection[{t\-M\-P\-I\-\_\-\-Gatherv}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf t\-M\-P\-I\-\_\-\-Gatherv} (
+\begin{DoxyParamCaption}
+\item[{{\bf void} $\ast$}]{sendbuf, }
+\item[{int}]{sendcount, }
+\item[{{\bf t\-M\-P\-I\-\_\-\-Datatype}}]{sendtype, }
+\item[{{\bf void} $\ast$}]{recvbuf, }
+\item[{int $\ast$}]{recvcounts, }
+\item[{int $\ast$}]{displs, }
+\item[{{\bf t\-M\-P\-I\-\_\-\-Datatype}}]{recvtype, }
+\item[{int}]{root, }
+\item[{{\bf t\-M\-P\-I\-\_\-\-Comm}}]{comm}
+\end{DoxyParamCaption}
+)}}\label{gather_8c_a9a4af260da5a90f12257b0ed43d9b7fc}
+\-Gather irregularly laid out data from all processes in comm to root.
+
+\-Collective function.
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em sendbuf} & \-The send buffer for all threads (root may specify \-T\-M\-P\-I\-\_\-\-I\-N\-\_\-\-P\-L\-A\-C\-E, in which case it transfers nothing to itself). \\
+\hline
+\mbox{\tt in}  & {\em sendcount} & \-The number of items to send for all threads. \\
+\hline
+\mbox{\tt in}  & {\em sendtype} & \-The type of the items to send. \\
+\hline
+\mbox{\tt out}  & {\em recvbuf} & \-The receiving buffer (for root thread). \\
+\hline
+\mbox{\tt in}  & {\em recvcounts} & \-The list of number of items to receive (for root). \\
+\hline
+\mbox{\tt in}  & {\em displs} & \-The list of displacements in recvbuf to receive data in (for root). \\
+\hline
+\mbox{\tt in}  & {\em recvtype} & \-The type of the items to receive (for root). \\
+\hline
+\mbox{\tt in}  & {\em root} & \-The rank of root. \\
+\hline
+\mbox{\tt in}  & {\em comm} & \-The communicator.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-T\-M\-P\-I\-\_\-\-S\-U\-C\-C\-E\-S\-S on success, \-T\-M\-P\-I\-\_\-\-F\-A\-I\-L\-U\-R\-E on failure. 
+\end{DoxyReturn}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gather_8c_a9a4af260da5a90f12257b0ed43d9b7fc_cgraph}
+\end{center}
+\end{figure}
+
+

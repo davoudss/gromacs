@@ -1,0 +1,80 @@
+\hypertarget{nb__generic__adress_8c}{\section{src/gmxlib/nonbonded/nb\-\_\-generic\-\_\-adress.c \-File \-Reference}
+\label{nb__generic__adress_8c}\index{src/gmxlib/nonbonded/nb\-\_\-generic\-\_\-adress.\-c@{src/gmxlib/nonbonded/nb\-\_\-generic\-\_\-adress.\-c}}
+}
+{\ttfamily \#include $<$math.\-h$>$}\*
+{\ttfamily \#include \char`\"{}types/simple.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}vec.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}typedefs.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}nb\-\_\-generic\-\_\-adress.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}nrnb.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}nonbonded.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}nb\-\_\-kernel.\-h\char`\"{}}\*
+\-Include dependency graph for nb\-\_\-generic\-\_\-adress.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nb__generic__adress_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{nb__generic__adress_8c_af1eda01eaa3d9dc5167d5fefd39b1d75}{\-A\-L\-M\-O\-S\-T\-\_\-\-Z\-E\-R\-O}~1e-\/30
+\item 
+\#define \hyperlink{nb__generic__adress_8c_a9eac212e9198d3534ac8ac46d044a788}{\-A\-L\-M\-O\-S\-T\-\_\-\-O\-N\-E}~1-\/(1e-\/30)
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{nb__generic__adress_8c_a3e32b123f8f3c08de1b003cf408d3361}{gmx\-\_\-nb\-\_\-generic\-\_\-adress\-\_\-kernel} (\hyperlink{structt__nblist}{t\-\_\-nblist} $\ast$nlist, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$xx, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$\hyperlink{xutils_8c_a535bdffef2ec705f343bfb4e7f2ea4fb}{ff}, \hyperlink{structt__forcerec}{t\-\_\-forcerec} $\ast$\hyperlink{addconf_8c_ae8414314f87c5e49503ac0117eb511ad}{fr}, \hyperlink{structt__mdatoms}{t\-\_\-mdatoms} $\ast$mdatoms, \hyperlink{structnb__kernel__data__t}{nb\-\_\-kernel\-\_\-data\-\_\-t} $\ast$kernel\-\_\-data, \hyperlink{structt__nrnb}{t\-\_\-nrnb} $\ast$nrnb)
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Define \-Documentation}
+\hypertarget{nb__generic__adress_8c_a9eac212e9198d3534ac8ac46d044a788}{\index{nb\-\_\-generic\-\_\-adress.\-c@{nb\-\_\-generic\-\_\-adress.\-c}!\-A\-L\-M\-O\-S\-T\-\_\-\-O\-N\-E@{\-A\-L\-M\-O\-S\-T\-\_\-\-O\-N\-E}}
+\index{\-A\-L\-M\-O\-S\-T\-\_\-\-O\-N\-E@{\-A\-L\-M\-O\-S\-T\-\_\-\-O\-N\-E}!nb_generic_adress.c@{nb\-\_\-generic\-\_\-adress.\-c}}
+\subsubsection[{\-A\-L\-M\-O\-S\-T\-\_\-\-O\-N\-E}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-A\-L\-M\-O\-S\-T\-\_\-\-O\-N\-E}~1-\/(1e-\/30)}}\label{nb__generic__adress_8c_a9eac212e9198d3534ac8ac46d044a788}
+\hypertarget{nb__generic__adress_8c_af1eda01eaa3d9dc5167d5fefd39b1d75}{\index{nb\-\_\-generic\-\_\-adress.\-c@{nb\-\_\-generic\-\_\-adress.\-c}!\-A\-L\-M\-O\-S\-T\-\_\-\-Z\-E\-R\-O@{\-A\-L\-M\-O\-S\-T\-\_\-\-Z\-E\-R\-O}}
+\index{\-A\-L\-M\-O\-S\-T\-\_\-\-Z\-E\-R\-O@{\-A\-L\-M\-O\-S\-T\-\_\-\-Z\-E\-R\-O}!nb_generic_adress.c@{nb\-\_\-generic\-\_\-adress.\-c}}
+\subsubsection[{\-A\-L\-M\-O\-S\-T\-\_\-\-Z\-E\-R\-O}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-A\-L\-M\-O\-S\-T\-\_\-\-Z\-E\-R\-O}~1e-\/30}}\label{nb__generic__adress_8c_af1eda01eaa3d9dc5167d5fefd39b1d75}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{nb__generic__adress_8c_a3e32b123f8f3c08de1b003cf408d3361}{\index{nb\-\_\-generic\-\_\-adress.\-c@{nb\-\_\-generic\-\_\-adress.\-c}!gmx\-\_\-nb\-\_\-generic\-\_\-adress\-\_\-kernel@{gmx\-\_\-nb\-\_\-generic\-\_\-adress\-\_\-kernel}}
+\index{gmx\-\_\-nb\-\_\-generic\-\_\-adress\-\_\-kernel@{gmx\-\_\-nb\-\_\-generic\-\_\-adress\-\_\-kernel}!nb_generic_adress.c@{nb\-\_\-generic\-\_\-adress.\-c}}
+\subsubsection[{gmx\-\_\-nb\-\_\-generic\-\_\-adress\-\_\-kernel}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf gmx\-\_\-nb\-\_\-generic\-\_\-adress\-\_\-kernel} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-nblist} $\ast$}]{nlist, }
+\item[{{\bf rvec} $\ast$}]{xx, }
+\item[{{\bf rvec} $\ast$}]{ff, }
+\item[{{\bf t\-\_\-forcerec} $\ast$}]{fr, }
+\item[{{\bf t\-\_\-mdatoms} $\ast$}]{mdatoms, }
+\item[{{\bf nb\-\_\-kernel\-\_\-data\-\_\-t} $\ast$}]{kernel\-\_\-data, }
+\item[{{\bf t\-\_\-nrnb} $\ast$}]{nrnb}
+\end{DoxyParamCaption}
+)}}\label{nb__generic__adress_8c_a3e32b123f8f3c08de1b003cf408d3361}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=330pt]{nb__generic__adress_8c_a3e32b123f8f3c08de1b003cf408d3361_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nb__generic__adress_8c_a3e32b123f8f3c08de1b003cf408d3361_icgraph}
+\end{center}
+\end{figure}
+
+

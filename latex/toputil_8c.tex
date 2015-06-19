@@ -1,0 +1,455 @@
+\hypertarget{toputil_8c}{\section{src/kernel/toputil.c \-File \-Reference}
+\label{toputil_8c}\index{src/kernel/toputil.\-c@{src/kernel/toputil.\-c}}
+}
+{\ttfamily \#include $<$math.\-h$>$}\*
+{\ttfamily \#include \char`\"{}smalloc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}sysstuff.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}macros.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}string2.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}topdirs.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}toputil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}symtab.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-fatal.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gpp\-\_\-atomtype.\-h\char`\"{}}\*
+\-Include dependency graph for toputil.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{toputil_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{toputil_8c_ab78edaf623a959105efc4c74d9efd0e8}{set\-\_\-p\-\_\-string} (\hyperlink{structt__param}{t\-\_\-param} $\ast$p, const char $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a6dd0d3574865c5458827c47f2cfd02b8}{s})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{toputil_8c_a6f49b7944d5c1dd18d842c3084d64cfa}{pr\-\_\-alloc} (int extra, \hyperlink{structt__params}{t\-\_\-params} $\ast$pr)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{toputil_8c_a5f7f56aa42c3b5ec5a312b98a573eaf7}{init\-\_\-plist} (\hyperlink{structt__params}{t\-\_\-params} plist\mbox{[}$\,$\mbox{]})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{toputil_8c_aac5ec09e0ad77989de8cf65ce1d0e19b}{cp\-\_\-param} (\hyperlink{structt__param}{t\-\_\-param} $\ast$dest, \hyperlink{structt__param}{t\-\_\-param} $\ast$src)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{toputil_8c_a980789843988b23615dbcc493ccbc33b}{add\-\_\-param\-\_\-to\-\_\-list} (\hyperlink{structt__params}{t\-\_\-params} $\ast$list, \hyperlink{structt__param}{t\-\_\-param} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afb462a5dea72ae7992f073bfd756fb5f}{b})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{toputil_8c_a2cd8dd071d669432067ae86c1b86ff49}{init\-\_\-molinfo} (\hyperlink{structt__molinfo}{t\-\_\-molinfo} $\ast$mol)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{toputil_8c_ae2be6e052fc77d71e1bf89bf6c12a38f}{done\-\_\-bt} (\hyperlink{structt__params}{t\-\_\-params} $\ast$pl)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{toputil_8c_a4446ee1c37b35a6f68a223c313827c5e}{done\-\_\-mi} (\hyperlink{structt__molinfo}{t\-\_\-molinfo} $\ast$mi)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{toputil_8c_aa694e8f789be85a9ffdb53b69e43806e}{print\-\_\-bt} (\-F\-I\-L\-E $\ast$out, \hyperlink{include_2grompp_8h_a0253a0f97450621088027f8584f850d6}{directive} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae624f265c646670d373e9de0306f184b}{d}, \hyperlink{include_2gpp__atomtype_8h_a140a52ba2b384d9a6483fe65c780f110}{gpp\-\_\-atomtype\-\_\-t} at, int ftype, int fsubtype, \hyperlink{structt__params}{t\-\_\-params} plist\mbox{[}$\,$\mbox{]}, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-Full\-Dih)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{toputil_8c_a16af4f9b5b15295c9e45f28fbd800844}{print\-\_\-blocka} (\-F\-I\-L\-E $\ast$out, const char $\ast$sz\-Name, const char $\ast$sz\-Index, const char $\ast$sz\-A, \hyperlink{structt__blocka}{t\-\_\-blocka} $\ast$block)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{toputil_8c_aac89f9f8dd6fc2af2a70c4b4e9a8681d}{print\-\_\-excl} (\-F\-I\-L\-E $\ast$out, int natoms, \hyperlink{structt__excls}{t\-\_\-excls} excls\mbox{[}$\,$\mbox{]})
+\item 
+static double \hyperlink{toputil_8c_a013478ecaa89ae49241bd7a5e72b3234}{get\-\_\-residue\-\_\-charge} (const \hyperlink{structt__atoms}{t\-\_\-atoms} $\ast$atoms, int at)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{toputil_8c_ac254610237ebe886d15199b31bec2765}{print\-\_\-atoms} (\-F\-I\-L\-E $\ast$out, \hyperlink{include_2gpp__atomtype_8h_a140a52ba2b384d9a6483fe65c780f110}{gpp\-\_\-atomtype\-\_\-t} atype, \hyperlink{structt__atoms}{t\-\_\-atoms} $\ast$at, int $\ast$cgnr, \hyperlink{include_2types_2simple_8h_a8fddad319f226e856400d190198d5151}{gmx\-\_\-bool} b\-R\-T\-Presname)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{toputil_8c_a75ae77998cd955fc45d06fb869cb8227}{print\-\_\-bondeds} (\-F\-I\-L\-E $\ast$out, int natoms, \hyperlink{include_2grompp_8h_a0253a0f97450621088027f8584f850d6}{directive} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ae624f265c646670d373e9de0306f184b}{d}, int ftype, int fsubtype, \hyperlink{structt__params}{t\-\_\-params} plist\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{toputil_8c_a980789843988b23615dbcc493ccbc33b}{\index{toputil.\-c@{toputil.\-c}!add\-\_\-param\-\_\-to\-\_\-list@{add\-\_\-param\-\_\-to\-\_\-list}}
+\index{add\-\_\-param\-\_\-to\-\_\-list@{add\-\_\-param\-\_\-to\-\_\-list}!toputil.c@{toputil.\-c}}
+\subsubsection[{add\-\_\-param\-\_\-to\-\_\-list}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf add\-\_\-param\-\_\-to\-\_\-list} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-params} $\ast$}]{list, }
+\item[{{\bf t\-\_\-param} $\ast$}]{b}
+\end{DoxyParamCaption}
+)}}\label{toputil_8c_a980789843988b23615dbcc493ccbc33b}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=262pt]{toputil_8c_a980789843988b23615dbcc493ccbc33b_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{toputil_8c_a980789843988b23615dbcc493ccbc33b_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{toputil_8c_aac5ec09e0ad77989de8cf65ce1d0e19b}{\index{toputil.\-c@{toputil.\-c}!cp\-\_\-param@{cp\-\_\-param}}
+\index{cp\-\_\-param@{cp\-\_\-param}!toputil.c@{toputil.\-c}}
+\subsubsection[{cp\-\_\-param}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf cp\-\_\-param} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-param} $\ast$}]{dest, }
+\item[{{\bf t\-\_\-param} $\ast$}]{src}
+\end{DoxyParamCaption}
+)}}\label{toputil_8c_aac5ec09e0ad77989de8cf65ce1d0e19b}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=336pt]{toputil_8c_aac5ec09e0ad77989de8cf65ce1d0e19b_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{toputil_8c_ae2be6e052fc77d71e1bf89bf6c12a38f}{\index{toputil.\-c@{toputil.\-c}!done\-\_\-bt@{done\-\_\-bt}}
+\index{done\-\_\-bt@{done\-\_\-bt}!toputil.c@{toputil.\-c}}
+\subsubsection[{done\-\_\-bt}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf done\-\_\-bt} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-params} $\ast$}]{pl}
+\end{DoxyParamCaption}
+)}}\label{toputil_8c_ae2be6e052fc77d71e1bf89bf6c12a38f}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{toputil_8c_ae2be6e052fc77d71e1bf89bf6c12a38f_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{toputil_8c_a4446ee1c37b35a6f68a223c313827c5e}{\index{toputil.\-c@{toputil.\-c}!done\-\_\-mi@{done\-\_\-mi}}
+\index{done\-\_\-mi@{done\-\_\-mi}!toputil.c@{toputil.\-c}}
+\subsubsection[{done\-\_\-mi}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf done\-\_\-mi} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-molinfo} $\ast$}]{mi}
+\end{DoxyParamCaption}
+)}}\label{toputil_8c_a4446ee1c37b35a6f68a223c313827c5e}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=236pt]{toputil_8c_a4446ee1c37b35a6f68a223c313827c5e_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{toputil_8c_a4446ee1c37b35a6f68a223c313827c5e_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{toputil_8c_a013478ecaa89ae49241bd7a5e72b3234}{\index{toputil.\-c@{toputil.\-c}!get\-\_\-residue\-\_\-charge@{get\-\_\-residue\-\_\-charge}}
+\index{get\-\_\-residue\-\_\-charge@{get\-\_\-residue\-\_\-charge}!toputil.c@{toputil.\-c}}
+\subsubsection[{get\-\_\-residue\-\_\-charge}]{\setlength{\rightskip}{0pt plus 5cm}static double {\bf get\-\_\-residue\-\_\-charge} (
+\begin{DoxyParamCaption}
+\item[{const {\bf t\-\_\-atoms} $\ast$}]{atoms, }
+\item[{int}]{at}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{toputil_8c_a013478ecaa89ae49241bd7a5e72b3234}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{toputil_8c_a013478ecaa89ae49241bd7a5e72b3234_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{toputil_8c_a2cd8dd071d669432067ae86c1b86ff49}{\index{toputil.\-c@{toputil.\-c}!init\-\_\-molinfo@{init\-\_\-molinfo}}
+\index{init\-\_\-molinfo@{init\-\_\-molinfo}!toputil.c@{toputil.\-c}}
+\subsubsection[{init\-\_\-molinfo}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf init\-\_\-molinfo} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-molinfo} $\ast$}]{mol}
+\end{DoxyParamCaption}
+)}}\label{toputil_8c_a2cd8dd071d669432067ae86c1b86ff49}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=246pt]{toputil_8c_a2cd8dd071d669432067ae86c1b86ff49_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{toputil_8c_a2cd8dd071d669432067ae86c1b86ff49_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{toputil_8c_a5f7f56aa42c3b5ec5a312b98a573eaf7}{\index{toputil.\-c@{toputil.\-c}!init\-\_\-plist@{init\-\_\-plist}}
+\index{init\-\_\-plist@{init\-\_\-plist}!toputil.c@{toputil.\-c}}
+\subsubsection[{init\-\_\-plist}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf init\-\_\-plist} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-params}}]{plist\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{toputil_8c_a5f7f56aa42c3b5ec5a312b98a573eaf7}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{toputil_8c_a5f7f56aa42c3b5ec5a312b98a573eaf7_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{toputil_8c_a6f49b7944d5c1dd18d842c3084d64cfa}{\index{toputil.\-c@{toputil.\-c}!pr\-\_\-alloc@{pr\-\_\-alloc}}
+\index{pr\-\_\-alloc@{pr\-\_\-alloc}!toputil.c@{toputil.\-c}}
+\subsubsection[{pr\-\_\-alloc}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf pr\-\_\-alloc} (
+\begin{DoxyParamCaption}
+\item[{int}]{extra, }
+\item[{{\bf t\-\_\-params} $\ast$}]{pr}
+\end{DoxyParamCaption}
+)}}\label{toputil_8c_a6f49b7944d5c1dd18d842c3084d64cfa}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=236pt]{toputil_8c_a6f49b7944d5c1dd18d842c3084d64cfa_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{toputil_8c_a6f49b7944d5c1dd18d842c3084d64cfa_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{toputil_8c_ac254610237ebe886d15199b31bec2765}{\index{toputil.\-c@{toputil.\-c}!print\-\_\-atoms@{print\-\_\-atoms}}
+\index{print\-\_\-atoms@{print\-\_\-atoms}!toputil.c@{toputil.\-c}}
+\subsubsection[{print\-\_\-atoms}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf print\-\_\-atoms} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{out, }
+\item[{{\bf gpp\-\_\-atomtype\-\_\-t}}]{atype, }
+\item[{{\bf t\-\_\-atoms} $\ast$}]{at, }
+\item[{int $\ast$}]{cgnr, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-R\-T\-Presname}
+\end{DoxyParamCaption}
+)}}\label{toputil_8c_ac254610237ebe886d15199b31bec2765}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=290pt]{toputil_8c_ac254610237ebe886d15199b31bec2765_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=328pt]{toputil_8c_ac254610237ebe886d15199b31bec2765_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{toputil_8c_a16af4f9b5b15295c9e45f28fbd800844}{\index{toputil.\-c@{toputil.\-c}!print\-\_\-blocka@{print\-\_\-blocka}}
+\index{print\-\_\-blocka@{print\-\_\-blocka}!toputil.c@{toputil.\-c}}
+\subsubsection[{print\-\_\-blocka}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf print\-\_\-blocka} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{out, }
+\item[{const char $\ast$}]{sz\-Name, }
+\item[{const char $\ast$}]{sz\-Index, }
+\item[{const char $\ast$}]{sz\-A, }
+\item[{{\bf t\-\_\-blocka} $\ast$}]{block}
+\end{DoxyParamCaption}
+)}}\label{toputil_8c_a16af4f9b5b15295c9e45f28fbd800844}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=242pt]{toputil_8c_a16af4f9b5b15295c9e45f28fbd800844_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{toputil_8c_a75ae77998cd955fc45d06fb869cb8227}{\index{toputil.\-c@{toputil.\-c}!print\-\_\-bondeds@{print\-\_\-bondeds}}
+\index{print\-\_\-bondeds@{print\-\_\-bondeds}!toputil.c@{toputil.\-c}}
+\subsubsection[{print\-\_\-bondeds}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf print\-\_\-bondeds} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{out, }
+\item[{int}]{natoms, }
+\item[{{\bf directive}}]{d, }
+\item[{int}]{ftype, }
+\item[{int}]{fsubtype, }
+\item[{{\bf t\-\_\-params}}]{plist\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{toputil_8c_a75ae77998cd955fc45d06fb869cb8227}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{toputil_8c_a75ae77998cd955fc45d06fb869cb8227_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=338pt]{toputil_8c_a75ae77998cd955fc45d06fb869cb8227_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{toputil_8c_aa694e8f789be85a9ffdb53b69e43806e}{\index{toputil.\-c@{toputil.\-c}!print\-\_\-bt@{print\-\_\-bt}}
+\index{print\-\_\-bt@{print\-\_\-bt}!toputil.c@{toputil.\-c}}
+\subsubsection[{print\-\_\-bt}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf print\-\_\-bt} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{out, }
+\item[{{\bf directive}}]{d, }
+\item[{{\bf gpp\-\_\-atomtype\-\_\-t}}]{at, }
+\item[{int}]{ftype, }
+\item[{int}]{fsubtype, }
+\item[{{\bf t\-\_\-params}}]{plist\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf gmx\-\_\-bool}}]{b\-Full\-Dih}
+\end{DoxyParamCaption}
+)}}\label{toputil_8c_aa694e8f789be85a9ffdb53b69e43806e}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=272pt]{toputil_8c_aa694e8f789be85a9ffdb53b69e43806e_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{toputil_8c_aa694e8f789be85a9ffdb53b69e43806e_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{toputil_8c_aac89f9f8dd6fc2af2a70c4b4e9a8681d}{\index{toputil.\-c@{toputil.\-c}!print\-\_\-excl@{print\-\_\-excl}}
+\index{print\-\_\-excl@{print\-\_\-excl}!toputil.c@{toputil.\-c}}
+\subsubsection[{print\-\_\-excl}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf print\-\_\-excl} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{out, }
+\item[{int}]{natoms, }
+\item[{{\bf t\-\_\-excls}}]{excls\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{toputil_8c_aac89f9f8dd6fc2af2a70c4b4e9a8681d}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=220pt]{toputil_8c_aac89f9f8dd6fc2af2a70c4b4e9a8681d_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=320pt]{toputil_8c_aac89f9f8dd6fc2af2a70c4b4e9a8681d_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{toputil_8c_ab78edaf623a959105efc4c74d9efd0e8}{\index{toputil.\-c@{toputil.\-c}!set\-\_\-p\-\_\-string@{set\-\_\-p\-\_\-string}}
+\index{set\-\_\-p\-\_\-string@{set\-\_\-p\-\_\-string}!toputil.c@{toputil.\-c}}
+\subsubsection[{set\-\_\-p\-\_\-string}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf set\-\_\-p\-\_\-string} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-param} $\ast$}]{p, }
+\item[{const char $\ast$}]{s}
+\end{DoxyParamCaption}
+)}}\label{toputil_8c_ab78edaf623a959105efc4c74d9efd0e8}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=246pt]{toputil_8c_ab78edaf623a959105efc4c74d9efd0e8_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{toputil_8c_ab78edaf623a959105efc4c74d9efd0e8_icgraph}
+\end{center}
+\end{figure}
+
+

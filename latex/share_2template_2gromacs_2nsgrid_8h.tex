@@ -1,0 +1,335 @@
+\hypertarget{share_2template_2gromacs_2nsgrid_8h}{\section{share/template/gromacs/nsgrid.h \-File \-Reference}
+\label{share_2template_2gromacs_2nsgrid_8h}\index{share/template/gromacs/nsgrid.\-h@{share/template/gromacs/nsgrid.\-h}}
+}
+{\ttfamily \#include \char`\"{}visibility.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}typedefs.\-h\char`\"{}}\*
+\-Include dependency graph for nsgrid.\-h\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{share_2template_2gromacs_2nsgrid_8h__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{share_2template_2gromacs_2nsgrid_8h_ac4691a843bb315dbbc92356ca4a6c417}{\-G\-R\-I\-D\-\_\-\-S\-T\-D\-D\-E\-V\-\_\-\-F\-A\-C}~sqrt(3)
+\item 
+\#define \hyperlink{share_2template_2gromacs_2nsgrid_8h_a985568f797e0a74922f5f650e887adb2}{\-N\-S\-G\-R\-I\-D\-\_\-\-S\-T\-D\-D\-E\-V\-\_\-\-F\-A\-C}~2.\-0
+\item 
+\#define \hyperlink{share_2template_2gromacs_2nsgrid_8h_a1d5ae6996091176398438fcd5d0d15d8}{\-N\-S\-G\-R\-I\-D\-\_\-\-S\-I\-G\-N\-A\-L\-\_\-\-M\-O\-V\-E\-D\-\_\-\-F\-A\-C}~4
+\item 
+\#define \hyperlink{share_2template_2gromacs_2nsgrid_8h_a484ea26353022017674edd230eaff4fb}{xyz2ci}(nry, nrz, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ad992d70ec70c927046cfc2ab1c79b188}{y}, \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_abf930f675551f29a5e46efa4cb496828}{z})~((nry)$\ast$(nrz)$\ast$(\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x})+(nrz)$\ast$(\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ad992d70ec70c927046cfc2ab1c79b188}{y})+(\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_abf930f675551f29a5e46efa4cb496828}{z}))
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{share_2template_2gromacs_2visibility_8h_ab80ef94c2b909a1a948639e98e63b612}{\-G\-M\-X\-\_\-\-L\-I\-B\-M\-D\-\_\-\-E\-X\-P\-O\-R\-T} \hyperlink{structt__grid}{t\-\_\-grid} $\ast$ \hyperlink{share_2template_2gromacs_2nsgrid_8h_a291d1ec38b3465f9ee0db76b245cc237}{init\-\_\-grid} (\-F\-I\-L\-E $\ast$fplog, \hyperlink{structt__forcerec}{t\-\_\-forcerec} $\ast$\hyperlink{addconf_8c_ae8414314f87c5e49503ac0117eb511ad}{fr})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{share_2template_2gromacs_2nsgrid_8h_a37bd4d91bd747832e0c73e32cc1ab8a4}{done\-\_\-grid} (\hyperlink{structt__grid}{t\-\_\-grid} $\ast$grid)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{share_2template_2gromacs_2nsgrid_8h_ace8e17626b74536dcdb1cdb044c2401a}{get\-\_\-nsgrid\-\_\-boundaries} (int nboundeddim, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box, \hyperlink{structgmx__domdec__t}{gmx\-\_\-domdec\-\_\-t} $\ast$dd, \hyperlink{structgmx__ddbox__t}{gmx\-\_\-ddbox\-\_\-t} $\ast$ddbox, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$\hyperlink{gmx__hbond_8c_ae9481b45ac17ab64ccbe9ab02225b90ea3825ff922743891f25368f8d3a23d92f}{gr0}, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$\hyperlink{gmx__hbond_8c_ae9481b45ac17ab64ccbe9ab02225b90eaf93e01548de97b3cf8db0e3b7e3b5022}{gr1}, int ncg, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$cgcm, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} grid\-\_\-x0, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} grid\-\_\-x1, real $\ast$grid\-\_\-density)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{share_2template_2gromacs_2nsgrid_8h_a322f45763277bebc122ff59638addbac}{grid\-\_\-first} (\-F\-I\-L\-E $\ast$log, \hyperlink{structt__grid}{t\-\_\-grid} $\ast$grid, \hyperlink{structgmx__domdec__t}{gmx\-\_\-domdec\-\_\-t} $\ast$dd, const \hyperlink{structgmx__ddbox__t}{gmx\-\_\-ddbox\-\_\-t} $\ast$ddbox, int e\-P\-B\-C, \hyperlink{share_2template_2gromacs_2types_2simple_8h_a7ea9c2a830d3f743b887387e33645a83}{matrix} box, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} izones\-\_\-x0, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} izones\-\_\-x1, real rlong, real grid\-\_\-density)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{share_2template_2gromacs_2nsgrid_8h_a24a84865ae3bafe9af905e2f94ca1127}{fill\-\_\-grid} (\-F\-I\-L\-E $\ast$log, \hyperlink{structgmx__domdec__zones__t}{gmx\-\_\-domdec\-\_\-zones\-\_\-t} $\ast$dd\-\_\-zones, \hyperlink{structt__grid}{t\-\_\-grid} $\ast$grid, int ncg\-\_\-tot, int cg0, int cg1, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} cg\-\_\-cm\mbox{[}$\,$\mbox{]})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{share_2template_2gromacs_2nsgrid_8h_a15504daefedff78e894aee3fe95d4ece}{calc\-\_\-elemnr} (\-F\-I\-L\-E $\ast$log, \hyperlink{structt__grid}{t\-\_\-grid} $\ast$grid, int cg0, int cg1, int ncg)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{share_2template_2gromacs_2nsgrid_8h_adfa396fa6c95dc80d0f9717fd3cbaac3}{calc\-\_\-ptrs} (\hyperlink{structt__grid}{t\-\_\-grid} $\ast$grid)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{share_2template_2gromacs_2nsgrid_8h_a7f6e00c8c80600e86636bcc39951b754}{grid\-\_\-last} (\-F\-I\-L\-E $\ast$log, \hyperlink{structt__grid}{t\-\_\-grid} $\ast$grid, int cg0, int cg1, int ncg)
+\item 
+int \hyperlink{share_2template_2gromacs_2nsgrid_8h_a1196393c38c82b16b3d05255bdca8a4a}{xyz2ci\-\_\-} (int nry, int nrz, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ad992d70ec70c927046cfc2ab1c79b188}{y}, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_abf930f675551f29a5e46efa4cb496828}{z})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{share_2template_2gromacs_2nsgrid_8h_a12660e620d48c947c793a9df816bf143}{ci2xyz} (\hyperlink{structt__grid}{t\-\_\-grid} $\ast$grid, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a3c7542401c1cb8bd37ef5e7d9eb0f5a8}{i}, int $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}, int $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_ad992d70ec70c927046cfc2ab1c79b188}{y}, int $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_abf930f675551f29a5e46efa4cb496828}{z})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{share_2template_2gromacs_2nsgrid_8h_a8089af75f0476365a50d961e00e42c82}{check\-\_\-grid} (\-F\-I\-L\-E $\ast$log, \hyperlink{structt__grid}{t\-\_\-grid} $\ast$grid)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{share_2template_2gromacs_2nsgrid_8h_ae4429dfdd43f0befbecc35eb2e98929e}{print\-\_\-grid} (\-F\-I\-L\-E $\ast$log, \hyperlink{structt__grid}{t\-\_\-grid} $\ast$grid)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{share_2template_2gromacs_2nsgrid_8h_a3b8f7649c857e5344c7228a864b0f5be}{mv\-\_\-grid} (\hyperlink{structt__commrec}{t\-\_\-commrec} $\ast$cr, \hyperlink{structt__grid}{t\-\_\-grid} $\ast$grid)
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Define \-Documentation}
+\hypertarget{share_2template_2gromacs_2nsgrid_8h_ac4691a843bb315dbbc92356ca4a6c417}{\index{share/template/gromacs/nsgrid.\-h@{share/template/gromacs/nsgrid.\-h}!\-G\-R\-I\-D\-\_\-\-S\-T\-D\-D\-E\-V\-\_\-\-F\-A\-C@{\-G\-R\-I\-D\-\_\-\-S\-T\-D\-D\-E\-V\-\_\-\-F\-A\-C}}
+\index{\-G\-R\-I\-D\-\_\-\-S\-T\-D\-D\-E\-V\-\_\-\-F\-A\-C@{\-G\-R\-I\-D\-\_\-\-S\-T\-D\-D\-E\-V\-\_\-\-F\-A\-C}!share/template/gromacs/nsgrid.h@{share/template/gromacs/nsgrid.\-h}}
+\subsubsection[{\-G\-R\-I\-D\-\_\-\-S\-T\-D\-D\-E\-V\-\_\-\-F\-A\-C}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-G\-R\-I\-D\-\_\-\-S\-T\-D\-D\-E\-V\-\_\-\-F\-A\-C}~sqrt(3)}}\label{share_2template_2gromacs_2nsgrid_8h_ac4691a843bb315dbbc92356ca4a6c417}
+\hypertarget{share_2template_2gromacs_2nsgrid_8h_a1d5ae6996091176398438fcd5d0d15d8}{\index{share/template/gromacs/nsgrid.\-h@{share/template/gromacs/nsgrid.\-h}!\-N\-S\-G\-R\-I\-D\-\_\-\-S\-I\-G\-N\-A\-L\-\_\-\-M\-O\-V\-E\-D\-\_\-\-F\-A\-C@{\-N\-S\-G\-R\-I\-D\-\_\-\-S\-I\-G\-N\-A\-L\-\_\-\-M\-O\-V\-E\-D\-\_\-\-F\-A\-C}}
+\index{\-N\-S\-G\-R\-I\-D\-\_\-\-S\-I\-G\-N\-A\-L\-\_\-\-M\-O\-V\-E\-D\-\_\-\-F\-A\-C@{\-N\-S\-G\-R\-I\-D\-\_\-\-S\-I\-G\-N\-A\-L\-\_\-\-M\-O\-V\-E\-D\-\_\-\-F\-A\-C}!share/template/gromacs/nsgrid.h@{share/template/gromacs/nsgrid.\-h}}
+\subsubsection[{\-N\-S\-G\-R\-I\-D\-\_\-\-S\-I\-G\-N\-A\-L\-\_\-\-M\-O\-V\-E\-D\-\_\-\-F\-A\-C}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-N\-S\-G\-R\-I\-D\-\_\-\-S\-I\-G\-N\-A\-L\-\_\-\-M\-O\-V\-E\-D\-\_\-\-F\-A\-C}~4}}\label{share_2template_2gromacs_2nsgrid_8h_a1d5ae6996091176398438fcd5d0d15d8}
+\hypertarget{share_2template_2gromacs_2nsgrid_8h_a985568f797e0a74922f5f650e887adb2}{\index{share/template/gromacs/nsgrid.\-h@{share/template/gromacs/nsgrid.\-h}!\-N\-S\-G\-R\-I\-D\-\_\-\-S\-T\-D\-D\-E\-V\-\_\-\-F\-A\-C@{\-N\-S\-G\-R\-I\-D\-\_\-\-S\-T\-D\-D\-E\-V\-\_\-\-F\-A\-C}}
+\index{\-N\-S\-G\-R\-I\-D\-\_\-\-S\-T\-D\-D\-E\-V\-\_\-\-F\-A\-C@{\-N\-S\-G\-R\-I\-D\-\_\-\-S\-T\-D\-D\-E\-V\-\_\-\-F\-A\-C}!share/template/gromacs/nsgrid.h@{share/template/gromacs/nsgrid.\-h}}
+\subsubsection[{\-N\-S\-G\-R\-I\-D\-\_\-\-S\-T\-D\-D\-E\-V\-\_\-\-F\-A\-C}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-N\-S\-G\-R\-I\-D\-\_\-\-S\-T\-D\-D\-E\-V\-\_\-\-F\-A\-C}~2.\-0}}\label{share_2template_2gromacs_2nsgrid_8h_a985568f797e0a74922f5f650e887adb2}
+\hypertarget{share_2template_2gromacs_2nsgrid_8h_a484ea26353022017674edd230eaff4fb}{\index{share/template/gromacs/nsgrid.\-h@{share/template/gromacs/nsgrid.\-h}!xyz2ci@{xyz2ci}}
+\index{xyz2ci@{xyz2ci}!share/template/gromacs/nsgrid.h@{share/template/gromacs/nsgrid.\-h}}
+\subsubsection[{xyz2ci}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf xyz2ci}(
+\begin{DoxyParamCaption}
+\item[{}]{nry, }
+\item[{}]{nrz, }
+\item[{}]{{\bf x}, }
+\item[{}]{{\bf y}, }
+\item[{}]{{\bf z}}
+\end{DoxyParamCaption}
+)~((nry)$\ast$(nrz)$\ast$({\bf x})+(nrz)$\ast$({\bf y})+({\bf z}))}}\label{share_2template_2gromacs_2nsgrid_8h_a484ea26353022017674edd230eaff4fb}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{share_2template_2gromacs_2nsgrid_8h_a15504daefedff78e894aee3fe95d4ece}{\index{share/template/gromacs/nsgrid.\-h@{share/template/gromacs/nsgrid.\-h}!calc\-\_\-elemnr@{calc\-\_\-elemnr}}
+\index{calc\-\_\-elemnr@{calc\-\_\-elemnr}!share/template/gromacs/nsgrid.h@{share/template/gromacs/nsgrid.\-h}}
+\subsubsection[{calc\-\_\-elemnr}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf calc\-\_\-elemnr} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{log, }
+\item[{{\bf t\-\_\-grid} $\ast$}]{grid, }
+\item[{int}]{cg0, }
+\item[{int}]{cg1, }
+\item[{int}]{ncg}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2nsgrid_8h_a15504daefedff78e894aee3fe95d4ece}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=256pt]{share_2template_2gromacs_2nsgrid_8h_a15504daefedff78e894aee3fe95d4ece_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{share_2template_2gromacs_2nsgrid_8h_adfa396fa6c95dc80d0f9717fd3cbaac3}{\index{share/template/gromacs/nsgrid.\-h@{share/template/gromacs/nsgrid.\-h}!calc\-\_\-ptrs@{calc\-\_\-ptrs}}
+\index{calc\-\_\-ptrs@{calc\-\_\-ptrs}!share/template/gromacs/nsgrid.h@{share/template/gromacs/nsgrid.\-h}}
+\subsubsection[{calc\-\_\-ptrs}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf calc\-\_\-ptrs} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-grid} $\ast$}]{grid}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2nsgrid_8h_adfa396fa6c95dc80d0f9717fd3cbaac3}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=232pt]{share_2template_2gromacs_2nsgrid_8h_adfa396fa6c95dc80d0f9717fd3cbaac3_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{share_2template_2gromacs_2nsgrid_8h_a8089af75f0476365a50d961e00e42c82}{\index{share/template/gromacs/nsgrid.\-h@{share/template/gromacs/nsgrid.\-h}!check\-\_\-grid@{check\-\_\-grid}}
+\index{check\-\_\-grid@{check\-\_\-grid}!share/template/gromacs/nsgrid.h@{share/template/gromacs/nsgrid.\-h}}
+\subsubsection[{check\-\_\-grid}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf check\-\_\-grid} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{log, }
+\item[{{\bf t\-\_\-grid} $\ast$}]{grid}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2nsgrid_8h_a8089af75f0476365a50d961e00e42c82}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=240pt]{share_2template_2gromacs_2nsgrid_8h_a8089af75f0476365a50d961e00e42c82_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{share_2template_2gromacs_2nsgrid_8h_a12660e620d48c947c793a9df816bf143}{\index{share/template/gromacs/nsgrid.\-h@{share/template/gromacs/nsgrid.\-h}!ci2xyz@{ci2xyz}}
+\index{ci2xyz@{ci2xyz}!share/template/gromacs/nsgrid.h@{share/template/gromacs/nsgrid.\-h}}
+\subsubsection[{ci2xyz}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf ci2xyz} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-grid} $\ast$}]{grid, }
+\item[{int}]{i, }
+\item[{int $\ast$}]{x, }
+\item[{int $\ast$}]{y, }
+\item[{int $\ast$}]{z}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2nsgrid_8h_a12660e620d48c947c793a9df816bf143}
+\hypertarget{share_2template_2gromacs_2nsgrid_8h_a37bd4d91bd747832e0c73e32cc1ab8a4}{\index{share/template/gromacs/nsgrid.\-h@{share/template/gromacs/nsgrid.\-h}!done\-\_\-grid@{done\-\_\-grid}}
+\index{done\-\_\-grid@{done\-\_\-grid}!share/template/gromacs/nsgrid.h@{share/template/gromacs/nsgrid.\-h}}
+\subsubsection[{done\-\_\-grid}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf done\-\_\-grid} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-grid} $\ast$}]{grid}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2nsgrid_8h_a37bd4d91bd747832e0c73e32cc1ab8a4}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=238pt]{share_2template_2gromacs_2nsgrid_8h_a37bd4d91bd747832e0c73e32cc1ab8a4_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{share_2template_2gromacs_2nsgrid_8h_a24a84865ae3bafe9af905e2f94ca1127}{\index{share/template/gromacs/nsgrid.\-h@{share/template/gromacs/nsgrid.\-h}!fill\-\_\-grid@{fill\-\_\-grid}}
+\index{fill\-\_\-grid@{fill\-\_\-grid}!share/template/gromacs/nsgrid.h@{share/template/gromacs/nsgrid.\-h}}
+\subsubsection[{fill\-\_\-grid}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf fill\-\_\-grid} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{log, }
+\item[{{\bf gmx\-\_\-domdec\-\_\-zones\-\_\-t} $\ast$}]{dd\-\_\-zones, }
+\item[{{\bf t\-\_\-grid} $\ast$}]{grid, }
+\item[{int}]{ncg\-\_\-tot, }
+\item[{int}]{cg0, }
+\item[{int}]{cg1, }
+\item[{{\bf rvec}}]{cg\-\_\-cm\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2nsgrid_8h_a24a84865ae3bafe9af905e2f94ca1127}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{share_2template_2gromacs_2nsgrid_8h_a24a84865ae3bafe9af905e2f94ca1127_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{share_2template_2gromacs_2nsgrid_8h_ace8e17626b74536dcdb1cdb044c2401a}{\index{share/template/gromacs/nsgrid.\-h@{share/template/gromacs/nsgrid.\-h}!get\-\_\-nsgrid\-\_\-boundaries@{get\-\_\-nsgrid\-\_\-boundaries}}
+\index{get\-\_\-nsgrid\-\_\-boundaries@{get\-\_\-nsgrid\-\_\-boundaries}!share/template/gromacs/nsgrid.h@{share/template/gromacs/nsgrid.\-h}}
+\subsubsection[{get\-\_\-nsgrid\-\_\-boundaries}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf get\-\_\-nsgrid\-\_\-boundaries} (
+\begin{DoxyParamCaption}
+\item[{int}]{nboundeddim, }
+\item[{{\bf matrix}}]{box, }
+\item[{{\bf gmx\-\_\-domdec\-\_\-t} $\ast$}]{dd, }
+\item[{{\bf gmx\-\_\-ddbox\-\_\-t} $\ast$}]{ddbox, }
+\item[{{\bf rvec} $\ast$}]{gr0, }
+\item[{{\bf rvec} $\ast$}]{gr1, }
+\item[{int}]{ncg, }
+\item[{{\bf rvec} $\ast$}]{cgcm, }
+\item[{{\bf rvec}}]{grid\-\_\-x0, }
+\item[{{\bf rvec}}]{grid\-\_\-x1, }
+\item[{real $\ast$}]{grid\-\_\-density}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2nsgrid_8h_ace8e17626b74536dcdb1cdb044c2401a}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{share_2template_2gromacs_2nsgrid_8h_ace8e17626b74536dcdb1cdb044c2401a_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{share_2template_2gromacs_2nsgrid_8h_a322f45763277bebc122ff59638addbac}{\index{share/template/gromacs/nsgrid.\-h@{share/template/gromacs/nsgrid.\-h}!grid\-\_\-first@{grid\-\_\-first}}
+\index{grid\-\_\-first@{grid\-\_\-first}!share/template/gromacs/nsgrid.h@{share/template/gromacs/nsgrid.\-h}}
+\subsubsection[{grid\-\_\-first}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf grid\-\_\-first} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{log, }
+\item[{{\bf t\-\_\-grid} $\ast$}]{grid, }
+\item[{{\bf gmx\-\_\-domdec\-\_\-t} $\ast$}]{dd, }
+\item[{const {\bf gmx\-\_\-ddbox\-\_\-t} $\ast$}]{ddbox, }
+\item[{int}]{e\-P\-B\-C, }
+\item[{{\bf matrix}}]{box, }
+\item[{{\bf rvec}}]{izones\-\_\-x0, }
+\item[{{\bf rvec}}]{izones\-\_\-x1, }
+\item[{real}]{rlong, }
+\item[{real}]{grid\-\_\-density}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2nsgrid_8h_a322f45763277bebc122ff59638addbac}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=348pt]{share_2template_2gromacs_2nsgrid_8h_a322f45763277bebc122ff59638addbac_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{share_2template_2gromacs_2nsgrid_8h_a7f6e00c8c80600e86636bcc39951b754}{\index{share/template/gromacs/nsgrid.\-h@{share/template/gromacs/nsgrid.\-h}!grid\-\_\-last@{grid\-\_\-last}}
+\index{grid\-\_\-last@{grid\-\_\-last}!share/template/gromacs/nsgrid.h@{share/template/gromacs/nsgrid.\-h}}
+\subsubsection[{grid\-\_\-last}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf grid\-\_\-last} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{log, }
+\item[{{\bf t\-\_\-grid} $\ast$}]{grid, }
+\item[{int}]{cg0, }
+\item[{int}]{cg1, }
+\item[{int}]{ncg}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2nsgrid_8h_a7f6e00c8c80600e86636bcc39951b754}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=240pt]{share_2template_2gromacs_2nsgrid_8h_a7f6e00c8c80600e86636bcc39951b754_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{share_2template_2gromacs_2nsgrid_8h_a291d1ec38b3465f9ee0db76b245cc237}{\index{share/template/gromacs/nsgrid.\-h@{share/template/gromacs/nsgrid.\-h}!init\-\_\-grid@{init\-\_\-grid}}
+\index{init\-\_\-grid@{init\-\_\-grid}!share/template/gromacs/nsgrid.h@{share/template/gromacs/nsgrid.\-h}}
+\subsubsection[{init\-\_\-grid}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-G\-M\-X\-\_\-\-L\-I\-B\-M\-D\-\_\-\-E\-X\-P\-O\-R\-T} {\bf t\-\_\-grid}$\ast$ {\bf init\-\_\-grid} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{fplog, }
+\item[{{\bf t\-\_\-forcerec} $\ast$}]{fr}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2nsgrid_8h_a291d1ec38b3465f9ee0db76b245cc237}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=252pt]{share_2template_2gromacs_2nsgrid_8h_a291d1ec38b3465f9ee0db76b245cc237_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{share_2template_2gromacs_2nsgrid_8h_a3b8f7649c857e5344c7228a864b0f5be}{\index{share/template/gromacs/nsgrid.\-h@{share/template/gromacs/nsgrid.\-h}!mv\-\_\-grid@{mv\-\_\-grid}}
+\index{mv\-\_\-grid@{mv\-\_\-grid}!share/template/gromacs/nsgrid.h@{share/template/gromacs/nsgrid.\-h}}
+\subsubsection[{mv\-\_\-grid}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf mv\-\_\-grid} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-commrec} $\ast$}]{cr, }
+\item[{{\bf t\-\_\-grid} $\ast$}]{grid}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2nsgrid_8h_a3b8f7649c857e5344c7228a864b0f5be}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=240pt]{share_2template_2gromacs_2nsgrid_8h_a3b8f7649c857e5344c7228a864b0f5be_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{share_2template_2gromacs_2nsgrid_8h_ae4429dfdd43f0befbecc35eb2e98929e}{\index{share/template/gromacs/nsgrid.\-h@{share/template/gromacs/nsgrid.\-h}!print\-\_\-grid@{print\-\_\-grid}}
+\index{print\-\_\-grid@{print\-\_\-grid}!share/template/gromacs/nsgrid.h@{share/template/gromacs/nsgrid.\-h}}
+\subsubsection[{print\-\_\-grid}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf print\-\_\-grid} (
+\begin{DoxyParamCaption}
+\item[{\-F\-I\-L\-E $\ast$}]{log, }
+\item[{{\bf t\-\_\-grid} $\ast$}]{grid}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2nsgrid_8h_ae4429dfdd43f0befbecc35eb2e98929e}
+\hypertarget{share_2template_2gromacs_2nsgrid_8h_a1196393c38c82b16b3d05255bdca8a4a}{\index{share/template/gromacs/nsgrid.\-h@{share/template/gromacs/nsgrid.\-h}!xyz2ci\-\_\-@{xyz2ci\-\_\-}}
+\index{xyz2ci\-\_\-@{xyz2ci\-\_\-}!share/template/gromacs/nsgrid.h@{share/template/gromacs/nsgrid.\-h}}
+\subsubsection[{xyz2ci\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf xyz2ci\-\_\-} (
+\begin{DoxyParamCaption}
+\item[{int}]{nry, }
+\item[{int}]{nrz, }
+\item[{int}]{x, }
+\item[{int}]{y, }
+\item[{int}]{z}
+\end{DoxyParamCaption}
+)}}\label{share_2template_2gromacs_2nsgrid_8h_a1196393c38c82b16b3d05255bdca8a4a}

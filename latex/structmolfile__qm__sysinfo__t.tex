@@ -1,0 +1,91 @@
+\hypertarget{structmolfile__qm__sysinfo__t}{\section{molfile\-\_\-qm\-\_\-sysinfo\-\_\-t \-Struct \-Reference}
+\label{structmolfile__qm__sysinfo__t}\index{molfile\-\_\-qm\-\_\-sysinfo\-\_\-t@{molfile\-\_\-qm\-\_\-sysinfo\-\_\-t}}
+}
+
+
+{\ttfamily \#include $<$molfile\-\_\-plugin.\-h$>$}
+
+\subsection*{\-Public \-Attributes}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{structmolfile__qm__sysinfo__t_a5cae7d1af0e8e824450a7f7c0c645a00}{nproc}
+\item 
+int \hyperlink{structmolfile__qm__sysinfo__t_a45b68b0f4992722d252ed143a8113981}{memory}
+\item 
+int \hyperlink{structmolfile__qm__sysinfo__t_afd30b4b270a375091eda6773bbb52dbb}{runtype}
+\item 
+int \hyperlink{structmolfile__qm__sysinfo__t_a311514821c1c527a1158216aa77a9211}{scftype}
+\item 
+int \hyperlink{structmolfile__qm__sysinfo__t_a5a58f87d6b83cc830a29305ebe7fc06d}{status}
+\item 
+int \hyperlink{structmolfile__qm__sysinfo__t_af404a054742733a12370337ab16e8402}{num\-\_\-electrons}
+\item 
+int \hyperlink{structmolfile__qm__sysinfo__t_a066fb9a625e44a055098a0ce68788f48}{totalcharge}
+\item 
+int \hyperlink{structmolfile__qm__sysinfo__t_abedde2233b27f6e8f90969b4803bb916}{num\-\_\-occupied\-\_\-\-A}
+\item 
+int \hyperlink{structmolfile__qm__sysinfo__t_ab5d5296c0be3d877a973dfd1ea2affe9}{num\-\_\-occupied\-\_\-\-B}
+\item 
+double $\ast$ \hyperlink{structmolfile__qm__sysinfo__t_ad6978efaba2f2536a9cc7d72fb111e8c}{nuc\-\_\-charge}
+\item 
+char \hyperlink{structmolfile__qm__sysinfo__t_afab62a79c9f1fc05307afb1ce061ef7d}{basis\-\_\-string} \mbox{[}\hyperlink{molfile__plugin_8h_adb121359484e3cbc0e035963e95ec867}{\-M\-O\-L\-F\-I\-L\-E\-\_\-\-B\-U\-F\-S\-I\-Z}\mbox{]}
+\item 
+char \hyperlink{structmolfile__qm__sysinfo__t_ab95a65da81080c566056e0c0bb3993a7}{runtitle} \mbox{[}\hyperlink{molfile__plugin_8h_a850033d482c619358ce953c8aae52142}{\-M\-O\-L\-F\-I\-L\-E\-\_\-\-B\-I\-G\-B\-U\-F\-S\-I\-Z}\mbox{]}
+\item 
+char \hyperlink{structmolfile__qm__sysinfo__t_a321d21921b2358bf642687935a8e3a07}{geometry} \mbox{[}\hyperlink{molfile__plugin_8h_adb121359484e3cbc0e035963e95ec867}{\-M\-O\-L\-F\-I\-L\-E\-\_\-\-B\-U\-F\-S\-I\-Z}\mbox{]}
+\item 
+char \hyperlink{structmolfile__qm__sysinfo__t_a3944fa2befabe29da4c5fadc3b0bb733}{version\-\_\-string} \mbox{[}\hyperlink{molfile__plugin_8h_adb121359484e3cbc0e035963e95ec867}{\-M\-O\-L\-F\-I\-L\-E\-\_\-\-B\-U\-F\-S\-I\-Z}\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Detailed \-Description}
+\-Q\-M run info. \-Parameters that stay unchanged during a single file. 
+
+\subsection{\-Member \-Data \-Documentation}
+\hypertarget{structmolfile__qm__sysinfo__t_afab62a79c9f1fc05307afb1ce061ef7d}{\index{molfile\-\_\-qm\-\_\-sysinfo\-\_\-t@{molfile\-\_\-qm\-\_\-sysinfo\-\_\-t}!basis\-\_\-string@{basis\-\_\-string}}
+\index{basis\-\_\-string@{basis\-\_\-string}!molfile_qm_sysinfo_t@{molfile\-\_\-qm\-\_\-sysinfo\-\_\-t}}
+\subsubsection[{basis\-\_\-string}]{\setlength{\rightskip}{0pt plus 5cm}char {\bf molfile\-\_\-qm\-\_\-sysinfo\-\_\-t\-::basis\-\_\-string}\mbox{[}{\bf \-M\-O\-L\-F\-I\-L\-E\-\_\-\-B\-U\-F\-S\-I\-Z}\mbox{]}}}\label{structmolfile__qm__sysinfo__t_afab62a79c9f1fc05307afb1ce061ef7d}
+basis name as \char`\"{}nice\char`\"{} string. \hypertarget{structmolfile__qm__sysinfo__t_a321d21921b2358bf642687935a8e3a07}{\index{molfile\-\_\-qm\-\_\-sysinfo\-\_\-t@{molfile\-\_\-qm\-\_\-sysinfo\-\_\-t}!geometry@{geometry}}
+\index{geometry@{geometry}!molfile_qm_sysinfo_t@{molfile\-\_\-qm\-\_\-sysinfo\-\_\-t}}
+\subsubsection[{geometry}]{\setlength{\rightskip}{0pt plus 5cm}char {\bf molfile\-\_\-qm\-\_\-sysinfo\-\_\-t\-::geometry}\mbox{[}{\bf \-M\-O\-L\-F\-I\-L\-E\-\_\-\-B\-U\-F\-S\-I\-Z}\mbox{]}}}\label{structmolfile__qm__sysinfo__t_a321d21921b2358bf642687935a8e3a07}
+type of provided geometry, \-X\-X\-X\-: remove? e.\-g. \-U\-N\-I\-Q\-U\-E, \-Z\-M\-T, \-C\-A\-R\-T, ... \hypertarget{structmolfile__qm__sysinfo__t_a45b68b0f4992722d252ed143a8113981}{\index{molfile\-\_\-qm\-\_\-sysinfo\-\_\-t@{molfile\-\_\-qm\-\_\-sysinfo\-\_\-t}!memory@{memory}}
+\index{memory@{memory}!molfile_qm_sysinfo_t@{molfile\-\_\-qm\-\_\-sysinfo\-\_\-t}}
+\subsubsection[{memory}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf molfile\-\_\-qm\-\_\-sysinfo\-\_\-t\-::memory}}}\label{structmolfile__qm__sysinfo__t_a45b68b0f4992722d252ed143a8113981}
+amount of memory used in \-Mbyte. \-X\-X\-X\-:? \hypertarget{structmolfile__qm__sysinfo__t_a5cae7d1af0e8e824450a7f7c0c645a00}{\index{molfile\-\_\-qm\-\_\-sysinfo\-\_\-t@{molfile\-\_\-qm\-\_\-sysinfo\-\_\-t}!nproc@{nproc}}
+\index{nproc@{nproc}!molfile_qm_sysinfo_t@{molfile\-\_\-qm\-\_\-sysinfo\-\_\-t}}
+\subsubsection[{nproc}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf molfile\-\_\-qm\-\_\-sysinfo\-\_\-t\-::nproc}}}\label{structmolfile__qm__sysinfo__t_a5cae7d1af0e8e824450a7f7c0c645a00}
+number of processors used. \-X\-X\-X\-:? \hypertarget{structmolfile__qm__sysinfo__t_ad6978efaba2f2536a9cc7d72fb111e8c}{\index{molfile\-\_\-qm\-\_\-sysinfo\-\_\-t@{molfile\-\_\-qm\-\_\-sysinfo\-\_\-t}!nuc\-\_\-charge@{nuc\-\_\-charge}}
+\index{nuc\-\_\-charge@{nuc\-\_\-charge}!molfile_qm_sysinfo_t@{molfile\-\_\-qm\-\_\-sysinfo\-\_\-t}}
+\subsubsection[{nuc\-\_\-charge}]{\setlength{\rightskip}{0pt plus 5cm}double$\ast$ {\bf molfile\-\_\-qm\-\_\-sysinfo\-\_\-t\-::nuc\-\_\-charge}}}\label{structmolfile__qm__sysinfo__t_ad6978efaba2f2536a9cc7d72fb111e8c}
+array(natom) containing the nuclear charge of atom i \hypertarget{structmolfile__qm__sysinfo__t_af404a054742733a12370337ab16e8402}{\index{molfile\-\_\-qm\-\_\-sysinfo\-\_\-t@{molfile\-\_\-qm\-\_\-sysinfo\-\_\-t}!num\-\_\-electrons@{num\-\_\-electrons}}
+\index{num\-\_\-electrons@{num\-\_\-electrons}!molfile_qm_sysinfo_t@{molfile\-\_\-qm\-\_\-sysinfo\-\_\-t}}
+\subsubsection[{num\-\_\-electrons}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf molfile\-\_\-qm\-\_\-sysinfo\-\_\-t\-::num\-\_\-electrons}}}\label{structmolfile__qm__sysinfo__t_af404a054742733a12370337ab16e8402}
+number of electrons. \-X\-X\-X\-: can be fractional in some \-D\-F\-T codes \hypertarget{structmolfile__qm__sysinfo__t_abedde2233b27f6e8f90969b4803bb916}{\index{molfile\-\_\-qm\-\_\-sysinfo\-\_\-t@{molfile\-\_\-qm\-\_\-sysinfo\-\_\-t}!num\-\_\-occupied\-\_\-\-A@{num\-\_\-occupied\-\_\-\-A}}
+\index{num\-\_\-occupied\-\_\-\-A@{num\-\_\-occupied\-\_\-\-A}!molfile_qm_sysinfo_t@{molfile\-\_\-qm\-\_\-sysinfo\-\_\-t}}
+\subsubsection[{num\-\_\-occupied\-\_\-\-A}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf molfile\-\_\-qm\-\_\-sysinfo\-\_\-t\-::num\-\_\-occupied\-\_\-\-A}}}\label{structmolfile__qm__sysinfo__t_abedde2233b27f6e8f90969b4803bb916}
+number of occupied alpha orbitals \hypertarget{structmolfile__qm__sysinfo__t_ab5d5296c0be3d877a973dfd1ea2affe9}{\index{molfile\-\_\-qm\-\_\-sysinfo\-\_\-t@{molfile\-\_\-qm\-\_\-sysinfo\-\_\-t}!num\-\_\-occupied\-\_\-\-B@{num\-\_\-occupied\-\_\-\-B}}
+\index{num\-\_\-occupied\-\_\-\-B@{num\-\_\-occupied\-\_\-\-B}!molfile_qm_sysinfo_t@{molfile\-\_\-qm\-\_\-sysinfo\-\_\-t}}
+\subsubsection[{num\-\_\-occupied\-\_\-\-B}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf molfile\-\_\-qm\-\_\-sysinfo\-\_\-t\-::num\-\_\-occupied\-\_\-\-B}}}\label{structmolfile__qm__sysinfo__t_ab5d5296c0be3d877a973dfd1ea2affe9}
+number of occupied beta orbitals \hypertarget{structmolfile__qm__sysinfo__t_ab95a65da81080c566056e0c0bb3993a7}{\index{molfile\-\_\-qm\-\_\-sysinfo\-\_\-t@{molfile\-\_\-qm\-\_\-sysinfo\-\_\-t}!runtitle@{runtitle}}
+\index{runtitle@{runtitle}!molfile_qm_sysinfo_t@{molfile\-\_\-qm\-\_\-sysinfo\-\_\-t}}
+\subsubsection[{runtitle}]{\setlength{\rightskip}{0pt plus 5cm}char {\bf molfile\-\_\-qm\-\_\-sysinfo\-\_\-t\-::runtitle}\mbox{[}{\bf \-M\-O\-L\-F\-I\-L\-E\-\_\-\-B\-I\-G\-B\-U\-F\-S\-I\-Z}\mbox{]}}}\label{structmolfile__qm__sysinfo__t_ab95a65da81080c566056e0c0bb3993a7}
+title of run. \hypertarget{structmolfile__qm__sysinfo__t_afd30b4b270a375091eda6773bbb52dbb}{\index{molfile\-\_\-qm\-\_\-sysinfo\-\_\-t@{molfile\-\_\-qm\-\_\-sysinfo\-\_\-t}!runtype@{runtype}}
+\index{runtype@{runtype}!molfile_qm_sysinfo_t@{molfile\-\_\-qm\-\_\-sysinfo\-\_\-t}}
+\subsubsection[{runtype}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf molfile\-\_\-qm\-\_\-sysinfo\-\_\-t\-::runtype}}}\label{structmolfile__qm__sysinfo__t_afd30b4b270a375091eda6773bbb52dbb}
+flag indicating the calculation method. \hypertarget{structmolfile__qm__sysinfo__t_a311514821c1c527a1158216aa77a9211}{\index{molfile\-\_\-qm\-\_\-sysinfo\-\_\-t@{molfile\-\_\-qm\-\_\-sysinfo\-\_\-t}!scftype@{scftype}}
+\index{scftype@{scftype}!molfile_qm_sysinfo_t@{molfile\-\_\-qm\-\_\-sysinfo\-\_\-t}}
+\subsubsection[{scftype}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf molfile\-\_\-qm\-\_\-sysinfo\-\_\-t\-::scftype}}}\label{structmolfile__qm__sysinfo__t_a311514821c1c527a1158216aa77a9211}
+\-S\-C\-F type\-: \-R\-H\-F, \-U\-H\-F, \-R\-O\-H\-F, \-G\-V\-B or \-M\-C\-S\-C\-F wfn. \hypertarget{structmolfile__qm__sysinfo__t_a5a58f87d6b83cc830a29305ebe7fc06d}{\index{molfile\-\_\-qm\-\_\-sysinfo\-\_\-t@{molfile\-\_\-qm\-\_\-sysinfo\-\_\-t}!status@{status}}
+\index{status@{status}!molfile_qm_sysinfo_t@{molfile\-\_\-qm\-\_\-sysinfo\-\_\-t}}
+\subsubsection[{status}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf molfile\-\_\-qm\-\_\-sysinfo\-\_\-t\-::status}}}\label{structmolfile__qm__sysinfo__t_a5a58f87d6b83cc830a29305ebe7fc06d}
+indicates wether \-S\-C\-F and geometry optimization have converged properly. \hypertarget{structmolfile__qm__sysinfo__t_a066fb9a625e44a055098a0ce68788f48}{\index{molfile\-\_\-qm\-\_\-sysinfo\-\_\-t@{molfile\-\_\-qm\-\_\-sysinfo\-\_\-t}!totalcharge@{totalcharge}}
+\index{totalcharge@{totalcharge}!molfile_qm_sysinfo_t@{molfile\-\_\-qm\-\_\-sysinfo\-\_\-t}}
+\subsubsection[{totalcharge}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf molfile\-\_\-qm\-\_\-sysinfo\-\_\-t\-::totalcharge}}}\label{structmolfile__qm__sysinfo__t_a066fb9a625e44a055098a0ce68788f48}
+total charge of system. \-X\-X\-X\-: can be fractional in some \-D\-F\-T codes \hypertarget{structmolfile__qm__sysinfo__t_a3944fa2befabe29da4c5fadc3b0bb733}{\index{molfile\-\_\-qm\-\_\-sysinfo\-\_\-t@{molfile\-\_\-qm\-\_\-sysinfo\-\_\-t}!version\-\_\-string@{version\-\_\-string}}
+\index{version\-\_\-string@{version\-\_\-string}!molfile_qm_sysinfo_t@{molfile\-\_\-qm\-\_\-sysinfo\-\_\-t}}
+\subsubsection[{version\-\_\-string}]{\setlength{\rightskip}{0pt plus 5cm}char {\bf molfile\-\_\-qm\-\_\-sysinfo\-\_\-t\-::version\-\_\-string}\mbox{[}{\bf \-M\-O\-L\-F\-I\-L\-E\-\_\-\-B\-U\-F\-S\-I\-Z}\mbox{]}}}\label{structmolfile__qm__sysinfo__t_a3944fa2befabe29da4c5fadc3b0bb733}
+\-Q\-M code version information. 
+
+\-The documentation for this struct was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+src/gmxlib/\hyperlink{molfile__plugin_8h}{molfile\-\_\-plugin.\-h}\end{DoxyCompactItemize}

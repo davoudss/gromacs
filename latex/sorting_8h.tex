@@ -1,0 +1,91 @@
+\hypertarget{sorting_8h}{\section{src/kernel/sorting.h \-File \-Reference}
+\label{sorting_8h}\index{src/kernel/sorting.\-h@{src/kernel/sorting.\-h}}
+}
+{\ttfamily \#include \char`\"{}typedefs.\-h\char`\"{}}\*
+\-Include dependency graph for sorting.\-h\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=180pt]{sorting_8h__incl}
+\end{center}
+\end{figure}
+\-This graph shows which files directly or indirectly include this file\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=180pt]{sorting_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef \hyperlink{include_2types_2simple_8h_ad3f47cdb48677e516e2049719612c737}{atom\-\_\-id} \hyperlink{sorting_8h_a4c6fbb252d1446d724394a990f1e612d}{t\-\_\-bond} \mbox{[}2\mbox{]}
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{sorting_8h_a1ef9712a6e08218ba695235495d278ef}{sort\-\_\-bonds} (\hyperlink{structt__topology}{t\-\_\-topology} $\ast$\hyperlink{gmx__disre_8c_a1b538a2ce75aba6c346bc03980ffeb28}{top})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{sorting_8h_a9226faf38347fbd5fab727f935364157}{sort\-\_\-xblock} (\hyperlink{structt__block}{t\-\_\-block} $\ast$block, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a36b8fb392443aff4dd09ac968a2acfe8}{x}\mbox{[}$\,$\mbox{]}, int renum\mbox{[}$\,$\mbox{]})
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{sorting_8h_a039a7f195267a9205279ac8595a95c8b}{sort\-\_\-bond\-\_\-list} (\hyperlink{sorting_8h_a4c6fbb252d1446d724394a990f1e612d}{t\-\_\-bond} \hyperlink{bondfree_8c_a575fd72d984d738fc87692870c0807d0}{bonds}\mbox{[}$\,$\mbox{]}, int \hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a560e4062098f77c2d7e5fe83bf09c394}{nr})
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Typedef \-Documentation}
+\hypertarget{sorting_8h_a4c6fbb252d1446d724394a990f1e612d}{\index{sorting.\-h@{sorting.\-h}!t\-\_\-bond@{t\-\_\-bond}}
+\index{t\-\_\-bond@{t\-\_\-bond}!sorting.h@{sorting.\-h}}
+\subsubsection[{t\-\_\-bond}]{\setlength{\rightskip}{0pt plus 5cm}typedef {\bf atom\-\_\-id} {\bf t\-\_\-bond}\mbox{[}2\mbox{]}}}\label{sorting_8h_a4c6fbb252d1446d724394a990f1e612d}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{sorting_8h_a039a7f195267a9205279ac8595a95c8b}{\index{sorting.\-h@{sorting.\-h}!sort\-\_\-bond\-\_\-list@{sort\-\_\-bond\-\_\-list}}
+\index{sort\-\_\-bond\-\_\-list@{sort\-\_\-bond\-\_\-list}!sorting.h@{sorting.\-h}}
+\subsubsection[{sort\-\_\-bond\-\_\-list}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf sort\-\_\-bond\-\_\-list} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-bond}}]{bonds\mbox{[}$\,$\mbox{]}, }
+\item[{int}]{nr}
+\end{DoxyParamCaption}
+)}}\label{sorting_8h_a039a7f195267a9205279ac8595a95c8b}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=246pt]{sorting_8h_a039a7f195267a9205279ac8595a95c8b_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{sorting_8h_a1ef9712a6e08218ba695235495d278ef}{\index{sorting.\-h@{sorting.\-h}!sort\-\_\-bonds@{sort\-\_\-bonds}}
+\index{sort\-\_\-bonds@{sort\-\_\-bonds}!sorting.h@{sorting.\-h}}
+\subsubsection[{sort\-\_\-bonds}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf sort\-\_\-bonds} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-topology} $\ast$}]{top}
+\end{DoxyParamCaption}
+)}}\label{sorting_8h_a1ef9712a6e08218ba695235495d278ef}
+\hypertarget{sorting_8h_a9226faf38347fbd5fab727f935364157}{\index{sorting.\-h@{sorting.\-h}!sort\-\_\-xblock@{sort\-\_\-xblock}}
+\index{sort\-\_\-xblock@{sort\-\_\-xblock}!sorting.h@{sorting.\-h}}
+\subsubsection[{sort\-\_\-xblock}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf sort\-\_\-xblock} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-block} $\ast$}]{block, }
+\item[{{\bf rvec}}]{x\mbox{[}$\,$\mbox{]}, }
+\item[{int}]{renum\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{sorting_8h_a9226faf38347fbd5fab727f935364157}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=258pt]{sorting_8h_a9226faf38347fbd5fab727f935364157_cgraph}
+\end{center}
+\end{figure}
+
+

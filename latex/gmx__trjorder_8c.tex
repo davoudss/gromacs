@@ -1,0 +1,119 @@
+\hypertarget{gmx__trjorder_8c}{\section{src/tools/gmx\-\_\-trjorder.c \-File \-Reference}
+\label{gmx__trjorder_8c}\index{src/tools/gmx\-\_\-trjorder.\-c@{src/tools/gmx\-\_\-trjorder.\-c}}
+}
+{\ttfamily \#include $<$math.\-h$>$}\*
+{\ttfamily \#include $<$string.\-h$>$}\*
+{\ttfamily \#include \char`\"{}statutil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}sysstuff.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}typedefs.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}smalloc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}macros.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}vec.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}pbc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}copyrite.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}futil.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}index.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}mshift.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}xvgr.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}princ.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}rmpbc.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}txtdump.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}tpxio.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-ana.\-h\char`\"{}}\*
+\-Include dependency graph for gmx\-\_\-trjorder.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gmx__trjorder_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structt__order}{t\-\_\-order}
+\end{DoxyCompactItemize}
+\subsection*{\-Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{gmx__trjorder_8c_a8485f4e81de2537e6a0935626167a775}{\-N\-F\-I\-L\-E}~\hyperlink{share_2template_2gromacs_2macros_8h_a0883345a58f8f63aefa249a4f127f707}{asize}(fnm)
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+static int \hyperlink{gmx__trjorder_8c_a2f9e06ee9ec9c98ab35902b6f0883181}{ocomp} (const \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_a0880879736d1ab747a972d1942421886}{a}, const \hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} $\ast$\hyperlink{share_2template_2gromacs_2gmx__lapack_8h_afb462a5dea72ae7992f073bfd756fb5f}{b})
+\item 
+int \hyperlink{gmx__trjorder_8c_a28da740733ce6c8998f2fbfffab9b50c}{gmx\-\_\-trjorder} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+\subsection*{\-Variables}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structt__order}{t\-\_\-order} $\ast$ \hyperlink{gmx__trjorder_8c_a1e1d8f7bb3007d1e6e33d2cf2941f42d}{order}
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Define \-Documentation}
+\hypertarget{gmx__trjorder_8c_a8485f4e81de2537e6a0935626167a775}{\index{gmx\-\_\-trjorder.\-c@{gmx\-\_\-trjorder.\-c}!\-N\-F\-I\-L\-E@{\-N\-F\-I\-L\-E}}
+\index{\-N\-F\-I\-L\-E@{\-N\-F\-I\-L\-E}!gmx_trjorder.c@{gmx\-\_\-trjorder.\-c}}
+\subsubsection[{\-N\-F\-I\-L\-E}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-N\-F\-I\-L\-E}~{\bf asize}(fnm)}}\label{gmx__trjorder_8c_a8485f4e81de2537e6a0935626167a775}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{gmx__trjorder_8c_a28da740733ce6c8998f2fbfffab9b50c}{\index{gmx\-\_\-trjorder.\-c@{gmx\-\_\-trjorder.\-c}!gmx\-\_\-trjorder@{gmx\-\_\-trjorder}}
+\index{gmx\-\_\-trjorder@{gmx\-\_\-trjorder}!gmx_trjorder.c@{gmx\-\_\-trjorder.\-c}}
+\subsubsection[{gmx\-\_\-trjorder}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf gmx\-\_\-trjorder} (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{gmx__trjorder_8c_a28da740733ce6c8998f2fbfffab9b50c}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{gmx__trjorder_8c_a28da740733ce6c8998f2fbfffab9b50c_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=226pt]{gmx__trjorder_8c_a28da740733ce6c8998f2fbfffab9b50c_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{gmx__trjorder_8c_a2f9e06ee9ec9c98ab35902b6f0883181}{\index{gmx\-\_\-trjorder.\-c@{gmx\-\_\-trjorder.\-c}!ocomp@{ocomp}}
+\index{ocomp@{ocomp}!gmx_trjorder.c@{gmx\-\_\-trjorder.\-c}}
+\subsubsection[{ocomp}]{\setlength{\rightskip}{0pt plus 5cm}static int {\bf ocomp} (
+\begin{DoxyParamCaption}
+\item[{const {\bf void} $\ast$}]{a, }
+\item[{const {\bf void} $\ast$}]{b}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{gmx__trjorder_8c_a2f9e06ee9ec9c98ab35902b6f0883181}
+
+
+\-Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=308pt]{gmx__trjorder_8c_a2f9e06ee9ec9c98ab35902b6f0883181_icgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{\-Variable \-Documentation}
+\hypertarget{gmx__trjorder_8c_a1e1d8f7bb3007d1e6e33d2cf2941f42d}{\index{gmx\-\_\-trjorder.\-c@{gmx\-\_\-trjorder.\-c}!order@{order}}
+\index{order@{order}!gmx_trjorder.c@{gmx\-\_\-trjorder.\-c}}
+\subsubsection[{order}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\-\_\-order}$\ast$ {\bf order}}}\label{gmx__trjorder_8c_a1e1d8f7bb3007d1e6e33d2cf2941f42d}

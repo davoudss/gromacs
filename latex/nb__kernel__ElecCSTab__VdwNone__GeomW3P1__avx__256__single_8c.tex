@@ -1,0 +1,78 @@
+\hypertarget{nb__kernel__ElecCSTab__VdwNone__GeomW3P1__avx__256__single_8c}{\section{src/gmxlib/nonbonded/nb\-\_\-kernel\-\_\-avx\-\_\-256\-\_\-single/nb\-\_\-kernel\-\_\-\-Elec\-C\-S\-Tab\-\_\-\-Vdw\-None\-\_\-\-Geom\-W3\-P1\-\_\-avx\-\_\-256\-\_\-single.c \-File \-Reference}
+\label{nb__kernel__ElecCSTab__VdwNone__GeomW3P1__avx__256__single_8c}\index{src/gmxlib/nonbonded/nb\-\_\-kernel\-\_\-avx\-\_\-256\-\_\-single/nb\-\_\-kernel\-\_\-\-Elec\-C\-S\-Tab\-\_\-\-Vdw\-None\-\_\-\-Geom\-W3\-P1\-\_\-avx\-\_\-256\-\_\-single.\-c@{src/gmxlib/nonbonded/nb\-\_\-kernel\-\_\-avx\-\_\-256\-\_\-single/nb\-\_\-kernel\-\_\-\-Elec\-C\-S\-Tab\-\_\-\-Vdw\-None\-\_\-\-Geom\-W3\-P1\-\_\-avx\-\_\-256\-\_\-single.\-c}}
+}
+{\ttfamily \#include $<$math.\-h$>$}\*
+{\ttfamily \#include \char`\"{}../nb\-\_\-kernel.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}types/simple.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}vec.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}nrnb.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}gmx\-\_\-math\-\_\-x86\-\_\-avx\-\_\-256\-\_\-single.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}kernelutil\-\_\-x86\-\_\-avx\-\_\-256\-\_\-single.\-h\char`\"{}}\*
+\-Include dependency graph for nb\-\_\-kernel\-\_\-\-Elec\-C\-S\-Tab\-\_\-\-Vdw\-None\-\_\-\-Geom\-W3\-P1\-\_\-avx\-\_\-256\-\_\-single.\-c\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nb__kernel__ElecCSTab__VdwNone__GeomW3P1__avx__256__single_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{nb__kernel__ElecCSTab__VdwNone__GeomW3P1__avx__256__single_8c_a0e6f32b530e0a53cfcb59d4c55b242d6}{nb\-\_\-kernel\-\_\-\-Elec\-C\-S\-Tab\-\_\-\-Vdw\-None\-\_\-\-Geom\-W3\-P1\-\_\-\-V\-F\-\_\-avx\-\_\-256\-\_\-single} (\hyperlink{structt__nblist}{t\-\_\-nblist} $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} nlist, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} xx, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} \hyperlink{xutils_8c_a535bdffef2ec705f343bfb4e7f2ea4fb}{ff}, \hyperlink{structt__forcerec}{t\-\_\-forcerec} $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} \hyperlink{addconf_8c_ae8414314f87c5e49503ac0117eb511ad}{fr}, \hyperlink{structt__mdatoms}{t\-\_\-mdatoms} $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} mdatoms, \hyperlink{structnb__kernel__data__t}{nb\-\_\-kernel\-\_\-data\-\_\-t} $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} kernel\-\_\-data, \hyperlink{structt__nrnb}{t\-\_\-nrnb} $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} nrnb)
+\item 
+\hyperlink{nbnxn__kernel__simd__4xn__outer_8h_a8dc3f4a797ed992dff49d2fa3477eee8}{void} \hyperlink{nb__kernel__ElecCSTab__VdwNone__GeomW3P1__avx__256__single_8c_a2a91740105883084190d87bd055399c6}{nb\-\_\-kernel\-\_\-\-Elec\-C\-S\-Tab\-\_\-\-Vdw\-None\-\_\-\-Geom\-W3\-P1\-\_\-\-F\-\_\-avx\-\_\-256\-\_\-single} (\hyperlink{structt__nblist}{t\-\_\-nblist} $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} nlist, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} xx, \hyperlink{share_2template_2gromacs_2types_2simple_8h_aa02a552a4abd2f180c282a083dc3a999}{rvec} $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} \hyperlink{xutils_8c_a535bdffef2ec705f343bfb4e7f2ea4fb}{ff}, \hyperlink{structt__forcerec}{t\-\_\-forcerec} $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} \hyperlink{addconf_8c_ae8414314f87c5e49503ac0117eb511ad}{fr}, \hyperlink{structt__mdatoms}{t\-\_\-mdatoms} $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} mdatoms, \hyperlink{structnb__kernel__data__t}{nb\-\_\-kernel\-\_\-data\-\_\-t} $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} kernel\-\_\-data, \hyperlink{structt__nrnb}{t\-\_\-nrnb} $\ast$\hyperlink{kernelutil__x86__sse4__1__single_8h_add10433bcfa0d376aa22d69a2bad4873}{gmx\-\_\-restrict} nrnb)
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{nb__kernel__ElecCSTab__VdwNone__GeomW3P1__avx__256__single_8c_a2a91740105883084190d87bd055399c6}{\index{nb\-\_\-kernel\-\_\-\-Elec\-C\-S\-Tab\-\_\-\-Vdw\-None\-\_\-\-Geom\-W3\-P1\-\_\-avx\-\_\-256\-\_\-single.\-c@{nb\-\_\-kernel\-\_\-\-Elec\-C\-S\-Tab\-\_\-\-Vdw\-None\-\_\-\-Geom\-W3\-P1\-\_\-avx\-\_\-256\-\_\-single.\-c}!nb\-\_\-kernel\-\_\-\-Elec\-C\-S\-Tab\-\_\-\-Vdw\-None\-\_\-\-Geom\-W3\-P1\-\_\-\-F\-\_\-avx\-\_\-256\-\_\-single@{nb\-\_\-kernel\-\_\-\-Elec\-C\-S\-Tab\-\_\-\-Vdw\-None\-\_\-\-Geom\-W3\-P1\-\_\-\-F\-\_\-avx\-\_\-256\-\_\-single}}
+\index{nb\-\_\-kernel\-\_\-\-Elec\-C\-S\-Tab\-\_\-\-Vdw\-None\-\_\-\-Geom\-W3\-P1\-\_\-\-F\-\_\-avx\-\_\-256\-\_\-single@{nb\-\_\-kernel\-\_\-\-Elec\-C\-S\-Tab\-\_\-\-Vdw\-None\-\_\-\-Geom\-W3\-P1\-\_\-\-F\-\_\-avx\-\_\-256\-\_\-single}!nb_kernel_ElecCSTab_VdwNone_GeomW3P1_avx_256_single.c@{nb\-\_\-kernel\-\_\-\-Elec\-C\-S\-Tab\-\_\-\-Vdw\-None\-\_\-\-Geom\-W3\-P1\-\_\-avx\-\_\-256\-\_\-single.\-c}}
+\subsubsection[{nb\-\_\-kernel\-\_\-\-Elec\-C\-S\-Tab\-\_\-\-Vdw\-None\-\_\-\-Geom\-W3\-P1\-\_\-\-F\-\_\-avx\-\_\-256\-\_\-single}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf nb\-\_\-kernel\-\_\-\-Elec\-C\-S\-Tab\-\_\-\-Vdw\-None\-\_\-\-Geom\-W3\-P1\-\_\-\-F\-\_\-avx\-\_\-256\-\_\-single} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-nblist} $\ast${\bf gmx\-\_\-restrict}}]{nlist, }
+\item[{{\bf rvec} $\ast${\bf gmx\-\_\-restrict}}]{xx, }
+\item[{{\bf rvec} $\ast${\bf gmx\-\_\-restrict}}]{ff, }
+\item[{{\bf t\-\_\-forcerec} $\ast${\bf gmx\-\_\-restrict}}]{fr, }
+\item[{{\bf t\-\_\-mdatoms} $\ast${\bf gmx\-\_\-restrict}}]{mdatoms, }
+\item[{{\bf nb\-\_\-kernel\-\_\-data\-\_\-t} $\ast${\bf gmx\-\_\-restrict}}]{kernel\-\_\-data, }
+\item[{{\bf t\-\_\-nrnb} $\ast${\bf gmx\-\_\-restrict}}]{nrnb}
+\end{DoxyParamCaption}
+)}}\label{nb__kernel__ElecCSTab__VdwNone__GeomW3P1__avx__256__single_8c_a2a91740105883084190d87bd055399c6}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nb__kernel__ElecCSTab__VdwNone__GeomW3P1__avx__256__single_8c_a2a91740105883084190d87bd055399c6_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{nb__kernel__ElecCSTab__VdwNone__GeomW3P1__avx__256__single_8c_a0e6f32b530e0a53cfcb59d4c55b242d6}{\index{nb\-\_\-kernel\-\_\-\-Elec\-C\-S\-Tab\-\_\-\-Vdw\-None\-\_\-\-Geom\-W3\-P1\-\_\-avx\-\_\-256\-\_\-single.\-c@{nb\-\_\-kernel\-\_\-\-Elec\-C\-S\-Tab\-\_\-\-Vdw\-None\-\_\-\-Geom\-W3\-P1\-\_\-avx\-\_\-256\-\_\-single.\-c}!nb\-\_\-kernel\-\_\-\-Elec\-C\-S\-Tab\-\_\-\-Vdw\-None\-\_\-\-Geom\-W3\-P1\-\_\-\-V\-F\-\_\-avx\-\_\-256\-\_\-single@{nb\-\_\-kernel\-\_\-\-Elec\-C\-S\-Tab\-\_\-\-Vdw\-None\-\_\-\-Geom\-W3\-P1\-\_\-\-V\-F\-\_\-avx\-\_\-256\-\_\-single}}
+\index{nb\-\_\-kernel\-\_\-\-Elec\-C\-S\-Tab\-\_\-\-Vdw\-None\-\_\-\-Geom\-W3\-P1\-\_\-\-V\-F\-\_\-avx\-\_\-256\-\_\-single@{nb\-\_\-kernel\-\_\-\-Elec\-C\-S\-Tab\-\_\-\-Vdw\-None\-\_\-\-Geom\-W3\-P1\-\_\-\-V\-F\-\_\-avx\-\_\-256\-\_\-single}!nb_kernel_ElecCSTab_VdwNone_GeomW3P1_avx_256_single.c@{nb\-\_\-kernel\-\_\-\-Elec\-C\-S\-Tab\-\_\-\-Vdw\-None\-\_\-\-Geom\-W3\-P1\-\_\-avx\-\_\-256\-\_\-single.\-c}}
+\subsubsection[{nb\-\_\-kernel\-\_\-\-Elec\-C\-S\-Tab\-\_\-\-Vdw\-None\-\_\-\-Geom\-W3\-P1\-\_\-\-V\-F\-\_\-avx\-\_\-256\-\_\-single}]{\setlength{\rightskip}{0pt plus 5cm}{\bf void} {\bf nb\-\_\-kernel\-\_\-\-Elec\-C\-S\-Tab\-\_\-\-Vdw\-None\-\_\-\-Geom\-W3\-P1\-\_\-\-V\-F\-\_\-avx\-\_\-256\-\_\-single} (
+\begin{DoxyParamCaption}
+\item[{{\bf t\-\_\-nblist} $\ast${\bf gmx\-\_\-restrict}}]{nlist, }
+\item[{{\bf rvec} $\ast${\bf gmx\-\_\-restrict}}]{xx, }
+\item[{{\bf rvec} $\ast${\bf gmx\-\_\-restrict}}]{ff, }
+\item[{{\bf t\-\_\-forcerec} $\ast${\bf gmx\-\_\-restrict}}]{fr, }
+\item[{{\bf t\-\_\-mdatoms} $\ast${\bf gmx\-\_\-restrict}}]{mdatoms, }
+\item[{{\bf nb\-\_\-kernel\-\_\-data\-\_\-t} $\ast${\bf gmx\-\_\-restrict}}]{kernel\-\_\-data, }
+\item[{{\bf t\-\_\-nrnb} $\ast${\bf gmx\-\_\-restrict}}]{nrnb}
+\end{DoxyParamCaption}
+)}}\label{nb__kernel__ElecCSTab__VdwNone__GeomW3P1__avx__256__single_8c_a0e6f32b530e0a53cfcb59d4c55b242d6}
+
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{nb__kernel__ElecCSTab__VdwNone__GeomW3P1__avx__256__single_8c_a0e6f32b530e0a53cfcb59d4c55b242d6_cgraph}
+\end{center}
+\end{figure}
+
+
