@@ -1578,10 +1578,10 @@ void PME_SE_grid_split_SSE_P8_d(real *grid, real *q,
 
 		  for(k = 0; k<8; k+=8)
 		    {
-		      rH0  = _mm_loadu_pd( H+idx0     );
-		      rH1  = _mm_loadu_pd( H+idx0 + 2 );
-		      rH2  = _mm_loadu_pd( H+idx0 + 4 );
-		      rH3  = _mm_loadu_pd( H+idx0 + 6 );
+		      rH0  = _mm_load_pd( H+idx0     );
+		      rH1  = _mm_load_pd( H+idx0 + 2 );
+		      rH2  = _mm_load_pd( H+idx0 + 4 );
+		      rH3  = _mm_load_pd( H+idx0 + 6 );
 
 		      rZZ0 = _mm_load_pd( zz + idx_zz     );
 		      rZZ1 = _mm_load_pd( zz + idx_zz + 2 );
@@ -8772,7 +8772,7 @@ int gmx_pme_do(gmx_pme_t pme,
     }
 
   //   printf("PME energy in %.10g\n",*energy);
-  if (debug)
+  //  if (debug)
     {
       fprintf(debug, "PME mesh energy: %g\n", *energy);
     }

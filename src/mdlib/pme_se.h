@@ -3,21 +3,18 @@
 #include <stdio.h>
 #include <math.h>
 #include "typedefs.h"
-//#include "SE_fgg.h"
-//#ifdef GMX_X86_SSE2
 #include "emmintrin.h"
 #include "immintrin.h"
-//#elif defined GMX_X86_AVX_256
 #include "x86intrin.h"
 
 //#endif
 
-#if defined GMX_X86_SSE2 && !defined __AVX__
-#define MEM_ALIGNED __attribute__((aligned(16)))
-#define SE_FGG_MALLOC(sz) _mm_malloc((sz),16)
-#elif defined __AVX__
+#if __AVX__
 #define MEM_ALIGNED __attribute__((aligned(32)))
 #define SE_FGG_MALLOC(sz) _mm_malloc((sz),32)
+#elif defined GMX_X86_SSE2
+#define MEM_ALIGNED __attribute__((aligned(16)))
+#define SE_FGG_MALLOC(sz) _mm_malloc((sz),16)
 #endif
 #define SE_FGG_FREE(sz) _mm_free((sz))
 

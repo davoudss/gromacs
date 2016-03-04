@@ -40,10 +40,10 @@
  */
 
 /** Hardware and OS version for build host */
-#define BUILD_HOST              "Linux 3.2.0-79-generic x86_64"
+#define BUILD_HOST              "Linux 3.2.0-88-generic x86_64"
 
 /** Date and time for build */
-#define BUILD_TIME              "Wed Mar 25 13:32:53 CET 2015"
+#define BUILD_TIME              "Fri Aug  7 11:32:42 CEST 2015"
 
 /** User doing build */
 #define BUILD_USER              "davoudss@na103.csc.kth.se [CMAKE]"
@@ -70,7 +70,7 @@
 #define BUILD_C_COMPILER        "/usr/bin/gcc GNU gcc (Ubuntu/Linaro 4.6.3-1ubuntu5) 4.6.3"
 
 /** C compiler flags used to build */
-#define BUILD_CFLAGS            "-msse4.1   -Wextra -Wno-missing-field-initializers -Wno-sign-compare -Wall -Wno-unused -Wunused-value   -fomit-frame-pointer -funroll-all-loops -fexcess-precision=fast  -O3 -DNDEBUG"
+#define BUILD_CFLAGS            "-mavx   -Wextra -Wno-missing-field-initializers -Wno-sign-compare -Wall -Wno-unused -Wunused-value   -fomit-frame-pointer -funroll-all-loops -fexcess-precision=fast  -O3 -DNDEBUG"
 
 /** C++ compiler flags used to build, or empty string if no C++ */
 #define BUILD_CXX_COMPILER      ""

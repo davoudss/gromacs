@@ -33,6 +33,6 @@
  * the research papers on the package. Check out http://www.gromacs.org.
  */
 #include "version.h"
-const char _gmx_ver_string[] = "VERSION 4.6.1-dev-20130712-37a7f56-dirty-unknown";
-const char _gmx_full_git_hash[] = "37a7f56a6897a7fa2016dd6cc02d9fd0ac469616 (dirty)";
+const char _gmx_ver_string[] = "VERSION 4.6.1-dev-20150807-4953125-dirty-unknown";
+const char _gmx_full_git_hash[] = "495312503cbb0139b6f86da0a217c5a00b91d05a (dirty)";
 const char _gmx_central_base_hash[] = "unknown";

@@ -103,7 +103,7 @@
 /* #undef GMX_X86_AVX_128_FMA */
 
 /* AVX 256-bit instructions available */
-/* #undef GMX_X86_AVX_256 */
+#define GMX_X86_AVX_256
 
 /* GCC bug in AVX maskload/maskstore arguments - worked around internally */
 /* #undef GMX_X86_AVX_GCC_MASKLOAD_BUG */
@@ -112,19 +112,19 @@
 /* #undef GMX_CPU_ACCELERATION_X86_SSE2 */
 
 /* SSE4.1 was selected as CPU acceleration level */
-#define GMX_CPU_ACCELERATION_X86_SSE4_1
+/* #undef GMX_CPU_ACCELERATION_X86_SSE4_1 */
 
 /* AVX 128-bit FMA was selected as CPU acceleration level */
 /* #undef GMX_CPU_ACCELERATION_X86_AVX_128_FMA */
 
 /* AVX 256-bit was selected as CPU acceleration level */
-/* #undef GMX_CPU_ACCELERATION_X86_AVX_256 */
+#define GMX_CPU_ACCELERATION_X86_AVX_256
 
 /* IBM QPX was selected as CPU acceleration type (e.g. BlueGene/Q) */
 /* #undef GMX_CPU_ACCELERATION_IBM_QPX */
 
 /* String for CPU acceleration choice (for writing to log files and stdout) */
-#define GMX_CPU_ACCELERATION_STRING "SSE4.1"
+#define GMX_CPU_ACCELERATION_STRING "AVX_256"
 
 /* Integer byte order is big endian. */
 /* #undef GMX_INTEGER_BIG_ENDIAN */
