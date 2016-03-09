@@ -713,12 +713,13 @@ double start=gmx_gettime(),stop;
 	else
 	  strcpy(rw,"r");
 //	g1 = fopen("wall1012500_Fourier_xi08267_noeps.txt",rw);
-	//	g1 = fopen("Direct81000_xi65_witheps.txt",rw);
+//	g1 = fopen("Direct81000_xi65_witheps.txt",rw);
+	g1 = fopen("Direct3000_xi3.txt",rw);
 //	g1 = fopen("Total3000.txt",rw);
 //	g1 = fopen("wall_alone_direct.txt",rw);
 //	g1 = fopen("wall76800_Fourier_xi65_witheps.txt",rw);
 //	g1 = fopen("uniform1029000_Fourier_xi65_noeps.txt",rw);
-	g1 = fopen("uniform81000_xi65_fourier_noeps.txt",rw);
+//	g1 = fopen("uniform81000_xi65_fourier_noeps.txt",rw);
 //	g1 = fopen("parallel_2water_xi3_fourier_noeps.txt",rw);
 //	g1 = fopen("wall1012500_Fourier_xi08267_noeps.txt",rw);
 	

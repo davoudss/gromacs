@@ -42,7 +42,7 @@
 #include "pme_se.h"
 
 /* Single precision, with SSE2 or higher available */
-#if defined(GMX_X86_SSE2) && !defined(GMX_DOUBLE)
+#if defined(GMX_X86_SSE2) && defined(GMX_DOUBLE)
 
 #include "gmx_x86_simd_single.h"
 
@@ -8707,7 +8707,7 @@ int gmx_pme_do(gmx_pme_t pme,
       *energy = 0;
     }
     
-    
+
   //damoon
 #ifdef GMX_MPI
   MPI_Status stat;
@@ -8744,38 +8744,39 @@ int gmx_pme_do(gmx_pme_t pme,
     }
   */
 #endif
-  gmx_bool error_analysis = false;
-  if(error_analysis && nid==0)
-    {
-      FILE *g2,*g3;
+  /* gmx_bool error_analysis = false; */
+  /* if(error_analysis && nid==0) */
+  /*   { */
+  /*     FILE *g2,*g3; */
 	
-      //	g2=fopen("DirectWall.txt","w");
-      //	g2=fopen("Ewald_direct_2.txt","r");
-      //	g2=fopen("Direct81000.txt","r");
+  /*     //	g2=fopen("DirectWall.txt","w"); */
+  /*     //	g2=fopen("Ewald_direct_2.txt","r"); */
+  /*     //	g2=fopen("Direct81000.txt","r"); */
 	
-      double diff=0,sum=0,f1,f2,f3;double diff2=0;
+  /*     double diff=0,sum=0,f1,f2,f3;double diff2=0; */
 	
-      // error calculation
-      //    FILE *g2=fopen("Ewald_direct2.txt","r");
+  /*     // error calculation */
+  /*     //    FILE *g2=fopen("Ewald_direct2.txt","r"); */
 
-      for(i=0;i<homenr;i++)
-	{
-	  //	    fprintf(g2,"%8.16f %8.16f %8.16f\n",f[i][XX],f[i][YY],f[i][ZZ]);
-	  //printf("%8.16f %8.16f %8.16f\n",f[i][XX],f[i][YY],f[i][ZZ]);
-	  fscanf(g2,"%lf %lf %lf\n",&f1,&f2,&f3);
-	  diff+=(f[i][XX]-f1)*(f[i][XX]-f1)+(f[i][YY]-f2)*(f[i][YY]-f2)+
-	    (f[i][ZZ]-f3)*(f[i][ZZ]-f3);
-	  sum+=(f1)*(f1)+(f2)*(f2)+(f3)*(f3);	
-	}
-      fclose(g2);
-      printf("relative rms error: %g, xi=%f\n",sqrt(diff/sum),ewaldcoeff);
-    }
+  /*     for(i=0;i<homenr;i++) */
+  /* 	{ */
+  /* 	  //	    fprintf(g2,"%8.16f %8.16f %8.16f\n",f[i][XX],f[i][YY],f[i][ZZ]); */
+  /* 	  //printf("%8.16f %8.16f %8.16f\n",f[i][XX],f[i][YY],f[i][ZZ]); */
+  /* 	  fscanf(g2,"%lf %lf %lf\n",&f1,&f2,&f3); */
+  /* 	  diff+=(f[i][XX]-f1)*(f[i][XX]-f1)+(f[i][YY]-f2)*(f[i][YY]-f2)+ */
+  /* 	    (f[i][ZZ]-f3)*(f[i][ZZ]-f3); */
+  /* 	  sum+=(f1)*(f1)+(f2)*(f2)+(f3)*(f3);	 */
+  /* 	} */
+  /*     fclose(g2); */
+  /*     printf("relative rms error: %g, xi=%f\n",sqrt(diff/sum),ewaldcoeff); */
+  /*   } */
 
-  //   printf("PME energy in %.10g\n",*energy);
-  //  if (debug)
-    {
-      fprintf(debug, "PME mesh energy: %g\n", *energy);
-    }
-  //    printf("PME done ! \n");
+  /* //   printf("PME energy in %.10g\n",*energy); */
+  /* //  if (debug) */
+  /*   { */
+  /*     fprintf(debug, "PME mesh energy: %g\n", *energy); */
+  /*   } */
+  /* //    printf("PME done ! \n"); */
+
   return 0;
 }
