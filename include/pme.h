@@ -45,7 +45,6 @@
 #include "gmxcomplex.h"
 #include "gmx_wallcycle.h"
 #include "gmx_parallel_3dfft.h"
-#include "../src/mdlib/SE_fgg.h"
 
 
 #ifdef __cplusplus

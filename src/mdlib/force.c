@@ -66,6 +66,7 @@
 #include "qmmm.h"
 #include "mpelogging.h"
 #include "gmx_omp_nthreads.h"
+#include <stdbool.h>
 
 void ns(FILE              *fp,
         t_forcerec        *fr,

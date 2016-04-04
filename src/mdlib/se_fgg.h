@@ -1,5 +1,6 @@
-#ifndef __PME_SE_H__
-#define __PME_SE_H__
+#ifndef __SE_FGG_H__
+#define __SE_FGG_H__
+
 #include <stdio.h>
 #include <math.h>
 #include "typedefs.h"
@@ -7,66 +8,24 @@
 #include "immintrin.h"
 #include "x86intrin.h"
 
-//#endif
+#ifdef GMX_DOUBLE
+#include "se_grid_sse_double.h"
+#include "se_int_sse_double.h"
+#ifdef GMX_X86_AVX_256
+#include "se_grid_avx_256_double.h"
+#include "se_int_avx_256_double.h"
+#endif  //AVX
 
-#if __AVX__
-#define MEM_ALIGNED __attribute__((aligned(32)))
-#define SE_FGG_MALLOC(sz) _mm_malloc((sz),32)
-#elif defined GMX_X86_SSE2
-#define MEM_ALIGNED __attribute__((aligned(16)))
-#define SE_FGG_MALLOC(sz) _mm_malloc((sz),16)
-#endif
-#define SE_FGG_FREE(sz) _mm_free((sz))
+#else  //SINGLE
 
-#if (defined GMX_X86_SSE2 || defined __AVX__)
-#define PRECOMP_FGG_EXPA 1
-#else
-#define PRECOMP_FGG_EXPA 0
-#endif
+#include "se_grid_sse_single.h"
+#include "se_int_sse_single.h"
+#ifdef GMX_X86_AVX_256
+#include "se_grid_avx_256_single.h"
+#include "se_int_avx_256_single.h"
+#endif //AVX
+#endif //DOUBLE
 
-// test if interger is odd or even
-static int is_odd(int p)
-{
-  return p&1;
-}
-
-// test if integer is not divisible by 4 for SINGLE SSE, DOUBLE AVX
-inline int isnot_div_by_4(int p)
-{
-  int divisor = 4, quotient, remainder;
-
-  __asm__ ( "movl   %2, %%edx;"
-            "sarl  $31, %%edx;"
-            "movl   %2, %%eax;"
-            "movl   %3, %%ebx;"
-            "idivl      %%ebx;"
-	    : "=a" (quotient), "=d" (remainder)
-	    : "g"  (p), "g"  (divisor)
-	    : "ebx" );
-  if(remainder==0)
-    return 0;
-  else
-    return 1;
-
-}
-// test if integer is not divisible by 8 for SINGLE AVX
-inline int isnot_div_by_8(int p)
-{
-  int divisor = 8, quotient, remainder;
-
-  __asm__ ( "movl   %2, %%edx;"
-            "sarl  $31, %%edx;"
-            "movl   %2, %%eax;"
-            "movl   %3, %%ebx;"
-            "idivl      %%ebx;"
-	    : "=a" (quotient), "=d" (remainder)
-	    : "g"  (p), "g"  (divisor)
-	    : "ebx" );
-  if(remainder==0)
-    return 0;
-  else
-    return 1;
-}
 
 // --------------------------------------------------------------------------
 static int half(int p)
@@ -136,73 +95,7 @@ SE_FGG_FCN_params(SE_FGG_params* params, const SE_opt* opt, int N)
 
 }
 
-// ----------------------------------------------------------------------------
-static void
-SE_FGG_allocate_workspace(SE_FGG_work* work, const SE_FGG_params* params,
-                          int allocate_zs, int allocate_fgg_expa)
-{
-  const int P=params->P;
-  int numel = SE_prod3(params->npdims);
-  work->H = SE_FGG_MALLOC(numel*sizeof(real));
-  SE_fp_set_zero(work->H, numel);
 
-  if(allocate_zs)
-    work->zs = SE_FGG_MALLOC(P*P*P*sizeof(real));
-  else
-    work->zs = NULL;
-
-  work->free_zs=allocate_zs;
-
-  if(allocate_fgg_expa)
-    {
-      numel = (params->N)*(params->P);
-      work->zx = (real*) SE_FGG_MALLOC(numel*sizeof(real));
-      work->zy = (real*) SE_FGG_MALLOC(numel*sizeof(real));
-      work->zz = (real*) SE_FGG_MALLOC(numel*sizeof(real));
-      work->zfx = (real*) SE_FGG_MALLOC(numel*sizeof(real));
-      work->zfy = (real*) SE_FGG_MALLOC(numel*sizeof(real));
-      work->zfz = (real*) SE_FGG_MALLOC(numel*sizeof(real));
-      work->idx= (int*) SE_FGG_MALLOC(params->N*sizeof(int));
-    }
-  else
-    {
-      work->zx=NULL;
-      work->zy=NULL;
-      work->zz=NULL;
-      work->idx=NULL;
-      work->zfx=NULL;
-      work->zfy=NULL;
-      work->zfz=NULL;
-    }
-  work->free_fgg_expa=allocate_fgg_expa;
-}
-
-
-// ----------------------------------------------------------------------------
-static void
-SE_FGG_init_workspace(SE_FGG_work* work, const SE_FGG_params* params,
-		      int allocate_zs, int allocate_fgg_expa)
-{
-  int k;
-  const int P=params->P;
-  int numel = (params->N)*P;
-
-  if(allocate_fgg_expa)
-    {
-      for (k=0;k<numel;k++){
-	work->zx[k] = work->zy[k] = work->zz[k] = 0.;
-	work->zfx[k] = work->zfy[k] = work->zfz[k] = 0.;
-        if(allocate_zs)
-	  work->zs[k] = 0;
-	if(k<(params->N))
-	  work->idx[k] = 0;
-      }
-      if(allocate_zs)
-        for (k=numel; k<P*P*P; k++)
-	  work->zs[k] = 0;
-  
-    }
-}
 // ------------------------------------------------------------------------------
 void sumr(real *H, int np,char* str)
 {
@@ -228,8 +121,7 @@ void sumc(t_complex* H, int np,char* str)
 
 // -----------------------------------------------------------------------------
 static void
-//SE_FGG_base_gaussian(SE_FGG_work* work, const SE_FGG_params* params)
-PME_SE_FGG_base_gaussian(real* zs, const SE_FGG_params* params)
+SE_FGG_base_gaussian(real* zs, const SE_FGG_params* params)
 {
   int idx ,i,j,k;
   real ih2, ijh2, ijkh2;
@@ -293,7 +185,6 @@ fgg_expansion_all(const real x[3], const real q,
       for(j=0; j<3; j++)
         {
           idx = (int) round(x[j]/h);
-	//          idx_from[j] = idx - p_half;
           t0[j] = x[j]-h*idx;
         }
     }
@@ -302,7 +193,6 @@ fgg_expansion_all(const real x[3], const real q,
       for(j=0; j<3; j++)
         {
           idx = (int) floor(x[j]/h);
-	  //          idx_from[j] = idx - (p_half-1);
           t0[j] = x[j]-h*idx;
         }
     }
@@ -350,10 +240,6 @@ fgg_expansion_all(const real x[3], const real q,
       z2_1[i] = z1;
       z2_2[i] = z2;
 
-      //      zf_0[i] = -c*(t0[0]-(p_from+i)*h);
-      //      zf_1[i] = -c*(t0[1]-(p_from+i)*h);
-      //      zf_2[i] = -c*(t0[2]-(p_from+i)*h);
-
       zf_0[i] = zf_0[i-1]+c*h;
       zf_1[i] = zf_1[i-1]+c*h;
       zf_2[i] = zf_2[i-1]+c*h;
@@ -366,12 +252,6 @@ fgg_expansion_all(const real x[3], const real q,
     }
 
   return 0;
-/*  return __IDX3_RMAJ(idx_from[0]+p_half,
-                     idx_from[1]+p_half,
-                     idx_from[2]+p_half,
-                     params->npdims[1], params->npdims[2]);*/
-
-
 }
 
 real sesum(real *f, int n, int e1, int e2, int dim, char* str)
@@ -395,4 +275,53 @@ real sesum(real *f, int n, int e1, int e2, int dim, char* str)
 
 }
 
-#endif
+void SE_grid_dispatch(real* grid, real* q,
+                      splinedata_t *spline,
+                      const SE_FGG_params* params){
+#ifdef GMX_DOUBLE
+
+#ifdef GMX_X86_AVX_256
+SE_grid_split_AVX_dispatch_d(grid, q, spline, params);
+#else  // not AVX
+SE_grid_split_SSE_dispatch_d(grid, q, spline, params);
+#endif // AVX
+
+#else  // not GMX_DOUBLE  or single precision
+
+#ifdef GMX_X86_AVX_256
+SE_grid_split_AVX_dispatch(grid, q, spline, params);
+#else  // not AVX
+SE_grid_split_SSE_dispatch(grid, q, spline, params);
+#endif // AVX
+
+#endif // GMX_DOUBLE
+
+}
+
+void SE_int_dispatch(rvec *force, real *grid, real *q,
+                     splinedata_t *spline,
+                     const SE_FGG_params *params, real scale,
+                     gmx_bool bClearF)
+{
+#ifdef GMX_DOUBLE
+  
+#ifdef GMX_X86_AVX_256
+  SE_int_split_AVX_dispatch_d(force, grid, q, spline, params, scale, bClearF);
+#else  // not AVX
+  SE_int_split_SSE_dispatch_d(force, grid, q, spline, params, scale, bClearF);
+#endif // AVX
+  
+#else  // not GMX_DOUBLE  or single precision
+  
+#ifdef GMX_X86_AVX_256
+  SE_int_split_AVX_dispatch(force, grid, q, spline, params, scale, bClearF);
+#else  // not AVX
+  SE_int_split_SSE_dispatch(force, grid, q, spline, params, scale, bClearF);
+#endif // AVX
+  
+#endif // GMX_DOUBLE
+  
+}
+
+
+#endif //__SE_FGG_H__
