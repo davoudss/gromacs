@@ -1,3 +1,42 @@
+<<<<<<< HEAD
+=======
+#
+# This file is part of the GROMACS molecular simulation package.
+#
+# Copyright (c) 2012,2013, by the GROMACS development team, led by
+# David van der Spoel, Berk Hess, Erik Lindahl, and including many
+# others, as listed in the AUTHORS file in the top-level source
+# directory and at http://www.gromacs.org.
+#
+# GROMACS is free software; you can redistribute it and/or
+# modify it under the terms of the GNU Lesser General Public License
+# as published by the Free Software Foundation; either version 2.1
+# of the License, or (at your option) any later version.
+#
+# GROMACS is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public
+# License along with GROMACS; if not, see
+# http://www.gnu.org/licenses, or write to the Free Software Foundation,
+# Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA.
+#
+# If you want to redistribute modifications to GROMACS, please
+# consider that scientific software is very special. Version
+# control is crucial - bugs must be traceable. We will be happy to
+# consider code for inclusion in the official distribution, but
+# derived work must not be called official GROMACS. Details are found
+# in the README & COPYING files - if they are missing, get the
+# official version at http://www.gromacs.org.
+#
+# To help us fund GROMACS development, we humbly ask that you cite
+# the research papers on the package. Check out http://www.gromacs.org.
+#
+
+# DAVOUD EDITED THIS
+>>>>>>> merge_se
 cmake_minimum_required(VERSION 2.8)
 # Keep CMake suitably quiet on Cygwin
 set(CMAKE_LEGACY_CYGWIN_WIN32 0) # Remove when CMake >= 2.8.4 is required
@@ -22,14 +61,23 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 # machine with no git. 
 #
 # NOTE: when releasing the "-dev" suffix needs to be stripped off!
+<<<<<<< HEAD
 set(PROJECT_VERSION "5.0-dev")
+=======
+set(PROJECT_VERSION "4.6.1-dev")
+# The version number of the regressiontest tarball against which this
+# git branch can be tested. Normally, this will be the version of the
+# last patch release. Comment the next line out for branches leading
+# to a major/minor release.
+set(REGRESSIONTEST_VERSION "4.6")
+>>>>>>> merge_se
 set(CUSTOM_VERSION_STRING ""
     CACHE STRING "Custom version string (if empty, use hard-coded default)")
 mark_as_advanced(CUSTOM_VERSION_STRING)
 if (CUSTOM_VERSION_STRING)
     set(PROJECT_VERSION ${CUSTOM_VERSION_STRING})
 endif (CUSTOM_VERSION_STRING)
-set(SOVERSION 6)
+set(SOVERSION 8)
 # It is a bit irritating, but this has to be set separately for now!
 SET(CPACK_PACKAGE_VERSION_MAJOR "5")
 SET(CPACK_PACKAGE_VERSION_MINOR "0")
@@ -52,7 +100,11 @@ endif()
 set(API_VERSION ${NUM_VERSION})
 
 if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT AND UNIX)
+<<<<<<< HEAD
     set(CMAKE_INSTALL_PREFIX "/usr/local/gromacs" CACHE STRING "Installation prefix (installation will need write permissions here)" FORCE)
+=======
+set(CMAKE_INSTALL_PREFIX "/NOBACKUP/davoudss/gromacs" CACHE STRING "Installation prefix (installation will need write permissions here)" FORCE)
+>>>>>>> merge_se
 endif()
 
 set(GMX_INSTALL_PREFIX "" CACHE STRING "Prefix gets appended to CMAKE_INSTALL_PREFIX. For cpack it sets the root folder of the archive.")
@@ -111,7 +163,9 @@ mark_as_advanced(GMX_COOL_QUOTES)
 set(CMAKE_PREFIX_PATH "" CACHE STRING "Extra locations to search for external libraries and tools (give directory without lib, bin, or include)")
 # User input options                                                   #
 ########################################################################
-option(GMX_DOUBLE "Use double precision (much slower, use only if you really need it)" OFF)
+option(GMX_DOUBLE "Use double precision (much slower, use only if you really need it)" ON)
+set(GMX_DOUBLE ON)
+message(${GMX_DOUBLE})
 option(GMX_MPI    "Build a parallel (message-passing) version of GROMACS" OFF)
 option(GMX_THREAD_MPI  "Build a thread-MPI-based multithreaded version of GROMACS (not compatible with MPI)" ON)
 option(GMX_SOFTWARE_INVSQRT "Use GROMACS software 1/sqrt" ON)
@@ -174,7 +228,8 @@ if(UNIX)
     mark_as_advanced(GMX_PREFER_STATIC_LIBS)
 endif()
 
-option(GMX_CYCLE_SUBCOUNTERS "Enable cycle subcounters to get a more detailed cycle timings" OFF)
+option(GMX_CYCLE_SUBCOUNTERS "Enable cycle subcounters to get a more detailed cycle timings" ON)
+set(GMX_CYCLE_SUBCOUNTERS ON)
 mark_as_advanced(GMX_CYCLE_SUBCOUNTERS)
 
 option(GMX_SKIP_DEFAULT_CFLAGS "Don't automatically add suggested/required Compiler flags." OFF)
@@ -260,6 +315,10 @@ endif()
 
 if (CMAKE_C_COMPILER_ID STREQUAL "PGI")
     message(WARNING "All tested PGI compiler versions (up to 12.9.0) generate binaries which produce incorrect results, or even fail to compile Gromacs. Highly recommended to use a different compiler. If you choose to use PGI, make sure to run the regressiontests.")
+endif()
+
+if(CMAKE_C_COMPILER_ID MATCHES "Intel" AND C_COMPILER_VERSION VERSION_LESS "12.0.0")
+    message(WARNING "Intel compilers before 12.0.0 are not routinely tested, so there may be problems. Version 11.1 with SSE4.1 is known to produce incorrect results. It is highly recommended to use a more up-to-date compiler. If you choose to use this version, make sure you run the regressiontests.")
 endif()
 
 ########################################################################
@@ -466,7 +525,7 @@ endif(GMX_XML)
 
 option(GMX_GSL "Add support for gsl" OFF)
 if (GMX_GSL)
-  find_package(gsl)
+  find_package(GSL)
   set(PKG_GSL "")
   if(GSL_FOUND)
     include_directories(${GSL_INCLUDE_DIR})
@@ -477,11 +536,11 @@ endif (GMX_GSL)
 
 option(GMX_X11 "Use X window system" OFF)
 if (GMX_X11)
-	find_package(X11)
-	# X11 includes/libraries are only set in the ngmx subdirectory!
-	if(X11_FOUND)
-    	set(HAVE_X11 1)
-	endif(X11_FOUND)
+    find_package(X11)
+    # X11 includes/libraries are only set in the ngmx subdirectory!
+    if(NOT X11_FOUND)
+        message(WARNING "X11 include files and/or libraries were not found. Will not build the GROMACS X11-binaries, such as ngmx")
+    endif()
 endif(GMX_X11)
 
 include(ThreadMPI)
@@ -731,6 +790,9 @@ elseif(${GMX_CPU_ACCELERATION} STREQUAL "SSE4.1")
       message(STATUS "Enabling SSE4.1 Gromacs acceleration, and it will help compiler optimization.")
     endif()
 
+    if(CMAKE_C_COMPILER_ID MATCHES "Intel" AND C_COMPILER_VERSION VERSION_EQUAL "11.1")
+        message(FATAL_ERROR "You are using Intel compiler version 11.1, and that compiler is known to produce incorrect results with SSE4.1 acceleration. You need to use another compiler (e.g. icc 12 or newer) or different acceleration (probably slower simulations).")
+    endif()
 elseif(${GMX_CPU_ACCELERATION} STREQUAL "AVX_128_FMA" OR ${GMX_CPU_ACCELERATION} STREQUAL "AVX_256")
 
     # Set the AVX compiler flag for both these choices!

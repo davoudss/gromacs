@@ -276,11 +276,13 @@ void do_force_lowlevel(FILE       *fplog,   gmx_large_int_t step,
             donb_flags |= GMX_NONBONDED_DO_LR;
         }
 
+double start=gmx_gettime(),stop;
         wallcycle_sub_start(wcycle, ewcsNONBONDED);
-        do_nonbonded(cr, fr, x, f, f_longrange, md, excl,
-                     &enerd->grpp, box_size, nrnb,
-                     lambda, dvdl_nb, -1, -1, donb_flags);
-
+// DAVOUD
+       do_nonbonded(cr, fr, x, f, f_longrange, md, excl,
+	              &enerd->grpp, box_size, nrnb,
+                      lambda, dvdl_nb, -1, -1, donb_flags);
+       
         /* If we do foreign lambda and we have soft-core interactions
          * we have to recalculate the (non-linear) energies contributions.
          */
@@ -568,6 +570,8 @@ void do_force_lowlevel(FILE       *fplog,   gmx_large_int_t step,
                             pme_flags |= GMX_PME_CALC_POT;
                         }
                         wallcycle_start(wcycle, ewcPMEMESH);
+
+			double start = gmx_gettime();
                         status = gmx_pme_do(fr->pmedata,
                                             md->start, md->homenr - fr->n_tpi,
                                             x, fr->f_novirsum,
@@ -579,6 +583,8 @@ void do_force_lowlevel(FILE       *fplog,   gmx_large_int_t step,
                                             fr->vir_el_recip, fr->ewaldcoeff,
                                             &Vlr, lambda[efptCOUL], &dvdl,
                                             pme_flags);
+			printf("PME duration: %lf\n",gmx_gettime()-start);
+
                         *cycles_pme = wallcycle_stop(wcycle, ewcPMEMESH);
 
                         /* We should try to do as little computation after
@@ -682,6 +688,75 @@ void do_force_lowlevel(FILE       *fplog,   gmx_large_int_t step,
         pr_rvecs(debug, 0, "fshift after bondeds", fr->fshift, SHIFTS);
     }
 
+    GMX_MPE_LOG(ev_force_finish);
+
+    //davoud
+    gmx_bool error_analysis    = true;
+    gmx_bool to_write          = false; // false is for read
+    gmx_bool with_ONE_4PI_EPS0 = false;
+    gmx_bool only_Fourier      = true;
+    if(error_analysis)
+      {
+	FILE *g1,*g2;
+	char rw[3];
+	if(to_write)
+	  strcpy(rw,"w");
+	else
+	  strcpy(rw,"r");
+	g1 = fopen("Direct3000_xi3.txt",rw);
+	
+	double diff=0,sum=0,f1,f2,f3,fx,fy,fz,fo=0;
+	double R1,R2,R3,F1,F2,F3,sumR=0,sumF=0,dR=0,dF=0;
+	int ret;
+
+	// error calculation
+	rvec *f_short = f;
+	rvec *f_long  = fr->f_novirsum;
+	for(i=0;i<md->homenr;i++)
+	  {
+	    if(!with_ONE_4PI_EPS0)
+	      {
+		f_short[i][XX] /= ONE_4PI_EPS0;
+		f_short[i][YY] /= ONE_4PI_EPS0;
+		f_short[i][ZZ] /= ONE_4PI_EPS0;
+		f_long[ i][XX] /= ONE_4PI_EPS0;
+		f_long[ i][YY] /= ONE_4PI_EPS0;
+		f_long[ i][ZZ] /= ONE_4PI_EPS0;
+	      }
+	    if(only_Fourier)
+	      {
+		fx = f_long[i][XX];
+		fy = f_long[i][YY];
+		fz = f_long[i][ZZ];
+	      }
+	    else
+	      {
+		fx = f_short[i][XX]+f_long[i][XX];
+		fy = f_short[i][YY]+f_long[i][YY];
+		fz = f_short[i][ZZ]+f_long[i][ZZ];
+	      }
+
+
+	    if(to_write)
+	      fprintf(g1,"%8.16f %8.16f %8.16f\n",fx,fy,fz);
+	    else
+	      ret = fscanf(g1,"%lf %lf %lf\n",&f1,&f2,&f3);
+  
+	    fo+=fx+fy+fz;
+	    diff+=(fx-f1)*(fx-f1)+(fy-f2)*(fy-f2)+(fz-f3)*(fz-f3);
+	    sum+=(f1)*(f1)+(f2)*(f2)+(f3)*(f3);
+	
+	    if(i<0)
+		printf("%d:%f %f %f\n",cr->nodeid,fx,fy,fz);
+
+	  }
+	printf("xi=%f sum(force)=%g\n",fr->ewaldcoeff,fo);
+	printf("Abs. rms Error %g\n",sqrt(diff/md->homenr)/(1+with_ONE_4PI_EPS0*(ONE_4PI_EPS0-1)));
+	printf("Rel. Error %g\n",sqrt(diff/sum));
+
+	fclose(g1);
+	//	fclose(g2);
+	}
 }
 
 void init_enerdata(int ngener, int n_lambda, gmx_enerdata_t *enerd)

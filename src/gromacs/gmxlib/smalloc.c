@@ -52,6 +52,9 @@
 #ifdef WITH_DMALLOC
 #include "dmalloc.h"
 #endif
+#if defined(GMX_X86_AVX_256)
+#include <immintrin.h>
+#endif
 
 #ifdef DEBUG
 static void log_action(int bMal, const char *what, const char *file, int line,
@@ -226,7 +229,12 @@ void *save_realloc(const char *name, const char *file, int line, void *ptr,
 #endif
         if (ptr == NULL)
         {
+// davoud: AVX memalloc
+#if defined(GMX_X86_AVX_256)
+            p = _mm_malloc((size_t)size,32);
+#else
             p = malloc((size_t)size);
+#endif
         }
         else
         {
