@@ -75,6 +75,7 @@ gmx_parallel_3dfft_init   (gmx_parallel_3dfft_t     *    pfft_setup,
     int        rN      = ndata[2], M = ndata[1], K = ndata[0];
     int        flags   = FFT5D_REALCOMPLEX | FFT5D_ORDER_YZ; /* FFT5D_DEBUG */
     MPI_Comm   rcomm[] = {comm[1], comm[0]};
+
     int        Nb, Mb, Kb;                                   /* dimension for backtransform (in starting order) */
     t_complex *buf1, *buf2;                                  /*intermediate buffers - used internally.*/
 
@@ -129,6 +130,7 @@ fft5d_limits(fft5d_plan                p,
     }
     local_size[1] = p->pM[0];
     local_size[0] = p->pK[0];
+
     return 0;
 }
 

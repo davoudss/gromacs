@@ -32,6 +32,7 @@
 # To help us fund GROMACS development, we humbly ask that you cite
 # the research papers on the package. Check out http://www.gromacs.org.
 #
+
 set(CONTRIB_PROGRAMS 
      #add here any programs you want to compile
 

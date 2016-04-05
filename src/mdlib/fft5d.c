@@ -211,6 +211,7 @@ fft5d_plan fft5d_plan_3d(int NG, int MG, int KG, MPI_Comm comm[2], int flags, t_
         P[0]     = 1;
         prank[0] = 0;
     }
+
 #ifdef GMX_MPI
     if (GMX_PARALLEL_ENV_INITIALIZED && comm[1] != MPI_COMM_NULL)
     {

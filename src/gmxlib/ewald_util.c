@@ -55,6 +55,9 @@
 
 real calc_ewaldcoeff(real rc, real dtol)
 {
+    // davoud: I added this to use ewald-rtol in input file to input xi
+    return dtol;
+    //
     real x = 5, low, high;
     int  n, i = 0;
 

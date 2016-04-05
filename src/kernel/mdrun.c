@@ -423,6 +423,9 @@ int cmain(int argc, char *argv[])
     gmx_bool      bConfout      = TRUE;
     gmx_bool      bReproducible = FALSE;
 
+    // davoud
+    gmx_bool      bSE           = FALSE;
+
     int           npme          = -1;
     int           nmultisim     = 0;
     int           nstglobalcomm = -1;
@@ -544,7 +547,9 @@ int cmain(int argc, char *argv[])
         { "-resetstep", FALSE, etINT, {&resetstep},
           "HIDDENReset cycle counters after these many time steps" },
         { "-resethway", FALSE, etBOOL, {&bResetCountersHalfWay},
-          "HIDDENReset the cycle counters after half the number of steps or halfway [TT]-maxh[tt]" }
+          "HIDDENReset the cycle counters after half the number of steps or halfway [TT]-maxh[tt]" },
+	//davoud
+	{ "-se", FALSE, etBOOL, {&bSE}, "run SE instead of PME"}
     };
     gmx_edsam_t   ed;
     unsigned long Flags, PCA_Flags;
@@ -590,6 +595,8 @@ int cmain(int argc, char *argv[])
        lead to problems. */
     dd_node_order = nenum(ddno_opt);
     cr->npmenodes = npme;
+// davoud
+    cr->se = bSE;
 
     hw_opt.thread_affinity = nenum(thread_aff_opt);
 

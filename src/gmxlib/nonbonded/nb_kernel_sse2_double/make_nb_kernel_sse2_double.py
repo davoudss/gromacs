@@ -533,6 +533,6 @@ for decl in kerneldecl[0:-1]:
 fpdecl.write( kerneldecl[-1] + '\n' )
 fpdecl.write( '};\n\n' )
 fpdecl.write( 'int\n' )
-fpdecl.write( '    kernellist_'+Arch+'_size = sizeof(kernellist_'+Arch+')/sizeof(kernellist_'+Arch+'[0]);\n\n')
+fpdecl.write( 'kernellist_'+Arch+'_size = sizeof(kernellist_'+Arch+')/sizeof(kernellist_'+Arch+'[0]);\n\n')
 fpdecl.write( '#endif\n')
 fpdecl.close()

@@ -226,6 +226,7 @@ real do_ewald(FILE *log,       gmx_bool bVerbose,
                     akv = 2.0*ak*(1.0/m2-factor);
                     if (iz >= 0)
                     {
+
                         for (n = 0; n < natoms; n++)
                         {
                             et->tab_qxyz[n] = rcmul(charge[n], cmul(et->tab_xy[n],

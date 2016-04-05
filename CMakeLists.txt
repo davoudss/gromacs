@@ -32,6 +32,8 @@
 # To help us fund GROMACS development, we humbly ask that you cite
 # the research papers on the package. Check out http://www.gromacs.org.
 #
+
+# DAVOUD EDITED THIS
 cmake_minimum_required(VERSION 2.8)
 # Keep CMake suitably quiet on Cygwin
 set(CMAKE_LEGACY_CYGWIN_WIN32 0) # Remove when CMake >= 2.8.4 is required
@@ -91,7 +93,7 @@ endif()
 set(API_VERSION ${NUM_VERSION})
 
 if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT AND UNIX)
-set(CMAKE_INSTALL_PREFIX "/usr/local/gromacs" CACHE STRING "Installation prefix (installation will need write permissions here)" FORCE)
+set(CMAKE_INSTALL_PREFIX "/NOBACKUP/davoudss/gromacs" CACHE STRING "Installation prefix (installation will need write permissions here)" FORCE)
 endif()
 
 include(gmxBuildTypeReference)
@@ -161,7 +163,9 @@ set(CMAKE_PREFIX_PATH "" CACHE STRING "Extra locations to search for external li
 ########################################################################
 # User input options                                                   #
 ########################################################################
-option(GMX_DOUBLE "Use double precision (much slower, use only if you really need it)" OFF)
+option(GMX_DOUBLE "Use double precision (much slower, use only if you really need it)" ON)
+set(GMX_DOUBLE ON)
+message(${GMX_DOUBLE})
 option(GMX_MPI    "Build a parallel (message-passing) version of GROMACS" OFF)
 option(GMX_THREAD_MPI  "Build a thread-MPI-based multithreaded version of GROMACS (not compatible with MPI)" ON)
 option(GMX_SOFTWARE_INVSQRT "Use GROMACS software 1/sqrt" ON)
@@ -213,7 +217,8 @@ if(UNIX)
     mark_as_advanced(GMX_PREFER_STATIC_LIBS)
 endif()
 
-option(GMX_CYCLE_SUBCOUNTERS "Enable cycle subcounters to get a more detailed cycle timings" OFF)
+option(GMX_CYCLE_SUBCOUNTERS "Enable cycle subcounters to get a more detailed cycle timings" ON)
+set(GMX_CYCLE_SUBCOUNTERS ON)
 mark_as_advanced(GMX_CYCLE_SUBCOUNTERS)
 
 option(GMX_SKIP_DEFAULT_CFLAGS "Don't automatically add suggested/required Compiler flags." OFF)

@@ -296,6 +296,10 @@ typedef struct {
     /* these buffers are used as destination buffers if MPI_IN_PLACE isn't
        supported.*/
     mpi_in_place_buf_t *mpb;
+
+// davoud
+    gmx_bool       se;
+
 } t_commrec;
 
 #define MASTERNODE(cr)     (((cr)->nodeid == 0) || !PAR(cr))
