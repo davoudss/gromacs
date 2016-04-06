@@ -116,6 +116,9 @@ struct t_commrec {
     /* these buffers are used as destination buffers if MPI_IN_PLACE isn't
        supported.*/
     mpi_in_place_buf_t *mpb;
+   
+    // davoud
+    gmx_bool   se;
 };
 
 //! True if this is a simulation with more than 1 node
