@@ -274,6 +274,8 @@ int gmx_mdrun(int argc, char *argv[])
     gmx_bool          bIMDterm      = FALSE;
     gmx_bool          bIMDpull      = FALSE;
 
+    // davoud
+    gmx_bool      bSE           = FALSE;
     int               npme          = -1;
     int               nstlist       = 0;
     int               nmultisim     = 0;
@@ -410,7 +412,9 @@ int gmx_mdrun(int argc, char *argv[])
         { "-resetstep", FALSE, etINT, {&resetstep},
           "HIDDENReset cycle counters after these many time steps" },
         { "-resethway", FALSE, etBOOL, {&bResetCountersHalfWay},
-          "HIDDENReset the cycle counters after half the number of steps or halfway [TT]-maxh[tt]" }
+          "HIDDENReset the cycle counters after half the number of steps or halfway [TT]-maxh[tt]" },
+	//davoud
+	{ "-se", FALSE, etBOOL, {&bSE}, "run SE instead of PME"}
     };
     unsigned long   Flags;
     ivec            ddxyz;
@@ -452,6 +456,8 @@ int gmx_mdrun(int argc, char *argv[])
 
 
     dd_rank_order = nenum(ddrank_opt);
+	// davoud
+    cr->se = bSE;
 
     hw_opt.thread_affinity = nenum(thread_aff_opt);
 

@@ -38,12 +38,16 @@
 #include "gromacs/utility/real.h"
 
 #include "pme-internal.h"
+#inclulde "se.h"
 
 void
 gather_f_bsplines(struct gmx_pme_t *pme, real *grid,
                   gmx_bool bClearF, pme_atomcomm_t *atc,
                   splinedata_t *spline,
-                  real scale);
+                  real scale,
+		  SE_FGG_params *se_params,
+		  gmx_bool       se_set
+		  );
 
 real
 gather_energy_bsplines(struct gmx_pme_t *pme, real *grid,

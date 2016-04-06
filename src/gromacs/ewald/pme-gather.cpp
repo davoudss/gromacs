@@ -46,6 +46,9 @@
 #include "pme-simd.h"
 #include "pme-spline-work.h"
 
+#include "se.h"
+#include "se_fgg.h"
+
 using namespace gmx; // TODO: Remove when this file is moved into gmx namespace
 
 #define DO_FSPLINE(order)                      \
@@ -78,7 +81,10 @@ using namespace gmx; // TODO: Remove when this file is moved into gmx namespace
 void gather_f_bsplines(struct gmx_pme_t *pme, real *grid,
                        gmx_bool bClearF, pme_atomcomm_t *atc,
                        splinedata_t *spline,
-                       real scale)
+                       real scale,
+		       SE_FGG_params *se_params,
+		       gmx_bool       se_set
+		       )
 {
     /* sum forces for local particles */
     int    nn, n, ithx, ithy, ithz, i0, j0, k0;
@@ -93,63 +99,72 @@ void gather_f_bsplines(struct gmx_pme_t *pme, real *grid,
     real   rxx, ryx, ryy, rzx, rzy, rzz;
     int    order;
 
+    // davoud
+    if(se_set)
+      {
+	scale = 1;
+	SE_int_dispatch(atc->f, grid, atc->coefficient, spline, se_params, scale, bClearF);
+      }
+    else
+      {
+	
 #ifdef PME_SIMD4_SPREAD_GATHER
-    // cppcheck-suppress unreadVariable cppcheck seems not to analyze code from pme-simd4.h
-    struct pme_spline_work *work = pme->spline_work;
+	// cppcheck-suppress unreadVariable cppcheck seems not to analyze code from pme-simd4.h
+	struct pme_spline_work *work = pme->spline_work;
 #ifndef PME_SIMD4_UNALIGNED
-    GMX_ALIGNED(real, GMX_SIMD4_WIDTH)  thz_aligned[GMX_SIMD4_WIDTH*2];
-    GMX_ALIGNED(real, GMX_SIMD4_WIDTH)  dthz_aligned[GMX_SIMD4_WIDTH*2];
+	GMX_ALIGNED(real, GMX_SIMD4_WIDTH)  thz_aligned[GMX_SIMD4_WIDTH*2];
+	GMX_ALIGNED(real, GMX_SIMD4_WIDTH)  dthz_aligned[GMX_SIMD4_WIDTH*2];
 #endif
 #endif
-
-    order = pme->pme_order;
-    nx    = pme->nkx;
-    ny    = pme->nky;
-    nz    = pme->nkz;
-    pny   = pme->pmegrid_ny;
-    pnz   = pme->pmegrid_nz;
-
-    rxx   = pme->recipbox[XX][XX];
-    ryx   = pme->recipbox[YY][XX];
-    ryy   = pme->recipbox[YY][YY];
-    rzx   = pme->recipbox[ZZ][XX];
-    rzy   = pme->recipbox[ZZ][YY];
-    rzz   = pme->recipbox[ZZ][ZZ];
-
-    for (nn = 0; nn < spline->n; nn++)
-    {
-        n           = spline->ind[nn];
-        coefficient = scale*atc->coefficient[n];
-
-        if (bClearF)
-        {
-            atc->f[n][XX] = 0;
-            atc->f[n][YY] = 0;
-            atc->f[n][ZZ] = 0;
-        }
-        if (coefficient != 0)
-        {
-            fx     = 0;
-            fy     = 0;
-            fz     = 0;
-            idxptr = atc->idx[n];
-            norder = nn*order;
-
-            i0   = idxptr[XX];
-            j0   = idxptr[YY];
-            k0   = idxptr[ZZ];
-
-            /* Pointer arithmetic alert, next six statements */
-            thx  = spline->theta[XX] + norder;
-            thy  = spline->theta[YY] + norder;
-            thz  = spline->theta[ZZ] + norder;
-            dthx = spline->dtheta[XX] + norder;
-            dthy = spline->dtheta[YY] + norder;
-            dthz = spline->dtheta[ZZ] + norder;
-
-            switch (order)
-            {
-                case 4:
+	
+	order = pme->pme_order;
+	nx    = pme->nkx;
+	ny    = pme->nky;
+	nz    = pme->nkz;
+	pny   = pme->pmegrid_ny;
+	pnz   = pme->pmegrid_nz;
+	
+	rxx   = pme->recipbox[XX][XX];
+	ryx   = pme->recipbox[YY][XX];
+	ryy   = pme->recipbox[YY][YY];
+	rzx   = pme->recipbox[ZZ][XX];
+	rzy   = pme->recipbox[ZZ][YY];
+	rzz   = pme->recipbox[ZZ][ZZ];
+	
+	for (nn = 0; nn < spline->n; nn++)
+	  {
+	    n           = spline->ind[nn];
+	    coefficient = scale*atc->coefficient[n];
+	    
+	    if (bClearF)
+	      {
+		atc->f[n][XX] = 0;
+		atc->f[n][YY] = 0;
+		atc->f[n][ZZ] = 0;
+	      }
+	    if (coefficient != 0)
+	      {
+		fx     = 0;
+		fy     = 0;
+		fz     = 0;
+		idxptr = atc->idx[n];
+		norder = nn*order;
+		
+		i0   = idxptr[XX];
+		j0   = idxptr[YY];
+		k0   = idxptr[ZZ];
+		
+		/* Pointer arithmetic alert, next six statements */
+		thx  = spline->theta[XX] + norder;
+		thy  = spline->theta[YY] + norder;
+		thz  = spline->theta[ZZ] + norder;
+		dthx = spline->dtheta[XX] + norder;
+		dthy = spline->dtheta[YY] + norder;
+		dthz = spline->dtheta[ZZ] + norder;
+		
+		switch (order)
+		  {
+		  case 4:
 #ifdef PME_SIMD4_SPREAD_GATHER
 #ifdef PME_SIMD4_UNALIGNED
 #define PME_GATHER_F_SIMD4_ORDER4
@@ -162,7 +177,7 @@ void gather_f_bsplines(struct gmx_pme_t *pme, real *grid,
                     DO_FSPLINE(4);
 #endif
                     break;
-                case 5:
+		  case 5:
 #ifdef PME_SIMD4_SPREAD_GATHER
 #define PME_GATHER_F_SIMD4_ALIGNED
 #define PME_ORDER 5
@@ -171,25 +186,26 @@ void gather_f_bsplines(struct gmx_pme_t *pme, real *grid,
                     DO_FSPLINE(5);
 #endif
                     break;
-                default:
+		  default:
                     DO_FSPLINE(order);
                     break;
-            }
-
-            atc->f[n][XX] += -coefficient*( fx*nx*rxx );
-            atc->f[n][YY] += -coefficient*( fx*nx*ryx + fy*ny*ryy );
-            atc->f[n][ZZ] += -coefficient*( fx*nx*rzx + fy*ny*rzy + fz*nz*rzz );
-        }
-    }
-    /* Since the energy and not forces are interpolated
-     * the net force might not be exactly zero.
-     * This can be solved by also interpolating F, but
-     * that comes at a cost.
-     * A better hack is to remove the net force every
-     * step, but that must be done at a higher level
-     * since this routine doesn't see all atoms if running
-     * in parallel. Don't know how important it is?  EL 990726
-     */
+		  }
+		
+		atc->f[n][XX] += -coefficient*( fx*nx*rxx );
+		atc->f[n][YY] += -coefficient*( fx*nx*ryx + fy*ny*ryy );
+		atc->f[n][ZZ] += -coefficient*( fx*nx*rzx + fy*ny*rzy + fz*nz*rzz );
+	      }
+	  }
+	/* Since the energy and not forces are interpolated
+	 * the net force might not be exactly zero.
+	 * This can be solved by also interpolating F, but
+	 * that comes at a cost.
+	 * A better hack is to remove the net force every
+	 * step, but that must be done at a higher level
+	 * since this routine doesn't see all atoms if running
+	 * in parallel. Don't know how important it is?  EL 990726
+	 */
+      } //else PME
 }
 
 

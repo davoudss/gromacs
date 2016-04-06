@@ -54,8 +54,45 @@
 #include "pme-internal.h"
 #include "pme-simd.h"
 #include "pme-spline-work.h"
+#include "se.h"
+#include "se_fgg.h"
 
 /* TODO consider split of pme-spline from this file */
+static void calc_interpolation_idx_se(gmx_pme_t pme, pme_atomcomm_t *atc,
+                                      int start, int end, int thread)
+{
+  int             i;
+  int            *idxptr, tix, tiy, tiz;
+  real           *xptr, tx, ty, tz;
+  real            rxx, ryx, ryy, rzx, rzy, rzz, nrx, nry, nrz;
+  int             nx, ny, nz;
+
+  nx  = pme->nkx;
+  ny  = pme->nky;
+  nz  = pme->nkz;
+
+  rxx = pme->recipbox[XX][XX];
+  ryy = pme->recipbox[YY][YY];
+  rzz = pme->recipbox[ZZ][ZZ];
+
+  nrx = nx*rxx; nry = ny*ryy; nrz = nz*rzz;
+  for (i = start; i < end; i++)
+    {
+      xptr   = atc->x[i];
+      idxptr = atc->idx[i];
+
+      tx = nrx * xptr[XX];
+      ty = nry * xptr[YY];
+      tz = nrz * xptr[ZZ];
+      tix = (int)(tx);
+      tiy = (int)(ty);
+      tiz = (int)(tz);
+      idxptr[XX] = pme->nnx[tix];
+      idxptr[YY] = pme->nny[tiy];
+      idxptr[ZZ] = pme->nnz[tiz];
+   }
+
+}
 
 static void calc_interpolation_idx(struct gmx_pme_t *pme, pme_atomcomm_t *atc,
                                    int start, int grid_index, int end, int thread)
@@ -255,31 +292,66 @@ static void make_thread_local_ind(pme_atomcomm_t *atc,
 
 static void make_bsplines(splinevec theta, splinevec dtheta, int order,
                           rvec fractx[], int nr, int ind[], real coefficient[],
-                          gmx_bool bDoSplines)
+                          gmx_bool bDoSplines,
+			  real zs[], int idx[], rvec x[],
+			  const SE_FGG_params *se_params,
+			  gmx_bool  se_set,
+			  pme_atomcomm_t * atc)
+
 {
     /* construct splines for local atoms */
     int   i, ii;
     real *xptr;
 
-    for (i = 0; i < nr; i++)
-    {
-        /* With free energy we do not use the coefficient check.
-         * In most cases this will be more efficient than calling make_bsplines
-         * twice, since usually more than half the particles have non-zero coefficients.
-         */
-        ii = ind[i];
-        if (bDoSplines || coefficient[ii] != 0.0)
-        {
-            xptr = fractx[ii];
-            assert(order >= 4 && order <= PME_ORDER_MAX);
-            switch (order)
-            {
-                case 4:  CALC_SPLINE(4);     break;
-                case 5:  CALC_SPLINE(5);     break;
-                default: CALC_SPLINE(order); break;
-            }
-        }
-    }
+    // davoud
+    real xn[3] MEM_ALIGNED;
+    const int P = order-1;
+    const int M1 = se_params->dims[1];
+    const int M2 = se_params->dims[2];
+
+    if(se_set)
+      {
+	// davoud fill zs
+	SE_FGG_base_gaussian(zs, se_params);
+	for (i = 0; i < nr; i++)
+	  {
+	    ii = ind[i];
+	    
+	    //davoud  Add this to create SE_FGG_expand_all
+	    idxptr = atc->idx[ii];
+	    xn[0] = x[i][XX]; xn[1] = x[i][YY]; xn[2] = x[i][ZZ];
+	    __FGG_EXPA_ALL(xn,1,se_params,
+			   theta[0] +ii*P,
+			   theta[1] +ii*P,
+			   theta[2] +ii*P,
+			   dtheta[0]+ii*P,
+			   dtheta[1]+ii*P,
+			   dtheta[2]+ii*P);
+	    idx[ii] = __IDX3_RMAJ(idxptr[XX],idxptr[YY],idxptr[ZZ],M1+P,M2+P);
+	  }
+      }
+    else
+      {
+	for (i = 0; i < nr; i++)
+	  {
+	    /* With free energy we do not use the coefficient check.
+	     * In most cases this will be more efficient than calling make_bsplines
+	     * twice, since usually more than half the particles have non-zero coefficients.
+	     */
+	    ii = ind[i];
+	    if (bDoSplines || coefficient[ii] != 0.0)
+	      {
+		xptr = fractx[ii];
+		assert(order >= 4 && order <= PME_ORDER_MAX);
+		switch (order)
+		  {
+		  case 4:  CALC_SPLINE(4);     break;
+		  case 5:  CALC_SPLINE(5);     break;
+		  default: CALC_SPLINE(order); break;
+		  }
+	      }
+	  }
+      }
 }
 
 /* This has to be a macro to enable full compiler optimization with xlC (and probably others too) */
@@ -306,7 +378,9 @@ static void make_bsplines(splinevec theta, splinevec dtheta, int order,
 static void spread_coefficients_bsplines_thread(pmegrid_t                         *pmegrid,
                                                 pme_atomcomm_t                    *atc,
                                                 splinedata_t                      *spline,
-                                                struct pme_spline_work gmx_unused *work)
+						struct pme_spline_work gmx_unused *work,
+						SE_FGG_params                   *se_params,
+						gmx_bool                           se_set)
 {
 
     /* spread coefficients from home atoms to local grid */
@@ -338,28 +412,34 @@ static void spread_coefficients_bsplines_thread(pmegrid_t                       
         grid[i] = 0;
     }
 
-    order = pmegrid->order;
-
-    for (nn = 0; nn < spline->n; nn++)
+    int P = pmegrid->order-1;
+    if(se_set)
+      {
+	SE_grid_dispatch(grid,atc->coefficient,spline,se_params);
+      }
+    else
     {
-        n           = spline->ind[nn];
-        coefficient = atc->coefficient[n];
-
-        if (coefficient != 0)
-        {
-            idxptr = atc->idx[n];
-            norder = nn*order;
-
-            i0   = idxptr[XX] - offx;
-            j0   = idxptr[YY] - offy;
-            k0   = idxptr[ZZ] - offz;
-
-            thx = spline->theta[XX] + norder;
-            thy = spline->theta[YY] + norder;
-            thz = spline->theta[ZZ] + norder;
-
-            switch (order)
-            {
+      order = pmegrid->order;
+      for (nn = 0; nn < spline->n; nn++)
+	{
+	  n           = spline->ind[nn];
+	  coefficient = atc->coefficient[n];
+	  
+	  if (coefficient != 0)
+	    {
+	      idxptr = atc->idx[n];
+	      norder = nn*order;
+	      
+	      i0   = idxptr[XX] - offx;
+	      j0   = idxptr[YY] - offy;
+	      k0   = idxptr[ZZ] - offz;
+	      
+	      thx = spline->theta[XX] + norder;
+	      thy = spline->theta[YY] + norder;
+	      thz = spline->theta[ZZ] + norder;
+	      
+	      switch (order)
+		{
                 case 4:
 #ifdef PME_SIMD4_SPREAD_GATHER
 #ifdef PME_SIMD4_UNALIGNED
@@ -370,23 +450,24 @@ static void spread_coefficients_bsplines_thread(pmegrid_t                       
 #endif
 #include "pme-simd4.h"
 #else
-                    DO_BSPLINE(4);
+		  DO_BSPLINE(4);
 #endif
-                    break;
+		  break;
                 case 5:
 #ifdef PME_SIMD4_SPREAD_GATHER
 #define PME_SPREAD_SIMD4_ALIGNED
 #define PME_ORDER 5
 #include "pme-simd4.h"
 #else
-                    DO_BSPLINE(5);
+		  DO_BSPLINE(5);
 #endif
-                    break;
+		  break;
                 default:
-                    DO_BSPLINE(order);
-                    break;
-            }
-        }
+		  DO_BSPLINE(order);
+		  break;
+		}
+	    }
+	}
     }
 }
 
@@ -853,7 +934,10 @@ static void sum_fftgrid_dd(struct gmx_pme_t *pme, real *fftgrid, int grid_index)
 void spread_on_grid(struct gmx_pme_t *pme,
                     pme_atomcomm_t *atc, pmegrids_t *grids,
                     gmx_bool bCalcSplines, gmx_bool bSpread,
-                    real *fftgrid, gmx_bool bDoSplines, int grid_index)
+                    real *fftgrid, gmx_bool bDoSplines, int grid_index,
+		    SE_FGG_params *se_params,
+		    gmx_bool      se_set
+		    )
 {
     int nthread, thread;
 #ifdef PME_TIME_THREADS
@@ -884,7 +968,10 @@ void spread_on_grid(struct gmx_pme_t *pme,
                 /* Compute fftgrid index for all atoms,
                  * with help of some extra variables.
                  */
-                calc_interpolation_idx(pme, atc, start, grid_index, end, thread);
+		if(se_set)
+		  calc_interpolation_idx_se(pme, atc, start, end, thread);
+		else
+		  calc_interpolation_idx(pme, atc, start, grid_index, end, thread);
             }
             GMX_CATCH_ALL_AND_EXIT_WITH_FATAL_ERROR;
         }
@@ -938,7 +1025,8 @@ void spread_on_grid(struct gmx_pme_t *pme,
             if (bCalcSplines)
             {
                 make_bsplines(spline->theta, spline->dtheta, pme->pme_order,
-                              atc->fractx, spline->n, spline->ind, atc->coefficient, bDoSplines);
+                              atc->fractx, spline->n, spline->ind, atc->coefficient, bDoSplines,
+			      spline->zs, spline->idx, atc->x, se_params,se_set,atc);
             }
 
             if (bSpread)
@@ -947,7 +1035,8 @@ void spread_on_grid(struct gmx_pme_t *pme,
 #ifdef PME_TIME_SPREAD
                 ct1a = omp_cyc_start();
 #endif
-                spread_coefficients_bsplines_thread(grid, atc, spline, pme->spline_work);
+                spread_coefficients_bsplines_thread(grid, atc, spline, pme->spline_work,
+						    se_params, se_set);
 
                 if (pme->bUseThreads)
                 {

@@ -140,7 +140,12 @@ static void pme_calc_pidx_wrapper(int natoms, matrix recipbox, rvec x[],
 
 static void realloc_splinevec(splinevec th, real **ptr_z, int nalloc)
 {
-    const int padding = 4;
+  /* davoud needed for se*/
+#if defined   GMX_X86_AVX_256
+  const int padding = 8;
+#else
+  const int padding = 4;
+#endif
     int       i;
 
     srenew(th[XX], nalloc);
@@ -160,14 +165,17 @@ static void realloc_splinevec(splinevec th, real **ptr_z, int nalloc)
 static void pme_realloc_splinedata(splinedata_t *spline, pme_atomcomm_t *atc)
 {
     int i;
-
+    // davoud add idx and sz
     srenew(spline->ind, atc->nalloc);
+    srenew(spline->idx, atc->nalloc);
     /* Initialize the index to identity so it works without threads */
     for (i = 0; i < atc->nalloc; i++)
     {
         spline->ind[i] = i;
+	spline->idx[i] = i;
     }
-
+    int p = atc->pme_order;
+    srenew(spline->zs, p*p*p);
     realloc_splinevec(spline->theta, &spline->ptr_theta_z,
                       atc->pme_order*atc->nalloc);
     realloc_splinevec(spline->dtheta, &spline->ptr_dtheta_z,

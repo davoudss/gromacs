@@ -115,6 +115,10 @@
 #include "pme-spline-work.h"
 #include "pme-spread.h"
 
+/* spectral Ewald header files*/
+#include "se_fgg.h"
+#include "se.h"
+
 /*! \brief Number of bytes in a cache line.
  *
  * Must also be a multiple of the SIMD and SIMD4 register size, to
@@ -860,7 +864,8 @@ void gmx_pme_calc_energy(struct gmx_pme_t *pme, int n, rvec *x, real *q, real *V
     grid = &pme->pmegrid[PME_GRID_QA];
 
     /* Only calculate the spline coefficients, don't actually spread */
-    spread_on_grid(pme, atc, NULL, TRUE, FALSE, pme->fftgrid[PME_GRID_QA], FALSE, PME_GRID_QA);
+    // davoud
+    spread_on_grid(pme, atc, NULL, TRUE, FALSE, pme->fftgrid[PME_GRID_QA], FALSE, PME_GRID_QA, NULL, FALSE);
 
     *V = gather_energy_bsplines(pme, grid->grid.grid, atc);
 }
@@ -929,8 +934,22 @@ int gmx_pme_do(struct gmx_pme_t *pme,
     const gmx_bool       bCalcEnerVir            = flags & GMX_PME_CALC_ENER_VIR;
     const gmx_bool       bCalcF                  = flags & GMX_PME_CALC_F;
 
+    // davoud SE init
+    // SE_FGG_work    se_work;
+    SE_opt         se_opt;
+    SE_FGG_params  se_params;
+    gmx_bool       se_set = cr->se;
+
     assert(pme->nnodes > 0);
     assert(pme->nnodes == 1 || pme->ndecompdim > 0);
+
+    if(pme->nodeid==0)
+      {
+	if(se_set)
+	  printf("***********  SE is doing the work  ************\n");
+	else
+	  printf("***********  PME is doing the work ************\n");
+      }
 
     if (pme->nnodes > 1)
     {
@@ -1031,11 +1050,24 @@ int gmx_pme_do(struct gmx_pme_t *pme,
         }
         else
         {
-            wallcycle_start(wcycle, ewcPME_REDISTXF);
+	  if(se_set)
+	    {
+	      wallcycle_start(wcycle, ewcSE_REDISTXF);
+	    }
+	  else
+	    {
+	      wallcycle_start(wcycle, ewcPME_REDISTXF);
+	    }
             do_redist_pos_coeffs(pme, cr, start, homenr, bFirst, x, coefficient);
             where();
-
-            wallcycle_stop(wcycle, ewcPME_REDISTXF);
+	  if(se_set)
+	    {
+	      wallcycle_stop(wcycle, ewcSE_REDISTXF);
+	    }
+	  else
+	    {
+	      wallcycle_stop(wcycle, ewcPME_REDISTXF);
+	    }
         }
 
         if (debug)
@@ -1046,10 +1078,36 @@ int gmx_pme_do(struct gmx_pme_t *pme,
 
         if (flags & GMX_PME_SPREAD)
         {
-            wallcycle_start(wcycle, ewcPME_SPREADGATHER);
+	  if(se_set)
+	    {
+	      wallcycle_start(wcycle, ewcSE_SPREADGATHER);
+	    }
+	  else
+	    {
+	      wallcycle_start(wcycle, ewcPME_SPREADGATHER);
+	    }
+
+	    // davoud INIT SE params and workspace
+	    pmegrid_t      *tempgrid;
+	    tempgrid       = &pmegrid->grid;
+	    se_opt.P       = tempgrid->order-1;   //pme-order = P-1
+	    // FIXME: M is equal in 3D
+	    se_opt.M       = pme->nkx;//tempgrid->s[XX]-se_opt.P;
+	    se_opt.m       = 0.95*sqrt(M_PI*se_opt.P);
+	    
+	    se_opt.box[XX] = box[XX][XX];
+	    se_opt.box[YY] = box[YY][YY];
+	    se_opt.box[ZZ] = box[ZZ][ZZ];
+	    
+	    if(se_set)
+	      {
+		parse_params(&se_opt, ewaldcoeff_q);
+		SE_FGG_FCN_params(&se_params, &se_opt, atc->n);
+	      }
 
             /* Spread the coefficients on a grid */
-            spread_on_grid(pme, &pme->atc[0], pmegrid, bFirst, TRUE, fftgrid, bDoSplines, grid_index);
+	    // davoud
+            spread_on_grid(pme, &pme->atc[0], pmegrid, bFirst, TRUE, fftgrid, bDoSplines, grid_index, &se_params, se_set);
 
             if (bFirst)
             {
@@ -1074,7 +1132,15 @@ int gmx_pme_do(struct gmx_pme_t *pme,
                 copy_pmegrid_to_fftgrid(pme, grid, fftgrid, grid_index);
             }
 
-            wallcycle_stop(wcycle, ewcPME_SPREADGATHER);
+	    if(se_set)
+	      {
+		wallcycle_stop(wcycle, ewcSE_SPREADGATHER);
+	      }
+	    else
+	      {
+		wallcycle_stop(wcycle, ewcPME_SPREADGATHER);
+	      }
+
 
             /* TODO If the OpenMP and single-threaded implementations
                converge, then spread_on_grid() and
@@ -1100,28 +1166,53 @@ int gmx_pme_do(struct gmx_pme_t *pme,
                     /* do 3d-fft */
                     if (thread == 0)
                     {
-                        wallcycle_start(wcycle, ewcPME_FFT);
+		      if(se_set)
+			{
+			  wallcycle_start(wcycle, ewcPME_FFT);
+			  wallcycle_start(wcycle, ewcSE_FFT);
+			}
+		      else
+			{
+			  wallcycle_start(wcycle, ewcPME_FFT);
+			}
                     }
                     gmx_parallel_3dfft_execute(pfft_setup, GMX_FFT_REAL_TO_COMPLEX,
                                                thread, wcycle);
                     if (thread == 0)
                     {
-                        wallcycle_stop(wcycle, ewcPME_FFT);
+		      if(se_set)
+			{
+			  wallcycle_stop(wcycle, ewcPME_FFT);
+			  wallcycle_stop(wcycle, ewcSE_FFT);
+			}
+		      else
+			{
+			  wallcycle_stop(wcycle, ewcPME_FFT);
+			}
                     }
                     where();
 
                     /* solve in k-space for our local cells */
                     if (thread == 0)
                     {
-                        wallcycle_start(wcycle, (grid_index < DO_Q ? ewcPME_SOLVE : ewcLJPME));
+		      if(se_set)
+			{
+			  wallcycle_start(wcycle, ewcSE_SOLVE);
+			}
+		      else
+			{
+			  wallcycle_start(wcycle, (grid_index < DO_Q ? ewcPME_SOLVE : ewcLJPME));
+			}
                     }
                     if (grid_index < DO_Q)
                     {
+		      // davoud
                         loop_count =
                             solve_pme_yzx(pme, cfftgrid, ewaldcoeff_q,
                                           box[XX][XX]*box[YY][YY]*box[ZZ][ZZ],
                                           bCalcEnerVir,
-                                          pme->nthread, thread);
+                                          pme->nthread, thread, 
+					  &se_params, se_set);
                     }
                     else
                     {
@@ -1134,7 +1225,15 @@ int gmx_pme_do(struct gmx_pme_t *pme,
 
                     if (thread == 0)
                     {
-                        wallcycle_stop(wcycle, (grid_index < DO_Q ? ewcPME_SOLVE : ewcLJPME));
+		      if(se_set)
+			{
+			  wallcycle_stop(wcycle, ewcSE_SOLVE);
+			}
+		      else
+			{
+			  wallcycle_stop(wcycle, (grid_index < DO_Q ? ewcPME_SOLVE : ewcLJPME));
+			}
+
                         where();
                         inc_nrnb(nrnb, eNR_SOLVEPME, loop_count);
                     }
@@ -1145,15 +1244,30 @@ int gmx_pme_do(struct gmx_pme_t *pme,
                     /* do 3d-invfft */
                     if (thread == 0)
                     {
-                        where();
-                        wallcycle_start(wcycle, ewcPME_FFT);
+		      where();
+		      if(se_set)
+			{
+			  wallcycle_start(wcycle, ewcPME_FFT);
+			  wallcycle_start(wcycle, ewcSE_FFT);
+			}
+		      else
+			{
+			  wallcycle_start(wcycle, ewcPME_FFT);
+			}
                     }
                     gmx_parallel_3dfft_execute(pfft_setup, GMX_FFT_COMPLEX_TO_REAL,
                                                thread, wcycle);
                     if (thread == 0)
                     {
-                        wallcycle_stop(wcycle, ewcPME_FFT);
-
+		      if(se_set)
+			{
+			  wallcycle_stop(wcycle, ewcPME_FFT);
+			  wallcycle_stop(wcycle, ewcSE_FFT);
+			}
+		      else
+			{
+			  wallcycle_stop(wcycle, ewcPME_FFT);
+			}
                         where();
 
                         if (pme->nodeid == 0)
@@ -1166,7 +1280,14 @@ int gmx_pme_do(struct gmx_pme_t *pme,
                         /* Note: this wallcycle region is closed below
                            outside an OpenMP region, so take care if
                            refactoring code here. */
-                        wallcycle_start(wcycle, ewcPME_SPREADGATHER);
+			if(se_set)
+			  {
+			    wallcycle_start(wcycle, ewcSE_SPREADGATHER);
+			  }
+			else
+			  {
+			    wallcycle_start(wcycle, ewcPME_SPREADGATHER);
+			  }
                     }
 
                     copy_fftgrid_to_pmegrid(pme, fftgrid, grid, grid_index, pme->nthread, thread);
@@ -1207,7 +1328,8 @@ int gmx_pme_do(struct gmx_pme_t *pme,
                 {
                     gather_f_bsplines(pme, grid, bClearF, atc,
                                       &atc->spline[thread],
-                                      pme->bFEP ? (grid_index % 2 == 0 ? 1.0-lambda : lambda) : 1.0);
+                                      pme->bFEP ? (grid_index % 2 == 0 ? 1.0-lambda : lambda) : 1.0,
+				      &se_params, se_set);
                 }
                 GMX_CATCH_ALL_AND_EXIT_WITH_FATAL_ERROR;
             }
@@ -1218,7 +1340,14 @@ int gmx_pme_do(struct gmx_pme_t *pme,
                      pme->pme_order*pme->pme_order*pme->pme_order*pme->atc[0].n);
             /* Note: this wallcycle region is opened above inside an OpenMP
                region, so take care if refactoring code here. */
-            wallcycle_stop(wcycle, ewcPME_SPREADGATHER);
+	    if(se_set)
+	      {
+		wallcycle_stop(wcycle, ewcSE_SPREADGATHER);
+	      }
+	    else
+	      {
+		wallcycle_stop(wcycle, ewcPME_SPREADGATHER);
+	      }
         }
 
         if (bCalcEnerVir)
@@ -1285,7 +1414,14 @@ int gmx_pme_do(struct gmx_pme_t *pme,
                     default:
                         gmx_incons("Trying to access wrong FEP-state in LJ-PME routine");
                 }
-                wallcycle_start(wcycle, ewcPME_REDISTXF);
+		if(se_set)
+		  {
+		    wallcycle_start(wcycle, ewcSE_REDISTXF);
+		  }
+		else
+		  {
+		    wallcycle_start(wcycle, ewcPME_REDISTXF);
+		  }
 
                 do_redist_pos_coeffs(pme, cr, start, homenr, bFirst, x, RedistC6);
                 if (pme->lb_buf_nalloc < atc->n)
@@ -1308,8 +1444,14 @@ int gmx_pme_do(struct gmx_pme_t *pme,
                     local_sigma[i] = atc->coefficient[i];
                 }
                 where();
-
-                wallcycle_stop(wcycle, ewcPME_REDISTXF);
+		if(se_set)
+		  {
+		    wallcycle_stop(wcycle, ewcSE_REDISTXF);
+		  }
+		else
+		  {
+		    wallcycle_stop(wcycle, ewcPME_REDISTXF);
+		  }
             }
             calc_initial_lb_coeffs(pme, local_c6, local_sigma);
 
@@ -1328,7 +1470,8 @@ int gmx_pme_do(struct gmx_pme_t *pme,
                 {
                     wallcycle_start(wcycle, ewcPME_SPREADGATHER);
                     /* Spread the c6 on a grid */
-                    spread_on_grid(pme, &pme->atc[0], pmegrid, bFirst, TRUE, fftgrid, bDoSplines, grid_index);
+		    // davoud
+                    spread_on_grid(pme, &pme->atc[0], pmegrid, bFirst, TRUE, fftgrid, bDoSplines, grid_index, NULL, FALSE);
 
                     if (bFirst)
                     {

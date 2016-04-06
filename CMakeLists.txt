@@ -1,7 +1,7 @@
 #
 # This file is part of the GROMACS molecular simulation package.
 #
-# Copyright (c) 2009,2010,2011,2012,2013,2014,2015,2016, by the GROMACS development team, led by
+# Copyright (c) 2009,2010,2011,2012,2013,2014,2015, by the GROMACS development team, led by
 # Mark Abraham, David van der Spoel, Berk Hess, and Erik Lindahl,
 # and including many others, as listed in the AUTHORS file in the
 # top-level source directory and at http://www.gromacs.org.
@@ -55,7 +55,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 include(gmxVersionInfo)
 
 if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT AND UNIX)
-    set(CMAKE_INSTALL_PREFIX "/usr/local/gromacs" CACHE STRING "Installation prefix (installation will need write permissions here)" FORCE)
+    set(CMAKE_INSTALL_PREFIX "/NOBACKUP/davoudss/gromacs" CACHE STRING "Installation prefix (installation will need write permissions here)" FORCE)
 endif()
 if("${CMAKE_INSTALL_PREFIX}" STREQUAL "${CMAKE_BINARY_DIR}")
     message(FATAL_ERROR "GROMACS cannot be installed into the build tree, choose a different location for CMAKE_INSTALL_PREFIX")
@@ -132,36 +132,6 @@ endif()
 include(gmxDetectTargetArchitecture)
 gmx_detect_target_architecture()
 
-
-########################################################################
-# Detect CXX11 support and flags
-########################################################################
-# The cmake/Check{C,CXX}CompilerFlag.cmake files in the GROMACS distribution
-# are used with permission from CMake v3.0.0 so that GROMACS can detect
-# invalid options with the Intel Compilers, and we have added a line
-# to detect warnings with the Fujitsu compilers on K computer and ICC.
-# CMake-3.0 also has a bug where the FAIL_REGEX pattern for AIX contains
-# a semicolon. Since this is also used as a separator in lists inside CMake,
-# that string ends up being split into two separate patterns, and the last
-# part is just a single word that also matches other messages. We solved this
-# by replacing the semicolon with a period that matches any character.
-#
-# These files should be removed from the source tree when a CMake version that
-# includes the features in question becomes required for building GROMACS.
-include(CheckCCompilerFlag)
-include(CheckCXXCompilerFlag)
-
-# This must come early, since some of our configuration flag tests
-# depend on being able to compile C++11 source files
-include(gmxTestCXX11)
-gmx_test_cxx11(GMX_CXX11_SUPPORTED GMX_CXX11_FLAGS)
-if(NOT GMX_CXX11_SUPPORTED)
-message(FATAL_ERROR "This version of GROMACS requires C++11. Please use a newer compiler or use the GROMACS 5.1.x release. Note it might be sufficient to instruct the compiler to use a newer STL version. See the installation guide for details.")
-endif()
-
-# Make sure all tests are run in C++11 mode
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${GMX_CXX11_FLAGS}")
-
 ########################################################################
 # User input options                                                   #
 ########################################################################
@@ -169,12 +139,9 @@ include(gmxOptionUtilities)
 
 set(CMAKE_PREFIX_PATH "" CACHE STRING "Extra locations to search for external libraries and tools (give directory without lib, bin, or include)")
 
-# Fujitsu only has SIMD in double precision, so this will be faster
-gmx_set_boolean(GMX_DOUBLE_DEFAULT GMX_TARGET_FUJITSU_SPARC64)
-option(GMX_DOUBLE "Use double precision (much slower, use only if you really need it)" ${GMX_DOUBLE_DEFAULT})
-option(GMX_RELAXED_DOUBLE_PRECISION "Accept single precision 1/sqrt(x) when using Fujitsu HPC-ACE SIMD" OFF)
-mark_as_advanced(GMX_RELAXED_DOUBLE_PRECISION)
-
+option(GMX_DOUBLE "Use double precision (much slower, use only if you really need it)" ON)
+set(GMX_DOUBLE ON)
+message(${GMX_DOUBLE})
 option(GMX_MPI    "Build a parallel (message-passing) version of GROMACS" OFF)
 option(GMX_THREAD_MPI  "Build a thread-MPI-based multithreaded version of GROMACS (not compatible with MPI)" ON)
 gmx_dependent_option(
@@ -183,6 +150,8 @@ gmx_dependent_option(
     ON
     GMX_MPI)
 mark_as_advanced(GMX_MPI_IN_PLACE)
+option(GMX_SOFTWARE_INVSQRT "Use GROMACS software 1/sqrt" ON)
+mark_as_advanced(GMX_SOFTWARE_INVSQRT)
 option(GMX_FAHCORE "Build a library with mdrun functionality" OFF)
 mark_as_advanced(GMX_FAHCORE)
 
@@ -193,11 +162,11 @@ gmx_add_cache_dependency(GMX_COOL_QUOTES BOOL "NOT GMX_FAHCORE" OFF)
 option(GMX_USE_OPENCL "Enable OpenCL acceleration" OFF)
 
 # Decide on GPU settings based on user-settings and GPU/CUDA detection.
-# GCC 4.6 requires CUDA 5.0 and VS2013 requires CUDA 6.5
+# We support CUDA >=v4.0 on *nix, but <= v4.1 doesn't work with MSVC
 if(MSVC)
-    set(REQUIRED_CUDA_VERSION 6.5)
+    set(REQUIRED_CUDA_VERSION 4.1)
 else()
-    set(REQUIRED_CUDA_VERSION 5.0)
+    set(REQUIRED_CUDA_VERSION 4.0)
 endif()
 set(REQUIRED_CUDA_COMPUTE_CAPABILITY 2.0)
 
@@ -205,22 +174,15 @@ set(REQUIRED_CUDA_COMPUTE_CAPABILITY 2.0)
 set(REQUIRED_OPENCL_MIN_VERSION 1.1)
 
 if(NOT GMX_USE_OPENCL)
-    # CUDA detection is done only if GMX_USE_OPENCL is OFF.
+    # CUDA detection is done only if GMX_USE_OPENCL is OFF
     include(gmxManageGPU)
-    set(GMX_USE_CUDA ${GMX_GPU})
-    if(GMX_GPU)
-        set(GMX_GPU_ACCELERATION_FRAMEWORK "GMX_GPU_CUDA")
-    else()
-        set(GMX_GPU_ACCELERATION_FRAMEWORK "GMX_GPU_NONE")
-    endif()
 else()
-    #Now the OpenCL path (for both AMD and NVIDIA)
+    #Now the OpenCL path
     if(GMX_GPU)
         include(gmxManageOpenCL)
-        set(GMX_GPU_ACCELERATION_FRAMEWORK "GMX_GPU_OPENCL")
-    else()
+    else(GMX_GPU)
         message(FATAL_ERROR "OpenCL requested but GPU option is not enabled (try -DGMX_GPU=on) ")
-    endif()
+    endif(GMX_GPU)
 endif()
 
 include(gmxDetectSimd)
@@ -272,6 +234,7 @@ mark_as_advanced(GMX_BROKEN_CALLOC)
 option(GMX_LOAD_PLUGINS "Compile with plugin support, needed to read VMD supported file formats" ON)
 mark_as_advanced(GMX_LOAD_PLUGINS)
 
+option(GMX_GPU  "Enable GPU acceleration" ON)
 option(GMX_OPENMP "Enable OpenMP-based multithreading" ON)
 
 option(GMX_USE_TNG "Use the TNG library for trajectory I/O" ON)
@@ -294,14 +257,6 @@ option(GMX_DEVELOPER_BUILD
     OFF)
 mark_as_advanced(GMX_DEVELOPER_BUILD)
 
-gmx_set_boolean(GMX_COMPILER_WARNINGS_DEFAULT "NOT SOURCE_IS_SOURCE_DISTRIBUTION")
-option(GMX_COMPILER_WARNINGS
-    "Enable a default set of compiler warnings"
-    ${GMX_COMPILER_WARNINGS_DEFAULT})
-mark_as_advanced(GMX_COMPILER_WARNINGS)
-# Always turn on compiler warnings with a developer build.
-gmx_add_cache_dependency(GMX_COMPILER_WARNINGS BOOL "NOT GMX_DEVELOPER_BUILD" ON)
-
 option(GMX_BUILD_SHARED_EXE
     "Build exectuables as shared binaries. If not set, this disables rpath and dynamic linker flags in an attempt to build a static binary, but this may require setting up the toolchain properly and making appropriate libraries available."
     ON)
@@ -319,6 +274,21 @@ include(gmxManageOpenMP)
 # Compiler tests
 # These need to be done early (before further tests).
 #####################################################################
+
+# The cmake/Check{C,CXX}CompilerFlag.cmake files in the GROMACS distribution
+# are used with permission from CMake v3.0.0 so that GROMACS can detect
+# invalid options with the Intel Compilers, and we have added a line
+# to detect warnings with the Fujitsu compilers on K computer and ICC.
+# CMake-3.0 also has a bug where the FAIL_REGEX pattern for AIX contains
+# a semicolon. Since this is also used as a separator in lists inside CMake,
+# that string ends up being split into two separate patterns, and the last
+# part is just a single word that also matches other messages. We solved this
+# by replacing the semicolon with a period that matches any character.
+#
+# These files should be removed from the source tree when a CMake version that
+# includes the features in question becomes required for building GROMACS.
+include(CheckCCompilerFlag)
+include(CheckCXXCompilerFlag)
 
 include(gmxCFlags)
 gmx_c_flags()
@@ -343,22 +313,17 @@ if(GMX_SIMD STREQUAL "AVX_256"
     # See http://gcc.gnu.org/bugzilla/show_bug.cgi?id=49002
 endif()
 
-# Implement double-precision option. This is complicated because we
-# need installed headers to use the precision mode of the build that
-# produced the library, but cannot use config.h in that case. We also
-# want such variables to always have a definition, because #if is more
-# robust than #ifdef. So, we put this value on the compiler command
-# line in all cases.
-#
-# GMX_RELAXED_DOUBLE_PRECISION does not need to be handled here,
-# because no installed header needs it
+
 if(GMX_DOUBLE)
-    set(GMX_DOUBLE_VALUE 1)
-else()
-    set(GMX_DOUBLE_VALUE 0)
+    add_definitions(-DGMX_DOUBLE)
+    list(APPEND INSTALLED_HEADER_DEFINITIONS "-DGMX_DOUBLE")
+    if(GMX_RELAXED_DOUBLE_PRECISION)
+        add_definitions(-DGMX_RELAXED_DOUBLE_PRECISION)
+    endif()
 endif()
-add_definitions(-DGMX_DOUBLE=${GMX_DOUBLE_VALUE})
-list(APPEND INSTALLED_HEADER_DEFINITIONS "-DGMX_DOUBLE=${GMX_DOUBLE_VALUE}")
+if(GMX_SOFTWARE_INVSQRT)
+    list(APPEND INSTALLED_HEADER_DEFINITIONS "-DGMX_SOFTWARE_INVSQRT")
+endif()
 
 if(WIN32)
     list(APPEND GMX_EXTRA_LIBRARIES "wsock32")
@@ -385,6 +350,9 @@ check_include_files(regex.h      HAVE_POSIX_REGEX)
 # as selections won't be fully functional.
 
 include(CheckCXXSymbolExists)
+check_cxx_symbol_exists(posix_memalign    stdlib.h     HAVE_POSIX_MEMALIGN)
+check_cxx_symbol_exists(memalign          stdlib.h     HAVE_MEMALIGN)
+check_cxx_symbol_exists(_aligned_malloc   stdlib.h     HAVE__ALIGNED_MALLOC)
 check_cxx_symbol_exists(gettimeofday      sys/time.h   HAVE_GETTIMEOFDAY)
 check_cxx_symbol_exists(sysconf           unistd.h     HAVE_SYSCONF)
 check_cxx_symbol_exists(nice              unistd.h     HAVE_NICE)
@@ -393,17 +361,9 @@ check_cxx_symbol_exists(_fileno           stdio.h      HAVE__FILENO)
 check_cxx_symbol_exists(fileno            stdio.h      HAVE_FILENO)
 check_cxx_symbol_exists(_commit           io.h         HAVE__COMMIT)
 check_cxx_symbol_exists(sigaction         signal.h     HAVE_SIGACTION)
-
-# We cannot check for the __builtins as symbols, but check if code compiles
-check_cxx_source_compiles("int main(){ return __builtin_clz(1);}"   HAVE_BUILTIN_CLZ)
-check_cxx_source_compiles("int main(){ return __builtin_clzll(1);}" HAVE_BUILTIN_CLZLL)
-if(MSVC)
-    check_cxx_source_compiles("#include <intrin.h>\n int main(){unsigned long r;unsigned long i=1;_BitScanReverse(&r,i);return r;}" HAVE_BITSCANREVERSE)
-    check_cxx_source_compiles("#include <intrin.h>\n int main(){unsigned long r;unsigned __int64 i=1;_BitScanReverse(&r,i);return r;}" HAVE_BITSCANREVERSE64)
-elseif(CMAKE_CXX_COMPILER_ID MATCHES "XL")
-    check_cxx_source_compiles("int main(){ return __cntlz4(1);}" HAVE_CNTLZ4)
-    check_cxx_source_compiles("int main(){ return __cntlz8(1);}" HAVE_CNTLZ8)
-endif()
+check_cxx_symbol_exists(rsqrt             math.h       HAVE_RSQRT)
+check_cxx_symbol_exists(rsqrtf            math.h       HAVE_RSQRTF)
+check_cxx_symbol_exists(sqrtf             math.h       HAVE_SQRTF)
 
 include(CheckLibraryExists)
 find_library(HAVE_LIBM m)
@@ -413,21 +373,13 @@ check_library_exists(m feenableexcept "" HAVE_FEENABLEEXCEPT)
 include(TestSchedAffinity)
 test_sched_affinity(HAVE_SCHED_AFFINITY)
 
-# Aligned memory allocation. We need to check for both mm_malloc(),
-# posix_memalign(), memalign(), and on windows also _aligned_malloc()
-include(gmxTestMMMalloc)
-gmx_test_mm_malloc(HAVE__MM_MALLOC)
-check_cxx_symbol_exists(posix_memalign    stdlib.h     HAVE_POSIX_MEMALIGN)
-check_cxx_symbol_exists(memalign          stdlib.h     HAVE_MEMALIGN)
-if(MSVC)
-    # No need to waste time on this test on platforms where it will never be true
-    check_cxx_symbol_exists(_aligned_malloc   stdlib.h     HAVE__ALIGNED_MALLOC)
-endif()
-
 include(TestBigEndian)
 test_big_endian(GMX_INTEGER_BIG_ENDIAN)
 
-gmx_set_boolean(GMX_USE_NICE "HAVE_UNISTD_H AND HAVE_NICE")
+set(GMX_USE_NICE 0)
+if (HAVE_UNISTD_H AND HAVE_NICE)
+    set(GMX_USE_NICE 1)
+endif()
 
 # Management of GROMACS options for specific toolchains should go
 # here. Because the initial settings for some of the main options have
@@ -529,8 +481,10 @@ if (TMPI_ATOMICS_DISABLED)
    add_definitions(-DTMPI_ATOMICS_DISABLED)
 endif()
 
-# now that we have detected the dependencies, do the second GPU configure pass
-gmx_gpu_setup()
+if(GMX_GPU)
+    # now that we have detected the dependencies, do the second configure pass
+    gmx_gpu_setup()
+endif()
 
 if(CYGWIN)
     set(GMX_CYGWIN 1)
@@ -550,6 +504,32 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Darwin") #Work-around for cmake bug #10837
     if (CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Intel" OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
         set(CMAKE_INCLUDE_SYSTEM_FLAG_CXX "-isystem ")
     endif()
+endif()
+
+# Detect boost unless GMX_EXTERNAL_BOOST is explicitly OFF
+# Used for default if GMX_EXTERNAL_BOOST is not defined (first CMake pass)
+if(NOT DEFINED GMX_EXTERNAL_BOOST OR GMX_EXTERNAL_BOOST)
+    if(DEFINED Boost_INCLUDE_DIR)
+        set(Boost_FIND_QUIETLY TRUE)
+    endif()
+    find_package(Boost 1.44.0)
+    if(Boost_FOUND AND Boost_VERSION VERSION_LESS "104400")
+        set(Boost_FOUND FALSE)
+    endif()
+    # Print the notification only on first run, when determining the default
+    if(NOT DEFINED GMX_EXTERNAL_BOOST AND NOT Boost_FOUND)
+        message("Boost >= 1.44 not found. Using minimal internal version. "
+                "This may cause trouble if you plan on compiling/linking other "
+                "software that uses Boost against GROMACS.")
+    endif()
+endif()
+option(GMX_EXTERNAL_BOOST "Use external Boost instead of minimal built-in version"
+       ${Boost_FOUND})
+if(GMX_EXTERNAL_BOOST AND NOT Boost_FOUND)
+    message(FATAL_ERROR
+        "Boost >= 1.44 not found. "
+        "You can set GMX_EXTERNAL_BOOST=OFF to compile against minimal "
+        "version of Boost included with GROMACS.")
 endif()
 
 if(NOT DEFINED GMX_BUILD_UNITTESTS AND NOT HAVE_LIBXML2)
@@ -599,6 +579,11 @@ if(GMX_USE_RDTSCP)
     set(HAVE_RDTSCP 1)
 endif()
 
+include(gmxTestFloatFormat)
+gmx_test_float_format(GMX_FLOAT_FORMAT_IEEE754
+                      GMX_IEEE754_BIG_ENDIAN_BYTE_ORDER
+                      GMX_IEEE754_BIG_ENDIAN_WORD_ORDER)
+
 include(gmxTestLargeFiles)
 gmx_test_large_files(GMX_LARGEFILES)
 
@@ -608,6 +593,30 @@ gmx_test_sigusr1(HAVE_SIGUSR1)
 include(gmxTestPipes)
 gmx_test_pipes(HAVE_PIPES)
 
+include(gmxTestIsfinite)
+gmx_test_isfinite(HAVE_ISFINITE)
+gmx_test__isfinite(HAVE__ISFINITE)
+gmx_test__finite(HAVE__FINITE)
+
+include(gmxTestCXX11)
+gmx_test_cxx11(GMX_CXX11_SUPPORTED GMX_CXX11_FLAGS)
+include(CMakeDependentOption)
+# clang with some older versions of boost fail to work with C++11
+if(CMAKE_CXX_COMPILER_ID MATCHES Clang AND
+    (Boost_VERSION VERSION_EQUAL 104601 OR Boost_VERSION VERSION_EQUAL 104700))
+    set(CLANG_AND_OLD_EXTERNAL_BOOST TRUE)
+endif()
+# nvcc does not support C++11 flags, so with GPUs we prefer to skip C++11 flags
+# entirely to keep the compilation environment uniform.
+cmake_dependent_option(GMX_CXX11
+    "Use C++11 features"
+    ON "GMX_CXX11_SUPPORTED AND NOT GMX_GPU AND NOT CLANG_AND_OLD_EXTERNAL_BOOST" OFF)
+mark_as_advanced(GMX_CXX11)
+if(GMX_CXX11)
+    set(EXTRA_CXX_FLAGS "${EXTRA_CXX_FLAGS} ${GMX_CXX11_FLAGS}")
+endif()
+
+# Now we can test for CXX11_REGEX include file
 check_include_file_cxx(regex     HAVE_CXX11_REGEX)
 
 include(gmxTestXDR)
@@ -830,13 +839,30 @@ endif()
 #Simpler to always install.
 install(FILES COPYING DESTINATION ${DATA_INSTALL_DIR} COMPONENT data)
 
+if(GMX_EXTERNAL_BOOST)
+    include_directories(SYSTEM ${Boost_INCLUDE_DIRS})
+    list(APPEND INSTALLED_HEADER_INCLUDE_DIRS ${Boost_INCLUDE_DIRS})
+else()
+    include_directories(BEFORE SYSTEM ${CMAKE_SOURCE_DIR}/src/external/boost)
+    list(APPEND INSTALLED_HEADER_INCLUDE_DIRS ${INCL_INSTALL_DIR}/gromacs/external/boost)
+    list(APPEND INSTALLED_HEADED_DEFINITIONS "-DBOOST_NO_TYPEID")
+    # typeid not supported for minimal internal version
+    # (would add significant amount of code)
+    add_definitions(-DBOOST_NO_TYPEID)
+    if (NOT GMX_BUILD_MDRUN_ONLY)
+        install(DIRECTORY ${CMAKE_SOURCE_DIR}/src/external/boost/boost
+                DESTINATION ${INCL_INSTALL_DIR}/gromacs/external/boost
+                COMPONENT development)
+    endif()
+endif()
+
 if (GMX_BUILD_FOR_COVERAGE)
     # Code heavy with asserts makes conditional coverage close to useless metric,
     # as by design most of the false branches are impossible to trigger in
     # correctly functioning code.  And the benefit of testing those that could
     # be triggered by using an API against its specification isn't usually
     # worth the effort.
-    add_definitions(-DNDEBUG -DGMX_DISABLE_ASSERTS)
+    add_definitions(-DNDEBUG -DBOOST_DISABLE_ASSERTS -DGMX_DISABLE_ASSERTS)
 endif()
 
 if (BUILD_TESTING)

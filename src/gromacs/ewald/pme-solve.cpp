@@ -52,6 +52,9 @@
 
 #include "pme-internal.h"
 
+#include "se.h"
+#include "se_fgg.h"
+
 #if GMX_SIMD_HAVE_REAL
 /* Turn on arbitrary width SIMD intrinsics for PME solve */
 #    define PME_SIMD_SOLVE
@@ -290,7 +293,8 @@ gmx_inline static void calc_exponentials_lj(int start, int end, real *r, real *t
 int solve_pme_yzx(struct gmx_pme_t *pme, t_complex *grid,
                   real ewaldcoeff, real vol,
                   gmx_bool bEnerVir,
-                  int nthread, int thread)
+                  int nthread, int thread,
+		  SE_FGG_params *se_params, gmx_bool se_set)
 {
     /* do recip sum over local cells in grid */
     /* y major, z middle, x minor or continuous */
@@ -312,6 +316,7 @@ int solve_pme_yzx(struct gmx_pme_t *pme, t_complex *grid,
     ivec                     local_ndata, local_offset, local_size;
     real                     elfac;
 
+    // davoud as long as epsilon_r=1 this is fine.
     elfac = ONE_4PI_EPS0/pme->epsilon_r;
 
     nx = pme->nkx;
@@ -325,214 +330,437 @@ int solve_pme_yzx(struct gmx_pme_t *pme, t_complex *grid,
                                       local_offset,
                                       local_size);
 
-    rxx = pme->recipbox[XX][XX];
-    ryx = pme->recipbox[YY][XX];
-    ryy = pme->recipbox[YY][YY];
-    rzx = pme->recipbox[ZZ][XX];
-    rzy = pme->recipbox[ZZ][YY];
-    rzz = pme->recipbox[ZZ][ZZ];
-
-    maxkx = (nx+1)/2;
-    maxky = (ny+1)/2;
-
-    work  = &pme->solve_work[thread];
-    mhx   = work->mhx;
-    mhy   = work->mhy;
-    mhz   = work->mhz;
-    m2    = work->m2;
-    denom = work->denom;
-    tmp1  = work->tmp1;
-    eterm = work->eterm;
-    m2inv = work->m2inv;
-
-    iyz0 = local_ndata[YY]*local_ndata[ZZ]* thread   /nthread;
-    iyz1 = local_ndata[YY]*local_ndata[ZZ]*(thread+1)/nthread;
-
-    for (iyz = iyz0; iyz < iyz1; iyz++)
+    // davoud scaling (kvec, Z, scaling grid)
+    if(se_set)
+      {
+	real se_eta    = se_params->eta;
+	real se_pow    = -(1.-se_eta)/(4.*ewaldcoeff*ewaldcoeff);
+	real se_factor = 8.*M_PI/(double) (nx*ny*nz);
+	
+	real TWO_PI = 2.*M_PI;
+      
+	rxx = pme->recipbox[XX][XX]*TWO_PI;
+	ryx = pme->recipbox[YY][XX]*TWO_PI;
+	ryy = pme->recipbox[YY][YY]*TWO_PI;
+	rzx = pme->recipbox[ZZ][XX]*TWO_PI;
+	rzy = pme->recipbox[ZZ][YY]*TWO_PI;
+	rzz = pme->recipbox[ZZ][ZZ]*TWO_PI;
+	
+	maxkx = (nx+1)/2;
+	maxky = (ny+1)/2;
+	
+	work  = &pme->work[thread];
+	mhx   = work->mhx;
+	mhy   = work->mhy;
+	mhz   = work->mhz;
+	m2    = work->m2;
+	denom = work->denom;
+	tmp1  = work->tmp1;
+	eterm = work->eterm;
+	m2inv = work->m2inv;
+	
+	iyz0 = local_ndata[YY]*local_ndata[ZZ]* thread   /nthread;
+	iyz1 = local_ndata[YY]*local_ndata[ZZ]*(thread+1)/nthread;
+	
+	for (iyz = iyz0; iyz < iyz1; iyz++)
+	  {
+	    iy = iyz/local_ndata[ZZ];
+	    iz = iyz - iy*local_ndata[ZZ];
+	    
+	    ky = iy + local_offset[YY];
+	    
+	    if (ky < maxky)
+	      {
+		my = ky;
+	      }
+	    else
+	      {
+		my = (ky - ny);
+	      }
+	    
+	    kz = iz + local_offset[ZZ];
+	    
+	    mz = kz;
+	    
+	    corner_fac = 1;
+	    if(kz == 0 || kz == (nz+1)/2)
+	      {
+		corner_fac = .5;
+	      }
+	    
+	    p0 = grid + iy*local_size[ZZ]*local_size[XX] + iz*local_size[XX];
+	    
+	    /* We should skip the k-space point (0,0,0) */
+	    if (local_offset[XX] > 0 || ky > 0 || kz > 0)
+	      {
+		kxstart = local_offset[XX];
+	      }
+	    else
+	      {
+		kxstart = local_offset[XX] + 1;
+		p0++;
+	      }
+	    kxend = local_offset[XX] + local_ndata[XX];
+	    
+	    if(bEnerVir)
+	      {
+		/* More expensive inner loop, especially because of the storage
+		 * of the mh elements in array's.
+		 * Because x is the minor grid index, all mh elements
+		 * depend on kx for triclinic unit cells.
+		 */
+		
+		/* Two explicit loops to avoid a conditional inside the loop */
+		// FIXME: modified and now won't work for triclinic
+		
+		for (kx = kxstart; kx < maxkx; kx++)
+		  {
+		    mx = kx;
+		    
+		    mhxk      = mx * rxx;
+		    mhyk      = my * ryy;
+		    mhzk      = mz * rzz;
+		    m2k       = mhxk*mhxk + mhyk*mhyk + mhzk*mhzk;
+		    mhx[kx]   = mhxk;
+		    mhy[kx]   = mhyk;
+		    mhz[kx]   = mhzk;
+		    m2[kx]    = m2k;
+		    denom[kx] = m2k/se_factor;  // it will be inversed later in calc_exponentials
+		    tmp1[kx]  = se_pow*m2k;
+		  }
+		
+		for (kx = maxkx; kx < kxend; kx++)
+		  {
+		    mx = (kx-nx);
+		    
+		    mhxk      = mx * rxx;
+		    mhyk      = my * ryy;
+		    mhzk      = mz * rzz;
+		    m2k       = mhxk*mhxk + mhyk*mhyk + mhzk*mhzk;
+		    mhx[kx]   = mhxk;
+		    mhy[kx]   = mhyk;
+		    mhz[kx]   = mhzk;
+		    m2[kx]    = m2k;
+		    denom[kx] = m2k/se_factor; // it will be inversed later
+		    tmp1[kx]  = se_pow*m2k;
+		  }
+		
+		for (kx = kxstart; kx <kxend; kx++)
+		  {
+		    m2inv[kx] = 1.0/m2[kx];
+		  }
+		
+		calc_exponentials(kxstart, kxend, elfac, denom, tmp1, eterm);
+		for (kx = kxstart; kx < kxend; kx++, p0++)
+		  {
+		    d1      = p0->re;
+		    d2      = p0->im;
+		    
+		    p0->re  = d1*eterm[kx];
+		    p0->im  = d2*eterm[kx];
+		    
+		    struct2 = 2.0*(d1*d1+d2*d2);
+		    
+		    tmp1[kx] = eterm[kx]*struct2;
+		  }
+		for (kx = kxstart; kx < kxend; kx++)
+		  {
+		    ets2     = corner_fac*tmp1[kx];
+		    //FIXME: I used -se_pow instead of factor !!!
+		    vfactor  = (-se_pow*m2[kx] + 1.0)*2.0*m2inv[kx];
+		    energy  += ets2;
+		    
+		    ets2vf   = ets2*vfactor;
+		    virxx   += ets2vf*mhx[kx]*mhx[kx] - ets2;
+		    virxy   += ets2vf*mhx[kx]*mhy[kx];
+		    virxz   += ets2vf*mhx[kx]*mhz[kx];
+		    viryy   += ets2vf*mhy[kx]*mhy[kx] - ets2;
+		    viryz   += ets2vf*mhy[kx]*mhz[kx];
+		    virzz   += ets2vf*mhz[kx]*mhz[kx] - ets2;
+		  }	   
+	      }  //EnergyVir loop
+	    
+	    // force loop
+	    else
+	      {
+		/* We don't need to calculate the energy and the virial.
+		 * In this case the triclinic overhead is small.
+		 */
+		
+		/* Two explicit loops to avoid a conditional inside the loop */
+		// FIXME: modified and now won't work for triclinic
+		
+		for (kx = kxstart; kx < maxkx; kx++)
+		  {
+		    mx = kx;
+		    
+		    mhxk      = mx * rxx;
+		    mhyk      = my * ryy;
+		    mhzk      = mz * rzz;
+		    m2k       = mhxk*mhxk + mhyk*mhyk + mhzk*mhzk;
+		    denom[kx] = m2k/se_factor;  // it will be inversed later in calc_exponentials
+		    tmp1[kx]  = se_pow*m2k;
+		  }
+		
+		for (kx = maxkx; kx < kxend; kx++)
+		  {
+		    mx = (kx-nx);
+		    
+		    mhxk      = mx * rxx;
+		    mhyk      = my * ryy;
+		    mhzk      = mz * rzz;
+		    m2k       = mhxk*mhxk + mhyk*mhyk + mhzk*mhzk;
+		    denom[kx] = m2k/se_factor; // it will be inversed later
+		    tmp1[kx]  = se_pow*m2k;
+		  }
+		
+		calc_exponentials(kxstart, kxend, elfac, denom, tmp1, eterm);
+		
+		for (kx = kxstart; kx < kxend; kx++, p0++)
+		  {
+		    d1      = p0->re;
+		    d2      = p0->im;
+		    
+		    p0->re  = d1*eterm[kx];
+		    p0->im  = d2*eterm[kx];
+		  }
+	      } //else loop (force)
+	  }
+	if (bEnerVir)
+	  {
+	    /* Update virial with local values.
+	     * The virial is symmetric by definition.
+	     * this virial seems ok for isotropic scaling, but I'm
+	     * experiencing problems on semiisotropic membranes.
+	     * IS THAT COMMENT STILL VALID??? (DvdS, 2001/02/07).
+	     */
+	    work->vir[XX][XX] = 0.25*virxx;
+	    work->vir[YY][YY] = 0.25*viryy;
+	    work->vir[ZZ][ZZ] = 0.25*virzz;
+	    work->vir[XX][YY] = work->vir[YY][XX] = 0.25*virxy;
+	    work->vir[XX][ZZ] = work->vir[ZZ][XX] = 0.25*virxz;
+	    work->vir[YY][ZZ] = work->vir[ZZ][YY] = 0.25*viryz;
+	    
+	    /* This energy should be corrected for a charged system */
+	    // FIXME: what is this value coming from in the energy? (davoud)
+	    real extra_fac = 1.0/(nx*ny*nz)*M_PI*1.428322531170926;
+	    
+	    work->energy = pow(0.5*energy*extra_fac,2);
+	    //    printf("pme energy %d %.20g\n",nx,work->energy);
+	  } 
+      }  //se_set
+    // SPME loop
+    else
     {
-        iy = iyz/local_ndata[ZZ];
-        iz = iyz - iy*local_ndata[ZZ];
+      rxx = pme->recipbox[XX][XX];
+      ryx = pme->recipbox[YY][XX];
+      ryy = pme->recipbox[YY][YY];
+      rzx = pme->recipbox[ZZ][XX];
+      rzy = pme->recipbox[ZZ][YY];
+      rzz = pme->recipbox[ZZ][ZZ];
 
-        ky = iy + local_offset[YY];
+      maxkx = (nx+1)/2;
+      maxky = (ny+1)/2;
 
-        if (ky < maxky)
-        {
-            my = ky;
-        }
-        else
-        {
-            my = (ky - ny);
-        }
+      work  = &pme->solve_work[thread];
+      mhx   = work->mhx;
+      mhy   = work->mhy;
+      mhz   = work->mhz;
+      m2    = work->m2;
+      denom = work->denom;
+      tmp1  = work->tmp1;
+      eterm = work->eterm;
+      m2inv = work->m2inv;
 
-        by = M_PI*vol*pme->bsp_mod[YY][ky];
+      iyz0 = local_ndata[YY]*local_ndata[ZZ]* thread   /nthread;
+      iyz1 = local_ndata[YY]*local_ndata[ZZ]*(thread+1)/nthread;
 
-        kz = iz + local_offset[ZZ];
+      for (iyz = iyz0; iyz < iyz1; iyz++)
+	{
+	  iy = iyz/local_ndata[ZZ];
+	  iz = iyz - iy*local_ndata[ZZ];
 
-        mz = kz;
+	  ky = iy + local_offset[YY];
 
-        bz = pme->bsp_mod[ZZ][kz];
+	  if (ky < maxky)
+	    {
+	      my = ky;
+	    }
+	  else
+	    {
+	      my = (ky - ny);
+	    }
 
-        /* 0.5 correction for corner points */
-        corner_fac = 1;
-        if (kz == 0 || kz == (nz+1)/2)
-        {
-            corner_fac = 0.5;
-        }
+	  by = M_PI*vol*pme->bsp_mod[YY][ky];
 
-        p0 = grid + iy*local_size[ZZ]*local_size[XX] + iz*local_size[XX];
+	  kz = iz + local_offset[ZZ];
 
-        /* We should skip the k-space point (0,0,0) */
-        /* Note that since here x is the minor index, local_offset[XX]=0 */
-        if (local_offset[XX] > 0 || ky > 0 || kz > 0)
-        {
-            kxstart = local_offset[XX];
-        }
-        else
-        {
-            kxstart = local_offset[XX] + 1;
-            p0++;
-        }
-        kxend = local_offset[XX] + local_ndata[XX];
+	  mz = kz;
 
-        if (bEnerVir)
-        {
-            /* More expensive inner loop, especially because of the storage
-             * of the mh elements in array's.
-             * Because x is the minor grid index, all mh elements
-             * depend on kx for triclinic unit cells.
-             */
+	  bz = pme->bsp_mod[ZZ][kz];
 
-            /* Two explicit loops to avoid a conditional inside the loop */
-            for (kx = kxstart; kx < maxkx; kx++)
-            {
-                mx = kx;
+	  /* 0.5 correction for corner points */
+	  corner_fac = 1;
+	  if (kz == 0 || kz == (nz+1)/2)
+	    {
+	      corner_fac = 0.5;
+	    }
 
-                mhxk      = mx * rxx;
-                mhyk      = mx * ryx + my * ryy;
-                mhzk      = mx * rzx + my * rzy + mz * rzz;
-                m2k       = mhxk*mhxk + mhyk*mhyk + mhzk*mhzk;
-                mhx[kx]   = mhxk;
-                mhy[kx]   = mhyk;
-                mhz[kx]   = mhzk;
-                m2[kx]    = m2k;
-                denom[kx] = m2k*bz*by*pme->bsp_mod[XX][kx];
-                tmp1[kx]  = -factor*m2k;
-            }
+	  p0 = grid + iy*local_size[ZZ]*local_size[XX] + iz*local_size[XX];
 
-            for (kx = maxkx; kx < kxend; kx++)
-            {
-                mx = (kx - nx);
+	  /* We should skip the k-space point (0,0,0) */
+	  /* Note that since here x is the minor index, local_offset[XX]=0 */
+	  if (local_offset[XX] > 0 || ky > 0 || kz > 0)
+	    {
+	      kxstart = local_offset[XX];
+	    }
+	  else
+	    {
+	      kxstart = local_offset[XX] + 1;
+	      p0++;
+	    }
+	  kxend = local_offset[XX] + local_ndata[XX];
 
-                mhxk      = mx * rxx;
-                mhyk      = mx * ryx + my * ryy;
-                mhzk      = mx * rzx + my * rzy + mz * rzz;
-                m2k       = mhxk*mhxk + mhyk*mhyk + mhzk*mhzk;
-                mhx[kx]   = mhxk;
-                mhy[kx]   = mhyk;
-                mhz[kx]   = mhzk;
-                m2[kx]    = m2k;
-                denom[kx] = m2k*bz*by*pme->bsp_mod[XX][kx];
-                tmp1[kx]  = -factor*m2k;
-            }
+	  if (bEnerVir)
+	    {
+	      /* More expensive inner loop, especially because of the storage
+	       * of the mh elements in array's.
+	       * Because x is the minor grid index, all mh elements
+	       * depend on kx for triclinic unit cells.
+	       */
 
-            for (kx = kxstart; kx < kxend; kx++)
-            {
-                m2inv[kx] = 1.0/m2[kx];
-            }
+	      /* Two explicit loops to avoid a conditional inside the loop */
+	      for (kx = kxstart; kx < maxkx; kx++)
+		{
+		  mx = kx;
 
-            calc_exponentials_q(kxstart, kxend, elfac, denom, tmp1, eterm);
+		  mhxk      = mx * rxx;
+		  mhyk      = mx * ryx + my * ryy;
+		  mhzk      = mx * rzx + my * rzy + mz * rzz;
+		  m2k       = mhxk*mhxk + mhyk*mhyk + mhzk*mhzk;
+		  mhx[kx]   = mhxk;
+		  mhy[kx]   = mhyk;
+		  mhz[kx]   = mhzk;
+		  m2[kx]    = m2k;
+		  denom[kx] = m2k*bz*by*pme->bsp_mod[XX][kx];
+		  tmp1[kx]  = -factor*m2k;
+		}
 
-            for (kx = kxstart; kx < kxend; kx++, p0++)
-            {
-                d1      = p0->re;
-                d2      = p0->im;
+	      for (kx = maxkx; kx < kxend; kx++)
+		{
+		  mx = (kx - nx);
 
-                p0->re  = d1*eterm[kx];
-                p0->im  = d2*eterm[kx];
+		  mhxk      = mx * rxx;
+		  mhyk      = mx * ryx + my * ryy;
+		  mhzk      = mx * rzx + my * rzy + mz * rzz;
+		  m2k       = mhxk*mhxk + mhyk*mhyk + mhzk*mhzk;
+		  mhx[kx]   = mhxk;
+		  mhy[kx]   = mhyk;
+		  mhz[kx]   = mhzk;
+		  m2[kx]    = m2k;
+		  denom[kx] = m2k*bz*by*pme->bsp_mod[XX][kx];
+		  tmp1[kx]  = -factor*m2k;
+		}
 
-                struct2 = 2.0*(d1*d1+d2*d2);
+	      for (kx = kxstart; kx < kxend; kx++)
+		{
+		  m2inv[kx] = 1.0/m2[kx];
+		}
 
-                tmp1[kx] = eterm[kx]*struct2;
-            }
+	      calc_exponentials_q(kxstart, kxend, elfac, denom, tmp1, eterm);
 
-            for (kx = kxstart; kx < kxend; kx++)
-            {
-                ets2     = corner_fac*tmp1[kx];
-                vfactor  = (factor*m2[kx] + 1.0)*2.0*m2inv[kx];
-                energy  += ets2;
+	      for (kx = kxstart; kx < kxend; kx++, p0++)
+		{
+		  d1      = p0->re;
+		  d2      = p0->im;
 
-                ets2vf   = ets2*vfactor;
-                virxx   += ets2vf*mhx[kx]*mhx[kx] - ets2;
-                virxy   += ets2vf*mhx[kx]*mhy[kx];
-                virxz   += ets2vf*mhx[kx]*mhz[kx];
-                viryy   += ets2vf*mhy[kx]*mhy[kx] - ets2;
-                viryz   += ets2vf*mhy[kx]*mhz[kx];
-                virzz   += ets2vf*mhz[kx]*mhz[kx] - ets2;
-            }
-        }
-        else
-        {
-            /* We don't need to calculate the energy and the virial.
-             * In this case the triclinic overhead is small.
-             */
+		  p0->re  = d1*eterm[kx];
+		  p0->im  = d2*eterm[kx];
 
-            /* Two explicit loops to avoid a conditional inside the loop */
+		  struct2 = 2.0*(d1*d1+d2*d2);
 
-            for (kx = kxstart; kx < maxkx; kx++)
-            {
-                mx = kx;
+		  tmp1[kx] = eterm[kx]*struct2;
+		}
 
-                mhxk      = mx * rxx;
-                mhyk      = mx * ryx + my * ryy;
-                mhzk      = mx * rzx + my * rzy + mz * rzz;
-                m2k       = mhxk*mhxk + mhyk*mhyk + mhzk*mhzk;
-                denom[kx] = m2k*bz*by*pme->bsp_mod[XX][kx];
-                tmp1[kx]  = -factor*m2k;
-            }
+	      for (kx = kxstart; kx < kxend; kx++)
+		{
+		  ets2     = corner_fac*tmp1[kx];
+		  vfactor  = (factor*m2[kx] + 1.0)*2.0*m2inv[kx];
+		  energy  += ets2;
 
-            for (kx = maxkx; kx < kxend; kx++)
-            {
-                mx = (kx - nx);
+		  ets2vf   = ets2*vfactor;
+		  virxx   += ets2vf*mhx[kx]*mhx[kx] - ets2;
+		  virxy   += ets2vf*mhx[kx]*mhy[kx];
+		  virxz   += ets2vf*mhx[kx]*mhz[kx];
+		  viryy   += ets2vf*mhy[kx]*mhy[kx] - ets2;
+		  viryz   += ets2vf*mhy[kx]*mhz[kx];
+		  virzz   += ets2vf*mhz[kx]*mhz[kx] - ets2;
+		}
+	    }
+	  else
+	    {
+	      /* We don't need to calculate the energy and the virial.
+	       * In this case the triclinic overhead is small.
+	       */
 
-                mhxk      = mx * rxx;
-                mhyk      = mx * ryx + my * ryy;
-                mhzk      = mx * rzx + my * rzy + mz * rzz;
-                m2k       = mhxk*mhxk + mhyk*mhyk + mhzk*mhzk;
-                denom[kx] = m2k*bz*by*pme->bsp_mod[XX][kx];
-                tmp1[kx]  = -factor*m2k;
-            }
+	      /* Two explicit loops to avoid a conditional inside the loop */
 
-            calc_exponentials_q(kxstart, kxend, elfac, denom, tmp1, eterm);
+	      for (kx = kxstart; kx < maxkx; kx++)
+		{
+		  mx = kx;
 
-            for (kx = kxstart; kx < kxend; kx++, p0++)
-            {
-                d1      = p0->re;
-                d2      = p0->im;
+		  mhxk      = mx * rxx;
+		  mhyk      = mx * ryx + my * ryy;
+		  mhzk      = mx * rzx + my * rzy + mz * rzz;
+		  m2k       = mhxk*mhxk + mhyk*mhyk + mhzk*mhzk;
+		  denom[kx] = m2k*bz*by*pme->bsp_mod[XX][kx];
+		  tmp1[kx]  = -factor*m2k;
+		}
 
-                p0->re  = d1*eterm[kx];
-                p0->im  = d2*eterm[kx];
-            }
-        }
-    }
+	      for (kx = maxkx; kx < kxend; kx++)
+		{
+		  mx = (kx - nx);
 
-    if (bEnerVir)
-    {
-        /* Update virial with local values.
-         * The virial is symmetric by definition.
-         * this virial seems ok for isotropic scaling, but I'm
-         * experiencing problems on semiisotropic membranes.
-         * IS THAT COMMENT STILL VALID??? (DvdS, 2001/02/07).
-         */
-        work->vir_q[XX][XX] = 0.25*virxx;
-        work->vir_q[YY][YY] = 0.25*viryy;
-        work->vir_q[ZZ][ZZ] = 0.25*virzz;
-        work->vir_q[XX][YY] = work->vir_q[YY][XX] = 0.25*virxy;
-        work->vir_q[XX][ZZ] = work->vir_q[ZZ][XX] = 0.25*virxz;
-        work->vir_q[YY][ZZ] = work->vir_q[ZZ][YY] = 0.25*viryz;
+		  mhxk      = mx * rxx;
+		  mhyk      = mx * ryx + my * ryy;
+		  mhzk      = mx * rzx + my * rzy + mz * rzz;
+		  m2k       = mhxk*mhxk + mhyk*mhyk + mhzk*mhzk;
+		  denom[kx] = m2k*bz*by*pme->bsp_mod[XX][kx];
+		  tmp1[kx]  = -factor*m2k;
+		}
 
-        /* This energy should be corrected for a charged system */
-        work->energy_q = 0.5*energy;
-    }
+	      calc_exponentials_q(kxstart, kxend, elfac, denom, tmp1, eterm);
+
+	      for (kx = kxstart; kx < kxend; kx++, p0++)
+		{
+		  d1      = p0->re;
+		  d2      = p0->im;
+
+		  p0->re  = d1*eterm[kx];
+		  p0->im  = d2*eterm[kx];
+		}
+	    }
+	}
+
+      if (bEnerVir)
+	{
+	  /* Update virial with local values.
+	   * The virial is symmetric by definition.
+	   * this virial seems ok for isotropic scaling, but I'm
+	   * experiencing problems on semiisotropic membranes.
+	   * IS THAT COMMENT STILL VALID??? (DvdS, 2001/02/07).
+	   */
+	  work->vir_q[XX][XX] = 0.25*virxx;
+	  work->vir_q[YY][YY] = 0.25*viryy;
+	  work->vir_q[ZZ][ZZ] = 0.25*virzz;
+	  work->vir_q[XX][YY] = work->vir_q[YY][XX] = 0.25*virxy;
+	  work->vir_q[XX][ZZ] = work->vir_q[ZZ][XX] = 0.25*virxz;
+	  work->vir_q[YY][ZZ] = work->vir_q[ZZ][YY] = 0.25*viryz;
+
+	  /* This energy should be corrected for a charged system */
+	  work->energy_q = 0.5*energy;
+	}
+    }   // else loop (PME)
 
     /* Return the loop count */
     return local_ndata[YY]*local_ndata[XX];

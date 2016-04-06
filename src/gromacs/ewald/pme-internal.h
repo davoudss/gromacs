@@ -156,6 +156,9 @@ typedef struct {
     real     *ptr_theta_z;
     splinevec dtheta;
     real     *ptr_dtheta_z;
+    // davoud 
+    real *zs;
+    int  *idx;
 } splinedata_t;
 
 /*! \brief Data structure for coordinating transfer between PP and PME ranks*/
