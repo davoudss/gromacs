@@ -54,17 +54,39 @@
 #include "pme-internal.h"
 #include "pme-simd.h"
 #include "pme-spline-work.h"
-#include "se.h"
-#include "se_fgg.h"
+
+void SE_grid_dispatch(real* grid, real* q,
+                      splinedata_t *spline,
+                      const SE_FGG_params* params){
+#ifdef GMX_DOUBLE
+
+#ifdef GMX_X86_AVX_256
+SE_grid_split_AVX_dispatch_d(grid, q, spline, params);
+#else  // not AVX
+SE_grid_split_SSE_dispatch_d(grid, q, spline, params);
+#endif // AVX
+
+#else  // not GMX_DOUBLE  or single precision
+
+#ifdef GMX_X86_AVX_256
+SE_grid_split_AVX_dispatch(grid, q, spline, params);
+#else  // not AVX
+SE_grid_split_SSE_dispatch(grid, q, spline, params);
+#endif // AVX
+
+#endif // GMX_DOUBLE
+
+}
+
 
 /* TODO consider split of pme-spline from this file */
-static void calc_interpolation_idx_se(gmx_pme_t pme, pme_atomcomm_t *atc,
+static void calc_interpolation_idx_se(struct gmx_pme_t *pme, pme_atomcomm_t *atc,
                                       int start, int end, int thread)
 {
   int             i;
   int            *idxptr, tix, tiy, tiz;
   real           *xptr, tx, ty, tz;
-  real            rxx, ryx, ryy, rzx, rzy, rzz, nrx, nry, nrz;
+  real            rxx, ryy, rzz, nrx, nry, nrz;
   int             nx, ny, nz;
 
   nx  = pme->nkx;
@@ -302,6 +324,7 @@ static void make_bsplines(splinevec theta, splinevec dtheta, int order,
     /* construct splines for local atoms */
     int   i, ii;
     real *xptr;
+    int *idxptr;
 
     // davoud
     real xn[3] MEM_ALIGNED;
@@ -412,7 +435,6 @@ static void spread_coefficients_bsplines_thread(pmegrid_t                       
         grid[i] = 0;
     }
 
-    int P = pmegrid->order-1;
     if(se_set)
       {
 	SE_grid_dispatch(grid,atc->coefficient,spline,se_params);

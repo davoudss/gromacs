@@ -41,6 +41,30 @@
 
 #include "pme-internal.h"
 #include "se.h"
+#include "se_fgg.h"
+
+#ifdef GMX_DOUBLE
+#ifdef GMX_X86_AVX_256
+#include "se_grid_avx_256_double.h"
+#include "se_grid_sse_double.h"
+#else
+#include "se_grid_sse_double.h"
+#endif  //AVX
+
+#else  //SINGLE
+
+#ifdef GMX_X86_AVX_256
+#include "se_grid_avx_256_single.h"
+#include "se_grid_sse_single.h"
+#else
+#include "se_grid_sse_single.h"
+#endif //AVX
+#endif //DOUBLE
+
+void SE_grid_dispatch(real* grid, real* q,
+                      splinedata_t *spline,
+                      const SE_FGG_params* params);
+
 
 void
 spread_on_grid(struct gmx_pme_t *pme,

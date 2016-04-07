@@ -45,9 +45,33 @@
 #include "pme-internal.h"
 #include "pme-simd.h"
 #include "pme-spline-work.h"
+#include "pme-gather.h"
 
-#include "se.h"
-#include "se_fgg.h"
+void SE_int_dispatch(rvec *force, real *grid, real *q,
+                     splinedata_t *spline,
+                     const SE_FGG_params *params, real scale,
+                     gmx_bool bClearF)
+{
+#ifdef GMX_DOUBLE
+
+#ifdef GMX_X86_AVX_256
+  SE_int_split_AVX_dispatch_d(force, grid, q, spline, params, scale, bClearF);
+#else  // not AVX
+  SE_int_split_SSE_dispatch_d(force, grid, q, spline, params, scale, bClearF);
+#endif // AVX
+
+#else  // not GMX_DOUBLE  or single precision
+
+#ifdef GMX_X86_AVX_256
+  SE_int_split_AVX_dispatch(force, grid, q, spline, params, scale, bClearF);
+#else  // not AVX
+  SE_int_split_SSE_dispatch(force, grid, q, spline, params, scale, bClearF);
+#endif // AVX
+
+#endif // GMX_DOUBLE
+
+}
+
 
 using namespace gmx; // TODO: Remove when this file is moved into gmx namespace
 

@@ -8,10 +8,11 @@
 #include "se.h"
 
 
-void SE_int_split_AVX_d(rvec *force, real *grid, real *q,
-			splinedata_t *spline,
-			const SE_FGG_params *params, real scale,
-			gmx_bool bClearF)
+static void
+SE_int_split_AVX_d(rvec *force, real *grid, real *q,
+		   splinedata_t *spline,
+		   const SE_FGG_params *params, real scale,
+		   gmx_bool bClearF)
 {
   // unpack params
   const double*  H = (double*) grid;
@@ -136,10 +137,11 @@ void SE_int_split_AVX_d(rvec *force, real *grid, real *q,
 }
 
 // -----------------------------------------------------------------------------
-void SE_int_split_AVX_u8_d(rvec* force, real* grid, real* q,  
-			   splinedata_t *spline,
-			   const SE_FGG_params* params, real scale,
-			   gmx_bool bClearF)
+static void 
+SE_int_split_AVX_u8_d(rvec* force, real* grid, real* q,  
+		      splinedata_t *spline,
+		      const SE_FGG_params* params, real scale,
+		      gmx_bool bClearF)
 {
   // unpack params
   const double*   H = (double*) grid;
@@ -303,10 +305,11 @@ void SE_int_split_AVX_u8_d(rvec* force, real* grid, real* q,
 }
 
 // -----------------------------------------------------------------------------
-void SE_int_split_AVX_P8_d(rvec* force, real* grid, real* q,  
-			   splinedata_t *spline,
-			   const SE_FGG_params* params, real scale,
-			   gmx_bool bClearF)
+static void
+SE_int_split_AVX_P8_d(rvec* force, real* grid, real* q,  
+		      splinedata_t *spline,
+		      const SE_FGG_params* params, real scale,
+		      gmx_bool bClearF)
 {
   // unpack params
   const double*   H = (double*) grid;
@@ -459,10 +462,11 @@ void SE_int_split_AVX_P8_d(rvec* force, real* grid, real* q,
 }
 
 // -----------------------------------------------------------------------------
-void SE_int_split_AVX_P16_d(rvec* force, real* grid, real* q,  
-			    splinedata_t *spline,
-			    const SE_FGG_params* params, real scale,
-			    gmx_bool bClearF)
+static void 
+SE_int_split_AVX_P16_d(rvec* force, real* grid, real* q,  
+		       splinedata_t *spline,
+		       const SE_FGG_params* params, real scale,
+		       gmx_bool bClearF)
 {
   // unpack params
   const double*   H = (double*) grid;
@@ -641,10 +645,11 @@ void SE_int_split_AVX_P16_d(rvec* force, real* grid, real* q,
 }
 
 // -----------------------------------------------------------------------------
-void SE_int_split_AVX_dispatch_d(rvec* force, real* grid, real* q, 
-				 splinedata_t *spline,
-				 const SE_FGG_params* params, real scale,
-				 gmx_bool bClearF)
+static void 
+SE_int_split_AVX_dispatch_d(rvec* force, real* grid, real* q, 
+			    splinedata_t *spline,
+			    const SE_FGG_params* params, real scale,
+			    gmx_bool bClearF)
 {
   const int p = params->P;
   const int incrj = params->dims[2]; // middle increment

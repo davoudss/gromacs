@@ -2,30 +2,12 @@
 #define __SE_FGG_H__
 
 #include <stdio.h>
+#include <string.h>
 #include <math.h>
-#include "typedefs.h"
+#include "pme-internal.h"
 #include "emmintrin.h"
 #include "immintrin.h"
 #include "x86intrin.h"
-
-#ifdef GMX_DOUBLE
-#include "se_grid_sse_double.h"
-#include "se_int_sse_double.h"
-#ifdef GMX_X86_AVX_256
-#include "se_grid_avx_256_double.h"
-#include "se_int_avx_256_double.h"
-#endif  //AVX
-
-#else  //SINGLE
-
-#include "se_grid_sse_single.h"
-#include "se_int_sse_single.h"
-#ifdef GMX_X86_AVX_256
-#include "se_grid_avx_256_single.h"
-#include "se_int_avx_256_single.h"
-#endif //AVX
-#endif //DOUBLE
-
 
 // --------------------------------------------------------------------------
 static int half(int p)
@@ -45,7 +27,6 @@ static inline int SE_prod3(const int v[3])
 static void
 SE_fp_set_zero(real* x, const int N)
 {
-  int i;
   memset(x,0.0,N*sizeof(real));
 }
 
@@ -97,7 +78,7 @@ SE_FGG_FCN_params(SE_FGG_params* params, const SE_opt* opt, int N)
 
 
 // ------------------------------------------------------------------------------
-void sumr(real *H, int np,char* str)
+void static umr(real *H, int np,char* str)
 {
   int d1;real rsum=0;
   for(d1=0;d1<np;d1++)
@@ -106,7 +87,7 @@ void sumr(real *H, int np,char* str)
 }
 
 // ------------------------------------------------------------------------------
-void sumc(t_complex* H, int np,char* str)
+void static sumc(t_complex* H, int np,char* str)
 {
   int d1;real rsum=0,isum=0;
   for(d1=0;d1<np;d1++)
@@ -254,7 +235,7 @@ fgg_expansion_all(const real x[3], const real q,
   return 0;
 }
 
-real sesum(real *f, int n, int e1, int e2, int dim, char* str)
+real static sesum(real *f, int n, int e1, int e2, int dim, char* str)
 {
   real s1=0,s2=0;
   int i,j,k;
@@ -273,54 +254,6 @@ real sesum(real *f, int n, int e1, int e2, int dim, char* str)
   printf("%s %g %s^2 %f\n",str,s1,str,s2);
   return s2;
 
-}
-
-void SE_grid_dispatch(real* grid, real* q,
-                      splinedata_t *spline,
-                      const SE_FGG_params* params){
-#ifdef GMX_DOUBLE
-
-#ifdef GMX_X86_AVX_256
-SE_grid_split_AVX_dispatch_d(grid, q, spline, params);
-#else  // not AVX
-SE_grid_split_SSE_dispatch_d(grid, q, spline, params);
-#endif // AVX
-
-#else  // not GMX_DOUBLE  or single precision
-
-#ifdef GMX_X86_AVX_256
-SE_grid_split_AVX_dispatch(grid, q, spline, params);
-#else  // not AVX
-SE_grid_split_SSE_dispatch(grid, q, spline, params);
-#endif // AVX
-
-#endif // GMX_DOUBLE
-
-}
-
-void SE_int_dispatch(rvec *force, real *grid, real *q,
-                     splinedata_t *spline,
-                     const SE_FGG_params *params, real scale,
-                     gmx_bool bClearF)
-{
-#ifdef GMX_DOUBLE
-  
-#ifdef GMX_X86_AVX_256
-  SE_int_split_AVX_dispatch_d(force, grid, q, spline, params, scale, bClearF);
-#else  // not AVX
-  SE_int_split_SSE_dispatch_d(force, grid, q, spline, params, scale, bClearF);
-#endif // AVX
-  
-#else  // not GMX_DOUBLE  or single precision
-  
-#ifdef GMX_X86_AVX_256
-  SE_int_split_AVX_dispatch(force, grid, q, spline, params, scale, bClearF);
-#else  // not AVX
-  SE_int_split_SSE_dispatch(force, grid, q, spline, params, scale, bClearF);
-#endif // AVX
-  
-#endif // GMX_DOUBLE
-  
 }
 
 

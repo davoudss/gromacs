@@ -8,9 +8,9 @@
 #include "se.h"
 
 // -----------------------------------------------------------------------------
-void SE_grid_split_AVX(real* grid, real* q,
-		       splinedata_t *spline, 
-		       const SE_FGG_params* params)
+static void SE_grid_split_AVX(real* grid, real* q,
+			      splinedata_t *spline, 
+			      const SE_FGG_params* params)
 {
   // unpack parameters
   const int     N = params->N;
@@ -89,7 +89,7 @@ void SE_grid_split_AVX(real* grid, real* q,
 }
 
 // -----------------------------------------------------------------------------
-void 
+static void 
 SE_grid_split_AVX_dispatch(real* grid, real* q, 
 			   splinedata_t *spline,
 			   const SE_FGG_params* params)

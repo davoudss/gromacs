@@ -38,7 +38,33 @@
 #include "gromacs/utility/real.h"
 
 #include "pme-internal.h"
-#inclulde "se.h"
+#include "se.h"
+#include "se_fgg.h"
+
+#ifdef GMX_DOUBLE
+#ifdef GMX_X86_AVX_256
+#include "se_int_avx_256_double.h"
+#include "se_int_sse_double.h"
+#else
+#include "se_int_sse_double.h"
+#endif  //AVX
+
+#else  //SINGLE
+
+#ifdef GMX_X86_AVX_256
+#include "se_int_avx_256_single.h"
+#include "se_int_sse_single.h"
+#else
+#include "se_int_sse_single.h"
+#endif //AVX
+#endif //DOUBLE
+
+
+void SE_int_dispatch(rvec *force, real *grid, real *q,
+                     splinedata_t *spline,
+                     const SE_FGG_params *params, real scale,
+                     gmx_bool bClearF);
+
 
 void
 gather_f_bsplines(struct gmx_pme_t *pme, real *grid,

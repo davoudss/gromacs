@@ -40,6 +40,7 @@
 #include "gromacs/utility/real.h"
 
 #include "se.h"
+#include "se_fgg.h"
 
 struct pme_solve_work_t;
 struct gmx_pme_t;

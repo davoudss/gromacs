@@ -5,13 +5,11 @@
 #ifdef GMX_DOUBLE
 #include "se.h"
 
-void SE_grid_split_d(real *grid, real *q,
-		     splinedata_t *spline,
-		     const SE_FGG_params *params) 
+static void SE_grid_split_d(real *grid, real *q,
+			    splinedata_t *spline,
+			    const SE_FGG_params *params) 
 {
   // unpack parameters
-  const int N=params->N;
-
   real*          H = (real*) grid;
   const real*   zs = (real*) spline->zs;
   const real*   zx = (real*) spline->theta[0];
@@ -55,9 +53,9 @@ void SE_grid_split_d(real *grid, real *q,
 }
 
 // -----------------------------------------------------------------------------
-void SE_grid_split_SSE_d(real *grid, real *q,
-			 splinedata_t *spline,
-			 const SE_FGG_params *params)
+static void SE_grid_split_SSE_d(real *grid, real *q,
+				splinedata_t *spline,
+				const SE_FGG_params *params)
 {
   // unpack parameters
   const int        N = params->N;
@@ -131,9 +129,9 @@ void SE_grid_split_SSE_d(real *grid, real *q,
 }
 
 // -----------------------------------------------------------------------------
-void SE_grid_split_SSE_u8_d(real *grid, real *q,
-			    splinedata_t *spline,
-			    const SE_FGG_params *params)
+static void SE_grid_split_SSE_u8_d(real *grid, real *q,
+				   splinedata_t *spline,
+				   const SE_FGG_params *params)
 {
   // unpack parameters
   const int        N = params->N;
@@ -250,9 +248,9 @@ void SE_grid_split_SSE_u8_d(real *grid, real *q,
 }
 
 // -----------------------------------------------------------------------------
-void SE_grid_split_SSE_P8_d(real *grid, real *q,
-			    splinedata_t *spline,
-			    const SE_FGG_params *params)
+static void SE_grid_split_SSE_P8_d(real *grid, real *q,
+				   splinedata_t *spline,
+				   const SE_FGG_params *params)
 {
   // unpack parameters
   const int        N = params->N;
@@ -371,12 +369,11 @@ void SE_grid_split_SSE_P8_d(real *grid, real *q,
 
 
 // -----------------------------------------------------------------------------
-void SE_grid_split_SSE_P16_d(real *grid, real *q,
-			     splinedata_t *spline,
-			     const SE_FGG_params *params)
+static void SE_grid_split_SSE_P16_d(real *grid, real *q,
+				    splinedata_t *spline,
+				    const SE_FGG_params *params)
 {
   // unpack parameters
-  const int      N = params->N;
   double*        H = (double*) grid;
   const double* zs = (double*) spline->zs;
   const double* zx = (double*) spline->theta[0];
@@ -530,7 +527,7 @@ void SE_grid_split_SSE_P16_d(real *grid, real *q,
 }
 
 // -----------------------------------------------------------------------------
-void
+static void
 SE_grid_split_SSE_dispatch_d(real *grid, real *q,
 			     splinedata_t *spline,
 			     const SE_FGG_params *params)

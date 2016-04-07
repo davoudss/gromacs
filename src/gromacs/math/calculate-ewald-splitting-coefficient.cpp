@@ -46,7 +46,7 @@
 real calc_ewaldcoeff_q(real rc, real rtol)
 {
     // davoud: I added this to use ewald-rtol in input file to input xi
-    return dtol;
+    return rtol;
     //
     real beta = 5, low, high;
     int  n, i = 0;

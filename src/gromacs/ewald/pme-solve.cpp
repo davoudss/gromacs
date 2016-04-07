@@ -52,9 +52,6 @@
 
 #include "pme-internal.h"
 
-#include "se.h"
-#include "se_fgg.h"
-
 #if GMX_SIMD_HAVE_REAL
 /* Turn on arbitrary width SIMD intrinsics for PME solve */
 #    define PME_SIMD_SOLVE
@@ -349,7 +346,7 @@ int solve_pme_yzx(struct gmx_pme_t *pme, t_complex *grid,
 	maxkx = (nx+1)/2;
 	maxky = (ny+1)/2;
 	
-	work  = &pme->work[thread];
+	work  = &pme->solve_work[thread];
 	mhx   = work->mhx;
 	mhy   = work->mhy;
 	mhz   = work->mhz;
@@ -450,7 +447,7 @@ int solve_pme_yzx(struct gmx_pme_t *pme, t_complex *grid,
 		    m2inv[kx] = 1.0/m2[kx];
 		  }
 		
-		calc_exponentials(kxstart, kxend, elfac, denom, tmp1, eterm);
+		calc_exponentials_q(kxstart, kxend, elfac, denom, tmp1, eterm);
 		for (kx = kxstart; kx < kxend; kx++, p0++)
 		  {
 		    d1      = p0->re;
@@ -514,7 +511,7 @@ int solve_pme_yzx(struct gmx_pme_t *pme, t_complex *grid,
 		    tmp1[kx]  = se_pow*m2k;
 		  }
 		
-		calc_exponentials(kxstart, kxend, elfac, denom, tmp1, eterm);
+		calc_exponentials_q(kxstart, kxend, elfac, denom, tmp1, eterm);
 		
 		for (kx = kxstart; kx < kxend; kx++, p0++)
 		  {
@@ -534,18 +531,18 @@ int solve_pme_yzx(struct gmx_pme_t *pme, t_complex *grid,
 	     * experiencing problems on semiisotropic membranes.
 	     * IS THAT COMMENT STILL VALID??? (DvdS, 2001/02/07).
 	     */
-	    work->vir[XX][XX] = 0.25*virxx;
-	    work->vir[YY][YY] = 0.25*viryy;
-	    work->vir[ZZ][ZZ] = 0.25*virzz;
-	    work->vir[XX][YY] = work->vir[YY][XX] = 0.25*virxy;
-	    work->vir[XX][ZZ] = work->vir[ZZ][XX] = 0.25*virxz;
-	    work->vir[YY][ZZ] = work->vir[ZZ][YY] = 0.25*viryz;
+	    work->vir_q[XX][XX] = 0.25*virxx;
+	    work->vir_q[YY][YY] = 0.25*viryy;
+	    work->vir_q[ZZ][ZZ] = 0.25*virzz;
+	    work->vir_q[XX][YY] = work->vir_q[YY][XX] = 0.25*virxy;
+	    work->vir_q[XX][ZZ] = work->vir_q[ZZ][XX] = 0.25*virxz;
+	    work->vir_q[YY][ZZ] = work->vir_q[ZZ][YY] = 0.25*viryz;
 	    
 	    /* This energy should be corrected for a charged system */
 	    // FIXME: what is this value coming from in the energy? (davoud)
 	    real extra_fac = 1.0/(nx*ny*nz)*M_PI*1.428322531170926;
 	    
-	    work->energy = pow(0.5*energy*extra_fac,2);
+	    work->energy_q = pow(0.5*energy*extra_fac,2);
 	    //    printf("pme energy %d %.20g\n",nx,work->energy);
 	  } 
       }  //se_set

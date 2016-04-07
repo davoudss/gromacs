@@ -72,6 +72,8 @@
 #include "gromacs/utility/fatalerror.h"
 #include "gromacs/utility/smalloc.h"
 
+#include "gromacs/math/units.h"
+
 void ns(FILE              *fp,
         t_forcerec        *fr,
         matrix             box,
@@ -645,7 +647,7 @@ void do_force_lowlevel(t_forcerec *fr,      t_inputrec *ir,
     gmx_bool only_Fourier      = true;
     if(error_analysis)
       {
-	FILE *g1,*g2;
+	FILE *g1;
 	char rw[3];
 	if(to_write)
 	  strcpy(rw,"w");
@@ -654,7 +656,6 @@ void do_force_lowlevel(t_forcerec *fr,      t_inputrec *ir,
 	g1 = fopen("Direct3000_xi3.txt",rw);
 	
 	double diff=0,sum=0,f1,f2,f3,fx,fy,fz,fo=0;
-	double R1,R2,R3,F1,F2,F3,sumR=0,sumF=0,dR=0,dF=0;
 	int ret;
 
 	// error calculation
@@ -698,7 +699,7 @@ void do_force_lowlevel(t_forcerec *fr,      t_inputrec *ir,
 		printf("%d:%f %f %f\n",cr->nodeid,fx,fy,fz);
 
 	  }
-	printf("xi=%f sum(force)=%g\n",fr->ewaldcoeff,fo);
+	printf("xi=%f sum(force)=%g\n",fr->ewaldcoeff_q,fo);
 	printf("Abs. rms Error %g\n",sqrt(diff/md->homenr)/(1+with_ONE_4PI_EPS0*(ONE_4PI_EPS0-1)));
 	printf("Rel. Error %g\n",sqrt(diff/sum));
 
