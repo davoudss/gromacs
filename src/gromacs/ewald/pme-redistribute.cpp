@@ -141,7 +141,7 @@ static void pme_calc_pidx_wrapper(int natoms, matrix recipbox, rvec x[],
 static void realloc_splinevec(splinevec th, real **ptr_z, int nalloc)
 {
   /* davoud needed for se*/
-#if defined   GMX_X86_AVX_256
+#if defined   GMX_SIMD_X86_AVX_256
   const int padding = 8;
 #else
   const int padding = 4;

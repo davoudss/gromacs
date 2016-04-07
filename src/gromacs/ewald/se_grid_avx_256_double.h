@@ -4,7 +4,7 @@
 
 /* SE AVX 256 double gridding */
 #ifdef GMX_DOUBLE
-#ifdef GMX_X86_AVX_256
+#ifdef GMX_SIMD_X86_AVX_256
 #include "se.h"
 
 
@@ -202,7 +202,6 @@ static void SE_grid_split_AVX_P8_d(real* grid, real* q,
 				   const SE_FGG_params* params)
 {
   // unpack parameters
-  const int      N = params->N;
   double*        H = (double*) grid; // pointer to grid does NOT alias
   const double* zs = (double*) spline->zs;
   const double* zx = (double*) spline->theta[0];
@@ -425,6 +424,6 @@ SE_grid_split_AVX_dispatch_d(real* grid, real* q,
 }
 
 
-#endif //GMX_X86_AVX_256
+#endif //GMX_SIMD_X86_AVX_256
 #endif //GMX_DOUBLE
 #endif //_SE_GRID_AVX_256_DOUBLE_

@@ -44,18 +44,18 @@
 #include "se_fgg.h"
 
 #ifdef GMX_DOUBLE
-#ifdef GMX_X86_AVX_256
-#include "se_grid_avx_256_double.h"
+#ifdef GMX_SIMD_X86_AVX_256
 #include "se_grid_sse_double.h"
+#include "se_grid_avx_256_double.h"
 #else
 #include "se_grid_sse_double.h"
 #endif  //AVX
 
 #else  //SINGLE
 
-#ifdef GMX_X86_AVX_256
-#include "se_grid_avx_256_single.h"
+#ifdef GMX_SIMD_X86_AVX_256
 #include "se_grid_sse_single.h"
+#include "se_grid_avx_256_single.h"
 #else
 #include "se_grid_sse_single.h"
 #endif //AVX

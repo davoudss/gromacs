@@ -10,7 +10,7 @@
 #include "x86intrin.h"
 
 // --------------------------------------------------------------------------
-static int half(int p)
+static inline int half(int p)
 {
   return (is_odd(p) ? (p-1)/2 : p/2);
 }
@@ -24,7 +24,7 @@ static inline int SE_prod3(const int v[3])
 
 // -----------------------------------------------------------------------------
 // Set array elements to real-precision zero
-static void
+static inline void
 SE_fp_set_zero(real* x, const int N)
 {
   memset(x,0.0,N*sizeof(real));
@@ -33,7 +33,7 @@ SE_fp_set_zero(real* x, const int N)
 
 // -----------------------------------------------------------------------------
 // unpacking params
-inline static void
+static inline void
 parse_params(SE_opt* opt, real xi)
 {
   real      h0 = opt->box[0]/ (real) opt->M;
@@ -51,7 +51,7 @@ parse_params(SE_opt* opt, real xi)
 
 // -----------------------------------------------------------------------------
 // packing SE parameters
-inline static void
+static inline void
 SE_FGG_FCN_params(SE_FGG_params* params, const SE_opt* opt, int N)
 {
   params->N = N;
@@ -78,7 +78,7 @@ SE_FGG_FCN_params(SE_FGG_params* params, const SE_opt* opt, int N)
 
 
 // ------------------------------------------------------------------------------
-void static umr(real *H, int np,char* str)
+static inline void umr(real *H, int np,char* str)
 {
   int d1;real rsum=0;
   for(d1=0;d1<np;d1++)
@@ -87,7 +87,7 @@ void static umr(real *H, int np,char* str)
 }
 
 // ------------------------------------------------------------------------------
-void static sumc(t_complex* H, int np,char* str)
+static inline void sumc(t_complex* H, int np,char* str)
 {
   int d1;real rsum=0,isum=0;
   for(d1=0;d1<np;d1++)
@@ -235,7 +235,7 @@ fgg_expansion_all(const real x[3], const real q,
   return 0;
 }
 
-real static sesum(real *f, int n, int e1, int e2, int dim, char* str)
+static inline real sesum(real *f, int n, int e1, int e2, int dim, char* str)
 {
   real s1=0,s2=0;
   int i,j,k;

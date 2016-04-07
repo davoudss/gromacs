@@ -25,12 +25,11 @@
 
 
 // display debug messages in the SSE dispatcher
-#if defined VERBOSE
+//#if defined VERBOSE
 #define __DISPATCHER_MSG(s) __PRINTF(s)
+//#else
 //#define __DISPATCHER_MSG(s) {}
-#else
-#define __DISPATCHER_MSG(s) {}
-#endif
+//#endif
 
 #if __AVX__
 #define MEM_ALIGNED __attribute__((aligned(32)))

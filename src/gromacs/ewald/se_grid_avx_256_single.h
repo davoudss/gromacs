@@ -3,7 +3,7 @@
 
 /* SE AVX 256 single gridding */
 #ifndef GMX_DOUBLE
-#ifdef GMX_X86_AVX_256
+#ifdef GMX_SIMD_X86_AVX_256
 
 #include "se.h"
 
@@ -114,6 +114,6 @@ SE_grid_split_AVX_dispatch(real* grid, real* q,
   }
 }
 
-#endif //GMX_X86_AVX_256
+#endif //GMX_SIMD_X86_AVX_256
 #endif //not GMX_DOUBLE
 #endif // _SE_GRID_AVX_256_SINGLE_

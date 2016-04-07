@@ -3,7 +3,7 @@
 
 
 /* SE AVX 256 single integration */
-#ifdef GMX_X86_AVX_256
+#ifdef GMX_SIMD_X86_AVX_256
 #include "se.h"
 
 // -----------------------------------------------------------------------------
@@ -162,5 +162,5 @@ SE_int_split_AVX_dispatch(rvec* force, real* grid, real* q,
 }
 
 
-#endif //GMX_X86_AVX_256
+#endif //GMX_SIMD_X86_AVX_256
 #endif // _SE_INT_AVX_256_SINGLE_

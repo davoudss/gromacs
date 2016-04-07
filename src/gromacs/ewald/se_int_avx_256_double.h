@@ -4,7 +4,7 @@
 
 /* SE AVX 256 double integration */
 #ifdef GMX_DOUBLE
-#ifdef GMX_X86_AVX_256
+#ifdef GMX_SIMD_X86_AVX_256
 #include "se.h"
 
 
@@ -691,6 +691,6 @@ SE_int_split_AVX_dispatch_d(rvec* force, real* grid, real* q,
   }
 }
 
-#endif //GMX_X86_AVX_256
+#endif //GMX_SIMD_X86_AVX_256
 #endif //GMX_DOUBLE
 #endif //_SE_INT_AVX_256_DOUBLE_
