@@ -92,7 +92,7 @@ static const real lb_scale_factor_symm[] = { 2.0/64, 12.0/64, 30.0/64, 20.0/64 }
  * An order larger than 12 should never be needed, even for test cases.
  * If needed it can be changed here.
  */
-#define PME_ORDER_MAX 12
+#define PME_ORDER_MAX 35
 
 /*! \brief As gmx_pme_init, but takes most settings, except the grid, from pme_src */
 int gmx_pme_reinit(struct gmx_pme_t **pmedata,
