@@ -24,7 +24,7 @@ SE_int_split(rvec* force,  real* grid, real* q,
 
 
   const int   p = params->P;
-  const int   N = params->N;
+  //  const int   N = params->N;
   const float h = params->h;
 
   int i,j,k,m,idx,idx_zs,idx_zz,mm;
@@ -59,7 +59,7 @@ SE_int_split(rvec* force,  real* grid, real* q,
 	      idx_zz=m*p;
 	      for(k = 0; k<p; k++)
 		{
-		  Hzc         = H[idx]*zs[idx_zs]*zz[idx_zz]*cij;   
+		  Hzc         = H[idx]*zs[idx_zs]*zz[idx_zz]*cij;
 #ifdef CALC_ENERGY
 		  phi_m      += Hzc;
 #endif
@@ -73,7 +73,7 @@ SE_int_split(rvec* force,  real* grid, real* q,
 	    }
 	  idx += incri;
 	}
-      /* if(!bClearF) */
+      /* if(bClearF) */
       /* 	{ */
       /* 	  force[m][XX] = 0; */
       /* 	  force[m][YY] = 0; */
@@ -144,9 +144,9 @@ SE_int_split_SSE(rvec *force, real *grid, real *q,
     if(idx%4==0){ // H[idx] is 16-aligned so vectorization simple
       for(i = 0; i<p; i++){
 	for(j = 0; j<p; j++){
-	  rC  = _mm_set1_ps( zx[m*p+i]*zy[m*p+j]*qm);
-	  rCX = _mm_set1_ps(zx[m*p+i]*zy[m*p+j]*zfx[m*p+i]*qm);
-	  rCY = _mm_set1_ps(zx[m*p+i]*zy[m*p+j]*zfy[m*p+j]*qm);
+	  rC  = _mm_set1_ps( zx[m*p+i]*zy[m*p+j]);
+	  rCX = _mm_set1_ps(zx[m*p+i]*zy[m*p+j]*zfx[m*p+i]);
+	  rCY = _mm_set1_ps(zx[m*p+i]*zy[m*p+j]*zfy[m*p+j]);
 #ifdef CALC_ENERGY
 	  rCP = _mm_set1_ps( zx[m*p+i]*zy[m*p+j]);
 #endif
@@ -177,9 +177,9 @@ SE_int_split_SSE(rvec *force, real *grid, real *q,
     else{ // H[idx] not 16-aligned, so use non-aligned loads
       for(i = 0; i<p; i++){
 	for(j = 0; j<p; j++){
-	  rC  = _mm_set1_ps( zx[m*p+i]*zy[m*p+j]*qm );
-	  rCX = _mm_set1_ps( zx[m*p+i]*zy[m*p+j]*zfx[m*p+i]*qm );
-	  rCY = _mm_set1_ps( zx[m*p+i]*zy[m*p+j]*zfy[m*p+j]*qm );
+	  rC  = _mm_set1_ps( zx[m*p+i]*zy[m*p+j] );
+	  rCX = _mm_set1_ps( zx[m*p+i]*zy[m*p+j]*zfx[m*p+i] );
+	  rCY = _mm_set1_ps( zx[m*p+i]*zy[m*p+j]*zfy[m*p+j] );
 #ifdef CALC_ENERGY
 	  rCP = _mm_set1_ps( zx[m*p+i]*zy[m*p+j]);
 #endif
@@ -212,9 +212,9 @@ SE_int_split_SSE(rvec *force, real *grid, real *q,
     _mm_store_ps(sy,rFY);
     _mm_store_ps(sz,rFZ);
 
-    force[m][XX] = -scale*h3*(sx[0]+sx[1]+sx[2]+sx[3]);
-    force[m][YY] = -scale*h3*(sy[0]+sy[1]+sy[2]+sy[3]);
-    force[m][ZZ] = -scale*h3*(sz[0]+sz[1]+sz[2]+sz[3]);
+    force[m][XX] = -qm*scale*h3*(sx[0]+sx[1]+sx[2]+sx[3]);
+    force[m][YY] = -qm*scale*h3*(sy[0]+sy[1]+sy[2]+sy[3]);
+    force[m][ZZ] = -qm*scale*h3*(sz[0]+sz[1]+sz[2]+sz[3]);
 
 #ifdef CALC_ENERGY
     _mm_store_ps(s,rP);
@@ -286,9 +286,9 @@ SE_int_split_SSE_P8(rvec *force, real *grid, real *q,
     if(idx%4==0){ // H[idx] is 16-aligned so vectorization simple
       for(i = 0; i<8; i++){
 	for(j = 0; j<8; j++){
-	  rC = _mm_set1_ps( zx[m*8+i]*zy[m*8+j]*qm);
-	  rCX = _mm_set1_ps(zx[m*8+i]*zy[m*8+j]*zfx[m*8+i]*qm);
-	  rCY = _mm_set1_ps(zx[m*8+i]*zy[m*8+j]*zfy[m*8+j]*qm);
+	  rC = _mm_set1_ps( zx[m*8+i]*zy[m*8+j]);
+	  rCX = _mm_set1_ps(zx[m*8+i]*zy[m*8+j]*zfx[m*8+i]);
+	  rCY = _mm_set1_ps(zx[m*8+i]*zy[m*8+j]*zfy[m*8+j]);
 #ifdef CALC_ENERGY
 	  rCP= _mm_set1_ps( zx[m*8+i]*zy[m*8+j]);
 #endif
@@ -319,9 +319,9 @@ SE_int_split_SSE_P8(rvec *force, real *grid, real *q,
     else{ // H[idx] not 16-aligned, so use non-aligned loads
       for(i = 0; i<8; i++){
 	for(j = 0; j<8; j++){
-	  rC = _mm_set1_ps( zx[m*8+i]*zy[m*8+j]*qm);
-	  rCX = _mm_set1_ps(zx[m*8+i]*zy[m*8+j]*zfx[m*8+i]*qm);
-	  rCY = _mm_set1_ps(zx[m*8+i]*zy[m*8+j]*zfy[m*8+j]*qm);
+	  rC = _mm_set1_ps( zx[m*8+i]*zy[m*8+j]);
+	  rCX = _mm_set1_ps(zx[m*8+i]*zy[m*8+j]*zfx[m*8+i]);
+	  rCY = _mm_set1_ps(zx[m*8+i]*zy[m*8+j]*zfy[m*8+j]);
 #ifdef CALC_ENERGY
 	  rCP= _mm_set1_ps( zx[m*8+i]*zy[m*8+j]);
 #endif
@@ -354,9 +354,9 @@ SE_int_split_SSE_P8(rvec *force, real *grid, real *q,
     _mm_store_ps(sy,rFY);
     _mm_store_ps(sz,rFZ);
 
-    force[m][XX] = -scale*h3*(sx[0]+sx[1]+sx[2]+sx[3]);
-    force[m][YY] = -scale*h3*(sy[0]+sy[1]+sy[2]+sy[3]);
-    force[m][ZZ] = -scale*h3*(sz[0]+sz[1]+sz[2]+sz[3]);
+    force[m][XX] = -qm*scale*h3*(sx[0]+sx[1]+sx[2]+sx[3]);
+    force[m][YY] = -qm*scale*h3*(sy[0]+sy[1]+sy[2]+sy[3]);
+    force[m][ZZ] = -qm*scale*h3*(sz[0]+sz[1]+sz[2]+sz[3]);
 #ifdef CALC_ENERGY
     _mm_store_ps(s,rP);
     st->phi[m] = -scale*h3*(s[0]+s[1]+s[2]+s[3]);

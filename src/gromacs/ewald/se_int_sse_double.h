@@ -146,9 +146,9 @@ SE_int_split_SSE_d(rvec *force, real *grid, real *q,
 	imp = mp+i;
 	for(j = 0; j<p; j++){
 	  jmp = mp+j;
-	  rC  = _mm_set1_pd( zx[imp]*zy[jmp]*qm );
-	  rCX = _mm_set1_pd(zx[imp]*zy[jmp]*zfx[imp]*qm);
-	  rCY = _mm_set1_pd(zx[imp]*zy[jmp]*zfy[jmp]*qm);
+	  rC  = _mm_set1_pd( zx[imp]*zy[jmp] );
+	  rCX = _mm_set1_pd(zx[imp]*zy[jmp]*zfx[imp]);
+	  rCY = _mm_set1_pd(zx[imp]*zy[jmp]*zfy[jmp]);
 #ifdef CALC_ENERGY
 	  rCP  = _mm_set1_pd( zx[imp]*zy[jmp]);
 #endif
@@ -183,9 +183,9 @@ SE_int_split_SSE_d(rvec *force, real *grid, real *q,
 	imp = mp+i;
 	for(j = 0; j<p; j++){
 	  jmp = mp+j;
-	  rC  = _mm_set1_pd( zx[imp]*zy[jmp]*qm );
-	  rCX = _mm_set1_pd(zx[imp]*zy[jmp]*zfx[imp]*qm);
-	  rCY = _mm_set1_pd(zx[imp]*zy[jmp]*zfy[jmp]*qm);
+	  rC  = _mm_set1_pd( zx[imp]*zy[jmp] );
+	  rCX = _mm_set1_pd(zx[imp]*zy[jmp]*zfx[imp]);
+	  rCY = _mm_set1_pd(zx[imp]*zy[jmp]*zfy[jmp]);
 #ifdef CALC_ENERGY
 	  rCP = _mm_set1_pd( zx[imp]*zy[jmp] );
 #endif
@@ -219,9 +219,9 @@ SE_int_split_SSE_d(rvec *force, real *grid, real *q,
     _mm_store_pd(sy,rFY);
     _mm_store_pd(sz,rFZ);
     
-    force[m][XX] = -scale*h3*(sx[0]+sx[1]);
-    force[m][YY] = -scale*h3*(sy[0]+sy[1]);
-    force[m][ZZ] = -scale*h3*(sz[0]+sz[1]);
+    force[m][XX] = -qm*scale*h3*(sx[0]+sx[1]);
+    force[m][YY] = -qm*scale*h3*(sy[0]+sy[1]);
+    force[m][ZZ] = -qm*scale*h3*(sz[0]+sz[1]);
     
 #ifdef CALC_ENERGY
     _mm_store_pd(s,rP);
@@ -293,9 +293,9 @@ SE_int_split_SSE_u8_d(rvec *force, real *grid, real *q,
     if(idx%2==0){ // H[idx] is 16-aligned so vectorization simple
       for(i = 0; i<p; i++){
 	for(j = 0; j<p; j++){
-	  rC  = _mm_set1_pd( zx[m*p+i]*zy[m*p+j]*qm );
-	  rCX = _mm_set1_pd(zx[m*p+i]*zy[m*p+j]*zfx[m*p+i]*qm);
-	  rCY = _mm_set1_pd(zx[m*p+i]*zy[m*p+j]*zfy[m*p+j]*qm);
+	  rC  = _mm_set1_pd( zx[m*p+i]*zy[m*p+j] );
+	  rCX = _mm_set1_pd(zx[m*p+i]*zy[m*p+j]*zfx[m*p+i]);
+	  rCY = _mm_set1_pd(zx[m*p+i]*zy[m*p+j]*zfy[m*p+j]);
 #ifdef CALC_ENERGY
 	  rCP = _mm_set1_pd( zx[m*p+i]*zy[m*p+j] );
 #endif
@@ -358,9 +358,9 @@ SE_int_split_SSE_u8_d(rvec *force, real *grid, real *q,
     else{ // H[idx] not 16-aligned, so use non-aligned load from H
       for(i = 0; i<p; i++){
 	for(j = 0; j<p; j++){
-	  rC  = _mm_set1_pd( zx[m*p+i]*zy[m*p+j]*qm );
-	  rCX = _mm_set1_pd(zx[m*p+i]*zy[m*p+j]*zfx[m*p+i]*qm);
-	  rCY = _mm_set1_pd(zx[m*p+i]*zy[m*p+j]*zfy[m*p+j]*qm);
+	  rC  = _mm_set1_pd( zx[m*p+i]*zy[m*p+j] );
+	  rCX = _mm_set1_pd(zx[m*p+i]*zy[m*p+j]*zfx[m*p+i]);
+	  rCY = _mm_set1_pd(zx[m*p+i]*zy[m*p+j]*zfy[m*p+j]);
 #ifdef CALC_ENERGY
 	  rCP = _mm_set1_pd( zx[m*p+i]*zy[m*p+j] );
 #endif
@@ -424,9 +424,9 @@ SE_int_split_SSE_u8_d(rvec *force, real *grid, real *q,
     _mm_store_pd(sy,rFY);
     _mm_store_pd(sz,rFZ);
     
-    force[m][XX] = -scale*h3*(sx[0]+sx[1]);
-    force[m][YY] = -scale*h3*(sy[0]+sy[1]);
-    force[m][ZZ] = -scale*h3*(sz[0]+sz[1]);
+    force[m][XX] = -qm*scale*h3*(sx[0]+sx[1]);
+    force[m][YY] = -qm*scale*h3*(sy[0]+sy[1]);
+    force[m][ZZ] = -qm*scale*h3*(sz[0]+sz[1]);
     
 #ifdef CALC_ENERGY
     _mm_store_pd(s,rP);
@@ -509,9 +509,9 @@ SE_int_split_SSE_P8_d(rvec *force, real *grid, real *q,
 	im8 = i + m8;
 	for(j = 0; j<8; j++){
 	  jm8 = j + m8;
-	  rC  = _mm_set1_pd( zx[im8]*zy[jm8]*qm);
-	  rCX = _mm_set1_pd( zx[im8]*zy[jm8] * zfx[im8]*qm);
-	  rCY = _mm_set1_pd( zx[im8]*zy[jm8] * zfy[jm8]*qm);
+	  rC  = _mm_set1_pd( zx[im8]*zy[jm8]);
+	  rCX = _mm_set1_pd( zx[im8]*zy[jm8] * zfx[im8]);
+	  rCY = _mm_set1_pd( zx[im8]*zy[jm8] * zfy[jm8]);
 #ifdef CALC_ENERGY
 	  rCP  = _mm_set1_pd( zx[im8]*zy[jm8]);
 #endif
@@ -564,9 +564,9 @@ SE_int_split_SSE_P8_d(rvec *force, real *grid, real *q,
 	im8 = i + m8;
 	for(j = 0; j<8; j++){
 	  jm8 = j + m8;
-	  rC  = _mm_set1_pd( zx[im8]*zy[jm8]*qm);
-	  rCX = _mm_set1_pd( zx[im8]*zy[jm8] * zfx[im8]*qm);
-	  rCY = _mm_set1_pd( zx[im8]*zy[jm8] * zfy[jm8]*qm);
+	  rC  = _mm_set1_pd( zx[im8]*zy[jm8]);
+	  rCX = _mm_set1_pd( zx[im8]*zy[jm8] * zfx[im8]);
+	  rCY = _mm_set1_pd( zx[im8]*zy[jm8] * zfy[jm8]);
 #ifdef CALC_ENERGY
 	  rCP = _mm_set1_pd( zx[im8]*zy[jm8]);
 #endif
@@ -618,9 +618,9 @@ SE_int_split_SSE_P8_d(rvec *force, real *grid, real *q,
     _mm_store_pd(sy,rFY);
     _mm_store_pd(sz,rFZ);
       
-    force[m][XX] = -scale*h3*(sx[0]+sx[1]);
-    force[m][YY] = -scale*h3*(sy[0]+sy[1]);
-    force[m][ZZ] = -scale*h3*(sz[0]+sz[1]);
+    force[m][XX] = -qm*scale*h3*(sx[0]+sx[1]);
+    force[m][YY] = -qm*scale*h3*(sy[0]+sy[1]);
+    force[m][ZZ] = -qm*scale*h3*(sz[0]+sz[1]);
       
 #ifdef CALC_ENERGY
     _mm_store_pd(s,rP);
@@ -714,9 +714,9 @@ SE_int_split_SSE_P16_d(rvec *force, real *grid, real *q,
 	im16 = i + m16;
 	for(j = 0; j<16; j++){
 	  jm16 = j + m16;
-	  rC  = _mm_set1_pd( zx[im16]*zy[jm16]*qm);
-	  rCX = _mm_set1_pd( zx[im16]*zy[jm16]*zfx[im16] *qm);
-	  rCY = _mm_set1_pd( zx[im16]*zy[jm16]*zfy[jm16] *qm);
+	  rC  = _mm_set1_pd( zx[im16]*zy[jm16]);
+	  rCX = _mm_set1_pd( zx[im16]*zy[jm16]*zfx[im16]);
+	  rCY = _mm_set1_pd( zx[im16]*zy[jm16]*zfy[jm16]);
 #ifdef CALC_ENERGY
 	  rCP = _mm_set1_pd( zx[im16]*zy[jm16]);
 #endif
@@ -811,9 +811,9 @@ SE_int_split_SSE_P16_d(rvec *force, real *grid, real *q,
 	im16 = i + m16;
 	for(j = 0; j<16; j++){
 	  jm16 = j + m16;
-	  rC  = _mm_set1_pd( zx[im16]*zy[jm16]*qm);
-	  rCX = _mm_set1_pd( zx[im16]*zy[jm16]*zfx[im16] *qm);
-	  rCY = _mm_set1_pd( zx[im16]*zy[jm16]*zfy[jm16] *qm);
+	  rC  = _mm_set1_pd( zx[im16]*zy[jm16]);
+	  rCX = _mm_set1_pd( zx[im16]*zy[jm16]*zfx[im16]);
+	  rCY = _mm_set1_pd( zx[im16]*zy[jm16]*zfy[jm16]);
 #ifdef CALC_ENERGY
 	  rCP  = _mm_set1_pd( zx[im16]*zy[jm16]);
 #endif
@@ -908,9 +908,9 @@ SE_int_split_SSE_P16_d(rvec *force, real *grid, real *q,
     _mm_store_pd(sy,rFY);
     _mm_store_pd(sz,rFZ);
 
-    force[m][XX] = -scale*h3*(sx[0]+sx[1]);
-    force[m][YY] = -scale*h3*(sy[0]+sy[1]);
-    force[m][ZZ] = -scale*h3*(sz[0]+sz[1]);
+    force[m][XX] = -qm*scale*h3*(sx[0]+sx[1]);
+    force[m][YY] = -qm*scale*h3*(sy[0]+sy[1]);
+    force[m][ZZ] = -qm*scale*h3*(sz[0]+sz[1]);
 
 #ifdef CALC_ENERGY
     _mm_store_pd(s,rP);

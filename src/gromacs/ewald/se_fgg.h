@@ -165,7 +165,7 @@ fgg_expansion_all(const real x[3], const real q,
     {
       for(j=0; j<3; j++)
         {
-          idx = (int) round(x[j]/h);
+          idx = (int) ceil(x[j]/h);
           t0[j] = x[j]-h*idx;
         }
     }

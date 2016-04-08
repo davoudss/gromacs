@@ -70,9 +70,9 @@ static void SE_int_split_AVX(rvec* force,  real* grid, real* q,
     if(idx%8==0){ // H[idx] is 32-aligned so vectorization simple
       for(i = 0; i<8; i++){
 	for(j = 0; j<8; j++){
-	  rC  = _mm256_set1_ps( zx[m*8+i]*zy[m*8 + j]*qm);
-	  rCX = _mm256_set1_ps( zx[m*8+i]*zy[m*8 + j] * zfx[m*8 + i]*qm);
-	  rCY = _mm256_set1_ps( zx[m*8+i]*zy[m*8 + j] * zfy[m*8 + j]*qm);
+	  rC  = _mm256_set1_ps( zx[m*8+i]*zy[m*8 + j]);
+	  rCX = _mm256_set1_ps( zx[m*8+i]*zy[m*8 + j] * zfx[m*8 + i]);
+	  rCY = _mm256_set1_ps( zx[m*8+i]*zy[m*8 + j] * zfy[m*8 + j]);
 #ifdef CALC_ENERGY
 	  rCP  = _mm256_set1_ps( zx[m*8+i]*zy[m*8 + j]);
 #endif
@@ -96,9 +96,9 @@ static void SE_int_split_AVX(rvec* force,  real* grid, real* q,
     else{ // H[idx] not 32-aligned, so use non-aligned loads
       for(i = 0; i<8; i++){
 	for(j = 0; j<8; j++){
-	  rC  = _mm256_set1_ps( zx[m*8+i]*zy[m*8 + j]*qm);
-	  rCX = _mm256_set1_ps( zx[m*8+i]*zy[m*8 + j] * zfx[m*8 + i]*qm);
-	  rCY = _mm256_set1_ps( zx[m*8+i]*zy[m*8 + j] * zfy[m*8 + j]*qm);
+	  rC  = _mm256_set1_ps( zx[m*8+i]*zy[m*8 + j]);
+	  rCX = _mm256_set1_ps( zx[m*8+i]*zy[m*8 + j] * zfx[m*8 + i]);
+	  rCY = _mm256_set1_ps( zx[m*8+i]*zy[m*8 + j] * zfy[m*8 + j]);
 #ifdef CALC_ENERGY
 	  rCP = _mm256_set1_ps( zx[m*8+i]*zy[m*8 + j]);
 #endif
@@ -124,9 +124,9 @@ static void SE_int_split_AVX(rvec* force,  real* grid, real* q,
     _mm256_store_ps(sy,rFY);
     _mm256_store_ps(sz,rFZ);
 
-    force[m][XX] = -scale*h3*(sx[0]+sx[1]+sx[2]+sx[3]+sx[4]+sx[5]+sx[6]+sx[7]);
-    force[m][YY] = -scale*h3*(sy[0]+sy[1]+sy[2]+sy[3]+sy[4]+sy[5]+sy[6]+sy[7]);
-    force[m][ZZ] = -scale*h3*(sz[0]+sz[1]+sz[2]+sz[3]+sz[4]+sz[5]+sz[6]+sz[7]);
+    force[m][XX] = -qm*scale*h3*(sx[0]+sx[1]+sx[2]+sx[3]+sx[4]+sx[5]+sx[6]+sx[7]);
+    force[m][YY] = -qm*scale*h3*(sy[0]+sy[1]+sy[2]+sy[3]+sy[4]+sy[5]+sy[6]+sy[7]);
+    force[m][ZZ] = -qm*scale*h3*(sz[0]+sz[1]+sz[2]+sz[3]+sz[4]+sz[5]+sz[6]+sz[7]);
 
 #ifdef CALC_ENERGY
     _mm256_store_ps(s,rP);
@@ -157,7 +157,8 @@ SE_int_split_AVX_dispatch(rvec* force, real* grid, real* q,
   if(p==8){
     // specific for p=8
     __DISPATCHER_MSG("[FGG INT AVX SINGLE] P=8\n");
-    SE_int_split_AVX(force, grid, q, spline, params, scale, bClearF);
+    //SE_int_split_SSE_dispatch(force, grid, q, spline, params, scale, bClearF);
+      SE_int_split_AVX(force, grid, q, spline, params, scale, bClearF);
   }
 }
 

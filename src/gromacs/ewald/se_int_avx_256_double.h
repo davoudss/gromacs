@@ -61,9 +61,9 @@ SE_int_split_AVX_d(rvec *force, real *grid, real *q,
     if(idx%4==0){ // H[idx] is 32-aligned so vectorization simple
       for(i = 0; i<p; i++){
 	for(j = 0; j<p; j++){
-	  rC  = _mm256_set1_pd( zx[m*p+i]*zy[m*p+j]*qm );
-	  rCX = _mm256_set1_pd(zx[m*p+i]*zy[m*p+j]*zfx[m*p+i]*qm);
-	  rCY = _mm256_set1_pd(zx[m*p+i]*zy[m*p+j]*zfy[m*p+j]*qm);
+	  rC  = _mm256_set1_pd( zx[m*p+i]*zy[m*p+j] );
+	  rCX = _mm256_set1_pd(zx[m*p+i]*zy[m*p+j]*zfx[m*p+i]);
+	  rCY = _mm256_set1_pd(zx[m*p+i]*zy[m*p+j]*zfy[m*p+j]);
 #ifdef CALC_ENERGY
 	  rCP  = _mm256_set1_pd( zx[m*p+i]*zy[m*p+j]);
 #endif
@@ -93,9 +93,9 @@ SE_int_split_AVX_d(rvec *force, real *grid, real *q,
     else{ // H[idx] not 16-aligned, so use non-aligned loads
       for(i = 0; i<p; i++){
 	for(j = 0; j<p; j++){
-	  rC  = _mm256_set1_pd( zx[m*p+i]*zy[m*p+j]*qm );
-	  rCX = _mm256_set1_pd(zx[m*p+i]*zy[m*p+j]*zfx[m*p+i]*qm);
-	  rCY = _mm256_set1_pd(zx[m*p+i]*zy[m*p+j]*zfy[m*p+j]*qm);
+	  rC  = _mm256_set1_pd( zx[m*p+i]*zy[m*p+j] );
+	  rCX = _mm256_set1_pd(zx[m*p+i]*zy[m*p+j]*zfx[m*p+i]);
+	  rCY = _mm256_set1_pd(zx[m*p+i]*zy[m*p+j]*zfy[m*p+j]);
 #ifdef CALC_ENERGY
 	  rCP = _mm256_set1_pd( zx[m*p+i]*zy[m*p+j] );
 #endif
@@ -125,9 +125,10 @@ SE_int_split_AVX_d(rvec *force, real *grid, real *q,
     _mm256_store_pd(sx,rFX);
     _mm256_store_pd(sy,rFY);
     _mm256_store_pd(sz,rFZ);
-    force[m][XX] = -scale*h3*(sx[0]+sx[1]+sx[2]+sx[3]);
-    force[m][YY] = -scale*h3*(sy[0]+sy[1]+sy[2]+sy[3]);
-    force[m][ZZ] = -scale*h3*(sz[0]+sz[1]+sz[2]+sz[3]);
+
+    force[m][XX] = -qm*scale*h3*(sx[0]+sx[1]+sx[2]+sx[3]);
+    force[m][YY] = -qm*scale*h3*(sy[0]+sy[1]+sy[2]+sy[3]);
+    force[m][ZZ] = -qm*scale*h3*(sz[0]+sz[1]+sz[2]+sz[3]);
 
 #ifdef CALC_ENERGY
     _mm256_store_pd(s,rP);
@@ -194,9 +195,9 @@ SE_int_split_AVX_u8_d(rvec* force, real* grid, real* q,
     if(idx%4==0){ // H[idx] is 32-aligned so vectorization simple
       for(i = 0; i<p; i++){
 	for(j = 0; j<p; j++){
-	  rC  = _mm256_set1_pd( zx[m*p+i]*zy[m*p+j]*qm );
-	  rCX = _mm256_set1_pd(zx[m*p+i]*zy[m*p+j]*zfx[m*p+i]*qm);
-	  rCY = _mm256_set1_pd(zx[m*p+i]*zy[m*p+j]*zfy[m*p+j]*qm);
+	  rC  = _mm256_set1_pd( zx[m*p+i]*zy[m*p+j]);
+	  rCX = _mm256_set1_pd(zx[m*p+i]*zy[m*p+j]*zfx[m*p+i]);
+	  rCY = _mm256_set1_pd(zx[m*p+i]*zy[m*p+j]*zfy[m*p+j]);
 #ifdef CALC_ENERGY
 	  rCP = _mm256_set1_pd( zx[m*p+i]*zy[m*p+j] );
 #endif
@@ -243,9 +244,9 @@ SE_int_split_AVX_u8_d(rvec* force, real* grid, real* q,
     else{ // H[idx] not 32-aligned, so use non-aligned load from H
       for(i = 0; i<p; i++){
 	for(j = 0; j<p; j++){
-	  rC  = _mm256_set1_pd( zx[m*p+i]*zy[m*p+j]*qm );
-	  rCX = _mm256_set1_pd(zx[m*p+i]*zy[m*p+j]*zfx[m*p+i]*qm);
-	  rCY = _mm256_set1_pd(zx[m*p+i]*zy[m*p+j]*zfy[m*p+j]*qm);
+	  rC  = _mm256_set1_pd( zx[m*p+i]*zy[m*p+j] );
+	  rCX = _mm256_set1_pd(zx[m*p+i]*zy[m*p+j]*zfx[m*p+i]);
+	  rCY = _mm256_set1_pd(zx[m*p+i]*zy[m*p+j]*zfy[m*p+j]);
 #ifdef CALC_ENERGY
 	  rCP = _mm256_set1_pd( zx[m*p+i]*zy[m*p+j] );
 #endif
@@ -293,9 +294,9 @@ SE_int_split_AVX_u8_d(rvec* force, real* grid, real* q,
     _mm256_store_pd(sy,rFY);
     _mm256_store_pd(sz,rFZ);
 
-    force[m][XX] = -scale*h3*(sx[0]+sx[1]+sx[2]+sx[3]);
-    force[m][YY] = -scale*h3*(sy[0]+sy[1]+sy[2]+sy[3]);
-    force[m][ZZ] = -scale*h3*(sz[0]+sz[1]+sz[2]+sz[3]);
+    force[m][XX] = -qm*scale*h3*(sx[0]+sx[1]+sx[2]+sx[3]);
+    force[m][YY] = -qm*scale*h3*(sy[0]+sy[1]+sy[2]+sy[3]);
+    force[m][ZZ] = -qm*scale*h3*(sz[0]+sz[1]+sz[2]+sz[3]);
 
 #ifdef CALC_ENERGY
     _mm256_store_pd(s,rP);
@@ -371,9 +372,9 @@ SE_int_split_AVX_P8_d(rvec* force, real* grid, real* q,
     if(idx%4==0){ // H[idx] is 32-aligned so vectorization simple
       for(i = 0; i<8; i++){
 	for(j = 0; j<8; j++){
-	  rC  = _mm256_set1_pd( zx[m*8+i]*zy[m*8 + j]*qm);
-	  rCX = _mm256_set1_pd( zx[m*8+i]*zy[m*8 + j] * zfx[m*8 + i]*qm);
-	  rCY = _mm256_set1_pd( zx[m*8+i]*zy[m*8 + j] * zfy[m*8 + j]*qm);
+	  rC  = _mm256_set1_pd( zx[m*8+i]*zy[m*8 + j]);
+	  rCX = _mm256_set1_pd( zx[m*8+i]*zy[m*8 + j] * zfx[m*8 + i]);
+	  rCY = _mm256_set1_pd( zx[m*8+i]*zy[m*8 + j] * zfy[m*8 + j]);
 #ifdef CALC_ENERGY
 	  rCP  = _mm256_set1_pd( zx[m*8+i]*zy[m*8 + j]);
 #endif
@@ -411,9 +412,9 @@ SE_int_split_AVX_P8_d(rvec* force, real* grid, real* q,
     else{ // H[idx] not 32-aligned, so use non-aligned loads
       for(i = 0; i<8; i++){
 	for(j = 0; j<8; j++){
-	  rC  = _mm256_set1_pd( zx[m*8+i]*zy[m*8 + j]*qm);
-	  rCX = _mm256_set1_pd( zx[m*8+i]*zy[m*8 + j] * zfx[m*8 + i]*qm);
-	  rCY = _mm256_set1_pd( zx[m*8+i]*zy[m*8 + j] * zfy[m*8 + j]*qm);
+	  rC  = _mm256_set1_pd( zx[m*8+i]*zy[m*8 + j]);
+	  rCX = _mm256_set1_pd( zx[m*8+i]*zy[m*8 + j] * zfx[m*8 + i]);
+	  rCY = _mm256_set1_pd( zx[m*8+i]*zy[m*8 + j] * zfy[m*8 + j]);
 #ifdef CALC_ENERGY
 	  rCP = _mm256_set1_pd( zx[m*8+i]*zy[m*8 + j]);
 #endif
@@ -449,9 +450,9 @@ SE_int_split_AVX_P8_d(rvec* force, real* grid, real* q,
     _mm256_store_pd(sy,rFY);
     _mm256_store_pd(sz,rFZ);
 
-    force[m][XX] = -scale*h3*(sx[0]+sx[1]+sx[2]+sx[3]);
-    force[m][YY] = -scale*h3*(sy[0]+sy[1]+sy[2]+sy[3]);
-    force[m][ZZ] = -scale*h3*(sz[0]+sz[1]+sz[2]+sz[3]);
+    force[m][XX] = -qm*scale*h3*(sx[0]+sx[1]+sx[2]+sx[3]);
+    force[m][YY] = -qm*scale*h3*(sy[0]+sy[1]+sy[2]+sy[3]);
+    force[m][ZZ] = -qm*scale*h3*(sz[0]+sz[1]+sz[2]+sz[3]);
 
 #ifdef CALC_ENERGY
     _mm256_store_pd(s,rP);
@@ -535,9 +536,9 @@ SE_int_split_AVX_P16_d(rvec* force, real* grid, real* q,
     if(idx%4==0){ // H[idx] is 32-aligned so vectorization simple
       for(i = 0; i<16; i++){
 	for(j = 0; j<16; j++){
-	  rC  = _mm256_set1_pd( zx[m*16+i]*zy[m*16 + j]*qm);
-	  rCX = _mm256_set1_pd( zx[m*16+i]*zy[m*16 + j] * zfx[m*16 + i]*qm);
-	  rCY = _mm256_set1_pd( zx[m*16+i]*zy[m*16 + j] * zfy[m*16 + j]*qm);
+	  rC  = _mm256_set1_pd( zx[m*16+i]*zy[m*16 + j]);
+	  rCX = _mm256_set1_pd( zx[m*16+i]*zy[m*16 + j] * zfx[m*16 + i]);
+	  rCY = _mm256_set1_pd( zx[m*16+i]*zy[m*16 + j] * zfy[m*16 + j]);
 #ifdef CALC_ENERGY
 	  rCP  = _mm256_set1_pd( zx[m*16+i]*zy[m*16 + j]);
 #endif
@@ -583,9 +584,9 @@ SE_int_split_AVX_P16_d(rvec* force, real* grid, real* q,
     else{ // H[idx] not 32-aligned, so use non-aligned loads
       for(i = 0; i<16; i++){
 	for(j = 0; j<16; j++){
-	  rC  = _mm256_set1_pd( zx[m*16+i]*zy[m*16 + j]*qm);
-	  rCX = _mm256_set1_pd( zx[m*16+i]*zy[m*16 + j] * zfx[m*16 + i]*qm);
-	  rCY = _mm256_set1_pd( zx[m*16+i]*zy[m*16 + j] * zfy[m*16 + j]*qm);
+	  rC  = _mm256_set1_pd( zx[m*16+i]*zy[m*16 + j]);
+	  rCX = _mm256_set1_pd( zx[m*16+i]*zy[m*16 + j] * zfx[m*16 + i]);
+	  rCY = _mm256_set1_pd( zx[m*16+i]*zy[m*16 + j] * zfy[m*16 + j]);
 #ifdef CALC_ENERGY
 	  rCP = _mm256_set1_pd( zx[m*16+i]*zy[m*16 + j]);
 #endif
@@ -632,9 +633,9 @@ SE_int_split_AVX_P16_d(rvec* force, real* grid, real* q,
     _mm256_store_pd(sy,rFY);
     _mm256_store_pd(sz,rFZ);
 
-    force[m][XX] = -scale*h3*(sx[0]+sx[1]+sx[2]+sx[3]);
-    force[m][YY] = -scale*h3*(sy[0]+sy[1]+sy[2]+sy[3]);
-    force[m][ZZ] = -scale*h3*(sz[0]+sz[1]+sz[2]+sz[3]);
+    force[m][XX] = -qm*scale*h3*(sx[0]+sx[1]+sx[2]+sx[3]);
+    force[m][YY] = -qm*scale*h3*(sy[0]+sy[1]+sy[2]+sy[3]);
+    force[m][ZZ] = -qm*scale*h3*(sz[0]+sz[1]+sz[2]+sz[3]);
 
 #ifdef CALC_ENERGY
     _mm256_stream_pd(s,rP);

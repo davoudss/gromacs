@@ -328,7 +328,7 @@ static void make_bsplines(splinevec theta, splinevec dtheta, int order,
 
     // davoud
     real xn[3] MEM_ALIGNED;
-    const int P = order-1;
+    const int P = se_params->P;
     const int M1 = se_params->dims[1];
     const int M2 = se_params->dims[2];
 
