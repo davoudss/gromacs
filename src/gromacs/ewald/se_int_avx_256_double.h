@@ -126,9 +126,15 @@ SE_int_split_AVX_d(rvec *force, real *grid, real *q,
     _mm256_store_pd(sy,rFY);
     _mm256_store_pd(sz,rFZ);
 
-    force[m][XX] = -qm*scale*h3*(sx[0]+sx[1]+sx[2]+sx[3]);
-    force[m][YY] = -qm*scale*h3*(sy[0]+sy[1]+sy[2]+sy[3]);
-    force[m][ZZ] = -qm*scale*h3*(sz[0]+sz[1]+sz[2]+sz[3]);
+    if(bClearF){
+      force[m][XX] = 0;
+      force[m][YY] = 0;
+      force[m][ZZ] = 0;
+    }
+
+    force[m][XX] += -qm*scale*h3*(sx[0]+sx[1]+sx[2]+sx[3]);
+    force[m][YY] += -qm*scale*h3*(sy[0]+sy[1]+sy[2]+sy[3]);
+    force[m][ZZ] += -qm*scale*h3*(sz[0]+sz[1]+sz[2]+sz[3]);
 
 #ifdef CALC_ENERGY
     _mm256_store_pd(s,rP);
@@ -294,9 +300,15 @@ SE_int_split_AVX_u8_d(rvec* force, real* grid, real* q,
     _mm256_store_pd(sy,rFY);
     _mm256_store_pd(sz,rFZ);
 
-    force[m][XX] = -qm*scale*h3*(sx[0]+sx[1]+sx[2]+sx[3]);
-    force[m][YY] = -qm*scale*h3*(sy[0]+sy[1]+sy[2]+sy[3]);
-    force[m][ZZ] = -qm*scale*h3*(sz[0]+sz[1]+sz[2]+sz[3]);
+    if(bClearF){
+      force[m][XX] = 0;
+      force[m][YY] = 0;
+      force[m][ZZ] = 0;
+    }
+
+    force[m][XX] += -qm*scale*h3*(sx[0]+sx[1]+sx[2]+sx[3]);
+    force[m][YY] += -qm*scale*h3*(sy[0]+sy[1]+sy[2]+sy[3]);
+    force[m][ZZ] += -qm*scale*h3*(sz[0]+sz[1]+sz[2]+sz[3]);
 
 #ifdef CALC_ENERGY
     _mm256_store_pd(s,rP);
@@ -450,9 +462,15 @@ SE_int_split_AVX_P8_d(rvec* force, real* grid, real* q,
     _mm256_store_pd(sy,rFY);
     _mm256_store_pd(sz,rFZ);
 
-    force[m][XX] = -qm*scale*h3*(sx[0]+sx[1]+sx[2]+sx[3]);
-    force[m][YY] = -qm*scale*h3*(sy[0]+sy[1]+sy[2]+sy[3]);
-    force[m][ZZ] = -qm*scale*h3*(sz[0]+sz[1]+sz[2]+sz[3]);
+    if(bClearF){
+      force[m][XX] = 0;
+      force[m][YY] = 0;
+      force[m][ZZ] = 0;
+    }
+
+    force[m][XX] += -qm*scale*h3*(sx[0]+sx[1]+sx[2]+sx[3]);
+    force[m][YY] += -qm*scale*h3*(sy[0]+sy[1]+sy[2]+sy[3]);
+    force[m][ZZ] += -qm*scale*h3*(sz[0]+sz[1]+sz[2]+sz[3]);
 
 #ifdef CALC_ENERGY
     _mm256_store_pd(s,rP);
@@ -633,9 +651,15 @@ SE_int_split_AVX_P16_d(rvec* force, real* grid, real* q,
     _mm256_store_pd(sy,rFY);
     _mm256_store_pd(sz,rFZ);
 
-    force[m][XX] = -qm*scale*h3*(sx[0]+sx[1]+sx[2]+sx[3]);
-    force[m][YY] = -qm*scale*h3*(sy[0]+sy[1]+sy[2]+sy[3]);
-    force[m][ZZ] = -qm*scale*h3*(sz[0]+sz[1]+sz[2]+sz[3]);
+    if(bClearF){
+      force[m][XX] = 0;
+      force[m][YY] = 0;
+      force[m][ZZ] = 0;
+    }
+
+    force[m][XX] += -qm*scale*h3*(sx[0]+sx[1]+sx[2]+sx[3]);
+    force[m][YY] += -qm*scale*h3*(sy[0]+sy[1]+sy[2]+sy[3]);
+    force[m][ZZ] += -qm*scale*h3*(sz[0]+sz[1]+sz[2]+sz[3]);
 
 #ifdef CALC_ENERGY
     _mm256_stream_pd(s,rP);

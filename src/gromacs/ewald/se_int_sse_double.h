@@ -218,10 +218,16 @@ SE_int_split_SSE_d(rvec *force, real *grid, real *q,
     _mm_store_pd(sx,rFX);
     _mm_store_pd(sy,rFY);
     _mm_store_pd(sz,rFZ);
+
+    if(bClearF){
+      force[m][XX] = 0;
+      force[m][YY] = 0;
+      force[m][ZZ] = 0;
+    }
     
-    force[m][XX] = -qm*scale*h3*(sx[0]+sx[1]);
-    force[m][YY] = -qm*scale*h3*(sy[0]+sy[1]);
-    force[m][ZZ] = -qm*scale*h3*(sz[0]+sz[1]);
+    force[m][XX] += -qm*scale*h3*(sx[0]+sx[1]);
+    force[m][YY] += -qm*scale*h3*(sy[0]+sy[1]);
+    force[m][ZZ] += -qm*scale*h3*(sz[0]+sz[1]);
     
 #ifdef CALC_ENERGY
     _mm_store_pd(s,rP);
@@ -423,10 +429,16 @@ SE_int_split_SSE_u8_d(rvec *force, real *grid, real *q,
     _mm_store_pd(sx,rFX);
     _mm_store_pd(sy,rFY);
     _mm_store_pd(sz,rFZ);
+
+    if(bClearF){
+      force[m][XX] = 0;
+      force[m][YY] = 0;
+      force[m][ZZ] = 0;
+    }
     
-    force[m][XX] = -qm*scale*h3*(sx[0]+sx[1]);
-    force[m][YY] = -qm*scale*h3*(sy[0]+sy[1]);
-    force[m][ZZ] = -qm*scale*h3*(sz[0]+sz[1]);
+    force[m][XX] += -qm*scale*h3*(sx[0]+sx[1]);
+    force[m][YY] += -qm*scale*h3*(sy[0]+sy[1]);
+    force[m][ZZ] += -qm*scale*h3*(sz[0]+sz[1]);
     
 #ifdef CALC_ENERGY
     _mm_store_pd(s,rP);
@@ -617,10 +629,16 @@ SE_int_split_SSE_P8_d(rvec *force, real *grid, real *q,
     _mm_store_pd(sx,rFX);
     _mm_store_pd(sy,rFY);
     _mm_store_pd(sz,rFZ);
+
+    if(bClearF){
+      force[m][XX] = 0;
+      force[m][YY] = 0;
+      force[m][ZZ] = 0;
+    }
       
-    force[m][XX] = -qm*scale*h3*(sx[0]+sx[1]);
-    force[m][YY] = -qm*scale*h3*(sy[0]+sy[1]);
-    force[m][ZZ] = -qm*scale*h3*(sz[0]+sz[1]);
+    force[m][XX] += -qm*scale*h3*(sx[0]+sx[1]);
+    force[m][YY] += -qm*scale*h3*(sy[0]+sy[1]);
+    force[m][ZZ] += -qm*scale*h3*(sz[0]+sz[1]);
       
 #ifdef CALC_ENERGY
     _mm_store_pd(s,rP);
@@ -908,9 +926,15 @@ SE_int_split_SSE_P16_d(rvec *force, real *grid, real *q,
     _mm_store_pd(sy,rFY);
     _mm_store_pd(sz,rFZ);
 
-    force[m][XX] = -qm*scale*h3*(sx[0]+sx[1]);
-    force[m][YY] = -qm*scale*h3*(sy[0]+sy[1]);
-    force[m][ZZ] = -qm*scale*h3*(sz[0]+sz[1]);
+    if(bClearF){
+      force[m][XX] = 0;
+      force[m][YY] = 0;
+      force[m][ZZ] = 0;
+    }
+
+    force[m][XX] += -qm*scale*h3*(sx[0]+sx[1]);
+    force[m][YY] += -qm*scale*h3*(sy[0]+sy[1]);
+    force[m][ZZ] += -qm*scale*h3*(sz[0]+sz[1]);
 
 #ifdef CALC_ENERGY
     _mm_store_pd(s,rP);

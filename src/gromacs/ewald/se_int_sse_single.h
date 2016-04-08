@@ -73,15 +73,18 @@ SE_int_split(rvec* force,  real* grid, real* q,
 	    }
 	  idx += incri;
 	}
-      /* if(bClearF) */
-      /* 	{ */
-      /* 	  force[m][XX] = 0; */
-      /* 	  force[m][YY] = 0; */
-      /* 	  force[m][ZZ] = 0; */
-      /* 	} */
-      force[m][XX] = -qm*scale*h3*force_m[0];
-      force[m][YY] = -qm*scale*h3*force_m[1];
-      force[m][ZZ] = -qm*scale*h3*force_m[2];
+
+      if(bClearF)
+      	{
+      	  force[m][XX] = 0;
+      	  force[m][YY] = 0;
+      	  force[m][ZZ] = 0;
+      	}
+
+      force[m][XX] += -qm*scale*h3*force_m[0];
+      force[m][YY] += -qm*scale*h3*force_m[1];
+      force[m][ZZ] += -qm*scale*h3*force_m[2];
+
 #ifdef CALC_ENERGY
       st->phi[m]   = -h3*scale*phi_m;
 #endif
@@ -212,9 +215,15 @@ SE_int_split_SSE(rvec *force, real *grid, real *q,
     _mm_store_ps(sy,rFY);
     _mm_store_ps(sz,rFZ);
 
-    force[m][XX] = -qm*scale*h3*(sx[0]+sx[1]+sx[2]+sx[3]);
-    force[m][YY] = -qm*scale*h3*(sy[0]+sy[1]+sy[2]+sy[3]);
-    force[m][ZZ] = -qm*scale*h3*(sz[0]+sz[1]+sz[2]+sz[3]);
+    if(bClearF){
+      force[m][XX] = 0;
+      force[m][YY] = 0;
+      force[m][ZZ] = 0;
+    }
+
+    force[m][XX] += -qm*scale*h3*(sx[0]+sx[1]+sx[2]+sx[3]);
+    force[m][YY] += -qm*scale*h3*(sy[0]+sy[1]+sy[2]+sy[3]);
+    force[m][ZZ] += -qm*scale*h3*(sz[0]+sz[1]+sz[2]+sz[3]);
 
 #ifdef CALC_ENERGY
     _mm_store_ps(s,rP);
@@ -354,9 +363,16 @@ SE_int_split_SSE_P8(rvec *force, real *grid, real *q,
     _mm_store_ps(sy,rFY);
     _mm_store_ps(sz,rFZ);
 
-    force[m][XX] = -qm*scale*h3*(sx[0]+sx[1]+sx[2]+sx[3]);
-    force[m][YY] = -qm*scale*h3*(sy[0]+sy[1]+sy[2]+sy[3]);
-    force[m][ZZ] = -qm*scale*h3*(sz[0]+sz[1]+sz[2]+sz[3]);
+    if(bClearF){
+      force[m][XX] = 0;
+      force[m][YY] = 0;
+      force[m][ZZ] = 0;
+    }
+
+    force[m][XX] += -qm*scale*h3*(sx[0]+sx[1]+sx[2]+sx[3]);
+    force[m][YY] += -qm*scale*h3*(sy[0]+sy[1]+sy[2]+sy[3]);
+    force[m][ZZ] += -qm*scale*h3*(sz[0]+sz[1]+sz[2]+sz[3]);
+
 #ifdef CALC_ENERGY
     _mm_store_ps(s,rP);
     st->phi[m] = -scale*h3*(s[0]+s[1]+s[2]+s[3]);

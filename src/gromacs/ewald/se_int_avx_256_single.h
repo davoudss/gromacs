@@ -124,9 +124,15 @@ static void SE_int_split_AVX(rvec* force,  real* grid, real* q,
     _mm256_store_ps(sy,rFY);
     _mm256_store_ps(sz,rFZ);
 
-    force[m][XX] = -qm*scale*h3*(sx[0]+sx[1]+sx[2]+sx[3]+sx[4]+sx[5]+sx[6]+sx[7]);
-    force[m][YY] = -qm*scale*h3*(sy[0]+sy[1]+sy[2]+sy[3]+sy[4]+sy[5]+sy[6]+sy[7]);
-    force[m][ZZ] = -qm*scale*h3*(sz[0]+sz[1]+sz[2]+sz[3]+sz[4]+sz[5]+sz[6]+sz[7]);
+    if(bClearF){
+      force[m][XX] = 0;
+      force[m][YY] = 0;
+      force[m][ZZ] = 0;
+    }
+
+    force[m][XX] += -qm*scale*h3*(sx[0]+sx[1]+sx[2]+sx[3]+sx[4]+sx[5]+sx[6]+sx[7]);
+    force[m][YY] += -qm*scale*h3*(sy[0]+sy[1]+sy[2]+sy[3]+sy[4]+sy[5]+sy[6]+sy[7]);
+    force[m][ZZ] += -qm*scale*h3*(sz[0]+sz[1]+sz[2]+sz[3]+sz[4]+sz[5]+sz[6]+sz[7]);
 
 #ifdef CALC_ENERGY
     _mm256_store_ps(s,rP);
