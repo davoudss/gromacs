@@ -2,7 +2,7 @@
 #define _SE_INT_SSE_DOUBLE_
 
 /* SE int SSE double integration */
-#ifdef GMX_DOUBLE
+#if GMX_DOUBLE==1
 #include "se.h"
 
 static void 
@@ -932,29 +932,29 @@ SE_int_split_SSE_dispatch_d(rvec *force, real *grid, real *q,
 
   // if P is odd, or if either increment is odd, fall back on vanilla
   if( is_odd(p) || is_odd(incri) || is_odd(incrj) ){
-    __DISPATCHER_MSG("[FGG INT SSE] SSE Abort (PARAMS)\n");
+    __DISPATCHER_MSG("[FGG INT SSE DOUBLE] SSE Abort (PARAMS)\n");
     SE_int_split_d(force, grid, q, spline, params, scale, bClearF);
     return;
   }
   // otherwise the preconditions for SSE codes are satisfied. 
   if(p==8){
     // specific for p=8
-    __DISPATCHER_MSG("[FGG INT SSE] P=8\n");
+    __DISPATCHER_MSG("[FGG INT SSE DOUBLE] P=8\n");
     SE_int_split_SSE_P8_d(force, grid, q, spline, params, scale, bClearF);
   }
   else if(p==16){
     // specific for p=16
-    __DISPATCHER_MSG("[FGG INT SSE] P=16\n");
+    __DISPATCHER_MSG("[FGG INT SSE DOUBLE] P=16\n");
     SE_int_split_SSE_P16_d(force, grid, q, spline, params, scale, bClearF); 
   }
   else if(p%8==0){
     // for p divisible by 8
-    __DISPATCHER_MSG("[FGG INT SSE] P unroll 8\n");
+    __DISPATCHER_MSG("[FGG INT SSE DOUBLE] P unroll 8\n");
     SE_int_split_SSE_u8_d(force, grid, q, spline, params, scale, bClearF); 
   }
   else{
     // vanilla SSE code (any even p)
-    __DISPATCHER_MSG("[FGG INT SSE] Vanilla\n");
+    __DISPATCHER_MSG("[FGG INT SSE DOUBLE] Vanilla\n");
     SE_int_split_SSE_d(force, grid, q, spline, params, scale, bClearF);
   }
 }

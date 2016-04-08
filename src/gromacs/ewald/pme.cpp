@@ -1091,10 +1091,10 @@ int gmx_pme_do(struct gmx_pme_t *pme,
 	    pmegrid_t      *tempgrid;
 	    tempgrid       = &pmegrid->grid;
 	    se_opt.P       = tempgrid->order-1;   //pme-order = P-1
-	    if((se_opt.P)%2!=0 && se_set){
-		gmx_incons("Set an odd pme-order");
-		gmx_exit_on_fatal_error(ExitType_Abort,1);
-  	    }
+	    // if((se_opt.P)%2!=0 && se_set){
+	    // 	gmx_incons("Set an odd pme-order");
+	    // 	gmx_exit_on_fatal_error(ExitType_Abort,1);
+  	    // }
 
 	    // FIXME: M is equal in 3D
 	    se_opt.M       = pme->nkx;//tempgrid->s[XX]-se_opt.P;

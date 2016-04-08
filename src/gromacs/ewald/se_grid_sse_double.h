@@ -2,7 +2,7 @@
 #define _SE_GRID_SSE_DOUBLE_
 
 /* SE grid SSE double gridding */
-#ifdef GMX_DOUBLE
+#if GMX_DOUBLE==1
 #include "se.h"
 
 static void SE_grid_split_d(real *grid, real *q,
@@ -538,7 +538,7 @@ SE_grid_split_SSE_dispatch_d(real *grid, real *q,
 
   // if P is odd, or if either increment is odd, fall back on vanilla
   if( is_odd(p) || is_odd(incri) || is_odd(incrj) ){
-    __DISPATCHER_MSG("[FGG GRID SSE] SSE Abort (PARAMS)\n");
+    __DISPATCHER_MSG("[FGG GRID SSE DOUBLE] SSE Abort (PARAMS)\n");
     SE_grid_split_d(grid, q, spline, params);
     return;
   }
@@ -546,22 +546,22 @@ SE_grid_split_SSE_dispatch_d(real *grid, real *q,
   // otherwise the preconditions for SSE codes are satisfied.  
   if(p==16){
     // specific for p=16
-    __DISPATCHER_MSG("[FGG GRID SSE] P=16\n");
+    __DISPATCHER_MSG("[FGG GRID SSE DOUBLE] P=16\n");
     SE_grid_split_SSE_P16_d(grid, q, spline, params);
   }
   else if(p==8){
     // specific for p divisible by 8
-    __DISPATCHER_MSG("[FGG GRID SSE] P=8\n");
+    __DISPATCHER_MSG("[FGG GRID SSE DOUBLE] P=8\n");
     SE_grid_split_SSE_P8_d(grid, q, spline, params); 
   }  
   else if(p%8==0){
     // specific for p divisible by 8
-    __DISPATCHER_MSG("[FGG GRID SSE] P unroll 8\n");
+    __DISPATCHER_MSG("[FGG GRID SSE DOUBLE] P unroll 8\n");
     SE_grid_split_SSE_u8_d(grid, q, spline, params); 
   }
   else{
     // vanilla SSE code (any even p)
-    __DISPATCHER_MSG("[FGG GRID SSE] Vanilla\n");
+    __DISPATCHER_MSG("[FGG GRID SSE DOUBLE] Vanilla\n");
     SE_grid_split_SSE_d(grid, q, spline, params);
   }
 }

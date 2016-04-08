@@ -3,8 +3,8 @@
 
 
 /* SE AVX 256 double gridding */
-#ifdef GMX_DOUBLE
-#ifdef GMX_SIMD_X86_AVX_256
+#if GMX_DOUBLE==1
+#if GMX_SIMD_X86_AVX_256
 #include "se.h"
 
 
@@ -389,8 +389,7 @@ SE_grid_split_AVX_dispatch_d(real* grid, real* q,
   
   // if P, or either increments are not divisible by 4,fall back on vanilla
   if( isnot_div_by_4(p) || isnot_div_by_4(incri) || isnot_div_by_4(incrj) ) {
-    __DISPATCHER_MSG("[FGG GRID AVX] AVX Abort (PARAMS)\n");
-    //	SE_grid_split_SSE_d(grid, q, spline, params);
+    __DISPATCHER_MSG("[FGG GRID AVX DOUBLE] AVX Abort (PARAMS)\n");
     SE_grid_split_SSE_dispatch_d(grid, q, spline, params);
     return;
   }
@@ -398,27 +397,27 @@ SE_grid_split_AVX_dispatch_d(real* grid, real* q,
   // otherwise the preconditions for AVX codes are satisfied. 
   if(p==16){
     // specific for p=16
-    __DISPATCHER_MSG("[FGG GRID AVX] P=16\n");
+    __DISPATCHER_MSG("[FGG GRID AVX DOUBLE] P=16\n");
     SE_grid_split_AVX_P16_d(grid, q, spline, params); 
   }
   else if(p==8){
     // specific for p=8
-    __DISPATCHER_MSG("[FGG GRID AVX] P=8\n");
+    __DISPATCHER_MSG("[FGG GRID AVX DOUBLE] P=8\n");
     SE_grid_split_AVX_P8_d(grid, q, spline, params); 
   }
   else if(p%8==0){
     // specific for p divisible by 8
-    __DISPATCHER_MSG("[FGG GRID AVX] P unroll 8\n");
+    __DISPATCHER_MSG("[FGG GRID AVX DOUBLE] P unroll 8\n");
     SE_grid_split_AVX_u8_d(grid, q, spline, params); 
   }
   else if(p%4==0){
     // specific for p divisible by 4
-    __DISPATCHER_MSG("[FGG GRID AVX] P unroll 4\n");
+    __DISPATCHER_MSG("[FGG GRID AVX DOUBLE] P unroll 4\n");
     SE_grid_split_AVX_d(grid, q, spline, params); 
   }
   else{
     // vanilla SSE code (any even p)
-    __DISPATCHER_MSG("[FGG GRID AVX] Vanilla\n");
+    __DISPATCHER_MSG("[FGG GRID AVX DOUBLE] Vanilla\n");
     SE_grid_split_SSE_d(grid, q, spline, params);
   } 
 }

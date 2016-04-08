@@ -3,8 +3,8 @@
 
 
 /* SE AVX 256 double integration */
-#ifdef GMX_DOUBLE
-#ifdef GMX_SIMD_X86_AVX_256
+#if GMX_DOUBLE==1
+#if GMX_SIMD_X86_AVX_256
 #include "se.h"
 
 
@@ -657,8 +657,7 @@ SE_int_split_AVX_dispatch_d(rvec* force, real* grid, real* q,
   
   // if P, incri or increments are not divisible by 4, fall back on vanilla
   if( isnot_div_by_4(p) || isnot_div_by_4(incri) || isnot_div_by_4(incrj) ){
-    __DISPATCHER_MSG("[FGG INT AVX] AVX Abort (PARAMS)\n");
-    //	SE_int_split_d(force, grid, q, spline, params, scale, bClearF);
+    __DISPATCHER_MSG("[FGG INT AVX DOUBLE] AVX Abort (PARAMS)\n");
     SE_int_split_SSE_dispatch_d(force, grid, q, spline, params, scale, bClearF);
     return;
   }
@@ -666,27 +665,27 @@ SE_int_split_AVX_dispatch_d(rvec* force, real* grid, real* q,
   // otherwise the preconditions for AVX codes are satisfied. 
   if(p==8){
     // specific for p=8
-    __DISPATCHER_MSG("[FGG INT AVX] P=8\n");
+    __DISPATCHER_MSG("[FGG INT AVX DOUBLE] P=8\n");
     SE_int_split_AVX_P8_d(force, grid, q, spline, params, scale, bClearF);
   }
   else if(p==16){
     // specific for p=16
-    __DISPATCHER_MSG("[FGG INT AVX] P=16\n");
+    __DISPATCHER_MSG("[FGG INT AVX DOUBLE] P=16\n");
     SE_int_split_AVX_P16_d(force, grid, q, spline, params, scale, bClearF);
   }
   else if(p%8==0){
     // for p divisible by 8
-    __DISPATCHER_MSG("[FGG INT AVX] P unroll 8\n");
+    __DISPATCHER_MSG("[FGG INT AVX DOUBLE] P unroll 8\n");
     SE_int_split_AVX_u8_d(force, grid, q, spline, params, scale, bClearF); 
   }
   else if(p%4==0){
     // vanilla AVX code (p divisible by 4)
-    __DISPATCHER_MSG("[FGG INT AVX] P unroll 4\n");
+    __DISPATCHER_MSG("[FGG INT AVX DOUBLE] P unroll 4\n");
     SE_int_split_AVX_d(force, grid, q, spline, params, scale, bClearF);
   }
   else {
     // vanilla SSE code (any even p)
-    __DISPATCHER_MSG("[FGG INT AVX] Vanilla\n");
+    __DISPATCHER_MSG("[FGG INT AVX DOUBLE] Vanilla\n");
     SE_int_split_SSE_d(force, grid, q, spline, params, scale, bClearF);
   }
 }

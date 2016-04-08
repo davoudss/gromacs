@@ -1,9 +1,9 @@
 #ifndef _SE_INT_AVX_256_SINGLE_
 #define _SE_INT_AVX_256_SINGLE_
 
-
+#if GMX_DOUBLE==0
 /* SE AVX 256 single integration */
-#ifdef GMX_SIMD_X86_AVX_256
+#if GMX_SIMD_X86_AVX_256
 #include "se.h"
 
 // -----------------------------------------------------------------------------
@@ -149,18 +149,18 @@ SE_int_split_AVX_dispatch(rvec* force, real* grid, real* q,
   // if P, incri or increments are not divisible by 4, fall back on vanilla
   if( isnot_div_by_8(p) || isnot_div_by_8(incri) || isnot_div_by_8(incrj) || (p%8)!=0)
     {
-      __DISPATCHER_MSG("[FGG INT AVX] AVX Abort (PARAMS)\n");
+      __DISPATCHER_MSG("[FGG INT AVX SINGLE] AVX Abort (PARAMS)\n");
       SE_int_split_SSE_dispatch(force, grid, q, spline, params, scale, bClearF);
       return;
     }
   // otherwise the preconditions for AVX codes are satisfied. 
   if(p==8){
     // specific for p=8
-    __DISPATCHER_MSG("[FGG INT AVX] P=8\n");
+    __DISPATCHER_MSG("[FGG INT AVX SINGLE] P=8\n");
     SE_int_split_AVX(force, grid, q, spline, params, scale, bClearF);
   }
 }
 
-
-#endif //GMX_SIMD_X86_AVX_256
+#endif // not GMX_DOUBLE
+#endif // GMX_SIMD_X86_AVX_256
 #endif // _SE_INT_AVX_256_SINGLE_

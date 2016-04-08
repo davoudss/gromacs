@@ -2,7 +2,7 @@
 #define _SE_GRID_SSE_SINGLE_
 
 /* SE int SSE single gridding */
-#ifndef GMX_DOUBLE 
+#if GMX_DOUBLE == 0
 #include "se.h"
 
 // -----------------------------------------------------------------------------
@@ -11,7 +11,6 @@ static void SE_grid_split(real* grid, real* q,
 			  const SE_FGG_params* params)
 {
   // unpack parameters
-  const int       N = params->N;
   float*          H = (float*) grid; // pointer to grid does NOT alias
   const float*   zs = (float*) spline->zs;
   const float*   zx = (float*) spline->theta[0];
@@ -62,7 +61,6 @@ static void SE_grid_split_SSE(real* grid, real* q,
 			      const SE_FGG_params* params)
 {
   // unpack parameters
-  const int       N = params->N;
   float*          H = (float*) grid; // pointer to grid does NOT alias
   const float*   zs = (float*) spline->zs;
   const float*   zx = (float*) spline->theta[0];
@@ -141,7 +139,6 @@ static void SE_grid_split_SSE_P8(real *grid, real *q,
 				 const SE_FGG_params *params)
 {
   // unpack parameters
-  const int       N = params->N;
   float*          H = (float*) grid; // pointer to grid does NOT alias
   const float*   zs = (float*) spline->zs;
   const float*   zx = (float*) spline->theta[0];
@@ -231,7 +228,7 @@ SE_grid_split_SSE_dispatch(real* grid, real* q,
   // if P is odd, or if either increment is odd, fall back on vanilla
   if( isnot_div_by_4(p) || isnot_div_by_4(incri) || isnot_div_by_4(incrj)  || (p%4)!=0)
     {
-      __DISPATCHER_MSG("[FGG GRID SSE] SSE Abort (PARAMS)\n");
+      __DISPATCHER_MSG("[FGG GRID SSE SINGLE] SSE Abort (PARAMS)\n");
       SE_grid_split(grid, q, spline, params);
       return;
     }
@@ -239,12 +236,12 @@ SE_grid_split_SSE_dispatch(real* grid, real* q,
   // otherwise the preconditions for SSE codes are satisfied.    
   if(p==8){
     // specific for p=8
-    __DISPATCHER_MSG("[FGG GRID SSE] P=8\n");
+    __DISPATCHER_MSG("[FGG GRID SSE SINGLE] P=8\n");
     SE_grid_split_SSE_P8(grid, q, spline, params);
   }
   else {
     // vanilla SSE code for p divisible by 4
-    __DISPATCHER_MSG("[FGG GRID SSE] Vanilla\n");
+    __DISPATCHER_MSG("[FGG GRID SSE SINGLE] Vanilla\n");
     SE_grid_split_SSE(grid, q, spline, params);
   }
 }

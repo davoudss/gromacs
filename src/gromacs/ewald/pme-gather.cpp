@@ -52,9 +52,9 @@ void SE_int_dispatch(rvec *force, real *grid, real *q,
                      const SE_FGG_params *params, real scale,
                      gmx_bool bClearF)
 {
-#ifdef GMX_DOUBLE
+#if GMX_DOUBLE==1
 
-#ifdef GMX_SIMD_X86_AVX_256
+#if GMX_SIMD_X86_AVX_256
   SE_int_split_AVX_dispatch_d(force, grid, q, spline, params, scale, bClearF);
 #else  // not AVX
   SE_int_split_SSE_dispatch_d(force, grid, q, spline, params, scale, bClearF);
@@ -62,7 +62,7 @@ void SE_int_dispatch(rvec *force, real *grid, real *q,
 
 #else  // not GMX_DOUBLE  or single precision
 
-#ifdef GMX_SIMD_X86_AVX_256
+#if GMX_SIMD_X86_AVX_256
   SE_int_split_AVX_dispatch(force, grid, q, spline, params, scale, bClearF);
 #else  // not AVX
   SE_int_split_SSE_dispatch(force, grid, q, spline, params, scale, bClearF);

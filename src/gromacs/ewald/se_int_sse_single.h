@@ -2,7 +2,7 @@
 #define _SE_INT_SSE_SINGLE_
 
 /* SE SSE single integration */
-#ifndef GMX_DOUBLE
+#if GMX_DOUBLE==0
 #include "se.h"
 
 // -----------------------------------------------------------------------------
@@ -73,12 +73,12 @@ SE_int_split(rvec* force,  real* grid, real* q,
 	    }
 	  idx += incri;
 	}
-      if(bClearF)
-	{
-	  force[m][XX] = 0;
-	  force[m][YY] = 0;
-	  force[m][ZZ] = 0;
-	}
+      /* if(!bClearF) */
+      /* 	{ */
+      /* 	  force[m][XX] = 0; */
+      /* 	  force[m][YY] = 0; */
+      /* 	  force[m][ZZ] = 0; */
+      /* 	} */
       force[m][XX] = -qm*scale*h3*force_m[0];
       force[m][YY] = -qm*scale*h3*force_m[1];
       force[m][ZZ] = -qm*scale*h3*force_m[2];
@@ -177,9 +177,9 @@ SE_int_split_SSE(rvec *force, real *grid, real *q,
     else{ // H[idx] not 16-aligned, so use non-aligned loads
       for(i = 0; i<p; i++){
 	for(j = 0; j<p; j++){
-	  rC  = _mm_set1_ps( zx[m*p+i]*zy[m*p+j] );
-	  rCX = _mm_set1_ps( zx[m*p+i]*zy[m*p+j]*zfx[m*p+i] );
-	  rCY = _mm_set1_ps( zx[m*p+i]*zy[m*p+j]*zfy[m*p+j] );
+	  rC  = _mm_set1_ps( zx[m*p+i]*zy[m*p+j]*qm );
+	  rCX = _mm_set1_ps( zx[m*p+i]*zy[m*p+j]*zfx[m*p+i]*qm );
+	  rCY = _mm_set1_ps( zx[m*p+i]*zy[m*p+j]*zfy[m*p+j]*qm );
 #ifdef CALC_ENERGY
 	  rCP = _mm_set1_ps( zx[m*p+i]*zy[m*p+j]);
 #endif
@@ -378,7 +378,7 @@ SE_int_split_SSE_dispatch(rvec *force, real *grid, real *q,
   // if P is odd, or if either increment is odd, fall back on vanilla
   if( isnot_div_by_4(p) || isnot_div_by_4(incri) || isnot_div_by_4(incrj)  || (p%4)!=0 )
     {
-      __DISPATCHER_MSG("[FGG INT SSE] SSE Abort (PARAMS)\n");
+      __DISPATCHER_MSG("[FGG INT SSE SINGLE] SSE Abort (PARAMS)\n");
       SE_int_split(force, grid, q, spline, params, scale, bClearF);
       return;
     }
@@ -386,12 +386,12 @@ SE_int_split_SSE_dispatch(rvec *force, real *grid, real *q,
   // otherwise the preconditions for SSE codes are satisfied. 
   if(p==8){
     // specific for p=8
-    __DISPATCHER_MSG("[FGG INT SSE] P=8\n");
+    __DISPATCHER_MSG("[FGG INT SSE SINGLE] P=8\n");
     SE_int_split_SSE_P8(force, grid, q, spline, params, scale, bClearF);
   } 
   else{
     // vanilla SSE code for p divisible by 4
-    __DISPATCHER_MSG("[FGG INT SSE] Vanilla\n");
+    __DISPATCHER_MSG("[FGG INT SSE SINGLE] Vanilla\n");
     SE_int_split_SSE(force, grid, q, spline, params, scale, bClearF);
   }
 }

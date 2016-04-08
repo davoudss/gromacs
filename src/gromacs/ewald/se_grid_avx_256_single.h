@@ -2,8 +2,8 @@
 #define _SE_GRID_AVX_256_SINGLE_
 
 /* SE AVX 256 single gridding */
-#ifndef GMX_DOUBLE
-#ifdef GMX_SIMD_X86_AVX_256
+#if GMX_DOUBLE==0
+#if GMX_SIMD_X86_AVX_256
 
 #include "se.h"
 
@@ -101,7 +101,7 @@ SE_grid_split_AVX_dispatch(real* grid, real* q,
   // if P, or either increments are not divisible by 4, fall back on vanilla
   if( isnot_div_by_8(p) || isnot_div_by_8(incri) || isnot_div_by_8(incrj) || (p%8)!=0)
     {
-      __DISPATCHER_MSG("[FGG GRID AVX] AVX Abort (PARAMS)\n");
+      __DISPATCHER_MSG("[FGG GRID AVX SINGLE] AVX Abort (PARAMS)\n");
       SE_grid_split_SSE_dispatch(grid, q, spline, params);
       return;
     }
@@ -109,7 +109,7 @@ SE_grid_split_AVX_dispatch(real* grid, real* q,
   // otherwise the preconditions for AVX codes are satisfied. 
   else if(p==8){
     // specific for p=8
-    __DISPATCHER_MSG("[FGG GRID AVX] P=8\n");
+    __DISPATCHER_MSG("[FGG GRID AVX SINGLE] P=8\n");
     SE_grid_split_AVX(grid, q, spline, params); 
   }
 }

@@ -34,13 +34,13 @@
 #if __AVX__
 #define MEM_ALIGNED __attribute__((aligned(32)))
 #define SE_FGG_MALLOC(sz) _mm_malloc((sz),32)
-#elif defined GMX_X86_SSE2
+#elif __SSE4_1__
 #define MEM_ALIGNED __attribute__((aligned(16)))
 #define SE_FGG_MALLOC(sz) _mm_malloc((sz),16)
 #endif
 #define SE_FGG_FREE(sz) _mm_free((sz))
 
-#if (defined GMX_X86_SSE2 || defined __AVX__)
+#if __SSE4_1__ // any intrinsic instruction should enable precomputation
 #define PRECOMP_FGG_EXPA 1
 #else
 #define PRECOMP_FGG_EXPA 0

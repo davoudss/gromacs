@@ -58,9 +58,9 @@
 void SE_grid_dispatch(real* grid, real* q,
                       splinedata_t *spline,
                       const SE_FGG_params* params){
-#ifdef GMX_DOUBLE
+#if GMX_DOUBLE==1
 
-#ifdef GMX_SIMD_X86_AVX_256
+#if GMX_SIMD_X86_AVX_256
 SE_grid_split_AVX_dispatch_d(grid, q, spline, params);
 #else  // not AVX
 SE_grid_split_SSE_dispatch_d(grid, q, spline, params);
@@ -68,7 +68,7 @@ SE_grid_split_SSE_dispatch_d(grid, q, spline, params);
 
 #else  // not GMX_DOUBLE  or single precision
 
-#ifdef GMX_SIMD_X86_AVX_256
+#if GMX_SIMD_X86_AVX_256
 SE_grid_split_AVX_dispatch(grid, q, spline, params);
 #else  // not AVX
 SE_grid_split_SSE_dispatch(grid, q, spline, params);
