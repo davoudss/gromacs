@@ -46,9 +46,9 @@
 #define PRECOMP_FGG_EXPA 0
 #endif
 
-#ifdef _OPENMP
-#include <omp.h>
-#endif
+//#ifdef _OPENMP
+//#include <omp.h>
+//#endif
 
 // =====================================================================
 // SE typedefs

@@ -36,9 +36,9 @@ SE_int_split(rvec* force,  real* grid, real* q,
   const int incrj = params->npdims[2]-p;
   const int incri = params->npdims[2]*(params->npdims[1]-p);
 
-#ifdef _OPENMP
-#pragma omp for private(m) schedule(static)
-#endif
+  //#ifdef _OPENMP
+  //#pragma omp for private(m) schedule(static)
+  //#endif
   for(m=0; m<spline->n; m++)
     {
       idx = spline->idx[m];
