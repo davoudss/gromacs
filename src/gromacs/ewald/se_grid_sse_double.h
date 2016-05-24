@@ -23,9 +23,11 @@ static void SE_grid_split_d(real *grid, real *q,
   const int incrj = params->npdims[2]-p; // middle increment
   const int incri = params->npdims[2]*(params->npdims[1]-p);// outer increment
 
+/*
 #ifdef _OPENMP
 #pragma omp for private(n) schedule(static) // work-share over OpenMP threads here
 #endif
+*/
   for(n=0; n<spline->n; n++)
     {
       nn = spline->ind[n];

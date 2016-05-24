@@ -634,6 +634,27 @@ void do_force_lowlevel(t_forcerec *fr,      t_inputrec *ir,
     }
 #endif
 
+    // davoud
+#if GMX_MPI
+    if (cr->nnodes>1){
+      MPI_Barrier(cr->mpi_comm_mygroup);
+      printf("Node id : %d\n", cr->nodeid);
+      char str[20];
+      sprintf(str, "result%d.txt", cr->nodeid);
+      FILE *fp = fopen(str,"w");
+      rvec *f_long  = fr->f_novirsum;
+      for(i=0;i<md->homenr;i++)
+	{
+    	f_long[ i][XX] /= ONE_4PI_EPS0;
+    	f_long[ i][YY] /= ONE_4PI_EPS0;
+    	f_long[ i][ZZ] /= ONE_4PI_EPS0;
+    	fprintf(fp,"%8.16f %8.16f %8.16f\n",f_long[ i][XX],f_long[ i][YY],f_long[ i][ZZ]);
+	}
+      fclose(fp);
+      MPI_Barrier(cr->mpi_comm_mygroup);
+    }
+#endif
+
     if (debug)
     {
         pr_rvecs(debug, 0, "fshift after bondeds", fr->fshift, SHIFTS);

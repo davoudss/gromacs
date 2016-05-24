@@ -149,6 +149,7 @@ fgg_expansion_all(const real x[3], const real q,
                   real zf_2[P_MAX])
 {
   // unpack params
+  const int  N      = params->N;
   const int  p      = params->P;
   const int  p_half = params->P_half;
   const      real h = params->h;
@@ -166,7 +167,7 @@ fgg_expansion_all(const real x[3], const real q,
       for(j=0; j<3; j++)
         {
           idx = (int) ceil(x[j]/h);
-          t0[j] = x[j]-h*idx;
+          t0[j] = x[j]-h*(idx);
         }
     }
   else
@@ -174,7 +175,7 @@ fgg_expansion_all(const real x[3], const real q,
       for(j=0; j<3; j++)
         {
           idx = (int) floor(x[j]/h);
-          t0[j] = x[j]-h*idx;
+          t0[j] = x[j]-h*(idx);
         }
     }
 

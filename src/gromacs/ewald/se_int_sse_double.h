@@ -33,9 +33,11 @@ SE_int_split_d(rvec *force, real *grid, real *q,
   const int incrj = params->npdims[2]-p; // middle increment
   const int incri = params->npdims[2]*(params->npdims[1]-p);// outer increment
 
+/*
 #ifdef _OPENMP
 #pragma omp for private(mm) schedule(static) // work-share over OpenMP threads here
 #endif
+*/
   for(mm=0; mm<spline->n; mm++)
     {
       idx = spline->idx[mm];
