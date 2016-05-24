@@ -539,7 +539,7 @@ int solve_pme_yzx(struct gmx_pme_t *pme, t_complex *grid,
 	    work->vir_q[YY][ZZ] = work->vir_q[ZZ][YY] = 0.25*viryz;
 	    
 	    /* This energy should be corrected for a charged system */
-	    // FIXME: what is this value coming from in the energy? (davoud)
+	    // FIXME: where does this value come from in the energy? (davoud)
 	    real extra_fac = 1.0/(nx*ny*nz)*M_PI*1.428322531170926;
 	    
 	    work->energy_q = pow(0.5*energy*extra_fac,2);
