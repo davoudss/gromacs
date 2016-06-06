@@ -943,13 +943,13 @@ int gmx_pme_do(struct gmx_pme_t *pme,
     assert(pme->nnodes > 0);
     assert(pme->nnodes == 1 || pme->ndecompdim > 0);
 
-    if(pme->nodeid==0)
-      {
-	if(se_set)
-	  printf("***********  SE is doing the work  ************\n");
-	else
-	  printf("***********  PME is doing the work ************\n");
-      }
+    // if(pme->nodeid==0)
+    //   {
+    // 	if(se_set)
+    // 	  printf("***********  SE is doing the work  ************\n");
+    // 	else
+    // 	  printf("***********  PME is doing the work ************\n");
+    //   }
 
     if (pme->nnodes > 1)
     {

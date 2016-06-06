@@ -8,11 +8,11 @@
 #include "se.h"
 
 // -----------------------------------------------------------------------------
-static void SE_grid_split_AVX(real* grid, real* q,
-			      splinedata_t *spline, 
-			      const SE_FGG_params* params,
-			      const pme_atomcomm_t *atc,
-			      const pmegrid_t *pmegrid)
+static void SE_grid_split_AVX(real* gmx_restrict grid, real* gmx_restrict q,
+			      splinedata_t * gmx_restrict spline, 
+			      const SE_FGG_params* gmx_restrict params,
+			      const pme_atomcomm_t * gmx_restrict atc,
+			      const pmegrid_t * gmx_restrict pmegrid)
 {
   // unpack parameters
   const int     N = params->N;
@@ -49,7 +49,8 @@ static void SE_grid_split_AVX(real* grid, real* q,
 
     idx_zs = 0;
 
-    if(idx0%8 == 0){ // H[idx0] is 32-aligned
+    //    if(idx0%8 == 0){ // H[idx0] is 32-aligned
+    if(0){
       for(i = 0; i<p; i++){
 	index_x = (i0+i)*pny*pnz;
 	for(j = 0; j<p; j++){

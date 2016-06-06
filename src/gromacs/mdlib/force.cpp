@@ -643,7 +643,7 @@ void do_force_lowlevel(t_forcerec *fr,      t_inputrec *ir,
 
     if(cr->nnodes>1 && error_analysis){
      MPI_Barrier(cr->mpi_comm_mygroup);
-     printf("Node id : %d\n", cr->nodeid);
+     //     printf("Node id : %d\n", cr->nodeid);
      char str[20];
      sprintf(str, "result%d.txt", cr->nodeid);
      FILE *fp = fopen(str,"w");

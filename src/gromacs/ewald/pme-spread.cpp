@@ -71,9 +71,9 @@ SE_grid_split_SSE_dispatch_d(grid, q, spline, params);
 #else  // not GMX_DOUBLE  or single precision
 
 #if GMX_SIMD_X86_AVX_256
- SE_grid_split_AVX_dispatch(grid, q, spline, params,atc,pmegrid);
+ SE_grid_split_AVX_dispatch(grid, q, spline, params,atc, pmegrid);
 #else  // not AVX
- SE_grid_split_SSE_dispatch(grid, q, spline, params,atc,pmegrid);
+ SE_grid_split_SSE_dispatch(grid, q, spline, params,atc, pmegrid);
 #endif // AVX
 
 #endif // GMX_DOUBLE
@@ -420,7 +420,7 @@ static void spread_coefficients_bsplines_thread(pmegrid_t                       
 	      i0   = idxptr[XX] - offx;
 	      j0   = idxptr[YY] - offy;
 	      k0   = idxptr[ZZ] - offz;
-	      printf("%d %d %d %d\n",n,i0,j0,k0);
+
 	      thx = spline->theta[XX] + norder;
 	      thy = spline->theta[YY] + norder;
 	      thz = spline->theta[ZZ] + norder;

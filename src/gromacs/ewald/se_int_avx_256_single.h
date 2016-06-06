@@ -6,16 +6,27 @@
 #if GMX_SIMD_X86_AVX_256
 #include "se.h"
 
+#include "gromacs/simd/simd.h"
+static inline float gmx_simdcall
+reduce(__m256 a)
+{
+    __m128 t0;
+    t0 = _mm_add_ps(_mm256_castps256_ps128(a), _mm256_extractf128_ps(a, 0x1));
+    t0 = _mm_add_ps(t0, _mm_permute_ps(t0, _MM_SHUFFLE(1, 0, 3, 2)));
+    t0 = _mm_add_ss(t0, _mm_permute_ps(t0, _MM_SHUFFLE(0, 3, 2, 1)));
+    return *reinterpret_cast<float *>(&t0);
+}
+
 // -----------------------------------------------------------------------------
-static void SE_int_split_AVX(rvec* force,  real* grid, real* q,
-			     splinedata_t *spline,
-			     const SE_FGG_params* params, real scale,
-			     gmx_bool bClearF,
-			     const pme_atomcomm_t *atc,
-			     const gmx_pme_t *pme)
+static void SE_int_split_AVX(rvec * gmx_restrict force,  real * gmx_restrict grid, 
+			     real * gmx_restrict q,
+			     splinedata_t * gmx_restrict spline,
+			     const SE_FGG_params* gmx_restrict params, 
+			     real scale, gmx_bool bClearF,
+			     const pme_atomcomm_t * gmx_restrict atc,
+			     const gmx_pme_t * gmx_restrict pme)
 {
   // unpack params
-  const float*   H = (float*) grid;
   const float*  zs = (float*) spline->zs;
   const float*  zx = (float*) spline->theta[0];
   const float*  zy = (float*) spline->theta[1];
@@ -34,13 +45,9 @@ static void SE_int_split_AVX(rvec* force,  real* grid, real* q,
   int index_x, index_xy;
 
   float qm, h3=h*h*h;
-  float sx[8] MEM_ALIGNED;
-  float sy[8] MEM_ALIGNED;
-  float sz[8] MEM_ALIGNED;
 
   int pny   = pme->pmegrid_ny;
   int pnz   = pme->pmegrid_nz;
-
 
   // hold entire zz vector
   __m256 rZZ0;
@@ -78,7 +85,7 @@ static void SE_int_split_AVX(rvec* force,  real* grid, real* q,
     /* hoist load of ZFZ vector */
     rZFZ0 = _mm256_load_ps(zfz + m*8   );
 
-    if(idx%8==0){ // H[idx] is 32-aligned so vectorization simple
+    if(idx%8==0){ // grid[idx] is 32-aligned so vectorization simple
       for(i = 0; i<8; i++){
 	index_x = (i0+i)*pny*pnz;
 	for(j = 0; j<8; j++){
@@ -86,25 +93,24 @@ static void SE_int_split_AVX(rvec* force,  real* grid, real* q,
 	  rC  = _mm256_set1_ps( zx[m*8+i]*zy[m*8 + j]);
 	  rCX = _mm256_set1_ps( zx[m*8+i]*zy[m*8 + j] * zfx[m*8 + i]);
 	  rCY = _mm256_set1_ps( zx[m*8+i]*zy[m*8 + j] * zfy[m*8 + j]);
-#ifdef CALC_ENERGY
-	  rCP  = _mm256_set1_ps( zx[m*8+i]*zy[m*8 + j]);
-#endif
 
-	  rH0  = _mm256_load_ps( H+index_xy +k0  );
+	  rH0  = _mm256_load_ps( grid+index_xy +k0  );
 	  rZS0 = _mm256_load_ps( zs + idx_zs     );
 
-	  rFX =_mm256_add_ps(rFX,_mm256_mul_ps(rH0,_mm256_mul_ps(_mm256_mul_ps(rZZ0,rCX),rZS0))); 
-	  rFY =_mm256_add_ps(rFY,_mm256_mul_ps(rH0,_mm256_mul_ps(_mm256_mul_ps(rZZ0,rCY),rZS0)));
-	  rFZ =_mm256_add_ps(rFZ,_mm256_mul_ps(rH0,_mm256_mul_ps(_mm256_mul_ps(_mm256_mul_ps(rZFZ0,rZZ0),rC),rZS0))); 
+	  __m256 fac = _mm256_mul_ps(rH0, _mm256_mul_ps(rZZ0, rZS0));
+
+	  rFX =_mm256_add_ps(rFX,_mm256_mul_ps(fac,rCX)); 
+	  rFY =_mm256_add_ps(rFY,_mm256_mul_ps(fac,rCY));
+	  rFZ =_mm256_add_ps(rFZ,_mm256_mul_ps(fac,_mm256_mul_ps(rC,rZFZ0))); 
 
 #ifdef CALC_ENERGY
-	  rP =_mm256_add_ps(rP,_mm256_mul_ps(rH0,_mm256_mul_ps(_mm256_mul_ps(rZZ0,rCP),rZS0)));
+	  rP =_mm256_add_ps(rP,_mm256_mul_ps(fac,rC));
 #endif
 	  idx_zs +=8;
 	}
       }
     }
-    else{ // H[idx] not 32-aligned, so use non-aligned loads
+    else{ // grid[idx] not 32-aligned, so use non-aligned loads
       for(i = 0; i<8; i++){
 	index_x = (i0+i)*pny*pnz;
 	for(j = 0; j<8; j++){
@@ -116,24 +122,23 @@ static void SE_int_split_AVX(rvec* force,  real* grid, real* q,
 	  rCP = _mm256_set1_ps( zx[m*8+i]*zy[m*8 + j]);
 #endif
 
-	  rH0  = _mm256_loadu_ps( H+index_xy + k0 );
+	  rH0  = _mm256_loadu_ps( grid+index_xy + k0 );
 	  rZS0 = _mm256_load_ps( zs + idx_zs);
 		 		    
-	  rFX =_mm256_add_ps(rFX,_mm256_mul_ps(rH0,_mm256_mul_ps(_mm256_mul_ps(rZZ0,rCX),rZS0)));
-	  rFY =_mm256_add_ps(rFY,_mm256_mul_ps(rH0,_mm256_mul_ps(_mm256_mul_ps(rZZ0,rCY),rZS0)));
-	  rFZ =_mm256_add_ps(rFZ,_mm256_mul_ps(rH0,_mm256_mul_ps(_mm256_mul_ps(_mm256_mul_ps(rZFZ0,rZZ0),rC),rZS0)));
+	  __m256 fac = _mm256_mul_ps(rH0, _mm256_mul_ps(rZZ0, rZS0));
+
+	  rFX =_mm256_add_ps(rFX,_mm256_mul_ps(fac,rCX)); 
+	  rFY =_mm256_add_ps(rFY,_mm256_mul_ps(fac,rCY));
+	  rFZ =_mm256_add_ps(rFZ,_mm256_mul_ps(fac,_mm256_mul_ps(rC,rZFZ0))); 
 	 
 #ifdef CALC_ENERGY
-	  rP =_mm256_add_ps(rP,_mm256_mul_ps(rH0,_mm256_mul_ps(_mm256_mul_ps(rZZ0,rCP),rZS0)));
+	  rP =_mm256_add_ps(rP,_mm256_mul_ps(fac,rC));
 #endif
 
 	  idx_zs +=8;
 	}
       }
     }
-    _mm256_store_ps(sx,rFX);
-    _mm256_store_ps(sy,rFY);
-    _mm256_store_ps(sz,rFZ);
 
     if(bClearF){
       force[m][XX] = 0;
@@ -141,13 +146,13 @@ static void SE_int_split_AVX(rvec* force,  real* grid, real* q,
       force[m][ZZ] = 0;
     }
 
-    force[m][XX] += -qm*scale*h3*(sx[0]+sx[1]+sx[2]+sx[3]+sx[4]+sx[5]+sx[6]+sx[7]);
-    force[m][YY] += -qm*scale*h3*(sy[0]+sy[1]+sy[2]+sy[3]+sy[4]+sy[5]+sy[6]+sy[7]);
-    force[m][ZZ] += -qm*scale*h3*(sz[0]+sz[1]+sz[2]+sz[3]+sz[4]+sz[5]+sz[6]+sz[7]);
+    force[m][XX] += -qm*scale*h3*(reduce(rFX));
+    force[m][YY] += -qm*scale*h3*(reduce(rFY));
+    force[m][ZZ] += -qm*scale*h3*(reduce(rFZ));
 
 #ifdef CALC_ENERGY
     _mm256_store_ps(s,rP);
-    st->phi[m] = -scale*h3*(s[0]+s[1]+s[2]+s[3]+s[4]+s[5]+s[6]+s[7]);
+    st->phi[m] = -scale*h3*(reduce(rP));
 #endif	
   }
 }
