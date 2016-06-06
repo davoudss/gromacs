@@ -57,7 +57,9 @@
 
 void SE_grid_dispatch(real* grid, real* q,
                       splinedata_t *spline,
-                      const SE_FGG_params* params){
+                      const SE_FGG_params* params, 
+		      const pme_atomcomm_t *atc,
+		      const pmegrid_t *pmegrid){
 #if GMX_DOUBLE==1
 
 #if GMX_SIMD_X86_AVX_256
@@ -69,9 +71,9 @@ SE_grid_split_SSE_dispatch_d(grid, q, spline, params);
 #else  // not GMX_DOUBLE  or single precision
 
 #if GMX_SIMD_X86_AVX_256
-SE_grid_split_AVX_dispatch(grid, q, spline, params);
+ SE_grid_split_AVX_dispatch(grid, q, spline, params,atc,pmegrid);
 #else  // not AVX
-SE_grid_split_SSE_dispatch(grid, q, spline, params);
+ SE_grid_split_SSE_dispatch(grid, q, spline, params,atc,pmegrid);
 #endif // AVX
 
 #endif // GMX_DOUBLE
@@ -80,42 +82,6 @@ SE_grid_split_SSE_dispatch(grid, q, spline, params);
 
 
 /* TODO consider split of pme-spline from this file */
-static void calc_interpolation_idx_se(struct gmx_pme_t *pme, pme_atomcomm_t *atc,
-                                      int start, int end, int thread)
-{
-  int             i;
-  int            *idxptr, tix, tiy, tiz;
-  real           *xptr, tx, ty, tz;
-  real            rxx, ryy, rzz, nrx, nry, nrz;
-  int             nx, ny, nz;
-
-  nx  = pme->nkx;
-  ny  = pme->nky;
-  nz  = pme->nkz;
-
-  rxx = pme->recipbox[XX][XX];
-  ryy = pme->recipbox[YY][YY];
-  rzz = pme->recipbox[ZZ][ZZ];
-
-  nrx = nx*rxx; nry = ny*ryy; nrz = nz*rzz;
-  for (i = start; i < end; i++)
-    {
-      xptr   = atc->x[i];
-      idxptr = atc->idx[i];
-
-      tx = nrx * xptr[XX];
-      ty = nry * xptr[YY];
-      tz = nrz * xptr[ZZ];
-      tix = (int)(tx);
-      tiy = (int)(ty);
-      tiz = (int)(tz);
-      idxptr[XX] = pme->nnx[tix];
-      idxptr[YY] = pme->nny[tiy];
-      idxptr[ZZ] = pme->nnz[tiz];
-   }
-
-}
-
 static void calc_interpolation_idx(struct gmx_pme_t *pme, pme_atomcomm_t *atc,
                                    int start, int grid_index, int end, int thread)
 {
@@ -315,22 +281,21 @@ static void make_thread_local_ind(pme_atomcomm_t *atc,
 static void make_bsplines(splinevec theta, splinevec dtheta, int order,
                           rvec fractx[], int nr, int ind[], real coefficient[],
                           gmx_bool bDoSplines,
-			  real zs[], int idx[], rvec x[],
+			  real zs[], rvec x[],
 			  const SE_FGG_params *se_params,
-			  gmx_bool  se_set,
-			  pme_atomcomm_t * atc)
+			  gmx_bool  se_set)
 
 {
     /* construct splines for local atoms */
     int   i, ii;
     real *xptr;
-    int *idxptr;
+    //    int *idxptr;
 
     // davoud
     real xn[3] MEM_ALIGNED;
     const int P = se_params->P;
-    const int M1 = se_params->dims[1];
-    const int M2 = se_params->dims[2];
+    // const int M1 = se_params->dims[1];
+    // const int M2 = se_params->dims[2];
 
     if(se_set)
       {
@@ -341,7 +306,7 @@ static void make_bsplines(splinevec theta, splinevec dtheta, int order,
 	    ii = ind[i];
 	    
 	    //davoud  Add this to create SE_FGG_expand_all
-	    idxptr = atc->idx[ii];
+	    //	    idxptr = atc->idx[ii];
 	    xn[0] = x[i][XX]; xn[1] = x[i][YY]; xn[2] = x[i][ZZ];
 	    __FGG_EXPA_ALL(xn,1,se_params,
 			   theta[0] +ii*P,
@@ -350,7 +315,7 @@ static void make_bsplines(splinevec theta, splinevec dtheta, int order,
 			   dtheta[0]+ii*P,
 			   dtheta[1]+ii*P,
 			   dtheta[2]+ii*P);
-	    idx[ii] = __IDX3_RMAJ(idxptr[XX],idxptr[YY],idxptr[ZZ],M1+P,M2+P);
+	    //	    idx[ii] = __IDX3_RMAJ(idxptr[XX],idxptr[YY],idxptr[ZZ],M1+P,M2+P);
 	  }
       }
     else
@@ -437,7 +402,7 @@ static void spread_coefficients_bsplines_thread(pmegrid_t                       
 
     if(se_set)
       {
-	SE_grid_dispatch(grid,atc->coefficient,spline,se_params);
+	SE_grid_dispatch(grid,atc->coefficient,spline,se_params,atc, pmegrid);
       }
     else
     {
@@ -455,7 +420,7 @@ static void spread_coefficients_bsplines_thread(pmegrid_t                       
 	      i0   = idxptr[XX] - offx;
 	      j0   = idxptr[YY] - offy;
 	      k0   = idxptr[ZZ] - offz;
-	      
+	      printf("%d %d %d %d\n",n,i0,j0,k0);
 	      thx = spline->theta[XX] + norder;
 	      thy = spline->theta[YY] + norder;
 	      thz = spline->theta[ZZ] + norder;
@@ -990,10 +955,7 @@ void spread_on_grid(struct gmx_pme_t *pme,
                 /* Compute fftgrid index for all atoms,
                  * with help of some extra variables.
                  */
-		if(se_set)
-		  calc_interpolation_idx_se(pme, atc, start, end, thread);
-		else
-		  calc_interpolation_idx(pme, atc, start, grid_index, end, thread);
+		calc_interpolation_idx(pme, atc, start, grid_index, end, thread);
             }
             GMX_CATCH_ALL_AND_EXIT_WITH_FATAL_ERROR;
         }
@@ -1048,7 +1010,7 @@ void spread_on_grid(struct gmx_pme_t *pme,
             {
                 make_bsplines(spline->theta, spline->dtheta, pme->pme_order,
                               atc->fractx, spline->n, spline->ind, atc->coefficient, bDoSplines,
-			      spline->zs, spline->idx, atc->x, se_params,se_set,atc);
+			      spline->zs, atc->x, se_params,se_set);
             }
 
             if (bSpread)

@@ -10,7 +10,9 @@
 static void SE_int_split_AVX(rvec* force,  real* grid, real* q,
 			     splinedata_t *spline,
 			     const SE_FGG_params* params, real scale,
-			     gmx_bool bClearF)
+			     gmx_bool bClearF,
+			     const pme_atomcomm_t *atc,
+			     const gmx_pme_t *pme)
 {
   // unpack params
   const float*   H = (float*) grid;
@@ -27,10 +29,18 @@ static void SE_int_split_AVX(rvec* force,  real* grid, real* q,
   const float h=params->h;
 
   int i,j,idx,idx_zs,m,mm;
+  int * idxptr;
+  int i0,j0,k0;
+  int index_x, index_xy;
+
   float qm, h3=h*h*h;
   float sx[8] MEM_ALIGNED;
   float sy[8] MEM_ALIGNED;
   float sz[8] MEM_ALIGNED;
+
+  int pny   = pme->pmegrid_ny;
+  int pnz   = pme->pmegrid_nz;
+
 
   // hold entire zz vector
   __m256 rZZ0;
@@ -45,13 +55,14 @@ static void SE_int_split_AVX(rvec* force,  real* grid, real* q,
   __m256 rP, rCP;
 #endif
 
-  const int incrj = params->npdims[2]-8;
-  const int incri = params->npdims[2]*(params->npdims[1]-8);
-
   for(m=0; m<N; m++){
-    idx = spline->idx[m];
     mm  = spline->ind[m];
     qm = q[mm];
+    idxptr = atc->idx[mm];
+    i0 = idxptr[XX];
+    j0 = idxptr[YY];
+    k0 = idxptr[ZZ];
+    idx = i0*pny*pnz+j0*pnz+k0;
 
     idx_zs = 0;
     rFX = _mm256_setzero_ps();
@@ -65,11 +76,13 @@ static void SE_int_split_AVX(rvec* force,  real* grid, real* q,
     rZZ0 = _mm256_load_ps(zz + m*8     );
 
     /* hoist load of ZFZ vector */
-    rZFZ0 = _mm256_load_ps(zfz + m*8     );
+    rZFZ0 = _mm256_load_ps(zfz + m*8   );
 
     if(idx%8==0){ // H[idx] is 32-aligned so vectorization simple
       for(i = 0; i<8; i++){
+	index_x = (i0+i)*pny*pnz;
 	for(j = 0; j<8; j++){
+	  index_xy = index_x + (j0+j)*pnz;
 	  rC  = _mm256_set1_ps( zx[m*8+i]*zy[m*8 + j]);
 	  rCX = _mm256_set1_ps( zx[m*8+i]*zy[m*8 + j] * zfx[m*8 + i]);
 	  rCY = _mm256_set1_ps( zx[m*8+i]*zy[m*8 + j] * zfy[m*8 + j]);
@@ -77,7 +90,7 @@ static void SE_int_split_AVX(rvec* force,  real* grid, real* q,
 	  rCP  = _mm256_set1_ps( zx[m*8+i]*zy[m*8 + j]);
 #endif
 
-	  rH0  = _mm256_load_ps( H+idx     );
+	  rH0  = _mm256_load_ps( H+index_xy +k0  );
 	  rZS0 = _mm256_load_ps( zs + idx_zs     );
 
 	  rFX =_mm256_add_ps(rFX,_mm256_mul_ps(rH0,_mm256_mul_ps(_mm256_mul_ps(rZZ0,rCX),rZS0))); 
@@ -88,14 +101,14 @@ static void SE_int_split_AVX(rvec* force,  real* grid, real* q,
 	  rP =_mm256_add_ps(rP,_mm256_mul_ps(rH0,_mm256_mul_ps(_mm256_mul_ps(rZZ0,rCP),rZS0)));
 #endif
 	  idx_zs +=8;
-	  idx += incrj + 8;
 	}
-	idx += incri;
       }
     }
     else{ // H[idx] not 32-aligned, so use non-aligned loads
       for(i = 0; i<8; i++){
+	index_x = (i0+i)*pny*pnz;
 	for(j = 0; j<8; j++){
+	  index_xy = index_x + (j0+j)*pnz;
 	  rC  = _mm256_set1_ps( zx[m*8+i]*zy[m*8 + j]);
 	  rCX = _mm256_set1_ps( zx[m*8+i]*zy[m*8 + j] * zfx[m*8 + i]);
 	  rCY = _mm256_set1_ps( zx[m*8+i]*zy[m*8 + j] * zfy[m*8 + j]);
@@ -103,7 +116,7 @@ static void SE_int_split_AVX(rvec* force,  real* grid, real* q,
 	  rCP = _mm256_set1_ps( zx[m*8+i]*zy[m*8 + j]);
 #endif
 
-	  rH0  = _mm256_loadu_ps( H+idx     );
+	  rH0  = _mm256_loadu_ps( H+index_xy + k0 );
 	  rZS0 = _mm256_load_ps( zs + idx_zs);
 		 		    
 	  rFX =_mm256_add_ps(rFX,_mm256_mul_ps(rH0,_mm256_mul_ps(_mm256_mul_ps(rZZ0,rCX),rZS0)));
@@ -115,9 +128,7 @@ static void SE_int_split_AVX(rvec* force,  real* grid, real* q,
 #endif
 
 	  idx_zs +=8;
-	  idx += incrj + 8;
 	}
-	idx += incri;
       }
     }
     _mm256_store_ps(sx,rFX);
@@ -146,7 +157,9 @@ static void
 SE_int_split_AVX_dispatch(rvec* force, real* grid, real* q,
 			  splinedata_t *spline,
 			  const SE_FGG_params* params, real scale,
-			  gmx_bool bClearF)
+			  gmx_bool bClearF,
+			  const pme_atomcomm_t *atc,
+			  const gmx_pme_t *pme)
 {
   const int p = params->P;
   const int incrj = params->dims[2]; // middle increment
@@ -156,7 +169,8 @@ SE_int_split_AVX_dispatch(rvec* force, real* grid, real* q,
   if( isnot_div_by_8(p) || isnot_div_by_8(incri) || isnot_div_by_8(incrj) || (p%8)!=0)
     {
       __DISPATCHER_MSG("[FGG INT AVX SINGLE] AVX Abort (PARAMS)\n");
-      SE_int_split_SSE_dispatch(force, grid, q, spline, params, scale, bClearF);
+      SE_int_split_SSE_dispatch(force, grid, q, spline, params, scale, 
+				bClearF, atc, pme);
       return;
     }
   // otherwise the preconditions for AVX codes are satisfied. 
@@ -164,7 +178,8 @@ SE_int_split_AVX_dispatch(rvec* force, real* grid, real* q,
     // specific for p=8
     __DISPATCHER_MSG("[FGG INT AVX SINGLE] P=8\n");
     //SE_int_split_SSE_dispatch(force, grid, q, spline, params, scale, bClearF);
-      SE_int_split_AVX(force, grid, q, spline, params, scale, bClearF);
+    SE_int_split_AVX(force, grid, q, spline, params, scale, bClearF,
+		     atc, pme);
   }
 }
 

@@ -149,7 +149,6 @@ fgg_expansion_all(const real x[3], const real q,
                   real zf_2[P_MAX])
 {
   // unpack params
-  const int  N      = params->N;
   const int  p      = params->P;
   const int  p_half = params->P_half;
   const      real h = params->h;

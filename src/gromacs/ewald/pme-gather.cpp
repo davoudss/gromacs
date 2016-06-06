@@ -50,7 +50,9 @@
 void SE_int_dispatch(rvec *force, real *grid, real *q,
                      splinedata_t *spline,
                      const SE_FGG_params *params, real scale,
-                     gmx_bool bClearF)
+                     gmx_bool bClearF,
+		     const pme_atomcomm_t *atc,
+		     const gmx_pme_t *pme)
 {
 #if GMX_DOUBLE==1
 
@@ -63,9 +65,9 @@ void SE_int_dispatch(rvec *force, real *grid, real *q,
 #else  // not GMX_DOUBLE  or single precision
 
 #if GMX_SIMD_X86_AVX_256
-  SE_int_split_AVX_dispatch(force, grid, q, spline, params, scale, bClearF);
+  SE_int_split_AVX_dispatch(force, grid, q, spline, params, scale, bClearF, atc, pme);
 #else  // not AVX
-  SE_int_split_SSE_dispatch(force, grid, q, spline, params, scale, bClearF);
+  SE_int_split_SSE_dispatch(force, grid, q, spline, params, scale, bClearF, atc, pme);
 #endif // AVX
 
 #endif // GMX_DOUBLE
@@ -127,7 +129,8 @@ void gather_f_bsplines(struct gmx_pme_t *pme, real *grid,
     if(se_set)
       {
 	scale = 1;
-	SE_int_dispatch(atc->f, grid, atc->coefficient, spline, se_params, scale, bClearF);
+	SE_int_dispatch(atc->f, grid, atc->coefficient, spline, se_params, scale, bClearF
+			, atc, pme);
       }
     else
       {
