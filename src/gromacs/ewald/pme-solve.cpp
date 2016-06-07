@@ -332,7 +332,8 @@ int solve_pme_yzx(struct gmx_pme_t *pme, t_complex *grid,
       {
 	real se_eta    = se_params->eta;
 	real se_pow    = -(1.-se_eta)/(4.*ewaldcoeff*ewaldcoeff);
-	real se_factor = 8.*M_PI/(double) (nx*ny*nz);
+	real se_temp = 8.*M_PI/(double) (nx*ny*nz);
+	real se_factor = 1.0/se_temp;
 	
 	real TWO_PI = 2.*M_PI;
       
@@ -422,7 +423,7 @@ int solve_pme_yzx(struct gmx_pme_t *pme, t_complex *grid,
 		    mhy[kx]   = mhyk;
 		    mhz[kx]   = mhzk;
 		    m2[kx]    = m2k;
-		    denom[kx] = m2k/se_factor;  // it will be inversed later in calc_exponentials
+		    denom[kx] = m2k*se_factor;  // it will be inversed later in calc_exponentials
 		    tmp1[kx]  = se_pow*m2k;
 		  }
 		
@@ -438,7 +439,7 @@ int solve_pme_yzx(struct gmx_pme_t *pme, t_complex *grid,
 		    mhy[kx]   = mhyk;
 		    mhz[kx]   = mhzk;
 		    m2[kx]    = m2k;
-		    denom[kx] = m2k/se_factor; // it will be inversed later
+		    denom[kx] = m2k*se_factor; // it will be inversed later
 		    tmp1[kx]  = se_pow*m2k;
 		  }
 		
@@ -495,7 +496,7 @@ int solve_pme_yzx(struct gmx_pme_t *pme, t_complex *grid,
 		    mhyk      = my * ryy;
 		    mhzk      = mz * rzz;
 		    m2k       = mhxk*mhxk + mhyk*mhyk + mhzk*mhzk;
-		    denom[kx] = m2k/se_factor;  // it will be inversed later in calc_exponentials
+		    denom[kx] = m2k*se_factor;  // it will be inversed later in calc_exponentials
 		    tmp1[kx]  = se_pow*m2k;
 		  }
 		
@@ -507,7 +508,7 @@ int solve_pme_yzx(struct gmx_pme_t *pme, t_complex *grid,
 		    mhyk      = my * ryy;
 		    mhzk      = mz * rzz;
 		    m2k       = mhxk*mhxk + mhyk*mhyk + mhzk*mhzk;
-		    denom[kx] = m2k/se_factor; // it will be inversed later
+		    denom[kx] = m2k*se_factor; // it will be inversed later
 		    tmp1[kx]  = se_pow*m2k;
 		  }
 		

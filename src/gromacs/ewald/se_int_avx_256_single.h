@@ -20,11 +20,11 @@ reduce(__m256 a)
 // -----------------------------------------------------------------------------
 static void SE_int_split_AVX(rvec * gmx_restrict force,  real * gmx_restrict grid, 
 			     real * gmx_restrict q,
-			     splinedata_t * gmx_restrict spline,
-			     const SE_FGG_params* gmx_restrict params, 
+			     splinedata_t         * gmx_restrict spline,
+			     const SE_FGG_params  * gmx_restrict params, 
 			     real scale, gmx_bool bClearF,
 			     const pme_atomcomm_t * gmx_restrict atc,
-			     const gmx_pme_t * gmx_restrict pme)
+			     const gmx_pme_t      * gmx_restrict pme)
 {
   // unpack params
   const float*  zs = (float*) spline->zs;
@@ -85,14 +85,17 @@ static void SE_int_split_AVX(rvec * gmx_restrict force,  real * gmx_restrict gri
     /* hoist load of ZFZ vector */
     rZFZ0 = _mm256_load_ps(zfz + m*8   );
 
-    if(idx%8==0){ // grid[idx] is 32-aligned so vectorization simple
+    //    if(idx%8==0){ // grid[idx] is 32-aligned so vectorization simple
+    if(0){
       for(i = 0; i<8; i++){
 	index_x = (i0+i)*pny*pnz;
+	real zxi = zx[m*8+i];
 	for(j = 0; j<8; j++){
 	  index_xy = index_x + (j0+j)*pnz;
-	  rC  = _mm256_set1_ps( zx[m*8+i]*zy[m*8 + j]);
-	  rCX = _mm256_set1_ps( zx[m*8+i]*zy[m*8 + j] * zfx[m*8 + i]);
-	  rCY = _mm256_set1_ps( zx[m*8+i]*zy[m*8 + j] * zfy[m*8 + j]);
+	  real zxzy = zxi*zy[m*8+j];
+	  rC  = _mm256_set1_ps( zxzy);
+	  rCX = _mm256_set1_ps( zxzy * zfx[m*8 + i]);
+	  rCY = _mm256_set1_ps( zxzy * zfy[m*8 + j]);
 
 	  rH0  = _mm256_load_ps( grid+index_xy +k0  );
 	  rZS0 = _mm256_load_ps( zs + idx_zs     );
@@ -113,14 +116,13 @@ static void SE_int_split_AVX(rvec * gmx_restrict force,  real * gmx_restrict gri
     else{ // grid[idx] not 32-aligned, so use non-aligned loads
       for(i = 0; i<8; i++){
 	index_x = (i0+i)*pny*pnz;
+	real zxi = zx[m*8+i];
 	for(j = 0; j<8; j++){
 	  index_xy = index_x + (j0+j)*pnz;
-	  rC  = _mm256_set1_ps( zx[m*8+i]*zy[m*8 + j]);
-	  rCX = _mm256_set1_ps( zx[m*8+i]*zy[m*8 + j] * zfx[m*8 + i]);
-	  rCY = _mm256_set1_ps( zx[m*8+i]*zy[m*8 + j] * zfy[m*8 + j]);
-#ifdef CALC_ENERGY
-	  rCP = _mm256_set1_ps( zx[m*8+i]*zy[m*8 + j]);
-#endif
+	  real zxzy = zxi*zy[m*8+j];
+	  rC  = _mm256_set1_ps( zxzy);
+	  rCX = _mm256_set1_ps( zxzy * zfx[m*8 + i]);
+	  rCY = _mm256_set1_ps( zxzy * zfy[m*8 + j]);
 
 	  rH0  = _mm256_loadu_ps( grid+index_xy + k0 );
 	  rZS0 = _mm256_load_ps( zs + idx_zs);
@@ -146,9 +148,10 @@ static void SE_int_split_AVX(rvec * gmx_restrict force,  real * gmx_restrict gri
       force[m][ZZ] = 0;
     }
 
-    force[m][XX] += -qm*scale*h3*(reduce(rFX));
-    force[m][YY] += -qm*scale*h3*(reduce(rFY));
-    force[m][ZZ] += -qm*scale*h3*(reduce(rFZ));
+    float factor = -qm*scale*h3;
+    force[m][XX] += factor*(reduce(rFX));
+    force[m][YY] += factor*(reduce(rFY));
+    force[m][ZZ] += factor*(reduce(rFZ));
 
 #ifdef CALC_ENERGY
     _mm256_store_ps(s,rP);

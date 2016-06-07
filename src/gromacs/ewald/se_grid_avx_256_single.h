@@ -9,10 +9,10 @@
 
 // -----------------------------------------------------------------------------
 static void SE_grid_split_AVX(real* gmx_restrict grid, real* gmx_restrict q,
-			      splinedata_t * gmx_restrict spline, 
-			      const SE_FGG_params* gmx_restrict params,
+			      splinedata_t         * gmx_restrict spline, 
+			      const SE_FGG_params  * gmx_restrict params,
 			      const pme_atomcomm_t * gmx_restrict atc,
-			      const pmegrid_t * gmx_restrict pmegrid)
+			      const pmegrid_t      * gmx_restrict pmegrid)
 {
   // unpack parameters
   const int     N = params->N;
@@ -53,9 +53,10 @@ static void SE_grid_split_AVX(real* gmx_restrict grid, real* gmx_restrict q,
     if(0){
       for(i = 0; i<p; i++){
 	index_x = (i0+i)*pny*pnz;
+	real qnzx = qn*zx[p*n+i];
 	for(j = 0; j<p; j++){
 	  index_xy = index_x + (j0+j)*pnz;
-	  rC = _mm256_set1_ps( qn*zx[p*n+i]*zy[p*n+j] );
+	  rC = _mm256_set1_ps( qnzx * zy[p*n+j] );
 	  idx_zz=p*n;
 	  rH0  = _mm256_load_ps( H+index_xy + k0);
 	  rZZ0 = _mm256_load_ps( zz + idx_zz     );
@@ -75,9 +76,10 @@ static void SE_grid_split_AVX(real* gmx_restrict grid, real* gmx_restrict q,
     else{ // H[idx0] is 16-aligned, preventing nice vectorization
       for(i = 0; i<p; i++){
 	index_x = (i0+i)*pny*pnz;
+	real qnzx = qn*zx[p*n+i];
 	for(j = 0; j<p; j++){
 	  index_xy = index_x + (j0+j)*pnz;
-	  rC = _mm256_set1_ps( qn*zx[p*n+i]*zy[p*n+j] );
+	  rC = _mm256_set1_ps( qnzx * zy[p*n+j] );
 	  idx_zz=p*n;
 	  rH0  = _mm256_loadu_ps( H+index_xy + k0);
 
