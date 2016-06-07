@@ -76,30 +76,6 @@ SE_FGG_FCN_params(SE_FGG_params* params, const SE_opt* opt, int N)
 
 }
 
-
-// ------------------------------------------------------------------------------
-static inline void umr(real *H, int np,char* str)
-{
-  int d1;real rsum=0;
-  for(d1=0;d1<np;d1++)
-    rsum += H[np]*H[np];
-  printf("%s real %10.6f %g \n",str,rsum,rsum);
-}
-
-// ------------------------------------------------------------------------------
-static inline void sumc(t_complex* H, int np,char* str)
-{
-  int d1;real rsum=0,isum=0;
-  for(d1=0;d1<np;d1++)
-    if(!isnan(H[np].re) && !isnan(H[np].im))
-      {
-	rsum += pow(H[np].re,2);
-	isum += pow(H[np].im,2);
-      }
-  printf("%s complex %10.6f %g \n",str,rsum,rsum);
-  printf("%s complex %10.6f %g \n",str,isum,isum);
-}
-
 // -----------------------------------------------------------------------------
 static void
 SE_FGG_base_gaussian(real* zs, const SE_FGG_params* params)
@@ -115,9 +91,6 @@ SE_FGG_base_gaussian(real* zs, const SE_FGG_params* params)
   const real c=params->c;
   const real d=params->d;
 
-  //#ifdef _OPENMP
-  //#pragma omp for private(i,j,k) schedule(static)// work-share over OpenMP threads here
-  //#endif
   for(i = -p_from; i<=p_half; i++)
     {
       // hoisting this index calculation (more) breaks omp-parallel code
@@ -234,27 +207,5 @@ fgg_expansion_all(const real x[3], const real q,
 
   return 0;
 }
-
-static inline real sesum(real *f, int n, int e1, int e2, int dim, char* str)
-{
-  real s1=0,s2=0;
-  int i,j,k;
-  if(dim==1)
-    for (i=e1;i<e2;i++){
-      s1+=f[i];
-      s2+=f[i]*f[i];
-    }
-  else if(dim==3)
-    for (i=e1;i<e2;i++)
-      for (j=e1;j<e2;j++)
-	for (k=e1;k<e2;k++){
-	  s1+=f[i*n*n+j*n+k];
-	  s2+=f[i*n*n+j*n+k]*f[i*n*n+j*n+k];
-	}
-  printf("%s %g %s^2 %f\n",str,s1,str,s2);
-  return s2;
-
-}
-
 
 #endif //__SE_FGG_H__
