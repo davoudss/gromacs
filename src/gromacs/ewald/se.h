@@ -26,9 +26,9 @@
 
 // display debug messages in the SSE dispatcher
 //#if defined VERBOSE
-//#define __DISPATCHER_MSG(s) __PRINTF(s)
+#define __DISPATCHER_MSG(s) __PRINTF(s)
 //#else
-#define __DISPATCHER_MSG(s) {}
+//#define __DISPATCHER_MSG(s) {}
 //#endif
 
 #if __AVX__

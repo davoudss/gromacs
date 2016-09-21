@@ -16,7 +16,6 @@ static void SE_grid_split_AVX(real* gmx_restrict grid, real* gmx_restrict q,
 {
   // unpack parameters
   const int     N = params->N;
-  float*        H = (float*) grid; // pointer to grid does NOT alias
   const float* zs = (float*) spline->zs;
   const float* zx = (float*) spline->theta[0];
   const float* zy = (float*) spline->theta[1];
@@ -58,7 +57,7 @@ static void SE_grid_split_AVX(real* gmx_restrict grid, real* gmx_restrict q,
 	  index_xy = index_x + (j0+j)*pnz;
 	  rC = _mm256_set1_ps( qnzx * zy[p*n+j] );
 	  idx_zz=p*n;
-	  rH0  = _mm256_load_ps( H+index_xy + k0);
+	  rH0  = _mm256_load_ps( grid+index_xy + k0);
 	  rZZ0 = _mm256_load_ps( zz + idx_zz     );
 	  rZS0 = _mm256_load_ps( zs + idx_zs    );
 	  
@@ -66,7 +65,7 @@ static void SE_grid_split_AVX(real* gmx_restrict grid, real* gmx_restrict q,
 	  rZZ0 = _mm256_mul_ps(rZZ0,rZS0);
 	  rH0  = _mm256_add_ps(rH0,rZZ0);
 	  
-	  _mm256_store_ps( H+index_xy + k0, rH0 );
+	  _mm256_store_ps( grid+index_xy + k0, rH0 );
 	  
 	  idx_zs+=8; 
 	  idx_zz+=8;
@@ -81,7 +80,7 @@ static void SE_grid_split_AVX(real* gmx_restrict grid, real* gmx_restrict q,
 	  index_xy = index_x + (j0+j)*pnz;
 	  rC = _mm256_set1_ps( qnzx * zy[p*n+j] );
 	  idx_zz=p*n;
-	  rH0  = _mm256_loadu_ps( H+index_xy + k0);
+	  rH0  = _mm256_loadu_ps( grid+index_xy + k0);
 
 	  rZZ0 = _mm256_load_ps( zz + idx_zz );
 	  rZS0 = _mm256_load_ps( zs + idx_zs );
@@ -90,7 +89,7 @@ static void SE_grid_split_AVX(real* gmx_restrict grid, real* gmx_restrict q,
 	  rZZ0 = _mm256_mul_ps(rZZ0,rZS0);
 	  
 	  rH0  = _mm256_add_ps(rH0,rZZ0);
-	  _mm256_storeu_ps( H+index_xy + k0, rH0 );
+	  _mm256_storeu_ps( grid+index_xy + k0, rH0 );
 
 	  idx_zs+=8;
 	  idx_zz+=8;

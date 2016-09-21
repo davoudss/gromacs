@@ -58,7 +58,6 @@ static void SE_int_split_AVX(rvec * gmx_restrict force,  real * gmx_restrict gri
   __m256 rFX, rFY, rFZ;
     
 #ifdef CALC_ENERGY
-  float s[8]  MEM_ALIGNED;
   __m256 rP, rCP;
 #endif
 
@@ -154,7 +153,6 @@ static void SE_int_split_AVX(rvec * gmx_restrict force,  real * gmx_restrict gri
     force[m][ZZ] += factor*(reduce(rFZ));
 
 #ifdef CALC_ENERGY
-    _mm256_store_ps(s,rP);
     st->phi[m] = -scale*h3*(reduce(rP));
 #endif	
   }

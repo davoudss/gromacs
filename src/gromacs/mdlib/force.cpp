@@ -639,7 +639,7 @@ void do_force_lowlevel(t_forcerec *fr,      t_inputrec *ir,
     gmx_bool error_analysis    = TRUE;
     gmx_bool to_write          = FALSE; // false is for read
     gmx_bool with_ONE_4PI_EPS0 = FALSE;
-    gmx_bool only_Fourier      = TRUE;
+    gmx_bool only_Fourier      = FALSE;
 
     if(cr->nnodes>1 && error_analysis){
      MPI_Barrier(cr->mpi_comm_mygroup);
@@ -674,7 +674,7 @@ void do_force_lowlevel(t_forcerec *fr,      t_inputrec *ir,
 	  strcpy(rw,"w");
 	else
 	  strcpy(rw,"r");
-	g1 = fopen("Direct60_xi3.txt",rw);
+	g1 = fopen("Direct_output.txt",rw);
 	
 	double diff=0,sum=0,f1,f2,f3,fx,fy,fz,fo=0;
 	int ret;

@@ -63,9 +63,9 @@ void SE_grid_dispatch(real* grid, real* q,
 #if GMX_DOUBLE==1
 
 #if GMX_SIMD_X86_AVX_256
-SE_grid_split_AVX_dispatch_d(grid, q, spline, params);
+SE_grid_split_AVX_dispatch_d(grid, q, spline, params ,atc, pmegrid);
 #else  // not AVX
-SE_grid_split_SSE_dispatch_d(grid, q, spline, params);
+SE_grid_split_SSE_dispatch_d(grid, q, spline, params ,atc, pmegrid);
 #endif // AVX
 
 #else  // not GMX_DOUBLE  or single precision

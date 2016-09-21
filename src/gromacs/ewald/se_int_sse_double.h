@@ -5,14 +5,23 @@
 #if GMX_DOUBLE==1
 #include "se.h"
 
+static inline double
+reduce_sse(__m128d a)
+{
+  a = _mm_hadd_pd(a,a);
+  return *reinterpret_cast<double *>(&a);
+}
+
 static void 
-SE_int_split_d(rvec *force, real *grid, real *q,
-	       splinedata_t *spline,
-	       const SE_FGG_params *params, real scale,
-	       gmx_bool bClearF) 
+SE_int_split_d(rvec * gmx_restrict force,  real * gmx_restrict grid, 
+	       real * gmx_restrict q,
+	       splinedata_t         * gmx_restrict spline,
+	       const SE_FGG_params  * gmx_restrict params, 
+	       real scale, gmx_bool bClearF,
+	       const pme_atomcomm_t * gmx_restrict atc,
+	       const gmx_pme_t      * gmx_restrict pme) 
 {
   // unpack parameters
-  const real*    H = (real*) grid;
   const real*   zs = (real*) spline->zs;
   const real*   zx = (real*) spline->theta[0];
   const real*   zy = (real*) spline->theta[1];
@@ -24,14 +33,18 @@ SE_int_split_d(rvec *force, real *grid, real *q,
   const int    p = params->P;
   const double h = params->h;
 
-  int i, j, k, m, mm, idx, idx_zs, idx_zz;
-  real force_m[3], cij, Hzc, qm, h3=h*h*h;
+  int i, j, k, m, mm, idx_zs, idx_zz;
+  real force_m[3], Hzc, qm, h3=h*h*h;
+  int * idxptr;
+  int i0,j0,k0;
+  int index_x, index_xy;
+
 #ifdef CALC_ENERGY
   real phi_m;
 #endif
 
-  const int incrj = params->npdims[2]-p; // middle increment
-  const int incri = params->npdims[2]*(params->npdims[1]-p);// outer increment
+  int pny   = pme->pmegrid_ny;
+  int pnz   = pme->pmegrid_nz;
 
 /*
 #ifdef _OPENMP
@@ -40,37 +53,40 @@ SE_int_split_d(rvec *force, real *grid, real *q,
 */
   for(mm=0; mm<spline->n; mm++)
     {
-      idx = spline->idx[mm];
       m   = spline->ind[mm];
       qm  = q[m];
+      idxptr = atc->idx[mm];
+      i0 = idxptr[XX];
+      j0 = idxptr[YY];
+      k0 = idxptr[ZZ];
+
       force_m[0] = 0; force_m[1] = 0; force_m[2] = 0;
 #ifdef CALC_ENERGY
       phi_m = 0;
 #endif
 
       idx_zs = 0;
-      for(i = 0; i<p; i++)
-        {
-          for(j = 0; j<p; j++)
-            {
-              cij = zx[p*m+i]*zy[p*m+j];
-              idx_zz=p*m;
-              for(k = 0; k<p; k++)
-                {
-		  Hzc    = H[idx]*zs[idx_zs]*zz[idx_zz]*cij;
+      for(i = 0; i<p; i++){
+	index_x = (i0+i)*pny*pnz;
+	real zxi = zx[m*p+i];
+	for(j = 0; j<p; j++){
+	  index_xy = index_x + (j0+j)*pnz + k0;
+	  real zxzy = zxi*zy[m*p+j];
+	  idx_zz=p*m;
+	  for(k = 0; k<p; k++)
+	    {
+	      Hzc    = grid[index_xy + k]*zs[idx_zs]*zz[idx_zz]*zxzy;
 #ifdef CALC_ENERGY
-		  phi_m += Hzc;
+	      phi_m += Hzc;
 #endif
-		  force_m[0] += Hzc*zfx[m*p+i];
-		  force_m[1] += Hzc*zfy[m*p+j];
-		  force_m[2] += Hzc*zfz[m*p+k];
-		  
-                  idx++; idx_zs++; idx_zz++;
-                }
-              idx += incrj;
-            }
-          idx += incri;
-        }
+	      force_m[0] += Hzc*zfx[m*p+i];
+	      force_m[1] += Hzc*zfy[m*p+j];
+	      force_m[2] += Hzc*zfz[m*p+k];
+	      
+	      idx_zs++; idx_zz++;
+	    }
+	}
+      }
       if(bClearF)
 	{
 	  force[m][XX] = 0;
@@ -78,9 +94,10 @@ SE_int_split_d(rvec *force, real *grid, real *q,
 	  force[m][ZZ] = 0;
 	}
 
-      force[m][XX] += -qm*h3*scale*force_m[0];
-      force[m][YY] += -qm*h3*scale*force_m[1];
-      force[m][ZZ] += -qm*h3*scale*force_m[2];
+      float factor = -qm*scale*h3;
+      force[m][XX] += factor*force_m[0];
+      force[m][YY] += factor*force_m[1];
+      force[m][ZZ] += factor*force_m[2];
 
 #ifdef CALC_ENERGY
       st->phi[m]   = -h3*scale*phi_m;
@@ -91,13 +108,15 @@ SE_int_split_d(rvec *force, real *grid, real *q,
 
 // -----------------------------------------------------------------------------
 static void 
-SE_int_split_SSE_d(rvec *force, real *grid, real *q,
-		   splinedata_t *spline,
-		   const SE_FGG_params *params, real scale,
-		   gmx_bool bClearF)
+SE_int_split_SSE_d(rvec * gmx_restrict force,  real * gmx_restrict grid, 
+		   real * gmx_restrict q,
+		   splinedata_t         * gmx_restrict spline,
+		   const SE_FGG_params  * gmx_restrict params, 
+		   real scale, gmx_bool bClearF,
+		   const pme_atomcomm_t * gmx_restrict atc,
+		   const gmx_pme_t      * gmx_restrict pme)
 {
   // unpack params
-  const double*    H = (double*) grid;
   const double*   zs = (double*) spline->zs;
   const double*   zx = (double*) spline->theta[0];
   const double*   zy = (double*) spline->theta[1];
@@ -111,28 +130,29 @@ SE_int_split_SSE_d(rvec *force, real *grid, real *q,
   const int  N = params->N;
   const double h = params->h;
 
-  int i,j,k,m,idx,idx_zs,idx_zz, mm,mp,imp,jmp,kmp;
+  int i,j,k,m,idx_zs,idx_zz, mm,kmp;
   double qm, h3 = h*h*h;
-  double sx[2] MEM_ALIGNED;
-  double sy[2] MEM_ALIGNED;
-  double sz[2] MEM_ALIGNED;
+  int * idxptr;
+  int i0,j0,k0;
+  int index_x, index_xy;
   
+  int pny   = pme->pmegrid_ny;
+  int pnz   = pme->pmegrid_nz;
+
   __m128d rH0, rZZ0, rZS0,rZFZ0;
   __m128d rC, rCX, rCY;
   __m128d rFX, rFY, rFZ;
 #ifdef CALC_ENERGY
-  double s[2]  MEM_ALIGNED;
   __m128d rP, rCP;
 #endif
 
-  const int incrj = params->npdims[2]-p;
-  const int incri = params->npdims[2]*(params->npdims[1]-p);
-
   for(mm=0; mm<N; mm++){
-    idx = spline->idx[mm];
     m = spline->ind[mm];
     qm = q[m];
-    mp = m*p;
+    idxptr = atc->idx[mm];
+    i0 = idxptr[XX];
+    j0 = idxptr[YY];
+    k0 = idxptr[ZZ];
     
     idx_zs = 0;
     rFX = _mm_setzero_pd();
@@ -142,24 +162,25 @@ SE_int_split_SSE_d(rvec *force, real *grid, real *q,
 #ifdef CALC_ENERGY
     rP = _mm_setzero_pd();
 #endif
-    
-    if(idx%2==0){ // H[idx] is 16-aligned so vectorization simple
+    if(0){ // H[idx] is 16-aligned so vectorization simple
       for(i = 0; i<p; i++){
-	imp = mp+i;
+	index_x = (i0+i)*pny*pnz;
+	real zxi = zx[m*p+i];
 	for(j = 0; j<p; j++){
-	  jmp = mp+j;
-	  rC  = _mm_set1_pd( zx[imp]*zy[jmp] );
-	  rCX = _mm_set1_pd(zx[imp]*zy[jmp]*zfx[imp]);
-	  rCY = _mm_set1_pd(zx[imp]*zy[jmp]*zfy[jmp]);
+	  index_xy = index_x + (j0+j)*pnz + k0;
+	  real zxzy = zxi*zy[m*p+j];
+
+	  rC  = _mm_set1_pd( zxzy );
+	  rCX = _mm_set1_pd( zxzy * zfx[m*p + i] );
+	  rCY = _mm_set1_pd( zxzy * zfy[m*p + j] );
 #ifdef CALC_ENERGY
-	  rCP  = _mm_set1_pd( zx[imp]*zy[jmp]);
-#endif
-	  
-	  idx_zz=mp;
+	  rCP  = _mm_set1_pd( zxzy );
+#endif  
+	  idx_zz=m*p;
 	  for(k = 0; k<p; k+=2){
-	    kmp = mp+k;
+	    kmp = m*p+k;
 	    rZFZ0= _mm_load_pd( zfz+ kmp );
-	    rH0  = _mm_load_pd( H  + idx );
+	    rH0  = _mm_load_pd( grid + index_xy + k);
 	    rZZ0 = _mm_load_pd( zz + idx_zz);
 	    rZS0 = _mm_load_pd( zs + idx_zs);
 	    
@@ -171,31 +192,31 @@ SE_int_split_SSE_d(rvec *force, real *grid, real *q,
 #ifdef CALC_ENERGY
 	    rP = _mm_add_pd(rP,_mm_mul_pd(rH0,rCP));
 #endif			
-	    idx+=2; 
 	    idx_zs+=2; 
 	    idx_zz+=2;
 	  }
-	  idx += incrj;
 	}
-	idx += incri;
       }
     }
     else { // H[idx] not 16-aligned, so use non-aligned loads
       for(i = 0; i<p; i++){
-	imp = mp+i;
+	index_x = (i0+i)*pny*pnz;
+	real zxi = zx[m*p+i];
 	for(j = 0; j<p; j++){
-	  jmp = mp+j;
-	  rC  = _mm_set1_pd( zx[imp]*zy[jmp] );
-	  rCX = _mm_set1_pd(zx[imp]*zy[jmp]*zfx[imp]);
-	  rCY = _mm_set1_pd(zx[imp]*zy[jmp]*zfy[jmp]);
+	  index_xy = index_x + (j0+j)*pnz + k0;
+	  real zxzy = zxi*zy[m*p+j];
+
+	  rC  = _mm_set1_pd( zxzy );
+	  rCX = _mm_set1_pd( zxzy * zfx[m*p + i] );
+	  rCY = _mm_set1_pd( zxzy * zfy[m*p + j] );
 #ifdef CALC_ENERGY
-	  rCP = _mm_set1_pd( zx[imp]*zy[jmp] );
-#endif
+	  rCP  = _mm_set1_pd( zxzy );
+#endif  
 	  idx_zz=m*p;
 	  for(k = 0; k<p; k+=2){
-	    kmp = mp+k;
-	    rZFZ0= _mm_load_pd( zfz + kmp );
-	    rH0  = _mm_loadu_pd( H+idx );
+	    kmp = m*p+k;
+	    rZFZ0= _mm_load_pd( zfz+ kmp );
+	    rH0  = _mm_loadu_pd( grid + index_xy + k);
 	    rZZ0 = _mm_load_pd( zz + idx_zz);
 	    rZS0 = _mm_load_pd( zs + idx_zs);
 	    
@@ -207,19 +228,12 @@ SE_int_split_SSE_d(rvec *force, real *grid, real *q,
 #ifdef CALC_ENERGY
 	    rP = _mm_add_pd(rP,_mm_mul_pd(rH0,rCP));
 #endif			
-	    idx+=2; 
 	    idx_zs+=2; 
 	    idx_zz+=2;
 	  }
-	  idx += incrj;
 	}
-	idx += incri;
       }
-      
     }
-    _mm_store_pd(sx,rFX);
-    _mm_store_pd(sy,rFY);
-    _mm_store_pd(sz,rFZ);
 
     if(bClearF){
       force[m][XX] = 0;
@@ -227,13 +241,13 @@ SE_int_split_SSE_d(rvec *force, real *grid, real *q,
       force[m][ZZ] = 0;
     }
     
-    force[m][XX] += -qm*scale*h3*(sx[0]+sx[1]);
-    force[m][YY] += -qm*scale*h3*(sy[0]+sy[1]);
-    force[m][ZZ] += -qm*scale*h3*(sz[0]+sz[1]);
+    double factor = -qm*scale*h3;
+    force[m][XX] += factor*reduce_sse(rFX);
+    force[m][YY] += factor*reduce_sse(rFY);
+    force[m][ZZ] += factor*reduce_sse(rFZ);
     
 #ifdef CALC_ENERGY
-    _mm_store_pd(s,rP);
-    st->phi[m] = -scale*h3*(s[0]+s[1]);
+    st->phi[m] = -scale*h3*reduce_sse(rP);
 #endif
   }
 }
@@ -241,13 +255,15 @@ SE_int_split_SSE_d(rvec *force, real *grid, real *q,
 
 // -----------------------------------------------------------------------------
 static void 
-SE_int_split_SSE_u8_d(rvec *force, real *grid, real *q,
-		      splinedata_t *spline,
-		      const SE_FGG_params *params, real scale,
-		      gmx_bool bClearF)
+SE_int_split_SSE_u8_d(rvec * gmx_restrict force,  real * gmx_restrict grid, 
+		      real * gmx_restrict q,
+		      splinedata_t         * gmx_restrict spline,
+		      const SE_FGG_params  * gmx_restrict params, 
+		      real scale, gmx_bool bClearF,
+		      const pme_atomcomm_t * gmx_restrict atc,
+		      const gmx_pme_t      * gmx_restrict pme)
 {
   // unpack params
-  const double*    H = (double*) grid;
   const double*   zs = (double*) spline->zs;
   const double*   zx = (double*) spline->theta[0];
   const double*   zy = (double*) spline->theta[1];
@@ -262,9 +278,12 @@ SE_int_split_SSE_u8_d(rvec *force, real *grid, real *q,
 
   int i,j,k,m,idx,idx_zs,idx_zz, mm;
   double qm, h3=h*h*h;
-  double sx[2] MEM_ALIGNED;
-  double sy[2] MEM_ALIGNED;
-  double sz[2] MEM_ALIGNED;
+  int * idxptr;
+  int i0,j0,k0;
+  int index_x, index_xy;
+
+  int pny   = pme->pmegrid_ny;
+  int pnz   = pme->pmegrid_nz;
 
   __m128d rH0, rZZ0, rZS0, rZFZ0;
   __m128d rH1, rZZ1, rZS1, rZFZ1;
@@ -274,19 +293,19 @@ SE_int_split_SSE_u8_d(rvec *force, real *grid, real *q,
   __m128d  rC, rCX, rCY;
 
 #ifdef CALC_ENERGY
-  double s[2]  MEM_ALIGNED;
   __m128d rP, rCP;
 #endif
 
-  const int incrj = params->npdims[2]-p;
-  const int incri = params->npdims[2]*(params->npdims[1]-p);
-
   for(m=0; m<N; m++){
-    idx = spline->idx[m];
     mm  = spline->ind[m];
     qm = q[mm];
+    idxptr = atc->idx[mm];
+    i0 = idxptr[XX];
+    j0 = idxptr[YY];
+    k0 = idxptr[ZZ];
+    idx = i0*pny*pnz+j0*pnz+k0;
     
-    _mm_prefetch( (void*) (H+idx), _MM_HINT_T0);
+    _mm_prefetch( (void*) (grid+idx), _MM_HINT_T0);
     
     idx_zs = 0;
     _mm_prefetch( (void*) zs, _MM_HINT_T0);
@@ -298,23 +317,27 @@ SE_int_split_SSE_u8_d(rvec *force, real *grid, real *q,
     rP  = _mm_setzero_pd();
 #endif
     
-    if(idx%2==0){ // H[idx] is 16-aligned so vectorization simple
+    if(0){ // H[idx] is 16-aligned so vectorization simple
       for(i = 0; i<p; i++){
+	index_x = (i0+i)*pny*pnz;
+	real zxi = zx[m*p+i];
 	for(j = 0; j<p; j++){
-	  rC  = _mm_set1_pd( zx[m*p+i]*zy[m*p+j] );
-	  rCX = _mm_set1_pd(zx[m*p+i]*zy[m*p+j]*zfx[m*p+i]);
-	  rCY = _mm_set1_pd(zx[m*p+i]*zy[m*p+j]*zfy[m*p+j]);
+	  index_xy = index_x + (j0+j)*pnz + k0;
+	  real zxzy = zxi*zy[m*p+j];
+	  rC  = _mm_set1_pd( zxzy );
+	  rCX = _mm_set1_pd(zxzy*zfx[m*p+i]);
+	  rCY = _mm_set1_pd(zxzy*zfy[m*p+j]);
 #ifdef CALC_ENERGY
-	  rCP = _mm_set1_pd( zx[m*p+i]*zy[m*p+j] );
+	  rCP = _mm_set1_pd( zxzy );
 #endif
 	  
 	  idx_zz=m*p;
 	  
 	  for(k = 0; k<p; k+=8){
-	    rH0  = _mm_load_pd( H+idx    );
-	    rH1  = _mm_load_pd( H+idx + 2);
-	    rH2  = _mm_load_pd( H+idx + 4);
-	    rH3  = _mm_load_pd( H+idx + 6);
+	    rH0  = _mm_load_pd( grid + index_xy + k    );
+	    rH1  = _mm_load_pd( grid + index_xy + k + 2);
+	    rH2  = _mm_load_pd( grid + index_xy + k + 4);
+	    rH3  = _mm_load_pd( grid + index_xy + k + 6);
 	    
 	    rZZ0 = _mm_load_pd( zz + idx_zz    );
 	    rZZ1 = _mm_load_pd( zz + idx_zz + 2);
@@ -330,107 +353,96 @@ SE_int_split_SSE_u8_d(rvec *force, real *grid, real *q,
 	    rZFZ1 = _mm_load_pd(zfz+ idx_zz + 2);
 	    rZFZ2 = _mm_load_pd(zfz+ idx_zz + 4);
 	    rZFZ3 = _mm_load_pd(zfz+ idx_zz + 6);
+
+	    __m128d fac0 = _mm_mul_pd(rH0, _mm_mul_pd(rZZ0, rZS0));
+	    __m128d fac1 = _mm_mul_pd(rH1, _mm_mul_pd(rZZ1, rZS1));
+	    __m128d fac2 = _mm_mul_pd(rH2, _mm_mul_pd(rZZ2, rZS2));
+	    __m128d fac3 = _mm_mul_pd(rH3, _mm_mul_pd(rZZ3, rZS3));
 	    
-	    rFX = _mm_add_pd(rFX,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ0,rCX),rZS0)));
-	    rFX = _mm_add_pd(rFX,_mm_mul_pd(rH1,_mm_mul_pd(_mm_mul_pd(rZZ1,rCX),rZS1)));
-	    rFX = _mm_add_pd(rFX,_mm_mul_pd(rH2,_mm_mul_pd(_mm_mul_pd(rZZ2,rCX),rZS2)));
-	    rFX = _mm_add_pd(rFX,_mm_mul_pd(rH3,_mm_mul_pd(_mm_mul_pd(rZZ3,rCX),rZS3)));
+	    __m128d fac  = _mm_add_pd(_mm_add_pd(fac0,fac1),_mm_add_pd(fac2,fac3));
+
+	    rFX = _mm_add_pd(rFX,_mm_mul_pd(fac,rCX));
+	    rFY = _mm_add_pd(rFY,_mm_mul_pd(fac,rCY));
 	    
-	    rFY = _mm_add_pd(rFY,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ0,rCY),rZS0)));
-	    rFY = _mm_add_pd(rFY,_mm_mul_pd(rH1,_mm_mul_pd(_mm_mul_pd(rZZ1,rCY),rZS1)));
-	    rFY = _mm_add_pd(rFY,_mm_mul_pd(rH2,_mm_mul_pd(_mm_mul_pd(rZZ2,rCY),rZS2)));
-	    rFY = _mm_add_pd(rFY,_mm_mul_pd(rH3,_mm_mul_pd(_mm_mul_pd(rZZ3,rCY),rZS3)));
-	    
-	    rFZ = _mm_add_pd(rFZ,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(_mm_mul_pd(rZFZ0,rZZ0),rC),rZS0)));
-	    rFZ = _mm_add_pd(rFZ,_mm_mul_pd(rH1,_mm_mul_pd(_mm_mul_pd(_mm_mul_pd(rZFZ1,rZZ1),rC),rZS1)));
-	    rFZ = _mm_add_pd(rFZ,_mm_mul_pd(rH2,_mm_mul_pd(_mm_mul_pd(_mm_mul_pd(rZFZ2,rZZ2),rC),rZS2)));
-	    rFZ = _mm_add_pd(rFZ,_mm_mul_pd(rH3,_mm_mul_pd(_mm_mul_pd(_mm_mul_pd(rZFZ3,rZZ3),rC),rZS3)));
+	    fac0 = _mm_mul_pd(fac0,rZFZ0);
+	    fac1 = _mm_mul_pd(fac1,rZFZ1);
+	    fac2 = _mm_mul_pd(fac2,rZFZ2);
+	    fac3 = _mm_mul_pd(fac3,rZFZ3);
+
+	    rFZ  = _mm_add_pd(rFZ,_mm_mul_pd(_mm_add_pd(fac0,fac1),rC));
 
 #ifdef CALC_ENERGY
-	    rP = _mm_add_pd(rP,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ0,rCP),rZS0)));
-	    rP = _mm_add_pd(rP,_mm_mul_pd(rH1,_mm_mul_pd(_mm_mul_pd(rZZ1,rCP),rZS1)));
-	    rP = _mm_add_pd(rP,_mm_mul_pd(rH2,_mm_mul_pd(_mm_mul_pd(rZZ2,rCP),rZS2)));
-	    rP = _mm_add_pd(rP,_mm_mul_pd(rH3,_mm_mul_pd(_mm_mul_pd(rZZ3,rCP),rZS3)));
+	    rP =_mm_add_pd(rP,_mm_mul_pd(fac,rC));
 #endif
-
-
-	    idx+=8; 
 	    idx_zs+=8; 
 	    idx_zz+=8;
 	  }
-	  idx += incrj;
 	}
-	idx += incri;
       }
     }
     else{ // H[idx] not 16-aligned, so use non-aligned load from H
       for(i = 0; i<p; i++){
+	index_x = (i0+i)*pny*pnz;
+	real zxi = zx[m*p+i];
 	for(j = 0; j<p; j++){
-	  rC  = _mm_set1_pd( zx[m*p+i]*zy[m*p+j] );
-	  rCX = _mm_set1_pd(zx[m*p+i]*zy[m*p+j]*zfx[m*p+i]);
-	  rCY = _mm_set1_pd(zx[m*p+i]*zy[m*p+j]*zfy[m*p+j]);
+	  index_xy = index_x + (j0+j)*pnz + k0;
+	  real zxzy = zxi*zy[m*p+j];
+	  rC  = _mm_set1_pd( zxzy );
+	  rCX = _mm_set1_pd(zxzy*zfx[m*p+i]);
+	  rCY = _mm_set1_pd(zxzy*zfy[m*p+j]);
 #ifdef CALC_ENERGY
-	  rCP = _mm_set1_pd( zx[m*p+i]*zy[m*p+j] );
+	  rCP = _mm_set1_pd( zxzy );
 #endif
 	  
 	  idx_zz=m*p;
+	  
 	  for(k = 0; k<p; k+=8){
-	    rH0  = _mm_loadu_pd( H+idx    );
-	    rH1  = _mm_loadu_pd( H+idx + 2);
-	    rH2  = _mm_loadu_pd( H+idx + 4);
-	    rH3  = _mm_loadu_pd( H+idx + 6);
+	    rH0  = _mm_loadu_pd( grid + index_xy + k    );
+	    rH1  = _mm_loadu_pd( grid + index_xy + k + 2);
+	    rH2  = _mm_loadu_pd( grid + index_xy + k + 4);
+	    rH3  = _mm_loadu_pd( grid + index_xy + k + 6);
 	    
 	    rZZ0 = _mm_load_pd( zz + idx_zz    );
 	    rZZ1 = _mm_load_pd( zz + idx_zz + 2);
 	    rZZ2 = _mm_load_pd( zz + idx_zz + 4);
 	    rZZ3 = _mm_load_pd( zz + idx_zz + 6);
-
+	    
 	    rZS0 = _mm_load_pd( zs + idx_zs    );
 	    rZS1 = _mm_load_pd( zs + idx_zs + 2);
 	    rZS2 = _mm_load_pd( zs + idx_zs + 4);
 	    rZS3 = _mm_load_pd( zs + idx_zs + 6);
-
+	    
 	    rZFZ0 = _mm_load_pd(zfz+ idx_zz    );
 	    rZFZ1 = _mm_load_pd(zfz+ idx_zz + 2);
 	    rZFZ2 = _mm_load_pd(zfz+ idx_zz + 4);
 	    rZFZ3 = _mm_load_pd(zfz+ idx_zz + 6);
 
-	    rFX = _mm_add_pd(rFX,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ0,rCX),rZS0)));
-	    rFX = _mm_add_pd(rFX,_mm_mul_pd(rH1,_mm_mul_pd(_mm_mul_pd(rZZ1,rCX),rZS1)));
-	    rFX = _mm_add_pd(rFX,_mm_mul_pd(rH2,_mm_mul_pd(_mm_mul_pd(rZZ2,rCX),rZS2)));
-	    rFX = _mm_add_pd(rFX,_mm_mul_pd(rH3,_mm_mul_pd(_mm_mul_pd(rZZ3,rCX),rZS3)));
+	    __m128d fac0 = _mm_mul_pd(rH0, _mm_mul_pd(rZZ0, rZS0));
+	    __m128d fac1 = _mm_mul_pd(rH1, _mm_mul_pd(rZZ1, rZS1));
+	    __m128d fac2 = _mm_mul_pd(rH2, _mm_mul_pd(rZZ2, rZS2));
+	    __m128d fac3 = _mm_mul_pd(rH3, _mm_mul_pd(rZZ3, rZS3));
+	    
+	    __m128d fac  = _mm_add_pd(_mm_add_pd(fac0,fac1),_mm_add_pd(fac2,fac3));
 
-	    rFY = _mm_add_pd(rFY,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ0,rCY),rZS0)));
-	    rFY = _mm_add_pd(rFY,_mm_mul_pd(rH1,_mm_mul_pd(_mm_mul_pd(rZZ1,rCY),rZS1)));
-	    rFY = _mm_add_pd(rFY,_mm_mul_pd(rH2,_mm_mul_pd(_mm_mul_pd(rZZ2,rCY),rZS2)));
-	    rFY = _mm_add_pd(rFY,_mm_mul_pd(rH3,_mm_mul_pd(_mm_mul_pd(rZZ3,rCY),rZS3)));
-			
-	    rFZ = _mm_add_pd(rFZ,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(_mm_mul_pd(rZFZ0,rZZ0),rC),rZS0)));
-	    rFZ = _mm_add_pd(rFZ,_mm_mul_pd(rH1,_mm_mul_pd(_mm_mul_pd(_mm_mul_pd(rZFZ1,rZZ1),rC),rZS1)));
-	    rFZ = _mm_add_pd(rFZ,_mm_mul_pd(rH2,_mm_mul_pd(_mm_mul_pd(_mm_mul_pd(rZFZ2,rZZ2),rC),rZS2)));
-	    rFZ = _mm_add_pd(rFZ,_mm_mul_pd(rH3,_mm_mul_pd(_mm_mul_pd(_mm_mul_pd(rZFZ3,rZZ3),rC),rZS3)));
+	    rFX = _mm_add_pd(rFX,_mm_mul_pd(fac,rCX));
+	    rFY = _mm_add_pd(rFY,_mm_mul_pd(fac,rCY));
+	    
+	    fac0 = _mm_mul_pd(fac0,rZFZ0);
+	    fac1 = _mm_mul_pd(fac1,rZFZ1);
+	    fac2 = _mm_mul_pd(fac2,rZFZ2);
+	    fac3 = _mm_mul_pd(fac3,rZFZ3);
+
+	    rFZ  = _mm_add_pd(rFZ,_mm_mul_pd(_mm_add_pd(fac0,fac1),rC));
 
 #ifdef CALC_ENERGY
-	    rP = _mm_add_pd(rP,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ0,rCP),rZS0)));
-	    rP = _mm_add_pd(rP,_mm_mul_pd(rH1,_mm_mul_pd(_mm_mul_pd(rZZ1,rCP),rZS1)));
-	    rP = _mm_add_pd(rP,_mm_mul_pd(rH2,_mm_mul_pd(_mm_mul_pd(rZZ2,rCP),rZS2)));
-	    rP = _mm_add_pd(rP,_mm_mul_pd(rH3,_mm_mul_pd(_mm_mul_pd(rZZ3,rCP),rZS3)));
+	    rP =_mm_add_pd(rP,_mm_mul_pd(fac,rC));
 #endif
-
-	    idx+=8; 
 	    idx_zs+=8; 
 	    idx_zz+=8;
 	  }
-	  idx += incrj;
 	}
-	idx += incri;
       }
     }
-
-    // done accumulating
-    _mm_store_pd(sx,rFX);
-    _mm_store_pd(sy,rFY);
-    _mm_store_pd(sz,rFZ);
 
     if(bClearF){
       force[m][XX] = 0;
@@ -438,26 +450,29 @@ SE_int_split_SSE_u8_d(rvec *force, real *grid, real *q,
       force[m][ZZ] = 0;
     }
     
-    force[m][XX] += -qm*scale*h3*(sx[0]+sx[1]);
-    force[m][YY] += -qm*scale*h3*(sy[0]+sy[1]);
-    force[m][ZZ] += -qm*scale*h3*(sz[0]+sz[1]);
+    double factor = -qm*scale*h3;
+    force[m][XX] += factor*reduce_sse(rFX);
+    force[m][YY] += factor*reduce_sse(rFY);
+    force[m][ZZ] += factor*reduce_sse(rFZ);
     
 #ifdef CALC_ENERGY
     _mm_store_pd(s,rP);
-    st->phi[m] = -scale*h3*(s[0]+s[1]);
+    st->phi[m] = -scale*h3*reduce_sse(rP);
 #endif
   }
 }
 
 // -----------------------------------------------------------------------------
 static void 
-SE_int_split_SSE_P8_d(rvec *force, real *grid, real *q,
-		      splinedata_t *spline,
-		      const SE_FGG_params *params, real scale,
-		      gmx_bool bClearF)
+SE_int_split_SSE_P8_d(rvec * gmx_restrict force, real * gmx_restrict grid, 
+		      real * gmx_restrict q,
+		      splinedata_t          * gmx_restrict spline,
+		      const SE_FGG_params   * gmx_restrict params, 
+		      real scale, gmx_bool bClearF,
+		      const pme_atomcomm_t  * gmx_restrict atc,
+		      const gmx_pme_t       * gmx_restrict pme)
 {
   // unpack params
-  const double*    H = (double*) grid;
   const double*   zs = (double*) spline->zs;
   const double*   zx = (double*) spline->theta[0];
   const double*   zy = (double*) spline->theta[1];
@@ -470,11 +485,14 @@ SE_int_split_SSE_P8_d(rvec *force, real *grid, real *q,
   const int  N = params->N;
   const double h = params->h;
 
-  int i,j, m, idx,idx_zs, mm,m8,im8,jm8;
+  int i,j, m, idx_zs, mm,m8;
   double qm, h3=h*h*h;
-  double sx[2] MEM_ALIGNED;
-  double sy[2] MEM_ALIGNED;
-  double sz[2] MEM_ALIGNED;
+  int * idxptr;
+  int i0,j0,k0;
+  int index_x, index_xy;
+
+  int pny   = pme->pmegrid_ny;
+  int pnz   = pme->pmegrid_nz;
 
   // hold entire zz vector
   __m128d rZZ0, rZZ1, rZZ2, rZZ3;
@@ -485,17 +503,16 @@ SE_int_split_SSE_P8_d(rvec *force, real *grid, real *q,
   __m128d rFX, rFY, rFZ;
 
 #ifdef CALC_ENERGY
-  double s[2]  MEM_ALIGNED;
   __m128d rP, rCP;
 #endif
 
-  const int incrj = params->npdims[2]-8;
-  const int incri = params->npdims[2]*(params->npdims[1]-8);
-
   for(mm=0; mm<N; mm++){
-    idx = spline->idx[mm];
     m = spline->ind[mm];
     qm = q[m];
+    idxptr = atc->idx[mm];
+    i0 = idxptr[XX];
+    j0 = idxptr[YY];
+    k0 = idxptr[ZZ];
     m8 = m*8;
     
     idx_zs = 0;
@@ -518,22 +535,24 @@ SE_int_split_SSE_P8_d(rvec *force, real *grid, real *q,
     rZFZ2 = _mm_load_pd(zfz + m8 + 4 );
     rZFZ3 = _mm_load_pd(zfz + m8 + 6 );
     
-    if(idx%2==0){ // H[idx] is 16-aligned so vectorization simple
+    if(0){ // H[idx] is 16-aligned so vectorization simple
       for(i = 0; i<8; i++){
-	im8 = i + m8;
+	index_x = (i0+i)*pny*pnz;
+	real zxi = zx[m8+i];
 	for(j = 0; j<8; j++){
-	  jm8 = j + m8;
-	  rC  = _mm_set1_pd( zx[im8]*zy[jm8]);
-	  rCX = _mm_set1_pd( zx[im8]*zy[jm8] * zfx[im8]);
-	  rCY = _mm_set1_pd( zx[im8]*zy[jm8] * zfy[jm8]);
+	  index_xy = index_x + (j0+j)*pnz + k0;
+	  real zxzy = zxi*zy[m8+j];
+	  rC  = _mm_set1_pd( zxzy );
+	  rCX = _mm_set1_pd( zxzy * zfx[m8+i]);
+	  rCY = _mm_set1_pd( zxzy * zfy[m8+j]);
 #ifdef CALC_ENERGY
-	  rCP  = _mm_set1_pd( zx[im8]*zy[jm8]);
+	  rCP  = _mm_set1_pd( zxzy );
 #endif
 	  
-	  rH0  = _mm_load_pd( H+idx    );
-	  rH1  = _mm_load_pd( H+idx + 2);
-	  rH2  = _mm_load_pd( H+idx + 4);
-	  rH3  = _mm_load_pd( H+idx + 6);
+	  rH0  = _mm_load_pd( grid + index_xy    );
+	  rH1  = _mm_load_pd( grid + index_xy + 2);
+	  rH2  = _mm_load_pd( grid + index_xy + 4);
+	  rH3  = _mm_load_pd( grid + index_xy + 6);
 		  
 	  rZS0 = _mm_load_pd( zs + idx_zs    );
 	  rZS1 = _mm_load_pd( zs + idx_zs + 2);
@@ -545,51 +564,46 @@ SE_int_split_SSE_P8_d(rvec *force, real *grid, real *q,
 	  rH2 = _mm_mul_pd(rH2,_mm_mul_pd(rZZ2,rZS2));
 	  rH3 = _mm_mul_pd(rH3,_mm_mul_pd(rZZ3,rZS3));
 
-	  rFX =_mm_add_pd(rFX,_mm_mul_pd(rH0,rCX));
-	  rFX =_mm_add_pd(rFX,_mm_mul_pd(rH1,rCX));
-	  rFX =_mm_add_pd(rFX,_mm_mul_pd(rH2,rCX));
-	  rFX =_mm_add_pd(rFX,_mm_mul_pd(rH3,rCX));
+	  __m128d rh = _mm_add_pd(_mm_add_pd(rH0,rH1),_mm_add_pd(rH2,rH3));
 
-	  rFY =_mm_add_pd(rFY,_mm_mul_pd(rH0,rCY));
-	  rFY =_mm_add_pd(rFY,_mm_mul_pd(rH1,rCY));
-	  rFY =_mm_add_pd(rFY,_mm_mul_pd(rH2,rCY));
-	  rFY =_mm_add_pd(rFY,_mm_mul_pd(rH3,rCY));
+	  rFX =_mm_add_pd(rFX,_mm_mul_pd(rh,rCX));
+	  rFY =_mm_add_pd(rFY,_mm_mul_pd(rh,rCY));
+	  
+	  __m128d fac0 = _mm_mul_pd(rH0,rZFZ0);
+	  __m128d fac1 = _mm_mul_pd(rH1,rZFZ1);
+	  __m128d fac2 = _mm_mul_pd(rH2,rZFZ2);
+	  __m128d fac3 = _mm_mul_pd(rH3,rZFZ3);
+	  rh = _mm_add_pd(_mm_add_pd(fac0,fac1),_mm_add_pd(fac2,fac3));
 
-	  rFZ =_mm_add_pd(rFZ,_mm_mul_pd(rH0,_mm_mul_pd(rZFZ0,rC)));
-	  rFZ =_mm_add_pd(rFZ,_mm_mul_pd(rH1,_mm_mul_pd(rZFZ1,rC)));
-	  rFZ =_mm_add_pd(rFZ,_mm_mul_pd(rH2,_mm_mul_pd(rZFZ2,rC)));
-	  rFZ =_mm_add_pd(rFZ,_mm_mul_pd(rH3,_mm_mul_pd(rZFZ3,rC)));
+	  rFZ =_mm_add_pd(rFZ,_mm_mul_pd(rh,rC));
 
 #ifdef CALC_ENERGY
-	  rP =_mm_add_pd(rP,_mm_mul_pd(rH0,rCP));
-	  rP =_mm_add_pd(rP,_mm_mul_pd(rH1,rCP));
-	  rP =_mm_add_pd(rP,_mm_mul_pd(rH2,rCP));
-	  rP =_mm_add_pd(rP,_mm_mul_pd(rH3,rCP));
+	  rP =_mm_add_pd(rP,_mm_mul_pd(rh,rCP));
 #endif
 
 	  idx_zs +=8;
-	  idx += incrj + 8;
 	}
-	idx += incri;
       }
     }
     else{ // H[idx] not 16-aligned, so use non-aligned loads
       for(i = 0; i<8; i++){
-	im8 = i + m8;
+	index_x = (i0+i)*pny*pnz;
+	real zxi = zx[m8+i];
 	for(j = 0; j<8; j++){
-	  jm8 = j + m8;
-	  rC  = _mm_set1_pd( zx[im8]*zy[jm8]);
-	  rCX = _mm_set1_pd( zx[im8]*zy[jm8] * zfx[im8]);
-	  rCY = _mm_set1_pd( zx[im8]*zy[jm8] * zfy[jm8]);
+	  index_xy = index_x + (j0+j)*pnz + k0;
+	  real zxzy = zxi*zy[m8+j];
+	  rC  = _mm_set1_pd( zxzy );
+	  rCX = _mm_set1_pd( zxzy * zfx[m8+i]);
+	  rCY = _mm_set1_pd( zxzy * zfy[m8+j]);
 #ifdef CALC_ENERGY
-	  rCP = _mm_set1_pd( zx[im8]*zy[jm8]);
+	  rCP  = _mm_set1_pd( zxzy );
 #endif
-
-	  rH0  = _mm_loadu_pd( H+idx    );
-	  rH1  = _mm_loadu_pd( H+idx + 2);
-	  rH2  = _mm_loadu_pd( H+idx + 4);
-	  rH3  = _mm_loadu_pd( H+idx + 6);
-
+	  
+	  rH0  = _mm_loadu_pd( grid + index_xy    );
+	  rH1  = _mm_loadu_pd( grid + index_xy + 2);
+	  rH2  = _mm_loadu_pd( grid + index_xy + 4);
+	  rH3  = _mm_loadu_pd( grid + index_xy + 6);
+		  
 	  rZS0 = _mm_load_pd( zs + idx_zs    );
 	  rZS1 = _mm_load_pd( zs + idx_zs + 2);
 	  rZS2 = _mm_load_pd( zs + idx_zs + 4);
@@ -600,64 +614,57 @@ SE_int_split_SSE_P8_d(rvec *force, real *grid, real *q,
 	  rH2 = _mm_mul_pd(rH2,_mm_mul_pd(rZZ2,rZS2));
 	  rH3 = _mm_mul_pd(rH3,_mm_mul_pd(rZZ3,rZS3));
 
-	  rFX =_mm_add_pd(rFX,_mm_mul_pd(rH0,rCX));
-	  rFX =_mm_add_pd(rFX,_mm_mul_pd(rH1,rCX));
-	  rFX =_mm_add_pd(rFX,_mm_mul_pd(rH2,rCX));
-	  rFX =_mm_add_pd(rFX,_mm_mul_pd(rH3,rCX));
+	  __m128d rh = _mm_add_pd(_mm_add_pd(rH0,rH1),_mm_add_pd(rH2,rH3));
 
-	  rFY =_mm_add_pd(rFY,_mm_mul_pd(rH0,rCY));
-	  rFY =_mm_add_pd(rFY,_mm_mul_pd(rH1,rCY));
-	  rFY =_mm_add_pd(rFY,_mm_mul_pd(rH2,rCY));
-	  rFY =_mm_add_pd(rFY,_mm_mul_pd(rH3,rCY));
+	  rFX =_mm_add_pd(rFX,_mm_mul_pd(rh,rCX));
+	  rFY =_mm_add_pd(rFY,_mm_mul_pd(rh,rCY));
+	  
+	  __m128d fac0 = _mm_mul_pd(rH0,rZFZ0);
+	  __m128d fac1 = _mm_mul_pd(rH1,rZFZ1);
+	  __m128d fac2 = _mm_mul_pd(rH2,rZFZ2);
+	  __m128d fac3 = _mm_mul_pd(rH3,rZFZ3);
+	  rh = _mm_add_pd(_mm_add_pd(fac0,fac1),_mm_add_pd(fac2,fac3));
 
-	  rFZ =_mm_add_pd(rFZ,_mm_mul_pd(rH0,_mm_mul_pd(rZFZ0,rC)));
-	  rFZ =_mm_add_pd(rFZ,_mm_mul_pd(rH1,_mm_mul_pd(rZFZ1,rC)));
-	  rFZ =_mm_add_pd(rFZ,_mm_mul_pd(rH2,_mm_mul_pd(rZFZ2,rC)));
-	  rFZ =_mm_add_pd(rFZ,_mm_mul_pd(rH3,_mm_mul_pd(rZFZ3,rC)));
+	  rFZ =_mm_add_pd(rFZ,_mm_mul_pd(rh,rC));
 
 #ifdef CALC_ENERGY
-	  rP =_mm_add_pd(rP,_mm_mul_pd(rH0,rCP));
-	  rP =_mm_add_pd(rP,_mm_mul_pd(rH1,rCP));
-	  rP =_mm_add_pd(rP,_mm_mul_pd(rH2,rCP));
-	  rP =_mm_add_pd(rP,_mm_mul_pd(rH3,rCP));
+	  rP =_mm_add_pd(rP,_mm_mul_pd(rh,rCP));
 #endif
 
 	  idx_zs +=8;
-	  idx += incrj + 8;
 	}
-	idx += incri;
-      }
+      }      
     }
-    _mm_store_pd(sx,rFX);
-    _mm_store_pd(sy,rFY);
-    _mm_store_pd(sz,rFZ);
 
     if(bClearF){
       force[m][XX] = 0;
       force[m][YY] = 0;
       force[m][ZZ] = 0;
     }
-      
-    force[m][XX] += -qm*scale*h3*(sx[0]+sx[1]);
-    force[m][YY] += -qm*scale*h3*(sy[0]+sy[1]);
-    force[m][ZZ] += -qm*scale*h3*(sz[0]+sz[1]);
-      
+
+    double factor = -qm*scale*h3;
+    force[m][XX] += factor*reduce_sse(rFX);
+    force[m][YY] += factor*reduce_sse(rFY);
+    force[m][ZZ] += factor*reduce_sse(rFZ);
+    
 #ifdef CALC_ENERGY
     _mm_store_pd(s,rP);
-    st->phi[m] = -scale*h3*(s[0]+s[1]);
+    st->phi[m] = -scale*h3*reduce_sse(rP);
 #endif
   }
 }
 
 // -----------------------------------------------------------------------------
 static void 
-SE_int_split_SSE_P16_d(rvec *force, real *grid, real *q,
-		       splinedata_t *spline,
-		       const SE_FGG_params *params, real scale,
-		       gmx_bool bClearF)
+SE_int_split_SSE_P16_d(rvec * gmx_restrict force, real * gmx_restrict grid, 
+		       real * gmx_restrict q,
+		       splinedata_t          * gmx_restrict spline,
+		       const SE_FGG_params   * gmx_restrict params, 
+		       real scale, gmx_bool bClearF,
+		       const pme_atomcomm_t  * gmx_restrict atc,
+		       const gmx_pme_t       * gmx_restrict pme)
 {
   // unpack params
-  const double*    H = (double*) grid;
   const double*   zs = (double*) spline->zs;
   const double*   zx = (double*) spline->theta[0];
   const double*   zy = (double*) spline->theta[1];
@@ -672,10 +679,12 @@ SE_int_split_SSE_P16_d(rvec *force, real *grid, real *q,
 
   int i,j,m,idx,idx_zs, mm, m16,im16,jm16;
   double qm, h3=h*h*h;
-  double sx[2] MEM_ALIGNED;
-  double sy[2] MEM_ALIGNED;
-  double sz[2] MEM_ALIGNED;
-    
+  int * idxptr;
+  int i0,j0,k0;
+  int index_x, index_xy;
+
+  int pny   = pme->pmegrid_ny;
+  int pnz   = pme->pmegrid_nz;
 
   // hold entire zz vector
   __m128d rZZ0 , rZZ1 , rZZ2 , rZZ3 , rZZ4 , rZZ5 , rZZ6 , rZZ7; 
@@ -684,20 +693,20 @@ SE_int_split_SSE_P16_d(rvec *force, real *grid, real *q,
   __m128d rH0, rZS0;
 
 #ifdef CALC_ENERGY
-  double s[2]  MEM_ALIGNED;
   __m128d rP, rCP;
 #endif
 
-  const int incrj = params->npdims[2]-16;
-  const int incri = params->npdims[2]*(params->npdims[1]-16);
-
   for(mm=0; mm<N; mm++){
-    idx = spline->idx[mm];
     m = spline->ind[mm];
     qm = q[m];
+    idxptr = atc->idx[mm];
+    i0 = idxptr[XX];
+    j0 = idxptr[YY];
+    k0 = idxptr[ZZ];
+    idx = i0*pny*pnz+j0*pnz+k0;
     m16 = m*16;
     
-    _mm_prefetch( (void*) (H+idx), _MM_HINT_T0);
+    _mm_prefetch( (void*) (grid+idx), _MM_HINT_T0);
     
     idx_zs = 0;
     _mm_prefetch( (void*) zs, _MM_HINT_T0);
@@ -729,20 +738,24 @@ SE_int_split_SSE_P16_d(rvec *force, real *grid, real *q,
     rZFZ6 = _mm_load_pd(zfz + m16 + 12);
     rZFZ7 = _mm_load_pd(zfz + m16 + 14);
 
-    if(idx%2==0){ // H[idx] is 16-aligned so vectorization simple
+    if(0){ // H[idx] is 16-aligned so vectorization simple
       for(i = 0; i<16; i++){
+	index_x = (i0+i)*pny*pnz;
+	real zxi = zx[m16+i];
 	im16 = i + m16;
 	for(j = 0; j<16; j++){
+	  index_xy = index_x + (j0+j)*pnz + k0;
+	  real zxzy = zxi*zy[m16+j];
 	  jm16 = j + m16;
-	  rC  = _mm_set1_pd( zx[im16]*zy[jm16]);
-	  rCX = _mm_set1_pd( zx[im16]*zy[jm16]*zfx[im16]);
-	  rCY = _mm_set1_pd( zx[im16]*zy[jm16]*zfy[jm16]);
+	  rC  = _mm_set1_pd( zxzy);
+	  rCX = _mm_set1_pd( zxzy*zfx[im16]);
+	  rCY = _mm_set1_pd( zxzy*zfy[jm16]);
 #ifdef CALC_ENERGY
-	  rCP = _mm_set1_pd( zx[im16]*zy[jm16]);
+	  rCP = _mm_set1_pd( zxzy);
 #endif
 	  
 	  /* 0 */ 
-	  rH0  = _mm_load_pd( H+idx );
+	  rH0  = _mm_load_pd( grid + index_xy );
 	  rZS0 = _mm_load_pd( zs + idx_zs);		    
 	  rFX =_mm_add_pd(rFX,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ0,rCX),rZS0)));
 	  rFY =_mm_add_pd(rFY,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ0,rCY),rZS0)));
@@ -752,7 +765,7 @@ SE_int_split_SSE_P16_d(rvec *force, real *grid, real *q,
 	  rP =_mm_add_pd(rP,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(_mm_mul_pd(rZFZ0,rZZ0),rCP),rZS0)));
 #endif
 	  /* 1 */ 
-	  rH0  = _mm_load_pd( H+idx + 2);
+	  rH0  = _mm_load_pd( grid + index_xy + 2);
 	  rZS0 = _mm_load_pd( zs + idx_zs + 2);		    
 	  rFX =_mm_add_pd(rFX,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ1,rCX),rZS0)));
 	  rFY =_mm_add_pd(rFY,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ1,rCY),rZS0)));
@@ -762,7 +775,7 @@ SE_int_split_SSE_P16_d(rvec *force, real *grid, real *q,
 #endif
 	  
 	  /* 2 */ 
-	  rH0  = _mm_load_pd( H+idx + 4);
+	  rH0  = _mm_load_pd( grid + index_xy + 4);
 	  rZS0 = _mm_load_pd( zs + idx_zs + 4);		    
 	  rFX =_mm_add_pd(rFX,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ2,rCX),rZS0)));
 	  rFY =_mm_add_pd(rFY,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ2,rCY),rZS0)));
@@ -772,7 +785,7 @@ SE_int_split_SSE_P16_d(rvec *force, real *grid, real *q,
 #endif
 	  
 	  /* 3 */ 
-	  rH0  = _mm_load_pd( H+idx + 6);
+	  rH0  = _mm_load_pd( grid + index_xy + 6);
 	  rZS0 = _mm_load_pd( zs + idx_zs + 6);
 	  rFX =_mm_add_pd(rFX,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ3,rCX),rZS0)));
 	  rFY =_mm_add_pd(rFY,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ3,rCY),rZS0)));
@@ -782,7 +795,7 @@ SE_int_split_SSE_P16_d(rvec *force, real *grid, real *q,
 #endif
 
 	  /* 4 */ 
-	  rH0  = _mm_load_pd( H+idx + 8);
+	  rH0  = _mm_load_pd( grid + index_xy + 8);
 	  rZS0 = _mm_load_pd( zs + idx_zs + 8);
 	  rFX =_mm_add_pd(rFX,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ4,rCX),rZS0)));
 	  rFY =_mm_add_pd(rFY,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ4,rCY),rZS0)));
@@ -792,7 +805,7 @@ SE_int_split_SSE_P16_d(rvec *force, real *grid, real *q,
 #endif
 
 	  /* 5 */ 
-	  rH0  = _mm_load_pd( H+idx + 10);
+	  rH0  = _mm_load_pd( grid + index_xy + 10);
 	  rZS0 = _mm_load_pd( zs + idx_zs + 10);
 	  rFX =_mm_add_pd(rFX,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ5,rCX),rZS0)));
 	  rFY =_mm_add_pd(rFY,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ5,rCY),rZS0)));
@@ -802,7 +815,7 @@ SE_int_split_SSE_P16_d(rvec *force, real *grid, real *q,
 #endif
 
 	  /* 6 */ 
-	  rH0  = _mm_load_pd( H+idx + 12);
+	  rH0  = _mm_load_pd( grid + index_xy + 12);
 	  rZS0 = _mm_load_pd( zs + idx_zs + 12);
 	  rFX =_mm_add_pd(rFX,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ6,rCX),rZS0)));
 	  rFY =_mm_add_pd(rFY,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ6,rCY),rZS0)));
@@ -811,7 +824,7 @@ SE_int_split_SSE_P16_d(rvec *force, real *grid, real *q,
 	  rP =_mm_add_pd(rP,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ6,rCP),rZS0)));
 #endif
 	  /* 7 */ 
-	  rH0  = _mm_load_pd( H+idx + 14);
+	  rH0  = _mm_load_pd( grid + index_xy + 14);
 	  rZS0 = _mm_load_pd( zs + idx_zs + 14);
 	  rFX =_mm_add_pd(rFX,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ7,rCX),rZS0)));
 	  rFY =_mm_add_pd(rFY,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ7,rCY),rZS0)));
@@ -821,35 +834,37 @@ SE_int_split_SSE_P16_d(rvec *force, real *grid, real *q,
 #endif
 
 	  idx_zs +=16;
-	  idx += incrj + 16;
 	}
-	idx += incri;
       }
     }
     else{ // H[idx] not 16-aligned, so use non-aligned loads
       for(i = 0; i<16; i++){
+	index_x = (i0+i)*pny*pnz;
+	real zxi = zx[m16+i];
 	im16 = i + m16;
 	for(j = 0; j<16; j++){
+	  index_xy = index_x + (j0+j)*pnz + k0;
+	  real zxzy = zxi*zy[m16+j];
 	  jm16 = j + m16;
-	  rC  = _mm_set1_pd( zx[im16]*zy[jm16]);
-	  rCX = _mm_set1_pd( zx[im16]*zy[jm16]*zfx[im16]);
-	  rCY = _mm_set1_pd( zx[im16]*zy[jm16]*zfy[jm16]);
+	  rC  = _mm_set1_pd( zxzy);
+	  rCX = _mm_set1_pd( zxzy*zfx[im16]);
+	  rCY = _mm_set1_pd( zxzy*zfy[jm16]);
 #ifdef CALC_ENERGY
-	  rCP  = _mm_set1_pd( zx[im16]*zy[jm16]);
+	  rCP = _mm_set1_pd( zxzy);
 #endif
-
+	  
 	  /* 0 */ 
-	  rH0  = _mm_loadu_pd( H+idx );
+	  rH0  = _mm_load_pd( grid + index_xy );
 	  rZS0 = _mm_load_pd( zs + idx_zs);		    
 	  rFX =_mm_add_pd(rFX,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ0,rCX),rZS0)));
 	  rFY =_mm_add_pd(rFY,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ0,rCY),rZS0)));
 	  rFZ =_mm_add_pd(rFZ,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(_mm_mul_pd(rZFZ0,rZZ0),rC),rZS0)));
+	  
 #ifdef CALC_ENERGY
-	  rP =_mm_add_pd(rP,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ0,rCP),rZS0)));
+	  rP =_mm_add_pd(rP,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(_mm_mul_pd(rZFZ0,rZZ0),rCP),rZS0)));
 #endif
-
 	  /* 1 */ 
-	  rH0  = _mm_loadu_pd( H+idx + 2);
+	  rH0  = _mm_load_pd( grid + index_xy + 2);
 	  rZS0 = _mm_load_pd( zs + idx_zs + 2);		    
 	  rFX =_mm_add_pd(rFX,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ1,rCX),rZS0)));
 	  rFY =_mm_add_pd(rFY,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ1,rCY),rZS0)));
@@ -857,9 +872,9 @@ SE_int_split_SSE_P16_d(rvec *force, real *grid, real *q,
 #ifdef CALC_ENERGY
 	  rP =_mm_add_pd(rP,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ1,rCP),rZS0)));
 #endif
-
+	  
 	  /* 2 */ 
-	  rH0  = _mm_loadu_pd( H+idx + 4);
+	  rH0  = _mm_load_pd( grid + index_xy + 4);
 	  rZS0 = _mm_load_pd( zs + idx_zs + 4);		    
 	  rFX =_mm_add_pd(rFX,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ2,rCX),rZS0)));
 	  rFY =_mm_add_pd(rFY,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ2,rCY),rZS0)));
@@ -867,9 +882,9 @@ SE_int_split_SSE_P16_d(rvec *force, real *grid, real *q,
 #ifdef CALC_ENERGY
 	  rP =_mm_add_pd(rP,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ2,rCP),rZS0)));
 #endif
-
+	  
 	  /* 3 */ 
-	  rH0  = _mm_loadu_pd( H+idx + 6);
+	  rH0  = _mm_load_pd( grid + index_xy + 6);
 	  rZS0 = _mm_load_pd( zs + idx_zs + 6);
 	  rFX =_mm_add_pd(rFX,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ3,rCX),rZS0)));
 	  rFY =_mm_add_pd(rFY,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ3,rCY),rZS0)));
@@ -879,17 +894,17 @@ SE_int_split_SSE_P16_d(rvec *force, real *grid, real *q,
 #endif
 
 	  /* 4 */ 
-	  rH0  = _mm_loadu_pd( H+idx + 8);
+	  rH0  = _mm_load_pd( grid + index_xy + 8);
 	  rZS0 = _mm_load_pd( zs + idx_zs + 8);
 	  rFX =_mm_add_pd(rFX,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ4,rCX),rZS0)));
 	  rFY =_mm_add_pd(rFY,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ4,rCY),rZS0)));
 	  rFZ =_mm_add_pd(rFZ,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(_mm_mul_pd(rZFZ4,rZZ4),rC),rZS0)));
-#ifdef CALC_ENERGY
+#ifdef CALC_NERGY
 	  rP =_mm_add_pd(rP,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ4,rCP),rZS0)));
 #endif
 
 	  /* 5 */ 
-	  rH0  = _mm_loadu_pd( H+idx + 10);
+	  rH0  = _mm_load_pd( grid + index_xy + 10);
 	  rZS0 = _mm_load_pd( zs + idx_zs + 10);
 	  rFX =_mm_add_pd(rFX,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ5,rCX),rZS0)));
 	  rFY =_mm_add_pd(rFY,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ5,rCY),rZS0)));
@@ -899,7 +914,7 @@ SE_int_split_SSE_P16_d(rvec *force, real *grid, real *q,
 #endif
 
 	  /* 6 */ 
-	  rH0  = _mm_loadu_pd( H+idx + 12);
+	  rH0  = _mm_load_pd( grid + index_xy + 12);
 	  rZS0 = _mm_load_pd( zs + idx_zs + 12);
 	  rFX =_mm_add_pd(rFX,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ6,rCX),rZS0)));
 	  rFY =_mm_add_pd(rFY,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ6,rCY),rZS0)));
@@ -907,9 +922,8 @@ SE_int_split_SSE_P16_d(rvec *force, real *grid, real *q,
 #ifdef CALC_ENERGY
 	  rP =_mm_add_pd(rP,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ6,rCP),rZS0)));
 #endif
-
 	  /* 7 */ 
-	  rH0  = _mm_loadu_pd( H+idx + 14);
+	  rH0  = _mm_load_pd( grid + index_xy + 14);
 	  rZS0 = _mm_load_pd( zs + idx_zs + 14);
 	  rFX =_mm_add_pd(rFX,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ7,rCX),rZS0)));
 	  rFY =_mm_add_pd(rFY,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ7,rCY),rZS0)));
@@ -917,16 +931,11 @@ SE_int_split_SSE_P16_d(rvec *force, real *grid, real *q,
 #ifdef CALC_ENERGY
 	  rP =_mm_add_pd(rP,_mm_mul_pd(rH0,_mm_mul_pd(_mm_mul_pd(rZZ7,rCP),rZS0)));
 #endif
-	  idx_zs +=16;
-	  idx += incrj + 16;
-	}
-	idx += incri;
-      }
-    }
 
-    _mm_store_pd(sx,rFX);
-    _mm_store_pd(sy,rFY);
-    _mm_store_pd(sz,rFZ);
+	  idx_zs +=16;
+	}
+      }      
+    }
 
     if(bClearF){
       force[m][XX] = 0;
@@ -934,23 +943,26 @@ SE_int_split_SSE_P16_d(rvec *force, real *grid, real *q,
       force[m][ZZ] = 0;
     }
 
-    force[m][XX] += -qm*scale*h3*(sx[0]+sx[1]);
-    force[m][YY] += -qm*scale*h3*(sy[0]+sy[1]);
-    force[m][ZZ] += -qm*scale*h3*(sz[0]+sz[1]);
-
+    double factor = -qm*scale*h3;
+    force[m][XX] += factor*reduce_sse(rFX);
+    force[m][YY] += factor*reduce_sse(rFY);
+    force[m][ZZ] += factor*reduce_sse(rFZ);
+    
 #ifdef CALC_ENERGY
     _mm_store_pd(s,rP);
-    st->phi[m] = -scale*h3*(s[0]+s[1]);
+    st->phi[m] = -scale*h3*reduce_sse(rP);
 #endif
   }
 }
 
 // -----------------------------------------------------------------------------
 static void 
-SE_int_split_SSE_dispatch_d(rvec *force, real *grid, real *q,
-			    splinedata_t *spline,
-			    const SE_FGG_params *params, real scale,
-			    gmx_bool bClearF)
+SE_int_split_SSE_dispatch_d(rvec* force, real* grid, real* q,
+			  splinedata_t *spline,
+			  const SE_FGG_params* params, real scale,
+			  gmx_bool bClearF,
+			  const pme_atomcomm_t *atc,
+			  const gmx_pme_t *pme)
 {
   const int p = params->P;
   const int incrj = params->dims[2]; // middle increment
@@ -959,29 +971,29 @@ SE_int_split_SSE_dispatch_d(rvec *force, real *grid, real *q,
   // if P is odd, or if either increment is odd, fall back on vanilla
   if( is_odd(p) || is_odd(incri) || is_odd(incrj) ){
     __DISPATCHER_MSG("[FGG INT SSE DOUBLE] SSE Abort (PARAMS)\n");
-    SE_int_split_d(force, grid, q, spline, params, scale, bClearF);
+    SE_int_split_d(force, grid, q, spline, params, scale, bClearF, atc, pme);
     return;
   }
   // otherwise the preconditions for SSE codes are satisfied. 
   if(p==8){
     // specific for p=8
     __DISPATCHER_MSG("[FGG INT SSE DOUBLE] P=8\n");
-    SE_int_split_SSE_P8_d(force, grid, q, spline, params, scale, bClearF);
+    SE_int_split_SSE_P8_d(force, grid, q, spline, params, scale, bClearF, atc, pme);
   }
   else if(p==16){
     // specific for p=16
     __DISPATCHER_MSG("[FGG INT SSE DOUBLE] P=16\n");
-    SE_int_split_SSE_P16_d(force, grid, q, spline, params, scale, bClearF); 
+    SE_int_split_SSE_P16_d(force, grid, q, spline, params, scale, bClearF, atc, pme); 
   }
   else if(p%8==0){
     // for p divisible by 8
     __DISPATCHER_MSG("[FGG INT SSE DOUBLE] P unroll 8\n");
-    SE_int_split_SSE_u8_d(force, grid, q, spline, params, scale, bClearF); 
+    SE_int_split_SSE_u8_d(force, grid, q, spline, params, scale, bClearF, atc, pme); 
   }
   else{
     // vanilla SSE code (any even p)
     __DISPATCHER_MSG("[FGG INT SSE DOUBLE] Vanilla\n");
-    SE_int_split_SSE_d(force, grid, q, spline, params, scale, bClearF);
+    SE_int_split_SSE_d(force, grid, q, spline, params, scale, bClearF, atc, pme);
   }
 }
 
