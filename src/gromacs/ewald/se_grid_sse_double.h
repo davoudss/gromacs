@@ -7,7 +7,6 @@
 
 static void SE_grid_split_d(real* gmx_restrict grid, real* gmx_restrict q,
 			      splinedata_t         * gmx_restrict spline, 
-			      const SE_FGG_params  * gmx_restrict params,
 			      const pme_atomcomm_t * gmx_restrict atc,
 			      const pmegrid_t      * gmx_restrict pmegrid) 
 {
@@ -17,7 +16,7 @@ static void SE_grid_split_d(real* gmx_restrict grid, real* gmx_restrict q,
   const real*   zy = (real*) spline->theta[1];
   const real*   zz = (real*) spline->theta[2];
 
-  const int p = params->P;
+  const int p = pmegrid->order-1;
 
   real cij0,qn;
   int idx0, zidx, idxzz, i, j, k, n, nn;
@@ -71,18 +70,16 @@ static void SE_grid_split_d(real* gmx_restrict grid, real* gmx_restrict q,
 // -----------------------------------------------------------------------------
 static void SE_grid_split_SSE_d(real* gmx_restrict grid, real* gmx_restrict q,
 				splinedata_t         * gmx_restrict spline, 
-				const SE_FGG_params  * gmx_restrict params,
 				const pme_atomcomm_t * gmx_restrict atc,
 				const pmegrid_t      * gmx_restrict pmegrid)
 {
   // unpack parameters
-  const int        N = params->N;
   const double*   zs = (double*) spline->zs;
   const double*   zx = (double*) spline->theta[0];
   const double*   zy = (double*) spline->theta[1];
   const double*   zz = (double*) spline->theta[2];
     
-  const int p = params->P;
+  const int p = pmegrid->order-1;
   double qn;
   int idx_zs, idx_zz, i, j, k, n, nn;
   int index_x, index_xy;
@@ -98,7 +95,7 @@ static void SE_grid_split_SSE_d(real* gmx_restrict grid, real* gmx_restrict q,
 
   __m128d rH0, rZZ0, rZS0, rC;
 
-  for(n=0; n<N; n++){
+  for(n=0; n<spline->n; n++){
     nn = spline->ind[n];
     qn = q[nn];
     idxptr = atc->idx[nn];
@@ -160,18 +157,16 @@ static void SE_grid_split_SSE_d(real* gmx_restrict grid, real* gmx_restrict q,
 // -----------------------------------------------------------------------------
 static void SE_grid_split_SSE_u8_d(real* gmx_restrict grid, real* gmx_restrict q,
 				   splinedata_t         * gmx_restrict spline, 
-				   const SE_FGG_params  * gmx_restrict params,
 				   const pme_atomcomm_t * gmx_restrict atc,
 				   const pmegrid_t      * gmx_restrict pmegrid)
 {
   // unpack parameters
-  const int        N = params->N;
   const double*   zs = (double*) spline->zs;
   const double*   zx = (double*) spline->theta[0];
   const double*   zy = (double*) spline->theta[1];
   const double*   zz = (double*) spline->theta[2];
     
-  const int p = params->P;
+  const int p = pmegrid->order-1;
 
   double qn;
   int idx0, idx_zs, idx_zz, i, j, k, n, nn;
@@ -191,7 +186,7 @@ static void SE_grid_split_SSE_u8_d(real* gmx_restrict grid, real* gmx_restrict q
   __m128d rH2, rZZ2, rZS2;
   __m128d rH3, rZZ3, rZS3;
 
-  for(n=0; n<N; n++){
+  for(n=0; n<spline->n; n++){
     nn = spline->ind[n];
     qn = q[nn];
     idxptr = atc->idx[nn];
@@ -292,12 +287,10 @@ static void SE_grid_split_SSE_u8_d(real* gmx_restrict grid, real* gmx_restrict q
 // -----------------------------------------------------------------------------
 static void SE_grid_split_SSE_P8_d(real* gmx_restrict grid, real* gmx_restrict q,
 				   splinedata_t         * gmx_restrict spline, 
-				   const SE_FGG_params  * gmx_restrict params,
 				   const pme_atomcomm_t * gmx_restrict atc,
 				   const pmegrid_t      * gmx_restrict pmegrid)
 {
   // unpack parameters
-  const int        N = params->N;
   const double*   zs = (double*) spline->zs;
   const double*   zx = (double*) spline->theta[0];
   const double*   zy = (double*) spline->theta[1];
@@ -321,7 +314,7 @@ static void SE_grid_split_SSE_P8_d(real* gmx_restrict grid, real* gmx_restrict q
   __m128d rH2, rZZ2, rZS2;
   __m128d rH3, rZZ3, rZS3;
 
-  for(n=0; n<N; n++){
+  for(n=0; n<spline->n; n++){
     nn = spline->ind[n];
     qn = q[nn];
     idxptr = atc->idx[nn];
@@ -423,7 +416,6 @@ static void SE_grid_split_SSE_P8_d(real* gmx_restrict grid, real* gmx_restrict q
 // -----------------------------------------------------------------------------
 static void SE_grid_split_SSE_P16_d(real* gmx_restrict grid, real* gmx_restrict q,
 				    splinedata_t         * gmx_restrict spline, 
-				    const SE_FGG_params  * gmx_restrict params,
 				    const pme_atomcomm_t * gmx_restrict atc,
 				    const pmegrid_t      * gmx_restrict pmegrid)
 {
@@ -607,7 +599,7 @@ SE_grid_split_SSE_dispatch_d(real* grid, real* q,
   // if P is odd, or if either increment is odd, fall back on vanilla
   if( is_odd(p) || is_odd(incri) || is_odd(incrj) ){
     __DISPATCHER_MSG("[FGG GRID SSE DOUBLE] SSE Abort (PARAMS)\n");
-    SE_grid_split_d(grid, q, spline, params, atc, pmegrid);
+    SE_grid_split_d(grid, q, spline, atc, pmegrid);
     return;
   }
 
@@ -615,22 +607,22 @@ SE_grid_split_SSE_dispatch_d(real* grid, real* q,
   if(p==16){
     // specific for p=16
     __DISPATCHER_MSG("[FGG GRID SSE DOUBLE] P=16\n");
-    SE_grid_split_SSE_P16_d(grid, q, spline, params, atc, pmegrid);
+    SE_grid_split_SSE_P16_d(grid, q, spline,atc, pmegrid);
   }
   else if(p==8){
     // specific for p divisible by 8
     __DISPATCHER_MSG("[FGG GRID SSE DOUBLE] P=8\n");
-    SE_grid_split_SSE_P8_d(grid, q, spline, params, atc, pmegrid); 
+    SE_grid_split_SSE_P8_d(grid, q, spline, atc, pmegrid); 
   }  
   else if(p%8==0){
     // specific for p divisible by 8
     __DISPATCHER_MSG("[FGG GRID SSE DOUBLE] P unroll 8\n");
-    SE_grid_split_SSE_u8_d(grid, q, spline, params, atc, pmegrid); 
+    SE_grid_split_SSE_u8_d(grid, q, spline, atc, pmegrid); 
   }
   else{
     // vanilla SSE code (any even p)
     __DISPATCHER_MSG("[FGG GRID SSE DOUBLE] Vanilla\n");
-    SE_grid_split_SSE_d(grid, q, spline, params, atc, pmegrid);
+    SE_grid_split_SSE_d(grid, q, spline, atc, pmegrid);
   }
 }
 

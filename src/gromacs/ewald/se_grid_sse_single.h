@@ -8,18 +8,16 @@
 // -----------------------------------------------------------------------------
 static void SE_grid_split(real* grid, real* q,
 			  splinedata_t *spline,
-			  const SE_FGG_params* params,
 			  const pme_atomcomm_t *atc,
 			  const pmegrid_t* pmegrid)
 {
   // unpack parameters
-  float*          H = (float*) grid; // pointer to grid does NOT alias
   const float*   zs = (float*) spline->zs;
   const float*   zx = (float*) spline->theta[0];
   const float*   zy = (float*) spline->theta[1];
   const float*   zz = (float*) spline->theta[2];
     
-  const int p = params->P;
+  const int p = pmegrid->order-1;
 
   float cij0,qn;
   int zidx, idxzz, i, j, k, n, nn;
@@ -56,7 +54,7 @@ static void SE_grid_split(real* grid, real* q,
 	      for(k = 0; k<p; k++)
 		{
 		  index_xyz = index_xy + (k0+k);
-		  H[index_xyz] += zs[zidx]*zz[idxzz]*cij0*qn;
+		  grid[index_xyz] += zs[zidx]*zz[idxzz]*cij0*qn;
 		  zidx++; idxzz++;
 		}
 	    }
@@ -68,18 +66,16 @@ static void SE_grid_split(real* grid, real* q,
 // -----------------------------------------------------------------------------
 static void SE_grid_split_SSE(real* grid, real* q,
 			      splinedata_t *spline,
-			      const SE_FGG_params* params,
 			      const pme_atomcomm_t *atc,
 			      const pmegrid_t* pmegrid)
 {
   // unpack parameters
-  float*          H = (float*) grid; // pointer to grid does NOT alias
   const float*   zs = (float*) spline->zs;
   const float*   zx = (float*) spline->theta[0];
   const float*   zy = (float*) spline->theta[1];
   const float*   zz = (float*) spline->theta[2];
     
-  const int p = params->P;
+  const int p = pmegrid->order-1;
 
   int idx0, idx_zs, idx_zz, i, j, k, n, nn;
   int index_x, index_xy;
@@ -115,7 +111,7 @@ static void SE_grid_split_SSE(real* grid, real* q,
 	  rC = _mm_set1_ps( qn*zx[p*n+i]*zy[p*n+j] );
 	  idx_zz=p*n;
 	  for(k = 0; k<p; k+=4){
-	    rH0  = _mm_load_ps( H+index_xy + k0 + k  );
+	    rH0  = _mm_load_ps( grid+index_xy + k0 + k  );
 	    rZZ0 = _mm_load_ps( zz + idx_zz     );
 	    rZS0 = _mm_load_ps( zs + idx_zs    );
 	    
@@ -123,7 +119,7 @@ static void SE_grid_split_SSE(real* grid, real* q,
 	    rZZ0 = _mm_mul_ps(rZZ0,rZS0);
 	    rH0  = _mm_add_ps(rH0,rZZ0);
 	    
-	    _mm_store_ps( H+index_xy + k0 + k , rH0 );
+	    _mm_store_ps( grid +index_xy + k0 + k , rH0 );
 	    
 	    idx_zs+=4; 
 	    idx_zz+=4;
@@ -139,13 +135,13 @@ static void SE_grid_split_SSE(real* grid, real* q,
 	  rC = _mm_set1_ps( qn*zx[p*n+i]*zy[p*n+j] );
 	  idx_zz=p*n;
 	  for(k = 0; k<p; k+=4){
-	    rH0  = _mm_loadu_ps( H+index_xy + k0 + k );
+	    rH0  = _mm_loadu_ps( grid+index_xy + k0 + k );
 	    rZZ0 = _mm_load_ps( zz + idx_zz );
 	    rZS0 = _mm_load_ps( zs + idx_zs );
 	    rZZ0 = _mm_mul_ps(rZZ0,rC);
 	    rZZ0 = _mm_mul_ps(rZZ0,rZS0);
 	    rH0  = _mm_add_ps(rH0,rZZ0);
-	    _mm_storeu_ps( H+index_xy + k0 + k, rH0 );
+	    _mm_storeu_ps( grid+index_xy + k0 + k, rH0 );
 	    
 	    idx_zs+=4;
 	    idx_zz+=4;
@@ -159,12 +155,10 @@ static void SE_grid_split_SSE(real* grid, real* q,
 // -----------------------------------------------------------------------------
 static void SE_grid_split_SSE_P8(real *grid, real *q,
 				 splinedata_t *spline,
-				 const SE_FGG_params *params,
 				 const pme_atomcomm_t *atc,
 				 const pmegrid_t* pmegrid)
 {
   // unpack parameters
-  float*          H = (float*) grid; // pointer to grid does NOT alias
   const float*   zs = (float*) spline->zs;
   const float*   zx = (float*) spline->theta[0];
   const float*   zy = (float*) spline->theta[1];
@@ -211,16 +205,16 @@ static void SE_grid_split_SSE_P8(real *grid, real *q,
 
 	  rC = _mm_set1_ps( qn*zx[8*n+i]*zy[8*n+j] );
 	  
-	  rH0  = _mm_load_ps( H+index_xy + k0    );
-	  rH1  = _mm_load_ps( H+index_xy + k0 + 4);
+	  rH0  = _mm_load_ps( grid+index_xy + k0    );
+	  rH1  = _mm_load_ps( grid+index_xy + k0 + 4);
 	  rZS0 = _mm_load_ps( zs + idx_zs);
 	  rH0 = _mm_add_ps(rH0,_mm_mul_ps(_mm_mul_ps(rZZ0,rC),rZS0));
 	  
 	  rZS0 = _mm_load_ps( zs + idx_zs + 4);                   
 	  rH1 = _mm_add_ps(rH1,_mm_mul_ps(_mm_mul_ps(rZZ1,rC),rZS0));
 	  
-	  _mm_store_ps(H + index_xy + k0    , rH0);
-	  _mm_store_ps(H + index_xy + k0 + 4, rH1);
+	  _mm_store_ps(grid + index_xy + k0    , rH0);
+	  _mm_store_ps(grid + index_xy + k0 + 4, rH1);
 	  
 	  idx_zs += 8;
 	}
@@ -233,8 +227,8 @@ static void SE_grid_split_SSE_P8(real *grid, real *q,
 	  index_xy = index_x + (j0+j)*pnz;
 	  rC = _mm_set1_ps( qn*zx[8*n+i]*zy[8*n+j] );
 	  
-	  rH0  = _mm_loadu_ps( H+index_xy + k0    );
-	  rH1  = _mm_loadu_ps( H+index_xy + k0 + 4);
+	  rH0  = _mm_loadu_ps( grid+index_xy + k0    );
+	  rH1  = _mm_loadu_ps( grid+index_xy + k0 + 4);
 	  
 	  // if zs does not have 16-byte alignment, this will core.
 	  // PLATFORM AND COMPILER DEPENDENT (FIXME)
@@ -244,8 +238,8 @@ static void SE_grid_split_SSE_P8(real *grid, real *q,
 	  rZS0 = _mm_load_ps( zs + idx_zs + 4);                   
 	  rH1 = _mm_add_ps(rH1,_mm_mul_ps(_mm_mul_ps(rZZ1,rC),rZS0));
 	  
-	  _mm_storeu_ps(H + index_xy + k0     , rH0);
-	  _mm_storeu_ps(H + index_xy + k0  + 4, rH1);
+	  _mm_storeu_ps(grid + index_xy + k0     , rH0);
+	  _mm_storeu_ps(grid + index_xy + k0  + 4, rH1);
 	  
 	  idx_zs += 8;
 	}
@@ -270,7 +264,7 @@ SE_grid_split_SSE_dispatch(real* grid, real* q,
   if( isnot_div_by_4(p) || isnot_div_by_4(incri) || isnot_div_by_4(incrj)  || (p%4)!=0)
     {
       __DISPATCHER_MSG("[FGG GRID SSE SINGLE] SSE Abort (PARAMS)\n");
-      SE_grid_split(grid, q, spline, params,atc,pmegrid);
+      SE_grid_split(grid, q, spline, atc,pmegrid);
       return;
     }
    
@@ -278,12 +272,12 @@ SE_grid_split_SSE_dispatch(real* grid, real* q,
   if(p==8){
     // specific for p=8
     __DISPATCHER_MSG("[FGG GRID SSE SINGLE] P=8\n");
-    SE_grid_split_SSE_P8(grid, q, spline, params, atc, pmegrid);
+    SE_grid_split_SSE_P8(grid, q, spline, atc, pmegrid);
   }
   else {
     // vanilla SSE code for p divisible by 4
     __DISPATCHER_MSG("[FGG GRID SSE SINGLE] Vanilla\n");
-    SE_grid_split_SSE(grid, q, spline, params, atc, pmegrid);
+    SE_grid_split_SSE(grid, q, spline, atc, pmegrid);
   }
 }
 

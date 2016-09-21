@@ -1094,7 +1094,7 @@ int gmx_pme_do(struct gmx_pme_t *pme,
 
 	    // FIXME: M is equal in 3D
 	    se_opt.M       = pme->nkx;//tempgrid->s[XX]-se_opt.P;
-	    se_opt.m       = 0.95*sqrt(M_PI*se_opt.P);
+	    se_opt.m       = 0.9*sqrt(M_PI*se_opt.P);
 	    
 	    se_opt.box[XX] = box[XX][XX];
 	    se_opt.box[YY] = box[YY][YY];

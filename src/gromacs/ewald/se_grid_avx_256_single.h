@@ -10,12 +10,10 @@
 // -----------------------------------------------------------------------------
 static void SE_grid_split_AVX(real* gmx_restrict grid, real* gmx_restrict q,
 			      splinedata_t         * gmx_restrict spline, 
-			      const SE_FGG_params  * gmx_restrict params,
 			      const pme_atomcomm_t * gmx_restrict atc,
 			      const pmegrid_t      * gmx_restrict pmegrid)
 {
   // unpack parameters
-  const int     N = params->N;
   const float* zs = (float*) spline->zs;
   const float* zx = (float*) spline->theta[0];
   const float* zy = (float*) spline->theta[1];
@@ -37,7 +35,7 @@ static void SE_grid_split_AVX(real* gmx_restrict grid, real* gmx_restrict q,
 
   __m256 rH0, rZZ0, rZS0, rC;
 
-  for(n=0; n<N; n++){
+  for(n=0; n<spline->n; n++){
     nn = spline->ind[n];
     qn = q[nn];
     idxptr = atc->idx[nn];
@@ -115,7 +113,7 @@ SE_grid_split_AVX_dispatch(real* grid, real* q,
   if( isnot_div_by_8(p) || isnot_div_by_8(incri) || isnot_div_by_8(incrj) || (p%8)!=0)
     {
       __DISPATCHER_MSG("[FGG GRID AVX SINGLE] AVX Abort (PARAMS)\n");
-      SE_grid_split_SSE_dispatch(grid, q, spline, params,atc,pmegrid);
+      SE_grid_split_SSE_dispatch(grid, q, spline, params, atc, pmegrid);
       return;
     }
     
@@ -123,7 +121,7 @@ SE_grid_split_AVX_dispatch(real* grid, real* q,
   else if(p==8){
     // specific for p=8
     __DISPATCHER_MSG("[FGG GRID AVX SINGLE] P=8\n");
-    SE_grid_split_AVX(grid, q, spline, params, atc, pmegrid);
+    SE_grid_split_AVX(grid, q, spline, atc, pmegrid);
   }
 }
 
