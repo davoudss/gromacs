@@ -1,7 +1,7 @@
 /*
  * This file is part of the GROMACS molecular simulation package.
  *
- * Copyright (c) 2012,2014,2015,2016, by the GROMACS development team, led by
+ * Copyright (c) 2012,2014,2015,2016,2017, by the GROMACS development team, led by
  * Mark Abraham, David van der Spoel, Berk Hess, and Erik Lindahl,
  * and including many others, as listed in the AUTHORS file in the
  * top-level source directory and at http://www.gromacs.org.
@@ -32,14 +32,14 @@
  * To help us fund GROMACS development, we humbly ask that you cite
  * the research papers on the package. Check out http://www.gromacs.org.
  */
+#ifndef CUDA_ARCH_UTILS_CUH_
+#define CUDA_ARCH_UTILS_CUH_
 
 /*! \file
  *  \brief CUDA arch dependent definitions.
  *
  *  \author Szilard Pall <pall.szilard@gmail.com>
  */
-
-/* TODO move here other CUDA arch-related defines like WARP_SIZE */
 
 /* GMX_PTX_ARCH is set to the virtual arch (PTX) version targeted by
  * the current compiler pass or zero for the host pass and it is
@@ -50,3 +50,24 @@
 #else
     #define GMX_PTX_ARCH __CUDA_ARCH__
 #endif
+
+/* Until CC 5.2 and likely for the near future all NVIDIA architectures
+   have a warp size of 32, but this could change later. If it does, the
+   following constants should depend on the value of GMX_PTX_ARCH.
+ */
+static const int warp_size      = 32;
+static const int warp_size_log2 = 5;
+
+/*! \brief Allow disabling CUDA textures using the GMX_DISABLE_CUDA_TEXTURES macro.
+ *
+ *  This option will not influence functionality. All features using textures ought
+ *  to have fallback for texture-less reads (direct/LDG loads), all new code needs
+ *  to provide fallback code.
+ */
+#if defined GMX_DISABLE_CUDA_TEXTURES
+#define DISABLE_CUDA_TEXTURES 1
+#else
+#define DISABLE_CUDA_TEXTURES 0
+#endif
+
+#endif /* CUDA_ARCH_UTILS_CUH_ */

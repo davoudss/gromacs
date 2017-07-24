@@ -132,6 +132,13 @@ Performance and Run Control
         to performance loss due to a known CUDA driver bug present in API v5.0 NVIDIA drivers (pre-30x.xx).
         Cannot be set simultaneously with ``GMX_NO_CUDA_STREAMSYNC``.
 
+``GMX_DISABLE_CUDALAUNCH``
+        disable the use of the lower-latency cudaLaunchKernel API even when supported (CUDA >=v7.0).
+        Should only be used for benchmarking purposes.
+
+``GMX_DISABLE_CUDA_TIMING``
+        Disables GPU timing of CUDA tasks; synonymous with ``GMX_DISABLE_GPU_TIMING``.
+
 ``GMX_CYCLE_ALL``
         times all code during runs.  Incompatible with threads.
 
@@ -169,13 +176,17 @@ Performance and Run Control
         disables architecture-specific SIMD-optimized (SSE2, SSE4.1, AVX, etc.)
         non-bonded kernels thus forcing the use of plain C kernels.
 
-``GMX_DISABLE_CUDA_TIMING``
+``GMX_DISABLE_GPU_TIMING``
         timing of asynchronously executed GPU operations can have a
         non-negligible overhead with short step times. Disabling timing can improve performance in these cases.
 
 ``GMX_DISABLE_GPU_DETECTION``
         when set, disables GPU detection even if :ref:`gmx mdrun` was compiled
         with GPU support.
+
+``GMX_GPU_APPLICATION_CLOCKS``
+        setting this variable to a value of "0", "ON", or "DISABLE" (case insensitive)
+        allows disabling the CUDA GPU allication clock support.
 
 ``GMX_DISRE_ENSEMBLE_SIZE``
         the number of systems for distance restraint ensemble
@@ -184,8 +195,6 @@ Performance and Run Control
 ``GMX_EMULATE_GPU``
         emulate GPU runs by using algorithmically equivalent CPU reference code instead of
         GPU-accelerated functions. As the CPU code is slow, it is intended to be used only for debugging purposes.
-        The behavior is automatically triggered if non-bonded calculations are turned off using ``GMX_NO_NONBONDED``
-        case in which the non-bonded calculations will not be called, but the CPU-GPU transfer will also be skipped.
 
 ``GMX_ENX_NO_FATAL``
         disable exiting upon encountering a corrupted frame in an :ref:`edr`
@@ -219,9 +228,10 @@ Performance and Run Control
 ``GMX_NB_MIN_CI``
         neighbor list balancing parameter used when running on GPU. Sets the
         target minimum number pair-lists in order to improve multi-processor load-balance for better
-        performance with small simulation systems. Must be set to a positive integer, the default value
-        is optimized for NVIDIA Fermi and Kepler GPUs, therefore changing it is not necessary for
-        normal usage, but it can be useful on future architectures.
+        performance with small simulation systems. Must be set to a non-negative integer,
+        the 0 value disables list splitting.
+        The default value is optimized for supported GPUs (NVIDIA Fermi to Maxwell),
+        therefore changing it is not necessary for normal usage, but it can be useful on future architectures.
 
 ``GMX_NBLISTCG``
         use neighbor list and kernels based on charge groups.
@@ -252,6 +262,10 @@ Performance and Run Control
         used in initializing domain decomposition communicators. Rank reordering
         is default, but can be switched off with this environment variable.
 
+``GMX_NO_LJ_COMB_RULE``
+        force the use of LJ paremeter lookup instead of using combination rules
+        in the non-bonded kernels.
+
 ``GMX_NO_CUDA_STREAMSYNC``
         the opposite of ``GMX_CUDA_STREAMSYNC``. Disables the use of the
         standard cudaStreamSynchronize-based GPU waiting to improve performance when using CUDA driver API
@@ -268,6 +282,7 @@ Performance and Run Control
         skip non-bonded calculations; can be used to estimate the possible
         performance gain from adding a GPU accelerator to the current hardware setup -- assuming that this is
         fast enough to complete the non-bonded calculations while the CPU does bonded force and PME computation.
+        Freezing the particles will be required to stop the system blowing up.
 
 ``GMX_NO_PULLVIR``
         when set, do not add virial contribution to COM pull forces.
@@ -323,6 +338,13 @@ Performance and Run Control
         resolution of buffer size in Verlet cutoff scheme.  The default value is
         0.001, but can be overridden with this environment variable.
 
+``HWLOC_XMLFILE``
+        Not strictly a |Gromacs| environment variable, but on large machines
+        the hwloc detection can take a few seconds if you have lots of MPI processes.
+        If you run the hwloc command `lstopo out.xml` and set this environment
+        variable to point to the location of this file, the hwloc library will use
+        the cached information instead, which can be faster.
+
 ``MPIRUN``
         the ``mpirun`` command used by :ref:`gmx tune_pme`.
 
@@ -351,28 +373,23 @@ compilation of OpenCL kernels, but they are also used in device selection.
         kernels from previous runs. Currently, caching is always
         disabled, until we solve concurrency issues.
 
+``GMX_OCL_GENCACHE``
+        Enable OpenCL binary caching. Only intended to be used for
+        development and (expert) testing as neither concurrency
+        nor cache invalidation is implemented safely!
+
 ``GMX_OCL_NOFASTGEN``
         If set, generate and compile all algorithm flavors, otherwise
         only the flavor required for the simulation is generated and
         compiled.
 
-``GMX_OCL_FASTMATH``
-        Adds the option ``cl-fast-relaxed-math`` to the compiler
-        options (in the CUDA version this is enabled by default, it is likely that
-        the same will happen with the OpenCL version soon)
+``GMX_OCL_DISABLE_FASTMATH``
+        Prevents the use of ``-cl-fast-relaxed-math`` compiler option.
 
 ``GMX_OCL_DUMP_LOG``
-        If defined, the OpenCL build log is always written to file.
-        The file is saved in the current directory with the name
-        ``OpenCL_kernel_file_name.build_status`` where
-        ``OpenCL_kernel_file_name`` is the name of the file containing the
-        OpenCL source code (usually ``nbnxn_ocl_kernels.cl``) and
-        build_status can be either SUCCEEDED or FAILED. If this
-        environment variable is not defined, the default behavior is
-        the following:
-
-           - Debug build: build log is always written to file
-	   - Release build: build log is written to file only in case of errors.
+        If defined, the OpenCL build log is always written to the
+        mdrun log file. Otherwise, the build log is written to the
+        log file only when an error occurs.
 
 ``GMX_OCL_VERBOSE``
         If defined, it enables verbose mode for OpenCL kernel build.
@@ -407,6 +424,14 @@ compilation of OpenCL kernels, but they are also used in device selection.
         function properly with this option on, it is solely for the
         simplicity of stepping in a kernel and see what is happening.
 
+``GMX_OCL_DISABLE_I_PREFETCH``
+        Disables i-atom data (type or LJ parameter) prefetch allowig
+        testing.
+
+``GMX_OCL_ENABLE_I_PREFETCH``
+        Enables i-atom data (type or LJ parameter) prefetch allowig
+        testing on platforms where this behavior is not default.
+
 ``GMX_OCL_NB_ANA_EWALD``
         Forces the use of analytical Ewald kernels. Equivalent of
         CUDA environment variable ``GMX_CUDA_NB_ANA_EWALD``
@@ -427,6 +452,11 @@ compilation of OpenCL kernels, but they are also used in device selection.
         kernels from a custom location. Use it only if you want to
         override |Gromacs| default behavior, or if you want to test
         your own kernels.
+
+``GMX_OCL_DISABLE_COMPATIBILITY_CHECK``
+        Disables the hardware compatibility check. Useful for developers
+        and allows testing the OpenCL kernels on non-supported platforms
+        (like Intel iGPUs) without source code modification.
 
 Analysis and Core Functions
 ---------------------------

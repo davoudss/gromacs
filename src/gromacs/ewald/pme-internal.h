@@ -3,7 +3,7 @@
  *
  * Copyright (c) 1991-2000, University of Groningen, The Netherlands.
  * Copyright (c) 2001-2004, The GROMACS development team.
- * Copyright (c) 2013,2014,2015,2016, by the GROMACS development team, led by
+ * Copyright (c) 2013,2014,2015,2016,2017, by the GROMACS development team, led by
  * Mark Abraham, David van der Spoel, Berk Hess, and Erik Lindahl,
  * and including many others, as listed in the AUTHORS file in the
  * top-level source directory and at http://www.gromacs.org.
@@ -57,11 +57,13 @@
 
 #include <stdio.h>
 
-#include "gromacs/fft/parallel_3dfft.h"
 #include "gromacs/math/gmxcomplex.h"
 #include "gromacs/timing/wallcycle.h"
 #include "gromacs/timing/walltime_accounting.h"
 #include "gromacs/utility/gmxmpi.h"
+
+//! A repeat of typedef from parallel_3dfft.h
+typedef struct gmx_parallel_3dfft *gmx_parallel_3dfft_t;
 
 struct t_commrec;
 struct t_inputrec;
@@ -94,12 +96,17 @@ static const real lb_scale_factor_symm[] = { 2.0/64, 12.0/64, 30.0/64, 20.0/64 }
  */
 #define PME_ORDER_MAX 35
 
-/*! \brief As gmx_pme_init, but takes most settings, except the grid, from pme_src */
+/*! \brief As gmx_pme_init, but takes most settings, except the grid/Ewald coefficients, from pme_src.
+ * This is only called when the PME cut-off/grid size changes.
+ */
 int gmx_pme_reinit(struct gmx_pme_t **pmedata,
                    t_commrec *        cr,
                    struct gmx_pme_t * pme_src,
                    const t_inputrec * ir,
-                   ivec               grid_size);
+                   ivec               grid_size,
+                   real               ewaldcoeff_q,
+                   real               ewaldcoeff_lj);
+
 
 /* The following three routines are for PME/PP node splitting in pme_pp.c */
 
@@ -149,14 +156,12 @@ typedef real *splinevec[DIM];
 
 /*! \brief Data structure for beta-spline interpolation */
 typedef struct {
-    int      *thread_one;
     int       n;
     int      *ind;
     splinevec theta;
     real     *ptr_theta_z;
     splinevec dtheta;
     real     *ptr_dtheta_z;
-    // davoud 
     real *zs;
     int  *idx;
 } splinedata_t;
@@ -217,7 +222,7 @@ typedef struct {
     ivec       nc;           /* The local spatial decomposition over the threads */
     pmegrid_t *grid_th;      /* Array of grids for each thread                   */
     real      *grid_all;     /* Allocated array for the grids in *grid_th        */
-    int      **g2t;          /* The grid to thread index                         */
+    int       *g2t[DIM];     /* The grid to thread index                         */
     ivec       nthread_comm; /* The number of threads to communicate with        */
 } pmegrids_t;
 
@@ -247,12 +252,16 @@ typedef struct gmx_pme_t {
     int        nthread;       /* The number of threads doing PME on our rank */
 
     gmx_bool   bPPnode;       /* Node also does particle-particle forces */
+    bool       doCoulomb;     /* Apply PME to electrostatics */
+    bool       doLJ;          /* Apply PME to Lennard-Jones r^-6 interactions */
     gmx_bool   bFEP;          /* Compute Free energy contribution */
     gmx_bool   bFEP_q;
     gmx_bool   bFEP_lj;
     int        nkx, nky, nkz; /* Grid dimensions */
     gmx_bool   bP3M;          /* Do P3M: optimize the influence function */
     int        pme_order;
+    real       ewaldcoeff_q;  /* Ewald splitting coefficient for Coulomb */
+    real       ewaldcoeff_lj; /* Ewald splitting coefficient for r^-6 */
     real       epsilon_r;
 
     int        ljpme_combination_rule;  /* Type of combination rule in LJ-PME */
@@ -322,23 +331,6 @@ typedef struct gmx_pme_t {
 
 //! @endcond
 
-/*! \brief Check restrictions on pme_order and the PME grid nkx,nky,nkz.
- *
- * With bFatal=TRUE, a fatal error is generated on violation,
- * bValidSettings=NULL can be passed.
- * With bFatal=FALSE, *bValidSettings reports the validity of the settings.
- * bUseThreads tells if any MPI rank doing PME uses more than 1 threads.
- * If at calling you bUseThreads is unknown, pass TRUE for conservative
- * checking.
- */
-void gmx_pme_check_restrictions(int pme_order,
-                                int nkx, int nky, int nkz,
-                                int nnodes_major,
-                                int nnodes_minor,
-                                gmx_bool bUseThreads,
-                                gmx_bool bFatal,
-                                gmx_bool *bValidSettings);
-
 /*! \brief Initialize the PME-only side of the PME <-> PP communication */
 gmx_pme_pp_t gmx_pme_pp_init(t_commrec *cr);
 
@@ -368,9 +360,8 @@ int gmx_pme_recv_coeffs_coords(struct gmx_pme_pp *pme_pp,
                                real **sigmaA, real **sigmaB,
                                matrix box, rvec **x, rvec **f,
                                int *maxshift_x, int *maxshift_y,
-                               gmx_bool *bFreeEnergy_q, gmx_bool *bFreeEnergy_lj,
                                real *lambda_q, real *lambda_lj,
-                               gmx_bool *bEnerVir, int *pme_flags,
+                               gmx_bool *bEnerVir,
                                gmx_int64_t *step,
                                ivec grid_size, real *ewaldcoeff_q, real *ewaldcoeff_lj);
 

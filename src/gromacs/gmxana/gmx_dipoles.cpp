@@ -3,7 +3,7 @@
  *
  * Copyright (c) 1991-2000, University of Groningen, The Netherlands.
  * Copyright (c) 2001-2004, The GROMACS development team.
- * Copyright (c) 2013,2014,2015, by the GROMACS development team, led by
+ * Copyright (c) 2013,2014,2015,2016,2017, by the GROMACS development team, led by
  * Mark Abraham, David van der Spoel, Berk Hess, and Erik Lindahl,
  * and including many others, as listed in the AUTHORS file in the
  * top-level source directory and at http://www.gromacs.org.
@@ -60,7 +60,6 @@
 #include "gromacs/mdtypes/md_enums.h"
 #include "gromacs/pbcutil/pbc.h"
 #include "gromacs/pbcutil/rmpbc.h"
-#include "gromacs/random/random.h"
 #include "gromacs/statistics/statistics.h"
 #include "gromacs/topology/index.h"
 #include "gromacs/topology/topology.h"
@@ -94,9 +93,9 @@ static t_gkrbin *mk_gkrbin(real radius, real rcmax, gmx_bool bPhi, int ndegrees)
 
     snew(gb, 1);
 
-    if ((ptr = getenv("GMX_DIPOLE_SPACING")) != NULL)
+    if ((ptr = getenv("GMX_DIPOLE_SPACING")) != nullptr)
     {
-        double bw = strtod(ptr, NULL);
+        double bw = strtod(ptr, nullptr);
         gb->spacing = bw;
     }
     else
@@ -132,7 +131,7 @@ static void done_gkrbin(t_gkrbin **gb)
     sfree((*gb)->elem);
     sfree((*gb)->count);
     sfree((*gb));
-    *gb = NULL;
+    *gb = nullptr;
 }
 
 static void add2gkr(t_gkrbin *gb, real r, real cosa, real phi)
@@ -175,11 +174,11 @@ static void rvec2sprvec(rvec dipcart, rvec dipsp)
 
 
 
-void do_gkr(t_gkrbin *gb, int ncos, int *ngrp, int *molindex[],
-            int mindex[], rvec x[], rvec mu[],
-            int ePBC, matrix box, t_atom *atom, int *nAtom)
+static void do_gkr(t_gkrbin *gb, int ncos, int *ngrp, int *molindex[],
+                   int mindex[], rvec x[], rvec mu[],
+                   int ePBC, const matrix box, const t_atom *atom, const int *nAtom)
 {
-    static rvec *xcm[2] = { NULL, NULL};
+    static rvec *xcm[2] = { nullptr, nullptr};
     int          gi, gj, j0, j1, i, j, k, n, grp0, grp1;
     real         qtot, q, cosa, rr, phi;
     rvec         dx;
@@ -441,7 +440,7 @@ gmx_bool read_mu_from_enx(ener_file_t fmu, int Vol, ivec iMu, rvec mu, real *vol
     return bCont;
 }
 
-static void neutralize_mols(int n, int *index, t_block *mols, t_atom *atom)
+static void neutralize_mols(int n, int *index, const t_block *mols, t_atom *atom)
 {
     double mtot, qtot;
     int    ncharged, m, a0, a1, a;
@@ -480,7 +479,7 @@ static void neutralize_mols(int n, int *index, t_block *mols, t_atom *atom)
     }
 }
 
-static void mol_dip(int k0, int k1, rvec x[], t_atom atom[], rvec mu)
+static void mol_dip(int k0, int k1, rvec x[], const t_atom atom[], rvec mu)
 {
     int  k, m;
     real q;
@@ -496,7 +495,7 @@ static void mol_dip(int k0, int k1, rvec x[], t_atom atom[], rvec mu)
     }
 }
 
-static void mol_quad(int k0, int k1, rvec x[], t_atom atom[], rvec quad)
+static void mol_quad(int k0, int k1, rvec x[], const t_atom atom[], rvec quad)
 {
     int      i, k, m, n, niter;
     real     q, r2, mass, masstot;
@@ -724,7 +723,7 @@ static void compute_avercos(int n, rvec dip[], real *dd, rvec axis, gmx_bool bPa
     axis[ZZ] = ddc3/n;
 }
 
-static void do_dip(t_topology *top, int ePBC, real volume,
+static void do_dip(const t_topology *top, int ePBC, real volume,
                    const char *fn,
                    const char *out_mtot, const char *out_eps,
                    const char *out_aver, const char *dipdist,
@@ -780,32 +779,32 @@ static void do_dip(t_topology *top, int ePBC, real volume,
     };
 #define NLEGADIP asize(leg_adip)
 
-    FILE         *outdd, *outmtot, *outaver, *outeps, *caver = NULL;
-    FILE         *dip3d = NULL, *adip = NULL;
-    rvec         *x, *dipole = NULL, mu_t, quad, *dipsp = NULL;
-    t_gkrbin     *gkrbin = NULL;
-    gmx_enxnm_t  *enm    = NULL;
-    t_enxframe   *fr;
-    int           nframes = 1000, nre, timecheck = 0, ncolour = 0;
-    ener_file_t   fmu     = NULL;
-    int           i, n, m, natom = 0, gnx_tot, teller, tel3;
-    t_trxstatus  *status;
-    int          *dipole_bin, ndipbin, ibin, iVol, idim = -1;
-    unsigned long mode;
-    real          rcut = 0, t, t0, t1, dt, dd, rms_cos;
-    rvec          dipaxis;
-    matrix        box;
-    gmx_bool      bCorr, bTotal, bCont;
-    double        M_diff = 0, epsilon, invtel, vol_aver;
-    double        mu_ave, mu_mol, M2_ave = 0, M_ave2 = 0, M_av[DIM], M_av2[DIM];
-    double        M[3], M2[3], M4[3], Gk = 0, g_k = 0;
-    gmx_stats_t  *Qlsq, mulsq, muframelsq = NULL;
-    ivec          iMu;
-    real        **muall        = NULL;
-    rvec         *slab_dipoles = NULL;
-    t_atom       *atom         = NULL;
-    t_block      *mols         = NULL;
-    gmx_rmpbc_t   gpbc         = NULL;
+    FILE          *outdd, *outmtot, *outaver, *outeps, *caver = nullptr;
+    FILE          *dip3d = nullptr, *adip = nullptr;
+    rvec          *x, *dipole = nullptr, mu_t, quad, *dipsp = nullptr;
+    t_gkrbin      *gkrbin = nullptr;
+    gmx_enxnm_t   *enm    = nullptr;
+    t_enxframe    *fr;
+    int            nframes = 1000, nre, timecheck = 0, ncolour = 0;
+    ener_file_t    fmu     = nullptr;
+    int            i, n, m, natom = 0, gnx_tot, teller, tel3;
+    t_trxstatus   *status;
+    int           *dipole_bin, ndipbin, ibin, iVol, idim = -1;
+    unsigned long  mode;
+    real           rcut = 0, t, t0, t1, dt, dd, rms_cos;
+    rvec           dipaxis;
+    matrix         box;
+    gmx_bool       bCorr, bTotal, bCont;
+    double         M_diff = 0, epsilon, invtel, vol_aver;
+    double         mu_ave, mu_mol, M2_ave = 0, M_ave2 = 0, M_av[DIM], M_av2[DIM];
+    double         M[3], M2[3], M4[3], Gk = 0, g_k = 0;
+    gmx_stats_t   *Qlsq, mulsq, muframelsq = nullptr;
+    ivec           iMu;
+    real         **muall        = nullptr;
+    rvec          *slab_dipoles = nullptr;
+    const t_atom  *atom         = nullptr;
+    const t_block *mols         = nullptr;
+    gmx_rmpbc_t    gpbc         = nullptr;
 
     gnx_tot = gnx[0];
     if (ncos > 1)
@@ -994,6 +993,7 @@ static void do_dip(t_topology *top, int ePBC, real volume,
                 if ((teller % 10) == 0)
                 {
                     fprintf(stderr, "\r Skipping Frame %6d, time: %8.3f", teller, t);
+                    fflush(stderr);
                 }
             }
             else
@@ -1337,7 +1337,7 @@ static void do_dip(t_topology *top, int ePBC, real volume,
 
     if (!bMU)
     {
-        close_trj(status);
+        close_trx(status);
     }
 
     xvgrclose(outmtot);
@@ -1469,7 +1469,7 @@ static void do_dip(t_topology *top, int ePBC, real volume,
     }
 }
 
-void dipole_atom2molindex(int *n, int *index, t_block *mols)
+void dipole_atom2molindex(int *n, int *index, const t_block *mols)
 {
     int nmol, i, j, m;
 
@@ -1543,7 +1543,7 @@ int gmx_dipoles(int argc, char *argv[])
     real              mu_max     = 5, mu_aver = -1, rcmax = 0;
     real              epsilonRF  = 0.0, temp = 300;
     gmx_bool          bPairs     = TRUE, bPhi = FALSE, bQuad = FALSE;
-    const char       *corrtype[] = {NULL, "none", "mol", "molsep", "total", NULL};
+    const char       *corrtype[] = {nullptr, "none", "mol", "molsep", "total", nullptr};
     const char       *axtitle    = "Z";
     int               nslices    = 10; /* nr of slices defined       */
     int               skip       = 0, nFA = 0, nFB = 0, ncos = 1;
@@ -1588,13 +1588,13 @@ int gmx_dipoles(int argc, char *argv[])
     int              *gnx;
     int               nFF[2];
     int             **grpindex;
-    char            **grpname = NULL;
+    char            **grpname = nullptr;
     gmx_bool          bGkr, bMU, bSlab;
     t_filenm          fnm[] = {
-        { efEDR, "-en", NULL,         ffOPTRD },
-        { efTRX, "-f", NULL,           ffREAD },
-        { efTPR, NULL, NULL,           ffREAD },
-        { efNDX, NULL, NULL,           ffOPTRD },
+        { efEDR, "-en", nullptr,         ffOPTRD },
+        { efTRX, "-f", nullptr,           ffREAD },
+        { efTPR, nullptr, nullptr,           ffREAD },
+        { efNDX, nullptr, nullptr,           ffOPTRD },
         { efXVG, "-o",   "Mtot",       ffWRITE },
         { efXVG, "-eps", "epsilon",    ffWRITE },
         { efXVG, "-a",   "aver",       ffWRITE },
@@ -1618,8 +1618,9 @@ int gmx_dipoles(int argc, char *argv[])
     npargs = asize(pa);
     ppa    = add_acf_pargs(&npargs, pa);
     if (!parse_common_args(&argc, argv, PCA_CAN_TIME | PCA_CAN_VIEW,
-                           NFILE, fnm, npargs, ppa, asize(desc), desc, 0, NULL, &oenv))
+                           NFILE, fnm, npargs, ppa, asize(desc), desc, 0, nullptr, &oenv))
     {
+        sfree(ppa);
         return 0;
     }
 
@@ -1667,8 +1668,8 @@ int gmx_dipoles(int argc, char *argv[])
     }
 
     snew(top, 1);
-    ePBC = read_tpx_top(ftp2fn(efTPR, NFILE, fnm), NULL, box,
-                        &natoms, NULL, NULL, top);
+    ePBC = read_tpx_top(ftp2fn(efTPR, NFILE, fnm), nullptr, box,
+                        &natoms, nullptr, nullptr, top);
 
     snew(gnx, ncos);
     snew(grpname, ncos);

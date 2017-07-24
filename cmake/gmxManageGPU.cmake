@@ -57,41 +57,21 @@ if ((GMX_GPU OR GMX_GPU_AUTO) AND NOT GMX_GPU_DETECTION_DONE)
     gmx_detect_gpu()
 endif()
 
-# CMake 3.0-3.1 has a bug in the following case, which breaks
-# configuration on at least BlueGene/Q. Fixed in 3.1.1
-if ((NOT CMAKE_VERSION VERSION_LESS "3.0.0") AND
-    (CMAKE_VERSION VERSION_LESS "3.1.1") AND
-        (CMAKE_CROSSCOMPILING AND NOT CMAKE_SYSTEM_PROCESSOR))
-    message(STATUS "Cannot search for CUDA because the CMake find package has a bug. Set a valid CMAKE_SYSTEM_PROCESSOR if you need to detect CUDA")
-else()
-    set(CAN_RUN_CUDA_FIND_PACKAGE 1)
-endif()
-
 # We need to call find_package even when we've already done the detection/setup
-if(GMX_GPU OR GMX_GPU_AUTO AND CAN_RUN_CUDA_FIND_PACKAGE)
+if(GMX_GPU OR GMX_GPU_AUTO)
     if(NOT GMX_GPU AND NOT GMX_DETECT_GPU_AVAILABLE)
         # Stay quiet when detection has occured and found no GPU.
         # Noise is acceptable when there is a GPU or the user required one.
         set(FIND_CUDA_QUIETLY QUIET)
     endif()
-    find_package(CUDA ${REQUIRED_CUDA_VERSION} ${FIND_CUDA_QUIETLY})
 
-    # Cmake 2.8.12 (and CMake 3.0) introduced a new bug where the cuda
-    # library dir is added twice as an rpath on APPLE, which in turn causes
-    # the install_name_tool to wreck the binaries when it tries to remove this
-    # path. Since this is set inside the cuda module, we remove the extra rpath
-    # added in the library string - an rpath is not a library anyway, and at
-    # least for Gromacs this works on all CMake versions. This should be
-    # reasonably future-proof, since newer versions of CMake appear to handle
-    # the rpath automatically based on the provided library path, meaning
-    # the explicit rpath specification is no longer needed.
-    if(APPLE AND (CMAKE_VERSION VERSION_GREATER 2.8.11))
-        foreach(elem ${CUDA_LIBRARIES})
-            if(elem MATCHES "-Wl,.*")
-                list(REMOVE_ITEM CUDA_LIBRARIES ${elem})
-            endif()
-        endforeach(elem)
+    # Cmake tries to use the static cuda runtime by default,
+    # but this leads to unusable GPU builds on OS X.
+    if(APPLE)
+        set(CUDA_USE_STATIC_CUDA_RUNTIME OFF CACHE STRING "Use the static version of the CUDA runtime library if available")
     endif()
+
+    find_package(CUDA ${REQUIRED_CUDA_VERSION} ${FIND_CUDA_QUIETLY})
 endif()
 
 # Depending on the current vale of GMX_GPU and GMX_GPU_AUTO:
@@ -158,20 +138,30 @@ if (GMX_GPU)
         set(NVML_FIND_QUIETLY TRUE)
     endif()
     find_package(NVML)
-    if(NVML_FOUND)
-        include_directories(SYSTEM ${NVML_INCLUDE_DIR})
-        set(HAVE_NVML 1)
-        list(APPEND GMX_EXTRA_LIBRARIES ${NVML_LIBRARY})
-    endif(NVML_FOUND)
+    option(GMX_USE_NVML "Use NVML support for better CUDA performance" ${NVML_FOUND})
+    mark_as_advanced(GMX_USE_NVML)
+    if(GMX_USE_NVML)
+        if(NVML_FOUND)
+            include_directories(SYSTEM ${NVML_INCLUDE_DIR})
+            set(HAVE_NVML 1)
+            list(APPEND GMX_EXTRA_LIBRARIES ${NVML_LIBRARY})
+        else()
+            message(FATAL_ERROR "NVML support was required, but was not detected. Please consult the install guide.")
+        endif()
+    endif()
 endif()
 
 # Annoyingly enough, FindCUDA leaves a few variables behind as non-advanced.
 # We need to mark these advanced outside the conditional, otherwise, if the
 # user turns GMX_GPU=OFF after a failed cmake pass, these variables will be
 # left behind in the cache.
-mark_as_advanced(CUDA_BUILD_CUBIN CUDA_BUILD_EMULATION CUDA_SDK_ROOT_DIR CUDA_VERBOSE_BUILD)
+mark_as_advanced(CUDA_SDK_ROOT_DIR
+                 CUDA_USE_STATIC_CUDA_RUNTIME
+                 CUDA_dl_LIBRARY CUDA_rt_LIBRARY
+                 )
 if(NOT GMX_GPU)
     mark_as_advanced(CUDA_TOOLKIT_ROOT_DIR)
+    mark_as_advanced(CUDA_HOST_COMPILER)
 endif()
 
 # Try to execute ${CUDA_NVCC_EXECUTABLE} --version and set the output
@@ -215,6 +205,10 @@ include(CMakeDependentOption)
 include(gmxOptionUtilities)
 macro(gmx_gpu_setup)
     if(GMX_GPU)
+        if(NOT CUDA_NVCC_EXECUTABLE)
+            message(FATAL_ERROR "nvcc is required for a CUDA build, please set CUDA_TOOLKIT_ROOT_DIR appropriately")
+        endif()
+
         # set up nvcc options
         include(gmxManageNvccConfig)
 

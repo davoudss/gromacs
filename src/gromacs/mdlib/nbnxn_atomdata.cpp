@@ -1,7 +1,7 @@
 /*
  * This file is part of the GROMACS molecular simulation package.
  *
- * Copyright (c) 2012,2013,2014,2015, by the GROMACS development team, led by
+ * Copyright (c) 2012,2013,2014,2015,2016,2017, by the GROMACS development team, led by
  * Mark Abraham, David van der Spoel, Berk Hess, and Erik Lindahl,
  * and including many others, as listed in the AUTHORS file in the
  * top-level source directory and at http://www.gromacs.org.
@@ -36,8 +36,6 @@
 #include "gmxpre.h"
 
 #include "nbnxn_atomdata.h"
-
-#include "config.h"
 
 #include <assert.h>
 #include <stdlib.h>
@@ -89,7 +87,7 @@ void nbnxn_realloc_void(void **ptr,
 
     ma(&ptr_new, nbytes_new);
 
-    if (nbytes_new > 0 && ptr_new == NULL)
+    if (nbytes_new > 0 && ptr_new == nullptr)
     {
         gmx_fatal(FARGS, "Allocation of %d bytes failed", nbytes_new);
     }
@@ -102,7 +100,7 @@ void nbnxn_realloc_void(void **ptr,
         }
         memcpy(ptr_new, *ptr, nbytes_copy);
     }
-    if (*ptr != NULL)
+    if (*ptr != nullptr)
     {
         mf(*ptr);
     }
@@ -157,7 +155,7 @@ static void nbnxn_atomdata_output_init(nbnxn_atomdata_output_t *out,
                                        int nenergrp, int stride,
                                        nbnxn_alloc_t *ma)
 {
-    out->f = NULL;
+    out->f = nullptr;
     ma((void **)&out->fshift, SHIFTS*DIM*sizeof(*out->fshift));
     out->nV = nenergrp*nenergrp;
     ma((void **)&out->Vvdw, out->nV*sizeof(*out->Vvdw));
@@ -219,35 +217,35 @@ static void clear_nbat_real(int na, int nbatFormat, real *xnb, int a0)
             }
             break;
         case nbatX4:
-            j = X4_IND_A(a0);
-            c = a0 & (PACK_X4-1);
+            j = atom_to_x_index<c_packX4>(a0);
+            c = a0 & (c_packX4 - 1);
             for (int a = 0; a < na; a++)
             {
-                xnb[j+XX*PACK_X4] = 0;
-                xnb[j+YY*PACK_X4] = 0;
-                xnb[j+ZZ*PACK_X4] = 0;
+                xnb[j+XX*c_packX4] = 0;
+                xnb[j+YY*c_packX4] = 0;
+                xnb[j+ZZ*c_packX4] = 0;
                 j++;
                 c++;
-                if (c == PACK_X4)
+                if (c == c_packX4)
                 {
-                    j += (DIM-1)*PACK_X4;
+                    j += (DIM-1)*c_packX4;
                     c  = 0;
                 }
             }
             break;
         case nbatX8:
-            j = X8_IND_A(a0);
-            c = a0 & (PACK_X8-1);
+            j = atom_to_x_index<c_packX8>(a0);
+            c = a0 & (c_packX8-1);
             for (int a = 0; a < na; a++)
             {
-                xnb[j+XX*PACK_X8] = 0;
-                xnb[j+YY*PACK_X8] = 0;
-                xnb[j+ZZ*PACK_X8] = 0;
+                xnb[j+XX*c_packX8] = 0;
+                xnb[j+YY*c_packX8] = 0;
+                xnb[j+ZZ*c_packX8] = 0;
                 j++;
                 c++;
-                if (c == PACK_X8)
+                if (c == c_packX8)
                 {
-                    j += (DIM-1)*PACK_X8;
+                    j += (DIM-1)*c_packX8;
                     c  = 0;
                 }
             }
@@ -256,18 +254,22 @@ static void clear_nbat_real(int na, int nbatFormat, real *xnb, int a0)
 }
 
 void copy_rvec_to_nbat_real(const int *a, int na, int na_round,
-                            rvec *x, int nbatFormat, real *xnb, int a0,
-                            int cx, int cy, int cz)
+                            const rvec *x, int nbatFormat,
+                            real *xnb, int a0)
 {
-    int i, j, c;
+    /* We complete partially filled cells, can only be the last one in each
+     * column, with coordinates farAway. The actual coordinate value does
+     * not influence the results, since these filler particles do not interact.
+     * Clusters with normal atoms + fillers have a bounding box based only
+     * on the coordinates of the atoms. Clusters with only fillers have as
+     * the bounding box the coordinates of the first filler. Such clusters
+     * are not considered as i-entries, but they are considered as j-entries.
+     * So for performance it is better to have their bounding boxes far away,
+     * such that filler only clusters don't end up in the pair list.
+     */
+    const real farAway = -1000000;
 
-/* We might need to place filler particles to fill up the cell to na_round.
- * The coefficients (LJ and q) for such particles are zero.
- * But we might still get NaN as 0*NaN when distances are too small.
- * We hope that -107 nm is far away enough from to zero
- * to avoid accidental short distances to particles shifted down for pbc.
- */
-#define NBAT_FAR_AWAY 107
+    int        i, j, c;
 
     switch (nbatFormat)
     {
@@ -279,15 +281,12 @@ void copy_rvec_to_nbat_real(const int *a, int na, int na_round,
                 xnb[j++] = x[a[i]][YY];
                 xnb[j++] = x[a[i]][ZZ];
             }
-            /* Complete the partially filled last cell with copies of the last element.
-             * This simplifies the bounding box calculation and avoid
-             * numerical issues with atoms that are coincidentally close.
-             */
+            /* Complete the partially filled last cell with farAway elements */
             for (; i < na_round; i++)
             {
-                xnb[j++] = -NBAT_FAR_AWAY*(1 + cx);
-                xnb[j++] = -NBAT_FAR_AWAY*(1 + cy);
-                xnb[j++] = -NBAT_FAR_AWAY*(1 + cz + i);
+                xnb[j++] = farAway;
+                xnb[j++] = farAway;
+                xnb[j++] = farAway;
             }
             break;
         case nbatXYZQ:
@@ -299,73 +298,73 @@ void copy_rvec_to_nbat_real(const int *a, int na, int na_round,
                 xnb[j++] = x[a[i]][ZZ];
                 j++;
             }
-            /* Complete the partially filled last cell with particles far apart */
+            /* Complete the partially filled last cell with zeros */
             for (; i < na_round; i++)
             {
-                xnb[j++] = -NBAT_FAR_AWAY*(1 + cx);
-                xnb[j++] = -NBAT_FAR_AWAY*(1 + cy);
-                xnb[j++] = -NBAT_FAR_AWAY*(1 + cz + i);
+                xnb[j++] = farAway;
+                xnb[j++] = farAway;
+                xnb[j++] = farAway;
                 j++;
             }
             break;
         case nbatX4:
-            j = X4_IND_A(a0);
-            c = a0 & (PACK_X4-1);
+            j = atom_to_x_index<c_packX4>(a0);
+            c = a0 & (c_packX4-1);
             for (i = 0; i < na; i++)
             {
-                xnb[j+XX*PACK_X4] = x[a[i]][XX];
-                xnb[j+YY*PACK_X4] = x[a[i]][YY];
-                xnb[j+ZZ*PACK_X4] = x[a[i]][ZZ];
+                xnb[j+XX*c_packX4] = x[a[i]][XX];
+                xnb[j+YY*c_packX4] = x[a[i]][YY];
+                xnb[j+ZZ*c_packX4] = x[a[i]][ZZ];
                 j++;
                 c++;
-                if (c == PACK_X4)
+                if (c == c_packX4)
                 {
-                    j += (DIM-1)*PACK_X4;
+                    j += (DIM-1)*c_packX4;
                     c  = 0;
                 }
             }
-            /* Complete the partially filled last cell with particles far apart */
+            /* Complete the partially filled last cell with zeros */
             for (; i < na_round; i++)
             {
-                xnb[j+XX*PACK_X4] = -NBAT_FAR_AWAY*(1 + cx);
-                xnb[j+YY*PACK_X4] = -NBAT_FAR_AWAY*(1 + cy);
-                xnb[j+ZZ*PACK_X4] = -NBAT_FAR_AWAY*(1 + cz + i);
+                xnb[j+XX*c_packX4] = farAway;
+                xnb[j+YY*c_packX4] = farAway;
+                xnb[j+ZZ*c_packX4] = farAway;
                 j++;
                 c++;
-                if (c == PACK_X4)
+                if (c == c_packX4)
                 {
-                    j += (DIM-1)*PACK_X4;
+                    j += (DIM-1)*c_packX4;
                     c  = 0;
                 }
             }
             break;
         case nbatX8:
-            j = X8_IND_A(a0);
-            c = a0 & (PACK_X8 - 1);
+            j = atom_to_x_index<c_packX8>(a0);
+            c = a0 & (c_packX8 - 1);
             for (i = 0; i < na; i++)
             {
-                xnb[j+XX*PACK_X8] = x[a[i]][XX];
-                xnb[j+YY*PACK_X8] = x[a[i]][YY];
-                xnb[j+ZZ*PACK_X8] = x[a[i]][ZZ];
+                xnb[j+XX*c_packX8] = x[a[i]][XX];
+                xnb[j+YY*c_packX8] = x[a[i]][YY];
+                xnb[j+ZZ*c_packX8] = x[a[i]][ZZ];
                 j++;
                 c++;
-                if (c == PACK_X8)
+                if (c == c_packX8)
                 {
-                    j += (DIM-1)*PACK_X8;
+                    j += (DIM-1)*c_packX8;
                     c  = 0;
                 }
             }
-            /* Complete the partially filled last cell with particles far apart */
+            /* Complete the partially filled last cell with zeros */
             for (; i < na_round; i++)
             {
-                xnb[j+XX*PACK_X8] = -NBAT_FAR_AWAY*(1 + cx);
-                xnb[j+YY*PACK_X8] = -NBAT_FAR_AWAY*(1 + cy);
-                xnb[j+ZZ*PACK_X8] = -NBAT_FAR_AWAY*(1 + cz + i);
+                xnb[j+XX*c_packX8] = farAway;
+                xnb[j+YY*c_packX8] = farAway;
+                xnb[j+ZZ*c_packX8] = farAway;
                 j++;
                 c++;
-                if (c == PACK_X8)
+                if (c == c_packX8)
                 {
-                    j += (DIM-1)*PACK_X8;
+                    j += (DIM-1)*c_packX8;
                     c  = 0;
                 }
             }
@@ -556,7 +555,7 @@ void nbnxn_atomdata_init(FILE *fp,
     char    *ptr;
     gmx_bool simple, bCombGeom, bCombLB, bSIMD;
 
-    if (alloc == NULL)
+    if (alloc == nullptr)
     {
         nbat->alloc = nbnxn_alloc_aligned;
     }
@@ -564,7 +563,7 @@ void nbnxn_atomdata_init(FILE *fp,
     {
         nbat->alloc = alloc;
     }
-    if (free == NULL)
+    if (free == nullptr)
     {
         nbat->free = nbnxn_free_aligned;
     }
@@ -587,7 +586,7 @@ void nbnxn_atomdata_init(FILE *fp,
      */
     tol = 1e-5;
     ptr = getenv("GMX_LJCOMB_TOL");
-    if (ptr != NULL)
+    if (ptr != nullptr)
     {
         double dbl;
 
@@ -722,8 +721,8 @@ void nbnxn_atomdata_init(FILE *fp,
     set_lj_parameter_data(nbat, bSIMD);
 
     nbat->natoms  = 0;
-    nbat->type    = NULL;
-    nbat->lj_comb = NULL;
+    nbat->type    = nullptr;
+    nbat->lj_comb = nullptr;
     if (simple)
     {
         int pack_x;
@@ -756,12 +755,12 @@ void nbnxn_atomdata_init(FILE *fp,
         nbat->XFormat = nbatXYZQ;
         nbat->FFormat = nbatXYZ;
     }
-    nbat->q        = NULL;
+    nbat->q        = nullptr;
     nbat->nenergrp = n_energygroups;
     if (!simple)
     {
         /* Energy groups not supported yet for super-sub lists */
-        if (n_energygroups > 1 && fp != NULL)
+        if (n_energygroups > 1 && fp != nullptr)
         {
             fprintf(fp, "\nNOTE: With GPUs, reporting energy group contributions is not supported\n\n");
         }
@@ -777,11 +776,11 @@ void nbnxn_atomdata_init(FILE *fp,
     {
         nbat->neg_2log++;
     }
-    nbat->energrp = NULL;
+    nbat->energrp = nullptr;
     nbat->alloc((void **)&nbat->shift_vec, SHIFTS*sizeof(*nbat->shift_vec));
     nbat->xstride = (nbat->XFormat == nbatXYZQ ? STRIDE_XYZQ : DIM);
     nbat->fstride = (nbat->FFormat == nbatXYZQ ? STRIDE_XYZQ : DIM);
-    nbat->x       = NULL;
+    nbat->x       = nullptr;
 
 #if GMX_SIMD
     if (simple)
@@ -801,15 +800,15 @@ void nbnxn_atomdata_init(FILE *fp,
                                    nbat->nenergrp, 1<<nbat->neg_2log,
                                    nbat->alloc);
     }
-    nbat->buffer_flags.flag        = NULL;
+    nbat->buffer_flags.flag        = nullptr;
     nbat->buffer_flags.flag_nalloc = 0;
 
     nth = gmx_omp_nthreads_get(emntNonbonded);
 
     ptr = getenv("GMX_USE_TREEREDUCE");
-    if (ptr != NULL)
+    if (ptr != nullptr)
     {
-        nbat->bUseTreeReduce = strtol(ptr, 0, 10);
+        nbat->bUseTreeReduce = strtol(ptr, nullptr, 10);
     }
 #if defined __MIC__
     else if (nth > 8) /*on the CPU we currently don't benefit even at 32*/
@@ -831,38 +830,21 @@ void nbnxn_atomdata_init(FILE *fp,
     }
 }
 
-static void copy_lj_to_nbat_lj_comb_x4(const real *ljparam_type,
-                                       const int *type, int na,
-                                       real *ljparam_at)
+template<int packSize>
+static void copy_lj_to_nbat_lj_comb(const real *ljparam_type,
+                                    const int *type, int na,
+                                    real *ljparam_at)
 {
     /* The LJ params follow the combination rule:
      * copy the params for the type array to the atom array.
      */
-    for (int is = 0; is < na; is += PACK_X4)
+    for (int is = 0; is < na; is += packSize)
     {
-        for (int k = 0; k < PACK_X4; k++)
+        for (int k = 0; k < packSize; k++)
         {
             int i = is + k;
-            ljparam_at[is*2        +k] = ljparam_type[type[i]*2  ];
-            ljparam_at[is*2+PACK_X4+k] = ljparam_type[type[i]*2+1];
-        }
-    }
-}
-
-static void copy_lj_to_nbat_lj_comb_x8(const real *ljparam_type,
-                                       const int *type, int na,
-                                       real *ljparam_at)
-{
-    /* The LJ params follow the combination rule:
-     * copy the params for the type array to the atom array.
-     */
-    for (int is = 0; is < na; is += PACK_X8)
-    {
-        for (int k = 0; k < PACK_X8; k++)
-        {
-            int i = is + k;
-            ljparam_at[is*2        +k] = ljparam_type[type[i]*2  ];
-            ljparam_at[is*2+PACK_X8+k] = ljparam_type[type[i]*2+1];
+            ljparam_at[is*2            + k] = ljparam_type[type[i]*2    ];
+            ljparam_at[is*2 + packSize + k] = ljparam_type[type[i]*2 + 1];
         }
     }
 }
@@ -908,15 +890,24 @@ static void nbnxn_atomdata_set_ljcombparams(nbnxn_atomdata_t    *nbat,
 
                 if (nbat->XFormat == nbatX4)
                 {
-                    copy_lj_to_nbat_lj_comb_x4(nbat->nbfp_comb,
-                                               nbat->type+ash, ncz*grid->na_sc,
-                                               nbat->lj_comb+ash*2);
+                    copy_lj_to_nbat_lj_comb<c_packX4>(nbat->nbfp_comb,
+                                                      nbat->type + ash,
+                                                      ncz*grid->na_sc,
+                                                      nbat->lj_comb + ash*2);
                 }
                 else if (nbat->XFormat == nbatX8)
                 {
-                    copy_lj_to_nbat_lj_comb_x8(nbat->nbfp_comb,
-                                               nbat->type+ash, ncz*grid->na_sc,
-                                               nbat->lj_comb+ash*2);
+                    copy_lj_to_nbat_lj_comb<c_packX8>(nbat->nbfp_comb,
+                                                      nbat->type + ash,
+                                                      ncz*grid->na_sc,
+                                                      nbat->lj_comb + ash*2);
+                }
+                else if (nbat->XFormat == nbatXYZQ)
+                {
+                    copy_lj_to_nbat_lj_comb<1>(nbat->nbfp_comb,
+                                               nbat->type + ash,
+                                               ncz*grid->na_sc,
+                                               nbat->lj_comb + ash*2);
                 }
             }
         }
@@ -1010,7 +1001,7 @@ static void nbnxn_atomdata_mask_fep(nbnxn_atomdata_t    *nbat,
         }
         else
         {
-            nsubc = GPU_NSUBCELL;
+            nsubc = c_gpuNumClusterPerCell;
         }
 
         int c_offset = grid->cell0*grid->na_sc;
@@ -1206,13 +1197,12 @@ void nbnxn_atomdata_copy_x_to_nbat_x(const nbnxn_search_t nbs,
                     {
                         /* We fill only the real particle locations.
                          * We assume the filling entries at the end have been
-                         * properly set before during ns.
+                         * properly set before during pair-list generation.
                          */
                         na_fill = na;
                     }
                     copy_rvec_to_nbat_real(nbs->a+ash, na, na_fill, x,
-                                           nbat->XFormat, nbat->x, ash,
-                                           0, 0, 0);
+                                           nbat->XFormat, nbat->x, ash);
                 }
             }
         }
@@ -1358,24 +1348,24 @@ nbnxn_atomdata_add_nbat_f_to_f_part(const nbnxn_search_t nbs,
 
                 for (int a = a0; a < a1; a++)
                 {
-                    int i = X4_IND_A(cell[a]);
+                    int i = atom_to_x_index<c_packX4>(cell[a]);
 
-                    f[a][XX] += fnb[i+XX*PACK_X4];
-                    f[a][YY] += fnb[i+YY*PACK_X4];
-                    f[a][ZZ] += fnb[i+ZZ*PACK_X4];
+                    f[a][XX] += fnb[i+XX*c_packX4];
+                    f[a][YY] += fnb[i+YY*c_packX4];
+                    f[a][ZZ] += fnb[i+ZZ*c_packX4];
                 }
             }
             else
             {
                 for (int a = a0; a < a1; a++)
                 {
-                    int i = X4_IND_A(cell[a]);
+                    int i = atom_to_x_index<c_packX4>(cell[a]);
 
                     for (int fa = 0; fa < nfa; fa++)
                     {
-                        f[a][XX] += out[fa].f[i+XX*PACK_X4];
-                        f[a][YY] += out[fa].f[i+YY*PACK_X4];
-                        f[a][ZZ] += out[fa].f[i+ZZ*PACK_X4];
+                        f[a][XX] += out[fa].f[i+XX*c_packX4];
+                        f[a][YY] += out[fa].f[i+YY*c_packX4];
+                        f[a][ZZ] += out[fa].f[i+ZZ*c_packX4];
                     }
                 }
             }
@@ -1387,24 +1377,24 @@ nbnxn_atomdata_add_nbat_f_to_f_part(const nbnxn_search_t nbs,
 
                 for (int a = a0; a < a1; a++)
                 {
-                    int i = X8_IND_A(cell[a]);
+                    int i = atom_to_x_index<c_packX8>(cell[a]);
 
-                    f[a][XX] += fnb[i+XX*PACK_X8];
-                    f[a][YY] += fnb[i+YY*PACK_X8];
-                    f[a][ZZ] += fnb[i+ZZ*PACK_X8];
+                    f[a][XX] += fnb[i+XX*c_packX8];
+                    f[a][YY] += fnb[i+YY*c_packX8];
+                    f[a][ZZ] += fnb[i+ZZ*c_packX8];
                 }
             }
             else
             {
                 for (int a = a0; a < a1; a++)
                 {
-                    int i = X8_IND_A(cell[a]);
+                    int i = atom_to_x_index<c_packX8>(cell[a]);
 
                     for (int fa = 0; fa < nfa; fa++)
                     {
-                        f[a][XX] += out[fa].f[i+XX*PACK_X8];
-                        f[a][YY] += out[fa].f[i+YY*PACK_X8];
-                        f[a][ZZ] += out[fa].f[i+ZZ*PACK_X8];
+                        f[a][XX] += out[fa].f[i+XX*c_packX8];
+                        f[a][YY] += out[fa].f[i+YY*c_packX8];
+                        f[a][ZZ] += out[fa].f[i+ZZ*c_packX8];
                     }
                 }
             }

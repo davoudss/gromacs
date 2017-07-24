@@ -209,6 +209,15 @@ Run control
         the step number of the restart frame. :ref:`gmx convert-tpr`
         does this automatically.
 
+.. mdp:: simulation-part
+
+         (0)
+         A simulation can consist of multiple parts, each of which has
+         a part number. This option specifies what that number will
+         be, which helps keep track of parts that are logically the
+         same simulation. This option is generally useful to set only
+         when coping with a crashed simulation where files were lost.
+
 .. mdp:: comm-mode
 
    .. mdp-value:: Linear
@@ -399,9 +408,10 @@ Neighbor searching
       automatically set based on :mdp:`verlet-buffer-tolerance`,
       unless this is set to -1, in which case :mdp:`rlist` will be
       used. This option has an explicit, exact cut-off at :mdp:`rvdw`
-      equal to :mdp:`rcoulomb`. Currently only cut-off,
-      reaction-field, PME electrostatics and plain LJ are
-      supported. Some :ref:`gmx mdrun` functionality is not yet
+      equal to :mdp:`rcoulomb`, unless PME or Ewald is used, in which
+      case :mdp:`rcoulomb` > :mdp:`rvdw` is allowed. Currently only
+      cut-off, reaction-field, PME or Ewald electrostatics and plain
+      LJ are supported. Some :ref:`gmx mdrun` functionality is not yet
       supported with the :mdp:`Verlet` scheme, but :ref:`gmx grompp`
       checks for this. Native GPU acceleration is only supported with
       :mdp:`Verlet`. With GPU-accelerated PME or with separate PME
@@ -1107,19 +1117,23 @@ Pressure coupling
 
 .. mdp:: pcoupltype
 
+   Specifies the kind of isotropy of the pressure coupling used. Each
+   kind takes one or more values for :mdp:`compressibility` and
+   :mdp:`ref-p`. Only a single value is permitted for :mdp:`tau-p`.
+
    .. mdp-value:: isotropic
 
       Isotropic pressure coupling with time constant
-      :mdp:`tau-p`. The compressibility and reference pressure are
-      set with :mdp:`compressibility` and :mdp:`ref-p`, one value is
-      needed.
+      :mdp:`tau-p`. One value each for :mdp:`compressibility` and
+      :mdp:`ref-p` is required.
 
    .. mdp-value:: semiisotropic
 
       Pressure coupling which is isotropic in the ``x`` and ``y``
       direction, but different in the ``z`` direction. This can be
-      useful for membrane simulations. 2 values are needed for ``x/y``
-      and ``z`` directions respectively.
+      useful for membrane simulations. Two values each for
+      :mdp:`compressibility` and :mdp:`ref-p` are required, for
+      ``x/y`` and ``z`` directions respectively.
 
    .. mdp-value:: anisotropic
 
@@ -1155,18 +1169,21 @@ Pressure coupling
 .. mdp:: tau-p
 
    (1) \[ps\]
-   time constant for coupling
+   The time constant for pressure coupling (one value for all
+   directions).
 
 .. mdp:: compressibility
 
    \[bar^-1\]
-   compressibility (NOTE: this is now really in bar-1) For water at 1
-   atm and 300 K the compressibility is 4.5e-5 bar^-1.
+   The compressibility (NOTE: this is now really in bar^-1) For water at 1
+   atm and 300 K the compressibility is 4.5e-5 bar^-1. The number of
+   required values is implied by :mdp:`pcoupltype`.
 
 .. mdp:: ref-p
 
    \[bar\]
-   reference pressure for coupling
+   The reference pressure for coupling. The number of required values
+   is implied by :mdp:`pcoupltype`.
 
 .. mdp:: refcoord-scaling
 
@@ -1393,7 +1410,7 @@ Bonds
 
 .. mdp:: lincs-warnangle
 
-   (30) \[degrees\]
+   (30) \[deg\]
    maximum angle that a bond can rotate before LINCS will complain
 
 .. mdp:: morse
@@ -1410,7 +1427,7 @@ Bonds
 Energy group exclusions
 ^^^^^^^^^^^^^^^^^^^^^^^
 
-.. mdp:: energygrp-excl:
+.. mdp:: energygrp-excl
 
    Pairs of energy groups for which all non-bonded interactions are
    excluded. An example: if you have two energy groups ``Protein`` and
@@ -1526,25 +1543,15 @@ applicable pulling coordinate.
    (1e-6)
    the relative constraint tolerance for constraint pulling
 
-.. mdp:: pull-print-com1
+.. mdp:: pull-print-com
 
    .. mdp-value:: no
 
-      do not print the COM of the first group in each pull coordinate
+      do not print the COM for any group
 
    .. mdp-value:: yes
 
-      print the COM of the first group in each pull coordinate
-
-.. mdp:: pull-print-com2
-
-   .. mdp-value:: no
-
-      do not print the COM of the second group in each pull coordinate
-
-   .. mdp-value:: yes
-
-      print the COM of the second group in each pull coordinate
+      print the COM of all groups for all pull coordinates
 
 .. mdp:: pull-print-ref-value
 
@@ -1617,12 +1624,12 @@ applicable pulling coordinate.
    their periodic image which is closest to
    :mdp:`pull-group1-pbcatom`. A value of 0 means that the middle
    atom (number wise) is used. This parameter is not used with
-   :mdp:`pull-group1-geometry` cylinder. A value of -1 turns on cosine
+   :mdp:`pull-coord1-geometry` cylinder. A value of -1 turns on cosine
    weighting, which is useful for a group of molecules in a periodic
    system, *e.g.* a water slab (see Engin et al. J. Chem. Phys. B
    2010).
 
-.. mdp:: pull-coord1-type:
+.. mdp:: pull-coord1-type
 
    .. mdp-value:: umbrella
 
@@ -1645,8 +1652,23 @@ applicable pulling coordinate.
 
    .. mdp-value:: flat-bottom
 
-      At distances beyond :mdp:`pull-coord1-init` a harmonic potential
+      At distances above :mdp:`pull-coord1-init` a harmonic potential
       is applied, otherwise no potential is applied.
+
+   .. mdp-value:: flat-bottom-high
+
+      At distances below :mdp:`pull-coord1-init` a harmonic potential
+      is applied, otherwise no potential is applied.
+
+   .. mdp-value:: external-potential
+
+      An external potential that needs to be provided by another
+      module.
+
+.. mdp:: pull-coord1-potential-provider
+
+      The name of the external module that provides the potential for
+      the case where :mdp:`pull-coord1-type` is external-potential.
 
 .. mdp:: pull-coord1-geometry
 
@@ -1697,15 +1719,38 @@ applicable pulling coordinate.
       component. This geometry is not supported with constraint
       pulling.
 
+   .. mdp-value:: angle
+
+      Pull along an angle defined by four groups. The angle is
+      defined as the angle between two vectors: the vector connecting
+      the COM of the first group to the COM of the second group and
+      the vector connecting the COM of the third group to the COM of
+      the fourth group.
+
+   .. mdp-value:: angle-axis
+
+      As :mdp-value:`angle` but the second vector is given by :mdp:`pull-coord1-vec`.
+      Thus, only the two groups that define the first vector need to be given.
+
+   .. mdp-value:: dihedral
+
+      Pull along a dihedral angle defined by six groups. These pairwise
+      define three vectors: the vector connecting the COM of group 1
+      to the COM of group 2, the COM of group 3 to the COM of group 4,
+      and the COM of group 5 to the COM group 6. The dihedral angle is
+      then defined as the angle between two planes: the plane spanned by the
+      the two first vectors and the plane spanned the two last vectors.
+
+
 .. mdp:: pull-coord1-groups
 
-   The two groups indices should be given on which this pull
-   coordinate will operate. The first index can be 0, in which case an
+   The group indices on which this pull coordinate will operate.
+   The number of group indices required is geometry dependent.
+   The first index can be 0, in which case an
    absolute reference of :mdp:`pull-coord1-origin` is used. With an
    absolute reference the system is no longer translation invariant
    and one should think about what to do with the center of mass
-   motion. Note that (only) for :mdp:`pull-coord1-geometry` =
-   :mdp-value:`direction-relative` four groups are required.
+   motion.
 
 .. mdp:: pull-coord1-dim
 
@@ -1743,28 +1788,136 @@ applicable pulling coordinate.
 
 .. mdp:: pull-coord1-init
 
-   (0.0) \[nm\]
+   (0.0) \[nm\] / \[deg\]
    The reference distance at t=0.
 
 .. mdp:: pull-coord1-rate
 
-   (0) \[nm/ps\]
+   (0) \[nm/ps\] / \[deg/ps\]
    The rate of change of the reference position.
 
 .. mdp:: pull-coord1-k
 
-   (0) \[kJ mol-1 nm-2\] / \[kJ mol-1 nm-1\]
+   (0) \[kJ mol-1 nm-2\] / \[kJ mol-1 nm-1\] / \[kJ mol-1 rad-2\] / \[kJ mol-1 rad-1\]
    The force constant. For umbrella pulling this is the harmonic force
-   constant in kJ mol-1 nm-2. For constant force pulling this is the
+   constant in kJ mol-1 nm-2 (or kJ mol-1 rad-2 for angles). For constant force pulling this is the
    force constant of the linear potential, and thus the negative (!)
-   of the constant force in kJ mol-1 nm-1.
+   of the constant force in kJ mol-1 nm-1 (or kJ mol-1 rad-1 for angles).
+   Note that for angles the force constant is expressed in terms of radians
+   (while :mdp:`pull-coord1-init` and :mdp:`pull-coord1-rate` are expressed in degrees).
 
 .. mdp:: pull-coord1-kB
 
-   (pull-k1) \[kJ mol-1 nm-2\] / \[kJ mol-1 nm-1\]
+   (pull-k1) \[kJ mol-1 nm-2\] / \[kJ mol-1 nm-1\] / \[kJ mol-1 rad-2\] / \[kJ mol-1 rad-1\]
    As :mdp:`pull-coord1-k`, but for state B. This is only used when
    :mdp:`free-energy` is turned on. The force constant is then (1 -
    lambda) * :mdp:`pull-coord1-k` + lambda * :mdp:`pull-coord1-kB`.
+
+
+Enforced rotation
+^^^^^^^^^^^^^^^^^
+
+These :ref:`mdp` parameters can be used enforce the rotation of a group of atoms,
+e.g. a protein subunit. The `reference manual`_ describes in detail 13 different potentials
+that can be used to achieve such a rotation.
+
+.. mdp:: rotation
+
+   .. mdp-value:: no
+
+      No enforced rotation will be applied. All enforced rotation options will
+      be ignored (and if present in the :ref:`mdp` file, they unfortunately
+      generate warnings).
+
+   .. mdp-value:: yes
+
+      Apply the rotation potential specified by :mdp:`rot-type` to the group of atoms given
+      under the :mdp:`rot-group` option.
+
+.. mdp:: rot-ngroups
+
+   (1)
+   Number of rotation groups.
+
+.. mdp:: rot-group0
+
+   Name of rotation group 0 in the index file.
+
+.. mdp:: rot-type0
+
+   (iso)
+   Type of rotation potential that is applied to rotation group 0. Can be of of the following:
+   ``iso``, ``iso-pf``, ``pm``, ``pm-pf``, ``rm``, ``rm-pf``, ``rm2``, ``rm2-pf``,
+   ``flex``, ``flex-t``, ``flex2``, or ``flex2-t``.
+
+.. mdp:: rot-massw0
+
+   (no)
+   Use mass weighted rotation group positions.
+
+.. mdp:: rot-vec0
+
+   (1.0 0.0 0.0)
+   Rotation vector, will get normalized.
+
+.. mdp:: rot-pivot0
+
+   (0.0 0.0 0.0)
+   Pivot point (nm) for the potentials ``iso``, ``pm``, ``rm``, and ``rm2``.
+
+.. mdp:: rot-rate0
+
+   (0)
+   Reference rotation rate (degree/ps) of group 0.
+
+.. mdp:: rot-k0
+
+   (0)
+   Force constant (kJ/(mol*nm^2)) for group 0.
+
+.. mdp:: rot-slab-dist0
+
+   (1.5)
+   Slab distance (nm), if a flexible axis rotation type was chosen.
+
+.. mdp:: rot-min-gauss0
+
+   (0.001)
+   Minimum value (cutoff) of Gaussian function for the force to be evaluated
+   (for the flexible axis potentials).
+
+.. mdp:: rot-eps0
+
+   (0.0001)
+   Value of additive constant epsilon' (nm^2) for ``rm2*`` and ``flex2*`` potentials.
+
+.. mdp:: rot-fit-method0
+
+   (rmsd)
+   Fitting method when determining the actual angle of a rotation group
+   (can be one of ``rmsd``, ``norm``, or ``potential``).
+
+.. mdp:: rot-potfit-nsteps0
+
+   (21)
+   For fit type ``potential``, the number of angular positions around the reference angle for which the
+   rotation potential is evaluated.
+
+.. mdp:: rot-potfit-step0
+
+   (0.25)
+   For fit type ``potential``, the distance in degrees between two angular positions.
+
+.. mdp:: rot-nstrout
+
+   (100)
+   Output frequency (in steps) for the angle of the rotation group, as well as for the torque
+   and the rotation potential energy.
+
+.. mdp:: rot-nstsout
+
+   (1000)
+   Output frequency for per-slab data of the flexible axis potentials, i.e. angles, torques and slab centers.
 
 
 NMR refinement
@@ -2365,7 +2518,7 @@ Expanded Ensemble calculations
    minimum number of samples that each state that are allowed before
    the min-variance strategy is activated if selected.
 
-.. mdp:: init-lambda-weights:
+.. mdp:: init-lambda-weights
 
    The initial weights (free energies) used for the expanded ensemble
    states. Default is a vector of zero weights. format is similar to
@@ -2535,7 +2688,7 @@ Electric fields
    nm^-1, the third number: the phase of the cosine, you can enter any
    number here since a cosine of frequency zero has no phase.
 
-.. mdp:: E-xt; E-yt; E-zt:
+.. mdp:: E-xt; E-yt; E-zt
 
    Here you can specify a pulsed alternating electric field. The field
    has the form of a gaussian laser pulse:

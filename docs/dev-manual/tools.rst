@@ -6,6 +6,7 @@ Development-time tools
 
    doxygen
    jenkins
+   releng/index
    gmxtree
    uncrustify
    testutils
@@ -38,6 +39,8 @@ Jenkins
   :doc:`jenkins` documents how Jenkins interacts with the build system,
   providing information on how to replicate the builds Jenkins does (e.g., to
   diagnose issues).
+  :doc:`releng/index` provides more information on the technical implementation
+  of the builds.
 
 Redmine
   Bugs and issues, as well as some random features and discussions,
@@ -71,6 +74,8 @@ cppcheck
   ``tests/CppCheck.cmake``) to run the tool.  This target is used also by Jenkins.
 
 clang static analyzer
+
+coverage
 
 .. _dev-formatting-tools:
 
@@ -186,10 +191,10 @@ The following make targets are the most useful:
 ``install-guide``
   Makes the INSTALL file for the tarball with Sphinx
 ``webpage-sphinx``
-  Makes all the components of the GROMACS webpage that require Sphinx,
+  Makes all the components of the |Gromacs| webpage that require Sphinx,
   including install guide and user guide.
 ``webpage``
-  Makes the complete GROMACS webpage, requires everything. When complete,
+  Makes the complete |Gromacs| webpage, requires everything. When complete,
   you can browse ``docs/html/index.html`` to find everything.
 
   If built from a release tarball, the ``SOURCE_MD5SUM``,

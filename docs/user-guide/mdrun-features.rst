@@ -48,7 +48,7 @@ Running a related series of lambda points for a free-energy
 computation is also convenient to do this way.
 
 This feature requires
-:ref:`configuring GROMACS with an external MPI library <mpi-support>`
+:ref:`configuring |Gromacs| with an external MPI library <mpi-support>`
 so that the set of
 simulations can communicate. The ``n`` simulations within the set can
 use internal MPI parallelism also, so that ``mpirun -np x mdrun_mpi``
@@ -62,7 +62,7 @@ including ``-deffnm``.
    You must create a set of ``n`` directories for the ``n`` simulations,
    place all the relevant input files in those directories (e.g. named
    ``topol.tpr``), and run with
-   ``mpirun -np x gmx mdrun_mpi -s topol -multidir <names-of-directories>``.
+   ``mpirun -np x gmx_mpi mdrun -s topol -multidir <names-of-directories>``.
    If the order of the simulations
    within the multi-simulation is significant, then you are responsible
    for ordering their names when you provide them to ``-multidir``. Be
@@ -83,7 +83,7 @@ Examples running multi-simulations
 
 ::
 
-    mpirun -np 32 gmx mdrun_mpi -multi
+    mpirun -np 32 gmx_mpi mdrun -multi
 
 Starts a multi-simulation on 32 ranks with as many simulations ``n`` as
 there are files named ``topol*.tpr`` for integers ``0`` to ``n-1``. Other
@@ -91,14 +91,14 @@ input and output files are suffixed similarly.
 
 ::
 
-    mpirun -np 32 gmx mdrun_mpi -multidir a b c d
+    mpirun -np 32 gmx_mpi mdrun -multidir a b c d
 
 Starts a multi-simulation on 32 ranks with 4 simulations. The input
 and output files are found in directories ``a``, ``b``, ``c``, and ``d``.
 
 ::
 
-    mpirun -np 32 gmx mdrun_mpi -multidir a b c d -gpu_id 0000000011111111
+    mpirun -np 32 gmx_mpi mdrun -multidir a b c d -gpu_id 0000000011111111
 
 Starts the same multi-simulation as before. On a machine with two
 physical nodes and two GPUs per node, there will be 16 MPI ranks per
@@ -119,7 +119,7 @@ coupling parameter (e.g. temperature), which ascends over the set of
 input files. The random seed for replica exchange is set with
 ``-reseed``. After every exchange, the velocities are scaled and
 neighbor searching is performed. See the Reference Manual for more
-details on how replica exchange functions in GROMACS.
+details on how replica exchange functions in |Gromacs|.
 
 Controlling the length of the simulation
 ----------------------------------------
@@ -136,8 +136,15 @@ Running a membrane protein embedding simulation
 -----------------------------------------------
 
 This is a module to help embed a membrane protein into an equilibrated
-lipid bilayer at a position and orientation specified by the user. The
-main advantage is that it is possible to use very complex lipid bilayers
+lipid bilayer at a position and orientation specified by the user. 
+
+This method was initially described as a ProtSqueeze technique 
+(Yesylevskyy S.O., J Chem Inf Model 47(5) (2007) 1986-94) and 
+later implemented in |Gromacs| as g_membed tool (Wolf et al, J Comp Chem 31 (2010) 2169-2174). 
+Currently the functionality of g_membed is available in mdrun if 
+``-membed`` option is specified (see below).
+
+The main advantage is that it is possible to use very complex lipid bilayers
 with a number of different components that have been relaxed for a
 long time in a previous simulation. In theory that could be accomplished
 with a procedure similar to :ref:`gmx solvate`, but since lipids are much larger

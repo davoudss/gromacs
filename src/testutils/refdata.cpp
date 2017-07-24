@@ -1,7 +1,7 @@
 /*
  * This file is part of the GROMACS molecular simulation package.
  *
- * Copyright (c) 2011,2012,2013,2014,2015, by the GROMACS development team, led by
+ * Copyright (c) 2011,2012,2013,2014,2015,2016,2017, by the GROMACS development team, led by
  * Mark Abraham, David van der Spoel, Berk Hess, and Erik Lindahl,
  * and including many others, as listed in the AUTHORS file in the
  * top-level source directory and at http://www.gromacs.org.
@@ -43,8 +43,10 @@
 
 #include "refdata.h"
 
+#include <cctype>
 #include <cstdlib>
 
+#include <algorithm>
 #include <limits>
 #include <string>
 
@@ -54,9 +56,11 @@
 #include "gromacs/options/ioptionscontainer.h"
 #include "gromacs/utility/exceptions.h"
 #include "gromacs/utility/gmxassert.h"
+#include "gromacs/utility/keyvaluetree.h"
 #include "gromacs/utility/path.h"
 #include "gromacs/utility/real.h"
 #include "gromacs/utility/stringutil.h"
+#include "gromacs/utility/variant.h"
 
 #include "testutils/refdata-checkers.h"
 #include "testutils/refdata-impl.h"
@@ -195,12 +199,72 @@ class ReferenceDataTestEventListener : public ::testing::EmptyTestEventListener
             }
         }
 
-        // Frees internal buffers allocated by libxml2.
         virtual void OnTestProgramEnd(const ::testing::UnitTest &)
         {
-            cleanupReferenceData();
+            // Could be used e.g. to free internal buffers allocated by an XML parsing library
         }
 };
+
+//! Formats a path to a reference data entry with a non-null id.
+std::string formatEntryPath(const std::string &prefix, const std::string &id)
+{
+    return prefix + "/" + id;
+}
+
+//! Formats a path to a reference data entry with a null id.
+std::string formatSequenceEntryPath(const std::string &prefix, int seqIndex)
+{
+    return formatString("%s/[%d]", prefix.c_str(), seqIndex+1);
+}
+
+//! Finds all entries that have not been checked under a given root.
+void gatherUnusedEntries(const ReferenceDataEntry &root,
+                         const std::string        &rootPath,
+                         std::vector<std::string> *unusedPaths)
+{
+    if (!root.hasBeenChecked())
+    {
+        unusedPaths->push_back(rootPath);
+        return;
+    }
+    int seqIndex = 0;
+    for (const auto &child : root.children())
+    {
+        std::string path;
+        if (child->id().empty())
+        {
+            path = formatSequenceEntryPath(rootPath, seqIndex);
+            ++seqIndex;
+        }
+        else
+        {
+            path = formatEntryPath(rootPath, child->id());
+        }
+        gatherUnusedEntries(*child, path, unusedPaths);
+    }
+}
+
+//! Produces a GTest assertion of any entries under given root have not been checked.
+void checkUnusedEntries(const ReferenceDataEntry &root, const std::string &rootPath)
+{
+    std::vector<std::string> unusedPaths;
+    gatherUnusedEntries(root, rootPath, &unusedPaths);
+    if (!unusedPaths.empty())
+    {
+        std::string paths;
+        if (unusedPaths.size() > 5)
+        {
+            paths = joinStrings(unusedPaths.begin(), unusedPaths.begin() + 5, "\n  ");
+            paths = "  " + paths + "\n  ...";
+        }
+        else
+        {
+            paths = joinStrings(unusedPaths.begin(), unusedPaths.end(), "\n  ");
+            paths = "  " + paths;
+        }
+        ADD_FAILURE() << "Reference data items not used in test:" << std::endl << paths;
+    }
+}
 
 }       // namespace
 
@@ -275,18 +339,29 @@ TestReferenceDataImpl::TestReferenceDataImpl(
 
 void TestReferenceDataImpl::onTestEnd(bool testPassed)
 {
-    // TODO: Only write the file with update-changed if there were actual changes.
-    if (testPassed && bInUse_ && outputRootEntry_)
+    if (!bInUse_)
     {
-        std::string dirname = Path::getParentPath(fullFilename_);
-        if (!Directory::exists(dirname))
+        return;
+    }
+    // TODO: Only write the file with update-changed if there were actual changes.
+    if (outputRootEntry_)
+    {
+        if (testPassed)
         {
-            if (Directory::create(dirname) != 0)
+            std::string dirname = Path::getParentPath(fullFilename_);
+            if (!Directory::exists(dirname))
             {
-                GMX_THROW(TestException("Creation of reference data directory failed: " + dirname));
+                if (Directory::create(dirname) != 0)
+                {
+                    GMX_THROW(TestException("Creation of reference data directory failed: " + dirname));
+                }
             }
+            writeReferenceDataFile(fullFilename_, *outputRootEntry_);
         }
-        writeReferenceDataFile(fullFilename_, *outputRootEntry_);
+    }
+    else if (compareRootEntry_)
+    {
+        checkUnusedEntries(*compareRootEntry_, "");
     }
 }
 
@@ -309,6 +384,8 @@ class TestReferenceChecker::Impl
         static const char * const    cBooleanNodeName;
         //! String constant for naming XML elements for string values.
         static const char * const    cStringNodeName;
+        //! String constant for naming XML elements for unsigned char values.
+        static const char * const    cUCharNodeName;
         //! String constant for naming XML elements for integer values.
         static const char * const    cIntegerNodeName;
         //! String constant for naming XML elements for int64 values.
@@ -321,6 +398,8 @@ class TestReferenceChecker::Impl
         static const char * const    cIdAttrName;
         //! String constant for naming compounds for vectors.
         static const char * const    cVectorType;
+        //! String constant for naming compounds for key-value tree objects.
+        static const char * const    cObjectType;
         //! String constant for naming compounds for sequences.
         static const char * const    cSequenceType;
         //! String constant for value identifier for sequence length.
@@ -413,7 +492,7 @@ class TestReferenceChecker::Impl
         {
             GMX_RELEASE_ASSERT(initialized(),
                                "Accessing uninitialized reference data checker.");
-            return compareRootEntry_ == NULL;
+            return compareRootEntry_ == nullptr;
         }
 
         //! Whether initialized with other means than the default constructor.
@@ -467,27 +546,29 @@ class TestReferenceChecker::Impl
         /*! \brief
          * Current number of unnamed elements in a sequence.
          *
-         * It is the index of the next added unnamed element.
+         * It is the index of the current unnamed element.
          */
         int                     seqIndex_;
 };
 
 const char *const TestReferenceChecker::Impl::cBooleanNodeName    = "Bool";
 const char *const TestReferenceChecker::Impl::cStringNodeName     = "String";
+const char *const TestReferenceChecker::Impl::cUCharNodeName      = "UChar";
 const char *const TestReferenceChecker::Impl::cIntegerNodeName    = "Int";
 const char *const TestReferenceChecker::Impl::cInt64NodeName      = "Int64";
 const char *const TestReferenceChecker::Impl::cUInt64NodeName     = "UInt64";
 const char *const TestReferenceChecker::Impl::cRealNodeName       = "Real";
 const char *const TestReferenceChecker::Impl::cIdAttrName         = "Name";
 const char *const TestReferenceChecker::Impl::cVectorType         = "Vector";
+const char *const TestReferenceChecker::Impl::cObjectType         = "Object";
 const char *const TestReferenceChecker::Impl::cSequenceType       = "Sequence";
 const char *const TestReferenceChecker::Impl::cSequenceLengthName = "Length";
 
 
 TestReferenceChecker::Impl::Impl(bool initialized)
     : initialized_(initialized), defaultTolerance_(defaultRealTolerance()),
-      compareRootEntry_(NULL), outputRootEntry_(NULL),
-      updateMismatchingEntries_(false), bSelfTestMode_(false), seqIndex_(0)
+      compareRootEntry_(nullptr), outputRootEntry_(nullptr),
+      updateMismatchingEntries_(false), bSelfTestMode_(false), seqIndex_(-1)
 {
 }
 
@@ -497,11 +578,11 @@ TestReferenceChecker::Impl::Impl(const std::string &path,
                                  ReferenceDataEntry *outputRootEntry,
                                  bool updateMismatchingEntries, bool bSelfTestMode,
                                  const FloatingPointTolerance &defaultTolerance)
-    : initialized_(true), defaultTolerance_(defaultTolerance), path_(path + "/"),
+    : initialized_(true), defaultTolerance_(defaultTolerance), path_(path),
       compareRootEntry_(compareRootEntry), outputRootEntry_(outputRootEntry),
       lastFoundEntry_(compareRootEntry->children().end()),
       updateMismatchingEntries_(updateMismatchingEntries),
-      bSelfTestMode_(bSelfTestMode), seqIndex_(0)
+      bSelfTestMode_(bSelfTestMode), seqIndex_(-1)
 {
 }
 
@@ -509,21 +590,22 @@ TestReferenceChecker::Impl::Impl(const std::string &path,
 std::string
 TestReferenceChecker::Impl::appendPath(const char *id) const
 {
-    std::string printId = (id != NULL) ? id : formatString("[%d]", seqIndex_);
-    return path_ + printId;
+    return id != nullptr
+           ? formatEntryPath(path_, id)
+           : formatSequenceEntryPath(path_, seqIndex_);
 }
 
 
 ReferenceDataEntry *TestReferenceChecker::Impl::findEntry(const char *id)
 {
     ReferenceDataEntry::ChildIterator entry = compareRootEntry_->findChild(id, lastFoundEntry_);
-    seqIndex_ = (id == NULL) ? seqIndex_+1 : 0;
+    seqIndex_ = (id == nullptr) ? seqIndex_+1 : -1;
     if (compareRootEntry_->isValidChild(entry))
     {
         lastFoundEntry_ = entry;
         return entry->get();
     }
-    return NULL;
+    return nullptr;
 }
 
 ReferenceDataEntry *
@@ -532,7 +614,7 @@ TestReferenceChecker::Impl::findOrCreateEntry(
         const IReferenceDataEntryChecker &checker)
 {
     ReferenceDataEntry *entry = findEntry(id);
-    if (entry == NULL && outputRootEntry_ != NULL)
+    if (entry == nullptr && outputRootEntry_ != nullptr)
     {
         lastFoundEntry_ = compareRootEntry_->addChild(createEntry(type, id, checker));
         entry           = lastFoundEntry_->get();
@@ -550,13 +632,14 @@ TestReferenceChecker::Impl::processItem(const char *type, const char *id,
     }
     std::string         fullId = appendPath(id);
     ReferenceDataEntry *entry  = findOrCreateEntry(type, id, checker);
-    if (entry == NULL)
+    if (entry == nullptr)
     {
         return ::testing::AssertionFailure()
                << "Reference data item " << fullId << " not found";
     }
+    entry->setChecked();
     ::testing::AssertionResult result(checkEntry(*entry, fullId, type, checker));
-    if (outputRootEntry_ != NULL && entry->correspondingOutputEntry() == NULL)
+    if (outputRootEntry_ != nullptr && entry->correspondingOutputEntry() == nullptr)
     {
         if (!updateMismatchingEntries_ || result)
         {
@@ -575,8 +658,8 @@ TestReferenceChecker::Impl::processItem(const char *type, const char *id,
         ReferenceDataEntry expected(type, id);
         checker.fillEntry(&expected);
         result << std::endl
-        << "String value: " << expected.value() << std::endl
-        << " Ref. string: " << entry->value();
+        << "String value: '" << expected.value() << "'" << std::endl
+        << " Ref. string: '" << entry->value() << "'";
     }
     return result;
 }
@@ -615,6 +698,7 @@ TestReferenceChecker TestReferenceData::rootChecker()
     {
         return TestReferenceChecker(new TestReferenceChecker::Impl(true));
     }
+    impl_->compareRootEntry_->setChecked();
     return TestReferenceChecker(
             new TestReferenceChecker::Impl("", impl_->compareRootEntry_.get(),
                                            impl_->outputRootEntry_.get(),
@@ -671,9 +755,20 @@ void TestReferenceChecker::setDefaultTolerance(
 }
 
 
+void TestReferenceChecker::checkUnusedEntries()
+{
+    if (impl_->compareRootEntry_)
+    {
+        gmx::test::checkUnusedEntries(*impl_->compareRootEntry_, impl_->path_);
+        // Mark them checked so that they are reported only once.
+        impl_->compareRootEntry_->setCheckedIncludingChildren();
+    }
+}
+
+
 bool TestReferenceChecker::checkPresent(bool bPresent, const char *id)
 {
-    if (impl_->shouldIgnore() || impl_->outputRootEntry_ != NULL)
+    if (impl_->shouldIgnore() || impl_->outputRootEntry_ != nullptr)
     {
         return bPresent;
     }
@@ -706,11 +801,12 @@ TestReferenceChecker TestReferenceChecker::checkCompound(const char *type, const
     std::string         fullId = impl_->appendPath(id);
     NullChecker         checker;
     ReferenceDataEntry *entry  = impl_->findOrCreateEntry(type, id, checker);
-    if (entry == NULL)
+    if (entry == nullptr)
     {
         ADD_FAILURE() << "Reference data item " << fullId << " not found";
         return TestReferenceChecker(new Impl(true));
     }
+    entry->setChecked();
     if (impl_->updateMismatchingEntries_)
     {
         entry->makeCompound(type);
@@ -724,7 +820,7 @@ TestReferenceChecker TestReferenceChecker::checkCompound(const char *type, const
             return TestReferenceChecker(new Impl(true));
         }
     }
-    if (impl_->outputRootEntry_ != NULL && entry->correspondingOutputEntry() == NULL)
+    if (impl_->outputRootEntry_ != nullptr && entry->correspondingOutputEntry() == nullptr)
     {
         impl_->outputRootEntry_->addChild(entry->cloneToOutputEntry());
     }
@@ -735,6 +831,32 @@ TestReferenceChecker TestReferenceChecker::checkCompound(const char *type, const
 }
 
 
+/*! \brief Throw a TestException if the caller tries to write particular refdata that can't work.
+ *
+ * If the string to write is non-empty and has only whitespace,
+ * TinyXML2 can't read it correctly, so throw an exception for this
+ * case, so that we can't accidentally use it and run into mysterious
+ * problems.
+ *
+ * \todo Eliminate this limitation of TinyXML2. See
+ * e.g. https://github.com/leethomason/tinyxml2/issues/432
+ */
+static void
+throwIfNonEmptyAndOnlyWhitespace(const std::string &s, const char *id)
+{
+    if (!s.empty() && std::all_of(s.cbegin(), s.cend(), [](const char &c){ return std::isspace(c); }))
+    {
+        std::string message("String '" + s + "' with ");
+        message += (id != nullptr) ? "null " : "";
+        message += "ID ";
+        message += (id != nullptr) ? "" : id;
+        message += " cannot be handled. We must refuse to write a refdata String"
+            "field for a non-empty string that contains only whitespace, "
+            "because it will not be read correctly by TinyXML2.";
+        GMX_THROW(TestException(message));
+    }
+}
+
 void TestReferenceChecker::checkBoolean(bool value, const char *id)
 {
     EXPECT_PLAIN(impl_->processItem(Impl::cBooleanNodeName, id,
@@ -744,6 +866,7 @@ void TestReferenceChecker::checkBoolean(bool value, const char *id)
 
 void TestReferenceChecker::checkString(const char *value, const char *id)
 {
+    throwIfNonEmptyAndOnlyWhitespace(value, id);
     EXPECT_PLAIN(impl_->processItem(Impl::cStringNodeName, id,
                                     ExactStringChecker(value)));
 }
@@ -751,6 +874,7 @@ void TestReferenceChecker::checkString(const char *value, const char *id)
 
 void TestReferenceChecker::checkString(const std::string &value, const char *id)
 {
+    throwIfNonEmptyAndOnlyWhitespace(value, id);
     EXPECT_PLAIN(impl_->processItem(Impl::cStringNodeName, id,
                                     ExactStringChecker(value)));
 }
@@ -763,6 +887,12 @@ void TestReferenceChecker::checkTextBlock(const std::string &value,
                                     ExactStringBlockChecker(value)));
 }
 
+
+void TestReferenceChecker::checkUChar(unsigned char value, const char *id)
+{
+    EXPECT_PLAIN(impl_->processItem(Impl::cUCharNodeName, id,
+                                    ExactStringChecker(formatString("%d", value))));
+}
 
 void TestReferenceChecker::checkInteger(int value, const char *id)
 {
@@ -842,12 +972,152 @@ void TestReferenceChecker::checkVector(const double value[3], const char *id)
 }
 
 
+void TestReferenceChecker::checkVariant(const Variant &variant, const char *id)
+{
+    if (variant.isType<bool>())
+    {
+        checkBoolean(variant.cast<bool>(), id);
+    }
+    else if (variant.isType<int>())
+    {
+        checkInteger(variant.cast<int>(), id);
+    }
+    else if (variant.isType<gmx_int64_t>())
+    {
+        checkInt64(variant.cast<gmx_int64_t>(), id);
+    }
+    else if (variant.isType<float>())
+    {
+        checkFloat(variant.cast<float>(), id);
+    }
+    else if (variant.isType<double>())
+    {
+        checkDouble(variant.cast<double>(), id);
+    }
+    else if (variant.isType<std::string>())
+    {
+        checkString(variant.cast<std::string>(), id);
+    }
+    else
+    {
+        GMX_THROW(TestException("Unsupported variant type"));
+    }
+}
+
+
+void TestReferenceChecker::checkKeyValueTreeObject(const KeyValueTreeObject &tree, const char *id)
+{
+    TestReferenceChecker compound(checkCompound(Impl::cObjectType, id));
+    for (const auto &prop : tree.properties())
+    {
+        compound.checkKeyValueTreeValue(prop.value(), prop.key().c_str());
+    }
+    compound.checkUnusedEntries();
+}
+
+
+void TestReferenceChecker::checkKeyValueTreeValue(const KeyValueTreeValue &value, const char *id)
+{
+    if (value.isObject())
+    {
+        checkKeyValueTreeObject(value.asObject(), id);
+    }
+    else if (value.isArray())
+    {
+        const auto &values = value.asArray().values();
+        checkSequence(values.begin(), values.end(), id);
+    }
+    else
+    {
+        checkVariant(value.asVariant(), id);
+    }
+}
+
+
 TestReferenceChecker
 TestReferenceChecker::checkSequenceCompound(const char *id, size_t length)
 {
     TestReferenceChecker compound(checkCompound(Impl::cSequenceType, id));
     compound.checkInteger(static_cast<int>(length), Impl::cSequenceLengthName);
     return compound;
+}
+
+
+unsigned char TestReferenceChecker::readUChar(const char *id)
+{
+    if (impl_->shouldIgnore())
+    {
+        GMX_THROW(TestException("Trying to read from non-existent reference data value"));
+    }
+    int value = 0;
+    EXPECT_PLAIN(impl_->processItem(Impl::cUCharNodeName, id,
+                                    ValueExtractor<int>(&value)));
+    return value;
+}
+
+
+int TestReferenceChecker::readInteger(const char *id)
+{
+    if (impl_->shouldIgnore())
+    {
+        GMX_THROW(TestException("Trying to read from non-existent reference data value"));
+    }
+    int value = 0;
+    EXPECT_PLAIN(impl_->processItem(Impl::cIntegerNodeName, id,
+                                    ValueExtractor<int>(&value)));
+    return value;
+}
+
+
+gmx_int64_t TestReferenceChecker::readInt64(const char *id)
+{
+    if (impl_->shouldIgnore())
+    {
+        GMX_THROW(TestException("Trying to read from non-existent reference data value"));
+    }
+    gmx_int64_t value = 0;
+    EXPECT_PLAIN(impl_->processItem(Impl::cInt64NodeName, id,
+                                    ValueExtractor<gmx_int64_t>(&value)));
+    return value;
+}
+
+
+float TestReferenceChecker::readFloat(const char *id)
+{
+    if (impl_->shouldIgnore())
+    {
+        GMX_THROW(TestException("Trying to read from non-existent reference data value"));
+    }
+    float value = 0;
+    EXPECT_PLAIN(impl_->processItem(Impl::cRealNodeName, id,
+                                    ValueExtractor<float>(&value)));
+    return value;
+}
+
+
+double TestReferenceChecker::readDouble(const char *id)
+{
+    if (impl_->shouldIgnore())
+    {
+        GMX_THROW(TestException("Trying to read from non-existent reference data value"));
+    }
+    double value = 0;
+    EXPECT_PLAIN(impl_->processItem(Impl::cRealNodeName, id,
+                                    ValueExtractor<double>(&value)));
+    return value;
+}
+
+
+std::string TestReferenceChecker::readString(const char *id)
+{
+    if (impl_->shouldIgnore())
+    {
+        GMX_THROW(TestException("Trying to read from non-existent reference data value"));
+    }
+    std::string value;
+    EXPECT_PLAIN(impl_->processItem(Impl::cStringNodeName, id,
+                                    ValueExtractor<std::string>(&value)));
+    return value;
 }
 
 } // namespace test

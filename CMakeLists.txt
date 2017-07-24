@@ -1,7 +1,7 @@
 #
 # This file is part of the GROMACS molecular simulation package.
 #
-# Copyright (c) 2009,2010,2011,2012,2013,2014,2015,2016, by the GROMACS development team, led by
+# Copyright (c) 2009,2010,2011,2012,2013,2014,2015,2016,2017, by the GROMACS development team, led by
 # Mark Abraham, David van der Spoel, Berk Hess, and Erik Lindahl,
 # and including many others, as listed in the AUTHORS file in the
 # top-level source directory and at http://www.gromacs.org.
@@ -32,11 +32,7 @@
 # To help us fund GROMACS development, we humbly ask that you cite
 # the research papers on the package. Check out http://www.gromacs.org.
 
-cmake_minimum_required(VERSION 2.8.8)
-# When we require cmake >= 2.8.12, it will provide
-# CMAKE_MINIMUM_REQUIRED_VERSION automatically, but in the meantime we
-# need to set a variable, and it must have a different name.
-set(GMX_CMAKE_MINIMUM_REQUIRED_VERSION "2.8.8")
+cmake_minimum_required(VERSION 3.4.3)
 
 # CMake modules/macros are in a subdirectory to keep this file cleaner
 # This needs to be set before project() in order to pick up toolchain files
@@ -52,6 +48,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 # the build tree (whether the build is from a source package or from a git
 # repository).  Also declares a few functions that will be used for generating
 # version info files later.
+include(gmxBuildTreeInfo)
 include(gmxVersionInfo)
 
 if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT AND UNIX)
@@ -69,11 +66,10 @@ include(gmxBuildTypeMSAN)
 include(gmxBuildTypeReleaseWithAssert)
 
 if(NOT CMAKE_BUILD_TYPE)
-    set(CMAKE_BUILD_TYPE "Release" CACHE STRING "Choose the type of build, options are: Debug Release RelWithDebInfo MinSizeRel Reference RelWithAssert Profile." FORCE)
-    # There's no need to offer a user the choice of ThreadSanitizer
+    set(CMAKE_BUILD_TYPE "Release" CACHE STRING "Choose the type of build, options are: Debug Release RelWithDebInfo MinSizeRel Reference RelWithAssert Profile TSAN ASAN MSAN." FORCE)
     # Set the possible values of build type for cmake-gui
     set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "Debug" "Release"
-        "MinSizeRel" "RelWithDebInfo" "Reference" "RelWithAssert" "Profile")
+        "MinSizeRel" "RelWithDebInfo" "Reference" "RelWithAssert" "Profile" "TSAN" "ASAN" "MSAN")
 endif()
 if(CMAKE_CONFIGURATION_TYPES)
     # Add appropriate GROMACS-specific build types for the Visual
@@ -89,14 +85,8 @@ set(build_types_with_explicit_flags RELEASE DEBUG RELWITHDEBINFO RELWITHASSERT M
 
 set_property(GLOBAL PROPERTY FIND_LIBRARY_USE_LIB64_PATHS ON)
 
-# Set a default valgrind suppression file.
-# This unfortunately needs to duplicate information from CTest to work as
-# expected...
-set(MEMORYCHECK_SUPPRESSIONS_FILE
-    "${CMAKE_SOURCE_DIR}/cmake/legacy_and_external.supp"
-    CACHE FILEPATH
-    "File that contains suppressions for the memory checker")
-include(CTest)
+include(gmxCTestUtilities)
+gmx_ctest_init()
 
 include(gmxCPackUtilities)
 gmx_cpack_init()
@@ -104,6 +94,21 @@ gmx_cpack_init()
 # Variables that accumulate stuff influencing the installed headers
 set(INSTALLED_HEADER_INCLUDE_DIRS "")
 set(INSTALLED_HEADER_DEFINITIONS "")
+
+########################################################################
+# Global non-cache variables for implementing the build system
+########################################################################
+
+# These variables collect libraries that GROMACS requires for
+# linking. They should be appended to with list(APPEND ${name}
+# new-library) calls. They are:
+#  - Libraries that are required for libgromacs (only)
+set(GMX_EXTRA_LIBRARIES "")
+#  - Libraries that are required for all code in the repository
+set(GMX_COMMON_LIBRARIES "")
+#  - Libraries that all code linked against libgromacs needs
+#    (i.e., something that is exposed in installed headers).
+set(GMX_PUBLIC_LIBRARIES "")
 
 ########################################################################
 # Check and warn if cache generated on a different host is being reused
@@ -132,6 +137,12 @@ endif()
 include(gmxDetectTargetArchitecture)
 gmx_detect_target_architecture()
 
+# Permit the user to specify a particular standard library, e.g. compiling
+# with "-stdlib=libc++" and linking with "-lc++abi -lc++" to get clang's libcxx.
+set(GMX_STDLIB_CXX_FLAGS "" CACHE STRING "Compiler flag for a C++ standard library flavour")
+set(GMX_STDLIB_LIBRARIES "" CACHE STRING "Linker libraries for a particular C++ standard library")
+mark_as_advanced(GMX_STDLIB_CXX_FLAGS)
+mark_as_advanced(GMX_STDLIB_LIBRARIES)
 
 ########################################################################
 # Detect CXX11 support and flags
@@ -152,15 +163,13 @@ include(CheckCCompilerFlag)
 include(CheckCXXCompilerFlag)
 
 # This must come early, since some of our configuration flag tests
-# depend on being able to compile C++11 source files
+# depend on being able to compile C++11 source files.
 include(gmxTestCXX11)
-gmx_test_cxx11(GMX_CXX11_SUPPORTED GMX_CXX11_FLAGS)
-if(NOT GMX_CXX11_SUPPORTED)
-message(FATAL_ERROR "This version of GROMACS requires C++11. Please use a newer compiler or use the GROMACS 5.1.x release. Note it might be sufficient to instruct the compiler to use a newer STL version. See the installation guide for details.")
-endif()
+gmx_test_cxx11(GMX_CXX11_FLAGS GMX_STDLIB_CXX_FLAGS GMX_STDLIB_LIBRARIES)
 
-# Make sure all tests are run in C++11 mode
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${GMX_CXX11_FLAGS}")
+# Make sure all C++ code will be compiled in C++11 mode, with the
+# expected standard library.
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${GMX_CXX11_FLAGS} ${GMX_STDLIB_CXX_FLAGS}")
 
 ########################################################################
 # User input options                                                   #
@@ -192,12 +201,16 @@ gmx_add_cache_dependency(GMX_COOL_QUOTES BOOL "NOT GMX_FAHCORE" OFF)
 
 option(GMX_USE_OPENCL "Enable OpenCL acceleration" OFF)
 
-# Decide on GPU settings based on user-settings and GPU/CUDA detection.
-# GCC 4.6 requires CUDA 5.0 and VS2013 requires CUDA 6.5
+# Decide on GPU settings based on user-settings and GPU/CUDA
+# detection.  GCC 4.8 requires CUDA 6.0 (but we choose 6.5 for the
+# preliminary C++11 support), icc 15 requires CUDA 7.0, and VS2015
+# requires CUDA 8.0
 if(MSVC)
-    set(REQUIRED_CUDA_VERSION 6.5)
+    set(REQUIRED_CUDA_VERSION 8.0)
+elseif(CMAKE_CXX_COMPILER_ID MATCHES "Intel")
+    set(REQUIRED_CUDA_VERSION 7.0)
 else()
-    set(REQUIRED_CUDA_VERSION 5.0)
+    set(REQUIRED_CUDA_VERSION 6.5)
 endif()
 set(REQUIRED_CUDA_COMPUTE_CAPABILITY 2.0)
 
@@ -223,14 +236,11 @@ else()
     endif()
 endif()
 
-include(gmxDetectSimd)
-gmx_detect_simd(GMX_SUGGESTED_SIMD)
-
 gmx_option_multichoice(
     GMX_SIMD
     "SIMD instruction set for CPU kernels and compiler optimization"
-    "${GMX_SUGGESTED_SIMD}"
-    None SSE2 SSE4.1 AVX_128_FMA AVX_256 AVX2_256 AVX_512F AVX_512ER MIC ARM_NEON ARM_NEON_ASIMD IBM_QPX IBM_VMX IBM_VSX Sparc64_HPC_ACE Reference)
+    "AUTO"
+    AUTO None SSE2 SSE4.1 AVX_128_FMA AVX_256 AVX2_256 AVX2_128 AVX_512 AVX_512_KNL MIC ARM_NEON ARM_NEON_ASIMD IBM_QPX IBM_VMX IBM_VSX Sparc64_HPC_ACE Reference)
 
 if(GMX_TARGET_MIC)
     set(GMX_FFT_LIBRARY_DEFAULT "mkl")
@@ -269,8 +279,6 @@ gmx_dependent_cache_variable(GMX_SIMD_REF_DOUBLE_WIDTH "Reference SIMD double pr
 
 option(GMX_BROKEN_CALLOC "Work around broken calloc()" OFF)
 mark_as_advanced(GMX_BROKEN_CALLOC)
-option(GMX_LOAD_PLUGINS "Compile with plugin support, needed to read VMD supported file formats" ON)
-mark_as_advanced(GMX_LOAD_PLUGINS)
 
 option(GMX_OPENMP "Enable OpenMP-based multithreading" ON)
 
@@ -331,17 +339,6 @@ set(EXTRA_CXX_FLAGS "")
 # Run through a number of tests for buggy compilers and other issues
 include(gmxTestCompilerProblems)
 gmx_test_compiler_problems()
-# GMX_SIMD will not be set automatically until the second
-# pass (which is not strictly guaranteed to occur), so putting this
-# check here among logically-related tests is inefficient, but the
-# potential loss is likely zero.
-if(GMX_SIMD STREQUAL "AVX_256"
-        AND CMAKE_COMPILER_IS_GNUCC
-        AND (C_COMPILER_VERSION VERSION_EQUAL "4.6.1"
-            OR CXX_COMPILER_VERSION VERSION_EQUAL "4.6.1"))
-    message(FATAL_ERROR "gcc 4.6.1 has buggy support for AVX, and GROMACS mdrun will not work. If you want simulation performance, use a more recent compiler. Otherwise, use GMX_SIMD=SSE4.1")
-    # See http://gcc.gnu.org/bugzilla/show_bug.cgi?id=49002
-endif()
 
 # Implement double-precision option. This is complicated because we
 # need installed headers to use the precision mode of the build that
@@ -407,6 +404,7 @@ endif()
 
 include(CheckLibraryExists)
 find_library(HAVE_LIBM m)
+mark_as_advanced(HAVE_LIBM)
 check_library_exists(rt clock_gettime "" HAVE_CLOCK_GETTIME)
 check_library_exists(m feenableexcept "" HAVE_FEENABLEEXCEPT)
 
@@ -460,24 +458,19 @@ include(gmxManageSharedLibraries)
 # Find external packages                                               #
 ########################################################################
 
-# TNG wants zlib if it is available. And static libxml2 might have a dependency
-find_package(ZLIB QUIET)
-include(gmxTestZLib)
-gmx_test_zlib(HAVE_ZLIB)
-
 # Unconditionally find the package, as it is also required for unit
 # tests. This exports LIBXML2_FOUND, which we should not use because
 # it does not tell us that linking will succeed. Instead, we test that
 # next.
-if(DEFINED LIBXML2_LIBRARIES)
-  set(LibXml2_FIND_QUIETLY TRUE)
-endif()
-find_package(LibXml2)
-include(gmxTestLibXml2)
-gmx_test_libxml2(HAVE_LIBXML2)
-option(GMX_XML "Use libxml2 to parse xml files (currently has no effect)" ${HAVE_LIBXML2})
-set(PKG_XML "")
-mark_as_advanced(GMX_XML)
+#if(DEFINED LIBXML2_LIBRARIES)
+#  set(LibXml2_FIND_QUIETLY TRUE)
+#endif()
+#find_package(LibXml2)
+#include(gmxTestLibXml2)
+#gmx_test_libxml2(HAVE_LIBXML2)
+#option(GMX_XML "Use libxml2 to parse xml files (currently has no effect)" ${HAVE_LIBXML2})
+#set(PKG_XML "")
+#mark_as_advanced(GMX_XML)
 # Don't actually do anything, since libxml2 is currently not used by libgromacs
 #if(GMX_XML AND NOT HAVE_LIBXML2)
 #    message(FATAL_ERROR "libxml2 not found. Set GMX_XML=OFF to compile without XML support")
@@ -487,6 +480,46 @@ mark_as_advanced(GMX_XML)
 #    set(PKG_XML libxml-2.0)
 #    set(XML_LIBRARIES ${LIBXML2_LIBRARIES})
 #endif()
+
+if(DEFINED HWLOC_LIBRARIES)
+  set(Hwloc_FIND_QUIETLY TRUE)
+endif()
+find_package(Hwloc 1.5)
+if (HWLOC_FOUND)
+    if (HWLOC_LIBRARIES MATCHES ".a$")
+        set(_STATIC_HWLOC TRUE)
+    endif()
+
+    gmx_check_if_changed(HWLOC_FOUND_CHANGED HWLOC_FOUND)
+    if (_STATIC_HWLOC AND HWLOC_FOUND_CHANGED)
+        message(STATUS "Static hwloc library found, will not attempt using it as it could lead to link-time errors. To use the detected library, manually set GMX_HWLOC=ON and you will likely have to pass appropriate linker flags too to satisfy the link-time dependencies of your hwloc library. Try \"pkg-config --libs --static hwloc\" for suggestions on what you will need.")
+        set(GMX_HWLOC_DEFAULT OFF)
+    else()
+        set(GMX_HWLOC_DEFAULT ON)
+    endif()
+else()
+    set(GMX_HWLOC_DEFAULT OFF)
+endif()
+option(GMX_HWLOC "Add support for hwloc Portable Hardware locality library" ${GMX_HWLOC_DEFAULT})
+if(GMX_HWLOC)
+    if(HWLOC_FOUND)
+        include_directories(SYSTEM ${HWLOC_INCLUDE_DIRS})
+        list(APPEND GMX_EXTRA_LIBRARIES ${HWLOC_LIBRARIES})
+    else()
+        message(FATAL_ERROR "Hwloc package support requested, but not found.")
+    endif()
+endif()
+
+option(GMX_EXTERNAL_TINYXML2 "Use external TinyXML-2 instead of compiling the version bundled with GROMACS." OFF)
+mark_as_advanced(GMX_EXTERNAL_TINYXML2)
+if(GMX_EXTERNAL_TINYXML2)
+    # Find an external TinyXML-2 library.
+    find_package(TinyXML-2 3.0.0)
+    set(HAVE_TINYXML2 ${TinyXML2_FOUND})
+    if(NOT HAVE_TINYXML2)
+        message(FATAL_ERROR "External TinyXML-2 could not be found, please adjust your search paths")
+    endif()
+endif()
 
 option(GMX_EXTRAE "Add support for tracing using EXTRAE" OFF)
 mark_as_advanced(GMX_EXTRAE)
@@ -529,8 +562,14 @@ if (TMPI_ATOMICS_DISABLED)
    add_definitions(-DTMPI_ATOMICS_DISABLED)
 endif()
 
-# now that we have detected the dependencies, do the second GPU configure pass
-gmx_gpu_setup()
+include(gmxManageTNG)
+
+include(gmxManageLmfit)
+
+if(GMX_GPU)
+    # now that we have detected the dependencies, do the second configure pass
+    gmx_gpu_setup()
+endif()
 
 if(CYGWIN)
     set(GMX_CYGWIN 1)
@@ -552,17 +591,9 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Darwin") #Work-around for cmake bug #10837
     endif()
 endif()
 
-if(NOT DEFINED GMX_BUILD_UNITTESTS AND NOT HAVE_LIBXML2)
-    message(WARNING "libxml2 not found. Will build GROMACS without unit-tests. This is not recommended, because the unit-tests help to verify that GROMACS functions correctly. Most likely you are missing the libxml2-dev(el) package. After you installed it, set GMX_BUILD_UNITTESTS=ON.")
-endif()
-option(GMX_BUILD_UNITTESTS "Build unit tests with BUILD_TESTING (uses Google C++ Testing and Mocking Frameworks, requires libxml2)" ${HAVE_LIBXML2})
+option(GMX_BUILD_UNITTESTS "Build unit tests with BUILD_TESTING" ON)
 mark_as_advanced(GMX_BUILD_UNITTESTS)
 gmx_add_cache_dependency(GMX_BUILD_UNITTESTS BOOL BUILD_TESTING OFF)
-if (GMX_BUILD_UNITTESTS AND NOT HAVE_LIBXML2)
-    message(FATAL_ERROR
-        "Cannot build unit tests without libxml2. "
-        "Either set GMX_BUILD_UNITTESTS=OFF or tell CMake how to find a working version of libxml2.")
-endif()
 
 ########################################################################
 # Our own GROMACS tests
@@ -570,7 +601,9 @@ endif()
 
 add_definitions( -DHAVE_CONFIG_H )
 include_directories(BEFORE ${CMAKE_SOURCE_DIR}/src)
-include_directories(BEFORE ${CMAKE_SOURCE_DIR}/src/external/thread_mpi/include)
+# TODO required at high level because both libgromacs and progs/mdrun
+# require it, both for thread-MPI and its atomics and mutexes.
+include_directories(BEFORE SYSTEM ${CMAKE_SOURCE_DIR}/src/external/thread_mpi/include)
 # Required for config.h, maybe should only be set in src/CMakeLists.txt
 include_directories(BEFORE ${CMAKE_BINARY_DIR}/src)
 
@@ -588,7 +621,7 @@ gmx_set_build_information()
 # TODO: After merge with 5.0 one could implement a cache variable dependency
 # such that GMX_USE_RDTSCP can change if GMX_SIMD is changed to AVX
 # after the first cmake pass.
-if (BUILD_CPU_FEATURES MATCHES "rdtscp" OR GMX_SIMD MATCHES "AVX")
+if ((GMX_SIMD STREQUAL "AUTO" AND CPU_DETECTION_FEATURES MATCHES "rdtscp") OR (GMX_SIMD MATCHES "AVX"))
     set(GMX_USE_RDTSCP_DEFAULT_VALUE ON)
 else()
     set(GMX_USE_RDTSCP_DEFAULT_VALUE OFF)
@@ -628,6 +661,9 @@ endif()
 include(gmxManageSimd)
 gmx_manage_simd()
 
+include(gmxManageCycleCounters)
+gmx_manage_cycle_counters()
+
 # Process QM/MM Settings
 if(${GMX_QMMM_PROGRAM} STREQUAL "GAUSSIAN")
     set(GMX_QMMM_GAUSSIAN 1)
@@ -652,32 +688,13 @@ include(gmxManageFFTLibraries)
 
 include(gmxManageLinearAlgebraLibraries)
 
-# Whether GROMACS will really try to compile support for VMD plugins
-set(GMX_USE_PLUGINS OFF)
+include(gmxManagePluginSupport)
 
-if(GMX_LOAD_PLUGINS)
-  if(NOT WIN32)
-    # Native Windows does not have, nor need dlopen
-    include(gmxTestdlopen)
-    gmx_test_dlopen(HAVE_DLOPEN)
-  endif()
-
-  # so, should we use plug-ins?
-  if(WIN32 OR (HAVE_DLOPEN AND BUILD_SHARED_LIBS))
-    if(NOT VMD_QUIETLY)
-      MESSAGE(STATUS "Using dynamic plugins (e.g VMD-supported file formats)")
-    endif()
+if (GMX_USE_PLUGINS)
     if(NOT GMX_VMD_PLUGIN_PATH)
-      find_package(VMD)
+        find_package(VMD)
     endif()
-    set(GMX_USE_PLUGINS ON)
-    list(APPEND GMX_EXTRA_LIBRARIES ${CMAKE_DL_LIBS}) # magic cross-platform pre-set variable for dlopen library
-    set(PKG_DL_LIBS "-l${CMAKE_DL_LIBS}")
-  else()
-    set(PKG_DL_LIBS)
-  endif()
 endif()
-set(VMD_QUIETLY TRUE CACHE INTERNAL "")
 
 # Link real-time library for POSIX timers. The check for clock_gettime
 # confirms the linkability of rt.
@@ -686,8 +703,8 @@ if(HAVE_TIME_H AND HAVE_UNISTD_H AND HAVE_CLOCK_GETTIME)
 endif()
 
 # Math and thread libraries must often come after all others when linking...
-if(HAVE_LIBM)
-    list(APPEND GMX_EXTRA_LIBRARIES m)
+if (HAVE_LIBM)
+    list(APPEND GMX_PUBLIC_LIBRARIES m)
 endif()
 
 option(GMX_NACL "Configure for Native Client builds" OFF)
@@ -737,7 +754,7 @@ else()
     message("CMAKE_CXX_FLAGS_RELEASE: ${GMXC_CXXFLAGS_RELEASE}")
     message("CMAKE_CXX_FLAGS_DEBUG: ${GMXC_CXXFLAGS_DEBUG}")
     message("CMAKE_EXE_LINKER_FLAGS: ${FFT_LINKER_FLAGS} ${MPI_LINKER_FLAGS}")
-    message("CMAKE_SHARED_LINKER_FLAGS: ${MPI_LINKER_FLAGS}")
+    message("CMAKE_SHARED_LINKER_FLAGS: ${FFT_LINKER_FLAGS} ${MPI_LINKER_FLAGS}")
 endif()
 
 if(NOT GMX_OPENMP)
@@ -787,17 +804,12 @@ include(gmxManageSuffixes)
 ################################################################
 # Shared library load path settings
 ################################################################
-# CMake supports RPATH on OS X only from 2.8.12 upwards.
-# CMAKE_SYSTEM_VERSION > 8.0 matches OS X 10.5 and above, where RPATH support
-# was added.
-
 if(NOT GMX_BUILD_SHARED_EXE)
     # No rpath
     set(CMAKE_SKIP_RPATH TRUE)
     set(CMAKE_EXE_LINK_DYNAMIC_C_FLAGS) # remove -Wl,-Bdynamic
     set(CMAKE_EXE_LINK_DYNAMIC_CXX_FLAGS)
-elseif((NOT CMAKE_SYSTEM_NAME STREQUAL "Darwin") OR
-   ((CMAKE_SYSTEM_VERSION VERSION_GREATER 8.0) AND (NOT CMAKE_VERSION VERSION_LESS 2.8.12)))
+else()
     # The build folder always has bin/ and lib/; if we are also going to
     # install to lib/, then the installation RPATH works also in the build
     # tree.  This makes installation slightly faster (no need to rewrite the
@@ -807,23 +819,13 @@ elseif((NOT CMAKE_SYSTEM_NAME STREQUAL "Darwin") OR
     endif()
     # Set the RPATH as relative to the executable location to make the
     # binaries relocatable.
-    if(NOT CMAKE_SYSTEM_NAME STREQUAL "Darwin")
+    if(NOT CMAKE_SYSTEM_NAME STREQUAL "Darwin") #Assume OS X >=10.5
         set(CMAKE_INSTALL_RPATH "\$ORIGIN/../${GMX_LIB_INSTALL_DIR}")
     else()
         set(CMAKE_INSTALL_RPATH "@executable_path/../${GMX_LIB_INSTALL_DIR}")
     endif()
     set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
     set(CMAKE_MACOSX_RPATH 1)
-else()
-    # We are on Darwin/OSX, and CMake cannot handle RPATHs automatically.
-    if(CMAKE_SYSTEM_VERSION VERSION_GREATER 8.0)
-        # Set the RPATH options manually.
-        set(CMAKE_INSTALL_NAME_DIR "@rpath")
-        set(GMX_EXE_LINKER_FLAGS ${GMX_EXE_LINKER_FLAGS} "-Wl,-rpath,@executable_path/../${GMX_LIB_INSTALL_DIR}")
-    else()
-        # Use the old INSTALL_NAME_DIR mechanism if RPATH is not supported.
-        set(CMAKE_INSTALL_NAME_DIR "${CMAKE_INSTALL_PREFIX}/${LIB_INSTALL_DIR}")
-    endif()
 endif()
 
 #COPYING file: Only necessary for binary distributions.
@@ -840,18 +842,7 @@ if (GMX_BUILD_FOR_COVERAGE)
 endif()
 
 if (BUILD_TESTING)
-    # "tests" target builds all the separate test binaries.
-    add_custom_target(tests)
-    # "run-ctest" is an internal target that actually runs the tests.
-    # This is necessary to be able to add separate targets that execute as part
-    # of 'make check', but are ensured to be executed after the actual tests.
-    add_custom_target(run-ctest
-                      COMMAND ${CMAKE_CTEST_COMMAND} --output-on-failure
-                      COMMENT "Running all tests"
-                      VERBATIM)
-    add_dependencies(run-ctest tests)
-    # "check" target builds and runs all tests.
-    add_custom_target(check DEPENDS run-ctest)
+    include(tests/CheckTarget.cmake)
 endif()
 
 if (NOT GMX_BUILD_MDRUN_ONLY)

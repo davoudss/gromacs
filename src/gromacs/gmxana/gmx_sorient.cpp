@@ -3,7 +3,7 @@
  *
  * Copyright (c) 1991-2000, University of Groningen, The Netherlands.
  * Copyright (c) 2001-2004, The GROMACS development team.
- * Copyright (c) 2013,2014,2015, by the GROMACS development team, led by
+ * Copyright (c) 2013,2014,2015,2016,2017, by the GROMACS development team, led by
  * Mark Abraham, David van der Spoel, Berk Hess, and Erik Lindahl,
  * and including many others, as listed in the AUTHORS file in the
  * top-level source directory and at http://www.gromacs.org.
@@ -135,7 +135,7 @@ int gmx_sorient(int argc, char *argv[])
     char              str[STRLEN];
     gmx_bool          bTPS;
     rvec              xref, dx, dxh1, dxh2, outer;
-    gmx_rmpbc_t       gpbc = NULL;
+    gmx_rmpbc_t       gpbc = nullptr;
     t_pbc             pbc;
     const char       *legr[] = {
         "<cos(\\8q\\4\\s1\\N)>",
@@ -162,7 +162,7 @@ int gmx_sorient(int argc, char *argv[])
         "consist of 3 atoms per solvent molecule.",
         "Only solvent molecules between [TT]-rmin[tt] and [TT]-rmax[tt] are",
         "considered for [TT]-o[tt] and [TT]-no[tt] each frame.[PAR]",
-        "[TT]-o[tt]: distribtion of [MATH][COS][GRK]theta[grk][SUB]1[sub][cos][math] for rmin<=r<=rmax.[PAR]",
+        "[TT]-o[tt]: distribution of [MATH][COS][GRK]theta[grk][SUB]1[sub][cos][math] for rmin<=r<=rmax.[PAR]",
         "[TT]-no[tt]: distribution of [MATH][COS][GRK]theta[grk][SUB]2[sub][cos][math] for rmin<=r<=rmax.[PAR]",
         "[TT]-ro[tt]: [MATH][CHEVRON][COS][GRK]theta[grk][SUB]1[sub][cos][chevron][math] and [MATH][CHEVRON]3[COS]^2[GRK]theta[grk][SUB]2[sub][cos]-1[chevron][math] as a function of the",
         "distance.[PAR]",
@@ -176,7 +176,7 @@ int gmx_sorient(int argc, char *argv[])
     static real       rmin = 0.0, rmax = 0.5, binwidth = 0.02, rbinw = 0.02;
     t_pargs           pa[] = {
         { "-com",  FALSE, etBOOL,  {&bCom},
-          "Use the center of mass as the reference postion" },
+          "Use the center of mass as the reference position" },
         { "-v23",  FALSE, etBOOL,  {&bVec23},
           "Use the vector between atoms 2 and 3" },
         { "-rmin",  FALSE, etREAL, {&rmin}, "Minimum distance (nm)" },
@@ -187,10 +187,10 @@ int gmx_sorient(int argc, char *argv[])
     };
 
     t_filenm          fnm[] = {
-        { efTRX, NULL,  NULL,  ffREAD },
-        { efTPS, NULL,  NULL,  ffREAD },
-        { efNDX, NULL,  NULL,  ffOPTRD },
-        { efXVG, NULL,  "sori",   ffWRITE },
+        { efTRX, nullptr,  nullptr,  ffREAD },
+        { efTPS, nullptr,  nullptr,  ffREAD },
+        { efNDX, nullptr,  nullptr,  ffOPTRD },
+        { efXVG, nullptr,  "sori",   ffWRITE },
         { efXVG, "-no", "snor",   ffWRITE },
         { efXVG, "-ro", "sord",   ffWRITE },
         { efXVG, "-co", "scum",   ffWRITE },
@@ -199,7 +199,7 @@ int gmx_sorient(int argc, char *argv[])
 #define NFILE asize(fnm)
 
     if (!parse_common_args(&argc, argv, PCA_CAN_TIME | PCA_CAN_VIEW,
-                           NFILE, fnm, asize(pa), pa, asize(desc), desc, 0, NULL, &oenv))
+                           NFILE, fnm, asize(pa), pa, asize(desc), desc, 0, nullptr, &oenv))
     {
         return 0;
     }
@@ -207,7 +207,7 @@ int gmx_sorient(int argc, char *argv[])
     bTPS = (opt2bSet("-s", NFILE, fnm) || !opt2bSet("-n", NFILE, fnm) || bCom);
     if (bTPS)
     {
-        read_tps_conf(ftp2fn(efTPS, NFILE, fnm), &top, &ePBC, &xtop, NULL, box,
+        read_tps_conf(ftp2fn(efTPS, NFILE, fnm), &top, &ePBC, &xtop, nullptr, box,
                       bCom);
     }
 
@@ -222,7 +222,7 @@ int gmx_sorient(int argc, char *argv[])
     }
     else
     {
-        get_index(NULL, ftp2fn(efNDX, NFILE, fnm), 2, isize, index, grpname);
+        get_index(nullptr, ftp2fn(efNDX, NFILE, fnm), 2, isize, index, grpname);
     }
 
     if (bCom)
@@ -368,7 +368,7 @@ int gmx_sorient(int argc, char *argv[])
 
     /* clean up */
     sfree(x);
-    close_trj(status);
+    close_trx(status);
     gmx_rmpbc_done(gpbc);
 
     /* Add the bin for the exact maximum to the previous bin */
@@ -462,8 +462,8 @@ int gmx_sorient(int argc, char *argv[])
     }
     xvgrclose(fp);
 
-    do_view(oenv, opt2fn("-o", NFILE, fnm), NULL);
-    do_view(oenv, opt2fn("-no", NFILE, fnm), NULL);
+    do_view(oenv, opt2fn("-o", NFILE, fnm), nullptr);
+    do_view(oenv, opt2fn("-no", NFILE, fnm), nullptr);
     do_view(oenv, opt2fn("-ro", NFILE, fnm), "-nxy");
     do_view(oenv, opt2fn("-co", NFILE, fnm), "-nxy");
 

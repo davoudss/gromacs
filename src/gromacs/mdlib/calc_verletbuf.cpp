@@ -1,7 +1,7 @@
 /*
  * This file is part of the GROMACS molecular simulation package.
  *
- * Copyright (c) 2012,2013,2014,2015, by the GROMACS development team, led by
+ * Copyright (c) 2012,2013,2014,2015,2016,2017, by the GROMACS development team, led by
  * Mark Abraham, David van der Spoel, Berk Hess, and Erik Lindahl,
  * and including many others, as listed in the AUTHORS file in the
  * top-level source directory and at http://www.gromacs.org.
@@ -95,26 +95,20 @@
  */
 typedef struct
 {
-    real     mass;     /* mass */
-    int      type;     /* type (used for LJ parameters) */
-    real     q;        /* charge */
-    gmx_bool bConstr;  /* constrained, if TRUE, use #DOF=2 iso 3 */
-    real     con_mass; /* mass of heaviest atom connected by constraints */
-    real     con_len;  /* constraint length to the heaviest atom */
-} atom_nonbonded_kinetic_prop_t;
-
-/* Struct for unique atom type for calculating the energy drift.
- * The atom displacement depends on mass and constraints.
- * The energy jump for given distance depend on LJ type and q.
- */
-typedef struct
-{
     atom_nonbonded_kinetic_prop_t prop; /* non-bonded and kinetic atom prop. */
     int                           n;    /* #atoms of this type in the system */
 } verletbuf_atomtype_t;
 
-void verletbuf_get_list_setup(gmx_bool gmx_unused     bSIMD,
-                              gmx_bool                bGPU,
+// Struct for derivatives of a non-bonded interaction potential
+typedef struct
+{
+    real  md1; // -V' at the cutoff
+    real  d2;  //  V'' at the cutoff
+    real  md3; // -V''' at the cutoff
+} pot_derivatives_t;
+
+void verletbuf_get_list_setup(bool                    makeSimdPairList,
+                              bool                    makeGpuPairList,
                               verletbuf_list_setup_t *list_setup)
 {
     /* When calling this function we often don't know which kernel type we
@@ -125,9 +119,9 @@ void verletbuf_get_list_setup(gmx_bool gmx_unused     bSIMD,
      * of size 1, 2 or 4, so for 4x8 or 8x8 we use the estimate for 4x4.
      */
 
-    if (bGPU)
+    if (makeGpuPairList)
     {
-        /* The CUDA kernels split the j-clusters in two halves */
+        /* The GPU kernels split the j-clusters in two halves */
         list_setup->cluster_size_i = nbnxn_kernel_to_cluster_i_size(nbnxnk8x8x8_GPU);
         list_setup->cluster_size_j = nbnxn_kernel_to_cluster_j_size(nbnxnk8x8x8_GPU)/2;
     }
@@ -137,8 +131,7 @@ void verletbuf_get_list_setup(gmx_bool gmx_unused     bSIMD,
 
         kernel_type = nbnxnk4x4_PlainC;
 
-#if GMX_SIMD
-        if (bSIMD)
+        if (GMX_SIMD && makeSimdPairList)
         {
 #ifdef GMX_NBNXN_SIMD_2XNN
             /* We use the smallest cluster size to be on the safe side */
@@ -147,7 +140,6 @@ void verletbuf_get_list_setup(gmx_bool gmx_unused     bSIMD,
             kernel_type = nbnxnk4xN_SIMD_4xN;
 #endif
         }
-#endif
 
         list_setup->cluster_size_i = nbnxn_kernel_to_cluster_i_size(kernel_type);
         list_setup->cluster_size_j = nbnxn_kernel_to_cluster_j_size(kernel_type);
@@ -343,10 +335,10 @@ static void get_verlet_buffer_atomtypes(const gmx_mtop_t      *mtop,
     real                          *vsite_m;
     int                            n_nonlin_vsite_mol;
 
-    att  = NULL;
+    att  = nullptr;
     natt = 0;
 
-    if (n_nonlin_vsite != NULL)
+    if (n_nonlin_vsite != nullptr)
     {
         *n_nonlin_vsite = 0;
     }
@@ -412,7 +404,7 @@ static void get_verlet_buffer_atomtypes(const gmx_mtop_t      *mtop,
                          &mtop->ffparams,
                          vsite_m,
                          &n_nonlin_vsite_mol);
-        if (n_nonlin_vsite != NULL)
+        if (n_nonlin_vsite != nullptr)
         {
             *n_nonlin_vsite += nmol*n_nonlin_vsite_mol;
         }
@@ -471,69 +463,60 @@ static void get_verlet_buffer_atomtypes(const gmx_mtop_t      *mtop,
  * into account. If an atom has multiple constraints, this will result in
  * an overestimate of the displacement, which gives a larger drift and buffer.
  */
-static void constrained_atom_sigma2(real                                 kT_fac,
-                                    const atom_nonbonded_kinetic_prop_t *prop,
-                                    real                                *sigma2_2d,
-                                    real                                *sigma2_3d)
+void constrained_atom_sigma2(real                                 kT_fac,
+                             const atom_nonbonded_kinetic_prop_t *prop,
+                             real                                *sigma2_2d,
+                             real                                *sigma2_3d)
 {
-    real sigma2_rot;
-    real com_dist;
-    real sigma2_rel;
-    real scale;
-
     /* Here we decompose the motion of a constrained atom into two
      * components: rotation around the COM and translation of the COM.
      */
 
-    /* Determine the variance for the displacement of the rotational mode */
-    sigma2_rot = kT_fac/(prop->mass*(prop->mass + prop->con_mass)/prop->con_mass);
+    /* Determine the variance of the arc length for the two rotational DOFs */
+    real massFraction = prop->con_mass/(prop->mass + prop->con_mass);
+    real sigma2_rot   = kT_fac*massFraction/prop->mass;
 
     /* The distance from the atom to the COM, i.e. the rotational arm */
-    com_dist = prop->con_len*prop->con_mass/(prop->mass + prop->con_mass);
+    real comDistance  = prop->con_len*massFraction;
 
     /* The variance relative to the arm */
-    sigma2_rel = sigma2_rot/(com_dist*com_dist);
-    /* At 6 the scaling formula has slope 0,
-     * so we keep sigma2_2d constant after that.
+    real sigma2_rel   = sigma2_rot/gmx::square(comDistance);
+
+    /* For sigma2_rel << 1 we don't notice the rotational effect and
+     * we have a normal, Gaussian displacement distribution.
+     * For larger sigma2_rel the displacement is much less, in fact it can
+     * not exceed 2*comDistance. We can calculate MSD/arm^2 as:
+     *   integral_x=0-inf distance2(x) x/sigma2_rel exp(-x^2/(2 sigma2_rel)) dx
+     * where x is angular displacement and distance2(x) is the distance^2
+     * between points at angle 0 and x:
+     *   distance2(x) = (sin(x) - sin(0))^2 + (cos(x) - cos(0))^2
+     * The limiting value of this MSD is 2, which is also the value for
+     * a uniform rotation distribution that would be reached at long time.
+     * The maximum is 2.5695 at sigma2_rel = 4.5119.
+     * We approximate this integral with a rational polynomial with
+     * coefficients from a Taylor expansion. This approximation is an
+     * overestimate for all values of sigma2_rel. Its maximum value
+     * of 2.6491 is reached at sigma2_rel = sqrt(45/2) = 4.7434.
+     * We keep the approximation constant after that.
+     * We use this approximate MSD as the variance for a Gaussian distribution.
+     *
+     * NOTE: For any sensible buffer tolerance this will result in a (large)
+     * overestimate of the buffer size, since the Gaussian has a long tail,
+     * whereas the actual distribution can not reach values larger than 2.
      */
-    if (sigma2_rel < 6)
-    {
-        /* A constrained atom rotates around the atom it is constrained to.
-         * This results in a smaller linear displacement than for a free atom.
-         * For a perfectly circular displacement, this lowers the displacement
-         * by: 1/arcsin(arc_length)
-         * and arcsin(x) = 1 + x^2/6 + ...
-         * For sigma2_rel<<1 the displacement distribution is erfc
-         * (exact formula is provided below). For larger sigma, it is clear
-         * that the displacement can't be larger than 2*com_dist.
-         * It turns out that the distribution becomes nearly uniform.
-         * For intermediate sigma2_rel, scaling down sigma with the third
-         * order expansion of arcsin with argument sigma_rel turns out
-         * to give a very good approximation of the distribution and variance.
-         * Even for larger values, the variance is only slightly overestimated.
-         * Note that the most relevant displacements are in the long tail.
-         * This rotation approximation always overestimates the tail (which
-         * runs to infinity, whereas it should be <= 2*com_dist).
-         * Thus we always overestimate the drift and the buffer size.
-         */
-        scale      = 1/(1 + sigma2_rel/6);
-        *sigma2_2d = sigma2_rot*scale*scale;
-    }
-    else
-    {
-        /* sigma_2d is set to the maximum given by the scaling above.
-         * For large sigma2 the real displacement distribution is close
-         * to uniform over -2*con_len to 2*com_dist.
-         * Our erfc with sigma_2d=sqrt(1.5)*com_dist (which means the sigma
-         * of the erfc output distribution is con_dist) overestimates
-         * the variance and additionally has a long tail. This means
-         * we have a (safe) overestimation of the drift.
-         */
-        *sigma2_2d = 1.5*com_dist*com_dist;
-    }
+    /* Coeffients obtained from a Taylor expansion */
+    const real a = 1.0/3.0;
+    const real b = 2.0/45.0;
+
+    /* Our approximation is constant after sigma2_rel = 1/sqrt(b) */
+    sigma2_rel   = std::min(sigma2_rel, 1/std::sqrt(b));
+
+    /* Compute the approximate sigma^2 for 2D motion due to the rotation */
+    *sigma2_2d   = gmx::square(comDistance)*
+        sigma2_rel/(1 + a*sigma2_rel + b*gmx::square(sigma2_rel));
 
     /* The constrained atom also moves (in 3D) with the COM of both atoms */
-    *sigma2_3d = kT_fac/(prop->mass + prop->con_mass);
+    *sigma2_3d   = kT_fac/(prop->mass + prop->con_mass);
 }
 
 static void get_atom_sigma2(real                                 kT_fac,
@@ -566,144 +549,157 @@ static void approx_2dof(real s2, real x, real *shift, real *scale)
      */
     real ex, er;
 
-    ex = exp(-x*x/(2*s2));
+    ex = std::exp(-x*x/(2*s2));
     er = std::erfc(x/std::sqrt(2*s2));
 
     *shift = -x + std::sqrt(2*s2/M_PI)*ex/er;
     *scale = 0.5*M_PI*std::exp(ex*ex/(M_PI*er*er))*er;
 }
 
-static real ener_drift(const verletbuf_atomtype_t *att, int natt,
-                       const gmx_ffparams_t *ffp,
-                       real kT_fac,
-                       real md1_ljd, real d2_ljd, real md3_ljd,
-                       real md1_ljr, real d2_ljr, real md3_ljr,
-                       real md1_el,  real d2_el,
-                       real r_buffer,
-                       real rlist, real boxvol)
+// Returns an (over)estimate of the energy drift for a single atom pair,
+// given the kinetic properties, displacement variances and list buffer.
+static real energyDriftAtomPair(const atom_nonbonded_kinetic_prop_t *prop_i,
+                                const atom_nonbonded_kinetic_prop_t *prop_j,
+                                real s2, real s2i_2d, real s2j_2d,
+                                real r_buffer,
+                                const pot_derivatives_t *der)
 {
-    /* Erfc(8)=1e-29, use this limit so we have some space for arithmetic
-     * on the result when using float precision.
-     */
+    // For relatively small arguments erfc() is so small that if will be 0.0
+    // when stored in a float. We set an argument limit of 8 (Erfc(8)=1e-29),
+    // such that we can divide by erfc and have some space left for arithmetic.
     const real erfc_arg_max = 8.0;
 
-    double     drift_tot, pot1, pot2, pot3, pot;
-    int        i, j;
-    real       s2i_2d, s2i_3d, s2j_2d, s2j_3d, s2, s;
-    int        ti, tj;
-    real       md1, d2, md3;
-    real       sc_fac, rsh, rsh2;
-    double     c_exp, c_erfc;
+    real       rsh    = r_buffer;
+    real       sc_fac = 1.0;
 
-    drift_tot = 0;
+    real       c_exp, c_erfc;
 
-    /* Loop over the different atom type pairs */
-    for (i = 0; i < natt; i++)
+    if (rsh*rsh > 2*s2*erfc_arg_max*erfc_arg_max)
     {
-        get_atom_sigma2(kT_fac, &att[i].prop, &s2i_2d, &s2i_3d);
-        ti = att[i].prop.type;
-
-        for (j = i; j < natt; j++)
+        // Below we calculate c_erfc = 0.5*erfc(rsh/sqrt(2*s2))
+        // When rsh/sqrt(2*s2) increases, this erfc will be the first
+        // result that underflows and becomes 0.0. To avoid this,
+        // we set c_exp=0 and c_erfc=0 for large arguments.
+        // This also avoids NaN in approx_2dof().
+        // In any relevant case this has no effect on the results,
+        // since c_exp < 6e-29, so the displacement is completely
+        // negligible for such atom pairs (and an overestimate).
+        // In nearly all use cases, there will be other atom pairs
+        // that contribute much more to the total, so zeroing
+        // this particular contribution has no effect at all.
+        c_exp  = 0;
+        c_erfc = 0;
+    }
+    else
+    {
+        /* For constraints: adapt r and scaling for the Gaussian */
+        if (prop_i->bConstr)
         {
-            get_atom_sigma2(kT_fac, &att[j].prop, &s2j_2d, &s2j_3d);
-            tj = att[j].prop.type;
+            real sh, sc;
+
+            approx_2dof(s2i_2d, r_buffer*s2i_2d/s2, &sh, &sc);
+            rsh    += sh;
+            sc_fac *= sc;
+        }
+        if (prop_j->bConstr)
+        {
+            real sh, sc;
+
+            approx_2dof(s2j_2d, r_buffer*s2j_2d/s2, &sh, &sc);
+            rsh    += sh;
+            sc_fac *= sc;
+        }
+
+        /* Exact contribution of an atom pair with Gaussian displacement
+         * with sigma s to the energy drift for a potential with
+         * derivative -md and second derivative dd at the cut-off.
+         * The only catch is that for potentials that change sign
+         * near the cut-off there could be an unlucky compensation
+         * of positive and negative energy drift.
+         * Such potentials are extremely rare though.
+         *
+         * Note that pot has unit energy*length, as the linear
+         * atom density still needs to be put in.
+         */
+        c_exp  = std::exp(-rsh*rsh/(2*s2))/std::sqrt(2*M_PI);
+        c_erfc = 0.5*std::erfc(rsh/(std::sqrt(2*s2)));
+    }
+    real s    = std::sqrt(s2);
+    real rsh2 = rsh*rsh;
+
+    real pot1 = sc_fac*
+        der->md1/2*((rsh2 + s2)*c_erfc - rsh*s*c_exp);
+    real pot2 = sc_fac*
+        der->d2/6*(s*(rsh2 + 2*s2)*c_exp - rsh*(rsh2 + 3*s2)*c_erfc);
+    real pot3 = sc_fac*
+        der->md3/24*((rsh2*rsh2 + 6*rsh2*s2 + 3*s2*s2)*c_erfc - rsh*s*(rsh2 + 5*s2)*c_exp);
+
+    return pot1 + pot2 + pot3;
+}
+
+static real energyDrift(const verletbuf_atomtype_t *att, int natt,
+                        const gmx_ffparams_t *ffp,
+                        real kT_fac,
+                        const pot_derivatives_t *ljDisp,
+                        const pot_derivatives_t *ljRep,
+                        const pot_derivatives_t *elec,
+                        real rlj, real rcoulomb,
+                        real rlist, real boxvol)
+{
+    double drift_tot = 0;
+
+    if (kT_fac == 0)
+    {
+        /* No atom displacements: no drift, avoid division by 0 */
+        return drift_tot;
+    }
+
+    // Here add up the contribution of all atom pairs in the system to
+    // (estimated) energy drift by looping over all atom type pairs.
+    for (int i = 0; i < natt; i++)
+    {
+        // Get the thermal displacement variance for the i-atom type
+        const atom_nonbonded_kinetic_prop_t *prop_i = &att[i].prop;
+        real                                 s2i_2d, s2i_3d;
+        get_atom_sigma2(kT_fac, prop_i, &s2i_2d, &s2i_3d);
+
+        for (int j = i; j < natt; j++)
+        {
+            // Get the thermal displacement variance for the j-atom type
+            const atom_nonbonded_kinetic_prop_t *prop_j = &att[j].prop;
+            real                                 s2j_2d, s2j_3d;
+            get_atom_sigma2(kT_fac, prop_j, &s2j_2d, &s2j_3d);
 
             /* Add up the up to four independent variances */
-            s2 = s2i_2d + s2i_3d + s2j_2d + s2j_3d;
+            real s2 = s2i_2d + s2i_3d + s2j_2d + s2j_3d;
 
-            /* Note that attractive and repulsive potentials for individual
-             * pairs will partially cancel.
-             */
-            /* -dV/dr at the cut-off for LJ + Coulomb */
-            md1 =
-                md1_ljd*ffp->iparams[ti*ffp->atnr+tj].lj.c6 +
-                md1_ljr*ffp->iparams[ti*ffp->atnr+tj].lj.c12 +
-                md1_el*att[i].prop.q*att[j].prop.q;
+            // Set -V', V'' and -V''' at the cut-off for LJ */
+            real              c6  = ffp->iparams[prop_i->type*ffp->atnr + prop_j->type].lj.c6;
+            real              c12 = ffp->iparams[prop_i->type*ffp->atnr + prop_j->type].lj.c12;
+            pot_derivatives_t lj;
+            lj.md1 = c6*ljDisp->md1 + c12*ljRep->md1;
+            lj.d2  = c6*ljDisp->d2  + c12*ljRep->d2;
+            lj.md3 = c6*ljDisp->md3 + c12*ljRep->md3;
 
-            /* d2V/dr2 at the cut-off for LJ + Coulomb */
-            d2 =
-                d2_ljd*ffp->iparams[ti*ffp->atnr+tj].lj.c6 +
-                d2_ljr*ffp->iparams[ti*ffp->atnr+tj].lj.c12 +
-                d2_el*att[i].prop.q*att[j].prop.q;
+            real pot_lj = energyDriftAtomPair(prop_i, prop_j,
+                                              s2, s2i_2d, s2j_2d,
+                                              rlist - rlj,
+                                              &lj);
 
-            /* -d3V/dr3 at the cut-off for LJ, we neglect Coulomb */
-            md3 =
-                md3_ljd*ffp->iparams[ti*ffp->atnr+tj].lj.c6 +
-                md3_ljr*ffp->iparams[ti*ffp->atnr+tj].lj.c12;
+            // Set -V' and V'' at the cut-off for Coulomb
+            pot_derivatives_t elec_qq;
+            elec_qq.md1 = elec->md1*prop_i->q*prop_j->q;
+            elec_qq.d2  = elec->d2 *prop_i->q*prop_j->q;
+            elec_qq.md3 = 0;
 
-            rsh    = r_buffer;
-            sc_fac = 1.0;
+            real pot_q  = energyDriftAtomPair(prop_i, prop_j,
+                                              s2, s2i_2d, s2j_2d,
+                                              rlist - rcoulomb,
+                                              &elec_qq);
 
-            if (rsh*rsh > 2*s2*erfc_arg_max*erfc_arg_max)
-            {
-                /* Erfc might run out of float and become 0, somewhat before
-                 * c_exp becomes 0. To avoid this and to avoid NaN in
-                 * approx_2dof, we set both c_expc and c_erfc to zero.
-                 * In any relevant case this has no effect on the results,
-                 * since c_exp < 6e-29, so the displacement is completely
-                 * negligible for such atom pairs (and an overestimate).
-                 * In nearly all use cases, there will be other atom
-                 * pairs that contribute much more to the total, so zeroing
-                 * this particular contribution has no effect at all.
-                 */
-                c_exp  = 0;
-                c_erfc = 0;
-            }
-            else
-            {
-                /* For constraints: adapt r and scaling for the Gaussian */
-                if (att[i].prop.bConstr)
-                {
-                    real sh, sc;
-
-                    approx_2dof(s2i_2d, r_buffer*s2i_2d/s2, &sh, &sc);
-                    rsh    += sh;
-                    sc_fac *= sc;
-                }
-                if (att[j].prop.bConstr)
-                {
-                    real sh, sc;
-
-                    approx_2dof(s2j_2d, r_buffer*s2j_2d/s2, &sh, &sc);
-                    rsh    += sh;
-                    sc_fac *= sc;
-                }
-
-                /* Exact contribution of an atom pair with Gaussian displacement
-                 * with sigma s to the energy drift for a potential with
-                 * derivative -md and second derivative dd at the cut-off.
-                 * The only catch is that for potentials that change sign
-                 * near the cut-off there could be an unlucky compensation
-                 * of positive and negative energy drift.
-                 * Such potentials are extremely rare though.
-                 *
-                 * Note that pot has unit energy*length, as the linear
-                 * atom density still needs to be put in.
-                 */
-                c_exp  = std::exp(-rsh*rsh/(2*s2))/std::sqrt(2*M_PI);
-                c_erfc = 0.5*std::erfc(rsh/(std::sqrt(2*s2)));
-            }
-            s      = std::sqrt(s2);
-            rsh2   = rsh*rsh;
-
-            pot1 = sc_fac*
-                md1/2*((rsh2 + s2)*c_erfc - rsh*s*c_exp);
-            pot2 = sc_fac*
-                d2/6*(s*(rsh2 + 2*s2)*c_exp - rsh*(rsh2 + 3*s2)*c_erfc);
-            pot3 = sc_fac*
-                md3/24*((rsh2*rsh2 + 6*rsh2*s2 + 3*s2*s2)*c_erfc - rsh*s*(rsh2 + 5*s2)*c_exp);
-            pot = pot1 + pot2 + pot3;
-
-            if (gmx_debug_at)
-            {
-                fprintf(debug, "n %d %d d s %.3f %.3f %.3f %.3f con %d -d1 %8.1e d2 %8.1e -d3 %8.1e pot1 %8.1e pot2 %8.1e pot3 %8.1e pot %8.1e\n",
-                        att[i].n, att[j].n,
-                        std::sqrt(s2i_2d), std::sqrt(s2i_3d),
-                        std::sqrt(s2j_2d), std::sqrt(s2j_3d),
-                        att[i].prop.bConstr+att[j].prop.bConstr,
-                        md1, d2, md3,
-                        pot1, pot2, pot3, pot);
-            }
+            // Note that attractive and repulsive potentials for individual
+            // pairs can partially cancel.
+            real pot = pot_lj + pot_q;
 
             /* Multiply by the number of atom pairs */
             if (j == i)
@@ -717,7 +713,7 @@ static real ener_drift(const verletbuf_atomtype_t *att, int natt,
             /* We need the line density to get the energy drift of the system.
              * The effective average r^2 is close to (rlist+sigma)^2.
              */
-            pot *= 4*M_PI*gmx::square(rlist + s)/boxvol;
+            pot *= 4*M_PI*gmx::square(rlist + std::sqrt(s2))/boxvol;
 
             /* Add the unsigned drift to avoid cancellation of errors */
             drift_tot += std::abs(pot);
@@ -811,17 +807,22 @@ void calc_verlet_buffer_size(const gmx_mtop_t *mtop, real boxvol,
     real                  particle_distance;
     real                  nb_clust_frac_pairs_not_in_list_at_cutoff;
 
-    verletbuf_atomtype_t *att  = NULL;
+    verletbuf_atomtype_t *att  = nullptr;
     int                   natt = -1, i;
-    double                reppow;
-    real                  md1_ljd, d2_ljd, md3_ljd;
-    real                  md1_ljr, d2_ljr, md3_ljr;
-    real                  md1_el,  d2_el;
     real                  elfac;
     real                  kT_fac, mass_min;
     int                   ib0, ib1, ib;
     real                  rb, rl;
     real                  drift;
+
+    if (!EI_DYNAMICS(ir->eI))
+    {
+        gmx_incons("Can only determine the Verlet buffer size for integrators that perform dynamics");
+    }
+    if (ir->verletbuf_tol <= 0)
+    {
+        gmx_incons("The Verlet buffer tolerance needs to be larger than zero");
+    }
 
     if (reference_temperature < 0)
     {
@@ -850,7 +851,7 @@ void calc_verlet_buffer_size(const gmx_mtop_t *mtop, real boxvol,
     resolution = 0.001;
 
     env = getenv("GMX_VERLET_BUFFER_RES");
-    if (env != NULL)
+    if (env != nullptr)
     {
         sscanf(env, "%lf", &resolution);
     }
@@ -892,13 +893,10 @@ void calc_verlet_buffer_size(const gmx_mtop_t *mtop, real boxvol,
         fprintf(debug, "energy drift atom types: %d\n", natt);
     }
 
-    reppow   = mtop->ffparams.reppow;
-    md1_ljd  = 0;
-    d2_ljd   = 0;
-    md3_ljd  = 0;
-    md1_ljr  = 0;
-    d2_ljr   = 0;
-    md3_ljr  = 0;
+    pot_derivatives_t ljDisp = { 0, 0, 0 };
+    pot_derivatives_t ljRep  = { 0, 0, 0 };
+    real              repPow = mtop->ffparams.reppow;
+
     if (ir->vdwtype == evdwCUT)
     {
         real sw_range, md3_pswf;
@@ -908,25 +906,25 @@ void calc_verlet_buffer_size(const gmx_mtop_t *mtop, real boxvol,
             case eintmodNONE:
             case eintmodPOTSHIFT:
                 /* -dV/dr of -r^-6 and r^-reppow */
-                md1_ljd =     -6/(ir->rvdw*gmx::power6(ir->rvdw));
-                md1_ljr = reppow*pow(ir->rvdw, -(reppow+1));
+                ljDisp.md1 =     -6*std::pow(ir->rvdw, -7.0);
+                ljRep.md1  = repPow*std::pow(ir->rvdw, -(repPow + 1));
                 /* The contribution of the higher derivatives is negligible */
                 break;
             case eintmodFORCESWITCH:
                 /* At the cut-off: V=V'=V''=0, so we use only V''' */
-                md3_ljd  = -md3_force_switch(6.0,    ir->rvdw_switch, ir->rvdw);
-                md3_ljr  =  md3_force_switch(reppow, ir->rvdw_switch, ir->rvdw);
+                ljDisp.md3 = -md3_force_switch(6.0,    ir->rvdw_switch, ir->rvdw);
+                ljRep.md3  =  md3_force_switch(repPow, ir->rvdw_switch, ir->rvdw);
                 break;
             case eintmodPOTSWITCH:
                 /* At the cut-off: V=V'=V''=0.
                  * V''' is given by the original potential times
                  * the third derivative of the switch function.
                  */
-                sw_range  = ir->rvdw - ir->rvdw_switch;
-                md3_pswf  = 60.0/gmx::power3(sw_range);
+                sw_range   = ir->rvdw - ir->rvdw_switch;
+                md3_pswf   = 60.0/gmx::power3(sw_range);
 
-                md3_ljd   = -1.0/gmx::power6(ir->rvdw)*md3_pswf;
-                md3_ljr   =  pow(ir->rvdw, -reppow)*md3_pswf;
+                ljDisp.md3 = -std::pow(ir->rvdw, -6.0   )*md3_pswf;
+                ljRep.md3  =  std::pow(ir->rvdw, -repPow)*md3_pswf;
                 break;
             default:
                 gmx_incons("Unimplemented VdW modifier");
@@ -934,17 +932,17 @@ void calc_verlet_buffer_size(const gmx_mtop_t *mtop, real boxvol,
     }
     else if (EVDW_PME(ir->vdwtype))
     {
-        real b, r, br, br2, br4, br6;
-        b        = calc_ewaldcoeff_lj(ir->rvdw, ir->ewald_rtol_lj);
-        r        = ir->rvdw;
-        br       = b*r;
-        br2      = br*br;
-        br4      = br2*br2;
-        br6      = br4*br2;
-        /* -dV/dr of g(br)*r^-6 [where g(x) = exp(-x^2)(1+x^2+x^4/2), see LJ-PME equations in manual] and r^-reppow */
-        md1_ljd  = -std::exp(-br2)*(br6 + 3.0*br4 + 6.0*br2 + 6.0)/(r*gmx::power6(r));
-        md1_ljr  = reppow*std::pow(r, -(reppow+1));
-        /* The contribution of the higher derivatives is negligible */
+        real b     = calc_ewaldcoeff_lj(ir->rvdw, ir->ewald_rtol_lj);
+        real r     = ir->rvdw;
+        real br    = b*r;
+        real br2   = br*br;
+        real br4   = br2*br2;
+        real br6   = br4*br2;
+        // -dV/dr of g(br)*r^-6 [where g(x) = exp(-x^2)(1+x^2+x^4/2),
+        // see LJ-PME equations in manual] and r^-reppow
+        ljDisp.md1 = -std::exp(-br2)*(br6 + 3.0*br4 + 6.0*br2 + 6.0)*std::pow(r, -7.0);
+        ljRep.md1  = repPow*pow(r, -(repPow + 1));
+        // The contribution of the higher derivatives is negligible
     }
     else
     {
@@ -953,8 +951,9 @@ void calc_verlet_buffer_size(const gmx_mtop_t *mtop, real boxvol,
 
     elfac = ONE_4PI_EPS0/ir->epsilon_r;
 
-    /* Determine md=-dV/dr and dd=d^2V/dr^2 */
-    md1_el = 0;
+    // Determine the 1st and 2nd derivative for the electostatics
+    pot_derivatives_t elec = { 0, 0, 0 };
+
     if (ir->coulombtype == eelCUT || EEL_RF(ir->coulombtype))
     {
         real eps_rf, k_rf;
@@ -980,19 +979,19 @@ void calc_verlet_buffer_size(const gmx_mtop_t *mtop, real boxvol,
 
         if (eps_rf > 0)
         {
-            md1_el = elfac*(1.0/gmx::square(ir->rcoulomb) - 2*k_rf*ir->rcoulomb);
+            elec.md1 = elfac*(1.0/gmx::square(ir->rcoulomb) - 2*k_rf*ir->rcoulomb);
         }
-        d2_el      = elfac*(2.0/gmx::power3(ir->rcoulomb) + 2*k_rf);
+        elec.d2      = elfac*(2.0/gmx::power3(ir->rcoulomb) + 2*k_rf);
     }
     else if (EEL_PME(ir->coulombtype) || ir->coulombtype == eelEWALD)
     {
         real b, rc, br;
 
-        b      = calc_ewaldcoeff_q(ir->rcoulomb, ir->ewald_rtol);
-        rc     = ir->rcoulomb;
-        br     = b*rc;
-        md1_el = elfac*(b*exp(-br*br)*M_2_SQRTPI/rc + std::erfc(br)/(rc*rc));
-        d2_el  = elfac/(rc*rc)*(2*b*(1 + br*br)*exp(-br*br)*M_2_SQRTPI + 2*std::erfc(br)/rc);
+        b        = calc_ewaldcoeff_q(ir->rcoulomb, ir->ewald_rtol);
+        rc       = ir->rcoulomb;
+        br       = b*rc;
+        elec.md1 = elfac*(b*std::exp(-br*br)*M_2_SQRTPI/rc + std::erfc(br)/(rc*rc));
+        elec.d2  = elfac/(rc*rc)*(2*b*(1 + br*br)*std::exp(-br*br)*M_2_SQRTPI + 2*std::erfc(br)/rc);
     }
     else
     {
@@ -1053,9 +1052,10 @@ void calc_verlet_buffer_size(const gmx_mtop_t *mtop, real boxvol,
 
     if (debug)
     {
-        fprintf(debug, "md1_ljd %9.2e d2_ljd %9.2e md3_ljd %9.2e\n", md1_ljd, d2_ljd, md3_ljd);
-        fprintf(debug, "md1_ljr %9.2e d2_ljr %9.2e md3_ljr %9.2e\n", md1_ljr, d2_ljr, md3_ljr);
-        fprintf(debug, "md1_el  %9.2e d2_el  %9.2e\n", md1_el, d2_el);
+        fprintf(debug, "Derivatives of non-bonded potentials at the cut-off:\n");
+        fprintf(debug, "LJ disp. -V' %9.2e V'' %9.2e -V''' %9.2e\n", ljDisp.md1, ljDisp.d2, ljDisp.md3);
+        fprintf(debug, "LJ rep.  -V' %9.2e V'' %9.2e -V''' %9.2e\n", ljRep.md1, ljRep.d2, ljRep.md3);
+        fprintf(debug, "Electro. -V' %9.2e V'' %9.2e\n", elec.md1, elec.d2);
         fprintf(debug, "sqrt(kT_fac) %f\n", std::sqrt(kT_fac));
         fprintf(debug, "mass_min %f\n", mass_min);
     }
@@ -1073,13 +1073,11 @@ void calc_verlet_buffer_size(const gmx_mtop_t *mtop, real boxvol,
         /* Calculate the average energy drift at the last step
          * of the nstlist steps at which the pair-list is used.
          */
-        drift = ener_drift(att, natt, &mtop->ffparams,
-                           kT_fac,
-                           md1_ljd, d2_ljd, md3_ljd,
-                           md1_ljr, d2_ljr, md3_ljr,
-                           md1_el,  d2_el,
-                           rb,
-                           rl, boxvol);
+        drift = energyDrift(att, natt, &mtop->ffparams,
+                            kT_fac,
+                            &ljDisp, &ljRep, &elec,
+                            ir->rvdw, ir->rcoulomb,
+                            rl, boxvol);
 
         /* Correct for the fact that we are using a Ni x Nj particle pair list
          * and not a 1 x 1 particle pair list. This reduces the drift.

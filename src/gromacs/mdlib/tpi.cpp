@@ -3,7 +3,7 @@
  *
  * Copyright (c) 1991-2000, University of Groningen, The Netherlands.
  * Copyright (c) 2001-2004, The GROMACS development team.
- * Copyright (c) 2013,2014,2015, by the GROMACS development team, led by
+ * Copyright (c) 2013,2014,2015,2016,2017, by the GROMACS development team, led by
  * Mark Abraham, David van der Spoel, Berk Hess, and Erik Lindahl,
  * and including many others, as listed in the AUTHORS file in the
  * top-level source directory and at http://www.gromacs.org.
@@ -78,8 +78,10 @@
 #include "gromacs/mdtypes/group.h"
 #include "gromacs/mdtypes/inputrec.h"
 #include "gromacs/mdtypes/md_enums.h"
+#include "gromacs/mdtypes/state.h"
 #include "gromacs/pbcutil/pbc.h"
-#include "gromacs/random/random.h"
+#include "gromacs/random/threefry.h"
+#include "gromacs/random/uniformrealdistribution.h"
 #include "gromacs/timing/wallcycle.h"
 #include "gromacs/timing/walltime_accounting.h"
 #include "gromacs/topology/mtop_util.h"
@@ -121,19 +123,17 @@ static void realloc_bins(double **bin, int *nbin, int nbin_new)
     }
 }
 
-//! Workaround to keep doxygen from generating warnings
-static const gmx_uint64_t rnd_seed_tpi = RND_SEED_TPI;
-
 namespace gmx
 {
 
 /*! \brief Do test particle insertion.
-    \copydoc integrator_t (FILE *fplog, t_commrec *cr,
+    \copydoc integrator_t (FILE *fplog, t_commrec *cr, const gmx::MDLogger &mdlog,
                            int nfile, const t_filenm fnm[],
                            const gmx_output_env_t *oenv, gmx_bool bVerbose,
                            int nstglobalcomm,
                            gmx_vsite_t *vsite, gmx_constr_t constr,
                            int stepout,
+                           gmx::IMDOutputProvider *outputProvider,
                            t_inputrec *inputrec,
                            gmx_mtop_t *top_global, t_fcdata *fcd,
                            t_state *state_global,
@@ -141,66 +141,65 @@ namespace gmx
                            t_nrnb *nrnb, gmx_wallcycle_t wcycle,
                            gmx_edsam_t ed,
                            t_forcerec *fr,
-                           int repl_ex_nst, int repl_ex_nex, int repl_ex_seed,
-                           gmx_membed_t *membed,
+                           const ReplicaExchangeParameters &replExParams,
                            real cpt_period, real max_hours,
                            int imdport,
                            unsigned long Flags,
                            gmx_walltime_accounting_t walltime_accounting)
  */
-double do_tpi(FILE *fplog, t_commrec *cr,
+double do_tpi(FILE *fplog, t_commrec *cr, const gmx::MDLogger gmx_unused &mdlog,
               int nfile, const t_filenm fnm[],
               const gmx_output_env_t *oenv, gmx_bool bVerbose,
               int gmx_unused nstglobalcomm,
               gmx_vsite_t gmx_unused *vsite, gmx_constr_t gmx_unused constr,
               int gmx_unused stepout,
+              gmx::IMDOutputProvider *outputProvider,
               t_inputrec *inputrec,
               gmx_mtop_t *top_global, t_fcdata *fcd,
               t_state *state_global,
+              ObservablesHistory gmx_unused *observablesHistory,
               t_mdatoms *mdatoms,
               t_nrnb *nrnb, gmx_wallcycle_t wcycle,
-              gmx_edsam_t gmx_unused ed,
               t_forcerec *fr,
-              int gmx_unused repl_ex_nst, int gmx_unused repl_ex_nex, int gmx_unused repl_ex_seed,
-              gmx_membed_t *membed,
+              const ReplicaExchangeParameters gmx_unused &replExParams,
+              gmx_membed_t gmx_unused *membed,
               real gmx_unused cpt_period, real gmx_unused max_hours,
               int gmx_unused imdport,
               unsigned long gmx_unused Flags,
               gmx_walltime_accounting_t walltime_accounting)
 {
-    gmx_localtop_t *top;
-    gmx_groups_t   *groups;
-    gmx_enerdata_t *enerd;
-    rvec           *f;
-    real            lambda, t, temp, beta, drmax, epot;
-    double          embU, sum_embU, *sum_UgembU, V, V_all, VembU_all;
-    t_trxstatus    *status;
-    t_trxframe      rerun_fr;
-    gmx_bool        bDispCorr, bCharge, bRFExcl, bNotLastFrame, bStateChanged, bNS;
-    tensor          force_vir, shake_vir, vir, pres;
-    int             cg_tp, a_tp0, a_tp1, ngid, gid_tp, nener, e;
-    rvec           *x_mol;
-    rvec            mu_tot, x_init, dx, x_tp;
-    int             nnodes, frame;
-    gmx_int64_t     frame_step_prev, frame_step;
-    gmx_int64_t     nsteps, stepblocksize = 0, step;
-    gmx_int64_t     rnd_count_stride, rnd_count;
-    gmx_int64_t     seed;
-    double          rnd[4];
-    int             i;
-    FILE           *fp_tpi = NULL;
-    char           *ptr, *dump_pdb, **leg, str[STRLEN], str2[STRLEN];
-    double          dbl, dump_ener;
-    gmx_bool        bCavity;
-    int             nat_cavity  = 0, d;
-    real           *mass_cavity = NULL, mass_tot;
-    int             nbin;
-    double          invbinw, *bin, refvolshift, logV, bUlogV;
-    real            prescorr, enercorr, dvdlcorr;
-    gmx_bool        bEnergyOutOfBounds;
-    const char     *tpid_leg[2] = {"direct", "reweighted"};
+    gmx_localtop_t  *top;
+    gmx_groups_t    *groups;
+    gmx_enerdata_t  *enerd;
+    PaddedRVecVector f {};
+    real             lambda, t, temp, beta, drmax, epot;
+    double           embU, sum_embU, *sum_UgembU, V, V_all, VembU_all;
+    t_trxstatus     *status;
+    t_trxframe       rerun_fr;
+    gmx_bool         bDispCorr, bCharge, bRFExcl, bNotLastFrame, bStateChanged, bNS;
+    tensor           force_vir, shake_vir, vir, pres;
+    int              cg_tp, a_tp0, a_tp1, ngid, gid_tp, nener, e;
+    rvec            *x_mol;
+    rvec             mu_tot, x_init, dx, x_tp;
+    int              nnodes, frame;
+    gmx_int64_t      frame_step_prev, frame_step;
+    gmx_int64_t      nsteps, stepblocksize = 0, step;
+    gmx_int64_t      seed;
+    int              i;
+    FILE            *fp_tpi = nullptr;
+    char            *ptr, *dump_pdb, **leg, str[STRLEN], str2[STRLEN];
+    double           dbl, dump_ener;
+    gmx_bool         bCavity;
+    int              nat_cavity  = 0, d;
+    real            *mass_cavity = nullptr, mass_tot;
+    int              nbin;
+    double           invbinw, *bin, refvolshift, logV, bUlogV;
+    real             prescorr, enercorr, dvdlcorr;
+    gmx_bool         bEnergyOutOfBounds;
+    const char      *tpid_leg[2] = {"direct", "reweighted"};
 
-    GMX_UNUSED_VALUE(membed);
+    GMX_UNUSED_VALUE(outputProvider);
+
     /* Since there is no upper limit to the insertion energies,
      * we need to set an upper limit for the distribution output.
      */
@@ -222,7 +221,7 @@ double do_tpi(FILE *fplog, t_commrec *cr,
     if (bCavity)
     {
         ptr = getenv("GMX_TPIC_MASSES");
-        if (ptr == NULL)
+        if (ptr == nullptr)
         {
             nat_cavity = 1;
         }
@@ -290,12 +289,15 @@ double do_tpi(FILE *fplog, t_commrec *cr,
         sscanf(dump_pdb, "%20lf", &dump_ener);
     }
 
-    atoms2md(top_global, inputrec, 0, NULL, top_global->natoms, mdatoms);
+    atoms2md(top_global, inputrec, -1, nullptr, top_global->natoms, mdatoms);
     update_mdatoms(mdatoms, inputrec->fepvals->init_lambda);
 
     snew(enerd, 1);
     init_enerdata(groups->grps[egcENER].nr, inputrec->fepvals->n_lambda, enerd);
-    snew(f, top_global->natoms);
+    /* We need to allocate one element extra, since we might use
+     * (unaligned) 4-wide SIMD loads to access rvec entries.
+     */
+    f.resize(top_global->natoms + 1);
 
     /* Print to log file  */
     walltime_accounting_start(walltime_accounting);
@@ -327,7 +329,7 @@ double do_tpi(FILE *fplog, t_commrec *cr,
     }
     bRFExcl = (bCharge && EEL_RF(fr->eeltype));
 
-    calc_cgcm(fplog, cg_tp, cg_tp+1, &(top->cgs), state_global->x, fr->cg_cm);
+    calc_cgcm(fplog, cg_tp, cg_tp+1, &(top->cgs), as_rvec_array(state_global->x.data()), fr->cg_cm);
     if (bCavity)
     {
         if (norm(fr->cg_cm[cg_tp]) > 0.5*inputrec->rlist && fplog)
@@ -399,15 +401,9 @@ double do_tpi(FILE *fplog, t_commrec *cr,
 
     /* Copy the random seed set by the user */
     seed = inputrec->ld_seed;
-    /* We use the frame step number as one random counter.
-     * The second counter use the insertion (step) count. But we
-     * need multiple random numbers per insertion. This number is
-     * not fixed, since we generate random locations in a sphere
-     * by putting locations in a cube and some of these fail.
-     * A count of 20 is already extremely unlikely, so 10000 is
-     * a safe margin for random numbers per insertion.
-     */
-    rnd_count_stride = 10000;
+
+    gmx::ThreeFry2x64<16>                rng(seed, gmx::RandomDomain::TestParticleInsertion); // 16 bits internal counter => 2^16 * 2 = 131072 values per stream
+    gmx::UniformRealDistribution<real>   dist;
 
     if (MASTER(cr))
     {
@@ -542,13 +538,16 @@ double do_tpi(FILE *fplog, t_commrec *cr,
         step = cr->nodeid*stepblocksize;
         while (step < nsteps)
         {
-            /* Initialize the second counter for random numbers using
-             * the insertion step index. This ensures that we get
-             * the same random numbers independently of how many
-             * MPI ranks we use. Also for the same seed, we get
-             * the same initial random sequence for different nsteps.
+            /* Restart random engine using the frame and insertion step
+             * as counters.
+             * Note that we need to draw several random values per iteration,
+             * but by using the internal subcounter functionality of ThreeFry2x64
+             * we can draw 131072 unique 64-bit values before exhausting
+             * the stream. This is a huge margin, and if something still goes
+             * wrong you will get an exception when the stream is exhausted.
              */
-            rnd_count = step*rnd_count_stride;
+            rng.restart(frame_step, step);
+            dist.reset();  // erase any memory in the distribution
 
             if (!bCavity)
             {
@@ -557,13 +556,12 @@ double do_tpi(FILE *fplog, t_commrec *cr,
                 if (bNS)
                 {
                     /* Generate a random position in the box */
-                    gmx_rng_cycle_2uniform(frame_step, rnd_count++, seed, rnd_seed_tpi, rnd);
-                    gmx_rng_cycle_2uniform(frame_step, rnd_count++, seed, rnd_seed_tpi, rnd+2);
                     for (d = 0; d < DIM; d++)
                     {
-                        x_init[d] = rnd[d]*state_global->box[d][d];
+                        x_init[d] = dist(rng)*state_global->box[d][d];
                     }
                 }
+
                 if (inputrec->nstlist == 1)
                 {
                     copy_rvec(x_init, x_tp);
@@ -573,11 +571,9 @@ double do_tpi(FILE *fplog, t_commrec *cr,
                     /* Generate coordinates within |dx|=drmax of x_init */
                     do
                     {
-                        gmx_rng_cycle_2uniform(frame_step, rnd_count++, seed, rnd_seed_tpi, rnd);
-                        gmx_rng_cycle_2uniform(frame_step, rnd_count++, seed, rnd_seed_tpi, rnd+2);
                         for (d = 0; d < DIM; d++)
                         {
-                            dx[d] = (2*rnd[d] - 1)*drmax;
+                            dx[d] = (2*dist(rng) - 1)*drmax;
                         }
                     }
                     while (norm2(dx) > drmax*drmax);
@@ -619,11 +615,9 @@ double do_tpi(FILE *fplog, t_commrec *cr,
                 /* Generate coordinates within |dx|=drmax of x_init */
                 do
                 {
-                    gmx_rng_cycle_2uniform(frame_step, rnd_count++, seed, rnd_seed_tpi, rnd);
-                    gmx_rng_cycle_2uniform(frame_step, rnd_count++, seed, rnd_seed_tpi, rnd+2);
                     for (d = 0; d < DIM; d++)
                     {
-                        dx[d] = (2*rnd[d] - 1)*drmax;
+                        dx[d] = (2*dist(rng) - 1)*drmax;
                     }
                 }
                 while (norm2(dx) > drmax*drmax);
@@ -643,12 +637,10 @@ double do_tpi(FILE *fplog, t_commrec *cr,
                     copy_rvec(x_mol[i-a_tp0], state_global->x[i]);
                 }
                 /* Rotate the molecule randomly */
-                gmx_rng_cycle_2uniform(frame_step, rnd_count++, seed, rnd_seed_tpi, rnd);
-                gmx_rng_cycle_2uniform(frame_step, rnd_count++, seed, rnd_seed_tpi, rnd+2);
-                rotate_conf(a_tp1-a_tp0, state_global->x+a_tp0, NULL,
-                            2*M_PI*rnd[0],
-                            2*M_PI*rnd[1],
-                            2*M_PI*rnd[2]);
+                rotate_conf(a_tp1-a_tp0, as_rvec_array(state_global->x.data())+a_tp0, nullptr,
+                            2*M_PI*dist(rng),
+                            2*M_PI*dist(rng),
+                            2*M_PI*dist(rng));
                 /* Shift to the insertion location */
                 for (i = a_tp0; i < a_tp1; i++)
                 {
@@ -675,13 +667,15 @@ double do_tpi(FILE *fplog, t_commrec *cr,
             cr->nnodes = 1;
             do_force(fplog, cr, inputrec,
                      step, nrnb, wcycle, top, &top_global->groups,
-                     state_global->box, state_global->x, &state_global->hist,
-                     f, force_vir, mdatoms, enerd, fcd,
+                     state_global->box, &state_global->x, &state_global->hist,
+                     &f, force_vir, mdatoms, enerd, fcd,
                      state_global->lambda,
-                     NULL, fr, NULL, mu_tot, t, NULL, NULL, FALSE,
+                     nullptr, fr, nullptr, mu_tot, t, nullptr, FALSE,
                      GMX_FORCE_NONBONDED | GMX_FORCE_ENERGY |
                      (bNS ? GMX_FORCE_DYNAMICBOX | GMX_FORCE_NS : 0) |
-                     (bStateChanged ? GMX_FORCE_STATECHANGED : 0));
+                     (bStateChanged ? GMX_FORCE_STATECHANGED : 0),
+                     DdOpenBalanceRegionBeforeForceComputation::no,
+                     DdCloseBalanceRegionAfterForceComputation::no);
             cr->nnodes    = nnodes;
             bStateChanged = FALSE;
             bNS           = FALSE;
@@ -798,7 +792,7 @@ double do_tpi(FILE *fplog, t_commrec *cr,
             {
                 sprintf(str, "t%g_step%d.pdb", t, (int)step);
                 sprintf(str2, "t: %f step %d ener: %f", t, (int)step, epot);
-                write_sto_conf_mtop(str, str2, top_global, state_global->x, state_global->v,
+                write_sto_conf_mtop(str, str2, top_global, as_rvec_array(state_global->x.data()), as_rvec_array(state_global->v.data()),
                                     inputrec->ePBC, state_global->box);
             }
 
@@ -846,14 +840,14 @@ double do_tpi(FILE *fplog, t_commrec *cr,
     }   /* End of the loop  */
     walltime_accounting_end(walltime_accounting);
 
-    close_trj(status);
+    close_trx(status);
 
-    if (fp_tpi != NULL)
+    if (fp_tpi != nullptr)
     {
         xvgrclose(fp_tpi);
     }
 
-    if (fplog != NULL)
+    if (fplog != nullptr)
     {
         fprintf(fplog, "\n");
         fprintf(fplog, "  <V>  = %12.5e nm^3\n", V_all/frame);

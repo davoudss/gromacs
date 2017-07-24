@@ -2,7 +2,7 @@
  * This file is part of the GROMACS molecular simulation package.
  *
  * Copyright (c) 2013, The GROMACS development team.
- * Copyright (c) 2013,2014,2015,2016, by the GROMACS development team, led by
+ * Copyright (c) 2013,2014,2015,2016,2017, by the GROMACS development team, led by
  * Mark Abraham, David van der Spoel, Berk Hess, and Erik Lindahl,
  * and including many others, as listed in the AUTHORS file in the
  * top-level source directory and at http://www.gromacs.org.
@@ -59,7 +59,9 @@
  * If/when any kind of task parallelism is implemented (even OpenMP
  * regions simultaneously assigned to different tasks), consider
  * whether this data structure (and/or cycle counters) should be
- * maintained on a per-OpenMP-thread basis. */
+ * maintained on a per-OpenMP-thread basis.
+ *
+ * Consider also replacing this with std::chrono. */
 
 /*! \brief Manages caching wall-clock time measurements for
  * simulations */
@@ -84,6 +86,8 @@ typedef struct gmx_walltime_accounting {
     int             numOpenMPThreads;
     //! Set by integrators to report the amount of work they did
     gmx_int64_t     nsteps_done;
+    //! Whether the simulation has finished in a way valid for walltime reporting.
+    bool            isValidFinish;
 } t_gmx_walltime_accounting;
 
 /*! \brief Calls system timing routines (e.g. clock_gettime) to get
@@ -114,6 +118,7 @@ walltime_accounting_init(int numOpenMPThreads)
     walltime_accounting->elapsed_time                = 0;
     walltime_accounting->nsteps_done                 = 0;
     walltime_accounting->numOpenMPThreads            = numOpenMPThreads;
+    walltime_accounting->isValidFinish               = false;
 
     return walltime_accounting;
 }
@@ -193,12 +198,13 @@ walltime_accounting_set_nsteps_done(gmx_walltime_accounting_t   walltime_account
 double
 gmx_gettime()
 {
-#if HAVE_CLOCK_GETTIME && _POSIX_TIMERS >= 0 && !(defined __bgq__ && defined __clang__)
-    /* Mac and Windows do not support this. For added fun, Windows
-     * defines _POSIX_TIMERS without actually providing the
-     * implementation. The BlueGene/Q CNK only supports gettimeofday,
-     * and bgclang doesn't provide a fully functional implementation
-     * for clock_gettime (unlike xlc). */
+    /* Use clock_gettime only if we know linking the C run-time
+       library will work (which is not trivial on e.g. Crays), and its
+       headers claim sufficient support for POSIX (ie not Mac and
+       Windows), and it isn't BG/Q (whose compute node kernel only
+       supports gettimeofday, and bgclang doesn't provide a fully
+       functional implementation clock_gettime). */
+#if HAVE_CLOCK_GETTIME && defined(_POSIX_TIMERS) && _POSIX_TIMERS > 0 && !(defined __bgq__ && defined __clang__)
     struct timespec t;
     double          seconds;
 
@@ -226,10 +232,29 @@ gmx_gettime()
 #endif
 }
 
+void
+walltime_accounting_set_valid_finish(gmx_walltime_accounting_t walltime_accounting)
+{
+    walltime_accounting->isValidFinish = true;
+}
+
+//! Return whether the simulation finished in a way valid for reporting walltime.
+bool
+walltime_accounting_get_valid_finish(const gmx_walltime_accounting_t walltime_accounting)
+{
+    return walltime_accounting->isValidFinish;
+}
+
 static double
 gmx_gettime_per_thread()
 {
-#if HAVE_CLOCK_GETTIME && _POSIX_THREAD_CPUTIME >= 0
+    /* Use clock_gettime only if we know linking the C run-time
+       library will work (which is not trivial on e.g. Crays), and its
+       headers claim sufficient support for POSIX (ie not Mac and
+       Windows), and it isn't BG/Q (whose compute node kernel only
+       supports gettimeofday, and bgclang doesn't provide a fully
+       functional implementation clock_gettime). */
+#if HAVE_CLOCK_GETTIME && defined(_POSIX_THREAD_CPUTIME) && _POSIX_THREAD_CPUTIME > 0 && !(defined __bgq__ && defined __clang__)
     struct timespec t;
     double          seconds;
 

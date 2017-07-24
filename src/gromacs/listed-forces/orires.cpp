@@ -3,7 +3,7 @@
  *
  * Copyright (c) 1991-2000, University of Groningen, The Netherlands.
  * Copyright (c) 2001-2004, The GROMACS development team.
- * Copyright (c) 2013,2014,2015, by the GROMACS development team, led by
+ * Copyright (c) 2013,2014,2015,2016,2017, by the GROMACS development team, led by
  * Mark Abraham, David van der Spoel, Berk Hess, and Erik Lindahl,
  * and including many others, as listed in the AUTHORS file in the
  * top-level source directory and at http://www.gromacs.org.
@@ -61,6 +61,9 @@
 #include "gromacs/utility/pleasecite.h"
 #include "gromacs/utility/smalloc.h"
 
+// TODO This implementation of ensemble orientation restraints is nasty because
+// a user can't just do multi-sim with single-sim orientation restraints.
+
 void init_orires(FILE *fplog, const gmx_mtop_t *mtop,
                  rvec xref[],
                  const t_inputrec *ir,
@@ -73,7 +76,6 @@ void init_orires(FILE *fplog, const gmx_mtop_t *mtop,
     gmx_mtop_ilistloop_t    iloop;
     t_ilist                *il;
     gmx_mtop_atomloop_all_t aloop;
-    t_atom                 *atom;
     const gmx_multisim_t   *ms;
 
     od->nr = gmx_mtop_ftype_count(mtop, F_ORIRES);
@@ -97,12 +99,12 @@ void init_orires(FILE *fplog, const gmx_mtop_t *mtop,
 
     od->fc  = ir->orires_fc;
     od->nex = 0;
-    od->S   = NULL;
-    od->M   = NULL;
-    od->eig = NULL;
-    od->v   = NULL;
+    od->S   = nullptr;
+    od->M   = nullptr;
+    od->eig = nullptr;
+    od->v   = nullptr;
 
-    nr_ex = NULL;
+    nr_ex = nullptr;
 
     iloop = gmx_mtop_ilistloop_init(mtop);
     while (gmx_mtop_ilistloop_next(iloop, &il, &nmol))
@@ -206,14 +208,15 @@ void init_orires(FILE *fplog, const gmx_mtop_t *mtop,
     mtot  = 0.0;
     j     = 0;
     aloop = gmx_mtop_atomloop_all_init(mtop);
+    const t_atom *atom;
     while (gmx_mtop_atomloop_all_next(aloop, &i, &atom))
     {
-        if (mtop->groups.grpnr[egcORFIT] == NULL ||
+        if (mtop->groups.grpnr[egcORFIT] == nullptr ||
             mtop->groups.grpnr[egcORFIT][i] == 0)
         {
             /* Not correct for free-energy with changing masses */
             od->mref[j] = atom->m;
-            if (ms == NULL || MASTERSIM(ms))
+            if (ms == nullptr || MASTERSIM(ms))
             {
                 copy_rvec(xref[i], od->xref[j]);
                 for (d = 0; d < DIM; d++)
@@ -226,7 +229,7 @@ void init_orires(FILE *fplog, const gmx_mtop_t *mtop,
         }
     }
     svmul(1.0/mtot, com, com);
-    if (ms == NULL || MASTERSIM(ms))
+    if (ms == nullptr || MASTERSIM(ms))
     {
         for (j = 0; j < od->nref; j++)
         {
@@ -268,7 +271,7 @@ void diagonalize_orires_tensors(t_oriresdata *od)
     int           ex, i, j, nrot, ord[DIM], t;
     matrix        S, TMP;
 
-    if (od->M == NULL)
+    if (od->M == nullptr)
     {
         snew(od->M, DIM);
         for (i = 0; i < DIM; i++)
@@ -611,7 +614,7 @@ real calc_orires_dev(const gmx_multisim_t *ms,
 }
 
 real orires(int nfa, const t_iatom forceatoms[], const t_iparams ip[],
-            const rvec x[], rvec f[], rvec fshift[],
+            const rvec x[], rvec4 f[], rvec fshift[],
             const t_pbc *pbc, const t_graph *g,
             real gmx_unused lambda, real gmx_unused *dvdlambda,
             const t_mdatoms gmx_unused *md, t_fcdata *fcd,

@@ -1,7 +1,7 @@
 /*
  * This file is part of the GROMACS molecular simulation package.
  *
- * Copyright (c) 2012,2013,2014,2015, by the GROMACS development team, led by
+ * Copyright (c) 2012,2013,2014,2015,2016,2017, by the GROMACS development team, led by
  * Mark Abraham, David van der Spoel, Berk Hess, and Erik Lindahl,
  * and including many others, as listed in the AUTHORS file in the
  * top-level source directory and at http://www.gromacs.org.
@@ -46,7 +46,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#if __APPLE__
+#ifdef __APPLE__
 #    include <sys/sysctl.h>
 #endif
 
@@ -73,16 +73,6 @@
             retval = 0; } \
 }
 
-
-/*! \brief Helper function that checks whether a given GPU status indicates compatible GPU.
- *
- * \param[in] stat  GPU status.
- * \returns         true if the provided status is egpuCompatible, otherwise false.
- */
-static bool is_compatible_gpu(int stat)
-{
-    return (stat == egpuCompatible);
-}
 
 /*! \brief Return true if executing on compatible OS for AMD OpenCL.
  *
@@ -124,6 +114,11 @@ runningOnCompatibleOSForAmd()
  */
 static int is_gmx_supported_gpu_id(struct gmx_device_info_t *ocl_gpu_device)
 {
+    if ((getenv("GMX_OCL_DISABLE_COMPATIBILITY_CHECK")) != NULL)
+    {
+        return egpuCompatible;
+    }
+
     /* Only AMD and NVIDIA GPUs are supported for now */
     switch (ocl_gpu_device->vendor_e)
     {
@@ -142,7 +137,7 @@ static int is_gmx_supported_gpu_id(struct gmx_device_info_t *ocl_gpu_device)
  *  \param[in] vendor_name String with OpenCL vendor name.
  *  \returns               ocl_vendor_id_t value for the input vendor_name
  */
-ocl_vendor_id_t get_vendor_id(char *vendor_name)
+static ocl_vendor_id_t get_vendor_id(char *vendor_name)
 {
     if (vendor_name)
     {
@@ -339,110 +334,43 @@ int detect_gpus(gmx_gpu_info_t *gpu_info, char *err_str)
 //! This function is documented in the header file
 void free_gpu_info(const gmx_gpu_info_t gmx_unused *gpu_info)
 {
-    if (gpu_info)
-    {
-        for (int i = 0; i < gpu_info->n_dev; i++)
-        {
-            cl_int gmx_unused cl_error;
-
-            if (gpu_info->gpu_dev[i].context)
-            {
-                cl_error                     = clReleaseContext(gpu_info->gpu_dev[i].context);
-                gpu_info->gpu_dev[i].context = NULL;
-                assert(CL_SUCCESS == cl_error);
-            }
-
-            if (gpu_info->gpu_dev[i].program)
-            {
-                cl_error                     = clReleaseProgram(gpu_info->gpu_dev[i].program);
-                gpu_info->gpu_dev[i].program = NULL;
-                assert(CL_SUCCESS == cl_error);
-            }
-        }
-
-        sfree(gpu_info->gpu_dev);
-    }
-}
-
-//! This function is documented in the header file
-void pick_compatible_gpus(const gmx_gpu_info_t *gpu_info,
-                          gmx_gpu_opt_t        *gpu_opt)
-{
-    int  i, ncompat;
-    int *compat;
-
-    assert(gpu_info);
-    /* gpu_dev/n_dev have to be either NULL/0 or not (NULL/0) */
-    assert((gpu_info->n_dev != 0 ? 0 : 1) ^ (gpu_info->gpu_dev == NULL ? 0 : 1));
-
-    snew(compat, gpu_info->n_dev);
-    ncompat = 0;
-    for (i = 0; i < gpu_info->n_dev; i++)
-    {
-        if (is_compatible_gpu(gpu_info->gpu_dev[i].stat))
-        {
-            ncompat++;
-            compat[ncompat - 1] = i;
-        }
-    }
-
-    gpu_opt->n_dev_compatible = ncompat;
-    snew(gpu_opt->dev_compatible, ncompat);
-    memcpy(gpu_opt->dev_compatible, compat, ncompat*sizeof(*compat));
-    sfree(compat);
-}
-
-//! This function is documented in the header file
-gmx_bool check_selected_gpus(int                  *checkres,
-                             const gmx_gpu_info_t *gpu_info,
-                             gmx_gpu_opt_t        *gpu_opt)
-{
-    int  i, id;
-    bool bAllOk;
-
-    assert(checkres);
-    assert(gpu_info);
-    assert(gpu_opt->n_dev_use >= 0);
-
-    if (gpu_opt->n_dev_use == 0)
-    {
-        return TRUE;
-    }
-
-    assert(gpu_opt->dev_use);
-
-    /* we will assume that all GPUs requested are valid IDs,
-       otherwise we'll bail anyways */
-
-    bAllOk = true;
-    for (i = 0; i < gpu_opt->n_dev_use; i++)
-    {
-        id = gpu_opt->dev_use[i];
-
-        /* devices are stored in increasing order of IDs in gpu_dev */
-        gpu_opt->dev_use[i] = id;
-
-        checkres[i] = (id >= gpu_info->n_dev) ?
-            egpuNonexistent : gpu_info->gpu_dev[id].stat;
-
-        bAllOk = bAllOk && is_compatible_gpu(checkres[i]);
-    }
-
-    return bAllOk;
-}
-
-//! This function is documented in the header file
-void get_gpu_device_info_string(char gmx_unused *s, const gmx_gpu_info_t gmx_unused *gpu_info, int gmx_unused index)
-{
-    assert(s);
-    assert(gpu_info);
-
-    if (index < 0 && index >= gpu_info->n_dev)
+    if (gpu_info == NULL)
     {
         return;
     }
 
-    gmx_device_info_t  *dinfo = &gpu_info->gpu_dev[index];
+    sfree(gpu_info->gpu_dev);
+}
+
+//! This function is documented in the header file
+bool isGpuCompatible(const gmx_gpu_info_t &gpu_info,
+                     int                   index)
+{
+    return (index >= gpu_info.n_dev ?
+            false :
+            gpu_info.gpu_dev[index].stat == egpuCompatible);
+}
+
+//! This function is documented in the header file
+const char *getGpuCompatibilityDescription(const gmx_gpu_info_t &gpu_info,
+                                           int                   index)
+{
+    return (index >= gpu_info.n_dev ?
+            gpu_detect_res_str[egpuNonexistent] :
+            gpu_detect_res_str[gpu_info.gpu_dev[index].stat]);
+}
+
+//! This function is documented in the header file
+void get_gpu_device_info_string(char *s, const gmx_gpu_info_t &gpu_info, int index)
+{
+    assert(s);
+
+    if (index < 0 && index >= gpu_info.n_dev)
+    {
+        return;
+    }
+
+    gmx_device_info_t  *dinfo = &gpu_info.gpu_dev[index];
 
     bool                bGpuExists =
         dinfo->stat == egpuCompatible ||
@@ -464,31 +392,44 @@ void get_gpu_device_info_string(char gmx_unused *s, const gmx_gpu_info_t gmx_unu
 }
 
 //! This function is documented in the header file
-gmx_bool init_gpu(FILE gmx_unused                 *fplog,
-                  int                              mygpu,
-                  char                            *result_str,
-                  const gmx_gpu_info_t gmx_unused *gpu_info,
-                  const gmx_gpu_opt_t             *gpu_opt
-                  )
+void init_gpu(const gmx::MDLogger               & /*mdlog*/,
+              int                               rank,
+              int                               mygpu,
+              const gmx_gpu_info_t             *gpu_info,
+              const gmx_gpu_opt_t              *gpu_opt
+              )
 {
-    assert(result_str);
-
-    result_str[0] = 0;
+    assert(gpu_opt);
 
     if (mygpu < 0 || mygpu >= gpu_opt->n_dev_use)
     {
         char        sbuf[STRLEN];
-        sprintf(sbuf, "Trying to initialize an inexistent GPU: "
-                "there are %d %s-selected GPU(s), but #%d was requested.",
-                gpu_opt->n_dev_use, gpu_opt->bUserSet ? "user" : "auto", mygpu);
+        sprintf(sbuf, "On rank %d trying to initialize an non-existent GPU: "
+                "there are %d selected GPU(s), but #%d was requested.",
+                rank, gpu_opt->n_dev_use, mygpu);
         gmx_incons(sbuf);
     }
 
-    return TRUE;
+    // If the device is NVIDIA, for safety reasons we disable the JIT
+    // caching as this is known to be broken at least until driver 364.19;
+    // the cache does not always get regenerated when the source code changes,
+    // e.g. if the path to the kernel sources remains the same
+
+    if (gpu_info->gpu_dev[mygpu].vendor_e == OCL_VENDOR_NVIDIA)
+    {
+        // Ignore return values, failing to set the variable does not mean
+        // that something will go wrong later.
+#ifdef _MSC_VER
+        _putenv("CUDA_CACHE_DISABLE=1");
+#else
+        // Don't override, maybe a dev is testing.
+        setenv("CUDA_CACHE_DISABLE", "1", 0);
+#endif
+    }
 }
 
 //! This function is documented in the header file
-int get_gpu_device_id(const gmx_gpu_info_t  *,
+int get_gpu_device_id(const gmx_gpu_info_t  &,
                       const gmx_gpu_opt_t  *gpu_opt,
                       int                   idx)
 {

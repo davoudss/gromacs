@@ -3,7 +3,7 @@
  *
  * Copyright (c) 1991-2000, University of Groningen, The Netherlands.
  * Copyright (c) 2001-2004, The GROMACS development team.
- * Copyright (c) 2010,2014,2015, by the GROMACS development team, led by
+ * Copyright (c) 2010,2014,2015,2016,2017, by the GROMACS development team, led by
  * Mark Abraham, David van der Spoel, Berk Hess, and Erik Lindahl,
  * and including many others, as listed in the AUTHORS file in the
  * top-level source directory and at http://www.gromacs.org.
@@ -36,6 +36,8 @@
  */
 #ifndef GMX_FILEIO_WARNINP_H
 #define GMX_FILEIO_WARNINP_H
+
+#include <string>
 
 #include "gromacs/utility/basedefinitions.h"
 
@@ -78,6 +80,9 @@ warning(warninp_t wi, const char *s);
  * So warning should only be called for issues that should be resolved,
  * otherwise warning_note should be called.
  */
+//! Convenience wrapper.
+void
+warning(warninp_t wi, const std::string &s);
 
 void
 warning_note(warninp_t wi, const char *s);
@@ -88,12 +93,33 @@ warning_note(warninp_t wi, const char *s);
  * but 100% ok for other systems.
  */
 
+//! Convenience wrapper.
+void
+warning_note(warninp_t wi, const std::string &s);
+
 void
 warning_error(warninp_t wi, const char *s);
 /* Issue an error, with the string s. If s == NULL, then warn_buf
  * will be printed instead. The file and line set by set_warning_line
  * are printed, nwarn_error (local) is incremented.
  */
+
+//! Convenience wrapper.
+void
+warning_error(warninp_t wi, const std::string &s);
+
+/*! \brief Issue an error with warning_error() and prevent further
+ * processing by calling check_warning_error().
+ *
+ * This is intended for use where there is no way to produce a data
+ * structure that would prevent execution from segfaulting. */
+gmx_noreturn void warning_error_and_exit(warninp_t wi, const char *s, int f_errno, const char *file, int line);
+
+gmx_bool warning_errors_exist(warninp_t wi);
+/* Return whether any error-level warnings were issued to wi. */
+
+//! Resets the count for all kinds of warnings to zero.
+void warning_reset(warninp_t wi);
 
 void
 check_warning_error(warninp_t wi, int f_errno, const char *file, int line);
@@ -109,6 +135,10 @@ done_warning(warninp_t wi, int f_errno, const char *file, int line);
  * warnings were generatesd.
  * Frees the data structure pointed to by wi.
  */
+
+void
+free_warning(warninp_t wi);
+/* Frees the data structure pointed to by wi. */
 
 void
 _too_few(warninp_t wi, const char *fn, int line);

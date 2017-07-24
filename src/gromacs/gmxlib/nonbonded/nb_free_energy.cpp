@@ -3,7 +3,7 @@
  *
  * Copyright (c) 1991-2000, University of Groningen, The Netherlands.
  * Copyright (c) 2001-2004, The GROMACS development team.
- * Copyright (c) 2013,2014,2015,2016, by the GROMACS development team, led by
+ * Copyright (c) 2013,2014,2015,2016,2017, by the GROMACS development team, led by
  * Mark Abraham, David van der Spoel, Berk Hess, and Erik Lindahl,
  * and including many others, as listed in the AUTHORS file in the
  * top-level source directory and at http://www.gromacs.org.
@@ -99,7 +99,7 @@ gmx_nb_free_energy_kernel(const t_nblist * gmx_restrict    nlist,
     const real *  shiftvec;
     real *        fshift;
     real          tabscale = 0;
-    const real *  VFtab    = NULL;
+    const real *  VFtab    = nullptr;
     const real *  x;
     real *        f;
     real          facel, krf, crf;
@@ -118,16 +118,16 @@ gmx_nb_free_energy_kernel(const t_nblist * gmx_restrict    nlist,
     gmx_bool      bExactElecCutoff, bExactVdwCutoff, bExactCutoffAll;
     gmx_bool      bEwald, bEwaldLJ;
     real          rcutoff_max2;
-    const real *  tab_ewald_F_lj;
-    const real *  tab_ewald_V_lj;
+    const real *  tab_ewald_F_lj = nullptr;
+    const real *  tab_ewald_V_lj = nullptr;
     real          d, d2, sw, dsw, rinvcorr;
     real          elec_swV3, elec_swV4, elec_swV5, elec_swF2, elec_swF3, elec_swF4;
     real          vdw_swV3, vdw_swV4, vdw_swV5, vdw_swF2, vdw_swF3, vdw_swF4;
     gmx_bool      bConvertEwaldToCoulomb, bConvertLJEwaldToLJ6;
     gmx_bool      bComputeVdwInteraction, bComputeElecInteraction;
-    const real *  ewtab;
+    const real *  ewtab = nullptr;
     int           ewitab;
-    real          ewrt, eweps, ewtabscale, ewtabhalfspace, sh_ewald;
+    real          ewrt, eweps, ewtabscale = 0, ewtabhalfspace = 0, sh_ewald = 0;
 
     const real    onetwelfth  = 1.0/12.0;
     const real    onesixth    = 1.0/6.0;
@@ -137,13 +137,6 @@ gmx_nb_free_energy_kernel(const t_nblist * gmx_restrict    nlist,
     const real    two         = 2.0;
     const real    six         = 6.0;
     const real    fourtyeight = 48.0;
-
-    sh_ewald            = fr->ic->sh_ewald;
-    ewtab               = fr->ic->tabq_coul_FDV0;
-    ewtabscale          = fr->ic->tabq_scale;
-    ewtabhalfspace      = half/ewtabscale;
-    tab_ewald_F_lj      = fr->ic->tabq_vdw_F;
-    tab_ewald_V_lj      = fr->ic->tabq_vdw_V;
 
     x                   = xx[0];
     f                   = ff[0];
@@ -268,6 +261,16 @@ gmx_nb_free_energy_kernel(const t_nblist * gmx_restrict    nlist,
     bEwald          = (icoul == GMX_NBKERNEL_ELEC_EWALD);
     bEwaldLJ        = (ivdw == GMX_NBKERNEL_VDW_LJEWALD);
 
+    if (bEwald || bEwaldLJ)
+    {
+        sh_ewald       = fr->ic->sh_ewald;
+        ewtab          = fr->ic->tabq_coul_FDV0;
+        ewtabscale     = fr->ic->tabq_scale;
+        ewtabhalfspace = half/ewtabscale;
+        tab_ewald_F_lj = fr->ic->tabq_vdw_F;
+        tab_ewald_V_lj = fr->ic->tabq_vdw_V;
+    }
+
     /* For Ewald/PME interactions we cannot easily apply the soft-core component to
      * reciprocal space. When we use vanilla (not switch/shift) Ewald interactions, we
      * can apply the small trick of subtracting the _reciprocal_ space contribution
@@ -387,6 +390,12 @@ gmx_nb_free_energy_kernel(const t_nblist * gmx_restrict    nlist,
 
             if (rsq > 0)
             {
+                /* Note that unlike in the nbnxn kernels, we do not need
+                 * to clamp the value of rsq before taking the invsqrt
+                 * to avoid NaN in the LJ calculation, since here we do
+                 * not calculate LJ interactions when C6 and C12 are zero.
+                 */
+
                 rinv         = gmx::invsqrt(rsq);
                 r            = rsq*rinv;
             }
@@ -427,7 +436,7 @@ gmx_nb_free_energy_kernel(const t_nblist * gmx_restrict    nlist,
             tj[STATE_A]      = ntiA+2*typeA[jnr];
             tj[STATE_B]      = ntiB+2*typeB[jnr];
 
-            if (nlist->excl_fep == NULL || nlist->excl_fep[k])
+            if (nlist->excl_fep == nullptr || nlist->excl_fep[k])
             {
                 c6[STATE_A]      = nbfp[tj[STATE_A]];
                 c6[STATE_B]      = nbfp[tj[STATE_B]];

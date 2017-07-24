@@ -3,7 +3,7 @@
  *
  * Copyright (c) 1991-2000, University of Groningen, The Netherlands.
  * Copyright (c) 2001-2004, The GROMACS development team.
- * Copyright (c) 2013,2014,2015,2016, by the GROMACS development team, led by
+ * Copyright (c) 2013,2014,2015,2016,2017, by the GROMACS development team, led by
  * Mark Abraham, David van der Spoel, Berk Hess, and Erik Lindahl,
  * and including many others, as listed in the AUTHORS file in the
  * top-level source directory and at http://www.gromacs.org.
@@ -48,16 +48,17 @@
 
 #include <algorithm>
 
+#include "gromacs/commandline/filenm.h"
 #include "gromacs/domdec/domdec.h"
 #include "gromacs/domdec/domdec_struct.h"
 #include "gromacs/ewald/ewald.h"
 #include "gromacs/fileio/filetypes.h"
-#include "gromacs/gmxlib/md_logging.h"
 #include "gromacs/gmxlib/network.h"
 #include "gromacs/gmxlib/nonbonded/nonbonded.h"
 #include "gromacs/gpu_utils/gpu_utils.h"
 #include "gromacs/hardware/detecthardware.h"
 #include "gromacs/listed-forces/manage-threading.h"
+#include "gromacs/listed-forces/pairs.h"
 #include "gromacs/math/calculate-ewald-splitting-coefficient.h"
 #include "gromacs/math/functions.h"
 #include "gromacs/math/units.h"
@@ -79,6 +80,7 @@
 #include "gromacs/mdtypes/commrec.h"
 #include "gromacs/mdtypes/fcdata.h"
 #include "gromacs/mdtypes/group.h"
+#include "gromacs/mdtypes/iforceprovider.h"
 #include "gromacs/mdtypes/inputrec.h"
 #include "gromacs/mdtypes/md_enums.h"
 #include "gromacs/pbcutil/ishift.h"
@@ -88,16 +90,19 @@
 #include "gromacs/topology/mtop_util.h"
 #include "gromacs/trajectory/trajectoryframe.h"
 #include "gromacs/utility/cstringutil.h"
+#include "gromacs/utility/exceptions.h"
 #include "gromacs/utility/fatalerror.h"
+#include "gromacs/utility/gmxassert.h"
+#include "gromacs/utility/logger.h"
 #include "gromacs/utility/pleasecite.h"
 #include "gromacs/utility/smalloc.h"
-#include "gromacs/utility/stringutil.h"
+#include "gromacs/utility/strconvert.h"
 
 #include "nbnxn_gpu_jit_support.h"
 
 const char *egrp_nm[egNR+1] = {
     "Coul-SR", "LJ-SR", "Buck-SR",
-    "Coul-14", "LJ-14", NULL
+    "Coul-14", "LJ-14", nullptr
 };
 
 t_forcerec *mk_forcerec(void)
@@ -345,7 +350,7 @@ check_solvent_cg(const gmx_moltype_t    *molt,
 
     /* Check if we are doing QM on this group */
     qm = FALSE;
-    if (qm_grpnr != NULL)
+    if (qm_grpnr != nullptr)
     {
         for (j = j0; j < j1 && !qm; j++)
         {
@@ -539,7 +544,7 @@ check_solvent(FILE  *                fp,
     }
 
     n_solvent_parameters = 0;
-    solvent_parameters   = NULL;
+    solvent_parameters   = nullptr;
     /* Allocate temporary array for solvent type */
     snew(cg_sp, mtop->nmolblock);
 
@@ -562,7 +567,7 @@ check_solvent(FILE  *                fp,
             {
                 check_solvent_cg(molt, cg_mol, nmol,
                                  mtop->groups.grpnr[egcQMMM] ?
-                                 mtop->groups.grpnr[egcQMMM]+at_offset+am : 0,
+                                 mtop->groups.grpnr[egcQMMM]+at_offset+am : nullptr,
                                  &mtop->groups.grps[egcQMMM],
                                  fr,
                                  &n_solvent_parameters, &solvent_parameters,
@@ -618,7 +623,7 @@ check_solvent(FILE  *                fp,
     }
     sfree(cg_sp);
 
-    if (bestsol != esolNO && fp != NULL)
+    if (bestsol != esolNO && fp != nullptr)
     {
         fprintf(fp, "\nEnabling %s-like water optimization for %d molecules.\n\n",
                 esol_names[bestsol],
@@ -698,7 +703,7 @@ static cginfo_mb_t *init_cginfo_mb(FILE *fplog, const gmx_mtop_t *mtop,
                 {
                     bId = FALSE;
                 }
-                if (mtop->groups.grpnr[egcQMMM] != NULL)
+                if (mtop->groups.grpnr[egcQMMM] != nullptr)
                 {
                     for (ai = a0; ai < a1; ai++)
                     {
@@ -987,7 +992,7 @@ void update_forcerec(t_forcerec *fr, matrix box)
 {
     if (fr->eeltype == eelGRF)
     {
-        calc_rffac(NULL, fr->eeltype, fr->epsilon_r, fr->epsilon_rf,
+        calc_rffac(nullptr, fr->eeltype, fr->epsilon_r, fr->epsilon_rf,
                    fr->rcoulomb, fr->temp, fr->zsquare, box,
                    &fr->kappa, &fr->k_rf, &fr->c_rf);
     }
@@ -1003,7 +1008,7 @@ void set_avcsixtwelve(FILE *fplog, t_forcerec *fr, const gmx_mtop_t *mtop)
     int             ntp, *typecount;
     gmx_bool        bBHAM;
     real           *nbfp;
-    real           *nbfp_comb = NULL;
+    real           *nbfp_comb = nullptr;
 
     ntp   = fr->ntype;
     bBHAM = fr->bBHAM;
@@ -1210,7 +1215,7 @@ void set_avcsixtwelve(FILE *fplog, t_forcerec *fr, const gmx_mtop_t *mtop)
         sfree(nbfp_comb);
     }
 
-    if (fplog != NULL)
+    if (fplog != nullptr)
     {
         if (fr->eDispCorr == edispcAllEner ||
             fr->eDispCorr == edispcAllEnerPres)
@@ -1292,7 +1297,7 @@ static void make_nbf_tables(FILE *fp,
     char buf[STRLEN];
     int  i, j;
 
-    if (tabfn == NULL)
+    if (tabfn == nullptr)
     {
         if (debug)
         {
@@ -1351,6 +1356,19 @@ static void make_nbf_tables(FILE *fp,
     }
 }
 
+/*!\brief If there's bonded interactions of type \c ftype1 or \c
+ * ftype2 present in the topology, build an array of the number of
+ * interactions present for each bonded interaction index found in the
+ * topology.
+ *
+ * \c ftype1 or \c ftype2 may be set to -1 to disable seeking for a
+ * valid type with that parameter.
+ *
+ * \c count will be reallocated as necessary to fit the largest bonded
+ * interaction index found, and its current size will be returned in
+ * \c ncount. It will contain zero for every bonded interaction index
+ * for which no interactions are present in the topology.
+ */
 static void count_tables(int ftype1, int ftype2, const gmx_mtop_t *mtop,
                          int *ncount, int **count)
 {
@@ -1358,22 +1376,28 @@ static void count_tables(int ftype1, int ftype2, const gmx_mtop_t *mtop,
     const t_ilist       *il;
     int                  mt, ftype, stride, i, j, tabnr;
 
+    // Loop over all moleculetypes
     for (mt = 0; mt < mtop->nmoltype; mt++)
     {
         molt = &mtop->moltype[mt];
+        // Loop over all interaction types
         for (ftype = 0; ftype < F_NRE; ftype++)
         {
+            // If the current interaction type is one of the types whose tables we're trying to count...
             if (ftype == ftype1 || ftype == ftype2)
             {
                 il     = &molt->ilist[ftype];
                 stride = 1 + NRAL(ftype);
+                // ... and there are actually some interactions for this type
                 for (i = 0; i < il->nr; i += stride)
                 {
+                    // Find out which table index the user wanted
                     tabnr = mtop->ffparams.iparams[il->iatoms[i]].tab.table;
                     if (tabnr < 0)
                     {
                         gmx_fatal(FARGS, "A bonded table number is smaller than 0: %d\n", tabnr);
                     }
+                    // Make room for this index in the data structure
                     if (tabnr >= *ncount)
                     {
                         srenew(*count, tabnr+1);
@@ -1383,6 +1407,7 @@ static void count_tables(int ftype1, int ftype2, const gmx_mtop_t *mtop,
                         }
                         *ncount = tabnr+1;
                     }
+                    // Record that this table index is used and must have a valid file
                     (*count)[tabnr]++;
                 }
             }
@@ -1390,32 +1415,66 @@ static void count_tables(int ftype1, int ftype2, const gmx_mtop_t *mtop,
     }
 }
 
+/*!\brief If there's bonded interactions of flavour \c tabext and type
+ * \c ftype1 or \c ftype2 present in the topology, seek them in the
+ * list of filenames passed to mdrun, and make bonded tables from
+ * those files.
+ *
+ * \c ftype1 or \c ftype2 may be set to -1 to disable seeking for a
+ * valid type with that parameter.
+ *
+ * A fatal error occurs if no matching filename is found.
+ */
 static bondedtable_t *make_bonded_tables(FILE *fplog,
                                          int ftype1, int ftype2,
                                          const gmx_mtop_t *mtop,
-                                         const char *basefn, const char *tabext)
+                                         const t_filenm *tabbfnm,
+                                         const char *tabext)
 {
-    int            i, ncount, *count;
-    char           tabfn[STRLEN];
+    int            ncount, *count;
     bondedtable_t *tab;
 
-    tab = NULL;
+    tab = nullptr;
 
     ncount = 0;
-    count  = NULL;
+    count  = nullptr;
     count_tables(ftype1, ftype2, mtop, &ncount, &count);
 
+    // Are there any relevant tabulated bond interactions?
     if (ncount > 0)
     {
         snew(tab, ncount);
-        for (i = 0; i < ncount; i++)
+        for (int i = 0; i < ncount; i++)
         {
+            // Do any interactions exist that requires this table?
             if (count[i] > 0)
             {
-                sprintf(tabfn, "%s", basefn);
-                sprintf(tabfn + strlen(basefn) - strlen(ftp2ext(efXVG)) - 1, "_%s%d.%s",
-                        tabext, i, ftp2ext(efXVG));
-                tab[i] = make_bonded_table(fplog, tabfn, NRAL(ftype1)-2);
+                // This pattern enforces the current requirement that
+                // table filenames end in a characteristic sequence
+                // before the file type extension, and avoids table 13
+                // being recognized and used for table 1.
+                std::string patternToFind = gmx::formatString("_%s%d.%s", tabext, i, ftp2ext(efXVG));
+                bool        madeTable     = false;
+                for (int j = 0; j < tabbfnm->nfiles && !madeTable; ++j)
+                {
+                    std::string filename(tabbfnm->fns[j]);
+                    if (gmx::endsWith(filename, patternToFind))
+                    {
+                        // Finally read the table from the file found
+                        tab[i]    = make_bonded_table(fplog, tabbfnm->fns[j], NRAL(ftype1)-2);
+                        madeTable = true;
+                    }
+                }
+                if (!madeTable)
+                {
+                    bool isPlural = (ftype2 != -1);
+                    gmx_fatal(FARGS, "Tabulated interaction of type '%s%s%s' with index %d cannot be used because no table file whose name matched '%s' was passed via the gmx mdrun -tableb command-line option.",
+                              interaction_function[ftype1].longname,
+                              isPlural ? "' or '" : "",
+                              isPlural ? interaction_function[ftype2].longname : "",
+                              i,
+                              patternToFind.c_str());
+                }
             }
         }
         sfree(count);
@@ -1446,16 +1505,8 @@ void forcerec_set_ranges(t_forcerec *fr,
 
     if (fr->bF_NoVirSum)
     {
-        fr->f_novirsum_n = natoms_f_novirsum;
-        if (fr->f_novirsum_n > fr->f_novirsum_nalloc)
-        {
-            fr->f_novirsum_nalloc = over_alloc_dd(fr->f_novirsum_n);
-            srenew(fr->f_novirsum_alloc, fr->f_novirsum_nalloc);
-        }
-    }
-    else
-    {
-        fr->f_novirsum_n = 0;
+        /* TODO: remove this + 1 when padding is properly implemented */
+        fr->forceBufferNoVirialSummation->resize(natoms_f_novirsum + 1);
     }
 }
 
@@ -1486,7 +1537,7 @@ gmx_bool can_use_allvsall(const t_inputrec *ir, gmx_bool bPrintNote, t_commrec *
              (ir->implicit_solvent == eisGBSA && (ir->gb_algorithm == egbSTILL ||
                                                   ir->gb_algorithm == egbHCT   ||
                                                   ir->gb_algorithm == egbOBC))) &&
-            getenv("GMX_NO_ALLVSALL") == NULL
+            getenv("GMX_NO_ALLVSALL") == nullptr
         );
 
     if (bAllvsAll && ir->opts.ngener > 1)
@@ -1495,11 +1546,7 @@ gmx_bool can_use_allvsall(const t_inputrec *ir, gmx_bool bPrintNote, t_commrec *
 
         if (bPrintNote)
         {
-            if (MASTER(cr))
-            {
-                fprintf(stderr, "\n%s\n", note);
-            }
-            if (fp != NULL)
+            if (fp != nullptr)
             {
                 fprintf(fp, "\n%s\n", note);
             }
@@ -1516,47 +1563,15 @@ gmx_bool can_use_allvsall(const t_inputrec *ir, gmx_bool bPrintNote, t_commrec *
 }
 
 
-gmx_bool nbnxn_gpu_acceleration_supported(FILE             *fplog,
-                                          const t_commrec  *cr,
-                                          const t_inputrec *ir,
-                                          gmx_bool          bRerunMD)
-{
-    if (bRerunMD && ir->opts.ngener > 1)
-    {
-        /* Rerun execution time is dominated by I/O and pair search,
-         * so GPUs are not very useful, plus they do not support more
-         * than one energy group. If the user requested GPUs
-         * explicitly, a fatal error is given later.  With non-reruns,
-         * we fall back to a single whole-of system energy group
-         * (which runs much faster than a multiple-energy-groups
-         * implementation would), and issue a note in the .log
-         * file. Users can re-run if they want the information. */
-        md_print_warn(cr, fplog, "Rerun with energy groups is not implemented for GPUs, falling back to the CPU\n");
-        return FALSE;
-    }
-
-    if (ir->vdwtype == evdwPME && ir->ljpme_combination_rule == eljpmeLB)
-    {
-        /* LJ PME with LB combination rule does 7 mesh operations.
-         * This so slow that we don't compile GPU non-bonded kernels for that.
-         */
-        md_print_warn(cr, fplog, "LJ-PME with Lorentz-Berthelot is not supported with GPUs, falling back to CPU only\n");
-        return FALSE;
-    }
-
-    return TRUE;
-}
-
-gmx_bool nbnxn_simd_supported(FILE             *fplog,
-                              const t_commrec  *cr,
-                              const t_inputrec *ir)
+gmx_bool nbnxn_simd_supported(const gmx::MDLogger &mdlog,
+                              const t_inputrec    *ir)
 {
     if (ir->vdwtype == evdwPME && ir->ljpme_combination_rule == eljpmeLB)
     {
         /* LJ PME with LB combination rule does 7 mesh operations.
          * This so slow that we don't compile SIMD non-bonded kernels
          * for that. */
-        md_print_warn(cr, fplog, "LJ-PME with Lorentz-Berthelot is not supported with SIMD kernels, falling back to plain C kernels\n");
+        GMX_LOG(mdlog.warning).asParagraph().appendText("LJ-PME with Lorentz-Berthelot is not supported with SIMD kernels, falling back to plain C kernels");
         return FALSE;
     }
 
@@ -1612,7 +1627,7 @@ static void pick_nbnxn_kernel_cpu(const t_inputrec gmx_unused *ir,
 #endif  /* GMX_NBNXN_SIMD_2XNN && GMX_NBNXN_SIMD_4XN */
 
 
-        if (getenv("GMX_NBNXN_SIMD_4XN") != NULL)
+        if (getenv("GMX_NBNXN_SIMD_4XN") != nullptr)
         {
 #ifdef GMX_NBNXN_SIMD_4XN
             *kernel_type = nbnxnk4xN_SIMD_4xN;
@@ -1620,7 +1635,7 @@ static void pick_nbnxn_kernel_cpu(const t_inputrec gmx_unused *ir,
             gmx_fatal(FARGS, "SIMD 4xN kernels requested, but GROMACS has been compiled without support for these kernels");
 #endif
         }
-        if (getenv("GMX_NBNXN_SIMD_2XNN") != NULL)
+        if (getenv("GMX_NBNXN_SIMD_2XNN") != nullptr)
         {
 #ifdef GMX_NBNXN_SIMD_2XNN
             *kernel_type = nbnxnk4xN_SIMD_2xNN;
@@ -1641,11 +1656,11 @@ static void pick_nbnxn_kernel_cpu(const t_inputrec gmx_unused *ir,
         (GMX_SIMD_REAL_WIDTH >= 4 && GMX_SIMD_HAVE_FMA && !GMX_DOUBLE) || GMX_SIMD_IBM_QPX
         *ewald_excl = ewaldexclAnalytical;
 #endif
-        if (getenv("GMX_NBNXN_EWALD_TABLE") != NULL)
+        if (getenv("GMX_NBNXN_EWALD_TABLE") != nullptr)
         {
             *ewald_excl = ewaldexclTable;
         }
-        if (getenv("GMX_NBNXN_EWALD_ANALYTICAL") != NULL)
+        if (getenv("GMX_NBNXN_EWALD_ANALYTICAL") != nullptr)
         {
             *ewald_excl = ewaldexclAnalytical;
         }
@@ -1657,7 +1672,7 @@ static void pick_nbnxn_kernel_cpu(const t_inputrec gmx_unused *ir,
 
 const char *lookup_nbnxn_kernel_name(int kernel_type)
 {
-    const char *returnvalue = NULL;
+    const char *returnvalue = nullptr;
     switch (kernel_type)
     {
         case nbnxnkNotSet:
@@ -1680,17 +1695,17 @@ const char *lookup_nbnxn_kernel_name(int kernel_type)
         case nbnxnkNR:
         default:
             gmx_fatal(FARGS, "Illegal kernel type selected");
-            returnvalue = NULL;
+            returnvalue = nullptr;
             break;
     }
     return returnvalue;
 };
 
 static void pick_nbnxn_kernel(FILE                *fp,
-                              const t_commrec     *cr,
+                              const gmx::MDLogger &mdlog,
                               gmx_bool             use_simd_kernels,
                               gmx_bool             bUseGPU,
-                              gmx_bool             bEmulateGPU,
+                              bool                 emulateGpu,
                               const t_inputrec    *ir,
                               int                 *kernel_type,
                               int                 *ewald_excl,
@@ -1701,13 +1716,13 @@ static void pick_nbnxn_kernel(FILE                *fp,
     *kernel_type = nbnxnkNotSet;
     *ewald_excl  = ewaldexclTable;
 
-    if (bEmulateGPU)
+    if (emulateGpu)
     {
         *kernel_type = nbnxnk8x8x8_PlainC;
 
         if (bDoNonbonded)
         {
-            md_print_warn(cr, fp, "Emulating a GPU run on the CPU (slow)");
+            GMX_LOG(mdlog.warning).asParagraph().appendText("Emulating a GPU run on the CPU (slow)");
         }
     }
     else if (bUseGPU)
@@ -1718,7 +1733,7 @@ static void pick_nbnxn_kernel(FILE                *fp,
     if (*kernel_type == nbnxnkNotSet)
     {
         if (use_simd_kernels &&
-            nbnxn_simd_supported(fp, cr, ir))
+            nbnxn_simd_supported(mdlog, ir))
         {
             pick_nbnxn_kernel_cpu(ir, kernel_type, ewald_excl);
         }
@@ -1728,7 +1743,7 @@ static void pick_nbnxn_kernel(FILE                *fp,
         }
     }
 
-    if (bDoNonbonded && fp != NULL)
+    if (bDoNonbonded && fp != nullptr)
     {
         fprintf(fp, "\nUsing %s %dx%d non-bonded kernels\n\n",
                 lookup_nbnxn_kernel_name(*kernel_type),
@@ -1738,66 +1753,11 @@ static void pick_nbnxn_kernel(FILE                *fp,
         if (nbnxnk4x4_PlainC == *kernel_type ||
             nbnxnk8x8x8_PlainC == *kernel_type)
         {
-            md_print_warn(cr, fp,
-                          "WARNING: Using the slow %s kernels. This should\n"
-                          "not happen during routine usage on supported platforms.\n\n",
-                          lookup_nbnxn_kernel_name(*kernel_type));
+            GMX_LOG(mdlog.warning).asParagraph().appendTextFormatted(
+                    "WARNING: Using the slow %s kernels. This should\n"
+                    "not happen during routine usage on supported platforms.",
+                    lookup_nbnxn_kernel_name(*kernel_type));
         }
-    }
-}
-
-static void pick_nbnxn_resources(FILE                *fp,
-                                 const t_commrec     *cr,
-                                 const gmx_hw_info_t *hwinfo,
-                                 gmx_bool             bDoNonbonded,
-                                 gmx_bool            *bUseGPU,
-                                 gmx_bool            *bEmulateGPU,
-                                 const gmx_gpu_opt_t *gpu_opt)
-{
-    gmx_bool bEmulateGPUEnvVarSet;
-    char     gpu_err_str[STRLEN];
-
-    *bUseGPU = FALSE;
-
-    bEmulateGPUEnvVarSet = (getenv("GMX_EMULATE_GPU") != NULL);
-
-    /* Run GPU emulation mode if GMX_EMULATE_GPU is defined. Because
-     * GPUs (currently) only handle non-bonded calculations, we will
-     * automatically switch to emulation if non-bonded calculations are
-     * turned off via GMX_NO_NONBONDED - this is the simple and elegant
-     * way to turn off GPU initialization, data movement, and cleanup.
-     *
-     * GPU emulation can be useful to assess the performance one can expect by
-     * adding GPU(s) to the machine. The conditional below allows this even
-     * if mdrun is compiled without GPU acceleration support.
-     * Note that you should freezing the system as otherwise it will explode.
-     */
-    *bEmulateGPU = (bEmulateGPUEnvVarSet ||
-                    (!bDoNonbonded && gpu_opt->n_dev_use > 0));
-
-    /* Enable GPU mode when GPUs are available or no GPU emulation is requested.
-     */
-    if (gpu_opt->n_dev_use > 0 && !(*bEmulateGPU))
-    {
-        /* Each PP node will use the intra-node id-th device from the
-         * list of detected/selected GPUs. */
-        if (!init_gpu(fp, cr->rank_pp_intranode, gpu_err_str,
-                      &hwinfo->gpu_info, gpu_opt))
-        {
-            /* At this point the init should never fail as we made sure that
-             * we have all the GPUs we need. If it still does, we'll bail. */
-            /* TODO the decorating of gpu_err_str is nicer if it
-               happens inside init_gpu. Out here, the decorating with
-               the MPI rank makes sense. */
-            gmx_fatal(FARGS, "On rank %d failed to initialize GPU #%d: %s",
-                      cr->nodeid,
-                      get_gpu_device_id(&hwinfo->gpu_info, gpu_opt,
-                                        cr->rank_pp_intranode),
-                      gpu_err_str);
-        }
-
-        /* Here we actually turn on hardware GPU acceleration */
-        *bUseGPU = TRUE;
     }
 }
 
@@ -1852,7 +1812,7 @@ static void init_ewald_f_table(interaction_const_t *ic,
     sfree_aligned(ic->tabq_vdw_F);
     sfree_aligned(ic->tabq_vdw_V);
 
-    if (ic->eeltype == eelEWALD || EEL_PME(ic->eeltype))
+    if (EEL_PME_EWALD(ic->eeltype))
     {
         /* Create the original table data in FDV0 */
         snew_aligned(ic->tabq_coul_FDV0, ic->tabq_size*4, 32);
@@ -1876,11 +1836,11 @@ void init_interaction_const_tables(FILE                *fp,
                                    interaction_const_t *ic,
                                    real                 rtab)
 {
-    if (ic->eeltype == eelEWALD || EEL_PME(ic->eeltype) || EVDW_PME(ic->vdwtype))
+    if (EEL_PME_EWALD(ic->eeltype) || EVDW_PME(ic->vdwtype))
     {
         init_ewald_f_table(ic, rtab);
 
-        if (fp != NULL)
+        if (fp != nullptr)
         {
             fprintf(fp, "Initialized non-bonded Ewald correction tables, spacing: %.2e size: %d\n\n",
                     1/ic->tabq_scale, ic->tabq_size);
@@ -2038,7 +1998,7 @@ init_interaction_const(FILE                       *fp,
         }
     }
 
-    if (fp != NULL)
+    if (fp != nullptr)
     {
         real dispersion_shift;
 
@@ -2065,6 +2025,7 @@ init_interaction_const(FILE                       *fp,
 }
 
 static void init_nb_verlet(FILE                *fp,
+                           const gmx::MDLogger &mdlog,
                            nonbonded_verlet_t **nb_verlet,
                            gmx_bool             bFEP_NonBonded,
                            const t_inputrec    *ir,
@@ -2075,44 +2036,52 @@ static void init_nb_verlet(FILE                *fp,
     nonbonded_verlet_t *nbv;
     int                 i;
     char               *env;
-    gmx_bool            bEmulateGPU, bHybridGPURun = FALSE;
+    gmx_bool            bHybridGPURun = FALSE;
 
     nbnxn_alloc_t      *nb_alloc;
     nbnxn_free_t       *nb_free;
 
     snew(nbv, 1);
 
-    pick_nbnxn_resources(fp, cr, fr->hwinfo,
-                         fr->bNonbonded,
-                         &nbv->bUseGPU,
-                         &bEmulateGPU,
-                         fr->gpu_opt);
+    nbv->emulateGpu = (getenv("GMX_EMULATE_GPU") != nullptr);
+    nbv->bUseGPU    = (fr->gpu_opt->n_dev_use > 0);
+    GMX_RELEASE_ASSERT(!(nbv->emulateGpu && nbv->bUseGPU), "When GPU emulation is active, there cannot be a GPU assignment");
 
-    nbv->nbs             = NULL;
+    if (nbv->bUseGPU)
+    {
+        /* This PP MPI rank uses the GPU that the GPU assignment
+         * prepared for it, which is the entry in gpu_opt->dev_use
+         * corresponding to the index of this PP MPI rank within the
+         * set of such ranks on this node. */
+        init_gpu(mdlog, cr->nodeid, cr->rank_pp_intranode,
+                 &fr->hwinfo->gpu_info, fr->gpu_opt);
+    }
+
+    nbv->nbs             = nullptr;
     nbv->min_ci_balanced = 0;
 
     nbv->ngrp = (DOMAINDECOMP(cr) ? 2 : 1);
     for (i = 0; i < nbv->ngrp; i++)
     {
         nbv->grp[i].nbl_lists.nnbl = 0;
-        nbv->grp[i].nbat           = NULL;
+        nbv->grp[i].nbat           = nullptr;
         nbv->grp[i].kernel_type    = nbnxnkNotSet;
 
         if (i == 0) /* local */
         {
-            pick_nbnxn_kernel(fp, cr, fr->use_simd_kernels,
-                              nbv->bUseGPU, bEmulateGPU, ir,
+            pick_nbnxn_kernel(fp, mdlog, fr->use_simd_kernels,
+                              nbv->bUseGPU, nbv->emulateGpu, ir,
                               &nbv->grp[i].kernel_type,
                               &nbv->grp[i].ewald_excl,
                               fr->bNonbonded);
         }
         else /* non-local */
         {
-            if (nbpu_opt != NULL && strcmp(nbpu_opt, "gpu_cpu") == 0)
+            if (nbpu_opt != nullptr && strcmp(nbpu_opt, "gpu_cpu") == 0)
             {
                 /* Use GPU for local, select a CPU kernel for non-local */
-                pick_nbnxn_kernel(fp, cr, fr->use_simd_kernels,
-                                  FALSE, FALSE, ir,
+                pick_nbnxn_kernel(fp, mdlog, fr->use_simd_kernels,
+                                  FALSE, false, ir,
                                   &nbv->grp[i].kernel_type,
                                   &nbv->grp[i].ewald_excl,
                                   fr->bNonbonded);
@@ -2129,8 +2098,8 @@ static void init_nb_verlet(FILE                *fp,
     }
 
     nbnxn_init_search(&nbv->nbs,
-                      DOMAINDECOMP(cr) ? &cr->dd->nc : NULL,
-                      DOMAINDECOMP(cr) ? domdec_zones(cr->dd) : NULL,
+                      DOMAINDECOMP(cr) ? &cr->dd->nc : nullptr,
+                      DOMAINDECOMP(cr) ? domdec_zones(cr->dd) : nullptr,
                       bFEP_NonBonded,
                       gmx_omp_nthreads_get(emntPairsearch));
 
@@ -2153,7 +2122,10 @@ static void init_nb_verlet(FILE                *fp,
 
             bSimpleList = nbnxn_kernel_pairlist_simple(nbv->grp[i].kernel_type);
 
-            if (bSimpleList && (fr->vdwtype == evdwCUT && (fr->vdw_modifier == eintmodNONE || fr->vdw_modifier == eintmodPOTSHIFT)))
+            if (fr->vdwtype == evdwCUT &&
+                (fr->vdw_modifier == eintmodNONE ||
+                 fr->vdw_modifier == eintmodPOTSHIFT) &&
+                getenv("GMX_NO_LJ_COMB_RULE") == nullptr)
             {
                 /* Plain LJ cut-off: we can optimize with combination rules */
                 enbnxninitcombrule = enbnxninitcombruleDETECT;
@@ -2225,14 +2197,14 @@ static void init_nb_verlet(FILE                *fp,
         }
 #endif  /* GMX_THREAD_MPI */
 
-        if ((env = getenv("GMX_NB_MIN_CI")) != NULL)
+        if ((env = getenv("GMX_NB_MIN_CI")) != nullptr)
         {
             char *end;
 
             nbv->min_ci_balanced = strtol(env, &end, 10);
-            if (!end || (*end != 0) || nbv->min_ci_balanced <= 0)
+            if (!end || (*end != 0) || nbv->min_ci_balanced < 0)
             {
-                gmx_fatal(FARGS, "Invalid value passed in GMX_NB_MIN_CI=%s, positive integer required", env);
+                gmx_fatal(FARGS, "Invalid value passed in GMX_NB_MIN_CI=%s, non-negative integer required", env);
             }
 
             if (debug)
@@ -2258,22 +2230,23 @@ static void init_nb_verlet(FILE                *fp,
 
 gmx_bool usingGpu(nonbonded_verlet_t *nbv)
 {
-    return nbv != NULL && nbv->bUseGPU;
+    return nbv != nullptr && nbv->bUseGPU;
 }
 
-void init_forcerec(FILE              *fp,
-                   t_forcerec        *fr,
-                   t_fcdata          *fcd,
-                   const t_inputrec  *ir,
-                   const gmx_mtop_t  *mtop,
-                   const t_commrec   *cr,
-                   matrix             box,
-                   const char        *tabfn,
-                   const char        *tabpfn,
-                   const char        *tabbfn,
-                   const char        *nbpu_opt,
-                   gmx_bool           bNoSolvOpt,
-                   real               print_force)
+void init_forcerec(FILE                *fp,
+                   const gmx::MDLogger &mdlog,
+                   t_forcerec          *fr,
+                   t_fcdata            *fcd,
+                   const t_inputrec    *ir,
+                   const gmx_mtop_t    *mtop,
+                   const t_commrec     *cr,
+                   matrix               box,
+                   const char          *tabfn,
+                   const char          *tabpfn,
+                   const t_filenm      *tabbfnm,
+                   const char          *nbpu_opt,
+                   gmx_bool             bNoSolvOpt,
+                   real                 print_force)
 {
     int            i, m, negp_pp, negptable, egi, egj;
     real           rtab;
@@ -2281,17 +2254,17 @@ void init_forcerec(FILE              *fp,
     double         dbl;
     const t_block *cgs;
     gmx_bool       bGenericKernelOnly;
-    gmx_bool       bMakeTables, bMakeSeparate14Table, bSomeNormalNbListsAreInUse;
+    gmx_bool       needGroupSchemeTables, bSomeNormalNbListsAreInUse;
     gmx_bool       bFEP_NonBonded;
     int           *nm_ind, egp_flags;
 
-    if (fr->hwinfo == NULL)
+    if (fr->hwinfo == nullptr)
     {
         /* Detect hardware, gather information.
          * In mdrun, hwinfo has already been set before calling init_forcerec.
          * Here we ignore GPUs, as tools will not use them anyhow.
          */
-        fr->hwinfo = gmx_detect_hardware(fp, cr, FALSE);
+        fr->hwinfo = gmx_detect_hardware(mdlog, cr, FALSE);
     }
 
     /* By default we turn SIMD kernels on, but it might be turned off further down... */
@@ -2368,7 +2341,7 @@ void init_forcerec(FILE              *fp,
     fr->sc_sigma6_def = gmx::power6(ir->fepvals->sc_sigma);
 
     env = getenv("GMX_SCSIGMA_MIN");
-    if (env != NULL)
+    if (env != nullptr)
     {
         dbl = 0;
         sscanf(env, "%20lf", &dbl);
@@ -2380,13 +2353,13 @@ void init_forcerec(FILE              *fp,
     }
 
     fr->bNonbonded = TRUE;
-    if (getenv("GMX_NO_NONBONDED") != NULL)
+    if (getenv("GMX_NO_NONBONDED") != nullptr)
     {
         /* turn off non-bonded calculations */
         fr->bNonbonded = FALSE;
-        md_print_warn(cr, fp,
-                      "Found environment variable GMX_NO_NONBONDED.\n"
-                      "Disabling nonbonded calculations.\n");
+        GMX_LOG(mdlog.warning).asParagraph().appendText(
+                "Found environment variable GMX_NO_NONBONDED.\n"
+                "Disabling nonbonded calculations.");
     }
 
     bGenericKernelOnly = FALSE;
@@ -2395,9 +2368,9 @@ void init_forcerec(FILE              *fp,
      * can be used with water optimization, and disable it if that is not the case.
      */
 
-    if (getenv("GMX_NB_GENERIC") != NULL)
+    if (getenv("GMX_NB_GENERIC") != nullptr)
     {
-        if (fp != NULL)
+        if (fp != nullptr)
         {
             fprintf(fp,
                     "Found environment variable GMX_NB_GENERIC.\n"
@@ -2412,10 +2385,10 @@ void init_forcerec(FILE              *fp,
         bNoSolvOpt         = TRUE;
     }
 
-    if ( (getenv("GMX_DISABLE_SIMD_KERNELS") != NULL) || (getenv("GMX_NOOPTIMIZEDKERNELS") != NULL) )
+    if ( (getenv("GMX_DISABLE_SIMD_KERNELS") != nullptr) || (getenv("GMX_NOOPTIMIZEDKERNELS") != nullptr) )
     {
         fr->use_simd_kernels = FALSE;
-        if (fp != NULL)
+        if (fp != nullptr)
         {
             fprintf(fp,
                     "\nFound environment variable GMX_DISABLE_SIMD_KERNELS.\n"
@@ -2427,16 +2400,16 @@ void init_forcerec(FILE              *fp,
     fr->bBHAM = (mtop->ffparams.functype[0] == F_BHAM);
 
     /* Check if we can/should do all-vs-all kernels */
-    fr->bAllvsAll       = can_use_allvsall(ir, FALSE, NULL, NULL);
-    fr->AllvsAll_work   = NULL;
-    fr->AllvsAll_workgb = NULL;
+    fr->bAllvsAll       = can_use_allvsall(ir, FALSE, nullptr, nullptr);
+    fr->AllvsAll_work   = nullptr;
+    fr->AllvsAll_workgb = nullptr;
 
     /* All-vs-all kernels have not been implemented in 4.6 and later.
      * See Redmine #1249. */
     if (fr->bAllvsAll)
     {
         fr->bAllvsAll            = FALSE;
-        if (fp != NULL)
+        if (fp != nullptr)
         {
             fprintf(fp,
                     "\nYour simulation settings would have triggered the efficient all-vs-all\n"
@@ -2460,7 +2433,7 @@ void init_forcerec(FILE              *fp,
         {
             fprintf(stderr, "\n%s\n", note);
         }
-        if (fp != NULL)
+        if (fp != nullptr)
         {
             fprintf(fp, "\n%s\n", note);
         }
@@ -2500,17 +2473,17 @@ void init_forcerec(FILE              *fp,
             {
                 fr->bMolPBC = TRUE;
 
-                if (getenv("GMX_USE_GRAPH") != NULL)
+                if (getenv("GMX_USE_GRAPH") != nullptr)
                 {
                     fr->bMolPBC = FALSE;
                     if (fp)
                     {
-                        md_print_warn(cr, fp, "GMX_USE_GRAPH is set, using the graph for bonded interactions\n");
+                        GMX_LOG(mdlog.warning).asParagraph().appendText("GMX_USE_GRAPH is set, using the graph for bonded interactions");
                     }
 
                     if (mtop->bIntermolecularInteractions)
                     {
-                        md_print_warn(cr, fp, "WARNING: Molecules linked by intermolecular interactions have to reside in the same periodic image, otherwise artifacts will occur!\n");
+                        GMX_LOG(mdlog.warning).asParagraph().appendText("WARNING: Molecules linked by intermolecular interactions have to reside in the same periodic image, otherwise artifacts will occur!");
                     }
                 }
 
@@ -2614,7 +2587,7 @@ void init_forcerec(FILE              *fp,
     fr->rcoulomb         = cutoff_inf(ir->rcoulomb);
     fr->rcoulomb_switch  = ir->rcoulomb_switch;
 
-    fr->bEwald     = (EEL_PME(fr->eeltype) || fr->eeltype == eelEWALD);
+    fr->bEwald     = EEL_PME_EWALD(fr->eeltype);
 
     fr->reppow     = mtop->ffparams.reppow;
 
@@ -2701,6 +2674,9 @@ void init_forcerec(FILE              *fp,
         fr->bcoultab = FALSE;
     }
 
+    /* This now calculates sum for q and C6 */
+    set_chargesum(fp, fr, mtop);
+
     /* Tables are used for direct ewald sum */
     if (fr->bEwald)
     {
@@ -2722,11 +2698,18 @@ void init_forcerec(FILE              *fp,
 
             if (ir->ewald_geometry == eewg3DC)
             {
+                bool haveNetCharge = (fabs(fr->qsum[0]) > 1e-4 ||
+                                      fabs(fr->qsum[1]) > 1e-4);
                 if (fp)
                 {
-                    fprintf(fp, "Using the Ewald3DC correction for systems with a slab geometry.\n");
+                    fprintf(fp, "Using the Ewald3DC correction for systems with a slab geometry%s.\n",
+                            haveNetCharge ? " and net charge" : "");
                 }
                 please_cite(fp, "In-Chul99a");
+                if (haveNetCharge)
+                {
+                    please_cite(fp, "Ballenegger2009");
+                }
             }
         }
         fr->ewaldcoeff_q = calc_ewaldcoeff_q(ir->rcoulomb, ir->ewald_rtol);
@@ -2768,10 +2751,14 @@ void init_forcerec(FILE              *fp,
     }
 
     fr->bF_NoVirSum = (EEL_FULL(fr->eeltype) || EVDW_PME(fr->vdwtype) ||
+                       fr->forceProviders->hasForcesWithoutVirialContribution() ||
                        gmx_mtop_ftype_count(mtop, F_POSRES) > 0 ||
-                       gmx_mtop_ftype_count(mtop, F_FBPOSRES) > 0 ||
-                       inputrecElecField(ir)
-                       );
+                       gmx_mtop_ftype_count(mtop, F_FBPOSRES) > 0);
+
+    if (fr->bF_NoVirSum)
+    {
+        fr->forceBufferNoVirialSummation = new PaddedRVecVector;
+    }
 
     if (fr->cutoff_scheme == ecutsGROUP &&
         ncg_mtop(mtop) > fr->cg_nalloc && !DOMAINDECOMP(cr))
@@ -2780,17 +2767,17 @@ void init_forcerec(FILE              *fp,
         fr->cg_nalloc = ncg_mtop(mtop);
         srenew(fr->cg_cm, fr->cg_nalloc);
     }
-    if (fr->shift_vec == NULL)
+    if (fr->shift_vec == nullptr)
     {
         snew(fr->shift_vec, SHIFTS);
     }
 
-    if (fr->fshift == NULL)
+    if (fr->fshift == nullptr)
     {
         snew(fr->fshift, SHIFTS);
     }
 
-    if (fr->nbfp == NULL)
+    if (fr->nbfp == nullptr)
     {
         fr->ntype = mtop->ffparams.atnr;
         fr->nbfp  = mk_nbfp(&mtop->ffparams, fr->bBHAM);
@@ -2927,40 +2914,23 @@ void init_forcerec(FILE              *fp,
                    &fr->kappa, &fr->k_rf, &fr->c_rf);
     }
 
-    /*This now calculates sum for q and c6*/
-    set_chargesum(fp, fr, mtop);
-
-    /* if we are using LR electrostatics, and they are tabulated,
-     * the tables will contain modified coulomb interactions.
-     * Since we want to use the non-shifted ones for 1-4
-     * coulombic interactions, we must have an extra set of tables.
-     */
-
-    /* Construct tables.
-     * A little unnecessary to make both vdw and coul tables sometimes,
-     * but what the heck... */
-
-    bMakeTables = fr->bcoultab || fr->bvdwtab || fr->bEwald ||
-        (ir->eDispCorr != edispcNO && ir_vdw_switched(ir));
-
-    bMakeSeparate14Table = ((!bMakeTables || fr->eeltype != eelCUT || fr->vdwtype != evdwCUT ||
-                             fr->coulomb_modifier != eintmodNONE ||
-                             fr->vdw_modifier != eintmodNONE ||
-                             fr->bBHAM || fr->bEwald) &&
-                            (gmx_mtop_ftype_count(mtop, F_LJ14) > 0 ||
-                             gmx_mtop_ftype_count(mtop, F_LJC14_Q) > 0 ||
-                             gmx_mtop_ftype_count(mtop, F_LJC_PAIRS_NB) > 0));
+    /* Construct tables for the group scheme. A little unnecessary to
+     * make both vdw and coul tables sometimes, but what the
+     * heck. Note that both cutoff schemes construct Ewald tables in
+     * init_interaction_const_tables. */
+    needGroupSchemeTables = (ir->cutoff_scheme == ecutsGROUP &&
+                             (fr->bcoultab || fr->bvdwtab));
 
     negp_pp   = ir->opts.ngener - ir->nwall;
     negptable = 0;
-    if (!bMakeTables)
+    if (!needGroupSchemeTables)
     {
         bSomeNormalNbListsAreInUse = TRUE;
         fr->nnblists               = 1;
     }
     else
     {
-        bSomeNormalNbListsAreInUse = (ir->eDispCorr != edispcNO);
+        bSomeNormalNbListsAreInUse = FALSE;
         for (egi = 0; egi < negp_pp; egi++)
         {
             for (egj = egi; egj < negp_pp; egj++)
@@ -3001,16 +2971,12 @@ void init_forcerec(FILE              *fp,
      */
     rtab = ir->rlist + ir->tabext;
 
-    if (bMakeTables)
+    if (needGroupSchemeTables)
     {
         /* make tables for ordinary interactions */
         if (bSomeNormalNbListsAreInUse)
         {
-            make_nbf_tables(fp, fr, rtab, tabfn, NULL, NULL, &fr->nblists[0]);
-            if (!bMakeSeparate14Table)
-            {
-                fr->tab14 = fr->nblists[0].table_elec_vdw;
-            }
+            make_nbf_tables(fp, fr, rtab, tabfn, nullptr, nullptr, &fr->nblists[0]);
             m = 1;
         }
         else
@@ -3047,22 +3013,24 @@ void init_forcerec(FILE              *fp,
             }
         }
     }
-    else if ((fr->eDispCorr != edispcNO) &&
-             ((fr->vdw_modifier == eintmodPOTSWITCH) ||
-              (fr->vdw_modifier == eintmodFORCESWITCH) ||
-              (fr->vdw_modifier == eintmodPOTSHIFT)))
+
+    /* Tables might not be used for the potential modifier
+     * interactions per se, but we still need them to evaluate
+     * switch/shift dispersion corrections in this case. */
+    if (fr->eDispCorr != edispcNO)
     {
-        /* Tables might not be used for the potential modifier interactions per se, but
-         * we still need them to evaluate switch/shift dispersion corrections in this case.
-         */
-        make_nbf_tables(fp, fr, rtab, tabfn, NULL, NULL, &fr->nblists[0]);
+        fr->dispersionCorrectionTable = makeDispersionCorrectionTable(fp, fr, rtab, tabfn);
     }
 
-    if (bMakeSeparate14Table)
+    /* We want to use unmodified tables for 1-4 coulombic
+     * interactions, so we must in general have an extra set of
+     * tables. */
+    if (gmx_mtop_ftype_count(mtop, F_LJ14) > 0 ||
+        gmx_mtop_ftype_count(mtop, F_LJC14_Q) > 0 ||
+        gmx_mtop_ftype_count(mtop, F_LJC_PAIRS_NB) > 0)
     {
-        /* generate extra tables with plain Coulomb for 1-4 interactions only */
-        fr->tab14 = make_tables(fp, fr, tabpfn, rtab,
-                                GMX_MAKETABLES_14ONLY);
+        fr->pairsTable = make_tables(fp, fr, tabpfn, rtab,
+                                     GMX_MAKETABLES_14ONLY);
     }
 
     /* Wall stuff */
@@ -3072,17 +3040,23 @@ void init_forcerec(FILE              *fp,
         make_wall_tables(fp, ir, tabfn, &mtop->groups, fr);
     }
 
-    if (fcd && tabbfn)
+    if (fcd && tabbfnm)
     {
-        fcd->bondtab  = make_bonded_tables(fp,
-                                           F_TABBONDS, F_TABBONDSNC,
-                                           mtop, tabbfn, "b");
-        fcd->angletab = make_bonded_tables(fp,
-                                           F_TABANGLES, -1,
-                                           mtop, tabbfn, "a");
-        fcd->dihtab   = make_bonded_tables(fp,
-                                           F_TABDIHS, -1,
-                                           mtop, tabbfn, "d");
+        // Need to catch std::bad_alloc
+        // TODO Don't need to catch this here, when merging with master branch
+        try
+        {
+            fcd->bondtab  = make_bonded_tables(fp,
+                                               F_TABBONDS, F_TABBONDSNC,
+                                               mtop, tabbfnm, "b");
+            fcd->angletab = make_bonded_tables(fp,
+                                               F_TABANGLES, -1,
+                                               mtop, tabbfnm, "a");
+            fcd->dihtab   = make_bonded_tables(fp,
+                                               F_TABDIHS, -1,
+                                               mtop, tabbfnm, "d");
+        }
+        GMX_CATCH_ALL_AND_EXIT_WITH_FATAL_ERROR;
     }
     else
     {
@@ -3108,7 +3082,7 @@ void init_forcerec(FILE              *fp,
                                    &fr->bExcl_IntraCGAll_InterCGNone);
     if (DOMAINDECOMP(cr))
     {
-        fr->cginfo = NULL;
+        fr->cginfo = nullptr;
     }
     else
     {
@@ -3144,7 +3118,6 @@ void init_forcerec(FILE              *fp,
 
     fr->nthread_ewc = gmx_omp_nthreads_get(emntBonded);
     snew(fr->ewc_t, fr->nthread_ewc);
-    snew(fr->excl_load, fr->nthread_ewc + 1);
 
     /* fr->ic is used both by verlet and group kernels (to some extent) now */
     init_interaction_const(fp, &fr->ic, fr);
@@ -3152,12 +3125,18 @@ void init_forcerec(FILE              *fp,
 
     if (fr->cutoff_scheme == ecutsVERLET)
     {
-        if (ir->rcoulomb != ir->rvdw)
+        // We checked the cut-offs in grompp, but double-check here.
+        // We have PME+LJcutoff kernels for rcoulomb>rvdw.
+        if (EEL_PME_EWALD(ir->coulombtype) && ir->vdwtype == eelCUT)
         {
-            gmx_fatal(FARGS, "With Verlet lists rcoulomb and rvdw should be identical");
+            GMX_RELEASE_ASSERT(ir->rcoulomb >= ir->rvdw, "With Verlet lists and PME we should have rcoulomb>=rvdw");
+        }
+        else
+        {
+            GMX_RELEASE_ASSERT(ir->rcoulomb == ir->rvdw, "With Verlet lists and no PME rcoulomb and rvdw should be identical");
         }
 
-        init_nb_verlet(fp, &fr->nbv, bFEP_NonBonded, ir, fr, cr, nbpu_opt);
+        init_nb_verlet(fp, mdlog, &fr->nbv, bFEP_NonBonded, ir, fr, cr, nbpu_opt);
     }
 
     if (ir->eDispCorr != edispcNO)
@@ -3190,48 +3169,6 @@ void pr_forcerec(FILE *fp, t_forcerec *fr)
     fflush(fp);
 }
 
-void forcerec_set_excl_load(t_forcerec           *fr,
-                            const gmx_localtop_t *top)
-{
-    const int *ind, *a;
-    int        t, i, j, ntot, n, ntarget;
-
-    ind = top->excls.index;
-    a   = top->excls.a;
-
-    ntot = 0;
-    for (i = 0; i < top->excls.nr; i++)
-    {
-        for (j = ind[i]; j < ind[i+1]; j++)
-        {
-            if (a[j] > i)
-            {
-                ntot++;
-            }
-        }
-    }
-
-    fr->excl_load[0] = 0;
-    n                = 0;
-    i                = 0;
-    for (t = 1; t <= fr->nthread_ewc; t++)
-    {
-        ntarget = (ntot*t)/fr->nthread_ewc;
-        while (i < top->excls.nr && n < ntarget)
-        {
-            for (j = ind[i]; j < ind[i+1]; j++)
-            {
-                if (a[j] > i)
-                {
-                    n++;
-                }
-            }
-            i++;
-        }
-        fr->excl_load[t] = i;
-    }
-}
-
 /* Frees GPU memory and destroys the GPU context.
  *
  * Note that this function needs to be called even if GPUs are not used
@@ -3252,20 +3189,29 @@ void free_gpu_resources(const t_forcerec     *fr,
     {
         /* free nbnxn data in GPU memory */
         nbnxn_gpu_free(fr->nbv->gpu_nbv);
+        /* stop the GPU profiler (only CUDA) */
+        stopGpuProfiler();
+    }
 
-        /* With tMPI we need to wait for all ranks to finish deallocation before
-         * destroying the context in free_gpu() as some ranks may be sharing
-         * GPU and context.
-         * Note: as only PP ranks need to free GPU resources, so it is safe to
-         * not call the barrier on PME ranks.
-         */
+    /* With tMPI we need to wait for all ranks to finish deallocation before
+     * destroying the CUDA context in free_gpu() as some tMPI ranks may be sharing
+     * GPU and context.
+     *
+     * This is not a concern in OpenCL where we use one context per rank which
+     * is freed in nbnxn_gpu_free().
+     *
+     * Note: it is safe to not call the barrier on the ranks which do not use GPU,
+     * but it is easier and more futureproof to call it on the whole node.
+     */
 #if GMX_THREAD_MPI
-        if (PAR(cr))
-        {
-            gmx_barrier(cr);
-        }
+    if (PAR(cr) || MULTISIM(cr))
+    {
+        gmx_barrier_physical_node(cr);
+    }
 #endif  /* GMX_THREAD_MPI */
 
+    if (bIsPPrankUsingGPU)
+    {
         /* uninitialize GPU (by destroying the context) */
         if (!free_cuda_gpu(cr->rank_pp_intranode, gpu_err_str, gpu_info, gpu_opt))
         {

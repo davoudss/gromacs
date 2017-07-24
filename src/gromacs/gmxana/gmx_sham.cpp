@@ -3,7 +3,7 @@
  *
  * Copyright (c) 1991-2000, University of Groningen, The Netherlands.
  * Copyright (c) 2001-2004, The GROMACS development team.
- * Copyright (c) 2013,2014,2015, by the GROMACS development team, led by
+ * Copyright (c) 2013,2014,2015,2016,2017, by the GROMACS development team, led by
  * Mark Abraham, David van der Spoel, Berk Hess, and Erik Lindahl,
  * and including many others, as listed in the AUTHORS file in the
  * top-level source directory and at http://www.gromacs.org.
@@ -36,6 +36,7 @@
  */
 #include "gmxpre.h"
 
+#include <cassert>
 #include <cmath>
 #include <cstdlib>
 #include <cstring>
@@ -45,7 +46,6 @@
 #include "gromacs/commandline/pargs.h"
 #include "gromacs/fileio/matio.h"
 #include "gromacs/fileio/pdbio.h"
-#include "gromacs/fileio/readinp.h"
 #include "gromacs/fileio/xvgr.h"
 #include "gromacs/gmxana/gmx_ana.h"
 #include "gromacs/gmxana/gstat.h"
@@ -425,7 +425,7 @@ static void do_sham(const char *fn, const char *ndx,
 {
     FILE        *fp;
     real        *min_eig, *max_eig;
-    real        *axis_x, *axis_y, *axis_z, *axis = NULL;
+    real        *axis_x, *axis_y, *axis_z, *axis = nullptr;
     double      *P;
     real       **PP, *W, *E, **WW, **EE, *S, **SS, *M, *bE;
     rvec         xxx;
@@ -492,6 +492,7 @@ static void do_sham(const char *fn, const char *ndx,
     snew(bE, n);
     if (bGE || nenerT == 2)
     {
+        assert(enerT);
         Emin = 1e8;
         for (j = 0; (j < n); j++)
         {
@@ -988,7 +989,7 @@ int gmx_sham(int argc, char *argv[])
 
     npargs = asize(pa);
     if (!parse_common_args(&argc, argv, PCA_CAN_VIEW,
-                           NFILE, fnm, npargs, pa, asize(desc), desc, 0, NULL, &oenv))
+                           NFILE, fnm, npargs, pa, asize(desc), desc, 0, nullptr, &oenv))
     {
         return 0;
     }
@@ -1036,7 +1037,7 @@ int gmx_sham(int argc, char *argv[])
     }
     else
     {
-        et_val = NULL;
+        et_val = nullptr;
     }
 
     if (fn_ene && et_val)
@@ -1082,10 +1083,10 @@ int gmx_sham(int argc, char *argv[])
             opt2fn("-ls", NFILE, fnm), opt2fn("-lsh", NFILE, fnm),
             opt2fn("-lss", NFILE, fnm),
             opt2fn("-ls3", NFILE, fnm), opt2fn("-g", NFILE, fnm),
-            n, nset, val, fn_ge != NULL, e_nset, et_val, Tref,
+            n, nset, val, fn_ge != nullptr, e_nset, et_val, Tref,
             pmax, gmax,
-            opt2parg_bSet("-emin", NPA, pa) ? &emin : NULL,
-            opt2parg_bSet("-emax", NPA, pa) ? &emax : NULL,
+            opt2parg_bSet("-emin", NPA, pa) ? &emin : nullptr,
+            opt2parg_bSet("-emax", NPA, pa) ? &emax : nullptr,
             nlevels, pmin,
             idim, ibox,
             opt2parg_bSet("-xmin", NPA, pa), rmin,

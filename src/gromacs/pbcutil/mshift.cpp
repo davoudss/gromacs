@@ -3,7 +3,7 @@
  *
  * Copyright (c) 1991-2000, University of Groningen, The Netherlands.
  * Copyright (c) 2001-2004, The GROMACS development team.
- * Copyright (c) 2013,2014,2015, by the GROMACS development team, led by
+ * Copyright (c) 2013,2014,2015,2016,2017, by the GROMACS development team, led by
  * Mark Abraham, David van der Spoel, Berk Hess, and Erik Lindahl,
  * and including many others, as listed in the AUTHORS file in the
  * top-level source directory and at http://www.gromacs.org.
@@ -120,7 +120,7 @@ static void mk_igraph(t_graph *g, int ftype, const t_ilist *il,
                 add_gbond(g, ia[1], ia[2]);
                 add_gbond(g, ia[1], ia[3]);
             }
-            else if (part == NULL)
+            else if (part == nullptr)
             {
                 /* Simply add this bond */
                 for (j = 1; j < np; j++)
@@ -147,7 +147,7 @@ static void mk_igraph(t_graph *g, int ftype, const t_ilist *il,
 
 gmx_noreturn static void g_error(int line, const char *file)
 {
-    gmx_fatal(FARGS, "Tring to print non existant graph (file %s, line %d)",
+    gmx_fatal(FARGS, "Trying to print nonexistent graph (file %s, line %d)",
               file, line);
 }
 #define GCHECK(g) if (g == NULL) g_error(__LINE__, __FILE__)
@@ -412,7 +412,7 @@ void mk_graph_ilist(FILE *fplog,
             {
                 if (interaction_function[i].flags & IF_CHEMBOND)
                 {
-                    mk_igraph(g, i, &(ilist[i]), at_start, at_end, NULL);
+                    mk_igraph(g, i, &(ilist[i]), at_start, at_end, nullptr);
                 }
             }
 
@@ -442,10 +442,10 @@ void mk_graph_ilist(FILE *fplog,
         else
         {
             /* This is a special thing used in splitter.c to generate shake-blocks */
-            mk_igraph(g, F_CONSTR, &(ilist[F_CONSTR]), at_start, at_end, NULL);
+            mk_igraph(g, F_CONSTR, &(ilist[F_CONSTR]), at_start, at_end, nullptr);
             if (bSettle)
             {
-                mk_igraph(g, F_SETTLE, &(ilist[F_SETTLE]), at_start, at_end, NULL);
+                mk_igraph(g, F_SETTLE, &(ilist[F_SETTLE]), at_start, at_end, nullptr);
             }
         }
         g->nbound = 0;
@@ -459,7 +459,7 @@ void mk_graph_ilist(FILE *fplog,
     }
 
     g->negc = 0;
-    g->egc  = NULL;
+    g->egc  = nullptr;
 
     sfree(nbond);
 
@@ -503,7 +503,7 @@ void done_graph(t_graph *g)
  *
  ************************************************************/
 
-static void mk_1shift_tric(int npbcdim, matrix box, const rvec hbox,
+static void mk_1shift_tric(int npbcdim, const matrix box, const rvec hbox,
                            const rvec xi, const rvec xj, int *mi, int *mj)
 {
     /* Calculate periodicity for triclinic box... */
@@ -571,7 +571,7 @@ static void mk_1shift(int npbcdim, const rvec hbox, const rvec xi, const rvec xj
     }
 }
 
-static void mk_1shift_screw(matrix box, const rvec hbox,
+static void mk_1shift_screw(const matrix box, const rvec hbox,
                             const rvec xi, const rvec xj, int *mi, int *mj)
 {
     /* Calculate periodicity for rectangular box... */
@@ -629,7 +629,7 @@ static void mk_1shift_screw(matrix box, const rvec hbox,
 }
 
 static int mk_grey(egCol egc[], t_graph *g, int *AtomI,
-                   int npbcdim, matrix box, const rvec x[], int *nerror)
+                   int npbcdim, const matrix box, const rvec x[], int *nerror)
 {
     int          m, j, ng, ai, aj, g0;
     rvec         dx, hbox;
@@ -717,7 +717,7 @@ static int first_colour(int fC, egCol Col, t_graph *g, egCol egc[])
 }
 
 void mk_mshift(FILE *log, t_graph *g, int ePBC,
-               matrix box, const rvec x[])
+               const matrix box, const rvec x[])
 {
     static int nerror_tot = 0;
     int        npbcdim;
@@ -845,7 +845,7 @@ void mk_mshift(FILE *log, t_graph *g, int ePBC,
  *
  ************************************************************/
 
-void shift_x(const t_graph *g, matrix box, const rvec x[], rvec x_s[])
+void shift_x(const t_graph *g, const matrix box, const rvec x[], rvec x_s[])
 {
     ivec    *is;
     int      g0, g1;
@@ -917,7 +917,7 @@ void shift_x(const t_graph *g, matrix box, const rvec x[], rvec x_s[])
     }
 }
 
-void shift_self(const t_graph *g, matrix box, rvec x[])
+void shift_self(const t_graph *g, const matrix box, rvec x[])
 {
     ivec    *is;
     int      g0, g1;
@@ -963,7 +963,7 @@ void shift_self(const t_graph *g, matrix box, rvec x[])
     }
 }
 
-void unshift_x(const t_graph *g, matrix box, rvec x[], const rvec x_s[])
+void unshift_x(const t_graph *g, const matrix box, rvec x[], const rvec x_s[])
 {
     ivec    *is;
     int      g0, g1;
@@ -1016,7 +1016,7 @@ void unshift_x(const t_graph *g, matrix box, rvec x[], const rvec x_s[])
     }
 }
 
-void unshift_self(const t_graph *g, matrix box, rvec x[])
+void unshift_self(const t_graph *g, const matrix box, rvec x[])
 {
     ivec *is;
     int   g0, g1;

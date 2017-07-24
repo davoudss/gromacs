@@ -77,6 +77,15 @@ reference data, it will generate a non-fatal Google Test failure in the current
 test.  The test can naturally also use its own test assertions for additional
 checks, but any mismatch will automatically also fail the test.
 
+It is also possible to read values of the reference data items using
+gmx::test::TestReferenceChecker, so that they can be used programmatically.
+For this to work, those items should first be written in the same test.
+This supports tests that want to both check data against a reference, and use
+that reference as a persistence layer for storing information.  This is useful
+at least for serialization tests.
+This is currently not supported for all use cases, but with some caveats, it is
+possible to use this for testing.
+
 When using floating-point values in reference data, the tolerance for the
 comparison can be influenced with
 gmx::test::TestReferenceChecker::setDefaultTolerance().
@@ -140,7 +149,7 @@ Persistence
 
 The reference data is stored in XML files under
 `src/gromacs/`<em>module</em>`/tests/refdata/` in the source tree.
-This part of the framework depends on `libxml2`.
+This part of the framework depends on `tinyxml2`, which is bundled in `src/external`.
 One file is produced per test that uses reference data.  If you rename tests or
 otherwise change the reference data, you currently need to manually manage the
 files with `git`.

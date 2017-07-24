@@ -3,7 +3,7 @@
  *
  * Copyright (c) 1991-2000, University of Groningen, The Netherlands.
  * Copyright (c) 2001-2004, The GROMACS development team.
- * Copyright (c) 2013,2014,2015, by the GROMACS development team, led by
+ * Copyright (c) 2013,2014,2015,2016, by the GROMACS development team, led by
  * Mark Abraham, David van der Spoel, Berk Hess, and Erik Lindahl,
  * and including many others, as listed in the AUTHORS file in the
  * top-level source directory and at http://www.gromacs.org.
@@ -74,7 +74,7 @@ static void init_grpstat(gmx_mtop_t *mtop, int ngacc, t_grp_acc gstat[])
     gmx_groups_t           *groups;
     gmx_mtop_atomloop_all_t aloop;
     int                     i, grp;
-    t_atom                 *atom;
+    const t_atom           *atom;
 
     if (ngacc > 0)
     {
@@ -110,7 +110,7 @@ void init_ekindata(FILE gmx_unused *log, gmx_mtop_t *mtop, t_grpopts *opts,
      * Turn this on when we have multiple acceleration groups
      * or one accelerated group.
      */
-    ekind->bNEMD = (opts->ngacc > 1 || norm(opts->acc[0]) > 0);
+    ekind->bNEMD = (opts->ngacc > 1 || norm2(opts->acc[0]) > 0);
 
     ekind->ngtc = opts->ngtc;
     snew(ekind->tcstat, opts->ngtc);

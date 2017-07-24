@@ -1,7 +1,7 @@
 /*
  * This file is part of the GROMACS molecular simulation package.
  *
- * Copyright (c) 2012,2013,2014,2015, by the GROMACS development team, led by
+ * Copyright (c) 2012,2013,2014,2015,2016,2017, by the GROMACS development team, led by
  * Mark Abraham, David van der Spoel, Berk Hess, and Erik Lindahl,
  * and including many others, as listed in the AUTHORS file in the
  * top-level source directory and at http://www.gromacs.org.
@@ -45,6 +45,7 @@
 
 #include <cstddef>
 
+#include <array>
 #include <iterator>
 #include <stdexcept>
 #include <utility>
@@ -67,8 +68,8 @@ namespace gmx
  */
 struct EmptyArrayRef {};
 
-/*! \brief
- * STL-like container for an interface to a C array (or part of a std::vector).
+/*! \brief STL-like container for an interface to a C array of T (or part
+ * of a std::vector<T> or std::array<T>).
  *
  * \tparam T  Value type of elements.
  *
@@ -76,14 +77,15 @@ struct EmptyArrayRef {};
  * following main differences:
  *  - This class does not have its own storage.  Instead, it references an
  *    existing array of values (either a C-style array or part of an existing
- *    std::vector<T>).
+ *    std::vector<T> or std::array<T>).
  *  - It is only possible to modify the values themselves through ArrayRef;
  *    it is not possible to add or remove values.
  *  - Copying objects of this type is cheap, and the copies behave identically
  *    to the original object: the copy references the same set of values.
  *
- * This class is useful for writing wrappers that expose a different view of
- * the internal data stored as a single vector/array.
+ * This class is useful for writing wrappers that expose a view of the
+ * internal data stored as a single vector/array, which can be a whole
+ * or part of the underlying storage.
  *
  * Methods in this class do not throw, except where indicated.
  *
@@ -165,7 +167,7 @@ class ArrayRef
         fromVector(typename std::vector<value_type>::iterator begin,
                    typename std::vector<value_type>::iterator end)
         {
-            value_type *p_begin = (begin != end) ? &*begin : NULL;
+            value_type *p_begin = (begin != end) ? &*begin : nullptr;
             value_type *p_end   = p_begin + (end-begin);
             return ArrayRef<value_type>(p_begin, p_end);
         }
@@ -181,7 +183,7 @@ class ArrayRef
          * used to initialize any ArrayRef, without specifying the template
          * type.  It is not explicit to enable that usage.
          */
-        ArrayRef(const EmptyArrayRef &) : begin_(NULL), end_(NULL) {}
+        ArrayRef(const EmptyArrayRef &) : begin_(nullptr), end_(nullptr) {}
         /*! \brief
          * Constructs a reference to a particular range.
          *
@@ -199,7 +201,7 @@ class ArrayRef
             GMX_ASSERT(end >= begin, "Invalid range");
         }
         /*! \brief
-         * Constructs a reference to a whole vector.
+         * Constructs a reference to a whole std::vector<T>.
          *
          * \param[in] v  Vector to reference.
          *
@@ -207,11 +209,28 @@ class ArrayRef
          * lifetime of this object.
          *
          * This constructor is not explicit to allow directly passing
-         * std::vector to a method that takes ArrayRef.
+         * std::vector<T> to a method that takes ArrayRef.
          */
         ArrayRef(std::vector<T> &v)
-            : begin_((!v.empty()) ? &v[0] : NULL),
-              end_((!v.empty()) ? &v[0] + v.size() : NULL)
+            : begin_((!v.empty()) ? &v[0] : nullptr),
+              end_((!v.empty()) ? &v[0] + v.size() : nullptr)
+        {
+        }
+        /*! \brief
+         * Constructs a reference to a whole std::array<T>.
+         *
+         * \param[in] a  Array to reference.
+         *
+         * Passed array must remain valid for the lifetime of this
+         * object.
+         *
+         * This constructor is not explicit to allow directly passing
+         * std::array<T> to a method that takes ArrayRef.
+         */
+        template <size_t count>
+        ArrayRef(std::array<T, count> &a)
+            : begin_((!a.empty()) ? &a[0] : NULL),
+              end_((!a.empty()) ? &a[0] + a.size() : NULL)
         {
         }
         //! \cond
@@ -231,11 +250,6 @@ class ArrayRef
          *
          * This constructor is not explicit to allow directly passing
          * a C array to a function that takes an ArrayRef parameter.
-         *
-         * xlc on BG/Q compiles wrong code if the C array is a struct
-         * field, unless value_type is char or unsigned char. There's
-         * no good way to assert on this before C++11 (which that
-         * compiler will never support).
          */
         template <size_t count>
         ArrayRef(value_type (&array)[count])
@@ -253,13 +267,13 @@ class ArrayRef
         //! Returns an iterator to the end of the container.
         const_iterator end() const { return end_; }
         //! Returns an iterator to the reverse beginning of the container.
-        iterator rbegin() { return reverse_iterator(end()); }
+        reverse_iterator rbegin() { return reverse_iterator(end()); }
         //! Returns an iterator to the reverse beginning of the container.
-        const_iterator rbegin() const { return reverse_iterator(end()); }
+        const_reverse_iterator rbegin() const { return reverse_iterator(end()); }
         //! Returns an iterator to the reverse end of the container.
-        iterator rend() { return reverse_iterator(begin()); }
+        reverse_iterator rend() { return reverse_iterator(begin()); }
         //! Returns an iterator to the reverse end of the container.
-        const_iterator rend() const { return reverse_iterator(begin()); }
+        const_reverse_iterator rend() const { return reverse_iterator(begin()); }
 
         //! Returns the size of the container.
         size_type size() const { return end_ - begin_; }
@@ -323,9 +337,8 @@ class ArrayRef
 
 
 
-/*! \brief
- * STL-like container for non-mutable interface to a C array (or part of a
- * std::vector).
+/*! \brief STL-like container for non-mutable interface to a C array of T
+ * (or part of a std::vector<T> or std::array<T>).
  *
  * \tparam T  Value type of elements.
  *
@@ -333,14 +346,15 @@ class ArrayRef
  * following main differences:
  *  - This class does not have its own storage.  Instead, it references an
  *    existing array of values (either a C-style array or part of an existing
- *    std::vector<T>).
+ *    std::vector<T> or std::array<T>).
  *  - Only const methods are provided to access the stored values.
  *    It is not possible to alter the referenced array.
  *  - Copying objects of this type is cheap, and the copies behave identically
  *    to the original object: the copy references the same set of values.
  *
- * This class is useful for writing wrappers that expose a different view of
- * the internal data stored as a single vector/array.
+ * This class is useful for writing wrappers that expose a view of the
+ * internal data stored as a single vector/array, which can be a whole
+ * or part of the underlying storage.
  *
  * Methods in this class do not throw, except where indicated.
  *
@@ -394,7 +408,7 @@ class ConstArrayRef
         fromVector(typename std::vector<value_type>::const_iterator begin,
                    typename std::vector<value_type>::const_iterator end)
         {
-            const value_type *p_begin = (begin != end) ? &*begin : NULL;
+            const value_type *p_begin = (begin != end) ? &*begin : nullptr;
             const value_type *p_end   = p_begin + (end-begin);
             return ConstArrayRef<value_type>(p_begin, p_end);
         }
@@ -402,7 +416,7 @@ class ConstArrayRef
         /*! \brief
          * Constructs an empty reference.
          */
-        ConstArrayRef() : begin_(NULL), end_(NULL) {}
+        ConstArrayRef() : begin_(nullptr), end_(nullptr) {}
         /*! \brief
          * Constructs an empty reference.
          *
@@ -410,7 +424,11 @@ class ConstArrayRef
          * used to initialize any Const ArrayRef, without specifying the
          * template type.  It is not explicit to enable that usage.
          */
-        ConstArrayRef(const EmptyArrayRef &) : begin_(NULL), end_(NULL) {}
+        ConstArrayRef(const EmptyArrayRef &) : begin_(nullptr), end_(nullptr) {}
+        /*! \brief
+         * Constructs a const reference from a non-const reference.
+         */
+        ConstArrayRef(const ArrayRef<T> &other) : begin_(other.begin()), end_(other.end()) {}
         /*! \brief
          * Constructs a reference to a particular range.
          *
@@ -428,7 +446,7 @@ class ConstArrayRef
             GMX_ASSERT(end >= begin, "Invalid range");
         }
         /*! \brief
-         * Constructs a reference to a whole vector.
+         * Constructs a reference to a whole std::vector<T>.
          *
          * \param[in] v  Vector to reference.
          *
@@ -436,11 +454,28 @@ class ConstArrayRef
          * lifetime of this object.
          *
          * This constructor is not explicit to allow directly passing
-         * std::vector to a method that takes ConstArrayRef.
+         * std::vector<T> to a method that takes ConstArrayRef.
          */
         ConstArrayRef(const std::vector<T> &v)
-            : begin_((!v.empty()) ? &v[0] : NULL),
-              end_((!v.empty()) ? &v[0] + v.size() : NULL)
+            : begin_((!v.empty()) ? &v[0] : nullptr),
+              end_((!v.empty()) ? &v[0] + v.size() : nullptr)
+        {
+        }
+        /*! \brief
+         * Constructs a reference to a whole std::array<T>.
+         *
+         * \param[in] a  Array to reference.
+         *
+         * Passed array must remain valid for the lifetime of this
+         * object.
+         *
+         * This constructor is not explicit to allow directly passing
+         * std::array<T> to a method that takes ConstArrayRef.
+         */
+        template <size_t count>
+        ConstArrayRef(const std::array<T, count> &a)
+            : begin_((!a.empty()) ? &a[0] : NULL),
+              end_((!a.empty()) ? &a[0] + a.size() : NULL)
         {
         }
         //! \cond
@@ -460,11 +495,6 @@ class ConstArrayRef
          *
          * This constructor is not explicit to allow directly passing
          * a C array to a function that takes a ConstArrayRef parameter.
-         *
-         * xlc on BG/Q compiles wrong code if the C array is a struct
-         * field, unless value_type is char or unsigned char. There's
-         * no good way to assert on this before C++11 (which that
-         * compiler will never support).
          */
         template <size_t count>
         ConstArrayRef(const value_type (&array)[count])
@@ -478,9 +508,9 @@ class ConstArrayRef
         //! Returns an iterator to the end of the container.
         const_iterator end() const { return end_; }
         //! Returns an iterator to the reverse beginning of the container.
-        const_iterator rbegin() const { return reverse_iterator(end()); }
+        const_reverse_iterator rbegin() const { return reverse_iterator(end()); }
         //! Returns an iterator to the reverse end of the container.
-        const_iterator rend() const { return reverse_iterator(begin()); }
+        const_reverse_iterator rend() const { return reverse_iterator(begin()); }
 
         //! Returns the size of the container.
         size_type size() const { return end_ - begin_; }

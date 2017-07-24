@@ -1,7 +1,7 @@
 #
 # This file is part of the GROMACS molecular simulation package.
 #
-# Copyright (c) 2014,2015, by the GROMACS development team, led by
+# Copyright (c) 2014,2015,2016,2017, by the GROMACS development team, led by
 # Mark Abraham, David van der Spoel, Berk Hess, and Erik Lindahl,
 # and including many others, as listed in the AUTHORS file in the
 # top-level source directory and at http://www.gromacs.org.
@@ -54,6 +54,7 @@
 #       Table of historical values
 #         GROMACS     5.0    0
 #         GROMACS     5.1    1
+#         GROMACS     2016   2
 #   LIBRARY_SOVERSION_MINOR so minor version for the built libraries.
 #       Should be increased for each release that changes only the implementation.
 #       In GROMACS, the typical policy is to increase it for each patch version
@@ -93,14 +94,6 @@
 # written against the GROMACS API to provide some #ifdef'ed code to support
 # multiple GROMACS versions.
 #
-# The following variables are defined without manual intervention:
-#   SOURCE_IS_SOURCE_DISTRIBUTION  The source tree is from a source tarball.
-#   SOURCE_IS_GIT_REPOSITORY       The source tree is a git repository.
-# Note that both can be false if the tree has been extracted, e.g., as a
-# tarball directly from git.
-# Additionally, the following variable is defined:
-#   BUILD_IS_INSOURCE              The build is happening in-source.
-#
 # This script also declares machinery to generate and obtain version
 # information from a git repository.  This is enabled by default if the source
 # tree is a git, but can be disabled with
@@ -109,7 +102,7 @@
 # The main interface to this machinery is the gmx_configure_version_file()
 # CMake function.  The signature is
 #   gmx_configure_version_file(<input> <output>
-#                              [REMOTE_HASH] [SOURCE_FILE]
+#                              [REMOTE_HASH]
 #                              [TARGET <target>]
 #                              [COMMENT <comment>])
 #   <input>      Specify the input and output files as for configure_file().
@@ -126,9 +119,6 @@
 #                This variable is much more expensive to initialize than the
 #                others, so this allows local changes in this file to only
 #                compute that value when required if that becomes necessary.
-#   SOURCE_FILE  Signals that <output> will be used as a source file.
-#                The function will set properties for the source file
-#                appropriately to signify that it is generated.
 #   TARGET       By default, this function uses add_custom_command() to
 #                generate the output file.  If TARGET is specified, then
 #                add_custom_target() is used to create a target with the given
@@ -190,29 +180,11 @@
 # are used internally by this machinery, as well as VersionInfo.cmake.cmakein.
 
 #####################################################################
-# Basic nature of the source tree
-
-set(SOURCE_IS_GIT_REPOSITORY OFF)
-set(SOURCE_IS_SOURCE_DISTRIBUTION OFF)
-if (EXISTS "${PROJECT_SOURCE_DIR}/.git")
-    set(SOURCE_IS_GIT_REPOSITORY ON)
-endif()
-# This file is excluded from CPack source packages, but part of the repository,
-# so it should get included everywhere else.
-if (NOT EXISTS "${PROJECT_SOURCE_DIR}/admin/.isreposource")
-    set(SOURCE_IS_SOURCE_DISTRIBUTION ON)
-endif()
-set(BUILD_IS_INSOURCE OFF)
-if ("${PROJECT_SOURCE_DIR}" STREQUAL "${PROJECT_BINARY_DIR}")
-    set(BUILD_IS_INSOURCE ON)
-endif()
-
-#####################################################################
 # Manually maintained version info
 
 # The GROMACS convention is that these are the version number of the next
 # release that is going to be made from this branch.
-set(GMX_VERSION_MAJOR 2016)
+set(GMX_VERSION_MAJOR 2017)
 set(GMX_VERSION_PATCH 0)
 # The suffix, on the other hand, is used mainly for betas and release
 # candidates, where it signifies the most recent such release from
@@ -229,7 +201,7 @@ set(GMX_VERSION_SUFFIX "")
 # here. The important thing is to minimize the chance of third-party
 # code being able to dynamically link with a version of libgromacs
 # that might not work.
-set(LIBRARY_SOVERSION_MAJOR 2)
+set(LIBRARY_SOVERSION_MAJOR 3)
 set(LIBRARY_SOVERSION_MINOR 0)
 set(LIBRARY_VERSION ${LIBRARY_SOVERSION_MAJOR}.${LIBRARY_SOVERSION_MINOR}.0)
 
@@ -244,21 +216,27 @@ endif()
 set(GMX_VERSION_STRING "${GMX_VERSION}${GMX_VERSION_SUFFIX}")
 option(GMX_BUILD_TARBALL "Build tarball without -dev version suffix" OFF)
 mark_as_advanced(GMX_BUILD_TARBALL)
-if (NOT SOURCE_IS_SOURCE_DISTRIBUTION AND NOT GMX_BUILD_TARBALL)
+# If run with cmake -P, the -dev suffix is managed elsewhere.
+if (NOT SOURCE_IS_SOURCE_DISTRIBUTION AND
+    NOT GMX_BUILD_TARBALL AND
+    NOT CMAKE_SCRIPT_MODE_FILE)
     set(GMX_VERSION_STRING "${GMX_VERSION_STRING}-dev")
 endif()
 
 set(REGRESSIONTEST_VERSION "${GMX_VERSION_STRING}")
 set(REGRESSIONTEST_BRANCH "refs/heads/master")
-# TODO Find some way of ensuring that this is bumped appropriately for
-# each release. It's hard to test because it is only used for
-# REGRESSIONTEST_DOWNLOAD, which doesn't work until that tarball has
-# been placed on the server.
-set(REGRESSIONTEST_MD5SUM "614a74e9b143bda5476f87f4ce08eec0" CACHE INTERNAL "MD5 sum of the regressiontests tarball")
+set(REGRESSIONTEST_MD5SUM "366438549270d005fa6def6e56ca0256")
 
 math(EXPR GMX_VERSION_NUMERIC
      "${GMX_VERSION_MAJOR}*10000 + ${GMX_VERSION_PATCH}")
 set(GMX_API_VERSION ${GMX_VERSION_NUMERIC})
+
+# If run with cmake -P from releng scripts, print out necessary version info
+# as JSON.
+if (CMAKE_SCRIPT_MODE_FILE)
+    message("{ \"version\": \"${GMX_VERSION_STRING}\", \"regressiontest-md5sum\": \"${REGRESSIONTEST_MD5SUM}\" }")
+    return()
+endif()
 
 #####################################################################
 # git version info management
@@ -375,7 +353,7 @@ unset(GMX_VERSION_CENTRAL_BASE_HASH)
 # See documentation at the top of the script.
 function (gmx_configure_version_file INFILE OUTFILE)
     include(CMakeParseArguments)
-    set(_options REMOTE_HASH SOURCE_FILE)
+    set(_options REMOTE_HASH)
     set(_one_value_args COMMENT TARGET)
     set(_multi_value_args EXTRA_VARS)
     cmake_parse_arguments(
@@ -416,8 +394,5 @@ function (gmx_configure_version_file INFILE OUTFILE)
     if (ARG_TARGET)
         add_custom_target(${ARG_TARGET} DEPENDS ${OUTFILE} VERBATIM)
         gmx_set_custom_target_output(${ARG_TARGET} ${OUTFILE})
-    endif()
-    if (ARG_SOURCE_FILE)
-        set_source_files_properties(${OUTFILE} PROPERTIES GENERATED true)
     endif()
 endfunction()

@@ -3,7 +3,7 @@
  *
  * Copyright (c) 1991-2000, University of Groningen, The Netherlands.
  * Copyright (c) 2001-2004, The GROMACS development team.
- * Copyright (c) 2013,2014,2015, by the GROMACS development team, led by
+ * Copyright (c) 2013,2014,2015,2016,2017, by the GROMACS development team, led by
  * Mark Abraham, David van der Spoel, Berk Hess, and Erik Lindahl,
  * and including many others, as listed in the AUTHORS file in the
  * top-level source directory and at http://www.gromacs.org.
@@ -211,7 +211,7 @@ void table_spline3_fill_ewald_lr(real                                 *table_f,
             vi = v_inrange - dc*(i - i_inrange)*dx;
         }
 
-        if (table_v != NULL)
+        if (table_v != nullptr)
         {
             table_v[i] = vi;
         }
@@ -281,7 +281,7 @@ void table_spline3_fill_ewald_lr(real                                 *table_f,
     /* Currently the last value only contains half the force: double it */
     table_f[0] *= 2;
 
-    if (table_v != NULL && table_fdv0 != NULL)
+    if (table_v != nullptr && table_fdv0 != nullptr)
     {
         /* Copy to FDV0 table too. Allocation occurs in forcerec.c,
          * init_ewald_f_table().
@@ -609,7 +609,7 @@ static void read_tables(FILE *fp, const char *fn,
 {
     char    *libfn;
     char     buf[STRLEN];
-    double **yy = NULL, start, end, dx0, dx1, ssd, vm, vp, f, numf;
+    double **yy = nullptr, start, end, dx0, dx1, ssd, vm, vp, f, numf;
     int      k, i, nx, nx0 = 0, ny, nny, ns;
     gmx_bool bAllZero, bZeroV, bZeroF;
     double   tabscale;
@@ -729,14 +729,17 @@ static void read_tables(FILE *fp, const char *fn,
                 {
                     /* Take the centered difference */
                     numf = -(vp - vm)*0.5*tabscale;
-                    ssd += fabs(2*(f - numf)/(f + numf));
+                    if (f + numf != 0)
+                    {
+                        ssd += fabs(2*(f - numf)/(f + numf));
+                    }
                     ns++;
                 }
             }
             if (ns > 0)
             {
                 ssd /= ns;
-                sprintf(buf, "For the %d non-zero entries for table %d in %s the forces deviate on average %d%% from minus the numerical derivative of the potential\n", ns, k, libfn, (int)(100*ssd+0.5));
+                sprintf(buf, "For the %d non-zero entries for table %d in %s the forces deviate on average %lld%% from minus the numerical derivative of the potential\n", ns, k, libfn, (long long int)(100*ssd+0.5));
                 if (debug)
                 {
                     fprintf(debug, "%s", buf);
@@ -1388,7 +1391,7 @@ t_forcetable *make_tables(FILE *out,
         read_tables(out, fn, etiNR, 0, td);
         if (rtab == 0 || (flags & GMX_MAKETABLES_14ONLY))
         {
-            table->n   = td[0].nx;
+            table->n = td[0].nx;
         }
         else
         {
@@ -1539,7 +1542,7 @@ t_forcetable *make_gb_table(const t_forcerec              *fr)
 
 }
 
-bondedtable_t make_bonded_table(FILE *fplog, char *fn, int angle)
+bondedtable_t make_bonded_table(FILE *fplog, const char *fn, int angle)
 {
     t_tabledata   td;
     int           i;
@@ -1564,4 +1567,48 @@ bondedtable_t make_bonded_table(FILE *fplog, char *fn, int angle)
     done_tabledata(&td);
 
     return tab;
+}
+
+t_forcetable *makeDispersionCorrectionTable(FILE *fp,
+                                            t_forcerec *fr, real rtab,
+                                            const char *tabfn)
+{
+    t_forcetable *dispersionCorrectionTable = nullptr;
+
+    if (tabfn == nullptr)
+    {
+        if (debug)
+        {
+            fprintf(debug, "No table file name passed, can not read table, can not do non-bonded interactions\n");
+        }
+        return dispersionCorrectionTable;
+    }
+
+    t_forcetable *fullTable = make_tables(fp, fr, tabfn, rtab, 0);
+    /* Copy the contents of the table to one that has just dispersion
+     * and repulsion, to improve cache performance. We want the table
+     * data to be aligned to 32-byte boundaries. The pointers could be
+     * freed but currently aren't. */
+    snew(dispersionCorrectionTable, 1);
+    dispersionCorrectionTable->interaction   = GMX_TABLE_INTERACTION_VDWREP_VDWDISP;
+    dispersionCorrectionTable->format        = fullTable->format;
+    dispersionCorrectionTable->r             = fullTable->r;
+    dispersionCorrectionTable->n             = fullTable->n;
+    dispersionCorrectionTable->scale         = fullTable->scale;
+    dispersionCorrectionTable->formatsize    = fullTable->formatsize;
+    dispersionCorrectionTable->ninteractions = 2;
+    dispersionCorrectionTable->stride        = dispersionCorrectionTable->formatsize * dispersionCorrectionTable->ninteractions;
+    snew_aligned(dispersionCorrectionTable->data, dispersionCorrectionTable->stride*(dispersionCorrectionTable->n+1), 32);
+
+    for (int i = 0; i <= fullTable->n; i++)
+    {
+        for (int j = 0; j < 8; j++)
+        {
+            dispersionCorrectionTable->data[8*i+j] = fullTable->data[12*i+4+j];
+        }
+    }
+    sfree_aligned(fullTable->data);
+    sfree(fullTable);
+
+    return dispersionCorrectionTable;
 }

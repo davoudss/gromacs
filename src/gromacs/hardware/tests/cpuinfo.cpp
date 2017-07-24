@@ -68,7 +68,7 @@ TEST(CpuInfoTest, SupportLevel)
     EXPECT_GT(c.supportLevel(), gmx::CpuInfo::SupportLevel::None)
     << "No CPU information at all could be detected. " << commonMsg << std::endl;
 
-#if defined __powerpc__ || defined __ppc__ || defined __PPC__  || defined __arm__ || defined __arm || GMX_TARGET_X86
+#if GMX_TARGET_X86
     EXPECT_GE(c.supportLevel(), gmx::CpuInfo::SupportLevel::Features)
     << "No CPU features could be detected. " << commonMsg << std::endl;
 #endif
@@ -78,9 +78,9 @@ TEST(CpuInfoTest, SupportLevel)
         // Make sure assigned numbers are reasonable if we have them
         for (auto &l : c.logicalProcessors())
         {
-            EXPECT_GE(l.socket,   0) << "Impossible socket index for logical processor. " << commonMsg << std::endl;
-            EXPECT_GE(l.core,     0) << "Impossible core index for logical processor. " << commonMsg << std::endl;
-            EXPECT_GE(l.hwThread, 0) << "Impossible hwthread index for logical processor. " << commonMsg << std::endl;
+            EXPECT_GE(l.socketRankInMachine, 0) << "Impossible socket index for logical processor. " << commonMsg << std::endl;
+            EXPECT_GE(l.coreRankInSocket,    0) << "Impossible core index for logical processor. " << commonMsg << std::endl;
+            EXPECT_GE(l.hwThreadRankInCore,  0) << "Impossible hwthread index for logical processor. " << commonMsg << std::endl;
         }
     }
 }

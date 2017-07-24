@@ -1,7 +1,7 @@
 #
 # This file is part of the GROMACS molecular simulation package.
 #
-# Copyright (c) 2012,2013,2014,2015, by the GROMACS development team, led by
+# Copyright (c) 2012,2013,2014,2015,2016,2017, by the GROMACS development team, led by
 # Mark Abraham, David van der Spoel, Berk Hess, and Erik Lindahl,
 # and including many others, as listed in the AUTHORS file in the
 # top-level source directory and at http://www.gromacs.org.
@@ -33,32 +33,130 @@
 # the research papers on the package. Check out http://www.gromacs.org.
 
 include(CheckCXXSourceCompiles)
-MACRO(GMX_TEST_CXX11 VARIABLE FLAG)
+
+# Check whether both a suitable C++11-compatible compiler and standard
+# library is available, and give a fatal error if not.
+#
+# Any required compiler flag for C++11 support is returned in
+# ${FLAG}. The other parameters are only inputs, naming variables that
+# contain flags that may have been detected, or set by the user.
+function(GMX_TEST_CXX11 CXX11_CXX_FLAG_NAME STDLIB_CXX_FLAG_NAME STDLIB_LIBRARIES_NAME)
+
+    # First check that the compiler is OK, and find the appropriate flag.
+
     if(WIN32 AND NOT MINGW)
-        set(CXX11_FLAG "/Qstd=c++0x")
+        set(CXX11_CXX_FLAG "/Qstd=c++11")
     elseif(CYGWIN)
-        set(CXX11_FLAG "-std=gnu++0x") #required for strdup
+        set(CXX11_CXX_FLAG "-std=gnu++11") #required for strdup
     else()
-        set(CXX11_FLAG "-std=c++0x")
+        set(CXX11_CXX_FLAG "-std=c++11")
     endif()
-    CHECK_CXX_COMPILER_FLAG("${CXX11_FLAG}" CXXFLAG_STD_CXX0X)
+    CHECK_CXX_COMPILER_FLAG("${CXX11_CXX_FLAG}" CXXFLAG_STD_CXX0X)
     if(NOT CXXFLAG_STD_CXX0X)
-        set(CXX11_FLAG "")
+        set(CXX11_CXX_FLAG "")
     endif()
-    set(CMAKE_REQUIRED_FLAGS "${CXX11_FLAG}")
+    set(CMAKE_REQUIRED_FLAGS "${CXX11_CXX_FLAG}")
     check_cxx_source_compiles(
-"#include <map>
+"// Test that a subclass has a proper copy constructor
+struct a {
+  a() {};
+  a(const a&) {};
+  a(a&&) = delete;
+};
+class b: public a
+{
+};
+b bTest() {
+  return b();
+}
+// ICC requires that a suitable GCC is available. It is using its standard library and emulates
+// GCC behaviour based on its version. Relevant here it emulates the implementation of the move
+// constructor. This compiler check should only fail based on the compiler not GCC. The GCC version
+// is checked by the following STL check. It is known that all ICC>=15 have the proper move
+// constructor. Thus this check is disabled for ICC.
+#if !((defined __INTEL_COMPILER && __INTEL_COMPILER >= 1500) || (defined __ICL && __ICL >= 1500))
+// Test that a subclass has a proper move constructor
+struct c {
+  c() {};
+  c(const c&) = delete;
+  c(c&&) {};
+};
+struct d : public c {
+};
+d dTest() {
+  return d();
+}
+#endif
+// Test that operator bool() works
+struct e {
+  explicit operator bool() {return true;}
+};
+// Test that constexpr works
+constexpr int factorial(int n)
+{
+    return n <= 1? 1 : (n * factorial(n - 1));
+}
+// Test that r-value references work
+void checkRvalueReference(int &&);
+// Test that extern templates work
+template <typename T> void someFunction();
+extern template void someFunction<int>();
+int main() {
+  // Test nullptr
+  double *x = nullptr;
+  (void)x; // Suppressing unused variable warning
+  // Test range-based for loops
+  int array[5] = { 1, 2, 3, 4, 5 };
+  for (int& x : array)
+    x *= 2;
+  // Test alignas
+  alignas(4*sizeof(int)) int y;
+}" CXX11_SUPPORTED)
+    if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+        if(CMAKE_CXX_COMPILER_VERSION VERSION_LESS "4.8.1")
+            message(FATAL_ERROR "GROMACS requires version 4.8.1 or later of the GNU C++ compiler for complete C++11 support")
+        endif()
+    elseif("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
+        if(CMAKE_CXX_COMPILER_VERSION VERSION_LESS "3.3")
+            message(FATAL_ERROR "GROMACS requires version 3.3 or later of the Clang C++ compiler for complete C++11 support")
+        endif()
+    elseif("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Intel")
+        if(CMAKE_CXX_COMPILER_VERSION VERSION_LESS "15.0")
+            message(FATAL_ERROR "GROMACS requires version 15.0 or later of the Intel C++ compiler for complete C++11 support")
+        endif()
+    elseif("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
+        if(CMAKE_CXX_COMPILER_VERSION VERSION_LESS "19.0.23026")
+            message(FATAL_ERROR "GROMACS requires version 2015 (19.0.23026) or later of the MSVC C++ compiler for complete C++11 support")
+        endif()
+    endif()
+    if(CXX11_SUPPORTED)
+        set(${CXX11_CXX_FLAG_NAME} ${CXX11_CXX_FLAG} PARENT_SCOPE)
+    else()
+        message(FATAL_ERROR "This version of GROMACS requires a C++11 compiler. Please use a newer compiler or use the GROMACS 5.1.x release. See the installation guide for details.")
+    endif()
+
+    # Now check the standard library is OK
+
+    set(CMAKE_REQUIRED_FLAGS "${CXX11_CXX_FLAG} ${${STDLIB_CXX_FLAG_NAME}}")
+    set(CMAKE_REQUIRED_LIBRARIES "${${STDLIB_LIBRARIES_NAME}}")
+    check_cxx_source_compiles(
+"#include <chrono>
+#include <map>
 #include <memory>
+#include <thread>
 #include <utility>
-class a { explicit operator bool() {return true;} };
 int main() {
   typedef std::unique_ptr<int> intPointer;
   intPointer p(new int(10));
   std::map<int, std::unique_ptr<int>> m;
   m.insert(std::make_pair(5, std::move(p)));
-}" ${VARIABLE})
-    set(CMAKE_REQUIRED_FLAGS "")
-    if(${VARIABLE})
-        set(${FLAG} ${CXX11_FLAG})
+  auto start = std::chrono::steady_clock::now();
+  if (std::chrono::steady_clock::now() - start < std::chrono::seconds(2))
+  {
+      std::thread t;
+  }
+}" CXX11_STDLIB_PRESENT)
+    if(NOT CXX11_STDLIB_PRESENT)
+        message(FATAL_ERROR "This version of GROMACS requires C++11-compatible standard library. Several compilers (e.g. Clang and Intel) use GCC. For those make sure to have GCC 4.8.1 or later. Please use a newer compiler, or a newer standard library, or use the GROMACS 5.1.x release. See the installation guide for details.")
     endif()
-ENDMACRO()
+endfunction()

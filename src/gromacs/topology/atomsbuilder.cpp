@@ -1,7 +1,7 @@
 /*
  * This file is part of the GROMACS molecular simulation package.
  *
- * Copyright (c) 2014,2015, by the GROMACS development team, led by
+ * Copyright (c) 2014,2015,2016,2017, by the GROMACS development team, led by
  * Mark Abraham, David van der Spoel, Berk Hess, and Erik Lindahl,
  * and including many others, as listed in the AUTHORS file in the
  * top-level source directory and at http://www.gromacs.org.
@@ -74,7 +74,7 @@ AtomsBuilder::~AtomsBuilder()
 
 char **AtomsBuilder::symtabString(char **source)
 {
-    if (symtab_ != NULL)
+    if (symtab_ != nullptr)
     {
         return put_symtab(symtab_, *source);
     }
@@ -86,6 +86,10 @@ void AtomsBuilder::reserve(int atomCount, int residueCount)
     srenew(atoms_->atom,     atomCount);
     srenew(atoms_->atomname, atomCount);
     srenew(atoms_->resinfo,  residueCount);
+    if (atoms_->pdbinfo != nullptr)
+    {
+        srenew(atoms_->pdbinfo, atomCount);
+    }
     nrAlloc_   = atomCount;
     nresAlloc_ = residueCount;
 }
@@ -114,6 +118,17 @@ void AtomsBuilder::addAtom(const t_atoms &atoms, int i)
     atoms_->atom[index]        = atoms.atom[i];
     atoms_->atomname[index]    = symtabString(atoms.atomname[i]);
     atoms_->atom[index].resind = currentResidueIndex_;
+    if (atoms_->pdbinfo != nullptr)
+    {
+        if (atoms.pdbinfo != nullptr)
+        {
+            atoms_->pdbinfo[index]  = atoms.pdbinfo[i];
+        }
+        else
+        {
+            gmx_pdbinfo_init_default(&atoms_->pdbinfo[index]);
+        }
+    }
     ++atoms_->nr;
 }
 
@@ -194,6 +209,11 @@ AtomsRemover::~AtomsRemover()
 {
 }
 
+void AtomsRemover::refreshAtomCount(const t_atoms &atoms)
+{
+    removed_.resize(atoms.nr, 0);
+}
+
 void AtomsRemover::markAll()
 {
     std::fill(removed_.begin(), removed_.end(), 1);
@@ -248,7 +268,7 @@ void AtomsRemover::removeMarkedElements(std::vector<real> *container) const
 void AtomsRemover::removeMarkedAtoms(t_atoms *atoms) const
 {
     const int    originalAtomCount = atoms->nr;
-    AtomsBuilder builder(atoms, NULL);
+    AtomsBuilder builder(atoms, nullptr);
     if (atoms->nr > 0)
     {
         builder.setNextResidueNumber(atoms->resinfo[0].nr);

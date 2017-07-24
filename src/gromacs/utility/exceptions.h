@@ -1,7 +1,7 @@
 /*
  * This file is part of the GROMACS molecular simulation package.
  *
- * Copyright (c) 2011,2012,2013,2014,2015, by the GROMACS development team, led by
+ * Copyright (c) 2011,2012,2013,2014,2015,2016, by the GROMACS development team, led by
  * Mark Abraham, David van der Spoel, Berk Hess, and Erik Lindahl,
  * and including many others, as listed in the AUTHORS file in the
  * top-level source directory and at http://www.gromacs.org.
@@ -58,6 +58,7 @@
 #include <vector>
 
 #include "gromacs/utility/basedefinitions.h"
+#include "gromacs/utility/classhelpers.h"
 #include "gromacs/utility/current_function.h"
 #include "gromacs/utility/gmxassert.h"
 
@@ -85,6 +86,7 @@ class IExceptionInfo
 {
     public:
         virtual ~IExceptionInfo();
+        GMX_DEFAULT_CONSTRUCTORS(IExceptionInfo);
 };
 
 //! Smart pointer to manage IExceptionInfo ownership.
@@ -261,15 +263,17 @@ class GromacsException : public std::exception
 {
     public:
         // Explicitly declared because some compiler/library combinations warn
-        // about missing throw() otherwise.
-        virtual ~GromacsException() throw() {}
+        // about missing noexcept otherwise.
+        virtual ~GromacsException() noexcept {}
+
+        GMX_DEFAULT_CONSTRUCTORS(GromacsException);
 
         /*! \brief
          * Returns the reason string for the exception.
          *
          * The return value is the string that was passed to the constructor.
          */
-        virtual const char *what() const throw();
+        virtual const char *what() const noexcept;
         /*! \brief
          * Returns the error code corresponding to the exception type.
          */
@@ -459,6 +463,30 @@ class InconsistentInputError : public UserInputError
 };
 
 /*! \brief
+ * Exception class when a specified tolerance cannot be achieved.
+ *
+ * \inpublicapi
+ */
+class ToleranceError : public GromacsException
+{
+    public:
+        /*! \brief
+         * Creates an exception object with the provided initializer/reason.
+         *
+         * \param[in] details  Initializer for the exception.
+         * \throws    std::bad_alloc if out of memory.
+         *
+         * It is possible to call this constructor either with an explicit
+         * ExceptionInitializer object (useful for more complex cases), or
+         * a simple string if only a reason string needs to be provided.
+         */
+        explicit ToleranceError(const ExceptionInitializer &details)
+            : GromacsException(details) {}
+
+        virtual int errorCode() const;
+};
+
+/*! \brief
  * Exception class for simulation instabilities.
  *
  * \inpublicapi
@@ -504,6 +532,21 @@ class APIError : public GromacsException
 };
 
 /*! \brief
+ * Exception class for out-of-range values or indices
+ *
+ * \inpublicapi
+ */
+class RangeError : public GromacsException
+{
+    public:
+        //! \copydoc FileIOError::FileIOError()
+        explicit RangeError(const ExceptionInitializer &details)
+            : GromacsException(details) {}
+
+        virtual int errorCode() const;
+};
+
+/*! \brief
  * Exception class for use of an unimplemented feature.
  *
  * \inpublicapi
@@ -517,7 +560,6 @@ class NotImplementedError : public APIError
 
         virtual int errorCode() const;
 };
-
 
 /*! \brief
  * Macro for throwing an exception.

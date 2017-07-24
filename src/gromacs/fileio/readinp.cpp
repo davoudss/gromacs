@@ -3,7 +3,7 @@
  *
  * Copyright (c) 1991-2000, University of Groningen, The Netherlands.
  * Copyright (c) 2001-2004, The GROMACS development team.
- * Copyright (c) 2013,2014,2015, by the GROMACS development team, led by
+ * Copyright (c) 2013,2014,2015,2016,2017, by the GROMACS development team, led by
  * Mark Abraham, David van der Spoel, Berk Hess, and Erik Lindahl,
  * and including many others, as listed in the AUTHORS file in the
  * top-level source directory and at http://www.gromacs.org.
@@ -38,192 +38,139 @@
 
 #include "readinp.h"
 
-#include <cstdio>
 #include <cstdlib>
 #include <cstring>
 
 #include <algorithm>
 
-#include "gromacs/fileio/gmxfio.h"
 #include "gromacs/fileio/warninp.h"
-#include "gromacs/mdtypes/md_enums.h"
 #include "gromacs/utility/binaryinformation.h"
 #include "gromacs/utility/cstringutil.h"
 #include "gromacs/utility/exceptions.h"
 #include "gromacs/utility/fatalerror.h"
-#include "gromacs/utility/futil.h"
+#include "gromacs/utility/keyvaluetreebuilder.h"
+#include "gromacs/utility/niceheader.h"
 #include "gromacs/utility/programcontext.h"
 #include "gromacs/utility/qsort_threadsafe.h"
 #include "gromacs/utility/smalloc.h"
+#include "gromacs/utility/stringutil.h"
+#include "gromacs/utility/textreader.h"
+#include "gromacs/utility/textwriter.h"
 
-t_inpfile *read_inpfile(const char *fn, int *ninp,
+t_inpfile *read_inpfile(gmx::TextInputStream *stream, const char *fn, int *ninp,
                         warninp_t wi)
 {
-    FILE      *in;
-    char       buf[STRLEN], lbuf[STRLEN], rbuf[STRLEN], warn_buf[STRLEN];
-    char      *ptr, *cptr;
-    t_inpfile *inp = NULL;
-    int        nin, lc, i, j, k;
-    /* setting cppopts from command-line options would be cooler */
-    gmx_bool   allow_override = FALSE;
-
+    t_inpfile *inp = nullptr;
 
     if (debug)
     {
         fprintf(debug, "Reading MDP file %s\n", fn);
     }
 
-    in = gmx_ffopen(fn, "r");
-
-    nin = lc  = 0;
-    do
+    int             indexOfLineReadFromFile = 0;
+    int             countOfUniqueKeysFound  = 0;
+    std::string     line;
+    gmx::TextReader reader(stream);
+    reader.setTrimTrailingWhiteSpace(true);
+    reader.setTrimTrailingComment(true, ';');
+    while (reader.readLine(&line))
     {
-        ptr = fgets2(buf, STRLEN-1, in);
-        lc++;
-        set_warning_line(wi, fn, lc);
-        if (ptr)
+        indexOfLineReadFromFile++;
+        set_warning_line(wi, fn, indexOfLineReadFromFile);
+
+        if (line.empty())
         {
-            /* Strip comment */
-            if ((cptr = std::strchr(buf, COMMENTSIGN)) != NULL)
-            {
-                *cptr = '\0';
-            }
-            /* Strip spaces */
-            trim(buf);
+            continue;
+        }
 
-            for (j = 0; (buf[j] != '=') && (buf[j] != '\0'); j++)
+        auto tokens = gmx::splitAndTrimDelimitedString(line, '=');
+        if (tokens.size() < 2)
+        {
+            // TODO this seems like it silently ignores the user accidentally deleting an equals sign...
+            if (debug)
             {
-                ;
+                fprintf(debug, "No = on line %d in file %s, ignored\n", indexOfLineReadFromFile, fn);
             }
-            if (buf[j] == '\0')
+            continue;
+        }
+        if (tokens.size() > 2)
+        {
+            // TODO ignoring such lines does not seem like good behaviour
+            if (debug)
             {
-                if (j > 0)
-                {
-                    if (debug)
-                    {
-                        fprintf(debug, "No = on line %d in file %s, ignored\n", lc, fn);
-                    }
-                }
+                fprintf(debug, "Multiple equals signs on line %d in file %s, ignored\n", indexOfLineReadFromFile, fn);
             }
-            else
+            continue;
+        }
+        if (tokens[0].empty())
+        {
+            // TODO ignoring such lines does not seem like good behaviour
+            if (debug)
             {
-                for (i = 0; (i < j); i++)
-                {
-                    lbuf[i] = buf[i];
-                }
-                lbuf[i] = '\0';
-                trim(lbuf);
-                if (lbuf[0] == '\0')
-                {
-                    if (debug)
-                    {
-                        fprintf(debug, "Empty left hand side on line %d in file %s, ignored\n", lc, fn);
-                    }
-                }
-                else
-                {
-                    for (i = j+1, k = 0; (buf[i] != '\0'); i++, k++)
-                    {
-                        rbuf[k] = buf[i];
-                    }
-                    rbuf[k] = '\0';
-                    trim(rbuf);
-                    if (rbuf[0] == '\0')
-                    {
-                        if (debug)
-                        {
-                            fprintf(debug, "Empty right hand side on line %d in file %s, ignored\n", lc, fn);
-                        }
-                    }
-                    else
-                    {
-                        /* Now finally something sensible */
-                        int found_index;
+                fprintf(debug, "Empty left hand side on line %d in file %s, ignored\n", indexOfLineReadFromFile, fn);
+            }
+            continue;
+        }
+        if (tokens[1].empty())
+        {
+            // TODO ignoring such lines does not seem like good behaviour
+            if (debug)
+            {
+                fprintf(debug, "Empty right hand side on line %d in file %s, ignored\n", indexOfLineReadFromFile, fn);
+            }
+            continue;
+        }
 
-                        /* first check whether we hit the 'multiple_entries' option */
-                        if (gmx_strcasecmp_min(eMultentOpt_names[eMultentOptName], lbuf) == 0)
-                        {
-                            /* we now check whether to allow overrides from here or not */
-                            if (gmx_strcasecmp_min(eMultentOpt_names[eMultentOptNo], rbuf) == 0)
-                            {
-                                allow_override = FALSE;
-                            }
-                            else if (gmx_strcasecmp_min(eMultentOpt_names[eMultentOptLast], rbuf) == 0)
-                            {
-                                allow_override = TRUE;
-                            }
-                            else
-                            {
-                                sprintf(warn_buf,
-                                        "Parameter \"%s\" should either be %s or %s\n",
-                                        lbuf,
-                                        eMultentOpt_names[eMultentOptNo],
-                                        eMultentOpt_names[eMultentOptLast]);
-                                warning_error(wi, warn_buf);
-                            }
-                        }
-                        else
-                        {
-                            /* it is a regular option; check for duplicates */
-                            found_index = search_einp(nin, inp, lbuf);
+        /* Now finally something sensible; check for duplicates */
+        int found_index = search_einp(countOfUniqueKeysFound, inp, tokens[0].c_str());
 
-                            if (found_index == -1)
-                            {
-                                /* add a new item */
-                                srenew(inp, ++nin);
-                                inp[nin-1].inp_count  = 1;
-                                inp[nin-1].count      = 0;
-                                inp[nin-1].bObsolete  = FALSE;
-                                inp[nin-1].bSet       = FALSE;
-                                inp[nin-1].name       = gmx_strdup(lbuf);
-                                inp[nin-1].value      = gmx_strdup(rbuf);
-                            }
-                            else
-                            {
-                                if (!allow_override)
-                                {
-                                    sprintf(warn_buf,
-                                            "Parameter \"%s\" doubly defined (and multiple assignments not allowed)\n",
-                                            lbuf);
-                                    warning_error(wi, warn_buf);
-                                }
-                                else
-                                {
-                                    /* override */
-                                    if (!inp)
-                                    {
-                                        gmx_fatal(FARGS, "Internal inconsistency; inp[] base pointer is NULL");
-                                    }
-                                    sfree(inp[found_index].value);
-                                    inp[found_index].value = gmx_strdup(rbuf);
-                                    sprintf(warn_buf,
-                                            "Overriding existing parameter \"%s\" with value \"%s\"\n",
-                                            lbuf, rbuf);
-                                    warning_note(wi, warn_buf);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+        if (found_index == -1)
+        {
+            /* add a new item */
+            srenew(inp, ++countOfUniqueKeysFound);
+            inp[countOfUniqueKeysFound-1].inp_count              = 1;
+            inp[countOfUniqueKeysFound-1].count                  = 0;
+            inp[countOfUniqueKeysFound-1].bObsolete              = FALSE;
+            inp[countOfUniqueKeysFound-1].bHandledAsKeyValueTree = FALSE;
+            inp[countOfUniqueKeysFound-1].bSet                   = FALSE;
+            inp[countOfUniqueKeysFound-1].name                   = gmx_strdup(tokens[0].c_str());
+            inp[countOfUniqueKeysFound-1].value                  = gmx_strdup(tokens[1].c_str());
+        }
+        else
+        {
+            auto message = gmx::formatString("Parameter \"%s\" doubly defined\n",
+                                             tokens[0].c_str());
+            warning_error(wi, message.c_str());
         }
     }
-    while (ptr);
-
-    gmx_ffclose(in);
+    /* This preserves the behaviour of the old code, which issues some
+       warnings after completing parsing. Regenerating regressiontest
+       warning files is not worth the effort. */
+    indexOfLineReadFromFile++;
+    set_warning_line(wi, fn, indexOfLineReadFromFile);
 
     if (debug)
     {
         fprintf(debug, "Done reading MDP file, there were %d entries in there\n",
-                nin);
+                countOfUniqueKeysFound);
     }
 
-    *ninp = nin;
+    *ninp = countOfUniqueKeysFound;
 
     return inp;
 }
 
-
+gmx::KeyValueTreeObject flatKeyValueTreeFromInpFile(int ninp, t_inpfile inp[])
+{
+    gmx::KeyValueTreeBuilder  builder;
+    auto                      root = builder.rootObject();
+    for (int i = 0; i < ninp; ++i)
+    {
+        const char *value = inp[i].value;
+        root.addValue<std::string>(inp[i].name, value != nullptr ? value : "");
+    }
+    return builder.build();
+}
 
 
 static int inp_comp(const void *a, const void *b)
@@ -250,53 +197,56 @@ static void sort_inp(int ninp, t_inpfile inp[])
     gmx_qsort(inp, ninp, static_cast<size_t>(sizeof(inp[0])), inp_comp);
 }
 
-void write_inpfile(const char *fn, int ninp, t_inpfile inp[], gmx_bool bHaltOnUnknown,
+void write_inpfile(gmx::TextOutputStream *stream, const char *fn, int ninp, t_inpfile inp[],
+                   gmx_bool bHaltOnUnknown,
+                   WriteMdpHeader writeHeader,
                    warninp_t wi)
 {
-    FILE *out;
-    int   i;
-    char  warn_buf[STRLEN];
+    using gmx::formatString;
 
     sort_inp(ninp, inp);
-    out = gmx_fio_fopen(fn, "w");
-    nice_header(out, fn);
-    try
+
+    gmx::TextWriter writer(stream);
+    if (writeHeader == WriteMdpHeader::yes)
     {
+        gmx::niceHeader(&writer, fn, ';');
+
         gmx::BinaryInformationSettings settings;
         settings.generatedByHeader(true);
         settings.linePrefix(";\t");
-        gmx::printBinaryInformation(out, gmx::getProgramContext(), settings);
+        gmx::printBinaryInformation(&writer, gmx::getProgramContext(), settings);
     }
-    GMX_CATCH_ALL_AND_EXIT_WITH_FATAL_ERROR;
 
-    for (i = 0; (i < ninp); i++)
+    for (int i = 0; (i < ninp); i++)
     {
-        if (inp[i].bSet)
+        if (inp[i].bHandledAsKeyValueTree)
+        {
+        }
+        else if (inp[i].bSet)
         {
             if (inp[i].name[0] == ';' || (strlen(inp[i].name) > 2 && inp[i].name[1] == ';'))
             {
-                fprintf(out, "%-24s\n", inp[i].name);
+                writer.writeLine(formatString("%-24s", inp[i].name));
             }
             else
             {
-                fprintf(out, "%-24s = %s\n", inp[i].name, inp[i].value ? inp[i].value : "");
+                writer.writeLine(formatString("%-24s = %s", inp[i].name, inp[i].value ? inp[i].value : ""));
             }
         }
         else if (!inp[i].bObsolete)
         {
-            sprintf(warn_buf, "Unknown left-hand '%s' in parameter file\n",
-                    inp[i].name);
+            auto message = formatString("Unknown left-hand '%s' in parameter file\n",
+                                        inp[i].name);
             if (bHaltOnUnknown)
             {
-                warning_error(wi, warn_buf);
+                warning_error(wi, message.c_str());
             }
             else
             {
-                warning(wi, warn_buf);
+                warning(wi, message.c_str());
             }
         }
     }
-    gmx_fio_fclose(out);
 
     check_warning_error(wi, FARGS);
 }
@@ -330,7 +280,7 @@ int search_einp(int ninp, const t_inpfile *inp, const char *name)
 {
     int i;
 
-    if (inp == NULL)
+    if (inp == nullptr)
     {
         return -1;
     }
@@ -344,6 +294,20 @@ int search_einp(int ninp, const t_inpfile *inp, const char *name)
     return -1;
 }
 
+void mark_einp_set(int ninp, t_inpfile *inp, const char *name)
+{
+    int i = search_einp(ninp, inp, name);
+    if (i != -1)
+    {
+        inp[i].count = inp[0].inp_count++;
+        inp[i].bSet  = TRUE;
+        /* Prevent mdp lines being written twice for
+           options that are handled via key-value trees. */
+        inp[i].bHandledAsKeyValueTree = TRUE;
+
+    }
+}
+
 static int get_einp(int *ninp, t_inpfile **inp, const char *name)
 {
     int    i;
@@ -355,8 +319,13 @@ static int get_einp(int *ninp, t_inpfile **inp, const char *name)
         notfound = TRUE;
         i        = (*ninp)++;
         srenew(*inp, (*ninp));
-        (*inp)[i].name = gmx_strdup(name);
-        (*inp)[i].bSet = TRUE;
+        (*inp)[i].name                   = gmx_strdup(name);
+        (*inp)[i].bSet                   = TRUE;
+        (*inp)[i].bHandledAsKeyValueTree = FALSE;
+        if (i == 0)
+        {
+            (*inp)[i].inp_count = 1;
+        }
     }
     (*inp)[i].count = (*inp)[0].inp_count++;
     (*inp)[i].bSet  = TRUE;
@@ -376,6 +345,7 @@ static int get_einp(int *ninp, t_inpfile **inp, const char *name)
     }
 }
 
+/* Note that sanitizing the trailing part of (*inp)[ii].value was the responsibility of read_inpfile() */
 int get_eint(int *ninp, t_inpfile **inp, const char *name, int def,
              warninp_t wi)
 {
@@ -395,7 +365,7 @@ int get_eint(int *ninp, t_inpfile **inp, const char *name, int def,
     else
     {
         ret = std::strtol((*inp)[ii].value, &ptr, 10);
-        if (ptr == (*inp)[ii].value)
+        if (*ptr != '\0')
         {
             sprintf(warn_buf, "Right hand side '%s' for parameter '%s' in parameter file is not an integer value\n", (*inp)[ii].value, (*inp)[ii].name);
             warning_error(wi, warn_buf);
@@ -405,6 +375,7 @@ int get_eint(int *ninp, t_inpfile **inp, const char *name, int def,
     }
 }
 
+/* Note that sanitizing the trailing part of (*inp)[ii].value was the responsibility of read_inpfile() */
 gmx_int64_t get_eint64(int *ninp, t_inpfile **inp,
                        const char *name, gmx_int64_t def,
                        warninp_t wi)
@@ -425,7 +396,7 @@ gmx_int64_t get_eint64(int *ninp, t_inpfile **inp,
     else
     {
         ret = str_to_int64_t((*inp)[ii].value, &ptr);
-        if (ptr == (*inp)[ii].value)
+        if (*ptr != '\0')
         {
             sprintf(warn_buf, "Right hand side '%s' for parameter '%s' in parameter file is not an integer value\n", (*inp)[ii].value, (*inp)[ii].name);
             warning_error(wi, warn_buf);
@@ -435,6 +406,7 @@ gmx_int64_t get_eint64(int *ninp, t_inpfile **inp,
     }
 }
 
+/* Note that sanitizing the trailing part of (*inp)[ii].value was the responsibility of read_inpfile() */
 double get_ereal(int *ninp, t_inpfile **inp, const char *name, double def,
                  warninp_t wi)
 {
@@ -454,7 +426,7 @@ double get_ereal(int *ninp, t_inpfile **inp, const char *name, double def,
     else
     {
         ret = strtod((*inp)[ii].value, &ptr);
-        if (ptr == (*inp)[ii].value)
+        if (*ptr != '\0')
         {
             sprintf(warn_buf, "Right hand side '%s' for parameter '%s' in parameter file is not a real value\n", (*inp)[ii].value, (*inp)[ii].name);
             warning_error(wi, warn_buf);
@@ -464,6 +436,7 @@ double get_ereal(int *ninp, t_inpfile **inp, const char *name, double def,
     }
 }
 
+/* Note that sanitizing the trailing part of (*inp)[ii].value was the responsibility of read_inpfile() */
 const char *get_estr(int *ninp, t_inpfile **inp, const char *name, const char *def)
 {
     char buf[32];
@@ -480,7 +453,7 @@ const char *get_estr(int *ninp, t_inpfile **inp, const char *name, const char *d
         }
         else
         {
-            (*inp)[(*ninp)-1].value = NULL;
+            (*inp)[(*ninp)-1].value = nullptr;
         }
 
         return def;
@@ -491,6 +464,7 @@ const char *get_estr(int *ninp, t_inpfile **inp, const char *name, const char *d
     }
 }
 
+/* Note that sanitizing the trailing part of (*inp)[ii].value was the responsibility of read_inpfile() */
 int get_eeenum(int *ninp, t_inpfile **inp, const char *name, const char **defs,
                warninp_t wi)
 {
@@ -507,7 +481,7 @@ int get_eeenum(int *ninp, t_inpfile **inp, const char *name, const char **defs,
         return 0;
     }
 
-    for (i = 0; (defs[i] != NULL); i++)
+    for (i = 0; (defs[i] != nullptr); i++)
     {
         if (gmx_strcasecmp_min(defs[i], (*inp)[ii].value) == 0)
         {
@@ -515,7 +489,7 @@ int get_eeenum(int *ninp, t_inpfile **inp, const char *name, const char **defs,
         }
     }
 
-    if (defs[i] == NULL)
+    if (defs[i] == nullptr)
     {
         n += sprintf(buf, "Invalid enum '%s' for variable %s, using '%s'\n",
                      (*inp)[ii].value, name, defs[0]);
@@ -526,7 +500,7 @@ int get_eeenum(int *ninp, t_inpfile **inp, const char *name, const char **defs,
             n += sprintf(buf+n, " '%s'", defs[j]);
             j++;
         }
-        if (wi != NULL)
+        if (wi != nullptr)
         {
             warning_error(wi, buf);
         }
@@ -545,5 +519,5 @@ int get_eeenum(int *ninp, t_inpfile **inp, const char *name, const char **defs,
 
 int get_eenum(int *ninp, t_inpfile **inp, const char *name, const char **defs)
 {
-    return get_eeenum(ninp, inp, name, defs, NULL);
+    return get_eeenum(ninp, inp, name, defs, nullptr);
 }

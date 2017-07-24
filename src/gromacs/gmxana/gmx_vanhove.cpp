@@ -3,7 +3,7 @@
  *
  * Copyright (c) 1991-2000, University of Groningen, The Netherlands.
  * Copyright (c) 2001-2004, The GROMACS development team.
- * Copyright (c) 2013,2014,2015, by the GROMACS development team, led by
+ * Copyright (c) 2013,2014,2015,2016,2017, by the GROMACS development team, led by
  * Mark Abraham, David van der Spoel, Berk Hess, and Erik Lindahl,
  * and including many others, as listed in the AUTHORS file in the
  * top-level source directory and at http://www.gromacs.org.
@@ -52,6 +52,7 @@
 #include "gromacs/math/invertmatrix.h"
 #include "gromacs/math/utilities.h"
 #include "gromacs/math/vec.h"
+#include "gromacs/pbcutil/pbc.h"
 #include "gromacs/topology/index.h"
 #include "gromacs/topology/topology.h"
 #include "gromacs/utility/arraysize.h"
@@ -121,9 +122,9 @@ int gmx_vanhove(int argc, char *argv[])
 #define NPA asize(pa)
 
     t_filenm fnm[] = {
-        { efTRX, NULL, NULL,  ffREAD },
-        { efTPS, NULL, NULL,  ffREAD },
-        { efNDX, NULL, NULL,  ffOPTRD },
+        { efTRX, nullptr, nullptr,  ffREAD },
+        { efTPS, nullptr, nullptr,  ffREAD },
+        { efNDX, nullptr, nullptr,  ffOPTRD },
         { efXPM, "-om", "vanhove", ffOPTWR },
         { efXVG, "-or", "vanhove_r", ffOPTWR },
         { efXVG, "-ot", "vanhove_t", ffOPTWR }
@@ -144,13 +145,13 @@ int gmx_vanhove(int argc, char *argv[])
     real             *time, t, invbin = 0, rmax2 = 0, rint2 = 0, d2;
     real              invsbin = 0, matmax, normfac, dt, *tickx, *ticky;
     char              buf[STRLEN], **legend;
-    real            **mat = NULL;
-    int              *pt  = NULL, **pr = NULL, *mcount = NULL, *tcount = NULL, *rcount = NULL;
+    real            **mat = nullptr;
+    int              *pt  = nullptr, **pr = nullptr, *mcount = nullptr, *tcount = nullptr, *rcount = nullptr;
     FILE             *fp;
     t_rgb             rlo = {1, 1, 1}, rhi = {0, 0, 0};
 
     if (!parse_common_args(&argc, argv, PCA_CAN_VIEW | PCA_CAN_TIME,
-                           NFILE, fnm, asize(pa), pa, asize(desc), desc, 0, NULL, &oenv))
+                           NFILE, fnm, asize(pa), pa, asize(desc), desc, 0, nullptr, &oenv))
     {
         return 0;
     }
@@ -180,14 +181,14 @@ int gmx_vanhove(int argc, char *argv[])
         exit(0);
     }
 
-    read_tps_conf(ftp2fn(efTPS, NFILE, fnm), &top, &ePBC, &xtop, NULL, boxtop,
+    read_tps_conf(ftp2fn(efTPS, NFILE, fnm), &top, &ePBC, &xtop, nullptr, boxtop,
                   FALSE);
     get_index(&top.atoms, ftp2fn_null(efNDX, NFILE, fnm), 1, &isize, &index, &grpname);
 
     nalloc = 0;
-    time   = NULL;
-    sbox   = NULL;
-    sx     = NULL;
+    time   = nullptr;
+    sbox   = nullptr;
+    sx     = nullptr;
     clear_mat(avbox);
 
     read_first_x(oenv, &status, ftp2fn(efTRX, NFILE, fnm), &t, &x, box);
@@ -201,8 +202,8 @@ int gmx_vanhove(int argc, char *argv[])
             srenew(sbox, nalloc);
             srenew(sx, nalloc);
         }
-        GMX_RELEASE_ASSERT(time != NULL, "Memory allocation failure; time array is NULL");
-        GMX_RELEASE_ASSERT(sbox != NULL, "Memory allocation failure; sbox array is NULL");
+        GMX_RELEASE_ASSERT(time != nullptr, "Memory allocation failure; time array is NULL");
+        GMX_RELEASE_ASSERT(sbox != nullptr, "Memory allocation failure; sbox array is NULL");
 
         time[nfr] = t;
         copy_mat(box, sbox[nfr]);
@@ -222,13 +223,13 @@ int gmx_vanhove(int argc, char *argv[])
 
     /* clean up */
     sfree(x);
-    close_trj(status);
+    close_trx(status);
 
     fprintf(stderr, "Read %d frames\n", nfr);
 
     dt = (time[nfr-1] - time[0])/(nfr - 1);
     /* Some ugly rounding to get nice nice times in the output */
-    dt = static_cast<int>((10000.0*dt + 0.5)/10000.0);
+    dt = std::round(10000.0*dt)/10000.0;
 
     invbin = 1.0/rbin;
 
@@ -295,25 +296,29 @@ int gmx_vanhove(int argc, char *argv[])
         if (f % 100 == 0)
         {
             fprintf(stderr, "\rProcessing frame %d", f);
+            fflush(stderr);
         }
-        /* Scale all the configuration to the average box */
-        gmx::invertBoxMatrix(sbox[f], corr);
-        mmul_ur0(avbox, corr, corr);
-        for (i = 0; i < isize; i++)
+        if (ePBC != epbcNONE)
         {
-            mvmul_ur0(corr, sx[f][i], sx[f][i]);
-            if (f > 0)
+            /* Scale all the configuration to the average box */
+            gmx::invertBoxMatrix(sbox[f], corr);
+            mmul_ur0(avbox, corr, corr);
+            for (i = 0; i < isize; i++)
             {
-                /* Correct for periodic jumps */
-                for (m = DIM-1; m >= 0; m--)
+                mvmul_ur0(corr, sx[f][i], sx[f][i]);
+                if (f > 0)
                 {
-                    while (sx[f][i][m] - sx[f-1][i][m] > 0.5*avbox[m][m])
+                    /* Correct for periodic jumps */
+                    for (m = DIM-1; m >= 0; m--)
                     {
-                        rvec_dec(sx[f][i], avbox[m]);
-                    }
-                    while (sx[f][i][m] - sx[f-1][i][m] <= -0.5*avbox[m][m])
-                    {
-                        rvec_inc(sx[f][i], avbox[m]);
+                        while (sx[f][i][m] - sx[f-1][i][m] > 0.5*avbox[m][m])
+                        {
+                            rvec_dec(sx[f][i], avbox[m]);
+                        }
+                        while (sx[f][i][m] - sx[f-1][i][m] <= -0.5*avbox[m][m])
+                        {
+                            rvec_inc(sx[f][i], avbox[m]);
+                        }
                     }
                 }
             }
@@ -476,9 +481,9 @@ int gmx_vanhove(int argc, char *argv[])
         xvgrclose(fp);
     }
 
-    do_view(oenv, matfile, NULL);
-    do_view(oenv, orfile, NULL);
-    do_view(oenv, otfile, NULL);
+    do_view(oenv, matfile, nullptr);
+    do_view(oenv, orfile, nullptr);
+    do_view(oenv, otfile, nullptr);
 
     return 0;
 }

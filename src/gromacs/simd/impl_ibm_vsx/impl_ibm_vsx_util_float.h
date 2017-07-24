@@ -1,7 +1,7 @@
 /*
  * This file is part of the GROMACS molecular simulation package.
  *
- * Copyright (c) 2014,2015, by the GROMACS development team, led by
+ * Copyright (c) 2014,2015,2016,2017, by the GROMACS development team, led by
  * Mark Abraham, David van der Spoel, Berk Hess, and Erik Lindahl,
  * and including many others, as listed in the AUTHORS file in the
  * top-level source directory and at http://www.gromacs.org.
@@ -55,15 +55,17 @@ gatherLoadTranspose(const float *        base,
                     SimdFloat *          v2,
                     SimdFloat *          v3)
 {
-    *v0 = load( base + align * offset[0] );
-    *v1 = load( base + align * offset[1] );
-    *v2 = load( base + align * offset[2] );
-    *v3 = load( base + align * offset[3] );
+    __vector float l0, l1, l2, l3;
 
-    __vector float t0 = vec_mergeh(v0->simdInternal_, v2->simdInternal_);
-    __vector float t1 = vec_mergel(v0->simdInternal_, v2->simdInternal_);
-    __vector float t2 = vec_mergeh(v1->simdInternal_, v3->simdInternal_);
-    __vector float t3 = vec_mergel(v1->simdInternal_, v3->simdInternal_);
+    l0 = simdLoad( base + align * offset[0] ).simdInternal_;
+    l1 = simdLoad( base + align * offset[1] ).simdInternal_;
+    l2 = simdLoad( base + align * offset[2] ).simdInternal_;
+    l3 = simdLoad( base + align * offset[3] ).simdInternal_;
+
+    __vector float t0 = vec_mergeh(l0, l2);
+    __vector float t1 = vec_mergel(l0, l2);
+    __vector float t2 = vec_mergeh(l1, l3);
+    __vector float t3 = vec_mergel(l1, l3);
     v0->simdInternal_ = vec_mergeh(t0, t2);
     v1->simdInternal_ = vec_mergel(t0, t2);
     v2->simdInternal_ = vec_mergeh(t1, t3);
@@ -175,22 +177,34 @@ transposeScatterIncrU(float *              base,
         t4 = reinterpret_cast<__vector float>(vec_splats(*reinterpret_cast<double *>(base + align * offset[0])));
         t4 = vec_add(t4, t0);
         *reinterpret_cast<double *>( base + align * offset[0] ) = vec_extract(reinterpret_cast<__vector double>(t4), 0);
-        base[align*offset[0] + 2] += vec_extract(v2.simdInternal_, 0);
+        {
+            float extracted = vec_extract(v2.simdInternal_, 0);
+            base[align*offset[0] + 2] += extracted;
+        }
 
         t5 = reinterpret_cast<__vector float>(vec_splats(*reinterpret_cast<double *>(base + align * offset[1])));
         t5 = vec_add(t5, t1);
         *reinterpret_cast<double *>( base + align * offset[1] ) = vec_extract(reinterpret_cast<__vector double>(t5), 0);
-        base[align*offset[1] + 2] += vec_extract(v2.simdInternal_, 1);
+        {
+            float extracted = vec_extract(v2.simdInternal_, 1);
+            base[align*offset[1] + 2] += extracted;
+        }
 
         t6 = reinterpret_cast<__vector float>(vec_splats(*reinterpret_cast<double *>(base + align * offset[2])));
         t6 = vec_add(t6, t2);
         *reinterpret_cast<double *>( base + align * offset[2] ) = vec_extract(reinterpret_cast<__vector double>(t6), 0);
-        base[align*offset[2] + 2] += vec_extract(v2.simdInternal_, 2);
+        {
+            float extracted = vec_extract(v2.simdInternal_, 2);
+            base[align*offset[2] + 2] += extracted;
+        }
 
         t7 = reinterpret_cast<__vector float>(vec_splats(*reinterpret_cast<double *>(base + align * offset[3])));
         t7 = vec_add(t7, t3);
         *reinterpret_cast<double *>( base + align * offset[3] ) = vec_extract(reinterpret_cast<__vector double>(t7), 0);
-        base[align*offset[3] + 2] += vec_extract(v2.simdInternal_, 3);
+        {
+            float extracted = vec_extract(v2.simdInternal_, 3);
+            base[align*offset[3] + 2] += extracted;
+        }
     }
     else
     {
@@ -205,10 +219,10 @@ transposeScatterIncrU(float *              base,
         v2.simdInternal_ = vec_mergeh(t1, t3);
         v3.simdInternal_ = vec_mergel(t1, t3);
 
-        store(base + align * offset[0], load(base + align * offset[0]) + v0 );
-        store(base + align * offset[1], load(base + align * offset[1]) + v1 );
-        store(base + align * offset[2], load(base + align * offset[2]) + v2 );
-        store(base + align * offset[3], load(base + align * offset[3]) + v3 );
+        store(base + align * offset[0], simdLoad(base + align * offset[0]) + v0 );
+        store(base + align * offset[1], simdLoad(base + align * offset[1]) + v1 );
+        store(base + align * offset[2], simdLoad(base + align * offset[2]) + v2 );
+        store(base + align * offset[3], simdLoad(base + align * offset[3]) + v3 );
     }
 }
 
@@ -233,22 +247,34 @@ transposeScatterDecrU(float *              base,
         t4 = reinterpret_cast<__vector float>(vec_splats(*reinterpret_cast<double *>(base + align * offset[0])));
         t4 = vec_sub(t4, t0);
         *reinterpret_cast<double *>( base + align * offset[0] ) = vec_extract(reinterpret_cast<__vector double>(t4), 0);
-        base[align*offset[0] + 2] -= vec_extract(v2.simdInternal_, 0);
+        {
+            float extracted = vec_extract(v2.simdInternal_, 0);
+            base[align*offset[0] + 2] -= extracted;
+        }
 
         t5 = reinterpret_cast<__vector float>(vec_splats(*reinterpret_cast<double *>(base + align * offset[1])));
         t5 = vec_sub(t5, t1);
         *reinterpret_cast<double *>( base + align * offset[1] ) = vec_extract(reinterpret_cast<__vector double>(t5), 0);
-        base[align*offset[1] + 2] -= vec_extract(v2.simdInternal_, 1);
+        {
+            float extracted = vec_extract(v2.simdInternal_, 1);
+            base[align*offset[1] + 2] -= extracted;
+        }
 
         t6 = reinterpret_cast<__vector float>(vec_splats(*reinterpret_cast<double *>(base + align * offset[2])));
         t6 = vec_sub(t6, t2);
         *reinterpret_cast<double *>( base + align * offset[2] ) = vec_extract(reinterpret_cast<__vector double>(t6), 0);
-        base[align*offset[2] + 2] -= vec_extract(v2.simdInternal_, 2);
+        {
+            float extracted = vec_extract(v2.simdInternal_, 2);
+            base[align*offset[2] + 2] -= extracted;
+        }
 
         t7 = reinterpret_cast<__vector float>(vec_splats(*reinterpret_cast<double *>(base + align * offset[3])));
         t7 = vec_sub(t7, t3);
         *reinterpret_cast<double *>( base + align * offset[3] ) = vec_extract(reinterpret_cast<__vector double>(t7), 0);
-        base[align*offset[3] + 2] -= vec_extract(v2.simdInternal_, 3);
+        {
+            float extracted = vec_extract(v2.simdInternal_, 3);
+            base[align*offset[3] + 2] -= extracted;
+        }
     }
     else
     {
@@ -263,10 +289,10 @@ transposeScatterDecrU(float *              base,
         v2.simdInternal_ = vec_mergeh(t1, t3);
         v3.simdInternal_ = vec_mergel(t1, t3);
 
-        store(base + align * offset[0], load(base + align * offset[0]) - v0 );
-        store(base + align * offset[1], load(base + align * offset[1]) - v1 );
-        store(base + align * offset[2], load(base + align * offset[2]) - v2 );
-        store(base + align * offset[3], load(base + align * offset[3]) - v3 );
+        store(base + align * offset[0], simdLoad(base + align * offset[0]) - v0 );
+        store(base + align * offset[1], simdLoad(base + align * offset[1]) - v1 );
+        store(base + align * offset[2], simdLoad(base + align * offset[2]) - v2 );
+        store(base + align * offset[3], simdLoad(base + align * offset[3]) - v3 );
     }
 }
 
@@ -292,6 +318,9 @@ expandScalarsToTriplets(SimdFloat    scalar,
     triplets2->simdInternal_ = vec_perm(scalar.simdInternal_, t1, perm2);
 }
 
+/* TODO In debug mode, xlc 13.1.5 seems to overwrite v0 on the stack,
+   leading to segfaults. Possibly the calling convention doesn't
+   implement __vector int correctly. Release mode is OK. gcc is OK. */
 template <int align>
 static inline void gmx_simdcall
 gatherLoadBySimdIntTranspose(const float *  base,
@@ -352,7 +381,7 @@ reduceIncr4ReturnSum(float *    m,
     v0 = v0 + v1;
     v2 = v2 + v3;
     v0 = v0 + v2;
-    v2 = v0 + load(m);
+    v2 = v0 + simdLoad(m);
     store(m, v2);
 
     return reduce(v0);

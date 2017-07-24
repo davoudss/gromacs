@@ -3,7 +3,7 @@
  *
  * Copyright (c) 1991-2000, University of Groningen, The Netherlands.
  * Copyright (c) 2001-2004, The GROMACS development team.
- * Copyright (c) 2013,2014,2015, by the GROMACS development team, led by
+ * Copyright (c) 2013,2014,2015,2016,2017, by the GROMACS development team, led by
  * Mark Abraham, David van der Spoel, Berk Hess, and Erik Lindahl,
  * and including many others, as listed in the AUTHORS file in the
  * top-level source directory and at http://www.gromacs.org.
@@ -79,7 +79,7 @@ gpp_atomtype_t read_atype(const char *ffdir, t_symtab *tab)
             /* Skip blank or comment-only lines */
             do
             {
-                if (fgets2(buf, STRLEN, in) != NULL)
+                if (fgets2(buf, STRLEN, in) != nullptr)
                 {
                     strip_comment(buf);
                     trim(buf);
@@ -92,6 +92,7 @@ gpp_atomtype_t read_atype(const char *ffdir, t_symtab *tab)
                 a->m = m;
                 add_atomtype(at, tab, a, name, nb, 0, 0.0, 0.0, 0.0, 0, 0.0, 0.0 );
                 fprintf(stderr, "\rAtomtype %d", ++nratt);
+                fflush(stderr);
             }
             else
             {
@@ -121,7 +122,7 @@ static void print_resatoms(FILE *out, gpp_atomtype_t atype, t_restp *rtp)
     {
         tp   = rtp->atom[j].type;
         tpnm = get_atomtype_name(tp, atype);
-        if (tpnm == NULL)
+        if (tpnm == nullptr)
         {
             gmx_fatal(FARGS, "Incorrect atomtype (%d)", tp);
         }
@@ -139,11 +140,11 @@ static gmx_bool read_atoms(FILE *in, char *line,
 
     /* Read Atoms */
     maxentries   = 0;
-    r0->atom     =     NULL;
-    r0->atomname = NULL;
-    r0->cgnr     =     NULL;
+    r0->atom     =     nullptr;
+    r0->atomname = nullptr;
+    r0->cgnr     =     nullptr;
     i            = 0;
-    while (get_a_line(in, line, STRLEN) && (strchr(line, '[') == NULL))
+    while (get_a_line(in, line, STRLEN) && (strchr(line, '[') == nullptr))
     {
         if (sscanf(line, "%s%s%lf%d", buf, buf1, &q, &cg) != 4)
         {
@@ -183,7 +184,7 @@ gmx_bool read_bondeds(int bt, FILE *in, char *line, t_restp *rtp)
     int  j, n, ni, maxrb;
 
     maxrb = rtp->rb[bt].nb;
-    while (get_a_line(in, line, STRLEN) && (strchr(line, '[') == NULL))
+    while (get_a_line(in, line, STRLEN) && (strchr(line, '[') == nullptr))
     {
         if (rtp->rb[bt].nb >= maxrb)
         {
@@ -205,7 +206,7 @@ gmx_bool read_bondeds(int bt, FILE *in, char *line, t_restp *rtp)
         }
         for (; j < MAXATOMLIST; j++)
         {
-            rtp->rb[bt].b[rtp->rb[bt].nb].a[j] = NULL;
+            rtp->rb[bt].b[rtp->rb[bt].nb].a[j] = nullptr;
         }
         while (isspace(line[n]))
         {
@@ -257,16 +258,6 @@ static void check_rtp(int nrtp, t_restp rtp[], char *libfn)
                     rtp[i].resname, libfn);
         }
     }
-}
-
-static int comprtp(const void *a, const void *b)
-{
-    t_restp *ra, *rb;
-
-    ra = (t_restp *)a;
-    rb = (t_restp *)b;
-
-    return gmx_strcasecmp(ra->resname, rb->resname);
 }
 
 int get_bt(char* header)
@@ -520,6 +511,7 @@ void read_resall(char *rrdb, int *nrtpptr, t_restp **rtp,
         {
             nrtp++;
             fprintf(stderr, "\rResidue %d", nrtp);
+            fflush(stderr);
         }
         else
         {
@@ -549,7 +541,7 @@ void read_resall(char *rrdb, int *nrtpptr, t_restp **rtp,
     srenew(rrtp, nrtp);
 
     fprintf(stderr, "\nSorting it all out...\n");
-    qsort(rrtp, nrtp, (size_t)sizeof(rrtp[0]), comprtp);
+    std::sort(rrtp, rrtp+nrtp, [](const t_restp &a, const t_restp &b) {return gmx_strcasecmp(a.resname, b.resname) < 0; });
 
     check_rtp(nrtp, rrtp, rrdb);
 

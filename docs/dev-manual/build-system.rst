@@ -4,7 +4,7 @@ Build system overview
 =====================
 
 The |Gromacs| build system uses CMake (version
-|GMX_CMAKE_MINIMUM_REQUIRED_VERSION| or newer is required) to generate the
+|CMAKE_MINIMUM_REQUIRED_VERSION| or newer is required) to generate the
 actual build system for the build tool choosen by the user.  See CMake
 documentation for general introduction to CMake and how to use it.  This
 documentation focuses on how the |Gromacs| build system is organized and
@@ -202,6 +202,12 @@ Variables affecting compilation/linking
 
 .. cmake:: GMX_CYCLE_SUBCOUNTERS
 
+   If set to ``ON``, enables performance subcounters that offer more
+   fine-grained mdrun performance measurement and evaluation than the default
+   counters. See :doc:`/user-guide/mdrun-performance` for the description of
+   subcounters which are available.
+   Defaults to ``OFF``.
+
 .. cmake:: GMX_DATA_INSTALL_DIR
 
    Sets the directory under :file:`share/` where data files are installed.
@@ -211,7 +217,7 @@ Variables affecting compilation/linking
 
 .. cmake:: GMX_DOUBLE
 
-   Many part of GROMACS are implemented in terms of "real" precision,
+   Many part of |Gromacs| are implemented in terms of "real" precision,
    which is actually either a single- or double-precision type,
    according to the value of this flag. Some parts of the code
    deliberately use single- or double-precision types, and these are
@@ -353,11 +359,10 @@ Variables affecting special targets
 
    If ``ON``, test binaries using Google Test are built (either as the separate
    ``tests`` targer, or also as part of the ``all`` target, depending on
-   :cmake:`GMX_DEVELOPER_BUILD`).  :file:`libxml2` is required for building the
-   tests, but other prerequisites (Google Test and Google Mock frameworks) are
+   :cmake:`GMX_DEVELOPER_BUILD`).  All dependencies required for building the
+   tests (Google Test and Google Mock frameworks, and tinyxml2) are
    included in :file:`src/external/`.
-   Defaults to ``ON`` if :file:`libxml2` is found and :cmake:`BUILD_TESTING` is
-   ``ON``.
+   Defaults to ``ON`` if :cmake:`BUILD_TESTING` is ``ON``.
 
 .. cmake:: GMX_COMPACT_DOXYGEN
 

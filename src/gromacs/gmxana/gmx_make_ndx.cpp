@@ -3,7 +3,7 @@
  *
  * Copyright (c) 1991-2000, University of Groningen, The Netherlands.
  * Copyright (c) 2001-2004, The GROMACS development team.
- * Copyright (c) 2012,2013,2014,2015, by the GROMACS development team, led by
+ * Copyright (c) 2012,2013,2014,2015,2016,2017, by the GROMACS development team, led by
  * Mark Abraham, David van der Spoel, Berk Hess, and Erik Lindahl,
  * and including many others, as listed in the AUTHORS file in the
  * top-level source directory and at http://www.gromacs.org.
@@ -153,7 +153,7 @@ static gmx_bool is_name_char(char c)
      */
     const char *spec = " !&|";
 
-    return (c != '\0' && std::strchr(spec, c) == NULL);
+    return (c != '\0' && std::strchr(spec, c) == nullptr);
 }
 
 static int parse_names(char **string, int *n_names, char **names)
@@ -283,7 +283,7 @@ static gmx_bool parse_string(char **string, int *nr, int ngrps, char **grpname)
         (*string)++;
         s  = gmx_strdup((*string));
         sp = std::strchr(s, c);
-        if (sp != NULL)
+        if (sp != nullptr)
         {
             (*string) += sp-s + 1;
             sp[0]      = '\0';
@@ -294,7 +294,7 @@ static gmx_bool parse_string(char **string, int *nr, int ngrps, char **grpname)
     return (*nr) != NOTSET;
 }
 
-static int select_atomnumbers(char **string, t_atoms *atoms, int n1,
+static int select_atomnumbers(char **string, const t_atoms *atoms, int n1,
                               int *nr, int *index, char *gname)
 {
     char    buf[STRLEN];
@@ -357,7 +357,7 @@ static int select_atomnumbers(char **string, t_atoms *atoms, int n1,
     return *nr;
 }
 
-static int select_residuenumbers(char **string, t_atoms *atoms,
+static int select_residuenumbers(char **string, const t_atoms *atoms,
                                  int n1, char c,
                                  int *nr, int *index, char *gname)
 {
@@ -430,7 +430,7 @@ static int select_residuenumbers(char **string, t_atoms *atoms,
     return *nr;
 }
 
-static int select_residueindices(char **string, t_atoms *atoms,
+static int select_residueindices(char **string, const t_atoms *atoms,
                                  int n1, char c,
                                  int *nr, int *index, char *gname)
 {
@@ -506,7 +506,7 @@ static int select_residueindices(char **string, t_atoms *atoms,
 }
 
 
-static gmx_bool atoms_from_residuenumbers(t_atoms *atoms, int group, t_blocka *block,
+static gmx_bool atoms_from_residuenumbers(const t_atoms *atoms, int group, t_blocka *block,
                                           int *nr, int *index, char *gname)
 {
     int i, j, j0, j1, resnr, nres;
@@ -580,7 +580,7 @@ static gmx_bool comp_name(const char *name, const char *search)
     return matches;
 }
 
-static int select_chainnames(t_atoms *atoms, int n_names, char **names,
+static int select_chainnames(const t_atoms *atoms, int n_names, char **names,
                              int *nr, int *index)
 {
     char    name[2];
@@ -614,7 +614,7 @@ static int select_chainnames(t_atoms *atoms, int n_names, char **names,
     return *nr;
 }
 
-static int select_atomnames(t_atoms *atoms, int n_names, char **names,
+static int select_atomnames(const t_atoms *atoms, int n_names, char **names,
                             int *nr, int *index, gmx_bool bType)
 {
     char   *name;
@@ -654,7 +654,7 @@ static int select_atomnames(t_atoms *atoms, int n_names, char **names,
     return *nr;
 }
 
-static int select_residuenames(t_atoms *atoms, int n_names, char **names,
+static int select_residuenames(const t_atoms *atoms, int n_names, char **names,
                                int *nr, int *index)
 {
     char   *name;
@@ -768,7 +768,7 @@ static void remove_group(int nr, int nr2, t_blocka *block, char ***gn)
     }
 }
 
-static void split_group(t_atoms *atoms, int sel_nr, t_blocka *block, char ***gn,
+static void split_group(const t_atoms *atoms, int sel_nr, t_blocka *block, char ***gn,
                         gmx_bool bAtom)
 {
     char    buf[STRLEN], *name;
@@ -811,12 +811,12 @@ static void split_group(t_atoms *atoms, int sel_nr, t_blocka *block, char ***gn,
     block->index[block->nr] = block->nra;
 }
 
-static int split_chain(t_atoms *atoms, rvec *x,
+static int split_chain(const t_atoms *atoms, const rvec *x,
                        int sel_nr, t_blocka *block, char ***gn)
 {
     char    buf[STRLEN];
     int     j, nchain;
-    int     i, a, natoms, *start = NULL, *end = NULL, ca_start, ca_end;
+    int     i, a, natoms, *start = nullptr, *end = nullptr, ca_start, ca_end;
     rvec    vec;
 
     natoms   = atoms->nr;
@@ -917,9 +917,9 @@ static int split_chain(t_atoms *atoms, rvec *x,
     return nchain;
 }
 
-static gmx_bool check_have_atoms(t_atoms *atoms, char *string)
+static gmx_bool check_have_atoms(const t_atoms *atoms, char *string)
 {
-    if (atoms == NULL)
+    if (atoms == nullptr)
     {
         printf("Can not process '%s' without atom info, use option -f\n", string);
         return FALSE;
@@ -930,7 +930,7 @@ static gmx_bool check_have_atoms(t_atoms *atoms, char *string)
     }
 }
 
-static gmx_bool parse_entry(char **string, int natoms, t_atoms *atoms,
+static gmx_bool parse_entry(char **string, int natoms, const t_atoms *atoms,
                             t_blocka *block, char ***gn,
                             int *nr, int *index, char *gname)
 {
@@ -1012,7 +1012,7 @@ static gmx_bool parse_entry(char **string, int natoms, t_atoms *atoms,
         if (check_have_atoms(atoms, ostring) &&
             parse_names(string, &n_names, names))
         {
-            if (atoms->atomtype == NULL)
+            if (!(atoms->haveType))
             {
                 printf("Need a run input file to select atom types\n");
             }
@@ -1114,7 +1114,7 @@ static gmx_bool parse_entry(char **string, int natoms, t_atoms *atoms,
     return bRet;
 }
 
-static void list_residues(t_atoms *atoms)
+static void list_residues(const t_atoms *atoms)
 {
     int      i, j, start, end, prev_resind, resind;
     gmx_bool bDiff;
@@ -1160,7 +1160,7 @@ static void list_residues(t_atoms *atoms)
     printf("\n");
 }
 
-static void edit_index(int natoms, t_atoms *atoms, rvec *x, t_blocka *block, char ***gn, gmx_bool bVerbose)
+static void edit_index(int natoms, const t_atoms *atoms, const rvec *x, t_blocka *block, char ***gn, gmx_bool bVerbose)
 {
     static char   **atnames, *ostring;
     static gmx_bool bFirst = TRUE;
@@ -1180,7 +1180,7 @@ static void edit_index(int natoms, t_atoms *atoms, rvec *x, t_blocka *block, cha
         }
     }
 
-    string = NULL;
+    string = nullptr;
 
     snew(index, natoms);
     snew(index1, natoms);
@@ -1214,18 +1214,18 @@ static void edit_index(int natoms, t_atoms *atoms, rvec *x, t_blocka *block, cha
         if (bVerbose || bPrintOnce)
         {
             printf("\n");
-            printf(" nr : group       !   'name' nr name   'splitch' nr    Enter: list groups\n");
-            printf(" 'a': atom        &   'del' nr         'splitres' nr   'l': list residues\n");
-            printf(" 't': atom type   |   'keep' nr        'splitat' nr    'h': help\n");
-            printf(" 'r': residue         'res' nr         'chain' char\n");
-            printf(" \"name\": group        'case': case %s         'q': save and quit\n",
+            printf(" nr : group      '!': not  'name' nr name   'splitch' nr    Enter: list groups\n");
+            printf(" 'a': atom       '&': and  'del' nr         'splitres' nr   'l': list residues\n");
+            printf(" 't': atom type  '|': or   'keep' nr        'splitat' nr    'h': help\n");
+            printf(" 'r': residue              'res' nr         'chain' char\n");
+            printf(" \"name\": group             'case': case %s         'q': save and quit\n",
                    bCase ? "insensitive" : "sensitive  ");
             printf(" 'ri': residue index\n");
             bPrintOnce = FALSE;
         }
         printf("\n");
         printf("> ");
-        if (NULL == fgets(inp_string, STRLEN, stdin))
+        if (nullptr == fgets(inp_string, STRLEN, stdin))
         {
             gmx_fatal(FARGS, "Error reading user input");
         }
@@ -1517,18 +1517,26 @@ int gmx_make_ndx(int argc, char *argv[])
         "have to use [THISMODULE] when you need SPECIAL index groups.",
         "There is a default index group for the whole system, 9 default",
         "index groups for proteins, and a default index group",
-        "is generated for every other residue name.[PAR]",
+        "is generated for every other residue name.",
+        "",
         "When no index file is supplied, also [THISMODULE] will generate the",
         "default groups.",
         "With the index editor you can select on atom, residue and chain names",
         "and numbers.",
         "When a run input file is supplied you can also select on atom type.",
-        "You can use NOT, AND and OR, you can split groups",
-        "into chains, residues or atoms. You can delete and rename groups.[PAR]",
-        "The atom numbering in the editor and the index file starts at 1.[PAR]",
+        "You can use boolean operations, you can split groups",
+        "into chains, residues or atoms. You can delete and rename groups.",
+        "Type 'h' in the editor for more details.",
+        "",
+        "The atom numbering in the editor and the index file starts at 1.",
+        "",
         "The [TT]-twin[tt] switch duplicates all index groups with an offset of",
         "[TT]-natoms[tt], which is useful for Computational Electrophysiology",
-        "double-layer membrane setups."
+        "double-layer membrane setups.",
+        "",
+        "See also [gmx-select] [TT]-on[tt], which provides an alternative way",
+        "for constructing index groups.  It covers nearly all of [THISMODULE]",
+        "functionality, and in many cases much more."
     };
 
     static int      natoms     = 0;
@@ -1558,14 +1566,14 @@ int gmx_make_ndx(int argc, char *argv[])
     t_blocka         *block, *block2;
     char            **gnames, **gnames2;
     t_filenm          fnm[] = {
-        { efSTX, "-f", NULL,     ffOPTRD  },
-        { efNDX, "-n", NULL,     ffOPTRDMULT },
-        { efNDX, "-o", NULL,     ffWRITE }
+        { efSTX, "-f", nullptr,     ffOPTRD  },
+        { efNDX, "-n", nullptr,     ffOPTRDMULT },
+        { efNDX, "-o", nullptr,     ffWRITE }
     };
 #define NFILE asize(fnm)
 
     if (!parse_common_args(&argc, argv, 0, NFILE, fnm, NPA, pa, asize(desc), desc,
-                           0, NULL, &oenv))
+                           0, nullptr, &oenv))
     {
         return 0;
     }
@@ -1594,7 +1602,7 @@ int gmx_make_ndx(int argc, char *argv[])
         fprintf(stderr, "\nReading structure file\n");
         read_tps_conf(stxfile, top, &ePBC, &x, &v, box, FALSE);
         atoms = &top->atoms;
-        if (atoms->pdbinfo == NULL)
+        if (atoms->pdbinfo == nullptr)
         {
             snew(atoms->pdbinfo, atoms->nr);
         }
@@ -1603,13 +1611,13 @@ int gmx_make_ndx(int argc, char *argv[])
     }
     else
     {
-        atoms = NULL;
-        x     = NULL;
+        atoms = nullptr;
+        x     = nullptr;
     }
 
     /* read input file(s) */
     block  = new_blocka();
-    gnames = NULL;
+    gnames = nullptr;
     printf("Going to read %d old index file(s)\n", nndxin);
     if (nndxin)
     {

@@ -1,7 +1,7 @@
 #
 # This file is part of the GROMACS molecular simulation package.
 #
-# Copyright (c) 2015, by the GROMACS development team, led by
+# Copyright (c) 2015,2016,2017, by the GROMACS development team, led by
 # Mark Abraham, David van der Spoel, Berk Hess, and Erik Lindahl,
 # and including many others, as listed in the AUTHORS file in the
 # top-level source directory and at http://www.gromacs.org.
@@ -46,11 +46,14 @@
 # All configuration values have a default; values that are commented out
 # serve to show the default.
 
-import sys
+import datetime
 import os
+import sys
 
 execfile('conf-vars.py')
 sys.path.append(gmx_sphinx_extension_path)
+if releng_path and os.path.isdir(releng_path):
+    sys.path.append(releng_path)
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
@@ -60,14 +63,16 @@ sys.path.append(gmx_sphinx_extension_path)
 # -- General configuration ------------------------------------------------
 
 # If your documentation needs a minimal Sphinx version, state it here.
-#needs_sphinx = '1.0'
+needs_sphinx = '1.3'
 
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
+    'sphinx.ext.autodoc',
     'sphinx.ext.graphviz',
-    'sphinx.ext.pngmath',
+    'sphinx.ext.napoleon',
+    'sphinx.ext.imgmath',
     'sphinx.ext.ifconfig',
     'gmxsphinx'
 ]
@@ -86,7 +91,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'GROMACS'
-copyright = u'2015, GROMACS development team'
+copyright = str(datetime.datetime.now().year) + u', GROMACS development team'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -145,7 +150,8 @@ rst_epilog += """
 .. |Gromacs| replace:: GROMACS
 .. _gmx-manual: manual-{gmx_version_string}.pdf
 .. _gmx-manual-parent-dir: ../manual-{gmx_version_string}.pdf
-.. |gmx-source-package| replace:: ftp://ftp.gromacs.org/pub/gromacs/gromacs-{gmx_version_string}.tar.gz
+.. |gmx-source-package-ftp| replace:: As ftp ftp://ftp.gromacs.org/pub/gromacs/gromacs-{gmx_version_string}.tar.gz
+.. |gmx-source-package-http| replace:: As http http://ftp.gromacs.org/pub/gromacs/gromacs-{gmx_version_string}.tar.gz
 .. |gmx-regressiontests-package| replace:: http://gerrit.gromacs.org/download/regressiontests-{regressiontest_version}.tar.gz
 .. _up-to-date installation instructions: http://www.gromacs.org/Documentation/Installation_Instructions
 .. _CUDA: http://www.nvidia.com/object/cuda_home_new.html
@@ -155,6 +161,8 @@ rst_epilog += """
 .. _LAM-MPI: http://www.lam-mpi.org
 .. _OpenMP: http://en.wikipedia.org/wiki/OpenMP
 .. _CMake installation page: http://www.cmake.org/install/
+.. _Ubuntu toolchain ppa page: https://launchpad.net/~ubuntu-toolchain-r/+archive/ubuntu/test
+.. _EPEL page: https://fedoraproject.org/wiki/EPEL
 .. _running CMake: http://www.cmake.org/runningcmake/
 .. _CMake environment variables: http://cmake.org/Wiki/CMake_Useful_Variables#Environment_Variables
 .. _FFTW: http://www.fftw.org
@@ -174,7 +182,7 @@ rst_epilog += """
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
-html_theme = 'default'
+html_theme = 'classic'
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
@@ -301,7 +309,8 @@ latex_documents = [
 
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
-execfile('conf-man.py')
+if tags.has('do_man'):
+    execfile('conf-man.py')
 
 # If true, show URL addresses after external links.
 #man_show_urls = False

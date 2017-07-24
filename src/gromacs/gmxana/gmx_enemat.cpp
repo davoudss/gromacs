@@ -3,7 +3,7 @@
  *
  * Copyright (c) 1991-2000, University of Groningen, The Netherlands.
  * Copyright (c) 2001-2004, The GROMACS development team.
- * Copyright (c) 2013,2014,2015, by the GROMACS development team, led by
+ * Copyright (c) 2013,2014,2015,2016,2017, by the GROMACS development team, led by
  * Mark Abraham, David van der Spoel, Berk Hess, and Erik Lindahl,
  * and including many others, as listed in the AUTHORS file in the
  * top-level source directory and at http://www.gromacs.org.
@@ -150,29 +150,29 @@ int gmx_enemat(int argc, char *argv[])
     ener_file_t       in;
     FILE             *out;
     int               timecheck = 0;
-    gmx_enxnm_t      *enm       = NULL;
+    gmx_enxnm_t      *enm       = nullptr;
     t_enxframe       *fr;
     int               teller = 0;
     real              sum;
     gmx_bool          bCont, bRef;
     gmx_bool          bCutmax, bCutmin;
-    real            **eneset, *time = NULL;
+    real            **eneset, *time = nullptr;
     int              *set, i, j, k, prevk, m = 0, n, nre, nset, nenergy;
-    char            **groups = NULL;
+    char            **groups = nullptr;
     char              groupname[255], fn[255];
     int               ngroups;
     t_rgb             rlo, rhi, rmid;
     real              emax, emid, emin;
     real           ***emat, **etot, *groupnr;
-    double            beta, expE, **e, *eaver, *efree = NULL, edum;
+    double            beta, expE, **e, *eaver, *efree = nullptr, edum;
     char              label[234];
-    char            **ereflines, **erefres = NULL;
-    real             *eref  = NULL, *edif = NULL;
+    char            **ereflines, **erefres = nullptr;
+    real             *eref  = nullptr, *edif = nullptr;
     int               neref = 0;
     gmx_output_env_t *oenv;
 
     t_filenm          fnm[] = {
-        { efEDR, "-f", NULL, ffOPTRD },
+        { efEDR, "-f", nullptr, ffOPTRD },
         { efDAT, "-groups", "groups", ffREAD },
         { efDAT, "-eref",   "eref",   ffOPTRD },
         { efXPM, "-emat",   "emat",   ffWRITE },
@@ -181,7 +181,7 @@ int gmx_enemat(int argc, char *argv[])
 #define NFILE asize(fnm)
 
     if (!parse_common_args(&argc, argv, PCA_CAN_VIEW | PCA_CAN_TIME,
-                           NFILE, fnm, asize(pa), pa, asize(desc), desc, 0, NULL, &oenv))
+                           NFILE, fnm, asize(pa), pa, asize(desc), desc, 0, nullptr, &oenv))
     {
         return 0;
     }
@@ -223,6 +223,7 @@ int gmx_enemat(int argc, char *argv[])
     for (i = 0; (i < ngroups); i++)
     {
         fprintf(stderr, "\rgroup %d", i);
+        fflush(stderr);
         for (j = i; (j < ngroups); j++)
         {
             for (m = 0; (m < egNR); m++)
@@ -232,6 +233,7 @@ int gmx_enemat(int argc, char *argv[])
                     sprintf(groupname, "%s:%s-%s", egrp_nm[m], groups[i], groups[j]);
 #ifdef DEBUG
                     fprintf(stderr, "\r%-15s %5d", groupname, n);
+                    fflush(stderr);
 #endif
                     for (k = prevk; (k < prevk+nre); k++)
                     {
@@ -280,6 +282,7 @@ int gmx_enemat(int argc, char *argv[])
             if (bCont)
             {
                 fprintf(stderr, "\rRead frame: %d, Time: %.3f", teller, fr->t);
+                fflush(stderr);
 
                 if ((nenergy % 1000) == 0)
                 {
@@ -508,7 +511,7 @@ int gmx_enemat(int argc, char *argv[])
 
         out = xvgropen(ftp2fn(efXVG, NFILE, fnm), "Mean Energy", "Residue", "kJ/mol",
                        oenv);
-        xvgr_legend(out, 0, NULL, oenv);
+        xvgr_legend(out, 0, nullptr, oenv);
         j = 0;
         if (output_env_get_print_xvgr_codes(oenv))
         {

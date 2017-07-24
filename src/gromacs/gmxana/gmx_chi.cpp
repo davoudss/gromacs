@@ -3,7 +3,7 @@
  *
  * Copyright (c) 1991-2000, University of Groningen, The Netherlands.
  * Copyright (c) 2001-2004, The GROMACS development team.
- * Copyright (c) 2013,2014,2015, by the GROMACS development team, led by
+ * Copyright (c) 2013,2014,2015,2016,2017, by the GROMACS development team, led by
  * Mark Abraham, David van der Spoel, Berk Hess, and Erik Lindahl,
  * and including many others, as listed in the AUTHORS file in the
  * top-level source directory and at http://www.gromacs.org.
@@ -448,11 +448,15 @@ static void histogramming(FILE *log, int nbin, gmx_residuetype_t *rt,
                           int index[],
                           gmx_bool bPhi, gmx_bool bPsi, gmx_bool bOmega, gmx_bool bChi,
                           gmx_bool bNormalize, gmx_bool bSSHisto, const char *ssdump,
-                          real bfac_max, t_atoms *atoms,
+                          real bfac_max, const t_atoms *atoms,
                           gmx_bool bDo_jc, const char *fn,
                           const gmx_output_env_t *oenv)
 {
     /* also gets 3J couplings and order parameters S2 */
+    // Avoid warnings about narrowing conversions from double to real
+#ifdef _MSC_VER
+#pragma warning(disable: 4838)
+#endif
     t_karplus kkkphi[] = {
         { "J_NHa1",    6.51, -1.76,  1.6, -M_PI/3,   0.0,  0.0 },
         { "J_NHa2",    6.51, -1.76,  1.6,  M_PI/3,   0.0,  0.0 },
@@ -467,21 +471,24 @@ static void histogramming(FILE *log, int nbin, gmx_residuetype_t *rt,
         { "JHaHb2",       9.5, -1.6, 1.8, -M_PI/3, 0,  0.0 },
         { "JHaHb3",       9.5, -1.6, 1.8, 0, 0,  0.0 }
     };
+#ifdef _MSC_VER
+#pragma warning(default: 4838)
+#endif
 #define NKKKPHI asize(kkkphi)
 #define NKKKPSI asize(kkkpsi)
 #define NKKKCHI asize(kkkchi1)
 #define NJC (NKKKPHI+NKKKPSI+NKKKCHI)
 
-    FILE       *fp, *ssfp[3] = {NULL, NULL, NULL};
+    FILE       *fp, *ssfp[3] = {nullptr, nullptr, nullptr};
     const char *sss[3] = { "sheet", "helix", "coil" };
     real        S2;
     real       *normhisto;
     real      **Jc, **Jcsig;
-    int     ****his_aa_ss = NULL;
+    int     ****his_aa_ss = nullptr;
     int      ***his_aa, *histmp;
     int         i, j, k, m, n, nn, Dih, nres, hindex, angle;
     gmx_bool    bBfac, bOccup;
-    char        hisfile[256], hhisfile[256], sshisfile[256], title[256], *ss_str = NULL;
+    char        hisfile[256], hhisfile[256], sshisfile[256], title[256], *ss_str = nullptr;
     char      **leg;
     const char *residue_name;
     int         rt_size;
@@ -562,7 +569,7 @@ static void histogramming(FILE *log, int nbin, gmx_residuetype_t *rt,
                         bBfac  = bBfac  && (atoms->pdbinfo[index[n]].bfac <= bfac_max);
                         bOccup = bOccup && (atoms->pdbinfo[index[n]].occup == 1);
                     }
-                    if (bOccup && ((bfac_max <= 0) || ((bfac_max > 0) && bBfac)))
+                    if (bOccup && ((bfac_max <= 0) || bBfac))
                     {
                         hindex = static_cast<int>(((dih[j][0]+M_PI)*nbin)/(2*M_PI));
                         range_check(hindex, 0, nbin);
@@ -623,7 +630,7 @@ static void histogramming(FILE *log, int nbin, gmx_residuetype_t *rt,
                         }
                         break;
                     default: /* covers edOmega and higher Chis than Chi1 */
-                        calc_distribution_props(nbin, histmp, -M_PI, 0, NULL, &S2);
+                        calc_distribution_props(nbin, histmp, -M_PI, 0, nullptr, &S2);
                         break;
                 }
                 dlist[i].S2[Dih]        = S2;
@@ -885,12 +892,12 @@ static FILE *rama_file(const char *fn, const char *title, const char *xaxis,
 static void do_rama(int nf, int nlist, t_dlist dlist[], real **dih,
                     gmx_bool bViol, gmx_bool bRamOmega, const gmx_output_env_t *oenv)
 {
-    FILE    *fp, *gp = NULL;
+    FILE    *fp, *gp = nullptr;
     gmx_bool bOm;
     char     fn[256];
     int      i, j, k, Xi1, Xi2, Phi, Psi, Om = 0, nlevels;
 #define NMAT 120
-    real   **mat  = NULL, phi, psi, omega, axis[NMAT], lo, hi;
+    real   **mat  = nullptr, phi, psi, omega, axis[NMAT], lo, hi;
     t_rgb    rlo  = { 1.0, 0.0, 0.0 };
     t_rgb    rmid = { 1.0, 1.0, 1.0 };
     t_rgb    rhi  = { 0.0, 0.0, 1.0 };
@@ -1059,7 +1066,7 @@ static void print_transitions(const char *fn, int maxchi, int nlist,
 static void order_params(FILE *log,
                          const char *fn, int maxchi, int nlist, t_dlist dlist[],
                          const char *pdbfn, real bfac_init,
-                         t_atoms *atoms, rvec x[], int ePBC, matrix box,
+                         t_atoms *atoms, const rvec x[], int ePBC, matrix box,
                          gmx_bool bPhi, gmx_bool bPsi, gmx_bool bChi, const gmx_output_env_t *oenv)
 {
     FILE *fp;
@@ -1133,11 +1140,13 @@ static void order_params(FILE *log,
     }
     xvgrclose(fp);
 
-    if (NULL != pdbfn)
+    if (nullptr != pdbfn)
     {
         real x0, y0, z0;
 
-        if (NULL == atoms->pdbinfo)
+        atoms->havePdbInfo = TRUE;
+
+        if (nullptr == atoms->pdbinfo)
         {
             snew(atoms->pdbinfo, atoms->nr);
         }
@@ -1165,7 +1174,7 @@ static void order_params(FILE *log,
         fprintf(fp, "REMARK generated by g_chi\n");
         fprintf(fp, "REMARK "
                 "B-factor field contains negative of dihedral order parameters\n");
-        write_pdbfile(fp, NULL, atoms, x, ePBC, box, ' ', 0, NULL, TRUE);
+        write_pdbfile(fp, nullptr, atoms, x, ePBC, box, ' ', 0, nullptr, TRUE);
         x0 = y0 = z0 = 1000.0;
         for (i = 0; (i < atoms->nr); i++)
         {
@@ -1303,7 +1312,7 @@ int gmx_chi(int argc, char *argv[])
     static gmx_bool    bAll        = FALSE;
     static gmx_bool    bPhi        = FALSE, bPsi = FALSE, bOmega = FALSE;
     static real        bfac_init   = -1.0, bfac_max = 0;
-    static const char *maxchistr[] = { NULL, "0", "1", "2", "3",  "4", "5", "6", NULL };
+    static const char *maxchistr[] = { nullptr, "0", "1", "2", "3",  "4", "5", "6", nullptr };
     static gmx_bool    bRama       = FALSE, bShift = FALSE, bViol = FALSE, bRamOmega = FALSE;
     static gmx_bool    bNormHisto  = TRUE, bChiProduct = FALSE, bHChi = FALSE, bRAD = FALSE, bPBC = TRUE;
     static real        core_frac   = 0.5;
@@ -1367,8 +1376,8 @@ int gmx_chi(int argc, char *argv[])
     int                i, **chi_lookup, *multiplicity;
 
     t_filenm           fnm[] = {
-        { efSTX, "-s",  NULL,     ffREAD  },
-        { efTRX, "-f",  NULL,     ffREAD  },
+        { efSTX, "-s",  nullptr,     ffREAD  },
+        { efTRX, "-f",  nullptr,     ffREAD  },
         { efXVG, "-o",  "order",  ffWRITE },
         { efPDB, "-p",  "order",  ffOPTWR },
         { efDAT, "-ss", "ssdump", ffOPTRD },
@@ -1391,6 +1400,7 @@ int gmx_chi(int argc, char *argv[])
                            NFILE, fnm, npargs, ppa, asize(desc), desc, asize(bugs), bugs,
                            &oenv))
     {
+        sfree(ppa);
         return 0;
     }
 
@@ -1442,9 +1452,9 @@ int gmx_chi(int argc, char *argv[])
     /* Find the chi angles using atoms struct and a list of amino acids */
     t_topology *top;
     snew(top, 1);
-    read_tps_conf(ftp2fn(efSTX, NFILE, fnm), top, &ePBC, &x, NULL, box, FALSE);
+    read_tps_conf(ftp2fn(efSTX, NFILE, fnm), top, &ePBC, &x, nullptr, box, FALSE);
     t_atoms    &atoms = top->atoms;
-    if (atoms.pdbinfo == NULL)
+    if (atoms.pdbinfo == nullptr)
     {
         snew(atoms.pdbinfo, atoms.nr);
     }

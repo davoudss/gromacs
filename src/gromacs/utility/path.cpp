@@ -1,7 +1,7 @@
 /*
  * This file is part of the GROMACS molecular simulation package.
  *
- * Copyright (c) 2011,2012,2013,2014,2015,2016, by the GROMACS development team, led by
+ * Copyright (c) 2011,2012,2013,2014,2015,2016,2017, by the GROMACS development team, led by
  * Mark Abraham, David van der Spoel, Berk Hess, and Erik Lindahl,
  * and including many others, as listed in the AUTHORS file in the
  * top-level source directory and at http://www.gromacs.org.
@@ -307,6 +307,31 @@ std::string Path::stripExtension(const std::string &path)
     return path.substr(0, extPos);
 }
 
+std::string Path::concatenateBeforeExtension(const std::string &input, const std::string &stringToAdd)
+{
+    std::string output;
+    size_t      dirSeparatorPosition = input.find_last_of(cDirSeparators);
+    size_t      extSeparatorPosition = input.find_last_of('.');
+    bool        havePath             = (dirSeparatorPosition != std::string::npos);
+    // Make sure that if there's an extension-separator character,
+    // that it follows the last path-separator character (if any),
+    // before we interpret it as an extension separator.
+    bool haveExtension = (extSeparatorPosition != std::string::npos &&
+                          ((!havePath ||
+                            (extSeparatorPosition > dirSeparatorPosition))));
+    if (!haveExtension)
+    {
+        output = input + stringToAdd;
+    }
+    else
+    {
+        output  = input.substr(0, extSeparatorPosition);
+        output += stringToAdd;
+        output += std::string(input, extSeparatorPosition);
+    }
+    return output;
+}
+
 std::string Path::normalize(const std::string &path)
 {
     std::string result(path);
@@ -393,7 +418,7 @@ std::vector<std::string> Path::getExecutablePaths()
     result.push_back("");
 #endif
     const char *path = std::getenv("PATH");
-    if (path != NULL)
+    if (path != nullptr)
     {
         splitPathEnvironment(path, &result);
     }
@@ -456,12 +481,12 @@ void File::throwOnNotFound(const NotFoundInfo &info)
 // static
 bool File::exists(const char *filename, NotFoundHandler onNotFound)
 {
-    if (filename == NULL)
+    if (filename == nullptr)
     {
         return false;
     }
     FILE *test = std::fopen(filename, "r");
-    if (test == NULL)
+    if (test == nullptr)
     {
         const bool   wasError = (errno != ENOENT && errno != ENOTDIR);
         NotFoundInfo info(filename, "The file could not be opened.",
@@ -487,7 +512,7 @@ bool File::exists(const char *filename, NotFoundHandler onNotFound)
         if (!S_ISREG(st_buf.st_mode))
         {
             NotFoundInfo info(filename, "The file is not a regular file.",
-                              NULL, true, 0);
+                              nullptr, true, 0);
             onNotFound(info);
             return false;
         }

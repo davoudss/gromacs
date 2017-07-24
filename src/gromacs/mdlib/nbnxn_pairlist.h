@@ -1,7 +1,7 @@
 /*
  * This file is part of the GROMACS molecular simulation package.
  *
- * Copyright (c) 2012,2013,2014,2015, by the GROMACS development team, led by
+ * Copyright (c) 2012,2013,2014,2015,2016,2017, by the GROMACS development team, led by
  * Mark Abraham, David van der Spoel, Berk Hess, and Erik Lindahl,
  * and including many others, as listed in the AUTHORS file in the
  * top-level source directory and at http://www.gromacs.org.
@@ -38,13 +38,32 @@
 
 #include <cstddef>
 
-#include "thread_mpi/atomic.h"
-
 #include "gromacs/math/vectypes.h"
 #include "gromacs/mdtypes/nblist.h"
 #include "gromacs/utility/basedefinitions.h"
 #include "gromacs/utility/bitmask.h"
 #include "gromacs/utility/real.h"
+
+struct tMPI_Atomic;
+
+/* With GPU kernels the i and j cluster size is 8 atoms */
+static const int c_nbnxnGpuClusterSize = 8;
+
+/* The number of clusters in a super-cluster, used for GPU */
+static const int c_nbnxnGpuNumClusterPerSupercluster = 8;
+
+/* With GPU kernels we group cluster pairs in 4 to optimize memory usage
+ * of integers containing 32 bits.
+ */
+static const int c_nbnxnGpuJgroupSize = 32/c_nbnxnGpuNumClusterPerSupercluster;
+
+/* In CUDA the number of threads in a warp is 32 and we have cluster pairs
+ * of 8*8=64 atoms, so it's convenient to store data for cluster pair halves.
+ */
+static const int c_nbnxnGpuClusterpairSplit = 2;
+
+/* The fixed size of the exclusion mask array for a half cluster pair */
+static const int c_nbnxnGpuExclSize = c_nbnxnGpuClusterSize*c_nbnxnGpuClusterSize/c_nbnxnGpuClusterpairSplit;
 
 /* A buffer data structure of 64 bytes
  * to be placed at the beginning and end of structs
@@ -116,14 +135,14 @@ typedef struct {
 } nbnxn_im_ei_t;
 
 typedef struct {
-    int           cj[4];   /* The 4 j-clusters                            */
-    nbnxn_im_ei_t imei[2]; /* The i-cluster mask data       for 2 warps   */
+    int           cj[c_nbnxnGpuJgroupSize];         /* The 4 j-clusters */
+    nbnxn_im_ei_t imei[c_nbnxnGpuClusterpairSplit]; /* The i-cluster mask data       for 2 warps   */
 } nbnxn_cj4_t;
 
 typedef struct {
-    unsigned int pair[32]; /* Topology exclusion interaction bits for one warp,
-                            * each unsigned has bitS for 4*8 i clusters
-                            */
+    unsigned int pair[c_nbnxnGpuExclSize]; /* Topology exclusion interaction bits for one warp,
+                                            * each unsigned has bitS for 4*8 i clusters
+                                            */
 } nbnxn_excl_t;
 
 typedef struct nbnxn_pairlist_t {
@@ -149,6 +168,7 @@ typedef struct nbnxn_pairlist_t {
     int                     ncj;         /* The number of j-clusters in the list     */
     nbnxn_cj_t             *cj;          /* The j-cluster list, size ncj             */
     int                     cj_nalloc;   /* The allocation size of cj                */
+    int                     ncjInUse;    /* The number of j-clusters that are used by ci entries in this list, will be <= ncj */
 
     int                     ncj4;        /* The total number of 4*j clusters         */
     nbnxn_cj4_t            *cj4;         /* The 4*j cluster list, size ncj4          */
@@ -166,6 +186,7 @@ typedef struct nbnxn_pairlist_t {
 typedef struct {
     int                nnbl;        /* number of lists */
     nbnxn_pairlist_t **nbl;         /* lists */
+    nbnxn_pairlist_t **nbl_work;    /* work space for rebalancing lists */
     gmx_bool           bCombined;   /* TRUE if lists get combined into one (the 1st) */
     gmx_bool           bSimple;     /* TRUE if the list of of type "simple"
                                        (na_sc=na_s, no super-clusters used) */
@@ -261,7 +282,7 @@ typedef struct nbnxn_atomdata_t {
     gmx_bool                 bUseBufferFlags;         /* Use the flags or operate on all atoms     */
     nbnxn_buffer_flags_t     buffer_flags;            /* Flags for buffer zeroing+reduc.  */
     gmx_bool                 bUseTreeReduce;          /* Use tree for force reduction */
-    tMPI_Atomic_t           *syncStep;                /* Synchronization step for tree reduce */
+    tMPI_Atomic             *syncStep;                /* Synchronization step for tree reduce */
 } nbnxn_atomdata_t;
 
 #endif

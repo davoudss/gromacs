@@ -1,7 +1,7 @@
 %
 % This file is part of the GROMACS molecular simulation package.
 %
-% Copyright (c) 2013,2014,2015,2016, by the GROMACS development team, led by
+% Copyright (c) 2013,2014,2015,2016,2017, by the GROMACS development team, led by
 % Mark Abraham, David van der Spoel, Berk Hess, and Erik Lindahl,
 % and including many others, as listed in the AUTHORS file in the
 % top-level source directory and at http://www.gromacs.org.
@@ -51,6 +51,10 @@ basis of fixed lists.
 \item   {\em Restraints}: position restraints, angle restraints,
 distance restraints, orientation restraints and dihedral restraints, all
 based on fixed lists. 
+%\ifthenelse{\equal{\gmxlite}{1}}{}{
+\item {\em Applied Forces}:
+externally applied forces, see \chref{special}.
+%}
 \end{enumerate}
 
 \section{Non-bonded interactions}
@@ -162,7 +166,7 @@ V_c(\rij) = f \frac{q_i q_j}{\epsr \rij}
 \label{eqn:vcoul}
 \eeq
 See also \figref{coul}, where $f = \frac{1}{4\pi \varepsilon_0} =
-138.935\,485$ (see \chref{defunits})
+\electricConvFactorValue$ (see \chref{defunits})
 
 \begin{figure}
 \centerline{\includegraphics[width=8cm]{plots/vcrf}}
@@ -444,7 +448,7 @@ distance. The functional form is:
 See also \figref{morse}, and the corresponding force is:
 \beq
 \begin{array}{rcl}
-\displaystyle {\bf F}_{morse} ({\bf r}_{ij})&=&2 D_{ij} \beta_{ij} r_{ij} \exp(-\beta_{ij}(r_{ij}-b_{ij})) * \\
+\displaystyle {\bf F}_{morse} ({\bf r}_{ij})&=&2 D_{ij} \beta_{ij} \exp(-\beta_{ij}(r_{ij}-b_{ij})) * \\
 \displaystyle \: & \: &[1 - \exp(-\beta_{ij}(r_{ij}-b_{ij}))] \frac{\displaystyle {\bf r}_{ij}}{\displaystyle r_{ij}},
 \end{array}
 \eeq
@@ -731,7 +735,7 @@ this will never cause problems.
 force constants in kJ/mol/rad$^2$.
 
 \begin{figure}
-\centerline{\includegraphics[width=8cm]{plots/f-imps}}
+\centerline{\includegraphics[width=10cm]{plots/f-imps.pdf}}
 \caption{Improper dihedral potential.}
 \label{fig:imps}
 \end{figure}
@@ -850,11 +854,11 @@ literature OPLS and RB parameters to {\bf kJ mol$^{-1}$} in {\gromacs}.\\
 \subsubsection{Proper dihedrals: Fourier function}
 \label{subsec:Fourierdihedral}
 The OPLS potential function is given as the first three
-or four~\cite{Jorgensen2005a} cosine terms of a Fourier series.
+~\cite{Jorgensen1996} or four~\cite{Robertson2015a} cosine terms of a Fourier series.
 In {\gromacs} the four term function is implemented:
 \beq
 V_{F} (\phi_{ijkl}) ~=~ \frac{1}{2} \left[C_1(1+\cos(\phi)) + C_2(
-1-\cos(2\phi)) + C_3(1+\cos(3\phi)) + C_4(1+\cos(4\phi))\right],
+1-\cos(2\phi)) + C_3(1+\cos(3\phi)) + C_4(1-\cos(4\phi))\right],
 \eeq
 %\ifthenelse{\equal{\gmxlite}{1}}{}{
 Internally, {\gromacs}
@@ -973,13 +977,13 @@ and one that does not (type 9).
 For details see \tabref{topfile2}.
 The table files are supplied to the {\tt mdrun} program.
 After the table file name an underscore, the letter ``b'' for bonds,
-``a'' for angles or ``d'' for dihedrals and the table number are appended.
-For example, for a bond with $n=0$ (and using the default table file name)
-the table is read from the file {\tt table_b0.xvg}.  Multiple tables can be
-supplied simply by using different values of $n$, and are applied to the appropriate
+``a'' for angles or ``d'' for dihedrals and the table number must be appended.
+For example, a tabulated bond with $n=0$ can be read from the file {\tt table_b0.xvg}.
+Multiple tables can be
+supplied simply by adding files with different values of $n$, and are applied to the appropriate
 bonds, as specified in the topology (\tabref{topfile2}).
-The format for the table files is three columns with $x$, $f(x)$, $-f'(x)$,
-where $x$ should be uniformly-spaced. Requirements for entries in the topology
+The format for the table files is three fixed-format columns of any suitable width. These columns must contain $x$, $f(x)$, $-f'(x)$,
+and the values of $x$ should be uniformly spaced. Requirements for entries in the topology
 are given in~\tabref{topfile2}. 
 The setup of the tables is as follows:
 \\{\bf bonds}:
@@ -1653,7 +1657,43 @@ virtual sites. The energy of the shell particle is then minimized at
 each time step in order to remain on the Born-Oppenheimer surface.
 
 \subsection{Simple polarization}
-This is merely a harmonic potential with equilibrium distance 0.
+This is implemented as a harmonic potential with equilibrium distance
+0.
+The input given in the topology file is the polarizability $\alpha$ (in
+{\gromacs} units) as follows:
+\begin{verbatim}
+[ polarization ]
+; Atom i  j  type  alpha
+1         2  1     0.001
+\end{verbatim}
+in this case the polarizability volume is 0.001 nm$^3$ (or 1
+{\AA$^3$}). In order to compute the harmonic force constant $k_{cs}$
+(where $cs$ stands for core-shell), the
+following is used~\cite{Maaren2001a}:
+\begin{equation}
+k_{cs} ~=~ \frac{q_s^2}{\alpha}
+\end{equation}
+where $q_s$ is the charge on the shell particle.
+
+\subsection{Anharmonic polarization}
+For the development of the Drude force field by Roux and McKerell~\cite{Lopes2013a}
+it was found
+that some particles can overpolarize and this was fixed by introducing
+a higher order term in the polarization energy:
+\begin{eqnarray}
+V_{pol} ~=& \frac{k_{cs}}{2} r_{cs}^2 & r_{cs} \le \delta \\
+            =& \frac{k_{cs}}{2} r_{cs}^2 + k_{hyp} (r_{cs}-\delta)^4 & r_{cs} > \delta
+\end{eqnarray}
+where $\delta$ is a user-defined constant that is set to 0.02 nm for
+anions in the Drude force field~\cite{HYu2010}. Since this original introduction it
+has also been used in other atom types~\cite{Lopes2013a}.
+\begin{verbatim}
+[ polarization ]
+;Atom i j    type   alpha (nm^3)    delta  khyp
+1       2       2       0.001786     0.02  16.736e8
+\end{verbatim}
+The above force constant $k_{hyp}$ corresponds to 4$\cdot$10$^8$
+kcal/mol/nm$^4$, hence the strange number.
 
 \subsection{Water polarization}
 A special potential for water that allows anisotropic polarization of
@@ -1755,7 +1795,7 @@ of which the charge varies with $\LAM$ is:
 V_c &=& \frac{f}{\epsrf \rij}\left[\LL q_i^A q_j^A + \LAM\, q_i^B q_j^B\right] \\
 \dvdl{V_c}&=& \frac{f}{\epsrf \rij}\left[- q_i^A q_j^A + q_i^B q_j^B\right]
 \eea
-where $f = \frac{1}{4\pi \varepsilon_0} = 138.935\,485$ (see \chref{defunits}).
+where $f = \frac{1}{4\pi \varepsilon_0} = \electricConvFactorValue$ (see \chref{defunits}).
 
 \subsubsection{Coulomb interaction with \normindex{reaction field}}
 The Coulomb interaction including a reaction field, between two particles 
@@ -1932,7 +1972,7 @@ rather than using soft-core interactions, which should be less
 statistically noisy in most cases. This behavior can be overwritten
 by using the mdp option {\tt sc-coul} to {\tt yes}. Note that the {\tt sc-coul}
 is only taken into account when lambda states are used, not with
-{\tt couple-lambda0/couple-lambda1}, and you can still turn off soft-core
+{\tt couple-lambda0}~/ {\tt couple-lambda1}, and you can still turn off soft-core
 interactions by setting {\tt sc-alpha=0}. Additionally, the soft-core
 interaction potential is only applied when either the A or B
 state has zero interaction potential. If both A and B states have
@@ -2488,33 +2528,9 @@ It is recommended to optimize the parameters for calculation of
 electrostatic interaction such as PME grid dimensions and cut-off radii.
 This is particularly relevant to do before launching long production runs.
 
-{\gromacs} includes a special tool, {\tt g_tune_pme}, which automates the 
-process of selecting the optimal size of the grid and number of PME-only
-notes.
-
-%
-% Temporarily removed since I am not sure about the state of the testlr
-% program...
-%
-%It is possible to test the accuracy of your settings using the program
-%{\tt\normindex{testlr}} in the {\tt src/gmxlib} dir. This program computes
-%forces and potentials using PPPM and an Ewald implementation and gives the
-%absolute and RMS errors in both:
-%\begin{verbatim}
-%ERROR ANALYSIS
-%Error:         Max Abs         RMS
-%Force            1.132       0.251
-%Potential        0.113       0.035
-%\end{verbatim}
-%{\bf Note:} these numbers were generated using a grid spacing of
-%0.058 nm and $r_c$ = 1.0 nm.
-%
-%You can see what the accuracy is without optimizing the
-%$\hat{G}(k)$ function, if you pass the {\tt -ghat} option to {\tt
-%testlr}. Try it if you think the {\tt mk_ghat} procedure is a waste
-%of time.
-%} % Brace matches ifthenelse test for gmxlite
-
+{\tt gmx mdrun} will automatically do a lot of PME optimization, and
+{\gromacs} also includes a special tool, {\tt gmx tune_pme}, which
+automates the process of selecting the optimal number of PME-only ranks.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -2906,6 +2922,8 @@ of the blocks. {\bf Note} that all {\gromacs} programs can read compressed
 When selecting the CHARMM force field in {\tt \normindex{pdb2gmx}} the default option is to use \normindex{CMAP} (for torsional correction map). To exclude CMAP, use {\tt -nocmap}. The basic form of the CMAP term implemented in {\gromacs} is a function of the $\phi$ and $\psi$ backbone torsion angles. This term is defined in the {\tt .rtp} file by a {\tt [ cmap ]} statement at the end of each residue supporting CMAP. The following five atom names define the two torsional angles. Atoms 1-4 define $\phi$, and atoms 2-5 define $\psi$. The corresponding atom types are then matched to the correct CMAP type in the {\tt cmap.itp} file that contains the correction maps.
 
 A port of the CHARMM36 force field for use with GROMACS is also available at \url{http://mackerell.umaryland.edu/charmm_ff.shtml#gromacs}.
+
+For branched polymers or other topologies not supported by {\tt \normindex{pdb2gmx}}, it is possible to use TopoTools~\cite{kohlmeyer2016} to generate a {\gromacs} top file.
 
 \subsection{Coarse-grained force fields}
 \index{force-field, coarse-grained}

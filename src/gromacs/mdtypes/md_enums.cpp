@@ -206,11 +206,11 @@ const char *ewt_names[ewtNR+1] = {
 };
 
 const char *epull_names[epullNR+1] = {
-    "umbrella", "constraint", "constant-force", "flat-bottom", nullptr
+    "umbrella", "constraint", "constant-force", "flat-bottom", "flat-bottom-high", "external-potential", nullptr
 };
 
 const char *epullg_names[epullgNR+1] = {
-    "distance", "direction", "cylinder", "direction-periodic", "direction-relative", nullptr
+    "distance", "direction", "cylinder", "direction-periodic", "direction-relative", "angle", "dihedral", "angle-axis", nullptr
 };
 
 const char *erotg_names[erotgNR+1] = {
@@ -245,10 +245,6 @@ const char *eQMbasis_names[eQMbasisNR+1] = {
 
 const char *eQMMMscheme_names[eQMMMschemeNR+1] = {
     "normal", "ONIOM", nullptr
-};
-
-const char *eMultentOpt_names[eMultentOptNR+1] = {
-    "multiple_entries", "no", "use_last", nullptr
 };
 
 const char *gmx_nblist_geometry_names[GMX_NBLIST_GEOMETRY_NR+1] = {

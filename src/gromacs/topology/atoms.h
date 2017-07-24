@@ -3,7 +3,7 @@
  *
  * Copyright (c) 1991-2000, University of Groningen, The Netherlands.
  * Copyright (c) 2001-2004, The GROMACS development team.
- * Copyright (c) 2012,2014,2015, by the GROMACS development team, led by
+ * Copyright (c) 2012,2014,2015,2016, by the GROMACS development team, led by
  * Mark Abraham, David van der Spoel, Berk Hess, and Erik Lindahl,
  * and including many others, as listed in the AUTHORS file in the
  * top-level source directory and at http://www.gromacs.org.
@@ -42,10 +42,6 @@
 #include "gromacs/utility/basedefinitions.h"
 #include "gromacs/utility/real.h"
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 struct t_symtab;
 
 /* The particle type */
@@ -55,6 +51,15 @@ enum {
 
 /* The particle type names */
 extern const char *ptype_str[eptNR+1];
+
+/* Enumerated type for pdb records. The other entries are ignored
+ * when reading a pdb file
+ */
+enum PDB_record {
+    epdbATOM,   epdbHETATM, epdbANISOU, epdbCRYST1, epdbCOMPND,
+    epdbMODEL,  epdbENDMDL, epdbTER,    epdbHEADER, epdbTITLE, epdbREMARK,
+    epdbCONECT, epdbNR
+};
 
 typedef struct t_atom
 {
@@ -98,19 +103,29 @@ typedef struct t_grps
 
 typedef struct t_atoms
 {
-    int            nr;          /* Nr of atoms                          */
-    t_atom        *atom;        /* Array of atoms (dim: nr)             */
+    int          nr;            /* Nr of atoms                          */
+    t_atom      *atom;          /* Array of atoms (dim: nr)             */
                                 /* The following entries will not       */
                                 /* always be used (nres==0)             */
-    char          ***atomname;  /* Array of pointers to atom name       */
+    char      ***atomname;      /* Array of pointers to atom name       */
                                 /* use: (*(atomname[i]))                */
-    char          ***atomtype;  /* Array of pointers to atom types      */
+    char      ***atomtype;      /* Array of pointers to atom types      */
                                 /* use: (*(atomtype[i]))                */
-    char          ***atomtypeB; /* Array of pointers to B atom types    */
+    char      ***atomtypeB;     /* Array of pointers to B atom types    */
                                 /* use: (*(atomtypeB[i]))               */
-    int              nres;      /* The number of resinfo entries        */
-    t_resinfo       *resinfo;   /* Array of residue names and numbers   */
-    t_pdbinfo       *pdbinfo;   /* PDB Information, such as aniso. Bfac */
+    int          nres;          /* The number of resinfo entries        */
+    t_resinfo   *resinfo;       /* Array of residue names and numbers   */
+    t_pdbinfo   *pdbinfo;       /* PDB Information, such as aniso. Bfac */
+
+    /* Flags that tell if properties are set for all nr atoms.
+     * For B-state parameters, both haveBState and the mass/charge/type
+     * flag should be TRUE.
+     */
+    gmx_bool     haveMass;      /* Mass available                       */
+    gmx_bool     haveCharge;    /* Charge available                     */
+    gmx_bool     haveType;      /* Atom type available                  */
+    gmx_bool     haveBState;    /* B-state parameters available         */
+    gmx_bool     havePdbInfo;   /* pdbinfo available                    */
 } t_atoms;
 
 typedef struct t_atomtypes
@@ -135,7 +150,9 @@ void init_t_atoms(t_atoms *atoms, int natoms, gmx_bool bPdbinfo);
 /* allocate memory for the arrays, set nr to natoms and nres to 0
  * set pdbinfo to NULL or allocate memory for it */
 
-t_atoms *copy_t_atoms(t_atoms *src);
+void gmx_pdbinfo_init_default(t_pdbinfo *pdbinfo);
+
+t_atoms *copy_t_atoms(const t_atoms *src);
 /* copy an atoms struct from src to a new one */
 
 void add_t_atoms(t_atoms *atoms, int natom_extra, int nres_extra);
@@ -153,8 +170,14 @@ void pr_atoms(FILE *fp, int indent, const char *title, const t_atoms *atoms,
 void pr_atomtypes(FILE *fp, int indent, const char *title,
                   const t_atomtypes *atomtypes, gmx_bool bShowNumbers);
 
-#ifdef __cplusplus
-}
-#endif
+void cmp_atoms(FILE *fp, const t_atoms *a1, const t_atoms *a2, real ftol, real abstol);
+
+/*! \brief Set mass for each atom using the atom and residue names using a database
+ *
+ * If atoms->haveMass = TRUE does nothing.
+ * If printMissingMasss = TRUE, prints details for first 10 missing masses
+ * to stderr.
+ */
+void atomsSetMassesBasedOnNames(t_atoms *atoms, gmx_bool printMissingMasses);
 
 #endif

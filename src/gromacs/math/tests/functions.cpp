@@ -1,7 +1,7 @@
 /*
  * This file is part of the GROMACS molecular simulation package.
  *
- * Copyright (c) 2015, by the GROMACS development team, led by
+ * Copyright (c) 2015,2016,2017, by the GROMACS development team, led by
  * Mark Abraham, David van der Spoel, Berk Hess, and Erik Lindahl,
  * and including many others, as listed in the AUTHORS file in the
  * top-level source directory and at http://www.gromacs.org.
@@ -251,7 +251,7 @@ TEST(FunctionTest, InvsixthrootFloat)
 
     for (float f = 1.0; f < 10.0; f += 1.0)
     {
-        result.push_back(gmx::sixthroot(f));
+        result.push_back(gmx::invsixthroot(f));
     }
     checker.checkSequence(result.begin(), result.end(), "InvsixthrootFloat");
 }
@@ -264,7 +264,7 @@ TEST(FunctionTest, InvsixthrootDouble)
 
     for (double d = 1.0; d < 10.0; d += 1.0)
     {
-        result.push_back(gmx::sixthroot(d));
+        result.push_back(gmx::invsixthroot(d));
     }
     checker.checkSequence(result.begin(), result.end(), "InvsixthrootDouble");
 }
@@ -277,7 +277,7 @@ TEST(FunctionTest, InvsixthrootInteger)
 
     for (int i = 1; i < 10; i++)
     {
-        result.push_back(gmx::sixthroot(i));
+        result.push_back(gmx::invsixthroot(i));
     }
     checker.checkSequence(result.begin(), result.end(), "InvsixthrootInteger");
 }
@@ -299,6 +299,60 @@ TEST(FunctionTest, Powers)
     EXPECT_EQ(97.65625,           gmx::power5(2.5));
     EXPECT_EQ(244.140625,         gmx::power6(2.5));
     EXPECT_EQ(59604.644775390625, gmx::power12(2.5));
+}
+
+TEST(FunctionTest, ErfInvFloat)
+{
+    gmx::test::TestReferenceData     data;
+    gmx::test::TestReferenceChecker  checker(data.rootChecker());
+    std::vector<float>               result;
+    int                              npoints = 10;
+
+    for (int i = 0; i < npoints; i++)
+    {
+        float r = float(2*i - npoints + 1) / npoints;
+
+        result.push_back(gmx::erfinv(r));
+    }
+    checker.checkSequence(result.begin(), result.end(), "ErfInvFloat");
+}
+
+TEST(FunctionTest, ErfInvDouble)
+{
+    gmx::test::TestReferenceData     data;
+    gmx::test::TestReferenceChecker  checker(data.rootChecker());
+    std::vector<double>              result;
+    int                              npoints = 10;
+
+    for (int i = 0; i < npoints; i++)
+    {
+        double r = double(2*i - npoints + 1) / npoints;
+
+        result.push_back(gmx::erfinv(r));
+    }
+    checker.checkSequence(result.begin(), result.end(), "ErfInvDouble");
+}
+
+TEST(FunctionTest, ErfAndErfInvAreInversesFloat)
+{
+    int npoints = 1000;
+
+    for (int i = 0; i < npoints; i++)
+    {
+        float r = float(2*i - npoints + 1) / npoints;
+        EXPECT_FLOAT_EQ_TOL(r, std::erf(gmx::erfinv(r)), gmx::test::ulpTolerance(10));
+    }
+}
+
+TEST(FunctionTest, ErfAndErfInvAreInversesDouble)
+{
+    int npoints = 1000;
+
+    for (int i = 0; i < npoints; i++)
+    {
+        double r = double(2*i - npoints + 1) / npoints;
+        EXPECT_DOUBLE_EQ_TOL(r, std::erf(gmx::erfinv(r)), gmx::test::ulpTolerance(10));
+    }
 }
 
 } // namespace

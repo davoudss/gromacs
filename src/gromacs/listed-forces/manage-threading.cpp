@@ -3,7 +3,7 @@
  *
  * Copyright (c) 1991-2000, University of Groningen, The Netherlands.
  * Copyright (c) 2001-2004, The GROMACS development team.
- * Copyright (c) 2013,2014,2015, by the GROMACS development team, led by
+ * Copyright (c) 2013,2014,2015,2016,2017, by the GROMACS development team, led by
  * Mark Abraham, David van der Spoel, Berk Hess, and Erik Lindahl,
  * and including many others, as listed in the AUTHORS file in the
  * top-level source directory and at http://www.gromacs.org.
@@ -44,6 +44,8 @@
 #include "gmxpre.h"
 
 #include "manage-threading.h"
+
+#include "config.h"
 
 #include <assert.h>
 #include <limits.h>
@@ -188,7 +190,8 @@ static void divide_bondeds_by_locality(int                 ntype,
 //! Divides bonded interactions over threads
 static void divide_bondeds_over_threads(t_idef *idef,
                                         int     nthread,
-                                        int     max_nthread_uniform)
+                                        int     max_nthread_uniform,
+                                        bool   *haveBondeds)
 {
     ilist_data_t ild[F_NRE];
     int          ntype;
@@ -204,12 +207,18 @@ static void divide_bondeds_over_threads(t_idef *idef,
         snew(idef->il_thread_division, idef->il_thread_division_nalloc);
     }
 
-    ntype = 0;
+    *haveBondeds = false;
+    ntype        = 0;
     for (f = 0; f < F_NRE; f++)
     {
         if (!ftype_is_bonded_potential(f))
         {
             continue;
+        }
+
+        if (idef->il[f].nr > 0)
+        {
+            *haveBondeds = true;
         }
 
         if (idef->il[f].nr == 0)
@@ -308,7 +317,16 @@ calc_bonded_reduction_mask(int natoms,
                            const t_idef *idef,
                            int thread, int nthread)
 {
-    assert(nthread <= BITMASK_SIZE);
+    static_assert(BITMASK_SIZE == GMX_OPENMP_MAX_THREADS, "For the error message below we assume these two are equal.");
+
+    if (nthread > BITMASK_SIZE)
+    {
+#pragma omp master
+        gmx_fatal(FARGS, "You are using %d OpenMP threads, which is larger than GMX_OPENMP_MAX_THREADS (%d). Decrease the number of OpenMP threads or rebuild GROMACS with a larger value for GMX_OPENMP_MAX_THREADS.",
+                  nthread, GMX_OPENMP_MAX_THREADS);
+#pragma omp barrier
+    }
+    GMX_ASSERT(nthread <= BITMASK_SIZE, "We need at least nthread bits in the mask");
 
     int nblock = (natoms + reduction_block_size - 1) >> reduction_block_bits;
 
@@ -317,7 +335,8 @@ calc_bonded_reduction_mask(int natoms,
         f_thread->block_nalloc = over_alloc_large(nblock);
         srenew(f_thread->mask,        f_thread->block_nalloc);
         srenew(f_thread->block_index, f_thread->block_nalloc);
-        srenew(f_thread->f,           f_thread->block_nalloc*reduction_block_size);
+        sfree_aligned(f_thread->f);
+        snew_aligned(f_thread->f,     f_thread->block_nalloc*reduction_block_size, 128);
     }
 
     gmx_bitmask_t *mask = f_thread->mask;
@@ -373,12 +392,12 @@ void setup_bonded_threading(t_forcerec *fr, t_idef *idef)
     /* Divide the bonded interaction over the threads */
     divide_bondeds_over_threads(idef,
                                 bt->nthreads,
-                                bt->bonded_max_nthread_uniform);
+                                bt->bonded_max_nthread_uniform,
+                                &bt->haveBondeds);
 
-    if (bt->nthreads == 1)
+    if (!bt->haveBondeds)
     {
-        bt->nblock_used = 0;
-
+        /* We don't have bondeds, so there is nothing to reduce */
         return;
     }
 
@@ -390,11 +409,8 @@ void setup_bonded_threading(t_forcerec *fr, t_idef *idef)
     {
         try
         {
-            if (t > 0)
-            {
-                calc_bonded_reduction_mask(fr->natoms_force, &bt->f_t[t],
-                                           idef, t, bt->nthreads);
-            }
+            calc_bonded_reduction_mask(fr->natoms_force, &bt->f_t[t],
+                                       idef, t, bt->nthreads);
         }
         GMX_CATCH_ALL_AND_EXIT_WITH_FATAL_ERROR;
     }
@@ -416,7 +432,7 @@ void setup_bonded_threading(t_forcerec *fr, t_idef *idef)
 
         /* Generate the union over the threads of the bitmask */
         bitmask_clear(mask);
-        for (int t = 1; t < bt->nthreads; t++)
+        for (int t = 0; t < bt->nthreads; t++)
         {
             bitmask_union(mask, bt->f_t[t].mask[b]);
         }
@@ -468,62 +484,62 @@ void init_bonded_threading(FILE *fplog, int nenergrp,
 
     snew(bt, 1);
 
-    /* These thread local data structures are used for bondeds only */
+    /* These thread local data structures are used for bondeds only.
+     *
+     * Note that we also use there structures when running single-threaded.
+     * This is because the bonded force buffer uses type rvec4, whereas
+     * the normal force buffer is uses type rvec. This leads to a little
+     * reduction overhead, but the speed gain in the bonded calculations
+     * of doing transposeScatterIncr/DecrU with aligment 4 instead of 3
+     * is much larger than the reduction overhead.
+     */
     bt->nthreads = gmx_omp_nthreads_get(emntBonded);
 
-    if (bt->nthreads > 1)
-    {
-        int t;
-
-        snew(bt->f_t, bt->nthreads);
+    snew(bt->f_t, bt->nthreads);
 #pragma omp parallel for num_threads(bt->nthreads) schedule(static)
-        for (t = 0; t < bt->nthreads; t++)
+    for (int t = 0; t < bt->nthreads; t++)
+    {
+        try
         {
-            try
+            /* Note that thread 0 uses the global fshift and energy arrays,
+             * but to keep the code simple, we initialize all data here.
+             */
+            bt->f_t[t].f        = nullptr;
+            bt->f_t[t].f_nalloc = 0;
+            snew(bt->f_t[t].fshift, SHIFTS);
+            bt->f_t[t].grpp.nener = nenergrp*nenergrp;
+            for (int i = 0; i < egNR; i++)
             {
-                /* Thread 0 uses the global force and energy arrays */
-                if (t > 0)
-                {
-                    int i;
-
-                    bt->f_t[t].f        = NULL;
-                    bt->f_t[t].f_nalloc = 0;
-                    snew(bt->f_t[t].fshift, SHIFTS);
-                    bt->f_t[t].grpp.nener = nenergrp*nenergrp;
-                    for (i = 0; i < egNR; i++)
-                    {
-                        snew(bt->f_t[t].grpp.ener[i], bt->f_t[t].grpp.nener);
-                    }
-                }
-            }
-            GMX_CATCH_ALL_AND_EXIT_WITH_FATAL_ERROR;
-        }
-
-        bt->nblock_used  = 0;
-        bt->block_index  = NULL;
-        bt->mask         = NULL;
-        bt->block_nalloc = 0;
-
-        /* The optimal value after which to switch from uniform to localized
-         * bonded interaction distribution is 3, 4 or 5 depending on the system
-         * and hardware.
-         */
-        const int max_nthread_uniform = 4;
-        char *    ptr;
-
-        if ((ptr = getenv("GMX_BONDED_NTHREAD_UNIFORM")) != NULL)
-        {
-            sscanf(ptr, "%d", &bt->bonded_max_nthread_uniform);
-            if (fplog != NULL)
-            {
-                fprintf(fplog, "\nMax threads for uniform bonded distribution set to %d by env.var.\n",
-                        bt->bonded_max_nthread_uniform);
+                snew(bt->f_t[t].grpp.ener[i], bt->f_t[t].grpp.nener);
             }
         }
-        else
+        GMX_CATCH_ALL_AND_EXIT_WITH_FATAL_ERROR;
+    }
+
+    bt->nblock_used  = 0;
+    bt->block_index  = nullptr;
+    bt->mask         = nullptr;
+    bt->block_nalloc = 0;
+
+    /* The optimal value after which to switch from uniform to localized
+     * bonded interaction distribution is 3, 4 or 5 depending on the system
+     * and hardware.
+     */
+    const int max_nthread_uniform = 4;
+    char *    ptr;
+
+    if ((ptr = getenv("GMX_BONDED_NTHREAD_UNIFORM")) != nullptr)
+    {
+        sscanf(ptr, "%d", &bt->bonded_max_nthread_uniform);
+        if (fplog != nullptr)
         {
-            bt->bonded_max_nthread_uniform = max_nthread_uniform;
+            fprintf(fplog, "\nMax threads for uniform bonded distribution set to %d by env.var.\n",
+                    bt->bonded_max_nthread_uniform);
         }
+    }
+    else
+    {
+        bt->bonded_max_nthread_uniform = max_nthread_uniform;
     }
 
     *bt_ptr = bt;

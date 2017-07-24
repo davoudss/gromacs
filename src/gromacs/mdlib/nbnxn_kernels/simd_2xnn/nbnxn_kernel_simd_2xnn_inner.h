@@ -1,7 +1,7 @@
 /*
  * This file is part of the GROMACS molecular simulation package.
  *
- * Copyright (c) 2012,2013,2014,2015, by the GROMACS development team, led by
+ * Copyright (c) 2012,2013,2014,2015,2016,2017, by the GROMACS development team, led by
  * Mark Abraham, David van der Spoel, Berk Hess, and Erik Lindahl,
  * and including many others, as listed in the AUTHORS file in the
  * top-level source directory and at http://www.gromacs.org.
@@ -295,11 +295,10 @@
     }
 #endif
 
-#ifdef CHECK_EXCLS
-    /* For excluded pairs add a small number to avoid r^-6 = NaN */
-    rsq_S0      = rsq_S0 + selectByNotMask(avoid_sing_S, interact_S0);
-    rsq_S2      = rsq_S2 + selectByNotMask(avoid_sing_S, interact_S2);
-#endif
+    // Ensure the distances do not fall below the limit where r^-12 overflows.
+    // This should never happen for normal interactions.
+    rsq_S0      = max(rsq_S0, minRsq_S);
+    rsq_S2      = max(rsq_S2, minRsq_S);
 
     /* Calculate 1/r */
     rinv_S0     = invsqrt(rsq_S0);
@@ -441,6 +440,8 @@
     gatherLoadUBySimdIntTranspose<1>(tab_coul_V, ti_S0, &ctabv_S0, &dum_S0);
     gatherLoadUBySimdIntTranspose<1>(tab_coul_F, ti_S2, &ctab0_S2, &ctab1_S2);
     gatherLoadUBySimdIntTranspose<1>(tab_coul_V, ti_S2, &ctabv_S2, &dum_S2);
+    ctab1_S0 = ctab1_S0 - ctab0_S0;
+    ctab1_S2 = ctab1_S2 - ctab0_S2;
 #endif
 #endif
     fsub_S0     = fma(frac_S0, ctab1_S0, ctab0_S0);

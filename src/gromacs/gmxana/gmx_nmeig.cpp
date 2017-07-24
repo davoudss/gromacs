@@ -3,7 +3,7 @@
  *
  * Copyright (c) 1991-2000, University of Groningen, The Netherlands.
  * Copyright (c) 2001-2004, The GROMACS development team.
- * Copyright (c) 2013,2014,2015,2016, by the GROMACS development team, led by
+ * Copyright (c) 2013,2014,2015,2016,2017, by the GROMACS development team, led by
  * Mark Abraham, David van der Spoel, Berk Hess, and Erik Lindahl,
  * and including many others, as listed in the AUTHORS file in the
  * top-level source directory and at http://www.gromacs.org.
@@ -36,6 +36,7 @@
  */
 #include "gmxpre.h"
 
+#include <cassert>
 #include <cmath>
 #include <cstring>
 
@@ -57,6 +58,7 @@
 #include "gromacs/topology/mtop_util.h"
 #include "gromacs/topology/topology.h"
 #include "gromacs/utility/arraysize.h"
+#include "gromacs/utility/fatalerror.h"
 #include "gromacs/utility/futil.h"
 #include "gromacs/utility/gmxassert.h"
 #include "gromacs/utility/pleasecite.h"
@@ -92,7 +94,7 @@ static double u_corr(double nu, double T)
     }
 }
 
-static size_t get_nharm_mt(gmx_moltype_t *mt)
+static size_t get_nharm_mt(const gmx_moltype_t *mt)
 {
     static int   harm_func[] = { F_BONDS };
     int          i, ft;
@@ -122,7 +124,7 @@ static size_t get_nvsite_mt(gmx_moltype_t *mt)
     return nh;
 }
 
-static int get_nharm(gmx_mtop_t *mtop)
+static int get_nharm(const gmx_mtop_t *mtop)
 {
     int nh = 0;
 
@@ -138,7 +140,7 @@ static void
 nma_full_hessian(real                      *hess,
                  int                        ndim,
                  gmx_bool                   bM,
-                 t_topology                *top,
+                 const t_topology          *top,
                  const std::vector<size_t> &atom_index,
                  int                        begin,
                  int                        end,
@@ -177,7 +179,7 @@ nma_full_hessian(real                      *hess,
     eigensolver(hess, ndim, begin-1, end-1, eigenvalues, eigenvectors);
 
     /* And scale the output eigenvectors */
-    if (bM && eigenvectors != NULL)
+    if (bM && eigenvectors != nullptr)
     {
         for (int i = 0; i < (end-begin+1); i++)
         {
@@ -199,7 +201,7 @@ nma_full_hessian(real                      *hess,
 static void
 nma_sparse_hessian(gmx_sparsematrix_t        *sparse_hessian,
                    gmx_bool                   bM,
-                   t_topology                *top,
+                   const t_topology          *top,
                    const std::vector<size_t> &atom_index,
                    int                        neig,
                    real                      *eigenvalues,
@@ -216,7 +218,7 @@ nma_sparse_hessian(gmx_sparsematrix_t        *sparse_hessian,
     /* Cannot check symmetry since we only store half matrix */
     /* divide elements hess[i][j] by sqrt(mas[i])*sqrt(mas[j]) when required */
 
-    GMX_RELEASE_ASSERT(sparse_hessian != NULL, "NULL matrix pointer provided to nma_sparse_hessian");
+    GMX_RELEASE_ASSERT(sparse_hessian != nullptr, "NULL matrix pointer provided to nma_sparse_hessian");
 
     if (bM)
     {
@@ -243,7 +245,7 @@ nma_sparse_hessian(gmx_sparsematrix_t        *sparse_hessian,
     sparse_eigensolver(sparse_hessian, neig, eigenvalues, eigenvectors, 10000000);
 
     /* Scale output eigenvectors */
-    if (bM && eigenvectors != NULL)
+    if (bM && eigenvectors != nullptr)
     {
         for (i = 0; i < neig; i++)
         {
@@ -261,6 +263,37 @@ nma_sparse_hessian(gmx_sparsematrix_t        *sparse_hessian,
 }
 
 
+/* Returns a pointer for eigenvector storage */
+static real *allocateEigenvectors(int nrow, int first, int last,
+                                  bool ignoreBegin)
+{
+    int numVector;
+    if (ignoreBegin)
+    {
+        numVector = last;
+    }
+    else
+    {
+        numVector = last - first + 1;
+    }
+    size_t vectorsSize = static_cast<size_t>(nrow)*static_cast<size_t>(numVector);
+    /* We can't have more than INT_MAX elements.
+     * Relaxing this restriction probably requires changing lots of loop
+     * variable types in the linear algebra code.
+     */
+    if (vectorsSize > INT_MAX)
+    {
+        gmx_fatal(FARGS, "You asked to store %d eigenvectors of size %d, which requires more than the supported %d elements; %sdecrease -last",
+                  numVector, nrow, INT_MAX,
+                  ignoreBegin ? "" : "increase -first and/or ");
+    }
+
+    real *eigenvectors;
+    snew(eigenvectors, vectorsSize);
+
+    return eigenvectors;
+}
+
 
 int gmx_nmeig(int argc, char *argv[])
 {
@@ -269,7 +302,8 @@ int gmx_nmeig(int argc, char *argv[])
         "which can be calculated with [gmx-mdrun].",
         "The eigenvectors are written to a trajectory file ([TT]-v[tt]).",
         "The structure is written first with t=0. The eigenvectors",
-        "are written as frames with the eigenvector number as timestamp.",
+        "are written as frames with the eigenvector number and eigenvalue",
+        "written as step number and timestamp, respectively.",
         "The eigenvectors can be analyzed with [gmx-anaeig].",
         "An ensemble of structures can be generated from the eigenvectors with",
         "[gmx-nmens]. When mass weighting is used, the generated eigenvectors",
@@ -328,19 +362,19 @@ int gmx_nmeig(int argc, char *argv[])
     real                   value, omega, nu;
     real                   factor_gmx_to_omega2;
     real                   factor_omega_to_wavenumber;
-    real                  *spectrum = NULL;
+    real                  *spectrum = nullptr;
     real                   wfac;
     gmx_output_env_t      *oenv;
     const char            *qcleg[] = {
         "Heat Capacity cV (J/mol K)",
         "Enthalpy H (kJ/mol)"
     };
-    real *                 full_hessian   = NULL;
-    gmx_sparsematrix_t *   sparse_hessian = NULL;
+    real *                 full_hessian   = nullptr;
+    gmx_sparsematrix_t *   sparse_hessian = nullptr;
 
     t_filenm               fnm[] = {
         { efMTX, "-f", "hessian",    ffREAD  },
-        { efTPR, NULL, NULL,         ffREAD  },
+        { efTPR, nullptr, nullptr,         ffREAD  },
         { efXVG, "-of", "eigenfreq", ffWRITE },
         { efXVG, "-ol", "eigenval",  ffWRITE },
         { efXVG, "-os", "spectrum",  ffOPTWR },
@@ -350,7 +384,7 @@ int gmx_nmeig(int argc, char *argv[])
 #define NFILE asize(fnm)
 
     if (!parse_common_args(&argc, argv, 0,
-                           NFILE, fnm, asize(pa), pa, asize(desc), desc, 0, NULL, &oenv))
+                           NFILE, fnm, asize(pa), pa, asize(desc), desc, 0, nullptr, &oenv))
     {
         return 0;
     }
@@ -360,8 +394,8 @@ int gmx_nmeig(int argc, char *argv[])
     snew(top_x, tpx.natoms);
 
     int natoms_tpx;
-    read_tpx(ftp2fn(efTPR, NFILE, fnm), NULL, box, &natoms_tpx,
-             top_x, NULL, &mtop);
+    read_tpx(ftp2fn(efTPR, NFILE, fnm), nullptr, box, &natoms_tpx,
+             top_x, nullptr, &mtop);
     int nharm = 0;
     if (bCons)
     {
@@ -369,7 +403,7 @@ int gmx_nmeig(int argc, char *argv[])
     }
     std::vector<size_t> atom_index = get_atom_index(&mtop);
 
-    top = gmx_mtop_t_to_t_topology(&mtop);
+    top = gmx_mtop_t_to_t_topology(&mtop, true);
 
     bM       = TRUE;
     int ndim = DIM*atom_index.size();
@@ -393,28 +427,27 @@ int gmx_nmeig(int argc, char *argv[])
     int nrow, ncol;
     gmx_mtxio_read(ftp2fn(efMTX, NFILE, fnm), &nrow, &ncol, &full_hessian, &sparse_hessian);
 
-    /* Memory for eigenvalues and eigenvectors (begin..end) */
-    snew(eigenvalues, nrow);
-    snew(eigenvectors, nrow*(end-begin+1));
-
     /* If the Hessian is in sparse format we can calculate max (ndim-1) eigenvectors,
-     * and they must start at the first one. If this is not valid we convert to full matrix
-     * storage, but warn the user that we might run out of memory...
+     * If this is not valid we convert to full matrix storage,
+     * but warn the user that we might run out of memory...
      */
-    if ((sparse_hessian != NULL) && (begin != 1 || end == ndim))
+    if ((sparse_hessian != nullptr) && (end == ndim))
     {
-        if (begin != 1)
-        {
-            fprintf(stderr, "Cannot use sparse Hessian with first eigenvector != 1.\n");
-        }
-        else if (end == ndim)
-        {
-            fprintf(stderr, "Cannot use sparse Hessian to calculate all eigenvectors.\n");
-        }
+        fprintf(stderr, "Cannot use sparse Hessian to calculate all eigenvectors.\n");
 
         fprintf(stderr, "Will try to allocate memory and convert to full matrix representation...\n");
 
-        snew(full_hessian, nrow*ncol);
+        size_t hessianSize = static_cast<size_t>(nrow)*static_cast<size_t>(ncol);
+        /* Allowing  Hessians larger than INT_MAX probably only makes sense
+         * with (OpenMP) parallel diagonalization routines, since with a single
+         * thread it will takes months.
+         */
+        if (hessianSize > INT_MAX)
+        {
+            gmx_fatal(FARGS, "Hessian size is %d x %d, which is larger than the maximum allowed %d elements.",
+                      nrow, ncol, INT_MAX);
+        }
+        snew(full_hessian, hessianSize);
         for (i = 0; i < nrow*ncol; i++)
         {
             full_hessian[i] = 0;
@@ -431,20 +464,26 @@ int gmx_nmeig(int argc, char *argv[])
             }
         }
         gmx_sparsematrix_destroy(sparse_hessian);
-        sparse_hessian = NULL;
+        sparse_hessian = nullptr;
         fprintf(stderr, "Converted sparse to full matrix storage.\n");
     }
 
-    if (full_hessian != NULL)
+    snew(eigenvalues, nrow);
+
+    if (full_hessian != nullptr)
     {
         /* Using full matrix storage */
+        eigenvectors = allocateEigenvectors(nrow, begin, end, false);
+
         nma_full_hessian(full_hessian, nrow, bM, &top, atom_index, begin, end,
                          eigenvalues, eigenvectors);
     }
     else
     {
+        assert(sparse_hessian);
         /* Sparse memory storage, allocate memory for eigenvectors */
-        snew(eigenvectors, ncol*end);
+        eigenvectors = allocateEigenvectors(nrow, begin, end, true);
+
         nma_sparse_hessian(sparse_hessian, bM, &top, atom_index, end, eigenvalues, eigenvectors);
     }
 
@@ -496,7 +535,7 @@ int gmx_nmeig(int argc, char *argv[])
     }
     else
     {
-        qc = NULL;
+        qc = nullptr;
     }
     printf("Writing eigenfrequencies - negative eigenvalues will be set to zero.\n");
 
@@ -515,7 +554,7 @@ int gmx_nmeig(int argc, char *argv[])
         }
     }
     /* Spectrum ? */
-    spec = NULL;
+    spec = nullptr;
     if (opt2bSet("-os", NFILE, fnm) && (maxspec > 0))
     {
         snew(spectrum, maxspec);
@@ -552,7 +591,7 @@ int gmx_nmeig(int argc, char *argv[])
         nu    = 1e-12*omega/(2*M_PI);
         value = omega*factor_omega_to_wavenumber;
         fprintf (out, "%6d %15g\n", i, value);
-        if (NULL != spec)
+        if (nullptr != spec)
         {
             wfac = eigenvalues[i-begin]/(width*std::sqrt(2*M_PI));
             for (j = 0; (j < maxspec); j++)
@@ -560,7 +599,7 @@ int gmx_nmeig(int argc, char *argv[])
                 spectrum[j] += wfac*std::exp(-gmx::square(j-value)/(2*gmx::square(width)));
             }
         }
-        if (NULL != qc)
+        if (nullptr != qc)
         {
             qcv = cv_corr(nu, T);
             qu  = u_corr(nu, T);
@@ -575,7 +614,7 @@ int gmx_nmeig(int argc, char *argv[])
         }
     }
     xvgrclose(out);
-    if (NULL != spec)
+    if (nullptr != spec)
     {
         for (j = 0; (j < maxspec); j++)
         {
@@ -583,7 +622,7 @@ int gmx_nmeig(int argc, char *argv[])
         }
         xvgrclose(spec);
     }
-    if (NULL != qc)
+    if (nullptr != qc)
     {
         printf("Quantum corrections for harmonic degrees of freedom\n");
         printf("Use appropriate -first and -last options to get reliable results.\n");
@@ -598,8 +637,18 @@ int gmx_nmeig(int argc, char *argv[])
      * nma_full_hessian() or nma_sparse_hessian() routines. Mass scaled vectors
      * will not be strictly orthogonal in plain cartesian scalar products.
      */
-    write_eigenvectors(opt2fn("-v", NFILE, fnm), atom_index.size(), eigenvectors, FALSE, begin, end,
-                       eWXR_NO, NULL, FALSE, top_x, bM, eigenvalues);
+    const real *eigenvectorPtr;
+    if (full_hessian != nullptr)
+    {
+        eigenvectorPtr = eigenvectors;
+    }
+    else
+    {
+        /* The sparse matrix diagonalization store all eigenvectors up to end */
+        eigenvectorPtr = eigenvectors + (begin - 1)*atom_index.size();
+    }
+    write_eigenvectors(opt2fn("-v", NFILE, fnm), atom_index.size(), eigenvectorPtr, FALSE, begin, end,
+                       eWXR_NO, nullptr, FALSE, top_x, bM, eigenvalues);
 
     return 0;
 }

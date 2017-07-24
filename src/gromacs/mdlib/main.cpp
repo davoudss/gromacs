@@ -3,7 +3,7 @@
  *
  * Copyright (c) 1991-2000, University of Groningen, The Netherlands.
  * Copyright (c) 2001-2004, The GROMACS development team.
- * Copyright (c) 2013,2014,2015,2016, by the GROMACS development team, led by
+ * Copyright (c) 2013,2014,2015,2016,2017, by the GROMACS development team, led by
  * Mark Abraham, David van der Spoel, Berk Hess, and Erik Lindahl,
  * and including many others, as listed in the AUTHORS file in the
  * top-level source directory and at http://www.gromacs.org.
@@ -44,6 +44,8 @@
 #include <cstdlib>
 #include <cstring>
 
+#include <string>
+
 #include "gromacs/commandline/filenm.h"
 #include "gromacs/fileio/gmxfio.h"
 #include "gromacs/gmxlib/network.h"
@@ -54,52 +56,17 @@
 #include "gromacs/utility/fatalerror.h"
 #include "gromacs/utility/futil.h"
 #include "gromacs/utility/gmxmpi.h"
+#include "gromacs/utility/path.h"
 #include "gromacs/utility/programcontext.h"
 #include "gromacs/utility/smalloc.h"
 #include "gromacs/utility/snprintf.h"
+#include "gromacs/utility/stringutil.h"
 #include "gromacs/utility/sysinfo.h"
 
 /* The source code in this file should be thread-safe.
          Please keep it that way. */
 
-#define BUFSIZE 1024
-
-static void par_fn(char *base, int ftp, const t_commrec *cr,
-                   gmx_bool bAppendSimId, gmx_bool bAppendNodeId,
-                   char buf[], int bufsize)
-{
-    if (static_cast<std::size_t>(bufsize) < (std::strlen(base)+10))
-    {
-        gmx_mem("Character buffer too small!");
-    }
-
-    /* Copy to buf, and strip extension */
-    std::strcpy(buf, base);
-    buf[strlen(base) - std::strlen(ftp2ext(fn2ftp(base))) - 1] = '\0';
-
-    if (bAppendSimId)
-    {
-        sprintf(buf+strlen(buf), "%d", cr->ms->sim);
-    }
-    if (bAppendNodeId)
-    {
-        std::strcat(buf, "_rank");
-        sprintf(buf+strlen(buf), "%d", cr->nodeid);
-    }
-    std::strcat(buf, ".");
-
-    /* Add extension again */
-    std::strcat(buf, (ftp == efTPR) ? "tpr" : (ftp == efEDR) ? "edr" : ftp2ext(ftp));
-    if (debug)
-    {
-        fprintf(debug, "rank %d par_fn '%s'\n", cr->nodeid, buf);
-        if (fn2ftp(buf) == efLOG)
-        {
-            fprintf(debug, "log\n");
-        }
-    }
-}
-
+// TODO move this to multi-sim module
 void check_multi_int(FILE *log, const gmx_multisim_t *ms, int val,
                      const char *name,
                      gmx_bool bQuiet)
@@ -107,12 +74,12 @@ void check_multi_int(FILE *log, const gmx_multisim_t *ms, int val,
     int     *ibuf, p;
     gmx_bool bCompatible;
 
-    if (NULL != log && !bQuiet)
+    if (nullptr != log && !bQuiet)
     {
         fprintf(log, "Multi-checking %s ... ", name);
     }
 
-    if (ms == NULL)
+    if (ms == nullptr)
     {
         gmx_fatal(FARGS,
                   "check_multi_int called with a NULL communication pointer");
@@ -130,14 +97,14 @@ void check_multi_int(FILE *log, const gmx_multisim_t *ms, int val,
 
     if (bCompatible)
     {
-        if (NULL != log && !bQuiet)
+        if (nullptr != log && !bQuiet)
         {
             fprintf(log, "OK\n");
         }
     }
     else
     {
-        if (NULL != log)
+        if (nullptr != log)
         {
             fprintf(log, "\n%s is not equal for all subsystems\n", name);
             for (p = 0; p < ms->nsim; p++)
@@ -151,6 +118,7 @@ void check_multi_int(FILE *log, const gmx_multisim_t *ms, int val,
     sfree(ibuf);
 }
 
+// TODO move this to multi-sim module
 void check_multi_int64(FILE *log, const gmx_multisim_t *ms,
                        gmx_int64_t val, const char *name,
                        gmx_bool bQuiet)
@@ -159,12 +127,12 @@ void check_multi_int64(FILE *log, const gmx_multisim_t *ms,
     int               p;
     gmx_bool          bCompatible;
 
-    if (NULL != log && !bQuiet)
+    if (nullptr != log && !bQuiet)
     {
         fprintf(log, "Multi-checking %s ... ", name);
     }
 
-    if (ms == NULL)
+    if (ms == nullptr)
     {
         gmx_fatal(FARGS,
                   "check_multi_int called with a NULL communication pointer");
@@ -182,14 +150,16 @@ void check_multi_int64(FILE *log, const gmx_multisim_t *ms,
 
     if (bCompatible)
     {
-        if (NULL != log && !bQuiet)
+        if (nullptr != log && !bQuiet)
         {
             fprintf(log, "OK\n");
         }
     }
     else
     {
-        if (NULL != log)
+        // TODO Part of this error message would also be good to go to
+        // stderr (from one rank of one sim only)
+        if (nullptr != log)
         {
             fprintf(log, "\n%s is not equal for all subsystems\n", name);
             for (p = 0; p < ms->nsim; p++)
@@ -262,17 +232,17 @@ void gmx_log_close(FILE *fp)
 {
     if (fp)
     {
-        gmx_fatal_set_log_file(NULL);
+        gmx_fatal_set_log_file(nullptr);
         gmx_fio_fclose(fp);
     }
 }
 
+// TODO move this to multi-sim module
 void init_multisystem(t_commrec *cr, int nsim, char **multidirs,
-                      int nfile, const t_filenm fnm[], gmx_bool bParFn)
+                      int nfile, const t_filenm fnm[])
 {
     gmx_multisim_t *ms;
-    int             nnodes, nnodpersim, sim, i, ftp;
-    char            buf[256];
+    int             nnodes, nnodpersim, sim, i;
 #if GMX_MPI
     MPI_Group       mpi_group_world;
     int            *rank;
@@ -359,23 +329,30 @@ void init_multisystem(t_commrec *cr, int nsim, char **multidirs,
         }
         gmx_chdir(multidirs[cr->ms->sim]);
     }
-    else if (bParFn)
+    else
     {
-        /* Patch output and tpx, cpt and rerun input file names */
-        for (i = 0; (i < nfile); i++)
+        try
         {
-            /* Because of possible multiple extensions per type we must look
-             * at the actual file name
-             */
-            if (is_output(&fnm[i]) ||
-                fnm[i].ftp == efTPR || fnm[i].ftp == efCPT ||
-                strcmp(fnm[i].opt, "-rerun") == 0)
+            std::string rankString = gmx::formatString("%d", cr->ms->sim);
+            /* Patch output and tpx, cpt and rerun input file names */
+            for (i = 0; (i < nfile); i++)
             {
-                ftp = fn2ftp(fnm[i].fns[0]);
-                par_fn(fnm[i].fns[0], ftp, cr, TRUE, FALSE, buf, 255);
-                sfree(fnm[i].fns[0]);
-                fnm[i].fns[0] = gmx_strdup(buf);
+                /* Because of possible multiple extensions per type we must look
+                 * at the actual file name for rerun. */
+                if (is_output(&fnm[i]) ||
+                    fnm[i].ftp == efTPR || fnm[i].ftp == efCPT ||
+                    strcmp(fnm[i].opt, "-rerun") == 0)
+                {
+                    std::string newFileName = gmx::Path::concatenateBeforeExtension(fnm[i].fns[0], rankString);
+                    sfree(fnm[i].fns[0]);
+                    fnm[i].fns[0] = gmx_strdup(newFileName.c_str());
+                }
             }
+        }
+        catch (gmx::GromacsException &e)
+        {
+            e.prependContext(gmx::formatString("Failed to modify mdrun -multi filename to add per-simulation suffix. You could perhaps reorganize your files and try mdrun -multidir.\n"));
+            throw;
         }
     }
 }

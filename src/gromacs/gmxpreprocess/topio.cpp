@@ -3,7 +3,7 @@
  *
  * Copyright (c) 1991-2000, University of Groningen, The Netherlands.
  * Copyright (c) 2001-2004, The GROMACS development team.
- * Copyright (c) 2013,2014,2015, by the GROMACS development team, led by
+ * Copyright (c) 2013,2014,2015,2016,2017, by the GROMACS development team, led by
  * Mark Abraham, David van der Spoel, Berk Hess, and Erik Lindahl,
  * and including many others, as listed in the AUTHORS file in the
  * top-level source directory and at http://www.gromacs.org.
@@ -44,7 +44,10 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <cassert>
 #include <cmath>
+
+#include <algorithm>
 
 #include <sys/types.h>
 
@@ -54,6 +57,7 @@
 #include "gromacs/gmxpreprocess/gpp_bond_atomtype.h"
 #include "gromacs/gmxpreprocess/gpp_nextnb.h"
 #include "gromacs/gmxpreprocess/grompp-impl.h"
+#include "gromacs/gmxpreprocess/readir.h"
 #include "gromacs/gmxpreprocess/topdirs.h"
 #include "gromacs/gmxpreprocess/toppush.h"
 #include "gromacs/gmxpreprocess/topshake.h"
@@ -64,6 +68,7 @@
 #include "gromacs/mdlib/genborn.h"
 #include "gromacs/mdtypes/inputrec.h"
 #include "gromacs/mdtypes/md_enums.h"
+#include "gromacs/pbcutil/pbc.h"
 #include "gromacs/topology/block.h"
 #include "gromacs/topology/ifunc.h"
 #include "gromacs/topology/symtab.h"
@@ -72,6 +77,7 @@
 #include "gromacs/utility/fatalerror.h"
 #include "gromacs/utility/futil.h"
 #include "gromacs/utility/gmxassert.h"
+#include "gromacs/utility/pleasecite.h"
 #include "gromacs/utility/smalloc.h"
 
 #define OPENDIR     '[' /* starting sign for directive */
@@ -81,8 +87,10 @@ static void free_nbparam(t_nbparam **param, int nr)
 {
     int i;
 
+    assert(param);
     for (i = 0; i < nr; i++)
     {
+        assert(param[i]);
         sfree(param[i]);
     }
     sfree(param);
@@ -100,6 +108,7 @@ static int copy_nbparams(t_nbparam **param, int ftype, t_params *plist, int nr)
     {
         for (j = 0; j <= i; j++)
         {
+            assert(param);
             if (param[i][j].bSet)
             {
                 for (f = 0; f < nrfp; f++)
@@ -164,6 +173,10 @@ static void gen_pairs(t_params *nbs, t_params *pairs, real fudge, int comb)
             }
 
             pairs->param[i].c[j]      = scaling*nbs->param[i].c[j];
+            /* NOTE: this should be cleat to the compiler, but some gcc 5.2 versions
+             *  issue false positive warnings for the pairs->param.c[] indexing below.
+             */
+            assert(2*nrfp <= MAXFORCEPARAM);
             pairs->param[i].c[nrfp+j] = scaling*nbs->param[i].c[j];
         }
     }
@@ -222,27 +235,58 @@ double check_mol(gmx_mtop_t *mtop, warninp_t wi)
     return q;
 }
 
-static void sum_q(t_atoms *atoms, int n, double *qt, double *qBt)
+/*! \brief Returns the rounded charge of a molecule, when close to integer, otherwise returns the original charge.
+ *
+ * The results of this routine are only used for checking and for
+ * printing warning messages. Thus we can assume that charges of molecules
+ * should be integer. If the user wanted non-integer molecular charge,
+ * an undesired warning is printed and the user should use grompp -maxwarn 1.
+ *
+ * \param qMol     The total, unrounded, charge of the molecule
+ * \param sumAbsQ  The sum of absolute values of the charges, used for determining the tolerance for the rounding.
+ */
+static double roundedMoleculeCharge(double qMol, double sumAbsQ)
 {
-    double  qmolA, qmolB;
-    int     i;
-
-    /* sum charge */
-    qmolA = 0;
-    qmolB = 0;
-    for (i = 0; i < atoms->nr; i++)
-    {
-        qmolA += atoms->atom[i].q;
-        qmolB += atoms->atom[i].qB;
-    }
-    /* Unfortunately an absolute comparison,
-     * but this avoids unnecessary warnings and gmx-users mails.
+    /* We use a tolerance of 1e-6 for inaccuracies beyond the 6th decimal
+     * of the charges for ascii float truncation in the topology files.
+     * Although the summation here uses double precision, the charges
+     * are read and stored in single precision when real=float. This can
+     * lead to rounding errors of half the least significant bit.
+     * Note that, unfortunately, we can not assume addition of random
+     * rounding errors. It is not entirely unlikely that many charges
+     * have a near half-bit rounding error with the same sign.
      */
-    if (fabs(qmolA) >= 1e-6 || fabs(qmolB) >= 1e-6)
+    double tolAbs = 1e-6;
+    double tol    = std::max(tolAbs, 0.5*GMX_REAL_EPS*sumAbsQ);
+    double qRound = std::round(qMol);
+    if (std::abs(qMol - qRound) <= tol)
     {
-        *qt  += n*qmolA;
-        *qBt += n*qmolB;
+        return qRound;
     }
+    else
+    {
+        return qMol;
+    }
+}
+
+static void sum_q(const t_atoms *atoms, int numMols,
+                  double *qTotA, double *qTotB)
+{
+    /* sum charge */
+    double qmolA    = 0;
+    double qmolB    = 0;
+    double sumAbsQA = 0;
+    double sumAbsQB = 0;
+    for (int i = 0; i < atoms->nr; i++)
+    {
+        qmolA    += atoms->atom[i].q;
+        qmolB    += atoms->atom[i].qB;
+        sumAbsQA += std::abs(atoms->atom[i].q);
+        sumAbsQB += std::abs(atoms->atom[i].qB);
+    }
+
+    *qTotA += numMols*roundedMoleculeCharge(qmolA, sumAbsQA);
+    *qTotB += numMols*roundedMoleculeCharge(qmolB, sumAbsQB);
 }
 
 static void get_nbparm(char *nb_str, char *comb_str, int *nb, int *comb,
@@ -261,7 +305,7 @@ static void get_nbparm(char *nb_str, char *comb_str, int *nb, int *comb,
     }
     if (*nb == -1)
     {
-        *nb = strtol(nb_str, NULL, 10);
+        *nb = strtol(nb_str, nullptr, 10);
     }
     if ((*nb < 1) || (*nb >= eNBF_NR))
     {
@@ -280,7 +324,7 @@ static void get_nbparm(char *nb_str, char *comb_str, int *nb, int *comb,
     }
     if (*comb == -1)
     {
-        *comb = strtol(comb_str, NULL, 10);
+        *comb = strtol(comb_str, nullptr, 10);
     }
     if ((*comb < 1) || (*comb >= eCOMB_NR))
     {
@@ -297,7 +341,7 @@ static char ** cpp_opts(const char *define, const char *include,
     int         n, len;
     int         ncppopts = 0;
     const char *cppadds[2];
-    char      **cppopts   = NULL;
+    char      **cppopts   = nullptr;
     const char *option[2] = { "-D", "-I" };
     const char *nopt[2]   = { "define", "include" };
     const char *ptr;
@@ -346,7 +390,7 @@ static char ** cpp_opts(const char *define, const char *include,
         }
     }
     srenew(cppopts, ++ncppopts);
-    cppopts[ncppopts-1] = NULL;
+    cppopts[ncppopts-1] = nullptr;
 
     return cppopts;
 }
@@ -536,10 +580,11 @@ static void make_atoms_sys(int nmolb, const gmx_molblock_t *molb,
     const t_atoms *mol_atoms;
 
     atoms->nr   = 0;
-    atoms->atom = NULL;
+    atoms->atom = nullptr;
 
     for (mb = 0; mb < nmolb; mb++)
     {
+        assert(molb);
         mol_atoms = &molinfo[molb[mb].type].atoms;
 
         srenew(atoms->atom, atoms->nr + molb[mb].nmol*mol_atoms->nr);
@@ -572,18 +617,19 @@ static char **read_topol(const char *infile, const char *outfile,
                          gmx_bool        bFEP,
                          gmx_bool        bGenborn,
                          gmx_bool        bZero,
-                         warninp_t   wi)
+                         gmx_bool        usingFullRangeElectrostatics,
+                         warninp_t       wi)
 {
     FILE           *out;
     int             i, sl, nb_funct;
-    char           *pline = NULL, **title = NULL;
+    char           *pline = nullptr, **title = nullptr;
     char            line[STRLEN], errbuf[256], comb_str[256], nb_str[256];
     char            genpairs[32];
     char           *dirstr, *dummy2;
     int             nrcopies, nmol, nmolb = 0, nscan, ncombs, ncopy;
     double          fLJ, fQQ, fPOW;
-    gmx_molblock_t *molb  = NULL;
-    t_molinfo      *mi0   = NULL;
+    gmx_molblock_t *molb  = nullptr;
+    t_molinfo      *mi0   = nullptr;
     DirStack       *DS;
     directive       d, newd;
     t_nbparam     **nbparam, **pair;
@@ -597,7 +643,7 @@ static char **read_topol(const char *infile, const char *outfile,
     /* File handling variables */
     int             status, done;
     gmx_cpp_t       handle;
-    char           *tmp_line = NULL;
+    char           *tmp_line = nullptr;
     char            warn_buf[STRLEN];
     const char     *floating_point_arithmetic_tip =
         "Total charge should normally be an integer. See\n"
@@ -612,7 +658,7 @@ static char **read_topol(const char *infile, const char *outfile,
     }
     else
     {
-        out = NULL;
+        out = nullptr;
     }
 
     /* open input file */
@@ -626,14 +672,14 @@ static char **read_topol(const char *infile, const char *outfile,
     DS_Init(&DS);         /* directive stack			 */
     nmol     = 0;         /* no molecules yet...			 */
     d        = d_invalid; /* first thing should be a directive   */
-    nbparam  = NULL;      /* The temporary non-bonded matrix       */
-    pair     = NULL;      /* The temporary pair interaction matrix */
-    block2   = NULL;      /* the extra exclusions			 */
+    nbparam  = nullptr;   /* The temporary non-bonded matrix       */
+    pair     = nullptr;   /* The temporary pair interaction matrix */
+    block2   = nullptr;   /* the extra exclusions			 */
     nb_funct = F_LJ;
 
     *reppow  = 12.0;      /* Default value for repulsion power     */
 
-    *intermolecular_interactions = NULL;
+    *intermolecular_interactions = nullptr;
 
     /* Init the number of CMAP torsion angles  and grid spacing */
     plist[F_CMAP].grid_spacing = 0;
@@ -723,7 +769,7 @@ static char **read_topol(const char *infile, const char *outfile,
                      * skip spaces and tabs on either side of directive
                      */
                     dirstr = gmx_strdup((pline+1));
-                    if ((dummy2 = strchr (dirstr, CLOSEDIR)) != NULL)
+                    if ((dummy2 = strchr (dirstr, CLOSEDIR)) != nullptr)
                     {
                         (*dummy2) = 0;
                     }
@@ -757,7 +803,7 @@ static char **read_topol(const char *infile, const char *outfile,
 
                         if (d == d_intermolecular_interactions)
                         {
-                            if (*intermolecular_interactions == NULL)
+                            if (*intermolecular_interactions == nullptr)
                             {
                                 /* We (mis)use the moleculetype processing
                                  * to process the intermolecular interactions
@@ -827,14 +873,14 @@ static char **read_topol(const char *infile, const char *outfile,
                             break;
                         case d_atomtypes:
                             push_at(symtab, atype, batype, pline, nb_funct,
-                                    &nbparam, bGenPairs ? &pair : NULL, wi);
+                                    &nbparam, bGenPairs ? &pair : nullptr, wi);
                             break;
 
                         case d_bondtypes:
-                            push_bt(d, plist, 2, NULL, batype, pline, wi);
+                            push_bt(d, plist, 2, nullptr, batype, pline, wi);
                             break;
                         case d_constrainttypes:
-                            push_bt(d, plist, 2, NULL, batype, pline, wi);
+                            push_bt(d, plist, 2, nullptr, batype, pline, wi);
                             break;
                         case d_pairtypes:
                             if (bGenPairs)
@@ -843,11 +889,11 @@ static char **read_topol(const char *infile, const char *outfile,
                             }
                             else
                             {
-                                push_bt(d, plist, 2, atype, NULL, pline, wi);
+                                push_bt(d, plist, 2, atype, nullptr, pline, wi);
                             }
                             break;
                         case d_angletypes:
-                            push_bt(d, plist, 3, NULL, batype, pline, wi);
+                            push_bt(d, plist, 3, nullptr, batype, pline, wi);
                             break;
                         case d_dihedraltypes:
                             /* Special routine that can read both 2 and 4 atom dihedral definitions. */
@@ -887,14 +933,14 @@ static char **read_topol(const char *infile, const char *outfile,
                             if (!bReadMolType)
                             {
                                 int ntype;
-                                if (opts->couple_moltype != NULL &&
+                                if (opts->couple_moltype != nullptr &&
                                     (opts->couple_lam0 == ecouplamNONE ||
                                      opts->couple_lam0 == ecouplamQ ||
                                      opts->couple_lam1 == ecouplamNONE ||
                                      opts->couple_lam1 == ecouplamQ))
                                 {
                                     dcatt = add_atomtype_decoupled(symtab, atype,
-                                                                   &nbparam, bGenPairs ? &pair : NULL);
+                                                                   &nbparam, bGenPairs ? &pair : nullptr);
                                 }
                                 ntype  = get_atomtype_ntypes(atype);
                                 ncombs = (ntype*(ntype+1))/2;
@@ -918,8 +964,13 @@ static char **read_topol(const char *infile, const char *outfile,
 
                             push_molt(symtab, &nmol, molinfo, pline, wi);
                             srenew(block2, nmol);
-                            block2[nmol-1].nr = 0;
-                            mi0               = &((*molinfo)[nmol-1]);
+                            block2[nmol-1].nr      = 0;
+                            mi0                    = &((*molinfo)[nmol-1]);
+                            mi0->atoms.haveMass    = TRUE;
+                            mi0->atoms.haveCharge  = TRUE;
+                            mi0->atoms.haveType    = TRUE;
+                            mi0->atoms.haveBState  = TRUE;
+                            mi0->atoms.havePdbInfo = FALSE;
                             break;
                         }
                         case d_atoms:
@@ -968,7 +1019,7 @@ static char **read_topol(const char *infile, const char *outfile,
                             {
                                 init_block2(&(block2[nmol-1]), mi0->atoms.nr);
                             }
-                            push_excl(pline, &(block2[nmol-1]));
+                            push_excl(pline, &(block2[nmol-1]), wi);
                             break;
                         case d_system:
                             trim(pline);
@@ -986,7 +1037,7 @@ static char **read_topol(const char *infile, const char *outfile,
                             molb[nmolb].nmol = nrcopies;
                             nmolb++;
 
-                            bCouple = (opts->couple_moltype != NULL &&
+                            bCouple = (opts->couple_moltype != nullptr &&
                                        (gmx_strcasecmp("system", opts->couple_moltype) == 0 ||
                                         strcmp(*(mi0->name), opts->couple_moltype) == 0));
                             if (bCouple)
@@ -1011,7 +1062,7 @@ static char **read_topol(const char *infile, const char *outfile,
                                               mi0->plist,
                                               &nnb,
                                               &(mi0->excls));
-                                merge_excl(&(mi0->excls), &(block2[whichmol]));
+                                merge_excl(&(mi0->excls), &(block2[whichmol]), wi);
                                 done_block2(&(block2[whichmol]));
                                 make_shake(mi0->plist, &mi0->atoms, opts->nshake);
 
@@ -1032,7 +1083,7 @@ static char **read_topol(const char *infile, const char *outfile,
                                     convert_moltype_couple(mi0, dcatt, *fudgeQQ,
                                                            opts->couple_lam0, opts->couple_lam1,
                                                            opts->bCoupleIntra,
-                                                           nb_funct, &(plist[nb_funct]));
+                                                           nb_funct, &(plist[nb_funct]), wi);
                                 }
                                 stupid_fill_block(&mi0->mols, mi0->atoms.nr, TRUE);
                                 mi0->bProcessed = TRUE;
@@ -1046,7 +1097,7 @@ static char **read_topol(const char *infile, const char *outfile,
                 }
             }
             sfree(pline);
-            pline = NULL;
+            pline = nullptr;
         }
     }
     while (!done);
@@ -1077,6 +1128,7 @@ static char **read_topol(const char *infile, const char *outfile,
     {
         title = put_symtab(symtab, "");
     }
+
     if (fabs(qt) > 1e-4)
     {
         sprintf(warn_buf, "System has non-zero total charge: %.6f\n%s\n", qt, floating_point_arithmetic_tip);
@@ -1087,6 +1139,12 @@ static char **read_topol(const char *infile, const char *outfile,
         sprintf(warn_buf, "State B has non-zero total charge: %.6f\n%s\n", qBt, floating_point_arithmetic_tip);
         warning_note(wi, warn_buf);
     }
+    if (usingFullRangeElectrostatics && (fabs(qt) > 1e-4 || fabs(qBt) > 1e-4))
+    {
+        warning(wi, "You are using Ewald electrostatics in a system with net charge. This can lead to severe artifacts, such as ions moving into regions with low dielectric, due to the uniform background charge. We suggest to neutralize your system with counter ions, possibly in combination with a physiological salt concentration.");
+        please_cite(stdout, "Hub2014a");
+    }
+
     DS_Done (&DS);
     for (i = 0; i < nmol; i++)
     {
@@ -1096,7 +1154,7 @@ static char **read_topol(const char *infile, const char *outfile,
 
     done_bond_atomtype(&batype);
 
-    if (*intermolecular_interactions != NULL)
+    if (*intermolecular_interactions != nullptr)
     {
         sfree(mi0->atoms.atom);
     }
@@ -1123,7 +1181,7 @@ char **do_top(gmx_bool          bVerbose,
               int              *nrmols,
               t_molinfo       **molinfo,
               t_molinfo       **intermolecular_interactions,
-              t_inputrec       *ir,
+              const t_inputrec *ir,
               int              *nmolblock,
               gmx_molblock_t  **molblock,
               gmx_bool          bGenborn,
@@ -1139,7 +1197,7 @@ char **do_top(gmx_bool          bVerbose,
     }
     else
     {
-        tmpfile = NULL;
+        tmpfile = nullptr;
     }
 
     if (bVerbose)
@@ -1151,7 +1209,9 @@ char **do_top(gmx_bool          bVerbose,
                        nrmols, molinfo, intermolecular_interactions,
                        plist, combination_rule, repulsion_power,
                        opts, fudgeQQ, nmolblock, molblock,
-                       ir->efep != efepNO, bGenborn, bZero, wi);
+                       ir->efep != efepNO, bGenborn, bZero,
+                       EEL_FULL(ir->coulombtype), wi);
+
     if ((*combination_rule != eCOMB_GEOMETRIC) &&
         (ir->vdwtype == evdwUSER))
     {
@@ -1165,7 +1225,7 @@ char **do_top(gmx_bool          bVerbose,
 
 
 static void generate_qmexcl_moltype(gmx_moltype_t *molt, unsigned char *grpnr,
-                                    t_inputrec *ir)
+                                    t_inputrec *ir, warninp_t wi)
 {
     /* This routine expects molt->ilist to be of size F_NRE and ordered. */
 
@@ -1173,16 +1233,9 @@ static void generate_qmexcl_moltype(gmx_moltype_t *molt, unsigned char *grpnr,
      * these interactions should be handled by the QM subroutines and
      * not by the gromacs routines
      */
-    int
-        i, j, l, k = 0, jmax, qm_max = 0, qm_nr = 0, nratoms = 0, link_nr = 0, link_max = 0;
-    int
-       *qm_arr = NULL, *link_arr = NULL, a1, a2, a3, a4, ftype = 0;
-    t_blocka
-        qmexcl;
-    t_block2
-        qmexcl2;
-    gmx_bool
-       *bQMMM, *blink, bexcl;
+    int       qm_max = 0, qm_nr = 0, link_nr = 0, link_max = 0;
+    int      *qm_arr = nullptr, *link_arr = nullptr;
+    gmx_bool *bQMMM, *blink;
 
     /* First we search and select the QM atoms in an qm_arr array that
      * we use to create the exclusions.
@@ -1193,13 +1246,12 @@ static void generate_qmexcl_moltype(gmx_moltype_t *molt, unsigned char *grpnr,
      * for that we also need to do this an ugly work-about just in case
      * the QM group contains the entire system...
      */
-    jmax = ir->opts.ngQM;
 
     /* we first search for all the QM atoms and put them in an array
      */
-    for (j = 0; j < jmax; j++)
+    for (int j = 0; j < ir->opts.ngQM; j++)
     {
-        for (i = 0; i < molt->atoms.nr; i++)
+        for (int i = 0; i < molt->atoms.nr; i++)
         {
             if (qm_nr >= qm_max)
             {
@@ -1218,11 +1270,11 @@ static void generate_qmexcl_moltype(gmx_moltype_t *molt, unsigned char *grpnr,
      * to TRUE.
      */
     snew(bQMMM, molt->atoms.nr);
-    for (i = 0; i < molt->atoms.nr; i++)
+    for (int i = 0; i < molt->atoms.nr; i++)
     {
         bQMMM[i] = FALSE;
     }
-    for (i = 0; i < qm_nr; i++)
+    for (int i = 0; i < qm_nr; i++)
     {
         bQMMM[qm_arr[i]] = TRUE;
     }
@@ -1237,76 +1289,89 @@ static void generate_qmexcl_moltype(gmx_moltype_t *molt, unsigned char *grpnr,
      * are computed, the top->idef.il[N].iatom[] array (see idef.h) can
      * be rewritten at this poitn without any problem. 25-9-2002 */
 
-    /* first check weter we already have CONNBONDS: */
+    /* first check whether we already have CONNBONDS.
+     * Note that if we don't, we don't add a param entry and set ftype=0,
+     * which is ok, since CONNBONDS does not use parameters.
+     */
+    int ftype_connbond = 0;
+    int ind_connbond   = 0;
     if (molt->ilist[F_CONNBONDS].nr != 0)
     {
         fprintf(stderr, "nr. of CONNBONDS present already: %d\n",
                 molt->ilist[F_CONNBONDS].nr/3);
-        ftype = molt->ilist[F_CONNBONDS].iatoms[0];
-        k     = molt->ilist[F_CONNBONDS].nr;
+        ftype_connbond = molt->ilist[F_CONNBONDS].iatoms[0];
+        ind_connbond   = molt->ilist[F_CONNBONDS].nr;
     }
     /* now we delete all bonded interactions, except the ones describing
      * a chemical bond. These are converted to CONNBONDS
      */
-    for (i = 0; i < F_LJ; i++)
+    for (int ftype = 0; ftype < F_NRE; ftype++)
     {
-        if (i == F_CONNBONDS)
+        if (!(interaction_function[ftype].flags & IF_BOND) ||
+            ftype == F_CONNBONDS)
         {
             continue;
         }
-        nratoms = interaction_function[i].nratoms;
-        j       = 0;
-        while (j < molt->ilist[i].nr)
+        int nratoms = interaction_function[ftype].nratoms;
+        int j       = 0;
+        while (j < molt->ilist[ftype].nr)
         {
-            switch (nratoms)
+            bool bexcl;
+
+            if (nratoms == 2)
             {
-                case 2:
-                    a1    = molt->ilist[i].iatoms[j+1];
-                    a2    = molt->ilist[i].iatoms[j+2];
-                    bexcl = (bQMMM[a1] && bQMMM[a2]);
-                    /* a bonded beteen two QM atoms will be copied to the
-                     * CONNBONDS list, for reasons mentioned above
-                     */
-                    if (bexcl && i < F_ANGLES)
+                /* Remove an interaction between two atoms when both are
+                 * in the QM region. Note that we don't have to worry about
+                 * link atoms here, as they won't have 2-atom interactions.
+                 */
+                int a1 = molt->ilist[ftype].iatoms[1 + j + 0];
+                int a2 = molt->ilist[ftype].iatoms[1 + j + 1];
+                bexcl  = (bQMMM[a1] && bQMMM[a2]);
+                /* A chemical bond between two QM atoms will be copied to
+                 * the F_CONNBONDS list, for reasons mentioned above.
+                 */
+                if (bexcl && IS_CHEMBOND(ftype))
+                {
+                    srenew(molt->ilist[F_CONNBONDS].iatoms, ind_connbond + 3);
+                    molt->ilist[F_CONNBONDS].nr                     += 3;
+                    molt->ilist[F_CONNBONDS].iatoms[ind_connbond++]  = ftype_connbond;
+                    molt->ilist[F_CONNBONDS].iatoms[ind_connbond++]  = a1;
+                    molt->ilist[F_CONNBONDS].iatoms[ind_connbond++]  = a2;
+                }
+            }
+            else
+            {
+                /* MM interactions have to be excluded if they are included
+                 * in the QM already. Because we use a link atom (H atom)
+                 * when the QM/MM boundary runs through a chemical bond, this
+                 * means that as long as one atom is MM, we still exclude,
+                 * as the interaction is included in the QM via:
+                 * QMatom1-QMatom2-QMatom-3-Linkatom.
+                 */
+                int numQmAtoms = 0;
+                for (int jj = j + 1; jj < j + 1 + nratoms; jj++)
+                {
+                    if (bQMMM[molt->ilist[ftype].iatoms[jj]])
                     {
-                        srenew(molt->ilist[F_CONNBONDS].iatoms, k+3);
-                        molt->ilist[F_CONNBONDS].nr         += 3;
-                        molt->ilist[F_CONNBONDS].iatoms[k++] = ftype;
-                        molt->ilist[F_CONNBONDS].iatoms[k++] = a1;
-                        molt->ilist[F_CONNBONDS].iatoms[k++] = a2;
+                        numQmAtoms++;
                     }
-                    break;
-                case 3:
-                    a1    = molt->ilist[i].iatoms[j+1];
-                    a2    = molt->ilist[i].iatoms[j+2];
-                    a3    = molt->ilist[i].iatoms[j+3];
-                    bexcl = ((bQMMM[a1] && bQMMM[a2]) ||
-                             (bQMMM[a1] && bQMMM[a3]) ||
-                             (bQMMM[a2] && bQMMM[a3]));
-                    break;
-                case 4:
-                    a1    = molt->ilist[i].iatoms[j+1];
-                    a2    = molt->ilist[i].iatoms[j+2];
-                    a3    = molt->ilist[i].iatoms[j+3];
-                    a4    = molt->ilist[i].iatoms[j+4];
-                    bexcl = ((bQMMM[a1] && bQMMM[a2] && bQMMM[a3]) ||
-                             (bQMMM[a1] && bQMMM[a2] && bQMMM[a4]) ||
-                             (bQMMM[a1] && bQMMM[a3] && bQMMM[a4]) ||
-                             (bQMMM[a2] && bQMMM[a3] && bQMMM[a4]));
-                    break;
-                default:
-                    gmx_fatal(FARGS, "no such bonded interactions with %d atoms\n", nratoms);
-                    bexcl = FALSE;
+                }
+                bexcl = (numQmAtoms >= nratoms - 1);
+
+                if (bexcl && ftype == F_SETTLE)
+                {
+                    gmx_fatal(FARGS, "Can not apply QM to molecules with SETTLE, replace the moleculetype using QM and SETTLE by one without SETTLE");
+                }
             }
             if (bexcl)
             {
                 /* since the interaction involves QM atoms, these should be
                  * removed from the MM ilist
                  */
-                molt->ilist[i].nr -= (nratoms+1);
-                for (l = j; l < molt->ilist[i].nr; l++)
+                molt->ilist[ftype].nr -= (nratoms+1);
+                for (int l = j; l < molt->ilist[ftype].nr; l++)
                 {
-                    molt->ilist[i].iatoms[l] = molt->ilist[i].iatoms[l+(nratoms+1)];
+                    molt->ilist[ftype].iatoms[l] = molt->ilist[ftype].iatoms[l+(nratoms+1)];
                 }
             }
             else
@@ -1321,15 +1386,15 @@ static void generate_qmexcl_moltype(gmx_moltype_t *molt, unsigned char *grpnr,
      * linkatoms interaction with the QMatoms and would be counted
      * twice.  */
 
-    for (i = 0; i < F_NRE; i++)
+    for (int i = 0; i < F_NRE; i++)
     {
         if (IS_CHEMBOND(i))
         {
-            j = 0;
+            int j = 0;
             while (j < molt->ilist[i].nr)
             {
-                a1 = molt->ilist[i].iatoms[j+1];
-                a2 = molt->ilist[i].iatoms[j+2];
+                int a1 = molt->ilist[i].iatoms[j+1];
+                int a2 = molt->ilist[i].iatoms[j+2];
                 if ((bQMMM[a1] && !bQMMM[a2]) || (!bQMMM[a1] && bQMMM[a2]))
                 {
                     if (link_nr >= link_max)
@@ -1351,32 +1416,33 @@ static void generate_qmexcl_moltype(gmx_moltype_t *molt, unsigned char *grpnr,
         }
     }
     snew(blink, molt->atoms.nr);
-    for (i = 0; i < molt->atoms.nr; i++)
+    for (int i = 0; i < molt->atoms.nr; i++)
     {
         blink[i] = FALSE;
     }
-    for (i = 0; i < link_nr; i++)
+    for (int i = 0; i < link_nr; i++)
     {
         blink[link_arr[i]] = TRUE;
     }
     /* creating the exclusion block for the QM atoms. Each QM atom has
      * as excluded elements all the other QMatoms (and itself).
      */
+    t_blocka  qmexcl;
     qmexcl.nr  = molt->atoms.nr;
     qmexcl.nra = qm_nr*(qm_nr+link_nr)+link_nr*qm_nr;
     snew(qmexcl.index, qmexcl.nr+1);
     snew(qmexcl.a, qmexcl.nra);
-    j = 0;
-    for (i = 0; i < qmexcl.nr; i++)
+    int j = 0;
+    for (int i = 0; i < qmexcl.nr; i++)
     {
         qmexcl.index[i] = j;
         if (bQMMM[i])
         {
-            for (k = 0; k < qm_nr; k++)
+            for (int k = 0; k < qm_nr; k++)
             {
                 qmexcl.a[k+j] = qm_arr[k];
             }
-            for (k = 0; k < link_nr; k++)
+            for (int k = 0; k < link_nr; k++)
             {
                 qmexcl.a[qm_nr+k+j] = link_arr[k];
             }
@@ -1384,7 +1450,7 @@ static void generate_qmexcl_moltype(gmx_moltype_t *molt, unsigned char *grpnr,
         }
         if (blink[i])
         {
-            for (k = 0; k < qm_nr; k++)
+            for (int k = 0; k < qm_nr; k++)
             {
                 qmexcl.a[k+j] = qm_arr[k];
             }
@@ -1396,9 +1462,10 @@ static void generate_qmexcl_moltype(gmx_moltype_t *molt, unsigned char *grpnr,
     /* and merging with the exclusions already present in sys.
      */
 
+    t_block2  qmexcl2;
     init_block2(&qmexcl2, molt->atoms.nr);
     b_to_b2(&qmexcl, &qmexcl2);
-    merge_excl(&(molt->excls), &qmexcl2);
+    merge_excl(&(molt->excls), &qmexcl2, wi);
     done_block2(&qmexcl2);
 
     /* Finally, we also need to get rid of the pair interactions of the
@@ -1406,24 +1473,24 @@ static void generate_qmexcl_moltype(gmx_moltype_t *molt, unsigned char *grpnr,
      * as this interaction is already accounted for by the QM, so also
      * here we run the risk of double counting! We proceed in a similar
      * way as we did above for the other bonded interactions: */
-    for (i = F_LJ14; i < F_COUL14; i++)
+    for (int i = F_LJ14; i < F_COUL14; i++)
     {
-        nratoms = interaction_function[i].nratoms;
-        j       = 0;
+        int nratoms = interaction_function[i].nratoms;
+        int j       = 0;
         while (j < molt->ilist[i].nr)
         {
-            a1    = molt->ilist[i].iatoms[j+1];
-            a2    = molt->ilist[i].iatoms[j+2];
-            bexcl = ((bQMMM[a1] && bQMMM[a2]) ||
-                     (blink[a1] && bQMMM[a2]) ||
-                     (bQMMM[a1] && blink[a2]));
+            int  a1    = molt->ilist[i].iatoms[j+1];
+            int  a2    = molt->ilist[i].iatoms[j+2];
+            bool bexcl = ((bQMMM[a1] && bQMMM[a2]) ||
+                          (blink[a1] && bQMMM[a2]) ||
+                          (bQMMM[a1] && blink[a2]));
             if (bexcl)
             {
                 /* since the interaction involves QM atoms, these should be
                  * removed from the MM ilist
                  */
                 molt->ilist[i].nr -= (nratoms+1);
-                for (k = j; k < molt->ilist[i].nr; k++)
+                for (int k = j; k < molt->ilist[i].nr; k++)
                 {
                     molt->ilist[i].iatoms[k] = molt->ilist[i].iatoms[k+(nratoms+1)];
                 }
@@ -1514,7 +1581,7 @@ void generate_qmexcl(gmx_mtop_t *sys, t_inputrec *ir, warninp_t    wi)
                     /* Set the molecule type for the QMMM molblock */
                     molb->type = sys->nmoltype - 1;
                 }
-                generate_qmexcl_moltype(&sys->moltype[molb->type], grpnr, ir);
+                generate_qmexcl_moltype(&sys->moltype[molb->type], grpnr, ir, wi);
             }
             if (grpnr)
             {

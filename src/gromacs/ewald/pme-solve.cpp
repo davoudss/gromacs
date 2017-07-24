@@ -3,7 +3,7 @@
  *
  * Copyright (c) 1991-2000, University of Groningen, The Netherlands.
  * Copyright (c) 2001-2004, The GROMACS development team.
- * Copyright (c) 2013,2014,2015, by the GROMACS development team, led by
+ * Copyright (c) 2013,2014,2015,2016,2017, by the GROMACS development team, led by
  * Mark Abraham, David van der Spoel, Berk Hess, and Erik Lindahl,
  * and including many others, as listed in the AUTHORS file in the
  * top-level source directory and at http://www.gromacs.org.
@@ -140,27 +140,31 @@ void pme_init_all_work(struct pme_solve_work_t **work, int nthread, int nkx)
 
 static void free_work(struct pme_solve_work_t *work)
 {
-    sfree(work->mhx);
-    sfree(work->mhy);
-    sfree(work->mhz);
-    sfree(work->m2);
-    sfree_aligned(work->denom);
-    sfree_aligned(work->tmp1);
-    sfree_aligned(work->tmp2);
-    sfree_aligned(work->eterm);
-    sfree(work->m2inv);
+    if (work)
+    {
+        sfree(work->mhx);
+        sfree(work->mhy);
+        sfree(work->mhz);
+        sfree(work->m2);
+        sfree_aligned(work->denom);
+        sfree_aligned(work->tmp1);
+        sfree_aligned(work->tmp2);
+        sfree_aligned(work->eterm);
+        sfree(work->m2inv);
+    }
 }
 
 void pme_free_all_work(struct pme_solve_work_t **work, int nthread)
 {
-    int thread;
-
-    for (thread = 0; thread < nthread; thread++)
+    if (*work)
     {
-        free_work(&(*work)[thread]);
+        for (int thread = 0; thread < nthread; thread++)
+        {
+            free_work(&(*work)[thread]);
+        }
     }
-    sfree(work);
-    *work = NULL;
+    sfree(*work);
+    *work = nullptr;
 }
 
 void get_pme_ener_vir_q(struct pme_solve_work_t *work, int nthread,
@@ -215,7 +219,7 @@ gmx_inline static void calc_exponentials_q(int gmx_unused start, int end, real f
         {
             tmp_d1   = load(d_aligned+kx);
             tmp_r    = load(r_aligned+kx);
-            tmp_r    = exp(tmp_r);
+            tmp_r    = gmx::exp(tmp_r);
             tmp_e    = f_simd / tmp_d1;
             tmp_e    = tmp_e * tmp_r;
             store(e_aligned+kx, tmp_e);
@@ -232,7 +236,7 @@ gmx_inline static void calc_exponentials_q(int start, int end, real f, real *d, 
     }
     for (kx = start; kx < end; kx++)
     {
-        r[kx] = exp(r[kx]);
+        r[kx] = std::exp(r[kx]);
     }
     for (kx = start; kx < end; kx++)
     {
@@ -257,7 +261,7 @@ gmx_inline static void calc_exponentials_lj(int gmx_unused start, int end, real 
         d_inv = SimdReal(1.0) / tmp_d;
         store(d_aligned+kx, d_inv);
         tmp_r = load(r_aligned+kx);
-        tmp_r = exp(tmp_r);
+        tmp_r = gmx::exp(tmp_r);
         store(r_aligned+kx, tmp_r);
         tmp_mk  = load(factor_aligned+kx);
         tmp_fac = sqr_PI * tmp_mk * erfc(tmp_mk);
@@ -276,7 +280,7 @@ gmx_inline static void calc_exponentials_lj(int start, int end, real *r, real *t
 
     for (kx = start; kx < end; kx++)
     {
-        r[kx] = exp(r[kx]);
+        r[kx] = std::exp(r[kx]);
     }
 
     for (kx = start; kx < end; kx++)
@@ -287,8 +291,7 @@ gmx_inline static void calc_exponentials_lj(int start, int end, real *r, real *t
 }
 #endif
 
-int solve_pme_yzx(struct gmx_pme_t *pme, t_complex *grid,
-                  real ewaldcoeff, real vol,
+int solve_pme_yzx(struct gmx_pme_t *pme, t_complex *grid, real vol,
                   gmx_bool bEnerVir,
                   int nthread, int thread,
 		  SE_FGG_params *se_params, gmx_bool se_set)
@@ -299,7 +302,8 @@ int solve_pme_yzx(struct gmx_pme_t *pme, t_complex *grid,
     int                      kx, ky, kz, maxkx, maxky;
     int                      nx, ny, nz, iyz0, iyz1, iyz, iy, iz, kxstart, kxend;
     real                     mx, my, mz;
-    real                     factor = M_PI*M_PI/(ewaldcoeff*ewaldcoeff);
+    real                     ewaldcoeff = pme->ewaldcoeff_q;
+    real                     factor     = M_PI*M_PI/(ewaldcoeff*ewaldcoeff);
     real                     ets2, struct2, vfactor, ets2vf;
     real                     d1, d2, energy = 0;
     real                     by, bz;
@@ -313,7 +317,7 @@ int solve_pme_yzx(struct gmx_pme_t *pme, t_complex *grid,
     ivec                     local_ndata, local_offset, local_size;
     real                     elfac;
 
-    // davoud as long as epsilon_r=1 this is fine.
+    // As long as epsilon_r=1 this is fine.
     elfac = ONE_4PI_EPS0/pme->epsilon_r;
 
     nx = pme->nkx;
@@ -327,7 +331,6 @@ int solve_pme_yzx(struct gmx_pme_t *pme, t_complex *grid,
                                       local_offset,
                                       local_size);
 
-    // davoud scaling (kvec, Z, scaling grid)
     if(se_set)
       {
 	real se_eta    = se_params->eta;
@@ -540,7 +543,7 @@ int solve_pme_yzx(struct gmx_pme_t *pme, t_complex *grid,
 	    work->vir_q[YY][ZZ] = work->vir_q[ZZ][YY] = 0.25*viryz;
 	    
 	    /* This energy should be corrected for a charged system */
-	    // FIXME: where does this value come from in the energy? (davoud)
+	    // FIXME: where does this value come from in the energy?
 	    real extra_fac = 1.0/(nx*ny*nz)*M_PI*1.428322531170926;
 	    
 	    work->energy_q = pow(0.5*energy*extra_fac,2);
@@ -764,8 +767,7 @@ int solve_pme_yzx(struct gmx_pme_t *pme, t_complex *grid,
     return local_ndata[YY]*local_ndata[XX];
 }
 
-int solve_pme_lj_yzx(struct gmx_pme_t *pme, t_complex **grid, gmx_bool bLB,
-                     real ewaldcoeff, real vol,
+int solve_pme_lj_yzx(struct gmx_pme_t *pme, t_complex **grid, gmx_bool bLB, real vol,
                      gmx_bool bEnerVir, int nthread, int thread)
 {
     /* do recip sum over local cells in grid */
@@ -774,7 +776,8 @@ int solve_pme_lj_yzx(struct gmx_pme_t *pme, t_complex **grid, gmx_bool bLB,
     int                      kx, ky, kz, maxkx, maxky;
     int                      nx, ny, nz, iy, iyz0, iyz1, iyz, iz, kxstart, kxend;
     real                     mx, my, mz;
-    real                     factor = M_PI*M_PI/(ewaldcoeff*ewaldcoeff);
+    real                     ewaldcoeff = pme->ewaldcoeff_lj;
+    real                     factor     = M_PI*M_PI/(ewaldcoeff*ewaldcoeff);
     real                     ets2, ets2vf;
     real                     eterm, vterm, d1, d2, energy = 0;
     real                     by, bz;

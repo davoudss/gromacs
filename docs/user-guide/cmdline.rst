@@ -141,6 +141,53 @@ linked help for the new commands for a full description.
 This section lists only major changes; minor changes like additional/removed
 options or bug fixes are not typically included.
 
+Version 2017
+^^^^^^^^^^^^
+
+gmx trajectory
+..............
+
+**new**
+
+:ref:`gmx trajectory` has been introduced as a selection-enabled version of
+:ref:`gmx traj`.  It supports output of coordinates, velocities, and/or forces
+for positions calculated for selections.
+
+Version 2016
+^^^^^^^^^^^^
+
+Analysis on arbitrary subsets of atoms
+......................................
+
+Tools implemented in the new analysis framework can now operate upon trajectories
+that match only a subset of the atoms in the input structure file.
+
+gmx insert-molecules
+....................
+
+**improved**
+
+:ref:`gmx insert-molecules` has gained an option ``-replace`` that makes it
+possible to insert molecules into a solvated configuration, replacing any
+overlapping solvent atoms.  In a fully solvated box, it is also possible to
+insert into a certain region of the solvent only by selecting a subset of the
+solvent atoms (``-replace`` takes a selection that can also contain expressions
+like ``not within 1 of ...``).
+
+gmx rdf
+.......
+
+**improved**
+
+The normalization for the output RDF can now also be the radial number density.
+
+gmx genconf
+...........
+
+**simplified**
+
+Removed ``-block``, ``-sort`` and ``-shuffle``.
+
 Version 5.1
 ^^^^^^^^^^^
 
@@ -266,6 +313,7 @@ calculating normal angles between three atoms and/or centers-of-mass, making it
 a partial replacement for :ref:`gmx angle` as well.
 
 gmx protonate
+.............
 
 **replaced**
 

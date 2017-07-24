@@ -1,7 +1,7 @@
 #
 # This file is part of the GROMACS molecular simulation package.
 #
-# Copyright (c) 2012,2013,2014,2015,2016, by the GROMACS development team, led by
+# Copyright (c) 2012,2013,2014,2015,2016,2017, by the GROMACS development team, led by
 # Mark Abraham, David van der Spoel, Berk Hess, and Erik Lindahl,
 # and including many others, as listed in the AUTHORS file in the
 # top-level source directory and at http://www.gromacs.org.
@@ -32,12 +32,12 @@
 # To help us fund GROMACS development, we humbly ask that you cite
 # the research papers on the package. Check out http://www.gromacs.org.
 
-# - Check the username performing the build, as well as date and time
+# Check the username performing the build, as well as date, time, and
+# build CPU features.
 #
-# gmx_set_build_information()
-#
-# The macro variables will be set to the user/host/cpu used for configuration,
-# or anonymous/unknown if it cannot be detected (windows)
+# The following variables will be set to the user/host/cpu used for
+# configuration, or anonymous/unknown if it cannot be detected
+# (Windows).
 #
 # BUILD_TIME
 # BUILD_USER
@@ -50,120 +50,64 @@
 # BUILD_CPU_FEATURES
 #
 
-# we rely on inline asm support for GNU!
-include(gmxTestInlineASM)
+include(gmxDetectCpu)
 
-macro(gmx_set_build_information)
-    IF(NOT DEFINED BUILD_USER)
-
-    gmx_test_inline_asm_gcc_x86(GMX_X86_GCC_INLINE_ASM)
-
-    if(GMX_X86_GCC_INLINE_ASM)
-        set(GCC_INLINE_ASM_DEFINE "-DGMX_X86_GCC_INLINE_ASM=1")
-    else()
-        set(GCC_INLINE_ASM_DEFINE "-DGMX_X86_GCC_INLINE_ASM=0")
+function(gmx_set_build_information)
+    if(NOT BUILD_USER)
+        if(CMAKE_HOST_UNIX)
+            execute_process( COMMAND whoami OUTPUT_VARIABLE TMP_USER OUTPUT_STRIP_TRAILING_WHITESPACE)
+            execute_process( COMMAND hostname OUTPUT_VARIABLE TMP_HOSTNAME OUTPUT_STRIP_TRAILING_WHITESPACE)
+        else()
+            set(TMP_USER "Anonymous")
+            set(TMP_HOSTNAME "unknown")
+        endif()
+        set(BUILD_USER "${TMP_USER}\@${TMP_HOSTNAME} [CMAKE]" CACHE INTERNAL "Build user")
+        message(STATUS "Setting build user - ${BUILD_USER}")
     endif()
 
-    message(STATUS "Setting build user/date/host/cpu information")
-    if(CMAKE_HOST_UNIX)
-        execute_process( COMMAND date     OUTPUT_VARIABLE TMP_TIME    OUTPUT_STRIP_TRAILING_WHITESPACE)
-        execute_process( COMMAND whoami   OUTPUT_VARIABLE TMP_USER       OUTPUT_STRIP_TRAILING_WHITESPACE)
-        execute_process( COMMAND hostname OUTPUT_VARIABLE TMP_HOSTNAME   OUTPUT_STRIP_TRAILING_WHITESPACE)
-        set(BUILD_USER    "${TMP_USER}\@${TMP_HOSTNAME} [CMAKE]" CACHE INTERNAL "Build user")
-        set(BUILD_TIME    "${TMP_TIME}" CACHE INTERNAL "Build date & time")
-        execute_process( COMMAND uname -srm OUTPUT_VARIABLE TMP_HOST OUTPUT_STRIP_TRAILING_WHITESPACE)
-        set(BUILD_HOST    "${TMP_HOST}" CACHE INTERNAL "Build host & architecture")
-        message(STATUS "Setting build user & time - OK")
-    else()
-        set(BUILD_USER    "Anonymous\@unknown [CMAKE]" CACHE INTERNAL "Build user")
-        set(BUILD_TIME    "Unknown date" CACHE INTERNAL "Build date & time")
-        set(BUILD_HOST    "${CMAKE_HOST_SYSTEM} ${CMAKE_HOST_SYSTEM_PROCESSOR}" CACHE INTERNAL "Build host & architecture")
-        message(STATUS "Setting build user & time - not on Unix, using anonymous")
+    if(NOT BUILD_TIME)
+        if(CMAKE_HOST_UNIX)
+            execute_process( COMMAND date OUTPUT_VARIABLE TMP_TIME OUTPUT_STRIP_TRAILING_WHITESPACE)
+        else()
+            set(TMP_TIME "Unknown date")
+        endif()
+        set(BUILD_TIME "${TMP_TIME}" CACHE INTERNAL "Build date & time")
+        message(STATUS "Setting build time - ${BUILD_TIME}")
     endif()
 
-    if(NOT CMAKE_CROSSCOMPILING)
-        # Get CPU information, e.g. for deciding what SIMD support exists
-        set(_compile_definitions "${GCC_INLINE_ASM_DEFINE} -I${CMAKE_SOURCE_DIR}/src -DGMX_CPUINFO_STANDALONE")
-        try_run(GMX_CPUINFO_RUN_VENDOR GMX_CPUINFO_COMPILED
-            ${CMAKE_BINARY_DIR}
-            ${CMAKE_SOURCE_DIR}/src/gromacs/hardware/cpuinfo.cpp
-            COMPILE_DEFINITIONS ${_compile_definitions}
-            RUN_OUTPUT_VARIABLE OUTPUT_CPU_VENDOR ARGS "-vendor")
-        try_run(GMX_CPUINFO_RUN_BRAND GMX_CPUINFO_COMPILED
-            ${CMAKE_BINARY_DIR}
-            ${CMAKE_SOURCE_DIR}/src/gromacs/hardware/cpuinfo.cpp
-            COMPILE_DEFINITIONS ${_compile_definitions}
-            RUN_OUTPUT_VARIABLE OUTPUT_CPU_BRAND ARGS "-brand")
-        try_run(GMX_CPUINFO_RUN_FAMILY GMX_CPUINFO_COMPILED
-            ${CMAKE_BINARY_DIR}
-            ${CMAKE_SOURCE_DIR}/src/gromacs/hardware/cpuinfo.cpp
-            COMPILE_DEFINITIONS ${_compile_definitions}
-            RUN_OUTPUT_VARIABLE OUTPUT_CPU_FAMILY ARGS "-family")
-        try_run(GMX_CPUINFO_RUN_MODEL GMX_CPUINFO_COMPILED
-            ${CMAKE_BINARY_DIR}
-            ${CMAKE_SOURCE_DIR}/src/gromacs/hardware/cpuinfo.cpp
-            COMPILE_DEFINITIONS ${_compile_definitions}
-            RUN_OUTPUT_VARIABLE OUTPUT_CPU_MODEL ARGS "-model")
-       try_run(GMX_CPUINFO_RUN_STEPPING GMX_CPUINFO_COMPILED
-            ${CMAKE_BINARY_DIR}
-            ${CMAKE_SOURCE_DIR}/src/gromacs/hardware/cpuinfo.cpp
-            COMPILE_DEFINITIONS ${_compile_definitions}
-            RUN_OUTPUT_VARIABLE OUTPUT_CPU_STEPPING ARGS "-stepping")
-        try_run(GMX_CPUINFO_RUN_FEATURES GMX_CPUINFO_COMPILED
-            ${CMAKE_BINARY_DIR}
-            ${CMAKE_SOURCE_DIR}/src/gromacs/hardware/cpuinfo.cpp
-            COMPILE_DEFINITIONS ${_compile_definitions}
-            RUN_OUTPUT_VARIABLE OUTPUT_CPU_FEATURES ARGS "-features")
-        unset(_compile_definitions)
-
-        string(STRIP "${OUTPUT_CPU_VENDOR}" OUTPUT_CPU_VENDOR)
-        string(STRIP "${OUTPUT_CPU_BRAND}" OUTPUT_CPU_BRAND)
-        string(STRIP "${OUTPUT_CPU_FAMILY}" OUTPUT_CPU_FAMILY)
-        string(STRIP "${OUTPUT_CPU_MODEL}" OUTPUT_CPU_MODEL)
-        string(STRIP "${OUTPUT_CPU_STEPPING}" OUTPUT_CPU_STEPPING)
-        string(STRIP "${OUTPUT_CPU_FEATURES}" OUTPUT_CPU_FEATURES)
-
-        if(GMX_CPUINFO_RUN_VENDOR EQUAL 0)
-            set(BUILD_CPU_VENDOR   "${OUTPUT_CPU_VENDOR}"   CACHE INTERNAL "Build CPU vendor")
+    if(NOT BUILD_HOST)
+        if(CMAKE_HOST_UNIX)
+            execute_process( COMMAND uname -srm OUTPUT_VARIABLE TMP_HOST OUTPUT_STRIP_TRAILING_WHITESPACE)
         else()
-            set(BUILD_CPU_VENDOR   "Unknown, detect failed" CACHE INTERNAL "Build CPU vendor")
+            set(TMP_HOST "${CMAKE_HOST_SYSTEM} ${CMAKE_HOST_SYSTEM_PROCESSOR}")
         endif()
-        if(GMX_CPUINFO_RUN_BRAND EQUAL 0)
-            set(BUILD_CPU_BRAND    "${OUTPUT_CPU_BRAND}"    CACHE INTERNAL "Build CPU brand")
-        else()
-            set(BUILD_CPU_BRAND    "Unknown, detect failed" CACHE INTERNAL "Build CPU brand")
-        endif()
-        if(GMX_CPUINFO_RUN_FAMILY EQUAL 0)
-            set(BUILD_CPU_FAMILY   "${OUTPUT_CPU_FAMILY}"   CACHE INTERNAL "Build CPU family")
-        else()
-            set(BUILD_CPU_FAMILY   "0"                     CACHE INTERNAL "Build CPU family")
-        endif()
-        if(GMX_CPUINFO_RUN_MODEL EQUAL 0)
-            set(BUILD_CPU_MODEL    "${OUTPUT_CPU_MODEL}"    CACHE INTERNAL "Build CPU model")
-        else()
-            set(BUILD_CPU_MODEL    "0"                     CACHE INTERNAL "Build CPU model")
-        endif()
-        if(GMX_CPUINFO_RUN_STEPPING EQUAL 0)
-            set(BUILD_CPU_STEPPING "${OUTPUT_CPU_STEPPING}" CACHE INTERNAL "Build CPU stepping")
-        else()
-            set(BUILD_CPU_STEPPING "0"                     CACHE INTERNAL "Build CPU stepping")
-        endif()
-            if(GMX_CPUINFO_RUN_FEATURES EQUAL 0)
-            set(BUILD_CPU_FEATURES "${OUTPUT_CPU_FEATURES}" CACHE INTERNAL "Build CPU features")
-        else()
-            set(BUILD_CPU_FEATURES ""                      CACHE INTERNAL "Build CPU features")
-        endif()
-
-    else()
-
-        set(BUILD_CPU_VENDOR   "Unknown, cross-compiled"   CACHE INTERNAL "Build CPU vendor")
-        set(BUILD_CPU_BRAND    "Unknown, cross-compiled"    CACHE INTERNAL "Build CPU brand")
-        set(BUILD_CPU_FAMILY   "0"   CACHE INTERNAL "Build CPU family")
-        set(BUILD_CPU_MODEL    "0"    CACHE INTERNAL "Build CPU model")
-        set(BUILD_CPU_STEPPING "0" CACHE INTERNAL "Build CPU stepping")
-        set(BUILD_CPU_FEATURES "" CACHE INTERNAL "Build CPU features")
-
+        set(BUILD_HOST "${TMP_HOST}" CACHE INTERNAL "Build host & architecture")
+        message(STATUS "Setting build host - ${BUILD_HOST}")
     endif()
 
-    ENDIF(NOT DEFINED BUILD_USER)
-endmacro(gmx_set_build_information)
+    # Set up some defaults that will usually be overwritten
+    if(CMAKE_CROSSCOMPILING)
+        set(_reason ", cross-compiled")
+    endif()
+
+    # Run the cpu detection. If it produces an empty output, set a
+    # local value in the parent scope with a suitable fallback (which
+    # hides the cached value).
+
+    macro(gmx_get_build_cpu_string TYPE DEFAULT_VALUE)
+        string(TOUPPER ${TYPE} UPPERTYPE)
+        gmx_run_cpu_detection(${TYPE})
+        set(OUTPUT_VALUE "${DEFAULT_VALUE}")
+        if (CPU_DETECTION_${UPPERTYPE})
+            set(OUTPUT_VALUE ${CPU_DETECTION_${UPPERTYPE}})
+        endif()
+        set(BUILD_CPU_${UPPERTYPE} ${OUTPUT_VALUE} PARENT_SCOPE)
+    endmacro()
+
+    gmx_get_build_cpu_string(vendor   "Unknown${_reason}")
+    gmx_get_build_cpu_string(brand    "Unknown${_reason}")
+    gmx_get_build_cpu_string(family   "0")
+    gmx_get_build_cpu_string(model    "0")
+    gmx_get_build_cpu_string(stepping "0")
+    gmx_get_build_cpu_string(features "Unknown${_reason}")
+endfunction()

@@ -1,7 +1,7 @@
 /*
  * This file is part of the GROMACS molecular simulation package.
  *
- * Copyright (c) 2013,2014,2015,2016, by the GROMACS development team, led by
+ * Copyright (c) 2013,2014,2015,2016,2017, by the GROMACS development team, led by
  * Mark Abraham, David van der Spoel, Berk Hess, and Erik Lindahl,
  * and including many others, as listed in the AUTHORS file in the
  * top-level source directory and at http://www.gromacs.org.
@@ -32,27 +32,35 @@
  * To help us fund GROMACS development, we humbly ask that you cite
  * the research papers on the package. Check out http://www.gromacs.org.
  */
-/*! \libinternal
- * \defgroup module_mdrun_integration_tests Integration test utilities
+/*! \defgroup module_mdrun_integration_tests Integration test utilities
  * \ingroup group_mdrun
  *
  * \brief Functionality for testing mdrun as a whole
+ */
+/*! \internal \file
+ * \brief
+ * Declares test fixtures for general mdrun functionality.
+ *
+ * \author Mark Abraham <mark.j.abraham@gmail.com>
+ * \ingroup module_mdrun_integration_tests
  */
 #ifndef GMX_MDRUN_TESTS_MODULETEST_H
 #define GMX_MDRUN_TESTS_MODULETEST_H
 
 #include <gtest/gtest.h>
 
+#include "gromacs/utility/classhelpers.h"
+
 #include "testutils/cmdlinetest.h"
-#include "testutils/integrationtests.h"
+#include "testutils/testfilemanager.h"
 
 namespace gmx
 {
-
 namespace test
 {
 
-/*! \libinternal \brief Helper object for running grompp and mdrun in
+/*! \internal
+ * \brief Helper object for running grompp and mdrun in
  * integration tests of mdrun functionality
  *
  * Objects of this class are intended to be owned by
@@ -79,9 +87,8 @@ namespace test
 class SimulationRunner
 {
     public:
-        /*! \brief Constructor, which establishes the fixture that
-         * will own each object */
-        explicit SimulationRunner(IntegrationTestFixture *fixture_);
+        //! Initializes a runner with given manager for temporary files.
+        explicit SimulationRunner(TestFileManager *fileManager);
 
         //! Use an empty .mdp file as input to grompp
         void useEmptyMdpFile();
@@ -109,10 +116,6 @@ class SimulationRunner
          * with default command line */
         int callMdrun();
 
-    private:
-        //! Provides access to the test fixture, e.g. for the TestFileManager
-        IntegrationTestFixture *fixture_;
-    public:
         //@{
         /*! \name Names for frequently used grompp and mdrun output files
          *
@@ -139,9 +142,15 @@ class SimulationRunner
         std::string swapFileName_;
         int         nsteps_;
         //@}
+
+    private:
+        TestFileManager &fileManager_;
+
+        GMX_DISALLOW_COPY_AND_ASSIGN(SimulationRunner);
 };
 
-/*! \libinternal \brief Declares test fixture base class for
+/*! \internal
+ * \brief Declares test fixture base class for
  * integration tests of mdrun functionality
  *
  * Derived fixture classes (or individual test cases) that might have
@@ -164,31 +173,35 @@ class SimulationRunner
  *
  * \ingroup module_mdrun_integration_tests
  */
-class MdrunTestFixtureBase : public IntegrationTestFixture
+class MdrunTestFixtureBase : public ::testing::Test
 {
     public:
         MdrunTestFixtureBase();
         virtual ~MdrunTestFixtureBase();
 };
 
-/*! \libinternal \brief Declares test fixture class for integration
+/*! \internal
+ * \brief Declares test fixture class for integration
  * tests of mdrun functionality that use a single call of mdrun
  *
  * Any method in this class may throw std::bad_alloc if out of memory.
  *
  * \ingroup module_mdrun_integration_tests
  */
-class MdrunTestFixture : public IntegrationTestFixture
+class MdrunTestFixture : public ::testing::Test
 {
     public:
         MdrunTestFixture();
         virtual ~MdrunTestFixture();
 
+        //! Manages temporary files during the test.
+        TestFileManager  fileManager_;
         //! Helper object to manage the preparation for and call of mdrun
         SimulationRunner runner_;
 };
 
-/*! \libinternal \brief
+/*! \internal
+ * \brief
  * Parameterized test fixture for mdrun integration tests
  */
 class ParameterizedMdrunTestFixture : public gmx::test::MdrunTestFixture,

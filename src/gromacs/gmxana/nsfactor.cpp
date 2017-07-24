@@ -1,7 +1,7 @@
 /*
  * This file is part of the GROMACS molecular simulation package.
  *
- * Copyright (c) 2012,2013,2014,2015,2016, by the GROMACS development team, led by
+ * Copyright (c) 2012,2013,2014,2015,2016,2017, by the GROMACS development team, led by
  * Mark Abraham, David van der Spoel, Berk Hess, and Erik Lindahl,
  * and including many others, as listed in the AUTHORS file in the
  * top-level source directory and at http://www.gromacs.org.
@@ -42,7 +42,8 @@
 #include <cstring>
 
 #include "gromacs/math/vec.h"
-#include "gromacs/random/random.h"
+#include "gromacs/random/threefry.h"
+#include "gromacs/random/uniformintdistribution.h"
 #include "gromacs/topology/topology.h"
 #include "gromacs/utility/cstringutil.h"
 #include "gromacs/utility/exceptions.h"
@@ -57,7 +58,7 @@ void check_binwidth(real binwidth)
     real smallest_bin = 0.1;
     if (binwidth < smallest_bin)
     {
-        gmx_fatal(FARGS, "Binwidth shouldnt be smaller then smallest bond length (H-H bond ~0.1nm) in a box");
+        gmx_fatal(FARGS, "Binwidth shouldn't be smaller then smallest bond length (H-H bond ~0.1nm) in a box");
     }
 }
 
@@ -147,12 +148,12 @@ gmx_neutron_atomic_structurefactors_t *gmx_neutronstructurefactors_init(const ch
 
     fclose(fp);
 
-    return (gmx_neutron_atomic_structurefactors_t *) gnsf;
+    return gnsf;
 }
 
-gmx_sans_t *gmx_sans_init (t_topology *top, gmx_neutron_atomic_structurefactors_t *gnsf)
+gmx_sans_t *gmx_sans_init (const t_topology *top, gmx_neutron_atomic_structurefactors_t *gnsf)
 {
-    gmx_sans_t    *gsans = NULL;
+    gmx_sans_t    *gsans = nullptr;
     int            i, j;
     /* Try to assing scattering length from nsfactor.dat */
     snew(gsans, 1);
@@ -185,7 +186,7 @@ gmx_sans_t *gmx_sans_init (t_topology *top, gmx_neutron_atomic_structurefactors_
         }
     }
 
-    return (gmx_sans_t *) gsans;
+    return gsans;
 }
 
 gmx_radial_distribution_histogram_t *calc_radial_distribution_histogram (
@@ -200,18 +201,18 @@ gmx_radial_distribution_histogram_t *calc_radial_distribution_histogram (
         real         mcover,
         unsigned int seed)
 {
-    gmx_radial_distribution_histogram_t    *pr = NULL;
-    rvec              dist;
-    double            rmax;
-    int               i, j;
+    gmx_radial_distribution_histogram_t    *pr = nullptr;
+    rvec                                    dist;
+    double                                  rmax;
+    int                                     i, j;
 #if GMX_OPENMP
-    double          **tgr;
-    int               tid;
-    int               nthreads;
-    gmx_rng_t        *trng = NULL;
+    double                                **tgr;
+    int                                     tid;
+    int                                     nthreads;
+    gmx::DefaultRandomEngine               *trng = nullptr;
 #endif
-    gmx_int64_t       mc  = 0, mc_max;
-    gmx_rng_t         rng = NULL;
+    gmx_int64_t                             mc  = 0, mc_max;
+    gmx::DefaultRandomEngine                rng(seed);
 
     /* allocate memory for pr */
     snew(pr, 1);
@@ -242,18 +243,18 @@ gmx_radial_distribution_histogram_t *calc_radial_distribution_histogram (
         {
             mc_max = static_cast<gmx_int64_t>(std::floor(0.5*mcover*isize*(isize-1)));
         }
-        rng = gmx_rng_init(seed);
 #if GMX_OPENMP
         nthreads = gmx_omp_get_max_threads();
         snew(tgr, nthreads);
-        snew(trng, nthreads);
+        trng = new gmx::DefaultRandomEngine[nthreads];
         for (i = 0; i < nthreads; i++)
         {
             snew(tgr[i], pr->grn);
-            trng[i] = gmx_rng_init(gmx_rng_uniform_uint32(rng));
+            trng[i].seed(rng());
         }
         #pragma omp parallel shared(tgr,trng,mc) private(tid,i,j)
         {
+            gmx::UniformIntDistribution<int> tdist(0, isize-1);
             tid = gmx_omp_get_thread_num();
             /* now starting parallel threads */
             #pragma omp for
@@ -261,8 +262,8 @@ gmx_radial_distribution_histogram_t *calc_radial_distribution_histogram (
             {
                 try
                 {
-                    i = static_cast<int>(std::floor(gmx_rng_uniform_real(trng[tid])*isize));
-                    j = static_cast<int>(std::floor(gmx_rng_uniform_real(trng[tid])*isize));
+                    i = tdist(trng[tid]); // [0,isize-1]
+                    j = tdist(trng[tid]); // [0,isize-1]
                     if (i != j)
                     {
                         tgr[tid][static_cast<int>(std::floor(std::sqrt(distance2(x[index[i]], x[index[j]]))/binwidth))] += gsans->slength[index[i]]*gsans->slength[index[j]];
@@ -283,22 +284,21 @@ gmx_radial_distribution_histogram_t *calc_radial_distribution_histogram (
         for (i = 0; i < nthreads; i++)
         {
             sfree(tgr[i]);
-            gmx_rng_destroy(trng[i]);
         }
         sfree(tgr);
-        sfree(trng);
+        delete[] trng;
 #else
+        gmx::UniformIntDistribution<int> dist(0, isize-1);
         for (mc = 0; mc < mc_max; mc++)
         {
-            i = static_cast<int>(std::floor(gmx_rng_uniform_real(rng)*isize));
-            j = static_cast<int>(std::floor(gmx_rng_uniform_real(rng)*isize));
+            i = dist(rng); // [0,isize-1]
+            j = dist(rng); // [0,isize-1]
             if (i != j)
             {
                 pr->gr[static_cast<int>(std::floor(std::sqrt(distance2(x[index[i]], x[index[j]]))/binwidth))] += gsans->slength[index[i]]*gsans->slength[index[j]];
             }
         }
 #endif
-        gmx_rng_destroy(rng);
     }
     else
     {
@@ -364,12 +364,12 @@ gmx_radial_distribution_histogram_t *calc_radial_distribution_histogram (
         pr->r[i] = (pr->binwidth*i+pr->binwidth*0.5);
     }
 
-    return (gmx_radial_distribution_histogram_t *) pr;
+    return pr;
 }
 
 gmx_static_structurefactor_t *convert_histogram_to_intensity_curve (gmx_radial_distribution_histogram_t *pr, double start_q, double end_q, double q_step)
 {
-    gmx_static_structurefactor_t    *sq = NULL;
+    gmx_static_structurefactor_t    *sq = nullptr;
     int         i, j;
     /* init data */
     snew(sq, 1);
@@ -405,5 +405,5 @@ gmx_static_structurefactor_t *convert_histogram_to_intensity_curve (gmx_radial_d
         }
     }
 
-    return (gmx_static_structurefactor_t *) sq;
+    return sq;
 }

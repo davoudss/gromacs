@@ -3,7 +3,7 @@
  *
  * Copyright (c) 1991-2000, University of Groningen, The Netherlands.
  * Copyright (c) 2001-2004, The GROMACS development team.
- * Copyright (c) 2013,2014,2015, by the GROMACS development team, led by
+ * Copyright (c) 2013,2014,2015,2016, by the GROMACS development team, led by
  * Mark Abraham, David van der Spoel, Berk Hess, and Erik Lindahl,
  * and including many others, as listed in the AUTHORS file in the
  * top-level source directory and at http://www.gromacs.org.
@@ -109,7 +109,7 @@ static int xtc_check(const char *str, gmx_bool bResult, const char *file, int li
 
 #define XTC_CHECK(s, b) xtc_check(s, b, __FILE__, __LINE__)
 
-static int xtc_header(XDR *xd, int *magic, int *natoms, int *step, real *time,
+static int xtc_header(XDR *xd, int *magic, int *natoms, gmx_int64_t *step, real *time,
                       gmx_bool bRead, gmx_bool *bOK)
 {
     int result;
@@ -121,7 +121,12 @@ static int xtc_header(XDR *xd, int *magic, int *natoms, int *step, real *time,
     result = XTC_CHECK("natoms", xdr_int(xd, natoms)); /* number of atoms */
     if (result)
     {
-        result = XTC_CHECK("step",   xdr_int(xd, step)); /* frame number    */
+        /* Note that XTC wasn't defined to be extensible, so we can't
+         * fix the fact that we used xdr_int for the step number,
+         * which is defined to be signed and 32 bit. */
+        int intStep = *step;
+        result = XTC_CHECK("step",   xdr_int(xd, &intStep)); /* frame number    */
+        *step  = intStep;
     }
     if (result)
     {
@@ -132,7 +137,7 @@ static int xtc_header(XDR *xd, int *magic, int *natoms, int *step, real *time,
     return result;
 }
 
-static int xtc_coord(XDR *xd, int *natoms, matrix box, rvec *x, real *prec, gmx_bool bRead)
+static int xtc_coord(XDR *xd, int *natoms, rvec *box, rvec *x, real *prec, gmx_bool bRead)
 {
     int    i, j, result;
 #if GMX_DOUBLE
@@ -194,8 +199,8 @@ static int xtc_coord(XDR *xd, int *natoms, matrix box, rvec *x, real *prec, gmx_
 
 
 int write_xtc(t_fileio *fio,
-              int natoms, int step, real time,
-              matrix box, rvec *x, real prec)
+              int natoms, gmx_int64_t step, real time,
+              const rvec *box, const rvec *x, real prec)
 {
     int      magic_number = XTC_MAGIC;
     XDR     *xd;
@@ -218,7 +223,7 @@ int write_xtc(t_fileio *fio,
     }
 
     /* write data */
-    bOK = xtc_coord(xd, &natoms, box, x, &prec, FALSE); /* bOK will be 1 if writing went well */
+    bOK = xtc_coord(xd, &natoms, const_cast<rvec *>(box), const_cast<rvec *>(x), &prec, FALSE); /* bOK will be 1 if writing went well */
 
     if (bOK)
     {
@@ -230,7 +235,7 @@ int write_xtc(t_fileio *fio,
     return bOK; /* 0 if bad, 1 if writing went well */
 }
 
-int read_first_xtc(t_fileio *fio, int *natoms, int *step, real *time,
+int read_first_xtc(t_fileio *fio, int *natoms, gmx_int64_t *step, real *time,
                    matrix box, rvec **x, real *prec, gmx_bool *bOK)
 {
     int  magic;
@@ -256,7 +261,7 @@ int read_first_xtc(t_fileio *fio, int *natoms, int *step, real *time,
 }
 
 int read_next_xtc(t_fileio* fio,
-                  int natoms, int *step, real *time,
+                  int natoms, gmx_int64_t *step, real *time,
                   matrix box, rvec *x, real *prec, gmx_bool *bOK)
 {
     int  magic;

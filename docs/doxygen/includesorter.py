@@ -2,7 +2,7 @@
 #
 # This file is part of the GROMACS molecular simulation package.
 #
-# Copyright (c) 2012,2013,2014,2015, by the GROMACS development team, led by
+# Copyright (c) 2012,2013,2014,2015,2016,2017, by the GROMACS development team, led by
 # Mark Abraham, David van der Spoel, Berk Hess, and Erik Lindahl,
 # and including many others, as listed in the AUTHORS file in the
 # top-level source directory and at http://www.gromacs.org.
@@ -104,11 +104,13 @@ class GroupedSorter(object):
             'stddef.h', 'stdint.h', 'stdio.h', 'stdlib.h', 'string.h',
             'time.h']
     _std_c_cpp_headers = ['c' + x[:-2] for x in _std_c_headers]
-    _std_cpp_headers = ['algorithm', 'array', 'deque', 'exception', 'fstream',
-            'functional', 'iomanip', 'ios', 'iosfwd', 'iostream', 'istream', 'iterator',
-            'limits', 'list', 'map', 'memory', 'new', 'numeric', 'ostream', 'random',
+    _std_cpp_headers = ['algorithm', 'array', 'chrono', 'deque', 'exception', 'fstream',
+            'functional', 'initializer_list', 'iomanip', 'ios', 'iosfwd',
+            'iostream', 'istream', 'iterator',
+            'limits', 'list', 'map', 'memory', 'mutex',
+            'new', 'numeric', 'ostream', 'random',
             'regex', 'set', 'sstream', 'stdexcept', 'streambuf', 'string', 'strstream',
-            'type_traits', 'typeindex', 'typeinfo', 'vector', 'utility']
+            'thread', 'tuple', 'type_traits', 'typeindex', 'typeinfo', 'vector', 'utility']
 
     def __init__(self, style='pub-priv', absolute=False):
         """Initialize a sorted with the given style."""
@@ -373,6 +375,12 @@ def main():
 
     if not options.quiet:
         sys.stderr.write('Scanning source tree...\n')
+    if not options.source_root:
+        sys.stderr.write('Source root required not specified.\n')
+        sys.exit(2)
+    if not options.build_root:
+        sys.stderr.write('Build root required not specified.\n')
+        sys.exit(2)
     tree = GromacsTree(options.source_root, options.build_root, reporter)
     tree.load_installed_file_list()
     files = []

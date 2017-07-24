@@ -1,6 +1,6 @@
 Getting good performance from mdrun
 ===================================
-The GROMACS build system and the :ref:`gmx mdrun` tool has a lot of built-in
+The |Gromacs| build system and the :ref:`gmx mdrun` tool has a lot of built-in
 and configurable intelligence to detect your hardware and make pretty
 effective use of that hardware. For a lot of casual and serious use of
 :ref:`gmx mdrun`, the automatic machinery works well enough. But to get the
@@ -45,18 +45,32 @@ definitions. Experienced HPC users can skip this section.
         spreading computation over multiple threads, such as OpenMP,
         pthreads, winthreads, CUDA, OpenCL, and OpenACC. Some kinds of
         hardware can map more than one software thread to a core; on
-        Intel x86 processors this is called "hyper-threading."
-        Normally, :ref:`gmx mdrun` will not benefit from such mapping.
+        Intel x86 processors this is called "hyper-threading", while
+        the more general concept is often called SMT for
+        "simultaneous multi-threading". IBM Power8 can for instance use
+        up to 8 hardware threads per core.
+        This feature can usually be enabled or disabled either in
+        the hardware bios or through a setting in the Linux operating
+        system. |Gromacs| can typically make use of this, for a moderate
+        free performance boost. In most cases it will be
+        enabled by default e.g. on new x86 processors, but in some cases
+        the system administrators might have disabled it. If that is the
+        case, ask if they can re-enable it for you. If you are not sure
+        if it is enabled, check the output of the CPU information in
+        the log file and compare with CPU specifications you find online.
 
-    affinity
-        On some kinds of hardware, software threads can migrate
-        between cores to help automatically balance
-        workload. Normally, the performance of :ref:`gmx mdrun` will degrade
-        dramatically if this is permitted, so :ref:`gmx mdrun` will by default
-        set the affinity of its threads to their cores, unless the
-        user or software environment has already done so. Setting
-        thread affinity is sometimes called "pinning" threads to
-        cores.
+    thread affinity (pinning)
+        By default, most operating systems allow software threads to migrate
+        between cores (or hardware threads) to help automatically balance
+        workload. However, the performance of :ref:`gmx mdrun` can deteriorate
+        if this is permitted and will degrade dramatically especially when
+        relying on multi-threading within a rank. To avoid this,
+        :ref:`gmx mdrun` will by default
+        set the affinity of its threads to individual cores/hardware threads,
+        unless the user or software environment has already done so
+        (or not the entire node is used for the run, i.e. there is potential
+        for node sharing).
+        Setting thread affinity is sometimes called thread "pinning".
 
     MPI
         The dominant multi-node parallelization-scheme, which provides
@@ -84,16 +98,23 @@ definitions. Experienced HPC users can skip this section.
         MPI to achieve hybrid MPI/OpenMP parallelism.
 
     CUDA
-        A programming-language extension developed by Nvidia
-        for use in writing code for their GPUs.
+        A proprietary parallel computing framework and API developed by NVIDIA
+        that allows targeting their accelerator hardware.
+        |Gromacs| uses CUDA for GPU acceleration support with NVIDIA hardware.
+
+    OpenCL
+        An open standard-based parallel computing framework that consists
+        of a C99-based compiler and a programming API for targeting heterogeneous
+        and accelerator hardware. |Gromacs| uses OpenCL for GPU acceleration
+        on AMD devices (both GPUs and APUs); NVIDIA hardware is also supported.
 
     SIMD
         Modern CPU cores have instructions that can execute large
         numbers of floating-point instructions in a single cycle.
 
 
-GROMACS background information
-------------------------------
+|Gromacs| background information
+--------------------------------
 The algorithms in :ref:`gmx mdrun` and their implementations are most relevant
 when choosing how to make good use of the hardware. For details,
 see the Reference Manual. The most important of these are
@@ -103,11 +124,11 @@ see the Reference Manual. The most important of these are
     Domain Decomposition
         The domain decomposition (DD) algorithm decomposes the
         (short-ranged) component of the non-bonded interactions into
-        domains that share spatial locality, which permits efficient
-        code to be written. Each domain handles all of the
+        domains that share spatial locality, which permits the use of
+        efficient algorithms. Each domain handles all of the
         particle-particle (PP) interactions for its members, and is
-        mapped to a single rank. Within a PP rank, OpenMP threads can
-        share the workload, or the work can be off-loaded to a
+        mapped to a single MPI rank. Within a PP rank, OpenMP threads
+        can share the workload, and some work can be off-loaded to a
         GPU. The PP rank also handles any bonded interactions for the
         members of its domain. A GPU may perform work for more than
         one PP rank, but it is normally most efficient to use a single
@@ -138,11 +159,11 @@ Running mdrun within a single node
 are efficient to use within a single :term:`node`. The default configuration
 using a suitable compiler will deploy a multi-level hybrid parallelism
 that uses CUDA, OpenMP and the threading platform native to the
-hardware. For programming convenience, in GROMACS, those native
+hardware. For programming convenience, in |Gromacs|, those native
 threads are used to implement on a single node the same MPI scheme as
 would be used between nodes, but much more efficient; this is called
 thread-MPI. From a user's perspective, real MPI and thread-MPI look
-almost the same, and GROMACS refers to MPI ranks to mean either kind,
+almost the same, and |Gromacs| refers to MPI ranks to mean either kind,
 except where noted. A real external MPI can be used for :ref:`gmx mdrun` within
 a single node, but runs more slowly than the thread-MPI version.
 
@@ -151,13 +172,13 @@ and do its best to make fairly efficient use of the whole node. The
 log file, stdout and stderr are used to print diagnostics that
 inform the user about the choices made and possible consequences.
 
-A number of command-line parameters are available to vary the default
+A number of command-line parameters are available to modify the default
 behavior.
 
 ``-nt``
     The total number of threads to use. The default, 0, will start as
     many threads as available cores. Whether the threads are
-    thread-MPI ranks, or OpenMP threads within such ranks depends on
+    thread-MPI ranks, and/or OpenMP threads within such ranks depends on
     other settings.
 
 ``-ntmpi``
@@ -175,7 +196,7 @@ behavior.
     The total number of ranks to dedicate to the long-ranged
     component of PME, if used. The default, -1, will dedicate ranks
     only if the total number of threads is at least 12, and will use
-    around one-third of the ranks for the long-ranged component.
+    around a quarter of the ranks for the long-ranged component.
 
 ``-ntomp_pme``
     When using PME with separate PME ranks,
@@ -224,12 +245,14 @@ behavior.
     are no separate PME ranks.
 
 ``-nb``
-    Can be set to "auto", "cpu", "gpu", "cpu_gpu."
+    Used to set where to execute the non-bonded interactions.
+    Can be set to "auto", "cpu", "gpu", "gpu_cpu."
     Defaults to "auto," which uses a compatible GPU if available.
     Setting "cpu" requires that no GPU is used. Setting "gpu" requires
     that a compatible GPU be available and will be used. Setting
-    "cpu_gpu" permits the CPU to execute a GPU-like code path, which
-    will run slowly on the CPU and should only be used for debugging.
+    "gpu_cpu" lets the GPU compute the local and the CPU the non-local
+    non-bonded interactions. Is only faster under a narrow range of
+    conditions.
 
 Examples for mdrun on one node
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -298,7 +321,7 @@ node with other processes.
 
 ::
 
-    gmx mpirun_mpi -np 2
+    mpirun -np 2 gmx_mpi mdrun
 
 When using an :ref:`gmx mdrun` compiled with external MPI,
 this will start two ranks and as many OpenMP threads
@@ -308,8 +331,8 @@ MPI setup is restricted to one node, then the resulting
 
 Running mdrun on more than one node
 -----------------------------------
-This requires configuring GROMACS to build with an external MPI
-library. By default, this mdrun executable will be named
+This requires configuring |Gromacs| to build with an external MPI
+library. By default, this mdrun executable is run with
 :ref:`mdrun_mpi`. All of the considerations for running single-node
 mdrun still apply, except that ``-ntmpi`` and ``-nt`` cause a fatal
 error, and instead the number of ranks is controlled by the
@@ -351,10 +374,13 @@ cases.
     the minimum of :mdp:`nstcalcenergy` and :mdp:`nstlist`.
     ``mdrun -gcom`` sets the number of steps that must elapse between
     such communication phases, which can improve performance when
-    running on a lot of nodes. Note that this means that _e.g._
+    running on a lot of ranks. Note that this means that _e.g._
     temperature coupling algorithms will
-    effectively remain at constant energy until the next global
-    communication phase.
+    effectively remain at constant energy until the next
+    communication phase. :ref:`gmx mdrun` will always honor the
+    setting of ``mdrun -gcom``, by changing :mdp:`nstcalcenergy`,
+    :mdp:`nstenergy`, :mdp:`nstlog`, :mdp:`nsttcouple` and/or
+    :mdp:`nstpcouple` if necessary.
 
 Note that ``-tunepme`` has more effect when there is more than one
 :term:`node`, because the cost of communication for the PP and PME
@@ -381,7 +407,7 @@ to choose the number of MPI ranks.
 
 ::
 
-    mpirun -np 16 gmx mdrun_mpi
+    mpirun -np 16 gmx_mpi mdrun
 
 Starts :ref:`mdrun_mpi` with 16 ranks, which are mapped to
 the hardware by the MPI library, e.g. as specified
@@ -392,7 +418,7 @@ such as ``OMP_NUM_THREADS``.
 
 ::
 
-    mpirun -np 16 gmx mdrun_mpi -npme 5
+    mpirun -np 16 gmx_mpi mdrun -npme 5
 
 Starts :ref:`mdrun_mpi` with 16 ranks, as above, and
 require that 5 of them are dedicated to the PME
@@ -400,7 +426,7 @@ component.
 
 ::
 
-    mpirun -np 11 gmx mdrun_mpi -ntomp 2 -npme 6 -ntomp_pme 1
+    mpirun -np 11 gmx_mpi mdrun -ntomp 2 -npme 6 -ntomp_pme 1
 
 Starts :ref:`mdrun_mpi` with 11 ranks, as above, and
 require that six of them are dedicated to the PME
@@ -420,7 +446,8 @@ and both ranks on a node sharing GPU with ID 0.
 
     mpirun -np 8 gmx mdrun -ntomp 3 -gpu_id 0000
 
-Starts :ref:`mdrun_mpi` on a machine with two nodes, using
+Using a same/similar hardware as above,
+starts :ref:`mdrun_mpi` on a machine with two nodes, using
 eight total ranks, each rank with three OpenMP threads,
 and all four ranks on a node sharing GPU with ID 0.
 This may or may not be faster than the previous setup
@@ -428,7 +455,7 @@ on the same hardware.
 
 ::
 
-    mpirun -np 20 gmx mdrun_mpi -ntomp 4 -gpu_id 0
+    mpirun -np 20 gmx_mpi mdrun -ntomp 4 -gpu_id 0
 
 Starts :ref:`mdrun_mpi` with 20 ranks, and assigns the CPU cores evenly
 across ranks each to one OpenMP thread. This setup is likely to be
@@ -437,7 +464,7 @@ has two sockets.
 
 ::
 
-    mpirun -np 20 gmx mdrun_mpi -gpu_id 00
+    mpirun -np 20 gmx_mpi mdrun -gpu_id 00
 
 Starts :ref:`mdrun_mpi` with 20 ranks, and assigns the CPU cores evenly
 across ranks each to one OpenMP thread. This setup is likely to be
@@ -446,7 +473,7 @@ has two sockets.
 
 ::
 
-    mpirun -np 20 gmx mdrun_mpi -gpu_id 01
+    mpirun -np 20 gmx_mpi mdrun -gpu_id 01
 
 Starts :ref:`mdrun_mpi` with 20 ranks. This setup is likely
 to be suitable when there are ten nodes, each with two
@@ -454,7 +481,7 @@ GPUs.
 
 ::
 
-    mpirun -np 40 gmx mdrun_mpi -gpu_id 0011
+    mpirun -np 40 gmx_mpi mdrun -gpu_id 0011
 
 Starts :ref:`mdrun_mpi` with 40 ranks. This setup is likely
 to be suitable when there are ten nodes, each with two
@@ -510,38 +537,202 @@ parallel hardware.
 
 Finding out how to run mdrun better
 -----------------------------------
-TODO In future patch: red flags in log files, how to interpret wallcycle output
+
+The Wallcycle module is used for runtime performance measurement of :ref:`gmx mdrun`.
+At the end of the log file of each run, the "Real cycle and time accounting" section
+provides a table with runtime statistics for different parts of the :ref:`gmx mdrun` code
+in rows of the table.
+The table contains colums indicating the number of ranks and threads that
+executed the respective part of the run, wall-time and cycle
+count aggregates (across all threads and ranks) averaged over the entire run.
+The last column also shows what precentage of the total runtime each row represents.
+Note that the :ref:`gmx mdrun` timer resetting functionalities (`-resethway` and `-resetstep`)
+reset the performance counters and therefore are useful to avoid startup overhead and
+performance instability (e.g. due to load balancing) at the beginning of the run.
+
+The performance counters are:
+
+* Particle-particle during Particle mesh Ewald
+* Domain decomposition
+* Domain decomposition communication load
+* Domain decomposition communication bounds
+* Virtual site constraints
+* Send X to Particle mesh Ewald
+* Neighbor search
+* Launch GPU operations
+* Communication of coordinates
+* Born radii
+* Force
+* Waiting + Communication of force
+* Particle mesh Ewald
+* PME redist. X/F
+* PME spread/gather
+* PME 3D-FFT
+* PME 3D-FFT Communication
+* PME solve Lennard-Jones
+* PME solve Elec
+* PME wait for particle-particle
+* Wait + Receive PME force
+* Wait GPU nonlocal
+* Wait GPU local
+* Non-bonded position/force buffer operations
+* Virtual site spread
+* COM pull force
+* Write trajectory
+* Update
+* Constraints
+* Communication of energies
+* Enforced rotation
+* Add rotational forces
+* Position swapping
+* Interactive MD
+
+As performance data is collected for every run, they are essential to assessing
+and tuning the performance of :ref:`gmx mdrun` performance. Therefore, they benefit
+both code developers as well as users of the program.
+The counters are an average of the time/cycles different parts of the simulation take,
+hence can not directly reveal fluctuations during a single run (although comparisons across
+multiple runs are still very useful).
+
+Counters will appear in MD log file only if the related parts of the code were
+executed during the :ref:`gmx mdrun` run. There is also a special counter called "Rest" which
+indicated for the amount of time not accounted for by any of the counters above. Theerfore,
+a significant amount "Rest" time (more than a few percent) will often be an indication of
+parallelization inefficiency (e.g. serial code) and it is recommended to be reported to the
+developers.
+
+An additional set of subcounters can offer more fine-grained inspection of performance. They are:
+
+* Domain decomposition redistribution
+* DD neighbor search grid + sort
+* DD setup communication
+* DD make topology
+* DD make constraints
+* DD topology other
+* Neighbor search grid local
+* NS grid non-local
+* NS search local
+* NS search non-local
+* Bonded force
+* Bonded-FEP force
+* Restraints force
+* Listed buffer operations
+* Nonbonded force
+* Ewald force correction
+* Non-bonded position buffer operations
+* Non-bonded force buffer operations
+
+Subcounters are geared toward developers and have to be enabled during compilation. See
+:doc:`/dev-manual/build-system` for more information.
+
+TODO In future patch:
+- red flags in log files, how to interpret wallcycle output
+- hints to devs how to extend wallcycles
 
 TODO In future patch: import wiki page stuff on performance checklist; maybe here,
 maybe elsewhere
 
 Running mdrun with GPUs
 -----------------------
+
+NVIDIA GPUs from the professional line (Tesla or Quadro) starting with
+the Kepler generation (compute capability 3.5 and later) support changing the
+processor and memory clock frequency with the help of the applications clocks feature.
+With many workloads, using higher clock rates than the default provides significant
+performance improvements.
+For more information see the `NVIDIA blog article`_ on this topic.
+For |Gromacs| the highest application clock rates are optimal on all hardware
+available to date (up to and including Maxwell, compute capability 5.2).
+
+Application clocks can be set using the NVIDIA system managemet tool
+``nvidia-smi``. If the system permissions allow, :ref:`gmx mdrun` has
+built-in support to set application clocks if built with NVML support. # TODO add ref to relevant section
+Note that application clocks are a global setting, hence affect the
+performance of all applications that use the respective GPU(s).
+For this reason, :ref:`gmx mdrun` sets application clocks at initialization
+to the values optimal for |Gromacs| and it restores them before exiting
+to the values found at startup, unless it detects that they were altered
+during its runtime.
+
+.. _NVIDIA blog article: https://devblogs.nvidia.com/parallelforall/increase-performance-gpu-boost-k80-autoboost/
+
+Reducing overheads in GPU accelerated runs
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+In order for CPU cores and GPU(s) to execute concurrently, tasks are
+launched and executed asynchronously on the GPU(s) while the CPU cores
+execute non-offloaded force computation (like long-range PME electrostatics).
+Asynchronous task launches are handled by GPU device driver and
+require CPU involvement. Therefore, the work of scheduling
+GPU tasks will incur an overhead that can in some cases significantly
+delay or interfere with the CPU execution.
+
+Delays in CPU execution are caused by the latency of launching GPU tasks,
+an overhead that can become significant as simulation ns/day increases
+(i.e. with shorter wall-time per step).
+The overhead is measured by :ref:`gmx mdrun` and reported in the performance
+summary section of the log file ("Launch GPU ops" row). 
+A few percent of runtime spent in this category is normal, 
+but in fast-iterating and multi-GPU parallel runs 10% or larger overheads can be observed.
+In general, there a user can do little to avoid such overheads, but there
+are a few cases where tweaks can give performance benefits.
+In single-rank runs timing of GPU tasks is by default enabled and,
+while in most cases its impact is small, in fast runs performance can be affected.
+The performance impact will be most significant on NVIDIA GPUs with CUDA,
+less on AMD with OpenCL.
+In these cases, when more than a few percent of "Launch GPU ops" time is observed,
+it is recommended turning off timing by setting the ``GMX_DISABLE_GPU_TIMING``
+environment variable.
+In parallel runs with with many ranks sharing a GPU
+launch overheads can also be reduced by staring fewer thread-MPI
+or MPI ranks per GPU; e.g. most often one rank per thread or core is not optimal.
+
+The second type of overhead, interference of the GPU driver with CPU computation,
+is caused by the scheduling and coordination of GPU tasks.
+A separate GPU driver thread can require CPU resources
+which may clash with the concurrently running non-offloaded tasks,
+potentially degrading the performance of PME or bonded force computation.
+This effect is most pronounced when using AMD GPUs with OpenCL with
+all stable driver releases to date (up to and including fglrx 12.15).
+To minimize the overhead it is recommended to
+leave a CPU hardware thread unused when launching :ref:`gmx mdrun`,
+especially on CPUs with high core count and/or HyperThreading enabled.
+E.g. on a machine with a 4-core CPU and eight threads (via HyperThreading) and an AMD GPU,
+try ``gmx mdrun -ntomp 7 -pin on``.
+This will leave free CPU resources for the GPU task scheduling
+reducing interference with CPU computation.
+Note that assigning fewer resources to :ref:`gmx mdrun` CPU computation
+involves a tradeoff which may outweigh the benefits of reduced GPU driver overhead,
+in particular without HyperThreading and with few CPU cores.
+
 TODO In future patch: any tips not covered above
 
 Running the OpenCL version of mdrun
 -----------------------------------
 
 The current version works with GCN-based AMD GPUs, and NVIDIA CUDA
-GPUs. Make sure that you have the latest drivers installed. The
-minimum OpenCL version required is |REQUIRED_OPENCL_MIN_VERSION|. See
+GPUs. Make sure that you have the latest drivers installed. For AMD GPUs,
+Mesa version 17.0 or newer with LLVM 4.0 or newer is supported in addition
+to the proprietary driver. For NVIDIA GPUs, using the proprietary driver is
+required as the open source nouveau driver (available in Mesa) does not
+provide the OpenCL support.
+The minimum OpenCL version required is |REQUIRED_OPENCL_MIN_VERSION|. See
 also the :ref:`known limitations <opencl-known-limitations>`.
+
+Devices from the AMD GCN architectures (all series) and NVIDIA Fermi
+and later (compute capability 2.0) are known to work, but before
+doing production runs always make sure that the |Gromacs| tests
+pass successfully on the hardware.
+
+The OpenCL GPU kernels are compiled at run time. Hence,
+building the OpenCL program can take a few seconds introducing a slight
+delay in the :ref:`gmx mdrun` startup. This is not normally a
+problem for long production MD, but you might prefer to do some kinds
+of work, e.g. that runs very few steps, on just the CPU (e.g. see ``-nb`` above).
 
 The same ``-gpu_id`` option (or ``GMX_GPU_ID`` environment variable)
 used to select CUDA devices, or to define a mapping of GPUs to PP
 ranks, is used for OpenCL devices.
-
-The following devices are known to work correctly:
-   - AMD: FirePro W5100, HD 7950, FirePro W9100, Radeon R7 240,
-     Radeon R7 M260, Radeon R9 290
-   - NVIDIA: GeForce GTX 660M, GeForce GTX 660Ti, GeForce GTX 750Ti,
-     GeForce GTX 780, GTX Titan
-
-Building the OpenCL program can take a few seconds when :ref:`gmx
-mdrun` starts up, because the kernels that run on the
-GPU can only be compiled at run time. This is not normally a
-problem for long production MD, but you might prefer to do some kinds
-of work on just the CPU (e.g. see ``-nb`` above).
 
 Some other :ref:`OpenCL management <opencl-management>` environment
 variables may be of interest to developers.
@@ -553,14 +744,23 @@ Known limitations of the OpenCL support
 
 Limitations in the current OpenCL support of interest to |Gromacs| users:
 
-- Using more than one GPU on a node is supported only with thread MPI
-- Sharing a GPU between multiple PP ranks is not supported
 - No Intel devices (CPUs, GPUs or Xeon Phi) are supported
 - Due to blocking behavior of some asynchronous task enqueuing functions
   in the NVIDIA OpenCL runtime, with the affected driver versions there is
   almost no performance gain when using NVIDIA GPUs.
   The issue affects NVIDIA driver versions up to 349 series, but it
   known to be fixed 352 and later driver releases.
+- On NVIDIA GPUs the OpenCL kernels achieve much lower performance
+  than the equivalent CUDA kernels due to limitations of the NVIDIA OpenCL
+  compiler.
+- The AMD APPSDK version 3.0 ships with OpenCL compiler/runtime components,
+  libamdocl12cl64.so and libamdocl64.so (only in earlier releases),
+  that conflict with newer fglrx GPU drivers which provide the same libraries.
+  This conflict manifests in kernel launch failures as, due to the library path
+  setup, the OpenCL runtime loads the APPSDK version of the aforementioned
+  libraries instead of the ones provided by the driver installer.
+  The recommended workaround is to remove or rename the APPSDK versions of the
+  offending libraries.
 
 Limitations of interest to |Gromacs| developers:
 
@@ -569,3 +769,73 @@ Limitations of interest to |Gromacs| developers:
   multiple of 32
 - Some Ewald tabulated kernels are known to produce incorrect results, so
   (correct) analytical kernels are used instead.
+
+Performance checklist
+---------------------
+
+There are many different aspects that affect the performance of simulations in
+|Gromacs|. Most simulations require a lot of computational resources, therefore
+it can be worthwhile to optimize the use of those resources. Several issues
+mentioned in the list below could lead to a performance difference of a factor
+of 2. So it can be useful go through the checklist.
+
+|Gromacs| configuration
+^^^^^^^^^^^^^^^^^^^^^^^
+
+* Don't use double precision unless you're absolute sure you need it.
+* Compile the FFTW library (yourself) with the correct flags on x86 (in most
+  cases, the correct flags are automatically configured).
+* On x86, use gcc or icc as the compiler (not pgi or the Cray compiler).
+* On POWER, use gcc instead of IBM's xlc.
+* Use a new compiler version, especially for gcc (e.g. from the version 5 to 6
+  the performance of the compiled code improved a lot).
+* MPI library: OpenMPI usually has good performance and causes little trouble.
+* Make sure your compiler supports OpenMP (some versions of Clang don't).
+* If you have GPUs that support either CUDA or OpenCL, use them.
+
+  * Configure with ``-DGMX_GPU=ON`` (add ``-DGMX_USE_OPENCL=ON`` for OpenCL).
+  * For CUDA, use the newest CUDA availabe for your GPU to take advantage of the
+    latest performance enhancements.
+  * Use a recent GPU driver.
+  * If compiling on a cluster head node, make sure that ``GMX_CPU_ACCELERATION``
+    is appropriate for the compute nodes.
+
+Run setup
+^^^^^^^^^
+
+* For an approximately spherical solute, use a rhombic dodecahedron unit cell.
+* When using a time-step of 2 fs, use :mdp:`cutoff-scheme` = :mdp:`h-bonds`
+  (and not :mdp:`all-bonds`), since this is faster, especially with GPUs,
+  and most force fields have been parametrized with only bonds involving
+  hydrogens constrained.
+* You can increase the time-step to 4 or 5 fs when using virtual interaction
+  sites (``gmx pdb2gmx -vsite h``).
+* For massively parallel runs with PME, you might need to try different numbers
+  of PME ranks (``gmx mdrun -npme ???``) to achieve best performance;
+  ``gmx tune_pme`` can help automate this search.
+* For massively parallel runs (also ``gmx mdrun -multidir``), or with a slow
+  network, global communication can become a bottleneck and you can reduce it
+  with ``gmx mdrun -gcom`` (note that this does affect the frequency of
+  temperature and pressure coupling).
+
+Checking and improving performance
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+* Look at the end of the ``md.log`` file to see the performance and the cycle
+  counters and wall-clock time for different parts of the MD calculation. The
+  PP/PME load ratio is also printed, with a warning when a lot of performance is
+  lost due to imbalance.
+* Adjust the number of PME ranks and/or the cut-off and PME grid-spacing when
+  there is a large PP/PME imbalance. Note that even with a small reported
+  imbalance, the automated PME-tuning might have reduced the initial imbalance.
+  You could still gain performance by changing the mdp parameters or increasing
+  the number of PME ranks.
+* If the neighbor searching takes a lot of time, increase nstlist (with the
+  Verlet cut-off scheme, this automatically adjusts the size of the neighbour
+  list to do more non-bonded computation to keep energy drift constant).
+
+  * If ``Comm. energies`` takes a lot of time (a note will be printed in the log
+    file), increase nstcalcenergy or use ``mdrun -gcom``.
+  * If all communication takes a lot of time, you might be running on too many
+    cores, or you could try running combined MPI/OpenMP parallelization with 2
+    or 4 OpenMP threads per MPI process.

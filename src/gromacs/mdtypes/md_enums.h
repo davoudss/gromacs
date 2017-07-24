@@ -507,7 +507,7 @@ extern const char *ewt_names[ewtNR+1];
 
 //! Pulling algorithm.
 enum {
-    epullUMBRELLA, epullCONSTRAINT, epullCONST_F, epullFLATBOTTOM, epullNR
+    epullUMBRELLA, epullCONSTRAINT, epullCONST_F, epullFLATBOTTOM, epullFLATBOTTOMHIGH, epullEXTERNAL, epullNR
 };
 //! String for pulling algorithm
 extern const char *epull_names[epullNR+1];
@@ -516,7 +516,7 @@ extern const char *epull_names[epullNR+1];
 
 //! Control of pull groups
 enum {
-    epullgDIST, epullgDIR, epullgCYL, epullgDIRPBC, epullgDIRRELATIVE, epullgNR
+    epullgDIST, epullgDIR, epullgCYL, epullgDIRPBC, epullgDIRRELATIVE, epullgANGLE, epullgDIHEDRAL, epullgANGLEAXIS, epullgNR
 };
 //! String for pull groups
 extern const char *epullg_names[epullgNR+1];
@@ -605,13 +605,6 @@ enum {
 extern const char *eQMMMscheme_names[eQMMMschemeNR+1];
 //! Macro to pick QMMMM scheme name
 #define EQMMMSCHEME(e) enum_name(e, eQMMMschemeNR, eQMMMscheme_names)
-
-//! Internal stuff for multiple value options in mdp files
-enum {
-    eMultentOptName, eMultentOptNo, eMultentOptLast, eMultentOptNR
-};
-//! Multiple value option names
-extern const char *eMultentOpt_names[eMultentOptNR+1];
 
 /*! \brief Neighborlist geometry type.
  *

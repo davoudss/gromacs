@@ -3,7 +3,7 @@
  *
  * Copyright (c) 1991-2000, University of Groningen, The Netherlands.
  * Copyright (c) 2001-2004, The GROMACS development team.
- * Copyright (c) 2013,2014,2015, by the GROMACS development team, led by
+ * Copyright (c) 2013,2014,2015,2016,2017, by the GROMACS development team, led by
  * Mark Abraham, David van der Spoel, Berk Hess, and Erik Lindahl,
  * and including many others, as listed in the AUTHORS file in the
  * top-level source directory and at http://www.gromacs.org.
@@ -58,7 +58,7 @@
 #include "gromacs/utility/fatalerror.h"
 #include "gromacs/utility/smalloc.h"
 
-static void calc_com_pbc(int nrefat, t_topology *top, rvec x[], t_pbc *pbc,
+static void calc_com_pbc(int nrefat, const t_topology *top, rvec x[], t_pbc *pbc,
                          int index[], rvec xref, int ePBC)
 {
     const real tol = 1e-4;
@@ -115,7 +115,7 @@ static void calc_com_pbc(int nrefat, t_topology *top, rvec x[], t_pbc *pbc,
     }
 }
 
-void spol_atom2molindex(int *n, int *index, t_block *mols)
+void spol_atom2molindex(int *n, int *index, const t_block *mols)
 {
     int nmol, i, j, m;
 
@@ -151,7 +151,6 @@ void spol_atom2molindex(int *n, int *index, t_block *mols)
 int gmx_spol(int argc, char *argv[])
 {
     t_topology  *top;
-    t_inputrec  *ir;
     t_atom      *atom;
     t_trxstatus *status;
     int          nrefat, natoms, nf, ntot;
@@ -168,7 +167,7 @@ int gmx_spol(int argc, char *argv[])
     double       sdip, sdip2, sinp, sdinp, nmol;
     int         *hist;
     t_pbc        pbc;
-    gmx_rmpbc_t  gpbc = NULL;
+    gmx_rmpbc_t  gpbc = nullptr;
 
 
     const char       *desc[] = {
@@ -198,7 +197,7 @@ int gmx_spol(int argc, char *argv[])
     static real       rmin   = 0.0, rmax = 0.32, refdip = 0, bw = 0.01;
     t_pargs           pa[]   = {
         { "-com",  FALSE, etBOOL,  {&bCom},
-          "Use the center of mass as the reference postion" },
+          "Use the center of mass as the reference position" },
         { "-refat",  FALSE, etINT, {&srefat},
           "The reference atom of the solvent molecule" },
         { "-rmin",  FALSE, etREAL, {&rmin}, "Maximum distance (nm)" },
@@ -208,23 +207,25 @@ int gmx_spol(int argc, char *argv[])
     };
 
     t_filenm          fnm[] = {
-        { efTRX, NULL,  NULL,  ffREAD },
-        { efTPR, NULL,  NULL,  ffREAD },
-        { efNDX, NULL,  NULL,  ffOPTRD },
-        { efXVG, NULL,  "scdist",  ffWRITE }
+        { efTRX, nullptr,  nullptr,  ffREAD },
+        { efTPR, nullptr,  nullptr,  ffREAD },
+        { efNDX, nullptr,  nullptr,  ffOPTRD },
+        { efXVG, nullptr,  "scdist",  ffWRITE }
     };
 #define NFILE asize(fnm)
 
     if (!parse_common_args(&argc, argv, PCA_CAN_TIME | PCA_CAN_VIEW,
-                           NFILE, fnm, asize(pa), pa, asize(desc), desc, 0, NULL, &oenv))
+                           NFILE, fnm, asize(pa), pa, asize(desc), desc, 0, nullptr, &oenv))
     {
         return 0;
     }
 
     snew(top, 1);
-    snew(ir, 1);
+    // TODO: Only ePBC is used, not the full inputrec.
+    t_inputrec  irInstance;
+    t_inputrec *ir = &irInstance;
     read_tpx_top(ftp2fn(efTPR, NFILE, fnm),
-                 ir, box, &natoms, NULL, NULL, top);
+                 ir, box, &natoms, nullptr, nullptr, top);
 
     /* get index groups */
     printf("Select a group of reference particles and a solvent group:\n");
@@ -359,7 +360,7 @@ int gmx_spol(int argc, char *argv[])
 
     /* clean up */
     sfree(x);
-    close_trj(status);
+    close_trx(status);
 
     fprintf(stderr, "Average number of molecules within %g nm is %.1f\n",
             rmax, static_cast<real>(ntot)/nf);
@@ -387,7 +388,7 @@ int gmx_spol(int argc, char *argv[])
     }
     xvgrclose(fp);
 
-    do_view(oenv, opt2fn("-o", NFILE, fnm), NULL);
+    do_view(oenv, opt2fn("-o", NFILE, fnm), nullptr);
 
     return 0;
 }

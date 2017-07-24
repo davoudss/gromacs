@@ -3,7 +3,7 @@
  *
  * Copyright (c) 1991-2000, University of Groningen, The Netherlands.
  * Copyright (c) 2001-2004, The GROMACS development team.
- * Copyright (c) 2013,2014,2015, by the GROMACS development team, led by
+ * Copyright (c) 2013,2014,2015,2016,2017, by the GROMACS development team, led by
  * Mark Abraham, David van der Spoel, Berk Hess, and Erik Lindahl,
  * and including many others, as listed in the AUTHORS file in the
  * top-level source directory and at http://www.gromacs.org.
@@ -60,10 +60,12 @@
 #include "gromacs/mdtypes/commrec.h"
 #include "gromacs/mdtypes/inputrec.h"
 #include "gromacs/mdtypes/md_enums.h"
+#include "gromacs/mdtypes/state.h"
 #include "gromacs/pbcutil/pbc.h"
 #include "gromacs/pulling/pull.h"
 #include "gromacs/topology/block.h"
 #include "gromacs/topology/invblock.h"
+#include "gromacs/topology/mtop_lookup.h"
 #include "gromacs/topology/mtop_util.h"
 #include "gromacs/utility/exceptions.h"
 #include "gromacs/utility/fatalerror.h"
@@ -90,12 +92,14 @@ typedef struct gmx_constr {
     int                maxwarn;        /* The maximum number of warnings     */
     int                warncount_lincs;
     int                warncount_settle;
-    gmx_edsam_t        ed;            /* The essential dynamics data        */
+    gmx_edsam_t        ed;             /* The essential dynamics data        */
 
-    tensor            *vir_r_m_dr_th; /* Thread local working data          */
-    int               *settle_error;  /* Thread local working data          */
+    /* Thread local working data */
+    tensor            *vir_r_m_dr_th;           /* Thread virial contribution */
+    bool              *bSettleErrorHasOccurred; /* Did a settle error occur?  */
 
-    const gmx_mtop_t  *warn_mtop;     /* Only used for printing warnings    */
+    /* Only used for printing warnings */
+    const gmx_mtop_t  *warn_mtop;     /* Pointer to the global topology     */
 } t_gmx_constr;
 
 typedef struct {
@@ -181,9 +185,9 @@ static void write_constr_pdb(const char *fn, const char *title,
     FILE         *out;
     int           dd_ac0 = 0, dd_ac1 = 0, i, ii, resnr;
     gmx_domdec_t *dd;
-    char         *anm, *resnm;
+    const char   *anm, *resnm;
 
-    dd = NULL;
+    dd = nullptr;
     if (DOMAINDECOMP(cr))
     {
         dd = cr->dd;
@@ -205,9 +209,10 @@ static void write_constr_pdb(const char *fn, const char *title,
 
     fprintf(out, "TITLE     %s\n", title);
     gmx_write_pdb_box(out, -1, box);
+    int molb = 0;
     for (i = start; i < start+homenr; i++)
     {
-        if (dd != NULL)
+        if (dd != nullptr)
         {
             if (i >= dd->nat_home && i < dd_ac0)
             {
@@ -219,7 +224,7 @@ static void write_constr_pdb(const char *fn, const char *title,
         {
             ii = i;
         }
-        gmx_mtop_atominfo_global(mtop, ii, &anm, &resnr, &resnm);
+        mtopGetAtomAndResidueName(mtop, ii, &molb, &anm, &resnr, &resnm, nullptr);
         gmx_fprintf_pdb_atomline(out, epdbATOM, ii+1, anm, ' ', resnm, ' ', resnr, ' ',
                                  10*x[i][XX], 10*x[i][YY], 10*x[i][ZZ], 1.0, 0.0, "");
     }
@@ -232,7 +237,7 @@ static void dump_confs(FILE *fplog, gmx_int64_t step, const gmx_mtop_t *mtop,
                        int start, int homenr, t_commrec *cr,
                        rvec x[], rvec xprime[], matrix box)
 {
-    char  buf[256], buf2[22];
+    char  buf[STRLEN], buf2[22];
 
     char *env = getenv("GMX_SUPPRESS_DUMP");
     if (env)
@@ -281,8 +286,6 @@ gmx_bool constrain(FILE *fplog, gmx_bool bLog, gmx_bool bEner,
 {
     gmx_bool    bOK, bDump;
     int         start, homenr;
-    int         i, j;
-    int         settle_error;
     tensor      vir_r_m_dr;
     real        scaled_delta_t;
     real        invdt, vir_fac = 0, t;
@@ -324,7 +327,7 @@ gmx_bool constrain(FILE *fplog, gmx_bool bLog, gmx_bool bEner,
         lambda += delta_step*ir->fepvals->delta_lambda;
     }
 
-    if (vir != NULL)
+    if (vir != nullptr)
     {
         clear_mat(vir_r_m_dr);
     }
@@ -343,21 +346,13 @@ gmx_bool constrain(FILE *fplog, gmx_bool bLog, gmx_bool bEner,
         nth = 1;
     }
 
-    if (nth > 1 && constr->vir_r_m_dr_th == NULL)
-    {
-        snew(constr->vir_r_m_dr_th, nth);
-        snew(constr->settle_error, nth);
-    }
-
-    settle_error = -1;
-
     /* We do not need full pbc when constraints do not cross charge groups,
      * i.e. when dd->constraint_comm==NULL.
      * Note that PBC for constraints is different from PBC for bondeds.
      * For constraints there is both forward and backward communication.
      */
     if (ir->ePBC != epbcNONE &&
-        (cr->dd || bMolPBC) && !(cr->dd && cr->dd->constraint_comm == NULL))
+        (cr->dd || bMolPBC) && !(cr->dd && cr->dd->constraint_comm == nullptr))
     {
         /* With pbc=screw the screw has been changed to a shift
          * by the constraint coordinate communication routine,
@@ -369,7 +364,7 @@ gmx_bool constrain(FILE *fplog, gmx_bool bLog, gmx_bool bEner,
     }
     else
     {
-        pbc_null = NULL;
+        pbc_null = nullptr;
     }
 
     /* Communicate the coordinates required for the non-local constraints
@@ -379,7 +374,7 @@ gmx_bool constrain(FILE *fplog, gmx_bool bLog, gmx_bool bEner,
     {
         dd_move_x_constraints(cr->dd, box, x, xprime, econq == econqCoord);
 
-        if (v != NULL)
+        if (v != nullptr)
         {
             /* We need to initialize the non-local components of v.
              * We never actually use these values, but we do increment them,
@@ -389,17 +384,17 @@ gmx_bool constrain(FILE *fplog, gmx_bool bLog, gmx_bool bEner,
         }
     }
 
-    if (constr->lincsd != NULL)
+    if (constr->lincsd != nullptr)
     {
         bOK = constrain_lincs(fplog, bLog, bEner, ir, step, constr->lincsd, md, cr,
                               x, xprime, min_proj,
                               box, pbc_null, lambda, dvdlambda,
-                              invdt, v, vir != NULL, vir_r_m_dr,
+                              invdt, v, vir != nullptr, vir_r_m_dr,
                               econq, nrnb,
                               constr->maxwarn, &constr->warncount_lincs);
-        if (!bOK && constr->maxwarn >= 0)
+        if (!bOK && constr->maxwarn < INT_MAX)
         {
-            if (fplog != NULL)
+            if (fplog != nullptr)
             {
                 fprintf(fplog, "Constraint error in algorithm %s at step %s\n",
                         econstr_names[econtLINCS], gmx_step_str(step, buf));
@@ -417,25 +412,25 @@ gmx_bool constrain(FILE *fplog, gmx_bool bLog, gmx_bool bEner,
                               md->invmass, constr->nblocks, constr->sblock,
                               idef, ir, x, xprime, nrnb,
                               constr->lagr, lambda, dvdlambda,
-                              invdt, v, vir != NULL, vir_r_m_dr,
-                              constr->maxwarn >= 0, econq);
+                              invdt, v, vir != nullptr, vir_r_m_dr,
+                              constr->maxwarn < INT_MAX, econq);
                 break;
             case (econqVeloc):
                 bOK = bshakef(fplog, constr->shaked,
                               md->invmass, constr->nblocks, constr->sblock,
                               idef, ir, x, min_proj, nrnb,
                               constr->lagr, lambda, dvdlambda,
-                              invdt, NULL, vir != NULL, vir_r_m_dr,
-                              constr->maxwarn >= 0, econq);
+                              invdt, nullptr, vir != nullptr, vir_r_m_dr,
+                              constr->maxwarn < INT_MAX, econq);
                 break;
             default:
                 gmx_fatal(FARGS, "Internal error, SHAKE called for constraining something else than coordinates");
                 break;
         }
 
-        if (!bOK && constr->maxwarn >= 0)
+        if (!bOK && constr->maxwarn < INT_MAX)
         {
-            if (fplog != NULL)
+            if (fplog != nullptr)
             {
                 fprintf(fplog, "Constraint error in algorithm %s at step %s\n",
                         econstr_names[econtSHAKE], gmx_step_str(step, buf));
@@ -446,16 +441,7 @@ gmx_bool constrain(FILE *fplog, gmx_bool bLog, gmx_bool bEner,
 
     if (nsettle > 0)
     {
-        int calcvir_atom_end;
-
-        if (vir == NULL)
-        {
-            calcvir_atom_end = 0;
-        }
-        else
-        {
-            calcvir_atom_end = md->homenr;
-        }
+        bool bSettleErrorHasOccurred = false;
 
         switch (econq)
         {
@@ -465,35 +451,28 @@ gmx_bool constrain(FILE *fplog, gmx_bool bLog, gmx_bool bEner,
                 {
                     try
                     {
-                        int start_th, end_th;
-
                         if (th > 0)
                         {
                             clear_mat(constr->vir_r_m_dr_th[th]);
                         }
 
-                        start_th = (nsettle* th   )/nth;
-                        end_th   = (nsettle*(th+1))/nth;
-                        if (start_th >= 0 && end_th - start_th > 0)
-                        {
-                            csettle(constr->settled,
-                                    end_th-start_th,
-                                    settle->iatoms+start_th*(1+NRAL(F_SETTLE)),
-                                    pbc_null,
-                                    x[0], xprime[0],
-                                    invdt, v ? v[0] : NULL, calcvir_atom_end,
-                                    th == 0 ? vir_r_m_dr : constr->vir_r_m_dr_th[th],
-                                    th == 0 ? &settle_error : &constr->settle_error[th]);
-                        }
+                        csettle(constr->settled,
+                                nth, th,
+                                pbc_null,
+                                x[0], xprime[0],
+                                invdt, v ? v[0] : nullptr,
+                                vir != nullptr,
+                                th == 0 ? vir_r_m_dr : constr->vir_r_m_dr_th[th],
+                                th == 0 ? &bSettleErrorHasOccurred : &constr->bSettleErrorHasOccurred[th]);
                     }
                     GMX_CATCH_ALL_AND_EXIT_WITH_FATAL_ERROR;
                 }
                 inc_nrnb(nrnb, eNR_SETTLE, nsettle);
-                if (v != NULL)
+                if (v != nullptr)
                 {
                     inc_nrnb(nrnb, eNR_CONSTR_V, nsettle*3);
                 }
-                if (vir != NULL)
+                if (vir != nullptr)
                 {
                     inc_nrnb(nrnb, eNR_CONSTR_VIR, nsettle*3);
                 }
@@ -507,15 +486,24 @@ gmx_bool constrain(FILE *fplog, gmx_bool bLog, gmx_bool bEner,
                 {
                     try
                     {
-                        int start_th, end_th;
+                        int calcvir_atom_end;
+
+                        if (vir == nullptr)
+                        {
+                            calcvir_atom_end = 0;
+                        }
+                        else
+                        {
+                            calcvir_atom_end = md->homenr;
+                        }
 
                         if (th > 0)
                         {
                             clear_mat(constr->vir_r_m_dr_th[th]);
                         }
 
-                        start_th = (nsettle* th   )/nth;
-                        end_th   = (nsettle*(th+1))/nth;
+                        int start_th = (nsettle* th   )/nth;
+                        int end_th   = (nsettle*(th+1))/nth;
 
                         if (start_th >= 0 && end_th - start_th > 0)
                         {
@@ -539,33 +527,30 @@ gmx_bool constrain(FILE *fplog, gmx_bool bLog, gmx_bool bEner,
             default:
                 gmx_incons("Unknown constraint quantity for settle");
         }
-    }
 
-    if (settle->nr > 0)
-    {
-        /* Combine virial and error info of the other threads */
-        for (i = 1; i < nth; i++)
+        if (vir != nullptr)
         {
-            settle_error = constr->settle_error[i];
-        }
-        if (vir != NULL)
-        {
-            for (i = 1; i < nth; i++)
+            /* Reduce the virial contributions over the threads */
+            for (int th = 1; th < nth; th++)
             {
-                m_add(vir_r_m_dr, constr->vir_r_m_dr_th[i], vir_r_m_dr);
+                m_add(vir_r_m_dr, constr->vir_r_m_dr_th[th], vir_r_m_dr);
             }
         }
 
-        if (econq == econqCoord && settle_error >= 0)
+        if (econq == econqCoord)
         {
-            bOK = FALSE;
-            if (constr->maxwarn >= 0)
+            for (int th = 1; th < nth; th++)
             {
-                char buf[256];
+                bSettleErrorHasOccurred = bSettleErrorHasOccurred || constr->bSettleErrorHasOccurred[th];
+            }
+
+            if (bSettleErrorHasOccurred)
+            {
+                char buf[STRLEN];
                 sprintf(buf,
-                        "\nstep " "%" GMX_PRId64 ": Water molecule starting at atom %d can not be "
-                        "settled.\nCheck for bad contacts and/or reduce the timestep if appropriate.\n",
-                        step, ddglatnr(cr->dd, settle->iatoms[settle_error*(1+NRAL(F_SETTLE))+1]));
+                        "\nstep " "%" GMX_PRId64 ": One or more water molecules can not be settled.\n"
+                        "Check for bad contacts and/or reduce the timestep if appropriate.\n",
+                        step);
                 if (fplog)
                 {
                     fprintf(fplog, "%s", buf);
@@ -577,11 +562,13 @@ gmx_bool constrain(FILE *fplog, gmx_bool bLog, gmx_bool bEner,
                     too_many_constraint_warnings(-1, constr->warncount_settle);
                 }
                 bDump = TRUE;
+
+                bOK   = FALSE;
             }
         }
     }
 
-    if (vir != NULL)
+    if (vir != nullptr)
     {
         /* The normal uses of constrain() pass step_scaling = 1.0.
          * The call to constrain() for SD1 that passes step_scaling =
@@ -611,9 +598,9 @@ gmx_bool constrain(FILE *fplog, gmx_bool bLog, gmx_bool bEner,
         {
             vir_fac *= 2;  /* only constraining over half the distance here */
         }
-        for (i = 0; i < DIM; i++)
+        for (int i = 0; i < DIM; i++)
         {
-            for (j = 0; j < DIM; j++)
+            for (int j = 0; j < DIM; j++)
             {
                 (*vir)[i][j] = vir_fac*vir_r_m_dr[i][j];
             }
@@ -642,7 +629,7 @@ gmx_bool constrain(FILE *fplog, gmx_bool bLog, gmx_bool bEner,
         }
         if (constr->ed && delta_step > 0)
         {
-            /* apply the essential dynamcs constraints here */
+            /* apply the essential dynamics constraints here */
             do_edsam(ir, step, cr, xprime, v, box, constr->ed);
         }
     }
@@ -658,7 +645,7 @@ real *constr_rmsd_data(struct gmx_constr *constr)
     }
     else
     {
-        return NULL;
+        return nullptr;
     }
 }
 
@@ -690,7 +677,7 @@ static void make_shake_sblock_serial(struct gmx_constr *constr,
     ncons = idef->il[F_CONSTR].nr/3;
 
     init_blocka(&sblocks);
-    gen_sblocks(NULL, 0, md->homenr, idef, &sblocks, FALSE);
+    gen_sblocks(nullptr, 0, md->homenr, idef, &sblocks, FALSE);
 
     /*
        bstart=(idef->nodeid > 0) ? blocks->multinr[idef->nodeid-1] : 0;
@@ -926,19 +913,14 @@ void set_constraints(struct gmx_constr *constr,
                      gmx_localtop_t *top, const t_inputrec *ir,
                      const t_mdatoms *md, t_commrec *cr)
 {
-    t_idef        *idef;
-    int            ncons;
-    const t_ilist *settle;
-    int            iO, iH;
-
-    idef = &top->idef;
+    t_idef *idef = &top->idef;
 
     if (constr->ncon_tot > 0)
     {
         /* We are using the local topology,
          * so there are only F_CONSTR constraints.
          */
-        ncons = idef->il[F_CONSTR].nr/3;
+        int ncons = idef->il[F_CONSTR].nr/3;
 
         /* With DD we might also need to call LINCS with ncons=0 for
          * communicating coordinates to other nodes that do have constraints.
@@ -965,16 +947,10 @@ void set_constraints(struct gmx_constr *constr,
         }
     }
 
-    if (idef->il[F_SETTLE].nr > 0 && constr->settled == NULL)
+    if (constr->settled)
     {
-        settle          = &idef->il[F_SETTLE];
-        iO              = settle->iatoms[1];
-        iH              = settle->iatoms[2];
-        constr->settled =
-            settle_init(md->massT[iO], md->massT[iH],
-                        md->invmass[iO], md->invmass[iH],
-                        idef->iparams[settle->iatoms[0]].settle.doh,
-                        idef->iparams[settle->iatoms[0]].settle.dhh);
+        settle_set_constraints(constr->settled,
+                               &idef->il[F_SETTLE], md);
     }
 
     /* Make a selection of the local atoms for essential dynamics */
@@ -1172,42 +1148,42 @@ real constr_r_max(FILE *fplog, const gmx_mtop_t *mtop, const t_inputrec *ir)
 
 gmx_constr_t init_constraints(FILE *fplog,
                               const gmx_mtop_t *mtop, const t_inputrec *ir,
-                              gmx_edsam_t ed, t_state *state,
+                              bool doEssentialDynamics,
                               t_commrec *cr)
 {
-    int                  ncon, nset, nmol, settle_type, i, mt, nflexcon;
-    struct gmx_constr   *constr;
-    char                *env;
-    t_ilist             *ilist;
-    gmx_mtop_ilistloop_t iloop;
-
-    ncon =
+    int nconstraints =
         gmx_mtop_ftype_count(mtop, F_CONSTR) +
         gmx_mtop_ftype_count(mtop, F_CONSTRNC);
-    nset = gmx_mtop_ftype_count(mtop, F_SETTLE);
+    int nsettles =
+        gmx_mtop_ftype_count(mtop, F_SETTLE);
 
-    if (ncon+nset == 0 &&
+    GMX_RELEASE_ASSERT(!ir->bPull || ir->pull_work != nullptr, "init_constraints called with COM pulling before/without initializing the pull code");
+
+    if (nconstraints + nsettles == 0 &&
         !(ir->bPull && pull_have_constraint(ir->pull_work)) &&
-        ed == NULL)
+        !doEssentialDynamics)
     {
-        return NULL;
+        return nullptr;
     }
+
+    struct gmx_constr *constr;
 
     snew(constr, 1);
 
-    constr->ncon_tot = ncon;
+    constr->ncon_tot = nconstraints;
     constr->nflexcon = 0;
-    if (ncon > 0)
+    if (nconstraints > 0)
     {
         constr->n_at2con_mt = mtop->nmoltype;
         snew(constr->at2con_mt, constr->n_at2con_mt);
-        for (mt = 0; mt < mtop->nmoltype; mt++)
+        for (int mt = 0; mt < mtop->nmoltype; mt++)
         {
+            int nflexcon;
             constr->at2con_mt[mt] = make_at2con(0, mtop->moltype[mt].atoms.nr,
                                                 mtop->moltype[mt].ilist,
                                                 mtop->ffparams.iparams,
                                                 EI_DYNAMICS(ir->eI), &nflexcon);
-            for (i = 0; i < mtop->nmolblock; i++)
+            for (int i = 0; i < mtop->nmolblock; i++)
             {
                 if (mtop->molblock[i].type == mt)
                 {
@@ -1266,57 +1242,48 @@ gmx_constr_t init_constraints(FILE *fplog,
         }
     }
 
-    if (nset > 0)
+    if (nsettles > 0)
     {
         please_cite(fplog, "Miyamoto92a");
 
         constr->bInterCGsettles = inter_charge_group_settles(mtop);
 
-        /* Check that we have only one settle type */
-        settle_type = -1;
-        iloop       = gmx_mtop_ilistloop_init(mtop);
-        while (gmx_mtop_ilistloop_next(iloop, &ilist, &nmol))
-        {
-            for (i = 0; i < ilist[F_SETTLE].nr; i += 4)
-            {
-                if (settle_type == -1)
-                {
-                    settle_type = ilist[F_SETTLE].iatoms[i];
-                }
-                else if (ilist[F_SETTLE].iatoms[i] != settle_type)
-                {
-                    gmx_fatal(FARGS,
-                              "The [molecules] section of your topology specifies more than one block of\n"
-                              "a [moleculetype] with a [settles] block. Only one such is allowed. If you\n"
-                              "are trying to partition your solvent into different *groups* (e.g. for\n"
-                              "freezing, T-coupling, etc.) then you are using the wrong approach. Index\n"
-                              "files specify groups. Otherwise, you may wish to change the least-used\n"
-                              "block of molecules with SETTLE constraints into 3 normal constraints.");
-                }
-            }
-        }
+        constr->settled         = settle_init(mtop);
 
+        /* Make an atom to settle index for use in domain decomposition */
         constr->n_at2settle_mt = mtop->nmoltype;
         snew(constr->at2settle_mt, constr->n_at2settle_mt);
-        for (mt = 0; mt < mtop->nmoltype; mt++)
+        for (int mt = 0; mt < mtop->nmoltype; mt++)
         {
             constr->at2settle_mt[mt] =
                 make_at2settle(mtop->moltype[mt].atoms.nr,
                                &mtop->moltype[mt].ilist[F_SETTLE]);
         }
+
+        /* Allocate thread-local work arrays */
+        int nthreads = gmx_omp_nthreads_get(emntSETTLE);
+        if (nthreads > 1 && constr->vir_r_m_dr_th == nullptr)
+        {
+            snew(constr->vir_r_m_dr_th, nthreads);
+            snew(constr->bSettleErrorHasOccurred, nthreads);
+        }
     }
 
-    if ((ncon + nset) > 0 && ir->epc == epcMTTK)
+    if (nconstraints + nsettles > 0 && ir->epc == epcMTTK)
     {
         gmx_fatal(FARGS, "Constraints are not implemented with MTTK pressure control.");
     }
 
     constr->maxwarn = 999;
-    env             = getenv("GMX_MAXCONSTRWARN");
+    char *env       = getenv("GMX_MAXCONSTRWARN");
     if (env)
     {
         constr->maxwarn = 0;
         sscanf(env, "%8d", &constr->maxwarn);
+        if (constr->maxwarn < 0)
+        {
+            constr->maxwarn = INT_MAX;
+        }
         if (fplog)
         {
             fprintf(fplog,
@@ -1330,24 +1297,18 @@ gmx_constr_t init_constraints(FILE *fplog,
                     constr->maxwarn);
         }
     }
-    if (constr->maxwarn < 0 && fplog)
-    {
-        fprintf(fplog, "maxwarn < 0, will not stop on constraint errors\n");
-    }
     constr->warncount_lincs  = 0;
     constr->warncount_settle = 0;
 
-    /* Initialize the essential dynamics sampling.
-     * Put the pointer to the ED struct in constr */
-    constr->ed = ed;
-    if (ed != NULL || state->edsamstate.nED > 0)
-    {
-        init_edsam(mtop, ir, cr, ed, state->x, state->box, &state->edsamstate);
-    }
-
-    constr->warn_mtop = mtop;
+    constr->warn_mtop        = mtop;
 
     return constr;
+}
+
+/* Put a pointer to the essential dynamics constraints into the constr struct */
+void saveEdsamPointer(gmx_constr_t constr, gmx_edsam_t ed)
+{
+    constr->ed = ed;
 }
 
 const t_blocka *atom2constraints_moltype(gmx_constr_t constr)

@@ -1,7 +1,7 @@
 #
 # This file is part of the GROMACS molecular simulation package.
 #
-# Copyright (c) 2010,2011,2012,2013,2014,2015, by the GROMACS development team, led by
+# Copyright (c) 2010,2011,2012,2013,2014,2015,2016,2017, by the GROMACS development team, led by
 # Mark Abraham, David van der Spoel, Berk Hess, and Erik Lindahl,
 # and including many others, as listed in the AUTHORS file in the
 # top-level source directory and at http://www.gromacs.org.
@@ -69,37 +69,9 @@ function (gmx_write_installed_header_list)
     file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/installed-headers.txt "${_list}")
 endfunction()
 
-if(GMX_USE_TNG)
-    option(GMX_EXTERNAL_TNG "Use external TNG instead of compiling the version shipped with GROMACS."
-           OFF)
-    # Detect TNG if GMX_EXTERNAL_TNG is explicitly ON
-    if(GMX_EXTERNAL_TNG)
-        find_package(TNG_IO 1.6.0)
-        if(NOT TNG_IO_FOUND)
-            message(FATAL_ERROR
-                "TNG >= 1.6.0 not found. "
-                "You can set GMX_EXTERNAL_TNG=OFF to compile TNG.")
-        endif()
-        include_directories(SYSTEM ${TNG_IO_INCLUDE_DIRS})
-    endif()
-    if(NOT GMX_EXTERNAL_TNG)
-        include(${CMAKE_SOURCE_DIR}/src/external/tng_io/BuildTNG.cmake)
-        tng_get_source_list(TNG_SOURCES TNG_IO_DEFINITIONS)
-        list(APPEND LIBGROMACS_SOURCES ${TNG_SOURCES})
-        tng_set_source_properties(WITH_ZLIB ${HAVE_ZLIB})
-
-        if (HAVE_ZLIB)
-            list(APPEND GMX_EXTRA_LIBRARIES ${ZLIB_LIBRARIES})
-            include_directories(SYSTEM ${ZLIB_INCLUDE_DIRS})
-        endif()
-    endif()
-else()
-    # We still need to get tng/tng_io_fwd.h from somewhere!
-    include_directories(BEFORE ${CMAKE_SOURCE_DIR}/src/external/tng_io/include)
-endif()
-
 add_subdirectory(gmxlib)
 add_subdirectory(mdlib)
+add_subdirectory(applied-forces)
 add_subdirectory(listed-forces)
 add_subdirectory(commandline)
 add_subdirectory(domdec)
@@ -111,10 +83,10 @@ add_subdirectory(linearalgebra)
 add_subdirectory(math)
 add_subdirectory(mdrunutility)
 add_subdirectory(mdtypes)
-add_subdirectory(random)
 add_subdirectory(onlinehelp)
 add_subdirectory(options)
 add_subdirectory(pbcutil)
+add_subdirectory(random)
 add_subdirectory(tables)
 add_subdirectory(timing)
 add_subdirectory(topology)
@@ -134,6 +106,7 @@ if (NOT GMX_BUILD_MDRUN_ONLY)
     add_subdirectory(analysisdata)
     add_subdirectory(selection)
     add_subdirectory(trajectoryanalysis)
+    add_subdirectory(energyanalysis)
     add_subdirectory(tools)
 endif()
 
@@ -150,11 +123,16 @@ list(APPEND LIBGROMACS_SOURCES ${GMXLIB_SOURCES} ${MDLIB_SOURCES} ${PROPERTY_SOU
 tmpi_get_source_list(THREAD_MPI_SOURCES ${CMAKE_SOURCE_DIR}/src/external/thread_mpi/src)
 list(APPEND LIBGROMACS_SOURCES ${THREAD_MPI_SOURCES})
 
+get_lmfit_properties(LMFIT_SOURCES LMFIT_LIBRARIES_TO_LINK LMFIT_INCLUDE_DIRECTORY LMFIT_INCLUDE_DIR_ORDER)
+include_directories(${LMFIT_INCLUDE_DIR_ORDER} SYSTEM "${LMFIT_INCLUDE_DIRECTORY}")
+list(APPEND LIBGROMACS_SOURCES ${LMFIT_SOURCES})
+
 configure_file(version.h.cmakein version.h)
 gmx_install_headers(
     analysisdata.h
     commandline.h
     options.h
+    random.h
     selection.h
     trajectoryanalysis.h
     utility.h
@@ -169,10 +147,13 @@ gmx_install_headers(
 set(GENERATED_VERSION_FILE utility/baseversion-gen.c)
 gmx_configure_version_file(
     utility/baseversion-gen.c.cmakein ${GENERATED_VERSION_FILE}
-    REMOTE_HASH SOURCE_FILE)
+    REMOTE_HASH)
 list(APPEND LIBGROMACS_SOURCES ${GENERATED_VERSION_FILE})
 
 if (GMX_USE_CUDA)
+    # Work around FindCUDA that prevents using target_link_libraries()
+    # with keywords otherwise...
+    set(CUDA_LIBRARIES PRIVATE ${CUDA_LIBRARIES})
     cuda_add_library(libgromacs ${LIBGROMACS_SOURCES})
 else()
     add_library(libgromacs ${LIBGROMACS_SOURCES})
@@ -187,24 +168,22 @@ check_cxx_compiler_flag(-Wno-unused-parameter HAS_NO_UNUSED_PARAMETER)
 if (HAS_NO_UNUSED_PARAMETER)
     set(_scanner_cpp_compiler_flags "${_scanner_cpp_compiler_flags} -Wno-unused-parameter")
 endif()
-check_cxx_compiler_flag(-Wno-deprecated-register HAS_NO_DEPRECATED_REGISTER)
-if (HAS_NO_DEPRECATED_REGISTER)
-    set(_scanner_cpp_compiler_flags "${_scanner_cpp_compiler_flags} -Wno-deprecated-register")
-else()
-    check_cxx_compiler_flag(-Wno-deprecated HAS_NO_DEPRECATED)
-    if (HAS_NO_DEPRECATED)
-        set(_scanner_cpp_compiler_flags "${_scanner_cpp_compiler_flags} -Wno-deprecated")
-    endif()
-endif()
 set_source_files_properties(selection/scanner.cpp PROPERTIES COMPILE_FLAGS "${_scanner_cpp_compiler_flags}")
 
+gmx_setup_tng_for_libgromacs()
+
 target_link_libraries(libgromacs
+                      PRIVATE
                       ${EXTRAE_LIBRARIES}
                       ${GMX_EXTRA_LIBRARIES}
-                      ${TNG_IO_LIBRARIES}
+                      ${GMX_COMMON_LIBRARIES}
                       ${FFT_LIBRARIES} ${LINEAR_ALGEBRA_LIBRARIES}
-                      ${XML_LIBRARIES}
-                      ${THREAD_LIB} ${GMX_SHARED_LINKER_FLAGS} ${OPENCL_LIBRARIES})
+                      ${LMFIT_LIBRARIES_TO_LINK}
+                      ${THREAD_LIB} ${GMX_SHARED_LINKER_FLAGS} ${OPENCL_LIBRARIES}
+                      ${GMX_STDLIB_LIBRARIES}
+                      PUBLIC
+                      ${GMX_PUBLIC_LIBRARIES}
+                      )
 set_target_properties(libgromacs PROPERTIES
                       OUTPUT_NAME "gromacs${GMX_LIBS_SUFFIX}"
                       SOVERSION ${LIBRARY_SOVERSION_MAJOR}

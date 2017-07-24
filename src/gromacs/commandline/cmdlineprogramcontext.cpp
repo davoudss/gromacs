@@ -1,7 +1,7 @@
 /*
  * This file is part of the GROMACS molecular simulation package.
  *
- * Copyright (c) 2012,2013,2014,2015,2016, by the GROMACS development team, led by
+ * Copyright (c) 2012,2013,2014,2015,2016,2017, by the GROMACS development team, led by
  * Mark Abraham, David van der Spoel, Berk Hess, and Erik Lindahl,
  * and including many others, as listed in the AUTHORS file in the
  * top-level source directory and at http://www.gromacs.org.
@@ -75,7 +75,7 @@ namespace
  */
 std::string quoteIfNecessary(const char *str)
 {
-    const bool bSpaces = (std::strchr(str, ' ') != NULL);
+    const bool bSpaces = (std::strchr(str, ' ') != nullptr);
     if (bSpaces)
     {
         return formatString("'%s'", str);
@@ -328,9 +328,8 @@ CommandLineProgramContext::Impl::Impl()
 
 CommandLineProgramContext::Impl::Impl(int argc, const char *const argv[],
                                       ExecutableEnvironmentPointer env)
-    : executableEnv_(std::move(env)), bSourceLayout_(false)
+    : executableEnv_(std::move(env)), invokedName_(argc != 0 ? argv[0] : ""), bSourceLayout_(false)
 {
-    invokedName_ = (argc != 0 ? argv[0] : "");
     programName_ = Path::getFilename(invokedName_);
     programName_ = stripSuffixIfPresent(programName_, ".exe");
 

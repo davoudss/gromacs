@@ -3,7 +3,7 @@
  *
  * Copyright (c) 1991-2000, University of Groningen, The Netherlands.
  * Copyright (c) 2001-2004, The GROMACS development team.
- * Copyright (c) 2013,2014,2015,2016, by the GROMACS development team, led by
+ * Copyright (c) 2013,2014,2015,2016,2017, by the GROMACS development team, led by
  * Mark Abraham, David van der Spoel, Berk Hess, and Erik Lindahl,
  * and including many others, as listed in the AUTHORS file in the
  * top-level source directory and at http://www.gromacs.org.
@@ -43,20 +43,23 @@
 #include "gromacs/mdlib/vcm.h"
 #include "gromacs/timing/wallcycle.h"
 #include "gromacs/timing/walltime_accounting.h"
+#include "gromacs/utility/arrayref.h"
 
 struct gmx_constr;
 struct gmx_localtop_t;
 struct gmx_output_env_t;
 struct gmx_update_t;
 struct nonbonded_verlet_t;
-struct t_graph;
 struct t_mdatoms;
 struct t_nrnb;
 
-typedef struct gmx_global_stat *gmx_global_stat_t;
+namespace gmx
+{
+class IMDOutputProvider;
+class MDLogger;
+}
 
-void do_pbc_first(FILE *log, matrix box, t_forcerec *fr,
-                  t_graph *graph, rvec x[]);
+typedef struct gmx_global_stat *gmx_global_stat_t;
 
 void do_pbc_first_mtop(FILE *fplog, int ePBC, matrix box,
                        const gmx_mtop_t *mtop, rvec x[]);
@@ -117,8 +120,8 @@ void print_start(FILE *fplog, t_commrec *cr,
                  gmx_walltime_accounting_t walltime_accounting,
                  const char *name);
 
-void finish_run(FILE *log, t_commrec *cr,
-                t_inputrec *inputrec,
+void finish_run(FILE *log, const gmx::MDLogger &mdlog, t_commrec *cr,
+                const t_inputrec *inputrec,
                 t_nrnb nrnb[], gmx_wallcycle_t wcycle,
                 gmx_walltime_accounting_t walltime_accounting,
                 nonbonded_verlet_t *nbv,
@@ -130,7 +133,7 @@ void calc_dispcorr(t_inputrec *ir, t_forcerec *fr,
                    matrix box, real lambda, tensor pres, tensor virial,
                    real *prescorr, real *enercorr, real *dvdlcorr);
 
-void initialize_lambdas(FILE *fplog, t_inputrec *ir, int *fep_state, real *lambda, double *lam0);
+void initialize_lambdas(FILE *fplog, t_inputrec *ir, int *fep_state, gmx::ArrayRef<real> lambda, double *lam0);
 
 void do_constrain_first(FILE *log, gmx_constr *constr,
                         t_inputrec *inputrec, t_mdatoms *md,
@@ -138,9 +141,10 @@ void do_constrain_first(FILE *log, gmx_constr *constr,
                         t_forcerec *fr, gmx_localtop_t *top);
 
 void init_md(FILE *fplog,
-             t_commrec *cr, t_inputrec *ir, const gmx_output_env_t *oenv,
+             t_commrec *cr, gmx::IMDOutputProvider *outputProvider,
+             t_inputrec *ir, const gmx_output_env_t *oenv,
              double *t, double *t0,
-             real *lambda, int *fep_state, double *lam0,
+             gmx::ArrayRef<real> lambda, int *fep_state, double *lam0,
              t_nrnb *nrnb, gmx_mtop_t *mtop,
              gmx_update_t **upd,
              int nfile, const t_filenm fnm[],

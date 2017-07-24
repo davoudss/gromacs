@@ -3,7 +3,7 @@
  *
  * Copyright (c) 1991-2000, University of Groningen, The Netherlands.
  * Copyright (c) 2001-2004, The GROMACS development team.
- * Copyright (c) 2013,2014,2015,2016, by the GROMACS development team, led by
+ * Copyright (c) 2013,2014,2015,2016,2017, by the GROMACS development team, led by
  * Mark Abraham, David van der Spoel, Berk Hess, and Erik Lindahl,
  * and including many others, as listed in the AUTHORS file in the
  * top-level source directory and at http://www.gromacs.org.
@@ -61,7 +61,6 @@
 #include "gromacs/ewald/pme.h"
 #include "gromacs/fileio/confio.h"
 #include "gromacs/fileio/mtxio.h"
-#include "gromacs/gmxlib/md_logging.h"
 #include "gromacs/gmxlib/network.h"
 #include "gromacs/gmxlib/nrnb.h"
 #include "gromacs/imd/imd.h"
@@ -77,6 +76,7 @@
 #include "gromacs/mdlib/mdatoms.h"
 #include "gromacs/mdlib/mdebin.h"
 #include "gromacs/mdlib/mdrun.h"
+#include "gromacs/mdlib/mdsetup.h"
 #include "gromacs/mdlib/ns.h"
 #include "gromacs/mdlib/shellfc.h"
 #include "gromacs/mdlib/sim_util.h"
@@ -87,44 +87,34 @@
 #include "gromacs/mdtypes/commrec.h"
 #include "gromacs/mdtypes/inputrec.h"
 #include "gromacs/mdtypes/md_enums.h"
+#include "gromacs/mdtypes/state.h"
 #include "gromacs/pbcutil/mshift.h"
 #include "gromacs/pbcutil/pbc.h"
 #include "gromacs/timing/wallcycle.h"
 #include "gromacs/timing/walltime_accounting.h"
 #include "gromacs/topology/mtop_util.h"
+#include "gromacs/topology/topology.h"
 #include "gromacs/utility/cstringutil.h"
 #include "gromacs/utility/exceptions.h"
 #include "gromacs/utility/fatalerror.h"
+#include "gromacs/utility/logger.h"
 #include "gromacs/utility/smalloc.h"
 
 //! Utility structure for manipulating states during EM
 typedef struct {
     //! Copy of the global state
-    t_state  s;
+    t_state          s;
     //! Force array
-    rvec    *f;
+    PaddedRVecVector f;
     //! Potential energy
-    real     epot;
+    real             epot;
     //! Norm of the force
-    real     fnorm;
+    real             fnorm;
     //! Maximum force
-    real     fmax;
+    real             fmax;
     //! Direction
-    int      a_fmax;
+    int              a_fmax;
 } em_state_t;
-
-//! Initiate em_state_t structure and return pointer to it
-static em_state_t *init_em_state()
-{
-    em_state_t *ems;
-
-    snew(ems, 1);
-
-    /* does this need to be here?  Should the array be declared differently (staticaly)in the state definition? */
-    snew(ems->s.lambda, efptNR);
-
-    return ems;
-}
 
 //! Print the EM starting conditions
 static void print_em_start(FILE                     *fplog,
@@ -195,7 +185,7 @@ static void warn_step(FILE *fp, real ftol, gmx_bool bLastStep, gmx_bool bConstra
 //! Print message about convergence of the EM
 static void print_converged(FILE *fp, const char *alg, real ftol,
                             gmx_int64_t count, gmx_bool bDone, gmx_int64_t nsteps,
-                            real epot, real fmax, int nfmax, real fnorm)
+                            const em_state_t *ems, double sqrtNumAtoms)
 {
     char buf[STEPSTRSIZE];
 
@@ -217,19 +207,19 @@ static void print_converged(FILE *fp, const char *alg, real ftol,
     }
 
 #if GMX_DOUBLE
-    fprintf(fp, "Potential Energy  = %21.14e\n", epot);
-    fprintf(fp, "Maximum force     = %21.14e on atom %d\n", fmax, nfmax+1);
-    fprintf(fp, "Norm of force     = %21.14e\n", fnorm);
+    fprintf(fp, "Potential Energy  = %21.14e\n", ems->epot);
+    fprintf(fp, "Maximum force     = %21.14e on atom %d\n", ems->fmax, ems->a_fmax + 1);
+    fprintf(fp, "Norm of force     = %21.14e\n", ems->fnorm/sqrtNumAtoms);
 #else
-    fprintf(fp, "Potential Energy  = %14.7e\n", epot);
-    fprintf(fp, "Maximum force     = %14.7e on atom %d\n", fmax, nfmax+1);
-    fprintf(fp, "Norm of force     = %14.7e\n", fnorm);
+    fprintf(fp, "Potential Energy  = %14.7e\n", ems->epot);
+    fprintf(fp, "Maximum force     = %14.7e on atom %d\n", ems->fmax, ems->a_fmax + 1);
+    fprintf(fp, "Norm of force     = %14.7e\n", ems->fnorm/sqrtNumAtoms);
 #endif
 }
 
 //! Compute the norm and max of the force array in parallel
 static void get_f_norm_max(t_commrec *cr,
-                           t_grpopts *opts, t_mdatoms *mdatoms, rvec *f,
+                           t_grpopts *opts, t_mdatoms *mdatoms, const rvec *f,
                            real *fnorm, real *fmax, int *a_fmax)
 {
     double fnorm2, *sum;
@@ -326,25 +316,25 @@ static void get_state_f_norm_max(t_commrec *cr,
                                  t_grpopts *opts, t_mdatoms *mdatoms,
                                  em_state_t *ems)
 {
-    get_f_norm_max(cr, opts, mdatoms, ems->f, &ems->fnorm, &ems->fmax, &ems->a_fmax);
+    get_f_norm_max(cr, opts, mdatoms, as_rvec_array(ems->f.data()),
+                   &ems->fnorm, &ems->fmax, &ems->a_fmax);
 }
 
 //! Initialize the energy minimization
-void init_em(FILE *fplog, const char *title,
-             t_commrec *cr, t_inputrec *ir,
-             t_state *state_global, gmx_mtop_t *top_global,
-             em_state_t *ems, gmx_localtop_t **top,
-             rvec **f,
-             t_nrnb *nrnb, rvec mu_tot,
-             t_forcerec *fr, gmx_enerdata_t **enerd,
-             t_graph **graph, t_mdatoms *mdatoms, gmx_global_stat_t *gstat,
-             gmx_vsite_t *vsite, gmx_constr_t constr,
-             int nfile, const t_filenm fnm[],
-             gmx_mdoutf_t *outf, t_mdebin **mdebin,
-             int imdport, unsigned long gmx_unused Flags,
-             gmx_wallcycle_t wcycle)
+static void init_em(FILE *fplog, const char *title,
+                    t_commrec *cr, gmx::IMDOutputProvider *outputProvider,
+                    t_inputrec *ir,
+                    t_state *state_global, gmx_mtop_t *top_global,
+                    em_state_t *ems, gmx_localtop_t **top,
+                    t_nrnb *nrnb, rvec mu_tot,
+                    t_forcerec *fr, gmx_enerdata_t **enerd,
+                    t_graph **graph, t_mdatoms *mdatoms, gmx_global_stat_t *gstat,
+                    gmx_vsite_t *vsite, gmx_constr_t constr, gmx_shellfc_t **shellfc,
+                    int nfile, const t_filenm fnm[],
+                    gmx_mdoutf_t *outf, t_mdebin **mdebin,
+                    int imdport, unsigned long gmx_unused Flags,
+                    gmx_wallcycle_t wcycle)
 {
-    int  i;
     real dvdl_constr;
 
     if (fplog)
@@ -355,13 +345,36 @@ void init_em(FILE *fplog, const char *title,
     state_global->ngtc = 0;
 
     /* Initialize lambda variables */
-    initialize_lambdas(fplog, ir, &(state_global->fep_state), state_global->lambda, NULL);
+    initialize_lambdas(fplog, ir, &(state_global->fep_state), state_global->lambda, nullptr);
 
     init_nrnb(nrnb);
 
     /* Interactive molecular dynamics */
-    init_IMD(ir, cr, top_global, fplog, 1, state_global->x,
-             nfile, fnm, NULL, imdport, Flags);
+    init_IMD(ir, cr, top_global, fplog, 1, as_rvec_array(state_global->x.data()),
+             nfile, fnm, nullptr, imdport, Flags);
+
+    if (ir->eI == eiNM)
+    {
+        GMX_ASSERT(shellfc != NULL, "With NM we always support shells");
+
+        *shellfc = init_shell_flexcon(stdout,
+                                      top_global,
+                                      n_flexible_constraints(constr),
+                                      ir->nstcalcenergy,
+                                      DOMAINDECOMP(cr));
+    }
+    else
+    {
+        GMX_ASSERT(EI_ENERGY_MINIMIZATION(ir->eI), "This else currently only handles energy minimizers, consider if your algorithm needs shell/flexible-constraint support");
+
+        /* With energy minimization, shells and flexible constraints are
+         * automatically minimized when treated like normal DOFS.
+         */
+        if (shellfc != nullptr)
+        {
+            *shellfc = nullptr;
+        }
+    }
 
     if (DOMAINDECOMP(cr))
     {
@@ -369,59 +382,39 @@ void init_em(FILE *fplog, const char *title,
 
         dd_init_local_state(cr->dd, state_global, &ems->s);
 
-        *f = NULL;
-
         /* Distribute the charge groups over the nodes from the master node */
         dd_partition_system(fplog, ir->init_step, cr, TRUE, 1,
                             state_global, top_global, ir,
                             &ems->s, &ems->f, mdatoms, *top,
                             fr, vsite, constr,
-                            nrnb, NULL, FALSE);
+                            nrnb, nullptr, FALSE);
         dd_store_state(cr->dd, &ems->s);
 
-        *graph = NULL;
+        *graph = nullptr;
     }
     else
     {
-        snew(*f, top_global->natoms);
-
+        state_change_natoms(state_global, state_global->natoms);
         /* Just copy the state */
         ems->s = *state_global;
+        state_change_natoms(&ems->s, ems->s.natoms);
         /* We need to allocate one element extra, since we might use
          * (unaligned) 4-wide SIMD loads to access rvec entries.
          */
-        snew(ems->s.x, ems->s.nalloc + 1);
-        snew(ems->f, ems->s.nalloc+1);
-        snew(ems->s.v, ems->s.nalloc+1);
-        for (i = 0; i < state_global->natoms; i++)
-        {
-            copy_rvec(state_global->x[i], ems->s.x[i]);
-        }
-        copy_mat(state_global->box, ems->s.box);
+        ems->f.resize(ems->s.natoms + 1);
 
-        *top      = gmx_mtop_generate_local_top(top_global, ir->efep != efepNO);
-
-        forcerec_set_excl_load(fr, *top);
-
-        setup_bonded_threading(fr, &(*top)->idef);
-
-        if (ir->ePBC != epbcNONE && !fr->bMolPBC)
-        {
-            *graph = mk_graph(fplog, &((*top)->idef), 0, top_global->natoms, FALSE, FALSE);
-        }
-        else
-        {
-            *graph = NULL;
-        }
-
-        atoms2md(top_global, ir, 0, NULL, top_global->natoms, mdatoms);
-        update_mdatoms(mdatoms, state_global->lambda[efptFEP]);
+        snew(*top, 1);
+        mdAlgorithmsSetupAtomData(cr, ir, top_global, *top, fr,
+                                  graph, mdatoms,
+                                  vsite, shellfc ? *shellfc : nullptr);
 
         if (vsite)
         {
             set_vsite_top(vsite, *top, mdatoms, cr);
         }
     }
+
+    update_mdatoms(mdatoms, state_global->lambda[efptMASS]);
 
     if (constr)
     {
@@ -441,11 +434,14 @@ void init_em(FILE *fplog, const char *title,
         {
             /* Constrain the starting coordinates */
             dvdl_constr = 0;
-            constrain(PAR(cr) ? NULL : fplog, TRUE, TRUE, constr, &(*top)->idef,
+            constrain(PAR(cr) ? nullptr : fplog, TRUE, TRUE, constr, &(*top)->idef,
                       ir, cr, -1, 0, 1.0, mdatoms,
-                      ems->s.x, ems->s.x, NULL, fr->bMolPBC, ems->s.box,
+                      as_rvec_array(ems->s.x.data()),
+                      as_rvec_array(ems->s.x.data()),
+                      nullptr,
+                      fr->bMolPBC, ems->s.box,
                       ems->s.lambda[efptFEP], &dvdl_constr,
-                      NULL, NULL, nrnb, econqCoord);
+                      nullptr, nullptr, nrnb, econqCoord);
         }
     }
 
@@ -455,19 +451,19 @@ void init_em(FILE *fplog, const char *title,
     }
     else
     {
-        *gstat = NULL;
+        *gstat = nullptr;
     }
 
-    *outf = init_mdoutf(fplog, nfile, fnm, 0, cr, ir, top_global, NULL, wcycle);
+    *outf = init_mdoutf(fplog, nfile, fnm, 0, cr, outputProvider, ir, top_global, nullptr, wcycle);
 
     snew(*enerd, 1);
     init_enerdata(top_global->groups.grps[egcENER].nr, ir->fepvals->n_lambda,
                   *enerd);
 
-    if (mdebin != NULL)
+    if (mdebin != nullptr)
     {
         /* Init bin for energy stuff */
-        *mdebin = init_mdebin(mdoutf_get_fp_ene(*outf), top_global, ir, NULL);
+        *mdebin = init_mdebin(mdoutf_get_fp_ene(*outf), top_global, ir, nullptr);
     }
 
     clear_rvec(mu_tot);
@@ -491,24 +487,13 @@ static void finish_em(t_commrec *cr, gmx_mdoutf_t outf,
 }
 
 //! Swap two different EM states during minimization
-static void swap_em_state(em_state_t *ems1, em_state_t *ems2)
+static void swap_em_state(em_state_t **ems1, em_state_t **ems2)
 {
-    em_state_t tmp;
+    em_state_t *tmp;
 
     tmp   = *ems1;
     *ems1 = *ems2;
     *ems2 = tmp;
-}
-
-//! Copy coordinate from an EM state to a "normal" state structure
-static void copy_em_coords(em_state_t *ems, t_state *state)
-{
-    int i;
-
-    for (i = 0; (i < state->natoms); i++)
-    {
-        copy_rvec(ems->s.x[i], state->x[i]);
-    }
 }
 
 //! Save the EM trajectory
@@ -518,24 +503,11 @@ static void write_em_traj(FILE *fplog, t_commrec *cr,
                           gmx_mtop_t *top_global,
                           t_inputrec *ir, gmx_int64_t step,
                           em_state_t *state,
-                          t_state *state_global)
+                          t_state *state_global,
+                          ObservablesHistory *observablesHistory)
 {
-    int      mdof_flags;
-    gmx_bool bIMDout = FALSE;
+    int mdof_flags = 0;
 
-
-    /* Shall we do IMD output? */
-    if (ir->bIMD)
-    {
-        bIMDout = do_per_step(step, IMD_get_step(ir->imd->setup));
-    }
-
-    if ((bX || bF || bIMDout || confout != NULL) && !DOMAINDECOMP(cr))
-    {
-        copy_em_coords(state, state_global);
-    }
-
-    mdof_flags = 0;
     if (bX)
     {
         mdof_flags |= MDOF_X;
@@ -553,38 +525,51 @@ static void write_em_traj(FILE *fplog, t_commrec *cr,
 
     mdoutf_write_to_trajectory_files(fplog, cr, outf, mdof_flags,
                                      top_global, step, (double)step,
-                                     &state->s, state_global, state->f);
+                                     &state->s, state_global, observablesHistory,
+                                     &state->f);
 
-    if (confout != NULL && MASTER(cr))
+    if (confout != nullptr && MASTER(cr))
     {
+        GMX_RELEASE_ASSERT(bX, "The code below assumes that (with domain decomposition), x is collected to state_global in the call above.");
+        /* With domain decomposition the call above collected the state->s.x
+         * into state_global->x. Without DD we copy the local state pointer.
+         */
+        if (!DOMAINDECOMP(cr))
+        {
+            state_global = &state->s;
+        }
+
         if (ir->ePBC != epbcNONE && !ir->bPeriodicMols && DOMAINDECOMP(cr))
         {
             /* Make molecules whole only for confout writing */
-            do_pbc_mtop(fplog, ir->ePBC, state_global->box, top_global,
-                        state_global->x);
+            do_pbc_mtop(fplog, ir->ePBC, state->s.box, top_global,
+                        as_rvec_array(state_global->x.data()));
         }
 
         write_sto_conf_mtop(confout,
                             *top_global->name, top_global,
-                            state_global->x, NULL, ir->ePBC, state_global->box);
+                            as_rvec_array(state_global->x.data()), nullptr, ir->ePBC, state->s.box);
     }
 }
 
-//! Do one minimization step
-static void do_em_step(t_commrec *cr, t_inputrec *ir, t_mdatoms *md,
+//! \brief Do one minimization step
+//
+// \returns true when the step succeeded, false when a constraint error occurred
+static bool do_em_step(t_commrec *cr, t_inputrec *ir, t_mdatoms *md,
                        gmx_bool bMolPBC,
-                       em_state_t *ems1, real a, rvec *f, em_state_t *ems2,
+                       em_state_t *ems1, real a, const PaddedRVecVector *force,
+                       em_state_t *ems2,
                        gmx_constr_t constr, gmx_localtop_t *top,
                        t_nrnb *nrnb, gmx_wallcycle_t wcycle,
                        gmx_int64_t count)
 
 {
     t_state *s1, *s2;
-    int      i;
     int      start, end;
-    rvec    *x1, *x2;
     real     dvdl_constr;
     int      nthreads gmx_unused;
+
+    bool     validStep = true;
 
     s1 = &ems1->s;
     s2 = &ems2->s;
@@ -596,44 +581,38 @@ static void do_em_step(t_commrec *cr, t_inputrec *ir, t_mdatoms *md,
 
     s2->flags = s1->flags;
 
-    if (s2->nalloc != s1->nalloc)
+    if (s2->natoms != s1->natoms)
     {
-        s2->nalloc = s1->nalloc;
+        state_change_natoms(s2, s1->natoms);
         /* We need to allocate one element extra, since we might use
          * (unaligned) 4-wide SIMD loads to access rvec entries.
          */
-        srenew(s2->x, s1->nalloc + 1);
-        srenew(ems2->f,  s1->nalloc);
-        if (s2->flags & (1<<estCGP))
-        {
-            srenew(s2->cg_p,  s1->nalloc + 1);
-        }
+        ems2->f.resize(s2->natoms + 1);
+    }
+    if (DOMAINDECOMP(cr) && s2->cg_gl.size() != s1->cg_gl.size())
+    {
+        s2->cg_gl.resize(s1->cg_gl.size());
     }
 
-    s2->natoms = s1->natoms;
     copy_mat(s1->box, s2->box);
     /* Copy free energy state */
-    for (i = 0; i < efptNR; i++)
-    {
-        s2->lambda[i] = s1->lambda[i];
-    }
+    s2->lambda = s1->lambda;
     copy_mat(s1->box, s2->box);
 
     start = 0;
     end   = md->homenr;
 
-    x1 = s1->x;
-    x2 = s2->x;
-
     // cppcheck-suppress unreadVariable
     nthreads = gmx_omp_nthreads_get(emntUpdate);
 #pragma omp parallel num_threads(nthreads)
     {
-        int gf, i, m;
+        const rvec *x1 = as_rvec_array(s1->x.data());
+        rvec       *x2 = as_rvec_array(s2->x.data());
+        const rvec *f  = as_rvec_array(force->data());
 
-        gf = 0;
+        int         gf = 0;
 #pragma omp for schedule(static) nowait
-        for (i = start; i < end; i++)
+        for (int i = start; i < end; i++)
         {
             try
             {
@@ -641,7 +620,7 @@ static void do_em_step(t_commrec *cr, t_inputrec *ir, t_mdatoms *md,
                 {
                     gf = md->cFREEZE[i];
                 }
-                for (m = 0; m < DIM; m++)
+                for (int m = 0; m < DIM; m++)
                 {
                     if (ir->opts.nFreeze[gf][m])
                     {
@@ -659,36 +638,23 @@ static void do_em_step(t_commrec *cr, t_inputrec *ir, t_mdatoms *md,
         if (s2->flags & (1<<estCGP))
         {
             /* Copy the CG p vector */
-            x1 = s1->cg_p;
-            x2 = s2->cg_p;
+            const rvec *p1 = as_rvec_array(s1->cg_p.data());
+            rvec       *p2 = as_rvec_array(s2->cg_p.data());
 #pragma omp for schedule(static) nowait
-            for (i = start; i < end; i++)
+            for (int i = start; i < end; i++)
             {
                 // Trivial OpenMP block that does not throw
-                copy_rvec(x1[i], x2[i]);
+                copy_rvec(p1[i], p2[i]);
             }
         }
 
         if (DOMAINDECOMP(cr))
         {
             s2->ddp_count = s1->ddp_count;
-            if (s2->cg_gl_nalloc < s1->cg_gl_nalloc)
-            {
-#pragma omp barrier
-                s2->cg_gl_nalloc = s1->cg_gl_nalloc;
-                try
-                {
-                    /* We need to allocate one element extra, since we might use
-                     * (unaligned) 4-wide SIMD loads to access rvec entries.
-                     */
-                    srenew(s2->cg_gl, s2->cg_gl_nalloc + 1);
-                }
-                GMX_CATCH_ALL_AND_EXIT_WITH_FATAL_ERROR;
-#pragma omp barrier
-            }
-            s2->ncg_gl = s1->ncg_gl;
+
+            /* OpenMP does not supported unsigned loop variables */
 #pragma omp for schedule(static) nowait
-            for (i = 0; i < s2->ncg_gl; i++)
+            for (int i = 0; i < static_cast<int>(s2->cg_gl.size()); i++)
             {
                 s2->cg_gl[i] = s1->cg_gl[i];
             }
@@ -700,13 +666,24 @@ static void do_em_step(t_commrec *cr, t_inputrec *ir, t_mdatoms *md,
     {
         wallcycle_start(wcycle, ewcCONSTR);
         dvdl_constr = 0;
-        constrain(NULL, TRUE, TRUE, constr, &top->idef,
-                  ir, cr, count, 0, 1.0, md,
-                  s1->x, s2->x, NULL, bMolPBC, s2->box,
-                  s2->lambda[efptBONDED], &dvdl_constr,
-                  NULL, NULL, nrnb, econqCoord);
+        validStep   =
+            constrain(nullptr, TRUE, TRUE, constr, &top->idef,
+                      ir, cr, count, 0, 1.0, md,
+                      as_rvec_array(s1->x.data()), as_rvec_array(s2->x.data()),
+                      nullptr, bMolPBC, s2->box,
+                      s2->lambda[efptBONDED], &dvdl_constr,
+                      nullptr, nullptr, nrnb, econqCoord);
         wallcycle_stop(wcycle, ewcCONSTR);
+
+        // We should move this check to the different minimizers
+        if (!validStep && ir->eI != eiSteep)
+        {
+            gmx_fatal(FARGS, "The coordinates could not be constrained. Minimizer '%s' can not handle constraint failures, use minimizer '%s' before using '%s'.",
+                      EI(ir->eI), EI(eiSteep), EI(ir->eI));
+        }
     }
+
+    return validStep;
 }
 
 //! Prepare EM for using domain decomposition parallellization
@@ -719,7 +696,7 @@ static void em_dd_partition_system(FILE *fplog, int step, t_commrec *cr,
 {
     /* Repartition the domain decomposition */
     dd_partition_system(fplog, step, cr, FALSE, 1,
-                        NULL, top_global, ir,
+                        nullptr, top_global, ir,
                         &ems->s, &ems->f,
                         mdatoms, top, fr, vsite, constr,
                         nrnb, wcycle, FALSE);
@@ -766,7 +743,7 @@ static void evaluate_energy(FILE *fplog, t_commrec *cr,
 
     if (vsite)
     {
-        construct_vsites(vsite, ems->s.x, 1, NULL,
+        construct_vsites(vsite, as_rvec_array(ems->s.x.data()), 1, nullptr,
                          top->idef.iparams, top->idef.il,
                          fr->ePBC, fr->bMolPBC, cr, ems->s.box);
     }
@@ -785,12 +762,18 @@ static void evaluate_energy(FILE *fplog, t_commrec *cr,
      */
     do_force(fplog, cr, inputrec,
              count, nrnb, wcycle, top, &top_global->groups,
-             ems->s.box, ems->s.x, &ems->s.hist,
-             ems->f, force_vir, mdatoms, enerd, fcd,
-             ems->s.lambda, graph, fr, vsite, mu_tot, t, NULL, NULL, TRUE,
+             ems->s.box, &ems->s.x, &ems->s.hist,
+             &ems->f, force_vir, mdatoms, enerd, fcd,
+             ems->s.lambda, graph, fr, vsite, mu_tot, t, nullptr, TRUE,
              GMX_FORCE_STATECHANGED | GMX_FORCE_ALLFORCES |
              GMX_FORCE_VIRIAL | GMX_FORCE_ENERGY |
-             (bNS ? GMX_FORCE_NS : 0));
+             (bNS ? GMX_FORCE_NS : 0),
+             DOMAINDECOMP(cr) ?
+             DdOpenBalanceRegionBeforeForceComputation::yes :
+             DdOpenBalanceRegionBeforeForceComputation::no,
+             DOMAINDECOMP(cr) ?
+             DdCloseBalanceRegionAfterForceComputation::yes :
+             DdCloseBalanceRegionAfterForceComputation::no);
 
     /* Clear the unused shake virial and pressure */
     clear_mat(shake_vir);
@@ -802,8 +785,8 @@ static void evaluate_energy(FILE *fplog, t_commrec *cr,
         wallcycle_start(wcycle, ewcMoveE);
 
         global_stat(gstat, cr, enerd, force_vir, shake_vir, mu_tot,
-                    inputrec, NULL, NULL, NULL, 1, &terminate,
-                    NULL, FALSE,
+                    inputrec, nullptr, nullptr, nullptr, 1, &terminate,
+                    nullptr, FALSE,
                     CGLO_ENERGY |
                     CGLO_PRESSURE |
                     CGLO_CONSTRAINT);
@@ -826,11 +809,13 @@ static void evaluate_energy(FILE *fplog, t_commrec *cr,
         /* Project out the constraint components of the force */
         wallcycle_start(wcycle, ewcCONSTR);
         dvdl_constr = 0;
-        constrain(NULL, FALSE, FALSE, constr, &top->idef,
+        rvec *f_rvec = as_rvec_array(ems->f.data());
+        constrain(nullptr, FALSE, FALSE, constr, &top->idef,
                   inputrec, cr, count, 0, 1.0, mdatoms,
-                  ems->s.x, ems->f, ems->f, fr->bMolPBC, ems->s.box,
+                  as_rvec_array(ems->s.x.data()), f_rvec, f_rvec,
+                  fr->bMolPBC, ems->s.box,
                   ems->s.lambda[efptBONDED], &dvdl_constr,
-                  NULL, &shake_vir, nrnb, econqForceDispl);
+                  nullptr, &shake_vir, nrnb, econqForceDispl);
         enerd->term[F_DVDL_CONSTR] += dvdl_constr;
         m_add(force_vir, shake_vir, vir);
         wallcycle_stop(wcycle, ewcCONSTR);
@@ -857,7 +842,6 @@ static double reorder_partsum(t_commrec *cr, t_grpopts *opts, t_mdatoms *mdatoms
                               gmx_mtop_t *top_global,
                               em_state_t *s_min, em_state_t *s_b)
 {
-    rvec          *fm, *fb, *fmg;
     t_block       *cgs_gl;
     int            ncg, *cg_gl, *index, c, cg, i, a0, a1, a, gf, m;
     double         partsum;
@@ -868,8 +852,8 @@ static double reorder_partsum(t_commrec *cr, t_grpopts *opts, t_mdatoms *mdatoms
         fprintf(debug, "Doing reorder_partsum\n");
     }
 
-    fm = s_min->f;
-    fb = s_b->f;
+    const rvec *fm = as_rvec_array(s_min->f.data());
+    const rvec *fb = as_rvec_array(s_b->f.data());
 
     cgs_gl = dd_charge_groups_global(cr->dd);
     index  = cgs_gl->index;
@@ -878,10 +862,11 @@ static double reorder_partsum(t_commrec *cr, t_grpopts *opts, t_mdatoms *mdatoms
      * This conflicts with the spirit of domain decomposition,
      * but to fully optimize this a much more complicated algorithm is required.
      */
+    rvec *fmg;
     snew(fmg, top_global->natoms);
 
-    ncg   = s_min->s.ncg_gl;
-    cg_gl = s_min->s.cg_gl;
+    ncg   = s_min->s.cg_gl.size();
+    cg_gl = s_min->s.cg_gl.data();
     i     = 0;
     for (c = 0; c < ncg; c++)
     {
@@ -897,8 +882,8 @@ static double reorder_partsum(t_commrec *cr, t_grpopts *opts, t_mdatoms *mdatoms
     gmx_sum(top_global->natoms*3, fmg[0], cr);
 
     /* Now we will determine the part of the sum for the cgs in state s_b */
-    ncg         = s_b->s.ncg_gl;
-    cg_gl       = s_b->s.cg_gl;
+    ncg         = s_b->s.cg_gl.size();
+    cg_gl       = s_b->s.cg_gl.data();
     partsum     = 0;
     i           = 0;
     gf          = 0;
@@ -935,9 +920,7 @@ static real pr_beta(t_commrec *cr, t_grpopts *opts, t_mdatoms *mdatoms,
                     gmx_mtop_t *top_global,
                     em_state_t *s_min, em_state_t *s_b)
 {
-    rvec  *fm, *fb;
     double sum;
-    int    gf, i, m;
 
     /* This is just the classical Polak-Ribiere calculation of beta;
      * it looks a bit complicated since we take freeze groups into account,
@@ -948,20 +931,20 @@ static real pr_beta(t_commrec *cr, t_grpopts *opts, t_mdatoms *mdatoms,
         (s_min->s.ddp_count == cr->dd->ddp_count &&
          s_b->s.ddp_count   == cr->dd->ddp_count))
     {
-        fm  = s_min->f;
-        fb  = s_b->f;
-        sum = 0;
-        gf  = 0;
+        const rvec *fm  = as_rvec_array(s_min->f.data());
+        const rvec *fb  = as_rvec_array(s_b->f.data());
+        sum             = 0;
+        int         gf  = 0;
         /* This part of code can be incorrect with DD,
          * since the atom ordering in s_b and s_min might differ.
          */
-        for (i = 0; i < mdatoms->homenr; i++)
+        for (int i = 0; i < mdatoms->homenr; i++)
         {
             if (mdatoms->cFREEZE)
             {
                 gf = mdatoms->cFREEZE[i];
             }
-            for (m = 0; m < DIM; m++)
+            for (int m = 0; m < DIM; m++)
             {
                 if (!opts->nFreeze[gf][m])
                 {
@@ -987,12 +970,13 @@ namespace gmx
 {
 
 /*! \brief Do conjugate gradients minimization
-    \copydoc integrator_t (FILE *fplog, t_commrec *cr,
+    \copydoc integrator_t(FILE *fplog, t_commrec *cr, const gmx::MDLogger &mdlog,
                            int nfile, const t_filenm fnm[],
                            const gmx_output_env_t *oenv, gmx_bool bVerbose,
                            int nstglobalcomm,
                            gmx_vsite_t *vsite, gmx_constr_t constr,
                            int stepout,
+                           gmx::IMDOutputProvider *outputProvider,
                            t_inputrec *inputrec,
                            gmx_mtop_t *top_global, t_fcdata *fcd,
                            t_state *state_global,
@@ -1000,27 +984,28 @@ namespace gmx
                            t_nrnb *nrnb, gmx_wallcycle_t wcycle,
                            gmx_edsam_t ed,
                            t_forcerec *fr,
-                           int repl_ex_nst, int repl_ex_nex, int repl_ex_seed,
-                           gmx_membed_t *membed,
+                           const ReplicaExchangeParameters &replExParams,
+                           gmx_membed_t gmx_unused *membed,
                            real cpt_period, real max_hours,
                            int imdport,
                            unsigned long Flags,
                            gmx_walltime_accounting_t walltime_accounting)
  */
-double do_cg(FILE *fplog, t_commrec *cr,
+double do_cg(FILE *fplog, t_commrec *cr, const gmx::MDLogger gmx_unused &mdlog,
              int nfile, const t_filenm fnm[],
              const gmx_output_env_t gmx_unused *oenv, gmx_bool bVerbose,
              int gmx_unused nstglobalcomm,
              gmx_vsite_t *vsite, gmx_constr_t constr,
              int gmx_unused stepout,
+             gmx::IMDOutputProvider *outputProvider,
              t_inputrec *inputrec,
              gmx_mtop_t *top_global, t_fcdata *fcd,
              t_state *state_global,
+             ObservablesHistory *observablesHistory,
              t_mdatoms *mdatoms,
              t_nrnb *nrnb, gmx_wallcycle_t wcycle,
-             gmx_edsam_t gmx_unused ed,
              t_forcerec *fr,
-             int gmx_unused repl_ex_nst, int gmx_unused repl_ex_nex, int gmx_unused repl_ex_seed,
+             const ReplicaExchangeParameters gmx_unused &replExParams,
              gmx_membed_t gmx_unused *membed,
              real gmx_unused cpt_period, real gmx_unused max_hours,
              int imdport,
@@ -1029,15 +1014,11 @@ double do_cg(FILE *fplog, t_commrec *cr,
 {
     const char       *CG = "Polak-Ribiere Conjugate Gradients";
 
-    em_state_t       *s_min, *s_a, *s_b, *s_c;
     gmx_localtop_t   *top;
     gmx_enerdata_t   *enerd;
-    rvec             *f;
     gmx_global_stat_t gstat;
     t_graph          *graph;
-    rvec             *p, *sf;
-    double            gpa, gpb, gpc, tmp, minstep;
-    real              fnormn;
+    double            tmp, minstep;
     real              stepsize;
     real              a, b, c, beta = 0.0;
     real              epot_repl = 0;
@@ -1049,19 +1030,25 @@ double do_cg(FILE *fplog, t_commrec *cr,
     tensor            vir, pres;
     int               number_steps, neval = 0, nstcg = inputrec->nstcgsteep;
     gmx_mdoutf_t      outf;
-    int               i, m, gf, step, nminstep;
+    int               m, step, nminstep;
 
     step = 0;
 
-    s_min = init_em_state();
-    s_a   = init_em_state();
-    s_b   = init_em_state();
-    s_c   = init_em_state();
+    // Ensure the extra per-atom state array gets allocated
+    state_global->flags |= (1<<estCGP);
+
+    /* Create 4 states on the stack and extract pointers that we will swap */
+    em_state_t  s0 {}, s1 {}, s2 {}, s3 {};
+    em_state_t *s_min = &s0;
+    em_state_t *s_a   = &s1;
+    em_state_t *s_b   = &s2;
+    em_state_t *s_c   = &s3;
 
     /* Init em and store the local state in s_min */
-    init_em(fplog, CG, cr, inputrec,
-            state_global, top_global, s_min, &top, &f,
-            nrnb, mu_tot, fr, &enerd, &graph, mdatoms, &gstat, vsite, constr,
+    init_em(fplog, CG, cr, outputProvider, inputrec,
+            state_global, top_global, s_min, &top,
+            nrnb, mu_tot, fr, &enerd, &graph, mdatoms, &gstat,
+            vsite, constr, nullptr,
             nfile, fnm, &outf, &mdebin, imdport, Flags, wcycle);
 
     /* Print to log file */
@@ -1095,7 +1082,7 @@ double do_cg(FILE *fplog, t_commrec *cr,
         /* Copy stuff to the energy bin for easy printing etc. */
         upd_mdebin(mdebin, FALSE, FALSE, (double)step,
                    mdatoms->tmass, enerd, &s_min->s, inputrec->fepvals, inputrec->expandedvals, s_min->s.box,
-                   NULL, NULL, vir, pres, NULL, mu_tot, constr);
+                   nullptr, nullptr, vir, pres, nullptr, mu_tot, constr);
 
         print_ebin_header(fplog, step, step);
         print_ebin(mdoutf_get_fp_ene(outf), TRUE, FALSE, FALSE, fplog, step, step, eprNORMAL,
@@ -1126,7 +1113,7 @@ double do_cg(FILE *fplog, t_commrec *cr,
      * we either converge or reach the max number of steps.
      */
     converged = FALSE;
-    for (step = 0; (number_steps < 0 || (number_steps >= 0 && step <= number_steps)) && !converged; step++)
+    for (step = 0; (number_steps < 0 || step <= number_steps) && !converged; step++)
     {
 
         /* start taking steps in a new direction
@@ -1135,11 +1122,11 @@ double do_cg(FILE *fplog, t_commrec *cr,
          */
 
         /* Calculate the new direction in p, and the gradient in this direction, gpa */
-        p   = s_min->s.cg_p;
-        sf  = s_min->f;
-        gpa = 0;
-        gf  = 0;
-        for (i = 0; i < mdatoms->homenr; i++)
+        rvec       *pm  = as_rvec_array(s_min->s.cg_p.data());
+        const rvec *sfm = as_rvec_array(s_min->f.data());
+        double      gpa = 0;
+        int         gf  = 0;
+        for (int i = 0; i < mdatoms->homenr; i++)
         {
             if (mdatoms->cFREEZE)
             {
@@ -1149,13 +1136,13 @@ double do_cg(FILE *fplog, t_commrec *cr,
             {
                 if (!inputrec->opts.nFreeze[gf][m])
                 {
-                    p[i][m] = sf[i][m] + beta*p[i][m];
-                    gpa    -= p[i][m]*sf[i][m];
+                    pm[i][m] = sfm[i][m] + beta*pm[i][m];
+                    gpa     -= pm[i][m]*sfm[i][m];
                     /* f is negative gradient, thus the sign */
                 }
                 else
                 {
-                    p[i][m] = 0;
+                    pm[i][m] = 0;
                 }
             }
         }
@@ -1167,7 +1154,7 @@ double do_cg(FILE *fplog, t_commrec *cr,
         }
 
         /* Calculate the norm of the search vector */
-        get_f_norm_max(cr, &(inputrec->opts), mdatoms, p, &pnorm, NULL, NULL);
+        get_f_norm_max(cr, &(inputrec->opts), mdatoms, pm, &pnorm, nullptr, nullptr);
 
         /* Just in case stepsize reaches zero due to numerical precision... */
         if (stepsize <= 0)
@@ -1192,7 +1179,7 @@ double do_cg(FILE *fplog, t_commrec *cr,
          * relative change in coordinate is smaller than precision
          */
         minstep = 0;
-        for (i = 0; i < mdatoms->homenr; i++)
+        for (int i = 0; i < mdatoms->homenr; i++)
         {
             for (m = 0; m < DIM; m++)
             {
@@ -1201,7 +1188,7 @@ double do_cg(FILE *fplog, t_commrec *cr,
                 {
                     tmp = 1.0;
                 }
-                tmp      = p[i][m]/tmp;
+                tmp      = pm[i][m]/tmp;
                 minstep += tmp*tmp;
             }
         }
@@ -1223,9 +1210,9 @@ double do_cg(FILE *fplog, t_commrec *cr,
         do_x = do_per_step(step, inputrec->nstxout);
         do_f = do_per_step(step, inputrec->nstfout);
 
-        write_em_traj(fplog, cr, outf, do_x, do_f, NULL,
+        write_em_traj(fplog, cr, outf, do_x, do_f, nullptr,
                       top_global, inputrec, step,
-                      s_min, state_global);
+                      s_min, state_global, observablesHistory);
 
         /* Take a step downhill.
          * In theory, we should minimize the function along this direction.
@@ -1256,7 +1243,7 @@ double do_cg(FILE *fplog, t_commrec *cr,
         }
 
         /* Take a trial step (new coords in s_c) */
-        do_em_step(cr, inputrec, mdatoms, fr->bMolPBC, s_min, c, s_min->s.cg_p, s_c,
+        do_em_step(cr, inputrec, mdatoms, fr->bMolPBC, s_min, c, &s_min->s.cg_p, s_c,
                    constr, top, nrnb, wcycle, -1);
 
         neval++;
@@ -1268,14 +1255,14 @@ double do_cg(FILE *fplog, t_commrec *cr,
                         mu_tot, enerd, vir, pres, -1, FALSE);
 
         /* Calc derivative along line */
-        p   = s_c->s.cg_p;
-        sf  = s_c->f;
-        gpc = 0;
-        for (i = 0; i < mdatoms->homenr; i++)
+        const rvec *pc  = as_rvec_array(s_c->s.cg_p.data());
+        const rvec *sfc = as_rvec_array(s_c->f.data());
+        double      gpc = 0;
+        for (int i = 0; i < mdatoms->homenr; i++)
         {
             for (m = 0; m < DIM; m++)
             {
-                gpc -= p[i][m]*sf[i][m]; /* f is negative gradient, thus the sign */
+                gpc -= pc[i][m]*sfc[i][m]; /* f is negative gradient, thus the sign */
             }
         }
         /* Sum the gradient along the line across CPUs */
@@ -1328,6 +1315,7 @@ double do_cg(FILE *fplog, t_commrec *cr,
          *
          * If we already found a lower value we just skip this step and continue to the update.
          */
+        double gpb;
         if (!foundlower)
         {
             nminstep = 0;
@@ -1364,7 +1352,7 @@ double do_cg(FILE *fplog, t_commrec *cr,
                 }
 
                 /* Take a trial step to this new point - new coords in s_b */
-                do_em_step(cr, inputrec, mdatoms, fr->bMolPBC, s_min, b, s_min->s.cg_p, s_b,
+                do_em_step(cr, inputrec, mdatoms, fr->bMolPBC, s_min, b, &s_min->s.cg_p, s_b,
                            constr, top, nrnb, wcycle, -1);
 
                 neval++;
@@ -1378,14 +1366,14 @@ double do_cg(FILE *fplog, t_commrec *cr,
                 /* p does not change within a step, but since the domain decomposition
                  * might change, we have to use cg_p of s_b here.
                  */
-                p   = s_b->s.cg_p;
-                sf  = s_b->f;
-                gpb = 0;
-                for (i = 0; i < mdatoms->homenr; i++)
+                const rvec *pb  = as_rvec_array(s_b->s.cg_p.data());
+                const rvec *sfb = as_rvec_array(s_b->f.data());
+                gpb             = 0;
+                for (int i = 0; i < mdatoms->homenr; i++)
                 {
                     for (m = 0; m < DIM; m++)
                     {
-                        gpb -= p[i][m]*sf[i][m]; /* f is negative gradient, thus the sign */
+                        gpb -= pb[i][m]*sfb[i][m]; /* f is negative gradient, thus the sign */
                     }
                 }
                 /* Sum the gradient along the line across CPUs */
@@ -1406,14 +1394,14 @@ double do_cg(FILE *fplog, t_commrec *cr,
                 if (gpb > 0)
                 {
                     /* Replace c endpoint with b */
-                    swap_em_state(s_b, s_c);
+                    swap_em_state(&s_b, &s_c);
                     c   = b;
                     gpc = gpb;
                 }
                 else
                 {
                     /* Replace a endpoint with b */
-                    swap_em_state(s_b, s_a);
+                    swap_em_state(&s_b, &s_a);
                     a   = b;
                     gpa = gpb;
                 }
@@ -1457,7 +1445,7 @@ double do_cg(FILE *fplog, t_commrec *cr,
                     fprintf(debug, "CGE: C (%f) is lower than A (%f), moving C to B\n",
                             s_c->epot, s_a->epot);
                 }
-                swap_em_state(s_b, s_c);
+                swap_em_state(&s_b, &s_c);
                 gpb = gpc;
             }
             else
@@ -1467,7 +1455,7 @@ double do_cg(FILE *fplog, t_commrec *cr,
                     fprintf(debug, "CGE: A (%f) is lower than C (%f), moving A to B\n",
                             s_a->epot, s_c->epot);
                 }
-                swap_em_state(s_b, s_a);
+                swap_em_state(&s_b, &s_a);
                 gpb = gpa;
             }
 
@@ -1479,7 +1467,7 @@ double do_cg(FILE *fplog, t_commrec *cr,
                 fprintf(debug, "CGE: Found a lower energy %f, moving C to B\n",
                         s_c->epot);
             }
-            swap_em_state(s_b, s_c);
+            swap_em_state(&s_b, &s_c);
             gpb = gpc;
         }
 
@@ -1508,7 +1496,7 @@ double do_cg(FILE *fplog, t_commrec *cr,
 
 
         /* update positions */
-        swap_em_state(s_min, s_b);
+        swap_em_state(&s_min, &s_b);
         gpa = gpb;
 
         /* Print it if necessary */
@@ -1520,11 +1508,12 @@ double do_cg(FILE *fplog, t_commrec *cr,
                 fprintf(stderr, "\rStep %d, Epot=%12.6e, Fnorm=%9.3e, Fmax=%9.3e (atom %d)\n",
                         step, s_min->epot, s_min->fnorm/sqrtNumAtoms,
                         s_min->fmax, s_min->a_fmax+1);
+                fflush(stderr);
             }
             /* Store the new (lower) energies */
             upd_mdebin(mdebin, FALSE, FALSE, (double)step,
                        mdatoms->tmass, enerd, &s_min->s, inputrec->fepvals, inputrec->expandedvals, s_min->s.box,
-                       NULL, NULL, vir, pres, NULL, mu_tot, constr);
+                       nullptr, nullptr, vir, pres, nullptr, mu_tot, constr);
 
             do_log = do_per_step(step, inputrec->nstlog);
             do_ene = do_per_step(step, inputrec->nstenergy);
@@ -1537,12 +1526,12 @@ double do_cg(FILE *fplog, t_commrec *cr,
                 print_ebin_header(fplog, step, step);
             }
             print_ebin(mdoutf_get_fp_ene(outf), do_ene, FALSE, FALSE,
-                       do_log ? fplog : NULL, step, step, eprNORMAL,
+                       do_log ? fplog : nullptr, step, step, eprNORMAL,
                        mdebin, fcd, &(top_global->groups), &(inputrec->opts));
         }
 
         /* Send energies and positions to the IMD client if bIMD is TRUE. */
-        if (do_IMD(inputrec->bIMD, step, cr, TRUE, state_global->box, state_global->x, inputrec, 0, wcycle) && MASTER(cr))
+        if (do_IMD(inputrec->bIMD, step, cr, TRUE, state_global->box, as_rvec_array(state_global->x.data()), inputrec, 0, wcycle) && MASTER(cr))
         {
             IMD_send_positions(inputrec->imd);
         }
@@ -1586,7 +1575,7 @@ double do_cg(FILE *fplog, t_commrec *cr,
         {
             /* Write final energy file entries */
             print_ebin(mdoutf_get_fp_ene(outf), !do_ene, FALSE, FALSE,
-                       !do_log ? fplog : NULL, step, step, eprNORMAL,
+                       !do_log ? fplog : nullptr, step, step, eprNORMAL,
                        mdebin, fcd, &(top_global->groups), &(inputrec->opts));
         }
     }
@@ -1609,17 +1598,16 @@ double do_cg(FILE *fplog, t_commrec *cr,
 
     write_em_traj(fplog, cr, outf, do_x, do_f, ftp2fn(efSTO, nfile, fnm),
                   top_global, inputrec, step,
-                  s_min, state_global);
+                  s_min, state_global, observablesHistory);
 
 
     if (MASTER(cr))
     {
         double sqrtNumAtoms = sqrt(static_cast<double>(state_global->natoms));
-        fnormn = s_min->fnorm/sqrtNumAtoms;
         print_converged(stderr, CG, inputrec->em_tol, step, converged, number_steps,
-                        s_min->epot, s_min->fmax, s_min->a_fmax, fnormn);
+                        s_min, sqrtNumAtoms);
         print_converged(fplog, CG, inputrec->em_tol, step, converged, number_steps,
-                        s_min->epot, s_min->fmax, s_min->a_fmax, fnormn);
+                        s_min, sqrtNumAtoms);
 
         fprintf(fplog, "\nPerformed %d energy evaluations in total.\n", neval);
     }
@@ -1634,40 +1622,42 @@ double do_cg(FILE *fplog, t_commrec *cr,
 
 
 /*! \brief Do L-BFGS conjugate gradients minimization
-    \copydoc integrator_t (FILE *fplog, t_commrec *cr,
-                           int nfile, const t_filenm fnm[],
-                           const gmx_output_env_t *oenv, gmx_bool bVerbose,
-                           int nstglobalcomm,
-                           gmx_vsite_t *vsite, gmx_constr_t constr,
-                           int stepout,
-                           t_inputrec *inputrec,
-                           gmx_mtop_t *top_global, t_fcdata *fcd,
-                           t_state *state_global,
-                           t_mdatoms *mdatoms,
-                           t_nrnb *nrnb, gmx_wallcycle_t wcycle,
-                           gmx_edsam_t ed,
-                           t_forcerec *fr,
-                           int repl_ex_nst, int repl_ex_nex, int repl_ex_seed,
-                           gmx_membed_t *membed,
-                           real cpt_period, real max_hours,
-                           int imdport,
-                           unsigned long Flags,
-                           gmx_walltime_accounting_t walltime_accounting)
+    \copydoc integrator_t(FILE *fplog, t_commrec *cr, const gmx::MDLogger &mdlog,
+                          int nfile, const t_filenm fnm[],
+                          const gmx_output_env_t *oenv, gmx_bool bVerbose,
+                          int nstglobalcomm,
+                          gmx_vsite_t *vsite, gmx_constr_t constr,
+                          int stepout,
+                          gmx::IMDOutputProvider *outputProvider,
+                          t_inputrec *inputrec,
+                          gmx_mtop_t *top_global, t_fcdata *fcd,
+                          t_state *state_global,
+                          t_mdatoms *mdatoms,
+                          t_nrnb *nrnb, gmx_wallcycle_t wcycle,
+                          gmx_edsam_t ed,
+                          t_forcerec *fr,
+                          const ReplicaExchangeParameters &replExParams,
+                          gmx_membed_t gmx_unused *membed,
+                          real cpt_period, real max_hours,
+                          int imdport,
+                          unsigned long Flags,
+                          gmx_walltime_accounting_t walltime_accounting)
  */
-double do_lbfgs(FILE *fplog, t_commrec *cr,
+double do_lbfgs(FILE *fplog, t_commrec *cr, const gmx::MDLogger gmx_unused &mdlog,
                 int nfile, const t_filenm fnm[],
                 const gmx_output_env_t gmx_unused *oenv, gmx_bool bVerbose,
                 int gmx_unused nstglobalcomm,
                 gmx_vsite_t *vsite, gmx_constr_t constr,
                 int gmx_unused stepout,
+                gmx::IMDOutputProvider *outputProvider,
                 t_inputrec *inputrec,
                 gmx_mtop_t *top_global, t_fcdata *fcd,
                 t_state *state_global,
+                ObservablesHistory *observablesHistory,
                 t_mdatoms *mdatoms,
                 t_nrnb *nrnb, gmx_wallcycle_t wcycle,
-                gmx_edsam_t gmx_unused ed,
                 t_forcerec *fr,
-                int gmx_unused repl_ex_nst, int gmx_unused repl_ex_nex, int gmx_unused repl_ex_seed,
+                const ReplicaExchangeParameters gmx_unused &replExParams,
                 gmx_membed_t gmx_unused *membed,
                 real gmx_unused cpt_period, real gmx_unused max_hours,
                 int imdport,
@@ -1678,25 +1668,22 @@ double do_lbfgs(FILE *fplog, t_commrec *cr,
     em_state_t         ems;
     gmx_localtop_t    *top;
     gmx_enerdata_t    *enerd;
-    rvec              *f;
     gmx_global_stat_t  gstat;
     t_graph           *graph;
     int                ncorr, nmaxcorr, point, cp, neval, nminstep;
     double             stepsize, step_taken, gpa, gpb, gpc, tmp, minstep;
-    real              *rho, *alpha, *ff, *xx, *p, *s, *lastx, *lastf, **dx, **dg;
-    real              *xa, *xb, *xc, *fa, *fb, *fc, *xtmp, *ftmp;
+    real              *rho, *alpha, *p, *s, **dx, **dg;
     real               a, b, c, maxdelta, delta;
-    real               diag, Epot0, Epot, EpotA, EpotB, EpotC;
+    real               diag, Epot0;
     real               dgdx, dgdg, sq, yr, beta;
     t_mdebin          *mdebin;
     gmx_bool           converged;
     rvec               mu_tot;
-    real               fnorm, fmax;
     gmx_bool           do_log, do_ene, do_x, do_f, foundlower, *frozen;
     tensor             vir, pres;
     int                start, end, number_steps;
     gmx_mdoutf_t       outf;
-    int                i, k, m, n, nfmax, gf, step;
+    int                i, k, m, n, gf, step;
     int                mdof_flags;
 
     if (PAR(cr))
@@ -1704,7 +1691,7 @@ double do_lbfgs(FILE *fplog, t_commrec *cr,
         gmx_fatal(FARGS, "Cannot do parallel L-BFGS Minimization - yet.\n");
     }
 
-    if (NULL != constr)
+    if (nullptr != constr)
     {
         gmx_fatal(FARGS, "The combination of constraints and L-BFGS minimization is not implemented. Either do not use constraints, or use another minimizer (e.g. steepest descent).");
     }
@@ -1712,23 +1699,9 @@ double do_lbfgs(FILE *fplog, t_commrec *cr,
     n        = 3*state_global->natoms;
     nmaxcorr = inputrec->nbfgscorr;
 
-    /* Allocate memory */
-    /* Use pointers to real so we dont have to loop over both atoms and
-     * dimensions all the time...
-     * x/f are allocated as rvec *, so make new x0/f0 pointers-to-real
-     * that point to the same memory.
-     */
-    snew(xa, n);
-    snew(xb, n);
-    snew(xc, n);
-    snew(fa, n);
-    snew(fb, n);
-    snew(fc, n);
     snew(frozen, n);
 
     snew(p, n);
-    snew(lastx, n);
-    snew(lastf, n);
     snew(rho, nmaxcorr);
     snew(alpha, nmaxcorr);
 
@@ -1748,21 +1721,25 @@ double do_lbfgs(FILE *fplog, t_commrec *cr,
     neval = 0;
 
     /* Init em */
-    init_em(fplog, LBFGS, cr, inputrec,
-            state_global, top_global, &ems, &top, &f,
-            nrnb, mu_tot, fr, &enerd, &graph, mdatoms, &gstat, vsite, constr,
+    init_em(fplog, LBFGS, cr, outputProvider, inputrec,
+            state_global, top_global, &ems, &top,
+            nrnb, mu_tot, fr, &enerd, &graph, mdatoms, &gstat,
+            vsite, constr, nullptr,
             nfile, fnm, &outf, &mdebin, imdport, Flags, wcycle);
-    /* Do_lbfgs is not completely updated like do_steep and do_cg,
-     * so we free some memory again.
-     */
-    sfree(ems.s.x);
-    sfree(ems.f);
-
-    xx = (real *)state_global->x;
-    ff = (real *)f;
 
     start = 0;
     end   = mdatoms->homenr;
+
+    /* We need 4 working states */
+    em_state_t  s0 {}, s1 {}, s2 {}, s3 {};
+    em_state_t *sa   = &s0;
+    em_state_t *sb   = &s1;
+    em_state_t *sc   = &s2;
+    em_state_t *last = &s3;
+    /* Initialize by copying the state from ems (we could skip x and f here) */
+    *sa              = ems;
+    *sb              = ems;
+    *sc              = ems;
 
     /* Print to log file */
     print_em_start(fplog, cr, walltime_accounting, wcycle, LBFGS);
@@ -1796,7 +1773,7 @@ double do_lbfgs(FILE *fplog, t_commrec *cr,
 
     if (vsite)
     {
-        construct_vsites(vsite, state_global->x, 1, NULL,
+        construct_vsites(vsite, as_rvec_array(state_global->x.data()), 1, nullptr,
                          top->idef.iparams, top->idef.il,
                          fr->ePBC, fr->bMolPBC, cr, state_global->box);
     }
@@ -1806,8 +1783,6 @@ double do_lbfgs(FILE *fplog, t_commrec *cr,
      * We do not unshift, so molecules are always whole
      */
     neval++;
-    ems.s.x = state_global->x;
-    ems.f   = f;
     evaluate_energy(fplog, cr,
                     top_global, &ems, top,
                     inputrec, nrnb, wcycle, gstat,
@@ -1820,20 +1795,13 @@ double do_lbfgs(FILE *fplog, t_commrec *cr,
         /* Copy stuff to the energy bin for easy printing etc. */
         upd_mdebin(mdebin, FALSE, FALSE, (double)step,
                    mdatoms->tmass, enerd, state_global, inputrec->fepvals, inputrec->expandedvals, state_global->box,
-                   NULL, NULL, vir, pres, NULL, mu_tot, constr);
+                   nullptr, nullptr, vir, pres, nullptr, mu_tot, constr);
 
         print_ebin_header(fplog, step, step);
         print_ebin(mdoutf_get_fp_ene(outf), TRUE, FALSE, FALSE, fplog, step, step, eprNORMAL,
                    mdebin, fcd, &(top_global->groups), &(inputrec->opts));
     }
     where();
-
-    /* This is the starting energy */
-    Epot = enerd->term[F_EPOT];
-
-    fnorm = ems.fnorm;
-    fmax  = ems.fmax;
-    nfmax = ems.a_fmax;
 
     /* Set the initial step.
      * since it will be multiplied by the non-normalized search direction
@@ -1845,13 +1813,13 @@ double do_lbfgs(FILE *fplog, t_commrec *cr,
     {
         double sqrtNumAtoms = sqrt(static_cast<double>(state_global->natoms));
         fprintf(stderr, "Using %d BFGS correction steps.\n\n", nmaxcorr);
-        fprintf(stderr, "   F-max             = %12.5e on atom %d\n", fmax, nfmax+1);
-        fprintf(stderr, "   F-Norm            = %12.5e\n", fnorm/sqrtNumAtoms);
+        fprintf(stderr, "   F-max             = %12.5e on atom %d\n", ems.fmax, ems.a_fmax + 1);
+        fprintf(stderr, "   F-Norm            = %12.5e\n", ems.fnorm/sqrtNumAtoms);
         fprintf(stderr, "\n");
         /* and copy to the log file too... */
         fprintf(fplog, "Using %d BFGS correction steps.\n\n", nmaxcorr);
-        fprintf(fplog, "   F-max             = %12.5e on atom %d\n", fmax, nfmax+1);
-        fprintf(fplog, "   F-Norm            = %12.5e\n", fnorm/sqrtNumAtoms);
+        fprintf(fplog, "   F-max             = %12.5e on atom %d\n", ems.fmax, ems.a_fmax + 1);
+        fprintf(fplog, "   F-Norm            = %12.5e\n", ems.fnorm/sqrtNumAtoms);
         fprintf(fplog, "\n");
     }
 
@@ -1859,11 +1827,12 @@ double do_lbfgs(FILE *fplog, t_commrec *cr,
     point = 0;
 
     // Set initial search direction to the force (-gradient), or 0 for frozen particles.
+    real *fInit = static_cast<real *>(as_rvec_array(ems.f.data())[0]);
     for (i = 0; i < n; i++)
     {
         if (!frozen[i])
         {
-            dx[point][i] = ff[i]; /* Initial search direction */
+            dx[point][i] = fInit[i]; /* Initial search direction */
         }
         else
         {
@@ -1875,7 +1844,7 @@ double do_lbfgs(FILE *fplog, t_commrec *cr,
     // (the main efficiency in the algorithm comes from changing directions), but
     // we still need an initial value, so estimate it as the inverse of the norm
     // so we take small steps where the potential fluctuates a lot.
-    stepsize  = 1.0/fnorm;
+    stepsize  = 1.0/ems.fnorm;
 
     /* Start the loop over BFGS steps.
      * Each successful step is counted, and we continue until
@@ -1886,7 +1855,7 @@ double do_lbfgs(FILE *fplog, t_commrec *cr,
 
     /* Set the gradient from the force */
     converged = FALSE;
-    for (step = 0; (number_steps < 0 || (number_steps >= 0 && step <= number_steps)) && !converged; step++)
+    for (step = 0; (number_steps < 0 || step <= number_steps) && !converged; step++)
     {
 
         /* Write coordinates if necessary */
@@ -1910,12 +1879,15 @@ double do_lbfgs(FILE *fplog, t_commrec *cr,
         }
 
         mdoutf_write_to_trajectory_files(fplog, cr, outf, mdof_flags,
-                                         top_global, step, (real)step, state_global, state_global, f);
+                                         top_global, step, (real)step, &ems.s, state_global, observablesHistory, &ems.f);
 
         /* Do the linesearching in the direction dx[point][0..(n-1)] */
 
         /* make s a pointer to current search direction - point=0 first time we get here */
         s = dx[point];
+
+        real *xx = static_cast<real *>(as_rvec_array(ems.s.x.data())[0]);
+        real *ff = static_cast<real *>(as_rvec_array(ems.f.data())[0]);
 
         // calculate line gradient in position A
         for (gpa = 0, i = 0; i < n; i++)
@@ -1945,17 +1917,12 @@ double do_lbfgs(FILE *fplog, t_commrec *cr,
         }
 
         // Before taking any steps along the line, store the old position
-        for (i = 0; i < n; i++)
-        {
-            lastx[i] = xx[i];
-            lastf[i] = ff[i];
-        }
-        Epot0 = Epot;
+        *last       = ems;
+        real *lastx = static_cast<real *>(as_rvec_array(last->s.x.data())[0]);
+        real *lastf = static_cast<real *>(as_rvec_array(last->f.data())[0]);
+        Epot0       = ems.epot;
 
-        for (i = 0; i < n; i++)
-        {
-            xa[i] = xx[i];
-        }
+        *sa         = ems;
 
         /* Take a step downhill.
          * In theory, we should find the actual minimum of the function in this
@@ -1984,7 +1951,6 @@ double do_lbfgs(FILE *fplog, t_commrec *cr,
 
         // State "A" is the first position along the line.
         // reference position along line is initially zero
-        EpotA      = Epot0;
         a          = 0.0;
 
         // Check stepsize first. We do not allow displacements
@@ -2015,6 +1981,7 @@ double do_lbfgs(FILE *fplog, t_commrec *cr,
         while (maxdelta > inputrec->em_stepsize);
 
         // Take a trial step and move the coordinate array xc[] to position C
+        real *xc = static_cast<real *>(as_rvec_array(sc->s.x.data())[0]);
         for (i = 0; i < n; i++)
         {
             xc[i] = lastx[i] + c*s[i];
@@ -2022,16 +1989,14 @@ double do_lbfgs(FILE *fplog, t_commrec *cr,
 
         neval++;
         // Calculate energy for the trial step in position C
-        ems.s.x = (rvec *)xc;
-        ems.f   = (rvec *)fc;
         evaluate_energy(fplog, cr,
-                        top_global, &ems, top,
+                        top_global, sc, top,
                         inputrec, nrnb, wcycle, gstat,
                         vsite, constr, fcd, graph, mdatoms, fr,
                         mu_tot, enerd, vir, pres, step, FALSE);
-        EpotC = ems.epot;
 
         // Calc line gradient in position C
+        real *fc = static_cast<real *>(as_rvec_array(sc->f.data())[0]);
         for (gpc = 0, i = 0; i < n; i++)
         {
             gpc -= s[i]*fc[i]; /* f is negative gradient, thus the sign */
@@ -2045,11 +2010,11 @@ double do_lbfgs(FILE *fplog, t_commrec *cr,
         // This is the max amount of increase in energy we tolerate.
         // By allowing VERY small changes (close to numerical precision) we
         // frequently find even better (lower) final energies.
-        tmp = sqrt(GMX_REAL_EPS)*fabs(EpotA);
+        tmp = sqrt(GMX_REAL_EPS)*fabs(sa->epot);
 
         // Accept the step if the energy is lower in the new position C (compared to A),
         // or if it is not significantly higher and the line derivative is still negative.
-        if (EpotC < EpotA || (gpc < 0 && EpotC < (EpotA+tmp)))
+        if (sc->epot < sa->epot || (gpc < 0 && sc->epot < (sa->epot + tmp)))
         {
             // Great, we found a better energy. We no longer try to alter the
             // stepsize, but simply accept this new better position. The we select a new
@@ -2057,7 +2022,6 @@ double do_lbfgs(FILE *fplog, t_commrec *cr,
             // to take smaller steps along a line. Set fnorm based on the new C position,
             // which will be used to update the stepsize to 1/fnorm further down.
             foundlower = TRUE;
-            fnorm      = ems.fnorm;
         }
         else
         {
@@ -2082,7 +2046,8 @@ double do_lbfgs(FILE *fplog, t_commrec *cr,
             // I also have a safeguard for potentially really pathological functions so we never
             // take more than 20 steps before we give up.
             // If we already found a lower value we just skip this step and continue to the update.
-            nminstep = 0;
+            real fnorm = 0;
+            nminstep   = 0;
             do
             {
                 // Select a new trial point B in the interval [A,C].
@@ -2107,6 +2072,7 @@ double do_lbfgs(FILE *fplog, t_commrec *cr,
                 }
 
                 // Take a trial step to point B
+                real *xb = static_cast<real *>(as_rvec_array(sb->s.x.data())[0]);
                 for (i = 0; i < n; i++)
                 {
                     xb[i] = lastx[i] + b*s[i];
@@ -2114,17 +2080,15 @@ double do_lbfgs(FILE *fplog, t_commrec *cr,
 
                 neval++;
                 // Calculate energy for the trial step in point B
-                ems.s.x = (rvec *)xb;
-                ems.f   = (rvec *)fb;
                 evaluate_energy(fplog, cr,
-                                top_global, &ems, top,
+                                top_global, sb, top,
                                 inputrec, nrnb, wcycle, gstat,
                                 vsite, constr, fcd, graph, mdatoms, fr,
                                 mu_tot, enerd, vir, pres, step, FALSE);
-                EpotB = ems.epot;
-                fnorm = ems.fnorm;
+                fnorm = sb->fnorm;
 
                 // Calculate gradient in point B
+                real *fb = static_cast<real *>(as_rvec_array(sb->f.data())[0]);
                 for (gpb = 0, i = 0; i < n; i++)
                 {
                     gpb -= s[i]*fb[i]; /* f is negative gradient, thus the sign */
@@ -2141,30 +2105,16 @@ double do_lbfgs(FILE *fplog, t_commrec *cr,
                 if (gpb > 0)
                 {
                     /* Replace c endpoint with b */
-                    EpotC = EpotB;
-                    c     = b;
-                    gpc   = gpb;
-                    /* swap coord pointers b/c */
-                    xtmp = xb;
-                    ftmp = fb;
-                    xb   = xc;
-                    fb   = fc;
-                    xc   = xtmp;
-                    fc   = ftmp;
+                    c   = b;
+                    /* swap states b and c */
+                    swap_em_state(&sb, &sc);
                 }
                 else
                 {
                     /* Replace a endpoint with b */
-                    EpotA = EpotB;
-                    a     = b;
-                    gpa   = gpb;
-                    /* swap coord pointers a/b */
-                    xtmp = xb;
-                    ftmp = fb;
-                    xb   = xa;
-                    fb   = fa;
-                    xa   = xtmp;
-                    fa   = ftmp;
+                    a   = b;
+                    /* swap states a and b */
+                    swap_em_state(&sa, &sb);
                 }
 
                 /*
@@ -2174,9 +2124,9 @@ double do_lbfgs(FILE *fplog, t_commrec *cr,
                  */
                 nminstep++;
             }
-            while ((EpotB > EpotA || EpotB > EpotC) && (nminstep < 20));
+            while ((sb->epot > sa->epot || sb->epot > sc->epot) && (nminstep < 20));
 
-            if (fabs(EpotB-Epot0) < GMX_REAL_EPS || nminstep >= 20)
+            if (fabs(sb->epot - Epot0) < GMX_REAL_EPS || nminstep >= 20)
             {
                 /* OK. We couldn't find a significantly lower energy.
                  * If ncorr==0 this was steepest descent, and then we give up.
@@ -2205,26 +2155,16 @@ double do_lbfgs(FILE *fplog, t_commrec *cr,
 
             /* Select min energy state of A & C, put the best in xx/ff/Epot
              */
-            if (EpotC < EpotA)
+            if (sc->epot < sa->epot)
             {
-                Epot = EpotC;
                 /* Use state C */
-                for (i = 0; i < n; i++)
-                {
-                    xx[i] = xc[i];
-                    ff[i] = fc[i];
-                }
+                ems        = *sc;
                 step_taken = c;
             }
             else
             {
-                Epot = EpotA;
                 /* Use state A */
-                for (i = 0; i < n; i++)
-                {
-                    xx[i] = xa[i];
-                    ff[i] = fa[i];
-                }
+                ems        = *sa;
                 step_taken = a;
             }
 
@@ -2232,13 +2172,8 @@ double do_lbfgs(FILE *fplog, t_commrec *cr,
         else
         {
             /* found lower */
-            Epot = EpotC;
             /* Use state C */
-            for (i = 0; i < n; i++)
-            {
-                xx[i] = xc[i];
-                ff[i] = fc[i];
-            }
+            ems        = *sc;
             step_taken = c;
         }
 
@@ -2348,9 +2283,6 @@ double do_lbfgs(FILE *fplog, t_commrec *cr,
             }
         }
 
-        /* Test whether the convergence criterion is met */
-        get_f_norm_max(cr, &(inputrec->opts), mdatoms, f, &fnorm, &fmax, &nfmax);
-
         /* Print it if necessary */
         if (MASTER(cr))
         {
@@ -2358,12 +2290,13 @@ double do_lbfgs(FILE *fplog, t_commrec *cr,
             {
                 double sqrtNumAtoms = sqrt(static_cast<double>(state_global->natoms));
                 fprintf(stderr, "\rStep %d, Epot=%12.6e, Fnorm=%9.3e, Fmax=%9.3e (atom %d)\n",
-                        step, Epot, fnorm/sqrtNumAtoms, fmax, nfmax+1);
+                        step, ems.epot, ems.fnorm/sqrtNumAtoms, ems.fmax, ems.a_fmax + 1);
+                fflush(stderr);
             }
             /* Store the new (lower) energies */
             upd_mdebin(mdebin, FALSE, FALSE, (double)step,
                        mdatoms->tmass, enerd, state_global, inputrec->fepvals, inputrec->expandedvals, state_global->box,
-                       NULL, NULL, vir, pres, NULL, mu_tot, constr);
+                       nullptr, nullptr, vir, pres, nullptr, mu_tot, constr);
             do_log = do_per_step(step, inputrec->nstlog);
             do_ene = do_per_step(step, inputrec->nstenergy);
             if (do_log)
@@ -2371,23 +2304,23 @@ double do_lbfgs(FILE *fplog, t_commrec *cr,
                 print_ebin_header(fplog, step, step);
             }
             print_ebin(mdoutf_get_fp_ene(outf), do_ene, FALSE, FALSE,
-                       do_log ? fplog : NULL, step, step, eprNORMAL,
+                       do_log ? fplog : nullptr, step, step, eprNORMAL,
                        mdebin, fcd, &(top_global->groups), &(inputrec->opts));
         }
 
         /* Send x and E to IMD client, if bIMD is TRUE. */
-        if (do_IMD(inputrec->bIMD, step, cr, TRUE, state_global->box, state_global->x, inputrec, 0, wcycle) && MASTER(cr))
+        if (do_IMD(inputrec->bIMD, step, cr, TRUE, state_global->box, as_rvec_array(state_global->x.data()), inputrec, 0, wcycle) && MASTER(cr))
         {
             IMD_send_positions(inputrec->imd);
         }
 
         // Reset stepsize in we are doing more iterations
-        stepsize = 1.0/fnorm;
+        stepsize = 1.0/ems.fnorm;
 
         /* Stop when the maximum force lies below tolerance.
          * If we have reached machine precision, converged is already set to true.
          */
-        converged = converged || (fmax < inputrec->em_tol);
+        converged = converged || (ems.fmax < inputrec->em_tol);
 
     }   /* End of the loop */
 
@@ -2399,7 +2332,7 @@ double do_lbfgs(FILE *fplog, t_commrec *cr,
         step--; /* we never took that last step in this case */
 
     }
-    if (fmax > inputrec->em_tol)
+    if (ems.fmax > inputrec->em_tol)
     {
         if (MASTER(cr))
         {
@@ -2419,7 +2352,7 @@ double do_lbfgs(FILE *fplog, t_commrec *cr,
     if (!do_ene || !do_log) /* Write final energy file entries */
     {
         print_ebin(mdoutf_get_fp_ene(outf), !do_ene, FALSE, FALSE,
-                   !do_log ? fplog : NULL, step, step, eprNORMAL,
+                   !do_log ? fplog : nullptr, step, step, eprNORMAL,
                    mdebin, fcd, &(top_global->groups), &(inputrec->opts));
     }
 
@@ -2440,15 +2373,15 @@ double do_lbfgs(FILE *fplog, t_commrec *cr,
     do_f = !do_per_step(step, inputrec->nstfout);
     write_em_traj(fplog, cr, outf, do_x, do_f, ftp2fn(efSTO, nfile, fnm),
                   top_global, inputrec, step,
-                  &ems, state_global);
+                  &ems, state_global, observablesHistory);
 
     if (MASTER(cr))
     {
         double sqrtNumAtoms = sqrt(static_cast<double>(state_global->natoms));
         print_converged(stderr, LBFGS, inputrec->em_tol, step, converged,
-                        number_steps, Epot, fmax, nfmax, fnorm/sqrtNumAtoms);
+                        number_steps, &ems, sqrtNumAtoms);
         print_converged(fplog, LBFGS, inputrec->em_tol, step, converged,
-                        number_steps, Epot, fmax, nfmax, fnorm/sqrtNumAtoms);
+                        number_steps, &ems, sqrtNumAtoms);
 
         fprintf(fplog, "\nPerformed %d energy evaluations in total.\n", neval);
     }
@@ -2462,40 +2395,41 @@ double do_lbfgs(FILE *fplog, t_commrec *cr,
 }   /* That's all folks */
 
 /*! \brief Do steepest descents minimization
-    \copydoc integrator_t (FILE *fplog, t_commrec *cr,
-                           int nfile, const t_filenm fnm[],
-                           const gmx_output_env_t *oenv, gmx_bool bVerbose,
-                           int nstglobalcomm,
-                           gmx_vsite_t *vsite, gmx_constr_t constr,
-                           int stepout,
-                           t_inputrec *inputrec,
-                           gmx_mtop_t *top_global, t_fcdata *fcd,
-                           t_state *state_global,
-                           t_mdatoms *mdatoms,
-                           t_nrnb *nrnb, gmx_wallcycle_t wcycle,
-                           gmx_edsam_t ed,
-                           t_forcerec *fr,
-                           int repl_ex_nst, int repl_ex_nex, int repl_ex_seed,
-                           gmx_membed_t *membed,
-                           real cpt_period, real max_hours,
-                           int imdport,
-                           unsigned long Flags,
-                           gmx_walltime_accounting_t walltime_accounting)
+    \copydoc integrator_t(FILE *fplog, t_commrec *cr, const gmx::MDLogger &mdlog,
+                          int nfile, const t_filenm fnm[],
+                          const gmx_output_env_t *oenv, gmx_bool bVerbose,
+                          int nstglobalcomm,
+                          gmx_vsite_t *vsite, gmx_constr_t constr,
+                          int stepout,
+                          gmx::IMDOutputProvider *outputProvider,
+                          t_inputrec *inputrec,
+                          gmx_mtop_t *top_global, t_fcdata *fcd,
+                          t_state *state_global,
+                          t_mdatoms *mdatoms,
+                          t_nrnb *nrnb, gmx_wallcycle_t wcycle,
+                          gmx_edsam_t ed,
+                          t_forcerec *fr,
+                          const ReplicaExchangeParameters &replExParams,
+                          real cpt_period, real max_hours,
+                          int imdport,
+                          unsigned long Flags,
+                          gmx_walltime_accounting_t walltime_accounting)
  */
-double do_steep(FILE *fplog, t_commrec *cr,
+double do_steep(FILE *fplog, t_commrec *cr, const gmx::MDLogger gmx_unused &mdlog,
                 int nfile, const t_filenm fnm[],
                 const gmx_output_env_t gmx_unused *oenv, gmx_bool bVerbose,
                 int gmx_unused nstglobalcomm,
                 gmx_vsite_t *vsite, gmx_constr_t constr,
                 int gmx_unused stepout,
+                gmx::IMDOutputProvider *outputProvider,
                 t_inputrec *inputrec,
                 gmx_mtop_t *top_global, t_fcdata *fcd,
                 t_state *state_global,
+                ObservablesHistory *observablesHistory,
                 t_mdatoms *mdatoms,
                 t_nrnb *nrnb, gmx_wallcycle_t wcycle,
-                gmx_edsam_t gmx_unused  ed,
                 t_forcerec *fr,
-                int gmx_unused repl_ex_nst, int gmx_unused repl_ex_nex, int gmx_unused repl_ex_seed,
+                const ReplicaExchangeParameters gmx_unused &replExParams,
                 gmx_membed_t gmx_unused *membed,
                 real gmx_unused cpt_period, real gmx_unused max_hours,
                 int imdport,
@@ -2503,14 +2437,12 @@ double do_steep(FILE *fplog, t_commrec *cr,
                 gmx_walltime_accounting_t walltime_accounting)
 {
     const char       *SD = "Steepest Descents";
-    em_state_t       *s_min, *s_try;
     gmx_localtop_t   *top;
     gmx_enerdata_t   *enerd;
-    rvec             *f;
     gmx_global_stat_t gstat;
     t_graph          *graph;
     real              stepsize;
-    real              ustep, fnormn;
+    real              ustep;
     gmx_mdoutf_t      outf;
     t_mdebin         *mdebin;
     gmx_bool          bDone, bAbort, do_x, do_f;
@@ -2520,13 +2452,16 @@ double do_steep(FILE *fplog, t_commrec *cr,
     int               count          = 0;
     int               steps_accepted = 0;
 
-    s_min = init_em_state();
-    s_try = init_em_state();
+    /* Create 2 states on the stack and extract pointers that we will swap */
+    em_state_t  s0 {}, s1 {};
+    em_state_t *s_min = &s0;
+    em_state_t *s_try = &s1;
 
     /* Init em and store the local state in s_try */
-    init_em(fplog, SD, cr, inputrec,
-            state_global, top_global, s_try, &top, &f,
-            nrnb, mu_tot, fr, &enerd, &graph, mdatoms, &gstat, vsite, constr,
+    init_em(fplog, SD, cr, outputProvider, inputrec,
+            state_global, top_global, s_try, &top,
+            nrnb, mu_tot, fr, &enerd, &graph, mdatoms, &gstat,
+            vsite, constr, nullptr,
             nfile, fnm, &outf, &mdebin, imdport, Flags, wcycle);
 
     /* Print to log file  */
@@ -2565,18 +2500,28 @@ double do_steep(FILE *fplog, t_commrec *cr,
         bAbort = (nsteps >= 0) && (count == nsteps);
 
         /* set new coordinates, except for first step */
+        bool validStep = true;
         if (count > 0)
         {
-            do_em_step(cr, inputrec, mdatoms, fr->bMolPBC,
-                       s_min, stepsize, s_min->f, s_try,
-                       constr, top, nrnb, wcycle, count);
+            validStep =
+                do_em_step(cr, inputrec, mdatoms, fr->bMolPBC,
+                           s_min, stepsize, &s_min->f, s_try,
+                           constr, top, nrnb, wcycle, count);
         }
 
-        evaluate_energy(fplog, cr,
-                        top_global, s_try, top,
-                        inputrec, nrnb, wcycle, gstat,
-                        vsite, constr, fcd, graph, mdatoms, fr,
-                        mu_tot, enerd, vir, pres, count, count == 0);
+        if (validStep)
+        {
+            evaluate_energy(fplog, cr,
+                            top_global, s_try, top,
+                            inputrec, nrnb, wcycle, gstat,
+                            vsite, constr, fcd, graph, mdatoms, fr,
+                            mu_tot, enerd, vir, pres, count, count == 0);
+        }
+        else
+        {
+            // Signal constraint error during stepping with energy=inf
+            s_try->epot = std::numeric_limits<real>::infinity();
+        }
 
         if (MASTER(cr))
         {
@@ -2596,6 +2541,7 @@ double do_steep(FILE *fplog, t_commrec *cr,
                 fprintf(stderr, "Step=%5d, Dmax= %6.1e nm, Epot= %12.5e Fmax= %11.5e, atom= %d%c",
                         count, ustep, s_try->epot, s_try->fmax, s_try->a_fmax+1,
                         ( (count == 0) || (s_try->epot < s_min->epot) ) ? '\n' : '\r');
+                fflush(stderr);
             }
 
             if ( (count == 0) || (s_try->epot < s_min->epot) )
@@ -2603,7 +2549,7 @@ double do_steep(FILE *fplog, t_commrec *cr,
                 /* Store the new (lower) energies  */
                 upd_mdebin(mdebin, FALSE, FALSE, (double)count,
                            mdatoms->tmass, enerd, &s_try->s, inputrec->fepvals, inputrec->expandedvals,
-                           s_try->s.box, NULL, NULL, vir, pres, NULL, mu_tot, constr);
+                           s_try->s.box, nullptr, nullptr, vir, pres, nullptr, mu_tot, constr);
 
                 /* Prepare IMD energy record, if bIMD is TRUE. */
                 IMD_fill_energy_record(inputrec->bIMD, inputrec->imd, enerd, count, TRUE);
@@ -2632,7 +2578,7 @@ double do_steep(FILE *fplog, t_commrec *cr,
             /* Copy the arrays for force, positions and energy  */
             /* The 'Min' array always holds the coords and forces of the minimal
                sampled energy  */
-            swap_em_state(s_min, s_try);
+            swap_em_state(&s_min, &s_try);
             if (count > 0)
             {
                 ustep *= 1.2;
@@ -2641,9 +2587,9 @@ double do_steep(FILE *fplog, t_commrec *cr,
             /* Write to trn, if necessary */
             do_x = do_per_step(steps_accepted, inputrec->nstxout);
             do_f = do_per_step(steps_accepted, inputrec->nstfout);
-            write_em_traj(fplog, cr, outf, do_x, do_f, NULL,
+            write_em_traj(fplog, cr, outf, do_x, do_f, nullptr,
                           top_global, inputrec, count,
-                          s_min, state_global);
+                          s_min, state_global, observablesHistory);
         }
         else
         {
@@ -2671,14 +2617,14 @@ double do_steep(FILE *fplog, t_commrec *cr,
         {
             if (MASTER(cr))
             {
-                warn_step(stderr, inputrec->em_tol, count == nsteps, constr != NULL);
-                warn_step(fplog, inputrec->em_tol, count == nsteps, constr != NULL);
+                warn_step(stderr, inputrec->em_tol, count == nsteps, constr != nullptr);
+                warn_step(fplog, inputrec->em_tol, count == nsteps, constr != nullptr);
             }
             bAbort = TRUE;
         }
 
         /* Send IMD energies and positions, if bIMD is TRUE. */
-        if (do_IMD(inputrec->bIMD, count, cr, TRUE, state_global->box, state_global->x, inputrec, 0, wcycle) && MASTER(cr))
+        if (do_IMD(inputrec->bIMD, count, cr, TRUE, state_global->box, as_rvec_array(state_global->x.data()), inputrec, 0, wcycle) && MASTER(cr))
         {
             IMD_send_positions(inputrec->imd);
         }
@@ -2696,17 +2642,16 @@ double do_steep(FILE *fplog, t_commrec *cr,
     }
     write_em_traj(fplog, cr, outf, TRUE, inputrec->nstfout, ftp2fn(efSTO, nfile, fnm),
                   top_global, inputrec, count,
-                  s_min, state_global);
+                  s_min, state_global, observablesHistory);
 
     if (MASTER(cr))
     {
         double sqrtNumAtoms = sqrt(static_cast<double>(state_global->natoms));
-        fnormn = s_min->fnorm/sqrtNumAtoms;
 
         print_converged(stderr, SD, inputrec->em_tol, count, bDone, nsteps,
-                        s_min->epot, s_min->fmax, s_min->a_fmax, fnormn);
+                        s_min, sqrtNumAtoms);
         print_converged(fplog, SD, inputrec->em_tol, count, bDone, nsteps,
-                        s_min->epot, s_min->fmax, s_min->a_fmax, fnormn);
+                        s_min, sqrtNumAtoms);
     }
 
     finish_em(cr, outf, walltime_accounting, wcycle);
@@ -2720,40 +2665,41 @@ double do_steep(FILE *fplog, t_commrec *cr,
 }   /* That's all folks */
 
 /*! \brief Do normal modes analysis
-    \copydoc integrator_t (FILE *fplog, t_commrec *cr,
-                           int nfile, const t_filenm fnm[],
-                           const gmx_output_env_t *oenv, gmx_bool bVerbose,
-                           int nstglobalcomm,
-                           gmx_vsite_t *vsite, gmx_constr_t constr,
-                           int stepout,
-                           t_inputrec *inputrec,
-                           gmx_mtop_t *top_global, t_fcdata *fcd,
-                           t_state *state_global,
-                           t_mdatoms *mdatoms,
-                           t_nrnb *nrnb, gmx_wallcycle_t wcycle,
-                           gmx_edsam_t ed,
-                           t_forcerec *fr,
-                           int repl_ex_nst, int repl_ex_nex, int repl_ex_seed,
-                           gmx_membed_t *membed,
-                           real cpt_period, real max_hours,
-                           int imdport,
-                           unsigned long Flags,
-                           gmx_walltime_accounting_t walltime_accounting)
+    \copydoc integrator_t(FILE *fplog, t_commrec *cr, const gmx::MDLogger &mdlog,
+                          int nfile, const t_filenm fnm[],
+                          const gmx_output_env_t *oenv, gmx_bool bVerbose,
+                          int nstglobalcomm,
+                          gmx_vsite_t *vsite, gmx_constr_t constr,
+                          int stepout,
+                          gmx::IMDOutputProvider *outputProvider,
+                          t_inputrec *inputrec,
+                          gmx_mtop_t *top_global, t_fcdata *fcd,
+                          t_state *state_global,
+                          t_mdatoms *mdatoms,
+                          t_nrnb *nrnb, gmx_wallcycle_t wcycle,
+                          gmx_edsam_t ed,
+                          t_forcerec *fr,
+                          const ReplicaExchangeParameters &replExParams,
+                          real cpt_period, real max_hours,
+                          int imdport,
+                          unsigned long Flags,
+                          gmx_walltime_accounting_t walltime_accounting)
  */
-double do_nm(FILE *fplog, t_commrec *cr,
+double do_nm(FILE *fplog, t_commrec *cr, const gmx::MDLogger &mdlog,
              int nfile, const t_filenm fnm[],
              const gmx_output_env_t gmx_unused *oenv, gmx_bool bVerbose,
              int gmx_unused nstglobalcomm,
              gmx_vsite_t *vsite, gmx_constr_t constr,
              int gmx_unused stepout,
+             gmx::IMDOutputProvider *outputProvider,
              t_inputrec *inputrec,
              gmx_mtop_t *top_global, t_fcdata *fcd,
              t_state *state_global,
+             ObservablesHistory gmx_unused *observablesHistory,
              t_mdatoms *mdatoms,
              t_nrnb *nrnb, gmx_wallcycle_t wcycle,
-             gmx_edsam_t  gmx_unused ed,
              t_forcerec *fr,
-             int gmx_unused repl_ex_nst, int gmx_unused repl_ex_nex, int gmx_unused repl_ex_seed,
+             const ReplicaExchangeParameters gmx_unused &replExParams,
              gmx_membed_t gmx_unused *membed,
              real gmx_unused cpt_period, real gmx_unused max_hours,
              int imdport,
@@ -2765,7 +2711,6 @@ double do_nm(FILE *fplog, t_commrec *cr,
     int                  nnodes, node;
     gmx_localtop_t      *top;
     gmx_enerdata_t      *enerd;
-    rvec                *f;
     gmx_global_stat_t    gstat;
     t_graph             *graph;
     tensor               vir, pres;
@@ -2773,9 +2718,8 @@ double do_nm(FILE *fplog, t_commrec *cr,
     rvec                *fneg, *dfdx;
     gmx_bool             bSparse; /* use sparse matrix storage format */
     size_t               sz;
-    gmx_sparsematrix_t * sparse_matrix           = NULL;
-    real           *     full_matrix             = NULL;
-    em_state_t       *   state_work;
+    gmx_sparsematrix_t * sparse_matrix           = nullptr;
+    real           *     full_matrix             = nullptr;
 
     /* added with respect to mdrun */
     int                       row, col;
@@ -2783,30 +2727,22 @@ double do_nm(FILE *fplog, t_commrec *cr,
     real                      x_min;
     bool                      bIsMaster = MASTER(cr);
 
-    if (constr != NULL)
+    if (constr != nullptr)
     {
         gmx_fatal(FARGS, "Constraints present with Normal Mode Analysis, this combination is not supported");
     }
 
-    state_work = init_em_state();
+    gmx_shellfc_t *shellfc;
+
+    em_state_t     state_work {};
 
     /* Init em and store the local state in state_minimum */
-    init_em(fplog, NM, cr, inputrec,
-            state_global, top_global, state_work, &top,
-            &f,
-            nrnb, mu_tot, fr, &enerd, &graph, mdatoms, &gstat, vsite, constr,
-            nfile, fnm, &outf, NULL, imdport, Flags, wcycle);
+    init_em(fplog, NM, cr, outputProvider, inputrec,
+            state_global, top_global, &state_work, &top,
+            nrnb, mu_tot, fr, &enerd, &graph, mdatoms, &gstat,
+            vsite, constr, &shellfc,
+            nfile, fnm, &outf, nullptr, imdport, Flags, wcycle);
 
-    gmx_shellfc_t *shellfc = init_shell_flexcon(stdout,
-                                                top_global,
-                                                n_flexible_constraints(constr),
-                                                inputrec->nstcalcenergy,
-                                                DOMAINDECOMP(cr));
-
-    if (shellfc)
-    {
-        make_local_shells(cr, mdatoms, shellfc);
-    }
     std::vector<size_t> atom_index = get_atom_index(top_global);
     snew(fneg, atom_index.size());
     snew(dfdx, atom_index.size());
@@ -2830,17 +2766,18 @@ double do_nm(FILE *fplog, t_commrec *cr,
      */
     if (EEL_FULL(fr->eeltype) || fr->rlist == 0.0)
     {
-        md_print_info(cr, fplog, "Non-cutoff electrostatics used, forcing full Hessian format.\n");
+        GMX_LOG(mdlog.warning).appendText("Non-cutoff electrostatics used, forcing full Hessian format.");
         bSparse = FALSE;
     }
     else if (atom_index.size() < 1000)
     {
-        md_print_info(cr, fplog, "Small system size (N=%d), using full Hessian format.\n", atom_index.size());
+        GMX_LOG(mdlog.warning).appendTextFormatted("Small system size (N=%d), using full Hessian format.",
+                                                   atom_index.size());
         bSparse = FALSE;
     }
     else
     {
-        md_print_info(cr, fplog, "Using compressed symmetric sparse Hessian format.\n");
+        GMX_LOG(mdlog.warning).appendText("Using compressed symmetric sparse Hessian format.");
         bSparse = TRUE;
     }
 
@@ -2880,23 +2817,23 @@ double do_nm(FILE *fplog, t_commrec *cr,
     /* Make evaluate_energy do a single node force calculation */
     cr->nnodes = 1;
     evaluate_energy(fplog, cr,
-                    top_global, state_work, top,
+                    top_global, &state_work, top,
                     inputrec, nrnb, wcycle, gstat,
                     vsite, constr, fcd, graph, mdatoms, fr,
                     mu_tot, enerd, vir, pres, -1, TRUE);
     cr->nnodes = nnodes;
 
     /* if forces are not small, warn user */
-    get_state_f_norm_max(cr, &(inputrec->opts), mdatoms, state_work);
+    get_state_f_norm_max(cr, &(inputrec->opts), mdatoms, &state_work);
 
-    md_print_info(cr, fplog, "Maximum force:%12.5e\n", state_work->fmax);
-    if (state_work->fmax > 1.0e-3)
+    GMX_LOG(mdlog.warning).appendTextFormatted("Maximum force:%12.5e", state_work.fmax);
+    if (state_work.fmax > 1.0e-3)
     {
-        md_print_info(cr, fplog,
-                      "The force is probably not small enough to "
-                      "ensure that you are at a minimum.\n"
-                      "Be aware that negative eigenvalues may occur\n"
-                      "when the resulting matrix is diagonalized.\n\n");
+        GMX_LOG(mdlog.warning).appendText(
+                "The force is probably not small enough to "
+                "ensure that you are at a minimum.\n"
+                "Be aware that negative eigenvalues may occur\n"
+                "when the resulting matrix is diagonalized.");
     }
 
     /***********************************************************
@@ -2920,17 +2857,17 @@ double do_nm(FILE *fplog, t_commrec *cr,
             int         force_flags = GMX_FORCE_STATECHANGED | GMX_FORCE_ALLFORCES;
             double      t           = 0;
 
-            x_min = state_work->s.x[atom][d];
+            x_min = state_work.s.x[atom][d];
 
             for (unsigned int dx = 0; (dx < 2); dx++)
             {
                 if (dx == 0)
                 {
-                    state_work->s.x[atom][d] = x_min - der_range;
+                    state_work.s.x[atom][d] = x_min - der_range;
                 }
                 else
                 {
-                    state_work->s.x[atom][d] = x_min + der_range;
+                    state_work.s.x[atom][d] = x_min + der_range;
                 }
 
                 /* Make evaluate_energy do a single node force calculation */
@@ -2942,17 +2879,19 @@ double do_nm(FILE *fplog, t_commrec *cr,
                                                inputrec, bNS, force_flags,
                                                top,
                                                constr, enerd, fcd,
-                                               &state_work->s, state_work->f, vir, mdatoms,
+                                               &state_work.s, &state_work.f, vir, mdatoms,
                                                nrnb, wcycle, graph, &top_global->groups,
                                                shellfc, fr, bBornRadii, t, mu_tot,
-                                               vsite, NULL);
+                                               vsite,
+                                               DdOpenBalanceRegionBeforeForceComputation::no,
+                                               DdCloseBalanceRegionAfterForceComputation::no);
                     bNS = false;
                     step++;
                 }
                 else
                 {
                     evaluate_energy(fplog, cr,
-                                    top_global, state_work, top,
+                                    top_global, &state_work, top,
                                     inputrec, nrnb, wcycle, gstat,
                                     vsite, constr, fcd, graph, mdatoms, fr,
                                     mu_tot, enerd, vir, pres, atom*2+dx, FALSE);
@@ -2964,20 +2903,20 @@ double do_nm(FILE *fplog, t_commrec *cr,
                 {
                     for (size_t i = 0; i < atom_index.size(); i++)
                     {
-                        copy_rvec(state_work->f[atom_index[i]], fneg[i]);
+                        copy_rvec(state_work.f[atom_index[i]], fneg[i]);
                     }
                 }
             }
 
             /* x is restored to original */
-            state_work->s.x[atom][d] = x_min;
+            state_work.s.x[atom][d] = x_min;
 
             for (size_t j = 0; j < atom_index.size(); j++)
             {
                 for (size_t k = 0; (k < DIM); k++)
                 {
                     dfdx[j][k] =
-                        -(state_work->f[atom_index[j]][k] - fneg[j][k])/(2*der_range);
+                        -(state_work.f[atom_index[j]][k] - fneg[j][k])/(2*der_range);
                 }
             }
 

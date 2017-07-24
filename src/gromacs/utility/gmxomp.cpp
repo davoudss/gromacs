@@ -1,7 +1,7 @@
 /*
  * This file is part of the GROMACS molecular simulation package.
  *
- * Copyright (c) 2012,2013,2014,2016, by the GROMACS development team, led by
+ * Copyright (c) 2012,2013,2014,2016,2017, by the GROMACS development team, led by
  * Mark Abraham, David van der Spoel, Berk Hess, and Erik Lindahl,
  * and including many others, as listed in the AUTHORS file in the
  * top-level source directory and at http://www.gromacs.org.
@@ -98,7 +98,7 @@ gmx_bool gmx_omp_check_thread_affinity(char **message)
 {
     bool shouldSetAffinity = true;
 
-    *message = NULL;
+    *message = nullptr;
 #if GMX_OPENMP
     /* We assume that the affinity setting is available on all platforms
      * gcc supports. Even if this is not the case (e.g. Mac OS) the user
@@ -112,7 +112,7 @@ gmx_bool gmx_omp_check_thread_affinity(char **message)
     GMX_CATCH_ALL_AND_EXIT_WITH_FATAL_ERROR;
 
     const char *const gomp_env            = getenv("GOMP_CPU_AFFINITY");
-    const bool        bGompCpuAffinitySet = (gomp_env != NULL);
+    const bool        bGompCpuAffinitySet = (gomp_env != nullptr);
 
     /* turn off internal pinning if GOMP_CPU_AFFINITY is set & non-empty */
     if (bGompCpuAffinitySet && *gomp_env != '\0')
@@ -136,41 +136,19 @@ gmx_bool gmx_omp_check_thread_affinity(char **message)
     const char *const kmp_env         = getenv("KMP_AFFINITY");
     const bool        bKmpAffinitySet = (kmp_env != NULL);
 
-    /* disable Intel OpenMP affinity if neither KMP_AFFINITY nor
-     * GOMP_CPU_AFFINITY is set (Intel uses the GNU env. var as well) */
-    if (!bKmpAffinitySet && !bGompCpuAffinitySet)
-    {
-        int retval;
-
-#ifdef _MSC_VER
-        /* Windows not POSIX */
-        retval = _putenv_s("KMP_AFFINITY", "disabled");
-#else
-        /* POSIX */
-        retval = setenv("KMP_AFFINITY", "disabled", 0);
-#endif  /* _MSC_VER */
-
-        if (debug)
-        {
-            fprintf(debug, "Disabling Intel OpenMP affinity by setting the KMP_AFFINITY=disabled env. var.\n");
-        }
-
-        if (retval != 0)
-        {
-            gmx_warning("Disabling Intel OpenMp affinity setting failed!");
-        }
-    }
-
-    /* turn off internal pinning KMP_AFFINITY != "disabled" */
-    if (bKmpAffinitySet && (gmx_strncasecmp(kmp_env, "disabled", 8) != 0))
+    // turn off internal pinning if KMP_AFFINITY is set but does not contain
+    // the settings 'disabled' or 'none'.
+    if (bKmpAffinitySet &&
+        (strstr(kmp_env, "disabled") == NULL) &&
+        (strstr(kmp_env, "none") == NULL))
     {
         try
         {
             std::string buf = gmx::formatString(
                         "NOTE: KMP_AFFINITY set, will turn off %s internal affinity\n"
                         "      setting as the two can conflict and cause performance degradation.\n"
-                        "      To keep using the %s internal affinity setting, set the\n"
-                        "      KMP_AFFINITY=disabled environment variable.",
+                        "      To keep using the %s internal affinity setting, unset the\n"
+                        "      KMP_AFFINITY environment variable or set it to 'none' or 'disabled'.",
                         programName, programName);
             *message = gmx_strdup(buf.c_str());
         }

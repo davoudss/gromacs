@@ -3,7 +3,7 @@
  *
  * Copyright (c) 1991-2000, University of Groningen, The Netherlands.
  * Copyright (c) 2001-2004, The GROMACS development team.
- * Copyright (c) 2013,2014,2015, by the GROMACS development team, led by
+ * Copyright (c) 2013,2014,2015,2016,2017, by the GROMACS development team, led by
  * Mark Abraham, David van der Spoel, Berk Hess, and Erik Lindahl,
  * and including many others, as listed in the AUTHORS file in the
  * top-level source directory and at http://www.gromacs.org.
@@ -55,7 +55,9 @@
 #include "gromacs/math/vec.h"
 #include "gromacs/pbcutil/pbc.h"
 #include "gromacs/pbcutil/rmpbc.h"
-#include "gromacs/random/random.h"
+#include "gromacs/random/threefry.h"
+#include "gromacs/random/uniformintdistribution.h"
+#include "gromacs/random/uniformrealdistribution.h"
 #include "gromacs/topology/index.h"
 #include "gromacs/topology/topology.h"
 #include "gromacs/utility/arraysize.h"
@@ -63,6 +65,7 @@
 #include "gromacs/utility/fatalerror.h"
 #include "gromacs/utility/futil.h"
 #include "gromacs/utility/smalloc.h"
+#include "gromacs/utility/stringutil.h"
 
 /* print to two file pointers at once (i.e. stderr and log) */
 static gmx_inline
@@ -152,11 +155,16 @@ void mc_optimize(FILE *log, t_mat *m, real *time,
                  int seed, real kT,
                  const char *conv, gmx_output_env_t *oenv)
 {
-    FILE      *fp = NULL;
+    FILE      *fp = nullptr;
     real       ecur, enext, emin, prob, enorm;
     int        i, j, iswap, jswap, nn, nuphill = 0;
-    gmx_rng_t  rng;
     t_mat     *minimum;
+
+    if (seed == 0)
+    {
+        seed = static_cast<int>(gmx::makeRandomSeed());
+    }
+    gmx::DefaultRandomEngine rng(seed);
 
     if (m->n1 != m->nn)
     {
@@ -166,6 +174,7 @@ void mc_optimize(FILE *log, t_mat *m, real *time,
     printf("\nDoing Monte Carlo optimization to find the smoothest trajectory\n");
     printf("by reordering the frames to minimize the path between the two structures\n");
     printf("that have the largest pairwise RMSD.\n");
+    printf("Using random seed %d.\n", seed);
 
     iswap = jswap = -1;
     enorm = m->mat[0][0];
@@ -192,7 +201,6 @@ void mc_optimize(FILE *log, t_mat *m, real *time,
     printf("Largest distance %g between %d and %d. Energy: %g.\n",
            enorm, iswap, jswap, emin);
 
-    rng = gmx_rng_init(seed);
     nn  = m->nn;
 
     /* Initiate and store global minimum */
@@ -200,18 +208,22 @@ void mc_optimize(FILE *log, t_mat *m, real *time,
     minimum->nn = nn;
     copy_t_mat(minimum, m);
 
-    if (NULL != conv)
+    if (nullptr != conv)
     {
         fp = xvgropen(conv, "Convergence of the MC optimization",
                       "Energy", "Step", oenv);
     }
+
+    gmx::UniformIntDistribution<int>     intDistNN(1, nn-2); // [1,nn-2]
+    gmx::UniformRealDistribution<real>   realDistOne;        // [0,1)
+
     for (i = 0; (i < maxiter); i++)
     {
         /* Generate new swapping candidates */
         do
         {
-            iswap = static_cast<int>(1+(nn-2)*gmx_rng_uniform_real(rng));
-            jswap = static_cast<int>(1+(nn-2)*gmx_rng_uniform_real(rng));
+            iswap = intDistNN(rng);
+            jswap = intDistNN(rng);
         }
         while ((iswap == jswap) || (iswap >= nn-1) || (jswap >= nn-1));
 
@@ -237,7 +249,7 @@ void mc_optimize(FILE *log, t_mat *m, real *time,
             prob = std::exp(-(enext-ecur)/(enorm*kT));
         }
 
-        if ((prob == 1) || (gmx_rng_uniform_real(rng) < prob))
+        if (prob == 1 || realDistOne(rng) < prob)
         {
             if (enext > ecur)
             {
@@ -246,7 +258,7 @@ void mc_optimize(FILE *log, t_mat *m, real *time,
 
             fprintf(log, "Iter: %d Swapped %4d and %4d (energy: %g prob: %g)\n",
                     i, iswap, jswap, enext, prob);
-            if (NULL != fp)
+            if (nullptr != fp)
             {
                 fprintf(fp, "%6d  %10g\n", i, enext);
             }
@@ -274,7 +286,7 @@ void mc_optimize(FILE *log, t_mat *m, real *time,
                 (i < m->nn-1) ? m->mat[m->m_ind[i]][m->m_ind[i+1]] : 0);
     }
 
-    if (NULL != fp)
+    if (nullptr != fp)
     {
         xvgrclose(fp);
     }
@@ -319,43 +331,20 @@ static real rms_dist(int isize, real **d, real **d_r)
     return std::sqrt(r2);
 }
 
-static int rms_dist_comp(const void *a, const void *b)
+static bool rms_dist_comp(const t_dist &a, const t_dist &b)
 {
-    t_dist *da, *db;
-
-    da = (t_dist *)a;
-    db = (t_dist *)b;
-
-    if (da->dist - db->dist < 0)
-    {
-        return -1;
-    }
-    else if (da->dist - db->dist > 0)
-    {
-        return 1;
-    }
-    return 0;
+    return a.dist < b.dist;
 }
 
-static int clust_id_comp(const void *a, const void *b)
+static bool clust_id_comp(const t_clustid &a, const t_clustid &b)
 {
-    t_clustid *da, *db;
-
-    da = (t_clustid *)a;
-    db = (t_clustid *)b;
-
-    return da->clust - db->clust;
+    return a.clust < b.clust;
 }
 
-static int nrnb_comp(const void *a, const void *b)
+static bool nrnb_comp(const t_nnb &a, const t_nnb &b)
 {
-    t_nnb *da, *db;
-
-    da = (t_nnb *)a;
-    db = (t_nnb *)b;
-
-    /* return the b-a, we want highest first */
-    return db->nr - da->nr;
+    /* return b<a, we want highest first */
+    return b.nr < a.nr;
 }
 
 void gather(t_mat *m, real cutoff, t_clusters *clust)
@@ -382,7 +371,7 @@ void gather(t_mat *m, real cutoff, t_clusters *clust)
     {
         gmx_incons("gather algortihm");
     }
-    qsort(d, nn, sizeof(d[0]), rms_dist_comp);
+    std::sort(d, d+nn, rms_dist_comp);
 
     /* Now we make a cluster index for all of the conformations */
     c = new_clustid(n1);
@@ -413,7 +402,7 @@ void gather(t_mat *m, real cutoff, t_clusters *clust)
     while (bChange);
     fprintf(stderr, "\nSorting and renumbering clusters\n");
     /* Sort on cluster number */
-    qsort(c, n1, sizeof(c[0]), clust_id_comp);
+    std::sort(c, c+n1, clust_id_comp);
 
     /* Renumber clusters */
     cid = 1;
@@ -496,7 +485,7 @@ static void jarvis_patrick(int n1, real **mat, int M, int P,
     int       **nnb;
     int         i, j, k, cid, diff, maxval;
     gmx_bool    bChange;
-    real      **mcpy = NULL;
+    real      **mcpy = nullptr;
 
     if (rmsdcut < 0)
     {
@@ -515,7 +504,7 @@ static void jarvis_patrick(int n1, real **mat, int M, int P,
             row[j].j    = j;
             row[j].dist = mat[i][j];
         }
-        qsort(row, n1, sizeof(row[0]), rms_dist_comp);
+        std::sort(row, row+n1, rms_dist_comp);
         if (M > 0)
         {
             /* Put the M nearest neighbors in the list */
@@ -612,7 +601,7 @@ static void jarvis_patrick(int n1, real **mat, int M, int P,
 
     fprintf(stderr, "\nSorting and renumbering clusters\n");
     /* Sort on cluster number */
-    qsort(c, n1, sizeof(c[0]), clust_id_comp);
+    std::sort(c, c+n1, clust_id_comp);
 
     /* Renumber clusters */
     cid = 1;
@@ -709,7 +698,7 @@ static void gromos(int n1, real **mat, real rmsdcut, t_clusters *clust)
     sfree(row);
 
     /* sort neighbor list on number of neighbors, largest first */
-    qsort(nnb, n1, sizeof(nnb[0]), nrnb_comp);
+    std::sort(nnb, nnb+n1, nrnb_comp);
 
     if (debug)
     {
@@ -752,7 +741,7 @@ static void gromos(int n1, real **mat, real rmsdcut, t_clusters *clust)
         }
         /* sort again on nnb[].nr, because we have new # neighbors: */
         /* but we only need to sort upto i, i.e. when nnb[].nr>0 */
-        qsort(nnb, i, sizeof(nnb[0]), nrnb_comp);
+        std::sort(nnb, nnb+i, nrnb_comp);
 
         fprintf(stderr, "\b\b\b\b%4d", k);
         /* new cluster id */
@@ -785,8 +774,8 @@ rvec **read_whole_trj(const char *fn, int isize, int index[], int skip,
 
 
     max_nf = 0;
-    xx     = NULL;
-    *time  = NULL;
+    xx     = nullptr;
+    *time  = nullptr;
     natom  = read_first_x(oenv, &status, fn, &t, &x, box);
     i      = 0;
     i0     = 0;
@@ -1005,20 +994,20 @@ static void analyze_clusters(int nf, t_clusters *clust, real **rmsd,
                              gmx_bool bFit, FILE *log, t_rgb rlo, t_rgb rhi,
                              const gmx_output_env_t *oenv)
 {
-    FILE        *size_fp = NULL;
+    FILE        *size_fp = nullptr;
     char         buf[STRLEN], buf1[40], buf2[40], buf3[40], *trxsfn;
-    t_trxstatus *trxout  = NULL;
-    t_trxstatus *trxsout = NULL;
+    t_trxstatus *trxout  = nullptr;
+    t_trxstatus *trxsout = nullptr;
     int          i, i1, cl, nstr, *structure, first = 0, midstr;
-    gmx_bool    *bWrite = NULL;
+    gmx_bool    *bWrite = nullptr;
     real         r, clrmsd, midrmsd;
-    rvec        *xav = NULL;
+    rvec        *xav = nullptr;
     matrix       zerobox;
 
     clear_mat(zerobox);
 
     ffprintf_d(stderr, log, buf, "\nFound %d clusters\n\n", clust->ncl);
-    trxsfn = NULL;
+    trxsfn = nullptr;
     if (trxfn)
     {
         /* do we write all structures? */
@@ -1065,7 +1054,7 @@ static void analyze_clusters(int nf, t_clusters *clust, real **rmsd,
         /* Prepare a reference structure for the orientation of the clusters  */
         if (bFit)
         {
-            reset_x(ifsize, fitidx, natom, NULL, xtps, mass);
+            reset_x(ifsize, fitidx, natom, nullptr, xtps, mass);
         }
         trxout = open_trx(trxfn, "w");
         /* Calculate the average structure in each cluster,               *
@@ -1125,7 +1114,7 @@ static void analyze_clusters(int nf, t_clusters *clust, real **rmsd,
                 {
                     if (bFit)
                     {
-                        reset_x(ifsize, fitidx, natom, NULL, xx[i1], mass);
+                        reset_x(ifsize, fitidx, natom, nullptr, xx[i1], mass);
                     }
                     if (nstr == 1)
                     {
@@ -1246,7 +1235,7 @@ static void analyze_clusters(int nf, t_clusters *clust, real **rmsd,
                     if (bWrite[i])
                     {
                         write_trx(trxsout, iosize, outidx, atoms, i, time[structure[i]], zerobox,
-                                  xx[structure[i]], NULL, NULL);
+                                  xx[structure[i]], nullptr, nullptr);
                     }
                 }
                 close_trx(trxsout);
@@ -1267,14 +1256,14 @@ static void analyze_clusters(int nf, t_clusters *clust, real **rmsd,
                 }
                 if (bFit)
                 {
-                    reset_x(ifsize, fitidx, natom, NULL, xav, mass);
+                    reset_x(ifsize, fitidx, natom, nullptr, xav, mass);
                 }
             }
             if (bFit)
             {
                 do_fit(natom, mass, xtps, xav);
             }
-            write_trx(trxout, iosize, outidx, atoms, cl, time[midstr], zerobox, xav, NULL, NULL);
+            write_trx(trxout, iosize, outidx, atoms, cl, time[midstr], zerobox, xav, nullptr, nullptr);
         }
     }
     /* clean up */
@@ -1409,28 +1398,28 @@ int gmx_cluster(int argc, char *argv[])
     gmx_int64_t        nrms = 0;
 
     matrix             box;
-    rvec              *xtps, *usextps, *x1, **xx = NULL;
+    rvec              *xtps, *usextps, *x1, **xx = nullptr;
     const char        *fn, *trx_out_fn;
     t_clusters         clust;
-    t_mat             *rms, *orig = NULL;
+    t_mat             *rms, *orig = nullptr;
     real              *eigenvalues;
     t_topology         top;
     int                ePBC;
     t_atoms            useatoms;
-    t_matrix          *readmat = NULL;
+    t_matrix          *readmat = nullptr;
     real              *eigenvectors;
 
     int                isize = 0, ifsize = 0, iosize = 0;
-    int               *index = NULL, *fitidx = NULL, *outidx = NULL;
+    int               *index = nullptr, *fitidx = nullptr, *outidx = nullptr;
     char              *grpname;
-    real               rmsd, **d1, **d2, *time = NULL, time_invfac, *mass = NULL;
-    char               buf[STRLEN], buf1[80], title[STRLEN];
+    real               rmsd, **d1, **d2, *time = nullptr, time_invfac, *mass = nullptr;
+    char               buf[STRLEN], buf1[80];
     gmx_bool           bAnalyze, bUseRmsdCut, bJP_RMSD = FALSE, bReadMat, bReadTraj, bPBC = TRUE;
 
     int                method, ncluster = 0;
     static const char *methodname[] = {
-        NULL, "linkage", "jarvis-patrick", "monte-carlo",
-        "diagonalization", "gromos", NULL
+        nullptr, "linkage", "jarvis-patrick", "monte-carlo",
+        "diagonalization", "gromos", nullptr
     };
     enum {
         m_null, m_linkage, m_jarvis_patrick,
@@ -1444,11 +1433,11 @@ int gmx_cluster(int argc, char *argv[])
     static int        nlevels  = 40, skip = 1;
     static real       scalemax = -1.0, rmsdcut = 0.1, rmsmin = 0.0;
     gmx_bool          bRMSdist = FALSE, bBinary = FALSE, bAverage = FALSE, bFit = TRUE;
-    static int        niter    = 10000, nrandom = 0, seed = 1993, write_ncl = 0, write_nst = 1, minstruct = 1;
+    static int        niter    = 10000, nrandom = 0, seed = 0, write_ncl = 0, write_nst = 1, minstruct = 1;
     static real       kT       = 1e-3;
     static int        M        = 10, P = 3;
     gmx_output_env_t *oenv;
-    gmx_rmpbc_t       gpbc = NULL;
+    gmx_rmpbc_t       gpbc = nullptr;
 
     t_pargs           pa[] = {
         { "-dista", FALSE, etBOOL, {&bRMSdist},
@@ -1464,7 +1453,7 @@ int gmx_cluster(int argc, char *argv[])
         { "-skip",  FALSE, etINT,  {&skip},
           "Only analyze every nr-th frame" },
         { "-av",    FALSE, etBOOL, {&bAverage},
-          "Write average iso middle structure for each cluster" },
+          "Write average instead of middle structure for each cluster" },
         { "-wcl",   FALSE, etINT,  {&write_ncl},
           "Write the structures for this number of clusters to numbered files" },
         { "-nst",   FALSE, etINT,  {&write_nst},
@@ -1484,7 +1473,7 @@ int gmx_cluster(int argc, char *argv[])
         { "-P",     FALSE, etINT,  {&P},
           "Number of identical nearest neighbors required to form a cluster" },
         { "-seed",  FALSE, etINT,  {&seed},
-          "Random number seed for Monte Carlo clustering algorithm: <= 0 means generate" },
+          "Random number seed for Monte Carlo clustering algorithm (0 means generate)" },
         { "-niter", FALSE, etINT,  {&niter},
           "Number of iterations for MC" },
         { "-nrandom", FALSE, etINT,  {&nrandom},
@@ -1496,9 +1485,9 @@ int gmx_cluster(int argc, char *argv[])
           { &bPBC }, "PBC check" }
     };
     t_filenm          fnm[] = {
-        { efTRX, "-f",     NULL,        ffOPTRD },
-        { efTPS, "-s",     NULL,        ffOPTRD },
-        { efNDX, NULL,     NULL,        ffOPTRD },
+        { efTRX, "-f",     nullptr,        ffOPTRD },
+        { efTPS, "-s",     nullptr,        ffOPTRD },
+        { efNDX, nullptr,     nullptr,        ffOPTRD },
         { efXPM, "-dm",   "rmsd",       ffOPTRD },
         { efXPM, "-om",   "rmsd-raw",   ffWRITE },
         { efXPM, "-o",    "rmsd-clust", ffWRITE },
@@ -1516,7 +1505,7 @@ int gmx_cluster(int argc, char *argv[])
 
     if (!parse_common_args(&argc, argv,
                            PCA_CAN_VIEW | PCA_CAN_TIME | PCA_TIME_UNIT,
-                           NFILE, fnm, asize(pa), pa, asize(desc), desc, 0, NULL,
+                           NFILE, fnm, asize(pa), pa, asize(desc), desc, 0, nullptr,
                            &oenv))
     {
         return 0;
@@ -1535,13 +1524,13 @@ int gmx_cluster(int argc, char *argv[])
     }
     else
     {
-        trx_out_fn = NULL;
+        trx_out_fn = nullptr;
     }
     if (bReadMat && output_env_get_time_factor(oenv) != 1)
     {
         fprintf(stderr,
                 "\nWarning: assuming the time unit in %s is %s\n",
-                opt2fn("-dm", NFILE, fnm), output_env_get_time_unit(oenv));
+                opt2fn("-dm", NFILE, fnm), output_env_get_time_unit(oenv).c_str());
     }
     if (trx_out_fn && !bReadTraj)
     {
@@ -1623,7 +1612,7 @@ int gmx_cluster(int argc, char *argv[])
     if (bReadTraj)
     {
         /* don't read mass-database as masses (and top) are not used */
-        read_tps_conf(ftp2fn(efTPS, NFILE, fnm), &top, &ePBC, &xtps, NULL, box,
+        read_tps_conf(ftp2fn(efTPS, NFILE, fnm), &top, &ePBC, &xtps, nullptr, box,
                       TRUE);
         if (bPBC)
         {
@@ -1698,7 +1687,7 @@ int gmx_cluster(int argc, char *argv[])
             {
                 for (i = 0; i < nf; i++)
                 {
-                    reset_x(ifsize, fitidx, isize, NULL, xx[i], mass);
+                    reset_x(ifsize, fitidx, isize, nullptr, xx[i], mass);
                 }
             }
         }
@@ -1764,6 +1753,7 @@ int gmx_cluster(int argc, char *argv[])
                 }
                 nrms -= nf-i1-1;
                 fprintf(stderr, "\r# RMSD calculations left: " "%" GMX_PRId64 "   ", nrms);
+                fflush(stderr);
             }
             sfree(x1);
         }
@@ -1789,6 +1779,7 @@ int gmx_cluster(int argc, char *argv[])
                 }
                 nrms -= nf-i1-1;
                 fprintf(stderr, "\r# RMSD calculations left: " "%" GMX_PRId64 "   ", nrms);
+                fflush(stderr);
             }
             /* Clean up work arrays */
             for (i = 0; (i < isize); i++)
@@ -1912,7 +1903,7 @@ int gmx_cluster(int argc, char *argv[])
         useatoms.nr = isize;
         analyze_clusters(nf, &clust, rms->mat, isize, &useatoms, usextps, mass, xx, time,
                          ifsize, fitidx, iosize, outidx,
-                         bReadTraj ? trx_out_fn : NULL,
+                         bReadTraj ? trx_out_fn : nullptr,
                          opt2fn_null("-sz", NFILE, fnm),
                          opt2fn_null("-tr", NFILE, fnm),
                          opt2fn_null("-ntr", NFILE, fnm),
@@ -1947,31 +1938,31 @@ int gmx_cluster(int argc, char *argv[])
     }
     else
     {
-        sprintf(buf, "Time (%s)", output_env_get_time_unit(oenv));
-        sprintf(title, "RMS%sDeviation / Cluster Index",
-                bRMSdist ? " Distance " : " ");
+        auto timeLabel = output_env_get_time_label(oenv);
+        auto title     = gmx::formatString("RMS%sDeviation / Cluster Index",
+                                           bRMSdist ? " Distance " : " ");
         if (minstruct > 1)
         {
-            write_xpm_split(fp, 0, title, "RMSD (nm)", buf, buf,
+            write_xpm_split(fp, 0, title, "RMSD (nm)", timeLabel, timeLabel,
                             nf, nf, time, time, rms->mat, 0.0, rms->maxrms, &nlevels,
                             rlo_top, rhi_top, 0.0, ncluster,
                             &ncluster, TRUE, rlo_bot, rhi_bot);
         }
         else
         {
-            write_xpm(fp, 0, title, "RMSD (nm)", buf, buf,
+            write_xpm(fp, 0, title, "RMSD (nm)", timeLabel, timeLabel,
                       nf, nf, time, time, rms->mat, 0.0, rms->maxrms,
                       rlo_top, rhi_top, &nlevels);
         }
     }
     fprintf(stderr, "\n");
     gmx_ffclose(fp);
-    if (NULL != orig)
+    if (nullptr != orig)
     {
         fp = opt2FILE("-om", NFILE, fnm, "w");
-        sprintf(buf, "Time (%s)", output_env_get_time_unit(oenv));
-        sprintf(title, "RMS%sDeviation", bRMSdist ? " Distance " : " ");
-        write_xpm(fp, 0, title, "RMSD (nm)", buf, buf,
+        auto timeLabel = output_env_get_time_label(oenv);
+        auto title     = gmx::formatString("RMS%sDeviation", bRMSdist ? " Distance " : " ");
+        write_xpm(fp, 0, title, "RMSD (nm)", timeLabel, timeLabel,
                   nf, nf, time, time, orig->mat, 0.0, orig->maxrms,
                   rlo_top, rhi_top, &nlevels);
         gmx_ffclose(fp);
@@ -1992,7 +1983,7 @@ int gmx_cluster(int argc, char *argv[])
         do_view(oenv, opt2fn_null("-ntr", NFILE, fnm), "-nxy");
         do_view(oenv, opt2fn_null("-clid", NFILE, fnm), "-nxy");
     }
-    do_view(oenv, opt2fn_null("-conv", NFILE, fnm), NULL);
+    do_view(oenv, opt2fn_null("-conv", NFILE, fnm), nullptr);
 
     return 0;
 }

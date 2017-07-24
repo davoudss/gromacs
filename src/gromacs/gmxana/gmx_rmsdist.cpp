@@ -3,7 +3,7 @@
  *
  * Copyright (c) 1991-2000, University of Groningen, The Netherlands.
  * Copyright (c) 2001-2004, The GROMACS development team.
- * Copyright (c) 2013,2014,2015, by the GROMACS development team, led by
+ * Copyright (c) 2013,2014,2015,2016,2017, by the GROMACS development team, led by
  * Mark Abraham, David van der Spoel, Berk Hess, and Erik Lindahl,
  * and including many others, as listed in the AUTHORS file in the
  * top-level source directory and at http://www.gromacs.org.
@@ -62,11 +62,10 @@
 #include "gromacs/utility/strdb.h"
 
 
-static void calc_dist(int nind, int index[], rvec x[], int ePBC, matrix box,
+static void calc_dist(int nind, int index[], const rvec x[], int ePBC, matrix box,
                       real **d)
 {
     int      i, j;
-    real    *xi;
     rvec     dx;
     real     temp2;
     t_pbc    pbc;
@@ -74,7 +73,7 @@ static void calc_dist(int nind, int index[], rvec x[], int ePBC, matrix box,
     set_pbc(&pbc, ePBC, box);
     for (i = 0; (i < nind-1); i++)
     {
-        xi = x[index[i]];
+        const real *xi = x[index[i]];
         for (j = i+1; (j < nind); j++)
         {
             pbc_dx(&pbc, xi, x[index[j]], dx);
@@ -180,13 +179,13 @@ static int read_equiv(const char *eq_fn, t_equiv ***equivptr)
 
     fp    = gmx_ffopen(eq_fn, "r");
     neq   = 0;
-    equiv = NULL;
+    equiv = nullptr;
     while (get_a_line(fp, line, STRLEN))
     {
         lp = line;
         /* this is not efficient, but I'm lazy */
         srenew(equiv, neq+1);
-        equiv[neq] = NULL;
+        equiv[neq] = nullptr;
         na         = 0;
         if (sscanf(lp, "%s %n", atomname, &n) == 1)
         {
@@ -203,7 +202,7 @@ static int read_equiv(const char *eq_fn, t_equiv ***equivptr)
                 equiv[neq][na].aname = gmx_strdup(atomname);
                 if (na > 0)
                 {
-                    equiv[neq][na].nname = NULL;
+                    equiv[neq][na].nname = nullptr;
                 }
                 na++;
                 lp += n;
@@ -213,8 +212,8 @@ static int read_equiv(const char *eq_fn, t_equiv ***equivptr)
         srenew(equiv[neq], na+1);
         equiv[neq][na].set   = false;
         equiv[neq][na].rnr   = 0;
-        equiv[neq][na].rname = NULL;
-        equiv[neq][na].aname = NULL;
+        equiv[neq][na].rname = nullptr;
+        equiv[neq][na].aname = nullptr;
 
         /* next */
         neq++;
@@ -282,7 +281,7 @@ static gmx_bool is_equiv(int neq, t_equiv **equiv, char **nname,
 }
 
 static int analyze_noe_equivalent(const char *eq_fn,
-                                  t_atoms *atoms, int isize, int *index,
+                                  const t_atoms *atoms, int isize, int *index,
                                   gmx_bool bSumH,
                                   int *noe_index, t_noe_gr *noe_gr)
 {
@@ -305,7 +304,7 @@ static int analyze_noe_equivalent(const char *eq_fn,
         else
         {
             neq   = 0;
-            equiv = NULL;
+            equiv = nullptr;
         }
 
         groupnr = 0;
@@ -672,11 +671,11 @@ int gmx_rmsdist(int argc, char *argv[])
     int              *index, *noe_index;
     char             *grpname;
     real            **d_r, **d, **dtot, **dtot2, **mean, **rms, **rmsc, *resnr;
-    real            **dtot1_3 = NULL, **dtot1_6 = NULL;
+    real            **dtot1_3 = nullptr, **dtot1_6 = nullptr;
     real              rmsnow, meanmax, rmsmax, rmscmax;
     real              max1_3, max1_6;
-    t_noe_gr         *noe_gr = NULL;
-    t_noe           **noe    = NULL;
+    t_noe_gr         *noe_gr = nullptr;
+    t_noe           **noe    = nullptr;
     t_rgb             rlo, rhi;
     gmx_bool          bRMS, bScale, bMean, bNOE, bNMR3, bNMR6, bNMR;
 
@@ -697,11 +696,11 @@ int gmx_rmsdist(int argc, char *argv[])
           "Use periodic boundary conditions when computing distances" }
     };
     t_filenm          fnm[] = {
-        { efTRX, "-f",   NULL,       ffREAD },
-        { efTPS, NULL,   NULL,       ffREAD },
-        { efNDX, NULL,   NULL,       ffOPTRD },
+        { efTRX, "-f",   nullptr,       ffREAD },
+        { efTPS, nullptr,   nullptr,       ffREAD },
+        { efNDX, nullptr,   nullptr,       ffOPTRD },
         { efDAT, "-equiv", "equiv",   ffOPTRD },
-        { efXVG, NULL,   "distrmsd", ffWRITE },
+        { efXVG, nullptr,   "distrmsd", ffWRITE },
         { efXPM, "-rms", "rmsdist",  ffOPTWR },
         { efXPM, "-scl", "rmsscale", ffOPTWR },
         { efXPM, "-mean", "rmsmean",  ffOPTWR },
@@ -712,7 +711,7 @@ int gmx_rmsdist(int argc, char *argv[])
 #define NFILE asize(fnm)
 
     if (!parse_common_args(&argc, argv, PCA_CAN_VIEW | PCA_CAN_TIME,
-                           NFILE, fnm, asize(pa), pa, asize(desc), desc, 0, NULL, &oenv))
+                           NFILE, fnm, asize(pa), pa, asize(desc), desc, 0, nullptr, &oenv))
     {
         return 0;
     }
@@ -737,7 +736,7 @@ int gmx_rmsdist(int argc, char *argv[])
     }
 
     /* get topology and index */
-    read_tps_conf(ftp2fn(efTPS, NFILE, fnm), &top, &ePBC, &x, NULL, box, FALSE);
+    read_tps_conf(ftp2fn(efTPS, NFILE, fnm), &top, &ePBC, &x, nullptr, box, FALSE);
 
     if (!bPBC)
     {
@@ -807,7 +806,7 @@ int gmx_rmsdist(int argc, char *argv[])
 
     xvgrclose(fp);
 
-    close_trj(status);
+    close_trx(status);
 
     calc_rms(isize, teller, dtot, dtot2, rms, &rmsmax, rmsc, &rmscmax, mean, &meanmax);
     fprintf(stderr, "rmsmax = %g, rmscmax = %g\n", rmsmax, rmscmax);
@@ -886,7 +885,7 @@ int gmx_rmsdist(int argc, char *argv[])
         write_noe(opt2FILE("-noe", NFILE, fnm, "w"), gnr, noe, noe_gr, scalemax);
     }
 
-    do_view(oenv, ftp2fn(efXVG, NFILE, fnm), NULL);
+    do_view(oenv, ftp2fn(efXVG, NFILE, fnm), nullptr);
 
     return 0;
 }

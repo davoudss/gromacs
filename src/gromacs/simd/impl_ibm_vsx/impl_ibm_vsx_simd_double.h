@@ -1,7 +1,7 @@
 /*
  * This file is part of the GROMACS molecular simulation package.
  *
- * Copyright (c) 2014,2015, by the GROMACS development team, led by
+ * Copyright (c) 2014,2015,2016,2017, by the GROMACS development team, led by
  * Mark Abraham, David van der Spoel, Berk Hess, and Erik Lindahl,
  * and including many others, as listed in the AUTHORS file in the
  * top-level source directory and at http://www.gromacs.org.
@@ -99,22 +99,11 @@ class SimdDIBool
         __vector vsxBool int  simdInternal_;
 };
 
-// The VSX load & store operations are a bit of a mess. The interface is different
-// for xlc version 12, xlc version 13, and gcc. Long-term IBM recommends
-// simply using pointer dereferencing both for aligned and unaligned loads.
-// That's nice, but unfortunately xlc still bugs out when the pointer is
-// not aligned. Sticking to vec_xl/vec_xst isn't a solution either, since
-// that appears to be buggy for some _aligned_ loads :-)
-//
-// For now, we use pointer dereferencing for all aligned load/stores, and
-// for unaligned ones with gcc. On xlc we use vec_xlw4/vec_xstw4 for
-// unaligned memory operations. The latest docs recommend using the overloaded
-// vec_xl/vec_xst, but that is not supported on xlc version 12. We'll
-// revisit things once xlc is a bit more stable - for now you probably want
-// to stick to gcc...
+// Note that the interfaces we use here have been a mess in xlc;
+// currently version 13.1.5 is required.
 
 static inline SimdDouble gmx_simdcall
-load(const double *m)
+simdLoad(const double *m)
 {
     return {
                *reinterpret_cast<const __vector double *>(m)
@@ -128,27 +117,17 @@ store(double *m, SimdDouble a)
 }
 
 static inline SimdDouble gmx_simdcall
-loadU(const double *m)
+simdLoadU(const double *m)
 {
-#if defined(__ibmxl__) || defined(__xlC__)
-    return {
-               vec_xlw4(0, const_cast<double *>(m))
-    }
-#else
     return {
                *reinterpret_cast<const __vector double *>(m)
     };
-#endif
 }
 
 static inline void gmx_simdcall
 storeU(double *m, SimdDouble a)
 {
-#if defined(__ibmxl__) || defined(__xlC__)
-    vec_xstw4(a.simdInternal_, 0, m);
-#else
     *reinterpret_cast<__vector double *>(m) = a.simdInternal_;
-#endif
 }
 
 static inline SimdDouble gmx_simdcall
@@ -160,7 +139,7 @@ setZeroD()
 }
 
 static inline SimdDInt32 gmx_simdcall
-loadDI(const std::int32_t * m)
+simdLoadDI(const std::int32_t * m)
 {
     __vector signed int          t0, t1;
     const __vector unsigned char perm = { 0, 1, 2, 3, 0, 1, 2, 3, 16, 17, 18, 19, 16, 17, 18, 19 };
@@ -180,9 +159,9 @@ store(std::int32_t * m, SimdDInt32 gmx_unused x)
 }
 
 static inline SimdDInt32 gmx_simdcall
-loadUDI(const std::int32_t *m)
+simdLoadUDI(const std::int32_t *m)
 {
-    return loadDI(m);
+    return simdLoadDI(m);
 }
 
 static inline void gmx_simdcall
@@ -351,7 +330,7 @@ static inline SimdDouble gmx_simdcall
 maskzRsqrt(SimdDouble x, SimdDBool m)
 {
 #ifndef NDEBUG
-    x.simdInternal_ = vec_sel(vec_splats(1.0f), x.simdInternal_, m.simdInternal_);
+    x.simdInternal_ = vec_sel(vec_splats(1.0), x.simdInternal_, m.simdInternal_);
 #endif
     return {
                vec_and(vec_rsqrte(x.simdInternal_), reinterpret_cast<__vector double>(m.simdInternal_))
@@ -362,7 +341,7 @@ static inline SimdDouble gmx_simdcall
 maskzRcp(SimdDouble x, SimdDBool m)
 {
 #ifndef NDEBUG
-    x.simdInternal_ = vec_sel(vec_splats(1.0f), x.simdInternal_, m.simdInternal_);
+    x.simdInternal_ = vec_sel(vec_splats(1.0), x.simdInternal_, m.simdInternal_);
 #endif
     return {
                vec_and(vec_re(x.simdInternal_), reinterpret_cast<__vector double>(m.simdInternal_))
@@ -421,7 +400,6 @@ trunc(SimdDouble x)
 static inline SimdDouble
 frexp(SimdDouble value, SimdDInt32 * exponent)
 {
-    // Don't use _mm_set1_epi64x() - on MSVC it is only supported for 64-bit builds
     const __vector double     exponentMask = reinterpret_cast<__vector double>(vec_splats(0x7FF0000000000000ULL));
     const __vector signed int exponentBias = vec_splats(1022);
     const __vector double     half         = vec_splats(0.5);
@@ -520,12 +498,22 @@ static inline SimdDBool gmx_simdcall
 testBits(SimdDouble a)
 {
 #ifdef __POWER8_VECTOR__
+    // Power8 VSX has proper support for operations on long long integers
     return {
                vec_cmpgt(reinterpret_cast<__vector unsigned long long>(a.simdInternal_), vec_splats(0ULL))
     };
 #else
+    // No support for long long operations.
+    // Start with comparing 32-bit subfields bitwise by casting to integers
+    __vector vsxBool int tmp = vec_cmpgt( reinterpret_cast<__vector unsigned int>(a.simdInternal_), vec_splats(0U));
+
+    // Shuffle low/high 32-bit fields of tmp into tmp2
+    const __vector unsigned char  perm  = {4, 5, 6, 7, 0, 1, 2, 3, 12, 13, 14, 15, 8, 9, 10, 11};
+    __vector vsxBool int          tmp2  = vec_perm(tmp, tmp, perm);
+
+    // Return the or:d parts of tmp & tmp2
     return {
-               reinterpret_cast<__vector vsxBool long long>(vec_nor(reinterpret_cast<__vector signed int>(vec_cmpeq(a.simdInternal_, vec_splats(0.0))), vec_splats(0)))
+               reinterpret_cast<__vector vsxBool long long>(vec_or(tmp, tmp2))
     };
 #endif
 }
@@ -722,7 +710,7 @@ static inline SimdDInt32 gmx_simdcall
 cvttR2I(SimdDouble a)
 {
 #if defined(__GNUC__) && !defined(__ibmxl__) && !defined(__xlC__)
-// gcc up to at least version 4.9 is missing intrinsics for converting double to/from int - use inline asm
+// gcc up to at least version 6.1 is missing intrinsics for converting double to/from int - use inline asm
     const __vector unsigned char perm = {4, 5, 6, 7, 0, 1, 2, 3, 12, 13, 14, 15, 8, 9, 10, 11};
     __vector double              ix;
 
@@ -749,10 +737,12 @@ cvtI2R(SimdDInt32 a)
 {
 #if defined(__GNUC__) && !defined(__ibmxl__) && !defined(__xlC__)
 // gcc up to at least version 4.9 is missing intrinsics for converting double to/from int - use inline asm
-    const __vector unsigned char perm = {4, 5, 6, 7, 0, 1, 2, 3, 12, 13, 14, 15, 8, 9, 10, 11};
     __vector double              x;
-
+#ifndef __BIG_ENDIAN__
+    const __vector unsigned char perm = {4, 5, 6, 7, 0, 1, 2, 3, 12, 13, 14, 15, 8, 9, 10, 11};
     a.simdInternal_ = vec_perm(a.simdInternal_, a.simdInternal_, perm);
+#endif
+
     __asm__ ("xvcvsxwdp %x0,%x1" : "=wd" (x) : "wa" (a.simdInternal_));
 
     return {

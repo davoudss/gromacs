@@ -3,7 +3,7 @@
  *
  * Copyright (c) 1991-2000, University of Groningen, The Netherlands.
  * Copyright (c) 2001-2004, The GROMACS development team.
- * Copyright (c) 2013,2014,2015,2016, by the GROMACS development team, led by
+ * Copyright (c) 2013,2014,2015,2016,2017, by the GROMACS development team, led by
  * Mark Abraham, David van der Spoel, Berk Hess, and Erik Lindahl,
  * and including many others, as listed in the AUTHORS file in the
  * top-level source directory and at http://www.gromacs.org.
@@ -45,8 +45,11 @@
 #include <stdio.h>
 #include <string.h>
 
+#include <cstdint>
+
 #include <array>
 
+#include "gromacs/domdec/dlbtiming.h"
 #include "gromacs/domdec/domdec.h"
 #include "gromacs/domdec/domdec_struct.h"
 #include "gromacs/essentialdynamics/edsam.h"
@@ -80,12 +83,11 @@
 #include "gromacs/mdlib/qmmm.h"
 #include "gromacs/mdlib/update.h"
 #include "gromacs/mdlib/nbnxn_kernels/nbnxn_kernel_gpu_ref.h"
-#include "gromacs/mdlib/nbnxn_kernels/nbnxn_kernel_ref.h"
-#include "gromacs/mdlib/nbnxn_kernels/simd_2xnn/nbnxn_kernel_simd_2xnn.h"
-#include "gromacs/mdlib/nbnxn_kernels/simd_4xn/nbnxn_kernel_simd_4xn.h"
 #include "gromacs/mdtypes/commrec.h"
+#include "gromacs/mdtypes/iforceprovider.h"
 #include "gromacs/mdtypes/inputrec.h"
 #include "gromacs/mdtypes/md_enums.h"
+#include "gromacs/mdtypes/state.h"
 #include "gromacs/pbcutil/ishift.h"
 #include "gromacs/pbcutil/mshift.h"
 #include "gromacs/pbcutil/pbc.h"
@@ -96,20 +98,20 @@
 #include "gromacs/timing/wallcycle.h"
 #include "gromacs/timing/wallcyclereporting.h"
 #include "gromacs/timing/walltime_accounting.h"
+#include "gromacs/utility/arrayref.h"
 #include "gromacs/utility/basedefinitions.h"
 #include "gromacs/utility/cstringutil.h"
 #include "gromacs/utility/exceptions.h"
 #include "gromacs/utility/fatalerror.h"
 #include "gromacs/utility/gmxassert.h"
 #include "gromacs/utility/gmxmpi.h"
+#include "gromacs/utility/logger.h"
 #include "gromacs/utility/pleasecite.h"
 #include "gromacs/utility/smalloc.h"
 #include "gromacs/utility/sysinfo.h"
 
 #include "nbnxn_gpu.h"
-
-static const bool useCuda   = GMX_GPU == GMX_GPU_CUDA;
-static const bool useOpenCL = GMX_GPU == GMX_GPU_OPENCL;
+#include "nbnxn_kernels/nbnxn_kernel_cpu.h"
 
 void print_time(FILE                     *out,
                 gmx_walltime_accounting_t walltime_accounting,
@@ -129,6 +131,8 @@ void print_time(FILE                     *out,
         fprintf(out, "\r");
     }
     fprintf(out, "step %s", gmx_step_str(step, buf));
+    fflush(out);
+
     if ((step >= ir->nstlist))
     {
         double seconds_since_epoch = gmx_gettime();
@@ -204,86 +208,18 @@ void print_start(FILE *fplog, t_commrec *cr,
                         walltime_accounting_get_start_time_stamp(walltime_accounting));
 }
 
-static void sum_forces(int start, int end, rvec f[], rvec flr[])
+static void sum_forces(rvec f[], const PaddedRVecVector *forceToAdd)
 {
-    int i;
+    /* TODO: remove this - 1 when padding is properly implemented */
+    int         end  = forceToAdd->size() - 1;
+    const rvec *fAdd = as_rvec_array(forceToAdd->data());
 
-    if (gmx_debug_at)
+    // cppcheck-suppress unreadVariable
+    int gmx_unused nt = gmx_omp_nthreads_get(emntDefault);
+#pragma omp parallel for num_threads(nt) schedule(static)
+    for (int i = 0; i < end; i++)
     {
-        pr_rvecs(debug, 0, "fsr", f+start, end-start);
-        pr_rvecs(debug, 0, "flr", flr+start, end-start);
-    }
-    for (i = start; (i < end); i++)
-    {
-        rvec_inc(f[i], flr[i]);
-    }
-}
-
-/*
- * calc_f_el calculates forces due to an electric field.
- *
- * force is kJ mol^-1 nm^-1 = e * kJ mol^-1 nm^-1 / e
- *
- * Et[] contains the parameters for the time dependent
- * part of the field.
- * Ex[] contains the parameters for
- * the spatial dependent part of the field.
- * The function should return the energy due to the electric field
- * (if any) but for now returns 0.
- *
- * WARNING:
- * There can be problems with the virial.
- * Since the field is not self-consistent this is unavoidable.
- * For neutral molecules the virial is correct within this approximation.
- * For neutral systems with many charged molecules the error is small.
- * But for systems with a net charge or a few charged molecules
- * the error can be significant when the field is high.
- * Solution: implement a self-consistent electric field into PME.
- */
-static void calc_f_el(FILE *fp, int  start, int homenr,
-                      real charge[], rvec f[],
-                      t_cosines Ex[], t_cosines Et[], double t)
-{
-    rvec Ext;
-    real t0;
-    int  i, m;
-
-    for (m = 0; (m < DIM); m++)
-    {
-        if (Et[m].n > 0)
-        {
-            if (Et[m].n == 3)
-            {
-                t0     = Et[m].a[1];
-                Ext[m] = std::cos(Et[m].a[0]*(t-t0))*std::exp(-gmx::square(t-t0)/(2.0*gmx::square(Et[m].a[2])));
-            }
-            else
-            {
-                Ext[m] = std::cos(Et[m].a[0]*t);
-            }
-        }
-        else
-        {
-            Ext[m] = 1.0;
-        }
-        if (Ex[m].n > 0)
-        {
-            /* Convert the field strength from V/nm to MD-units */
-            Ext[m] *= Ex[m].a[0]*FIELDFAC;
-            for (i = start; (i < start+homenr); i++)
-            {
-                f[i][m] += charge[i]*Ext[m];
-            }
-        }
-        else
-        {
-            Ext[m] = 0;
-        }
-    }
-    if (fp != NULL)
-    {
-        fprintf(fp, "%10g  %10g  %10g  %10g #FIELD\n", t,
-                Ext[XX]/FIELDFAC, Ext[YY]/FIELDFAC, Ext[ZZ]/FIELDFAC);
+        rvec_inc(f[i], fAdd[i]);
     }
 }
 
@@ -368,7 +304,7 @@ static void pme_receive_force_ener(t_commrec      *cr,
     wallcycle_start(wcycle, ewcPP_PMEWAITRECVF);
     dvdl_q  = 0;
     dvdl_lj = 0;
-    gmx_pme_receive_f(cr, fr->f_novirsum, fr->vir_el_recip, &e_q,
+    gmx_pme_receive_f(cr, as_rvec_array(fr->f_novirsum->data()), fr->vir_el_recip, &e_q,
                       fr->vir_lj_recip, &e_lj, &dvdl_q, &dvdl_lj,
                       &cycles_seppme);
     enerd->term[F_COUL_RECIP] += e_q;
@@ -384,23 +320,33 @@ static void pme_receive_force_ener(t_commrec      *cr,
 }
 
 static void print_large_forces(FILE *fp, t_mdatoms *md, t_commrec *cr,
-                               gmx_int64_t step, real pforce, rvec *x, rvec *f)
+                               gmx_int64_t step, real forceTolerance,
+                               const rvec *x, const rvec *f)
 {
-    int  i;
-    real pf2, fn2;
-    char buf[STEPSTRSIZE];
-
-    pf2 = gmx::square(pforce);
-    for (i = 0; i < md->homenr; i++)
+    real           force2Tolerance = gmx::square(forceTolerance);
+    std::uintmax_t numNonFinite    = 0;
+    for (int i = 0; i < md->homenr; i++)
     {
-        fn2 = norm2(f[i]);
-        /* We also catch NAN, if the compiler does not optimize this away. */
-        if (fn2 >= pf2 || fn2 != fn2)
+        real force2    = norm2(f[i]);
+        bool nonFinite = !std::isfinite(force2);
+        if (force2 >= force2Tolerance || nonFinite)
         {
-            fprintf(fp, "step %s  atom %6d  x %8.3f %8.3f %8.3f  force %12.5e\n",
-                    gmx_step_str(step, buf),
-                    ddglatnr(cr->dd, i), x[i][XX], x[i][YY], x[i][ZZ], std::sqrt(fn2));
+            fprintf(fp, "step %" GMX_PRId64 " atom %6d  x %8.3f %8.3f %8.3f  force %12.5e\n",
+                    step,
+                    ddglatnr(cr->dd, i), x[i][XX], x[i][YY], x[i][ZZ], std::sqrt(force2));
         }
+        if (nonFinite)
+        {
+            numNonFinite++;
+        }
+    }
+    if (numNonFinite > 0)
+    {
+        /* Note that with MPI this fatal call on one rank might interrupt
+         * the printing on other ranks. But we can only avoid that with
+         * an expensive MPI barrier that we would need at each step.
+         */
+        gmx_fatal(FARGS, "At step %" GMX_PRId64 " detected non-finite forces on %ju atoms", step, numNonFinite);
     }
 }
 
@@ -425,7 +371,7 @@ static void post_process_forces(t_commrec *cr,
              * if the constructing atoms aren't local.
              */
             wallcycle_start(wcycle, ewcVSITESPREAD);
-            spread_vsite_f(vsite, x, fr->f_novirsum, NULL,
+            spread_vsite_f(vsite, x, as_rvec_array(fr->f_novirsum->data()), nullptr,
                            (flags & GMX_FORCE_VIRIAL), fr->vir_el_recip,
                            nrnb,
                            &top->idef, fr->ePBC, fr->bMolPBC, graph, box, cr);
@@ -434,15 +380,8 @@ static void post_process_forces(t_commrec *cr,
         if (flags & GMX_FORCE_VIRIAL)
         {
             /* Now add the forces, this is local */
-            if (fr->bDomDec)
-            {
-                sum_forces(0, fr->f_novirsum_n, f, fr->f_novirsum);
-            }
-            else
-            {
-                sum_forces(0, mdatoms->homenr,
-                           f, fr->f_novirsum);
-            }
+            sum_forces(f, fr->f_novirsum);
+
             if (EEL_FULL(fr->eeltype))
             {
                 /* Add the mesh contribution to the virial */
@@ -501,8 +440,10 @@ static void do_nb_verlet(t_forcerec *fr,
     switch (nbvg->kernel_type)
     {
         case nbnxnk4x4_PlainC:
-            nbnxn_kernel_ref(&nbvg->nbl_lists,
-                             nbvg->nbat, ic,
+        case nbnxnk4xN_SIMD_4xN:
+        case nbnxnk4xN_SIMD_2xNN:
+            nbnxn_kernel_cpu(nbvg,
+                             ic,
                              fr->shift_vec,
                              flags,
                              clearF,
@@ -511,33 +452,6 @@ static void do_nb_verlet(t_forcerec *fr,
                              fr->bBHAM ?
                              enerd->grpp.ener[egBHAMSR] :
                              enerd->grpp.ener[egLJSR]);
-            break;
-
-        case nbnxnk4xN_SIMD_4xN:
-            nbnxn_kernel_simd_4xn(&nbvg->nbl_lists,
-                                  nbvg->nbat, ic,
-                                  nbvg->ewald_excl,
-                                  fr->shift_vec,
-                                  flags,
-                                  clearF,
-                                  fr->fshift[0],
-                                  enerd->grpp.ener[egCOULSR],
-                                  fr->bBHAM ?
-                                  enerd->grpp.ener[egBHAMSR] :
-                                  enerd->grpp.ener[egLJSR]);
-            break;
-        case nbnxnk4xN_SIMD_2xNN:
-            nbnxn_kernel_simd_2xnn(&nbvg->nbl_lists,
-                                   nbvg->nbat, ic,
-                                   nbvg->ewald_excl,
-                                   fr->shift_vec,
-                                   flags,
-                                   clearF,
-                                   fr->fshift[0],
-                                   enerd->grpp.ener[egCOULSR],
-                                   fr->bBHAM ?
-                                   enerd->grpp.ener[egBHAMSR] :
-                                   enerd->grpp.ener[egLJSR]);
             break;
 
         case nbnxnk8x8x8_GPU:
@@ -730,7 +644,52 @@ static void do_nb_verlet_fep(nbnxn_pairlist_set_t *nbl_lists,
 
 gmx_bool use_GPU(const nonbonded_verlet_t *nbv)
 {
-    return nbv != NULL && nbv->bUseGPU;
+    return nbv != nullptr && nbv->bUseGPU;
+}
+
+static gmx_inline void clear_rvecs_omp(int n, rvec v[])
+{
+    int nth = gmx_omp_nthreads_get_simple_rvec_task(emntDefault, n);
+
+    /* Note that we would like to avoid this conditional by putting it
+     * into the omp pragma instead, but then we still take the full
+     * omp parallel for overhead (at least with gcc5).
+     */
+    if (nth == 1)
+    {
+        for (int i = 0; i < n; i++)
+        {
+            clear_rvec(v[i]);
+        }
+    }
+    else
+    {
+#pragma omp parallel for num_threads(nth) schedule(static)
+        for (int i = 0; i < n; i++)
+        {
+            clear_rvec(v[i]);
+        }
+    }
+}
+
+/*! \brief  This routine checks if the potential energy is finite.
+ *
+ * Note that passing this check does not guarantee finite forces,
+ * since those use slightly different arithmetics. But in most cases
+ * there is just a narrow coordinate range where forces are not finite
+ * and energies are finite.
+ *
+ * \param[in] enerd  The energy data; the non-bonded group energies need to be added in here before calling this routine
+ */
+static void checkPotentialEnergyValidity(const gmx_enerdata_t *enerd)
+{
+    if (!std::isfinite(enerd->term[F_EPOT]))
+    {
+        gmx_fatal(FARGS, "The total potential energy is %g, which is not finite. The LJ and electrostatic contributions to the energy are %g and %g, respectively. A non-finite potential energy can be caused by overlapping interactions in bonded interactions or very large or NaN coordinate values. Usually this is caused by a badly or non-equilibrated initial configuration or incorrect interactions or parameters in the topology.",
+                  enerd->term[F_EPOT],
+                  enerd->term[F_LJ],
+                  enerd->term[F_COUL_SR]);
+    }
 }
 
 void do_force_cutsVERLET(FILE *fplog, t_commrec *cr,
@@ -739,37 +698,50 @@ void do_force_cutsVERLET(FILE *fplog, t_commrec *cr,
                          gmx_localtop_t *top,
                          gmx_groups_t gmx_unused *groups,
                          matrix box, rvec x[], history_t *hist,
-                         rvec f[],
+                         PaddedRVecVector *force,
                          tensor vir_force,
                          t_mdatoms *mdatoms,
                          gmx_enerdata_t *enerd, t_fcdata *fcd,
                          real *lambda, t_graph *graph,
                          t_forcerec *fr, interaction_const_t *ic,
                          gmx_vsite_t *vsite, rvec mu_tot,
-                         double t, FILE *field, gmx_edsam_t ed,
+                         double t, gmx_edsam_t ed,
                          gmx_bool bBornRadii,
-                         int flags)
+                         int flags,
+                         DdOpenBalanceRegionBeforeForceComputation ddOpenBalanceRegion,
+                         DdCloseBalanceRegionAfterForceComputation ddCloseBalanceRegion)
 {
     int                 cg1, i, j;
-    int                 start, homenr;
     double              mu[2*DIM];
     gmx_bool            bStateChanged, bNS, bFillGrid, bCalcCGCM;
     gmx_bool            bDoForces, bUseGPU, bUseOrEmulGPU;
     gmx_bool            bDiffKernels = FALSE;
     rvec                vzero, box_diag;
-    float               cycles_pme, cycles_force, cycles_wait_gpu;
-    /* TODO To avoid loss of precision, float can't be used for a
-     * cycle count. Build an object that can do this right and perhaps
-     * also be used by gmx_wallcycle_t */
-    gmx_cycles_t        cycleCountBeforeLocalWorkCompletes = 0;
-    nonbonded_verlet_t *nbv;
+    float               cycles_pme, cycles_wait_gpu;
+    nonbonded_verlet_t *nbv = fr->nbv;
 
-    cycles_force    = 0;
+    bStateChanged = (flags & GMX_FORCE_STATECHANGED);
+    bNS           = (flags & GMX_FORCE_NS) && (fr->bAllvsAll == FALSE);
+    bFillGrid     = (bNS && bStateChanged);
+    bCalcCGCM     = (bFillGrid && !DOMAINDECOMP(cr));
+    bDoForces     = (flags & GMX_FORCE_FORCES);
+    bUseGPU       = fr->nbv->bUseGPU;
+    bUseOrEmulGPU = bUseGPU || fr->nbv->emulateGpu;
+
+    /* At a search step we need to start the first balancing region
+     * somewhere early inside the step after communication during domain
+     * decomposition (and not during the previous step as usual).
+     */
+    if (bNS &&
+        ddOpenBalanceRegion == DdOpenBalanceRegionBeforeForceComputation::yes)
+    {
+        ddOpenBalanceRegionCpu(cr->dd, DdAllowBalanceRegionReopen::yes);
+    }
+
     cycles_wait_gpu = 0;
-    nbv             = fr->nbv;
 
-    start  = 0;
-    homenr = mdatoms->homenr;
+    const int start  = 0;
+    const int homenr = mdatoms->homenr;
 
     clear_mat(vir_force);
 
@@ -785,14 +757,6 @@ void do_force_cutsVERLET(FILE *fplog, t_commrec *cr,
     {
         cg1--;
     }
-
-    bStateChanged = (flags & GMX_FORCE_STATECHANGED);
-    bNS           = (flags & GMX_FORCE_NS) && (fr->bAllvsAll == FALSE);
-    bFillGrid     = (bNS && bStateChanged);
-    bCalcCGCM     = (bFillGrid && !DOMAINDECOMP(cr));
-    bDoForces     = (flags & GMX_FORCE_FORCES);
-    bUseGPU       = fr->nbv->bUseGPU;
-    bUseOrEmulGPU = bUseGPU || (nbv->grp[0].kernel_type == nbnxnk8x8x8_PlainC);
 
     if (bStateChanged)
     {
@@ -845,8 +809,6 @@ void do_force_cutsVERLET(FILE *fplog, t_commrec *cr,
          * we do not need to worry about shifting.
          */
 
-        int pme_flags = 0;
-
         wallcycle_start(wcycle, ewcPP_PMESENDX);
 
         bBS = (inputrec->nwall == 2);
@@ -856,20 +818,10 @@ void do_force_cutsVERLET(FILE *fplog, t_commrec *cr,
             svmul(inputrec->wall_ewald_zfac, boxs[ZZ], boxs[ZZ]);
         }
 
-        if (EEL_PME(fr->eeltype))
-        {
-            pme_flags |= GMX_PME_DO_COULOMB;
-        }
-
-        if (EVDW_PME(fr->vdwtype))
-        {
-            pme_flags |= GMX_PME_DO_LJ;
-        }
-
         gmx_pme_send_coordinates(cr, bBS ? boxs : box, x,
-                                 mdatoms->nChargePerturbed, mdatoms->nTypePerturbed, lambda[efptCOUL], lambda[efptVDW],
+                                 lambda[efptCOUL], lambda[efptVDW],
                                  (flags & (GMX_FORCE_VIRIAL | GMX_FORCE_ENERGY)),
-                                 pme_flags, step);
+                                 step);
 
         wallcycle_stop(wcycle, ewcPP_PMESENDX);
     }
@@ -896,7 +848,7 @@ void do_force_cutsVERLET(FILE *fplog, t_commrec *cr,
             nbnxn_put_on_grid(nbv->nbs, fr->ePBC, box,
                               0, vzero, box_diag,
                               0, mdatoms->homenr, -1, fr->cginfo, x,
-                              0, NULL,
+                              0, nullptr,
                               nbv->grp[eintLocal].kernel_type,
                               nbv->grp[eintLocal].nbat);
             wallcycle_sub_stop(wcycle, ewcsNBS_GRID_LOCAL);
@@ -978,6 +930,11 @@ void do_force_cutsVERLET(FILE *fplog, t_commrec *cr,
 
     if (bUseGPU)
     {
+        if (DOMAINDECOMP(cr))
+        {
+            ddOpenBalanceRegionGpu(cr->dd);
+        }
+
         wallcycle_start(wcycle, ewcLAUNCH_GPU_NB);
         /* launch local nonbonded F on GPU */
         do_nb_verlet(fr, ic, enerd, flags, eintLocal, enbvClearFNo,
@@ -1041,12 +998,6 @@ void do_force_cutsVERLET(FILE *fplog, t_commrec *cr,
         {
             wallcycle_start(wcycle, ewcMOVEX);
             dd_move_x(cr->dd, box, x);
-
-            /* When we don't need the total dipole we sum it in global_stat */
-            if (bStateChanged && inputrecNeedMutot(inputrec))
-            {
-                gmx_sumd(2*DIM, mu, cr);
-            }
             wallcycle_stop(wcycle, ewcMOVEX);
 
             wallcycle_start(wcycle, ewcNB_XF_BUF_OPS);
@@ -1054,7 +1005,7 @@ void do_force_cutsVERLET(FILE *fplog, t_commrec *cr,
             nbnxn_atomdata_copy_x_to_nbat_x(nbv->nbs, eatNonlocal, FALSE, x,
                                             nbv->grp[eintNonlocal].nbat);
             wallcycle_sub_stop(wcycle, ewcsNB_X_BUF_OPS);
-            cycles_force += wallcycle_stop(wcycle, ewcNB_XF_BUF_OPS);
+            wallcycle_stop(wcycle, ewcNB_XF_BUF_OPS);
         }
 
         if (bUseGPU && !bDiffKernels)
@@ -1063,7 +1014,7 @@ void do_force_cutsVERLET(FILE *fplog, t_commrec *cr,
             /* launch non-local nonbonded F on GPU */
             do_nb_verlet(fr, ic, enerd, flags, eintNonlocal, enbvClearFNo,
                          nrnb, wcycle);
-            cycles_force += wallcycle_stop(wcycle, ewcLAUNCH_GPU_NB);
+            wallcycle_stop(wcycle, ewcLAUNCH_GPU_NB);
         }
     }
 
@@ -1078,7 +1029,7 @@ void do_force_cutsVERLET(FILE *fplog, t_commrec *cr,
         }
         nbnxn_gpu_launch_cpyback(nbv->gpu_nbv, nbv->grp[eintLocal].nbat,
                                  flags, eatLocal);
-        cycles_force += wallcycle_stop(wcycle, ewcLAUNCH_GPU_NB);
+        wallcycle_stop(wcycle, ewcLAUNCH_GPU_NB);
     }
 
     if (bStateChanged && inputrecNeedMutot(inputrec))
@@ -1086,6 +1037,7 @@ void do_force_cutsVERLET(FILE *fplog, t_commrec *cr,
         if (PAR(cr))
         {
             gmx_sumd(2*DIM, mu, cr);
+            ddReopenBalanceRegionCpu(cr->dd);
         }
 
         for (i = 0; i < 2; i++)
@@ -1122,18 +1074,16 @@ void do_force_cutsVERLET(FILE *fplog, t_commrec *cr,
 
     if (inputrec->bRot)
     {
-        /* Enforced rotation has its own cycle counter that starts after the collective
-         * coordinates have been communicated. It is added to ddCyclF to allow
-         * for proper load-balancing */
         wallcycle_start(wcycle, ewcROT);
-        do_rotation(cr, inputrec, box, x, t, step, wcycle, bNS);
+        do_rotation(cr, inputrec, box, x, t, step, bNS);
         wallcycle_stop(wcycle, ewcROT);
     }
 
+    /* Temporary solution until all routines take PaddedRVecVector */
+    rvec *f = as_rvec_array(force->data());
+
     /* Start the force cycle counter.
-     * This counter is stopped after do_force_lowlevel.
-     * No parallel communication should occur while this counter is running,
-     * since that will interfere with the dynamic load balancing.
+     * Note that a different counter is used for dynamic load balancing.
      */
     wallcycle_start(wcycle, ewcFORCE);
     if (bDoForces)
@@ -1144,15 +1094,7 @@ void do_force_cutsVERLET(FILE *fplog, t_commrec *cr,
         {
             if (flags & GMX_FORCE_VIRIAL)
             {
-                fr->f_novirsum = fr->f_novirsum_alloc;
-                if (fr->bDomDec)
-                {
-                    clear_rvecs(fr->f_novirsum_n, fr->f_novirsum);
-                }
-                else
-                {
-                    clear_rvecs(homenr, fr->f_novirsum+start);
-                }
+                fr->f_novirsum = fr->forceBufferNoVirialSummation;
             }
             else
             {
@@ -1160,12 +1102,21 @@ void do_force_cutsVERLET(FILE *fplog, t_commrec *cr,
                  * a separate array for forces that do not contribute
                  * to the pressure.
                  */
-                fr->f_novirsum = f;
+                fr->f_novirsum = force;
             }
         }
 
+        if (fr->bF_NoVirSum)
+        {
+            if (flags & GMX_FORCE_VIRIAL)
+            {
+                /* TODO: remove this - 1 when padding is properly implemented */
+                clear_rvecs_omp(fr->f_novirsum->size() - 1,
+                                as_rvec_array(fr->f_novirsum->data()));
+            }
+        }
         /* Clear the short- and long-range forces */
-        clear_rvecs(fr->natoms_force_constr, f);
+        clear_rvecs_omp(fr->natoms_force_constr, f);
 
         clear_rvec(fr->vir_diag_posres);
     }
@@ -1237,12 +1188,12 @@ void do_force_cutsVERLET(FILE *fplog, t_commrec *cr,
          * This can be split into a local and a non-local part when overlapping
          * communication with calculation with domain decomposition.
          */
-        cycles_force += wallcycle_stop(wcycle, ewcFORCE);
+        wallcycle_stop(wcycle, ewcFORCE);
         wallcycle_start(wcycle, ewcNB_XF_BUF_OPS);
         wallcycle_sub_start(wcycle, ewcsNB_F_BUF_OPS);
         nbnxn_atomdata_add_nbat_f_to_f(nbv->nbs, eatAll, nbv->grp[aloc].nbat, f);
         wallcycle_sub_stop(wcycle, ewcsNB_F_BUF_OPS);
-        cycles_force += wallcycle_stop(wcycle, ewcNB_XF_BUF_OPS);
+        wallcycle_stop(wcycle, ewcNB_XF_BUF_OPS);
         wallcycle_start_nocount(wcycle, ewcFORCE);
 
         /* if there are multiple fshift output buffers reduce them */
@@ -1270,7 +1221,7 @@ void do_force_cutsVERLET(FILE *fplog, t_commrec *cr,
                       inputrec->fepvals, lambda, graph, &(top->excls), fr->mu_tot,
                       flags, &cycles_pme);
 
-    cycles_force += wallcycle_stop(wcycle, ewcFORCE);
+    wallcycle_stop(wcycle, ewcFORCE);
 
     if (ed)
     {
@@ -1284,23 +1235,19 @@ void do_force_cutsVERLET(FILE *fplog, t_commrec *cr,
         {
             if (bUseGPU)
             {
-                float cycles_tmp;
-
                 wallcycle_start(wcycle, ewcWAIT_GPU_NB_NL);
                 nbnxn_gpu_wait_for_gpu(nbv->gpu_nbv,
                                        flags, eatNonlocal,
                                        enerd->grpp.ener[egLJSR], enerd->grpp.ener[egCOULSR],
                                        fr->fshift);
-                cycles_tmp       = wallcycle_stop(wcycle, ewcWAIT_GPU_NB_NL);
-                cycles_wait_gpu += cycles_tmp;
-                cycles_force    += cycles_tmp;
+                cycles_wait_gpu += wallcycle_stop(wcycle, ewcWAIT_GPU_NB_NL);
             }
             else
             {
                 wallcycle_start_nocount(wcycle, ewcFORCE);
                 do_nb_verlet(fr, ic, enerd, flags, eintNonlocal, enbvClearFYes,
                              nrnb, wcycle);
-                cycles_force += wallcycle_stop(wcycle, ewcFORCE);
+                wallcycle_stop(wcycle, ewcFORCE);
             }
             wallcycle_start(wcycle, ewcNB_XF_BUF_OPS);
             wallcycle_sub_start(wcycle, ewcsNB_F_BUF_OPS);
@@ -1311,83 +1258,64 @@ void do_force_cutsVERLET(FILE *fplog, t_commrec *cr,
                                                nbv->grp[eintNonlocal].nbat, f);
             }
             wallcycle_sub_stop(wcycle, ewcsNB_F_BUF_OPS);
-            cycles_force += wallcycle_stop(wcycle, ewcNB_XF_BUF_OPS);
+            wallcycle_stop(wcycle, ewcNB_XF_BUF_OPS);
         }
     }
 
-    if (bDoForces && DOMAINDECOMP(cr))
+    if (DOMAINDECOMP(cr))
     {
-        if (bUseGPU && useCuda)
+        /* We are done with the CPU compute.
+         * We will now communicate the non-local forces.
+         * If we use a GPU this will overlap with GPU work, so in that case
+         * we do not close the DD force balancing region here.
+         */
+        if (ddCloseBalanceRegion == DdCloseBalanceRegionAfterForceComputation::yes)
         {
-            /* We are done with the CPU compute, but the GPU local non-bonded
-             * kernel can still be running while we communicate the forces.
-             * We start a counter here, so we can, hopefully, time the rest
-             * of the GPU kernel execution and data transfer.
-             */
-            cycleCountBeforeLocalWorkCompletes = gmx_cycles_read();
+            ddCloseBalanceRegionCpu(cr->dd);
         }
-
-        /* Communicate the forces */
-        wallcycle_start(wcycle, ewcMOVEF);
-        dd_move_f(cr->dd, f, fr->fshift);
-        wallcycle_stop(wcycle, ewcMOVEF);
+        if (bDoForces)
+        {
+            wallcycle_start(wcycle, ewcMOVEF);
+            dd_move_f(cr->dd, f, fr->fshift);
+            wallcycle_stop(wcycle, ewcMOVEF);
+        }
     }
 
     if (bUseOrEmulGPU)
     {
         /* wait for local forces (or calculate in emulation mode) */
-        if (bUseGPU && useCuda)
+        if (bUseGPU)
         {
-            float       cycles_tmp, cycles_wait_est;
-            const float cuda_api_overhead_margin = 50000.0f; /* cycles */
+            /* Measured overhead on CUDA and OpenCL with(out) GPU sharing
+             * is between 0.5 and 1.5 Mcycles. So 2 MCycles is an overestimate,
+             * but even with a step of 0.1 ms the difference is less than 1%
+             * of the step time.
+             */
+            const float gpuWaitApiOverheadMargin = 2e6f; /* cycles */
 
             wallcycle_start(wcycle, ewcWAIT_GPU_NB_L);
             nbnxn_gpu_wait_for_gpu(nbv->gpu_nbv,
                                    flags, eatLocal,
                                    enerd->grpp.ener[egLJSR], enerd->grpp.ener[egCOULSR],
                                    fr->fshift);
-            cycles_tmp      = wallcycle_stop(wcycle, ewcWAIT_GPU_NB_L);
+            float cycles_tmp = wallcycle_stop(wcycle, ewcWAIT_GPU_NB_L);
 
-            if (bDoForces && DOMAINDECOMP(cr))
+            if (ddCloseBalanceRegion == DdCloseBalanceRegionAfterForceComputation::yes)
             {
-                cycles_wait_est = gmx_cycles_read() - cycleCountBeforeLocalWorkCompletes;
-
-                if (cycles_tmp < cuda_api_overhead_margin)
+                DdBalanceRegionWaitedForGpu waitedForGpu = DdBalanceRegionWaitedForGpu::yes;
+                if (bDoForces && cycles_tmp <= gpuWaitApiOverheadMargin)
                 {
                     /* We measured few cycles, it could be that the kernel
                      * and transfer finished earlier and there was no actual
                      * wait time, only API call overhead.
                      * Then the actual time could be anywhere between 0 and
-                     * cycles_wait_est. As a compromise, we use half the time.
+                     * cycles_wait_est. We will use half of cycles_wait_est.
                      */
-                    cycles_wait_est *= 0.5f;
+                    waitedForGpu = DdBalanceRegionWaitedForGpu::no;
                 }
+                ddCloseBalanceRegionGpu(cr->dd, cycles_wait_gpu, waitedForGpu);
             }
-            else
-            {
-                /* No force communication so we actually timed the wait */
-                cycles_wait_est = cycles_tmp;
-            }
-            /* Even though this is after dd_move_f, the actual task we are
-             * waiting for runs asynchronously with dd_move_f and we usually
-             * have nothing to balance it with, so we can and should add
-             * the time to the force time for load balancing.
-             */
-            cycles_force    += cycles_wait_est;
-            cycles_wait_gpu += cycles_wait_est;
-        }
-        else if (bUseGPU && useOpenCL)
-        {
 
-            wallcycle_start(wcycle, ewcWAIT_GPU_NB_L);
-            nbnxn_gpu_wait_for_gpu(nbv->gpu_nbv,
-                                   flags, eatLocal,
-                                   enerd->grpp.ener[egLJSR], enerd->grpp.ener[egCOULSR],
-                                   fr->fshift);
-            cycles_wait_gpu += wallcycle_stop(wcycle, ewcWAIT_GPU_NB_L);
-        }
-        if (bUseGPU)
-        {
             /* now clear the GPU outputs while we finish the step on the CPU */
             wallcycle_start_nocount(wcycle, ewcLAUNCH_GPU_NB);
             nbnxn_gpu_clear_outputs(nbv->gpu_nbv, flags);
@@ -1412,25 +1340,17 @@ void do_force_cutsVERLET(FILE *fplog, t_commrec *cr,
     if (DOMAINDECOMP(cr))
     {
         dd_force_flop_stop(cr->dd, nrnb);
-        if (wcycle)
-        {
-            dd_cycles_add(cr->dd, cycles_force-cycles_pme, ddCyclF);
-            if (bUseGPU)
-            {
-                dd_cycles_add(cr->dd, cycles_wait_gpu, ddCyclWaitGPU);
-            }
-        }
     }
 
     if (bDoForces)
     {
-        if (inputrecElecField(inputrec))
+        /* Collect forces from modules */
+        gmx::ArrayRef<gmx::RVec> fNoVirSum;
+        if (fr->bF_NoVirSum)
         {
-            /* Compute forces due to electric field */
-            calc_f_el(MASTER(cr) ? field : NULL,
-                      start, homenr, mdatoms->chargeA, fr->f_novirsum,
-                      inputrec->ex, inputrec->et, t);
+            fNoVirSum = *fr->f_novirsum;
         }
+        fr->forceProviders->calculateForces(cr, mdatoms, box, t, x, *force, fNoVirSum);
 
         /* If we have NoVirSum forces, but we do not calculate the virial,
          * we sum fr->f_novirsum=f later.
@@ -1438,7 +1358,7 @@ void do_force_cutsVERLET(FILE *fplog, t_commrec *cr,
         if (vsite && !(fr->bF_NoVirSum && !(flags & GMX_FORCE_VIRIAL)))
         {
             wallcycle_start(wcycle, ewcVSITESPREAD);
-            spread_vsite_f(vsite, x, f, fr->fshift, FALSE, NULL, nrnb,
+            spread_vsite_f(vsite, x, f, fr->fshift, FALSE, nullptr, nrnb,
                            &top->idef, fr->ePBC, fr->bMolPBC, graph, box, cr);
             wallcycle_stop(wcycle, ewcVSITESPREAD);
         }
@@ -1487,8 +1407,16 @@ void do_force_cutsVERLET(FILE *fplog, t_commrec *cr,
                             flags);
     }
 
-    /* Sum the potential energy terms from group contributions */
-    sum_epot(&(enerd->grpp), enerd->term);
+    if (flags & GMX_FORCE_ENERGY)
+    {
+        /* Sum the potential energy terms from group contributions */
+        sum_epot(&(enerd->grpp), enerd->term);
+
+        if (!EI_TPI(inputrec->eI))
+        {
+            checkPotentialEnergyValidity(enerd);
+        }
+    }
 }
 
 void do_force_cutsGROUP(FILE *fplog, t_commrec *cr,
@@ -1497,25 +1425,26 @@ void do_force_cutsGROUP(FILE *fplog, t_commrec *cr,
                         gmx_localtop_t *top,
                         gmx_groups_t *groups,
                         matrix box, rvec x[], history_t *hist,
-                        rvec f[],
+                        PaddedRVecVector *force,
                         tensor vir_force,
                         t_mdatoms *mdatoms,
                         gmx_enerdata_t *enerd, t_fcdata *fcd,
                         real *lambda, t_graph *graph,
                         t_forcerec *fr, gmx_vsite_t *vsite, rvec mu_tot,
-                        double t, FILE *field, gmx_edsam_t ed,
+                        double t, gmx_edsam_t ed,
                         gmx_bool bBornRadii,
-                        int flags)
+                        int flags,
+                        DdOpenBalanceRegionBeforeForceComputation ddOpenBalanceRegion,
+                        DdCloseBalanceRegionAfterForceComputation ddCloseBalanceRegion)
 {
     int        cg0, cg1, i, j;
-    int        start, homenr;
     double     mu[2*DIM];
     gmx_bool   bStateChanged, bNS, bFillGrid, bCalcCGCM;
     gmx_bool   bDoForces;
-    float      cycles_pme, cycles_force;
+    float      cycles_pme;
 
-    start  = 0;
-    homenr = mdatoms->homenr;
+    const int  start  = 0;
+    const int  homenr = mdatoms->homenr;
 
     clear_mat(vir_force);
 
@@ -1600,8 +1529,6 @@ void do_force_cutsGROUP(FILE *fplog, t_commrec *cr,
          * we do not need to worry about shifting.
          */
 
-        int pme_flags = 0;
-
         wallcycle_start(wcycle, ewcPP_PMESENDX);
 
         bBS = (inputrec->nwall == 2);
@@ -1611,20 +1538,10 @@ void do_force_cutsGROUP(FILE *fplog, t_commrec *cr,
             svmul(inputrec->wall_ewald_zfac, boxs[ZZ], boxs[ZZ]);
         }
 
-        if (EEL_PME(fr->eeltype))
-        {
-            pme_flags |= GMX_PME_DO_COULOMB;
-        }
-
-        if (EVDW_PME(fr->vdwtype))
-        {
-            pme_flags |= GMX_PME_DO_LJ;
-        }
-
         gmx_pme_send_coordinates(cr, bBS ? boxs : box, x,
-                                 mdatoms->nChargePerturbed, mdatoms->nTypePerturbed, lambda[efptCOUL], lambda[efptVDW],
+                                 lambda[efptCOUL], lambda[efptVDW],
                                  (flags & (GMX_FORCE_VIRIAL | GMX_FORCE_ENERGY)),
-                                 pme_flags, step);
+                                 step);
 
         wallcycle_stop(wcycle, ewcPP_PMESENDX);
     }
@@ -1636,6 +1553,11 @@ void do_force_cutsGROUP(FILE *fplog, t_commrec *cr,
         wallcycle_start(wcycle, ewcMOVEX);
         dd_move_x(cr->dd, box, x);
         wallcycle_stop(wcycle, ewcMOVEX);
+        /* No GPU support, no move_x overlap, so reopen the balance region here */
+        if (ddOpenBalanceRegion == DdOpenBalanceRegionBeforeForceComputation::yes)
+        {
+            ddReopenBalanceRegionCpu(cr->dd);
+        }
     }
 
     if (inputrecNeedMutot(inputrec))
@@ -1645,6 +1567,7 @@ void do_force_cutsGROUP(FILE *fplog, t_commrec *cr,
             if (PAR(cr))
             {
                 gmx_sumd(2*DIM, mu, cr);
+                ddReopenBalanceRegionCpu(cr->dd);
             }
             for (i = 0; i < 2; i++)
             {
@@ -1704,18 +1627,16 @@ void do_force_cutsGROUP(FILE *fplog, t_commrec *cr,
 
     if (inputrec->bRot)
     {
-        /* Enforced rotation has its own cycle counter that starts after the collective
-         * coordinates have been communicated. It is added to ddCyclF to allow
-         * for proper load-balancing */
         wallcycle_start(wcycle, ewcROT);
-        do_rotation(cr, inputrec, box, x, t, step, wcycle, bNS);
+        do_rotation(cr, inputrec, box, x, t, step, bNS);
         wallcycle_stop(wcycle, ewcROT);
     }
 
+    /* Temporary solution until all routines take PaddedRVecVector */
+    rvec *f = as_rvec_array(force->data());
+
     /* Start the force cycle counter.
-     * This counter is stopped after do_force_lowlevel.
-     * No parallel communication should occur while this counter is running,
-     * since that will interfere with the dynamic load balancing.
+     * Note that a different counter is used for dynamic load balancing.
      */
     wallcycle_start(wcycle, ewcFORCE);
 
@@ -1727,15 +1648,10 @@ void do_force_cutsGROUP(FILE *fplog, t_commrec *cr,
         {
             if (flags & GMX_FORCE_VIRIAL)
             {
-                fr->f_novirsum = fr->f_novirsum_alloc;
-                if (fr->bDomDec)
-                {
-                    clear_rvecs(fr->f_novirsum_n, fr->f_novirsum);
-                }
-                else
-                {
-                    clear_rvecs(homenr, fr->f_novirsum+start);
-                }
+                fr->f_novirsum = fr->forceBufferNoVirialSummation;
+                /* TODO: remove this - 1 when padding is properly implemented */
+                clear_rvecs(fr->f_novirsum->size() - 1,
+                            as_rvec_array(fr->f_novirsum->data()));
             }
             else
             {
@@ -1743,7 +1659,7 @@ void do_force_cutsGROUP(FILE *fplog, t_commrec *cr,
                  * a separate array for forces that do not contribute
                  * to the pressure.
                  */
-                fr->f_novirsum = f;
+                fr->f_novirsum = force;
             }
         }
 
@@ -1773,31 +1689,32 @@ void do_force_cutsGROUP(FILE *fplog, t_commrec *cr,
                       flags,
                       &cycles_pme);
 
-    cycles_force = wallcycle_stop(wcycle, ewcFORCE);
+    wallcycle_stop(wcycle, ewcFORCE);
+
+    if (DOMAINDECOMP(cr))
+    {
+        dd_force_flop_stop(cr->dd, nrnb);
+
+        if (ddCloseBalanceRegion == DdCloseBalanceRegionAfterForceComputation::yes)
+        {
+            ddCloseBalanceRegionCpu(cr->dd);
+        }
+    }
 
     if (ed)
     {
         do_flood(cr, inputrec, x, f, ed, box, step, bNS);
     }
 
-    if (DOMAINDECOMP(cr))
-    {
-        dd_force_flop_stop(cr->dd, nrnb);
-        if (wcycle)
-        {
-            dd_cycles_add(cr->dd, cycles_force-cycles_pme, ddCyclF);
-        }
-    }
-
     if (bDoForces)
     {
-        if (inputrecElecField(inputrec))
+        /* Collect forces from modules */
+        gmx::ArrayRef<gmx::RVec> fNoVirSum;
+        if (fr->bF_NoVirSum)
         {
-            /* Compute forces due to electric field */
-            calc_f_el(MASTER(cr) ? field : NULL,
-                      start, homenr, mdatoms->chargeA, fr->f_novirsum,
-                      inputrec->ex, inputrec->et, t);
+            fNoVirSum = *fr->f_novirsum;
         }
+        fr->forceProviders->calculateForces(cr, mdatoms, box, t, x, *force, fNoVirSum);
 
         /* Communicate the forces */
         if (DOMAINDECOMP(cr))
@@ -1814,7 +1731,7 @@ void do_force_cutsGROUP(FILE *fplog, t_commrec *cr,
             if (EEL_FULL(fr->eeltype) && cr->dd->n_intercg_excl &&
                 (flags & GMX_FORCE_VIRIAL))
             {
-                dd_move_f(cr->dd, fr->f_novirsum, NULL);
+                dd_move_f(cr->dd, as_rvec_array(fr->f_novirsum->data()), nullptr);
             }
             wallcycle_stop(wcycle, ewcMOVEF);
         }
@@ -1825,7 +1742,7 @@ void do_force_cutsGROUP(FILE *fplog, t_commrec *cr,
         if (vsite && !(fr->bF_NoVirSum && !(flags & GMX_FORCE_VIRIAL)))
         {
             wallcycle_start(wcycle, ewcVSITESPREAD);
-            spread_vsite_f(vsite, x, f, fr->fshift, FALSE, NULL, nrnb,
+            spread_vsite_f(vsite, x, f, fr->fshift, FALSE, nullptr, nrnb,
                            &top->idef, fr->ePBC, fr->bMolPBC, graph, box, cr);
             wallcycle_stop(wcycle, ewcVSITESPREAD);
         }
@@ -1871,8 +1788,17 @@ void do_force_cutsGROUP(FILE *fplog, t_commrec *cr,
                             flags);
     }
 
-    /* Sum the potential energy terms from group contributions */
-    sum_epot(&(enerd->grpp), enerd->term);
+    if (flags & GMX_FORCE_ENERGY)
+    {
+        /* Sum the potential energy terms from group contributions */
+        sum_epot(&(enerd->grpp), enerd->term);
+
+        if (!EI_TPI(inputrec->eI))
+        {
+            checkPotentialEnergyValidity(enerd);
+        }
+    }
+
 }
 
 void do_force(FILE *fplog, t_commrec *cr,
@@ -1880,23 +1806,32 @@ void do_force(FILE *fplog, t_commrec *cr,
               gmx_int64_t step, t_nrnb *nrnb, gmx_wallcycle_t wcycle,
               gmx_localtop_t *top,
               gmx_groups_t *groups,
-              matrix box, rvec x[], history_t *hist,
-              rvec f[],
+              matrix box, PaddedRVecVector *coordinates, history_t *hist,
+              PaddedRVecVector *force,
               tensor vir_force,
               t_mdatoms *mdatoms,
               gmx_enerdata_t *enerd, t_fcdata *fcd,
-              real *lambda, t_graph *graph,
+              gmx::ArrayRef<real> lambda, t_graph *graph,
               t_forcerec *fr,
               gmx_vsite_t *vsite, rvec mu_tot,
-              double t, FILE *field, gmx_edsam_t ed,
+              double t, gmx_edsam_t ed,
               gmx_bool bBornRadii,
-              int flags)
+              int flags,
+              DdOpenBalanceRegionBeforeForceComputation ddOpenBalanceRegion,
+              DdCloseBalanceRegionAfterForceComputation ddCloseBalanceRegion)
 {
     /* modify force flag if not doing nonbonded */
     if (!fr->bNonbonded)
     {
         flags &= ~GMX_FORCE_NONBONDED;
     }
+
+    GMX_ASSERT(coordinates->size() >= static_cast<unsigned int>(fr->natoms_force + 1) ||
+               fr->natoms_force == 0, "We might need 1 element extra for SIMD");
+    GMX_ASSERT(force->size() >= static_cast<unsigned int>(fr->natoms_force + 1) ||
+               fr->natoms_force == 0, "We might need 1 element extra for SIMD");
+
+    rvec *x = as_rvec_array(coordinates->data());
 
     switch (inputrec->cutoff_scheme)
     {
@@ -1906,15 +1841,17 @@ void do_force(FILE *fplog, t_commrec *cr,
                                 top,
                                 groups,
                                 box, x, hist,
-                                f, vir_force,
+                                force, vir_force,
                                 mdatoms,
                                 enerd, fcd,
-                                lambda, graph,
+                                lambda.data(), graph,
                                 fr, fr->ic,
                                 vsite, mu_tot,
-                                t, field, ed,
+                                t, ed,
                                 bBornRadii,
-                                flags);
+                                flags,
+                                ddOpenBalanceRegion,
+                                ddCloseBalanceRegion);
             break;
         case ecutsGROUP:
             do_force_cutsGROUP(fplog, cr, inputrec,
@@ -1922,17 +1859,30 @@ void do_force(FILE *fplog, t_commrec *cr,
                                top,
                                groups,
                                box, x, hist,
-                               f, vir_force,
+                               force, vir_force,
                                mdatoms,
                                enerd, fcd,
-                               lambda, graph,
+                               lambda.data(), graph,
                                fr, vsite, mu_tot,
-                               t, field, ed,
+                               t, ed,
                                bBornRadii,
-                               flags);
+                               flags,
+                               ddOpenBalanceRegion,
+                               ddCloseBalanceRegion);
             break;
         default:
             gmx_incons("Invalid cut-off scheme passed!");
+    }
+
+    /* In case we don't have constraints and are using GPUs, the next balancing
+     * region starts here.
+     * Some "special" work at the end of do_force_cuts?, such as vsite spread,
+     * virial calculation and COM pulling, is not thus not included in
+     * the balance timing, which is ok as most tasks do communication.
+     */
+    if (ddOpenBalanceRegion == DdOpenBalanceRegionBeforeForceComputation::yes)
+    {
+        ddOpenBalanceRegionCpu(cr->dd, DdAllowBalanceRegionReopen::no);
     }
 }
 
@@ -1972,22 +1922,22 @@ void do_constrain_first(FILE *fplog, gmx_constr_t constr,
     dvdl_dum = 0;
 
     /* constrain the current position */
-    constrain(NULL, TRUE, FALSE, constr, &(top->idef),
+    constrain(nullptr, TRUE, FALSE, constr, &(top->idef),
               ir, cr, step, 0, 1.0, md,
-              state->x, state->x, NULL,
+              as_rvec_array(state->x.data()), as_rvec_array(state->x.data()), nullptr,
               fr->bMolPBC, state->box,
               state->lambda[efptBONDED], &dvdl_dum,
-              NULL, NULL, nrnb, econqCoord);
+              nullptr, nullptr, nrnb, econqCoord);
     if (EI_VV(ir->eI))
     {
         /* constrain the inital velocity, and save it */
         /* also may be useful if we need the ekin from the halfstep for velocity verlet */
-        constrain(NULL, TRUE, FALSE, constr, &(top->idef),
+        constrain(nullptr, TRUE, FALSE, constr, &(top->idef),
                   ir, cr, step, 0, 1.0, md,
-                  state->x, state->v, state->v,
+                  as_rvec_array(state->x.data()), as_rvec_array(state->v.data()), as_rvec_array(state->v.data()),
                   fr->bMolPBC, state->box,
                   state->lambda[efptBONDED], &dvdl_dum,
-                  NULL, NULL, nrnb, econqVeloc);
+                  nullptr, nullptr, nrnb, econqVeloc);
     }
     /* constrain the inital velocities at t-dt/2 */
     if (EI_STATE_VELOCITY(ir->eI) && ir->eI != eiVV)
@@ -2012,12 +1962,12 @@ void do_constrain_first(FILE *fplog, gmx_constr_t constr,
                     gmx_step_str(step, buf));
         }
         dvdl_dum = 0;
-        constrain(NULL, TRUE, FALSE, constr, &(top->idef),
+        constrain(nullptr, TRUE, FALSE, constr, &(top->idef),
                   ir, cr, step, -1, 1.0, md,
-                  state->x, savex, NULL,
+                  as_rvec_array(state->x.data()), savex, nullptr,
                   fr->bMolPBC, state->box,
                   state->lambda[efptBONDED], &dvdl_dum,
-                  state->v, NULL, nrnb, econqCoord);
+                  as_rvec_array(state->v.data()), nullptr, nrnb, econqCoord);
 
         for (i = start; i < end; i++)
         {
@@ -2139,10 +2089,10 @@ void calc_enervirdiff(FILE *fplog, int eDispCorr, t_forcerec *fr)
             /* TODO This code depends on the logic in tables.c that
                constructs the table layout, which should be made
                explicit in future cleanup. */
-            GMX_ASSERT(fr->nblists[0].table_vdw->interaction == GMX_TABLE_INTERACTION_VDWREP_VDWDISP,
+            GMX_ASSERT(fr->dispersionCorrectionTable->interaction == GMX_TABLE_INTERACTION_VDWREP_VDWDISP,
                        "Dispersion-correction code needs a table with both repulsion and dispersion terms");
-            scale  = fr->nblists[0].table_vdw->scale;
-            vdwtab = fr->nblists[0].table_vdw->data;
+            scale  = fr->dispersionCorrectionTable->scale;
+            vdwtab = fr->dispersionCorrectionTable->data;
 
             /* Round the cut-offs to exact table values for precision */
             ri0  = static_cast<int>(floor(fr->rvdw_switch*scale));
@@ -2388,39 +2338,6 @@ void calc_dispcorr(t_inputrec *ir, t_forcerec *fr,
     }
 }
 
-void do_pbc_first(FILE *fplog, matrix box, t_forcerec *fr,
-                  t_graph *graph, rvec x[])
-{
-    if (fplog)
-    {
-        fprintf(fplog, "Removing pbc first time\n");
-    }
-    calc_shifts(box, fr->shift_vec);
-    if (graph)
-    {
-        mk_mshift(fplog, graph, fr->ePBC, box, x);
-        if (gmx_debug_at)
-        {
-            p_graph(debug, "do_pbc_first 1", graph);
-        }
-        shift_self(graph, box, x);
-        /* By doing an extra mk_mshift the molecules that are broken
-         * because they were e.g. imported from another software
-         * will be made whole again. Such are the healing powers
-         * of GROMACS.
-         */
-        mk_mshift(fplog, graph, fr->ePBC, box, x);
-        if (gmx_debug_at)
-        {
-            p_graph(debug, "do_pbc_first 2", graph);
-        }
-    }
-    if (fplog)
-    {
-        fprintf(fplog, "Done rmpbc\n");
-    }
-}
-
 static void low_do_pbc_mtop(FILE *fplog, int ePBC, matrix box,
                             const gmx_mtop_t *mtop, rvec x[],
                             gmx_bool bFirst)
@@ -2448,7 +2365,7 @@ static void low_do_pbc_mtop(FILE *fplog, int ePBC, matrix box,
         else
         {
             /* Pass NULL iso fplog to avoid graph prints for each molecule type */
-            mk_graph_ilist(NULL, mtop->moltype[molb->type].ilist,
+            mk_graph_ilist(nullptr, mtop->moltype[molb->type].ilist,
                            0, molb->natoms_mol, FALSE, FALSE, graph);
 
             for (mol = 0; mol < molb->nmol; mol++)
@@ -2502,20 +2419,36 @@ void put_atoms_in_box_omp(int ePBC, const matrix box, int natoms, rvec x[])
 }
 
 // TODO This can be cleaned up a lot, and move back to runner.cpp
-void finish_run(FILE *fplog, t_commrec *cr,
-                t_inputrec *inputrec,
+void finish_run(FILE *fplog, const gmx::MDLogger &mdlog, t_commrec *cr,
+                const t_inputrec *inputrec,
                 t_nrnb nrnb[], gmx_wallcycle_t wcycle,
                 gmx_walltime_accounting_t walltime_accounting,
                 nonbonded_verlet_t *nbv,
                 gmx_bool bWriteStat)
 {
-    t_nrnb *nrnb_tot = NULL;
+    t_nrnb *nrnb_tot = nullptr;
     double  delta_t  = 0;
     double  nbfs     = 0, mflop = 0;
     double  elapsed_time,
             elapsed_time_over_all_ranks,
             elapsed_time_over_all_threads,
             elapsed_time_over_all_threads_over_all_ranks;
+    /* Control whether it is valid to print a report. Only the
+       simulation master may print, but it should not do so if the run
+       terminated e.g. before a scheduled reset step. This is
+       complicated by the fact that PME ranks are unaware of the
+       reason why they were sent a pmerecvqxFINISH. To avoid
+       communication deadlocks, we always do the communication for the
+       report, even if we've decided not to write the report, because
+       how long it takes to finish the run is not important when we've
+       decided not to report on the simulation performance. */
+    bool    printReport = SIMMASTER(cr);
+
+    if (!walltime_accounting_get_valid_finish(walltime_accounting))
+    {
+        GMX_LOG(mdlog.warning).asParagraph().appendText("Simulation ended prematurely, no performance report will be written.");
+        printReport = false;
+    }
 
     if (cr->nnodes > 1)
     {
@@ -2552,7 +2485,7 @@ void finish_run(FILE *fplog, t_commrec *cr,
     }
 #endif
 
-    if (SIMMASTER(cr))
+    if (printReport)
     {
         print_flop(fplog, nrnb_tot, &nbfs, &mflop);
     }
@@ -2575,11 +2508,11 @@ void finish_run(FILE *fplog, t_commrec *cr,
     wallcycle_scale_by_num_threads(wcycle, cr->duty == DUTY_PME, nthreads_pp, nthreads_pme);
     auto cycle_sum(wallcycle_sum(cr, wcycle));
 
-    if (SIMMASTER(cr))
+    if (printReport)
     {
-        struct gmx_wallclock_gpu_t* gputimes = use_GPU(nbv) ? nbnxn_gpu_get_timings(nbv->gpu_nbv) : NULL;
+        struct gmx_wallclock_gpu_t* gputimes = use_GPU(nbv) ? nbnxn_gpu_get_timings(nbv->gpu_nbv) : nullptr;
 
-        wallcycle_print(fplog, cr->nnodes, cr->npmenodes, nthreads_pp, nthreads_pme,
+        wallcycle_print(fplog, mdlog, cr->nnodes, cr->npmenodes, nthreads_pp, nthreads_pme,
                         elapsed_time_over_all_ranks,
                         wcycle, cycle_sum, gputimes);
 
@@ -2605,71 +2538,60 @@ void finish_run(FILE *fplog, t_commrec *cr,
     }
 }
 
-extern void initialize_lambdas(FILE *fplog, t_inputrec *ir, int *fep_state, real *lambda, double *lam0)
+extern void initialize_lambdas(FILE *fplog, t_inputrec *ir, int *fep_state, gmx::ArrayRef<real> lambda, double *lam0)
 {
     /* this function works, but could probably use a logic rewrite to keep all the different
        types of efep straight. */
 
-    int       i;
-    t_lambda *fep = ir->fepvals;
-
     if ((ir->efep == efepNO) && (ir->bSimTemp == FALSE))
     {
-        for (i = 0; i < efptNR; i++)
-        {
-            lambda[i] = 0.0;
-            if (lam0)
-            {
-                lam0[i] = 0.0;
-            }
-        }
         return;
     }
-    else
+
+    t_lambda *fep = ir->fepvals;
+    *fep_state    = fep->init_fep_state; /* this might overwrite the checkpoint
+                                            if checkpoint is set -- a kludge is in for now
+                                            to prevent this.*/
+
+    for (int i = 0; i < efptNR; i++)
     {
-        *fep_state = fep->init_fep_state; /* this might overwrite the checkpoint
-                                             if checkpoint is set -- a kludge is in for now
-                                             to prevent this.*/
-        for (i = 0; i < efptNR; i++)
+        /* overwrite lambda state with init_lambda for now for backwards compatibility */
+        if (fep->init_lambda >= 0) /* if it's -1, it was never initializd */
         {
-            /* overwrite lambda state with init_lambda for now for backwards compatibility */
-            if (fep->init_lambda >= 0) /* if it's -1, it was never initializd */
+            lambda[i] = fep->init_lambda;
+            if (lam0)
             {
-                lambda[i] = fep->init_lambda;
-                if (lam0)
-                {
-                    lam0[i] = lambda[i];
-                }
-            }
-            else
-            {
-                lambda[i] = fep->all_lambda[i][*fep_state];
-                if (lam0)
-                {
-                    lam0[i] = lambda[i];
-                }
+                lam0[i] = lambda[i];
             }
         }
-        if (ir->bSimTemp)
+        else
         {
-            /* need to rescale control temperatures to match current state */
-            for (i = 0; i < ir->opts.ngtc; i++)
+            lambda[i] = fep->all_lambda[i][*fep_state];
+            if (lam0)
             {
-                if (ir->opts.ref_t[i] > 0)
-                {
-                    ir->opts.ref_t[i] = ir->simtempvals->temperatures[*fep_state];
-                }
+                lam0[i] = lambda[i];
+            }
+        }
+    }
+    if (ir->bSimTemp)
+    {
+        /* need to rescale control temperatures to match current state */
+        for (int i = 0; i < ir->opts.ngtc; i++)
+        {
+            if (ir->opts.ref_t[i] > 0)
+            {
+                ir->opts.ref_t[i] = ir->simtempvals->temperatures[*fep_state];
             }
         }
     }
 
     /* Send to the log the information on the current lambdas */
-    if (fplog != NULL)
+    if (fplog != nullptr)
     {
         fprintf(fplog, "Initial vector of lambda components:[ ");
-        for (i = 0; i < efptNR; i++)
+        for (const auto &l : lambda)
         {
-            fprintf(fplog, "%10.4f ", lambda[i]);
+            fprintf(fplog, "%10.4f ", l);
         }
         fprintf(fplog, "]\n");
     }
@@ -2678,9 +2600,10 @@ extern void initialize_lambdas(FILE *fplog, t_inputrec *ir, int *fep_state, real
 
 
 void init_md(FILE *fplog,
-             t_commrec *cr, t_inputrec *ir, const gmx_output_env_t *oenv,
+             t_commrec *cr, gmx::IMDOutputProvider *outputProvider,
+             t_inputrec *ir, const gmx_output_env_t *oenv,
              double *t, double *t0,
-             real *lambda, int *fep_state, double *lam0,
+             gmx::ArrayRef<real> lambda, int *fep_state, double *lam0,
              t_nrnb *nrnb, gmx_mtop_t *mtop,
              gmx_update_t **upd,
              int nfile, const t_filenm fnm[],
@@ -2714,10 +2637,10 @@ void init_md(FILE *fplog,
     }
     if (*bSimAnn)
     {
-        update_annealing_target_temp(ir, ir->init_t, upd ? *upd : NULL);
+        update_annealing_target_temp(ir, ir->init_t, upd ? *upd : nullptr);
     }
 
-    if (vcm != NULL)
+    if (vcm != nullptr)
     {
         *vcm = init_vcm(fplog, &mtop->groups, ir);
     }
@@ -2737,17 +2660,13 @@ void init_md(FILE *fplog,
             please_cite(fplog, "Goga2012");
         }
     }
-    if ((ir->et[XX].n > 0) || (ir->et[YY].n > 0) || (ir->et[ZZ].n > 0))
-    {
-        please_cite(fplog, "Caleman2008a");
-    }
     init_nrnb(nrnb);
 
     if (nfile != -1)
     {
-        *outf = init_mdoutf(fplog, nfile, fnm, Flags, cr, ir, mtop, oenv, wcycle);
+        *outf = init_mdoutf(fplog, nfile, fnm, Flags, cr, outputProvider, ir, mtop, oenv, wcycle);
 
-        *mdebin = init_mdebin((Flags & MD_APPENDFILES) ? NULL : mdoutf_get_fp_ene(*outf),
+        *mdebin = init_mdebin((Flags & MD_APPENDFILES) ? nullptr : mdoutf_get_fp_ene(*outf),
                               mtop, ir, mdoutf_get_fp_dhdl(*outf));
     }
 

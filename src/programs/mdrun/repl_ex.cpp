@@ -3,7 +3,7 @@
  *
  * Copyright (c) 1991-2000, University of Groningen, The Netherlands.
  * Copyright (c) 2001-2004, The GROMACS development team.
- * Copyright (c) 2011,2012,2013,2014,2015,2016, by the GROMACS development team, led by
+ * Copyright (c) 2011,2012,2013,2014,2015,2016,2017, by the GROMACS development team, led by
  * Mark Abraham, David van der Spoel, Berk Hess, and Erik Lindahl,
  * and including many others, as listed in the AUTHORS file in the
  * top-level source directory and at http://www.gromacs.org.
@@ -43,6 +43,8 @@
 
 #include <math.h>
 
+#include <random>
+
 #include "gromacs/domdec/domdec.h"
 #include "gromacs/gmxlib/network.h"
 #include "gromacs/math/units.h"
@@ -51,10 +53,14 @@
 #include "gromacs/mdtypes/commrec.h"
 #include "gromacs/mdtypes/inputrec.h"
 #include "gromacs/mdtypes/md_enums.h"
-#include "gromacs/random/random.h"
+#include "gromacs/mdtypes/state.h"
+#include "gromacs/random/threefry.h"
+#include "gromacs/random/uniformintdistribution.h"
+#include "gromacs/random/uniformrealdistribution.h"
 #include "gromacs/utility/fatalerror.h"
 #include "gromacs/utility/pleasecite.h"
 #include "gromacs/utility/smalloc.h"
+
 
 #define PROBABILITYCUTOFF 100
 /* we don't bother evaluating if events are more rare than exp(-100) = 3.7x10^-44 */
@@ -89,7 +95,6 @@ typedef struct gmx_repl_ex
     real     *prob_sum;    /* sum of probabilities */
     int     **nmoves;      /* number of moves between replicas i and j */
     int      *nexchange;   /* i-th element of the array is the number of exchanges between replica i-1 and i */
-    gmx_rng_t rng;         /* random number generator */
 
     /* these are helper arrays for replica exchange; allocated here so they
        don't have to be allocated each time */
@@ -144,11 +149,12 @@ static gmx_bool repl_quantity(const gmx_multisim_t *ms,
     return bDiff;
 }
 
-gmx_repl_ex_t init_replica_exchange(FILE *fplog,
-                                    const gmx_multisim_t *ms,
-                                    const t_state *state,
-                                    const t_inputrec *ir,
-                                    int nst, int nex, int init_seed)
+gmx_repl_ex_t
+init_replica_exchange(FILE                            *fplog,
+                      const gmx_multisim_t            *ms,
+                      const t_state                   *state,
+                      const t_inputrec                *ir,
+                      const ReplicaExchangeParameters &replExParams)
 {
     real                pres;
     int                 i, j, k;
@@ -158,7 +164,7 @@ gmx_repl_ex_t init_replica_exchange(FILE *fplog,
 
     fprintf(fplog, "\nInitializing Replica Exchange\n");
 
-    if (ms == NULL || ms->nsim == 1)
+    if (ms == nullptr || ms->nsim == 1)
     {
         gmx_fatal(FARGS, "Nothing to exchange with only one replica, maybe you forgot to set the -multi option of mdrun?");
     }
@@ -187,6 +193,7 @@ gmx_repl_ex_t init_replica_exchange(FILE *fplog,
     check_multi_int(fplog, ms, state->natoms, "the number of atoms", FALSE);
     check_multi_int(fplog, ms, ir->eI, "the integrator", FALSE);
     check_multi_int64(fplog, ms, ir->init_step+ir->nsteps, "init_step+nsteps", FALSE);
+    const int nst = replExParams.exchangeInterval;
     check_multi_int64(fplog, ms, (ir->init_step+nst-1)/nst,
                       "first exchange step: init_step/-replex", FALSE);
     check_multi_int(fplog, ms, ir->etc, "the temperature coupling", FALSE);
@@ -367,11 +374,11 @@ gmx_repl_ex_t init_replica_exchange(FILE *fplog,
         }
     }
     re->nst = nst;
-    if (init_seed == -1)
+    if (replExParams.randomSeed == -1)
     {
         if (MASTERSIM(ms))
         {
-            re->seed = (int)gmx_rng_make_seed();
+            re->seed = static_cast<int>(gmx::makeRandomSeed());
         }
         else
         {
@@ -381,11 +388,10 @@ gmx_repl_ex_t init_replica_exchange(FILE *fplog,
     }
     else
     {
-        re->seed = init_seed;
+        re->seed = replExParams.randomSeed;
     }
     fprintf(fplog, "\nReplica exchange interval: %d\n", re->nst);
     fprintf(fplog, "\nReplica random seed: %d\n", re->seed);
-    re->rng = gmx_rng_init(re->seed);
 
     re->nattempt[0] = 0;
     re->nattempt[1] = 0;
@@ -424,7 +430,7 @@ gmx_repl_ex_t init_replica_exchange(FILE *fplog,
     {
         snew(re->de[i], re->nrepl);
     }
-    re->nex = nex;
+    re->nex = replExParams.numExchanges;
     return re;
 }
 
@@ -539,102 +545,33 @@ static void exchange_state(const gmx_multisim_t *ms, int b, t_state *state)
     exchange_rvecs(ms, b, state->svir_prev, DIM);
     exchange_rvecs(ms, b, state->fvir_prev, DIM);
     exchange_rvecs(ms, b, state->pres_prev, DIM);
-    exchange_doubles(ms, b, state->nosehoover_xi, ngtc);
-    exchange_doubles(ms, b, state->nosehoover_vxi, ngtc);
-    exchange_doubles(ms, b, state->nhpres_xi, nnhpres);
-    exchange_doubles(ms, b, state->nhpres_vxi, nnhpres);
-    exchange_doubles(ms, b, state->therm_integral, state->ngtc);
-    exchange_rvecs(ms, b, state->x, state->natoms);
-    exchange_rvecs(ms, b, state->v, state->natoms);
+    exchange_doubles(ms, b, state->nosehoover_xi.data(), ngtc);
+    exchange_doubles(ms, b, state->nosehoover_vxi.data(), ngtc);
+    exchange_doubles(ms, b, state->nhpres_xi.data(), nnhpres);
+    exchange_doubles(ms, b, state->nhpres_vxi.data(), nnhpres);
+    exchange_doubles(ms, b, state->therm_integral.data(), state->ngtc);
+    exchange_doubles(ms, b, &state->baros_integral, 1);
+    exchange_rvecs(ms, b, as_rvec_array(state->x.data()), state->natoms);
+    exchange_rvecs(ms, b, as_rvec_array(state->v.data()), state->natoms);
 }
 
-static void copy_rvecs(rvec *s, rvec *d, int n)
+static void copy_state_serial(const t_state *src, t_state *dest)
 {
-    int i;
-
-    if (d != NULL)
+    if (dest != src)
     {
-        for (i = 0; i < n; i++)
-        {
-            copy_rvec(s[i], d[i]);
-        }
+        /* Currently the local state is always a pointer to the global
+         * in serial, so we should never end up here.
+         * TODO: Implement a (trivial) t_state copy once converted to C++.
+         */
+        GMX_RELEASE_ASSERT(false, "State copying is currently not implemented in replica exchange");
     }
-}
-
-static void copy_doubles(const double *s, double *d, int n)
-{
-    int i;
-
-    if (d != NULL)
-    {
-        for (i = 0; i < n; i++)
-        {
-            d[i] = s[i];
-        }
-    }
-}
-
-static void copy_reals(const real *s, real *d, int n)
-{
-    int i;
-
-    if (d != NULL)
-    {
-        for (i = 0; i < n; i++)
-        {
-            d[i] = s[i];
-        }
-    }
-}
-
-static void copy_ints(const int *s, int *d, int n)
-{
-    int i;
-
-    if (d != NULL)
-    {
-        for (i = 0; i < n; i++)
-        {
-            d[i] = s[i];
-        }
-    }
-}
-
-#define scopy_rvecs(v, n)   copy_rvecs(state->v, state_local->v, n);
-#define scopy_doubles(v, n) copy_doubles(state->v, state_local->v, n);
-#define scopy_reals(v, n) copy_reals(state->v, state_local->v, n);
-#define scopy_ints(v, n)   copy_ints(state->v, state_local->v, n);
-
-static void copy_state_nonatomdata(t_state *state, t_state *state_local)
-{
-    /* When t_state changes, this code should be updated. */
-    int ngtc, nnhpres;
-    ngtc    = state->ngtc * state->nhchainlength;
-    nnhpres = state->nnhpres* state->nhchainlength;
-    scopy_rvecs(box, DIM);
-    scopy_rvecs(box_rel, DIM);
-    scopy_rvecs(boxv, DIM);
-    state_local->veta = state->veta;
-    state_local->vol0 = state->vol0;
-    scopy_rvecs(svir_prev, DIM);
-    scopy_rvecs(fvir_prev, DIM);
-    scopy_rvecs(pres_prev, DIM);
-    scopy_doubles(nosehoover_xi, ngtc);
-    scopy_doubles(nosehoover_vxi, ngtc);
-    scopy_doubles(nhpres_xi, nnhpres);
-    scopy_doubles(nhpres_vxi, nnhpres);
-    scopy_doubles(therm_integral, state->ngtc);
-    scopy_rvecs(x, state->natoms);
-    scopy_rvecs(v, state->natoms);
-    copy_ints(&(state->fep_state), &(state_local->fep_state), 1);
-    scopy_reals(lambda, efptNR);
 }
 
 static void scale_velocities(t_state *state, real fac)
 {
     int i;
 
-    if (state->v)
+    if (as_rvec_array(state->v.data()))
     {
         for (i = 0; i < state->natoms; i++)
         {
@@ -687,7 +624,7 @@ static void print_ind(FILE *fplog, const char *leg, int n, int *ind, gmx_bool *b
     fprintf(fplog, "Repl %2s %2d", leg, ind[0]);
     for (i = 1; i < n; i++)
     {
-        fprintf(fplog, " %c %2d", (bEx != 0 && bEx[i]) ? 'x' : ' ', ind[i]);
+        fprintf(fplog, " %c %2d", (bEx != nullptr && bEx[i]) ? 'x' : ' ', ind[i]);
     }
     fprintf(fplog, "\n");
 }
@@ -870,15 +807,18 @@ test_for_replica_exchange(FILE                 *fplog,
                           gmx_int64_t           step,
                           real                  time)
 {
-    int       m, i, j, a, b, ap, bp, i0, i1, tmp;
-    real      delta = 0;
-    gmx_bool  bPrint, bMultiEx;
-    gmx_bool *bEx      = re->bEx;
-    real     *prob     = re->prob;
-    int      *pind     = re->destinations; /* permuted index */
-    gmx_bool  bEpot    = FALSE;
-    gmx_bool  bDLambda = FALSE;
-    gmx_bool  bVol     = FALSE;
+    int                                  m, i, j, a, b, ap, bp, i0, i1, tmp;
+    real                                 delta = 0;
+    gmx_bool                             bPrint, bMultiEx;
+    gmx_bool                            *bEx      = re->bEx;
+    real                                *prob     = re->prob;
+    int                                 *pind     = re->destinations; /* permuted index */
+    gmx_bool                             bEpot    = FALSE;
+    gmx_bool                             bDLambda = FALSE;
+    gmx_bool                             bVol     = FALSE;
+    gmx::ThreeFry2x64<64>                rng(re->seed, gmx::RandomDomain::ReplicaExchange);
+    gmx::UniformRealDistribution<real>   uniformRealDist;
+    gmx::UniformIntDistribution<int>     uniformNreplDist(0, re->nrepl-1);
 
     bMultiEx = (re->nex > 1);  /* multiple exchanges at each state */
     fprintf(fplog, "Replica exchange at step %" GMX_PRId64 " time %.5f\n", step, time);
@@ -955,22 +895,27 @@ test_for_replica_exchange(FILE                 *fplog,
         pind[i] = re->ind[i];
     }
 
+    rng.restart( step, 0 );
+
     if (bMultiEx)
     {
         /* multiple random switch exchange */
         int nself = 0;
+
+
         for (i = 0; i < re->nex + nself; i++)
         {
-            double rnd[2];
+            // For now this is superfluous, but just in case we ever add more
+            // calls in different branches it is safer to always reset the distribution.
+            uniformNreplDist.reset();
 
-            gmx_rng_cycle_2uniform(step, i*2, re->seed, RND_SEED_REPLEX, rnd);
             /* randomly select a pair  */
             /* in theory, could reduce this by identifying only which switches had a nonneglibible
                probability of occurring (log p > -100) and only operate on those switches */
             /* find out which state it is from, and what label that state currently has. Likely
                more work that useful. */
-            i0 = (int)(re->nrepl*rnd[0]);
-            i1 = (int)(re->nrepl*rnd[1]);
+            i0 = uniformNreplDist(rng);
+            i1 = uniformNreplDist(rng);
             if (i0 == i1)
             {
                 nself++;
@@ -1008,9 +953,11 @@ test_for_replica_exchange(FILE                 *fplog,
                 {
                     prob[0] = exp(-delta);
                 }
-                /* roll a number to determine if accepted */
-                gmx_rng_cycle_2uniform(step, i*2+1, re->seed, RND_SEED_REPLEX, rnd);
-                bEx[0] = rnd[0] < prob[0];
+                // roll a number to determine if accepted. For now it is superfluous to
+                // reset, but just in case we ever add more calls in different branches
+                // it is safer to always reset the distribution.
+                uniformRealDist.reset();
+                bEx[0] = uniformRealDist(rng) < prob[0];
             }
             re->prob_sum[0] += prob[0];
 
@@ -1047,8 +994,6 @@ test_for_replica_exchange(FILE                 *fplog,
                 }
                 else
                 {
-                    double rnd[2];
-
                     if (delta > PROBABILITYCUTOFF)
                     {
                         prob[i] = 0;
@@ -1057,9 +1002,11 @@ test_for_replica_exchange(FILE                 *fplog,
                     {
                         prob[i] = exp(-delta);
                     }
-                    /* roll a number to determine if accepted */
-                    gmx_rng_cycle_2uniform(step, i, re->seed, RND_SEED_REPLEX, rnd);
-                    bEx[i] = rnd[0] < prob[i];
+                    // roll a number to determine if accepted. For now it is superfluous to
+                    // reset, but just in case we ever add more calls in different branches
+                    // it is safer to always reset the distribution.
+                    uniformRealDist.reset();
+                    bEx[i] = uniformRealDist(rng) < prob[i];
                 }
                 re->prob_sum[i] += prob[i];
 
@@ -1302,7 +1249,7 @@ gmx_bool replica_exchange(FILE *fplog, const t_commrec *cr, struct gmx_repl_ex *
         }
         else
         {
-            copy_state_nonatomdata(state_local, state);
+            copy_state_serial(state_local, state);
         }
 
         if (MASTER(cr))
@@ -1338,7 +1285,7 @@ gmx_bool replica_exchange(FILE *fplog, const t_commrec *cr, struct gmx_repl_ex *
         if (!DOMAINDECOMP(cr))
         {
             /* Copy the global state to the local state data structure */
-            copy_state_nonatomdata(state, state_local);
+            copy_state_serial(state, state_local);
         }
     }
 
@@ -1368,11 +1315,11 @@ void print_replica_exchange_statistics(FILE *fplog, struct gmx_repl_ex *re)
                 re->prob[i] =  re->prob_sum[i]/re->nattempt[i%2];
             }
         }
-        print_ind(fplog, "", re->nrepl, re->ind, NULL);
+        print_ind(fplog, "", re->nrepl, re->ind, nullptr);
         print_prob(fplog, "", re->nrepl, re->prob);
 
         fprintf(fplog, "Repl  number of exchanges:\n");
-        print_ind(fplog, "", re->nrepl, re->ind, NULL);
+        print_ind(fplog, "", re->nrepl, re->ind, nullptr);
         print_count(fplog, "", re->nrepl, re->nexchange);
 
         fprintf(fplog, "Repl  average number of exchanges:\n");
@@ -1387,7 +1334,7 @@ void print_replica_exchange_statistics(FILE *fplog, struct gmx_repl_ex *re)
                 re->prob[i] =  ((real)re->nexchange[i])/re->nattempt[i%2];
             }
         }
-        print_ind(fplog, "", re->nrepl, re->ind, NULL);
+        print_ind(fplog, "", re->nrepl, re->ind, nullptr);
         print_prob(fplog, "", re->nrepl, re->prob);
 
         fprintf(fplog, "\n");
