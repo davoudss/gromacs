@@ -649,7 +649,8 @@ void do_force_lowlevel(t_forcerec *fr,      t_inputrec *ir,
      char str[20];
      sprintf(str, "result%d.txt", cr->nodeid);
      FILE *fp = fopen(str,"w");
-     rvec *f_long  = fr->f_novirsum;
+     //rvec *f_long  = fr->f_novirsum;
+     rvec *f_long = as_rvec_array(fr->f_novirsum->data());
      for(i=0;i<md->homenr;i++)
        {
          f_long[ i][XX] /= ONE_4PI_EPS0;
@@ -682,7 +683,8 @@ void do_force_lowlevel(t_forcerec *fr,      t_inputrec *ir,
 
 	// error calculation
 	rvec *f_short = f;
-	rvec *f_long  = fr->f_novirsum;
+	//	rvec *f_long  = fr->f_novirsum;
+	rvec *f_long = as_rvec_array(fr->f_novirsum->data());
 	for(i=0;i<md->homenr;i++)
 	  {
 	    if(!with_ONE_4PI_EPS0)
@@ -690,9 +692,9 @@ void do_force_lowlevel(t_forcerec *fr,      t_inputrec *ir,
 		f_short[i][XX] /= ONE_4PI_EPS0;
 		f_short[i][YY] /= ONE_4PI_EPS0;
 		f_short[i][ZZ] /= ONE_4PI_EPS0;
-		f_long[ i][XX] /= ONE_4PI_EPS0;
-		f_long[ i][YY] /= ONE_4PI_EPS0;
-		f_long[ i][ZZ] /= ONE_4PI_EPS0;
+		f_long[i][XX] /= ONE_4PI_EPS0;
+		f_long[i][YY] /= ONE_4PI_EPS0;
+		f_long[i][ZZ] /= ONE_4PI_EPS0;
 	      }
 	    if(only_Fourier)
 	      {

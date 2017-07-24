@@ -1171,7 +1171,7 @@ int gmx_pme_do(struct gmx_pme_t *pme,
 	    
 	    if(se_set)
 	      {
-		parse_params(&se_opt, ewaldcoeff_q);
+		parse_params(&se_opt, pme->ewaldcoeff_q);
 		SE_FGG_FCN_params(&se_params, &se_opt, atc->n);
 	      }
 
