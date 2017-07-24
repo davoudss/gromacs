@@ -636,9 +636,9 @@ void do_force_lowlevel(t_forcerec *fr,      t_inputrec *ir,
 
     // davoud
 #if GMX_MPI
-    gmx_bool error_analysis    = TRUE;
+    gmx_bool error_analysis    = FALSE;
     gmx_bool to_write          = FALSE; // false is for read
-    gmx_bool with_ONE_4PI_EPS0 = FALSE;
+    gmx_bool with_ONE_4PI_EPS0 = TRUE;
     gmx_bool only_Fourier      = FALSE;
 
     if(cr->nnodes>1 && error_analysis){
@@ -664,7 +664,6 @@ void do_force_lowlevel(t_forcerec *fr,      t_inputrec *ir,
     {
         pr_rvecs(debug, 0, "fshift after bondeds", fr->fshift, SHIFTS);
     }
-
 
     if(error_analysis)
       {

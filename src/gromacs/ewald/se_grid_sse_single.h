@@ -190,7 +190,7 @@ static void SE_grid_split_SSE_P8(real *grid, real *q,
     k0 = idxptr[ZZ] - offz;
     idx = i0*pny*pnz+j0*pnz+k0;
 
-    _mm_prefetch( (void*) (H+idx), _MM_HINT_T0);
+    _mm_prefetch( (void*) (grid+idx), _MM_HINT_T0);
     
     idx_zs = 0;
     _mm_prefetch( (void*) zs, _MM_HINT_T0);
