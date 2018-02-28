@@ -21,7 +21,7 @@ static void SE_grid_split_AVX(real* gmx_restrict grid, real* gmx_restrict q,
     
   const int p = 8;
   float qn;
-  int idx0, idx_zs, idx_zz, i, j, n, nn;
+  int idx_zs, idx_zz, i, j, n, nn;
   int index_x, index_xy;
   int i0,j0,k0;
   int * idxptr;
@@ -42,7 +42,7 @@ static void SE_grid_split_AVX(real* gmx_restrict grid, real* gmx_restrict q,
     i0 = idxptr[XX] - offx;
     j0 = idxptr[YY] - offy;
     k0 = idxptr[ZZ] - offz;
-    idx0 = i0*pny*pnz+j0*pnz+k0;
+    /* idx0 = i0*pny*pnz+j0*pnz+k0; */
 
     idx_zs = 0;
 
@@ -101,7 +101,7 @@ static void SE_grid_split_AVX(real* gmx_restrict grid, real* gmx_restrict q,
 static void 
 SE_grid_split_AVX_dispatch(real* grid, real* q, 
 			   splinedata_t *spline,
-			   const SE_FGG_params* params,
+			   const SE_params* params,
 			   const pme_atomcomm_t *atc,
 			   const pmegrid_t *pmegrid)
 {

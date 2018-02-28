@@ -39,7 +39,7 @@
 
 #include "pme-internal.h"
 #include "se.h"
-#include "se_fgg.h"
+#include "se_util.h"
 
 #if GMX_DOUBLE==1
 #if GMX_SIMD_X86_AVX_256
@@ -62,7 +62,7 @@
 
 void SE_int_dispatch(rvec *force, real *grid, real *q,
                      splinedata_t *spline,
-                     const SE_FGG_params *params, real scale,
+                     const SE_params *params, real scale,
                      gmx_bool bClearF);
 
 
@@ -71,7 +71,7 @@ gather_f_bsplines(struct gmx_pme_t *pme, real *grid,
                   gmx_bool bClearF, pme_atomcomm_t *atc,
                   splinedata_t *spline,
                   real scale,
-		  SE_FGG_params *se_params,
+		  SE_params *se_params,
 		  gmx_bool       se_set
 		  );
 

@@ -21,7 +21,7 @@ reduce(__m256 a)
 static void SE_int_split_AVX(rvec * gmx_restrict force,  real * gmx_restrict grid, 
 			     real * gmx_restrict q,
 			     splinedata_t         * gmx_restrict spline,
-			     const SE_FGG_params  * gmx_restrict params, 
+			     const SE_params  * gmx_restrict params, 
 			     real scale, gmx_bool bClearF,
 			     const pme_atomcomm_t * gmx_restrict atc,
 			     const gmx_pme_t      * gmx_restrict pme)
@@ -39,7 +39,7 @@ static void SE_int_split_AVX(rvec * gmx_restrict force,  real * gmx_restrict gri
   const int N = params->N;
   const float h=params->h;
 
-  int i,j,idx,idx_zs,m,mm;
+  int i,j,idx_zs,m,mm;
   int * idxptr;
   int i0,j0,k0;
   int index_x, index_xy;
@@ -68,7 +68,7 @@ static void SE_int_split_AVX(rvec * gmx_restrict force,  real * gmx_restrict gri
     i0 = idxptr[XX];
     j0 = idxptr[YY];
     k0 = idxptr[ZZ];
-    idx = i0*pny*pnz+j0*pnz+k0;
+    /* idx = i0*pny*pnz+j0*pnz+k0; */
 
     idx_zs = 0;
     rFX = _mm256_setzero_ps();
@@ -162,7 +162,7 @@ static void SE_int_split_AVX(rvec * gmx_restrict force,  real * gmx_restrict gri
 static void 
 SE_int_split_AVX_dispatch(rvec* force, real* grid, real* q,
 			  splinedata_t *spline,
-			  const SE_FGG_params* params, real scale,
+			  const SE_params* params, real scale,
 			  gmx_bool bClearF,
 			  const pme_atomcomm_t *atc,
 			  const gmx_pme_t *pme)

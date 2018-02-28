@@ -41,7 +41,7 @@
 
 #include "pme-internal.h"
 #include "se.h"
-#include "se_fgg.h"
+#include "se_util.h"
 
 #if GMX_DOUBLE==1
 #if GMX_SIMD_X86_AVX_256
@@ -63,7 +63,7 @@
 
 void SE_grid_dispatch(real* grid, real* q,
                       splinedata_t *spline,
-                      const SE_FGG_params* params);
+                      const SE_params* params);
 
 
 void
@@ -71,6 +71,6 @@ spread_on_grid(const gmx_pme_t *pme,
                const pme_atomcomm_t *atc, const pmegrids_t *grids,
                gmx_bool bCalcSplines, gmx_bool bSpread,
                real *fftgrid, gmx_bool bDoSplines, int grid_index,
-	       SE_FGG_params *se_params, gmx_bool se_set);
+	       SE_params *se_params, gmx_bool se_set);
 
 #endif

@@ -1,9 +1,9 @@
-#ifndef __SE_FGG_H__
-#define __SE_FGG_H__
+#ifndef __SE_UTIL_H__
+#define __SE_UTIL_H__
 
 #include <stdio.h>
 #include <string.h>
-#include <math.h>
+#include <cmath>
 #include "pme-internal.h"
 #include "emmintrin.h"
 #include "immintrin.h"
@@ -52,7 +52,7 @@ parse_params(SE_opt* opt, real xi)
 // -----------------------------------------------------------------------------
 // packing SE parameters
 static inline void
-SE_FGG_FCN_params(SE_FGG_params* params, const SE_opt* opt, int N)
+SE_FCN_params(SE_params* params, const SE_opt* opt, int N)
 {
   params->N = N;
   params->P = (int) opt->P;
@@ -62,6 +62,7 @@ SE_FGG_FCN_params(SE_FGG_params* params, const SE_opt* opt, int N)
   params->h = opt->box[0]/opt->M;
   params->a = -FGG_INF;
   params->eta = opt->eta;
+  params->beta = opt->beta;
   params->box[XX] = opt->box[XX];
   params->box[YY] = opt->box[YY];
   params->box[ZZ] = opt->box[ZZ];
@@ -78,7 +79,7 @@ SE_FGG_FCN_params(SE_FGG_params* params, const SE_opt* opt, int N)
 
 // -----------------------------------------------------------------------------
 static void
-SE_FGG_base_gaussian(real* zs, const SE_FGG_params* params)
+SE_FGG_base_gaussian(real* zs, const SE_params* params)
 {
   int idx ,i,j,k;
   real ih2, ijh2, ijkh2;
@@ -102,7 +103,7 @@ SE_FGG_base_gaussian(real* zs, const SE_FGG_params* params)
 	  for(k = -p_from; k<=p_half; k++)
 	    {
 	      ijkh2 = ijh2 + k*k*h2;
-	      zs[idx++] = d*exp(-c*ijkh2);
+	      zs[idx++] = d*std::exp(-c*ijkh2);
 	    }
 	}
     }
@@ -112,20 +113,20 @@ SE_FGG_base_gaussian(real* zs, const SE_FGG_params* params)
 
 // -----------------------------------------------------------------------------
 static int
-fgg_expansion_all(const real x[3], const real q,
-                  const SE_FGG_params* params,
-                  real z2_0[P_MAX],
-                  real z2_1[P_MAX],
-                  real z2_2[P_MAX],
-                  real zf_0[P_MAX],
-                  real zf_1[P_MAX],
-                  real zf_2[P_MAX])
+fgg_expansion(const real x[3], const real q,
+	      const SE_params* params,
+	      real z2_0[P_MAX],
+	      real z2_1[P_MAX],
+	      real z2_2[P_MAX],
+	      real zf_0[P_MAX],
+	      real zf_1[P_MAX],
+	      real zf_2[P_MAX])
 {
   // unpack params
   const int  p      = params->P;
   const int  p_half = params->P_half;
-  const      real h = params->h;
-  const      real c = params->c;
+  const real h      = params->h;
+  const real c      = params->c;
 
   real t0[3];
   int i,j,idx;
@@ -152,12 +153,12 @@ fgg_expansion_all(const real x[3], const real q,
     }
 
   // compute third factor 
-  real z3 = exp(-c*(t0[0]*t0[0] + t0[1]*t0[1] + t0[2]*t0[2]) )*q;
+  real z3 = std::exp(-c*(t0[0]*t0[0] + t0[1]*t0[1] + t0[2]*t0[2]) )*q;
 
   // compute second factor by induction
-  real z_base0 = exp(2*c*h*t0[0]);
-  real z_base1 = exp(2*c*h*t0[1]);
-  real z_base2 = exp(2*c*h*t0[2]);
+  real z_base0 = std::exp(2*c*h*t0[0]);
+  real z_base1 = std::exp(2*c*h*t0[1]);
+  real z_base2 = std::exp(2*c*h*t0[2]);
 
   real z0, z1, z2;
   if(is_odd(p))
@@ -208,4 +209,92 @@ fgg_expansion_all(const real x[3], const real q,
   return 0;
 }
 
-#endif //__SE_FGG_H__
+
+// ========================================
+static real
+kaiser(real x, real ow2, real beta) {
+  real v = x*x*ow2;
+  real t = sqrt(1. - v);
+  real e = std::exp(beta*(t-1));
+  e = (v<=1) ? e : 0;
+  return e;
+}
+
+static
+int kaiser_expansion(const real x[3], const real q,
+		     const SE_params* params,
+		     real z2_0[P_MAX],
+		     real z2_1[P_MAX],
+		     real z2_2[P_MAX],
+		     real zf_0[P_MAX],
+		     real zf_1[P_MAX],
+		     real zf_2[P_MAX])
+{
+    // unpack params
+    const int p      = params->P;
+    const real h     = params->h;
+    const real one_h = 1./h;
+    const real w     = params->P/2.;
+    const real ow2   = 1./(w*w);
+    const real beta  = params->beta;
+    real t0[3], tmp;
+
+    int idx;
+    int idx_from;
+
+    int p_half = w;
+    real denom;
+    
+    // compute index range and centering
+    if(is_odd(p)) {
+      for(int j=0; j<3; j++)
+	{
+	  idx = (int) ceil(x[j]*one_h);
+	  idx_from = idx - p_half;
+	  t0[j] = x[j]*one_h-idx_from;
+	}
+    }
+    else {
+      for(int j=0; j<3; j++)
+	{
+	  idx = (int) floor(x[j]*one_h);
+	  idx_from = idx - (p_half-1);
+	  t0[j] = x[j]*one_h-idx_from;
+	}
+    }
+
+    // compute second factor
+    for(int i=0; i<p; i++) {
+      z2_0[i] = kaiser(t0[0]-i,ow2,beta);
+      z2_1[i] = kaiser(t0[1]-i,ow2,beta);
+      z2_2[i] = kaiser(t0[2]-i,ow2,beta);
+    }
+
+    // save some flops by multiplying one vector with q
+    for(int i=0; i<p; i++)
+      z2_0[i] *= q;
+
+
+    real c = -beta / (2.*w);  // 2 is divided for 1/2 in the force
+    for (int i=0; i<p; i++){
+      tmp = (t0[0]-i);
+      denom = sqrt(w*w-tmp*tmp);
+      zf_0[i] = c*tmp/denom;
+      zf_0[i] = (abs(denom)<1e-12) ? 0 : zf_0[i];
+      /* printf("zf0 %f %f %f\n", tmp,denom, zf_0[i]); */
+      tmp = (t0[1]-i);
+      denom = sqrt(w*w-tmp*tmp);
+      zf_1[i] = c*tmp/denom;
+      zf_1[i] = (abs(denom)<1e-12) ? 0 : zf_1[i];
+      /* printf("zf1 %f %f %f\n", tmp,denom, zf_1[i]); */
+      tmp = (t0[2]-i);
+      denom = sqrt(w*w-tmp*tmp);
+      zf_2[i] = c*tmp/denom;
+      zf_2[i] = (abs(denom)<1e-12) ? 0 : zf_2[i];
+      /* printf("zf2 %f %f %f\n", tmp, denom, zf_2[i]); */
+
+    }
+    return 0;
+}
+
+#endif //__SE_UTIL_H__

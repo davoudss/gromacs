@@ -638,10 +638,10 @@ void do_force_lowlevel(t_forcerec *fr,      t_inputrec *ir,
 #endif
 
 #if GMX_MPI
-    gmx_bool error_analysis    = FALSE;
+    gmx_bool error_analysis    = TRUE;
     gmx_bool to_write          = FALSE; // false is for read
     gmx_bool with_ONE_4PI_EPS0 = TRUE;
-    gmx_bool only_Fourier      = FALSE;
+    gmx_bool only_Fourier      = TRUE;
 
     if(cr->nnodes>1 && error_analysis){
      MPI_Barrier(cr->mpi_comm_mygroup);
@@ -676,9 +676,9 @@ void do_force_lowlevel(t_forcerec *fr,      t_inputrec *ir,
 	  strcpy(rw,"w");
 	else
 	  strcpy(rw,"r");
-	g1 = fopen("Direct_output.txt",rw);
+	g1 = fopen("Direct_output2.txt",rw);
 	
-	double diff=0,sum=0,f1,f2,f3,fx,fy,fz,fo=0;
+	double diff=0,sum=0,f1,f2,f3,fx,fy,fz,fs[]={0.,0.,0.},fse[]={0.,0.,0.};
 	int ret;
 
 	// error calculation
@@ -715,15 +715,23 @@ void do_force_lowlevel(t_forcerec *fr,      t_inputrec *ir,
 	    else
 	      ret = fscanf(g1,"%lf %lf %lf\n",&f1,&f2,&f3);
   
-	    fo+=fx+fy+fz;
+	    fs[0]+=fx;
+	    fs[1]+=fy;
+	    fs[2]+=fz;
+	    fse[0]+=f1;
+	    fse[1]+=f2;
+	    fse[2]+=f3;
 	    diff+=(fx-f1)*(fx-f1)+(fy-f2)*(fy-f2)+(fz-f3)*(fz-f3);
 	    sum+=(f1)*(f1)+(f2)*(f2)+(f3)*(f3);
-	
+	    // printf("Force: Approx. (%f,%f,%f)\t-- Exact (%f,%f,%f) \n",
+	    // 	   fx,fy,fz,f1,f2,f3);
 	    if(i<0)
-		printf("%d:%f %f %f\n",cr->nodeid,fx,fy,fz);
-
+	      printf("%d:%f %f %f\n",cr->nodeid,fx,fy,fz);
+	    
 	  }
-	printf("xi=%f sum(force)=%g\n",fr->ewaldcoeff_q,fo);
+	// printf("xi=%f \nforce sum=(%g,%g,%g)--(%g,%g,%g)\n",
+	//        fr->ewaldcoeff_q,fs[0],fs[1],fs[2],
+	//        fse[0],fse[1],fse[2]);
 	printf("Abs. rms Error %g\n",sqrt(diff/md->homenr)/(1+with_ONE_4PI_EPS0*(ONE_4PI_EPS0-1)));
 	printf("Rel. Error %g\n",sqrt(diff/sum));
 

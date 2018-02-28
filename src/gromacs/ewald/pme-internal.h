@@ -327,6 +327,7 @@ typedef struct gmx_pme_t {
     /* Work data for sum_qgrid */
     real *   sum_qgrid_tmp;
     real *   sum_qgrid_dd_tmp;
+  
 } t_gmx_pme_t;
 
 //! @endcond

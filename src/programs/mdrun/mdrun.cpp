@@ -281,6 +281,7 @@ int gmx_mdrun(int argc, char *argv[])
     gmx_bool          bIMDpull      = FALSE;
 
     gmx_bool          bSE             = FALSE;
+    gmx_bool          bSEK            = FALSE;
     int               npme            = -1;
     int               nstlist_cmdline = 0;
     int               nmultisim       = 0;
@@ -417,7 +418,8 @@ int gmx_mdrun(int argc, char *argv[])
         { "-resethway", FALSE, etBOOL, {&bResetCountersHalfWay},
           "HIDDENReset the cycle counters after half the number of steps or halfway [TT]-maxh[tt]" },
 	//davoud
-	{ "-se", FALSE, etBOOL, {&bSE}, "run SE instead of PME"}
+	{ "-se", FALSE, etBOOL, {&bSE}, "run SE instead of PME"},
+	{ "-sek",FALSE, etBOOL, {&bSEK}, "run SE with Kaiser window instead of PME"}
     };
     unsigned long     Flags;
     ivec              ddxyz;
@@ -475,6 +477,7 @@ int gmx_mdrun(int argc, char *argv[])
 
     dd_rank_order = nenum(ddrank_opt_choices);
     cr->se = bSE;
+    cr->sek= bSEK;
 
     hw_opt.thread_affinity = nenum(thread_aff_opt_choices);
 

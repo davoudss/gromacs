@@ -426,7 +426,7 @@ static void SE_grid_split_AVX_P16_d(real* gmx_restrict grid, real* gmx_restrict 
 static void
 SE_grid_split_AVX_dispatch_d(real* grid, real* q, 
 			     splinedata_t *spline,
-			     const SE_FGG_params* params, 
+			     const SE_params* params, 
 			     const pme_atomcomm_t *atc,
 			     const pmegrid_t *pmegrid)
 {

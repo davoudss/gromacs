@@ -294,7 +294,8 @@ gmx_inline static void calc_exponentials_lj(int start, int end, real *r, real *t
 int solve_pme_yzx(struct gmx_pme_t *pme, t_complex *grid, real vol,
                   gmx_bool bEnerVir,
                   int nthread, int thread,
-		  SE_FGG_params *se_params, gmx_bool se_set)
+		  SE_params *se_params, int se_set, real * kaiser_grid
+		  )
 {
     /* do recip sum over local cells in grid */
     /* y major, z middle, x minor or continuous */
@@ -317,6 +318,12 @@ int solve_pme_yzx(struct gmx_pme_t *pme, t_complex *grid, real vol,
     ivec                     local_ndata, local_offset, local_size;
     real                     elfac;
 
+    // Only used for Kaiser
+    real               *p1;
+    p1 = kaiser_grid; 
+    real p1yz=0;
+    real extrafac = 1;
+
     // As long as epsilon_r=1 this is fine.
     elfac = ONE_4PI_EPS0/pme->epsilon_r;
 
@@ -330,12 +337,24 @@ int solve_pme_yzx(struct gmx_pme_t *pme, t_complex *grid, real vol,
                                       local_ndata,
                                       local_offset,
                                       local_size);
-
-    if(se_set)
+    
+    if(se_set>0)
       {
-	real se_eta    = se_params->eta;
-	real se_pow    = -(1.-se_eta)/(4.*ewaldcoeff*ewaldcoeff);
-	real se_temp = 8.*M_PI/(double) (nx*ny*nz);
+	real se_pow=1; // just to set a value
+	if(se_set==1) {
+	  real se_eta    = se_params->eta;
+	  se_pow    = -(1.-se_eta)/(4.*ewaldcoeff*ewaldcoeff);
+	}
+	else if(se_set==2){//se_set==2
+	  se_pow = -1./(4.*ewaldcoeff*ewaldcoeff);
+	  /* FIXME: Why should I multiply this when using Kaiser.
+	   * Why only one dimension nx? Is it because of applying FFT on
+	   * Kaiser without scaling with the number of grid points?
+	   * Then what is 0.4? DAVOUD
+	   */
+	  extrafac = 0.4 * nx; 
+	}
+	real se_temp = 8.*M_PI/(real) (nx*ny*nz);
 	real se_factor = 1.0/se_temp;
 	
 	real TWO_PI = 2.*M_PI;
@@ -380,7 +399,7 @@ int solve_pme_yzx(struct gmx_pme_t *pme, t_complex *grid, real vol,
 	      }
 	    
 	    kz = iz + local_offset[ZZ];
-	    
+
 	    mz = kz;
 	    
 	    corner_fac = 1;
@@ -390,6 +409,8 @@ int solve_pme_yzx(struct gmx_pme_t *pme, t_complex *grid, real vol,
 	      }
 	    
 	    p0 = grid + iy*local_size[ZZ]*local_size[XX] + iz*local_size[XX];
+	    if (se_set==2)
+	      p1yz = p1[ky]*p1[ky]*p1[kz]*p1[kz];
 	    
 	    /* We should skip the k-space point (0,0,0) */
 	    if (local_offset[XX] > 0 || ky > 0 || kz > 0)
@@ -429,7 +450,7 @@ int solve_pme_yzx(struct gmx_pme_t *pme, t_complex *grid, real vol,
 		    denom[kx] = m2k*se_factor;  // it will be inversed later in calc_exponentials
 		    tmp1[kx]  = se_pow*m2k;
 		  }
-		
+
 		for (kx = maxkx; kx < kxend; kx++)
 		  {
 		    mx = (kx-nx);
@@ -445,20 +466,26 @@ int solve_pme_yzx(struct gmx_pme_t *pme, t_complex *grid, real vol,
 		    denom[kx] = m2k*se_factor; // it will be inversed later
 		    tmp1[kx]  = se_pow*m2k;
 		  }
-		
+
 		for (kx = kxstart; kx <kxend; kx++)
 		  {
 		    m2inv[kx] = 1.0/m2[kx];
 		  }
-		
+
 		calc_exponentials_q(kxstart, kxend, elfac, denom, tmp1, eterm);
 		for (kx = kxstart; kx < kxend; kx++, p0++)
 		  {
 		    d1      = p0->re;
 		    d2      = p0->im;
-		    
-		    p0->re  = d1*eterm[kx];
-		    p0->im  = d2*eterm[kx];
+
+		    real kf = 1;
+		    if(se_set==2) {
+		      kf = p1[kx]*p1[kx]*p1yz;
+		      kf = 1/kf*extrafac;
+		    }
+
+		    p0->re  = d1*eterm[kx]*kf;
+		    p0->im  = d2*eterm[kx]*kf;
 		    
 		    struct2 = 2.0*(d1*d1+d2*d2);
 		    
@@ -478,7 +505,7 @@ int solve_pme_yzx(struct gmx_pme_t *pme, t_complex *grid, real vol,
 		    viryy   += ets2vf*mhy[kx]*mhy[kx] - ets2;
 		    viryz   += ets2vf*mhy[kx]*mhz[kx];
 		    virzz   += ets2vf*mhz[kx]*mhz[kx] - ets2;
-		  }	   
+		  }
 	      }  //EnergyVir loop
 	    
 	    // force loop
@@ -519,11 +546,17 @@ int solve_pme_yzx(struct gmx_pme_t *pme, t_complex *grid, real vol,
 		
 		for (kx = kxstart; kx < kxend; kx++, p0++)
 		  {
+		    real kf = 1;
+		    if(se_set==2) {
+		      kf = p1[kx]*p1[kx]*p1yz;
+		      kf = 1/kf*extrafac;
+		    }
+		    
 		    d1      = p0->re;
 		    d2      = p0->im;
-		    
-		    p0->re  = d1*eterm[kx];
-		    p0->im  = d2*eterm[kx];
+
+		    p0->re  = d1*eterm[kx]*kf;
+		    p0->im  = d2*eterm[kx]*kf;
 		  }
 	      } //else loop (force)
 	  }
@@ -762,7 +795,6 @@ int solve_pme_yzx(struct gmx_pme_t *pme, t_complex *grid, real vol,
 	  work->energy_q = 0.5*energy;
 	}
     }   // else loop (PME)
-
     /* Return the loop count */
     return local_ndata[YY]*local_ndata[XX];
 }

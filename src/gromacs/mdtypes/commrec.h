@@ -121,6 +121,7 @@ struct t_commrec {
     mpi_in_place_buf_t *mpb;
    
     gmx_bool   se;
+    gmx_bool   sek;
 };
 
 //! True if this is a simulation with more than 1 node

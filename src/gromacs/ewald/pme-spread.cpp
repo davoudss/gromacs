@@ -57,13 +57,74 @@
 #include "pme-simd.h"
 #include "pme-spline-work.h"
 
+void SE_grid_kaiser(real* gmx_restrict grid, real* gmx_restrict q,
+		    splinedata_t         * gmx_restrict spline, 
+		    const pme_atomcomm_t * gmx_restrict atc,
+		    const pmegrid_t      * gmx_restrict pmegrid
+		    )
+{
+  // vectors for FGG expansions
+  const real*   zx = (real*) spline->theta[0];
+  const real*   zy = (real*) spline->theta[1];
+  const real*   zz = (real*) spline->theta[2];
+
+  const int p = pmegrid->order-1;
+  
+  real cij0,qn;
+  int idxzz, i, j, k, n, nn;
+  int index_x, index_xy, index_xyz;
+  int i0,j0,k0;
+  int * idxptr;
+
+  
+  int pny = pmegrid->s[YY];
+  int pnz = pmegrid->s[ZZ];
+
+  int offx = pmegrid->offset[XX];
+  int offy = pmegrid->offset[YY];
+  int offz = pmegrid->offset[ZZ];
+  
+  for(n=0; n<spline->n; n++) {
+    // compute index and expansion vectors
+    nn = spline->ind[n];
+    qn = q[nn];
+    idxptr = atc->idx[n];
+    i0 = idxptr[XX] - offx;
+    j0 = idxptr[YY] - offy;
+    k0 = idxptr[ZZ] - offz;
+
+    double ss=0;
+    // inline vanilla loop
+    for(i = 0; i<p; i++)
+      {
+	index_x = (i0+i)*pny*pnz;
+	for(j = 0; j<p; j++)
+	  {
+	    cij0 = zx[p*n+i]*zy[p*n+j];
+	    idxzz=p*n;
+	    index_xy = index_x + (j0+j)*pnz;
+	    for(k = 0; k<p; k++)
+	      {
+		index_xyz = index_xy + (k0+k);
+		grid[index_xyz] += zz[idxzz]*cij0*qn;
+		idxzz++;
+	      }
+	  }
+	// printf("KAISER %g %g %g\n", zx[p*n+i],zy[p*n+i],zz[p*n+i]);
+      }
+    // printf("\n");
+  }
+}
+
 void SE_grid_dispatch(real* grid, real* q,
                       splinedata_t *spline,
-                      const SE_FGG_params* params, 
+                      const SE_params* params, 
 		      const pme_atomcomm_t *atc,
-		      const pmegrid_t *pmegrid){
-#if GMX_DOUBLE==1
+		      const pmegrid_t *pmegrid,
+		      const int se_set){
 
+  if(se_set==1) {
+#if GMX_DOUBLE==1
 #if GMX_SIMD_X86_AVX_256
 SE_grid_split_AVX_dispatch_d(grid, q, spline, params ,atc, pmegrid);
 #else  // not AVX
@@ -80,6 +141,10 @@ SE_grid_split_SSE_dispatch_d(grid, q, spline, params ,atc, pmegrid);
 
 #endif // GMX_DOUBLE
 
+  } // if se_set==1
+  else {// se_set == 2
+    SE_grid_kaiser(grid, q, spline, atc, pmegrid); // params removed
+  }
 }
 
 static void calc_interpolation_idx(const gmx_pme_t *pme, const pme_atomcomm_t *atc,
@@ -289,8 +354,7 @@ static void make_bsplines(splinevec theta, splinevec dtheta, int order,
                           rvec fractx[], int nr, int ind[], real coefficient[],
                           gmx_bool bDoSplines,
 			  real zs[], rvec x[],
-			  const SE_FGG_params *se_params,
-			  gmx_bool  se_set)
+			  const SE_params *se_params, int  se_set)
 
 {
     /* construct splines for local atoms */
@@ -301,7 +365,8 @@ static void make_bsplines(splinevec theta, splinevec dtheta, int order,
     real xn[3] MEM_ALIGNED;
     const int P = se_params->P;
 
-    if(se_set)
+    // SE using Gaussians
+    if(se_set==1)
       {
 	// fill zs
 	SE_FGG_base_gaussian(zs, se_params);
@@ -312,13 +377,33 @@ static void make_bsplines(splinevec theta, splinevec dtheta, int order,
 	    // Add this to create SE_FGG_expand_all
 	    //	    idxptr = atc->idx[ii];
 	    xn[0] = x[i][XX]; xn[1] = x[i][YY]; xn[2] = x[i][ZZ];
-	    __FGG_EXPA_ALL(xn,1,se_params,
-			   theta[0] +ii*P,
-			   theta[1] +ii*P,
-			   theta[2] +ii*P,
-			   dtheta[0]+ii*P,
-			   dtheta[1]+ii*P,
-			   dtheta[2]+ii*P);
+	    fgg_expansion(xn,1,se_params,
+			  theta[0] +ii*P,
+			  theta[1] +ii*P,
+			  theta[2] +ii*P,
+			  dtheta[0]+ii*P,
+			  dtheta[1]+ii*P,
+			  dtheta[2]+ii*P);
+	  }
+      }
+    // SE using Kaiser
+    else if (se_set==2)
+      {
+	for (i = 0; i < nr; i++)
+	  {
+	    ii = ind[i];
+	    
+	    // Add this to create SE_FGG_expand_all
+	    //	    idxptr = atc->idx[ii];
+	    xn[0] = x[i][XX]; xn[1] = x[i][YY]; xn[2] = x[i][ZZ];
+	    kaiser_expansion(xn,1,se_params,
+			     theta[0] +ii*P,
+			     theta[1] +ii*P,
+			     theta[2] +ii*P,
+			     dtheta[0]+ii*P,
+			     dtheta[1]+ii*P,
+			     dtheta[2]+ii*P);
+	      
 	  }
       }
     else
@@ -370,8 +455,8 @@ static void spread_coefficients_bsplines_thread(const pmegrid_t                 
                                                 const pme_atomcomm_t              *atc,
                                                 splinedata_t                      *spline,
 						struct pme_spline_work gmx_unused *work,
-						SE_FGG_params                   *se_params,
-						gmx_bool                           se_set)
+						SE_params                        *se_params,
+						int                               se_set)
 {
 
     /* spread coefficients from home atoms to local grid */
@@ -403,9 +488,9 @@ static void spread_coefficients_bsplines_thread(const pmegrid_t                 
         grid[i] = 0;
     }
 
-    if(se_set)
+    if(se_set>0)
       {
-	SE_grid_dispatch(grid,atc->coefficient,spline,se_params,atc, pmegrid);
+	SE_grid_dispatch(grid,atc->coefficient,spline,se_params,atc, pmegrid, se_set);
       }
     else
     {
@@ -923,8 +1008,7 @@ void spread_on_grid(const gmx_pme_t *pme,
                     const pme_atomcomm_t *atc, const pmegrids_t *grids,
                     gmx_bool bCalcSplines, gmx_bool bSpread,
                     real *fftgrid, gmx_bool bDoSplines, int grid_index,
-		    SE_FGG_params *se_params,
-		    gmx_bool      se_set
+		    SE_params *se_params, int se_set
 		    )
 {
     int nthread, thread;
@@ -1003,7 +1087,7 @@ void spread_on_grid(const gmx_pme_t *pme,
             {
                 make_bsplines(spline->theta, spline->dtheta, pme->pme_order,
                               atc->fractx, spline->n, spline->ind, atc->coefficient, bDoSplines,
-			      spline->zs, atc->x, se_params,se_set);
+			      spline->zs, atc->x, se_params, se_set);
             }
 
             if (bSpread)

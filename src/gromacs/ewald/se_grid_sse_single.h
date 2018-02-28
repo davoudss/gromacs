@@ -252,7 +252,7 @@ static void SE_grid_split_SSE_P8(real *grid, real *q,
 static void 
 SE_grid_split_SSE_dispatch(real* grid, real* q, 
 			   splinedata_t *spline,
-			   const SE_FGG_params* params,
+			   const SE_params* params,
 			   const pme_atomcomm_t *atc,
 			   const pmegrid_t *pmegrid)
 {

@@ -16,7 +16,7 @@ static void
 SE_int_split_d(rvec * gmx_restrict force,  real * gmx_restrict grid, 
 	       real * gmx_restrict q,
 	       splinedata_t         * gmx_restrict spline,
-	       const SE_FGG_params  * gmx_restrict params, 
+	       const SE_params  * gmx_restrict params, 
 	       real scale, gmx_bool bClearF,
 	       const pme_atomcomm_t * gmx_restrict atc,
 	       const gmx_pme_t      * gmx_restrict pme) 
@@ -111,7 +111,7 @@ static void
 SE_int_split_SSE_d(rvec * gmx_restrict force,  real * gmx_restrict grid, 
 		   real * gmx_restrict q,
 		   splinedata_t         * gmx_restrict spline,
-		   const SE_FGG_params  * gmx_restrict params, 
+		   const SE_params  * gmx_restrict params, 
 		   real scale, gmx_bool bClearF,
 		   const pme_atomcomm_t * gmx_restrict atc,
 		   const gmx_pme_t      * gmx_restrict pme)
@@ -258,7 +258,7 @@ static void
 SE_int_split_SSE_u8_d(rvec * gmx_restrict force,  real * gmx_restrict grid, 
 		      real * gmx_restrict q,
 		      splinedata_t         * gmx_restrict spline,
-		      const SE_FGG_params  * gmx_restrict params, 
+		      const SE_params  * gmx_restrict params, 
 		      real scale, gmx_bool bClearF,
 		      const pme_atomcomm_t * gmx_restrict atc,
 		      const gmx_pme_t      * gmx_restrict pme)
@@ -467,7 +467,7 @@ static void
 SE_int_split_SSE_P8_d(rvec * gmx_restrict force, real * gmx_restrict grid, 
 		      real * gmx_restrict q,
 		      splinedata_t          * gmx_restrict spline,
-		      const SE_FGG_params   * gmx_restrict params, 
+		      const SE_params   * gmx_restrict params, 
 		      real scale, gmx_bool bClearF,
 		      const pme_atomcomm_t  * gmx_restrict atc,
 		      const gmx_pme_t       * gmx_restrict pme)
@@ -659,7 +659,7 @@ static void
 SE_int_split_SSE_P16_d(rvec * gmx_restrict force, real * gmx_restrict grid, 
 		       real * gmx_restrict q,
 		       splinedata_t          * gmx_restrict spline,
-		       const SE_FGG_params   * gmx_restrict params, 
+		       const SE_params   * gmx_restrict params, 
 		       real scale, gmx_bool bClearF,
 		       const pme_atomcomm_t  * gmx_restrict atc,
 		       const gmx_pme_t       * gmx_restrict pme)
@@ -959,7 +959,7 @@ SE_int_split_SSE_P16_d(rvec * gmx_restrict force, real * gmx_restrict grid,
 static void 
 SE_int_split_SSE_dispatch_d(rvec* force, real* grid, real* q,
 			  splinedata_t *spline,
-			  const SE_FGG_params* params, real scale,
+			  const SE_params* params, real scale,
 			  gmx_bool bClearF,
 			  const pme_atomcomm_t *atc,
 			  const gmx_pme_t *pme)

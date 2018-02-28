@@ -112,4 +112,8 @@ reuse_pmegrids(const pmegrids_t *oldgrid, pmegrids_t *newgrid);
 void
 dump_local_fftgrid(struct gmx_pme_t *pme, const real *fftgrid);
 
+
+void print_grid(const gmx_pme_t *pme, real *grid, int grid_index, int isfft);
+void print_grid(const gmx_pme_t *pme, t_complex *grid, int grid_index, int isfft);
+
 #endif

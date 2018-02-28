@@ -9,7 +9,7 @@
 static void 
 SE_int_split(rvec* force,  real* grid, real* q,
 	     splinedata_t *spline,
-	     const SE_FGG_params* params, real scale, 
+	     const SE_params* params, real scale, 
 	     gmx_bool bClearF,
 	     const pme_atomcomm_t *atc,
 	     const gmx_pme_t *pme)
@@ -99,7 +99,7 @@ SE_int_split(rvec* force,  real* grid, real* q,
 static void 
 SE_int_split_SSE(rvec *force, real *grid, real *q,
 		 splinedata_t *spline,
-		 const SE_FGG_params *params, real scale,
+		 const SE_params *params, real scale,
 		 gmx_bool bClearF,
 		 const pme_atomcomm_t *atc,
 		 const gmx_pme_t *pme)
@@ -248,7 +248,7 @@ SE_int_split_SSE(rvec *force, real *grid, real *q,
 static void
 SE_int_split_SSE_P8(rvec *force, real *grid, real *q,
 		    splinedata_t *spline,
-		    const SE_FGG_params *params, real scale,
+		    const SE_params *params, real scale,
 		    gmx_bool bClearF,
 		    const pme_atomcomm_t *atc,
 		    const gmx_pme_t *pme)
@@ -407,7 +407,7 @@ SE_int_split_SSE_P8(rvec *force, real *grid, real *q,
 static void 
 SE_int_split_SSE_dispatch(rvec *force, real *grid, real *q,
 			  splinedata_t *spline,
-			  const SE_FGG_params *params, real scale,
+			  const SE_params *params, real scale,
 			  gmx_bool bClearF,
 			  const pme_atomcomm_t *atc,
 			  const gmx_pme_t *pme

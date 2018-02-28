@@ -11,9 +11,6 @@
 
 #define __IDX3_RMAJ(II,IJ,IK,N2,N3) ( (II)*(N2)*(N3)+(IJ)*(N3)+(IK) )
 
-#define __FGG_EXPA fgg_expansion
-#define __FGG_EXPA_ALL fgg_expansion_all
-
 // Maximal amount of Gaussian support (defined to help the compiler)
 #define P_MAX 32
 
@@ -61,7 +58,7 @@ typedef real fft_complex[2];
 
 typedef struct 
 {
-  real m,c,box[3],h,xi,w,eta;
+  real m,c,box[3],h,xi,w,eta,beta;
   int P,M,N;
 } SE_opt;
 
@@ -98,9 +95,10 @@ typedef struct
     real h;
     real a;
     real eta;
+    real beta;
     real box[3];
 
-} SE_FGG_params;
+} SE_params;
 
 typedef struct
 {

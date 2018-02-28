@@ -118,7 +118,8 @@
 #include "pme-spread.h"
 
 /* spectral Ewald header files*/
-#include "se_fgg.h"
+#include "se_kaiser_fft.h"
+#include "se_util.h"
 #include "se.h"
 
 /*! \brief Number of bytes in a cache line.
@@ -1005,20 +1006,30 @@ int gmx_pme_do(struct gmx_pme_t *pme,
     const gmx_bool       bBackFFT                = flags & (GMX_PME_CALC_F | GMX_PME_CALC_POT);
     const gmx_bool       bCalcF                  = flags & GMX_PME_CALC_F;
 
-    SE_opt         se_opt;
-    SE_FGG_params  se_params;
-    gmx_bool       se_set = cr->se;
+    
+    real *kaiser_fftgrid;  // used for precomputing Kaiser window
+    SE_opt     se_opt;
+    SE_params  se_params;
+    int        se_set=0;
+
+    
+    if(cr->se)
+      se_set = 1;   // SE using Gaussians
+    else if(cr->sek)
+      se_set = 2;  // SE using Kaiser
 
     assert(pme->nnodes > 0);
     assert(pme->nnodes == 1 || pme->ndecompdim > 0);
 
-    // if(pme->nodeid==0)
-    //   {
-    // 	if(se_set)
-    // 	  printf("***********  SE is doing the work  ************\n");
-    // 	else
-    // 	  printf("***********  PME is doing the work ************\n");
-    //   }
+    if(pme->nodeid==0)
+      {
+    	if(se_set==1)
+    	  printf("***********  SEG is doing the work  ************\n");
+	else if(se_set==2)
+	  printf("***********  SEK is doing the work  ************\n");
+    	else
+    	  printf("***********  PME is doing the work ************\n");
+      }
 
     if (pme->nnodes > 1)
     {
@@ -1071,7 +1082,7 @@ int gmx_pme_do(struct gmx_pme_t *pme,
 
     /* If we are doing LJ-PME with LB, we only do Q here */
     max_grid_index = (pme->ljpme_combination_rule == eljpmeLB) ? DO_Q : DO_Q_AND_LJ;
-
+    
     for (grid_index = 0; grid_index < max_grid_index; ++grid_index)
     {
         /* Check if we should do calculations at this grid_index
@@ -1119,7 +1130,7 @@ int gmx_pme_do(struct gmx_pme_t *pme,
         }
         else
         {
-	  if(se_set)
+	  if(se_set>0)
 	    {
 	      wallcycle_start(wcycle, ewcSE_REDISTXF);
 	    }
@@ -1129,7 +1140,8 @@ int gmx_pme_do(struct gmx_pme_t *pme,
 	    }
             do_redist_pos_coeffs(pme, cr, start, homenr, bFirst, x, coefficient);
             where();
-	  if(se_set)
+	    
+	  if(se_set>0)
 	    {
 	      wallcycle_stop(wcycle, ewcSE_REDISTXF);
 	    }
@@ -1147,7 +1159,7 @@ int gmx_pme_do(struct gmx_pme_t *pme,
 
         if (flags & GMX_PME_SPREAD)
         {
-	  if(se_set)
+	  if(se_set>0)
 	    {
 	      wallcycle_start(wcycle, ewcSE_SPREADGATHER);
 	    }
@@ -1164,19 +1176,35 @@ int gmx_pme_do(struct gmx_pme_t *pme,
 	    // FIXME: M is equal in 3D
 	    se_opt.M       = pme->nkx;//tempgrid->s[XX]-se_opt.P;
 	    se_opt.m       = 0.95*sqrt(M_PI*se_opt.P);
+	    se_opt.beta    = 2.5*se_opt.P;
+	    
 	    
 	    se_opt.box[XX] = box[XX][XX];
 	    se_opt.box[YY] = box[YY][YY];
 	    se_opt.box[ZZ] = box[ZZ][ZZ];
 	    
-	    if(se_set)
+	    if(se_set>0)
 	      {
 		parse_params(&se_opt, pme->ewaldcoeff_q);
-		SE_FGG_FCN_params(&se_params, &se_opt, atc->n);
+		SE_FCN_params(&se_params, &se_opt, atc->n);
+	      }
+	    if(se_set==2)
+	      {
+		/* Compute the FFT of Kaiser window function. Since we do not 
+		 * have 1D FFT here, we do a 3D FFT and truncated. Then compute the
+		 * corresponding values. Davoud Saffar
+		 */
+		int M = se_opt.M;
+		snew(kaiser_fftgrid,M*M*M);
+		compute_fft_kaiser(kaiser_fftgrid, se_opt);
+		/* The Kaiser FFT precomputation is done. The result is stored in 
+		 * kaiser_fftgrid array.
+		 */			
 	      }
 
             /* Spread the coefficients on a grid */
-            spread_on_grid(pme, &pme->atc[0], pmegrid, bFirst, TRUE, fftgrid, bDoSplines, grid_index, &se_params, se_set);
+            spread_on_grid(pme, &pme->atc[0], pmegrid, bFirst, TRUE,
+			   fftgrid, bDoSplines, grid_index, &se_params, se_set);
 
             if (bFirst)
             {
@@ -1187,8 +1215,8 @@ int gmx_pme_do(struct gmx_pme_t *pme,
 
             if (!pme->bUseThreads)
             {
-                wrap_periodic_pmegrid(pme, grid);
-
+		wrap_periodic_pmegrid(pme, grid);
+		
                 /* sum contributions to local grid from other nodes */
 #if GMX_MPI
                 if (pme->nnodes > 1)
@@ -1197,11 +1225,11 @@ int gmx_pme_do(struct gmx_pme_t *pme,
                     where();
                 }
 #endif
-
+	
                 copy_pmegrid_to_fftgrid(pme, grid, fftgrid, grid_index);
             }
 
-	    if(se_set)
+	    if(se_set>0)
 	      {
 		wallcycle_stop(wcycle, ewcSE_SPREADGATHER);
 	      }
@@ -1209,7 +1237,7 @@ int gmx_pme_do(struct gmx_pme_t *pme,
 	      {
 		wallcycle_stop(wcycle, ewcPME_SPREADGATHER);
 	      }
-
+	    // print_grid(pme, grid, grid_index, 0);
 
             /* TODO If the OpenMP and single-threaded implementations
                converge, then spread_on_grid() and
@@ -1235,7 +1263,7 @@ int gmx_pme_do(struct gmx_pme_t *pme,
                     /* do 3d-fft */
                     if (thread == 0)
                     {
-		      if(se_set)
+		      if(se_set>0)
 			{
 			  wallcycle_start(wcycle, ewcPME_FFT);
 			  wallcycle_start(wcycle, ewcSE_FFT);
@@ -1245,11 +1273,12 @@ int gmx_pme_do(struct gmx_pme_t *pme,
 			  wallcycle_start(wcycle, ewcPME_FFT);
 			}
                     }
+
                     gmx_parallel_3dfft_execute(pfft_setup, GMX_FFT_REAL_TO_COMPLEX,
                                                thread, wcycle);
                     if (thread == 0)
                     {
-		      if(se_set)
+		      if(se_set>0)
 			{
 			  wallcycle_stop(wcycle, ewcPME_FFT);
 			  wallcycle_stop(wcycle, ewcSE_FFT);
@@ -1260,11 +1289,11 @@ int gmx_pme_do(struct gmx_pme_t *pme,
 			}
                     }
                     where();
-
+		    //		    print_grid(pme, cfftgrid, grid_index, 1);
                     /* solve in k-space for our local cells */
                     if (thread == 0)
                     {
-		      if(se_set)
+		      if(se_set>0)
 			{
 			  wallcycle_start(wcycle, ewcSE_SOLVE);
 			}
@@ -1280,7 +1309,8 @@ int gmx_pme_do(struct gmx_pme_t *pme,
 				      box[XX][XX]*box[YY][YY]*box[ZZ][ZZ],
 				      bCalcEnerVir,
 				      pme->nthread, thread, 
-				      &se_params, se_set);
+				      &se_params, se_set, kaiser_fftgrid
+				      );
                     }
                     else
                     {
@@ -1293,7 +1323,7 @@ int gmx_pme_do(struct gmx_pme_t *pme,
 
                     if (thread == 0)
                     {
-		      if(se_set)
+		      if(se_set>0)
 			{
 			  wallcycle_stop(wcycle, ewcSE_SOLVE);
 			}
@@ -1313,7 +1343,7 @@ int gmx_pme_do(struct gmx_pme_t *pme,
                     if (thread == 0)
                     {
 		      where();
-		      if(se_set)
+		      if(se_set>0)
 			{
 			  wallcycle_start(wcycle, ewcPME_FFT);
 			  wallcycle_start(wcycle, ewcSE_FFT);
@@ -1327,7 +1357,7 @@ int gmx_pme_do(struct gmx_pme_t *pme,
                                                thread, wcycle);
                     if (thread == 0)
                     {
-		      if(se_set)
+		      if(se_set>0)
 			{
 			  wallcycle_stop(wcycle, ewcPME_FFT);
 			  wallcycle_stop(wcycle, ewcSE_FFT);
@@ -1348,7 +1378,7 @@ int gmx_pme_do(struct gmx_pme_t *pme,
                         /* Note: this wallcycle region is closed below
                            outside an OpenMP region, so take care if
                            refactoring code here. */
-			if(se_set)
+			if(se_set>0)
 			  {
 			    wallcycle_start(wcycle, ewcSE_SPREADGATHER);
 			  }
@@ -1411,7 +1441,7 @@ int gmx_pme_do(struct gmx_pme_t *pme,
                      pme->pme_order*pme->pme_order*pme->pme_order*pme->atc[0].n);
             /* Note: this wallcycle region is opened above inside an OpenMP
                region, so take care if refactoring code here. */
-	    if(se_set)
+	    if(se_set>0)
 	      {
 		wallcycle_stop(wcycle, ewcSE_SPREADGATHER);
 	      }
@@ -1485,7 +1515,7 @@ int gmx_pme_do(struct gmx_pme_t *pme,
                     default:
                         gmx_incons("Trying to access wrong FEP-state in LJ-PME routine");
                 }
-		if(se_set)
+		if(se_set>0)
 		  {
 		    wallcycle_start(wcycle, ewcSE_REDISTXF);
 		  }
@@ -1515,7 +1545,7 @@ int gmx_pme_do(struct gmx_pme_t *pme,
                     local_sigma[i] = atc->coefficient[i];
                 }
                 where();
-		if(se_set)
+		if(se_set>0)
 		  {
 		    wallcycle_stop(wcycle, ewcSE_REDISTXF);
 		  }
@@ -1541,7 +1571,8 @@ int gmx_pme_do(struct gmx_pme_t *pme,
                 {
                     wallcycle_start(wcycle, ewcPME_SPREADGATHER);
                     /* Spread the c6 on a grid */
-                    spread_on_grid(pme, &pme->atc[0], pmegrid, bFirst, TRUE, fftgrid, bDoSplines, grid_index, NULL, FALSE);
+                    spread_on_grid(pme, &pme->atc[0], pmegrid, bFirst, TRUE,
+				   fftgrid, bDoSplines, grid_index, NULL, FALSE);
 
                     if (bFirst)
                     {

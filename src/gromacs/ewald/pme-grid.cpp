@@ -42,6 +42,7 @@
 #include "config.h"
 
 #include <cstdlib>
+#include "fstream"
 
 #include "gromacs/ewald/pme.h"
 #include "gromacs/fft/parallel_3dfft.h"
@@ -55,7 +56,7 @@
 #include "gromacs/utility/cstringutil.h"
 #include "gromacs/utility/futil.h"
 #endif
-
+#include <iomanip>  
 #include "pme-simd.h"
 
 /* GMX_CACHE_SEP should be a multiple of the SIMD and SIMD4 register size
@@ -911,4 +912,109 @@ void dump_local_fftgrid(struct gmx_pme_t *pme, const real *fftgrid)
               local_fft_size[YY],
               local_fft_size[ZZ],
               fftgrid);
+}
+
+
+// DAVOUD
+void
+print_grid(const gmx_pme_t *pme, real *grid, int grid_index, int isfft)
+{
+    ivec    local_fft_ndata, local_fft_offset, local_fft_size;
+    ivec    local_pme_size;
+    int     ix, iy, iz, idx;
+    
+    /* Dimensions should be identical for A/B grid, so we just use A here */
+    gmx_parallel_3dfft_real_limits(pme->pfft_setup[grid_index],
+                                   local_fft_ndata,
+                                   local_fft_offset,
+                                   local_fft_size);
+
+    local_pme_size[0] = pme->pmegrid_nx;
+    local_pme_size[1] = pme->pmegrid_ny;
+    local_pme_size[2] = pme->pmegrid_nz;
+
+    int size[3];
+    real ss = 0;
+    std::ofstream fp;
+    fp.open("TEST.TXT");
+    if(isfft) {
+      size[XX] = local_fft_size[XX];
+      size[YY] = local_fft_size[YY];
+      size[ZZ] = local_fft_size[ZZ];
+    }
+    else{
+      size[XX] = local_pme_size[XX];
+      size[YY] = local_pme_size[YY];
+      size[ZZ] = local_pme_size[ZZ];
+    }
+    
+    for (ix = 0; ix < local_fft_ndata[XX]; ix++){
+      for (iy = 0; iy < local_fft_ndata[YY]; iy++){
+    	for (iz = 0; iz < local_fft_ndata[ZZ]; iz++){
+    	  idx = ix*(size[YY]*size[ZZ])+iy*(size[ZZ])+iz;
+	  ss += grid[idx];
+	  fp<< std::setprecision(12);
+	  fp << grid[idx] << "\n";
+	  // if(ix==iy && iy==iz && iz==0)
+	  //   printf("\n************\nDavoud0: %g\n*****************\n",
+	  // 	   grid[idx]);
+	}
+      }
+    }
+    printf("\n************\n GRID: %g\n**************\n",ss);
+    fp.close();
+}
+
+// DAVOUD
+void
+print_grid(const gmx_pme_t *pme, t_complex *grid, int grid_index, int isfft)
+{
+    ivec    local_fft_ndata, local_fft_offset, local_fft_size;
+    ivec    local_pme_size;
+    int     ix, iy, iz, idx;
+    
+    /* Dimensions should be identical for A/B grid, so we just use A here */
+    gmx_parallel_3dfft_real_limits(pme->pfft_setup[grid_index],
+                                   local_fft_ndata,
+                                   local_fft_offset,
+                                   local_fft_size);
+
+    local_pme_size[0] = pme->pmegrid_nx;
+    local_pme_size[1] = pme->pmegrid_ny;
+    local_pme_size[2] = pme->pmegrid_nz;
+
+    int size[3];
+    real ss = 0;
+    
+    if(isfft) {
+      size[XX] = local_fft_size[XX];
+      size[YY] = local_fft_size[YY];
+      size[ZZ] = local_fft_size[ZZ];
+    }
+    else{
+      size[XX] = local_pme_size[XX];
+      size[YY] = local_pme_size[YY];
+      size[ZZ] = local_pme_size[ZZ];
+    }
+
+    std::ofstream fp;
+    fp.open("TEST.TXT");
+    for (iy = 0; iy < local_fft_ndata[YY]; iy++){
+      for (iz = 0; iz < local_fft_ndata[ZZ]; iz++){	      
+	for (ix = 0; ix < local_fft_ndata[XX]; ix++){
+	  idx = iy*size[XX]*size[ZZ]+iz*size[XX] + ix;
+	  fp<< std::setprecision(12);
+	  fp << grid[idx].re << "\n";
+	  if(std::isnan(grid[idx].re))
+	    printf("NANNNNNN %d %d %d\n",ix, iy, iz);
+	  if(ix==iy && iy==iz && iz==0)	    
+	    printf("\n************\nDavoud0: %g\n*****************\n",
+	  	   grid[idx].re);
+	  
+	     ss += grid[idx].re;
+	     printf("%.12g\n",grid[idx].re);
+	}
+      }
+    }
+    printf("\n************\nDavoud: %g\n*****************\n",ss);
 }

@@ -40,7 +40,7 @@
 #include "gromacs/utility/real.h"
 
 #include "se.h"
-#include "se_fgg.h"
+#include "se_util.h"
 
 struct pme_solve_work_t;
 struct gmx_pme_t;
@@ -76,7 +76,7 @@ int solve_pme_yzx(struct gmx_pme_t *pme, t_complex *grid,
                   real vol,
                   gmx_bool bEnerVir,
                   int nthread, int thread,
-		  SE_FGG_params *se_params, gmx_bool se_set
+		  SE_params *se_params, gmx_bool se_set, real * kaiser_fft
 		  );
 
 int solve_pme_lj_yzx(struct gmx_pme_t *pme, t_complex **grid, gmx_bool bLB,
