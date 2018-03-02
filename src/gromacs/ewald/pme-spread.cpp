@@ -57,64 +57,7 @@
 #include "pme-simd.h"
 #include "pme-spline-work.h"
 
-void SE_grid_kaiser(real* gmx_restrict grid, real* gmx_restrict q,
-		    splinedata_t         * gmx_restrict spline, 
-		    const pme_atomcomm_t * gmx_restrict atc,
-		    const pmegrid_t      * gmx_restrict pmegrid
-		    )
-{
-  // vectors for FGG expansions
-  const real*   zx = (real*) spline->theta[0];
-  const real*   zy = (real*) spline->theta[1];
-  const real*   zz = (real*) spline->theta[2];
 
-  const int p = pmegrid->order-1;
-  
-  real cij0,qn;
-  int idxzz, i, j, k, n, nn;
-  int index_x, index_xy, index_xyz;
-  int i0,j0,k0;
-  int * idxptr;
-
-  
-  int pny = pmegrid->s[YY];
-  int pnz = pmegrid->s[ZZ];
-
-  int offx = pmegrid->offset[XX];
-  int offy = pmegrid->offset[YY];
-  int offz = pmegrid->offset[ZZ];
-  
-  for(n=0; n<spline->n; n++) {
-    // compute index and expansion vectors
-    nn = spline->ind[n];
-    qn = q[nn];
-    idxptr = atc->idx[n];
-    i0 = idxptr[XX] - offx;
-    j0 = idxptr[YY] - offy;
-    k0 = idxptr[ZZ] - offz;
-
-    double ss=0;
-    // inline vanilla loop
-    for(i = 0; i<p; i++)
-      {
-	index_x = (i0+i)*pny*pnz;
-	for(j = 0; j<p; j++)
-	  {
-	    cij0 = zx[p*n+i]*zy[p*n+j];
-	    idxzz=p*n;
-	    index_xy = index_x + (j0+j)*pnz;
-	    for(k = 0; k<p; k++)
-	      {
-		index_xyz = index_xy + (k0+k);
-		grid[index_xyz] += zz[idxzz]*cij0*qn;
-		idxzz++;
-	      }
-	  }
-	// printf("KAISER %g %g %g\n", zx[p*n+i],zy[p*n+i],zz[p*n+i]);
-      }
-    // printf("\n");
-  }
-}
 
 void SE_grid_dispatch(real* grid, real* q,
                       splinedata_t *spline,
@@ -123,12 +66,11 @@ void SE_grid_dispatch(real* grid, real* q,
 		      const pmegrid_t *pmegrid,
 		      const int se_set){
 
-  if(se_set==1) {
 #if GMX_DOUBLE==1
 #if GMX_SIMD_X86_AVX_256
-SE_grid_split_AVX_dispatch_d(grid, q, spline, params ,atc, pmegrid);
+  SE_grid_split_AVX_dispatch_d(grid, q, spline, params ,atc, pmegrid, se_set);
 #else  // not AVX
-SE_grid_split_SSE_dispatch_d(grid, q, spline, params ,atc, pmegrid);
+  SE_grid_split_SSE_dispatch_d(grid, q, spline, params ,atc, pmegrid, se_set);
 #endif // AVX
 
 #else  // not GMX_DOUBLE  or single precision
@@ -140,11 +82,6 @@ SE_grid_split_SSE_dispatch_d(grid, q, spline, params ,atc, pmegrid);
 #endif // AVX
 
 #endif // GMX_DOUBLE
-
-  } // if se_set==1
-  else {// se_set == 2
-    SE_grid_kaiser(grid, q, spline, atc, pmegrid); // params removed
-  }
 }
 
 static void calc_interpolation_idx(const gmx_pme_t *pme, const pme_atomcomm_t *atc,

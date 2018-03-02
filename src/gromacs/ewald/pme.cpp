@@ -1007,7 +1007,7 @@ int gmx_pme_do(struct gmx_pme_t *pme,
     const gmx_bool       bCalcF                  = flags & GMX_PME_CALC_F;
 
     
-    real *kaiser_fftgrid;  // used for precomputing Kaiser window
+    real *kaiser_fftgrid = nullptr;  // used for precomputing Kaiser window
     SE_opt     se_opt;
     SE_params  se_params;
     int        se_set=0;

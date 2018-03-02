@@ -47,94 +47,7 @@
 #include "pme-spline-work.h"
 #include "pme-gather.h"
 
-static void 
-SE_int_kaiser(rvec * gmx_restrict force,  real * gmx_restrict grid, 
-	      real * gmx_restrict q,
-	      splinedata_t         * gmx_restrict spline,
-	      const SE_params  * gmx_restrict params, 
-	      real scale, gmx_bool bClearF,
-	      const pme_atomcomm_t * gmx_restrict atc,
-	      const gmx_pme_t      * gmx_restrict pme) 
-{
-  // unpack parameters
-  const real*   zx = (real*) spline->theta[0];
-  const real*   zy = (real*) spline->theta[1];
-  const real*   zz = (real*) spline->theta[2];
-  const real*   zfx= (real*) spline->dtheta[0];
-  const real*   zfy= (real*) spline->dtheta[1];
-  const real*   zfz= (real*) spline->dtheta[2];
 
-  const int    p = params->P;
-  const double h = params->h;
-
-  int i, j, k, m, mm, idx_zz;
-  real force_m[3], Hzc, qm, h3=h*h*h;
-  int * idxptr;
-  int i0,j0,k0;
-  int index_x, index_xy;
-
-#ifdef CALC_ENERGY
-  real phi_m;
-#endif
-
-  int pny   = pme->pmegrid_ny;
-  int pnz   = pme->pmegrid_nz;
-
-  for(m=0; m<spline->n; m++)
-    {
-      mm   = spline->ind[m];
-      qm  = q[mm];
-      idxptr = atc->idx[m];
-      i0 = idxptr[XX];
-      j0 = idxptr[YY];
-      k0 = idxptr[ZZ];
-
-      force_m[0] = 0; force_m[1] = 0; force_m[2] = 0;
-#ifdef CALC_ENERGY
-      phi_m = 0;
-#endif
-      for(i = 0; i<p; i++)
-	{
-	  index_x = (i0+i)*pny*pnz;
-	  real zxi = zx[m*p+i];
-	  for(j = 0; j<p; j++)
-	    {
-	      index_xy = index_x + (j0+j)*pnz + k0;
-	      real zxzy = zxi*zy[m*p+j];
-	      idx_zz=p*m;
-	      for(k = 0; k<p; k++)
-		{
-		  Hzc    = grid[index_xy + k]*zz[idx_zz]*zxzy;
-#ifdef CALC_ENERGY
-		  phi_m += Hzc;
-#endif
-		  force_m[0] += Hzc*zfx[m*p+i];
-		  force_m[1] += Hzc*zfy[m*p+j];
-		  force_m[2] += Hzc*zfz[m*p+k];
-		  
-		  idx_zz++;
-		  // printf("FORCE %g\n", grid[index_xy+k]);
-		}
-	    }
-	}
-
-      if(bClearF)
-	{
-	  force[m][XX] = 0;
-	  force[m][YY] = 0;
-	  force[m][ZZ] = 0;
-	}
-
-      float factor = -qm*scale*h3;
-      force[m][XX] += factor*force_m[0];
-      force[m][YY] += factor*force_m[1];
-      force[m][ZZ] += factor*force_m[2];
-
-#ifdef CALC_ENERGY
-      st->phi[m]   = -h3*scale*phi_m;
-#endif
-    }
-}
 
 
 void SE_int_dispatch(rvec *force, real *grid, real *q,
@@ -145,28 +58,28 @@ void SE_int_dispatch(rvec *force, real *grid, real *q,
 		     const gmx_pme_t *pme,
 		     int se_set)
 {
-  if(se_set==1) {
+ 
 #if GMX_DOUBLE==1
 
 #if GMX_SIMD_X86_AVX_256
-  SE_int_split_AVX_dispatch_d(force, grid, q, spline, params, scale, bClearF, atc, pme);
+    SE_int_split_AVX_dispatch_d(force, grid, q, spline, params,
+				scale, bClearF, atc, pme, se_set);
 #else  // not AVX
-  SE_int_split_SSE_dispatch_d(force, grid, q, spline, params, scale, bClearF, atc, pme);
+    SE_int_split_SSE_dispatch_d(force, grid, q, spline, params,
+				scale, bClearF, atc, pme, se_set);
 #endif // AVX
 
 #else  // not GMX_DOUBLE  or single precision
 
 #if GMX_SIMD_X86_AVX_256
-  SE_int_split_AVX_dispatch(force, grid, q, spline, params, scale, bClearF, atc, pme);
+  SE_int_split_AVX_dispatch(force, grid, q, spline, params,
+			    scale, bClearF, atc, pme);
 #else  // not AVX
-  SE_int_split_SSE_dispatch(force, grid, q, spline, params, scale, bClearF, atc, pme);
+  SE_int_split_SSE_dispatch(force, grid, q, spline, params,
+			    scale, bClearF, atc, pme);
 #endif // AVX
 
 #endif // GMX_DOUBLE
-  } // se_set == 1
-  else {// se_set==2
-        SE_int_kaiser(force, grid, q, spline, params, scale, bClearF, atc, pme); // params removed
-  }
 }
 
 
