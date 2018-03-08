@@ -73,10 +73,10 @@ void SE_int_dispatch(rvec *force, real *grid, real *q,
 
 #if GMX_SIMD_X86_AVX_256
   SE_int_split_AVX_dispatch(force, grid, q, spline, params,
-			    scale, bClearF, atc, pme);
+			    scale, bClearF, atc, pme, se_set);
 #else  // not AVX
   SE_int_split_SSE_dispatch(force, grid, q, spline, params,
-			    scale, bClearF, atc, pme);
+			    scale, bClearF, atc, pme, se_set);
 #endif // AVX
 
 #endif // GMX_DOUBLE

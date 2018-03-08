@@ -10,7 +10,8 @@ void compute_fft1d(real *fftgrid, t_complex *cfftgrid, int M)
   gmx_fft_t pfft;
   gmx_fft_init_1d_real(&pfft, M, GMX_FFT_FLAG_NONE);
 
-  gmx_fft_1d_real(pfft, GMX_FFT_REAL_TO_COMPLEX, (void*) fftgrid, (void*) cfftgrid);
+  gmx_fft_1d_real(pfft, GMX_FFT_REAL_TO_COMPLEX,
+		  (void*) fftgrid, (void*) cfftgrid);
 
 }
 
@@ -47,7 +48,6 @@ void compute_fft_kaiser(real *cfftgrid, SE_opt opt)
   for(int ix=0; ix<M; ix++)
     cfftgrid[ix] = cfft1d[ix].re;
 
-  printf("%f %f %f %f %d %d\n",beta, h, w, L, P, M);
   /* for(int ix=0; ix<M; ix++) */
   /*   printf("KAISER %.6g\t %.6g\n",fft1d[ix],cfft1d[ix].re); */
 

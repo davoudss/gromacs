@@ -7,12 +7,12 @@
 
 // -----------------------------------------------------------------------------
 static void 
-SE_int_split(rvec* force,  real* grid, real* q,
-	     splinedata_t *spline,
-	     const SE_params* params, real scale, 
-	     gmx_bool bClearF,
-	     const pme_atomcomm_t *atc,
-	     const gmx_pme_t *pme)
+SE_int_split_gaussian(rvec* force,  real* grid, real* q,
+		      splinedata_t *spline,
+		      const SE_params* params, real scale, 
+		      gmx_bool bClearF,
+		      const pme_atomcomm_t *atc,
+		      const gmx_pme_t *pme)
 {
   // unpack params
   const float*   H   = (float*) grid;
@@ -97,12 +97,12 @@ SE_int_split(rvec* force,  real* grid, real* q,
 
 // -----------------------------------------------------------------------------
 static void 
-SE_int_split_SSE(rvec *force, real *grid, real *q,
-		 splinedata_t *spline,
-		 const SE_params *params, real scale,
-		 gmx_bool bClearF,
-		 const pme_atomcomm_t *atc,
-		 const gmx_pme_t *pme)
+SE_int_split_SSE_gaussian(rvec *force, real *grid, real *q,
+			  splinedata_t *spline,
+			  const SE_params *params, real scale,
+			  gmx_bool bClearF,
+			  const pme_atomcomm_t *atc,
+			  const gmx_pme_t *pme)
 {
 
   // unpack params
@@ -246,12 +246,12 @@ SE_int_split_SSE(rvec *force, real *grid, real *q,
 
 // -----------------------------------------------------------------------------
 static void
-SE_int_split_SSE_P8(rvec *force, real *grid, real *q,
-		    splinedata_t *spline,
-		    const SE_params *params, real scale,
-		    gmx_bool bClearF,
-		    const pme_atomcomm_t *atc,
-		    const gmx_pme_t *pme)
+SE_int_split_SSE_P8_gaussian(rvec *force, real *grid, real *q,
+			     splinedata_t *spline,
+			     const SE_params *params, real scale,
+			     gmx_bool bClearF,
+			     const pme_atomcomm_t *atc,
+			     const gmx_pme_t *pme)
 {
   // unpack params
   const float*    H = (float*) grid;
@@ -403,6 +403,523 @@ SE_int_split_SSE_P8(rvec *force, real *grid, real *q,
   }
 }
 
+/* =============================================================================
+ * =============================== KAISER ROUTINES =============================
+ * =============================================================================
+ */
+
+static void 
+SE_int_split_kaiser(rvec* force,  real* grid, real* q,
+		    splinedata_t *spline,
+		    const SE_params* params, real scale, 
+		    gmx_bool bClearF,
+		    const pme_atomcomm_t *atc,
+		    const gmx_pme_t *pme)
+{
+  // unpack params
+  const float*   zx  = (float*) spline->theta[0];
+  const float*   zy  = (float*) spline->theta[1];
+  const float*   zz  = (float*) spline->theta[2];
+  const float*   zfx = (float*) spline->dtheta[0];
+  const float*   zfy = (float*) spline->dtheta[1];
+  const float*   zfz = (float*) spline->dtheta[2];
+
+
+  const int   p = params->P;
+  const float h = params->h;
+
+  int i,j,k,m,idx_zz;
+  int * idxptr;
+  int i0,j0,k0;
+  int index_x, index_xy;
+  float force_m[3], Hzc, qm, h3 = h*h*h;
+
+  int pny   = pme->pmegrid_ny;
+  int pnz   = pme->pmegrid_nz;
+
+  for(int mm=0; mm<spline->n; mm++)
+    {
+      m  = spline->ind[mm];
+      qm = q[m];
+      idxptr = atc->idx[m];
+      i0 = idxptr[XX];
+      j0 = idxptr[YY];
+      k0 = idxptr[ZZ];
+
+      force_m[0] = 0; force_m[1] = 0; force_m[2] = 0;
+
+      int mp = m*p;
+      for(i = 0; i<p; i++)
+	{
+	  index_x = (i0+i)*pny*pnz;
+	  real zxi = zx[mp+i];
+	  for(j = 0; j<p; j++)
+	    {
+	      idx_zz=mp;
+	      index_xy = index_x + (j0+j)*pnz + k0;
+	      real zxzy = zxi*zy[mp+j];
+	      for(k = 0; k<p; k++)
+		{
+		  Hzc = grid[index_xy + k]*zz[idx_zz]*zxzy;
+
+		  force_m[0] += Hzc*zfx[mp+i];
+		  force_m[1] += Hzc*zfy[mp+j];
+		  force_m[2] += Hzc*zfz[mp+k];
+		    
+		  idx_zz++;
+		}
+	    }
+	}
+
+      if(bClearF)
+      	{
+      	  force[m][XX] = 0;
+      	  force[m][YY] = 0;
+      	  force[m][ZZ] = 0;
+      	}
+
+      float factor = -qm*scale*h3;
+      force[m][XX] += factor*force_m[0];
+      force[m][YY] += factor*force_m[1];
+      force[m][ZZ] += factor*force_m[2];
+    }
+}
+
+// -----------------------------------------------------------------------------
+static void 
+SE_int_split_SSE_kaiser(rvec *force, real *grid, real *q,
+			splinedata_t *spline,
+			const SE_params *params, real scale,
+			gmx_bool bClearF,
+			const pme_atomcomm_t *atc,
+			const gmx_pme_t *pme)
+{
+
+  // unpack params
+  const float*   zx = (float*) spline->theta[0];
+  const float*   zy = (float*) spline->theta[1];
+  const float*   zz = (float*) spline->theta[2];
+  const float*  zfx = (float*) spline->dtheta[0];
+  const float*  zfy = (float*) spline->dtheta[1];
+  const float*  zfz = (float*) spline->dtheta[2];
+
+  const int   p = params->P;
+  const int   N = params->N;
+  const float h = params->h;
+
+  int i,j,k,m,idx_zz;
+  int * idxptr;
+  int i0,j0,k0;
+  int index_x, index_xy;
+
+  float qm, h3=h*h*h;
+  float sx[4] MEM_ALIGNED;
+  float sy[4] MEM_ALIGNED;
+  float sz[4] MEM_ALIGNED;
+
+  int pny   = pme->pmegrid_ny;
+  int pnz   = pme->pmegrid_nz;
+
+  __m128 rH0, rZZ0, rZFZ0;
+  __m128 rC, rCX, rCY;
+  __m128 rFX, rFY, rFZ;
+
+  for(int mm=0; mm<N; mm++){
+    m = spline->ind[mm];
+    qm = q[m];
+    idxptr = atc->idx[m];
+    i0 = idxptr[XX];
+    j0 = idxptr[YY];
+    k0 = idxptr[ZZ];
+    
+    rFX = _mm_setzero_ps();
+    rFY = _mm_setzero_ps();
+    rFZ = _mm_setzero_ps();
+
+    int mp = m*p;
+    for(i = 0; i<p; i++)
+      {
+	index_x = (i0+i)*pny*pnz;
+	real zxi = zx[mp+i];
+	for(j = 0; j<p; j++)
+	  {
+	    index_xy = index_x + (j0+j)*pnz + k0;
+	    real zxzy = zxi*zy[mp+j];
+	    rC  = _mm_set1_ps( zxzy );
+	    rCX = _mm_set1_ps( zxzy*zfx[mp+i] );
+	    rCY = _mm_set1_ps( zxzy*zfy[mp+j] );
+	    
+	    idx_zz=mp;
+	    for(k = 0; k<p; k+=4)
+	      {
+		rZFZ0= _mm_load_ps( zfz + mp+k );
+		rH0  = _mm_loadu_ps( grid + index_xy + k );
+		rZZ0 = _mm_load_ps( zz + idx_zz);
+
+#ifdef AVX_FMA
+		rFX = _mm_fmadd_ps(rH0,_mm_mul_ps(rZZ0,rCX),rFX);
+		rFY = _mm_fmadd_ps(rH0,_mm_mul_ps(rZZ0,rCY),rFY);
+		rFZ = _mm_fmadd_ps(_mm_mul_ps(rH0,_mm_mul_ps(rZZ0,rC)),rZFZ0,rFZ);
+#else
+		rFX = _mm_add_ps(_mm_mul_ps(rH0,_mm_mul_ps(rZZ0,rCX)),rFX);
+		rFY = _mm_add_ps(_mm_mul_ps(rH0,_mm_mul_ps(rZZ0,rCY)),rFY);
+		rFZ = _mm_add_ps(_mm_mul_ps(_mm_mul_ps(rH0,_mm_mul_ps(rZZ0,rC)),rZFZ0),rFZ);
+#endif
+		idx_zz += 4;
+	      }
+	  }
+      }
+
+    _mm_store_ps(sx,rFX);
+    _mm_store_ps(sy,rFY);
+    _mm_store_ps(sz,rFZ);
+
+    if(bClearF){
+      force[m][XX] = 0;
+      force[m][YY] = 0;
+      force[m][ZZ] = 0;
+    }
+
+    real factor = -qm*scale*h3;
+    force[m][XX] += factor*(sx[0]+sx[1]+sx[2]+sx[3]);
+    force[m][YY] += factor*(sy[0]+sy[1]+sy[2]+sy[3]);
+    force[m][ZZ] += factor*(sz[0]+sz[1]+sz[2]+sz[3]);
+    
+  }
+}
+
+static void 
+SE_int_split_SSE_P4_kaiser(rvec *force, real *grid, real *q,
+			   splinedata_t *spline,
+			   const SE_params *params, real scale,
+			   gmx_bool bClearF,
+			   const pme_atomcomm_t *atc,
+			   const gmx_pme_t *pme)
+{
+
+  // unpack params
+  const float*   zx = (float*) spline->theta[0];
+  const float*   zy = (float*) spline->theta[1];
+  const float*   zz = (float*) spline->theta[2];
+  const float*  zfx = (float*) spline->dtheta[0];
+  const float*  zfy = (float*) spline->dtheta[1];
+  const float*  zfz = (float*) spline->dtheta[2];
+
+  //  const int   p = 4;
+  const int   N = params->N;
+  const float h = params->h;
+
+  int i,j,m,idx,idx_zz;
+  int * idxptr;
+  int i0,j0,k0;
+  int index_x, index_xy;
+
+  float qm, h3=h*h*h;
+  float sx[4] MEM_ALIGNED;
+  float sy[4] MEM_ALIGNED;
+  float sz[4] MEM_ALIGNED;
+
+  int pny   = pme->pmegrid_ny;
+  int pnz   = pme->pmegrid_nz;
+
+  __m128 rH0, rZZ0, rZFZ0;
+  __m128 rC, rCX, rCY;
+  __m128 rFX, rFY, rFZ;
+
+  for(int mm=0; mm<N; mm++){
+    m = spline->ind[mm];
+    qm = q[m];
+    idxptr = atc->idx[m];
+    i0 = idxptr[XX];
+    j0 = idxptr[YY];
+    k0 = idxptr[ZZ];
+    idx = i0*pny*pnz+j0*pnz+k0;
+
+    _mm_prefetch( (void*) (grid+idx), _MM_HINT_T0);
+    
+    rFX = _mm_setzero_ps();
+    rFY = _mm_setzero_ps();
+    rFZ = _mm_setzero_ps();
+
+    int m4 = m*4;
+    for(i = 0; i<4; i++)
+      {
+	index_x = (i0+i)*pny*pnz;
+	real qnzx = zx[m4+i];
+	for(j = 0; j<4; j++)
+	  {
+	    idx_zz=m4;
+	    index_xy = index_x + (j0+j)*pnz;
+	    rC  = _mm_set1_ps( qnzx*zy[m4+j] );
+	    rCX = _mm_set1_ps( qnzx*zy[m4+j]*zfx[m4+i] );
+	    rCY = _mm_set1_ps( qnzx*zy[m4+j]*zfy[m4+j] );
+	    
+	    rZFZ0= _mm_load_ps( zfz + m4 );
+	    rH0  = _mm_loadu_ps( grid + index_xy + k0);
+	    rZZ0 = _mm_load_ps( zz + idx_zz);
+
+#ifdef AVX_FMA
+	    rFX = _mm_fmadd_ps(rH0,_mm_mul_ps(rZZ0,rCX),rFX);
+	    rFY = _mm_fmadd_ps(rH0,_mm_mul_ps(rZZ0,rCY),rFY);
+	    rFZ = _mm_fmadd_ps(_mm_mul_ps(rH0,_mm_mul_ps(rZZ0,rC)),rZFZ0,rFZ);
+#else
+	    rFX = _mm_add_ps(_mm_mul_ps(rH0,_mm_mul_ps(rZZ0,rCX)),rFX);
+	    rFY = _mm_add_ps(_mm_mul_ps(rH0,_mm_mul_ps(rZZ0,rCY)),rFY);
+	    rFZ = _mm_add_ps(_mm_mul_ps(_mm_mul_ps(rH0,_mm_mul_ps(rZZ0,rC)),rZFZ0),rFZ);
+#endif
+	  }
+      }
+    
+    _mm_store_ps(sx,rFX);
+    _mm_store_ps(sy,rFY);
+    _mm_store_ps(sz,rFZ);
+    
+    if(bClearF){
+      force[m][XX] = 0;
+      force[m][YY] = 0;
+      force[m][ZZ] = 0;
+    }
+
+    real factor = -qm*scale*h3;
+    force[m][XX] += factor*(sx[0]+sx[1]+sx[2]+sx[3]);
+    force[m][YY] += factor*(sy[0]+sy[1]+sy[2]+sy[3]);
+    force[m][ZZ] += factor*(sz[0]+sz[1]+sz[2]+sz[3]);
+    
+  }
+}
+
+static void 
+SE_int_split_SSE_P6_kaiser(rvec *force, real *grid, real *q,
+			   splinedata_t *spline,
+			   const SE_params *params, real scale,
+			   gmx_bool bClearF,
+			   const pme_atomcomm_t *atc,
+			   const gmx_pme_t *pme)
+{
+
+  // unpack params
+  const float*   zx = (float*) spline->theta[0];
+  const float*   zy = (float*) spline->theta[1];
+  const float*   zz = (float*) spline->theta[2];
+  const float*  zfx = (float*) spline->dtheta[0];
+  const float*  zfy = (float*) spline->dtheta[1];
+  const float*  zfz = (float*) spline->dtheta[2];
+
+  //  const int   p = 6;
+  const int   N = params->N;
+  const float h = params->h;
+
+  int i,j, m,idx;
+  int * idxptr;
+  int i0,j0,k0;
+  int index_x, index_xy, index_xyz;
+  real fx,fy,fz;
+
+  float qm, h3=h*h*h;
+  float sx[4] MEM_ALIGNED;
+  float sy[4] MEM_ALIGNED;
+  float sz[4] MEM_ALIGNED;
+
+  int pny   = pme->pmegrid_ny;
+  int pnz   = pme->pmegrid_nz;
+
+  __m128 rH0, rZZ0, rZFZ0;
+  __m128 rC, rCX, rCY;
+  __m128 rFX, rFY, rFZ;
+
+  for(int mm=0; mm<N; mm++){
+    m = spline->ind[mm];
+    qm = q[m];
+    idxptr = atc->idx[m];
+    i0 = idxptr[XX];
+    j0 = idxptr[YY];
+    k0 = idxptr[ZZ];
+    idx = i0*pny*pnz+j0*pnz+k0;
+
+    _mm_prefetch( (void*) (grid+idx), _MM_HINT_T0);
+    
+    rFX = _mm_setzero_ps();
+    rFY = _mm_setzero_ps();
+    rFZ = _mm_setzero_ps();
+    fx = fy = fz = 0;
+    
+    int m6 = m*6;
+    for(i = 0; i<6; i++)
+      {
+	index_x = (i0+i)*pny*pnz;
+	for(j = 0; j<6; j++)
+	  {
+	    index_xy = index_x + (j0+j)*pnz + k0;
+	    real zxzy = zx[m6+i]*zy[m6+j];
+	    rC  = _mm_set1_ps( zxzy );
+	    rCX = _mm_set1_ps( zxzy*zfx[m6+i] );
+	    rCY = _mm_set1_ps( zxzy*zfy[m6+j] );
+	    
+	    rZFZ0= _mm_loadu_ps( zfz + m6 );
+	    rH0  = _mm_loadu_ps( grid + index_xy);
+	    rZZ0 = _mm_loadu_ps( zz + m6);
+
+	    rH0 = _mm_mul_ps(rH0, rZZ0);
+
+#ifdef AVX_FMA
+	    rFX = _mm_fmadd_ps(rH0,rCX,rFX);
+	    rFY = _mm_fmadd_ps(rH0,rCY,rFY);
+	    rFZ = _mm_fmadd_ps(_mm_mul_ps(rH0,rC),rZFZ0,rFZ);
+#else
+	    rFX = _mm_add_ps(_mm_mul_ps(rH0,rCX),rFX);
+	    rFY = _mm_add_ps(_mm_mul_ps(rH0,rCY),rFY);
+	    rFZ = _mm_add_ps(_mm_mul_ps(_mm_mul_ps(rH0,rC),rZFZ0),rFZ);
+#endif
+	    
+	    real z = zxzy*zz[m6+4];
+	    index_xyz = index_xy + 4;
+	    z *= grid[index_xyz];
+	    fx += z*zfx[m6+i];
+	    fy += z*zfy[m6+j];
+	    fz += z*zfz[m6+4];
+
+	    z = zxzy*zz[m6+5];
+	    index_xyz = index_xy + 5;
+	    z *= grid[index_xyz];
+	    fx += z*zfx[m6+i];
+	    fy += z*zfy[m6+j];
+	    fz += z*zfz[m6+5];
+	  }
+      }
+    
+    _mm_store_ps(sx,rFX);
+    _mm_store_ps(sy,rFY);
+    _mm_store_ps(sz,rFZ);
+    
+    if(bClearF){
+      force[m][XX] = 0;
+      force[m][YY] = 0;
+      force[m][ZZ] = 0;
+    }
+
+    real factor = -qm*scale*h3;
+    force[m][XX] += factor*(sx[0]+sx[1]+sx[2]+sx[3]+fx);
+    force[m][YY] += factor*(sy[0]+sy[1]+sy[2]+sy[3]+fy);
+    force[m][ZZ] += factor*(sz[0]+sz[1]+sz[2]+sz[3]+fz);
+    
+  }
+}
+
+static void 
+SE_int_split_SSE_P8_kaiser(rvec *force, real *grid, real *q,
+			   splinedata_t *spline,
+			   const SE_params *params, real scale,
+			   gmx_bool bClearF,
+			   const pme_atomcomm_t *atc,
+			   const gmx_pme_t *pme)
+{
+
+  // unpack params
+  const float*   zx = (float*) spline->theta[0];
+  const float*   zy = (float*) spline->theta[1];
+  const float*   zz = (float*) spline->theta[2];
+  const float*  zfx = (float*) spline->dtheta[0];
+  const float*  zfy = (float*) spline->dtheta[1];
+  const float*  zfz = (float*) spline->dtheta[2];
+
+  //  const int   p = 8;
+  const int   N = params->N;
+  const float h = params->h;
+
+  int i,j,m,idx;
+  int * idxptr;
+  int i0,j0,k0;
+  int index_x, index_xy;
+
+  float qm, h3=h*h*h;
+  float sx[4] MEM_ALIGNED;
+  float sy[4] MEM_ALIGNED;
+  float sz[4] MEM_ALIGNED;
+
+  int pny   = pme->pmegrid_ny;
+  int pnz   = pme->pmegrid_nz;
+
+  __m128 rH0, rZZ0, rZFZ0;
+  __m128 rH1, rZZ1, rZFZ1;
+  __m128 rC, rCX, rCY, rHs;
+  __m128 rFX, rFY, rFZ;
+
+  for(int mm=0; mm<N; mm++){
+    m = spline->ind[mm];
+    qm = q[m];
+    idxptr = atc->idx[m];
+    i0 = idxptr[XX];
+    j0 = idxptr[YY];
+    k0 = idxptr[ZZ];
+    idx = i0*pny*pnz+j0*pnz+k0;
+
+    _mm_prefetch( (void*) (grid+idx), _MM_HINT_T0);
+    
+    rFX = _mm_setzero_ps();
+    rFY = _mm_setzero_ps();
+    rFZ = _mm_setzero_ps();
+
+    int m8 = m*8;
+    for(i = 0; i<8; i++)
+      {
+	index_x = (i0+i)*pny*pnz;
+	for(j = 0; j<8; j++)
+	  {
+	    index_xy = index_x + (j0+j)*pnz + k0;
+	    rC  = _mm_set1_ps( zx[m8+i]*zy[m8+j] );
+	    rCX = _mm_set1_ps( zx[m8+i]*zy[m8+j]*zfx[m8+i] );
+	    rCY = _mm_set1_ps( zx[m8+i]*zy[m8+j]*zfy[m8+j] );
+
+	    rZZ0 = _mm_load_ps( zz + m8    );
+	    rZZ1 = _mm_load_ps( zz + m8 + 4);
+	    rZFZ0= _mm_load_ps( zfz + m8    );
+	    rZFZ1= _mm_load_ps( zfz + m8 + 4);
+	    rH0  = _mm_loadu_ps( grid + index_xy    );
+	    rH1  = _mm_loadu_ps( grid + index_xy + 4);
+	    
+	    rH0 = _mm_mul_ps(rH0,rZZ0);
+	    rH1 = _mm_mul_ps(rH1,rZZ1);	    
+
+	    rHs = _mm_add_ps(rH0, rH1);
+
+#ifdef AVX_FMA
+	    rFX = _mm_fmadd_ps(rHs, rCX,rFX);
+	    rFY = _mm_fmadd_ps(rHs, rCY,rFY);
+#else
+	    rFX = _mm_add_ps(_mm_mul_ps(rHs, rCX),rFX);
+	    rFY = _mm_add_ps(_mm_mul_ps(rHs, rCY),rFY);	    
+#endif
+
+	    rH0 = _mm_mul_ps(rH0,rZFZ0);
+	    rH1 = _mm_mul_ps(rH1,rZFZ1);	    
+
+	    rHs = _mm_add_ps(rH0, rH1);
+#ifdef AVX_FMA	    
+	    rFZ = _mm_fmadd_ps(rHs,rC,rFZ);
+#else
+	    rFZ = _mm_add_ps(_mm_mul_ps(rHs,rC),rFZ);	    
+#endif
+	  }
+      }
+    
+    _mm_store_ps(sx,rFX);
+    _mm_store_ps(sy,rFY);
+    _mm_store_ps(sz,rFZ);
+    
+    if(bClearF){
+      force[m][XX] = 0;
+      force[m][YY] = 0;
+      force[m][ZZ] = 0;
+    }
+
+    real factor = -qm*scale*h3;
+    force[m][XX] += factor*(sx[0]+sx[1]+sx[2]+sx[3]);
+    force[m][YY] += factor*(sy[0]+sy[1]+sy[2]+sy[3]);
+    force[m][ZZ] += factor*(sz[0]+sz[1]+sz[2]+sz[3]);
+    
+  }
+}
+
 // -----------------------------------------------------------------------------
 static void 
 SE_int_split_SSE_dispatch(rvec *force, real *grid, real *q,
@@ -410,35 +927,81 @@ SE_int_split_SSE_dispatch(rvec *force, real *grid, real *q,
 			  const SE_params *params, real scale,
 			  gmx_bool bClearF,
 			  const pme_atomcomm_t *atc,
-			  const gmx_pme_t *pme
+			  const gmx_pme_t *pme,
+			  const int se_set
 			  )
 {
   const int p = params->P;
   const int incrj = params->dims[2]; // middle increment
   const int incri = params->npdims[2]*(params->dims[1]);// outer increment
 
-  // if P is odd, or if either increment is odd, fall back on vanilla
-  if( isnot_div_by_4(p) || isnot_div_by_4(incri) || isnot_div_by_4(incrj)  || (p%4)!=0 )
+  if(se_set==1)
     {
-      __DISPATCHER_MSG("[FGG INT SSE SINGLE] SSE Abort (PARAMS)\n");
-      SE_int_split(force, grid, q, spline, params, scale, bClearF,
-		   atc,pme);
-      return;
+      // if P is odd, or if either increment is odd, fall back on vanilla
+      if( isnot_div_by_4(p) || isnot_div_by_4(incri) || isnot_div_by_4(incrj)  || (p%4)!=0 )
+	{
+	  __DISPATCHER_MSG("[FGG INT SSE SINGLE] SSE Abort (PARAMS)\n");
+	  SE_int_split_gaussian(force, grid, q, spline, params,
+				scale, bClearF, atc,pme);
+	  return;
+	}
     }
-    
-  // otherwise the preconditions for SSE codes are satisfied. 
-  if(p==8){
-    // specific for p=8
-    __DISPATCHER_MSG("[FGG INT SSE SINGLE] P=8\n");
-    SE_int_split_SSE_P8(force, grid, q, spline, params, scale, bClearF,
-			atc, pme);
-  } 
-  else{
-    // vanilla SSE code for p divisible by 4
-    __DISPATCHER_MSG("[FGG INT SSE SINGLE] Vanilla\n");
-    SE_int_split_SSE(force, grid, q, spline, params, scale, bClearF,
-		     atc, pme);
-  }
+  else
+    {
+      // if P is odd, or if either increment is odd, fall back on vanilla
+      if( isnot_div_by_4(p) || isnot_div_by_4(incri) || isnot_div_by_4(incrj)|| (p%4)!=0 )
+	{
+	  __DISPATCHER_MSG("[FKG INT SSE SINGLE] SSE Abort (PARAMS)\n");
+	  SE_int_split_kaiser(force, grid, q, spline, params,
+			      scale, bClearF, atc,pme);
+	  return;
+	}      
+    }
+
+  if(se_set==1)
+    {
+      // otherwise the preconditions for SSE codes are satisfied. 
+      if(p==8){
+	// specific for p=8
+	__DISPATCHER_MSG("[FGG INT SSE SINGLE] P=8\n");
+	SE_int_split_SSE_P8_gaussian(force, grid, q, spline, params,
+				     scale, bClearF, atc, pme);
+      } 
+      else{
+	// vanilla SSE code for p divisible by 4
+	__DISPATCHER_MSG("[FGG INT SSE SINGLE] Vanilla\n");
+	SE_int_split_SSE_gaussian(force, grid, q, spline, params,
+				  scale, bClearF, atc, pme);
+      }
+    }
+  else
+    {
+      // otherwise the preconditions for SSE codes are satisfied.
+      if(p==8){
+      	// specific for p=8
+      	__DISPATCHER_MSG("[FKG INT SSE SINGLE] P=8\n");
+      	SE_int_split_SSE_P8_kaiser(force, grid, q, spline, params,
+      				   scale, bClearF, atc, pme);
+      }      
+      else if(p==6){
+      	// specific for p=6
+      	__DISPATCHER_MSG("[FKG INT SSE SINGLE] P=6\n");
+      	SE_int_split_SSE_P6_kaiser(force, grid, q, spline, params,
+      				   scale, bClearF, atc, pme);
+      }
+      else if(p==4){
+      	// specific for p=4
+      	__DISPATCHER_MSG("[FKG INT SSE SINGLE] P=4\n");
+      	SE_int_split_SSE_P4_kaiser(force, grid, q, spline, params,
+      				   scale, bClearF, atc, pme);
+      }
+      else{
+      	// vanilla SSE code for p divisible by 4
+      	__DISPATCHER_MSG("[FKG INT SSE SINGLE] Vanilla\n");
+      	SE_int_split_SSE_kaiser(force, grid, q, spline, params,
+      				scale, bClearF, atc, pme);
+      }  
+    }
 }
 
 #endif // not GMX_DOUBLE

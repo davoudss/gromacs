@@ -676,7 +676,7 @@ void do_force_lowlevel(t_forcerec *fr,      t_inputrec *ir,
 	  strcpy(rw,"w");
 	else
 	  strcpy(rw,"r");
-	g1 = fopen("Direct_output2.txt",rw);
+	g1 = fopen("Fourier_output30.txt",rw);
 	
 	double diff=0,sum=0,f1,f2,f3,fx,fy,fz,fs[]={0.,0.,0.},fse[]={0.,0.,0.};
 	int ret;
@@ -725,8 +725,9 @@ void do_force_lowlevel(t_forcerec *fr,      t_inputrec *ir,
 	    sum+=(f1)*(f1)+(f2)*(f2)+(f3)*(f3);
 	    // printf("Force: Approx. (%f,%f,%f)\t-- Exact (%f,%f,%f) \n",
 	    // 	   fx,fy,fz,f1,f2,f3);
-	    if(i<0)
-	      printf("%d:%f %f %f\n",cr->nodeid,fx,fy,fz);
+	    if(i<3)
+	      //  printf("%d:%.12f %.12f %.12f\n",cr->nodeid,fx,fy,fz);
+	      printf("%d:%.12f %.12f %.12f\n",cr->nodeid,fx/f1,fy/f2,fz/f3);
 	    
 	  }
 	// printf("xi=%f \nforce sum=(%g,%g,%g)--(%g,%g,%g)\n",

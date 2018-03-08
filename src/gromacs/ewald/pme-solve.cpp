@@ -352,7 +352,7 @@ int solve_pme_yzx(struct gmx_pme_t *pme, t_complex *grid, real vol,
 	   * Kaiser without scaling with the number of grid points?
 	   * Then what is 0.4? DAVOUD
 	   */
-	  extrafac = 0.4 * nx; 
+	  extrafac = nx * .4;
 	}
 	real se_temp = 8.*M_PI/(real) (nx*ny*nz);
 	real se_factor = 1.0/se_temp;
