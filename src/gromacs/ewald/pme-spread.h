@@ -44,7 +44,7 @@
 #include "se_util.h"
 
 #if GMX_DOUBLE==1
-#if GMX_SIMD_X86_AVX_256
+#if GMX_SIMD_X86_AVX2_256
 #include "se_grid_sse_double.h"
 #include "se_grid_avx_256_double.h"
 #else
@@ -53,7 +53,7 @@
 
 #else  //SINGLE
 
-#if GMX_SIMD_X86_AVX_256
+#if GMX_SIMD_X86_AVX2_256
 #include "se_grid_sse_single.h"
 #include "se_grid_avx_256_single.h"
 #else

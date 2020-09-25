@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <cmath>
+#include "gromacs/simd/scalar/scalar_math.h"
 #include "pme-internal.h"
 #include "emmintrin.h"
 #include "immintrin.h"
@@ -91,7 +92,7 @@ SE_FGG_base_gaussian(real* zs, const SE_params* params)
   const real h2=(params->h)*(params->h);
   const real c=params->c;
   const real d=params->d;
-
+  
   for(i = -p_from; i<=p_half; i++)
     {
       // hoisting this index calculation (more) breaks omp-parallel code
@@ -103,7 +104,7 @@ SE_FGG_base_gaussian(real* zs, const SE_params* params)
 	  for(k = -p_from; k<=p_half; k++)
 	    {
 	      ijkh2 = ijh2 + k*k*h2;
-	      zs[idx++] = d*std::exp(-c*ijkh2);
+	      zs[idx++] = d*gmx::exp(-c*ijkh2);
 	    }
 	}
     }
@@ -220,6 +221,36 @@ kaiser(real x, real ow2, real beta) {
   return e;
 }
 
+static real
+kaiserExtended(real x, real ow2, real beta) {
+  real v = x*x*ow2;
+  real t = sqrt(1. - v);
+  real e = 2.0*std::cosh(beta*t)/std::exp(beta);
+  e = (v<=1) ? e : 0;
+  return e;
+}
+
+
+static real
+dkaiser(real c, real w, real x )
+{
+  real denom = sqrt(w*w-x*x);
+  real dk = c*x/denom;
+  dk = (std::abs(denom)<1e-12) ? 0 : dk;
+  return dk;
+}
+
+static real
+dkaiserExtended(real beta, real w, real x )
+{
+  real v = x/w;
+  real y = sqrt(1-v*v);
+  real extra_fac = kaiserExtended(x, 1.0/(w*w), beta);
+  real dk = -1*beta*v*std::sinh(beta*y)/(y*extra_fac*std::exp(beta))/w;
+  dk = (std::abs(y)<1e-12) ? 0 : dk;
+  return dk;
+}
+
 static
 int kaiser_expansion(const real x[3], const real q,
 		     const SE_params* params,
@@ -237,13 +268,12 @@ int kaiser_expansion(const real x[3], const real q,
     const real w     = params->P/2.;
     const real ow2   = 1./(w*w);
     const real beta  = params->beta;
-    real t0[3], tmp;
+    real t0[3];
 
     int idx;
     int idx_from;
 
     int p_half = w;
-    real denom;
     
     // compute index range and centering
     if(is_odd(p)) {
@@ -264,36 +294,39 @@ int kaiser_expansion(const real x[3], const real q,
     }
 
     // compute second factor
+#if 1
     for(int i=0; i<p; i++) {
-      z2_0[i] = kaiser(t0[0]-i,ow2,beta);
-      z2_1[i] = kaiser(t0[1]-i,ow2,beta);
-      z2_2[i] = kaiser(t0[2]-i,ow2,beta);
+      z2_0[i] = kaiserExtended(t0[0]-i,ow2,beta);
+      z2_1[i] = kaiserExtended(t0[1]-i,ow2,beta);
+      z2_2[i] = kaiserExtended(t0[2]-i,ow2,beta);
     }
-
+#else
+    for(int i=0; i<p; i++) {
+      z2_0[i] = kaiserExtended(t0[0]-i,ow2,beta);
+      z2_1[i] = kaiserExtended(t0[1]-i,ow2,beta);
+      z2_2[i] = kaiserExtended(t0[2]-i,ow2,beta);
+    }
+#endif
+    
     // save some flops by multiplying one vector with q
     for(int i=0; i<p; i++)
       z2_0[i] *= q;
-
-
-    real c = -beta / (2.*w);  // 2 is divided for 1/2 in the force
+#if 1
+    real c = -beta / (2.*w);
     for (int i=0; i<p; i++){
-      tmp = (t0[0]-i);
-      denom = sqrt(w*w-tmp*tmp);
-      zf_0[i] = c*tmp/denom;
-      zf_0[i] = (abs(denom)<1e-12) ? 0 : zf_0[i];
-      /* printf("zf0 %f %f %f\n", tmp,denom, zf_0[i]); */
-      tmp = (t0[1]-i);
-      denom = sqrt(w*w-tmp*tmp);
-      zf_1[i] = c*tmp/denom;
-      zf_1[i] = (abs(denom)<1e-12) ? 0 : zf_1[i];
-      /* printf("zf1 %f %f %f\n", tmp,denom, zf_1[i]); */
-      tmp = (t0[2]-i);
-      denom = sqrt(w*w-tmp*tmp);
-      zf_2[i] = c*tmp/denom;
-      zf_2[i] = (abs(denom)<1e-12) ? 0 : zf_2[i];
-      /* printf("zf2 %f %f %f\n", tmp, denom, zf_2[i]); */
-
+      zf_0[i] = dkaiser(c, w, t0[0]-i);
+      zf_1[i] = dkaiser(c, w, t0[1]-i);
+      zf_2[i] = dkaiser(c, w, t0[2]-i);
     }
+#else
+    for (int i=0; i<p; i++){
+      zf_0[i] = dkaiserExtended(beta, w, t0[0]-i);
+      zf_1[i] = dkaiserExtended(beta, w, t0[1]-i);
+      zf_2[i] = dkaiserExtended(beta, w, t0[2]-i);
+    }
+#endif
+
+    
     return 0;
 }
 

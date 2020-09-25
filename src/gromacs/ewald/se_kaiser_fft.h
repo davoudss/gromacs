@@ -36,7 +36,7 @@ void compute_fft_kaiser(real *cfftgrid, SE_opt opt)
     real v = (x-L/2.)/h;
     fft1d[ix] = kaiser(v, ow2, beta)*h;
   }
-
+  
   /* FIXME: Assuming that M is even, the imaginary part of
    * cfft1d is zero or below machine precision. Therefore,
    * we use a real to real fft.
@@ -47,7 +47,6 @@ void compute_fft_kaiser(real *cfftgrid, SE_opt opt)
 
   for(int ix=0; ix<M; ix++)
     cfftgrid[ix] = cfft1d[ix].re;
-
   /* for(int ix=0; ix<M; ix++) */
   /*   printf("KAISER %.6g\t %.6g\n",fft1d[ix],cfft1d[ix].re); */
 
@@ -73,8 +72,8 @@ void compute_fft_kaiser(real *cfftgrid, SE_opt opt)
 
   /* fp.close(); */
   
-  sfree(fft1d);
-  sfree(cfft1d);
+  //sfree(fft1d);
+  //sfree(cfft1d);
 }
 
 #endif // SE_KAISER_FFT_H

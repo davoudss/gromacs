@@ -676,7 +676,7 @@ void do_force_lowlevel(t_forcerec *fr,      t_inputrec *ir,
 	  strcpy(rw,"w");
 	else
 	  strcpy(rw,"r");
-	g1 = fopen("Fourier_output30.txt",rw);
+	g1 = fopen("Fourier_output8100.txt",rw);
 	
 	double diff=0,sum=0,f1,f2,f3,fx,fy,fz,fs[]={0.,0.,0.},fse[]={0.,0.,0.};
 	int ret;

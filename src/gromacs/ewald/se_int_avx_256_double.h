@@ -4,7 +4,7 @@
 
 /* SE AVX 256 double integration */
 #if GMX_DOUBLE==1
-#if GMX_SIMD_X86_AVX_256
+#if GMX_SIMD_X86_AVX2_256
 #include "se.h"
 
 static inline double
